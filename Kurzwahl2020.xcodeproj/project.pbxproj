@@ -14,7 +14,6 @@
 		502BF540236399BD00FDE7BF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 502BF53F236399BD00FDE7BF /* Preview Assets.xcassets */; };
 		502BF543236399BD00FDE7BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 502BF541236399BD00FDE7BF /* LaunchScreen.storyboard */; };
 		502BF54E236399BD00FDE7BF /* Kurzwahl2020Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */; };
-		502BF559236399F000FDE7BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 502BF558236399F000FDE7BF /* Main.storyboard */; };
 		502BF55B23639B4E00FDE7BF /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF55A23639B4E00FDE7BF /* CollectionVC.swift */; };
 		5094A7A62365E324004D0932 /* Notizen.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5094A7A52365E324004D0932 /* Notizen.rtf */; };
 		50ADCF802369C102007B248B /* QGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 50ADCF7F2369C102007B248B /* QGrid */; };
@@ -46,7 +45,6 @@
 		502BF549236399BD00FDE7BF /* Kurzwahl2020Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kurzwahl2020Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kurzwahl2020Tests.swift; sourceTree = "<group>"; };
 		502BF54F236399BD00FDE7BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		502BF558236399F000FDE7BF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		502BF55A23639B4E00FDE7BF /* CollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
 		5094A7A52365E324004D0932 /* Notizen.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notizen.rtf; sourceTree = "<group>"; };
 		50ADCF812369C135007B248B /* KurzwahlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KurzwahlView.swift; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 		502BF52A236399BB00FDE7BF = {
 			isa = PBXGroup;
 			children = (
-				502BF558236399F000FDE7BF /* Main.storyboard */,
 				502BF535236399BB00FDE7BF /* Kurzwahl2020 */,
 				502BF54C236399BD00FDE7BF /* Kurzwahl2020Tests */,
 				502BF534236399BB00FDE7BF /* Products */,
@@ -223,7 +220,6 @@
 				50ADCF862369C46D007B248B /* people.json in Resources */,
 				5094A7A62365E324004D0932 /* Notizen.rtf in Resources */,
 				502BF53D236399BD00FDE7BF /* Assets.xcassets in Resources */,
-				502BF559236399F000FDE7BF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
