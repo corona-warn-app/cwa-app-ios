@@ -15,7 +15,7 @@ let bordersize: CGFloat = 1
 let fontsize: CGFloat = 26
 
 let hsize: CGFloat = ( UIScreen.main.bounds.width / 2 ) - 2
-let screenheight: CGFloat = UIScreen.main.bounds.height - 5 * 2
+let screenheight: CGFloat = (UIScreen.main.bounds.height - 95 ) - 5 * 2
 var vsize = screenheight / 6
 
 struct KurzwahlView: View {
@@ -30,7 +30,7 @@ struct KurzwahlView: View {
                   hPadding: 0 ) { GridCell(person: $0) }
             Spacer()
         }
-        .padding([.top], 50)
+        //.padding([.top], 50)
         .cornerRadius(5)
         //.edgesIgnoringSafeArea(.bottom)
     }
