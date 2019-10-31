@@ -9,43 +9,30 @@
 import SwiftUI
 import QGrid
 
-//let hsize: CGFloat = 150
-//let vsize: CGFloat = 80
-let bordersize: CGFloat = 1
 let fontsize: CGFloat = 26
-
-let hsize: CGFloat = ( UIScreen.main.bounds.width / 2 ) - 2
-
-// iPhone11
-let screenheight: CGFloat = (UIScreen.main.bounds.height - 95 ) - 5 * 2
-// iPhone SE: no Spacer()
-//let screenheight: CGFloat = (UIScreen.main.bounds.height - 21 ) - 5 * 2
-var vsize = screenheight / 6
 
 struct KurzwahlView: View {
     var body: some View {
         GeometryReader { geometry in
-        VStack () {
-            Spacer()
+            //Spacer()
             QGrid(Storage.people,
                   columns: 2,
                   vSpacing: 2,
                   hSpacing: 2,
                   vPadding: 0,
-                  hPadding: 0 )
-            //{ GridCell(person: $0, height: vsize, width: hsize) }
-            { GridCell(person: $0, height: geometry.size.height / 6 - 4, width: hsize) }
-            Spacer()
-        }
-        //.padding([.top], 50)
+                  hPadding: 0 ) { GridCell(person: $0,
+                                           height: geometry.size.height / 6 ,
+                                           width: geometry.size.width / 2 ) }
+            
+        } //.padding(.bottom, -1)
         //.edgesIgnoringSafeArea(.bottom)
-        }
-    }
+    } //.background(Color.white)
 }
+
 
 struct KurzwahlView_Previews: PreviewProvider {
     static var previews: some View {
-        KurzwahlView()
+        KurzwahlView() .environment(\.colorScheme, .dark)
     }
 }
 
@@ -59,9 +46,10 @@ struct GridCell: View {
         VStack {
             Text(person.firstName + " " + person.lastName)
                 .font(.system(size: fontsize))
+                .foregroundColor(Color.white)
                 .frame(width: width, height: height, alignment: .center)
                 //.border(Color.gray, width: bordersize)
                 .background(Color.blue)
-            }.cornerRadius(5)
+        }.cornerRadius(8)
     }
 }
