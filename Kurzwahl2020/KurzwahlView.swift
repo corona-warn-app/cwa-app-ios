@@ -15,7 +15,11 @@ let bordersize: CGFloat = 1
 let fontsize: CGFloat = 26
 
 let hsize: CGFloat = ( UIScreen.main.bounds.width / 2 ) - 2
+
+// iPhone11
 let screenheight: CGFloat = (UIScreen.main.bounds.height - 95 ) - 5 * 2
+// iPhone SE: no Spacer()
+//let screenheight: CGFloat = (UIScreen.main.bounds.height - 21 ) - 5 * 2
 var vsize = screenheight / 6
 
 struct KurzwahlView: View {
@@ -27,11 +31,10 @@ struct KurzwahlView: View {
                   vSpacing: 2,
                   hSpacing: 2,
                   vPadding: 0,
-                  hPadding: 0 ) { GridCell(person: $0) }
+                  hPadding: 0 ) { GridCell(person: $0, height: vsize, width: hsize) }
             Spacer()
         }
         //.padding([.top], 50)
-        .cornerRadius(5)
         //.edgesIgnoringSafeArea(.bottom)
     }
 }
@@ -45,14 +48,16 @@ struct KurzwahlView_Previews: PreviewProvider {
 
 struct GridCell: View {
     var person: Person
+    var height: CGFloat
+    var width: CGFloat
     
     var body: some View {
         VStack {
             Text(person.firstName + " " + person.lastName)
                 .font(.system(size: fontsize))
-                .frame(width: hsize, height: vsize, alignment: .center)
+                .frame(width: width, height: height, alignment: .center)
                 //.border(Color.gray, width: bordersize)
                 .background(Color.blue)
-            }.background(Color.red) .cornerRadius(10)
+            }.cornerRadius(10)
     }
 }
