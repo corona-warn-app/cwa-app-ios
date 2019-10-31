@@ -9,10 +9,7 @@
 import SwiftUI
 import QGrid
 
-let fontsize: CGFloat = 26
-//let swipe = UISwipeGestureRecognizer(target: KurzwahlView?(), action: <#T##Selector?#>)
-
-struct KurzwahlView: View {
+struct KurzwahlView2: View {
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
@@ -22,26 +19,25 @@ struct KurzwahlView: View {
                       vSpacing: 2,
                       hSpacing: 2,
                       vPadding: 0,
-                      hPadding: 0 ) { GridCell(person: $0,
-                                               height: geometry.size.height / 6 ,
-                                               width: geometry.size.width / 2 ) }
+                      hPadding: 0 ) { GridCell2(person: $0,
+                                                height: geometry.size.height / 6 ,
+                                                width: geometry.size.width / 2 ) }
                 
-            }
-            NavigationLink("Hallo", destination: KurzwahlView2())
+            } //.padding(.bottom, -1)
             //.edgesIgnoringSafeArea(.bottom)
-        } //.background(Color.white)
+        }
     }
 }
 
 
-struct KurzwahlView_Previews: PreviewProvider {
+struct KurzwahlView2_Previews: PreviewProvider {
     static var previews: some View {
-        KurzwahlView() .environment(\.colorScheme, .dark)
+        KurzwahlView2() .environment(\.colorScheme, .dark)
     }
 }
 
 
-struct GridCell: View {
+struct GridCell2: View {
     var person: Person
     var height: CGFloat
     var width: CGFloat
@@ -53,7 +49,8 @@ struct GridCell: View {
                 .foregroundColor(Color.white)
                 .frame(width: width, height: height, alignment: .center)
                 //.border(Color.gray, width: bordersize)
-                .background(Color.blue)
+                .background(Color.red)
         }.cornerRadius(8)
     }
 }
+
