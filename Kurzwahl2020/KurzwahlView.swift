@@ -24,6 +24,7 @@ var vsize = screenheight / 6
 
 struct KurzwahlView: View {
     var body: some View {
+        GeometryReader { geometry in
         VStack () {
             Spacer()
             QGrid(Storage.people,
@@ -31,11 +32,14 @@ struct KurzwahlView: View {
                   vSpacing: 2,
                   hSpacing: 2,
                   vPadding: 0,
-                  hPadding: 0 ) { GridCell(person: $0, height: vsize, width: hsize) }
+                  hPadding: 0 )
+            //{ GridCell(person: $0, height: vsize, width: hsize) }
+            { GridCell(person: $0, height: geometry.size.height / 6 - 4, width: hsize) }
             Spacer()
         }
         //.padding([.top], 50)
         //.edgesIgnoringSafeArea(.bottom)
+        }
     }
 }
 
@@ -58,6 +62,6 @@ struct GridCell: View {
                 .frame(width: width, height: height, alignment: .center)
                 //.border(Color.gray, width: bordersize)
                 .background(Color.blue)
-            }.cornerRadius(10)
+            }.cornerRadius(5)
     }
 }
