@@ -1,0 +1,138 @@
+[
+    {
+        "id": 1,
+        "red": "255/255.0f",
+        "green": "149/255.0f",
+        "blue": "0/255.0f",
+        "alpha" : "1.0f",
+        "name": "orange FF9500"
+    },
+    {
+        "id": 2,
+        "red": "0/255.0f",
+        "green": "57/255.0f",
+        "blue": "142/255.0f",
+        "alpha": "1.0f",
+        "name": "Dark blue 00398E"
+    },
+    {
+        "id": 3,
+        "red": "255/255.0f",
+        "green": "58/255.0f",
+        "blue": "45/255.0f",
+        "alpha": "1.0f",
+        "name": "Red FF3A2D"
+    },
+    {
+        "id": 4,
+        "red": "172/255.0f",
+        "green": "25/255.0f",
+        "blue": "61/255.0f",
+        "alpha": "1.0f",
+        "name": "Red AC193D",
+    },
+    {
+        "id": 5,
+        "red": "0/255.0f",
+        "green": "138/255.0f",
+        "blue": "0/255.0f",
+        "alpha": "1.0f",
+        "name": "Green 008A00"
+    },
+    {
+        "id": 6,
+        "red": "210/255.0f",
+        "green": "71/255.0f",
+        "blue": "38/255.0f",
+        "alpha": "1.0f",
+        "name": "Orange D24726"
+    },
+    {
+        "id": 7,
+        "red": "0/255.0f",
+        "green": "166/255.0f",
+        "blue": "0/255.0f",
+        "alpha": "1.0f",
+        "name": "Green 00A600"
+    },
+    {
+        "id": 8,
+        "red": "46/255.0f",
+        "green": "141/255.0f",
+        "blue": "239/255.0f",
+        "alpha": "1.0f",
+        "name": "Blue 2E8DEF"
+    },
+    {
+        "id": 9,
+        "red": "110/255.0f",
+        "green": "110/255.0f",
+        "blue": "110/255.0f",
+        "alpha": "1.0f",
+        "name": "dark grey 6E6E6E"
+    },
+    {
+        "id": 10,
+        "red": "174/255.0f",
+        "green": "174/255.0f",
+        "blue": "174/255.0f",
+        "alpha": "1.0f",
+        "name": "light Grey AEAEAE"
+    },
+    {
+        "id": 11,
+        "red": "88/255.0f",
+        "green": "86/255.0f",
+        "blue": "214/255.0f",
+        "alpha": "1.0f",
+        "name": "Dark Violet 5856D6"
+    },
+    {
+        "id": 12,
+        "red": "142/255.0f",
+        "green": "142/255.0f",
+        "blue": "142/255.0f",
+        "alpha": "1.0f",
+        "name": "grey 8E8E8E"
+    },
+    {
+        "id": 13,
+        "red": "167/255.0f",
+        "green": "0/255.0f",
+        "blue": "174/255.0f",
+        "alpha": "1.0f",
+        "name": "Purple A700AE"
+    },
+    {
+        "id": 14,
+        "red": "0/255.0f",
+        "green": "160/255.0f",
+        "blue": "177/255.0f",
+        "alpha": "1.0f",
+        "name": "Teal 00A0B1"
+    },
+    {
+        "id": 15,
+        "red": "10/255.0f",
+        "green": "91/255.0f",
+        "blue": "196/255.0f",
+        "alpha": "1.0f",
+        "name": "Sky Blue 0A5BC4"
+    },
+    {
+        "id": 16,
+        "red": "0/255.0f",
+        "green": "130/255.0f",
+        "blue": "153/255.0f",
+        "alpha": "1.0f",
+        "name": "//Teal 008299"
+    },
+    {
+        "id": 17,
+        "red": "220/255.0f",
+        "green": "87/255.0f",
+        "blue": "46/255.0f",
+        "alpha": "1.0f",
+        "name": "Orange DC572E"
+    }
+]
