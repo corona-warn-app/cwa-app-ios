@@ -13,7 +13,9 @@ let fontsize: CGFloat = 26
 
 struct KurzwahlView: View {
     @State private var selection = 0
+    
     var body: some View {
+    
         TabView(selection: $selection) {
             GeometryReader { geometry in
                 //Spacer()
@@ -25,7 +27,7 @@ struct KurzwahlView: View {
                       hPadding: 0 ) { GridCell(person: $0,
                                                height: geometry.size.height / 6 - 2,
                                                width: geometry.size.width / 2 - 2,
-                                               cellcolor:Color.blue )
+                                               cellcolor:Color.init("OrangeFF9500", bundle: nil) )
                 }
             }
             .tabItem {
@@ -37,14 +39,12 @@ struct KurzwahlView: View {
             .tag(0)
             GeometryReader { geometry in
                 QGrid(Storage.people,
-                      columns: 2,
-                      vSpacing: 2,
-                      hSpacing: 2,
-                      vPadding: 0,
-                      hPadding: 0 ) { GridCell(person: $0,
-                                               height: geometry.size.height / 6 - 2 ,
-                                               width: geometry.size.width / 2 - 2 ,
-                                               cellcolor:Color.red )
+                      columns: 2, vSpacing: 2, hSpacing: 2,
+                      vPadding: 0, hPadding: 0 )
+                { GridCell(person: $0,
+                           height: geometry.size.height / 6 - 2 ,
+                           width: geometry.size.width / 2 - 2 ,
+                           cellcolor:Color.init("Darkblue00398E", bundle: nil) )
                 }
             }
             .tabItem {
@@ -61,6 +61,34 @@ struct KurzwahlView: View {
 }
 
 
+enum AssetsColor: String {
+    case OrangeFF9500
+    case Darkblue00398E
+    case colorAccent
+    case colorPrimary
+    case darkBlue
+    case yellow
+    case blue
+}
+
+var AssetColorList: [String] = [
+    "OrangeFF9500","Darkblue00398E", "Darkblue00398E",  "Darkblue00398E", "Darkblue00398E",
+    "Darkblue00398E", "Darkblue00398E", "Darkblue00398E", "Darkblue00398E", "Darkblue00398E",
+     "Darkblue00398E", "Darkblue00398E"
+]
+
+extension Color {
+    static func appColor(_ name: AssetsColor) -> Color? {
+        return Color.init(name.rawValue, bundle: nil)
+    }
+}
+
+extension Color {
+    static func appColor(_ id: Int) -> Color? {
+        let name: String = AssetColorList[id]
+        return Color.init(name, bundle: nil)
+    }
+}
 
 struct KurzwahlView_Previews: PreviewProvider {
     static var previews: some View {
@@ -82,7 +110,7 @@ struct GridCell: View {
                 .foregroundColor(Color.white)
                 .frame(width: width, height: height, alignment: .center)
                 //.border(Color.gray, width: bordersize)
-                .background(cellcolor) //(Color.blue)
+                .background(Color.appColor(person.id - 1))
         }.cornerRadius(8)
     }
 }
