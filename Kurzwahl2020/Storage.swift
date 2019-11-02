@@ -34,7 +34,7 @@ struct TileColor : Codable, Identifiable {
 
 struct Storage {
   static var people: [Person] = load("people.json")
-  static var colors: [TileColor] = load("Colors.json")
+//  static var colors: [TileColor] = load("Colors.json")
   
   static func load<T: Decodable>(_ file: String) -> T {
     guard let url = Bundle.main.url(forResource: file, withExtension: nil),

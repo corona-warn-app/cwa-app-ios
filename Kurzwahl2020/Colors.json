@@ -136,3 +136,21 @@
         "name": "Orange DC572E"
     }
 ]
+
+
+NSArray* darkPink = [NSArray arrayWithObjects:
+@"E69D95", //3572 CP
+@"E07260", //2434 CP
+@"C83773", //2452 CP
+@"B8A89F", //2474 CP
+@"665A5C", //2478 U
+@"C64247", //3517 U
+@"B4938C", //2440 U
+@"EAA598", //3572 UP ok
+// @"CECDC1", //13-4403 TPG Silver Birch
+//@"C6BBBC", //2473 CP
+@"9B7983", //8061 C
+@"B897BB", //2453 UP
+@"885D8D", //3559 UP
+@"742E34", //3523 C
+nil];
