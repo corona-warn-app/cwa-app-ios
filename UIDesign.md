@@ -11,3 +11,6 @@ https://medium.com/@ZkHaider/apples-new-uiscene-api-a-programmatic-approach-52d0
 https://www.hackingwithswift.com/quick-start/swiftui/whats-in-the-basic-template
 https://developer.apple.com/tutorials/swiftui/tutorials
 https://iosexample.com/the-missing-swiftui-collection-view/
+
+Swipe gesture
+https://stackoverflow.com/questions/58234142/how-to-give-back-swipe-gesture-in-swiftui-the-same-behaviour-as-in-uikit-intera
