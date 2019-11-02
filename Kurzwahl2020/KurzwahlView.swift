@@ -9,6 +9,8 @@
 import SwiftUI
 import QGrid
 
+
+
 let fontsize: CGFloat = 26
 
 struct KurzwahlView: View {
@@ -27,7 +29,7 @@ struct KurzwahlView: View {
                       hPadding: 0 ) { GridCell(person: $0,
                                                height: geometry.size.height / 6 - 2,
                                                width: geometry.size.width / 2 - 2,
-                                               cellcolor:Color.init("OrangeFF9500", bundle: nil) )
+                                               pageIndex: 0 )
                 }
             }
             .tabItem {
@@ -44,7 +46,7 @@ struct KurzwahlView: View {
                 { GridCell(person: $0,
                            height: geometry.size.height / 6 - 2 ,
                            width: geometry.size.width / 2 - 2 ,
-                           cellcolor:Color.init("Darkblue00398E", bundle: nil) )
+                           pageIndex: 12 )
                 }
             }
             .tabItem {
@@ -62,16 +64,23 @@ struct KurzwahlView: View {
 
 
 
-var AssetColorList1: [String] = [
+
+
+
+var AssetColorList: [String] = [
     "OrangeFF9500","Darkblue00398E", "RedFF3A2D",  "RedAC193D", "Green008A00",
     "OrangeD24726", "Green00A600", "Blue2E8DEF", "Darkgrey6E6E6E", "lightGreyAEAEAE",
-     "DarkViolet5856D6", "grey8E8E8E"
+    "DarkViolet5856D6", "grey8E8E8E",
+    
+    "grey8E8E8E", "grey8E8E8E", "grey8E8E8E", "grey8E8E8E",
+    "grey8E8E8E", "grey8E8E8E", "grey8E8E8E", "grey8E8E8E",
+    "grey8E8E8E", "grey8E8E8E", "grey8E8E8E", "grey8E8E8E"
 ]
 
 
 extension Color {
     static func appColor(_ id: Int) -> Color? {
-        let name: String = AssetColorList1[id]
+        let name: String = AssetColorList[id]
         return Color.init(name, bundle: nil)
     }
 }
@@ -87,7 +96,7 @@ struct GridCell: View {
     var person: Person
     var height: CGFloat
     var width: CGFloat
-    var cellcolor: Color
+    var pageIndex: Int
     
     var body: some View {
         VStack {
@@ -96,7 +105,7 @@ struct GridCell: View {
                 .foregroundColor(Color.white)
                 .frame(width: width, height: height, alignment: .center)
                 //.border(Color.gray, width: bordersize)
-                .background(Color.appColor(person.id - 1))
+                .background(Color.appColor(person.id - 1 + pageIndex))
         }.cornerRadius(8)
     }
 }
