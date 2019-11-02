@@ -21,7 +21,7 @@
         "green": "58/255.0f",
         "blue": "45/255.0f",
         "alpha": "1.0f",
-        "name": "Red FF3A2D"
+        "name": "RedFF3A2D"
     },
     {
         "id": 4,
@@ -29,7 +29,7 @@
         "green": "25/255.0f",
         "blue": "61/255.0f",
         "alpha": "1.0f",
-        "name": "Red AC193D",
+        "name": "RedAC193D",
     },
     {
         "id": 5,
@@ -37,7 +37,7 @@
         "green": "138/255.0f",
         "blue": "0/255.0f",
         "alpha": "1.0f",
-        "name": "Green 008A00"
+        "name": "Green008A00"
     },
     {
         "id": 6,
@@ -45,7 +45,7 @@
         "green": "71/255.0f",
         "blue": "38/255.0f",
         "alpha": "1.0f",
-        "name": "Orange D24726"
+        "name": "OrangeD24726"
     },
     {
         "id": 7,
@@ -53,7 +53,7 @@
         "green": "166/255.0f",
         "blue": "0/255.0f",
         "alpha": "1.0f",
-        "name": "Green 00A600"
+        "name": "Green00A600"
     },
     {
         "id": 8,
@@ -61,7 +61,7 @@
         "green": "141/255.0f",
         "blue": "239/255.0f",
         "alpha": "1.0f",
-        "name": "Blue 2E8DEF"
+        "name": "Blue2E8DEF"
     },
     {
         "id": 9,
@@ -69,7 +69,7 @@
         "green": "110/255.0f",
         "blue": "110/255.0f",
         "alpha": "1.0f",
-        "name": "dark grey 6E6E6E"
+        "name": "Darkgrey6E6E6E"
     },
     {
         "id": 10,
@@ -77,7 +77,7 @@
         "green": "174/255.0f",
         "blue": "174/255.0f",
         "alpha": "1.0f",
-        "name": "light Grey AEAEAE"
+        "name": "lightGreyAEAEAE"
     },
     {
         "id": 11,
@@ -85,7 +85,7 @@
         "green": "86/255.0f",
         "blue": "214/255.0f",
         "alpha": "1.0f",
-        "name": "Dark Violet 5856D6"
+        "name": "DarkViolet5856D6"
     },
     {
         "id": 12,
@@ -93,7 +93,7 @@
         "green": "142/255.0f",
         "blue": "142/255.0f",
         "alpha": "1.0f",
-        "name": "grey 8E8E8E"
+        "name": "grey8E8E8E"
     },
     {
         "id": 13,

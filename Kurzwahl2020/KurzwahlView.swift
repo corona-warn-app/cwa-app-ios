@@ -61,31 +61,17 @@ struct KurzwahlView: View {
 }
 
 
-enum AssetsColor: String {
-    case OrangeFF9500
-    case Darkblue00398E
-    case colorAccent
-    case colorPrimary
-    case darkBlue
-    case yellow
-    case blue
-}
 
-var AssetColorList: [String] = [
-    "OrangeFF9500","Darkblue00398E", "Darkblue00398E",  "Darkblue00398E", "Darkblue00398E",
-    "Darkblue00398E", "Darkblue00398E", "Darkblue00398E", "Darkblue00398E", "Darkblue00398E",
-     "Darkblue00398E", "Darkblue00398E"
+var AssetColorList1: [String] = [
+    "OrangeFF9500","Darkblue00398E", "RedFF3A2D",  "RedAC193D", "Green008A00",
+    "OrangeD24726", "Green00A600", "Blue2E8DEF", "Darkgrey6E6E6E", "lightGreyAEAEAE",
+     "DarkViolet5856D6", "grey8E8E8E"
 ]
 
-extension Color {
-    static func appColor(_ name: AssetsColor) -> Color? {
-        return Color.init(name.rawValue, bundle: nil)
-    }
-}
 
 extension Color {
     static func appColor(_ id: Int) -> Color? {
-        let name: String = AssetColorList[id]
+        let name: String = AssetColorList1[id]
         return Color.init(name, bundle: nil)
     }
 }
