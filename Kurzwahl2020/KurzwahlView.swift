@@ -10,11 +10,11 @@ import SwiftUI
 import QGrid
 
 let fontsize: CGFloat = 26
-//let swipe = UISwipeGestureRecognizer(target: KurzwahlView?(), action: <#T##Selector?#>)
 
 struct KurzwahlView: View {
+    @State private var selection = 0
     var body: some View {
-        NavigationView {
+        TabView(selection: $selection) {
             GeometryReader { geometry in
                 //Spacer()
                 QGrid(Storage.people,
@@ -23,15 +23,43 @@ struct KurzwahlView: View {
                       hSpacing: 2,
                       vPadding: 0,
                       hPadding: 0 ) { GridCell(person: $0,
-                                               height: geometry.size.height / 6 ,
-                                               width: geometry.size.width / 2 ) }
-                
+                                               height: geometry.size.height / 6 - 2,
+                                               width: geometry.size.width / 2 - 2,
+                                               cellcolor:Color.blue )
+                }
             }
-            NavigationLink("Hallo", destination: KurzwahlView2())
+            .tabItem {
+                VStack {
+                    Image("first")
+                    Text("First")
+                }
+            }
+            .tag(0)
+            GeometryReader { geometry in
+                QGrid(Storage.people,
+                      columns: 2,
+                      vSpacing: 2,
+                      hSpacing: 2,
+                      vPadding: 0,
+                      hPadding: 0 ) { GridCell(person: $0,
+                                               height: geometry.size.height / 6 - 2 ,
+                                               width: geometry.size.width / 2 - 2 ,
+                                               cellcolor:Color.red )
+                }
+            }
+            .tabItem {
+                VStack {
+                    Image("second")
+                    Text("2nd")
+                }
+            }
+            .tag(1)
+            //NavigationLink("Hallo", destination: KurzwahlView2())
             //.edgesIgnoringSafeArea(.bottom)
-        } //.background(Color.white)
+        }
     }
 }
+
 
 
 struct KurzwahlView_Previews: PreviewProvider {
@@ -45,6 +73,7 @@ struct GridCell: View {
     var person: Person
     var height: CGFloat
     var width: CGFloat
+    var cellcolor: Color
     
     var body: some View {
         VStack {
@@ -53,7 +82,7 @@ struct GridCell: View {
                 .foregroundColor(Color.white)
                 .frame(width: width, height: height, alignment: .center)
                 //.border(Color.gray, width: bordersize)
-                .background(Color.blue)
+                .background(cellcolor) //(Color.blue)
         }.cornerRadius(8)
     }
 }
