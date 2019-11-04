@@ -20,7 +20,6 @@ struct ContentView: View {
     //let vsize: CGFloat = 80
     let border: CGFloat = 1
     let fontsize: CGFloat = 26
-    let maxViewHeight: CGFloat = 647
     
     
     // draw one tile
@@ -52,7 +51,7 @@ struct ContentView: View {
                 ForEach((0...(globalNumberOfRows-1)), id: \.self) {
                     self.hstackTiles($0, geometry)
                 }
-            } .scaledToFill() .offset(x:0,y:0)
+            } //.scaledToFill() .offset(x:0,y:0)
         }
     }
 }

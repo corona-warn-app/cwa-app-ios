@@ -30,10 +30,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
 
-           // let globalScreenHeight = window.screen.bounds.size.height
-           // if globalScreenHeight > 667 {
-           //     globalNumberOfRows = 6
-           // }
+            let globalScreenHeight = window.screen.bounds.size.height
+            if globalScreenHeight > 667 {
+                globalNumberOfRows = 7
+            }
 
             window.makeKeyAndVisible()
         }
