@@ -21,7 +21,6 @@ struct DynamicStackView: View {
   
     /// Vends a view for the given indicator key
     func indicatorView(for indicator: Indicator) -> some View {
-        return Text("Winners Dream!")
         switch indicator {
         case .altimeter:
             return Text("Too High!")
