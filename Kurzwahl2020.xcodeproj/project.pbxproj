@@ -22,7 +22,6 @@
 		50ADCF842369C35F007B248B /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF832369C35F007B248B /* Storage.swift */; };
 		50ADCF862369C46D007B248B /* people.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF852369C46D007B248B /* people.json */; };
 		50ADCF882369D87D007B248B /* Colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF872369D87D007B248B /* Colors.json */; };
-		7E391C9823708712008AB6E4 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E391C9723708712008AB6E4 /* IndicatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +53,6 @@
 		50ADCF832369C35F007B248B /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		50ADCF852369C46D007B248B /* people.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = people.json; sourceTree = "<group>"; };
 		50ADCF872369D87D007B248B /* Colors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Colors.json; sourceTree = "<group>"; };
-		7E391C9723708712008AB6E4 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +98,6 @@
 				502BF536236399BB00FDE7BF /* AppDelegate.swift */,
 				502BF538236399BB00FDE7BF /* SceneDelegate.swift */,
 				502BF55A23639B4E00FDE7BF /* CollectionVC.swift */,
-				7E391C9723708712008AB6E4 /* IndicatorView.swift */,
 				502BF53A236399BB00FDE7BF /* ContentView.swift */,
 				50ADCF812369C135007B248B /* KurzwahlView.swift */,
 				502FD795236B3633009FE10A /* KurzwahlView2.swift */,
@@ -249,7 +246,6 @@
 				502BF55B23639B4E00FDE7BF /* CollectionVC.swift in Sources */,
 				502BF53B236399BB00FDE7BF /* ContentView.swift in Sources */,
 				50ADCF842369C35F007B248B /* Storage.swift in Sources */,
-				7E391C9823708712008AB6E4 /* IndicatorView.swift in Sources */,
 				502FD796236B3633009FE10A /* KurzwahlView2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
