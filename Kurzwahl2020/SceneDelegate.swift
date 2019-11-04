@@ -9,6 +9,8 @@
 import UIKit
 import SwiftUI
 
+var globalNumberOfRows: Int = 6
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -27,6 +29,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
+
+//            let globalScreenHeight = window.screen.bounds.size.height
+//            if globalScreenHeight > 667 {
+//                globalNumberOfRows = 8
+//            }
+
             window.makeKeyAndVisible()
         }
  
