@@ -9,7 +9,7 @@
 import UIKit
 import SwiftUI
 
-var globalMaxRowIndex: Int = 5
+var globalNumberOfRows: Int = 6
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -30,10 +30,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
 
-            let globalScreenHeight = window.screen.bounds.size.height
-            if globalScreenHeight > 667 {
-                globalMaxRowIndex = 6
-            }
+           // let globalScreenHeight = window.screen.bounds.size.height
+           // if globalScreenHeight > 667 {
+           //     globalNumberOfRows = 6
+           // }
 
             window.makeKeyAndVisible()
         }

@@ -37,13 +37,7 @@ struct ContentView: View {
     // draw a HStack with two tiles
     fileprivate func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
         let hsize = geometry.size.width / 2 - 2
-        var vsize: CGFloat
-        let y = geometry.size.height
-        if y > maxViewHeight {
-            vsize = maxViewHeight / CGFloat(globalMaxRowIndex) - 2
-        } else {
-            vsize = geometry.size.height / CGFloat(globalMaxRowIndex) - 2
-        }
+        let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - 2
         return HStack(spacing: 2) {
             tile("John Appleseed", withTileNumber: lineNumber * 2, vsize, hsize)
             tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, vsize, hsize)
@@ -55,7 +49,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                ForEach((0...(globalMaxRowIndex)), id: \.self) {
+                ForEach((0...(globalNumberOfRows-1)), id: \.self) {
                     self.hstackTiles($0, geometry)
                 }
             } .scaledToFill() .offset(x:0,y:0)
