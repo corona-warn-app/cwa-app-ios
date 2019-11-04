@@ -14,39 +14,34 @@ struct ContentView: View {
     let border: CGFloat = 1
     let fontsize: CGFloat = 26
     
+    // draw one tile
+    fileprivate func tile(_ name: String, withTileNumber: Int) -> some View {
+        return Text(name)
+            .font(.system(size: 26))
+            .foregroundColor(Color.white)
+            .frame(width: hsize, height: vsize, alignment: .center)
+            .background(Color.appColor(withTileNumber))
+            .cornerRadius(5)
+    }
+    
+    // draw a HStack with two tiles
+    fileprivate func hstackTiles(_ lineNumber: Int) -> some View {
+        return HStack(spacing: 10) {
+            tile("John Appleseed", withTileNumber: lineNumber * 2 )
+            tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1)
+        } .padding(.bottom, 10)
+    }
+    
+    
+    
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 10) {
-                Text("Andreas Vogel")
-                    .font(.system(size: 26))
-                    .foregroundColor(Color.white)
-                    .frame(width: hsize, height: vsize, alignment: .center)
-                    .background(Color.appColor(0))
-                    .cornerRadius(8)
-                    
-                Text("John Appleseed")
-                    .font(.system(size: 26))
-                    .foregroundColor(Color.white)
-                    .frame(width: hsize, height: vsize, alignment: .center)
-                    .background(Color.appColor(1))
-                    .cornerRadius(8)
-                    
-            } .padding(.bottom, 10)
-            HStack(spacing: 10) {
-                Text("Andreas Vogel")
-                    .font(.system(size: 26))
-                    .foregroundColor(Color.white)
-                    .frame(width: hsize, height: vsize, alignment: .center)
-                    .background(Color.appColor(3))
-                    .cornerRadius(8)
-                Text("John Appleseed")
-                    .font(.system(size: 26))
-                    .foregroundColor(Color.white)
-                    .frame(width: hsize, height: vsize, alignment: .center)
-                    .background(Color.appColor(4))
-                    .cornerRadius(8)
-            } .padding(.bottom, 10)
-            
+            hstackTiles(0)
+            hstackTiles(1)
+            hstackTiles(2)
+            hstackTiles(3)
+            hstackTiles(4)
+            hstackTiles(5)
         } //.scaledToFill() .offset(x:0,y:0)
         
     }
