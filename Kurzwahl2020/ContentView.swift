@@ -16,8 +16,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    //let hsize: CGFloat = 180
-    //let vsize: CGFloat = 80
+    @State private var selection = 0
     let border: CGFloat = 1
     let fontsize: CGFloat = 26
     
@@ -46,12 +45,34 @@ struct ContentView: View {
     
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 0) {
-                ForEach((0...(globalNumberOfRows-1)), id: \.self) {
-                    self.hstackTiles($0, geometry)
+        
+        TabView(selection: $selection) {
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    ForEach((0...(globalNumberOfRows-1)), id: \.self) {
+                        self.hstackTiles($0, geometry)
+                    }
+                } //.scaledToFill() .offset(x:0,y:0)
+            }
+            .tabItem {
+                VStack {
+                    Image("first")
+                    Text("First")
                 }
-            } //.scaledToFill() .offset(x:0,y:0)
+            } .tag(0)
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    ForEach((0...(globalNumberOfRows-1)), id: \.self) {
+                        self.hstackTiles($0, geometry)
+                    }
+                } //.scaledToFill() .offset(x:0,y:0)
+            }
+            .tabItem {
+                VStack {
+                    Image("second")
+                    Text("2nd")
+                }
+            }.tag(1)
         }
     }
 }
