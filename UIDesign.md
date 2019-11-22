@@ -14,3 +14,5 @@ https://iosexample.com/the-missing-swiftui-collection-view/
 
 Swipe gesture
 https://stackoverflow.com/questions/58234142/how-to-give-back-swipe-gesture-in-swiftui-the-same-behaviour-as-in-uikit-intera
+
+Einstieg in SwiftUI: https://www.heise.de/developer/artikel/Einstieg-in-SwiftUI-4594018.html
