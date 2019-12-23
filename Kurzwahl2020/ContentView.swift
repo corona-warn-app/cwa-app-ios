@@ -18,7 +18,7 @@ import SwiftUI
 
 // the SceneDelegate defines which view is used.
 struct ContentView: View {
-    @State private var selection = 0
+    @State private var selection = 1
     let border: CGFloat = 1
     let fontsize: CGFloat = 26
     
@@ -60,7 +60,7 @@ struct ContentView: View {
                 VStack {
                     Image(systemName: "1.square.fill")
                 }
-            } .tag(0)
+            }.tag(1)
             GeometryReader { geometry in
                 VStack(spacing: 0) {
                     ForEach((globalNumberOfRows...(2*globalNumberOfRows-1)), id: \.self) {
@@ -69,10 +69,11 @@ struct ContentView: View {
                 } //.scaledToFill() .offset(x:0,y:0)
             }
             .tabItem {
-                VStack {
-                    Image(systemName: "2.square.fill")
-                }
-            }.tag(1)
+                
+                Image(selection == 1 ? "2.square.fill" : "2.square")
+                Text("Two")
+                
+            }.tag(2)
         }
     }
 }
