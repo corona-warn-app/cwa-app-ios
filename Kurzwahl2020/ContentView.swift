@@ -19,11 +19,12 @@ import SwiftUI
 // the SceneDelegate defines which view is used.
 struct ContentView: View {
     @State private var selection = 0
+    @GestureState var isLongPressed = false
     let border: CGFloat = 1
     let fontsize: CGFloat = 26
     
     
-    // draw one tile
+// draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
         return Text(name)
             .font(.system(size: 26))
@@ -34,7 +35,7 @@ struct ContentView: View {
     }
     
     
-    // draw a HStack with two tiles
+// draw a HStack with two tiles
     fileprivate func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
         let hsize = geometry.size.width / 2 - 2
         let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - 2
@@ -45,7 +46,7 @@ struct ContentView: View {
     }
     
     
-    //draw a VStack. Number of rows = globalNumberOfRows
+//draw a VStack. Number of rows = globalNumberOfRows
     var body: some View {
         
         TabView(selection: $selection) {
@@ -82,3 +83,52 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
+
+
+
+// from https://swiftwithmajid.com/2019/07/10/gestures-in-swiftui/
+struct DragGestureExample : View {
+    @State private var offset: CGSize = .zero
+
+    var body: some View {
+        let drag = DragGesture()
+            .onChanged { self.offset = $0.translation }
+            .onEnded {
+                if $0.translation.width < -100 {
+                    self.offset = .init(width: -1000, height: 0)
+                } else if $0.translation.width > 100 {
+                    self.offset = .init(width: 1000, height: 0)
+                } else {
+                    self.offset = .zero
+                }
+        }
+
+        return PersonView()
+            .background(Color.red)
+            .cornerRadius(8)
+            .shadow(radius: 8)
+            .padding()
+            .offset(x: offset.width, y: offset.height)
+            .gesture(drag)
+            .animation(.interactiveSpring())
+    }
+}
+
+struct PersonView: View {
+    var body: some View {
+        VStack( spacing: 0) {
+            Rectangle()
+                .fill(Color.gray)
+                .cornerRadius(8)
+                .frame(height: 300)
+
+            Text("Majid Jabrayilov")
+                .font(.title)
+                .foregroundColor(.white)
+
+            Text("iOS Developer")
+                .font(.body)
+                .foregroundColor(.white)
+        }.padding()
+    }
+}
