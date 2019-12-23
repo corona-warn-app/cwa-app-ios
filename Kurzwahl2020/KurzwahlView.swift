@@ -99,8 +99,12 @@ var AssetColorList: [String] = [
 extension Color {
     static func appColor(_ id: Int) -> Color? {
         var name: String
-        if id < 28 { name = AssetColorList[id] }
-        else { name = "00000"}
+        if id < 28 {
+            name = AssetColorList[id]
+        }
+        else {
+            name = "Black"
+        }
         return Color.init(name, bundle: nil)
     }
 }
