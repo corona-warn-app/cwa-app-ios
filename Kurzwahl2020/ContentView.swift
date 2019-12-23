@@ -15,6 +15,8 @@
 
 import SwiftUI
 
+
+// the SceneDelegate defines which view is used.
 struct ContentView: View {
     @State private var selection = 0
     let border: CGFloat = 1
@@ -43,7 +45,7 @@ struct ContentView: View {
     }
     
     
-    
+    //draw a VStack. Number of rows = globalNumberOfRows
     var body: some View {
         
         TabView(selection: $selection) {
@@ -56,21 +58,19 @@ struct ContentView: View {
             }
             .tabItem {
                 VStack {
-                    Image("first")
-                    Text("First")
+                    Image(systemName: "1.square.fill")
                 }
             } .tag(0)
             GeometryReader { geometry in
                 VStack(spacing: 0) {
-                    ForEach((0...(globalNumberOfRows-1)), id: \.self) {
+                    ForEach((globalNumberOfRows...(2*globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
                     }
                 } //.scaledToFill() .offset(x:0,y:0)
             }
             .tabItem {
                 VStack {
-                    Image("second")
-                    Text("2nd")
+                    Image(systemName: "2.square.fill")
                 }
             }.tag(1)
         }
