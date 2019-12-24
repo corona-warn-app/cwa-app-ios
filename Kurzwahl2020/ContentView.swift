@@ -73,6 +73,7 @@ struct ContentView: View {
             }.tag(1)
 // settings view
             VStack {
+                Text("Font Size: \(appdefaults.fontsize)")
                 NavigationView {
                     NavigationLink(destination: SettingsView()) {
                         Text("Show Detail View")
@@ -80,8 +81,14 @@ struct ContentView: View {
                 }
             }
             .tabItem {
-                Image(systemName: selection == 1 ? "3.square.fill" : "3.square")
+                Image(systemName: selection == 2 ? "3.square.fill" : "3.square")
             }.tag(2)
+// settings view
+            SettingsView()
+            .tabItem {
+                Image(systemName: selection == 3 ? "4.square.fill" : "4.square")
+            }.tag(3)
+
         }
     }
 }
