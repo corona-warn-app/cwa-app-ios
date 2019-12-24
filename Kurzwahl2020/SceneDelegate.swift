@@ -9,7 +9,19 @@
 import UIKit
 import SwiftUI
 
-var globalNumberOfRows: Int = 6
+// display 6 rows at least, even on the small iPhone 5/SE
+
+struct appdefaults {
+    struct rows {
+    static let small = 5
+    static let large = 6
+    }
+    static let fontsize : CGFloat = 26
+}
+
+
+var globalNumberOfRows: Int = appdefaults.rows.small
+
 struct ScreenSize { // Answer to OP's question
 
     static let SCREEN_WIDTH         = UIScreen.main.bounds.size.width
@@ -62,7 +74,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             let globalScreenHeight = window.screen.bounds.size.height
             if globalScreenHeight > 667 {
-                globalNumberOfRows = 7
+                globalNumberOfRows = appdefaults.rows.large
             }
 
             window.makeKeyAndVisible()

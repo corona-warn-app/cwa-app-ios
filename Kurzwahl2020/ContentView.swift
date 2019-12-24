@@ -5,12 +5,12 @@
 //  Created by Vogel, Andreas on 25.10.19.
 //  Copyright © 2019 Vogel, Andreas. All rights reserved.
 //
-// Cell Geometry     :width , height        View Height
-// Phone SE          : 158  , 89,33         548
-// iPhone 8          : 185.5, 105.833       647
-// iPhone 11         : 205  , 134.333       818
-// iPhone 11 Pro     : 185.5, 120.333       734
-// iPhone 11 Pro max : 205  , 134.333       818        
+// Cell Geometry     :width , height        View Height   # rows
+// Phone SE          : 158  , 89,33         548           6 rows
+// iPhone 8          : 185.5, 105.833       647           6 rows
+// iPhone 11         : 205  , 134.333       818           7 rows
+// iPhone 11 Pro     : 185.5, 120.333       734           7 rows
+// iPhone 11 Pro max : 205  , 134.333       818           7 rows
 
 
 import SwiftUI
@@ -21,13 +21,13 @@ struct ContentView: View {
     @State private var selection = 0
     @GestureState var isLongPressed = false
     let border: CGFloat = 1
-    let fontsize: CGFloat = 26
+    let fontsize = appdefaults.fontsize
     
     
 // draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
         return Text(name)
-            .font(.system(size: 26))
+            .font(.system(size: fontsize))
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
             .background(Color.appColor(withTileNumber))
