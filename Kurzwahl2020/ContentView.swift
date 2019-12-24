@@ -71,18 +71,17 @@ struct ContentView: View {
             .tabItem {
                 Image(systemName: selection == 1 ? "2.square.fill" : "2.square")
             }.tag(1)
-            
-            GeometryReader { geometry in
-                VStack(spacing: 0) {
-                    ForEach((globalNumberOfRows...(2*globalNumberOfRows-1)), id: \.self) {
-                        self.hstackTiles($0, geometry)
-                    }
+// settings view
+            VStack {
+                NavigationView {
+                    NavigationLink(destination: SettingsView()) {
+                        Text("Show Detail View")
+                    }.navigationBarTitle("")
                 }
             }
             .tabItem {
                 Image(systemName: selection == 1 ? "3.square.fill" : "3.square")
             }.tag(2)
-
         }
     }
 }
