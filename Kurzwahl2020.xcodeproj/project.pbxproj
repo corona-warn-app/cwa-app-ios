@@ -22,6 +22,7 @@
 		50ADCF842369C35F007B248B /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF832369C35F007B248B /* Storage.swift */; };
 		50ADCF862369C46D007B248B /* people.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF852369C46D007B248B /* people.json */; };
 		50ADCF882369D87D007B248B /* Colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF872369D87D007B248B /* Colors.json */; };
+		7EFD45B823B2744200DA0F97 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFD45B723B2744200DA0F97 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		50ADCF832369C35F007B248B /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		50ADCF852369C46D007B248B /* people.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = people.json; sourceTree = "<group>"; };
 		50ADCF872369D87D007B248B /* Colors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Colors.json; sourceTree = "<group>"; };
+		7EFD45B723B2744200DA0F97 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				502BF538236399BB00FDE7BF /* SceneDelegate.swift */,
 				502BF55A23639B4E00FDE7BF /* CollectionVC.swift */,
 				502BF53A236399BB00FDE7BF /* ContentView.swift */,
+				7EFD45B723B2744200DA0F97 /* SettingsView.swift */,
 				50ADCF812369C135007B248B /* KurzwahlView.swift */,
 				502FD795236B3633009FE10A /* KurzwahlView2.swift */,
 				50ADCF832369C35F007B248B /* Storage.swift */,
@@ -241,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				502BF537236399BB00FDE7BF /* AppDelegate.swift in Sources */,
+				7EFD45B823B2744200DA0F97 /* SettingsView.swift in Sources */,
 				502BF539236399BB00FDE7BF /* SceneDelegate.swift in Sources */,
 				50ADCF822369C135007B248B /* KurzwahlView.swift in Sources */,
 				502BF55B23639B4E00FDE7BF /* CollectionVC.swift in Sources */,

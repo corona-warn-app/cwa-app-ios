@@ -6,11 +6,11 @@
 //  Copyright © 2019 Vogel, Andreas. All rights reserved.
 //
 // Cell Geometry     :width , height        View Height   # rows
-// Phone SE          : 158  , 89,33         548           6 rows
-// iPhone 8          : 185.5, 105.833       647           6 rows
-// iPhone 11         : 205  , 134.333       818           7 rows
-// iPhone 11 Pro     : 185.5, 120.333       734           7 rows
-// iPhone 11 Pro max : 205  , 134.333       818           7 rows
+// Phone SE          : 158  , 89,33         548           n rows
+// iPhone 8          : 185.5, 105.833       647           n rows
+// iPhone 11         : 205  , 134.333       818           n+1 rows
+// iPhone 11 Pro     : 185.5, 120.333       734           n+1 rows
+// iPhone 11 Pro max : 205  , 134.333       818           n+1 rows
 
 
 import SwiftUI
@@ -71,6 +71,18 @@ struct ContentView: View {
             .tabItem {
                 Image(systemName: selection == 1 ? "2.square.fill" : "2.square")
             }.tag(1)
+            
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    ForEach((globalNumberOfRows...(2*globalNumberOfRows-1)), id: \.self) {
+                        self.hstackTiles($0, geometry)
+                    }
+                }
+            }
+            .tabItem {
+                Image(systemName: selection == 1 ? "3.square.fill" : "3.square")
+            }.tag(2)
+
         }
     }
 }
