@@ -3,10 +3,10 @@ iOS Swift Kurzwahl App 2020, programmiert in Swift mit Xcode 11.1
 
 Features (Minimum):
 
-* mehrere Seiten mit je 12 Feldern; jedes Feld hat ein eigenes Farbschema.
+* zwei Seiten mit je 12 Feldern; jedes Feld hat ein eigenes Farbschema.
 * jedes Feld speichert einen Name (als Beschriftung) und eine Telefonnummer
 * Schriftgröße ist frei wählbar
-* kein Tracking wg. Privatsphäre
+* kein Tracking, keine Nutzungsstatistiken
 
 Extended Feature List:
 
