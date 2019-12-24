@@ -17,6 +17,7 @@ struct SettingsView: View {
                 Text("Font Size")
                 TextField("Font Size", text: $name)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                //https://www.hackingwithswift.com/quick-start/swiftui/how-to-add-a-border-to-a-textfield
                 
             }
             Text("Hello, \(name)!")
