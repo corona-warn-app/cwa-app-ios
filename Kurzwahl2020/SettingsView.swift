@@ -9,8 +9,18 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @State private var name: String = "Tim"
+    
     var body: some View {
-        Text("This is the Settings View")
+        VStack {
+            HStack {
+                Text("Font Size")
+                TextField("Font Size", text: $name)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+            }
+            Text("Hello, \(name)!")
+        }
     }
 }
 
