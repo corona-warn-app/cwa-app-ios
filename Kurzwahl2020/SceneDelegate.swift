@@ -17,6 +17,9 @@ struct appdefaults {
     static let large = 6
     }
     static let fontsize : CGFloat = 26
+    static let cornerRadius : CGFloat = 8
+    static let hspacing : CGFloat = 4
+    static let vspacing : CGFloat = 2
 }
 
 

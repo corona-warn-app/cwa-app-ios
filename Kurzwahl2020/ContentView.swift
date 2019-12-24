@@ -31,15 +31,15 @@ struct ContentView: View {
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
             .background(Color.appColor(withTileNumber))
-            .cornerRadius(5)
+            .cornerRadius(appdefaults.cornerRadius)
     }
     
     
 // draw a HStack with two tiles
     fileprivate func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
-        let hsize = geometry.size.width / 2 - 2
-        let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - 2
-        return HStack(spacing: 2) {
+        let hsize = geometry.size.width / 2 - appdefaults.hspacing
+        let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - appdefaults.vspacing * CGFloat(globalNumberOfRows - 4)
+        return HStack(spacing: appdefaults.hspacing) {
             tile("John Appleseed", withTileNumber: lineNumber * 2, vsize, hsize)
             tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, vsize, hsize)
         } .padding(.bottom, 2)
@@ -51,22 +51,22 @@ struct ContentView: View {
         
         TabView(selection: $selection) {
             GeometryReader { geometry in
-                VStack(spacing: 0) {
+                VStack(spacing: appdefaults.vspacing) {
                     ForEach((0...(globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
                     }
-                } //.scaledToFill() .offset(x:0,y:0)
+                }
             }
             .tabItem {
                 Image(systemName: selection == 0 ? "1.square.fill" : "1.square")
 
             }.tag(0)
             GeometryReader { geometry in
-                VStack(spacing: 0) {
+                VStack(spacing: appdefaults.vspacing) {
                     ForEach((globalNumberOfRows...(2*globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
                     }
-                } //.scaledToFill() .offset(x:0,y:0)
+                }
             }
             .tabItem {
                 Image(systemName: selection == 1 ? "2.square.fill" : "2.square")
