@@ -40,8 +40,8 @@ struct ContentView: View {
         let hsize = geometry.size.width / 2 - appdefaults.hspacing
         let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - appdefaults.vspacing * CGFloat(globalNumberOfRows - 4)
         return HStack(spacing: appdefaults.hspacing) {
-            tile("John Appleseed", withTileNumber: lineNumber * 2, vsize, hsize)
-            tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, vsize, hsize)
+            tile("John Appleseed", withTileNumber: lineNumber * 2, vsize, hsize).multilineTextAlignment(.center)
+            tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, vsize, hsize).multilineTextAlignment(.center)
         } .padding(.bottom, 2)
     }
     
