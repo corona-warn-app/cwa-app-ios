@@ -31,7 +31,10 @@ struct ContentView: View {
      to draw the text field.
      */
     
-
+// draw the label
+    fileprivate func textLabel(withTileNumber: Int) {
+        
+    }
     
 // draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
