@@ -15,19 +15,19 @@
 
 import SwiftUI
 
-
+    
 // the SceneDelegate defines which view is used.
 struct ContentView: View {
     @State private var selection = 0
     @GestureState var isLongPressed = false
     let border: CGFloat = 1
-    let fontsize = appdefaults.fontsize
-    
+
+
     
 // draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
         return Text(name)
-            .font(.system(size: fontsize))
+            .font(.system(size: appdefaults.fontsize))
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
             .background(Color.appColor(withTileNumber))
@@ -52,6 +52,7 @@ struct ContentView: View {
         TabView(selection: $selection) {
             GeometryReader { geometry in
                 VStack(spacing: appdefaults.vspacing) {
+                    
                     ForEach((0...(globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
                     }
