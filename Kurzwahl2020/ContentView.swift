@@ -20,18 +20,32 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection = 0
     @GestureState var isLongPressed = false
-    let border: CGFloat = 1
 
+    //Dark mode: detect the dark mode and reduce opacity to 0.75
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+
+    /*
+     how can we separate the size of the tile (a:b = 1.61) from the
+     size of the text field? We need some indentation.
+     Idea: func tile() draws the colored frame and calls label()
+     to draw the text field.
+     */
+    
 
     
 // draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
-        return Text(name)
+        return Text(name).multilineTextAlignment(.center)
             .font(.system(size: appdefaults.fontsize))
             .foregroundColor(Color.white)
-            .frame(width: width, height: height, alignment: .center)
+            .frame(width: width, height: (width / 1.61), alignment: .center)
+            //.aspectRatio( 1.61, contentMode: .fit)
             .background(Color.appColor(withTileNumber))
             .cornerRadius(appdefaults.cornerRadius)
+            .opacity(colorScheme == .light ? 1.0 : 0.8)
+//            .onTapGesture {  //see developer documentation
+//                <#code#>
+//        }
     }
     
     
@@ -40,8 +54,8 @@ struct ContentView: View {
         let hsize = geometry.size.width / 2 - appdefaults.hspacing
         let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - appdefaults.vspacing * CGFloat(globalNumberOfRows - 4)
         return HStack(spacing: appdefaults.hspacing) {
-            tile("John Appleseed", withTileNumber: lineNumber * 2, vsize, hsize).multilineTextAlignment(.center)
-            tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, vsize, hsize).multilineTextAlignment(.center)
+            tile("John Appleseed", withTileNumber: lineNumber * 2, vsize, hsize)
+            tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, vsize, hsize)
         } .padding(.bottom, 2)
     }
     

@@ -13,13 +13,14 @@ import SwiftUI
 
 struct appdefaults {
     struct rows {
-    static let small = 6
+    static let small = 5
     static let large = 6
     }
     static let fontsize : CGFloat = 28
-    static let cornerRadius : CGFloat = 8
-    static let hspacing : CGFloat = 4
-    static let vspacing : CGFloat = 2
+    static let cornerRadius : CGFloat = 0
+    static let hspacing : CGFloat = 2
+    static let vspacing : CGFloat = 0
+    static let opacity : Double = 1.0
 }
 
 
