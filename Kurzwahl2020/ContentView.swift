@@ -45,6 +45,19 @@ struct ContentView: View {
         
     }
     
+    //calculate the dimensions of the tile (aspect ratio 1.61)
+    fileprivate func dimensions(_ geometry: GeometryProxy) {
+      //  let hsize = geometry.size.width / 2 - hspacing()
+      //  let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 4) * vspacing()
+        let vMaxSize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 1) * vspacing()
+        var hsize = geometry.size.width / 2 - hspacing()
+        var vsize = hsize / 1.61
+        if (vsize > vMaxSize ) {
+            vsize = vMaxSize
+            hsize = vsize * 1.61
+        }
+    }
+    
     
 // draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {

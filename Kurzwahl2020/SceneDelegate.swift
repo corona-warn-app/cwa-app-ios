@@ -34,6 +34,7 @@ struct appdefaults {
 
 
 var globalNumberOfRows: Int = appdefaults.rows.small
+var globalScreenHeight: CGFloat = 0
 
 struct ScreenSize { // Answer to OP's question
 
@@ -85,9 +86,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
 
-            let globalScreenHeight = window.screen.bounds.size.height
+            globalScreenHeight = window.screen.bounds.size.height
             if globalScreenHeight > 667 {
-                globalNumberOfRows = appdefaults.rows.large
+                globalNumberOfRows = appdefaults.rows.small
             }
 
             window.makeKeyAndVisible()
