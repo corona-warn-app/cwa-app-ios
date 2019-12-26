@@ -23,13 +23,6 @@ struct ContentView: View {
 
     //detect the dark mode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-
-    /*
-     how can we separate the size of the tile (a:b = 1.61) from the
-     size of the text field? We need some indentation.
-     Idea: func tile() draws the colored frame and calls label()
-     to draw the text field.
-     */
     
     
     fileprivate func hspacing()->CGFloat {
@@ -62,7 +55,6 @@ struct ContentView: View {
             .padding(.horizontal)
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
-            .background(Color.appColor(withTileNumber))
             .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
         //            .onTapGesture {  //see developer documentation
         //                <#code#>
@@ -72,17 +64,16 @@ struct ContentView: View {
     
 // draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
-        let textwidth = width //* 0.9
-        return self.textLabel(withTileNumber: withTileNumber, height: height, width: textwidth)
+        return self.textLabel(withTileNumber: withTileNumber, height: height, width: width)
             .frame(width: width, height: height)
-                    .background(Color.appColor(withTileNumber))
+            .background(Color.appColor(withTileNumber))
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
     }
     
     
 // draw a HStack with two tiles
     fileprivate func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
-        return HStack(spacing: hspacing()) {
+        return HStack(spacing: self.hspacing()) {
             tile("John Appleseed", withTileNumber: lineNumber * 2, self.dimensions(geometry).0, self.dimensions(geometry).1)
             tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, self.dimensions(geometry).0, self.dimensions(geometry).1)
         } .padding(.bottom, 2)
