@@ -20,6 +20,10 @@ import SwiftUI
  Task: implement the tap gesture to start a phone call
 */
  
+/*
+ implement a launch screen:
+ https://medium.com/flawless-app-stories/change-splash-screen-in-ios-app-for-dummies-the-better-way-e385327219e
+ */
  
 
 // the SceneDelegate defines which view is used.
