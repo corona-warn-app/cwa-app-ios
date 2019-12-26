@@ -31,6 +31,11 @@ struct ContentView: View {
      to draw the text field.
      */
     
+    fileprivate func hspacing()->CGFloat {
+        return (colorScheme == .light ? appdefaults.colorScheme.light.hspacing : appdefaults.colorScheme.dark.hspacing)
+    }
+    
+    
 // draw the label
     fileprivate func textLabel(withTileNumber: Int) {
         
@@ -54,9 +59,13 @@ struct ContentView: View {
     
 // draw a HStack with two tiles
     fileprivate func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
-        let hsize = geometry.size.width / 2 - appdefaults.colorScheme.light.hspacing
-        let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - appdefaults.colorScheme.light.vspacing * CGFloat(globalNumberOfRows - 4)
-        return HStack(spacing: appdefaults.colorScheme.light.hspacing) {
+        let hspacing = (colorScheme == .light ? appdefaults.colorScheme.light.hspacing : appdefaults.colorScheme.dark.hspacing)
+        let vspacing = (colorScheme == .light ? appdefaults.colorScheme.light.vspacing : appdefaults.colorScheme.dark.vspacing)
+        
+        let hsize = geometry.size.width / 2 - hspacing
+        let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 4) * vspacing
+
+        return HStack(spacing: hspacing) {
             tile("John Appleseed", withTileNumber: lineNumber * 2, vsize, hsize)
             tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, vsize, hsize)
         } .padding(.bottom, 2)
