@@ -22,13 +22,13 @@ struct appdefaults {
         struct dark{
             static let opacity : Double = 0.8
             static let cornerRadius : CGFloat = 5
-            static let hspacing : CGFloat = 2
+            static let hspacing : CGFloat = 3
             static let vspacing : CGFloat = 1
         }
         struct light{
             static let opacity : Double = 1.0
-            static let cornerRadius : CGFloat = 5
-            static let hspacing : CGFloat = 2
+            static let cornerRadius : CGFloat = 0
+            static let hspacing : CGFloat = 3
             static let vspacing : CGFloat = 1
         }
     }

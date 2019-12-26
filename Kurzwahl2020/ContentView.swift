@@ -44,8 +44,8 @@ struct ContentView: View {
     
     //calculate the dimensions of the tile (aspect ratio 1.61)
     fileprivate func dimensions(_ geometry: GeometryProxy)->(CGFloat, CGFloat) {
-        //let vMaxSize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 3) * vspacing()
-        let vMaxSize = geometry.size.height / CGFloat(globalNumberOfRows) - (vspacing() * CGFloat(globalNumberOfRows - 3) )
+        let geo = geometry.size.height
+        let vMaxSize = geo / CGFloat(globalNumberOfRows) - vspacing() * CGFloat(globalNumberOfRows) + 1
         var hsize = geometry.size.width / 2 - hspacing()
         var vsize = hsize / 1.61
         if (vsize > vMaxSize ) {
@@ -57,8 +57,9 @@ struct ContentView: View {
     
 
     fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
-        return Text("SiegfriedVoi Sylvia \(withTileNumber)").multilineTextAlignment(.center)
+        return Text("SiegfriedVomni Sylvia \(withTileNumber)").multilineTextAlignment(.center)
             .font(Font.custom(appdefaults.font, size: appdefaults.fontsize))
+            .padding(.horizontal)
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
             .background(Color.appColor(withTileNumber))
@@ -71,7 +72,7 @@ struct ContentView: View {
     
 // draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
-        let textwidth = width * 0.9
+        let textwidth = width //* 0.9
         return self.textLabel(withTileNumber: withTileNumber, height: height, width: textwidth)
             .frame(width: width, height: height)
                     .background(Color.appColor(withTileNumber))
