@@ -45,7 +45,7 @@ struct ContentView: View {
             //.aspectRatio( 1.61, contentMode: .fit)
             .background(Color.appColor(withTileNumber))
             .cornerRadius(appdefaults.cornerRadius)
-            .opacity(colorScheme == .light ? 1.0 : 0.8)
+            .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
 //            .onTapGesture {  //see developer documentation
 //                <#code#>
 //        }
@@ -54,9 +54,9 @@ struct ContentView: View {
     
 // draw a HStack with two tiles
     fileprivate func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
-        let hsize = geometry.size.width / 2 - appdefaults.hspacing
-        let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - appdefaults.vspacing * CGFloat(globalNumberOfRows - 4)
-        return HStack(spacing: appdefaults.hspacing) {
+        let hsize = geometry.size.width / 2 - appdefaults.colorScheme.light.hspacing
+        let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - appdefaults.colorScheme.light.vspacing * CGFloat(globalNumberOfRows - 4)
+        return HStack(spacing: appdefaults.colorScheme.light.hspacing) {
             tile("John Appleseed", withTileNumber: lineNumber * 2, vsize, hsize)
             tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, vsize, hsize)
         } .padding(.bottom, 2)
@@ -68,7 +68,7 @@ struct ContentView: View {
         
         TabView(selection: $selection) {
             GeometryReader { geometry in
-                VStack(spacing: appdefaults.vspacing) {
+                VStack(spacing: appdefaults.colorScheme.light.vspacing) {
                     
                     ForEach((0...(globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
@@ -80,7 +80,7 @@ struct ContentView: View {
 
             }.tag(0)
             GeometryReader { geometry in
-                VStack(spacing: appdefaults.vspacing) {
+                VStack(spacing: appdefaults.colorScheme.light.vspacing) {
                     ForEach((globalNumberOfRows...(2*globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
                     }

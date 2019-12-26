@@ -18,9 +18,18 @@ struct appdefaults {
     }
     static let fontsize : CGFloat = 28
     static let cornerRadius : CGFloat = 0
-    static let hspacing : CGFloat = 2
-    static let vspacing : CGFloat = 0
-    static let opacity : Double = 1.0
+    struct colorScheme{
+        struct dark{
+            static let opacity : Double = 0.75
+            static let hspacing : CGFloat = 4
+            static let vspacing : CGFloat = 2
+        }
+        struct light{
+            static let opacity : Double = 1.0
+            static let hspacing : CGFloat = 2
+            static let vspacing : CGFloat = 0
+        }
+    }
 }
 
 
