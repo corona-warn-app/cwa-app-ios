@@ -88,7 +88,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             globalScreenHeight = window.screen.bounds.size.height
             if globalScreenHeight > 667 {
-                globalNumberOfRows = appdefaults.rows.small
+                globalNumberOfRows = appdefaults.rows.large
             }
 
             window.makeKeyAndVisible()

@@ -46,9 +46,7 @@ struct ContentView: View {
     }
     
     //calculate the dimensions of the tile (aspect ratio 1.61)
-    fileprivate func dimensions(_ geometry: GeometryProxy) {
-      //  let hsize = geometry.size.width / 2 - hspacing()
-      //  let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 4) * vspacing()
+    fileprivate func dimensions(_ geometry: GeometryProxy)->(CGFloat, CGFloat) {
         let vMaxSize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 1) * vspacing()
         var hsize = geometry.size.width / 2 - hspacing()
         var vsize = hsize / 1.61
@@ -56,6 +54,7 @@ struct ContentView: View {
             vsize = vMaxSize
             hsize = vsize * 1.61
         }
+        return(vsize, hsize)
     }
     
     
@@ -77,13 +76,9 @@ struct ContentView: View {
     
 // draw a HStack with two tiles
     fileprivate func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
-        
-        let hsize = geometry.size.width / 2 - hspacing()
-        let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 4) * vspacing()
-
         return HStack(spacing: hspacing()) {
-            tile("John Appleseed", withTileNumber: lineNumber * 2, vsize, hsize)
-            tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, vsize, hsize)
+            tile("John Appleseed", withTileNumber: lineNumber * 2, self.dimensions(geometry).0, self.dimensions(geometry).1)
+            tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, self.dimensions(geometry).0, self.dimensions(geometry).1)
         } .padding(.bottom, 2)
     }
     
