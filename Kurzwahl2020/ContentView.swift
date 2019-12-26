@@ -34,12 +34,17 @@ struct ContentView: View {
     fileprivate func hspacing()->CGFloat {
         return (colorScheme == .light ? appdefaults.colorScheme.light.hspacing : appdefaults.colorScheme.dark.hspacing)
     }
+
+    
+    fileprivate func vspacing()->CGFloat {
+        return (colorScheme == .light ? appdefaults.colorScheme.light.vspacing : appdefaults.colorScheme.dark.vspacing)
+    }
     
     
-// draw the label
     fileprivate func textLabel(withTileNumber: Int) {
         
     }
+    
     
 // draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
@@ -59,13 +64,11 @@ struct ContentView: View {
     
 // draw a HStack with two tiles
     fileprivate func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
-        let hspacing = (colorScheme == .light ? appdefaults.colorScheme.light.hspacing : appdefaults.colorScheme.dark.hspacing)
-        let vspacing = (colorScheme == .light ? appdefaults.colorScheme.light.vspacing : appdefaults.colorScheme.dark.vspacing)
         
-        let hsize = geometry.size.width / 2 - hspacing
-        let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 4) * vspacing
+        let hsize = geometry.size.width / 2 - hspacing()
+        let vsize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 4) * vspacing()
 
-        return HStack(spacing: hspacing) {
+        return HStack(spacing: hspacing()) {
             tile("John Appleseed", withTileNumber: lineNumber * 2, vsize, hsize)
             tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, vsize, hsize)
         } .padding(.bottom, 2)
@@ -77,7 +80,7 @@ struct ContentView: View {
         
         TabView(selection: $selection) {
             GeometryReader { geometry in
-                VStack(spacing: appdefaults.colorScheme.light.vspacing) {
+                VStack(spacing: self.vspacing()) {
                     
                     ForEach((0...(globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
@@ -89,7 +92,7 @@ struct ContentView: View {
 
             }.tag(0)
             GeometryReader { geometry in
-                VStack(spacing: appdefaults.colorScheme.light.vspacing) {
+                VStack(spacing: self.vspacing()) {
                     ForEach((globalNumberOfRows...(2*globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
                     }
