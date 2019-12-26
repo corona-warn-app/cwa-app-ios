@@ -18,6 +18,7 @@ struct appdefaults {
     }
     static let fontsize : CGFloat = 28
     static let cornerRadius : CGFloat = 0
+    static let font : String = "PingFang TC Medium"
     struct colorScheme{
         struct dark{
             static let opacity : Double = 0.75

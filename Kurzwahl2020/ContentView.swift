@@ -21,7 +21,7 @@ struct ContentView: View {
     @State private var selection = 0
     @GestureState var isLongPressed = false
 
-    //Dark mode: detect the dark mode and reduce opacity to 0.75
+    //detect the dark mode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
 
     /*
@@ -31,6 +31,7 @@ struct ContentView: View {
      to draw the text field.
      */
     
+    
     fileprivate func hspacing()->CGFloat {
         return (colorScheme == .light ? appdefaults.colorScheme.light.hspacing : appdefaults.colorScheme.dark.hspacing)
     }
@@ -39,11 +40,7 @@ struct ContentView: View {
     fileprivate func vspacing()->CGFloat {
         return (colorScheme == .light ? appdefaults.colorScheme.light.vspacing : appdefaults.colorScheme.dark.vspacing)
     }
-    
-    
-    fileprivate func textLabel(withTileNumber: Int) {
-        
-    }
+
     
     //calculate the dimensions of the tile (aspect ratio 1.61)
     fileprivate func dimensions(_ geometry: GeometryProxy)->(CGFloat, CGFloat) {
@@ -57,9 +54,24 @@ struct ContentView: View {
         return(vsize, hsize)
     }
     
+
+    fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
+        return Text("Siegfried Sylvia").multilineTextAlignment(.center)
+            .font(Font.custom(appdefaults.font, size: appdefaults.fontsize))
+            .foregroundColor(Color.white)
+            .frame(width: width, height: height, alignment: .center)
+            .background(Color.appColor(withTileNumber))
+            .cornerRadius(appdefaults.cornerRadius)
+            .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
+    }
+    
     
 // draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
+        return self.textLabel(withTileNumber: withTileNumber, height: height, width: (width * 0.9))
+            .frame(width: width, height: height)
+                    .background(Color.appColor(withTileNumber))
+        /*
         return Text(name).multilineTextAlignment(.center)
             .font(.system(size: appdefaults.fontsize))
             .foregroundColor(Color.white)
@@ -68,9 +80,11 @@ struct ContentView: View {
             .background(Color.appColor(withTileNumber))
             .cornerRadius(appdefaults.cornerRadius)
             .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
+         */
 //            .onTapGesture {  //see developer documentation
 //                <#code#>
 //        }
+ 
     }
     
     
