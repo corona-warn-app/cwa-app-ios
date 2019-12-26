@@ -17,18 +17,19 @@ struct appdefaults {
     static let large = 6
     }
     static let fontsize : CGFloat = 28
-    static let cornerRadius : CGFloat = 0
     static let font : String = "PingFang TC Medium"
     struct colorScheme{
         struct dark{
-            static let opacity : Double = 0.75
-            static let hspacing : CGFloat = 4
-            static let vspacing : CGFloat = 2
+            static let opacity : Double = 0.8
+            static let cornerRadius : CGFloat = 5
+            static let hspacing : CGFloat = 2
+            static let vspacing : CGFloat = 1
         }
         struct light{
             static let opacity : Double = 1.0
+            static let cornerRadius : CGFloat = 5
             static let hspacing : CGFloat = 2
-            static let vspacing : CGFloat = 0
+            static let vspacing : CGFloat = 1
         }
     }
 }

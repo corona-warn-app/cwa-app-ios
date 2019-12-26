@@ -44,7 +44,8 @@ struct ContentView: View {
     
     //calculate the dimensions of the tile (aspect ratio 1.61)
     fileprivate func dimensions(_ geometry: GeometryProxy)->(CGFloat, CGFloat) {
-        let vMaxSize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 1) * vspacing()
+        //let vMaxSize = geometry.size.height / CGFloat(globalNumberOfRows) - CGFloat(globalNumberOfRows - 3) * vspacing()
+        let vMaxSize = geometry.size.height / CGFloat(globalNumberOfRows) - (vspacing() * CGFloat(globalNumberOfRows - 3) )
         var hsize = geometry.size.width / 2 - hspacing()
         var vsize = hsize / 1.61
         if (vsize > vMaxSize ) {
@@ -56,35 +57,25 @@ struct ContentView: View {
     
 
     fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
-        return Text("Siegfried Sylvia").multilineTextAlignment(.center)
+        return Text("SiegfriedVoi Sylvia \(withTileNumber)").multilineTextAlignment(.center)
             .font(Font.custom(appdefaults.font, size: appdefaults.fontsize))
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
             .background(Color.appColor(withTileNumber))
-            .cornerRadius(appdefaults.cornerRadius)
             .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
+        //            .onTapGesture {  //see developer documentation
+        //                <#code#>
+        //        }
     }
     
     
 // draw one tile
     fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
-        return self.textLabel(withTileNumber: withTileNumber, height: height, width: (width * 0.9))
+        let textwidth = width * 0.9
+        return self.textLabel(withTileNumber: withTileNumber, height: height, width: textwidth)
             .frame(width: width, height: height)
                     .background(Color.appColor(withTileNumber))
-        /*
-        return Text(name).multilineTextAlignment(.center)
-            .font(.system(size: appdefaults.fontsize))
-            .foregroundColor(Color.white)
-            .frame(width: width, height: (width / 1.61), alignment: .center)
-            //.aspectRatio( 1.61, contentMode: .fit)
-            .background(Color.appColor(withTileNumber))
-            .cornerRadius(appdefaults.cornerRadius)
-            .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
-         */
-//            .onTapGesture {  //see developer documentation
-//                <#code#>
-//        }
- 
+            .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
     }
     
     
