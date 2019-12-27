@@ -57,6 +57,7 @@
 		7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreExample.swift; sourceTree = "<group>"; };
 		7E3D7D0A23B6447400C0E29F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7E3D7D0C23B67D3000C0E29F /* PasswordChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChecker.swift; sourceTree = "<group>"; };
+		7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "SwiftUI Doc & Help.md"; sourceTree = "<group>"; };
 		7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +117,7 @@
 				50ADCF872369D87D007B248B /* Colors.json */,
 				502BF53E236399BD00FDE7BF /* Preview Content */,
 				5094A7A52365E324004D0932 /* Notizen.rtf */,
+				7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */,
 			);
 			path = Kurzwahl2020;
 			sourceTree = "<group>";

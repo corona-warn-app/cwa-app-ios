@@ -16,7 +16,7 @@ struct appdefaults {
     static let small = 5
     static let large = 6
     }
-    static var fontsize : CGFloat = 18
+    static var fontsize : CGFloat = 24
     static let font : String = "PingFang TC Medium"
     struct colorScheme{
         struct dark{

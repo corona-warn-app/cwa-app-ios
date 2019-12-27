@@ -16,6 +16,7 @@ struct SettingsView: View {
     //@State private var password: String = ""
     @ObservedObject var passwordChecker: PasswordChecker = PasswordChecker()
     @State private var fontsize: String = "28"
+    @State private var size: Int = 26
     
    var body: some View {
        NavigationView {
@@ -26,13 +27,16 @@ struct SettingsView: View {
                 }
                 Section(header: Text("Password")) {
                     TextField("Password", text: $passwordChecker.password)
-                    //if !self.passwordChecker.password.isEmpty {
-                        SecureLevelView(level: self.passwordChecker.level)
-                    //}
+                    SecureLevelView(level: self.passwordChecker.level)
                 }
                 Section(header: Text("Font Size")) {
                     TextField("Font Size", text: $fontsize)
                 }
+            Section(header: Text("Stepper")) {
+                Stepper(value: $size, in: 20...36) {
+                    Text("Size: \(size)")
+                }
+            }
                 Section {
                         Button(action: {
                     }) {
