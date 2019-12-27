@@ -14,17 +14,27 @@ struct SettingsView: View {
     @State private var name: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var fontsize: String = ""
     
    var body: some View {
        NavigationView {
            Form {
-               Section(header: Text("Your Info")) {
-                TextField("Your name", text: $name)
-                TextField("Your email", text: $email)
-               }
-               Section(header: Text("Password")) {
-                TextField("Password", text: $password)
-               }
+                Section(header: Text("Your Info")) {
+                    TextField("Your name", text: $name)
+                    TextField("Your email", text: $email)
+                }
+                Section(header: Text("Password")) {
+                    TextField("Password", text: $password)
+                }
+                Section(header: Text("Font Size")) {
+                    TextField("Font Size", text: $fontsize)
+                }
+                Section {
+                        Button(action: {
+                    }) {
+                        Text("OK")
+                    }
+            }
 
            }
            .navigationBarTitle(Text("Registration Form"))
