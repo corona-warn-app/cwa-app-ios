@@ -22,6 +22,7 @@
 		50ADCF882369D87D007B248B /* Colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF872369D87D007B248B /* Colors.json */; };
 		7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */; };
 		7E3D7D0B23B6447400C0E29F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0A23B6447400C0E29F /* SettingsView.swift */; };
+		7E3D7D0D23B67D3000C0E29F /* PasswordChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0C23B67D3000C0E29F /* PasswordChecker.swift */; };
 		7EFD45B823B2744200DA0F97 /* SettingsViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		50ADCF872369D87D007B248B /* Colors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Colors.json; sourceTree = "<group>"; };
 		7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreExample.swift; sourceTree = "<group>"; };
 		7E3D7D0A23B6447400C0E29F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7E3D7D0C23B67D3000C0E29F /* PasswordChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChecker.swift; sourceTree = "<group>"; };
 		7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +105,7 @@
 				502BF53A236399BB00FDE7BF /* ContentView.swift */,
 				7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */,
 				7E3D7D0A23B6447400C0E29F /* SettingsView.swift */,
+				7E3D7D0C23B67D3000C0E29F /* PasswordChecker.swift */,
 				7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */,
 				50ADCF812369C135007B248B /* KurzwahlView.swift */,
 				50ADCF832369C35F007B248B /* Storage.swift */,
@@ -250,6 +253,7 @@
 				7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */,
 				502BF55B23639B4E00FDE7BF /* CollectionVC.swift in Sources */,
 				502BF53B236399BB00FDE7BF /* ContentView.swift in Sources */,
+				7E3D7D0D23B67D3000C0E29F /* PasswordChecker.swift in Sources */,
 				50ADCF842369C35F007B248B /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
