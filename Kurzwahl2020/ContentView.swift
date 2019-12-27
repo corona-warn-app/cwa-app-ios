@@ -116,29 +116,18 @@ struct ContentView: View {
             .tabItem {
                 Image(systemName: selection == 1 ? "2.square.fill" : "2.square")
             }.tag(1)
-// settings view
-            VStack {
-                Text("Font Size: \(appdefaults.fontsize)")
-                NavigationView {
-                    NavigationLink(destination: SettingsView()) {
-                        Text("Show Detail View")
-                    }.navigationBarTitle("")
-                }
-            }
-            .tabItem {
-                Image(systemName: selection == 2 ? "3.square.fill" : "3.square")
-            }.tag(2)
+
 // settings view
             SettingsView()
             .tabItem {
-                Image(systemName: selection == 3 ? "4.square.fill" : "4.square")
+                Image(systemName: selection == 2 ? "3.square.fill" : "3.square")
             }.tag(3)
 
         }
     }
 }
 
-// https://iosexample.com/the-missing-swiftui-collection-view/
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
@@ -146,52 +135,3 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-
-
-
-// from https://swiftwithmajid.com/2019/07/10/gestures-in-swiftui/
-struct DragGestureExample : View {
-    @State private var offset: CGSize = .zero
-
-    var body: some View {
-        let drag = DragGesture()
-            .onChanged { self.offset = $0.translation }
-            .onEnded {
-                if $0.translation.width < -100 {
-                    self.offset = .init(width: -1000, height: 0)
-                } else if $0.translation.width > 100 {
-                    self.offset = .init(width: 1000, height: 0)
-                } else {
-                    self.offset = .zero
-                }
-        }
-
-        return PersonView()
-            .background(Color.red)
-            .cornerRadius(8)
-            .shadow(radius: 8)
-            .padding()
-            .offset(x: offset.width, y: offset.height)
-            .gesture(drag)
-            .animation(.interactiveSpring())
-    }
-}
-
-struct PersonView: View {
-    var body: some View {
-        VStack( spacing: 0) {
-            Rectangle()
-                .fill(Color.gray)
-                .cornerRadius(8)
-                .frame(height: 300)
-
-            Text("Majid Jabrayilov")
-                .font(.title)
-                .foregroundColor(.white)
-
-            Text("iOS Developer")
-                .font(.body)
-                .foregroundColor(.white)
-        }.padding()
-    }
-}

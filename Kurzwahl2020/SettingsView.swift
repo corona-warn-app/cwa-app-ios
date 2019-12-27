@@ -2,26 +2,15 @@
 //  SettingsView.swift
 //  Kurzwahl2020
 //
-//  Created by Andreas Vogel on 24.12.19.
+//  Created by Andreas Vogel on 27.12.19.
 //  Copyright © 2019 Vogel, Andreas. All rights reserved.
 //
 
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var name: String = "Tim"
-    
     var body: some View {
-        VStack {
-            HStack {
-                Text("Font Size")
-                TextField("Font Size", text: $name)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                //https://www.hackingwithswift.com/quick-start/swiftui/how-to-add-a-border-to-a-textfield
-                
-            }
-            Text("Hello, \(name)!")
-        }
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 

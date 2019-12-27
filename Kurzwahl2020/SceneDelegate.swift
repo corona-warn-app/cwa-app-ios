@@ -16,7 +16,7 @@ struct appdefaults {
     static let small = 5
     static let large = 6
     }
-    static let fontsize : CGFloat = 28
+    static var fontsize : CGFloat = 18
     static let font : String = "PingFang TC Medium"
     struct colorScheme{
         struct dark{
@@ -88,7 +88,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
 
-            globalScreenHeight = window.screen.bounds.size.height
+            globalScreenHeight = ScreenSize.SCREEN_HEIGHT //window.screen.bounds.size.height
+            NSLog("Screen height %f", globalScreenHeight)
             if globalScreenHeight > 667 {
                 globalNumberOfRows = appdefaults.rows.large
             }

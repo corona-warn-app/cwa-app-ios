@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,8 +20,9 @@
 		50ADCF842369C35F007B248B /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF832369C35F007B248B /* Storage.swift */; };
 		50ADCF862369C46D007B248B /* people.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF852369C46D007B248B /* people.json */; };
 		50ADCF882369D87D007B248B /* Colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF872369D87D007B248B /* Colors.json */; };
-		7E6DF4D823B57825000A2376 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E6DF4D723B57825000A2376 /* Default-568h@2x.png */; };
-		7EFD45B823B2744200DA0F97 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFD45B723B2744200DA0F97 /* SettingsView.swift */; };
+		7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */; };
+		7E3D7D0B23B6447400C0E29F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0A23B6447400C0E29F /* SettingsView.swift */; };
+		7EFD45B823B2744200DA0F97 /* SettingsViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +53,9 @@
 		50ADCF832369C35F007B248B /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		50ADCF852369C46D007B248B /* people.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = people.json; sourceTree = "<group>"; };
 		50ADCF872369D87D007B248B /* Colors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Colors.json; sourceTree = "<group>"; };
-		7E6DF4D723B57825000A2376 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		7EFD45B723B2744200DA0F97 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreExample.swift; sourceTree = "<group>"; };
+		7E3D7D0A23B6447400C0E29F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +79,6 @@
 		502BF52A236399BB00FDE7BF = {
 			isa = PBXGroup;
 			children = (
-				7E6DF4D723B57825000A2376 /* Default-568h@2x.png */,
 				502BF535236399BB00FDE7BF /* Kurzwahl2020 */,
 				502BF54C236399BD00FDE7BF /* Kurzwahl2020Tests */,
 				502BF534236399BB00FDE7BF /* Products */,
@@ -100,7 +101,9 @@
 				502BF538236399BB00FDE7BF /* SceneDelegate.swift */,
 				502BF55A23639B4E00FDE7BF /* CollectionVC.swift */,
 				502BF53A236399BB00FDE7BF /* ContentView.swift */,
-				7EFD45B723B2744200DA0F97 /* SettingsView.swift */,
+				7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */,
+				7E3D7D0A23B6447400C0E29F /* SettingsView.swift */,
+				7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */,
 				50ADCF812369C135007B248B /* KurzwahlView.swift */,
 				50ADCF832369C35F007B248B /* Storage.swift */,
 				502BF53C236399BD00FDE7BF /* Assets.xcassets */,
@@ -200,7 +203,6 @@
 			);
 			mainGroup = 502BF52A236399BB00FDE7BF;
 			packageReferences = (
-				50ADCF7E2369C102007B248B /* XCRemoteSwiftPackageReference "QGrid" */,
 			);
 			productRefGroup = 502BF534236399BB00FDE7BF /* Products */;
 			projectDirPath = "";
@@ -222,7 +224,6 @@
 				50ADCF882369D87D007B248B /* Colors.json in Resources */,
 				50ADCF862369C46D007B248B /* people.json in Resources */,
 				5094A7A62365E324004D0932 /* Notizen.rtf in Resources */,
-				7E6DF4D823B57825000A2376 /* Default-568h@2x.png in Resources */,
 				502BF53D236399BD00FDE7BF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,9 +243,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				502BF537236399BB00FDE7BF /* AppDelegate.swift in Sources */,
-				7EFD45B823B2744200DA0F97 /* SettingsView.swift in Sources */,
+				7EFD45B823B2744200DA0F97 /* SettingsViewExample.swift in Sources */,
 				502BF539236399BB00FDE7BF /* SceneDelegate.swift in Sources */,
+				7E3D7D0B23B6447400C0E29F /* SettingsView.swift in Sources */,
 				50ADCF822369C135007B248B /* KurzwahlView.swift in Sources */,
+				7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */,
 				502BF55B23639B4E00FDE7BF /* CollectionVC.swift in Sources */,
 				502BF53B236399BB00FDE7BF /* ContentView.swift in Sources */,
 				50ADCF842369C35F007B248B /* Storage.swift in Sources */,
@@ -409,7 +412,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.Kurzwahl2020;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Kurzwahl2020;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -429,7 +432,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.Kurzwahl2020;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Kurzwahl2020;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -510,17 +513,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		50ADCF7E2369C102007B248B /* XCRemoteSwiftPackageReference "QGrid" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Q-Mobile/QGrid";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.3;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 502BF52B236399BB00FDE7BF /* Project object */;
 }
