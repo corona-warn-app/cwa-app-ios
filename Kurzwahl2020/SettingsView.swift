@@ -5,13 +5,31 @@
 //  Created by Andreas Vogel on 27.12.19.
 //  Copyright © 2019 Vogel, Andreas. All rights reserved.
 //
+// see https://dev.to/kevinmaarek/forms-made-easy-with-swiftui-3b75
 
 import SwiftUI
+import Combine
 
 struct SettingsView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+    @State private var name: String = ""
+    @State private var email: String = ""
+    @State private var password: String = ""
+    
+   var body: some View {
+       NavigationView {
+           Form {
+               Section(header: Text("Your Info")) {
+                TextField("Your name", text: $name)
+                TextField("Your email", text: $email)
+               }
+               Section(header: Text("Password")) {
+                TextField("Password", text: $password)
+               }
+
+           }
+           .navigationBarTitle(Text("Registration Form"))
+       }
+   }
 }
 
 struct SettingsView_Previews: PreviewProvider {
@@ -19,3 +37,8 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView()
     }
 }
+
+
+
+
+
