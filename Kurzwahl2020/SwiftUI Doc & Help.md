@@ -9,6 +9,10 @@ https://developer.apple.com/tutorials/swiftui/
 ### Introducing SwiftUI
 https://developer.apple.com/videos/play/wwdc2019/204
 
+22:30 Data Flow Primitives: Constants, Property, @State, @Binding
+
+30:30 Demo (continued)
+
 ### SwiftUI Essential
 https://developer.apple.com/videos/play/wwdc2019/216/
 04:00 Views and Modifiers
