@@ -41,13 +41,20 @@ Interesting sections (Time mm:ss):
 * 50:22 Preview: effect of environment on the layout
 * 51:55 Navigating your App
 
-
-
-
 ### Data Flow Through SwiftUI (video)
 Principles of Data Flow
+* 04:00 Single Source of Truth
+* 09:40 Every @State is a source of truth. 
+Views are a function of state, not a sequence of events.
+*
+
+
 Anatomy of an Update
 Understanding Your Data
+
+More session:
+* "What's New in Swift"
+* "Modern Swift API Design"
 
 
 ### Building Custom Views in SwiftUI
