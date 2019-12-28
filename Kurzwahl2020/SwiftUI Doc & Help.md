@@ -4,8 +4,12 @@
 
 https://developer.apple.com/tutorials/swiftui/
 
-## WWWDC 2019
-### SwiftUI Essential (video)
+## WWWDC 2019 Videos
+
+### Introducing SwiftUI
+https://developer.apple.com/videos/play/wwdc2019/204
+
+### SwiftUI Essential
 https://developer.apple.com/videos/play/wwdc2019/216/
 04:00 Views and Modifiers
 12:00 Bindings
@@ -28,13 +32,22 @@ https://developer.apple.com/videos/play/wwdc2019/216/
 47:44 Modifiers and Controls
 49:09 Environment
 
+50:22 Preview: effect of environment on the layout
+
+51:55 Navigating your App
+
+
 
 
 ### Data Flow Through SwiftUI (video)
 
 ### Building Custom Views in SwiftUI
 
+### Integrating SwiftUI
+
 ### Accessibility in SwiftUI
+
+### SwiftUI on all Devices
 
 
 
