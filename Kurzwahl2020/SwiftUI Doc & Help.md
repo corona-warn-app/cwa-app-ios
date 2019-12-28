@@ -46,6 +46,20 @@ Principles of Data Flow
 * 04:00 Single Source of Truth
 * 09:40 Every @State is a source of truth. 
 Views are a function of state, not a sequence of events.
+* 12:50 @State vs. @Binding: read and write w/out ownership; derivable from @State
+* 13:50 $-prefix is a feture of property wrapper; see session "Modern Swift API Design"
+* 15:30 TextField, Toggle, Slider – all expect a Binding as parameter
+* 17:00 Button with animation
+* 18:00 Working with External Data
+* 19:45 Combine Publisher (main thread, .onReceive)
+* 22:00 BindableObject Protocol (new: ObservableObject)
+* 24:30 Creating Dependencies on BindableObject (@ObjectBinding)
+* 26:50 Creating Dependencies Indirectly; put the model into the environment so it can be used everywhere in the app
+* 28:52 When would I use EnvironemntObject vs. ObjectBinding?
+* 29:36 Environment:
+** Data applicable to an entire hierarchy
+** Convenience for indirection
+** Accent color, right-to-left, and more
 *
 
 
