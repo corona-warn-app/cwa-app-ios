@@ -41,7 +41,7 @@ Interesting sections (Time mm:ss):
 * 50:22 Preview: effect of environment on the layout
 * 51:55 Navigating your App
 
-### Data Flow Through SwiftUI (video)
+### Data Flow Through SwiftUI
 Principles of Data Flow
 * 04:00 Single Source of Truth
 * 09:40 Every @State is a source of truth. 
@@ -56,11 +56,9 @@ Views are a function of state, not a sequence of events.
 * 24:30 Creating Dependencies on BindableObject (@ObjectBinding)
 * 26:50 Creating Dependencies Indirectly; put the model into the environment so it can be used everywhere in the app
 * 28:52 When would I use EnvironemntObject vs. ObjectBinding?
-* 29:36 Environment:
-** Data applicable to an entire hierarchy
-** Convenience for indirection
-** Accent color, right-to-left, and more
-*
+* 29:36 Environment: Data applicable to an entire hierarchy – Convenience for indirection – Accent color, right-to-left, and more
+* 30:30 Sources of Truth: @State and @BindableObject (for external data, the model)
+* 31:40 Building Reusable Components
 
 
 Anatomy of an Update
