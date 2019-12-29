@@ -15,6 +15,40 @@
 //
 import SwiftUI
 
+var globalNumberOfRows: Int = appdefaults.rows.small
+var globalScreenHeight: CGFloat = 0
+
+// display 6 rows at least, even on the small iPhone 5/SE
+struct appdefaults {
+    struct rows {
+    static let small = 5
+    static let large = 6
+    }
+    static var fontsize : CGFloat = 24
+    static let font : String = "PingFang TC Medium"
+    struct colorScheme{
+        struct dark{
+            static let opacity : Double = 0.8
+            static let cornerRadius : CGFloat = 5
+            static let hspacing : CGFloat = 3
+            static let vspacing : CGFloat = 1
+        }
+        struct light{
+            static let opacity : Double = 1.0
+            static let cornerRadius : CGFloat = 0
+            static let hspacing : CGFloat = 3
+            static let vspacing : CGFloat = 1
+        }
+    }
+}
+
+
+final class KurzwahlStore : ObservableObject {
+
+}
+
+
+
 
 struct Person : Codable, Identifiable {
   var id: Int

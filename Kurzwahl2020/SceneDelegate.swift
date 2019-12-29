@@ -9,35 +9,6 @@
 import UIKit
 import SwiftUI
 
-// display 6 rows at least, even on the small iPhone 5/SE
-
-struct appdefaults {
-    struct rows {
-    static let small = 5
-    static let large = 6
-    }
-    static var fontsize : CGFloat = 24
-    static let font : String = "PingFang TC Medium"
-    struct colorScheme{
-        struct dark{
-            static let opacity : Double = 0.8
-            static let cornerRadius : CGFloat = 5
-            static let hspacing : CGFloat = 3
-            static let vspacing : CGFloat = 1
-        }
-        struct light{
-            static let opacity : Double = 1.0
-            static let cornerRadius : CGFloat = 0
-            static let hspacing : CGFloat = 3
-            static let vspacing : CGFloat = 1
-        }
-    }
-}
-
-
-var globalNumberOfRows: Int = appdefaults.rows.small
-var globalScreenHeight: CGFloat = 0
-
 struct ScreenSize { // Answer to OP's question
 
     static let SCREEN_WIDTH         = UIScreen.main.bounds.size.width
@@ -72,6 +43,7 @@ struct iOSVersion { //Get current device's iOS version
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var dataModel: KurzwahlStore?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -87,12 +59,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
-
-            globalScreenHeight = ScreenSize.SCREEN_HEIGHT //window.screen.bounds.size.height
-            NSLog("Screen height %f", globalScreenHeight)
-            if globalScreenHeight > 667 {
-                globalNumberOfRows = appdefaults.rows.large
-            }
 
             window.makeKeyAndVisible()
         }
