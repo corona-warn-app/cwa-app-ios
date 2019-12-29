@@ -13,7 +13,7 @@ https://developer.apple.com/videos/play/wwdc2019/204
 
 30:30 Demo (continued)
 
-### SwiftUI Essential
+### SwiftUI Essentials
 https://developer.apple.com/videos/play/wwdc2019/216/
 
 Interesting sections (Time mm:ss):
@@ -59,6 +59,23 @@ Views are a function of state, not a sequence of events.
 * 29:36 Environment: Data applicable to an entire hierarchy – Convenience for indirection – Accent color, right-to-left, and more
 * 30:30 Sources of Truth: @State and @BindableObject (for external data, the model)
 * 31:40 Building Reusable Components
+    * Read-only: Swift property, Environment
+    * Read-write: @Binding
+    * Prefer immutable access
+* 32:45 @Binding
+    * first class reference to data
+    * great for reusability
+    * use $ to derive from source
+* 34:25 Using State Effectively
+    * Limit use if possible
+    * Use derived @Binding or value
+    * Prefer BindableObject for persistence
+    * Example: Button highlighting
+* 36:20 Next Steps
+    * Minimize sources of truth
+    * Understand your data
+    * Build a great app!
+    
 
 
 Anatomy of an Update
@@ -70,6 +87,13 @@ More session:
 
 
 ### Building Custom Views in SwiftUI
+
+### Combine in Practice
+
+### Introducing Combine
+Combine is a unified declarative framework for processing values over time. Learn how it can simplify asynchronous code like networking, key value observing, notifications and callbacks.
+* asynchronous processing
+
 
 ### Integrating SwiftUI
 

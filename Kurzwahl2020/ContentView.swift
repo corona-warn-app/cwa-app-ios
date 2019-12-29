@@ -92,7 +92,7 @@ struct ContentView: View {
     
 //draw a VStack. Number of rows = globalNumberOfRows
     var body: some View {
-        
+// 1st screen
         TabView(selection: $selection) {
             GeometryReader { geometry in
                 VStack(spacing: self.vspacing()) {
@@ -104,8 +104,8 @@ struct ContentView: View {
             }
             .tabItem {
                 Image(systemName: selection == 0 ? "1.square.fill" : "1.square")
-
             }.tag(0)
+// 2nd screen
             GeometryReader { geometry in
                 VStack(spacing: self.vspacing()) {
                     ForEach((globalNumberOfRows...(2*globalNumberOfRows-1)), id: \.self) {
