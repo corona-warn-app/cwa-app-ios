@@ -43,7 +43,6 @@ struct iOSVersion { //Get current device's iOS version
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var dataModel: KurzwahlStore?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

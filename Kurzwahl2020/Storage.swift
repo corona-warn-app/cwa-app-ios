@@ -15,10 +15,10 @@
 //
 import SwiftUI
 
-var globalNumberOfRows: Int = appdefaults.rows.small
+var globalNumberOfRows: Int = appdefaults.rows.large
 var globalScreenHeight: CGFloat = 0
 
-// display 6 rows at least, even on the small iPhone 5/SE
+// global constants
 struct appdefaults {
     struct rows {
     static let small = 5
@@ -43,8 +43,8 @@ struct appdefaults {
 }
 
 
-final class KurzwahlStore : ObservableObject {
-
+final class appSettings : ObservableObject {
+    var fontsize : CGFloat = 24
 }
 
 

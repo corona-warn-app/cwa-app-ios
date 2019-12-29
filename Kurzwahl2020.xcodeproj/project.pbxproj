@@ -16,13 +16,12 @@
 		502BF54E236399BD00FDE7BF /* Kurzwahl2020Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */; };
 		502BF55B23639B4E00FDE7BF /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF55A23639B4E00FDE7BF /* CollectionVC.swift */; };
 		5094A7A62365E324004D0932 /* Notizen.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5094A7A52365E324004D0932 /* Notizen.rtf */; };
-		50ADCF822369C135007B248B /* KurzwahlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF812369C135007B248B /* KurzwahlView.swift */; };
+		50ADCF822369C135007B248B /* ModelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF812369C135007B248B /* ModelColor.swift */; };
 		50ADCF842369C35F007B248B /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF832369C35F007B248B /* Storage.swift */; };
 		50ADCF862369C46D007B248B /* people.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF852369C46D007B248B /* people.json */; };
 		50ADCF882369D87D007B248B /* Colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF872369D87D007B248B /* Colors.json */; };
 		7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */; };
 		7E3D7D0B23B6447400C0E29F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0A23B6447400C0E29F /* SettingsView.swift */; };
-		7E3D7D0D23B67D3000C0E29F /* PasswordChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0C23B67D3000C0E29F /* PasswordChecker.swift */; };
 		7EFD45B823B2744200DA0F97 /* SettingsViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,13 +49,12 @@
 		502BF54F236399BD00FDE7BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		502BF55A23639B4E00FDE7BF /* CollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
 		5094A7A52365E324004D0932 /* Notizen.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notizen.rtf; sourceTree = "<group>"; };
-		50ADCF812369C135007B248B /* KurzwahlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KurzwahlView.swift; sourceTree = "<group>"; };
+		50ADCF812369C135007B248B /* ModelColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelColor.swift; sourceTree = "<group>"; };
 		50ADCF832369C35F007B248B /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		50ADCF852369C46D007B248B /* people.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = people.json; sourceTree = "<group>"; };
 		50ADCF872369D87D007B248B /* Colors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Colors.json; sourceTree = "<group>"; };
 		7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreExample.swift; sourceTree = "<group>"; };
 		7E3D7D0A23B6447400C0E29F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		7E3D7D0C23B67D3000C0E29F /* PasswordChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChecker.swift; sourceTree = "<group>"; };
 		7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "SwiftUI Doc & Help.md"; sourceTree = "<group>"; };
 		7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,9 +104,8 @@
 				502BF53A236399BB00FDE7BF /* ContentView.swift */,
 				7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */,
 				7E3D7D0A23B6447400C0E29F /* SettingsView.swift */,
-				7E3D7D0C23B67D3000C0E29F /* PasswordChecker.swift */,
 				7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */,
-				50ADCF812369C135007B248B /* KurzwahlView.swift */,
+				50ADCF812369C135007B248B /* ModelColor.swift */,
 				50ADCF832369C35F007B248B /* Storage.swift */,
 				502BF53C236399BD00FDE7BF /* Assets.xcassets */,
 				502BF541236399BD00FDE7BF /* LaunchScreen.storyboard */,
@@ -251,11 +248,10 @@
 				7EFD45B823B2744200DA0F97 /* SettingsViewExample.swift in Sources */,
 				502BF539236399BB00FDE7BF /* SceneDelegate.swift in Sources */,
 				7E3D7D0B23B6447400C0E29F /* SettingsView.swift in Sources */,
-				50ADCF822369C135007B248B /* KurzwahlView.swift in Sources */,
+				50ADCF822369C135007B248B /* ModelColor.swift in Sources */,
 				7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */,
 				502BF55B23639B4E00FDE7BF /* CollectionVC.swift in Sources */,
 				502BF53B236399BB00FDE7BF /* ContentView.swift in Sources */,
-				7E3D7D0D23B67D3000C0E29F /* PasswordChecker.swift in Sources */,
 				50ADCF842369C35F007B248B /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
