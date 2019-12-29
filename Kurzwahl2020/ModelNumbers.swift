@@ -10,35 +10,45 @@ import Foundation
 import SwiftUI
 import Combine
 
+enum tileError : Error {
+    case badIndex
+}
 
-class person {
+
+struct tile {
   var id: Int
   var name: String
   var phoneNumber: String
-    
-    init(id: Int, name: String, phoneNumber: String) {
-        self.id = id
-        self.name = name
-        self.phoneNumber = phoneNumber
-    }
 }
     
     
+class phoneBook: ObservableObject{
+    @Published var tiles: [tile] = []
     
-class numbers: ObservableObject{
-    @Published var numbers : [String]
-    
-    init(withNumbers: [String]) {
-        self.numbers = withNumbers
+    init(withTile: tile) {
+        tiles.append(withTile)
     }
+    
+    func getTile(withId: Int) throws ->tile  {
+        if withId <= tiles.count {
+            return tiles[withId]
+        }
+        else {
+            throw tileError.badIndex
+        }
+
+    }
+    
+    func addTile(withTile: tile) {
+        tiles.append(withTile)
+    }
+
+    func modifyTile(withTile: tile) {
+        if withTile.id <= tiles.count {
+            tiles[withTile.id] = withTile
+        }
+    }
+    
+
 }
 
-
-
-class names: ObservableObject{
-    @Published var names : [String]
-    
-    init(withNames: [String]) {
-        self.names = withNames
-    }
-}

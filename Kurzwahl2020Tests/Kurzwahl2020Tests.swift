@@ -30,16 +30,92 @@ class Kurzwahl2020Tests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-//MARK: person class test
-    func testPerson() {
-        let alice = person.init(id: 1, name: "Alice", phoneNumber: "0621999999")
-        XCTAssertNotNil(alice)
-        let bob = person.init(id: 2, name: "Bob", phoneNumber: "0621888")
+//MARK: tiles class test
+    func testTilesaddTiles() {
+        let alice = tile.init(id: 0, name: "Alice", phoneNumber: "0621999999")
+        var sut : phoneBook
+        sut = phoneBook(withTile: alice)
+        
+        XCTAssertNotNil(sut)
+        let bob = tile.init(id: 1, name: "Bob", phoneNumber: "0621888")
+        sut.addTile(withTile: bob)
         XCTAssertNotNil(bob)
         
-        XCTAssertTrue(alice.name == "Alice")
-        XCTAssertTrue(bob.name == "Bob")
-        XCTAssertTrue(bob.phoneNumber == "0621888")
-        XCTAssertTrue(bob.id == 2)
+        var x: tile
+        var y: tile
+        
+        do {
+            x = try sut.getTile(withId: 1)
+            y = try sut.getTile(withId: 0)
+        } catch {
+            x = tile(id: 0, name: "x", phoneNumber: "x")
+            y = tile(id: 0, name: "x", phoneNumber: "x")
+        }
+        XCTAssertTrue(x.id == bob.id)
+        XCTAssertTrue(x.name == bob.name)
+        XCTAssertTrue(x.phoneNumber == bob.phoneNumber)
+
+        XCTAssertTrue(y.id == alice.id)
+        XCTAssertTrue(y.name == alice.name)
+        XCTAssertTrue(y.phoneNumber == alice.phoneNumber)
     }
+
+    func testTilesModifyTiles() {
+        let alice = tile.init(id: 0, name: "Alice", phoneNumber: "0621999999")
+        var sut : phoneBook
+        sut = phoneBook(withTile: alice)
+        
+        let bob = tile.init(id: 1, name: "Bob", phoneNumber: "0621888")
+        sut.addTile(withTile: bob)
+        XCTAssertNotNil(bob)
+        
+        let charlie = tile.init(id: 1, name: "Charlie", phoneNumber: "0621777")
+        sut.modifyTile(withTile: charlie)
+        
+        var x = tile(id: 0, name: "x", phoneNumber: "x")
+        do {
+            x = try sut.getTile(withId: 1)
+        } catch {
+        
+        }
+        XCTAssertTrue(x.id == charlie.id)
+        XCTAssertTrue(x.name == charlie.name)
+        XCTAssertTrue(x.phoneNumber == charlie.phoneNumber)
+    }
+    
+    
+    func testTilesModifyTilesWithIllegalId() {
+        let alice = tile.init(id: 0, name: "Alice", phoneNumber: "0621999999")
+        var sut : phoneBook
+        sut = phoneBook(withTile: alice)
+        
+        let bob = tile.init(id: 1, name: "Bob", phoneNumber: "0621888")
+        sut.addTile(withTile: bob)
+        XCTAssertNotNil(bob)
+        
+        let charlie = tile.init(id: 105, name: "Charlie", phoneNumber: "0621777")
+        sut.modifyTile(withTile: charlie)
+
+        var x = tile(id: 0, name: "x", phoneNumber: "x")
+        do {
+            x = try sut.getTile(withId: 1)
+        } catch {
+        }
+        
+        XCTAssertTrue(x.id == bob.id)
+        XCTAssertTrue(x.name == bob.name)
+        XCTAssertTrue(x.phoneNumber == bob.phoneNumber)
+        
+        var z = tile(id: 0, name: "x", phoneNumber: "x")
+        
+        do {
+            z = try sut.getTile(withId: 105)
+        } catch {
+        }
+        
+        XCTAssertTrue(z.id == 0)
+        XCTAssertTrue(z.name == "x")
+        XCTAssertTrue(z.phoneNumber == "x")
+    }
+    
 }
