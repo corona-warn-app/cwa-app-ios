@@ -11,6 +11,20 @@ import SwiftUI
 import Combine
 
 
+class person {
+  var id: Int
+  var name: String
+  var phoneNumber: String
+    
+    init(id: Int, name: String, phoneNumber: String) {
+        self.id = id
+        self.name = name
+        self.phoneNumber = phoneNumber
+    }
+}
+    
+    
+    
 class numbers: ObservableObject{
     @Published var numbers : [String]
     

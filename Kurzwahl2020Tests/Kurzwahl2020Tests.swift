@@ -30,5 +30,16 @@ class Kurzwahl2020Tests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
+//MARK: person class test
+    func testPerson() {
+        let alice = person.init(id: 1, name: "Alice", phoneNumber: "0621999999")
+        XCTAssertNotNil(alice)
+        let bob = person.init(id: 2, name: "Bob", phoneNumber: "0621888")
+        XCTAssertNotNil(bob)
+        
+        XCTAssertTrue(alice.name == "Alice")
+        XCTAssertTrue(bob.name == "Bob")
+        XCTAssertTrue(bob.phoneNumber == "0621888")
+        XCTAssertTrue(bob.id == 2)
+    }
 }

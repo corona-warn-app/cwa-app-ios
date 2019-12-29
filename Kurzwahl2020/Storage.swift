@@ -50,13 +50,6 @@ final class appSettings : ObservableObject {
 
 
 
-struct Person : Codable, Identifiable {
-  var id: Int
-  var firstName: String
-  var lastName: String
-  var imageName: String
-}
-
 struct TileColor : Codable, Identifiable {
     var id: Int
     var red: String   
@@ -67,7 +60,7 @@ struct TileColor : Codable, Identifiable {
 }
 
 struct Storage {
-  static var people: [Person] = load("people.json")
+//  static var people: [Person] = load("people.json")
 //  static var colors: [TileColor] = load("Colors.json")
   
   static func load<T: Decodable>(_ file: String) -> T {
