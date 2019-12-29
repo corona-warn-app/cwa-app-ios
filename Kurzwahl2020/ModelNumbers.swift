@@ -1,5 +1,5 @@
 //
-//  ModelPhoneNumbers.swift
+//  ModelNumbers.swift
 //  Kurzwahl2020
 //
 //  Created by Vogel, Andreas on 29.12.19.
@@ -20,6 +20,12 @@ struct tile {
   var name: String
   var phoneNumber: String
 }
+
+struct tileSet : Hashable {
+  var id: Int
+  var name: String
+  var phoneNumber: String
+}
     
     
 class phoneBook: ObservableObject{
@@ -29,6 +35,7 @@ class phoneBook: ObservableObject{
         tiles.append(withTile)
     }
     
+    
     func getTile(withId: Int) throws ->tile  {
         if withId <= tiles.count {
             return tiles[withId]
@@ -36,15 +43,16 @@ class phoneBook: ObservableObject{
         else {
             throw tileError.badIndex
         }
-
     }
     
+    
     func addTile(withTile: tile) {
-        tiles.append(withTile)
+        self.tiles.append(withTile)
     }
 
+    
     func modifyTile(withTile: tile) {
-        if withTile.id <= tiles.count {
+        if withTile.id >= 0 {
             tiles[withTile.id] = withTile
         }
     }
