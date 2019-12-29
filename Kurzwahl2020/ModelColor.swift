@@ -12,7 +12,11 @@ import Combine
 
 
 class tileColor: ObservableObject{
+    @Published var name : String = "Alice"
     
+    init(selectedName: String) {
+        self.name = selectedName
+    }
 }
 
 // the color names refer to the items in Asset.xcassets
