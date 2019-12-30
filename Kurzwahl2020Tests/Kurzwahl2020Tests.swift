@@ -32,32 +32,31 @@ class Kurzwahl2020Tests: XCTestCase {
     }
 //MARK: tiles class test
     func testTilesaddTiles() {
-        let alice = tile.init(id: 0, name: "Alice", phoneNumber: "0621999999")
+        
         var sut : phoneBook
-        sut = phoneBook(withTile: alice)
+        sut = phoneBook()
         
         XCTAssertNotNil(sut)
-        let bob = tile.init(id: 1, name: "Bob", phoneNumber: "0621888")
-        sut.addTile(withTile: bob)
-        XCTAssertNotNil(bob)
-        
+        let bravo = tile.init(id: 1, name: "Bravo", phoneNumber: "062111223344")
+        let lima = tile.init(id: 11, name: "Lima", phoneNumber: "062111223344")
+       
         var x: tile
         var y: tile
         
         do {
             x = try sut.getTile(withId: 1)
-            y = try sut.getTile(withId: 0)
+            y = try sut.getTile(withId: 11)
         } catch {
             x = tile(id: 0, name: "x", phoneNumber: "x")
             y = tile(id: 0, name: "x", phoneNumber: "x")
         }
-        XCTAssertTrue(x.id == bob.id)
-        XCTAssertTrue(x.name == bob.name)
-        XCTAssertTrue(x.phoneNumber == bob.phoneNumber)
+        XCTAssertTrue(x.id == bravo.id)
+        XCTAssertTrue(x.name == bravo.name)
+        XCTAssertTrue(x.phoneNumber == bravo.phoneNumber)
 
-        XCTAssertTrue(y.id == alice.id)
-        XCTAssertTrue(y.name == alice.name)
-        XCTAssertTrue(y.phoneNumber == alice.phoneNumber)
+        XCTAssertTrue(y.id == lima.id)
+        XCTAssertTrue(y.name == lima.name)
+        XCTAssertTrue(y.phoneNumber == lima.phoneNumber)
     }
 
     func testTilesModifyTiles() {

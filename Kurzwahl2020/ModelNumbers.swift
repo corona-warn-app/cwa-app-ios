@@ -20,19 +20,28 @@ struct tile {
   var name: String
   var phoneNumber: String
 }
-
-struct tileSet : Hashable {
-  var id: Int
-  var name: String
-  var phoneNumber: String
-}
     
     
 class phoneBook: ObservableObject{
     @Published var tiles: [tile] = []
+    private var names : [String] =
+        ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
+         "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
+         "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo",
+         "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
+         "Yankee", "Zulu"]
     
     init(withTile: tile) {
         tiles.append(withTile)
+    }
+    
+    init() {
+        var x: tile
+        for i in 0...23 {
+            x = tile(id: i, name: names[i], phoneNumber: "062111223344")
+            tiles.append(x)
+        }
+        
     }
     
     
@@ -47,7 +56,7 @@ class phoneBook: ObservableObject{
     
     
     func addTile(withTile: tile) {
-        self.tiles.append(withTile)
+        modifyTile(withTile: withTile)
     }
 
     
