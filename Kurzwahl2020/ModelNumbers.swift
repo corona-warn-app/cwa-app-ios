@@ -47,7 +47,7 @@ class phoneBook: ObservableObject{
     
     
     func getTile(withId: Int) throws ->tile  {
-        if withId <= tiles.count {
+        if withId < tiles.count {
             return tiles[withId]
         }
         else {
@@ -65,5 +65,13 @@ class phoneBook: ObservableObject{
     }
     
 
+    func getName(withId: Int) -> String {
+        if withId < tiles.count {
+            return tiles[withId].name
+        }
+        else {
+            return ""
+        }
+    }
 }
 

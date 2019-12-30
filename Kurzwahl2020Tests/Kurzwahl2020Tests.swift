@@ -57,6 +57,52 @@ class Kurzwahl2020Tests: XCTestCase {
         XCTAssertTrue(testLima.phoneNumber == lima.phoneNumber)
     }
 
+    
+    func testTilesGetTilesBoundCheck() {
+        let maxIndex = globalNumberOfRows * 2 * 2 - 1
+        let maxIndexPlusOne = maxIndex + 1
+        let Xray = tile.init(id: 23, name: "X-ray", phoneNumber: "062111223344")
+       
+        var testXray: tile
+        var testNull: tile
+        testNull = tile(id: 0, name: "0", phoneNumber: "0")
+        
+        do {
+            testXray = try sut.getTile(withId: maxIndex)
+        } catch {
+            testXray = testNull
+        }
+        XCTAssertTrue(testXray.id == Xray.id)
+        XCTAssertTrue(testXray.name == Xray.name)
+        XCTAssertTrue(testXray.phoneNumber == Xray.phoneNumber)
+        
+        do {
+            testXray = try sut.getTile(withId: maxIndexPlusOne)
+        } catch {
+            testXray = testNull
+        }
+        XCTAssertTrue(testXray.id == testNull.id)
+        XCTAssertTrue(testXray.name == testNull.name)
+        XCTAssertTrue(testXray.phoneNumber == testNull.phoneNumber)
+        
+    }
+    
+    
+    func testTilesGetName() {
+        
+        let bravo = tile.init(id: 1, name: "Bravo", phoneNumber: "062111223344")
+        let lima = tile.init(id: 42, name: "Lima", phoneNumber: "062111223344")
+       
+        var testName: String
+        
+        testName = sut.getName(withId: bravo.id)
+        XCTAssertTrue(testName == bravo.name)
+        
+        testName = sut.getName(withId: lima.id)
+        XCTAssertFalse(testName == lima.name)
+      
+    }
+
     func testTilesModifyTiles() {
 
         let bob = tile.init(id: 1, name: "Bob", phoneNumber: "0621888")

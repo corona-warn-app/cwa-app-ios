@@ -60,8 +60,8 @@ struct ContentView: View {
     }
     
 
-    fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
-        return Text("SiegfriedVomni Sylvia \(withTileNumber)").multilineTextAlignment(.center)
+       fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
+        return Text("\(model.getName(withId: withTileNumber))").multilineTextAlignment(.center)
             .font(Font.custom(appdefaults.font, size: appdefaults.fontsize))
             .padding(.horizontal)
             .foregroundColor(Color.white)
@@ -74,7 +74,7 @@ struct ContentView: View {
     
     
 // draw one tile
-    fileprivate func tile(_ name: String, withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
+    fileprivate func tile(withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
         return self.textLabel(withTileNumber: withTileNumber, height: height, width: width)
             .frame(width: width, height: height)
             .background(Color.appColor(withTileNumber))
@@ -85,8 +85,8 @@ struct ContentView: View {
 // draw a HStack with two tiles
     fileprivate func hstackTiles(_ lineNumber: Int, _ geometry: GeometryProxy) -> some View {
         return HStack(spacing: self.hspacing()) {
-            tile("John Appleseed", withTileNumber: lineNumber * 2, self.dimensions(geometry).0, self.dimensions(geometry).1)
-            tile("Andreas Vogel", withTileNumber: lineNumber * 2 + 1, self.dimensions(geometry).0, self.dimensions(geometry).1)
+            tile(withTileNumber: lineNumber * 2, self.dimensions(geometry).0, self.dimensions(geometry).1)
+            tile(withTileNumber: lineNumber * 2 + 1, self.dimensions(geometry).0, self.dimensions(geometry).1)
         } .padding(.bottom, 2)
     }
     
