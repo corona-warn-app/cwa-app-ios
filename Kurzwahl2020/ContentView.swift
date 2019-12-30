@@ -30,7 +30,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection = 0
     @GestureState var isLongPressed = false
-
+    @ObservedObject var model : phoneBook
+    
     //detect the dark mode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
@@ -131,7 +132,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(model: globalDataModel)
     }
 }
 

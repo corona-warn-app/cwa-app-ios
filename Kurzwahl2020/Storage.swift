@@ -17,6 +17,7 @@ import SwiftUI
 
 var globalNumberOfRows: Int = appdefaults.rows.large
 var globalScreenHeight: CGFloat = 0
+var globalDataModel : phoneBook = phoneBook()
 
 // global constants
 struct appdefaults {

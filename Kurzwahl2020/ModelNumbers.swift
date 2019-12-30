@@ -23,7 +23,11 @@ struct tile {
     
     
 class phoneBook: ObservableObject{
+    
+    var didChange = PassthroughSubject<Void, Never>()
+    
     @Published var tiles: [tile] = []
+    
     private var names : [String] =
         ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
          "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
@@ -56,6 +60,7 @@ class phoneBook: ObservableObject{
     func modifyTile(withTile: tile)   {
         if withTile.id >= 0 && withTile.id < tiles.count{
             tiles[withTile.id] = withTile
+            didChange.send()
         }
     }
     
