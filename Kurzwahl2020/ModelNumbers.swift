@@ -31,10 +31,7 @@ class phoneBook: ObservableObject{
          "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
          "Yankee", "Zulu"]
     
-    init(withTile: tile) {
-        tiles.append(withTile)
-    }
-    
+   
     init() {
         var x: tile
         for i in 0...23 {
@@ -55,13 +52,9 @@ class phoneBook: ObservableObject{
     }
     
     
-    func addTile(withTile: tile) {
-        modifyTile(withTile: withTile)
-    }
-
-    
-    func modifyTile(withTile: tile) {
-        if withTile.id >= 0 {
+   
+    func modifyTile(withTile: tile)   {
+        if withTile.id >= 0 && withTile.id < tiles.count{
             tiles[withTile.id] = withTile
         }
     }
