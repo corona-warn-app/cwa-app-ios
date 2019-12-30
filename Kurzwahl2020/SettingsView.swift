@@ -14,9 +14,7 @@ struct SettingsView: View {
     @State private var name: String = ""
     @State private var email: String = ""
     //@State private var password: String = ""
-//    @ObservedObject private var myname : tileColor
-    @State private var fontsize: String = "28"
-    @State private var size: Int = 26
+    @ObservedObject var model : kurzwahlModel
     
    var body: some View {
        NavigationView {
@@ -25,16 +23,13 @@ struct SettingsView: View {
                     TextField("Your name", text: $name)
                     TextField("Your email", text: $email)
                 }
-//                Section(header: Text("Password")) {
-//                    TextField("Password", text: $passwordChecker.password)
-//                    SecureLevelView(level: self.passwordChecker.level)
+
+//                Section(header: Text("Font Size")) {
+//                    TextField("Font Size", text: model.getFontSize())
 //                }
-                Section(header: Text("Font Size")) {
-                    TextField("Font Size", text: $fontsize)
-                }
             Section(header: Text("Stepper")) {
-                Stepper(value: $size, in: 20...36) {
-                    Text("Size: \(size)")
+                Stepper(value: $model.fontSize, in: 20...36) {
+                    Text("Size: \(model.getFontSizeAsInt())")
                 }
             }
                 Section {
@@ -52,7 +47,7 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(model: globalDataModel)
     }
 }
 

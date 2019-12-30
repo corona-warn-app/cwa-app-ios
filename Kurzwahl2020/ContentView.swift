@@ -30,7 +30,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection = 0
     @GestureState var isLongPressed = false
-    @ObservedObject var model : phoneBook
+    @ObservedObject var model : kurzwahlModel
     
     //detect the dark mode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -62,7 +62,7 @@ struct ContentView: View {
 
        fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
         return Text("\(model.getName(withId: withTileNumber))").multilineTextAlignment(.center)
-            .font(Font.custom(appdefaults.font, size: appdefaults.fontsize))
+            .font(Font.custom(appdefaults.font, size: model.fontSize))
             .padding(.horizontal)
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
@@ -119,7 +119,7 @@ struct ContentView: View {
             }.tag(1)
 
 // settings view
-            SettingsView()
+            SettingsView(model: globalDataModel)
             .tabItem {
                 Image(systemName: selection == 2 ? "3.square.fill" : "3.square")
             }.tag(3)

@@ -22,11 +22,12 @@ struct tile {
 }
     
     
-class phoneBook: ObservableObject{
+class kurzwahlModel: ObservableObject{
     
     var didChange = PassthroughSubject<Void, Never>()
     
     @Published var tiles: [tile] = []
+    @Published var fontSize : CGFloat = 24
     
     private var names : [String] =
         ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
@@ -73,5 +74,11 @@ class phoneBook: ObservableObject{
             return ""
         }
     }
+    
+    
+    func getFontSizeAsInt() -> Int {
+        return Int(fontSize)
+    }
+
 }
 

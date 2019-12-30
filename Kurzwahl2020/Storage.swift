@@ -5,19 +5,12 @@
 //  Created by Vogel, Andreas on 30.10.19.
 //  Copyright © 2019 Vogel, Andreas. All rights reserved.
 //
-
-//
-//  Storage.swift
-//  QGrid
-//
-//  Created by Karol Kulesza on 7/06/19.
-//  Copyright © 2019 Q Mobile { http://Q-Mobile.IT }
 //
 import SwiftUI
 
 var globalNumberOfRows: Int = appdefaults.rows.large
 var globalScreenHeight: CGFloat = 0
-var globalDataModel : phoneBook = phoneBook()
+var globalDataModel : kurzwahlModel = kurzwahlModel()
 
 // global constants
 struct appdefaults {
@@ -42,13 +35,6 @@ struct appdefaults {
         }
     }
 }
-
-
-final class appSettings : ObservableObject {
-    var fontsize : CGFloat = 24
-}
-
-
 
 
 struct TileColor : Codable, Identifiable {
