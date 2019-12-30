@@ -19,16 +19,8 @@ struct SettingsView: View {
    var body: some View {
        NavigationView {
            Form {
-                Section(header: Text("Your Info")) {
-                    TextField("Your name", text: $name)
-                    TextField("Your email", text: $email)
-                }
-
-//                Section(header: Text("Font Size")) {
-//                    TextField("Font Size", text: model.getFontSize())
-//                }
-            Section(header: Text("Stepper")) {
-                Stepper(value: $model.fontSize, in: 20...36) {
+            Section(header: Text("Font Size")) {
+                Stepper(value: $model.fontSize, in: 12...64) {
                     Text("Size: \(model.getFontSizeAsInt())")
                 }
             }
@@ -40,7 +32,7 @@ struct SettingsView: View {
             }
 
            }
-           .navigationBarTitle(Text("Registration Form"))
+           .navigationBarTitle(Text("Settings"))
        }
    }
 }
@@ -48,65 +40,5 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(model: globalDataModel)
-    }
-}
-
-
-
-enum PasswordLevel: Int {
-    case none = 0
-    case weak = 1
-    case ok = 2
-    case strong = 3
-}
-
-struct SecureLevelView : View {
-    var level: PasswordLevel
-    var body: some View {
-        HStack {
-            RoundedRectangle(cornerRadius: 8).foregroundColor(self.getColors()[0]).frame(height: 10)
-            RoundedRectangle(cornerRadius: 8).foregroundColor(self.getColors()[1]).frame(height: 10)
-            RoundedRectangle(cornerRadius: 8).foregroundColor(self.getColors()[2]).frame(height: 10)
-        }
-    }
-
-    func getColors() -> [Color] {
-        switch self.level {
-        case .none:
-            return [.clear, .clear, .clear]
-        case .weak:
-            return [.red, .clear, .clear]
-        case .ok:
-            return [.red, .orange, .clear]
-        case .strong:
-            return [.red, .orange, .green]
-        }
-    }
-}
-
-class PasswordChecker: ObservableObject {
-    public let didChange = PassthroughSubject<PasswordChecker, Never>()
-    var password: String = "" {
-        didSet {
-            self.checkForPassword(password: self.password)
-        }
-    }
-
-    var level: PasswordLevel = .none {
-        didSet {
-            self.didChange.send(self)
-        }
-    }
-
-    func checkForPassword(password: String) {
-        if password.count == 0 {
-            self.level = .none
-        } else if password.count < 2 {
-            self.level = .weak
-        } else if password.count < 6 {
-            self.level = .ok
-        } else {
-            self.level = .strong
-        }
     }
 }

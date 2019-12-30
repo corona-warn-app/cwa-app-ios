@@ -9,7 +9,6 @@
 import SwiftUI
 
 var globalNumberOfRows: Int = appdefaults.rows.large
-var globalScreenHeight: CGFloat = 0
 var globalDataModel : kurzwahlModel = kurzwahlModel()
 
 // global constants
@@ -18,7 +17,6 @@ struct appdefaults {
     static let small = 5
     static let large = 6
     }
-    static var fontsize : CGFloat = 24
     static let font : String = "PingFang TC Medium"
     struct colorScheme{
         struct dark{

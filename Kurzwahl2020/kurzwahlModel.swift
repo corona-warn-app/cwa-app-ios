@@ -14,7 +14,6 @@ enum tileError : Error {
     case badIndex
 }
 
-
 struct tile {
   var id: Int
   var name: String
@@ -43,7 +42,6 @@ class kurzwahlModel: ObservableObject{
             x = tile(id: i, name: names[i], phoneNumber: "062111223344")
             tiles.append(x)
         }
-        
     }
     
     
@@ -55,7 +53,6 @@ class kurzwahlModel: ObservableObject{
             throw tileError.badIndex
         }
     }
-    
     
    
     func modifyTile(withTile: tile)   {
