@@ -21,6 +21,33 @@ struct tile {
 }
     
     
+var globalNumberOfRows: Int = appdefaults.rows.large
+var globalDataModel : kurzwahlModel = kurzwahlModel()
+
+// global constants
+struct appdefaults {
+    struct rows {
+    static let small = 5
+    static let large = 6
+    }
+    static let font : String = "PingFang TC Medium"
+    struct colorScheme{
+        struct dark{
+            static let opacity : Double = 0.8
+            static let cornerRadius : CGFloat = 5
+            static let hspacing : CGFloat = 3
+            static let vspacing : CGFloat = 1
+        }
+        struct light{
+            static let opacity : Double = 1.0
+            static let cornerRadius : CGFloat = 0
+            static let hspacing : CGFloat = 3
+            static let vspacing : CGFloat = 1
+        }
+    }
+}
+
+
 class kurzwahlModel: ObservableObject{
     
     var didChange = PassthroughSubject<Void, Never>()
