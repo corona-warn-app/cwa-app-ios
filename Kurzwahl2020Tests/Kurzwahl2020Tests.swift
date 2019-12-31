@@ -142,4 +142,13 @@ class Kurzwahl2020Tests: XCTestCase {
 
     }
     
+    
+    func testModelGetFontsize() {
+        var size:Int = 0
+        size = sut.getFontSizeAsInt()
+        
+        let property = Int(sut.fontSize)
+        XCTAssertTrue(size == property)
+    }
+    
 }
