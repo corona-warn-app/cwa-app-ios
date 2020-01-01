@@ -23,18 +23,32 @@ import Foundation
 
 
 class storage {
-
+    fileprivate let numbersFileName = "CBC24numbers"
+    fileprivate let namesFileName = "CBC24names"
+    
     init() {
         
     }
     
 
-    func persist() {
+    func persist(withNames : [String] ) {
         
         let directory : URL = FileManager.sharedContainerURL()
-        let fullPath = directory.appendingPathComponent("testfile")
+        let fullPath = directory.appendingPathComponent(namesFileName)
         do {
-            try NSKeyedArchiver.archivedData(withRootObject: appdefaults.self, requiringSecureCoding: false).write(to: fullPath)
+            try NSKeyedArchiver.archivedData(withRootObject: withNames, requiringSecureCoding: false).write(to: fullPath)
+        } catch {
+      
+        }
+    }
+
+    
+    func persist(withNumbers : [String] ) {
+        
+        let directory : URL = FileManager.sharedContainerURL()
+        let fullPath = directory.appendingPathComponent(numbersFileName)
+        do {
+            try NSKeyedArchiver.archivedData(withRootObject: withNumbers, requiringSecureCoding: false).write(to: fullPath)
         } catch {
       
         }

@@ -151,4 +151,15 @@ class Kurzwahl2020Tests: XCTestCase {
         XCTAssertTrue(size == property)
     }
     
+    
+    func testPersist() {
+        var names : [String] =
+        ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
+         "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
+         "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo",
+         "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
+         "Yankee", "Zulu"]
+        
+        sut.persist()
+    }
 }

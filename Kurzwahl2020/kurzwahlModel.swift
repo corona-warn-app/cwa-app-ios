@@ -122,6 +122,14 @@ class kurzwahlModel: ObservableObject{
     func getFontSizeAsInt() -> Int {
         return Int(fontSize)
     }
+    
+    
+    func persist() {
+        let storageManager = storage.init()
+        storageManager.persist(withNames: names)
+        storageManager.persist(withNumbers: phoneNumbers)
+        
+    }
 
 }
 
