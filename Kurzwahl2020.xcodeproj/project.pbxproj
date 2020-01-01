@@ -58,6 +58,7 @@
 		7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreExample.swift; sourceTree = "<group>"; };
 		7E3D7D0A23B6447400C0E29F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "SwiftUI Doc & Help.md"; sourceTree = "<group>"; };
+		7E4F6A1F23BB93BA00530294 /* Kurzwahl2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kurzwahl2020.entitlements; sourceTree = "<group>"; };
 		7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +101,7 @@
 		502BF535236399BB00FDE7BF /* Kurzwahl2020 */ = {
 			isa = PBXGroup;
 			children = (
+				7E4F6A1F23BB93BA00530294 /* Kurzwahl2020.entitlements */,
 				502BF536236399BB00FDE7BF /* AppDelegate.swift */,
 				502BF538236399BB00FDE7BF /* SceneDelegate.swift */,
 				502BF55A23639B4E00FDE7BF /* CollectionVC.swift */,
@@ -408,6 +410,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Kurzwahl2020/Kurzwahl2020.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Kurzwahl2020/Preview Content\"";
 				DEVELOPMENT_TEAM = 38NDJTMNK5;
@@ -428,6 +431,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Kurzwahl2020/Kurzwahl2020.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Kurzwahl2020/Preview Content\"";
 				DEVELOPMENT_TEAM = 38NDJTMNK5;

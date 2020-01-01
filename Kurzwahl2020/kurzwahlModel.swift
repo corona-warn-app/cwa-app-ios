@@ -23,6 +23,7 @@ struct tile {
     
 var globalNumberOfRows: Int = appdefaults.rows.large
 var globalDataModel : kurzwahlModel = kurzwahlModel()
+var APPGROUP : String = "group.org.tcfos.callbycolor"
 
 // global constants
 struct appdefaults {
