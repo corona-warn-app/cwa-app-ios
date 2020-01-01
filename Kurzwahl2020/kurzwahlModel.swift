@@ -5,6 +5,20 @@
 //  Created by Vogel, Andreas on 29.12.19.
 //  Copyright © 2019 Vogel, Andreas. All rights reserved.
 //
+// the data model consists of:
+//      names
+//      phone numbers
+//
+// The class kurzwahlModel manages arrays for names & phone numbers.
+// The contents of these arrays shall be stored in a shared container.
+//
+// NSUserDefaults shall be used for storing:
+//      fontsize
+//      font name
+//      ...
+// Read about NSUserDefaults
+//https://www.codingexplorer.com/nsuserdefaults-a-swift-introduction/
+
 
 import Foundation
 import SwiftUI
@@ -26,12 +40,12 @@ var globalDataModel : kurzwahlModel = kurzwahlModel()
 var APPGROUP : String = "group.org.tcfos.callbycolor"
 
 // global constants
-struct appdefaults {
+struct appdefaults : Hashable {
     struct rows {
     static let small = 5
     static let large = 6
     }
-    static let font : String = "PingFang TC Medium"
+    //static let font : String = "PingFang TC Medium"
     struct colorScheme{
         struct dark{
             static let opacity : Double = 0.8
@@ -55,6 +69,8 @@ class kurzwahlModel: ObservableObject{
     
     @Published var tiles: [tile] = []
     @Published var fontSize : CGFloat = 24
+    @Published var font : String = "PingFang TC Medium"
+    
     
     private var names : [String] =
         ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
@@ -62,6 +78,8 @@ class kurzwahlModel: ObservableObject{
          "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo",
          "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
          "Yankee", "Zulu"]
+    private var phoneNumbers : [ String ] = [""]
+    private var colors : [ String ] = [""]
     
    
     init() {

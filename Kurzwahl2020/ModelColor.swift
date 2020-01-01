@@ -20,7 +20,7 @@ class tileColor: ObservableObject{
 }
 
 // the color names refer to the items in Asset.xcassets
-fileprivate var AssetColorList: [String] = [
+var AssetColorList: [String] = [
     "OrangeFF9500","Darkblue00398E", "RedFF3A2D",  "RedAC193D",
     "Green008A00", "OrangeD24726", "Green00A600", "Blue2E8DEF",
     "Darkgrey6E6E6E", "lightGreyAEAEAE", "DarkViolet5856D6", "grey8E8E8E",

@@ -18,6 +18,9 @@
 import SwiftUI
 import Foundation
 
+// can we use simple arrays to store data to file?
+
+
 
 class storage {
 
@@ -29,9 +32,9 @@ class storage {
     func persist() {
         
         let directory : URL = FileManager.sharedContainerURL()
-        let fileURL = directory.appendingPathComponent("testfile")
+        let fullPath = directory.appendingPathComponent("testfile")
         do {
-            try NSKeyedArchiver.archivedData(withRootObject: appdefaults(), requiringSecureCoding: true).write(to: fileURL)
+            try NSKeyedArchiver.archivedData(withRootObject: appdefaults.self, requiringSecureCoding: false).write(to: fullPath)
         } catch {
       
         }
@@ -41,14 +44,19 @@ class storage {
     // check this: https://www.hackingwithswift.com/example-code/system/how-to-save-and-load-objects-with-nskeyedarchiver-and-nskeyedunarchiver
 //  Apple:  Use +unarchivedObjectOfClass:fromData:error: instead
     
-// https://www.raywenderlich.com/6733-nscoding-tutorial-for-ios-how-to-permanently-save-app-data
+// https://stackoverflow.com/questions/49526740/nskeyedunarchiver-unarchivetoplevelobjectwithdata-is-obsoleted-in-swift-4
     func load() {
         var payload : appdefaults
         
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent("testfile")
-        //NSKeyedUnarchiver.unarchivedObject(ofClass: <#T##NSCoding.Protocol#>, from: <#T##Data#>)
-        
+
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let payload = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as? appdefaults
+        } catch {
+            
+        }
     
     }
        

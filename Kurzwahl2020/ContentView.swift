@@ -62,7 +62,7 @@ struct ContentView: View {
 
        fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
         return Text("\(model.getName(withId: withTileNumber))").multilineTextAlignment(.center)
-            .font(Font.custom(appdefaults.font, size: model.fontSize))
+            .font(Font.custom(model.font, size: model.fontSize))
             .padding(.horizontal)
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
