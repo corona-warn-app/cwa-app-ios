@@ -39,14 +39,15 @@ class storage {
 
     
     // check this: https://www.hackingwithswift.com/example-code/system/how-to-save-and-load-objects-with-nskeyedarchiver-and-nskeyedunarchiver
-//    Use +unarchivedObjectOfClass:fromData:error: instead
-
+//  Apple:  Use +unarchivedObjectOfClass:fromData:error: instead
+    
+// https://www.raywenderlich.com/6733-nscoding-tutorial-for-ios-how-to-permanently-save-app-data
     func load() {
         var payload : appdefaults
         
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent("testfile")
-        //NSKeyedUnarchiver.unarchivedObject(ofClasses: appdefaults, from: <#T##Data#>)
+        //NSKeyedUnarchiver.unarchivedObject(ofClass: <#T##NSCoding.Protocol#>, from: <#T##Data#>)
         
     
     }
