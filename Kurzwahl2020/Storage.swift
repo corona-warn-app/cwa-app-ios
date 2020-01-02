@@ -31,10 +31,10 @@ class storage {
     }
     
 
-    func persist(withNames : [String] ) {
-        
+    func persist(withNames : [String], withFilename: String = "" ) {
+        let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
-        let fullPath = directory.appendingPathComponent(namesFileName)
+        let fullPath = directory.appendingPathComponent(filename)
         do {
             try NSKeyedArchiver.archivedData(withRootObject: withNames, requiringSecureCoding: false).write(to: fullPath)
         } catch {
@@ -43,10 +43,11 @@ class storage {
     }
 
     
-    func persist(withNumbers : [String] ) {
+    func persist(withNumbers : [String], withFilename: String = "" ) {
         
+        let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
-        let fullPath = directory.appendingPathComponent(numbersFileName)
+        let fullPath = directory.appendingPathComponent(filename)
         do {
             try NSKeyedArchiver.archivedData(withRootObject: withNumbers, requiringSecureCoding: false).write(to: fullPath)
         } catch {
@@ -59,22 +60,29 @@ class storage {
 //  Apple:  Use +unarchivedObjectOfClass:fromData:error: instead
     
 // https://stackoverflow.com/questions/49526740/nskeyedunarchiver-unarchivetoplevelobjectwithdata-is-obsoleted-in-swift-4
-    func load() {
-        var payload : appdefaults
-        
+    func loadNames(withFilename : String = "") throws ->[String] {
+        let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
-        let fileURL = directory.appendingPathComponent("testfile")
-
-        do {
-            let data = try Data(contentsOf: fileURL)
-            let payload = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as? appdefaults
-        } catch {
-            
-        }
-    
+        let fileURL = directory.appendingPathComponent(filename)
+        let data = try Data(contentsOf: fileURL)
+        let result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+        
+        return result
     }
-       
+    
+    
+    func loadNumbers(withFilename : String = "") throws ->[String] {
+        let filename : String = (withFilename.count == 0 ? numbersFileName : withFilename)
+        let directory : URL = FileManager.sharedContainerURL()
+        let fileURL = directory.appendingPathComponent(filename)
+        let data = try Data(contentsOf: fileURL)
+        let result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+        
+        return result
+    }
+    
 }
+
 
 // from https://dmtopolog.com/ios-app-extensions-data-sharing/
 extension FileManager {

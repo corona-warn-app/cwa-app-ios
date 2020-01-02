@@ -15,6 +15,7 @@
 		502BF543236399BD00FDE7BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 502BF541236399BD00FDE7BF /* LaunchScreen.storyboard */; };
 		502BF54E236399BD00FDE7BF /* Kurzwahl2020Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */; };
 		502BF55B23639B4E00FDE7BF /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF55A23639B4E00FDE7BF /* CollectionVC.swift */; };
+		505F052623BDF0290032B776 /* PersistenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F052523BDF0290032B776 /* PersistenceTest.swift */; };
 		5094A7A62365E324004D0932 /* Notizen.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5094A7A52365E324004D0932 /* Notizen.rtf */; };
 		509989AA23B9466300C19C15 /* kurzwahlModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509989A923B9466300C19C15 /* kurzwahlModel.swift */; };
 		50ADCF822369C135007B248B /* ModelColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF812369C135007B248B /* ModelColor.swift */; };
@@ -23,7 +24,6 @@
 		50ADCF882369D87D007B248B /* Colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF872369D87D007B248B /* Colors.json */; };
 		7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */; };
 		7E3D7D0B23B6447400C0E29F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0A23B6447400C0E29F /* SettingsView.swift */; };
-		7E4F6A2123BD591E00530294 /* PersistenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4F6A2023BD591E00530294 /* PersistenceTest.swift */; };
 		7EFD45B823B2744200DA0F97 /* SettingsViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +50,7 @@
 		502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kurzwahl2020Tests.swift; sourceTree = "<group>"; };
 		502BF54F236399BD00FDE7BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		502BF55A23639B4E00FDE7BF /* CollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
+		505F052523BDF0290032B776 /* PersistenceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceTest.swift; sourceTree = "<group>"; };
 		5094A7A52365E324004D0932 /* Notizen.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notizen.rtf; sourceTree = "<group>"; };
 		509989A923B9466300C19C15 /* kurzwahlModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = kurzwahlModel.swift; sourceTree = "<group>"; };
 		50ADCF812369C135007B248B /* ModelColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelColor.swift; sourceTree = "<group>"; };
@@ -60,7 +61,6 @@
 		7E3D7D0A23B6447400C0E29F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "SwiftUI Doc & Help.md"; sourceTree = "<group>"; };
 		7E4F6A1F23BB93BA00530294 /* Kurzwahl2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kurzwahl2020.entitlements; sourceTree = "<group>"; };
-		7E4F6A2023BD591E00530294 /* PersistenceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTest.swift; sourceTree = "<group>"; };
 		7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,8 +137,8 @@
 		502BF54C236399BD00FDE7BF /* Kurzwahl2020Tests */ = {
 			isa = PBXGroup;
 			children = (
+				505F052523BDF0290032B776 /* PersistenceTest.swift */,
 				502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */,
-				7E4F6A2023BD591E00530294 /* PersistenceTest.swift */,
 				502BF54F236399BD00FDE7BF /* Info.plist */,
 			);
 			path = Kurzwahl2020Tests;
@@ -270,7 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				502BF54E236399BD00FDE7BF /* Kurzwahl2020Tests.swift in Sources */,
-				7E4F6A2123BD591E00530294 /* PersistenceTest.swift in Sources */,
+				505F052623BDF0290032B776 /* PersistenceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
