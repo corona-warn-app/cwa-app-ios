@@ -79,6 +79,8 @@ class kurzwahlModel: ObservableObject{
          "Yankee", "Zulu"]
     private var phoneNumbers : [ String ] = [""]
     private var colors : [ String ] = [""]
+    
+    //Dictionary of settings
     var settings : [String : String] = ["fontsize" : "24"]
    
     init() {
@@ -89,8 +91,6 @@ class kurzwahlModel: ObservableObject{
         }
         self.load()
         fontSize = CGFloat(((settings["fontsize"] ?? "18") as NSString).doubleValue)
-        
-        
     }
     
     
