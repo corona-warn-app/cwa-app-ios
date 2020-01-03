@@ -71,7 +71,6 @@ class kurzwahlModel: ObservableObject{
     @Published var fontSize : CGFloat = 24
     @Published var font : String = "PingFang TC Medium"
     
-    
     private var names : [String] =
         ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
          "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
@@ -80,7 +79,7 @@ class kurzwahlModel: ObservableObject{
          "Yankee", "Zulu"]
     private var phoneNumbers : [ String ] = [""]
     private var colors : [ String ] = [""]
-    
+    var settings : [String : String] = ["fontsize" : "24"]
    
     init() {
         var x: tile
@@ -88,6 +87,10 @@ class kurzwahlModel: ObservableObject{
             x = tile(id: i, name: names[i], phoneNumber: "062111223344")
             tiles.append(x)
         }
+        self.load()
+        fontSize = CGFloat(((settings["fontsize"] ?? "18") as NSString).doubleValue)
+        
+        
     }
     
     
@@ -123,12 +126,26 @@ class kurzwahlModel: ObservableObject{
         return Int(fontSize)
     }
     
-    
+
     func persist() {
         let storageManager = storage.init()
         storageManager.persist(withNames: names)
         storageManager.persist(withNumbers: phoneNumbers)
+        storageManager.persist(settings: settings)
         
+    }
+    
+    
+    func load() {
+        let storageManager = storage.init()
+        
+        do {
+            self.names = try storageManager.loadNames()
+            self.phoneNumbers = try storageManager.loadNumbers()
+            settings = try storageManager.loadSettings()
+        } catch {
+            
+        }
     }
 
 }

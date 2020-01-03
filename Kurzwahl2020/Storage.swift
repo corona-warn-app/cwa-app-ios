@@ -25,6 +25,7 @@ import Foundation
 class storage {
     fileprivate let numbersFileName = "CBC24numbers"
     fileprivate let namesFileName = "CBC24names"
+    fileprivate let settingsFileName = "CBC24settings"
     
     init() {
         
@@ -56,6 +57,19 @@ class storage {
     }
 
     
+    func persist(settings : [String : String], withFilename: String = "" ) {
+        
+        let filename : String = (withFilename.count == 0 ? settingsFileName : withFilename)
+        let directory : URL = FileManager.sharedContainerURL()
+        let fullPath = directory.appendingPathComponent(filename)
+        do {
+            try NSKeyedArchiver.archivedData(withRootObject: settings, requiringSecureCoding: false).write(to: fullPath)
+        } catch {
+      
+        }
+    }
+    
+    
     // check this: https://www.hackingwithswift.com/example-code/system/how-to-save-and-load-objects-with-nskeyedarchiver-and-nskeyedunarchiver
 //  Apple:  Use +unarchivedObjectOfClass:fromData:error: instead
     
@@ -70,13 +84,24 @@ class storage {
         return result
     }
     
-    
+
     func loadNumbers(withFilename : String = "") throws ->[String] {
         let filename : String = (withFilename.count == 0 ? numbersFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent(filename)
         let data = try Data(contentsOf: fileURL)
         let result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+        
+        return result
+    }
+    
+    
+    func loadSettings(withFilename : String = "") throws ->[String : String] {
+        let filename : String = (withFilename.count == 0 ? settingsFileName : withFilename)
+        let directory : URL = FileManager.sharedContainerURL()
+        let fileURL = directory.appendingPathComponent(filename)
+        let data = try Data(contentsOf: fileURL)
+        let result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String : String]
         
         return result
     }

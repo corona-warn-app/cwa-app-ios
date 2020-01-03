@@ -13,8 +13,10 @@ class PersistenceTests: XCTestCase {
     var sut : storage = storage()
     var testNames : [String] = ["abc", "def"]
     var testNumbers : [String] = ["012", "+49"]
+    var testSettings : [String : String] = ["alpha" : "beta", "charlie": "delta"]
     let namesTestfile : String = "namesTestfile"
     let numbersTestfile : String = "numbersTestfile"
+    let settingsTestfile : String = "settingsTestfile"
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -33,7 +35,6 @@ class PersistenceTests: XCTestCase {
             
         }
         
-        XCTAssertNotNil(result)
         XCTAssertTrue(result == testNames)
     }
     
@@ -46,9 +47,21 @@ class PersistenceTests: XCTestCase {
             
         }
         
-        XCTAssertNotNil(result)
         XCTAssertTrue(result == testNumbers)
     }
 
+    
+    func testPersistForSettings() {
+        var result : [String : String] = ["":""]
+        sut.persist(settings: testSettings, withFilename: settingsTestfile)
+        do {
+            result = try sut.loadSettings(withFilename: settingsTestfile)
+        } catch {
+            
+        }
+        
+        XCTAssertTrue(result == testSettings)
+    }
+    
     
 }
