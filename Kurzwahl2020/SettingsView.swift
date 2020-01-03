@@ -11,9 +11,6 @@ import SwiftUI
 import Combine
 
 struct SettingsView: View {
-    @State private var name: String = ""
-    @State private var email: String = ""
-    //@State private var password: String = ""
     @ObservedObject var model : kurzwahlModel
     
    var body: some View {

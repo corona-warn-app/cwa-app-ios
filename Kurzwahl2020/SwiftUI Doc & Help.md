@@ -55,7 +55,7 @@ Views are a function of state, not a sequence of events.
 * 22:00 BindableObject Protocol (new: ObservableObject)
 * 24:30 Creating Dependencies on BindableObject (@ObjectBinding)
 * 26:50 Creating Dependencies Indirectly; put the model into the environment so it can be used everywhere in the app
-* 28:52 When would I use EnvironemntObject vs. ObjectBinding?
+* 28:52 When would I use EnvironmentObject vs. ObjectBinding?
 * 29:36 Environment: Data applicable to an entire hierarchy – Convenience for indirection – Accent color, right-to-left, and more
 * 30:30 Sources of Truth: @State and @BindableObject (for external data, the model)
 * 31:40 Building Reusable Components
@@ -76,7 +76,10 @@ Views are a function of state, not a sequence of events.
     * Understand your data
     * Build a great app!
     
-
+    ### Combine in Practice
+    * 22.30 Integrating Combine
+    * 23:55 use Interface Builder to create a target action: @IBAction func valueChanged(_ sender: UITextField)
+    
 
 Anatomy of an Update
 Understanding Your Data
@@ -84,6 +87,7 @@ Understanding Your Data
 More session:
 * "What's New in Swift"
 * "Modern Swift API Design"
+
 
 
 ### Building Custom Views in SwiftUI

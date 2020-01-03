@@ -18,6 +18,17 @@
 //      ...
 // Read about NSUserDefaults
 //https://www.codingexplorer.com/nsuserdefaults-a-swift-introduction/
+//
+// https://swiftwithmajid.com/2019/06/19/building-forms-with-swiftui/
+//var sleepGoal: Int {
+//       set { defaults.set(newValue, forKey: Keys.sleepGoal) }
+//       get { defaults.integer(forKey: Keys.sleepGoal) }
+//   }
+
+// User changes fontsize on settings screen. How can we update and
+// persist the settings dictionary?
+
+
 
 
 import Foundation
@@ -37,7 +48,7 @@ struct tile {
     
 var globalNumberOfRows: Int = appdefaults.rows.large
 var globalDataModel : kurzwahlModel = kurzwahlModel()
-var APPGROUP : String = "group.org.tcfos.callbycolor"
+let APPGROUP : String = "group.org.tcfos.callbycolor"
 
 // global constants
 struct appdefaults : Hashable {
@@ -68,8 +79,8 @@ class kurzwahlModel: ObservableObject{
     var didChange = PassthroughSubject<Void, Never>()
     
     @Published var tiles: [tile] = []
-    @Published var fontSize : CGFloat = 24
     @Published var font : String = "PingFang TC Medium"
+    @Published var fontSize : CGFloat = 0
     
     private var names : [String] =
         ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
