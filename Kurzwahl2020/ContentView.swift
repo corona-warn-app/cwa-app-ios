@@ -79,12 +79,25 @@ struct ContentView: View {
             .frame(width: width, height: height)
             .background(Color.appColor(withTileNumber))
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
-        .onTapGesture(count: 2) {  //see developer documentation
-                print("double tapped")
-            }
-            .onTapGesture(count: 1) {  //see developer documentation
-                print("tapped")
-        }
+            .gesture(
+                TapGesture(count: 2)
+                    .onEnded {_ in
+                        print("double tapped")
+                }
+            )
+            .gesture(
+                TapGesture(count: 1)
+                    .onEnded {_ in
+                        print("tapped")
+                }
+            )
+            .gesture(
+                LongPressGesture(minimumDuration: 1)
+                    .onEnded { _ in
+                        print("long press")
+                    }
+            )
+
     }
     
     
