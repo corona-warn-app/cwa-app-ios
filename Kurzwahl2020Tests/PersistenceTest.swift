@@ -18,14 +18,28 @@ class PersistenceTests: XCTestCase {
     let numbersTestfile : String = "numbersTestfile"
     let settingsTestfile : String = "settingsTestfile"
 
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
+    
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        let directory : URL = FileManager.sharedContainerURL()
+        let fullPathNames = directory.appendingPathComponent(namesTestfile)
+        let fullPathNumbers = directory.appendingPathComponent(numbersTestfile)
+        let fullPathSettings = directory.appendingPathComponent(settingsTestfile)
+        do {
+            try FileManager.default.removeItem(at: fullPathNames)
+            try FileManager.default.removeItem(at: fullPathNumbers)
+            try FileManager.default.removeItem(at: fullPathSettings)
+        } catch let error as NSError {
+            print("Error: \(error.domain)")
+        }
     }
 
+    
     func testPersistForNames() {
         var result : [String] = [""]
         sut.persist(withNames: testNames, withFilename: namesTestfile)
@@ -37,6 +51,7 @@ class PersistenceTests: XCTestCase {
         
         XCTAssertTrue(result == testNames)
     }
+    
     
     func testPersistForNumbers() {
         var result : [String] = [""]
