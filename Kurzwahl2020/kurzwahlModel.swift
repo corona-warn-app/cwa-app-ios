@@ -135,12 +135,7 @@ class kurzwahlModel: ObservableObject{
     }
     
     
-    // persist settings because user has changes fontsize
     func getFontSizeAsInt() -> Int {
-        if settings["fontsize"] != String(Int(fontSize)) {
-            settings["fontsize"] = String(Int(fontSize))
-            self.storageManager.persist(settings: settings)
-        }
         return Int(fontSize)
     }
     
@@ -149,6 +144,14 @@ class kurzwahlModel: ObservableObject{
         self.storageManager.persist(withNames: names)
         self.storageManager.persist(withNumbers: phoneNumbers)
         self.storageManager.persist(settings: settings)
+    }
+    
+    
+    func persistSettings() {
+        if settings["fontsize"] != String(Int(fontSize)) {
+            settings["fontsize"] = String(Int(fontSize))
+            self.storageManager.persist(settings: settings)
+        }
     }
     
     

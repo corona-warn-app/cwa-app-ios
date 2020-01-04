@@ -25,8 +25,8 @@ struct SettingsView: View {
             }
            }
            .navigationBarTitle(Text("Settings"))
-       }
-   }
+       }.onDisappear{self.model.persistSettings()}
+    }
 }
 
 struct SettingsView_Previews: PreviewProvider {
