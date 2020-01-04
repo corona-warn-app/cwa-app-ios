@@ -75,12 +75,6 @@ Views are a function of state, not a sequence of events.
     * Minimize sources of truth
     * Understand your data
     * Build a great app!
-    
-    ### Combine in Practice
-    * 22.30 Integrating Combine
-    * 23:55 use Interface Builder to create a target action: @IBAction func valueChanged(_ sender: UITextField)
-    
-
 Anatomy of an Update
 Understanding Your Data
 
@@ -89,14 +83,37 @@ More session:
 * "Modern Swift API Design"
 
 
-
 ### Building Custom Views in SwiftUI
 
-### Combine in Practice
 
 ### Introducing Combine
 Combine is a unified declarative framework for processing values over time. Learn how it can simplify asynchronous code like networking, key value observing, notifications and callbacks.
 * asynchronous processing
+* 03:30 Publisher (value type, struct)
+* 04:55 Subscriber (reference type; class)
+* 06:10 The Pattern
+* 06:50 Example
+* 08:00 Operators (adopts Publisher; struct)
+* 09:30 Operator Construction
+* 11:00 Declarative Operator API
+    * Functional transformations
+    * List operations
+    * Error handling
+    * Thread or queue movement
+    * Scheduling over time
+* 11:35 Core design principle of Combine: Try composition first
+* 12:00 Synchronous/async, single value/many values
+* 14:45 async. processing – Zip: converts several inputs into a single tuple (when/AND): 
+Example: enable a button when three conditions are true
+* Combine Latest – converts several inputs into a single tuple (when/OR)
+
+Web: https://www.avanderlee.com/swift/combine/
+
+### Combine in Practice
+* 22.30 Integrating Combine
+* 23:55 use Interface Builder to create a target action: @IBAction func valueChanged(_ sender: UITextField)
+
+
 
 
 ### Integrating SwiftUI

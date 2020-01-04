@@ -134,6 +134,8 @@ class kurzwahlModel: ObservableObject{
     
     
     func getFontSizeAsInt() -> Int {
+        settings["fontsize"] = String(Int(fontSize))
+        self.persistSettings()
         return Int(fontSize)
     }
     
@@ -142,8 +144,14 @@ class kurzwahlModel: ObservableObject{
         let storageManager = storage.init()
         storageManager.persist(withNames: names)
         storageManager.persist(withNumbers: phoneNumbers)
+        self.persistSettings()
+    }
+
+    
+    
+    func persistSettings() {
+        let storageManager = storage.init()
         storageManager.persist(settings: settings)
-        
     }
     
     

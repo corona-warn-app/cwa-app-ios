@@ -6,12 +6,14 @@
 //  Copyright © 2019 Vogel, Andreas. All rights reserved.
 //
 // see https://dev.to/kevinmaarek/forms-made-easy-with-swiftui-3b75
+// see https://heckj.github.io/swiftui-notes/
 
 import SwiftUI
 import Combine
 
 struct SettingsView: View {
     @ObservedObject var model : kurzwahlModel
+    
     
    var body: some View {
        NavigationView {
