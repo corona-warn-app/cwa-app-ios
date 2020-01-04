@@ -149,3 +149,8 @@ https://www.egeniq.com/blog/deeper-understanding-swiftui
 ## Apple Human Interface Guidelines – Gestures
 https://developer.apple.com/design/human-interface-guidelines/ios/user-interaction/gestures/
 
+
+## Hacking Swift
+What’s the difference between @ObservedObject, @State, and @EnvironmentObject?
+
+https://www.hackingwithswift.com/quick-start/swiftui/whats-the-difference-between-observedobject-state-and-environmentobject

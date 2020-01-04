@@ -83,6 +83,7 @@ struct ContentView: View {
                 TapGesture(count: 2)
                     .onEnded {_ in
                         print("double tapped")
+                        editTile(model: globalDataModel)
                 }
             )
             .gesture(
