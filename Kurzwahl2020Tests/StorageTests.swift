@@ -1,5 +1,5 @@
 //
-//  PersistenceTest.swift
+//  StorageTests.swift
 //  Kurzwahl2020Tests
 //
 //  Created by Andreas Vogel on 01.01.20.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import Kurzwahl2020
 
-class PersistenceTests: XCTestCase {
+class StorageTests: XCTestCase {
     var sut : storage = storage()
     var testNames : [String] = ["abc", "def"]
     var testNumbers : [String] = ["012", "+49"]

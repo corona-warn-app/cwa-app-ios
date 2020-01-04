@@ -93,7 +93,9 @@ class kurzwahlModel: ObservableObject{
     
     //Dictionary of settings
     var settings : [String : String] = ["fontsize" : "24"]
-   
+    let storageManager = storage.init()
+    
+    
     init() {
         var x: tile
         for i in 0...23 {
@@ -133,35 +135,26 @@ class kurzwahlModel: ObservableObject{
     }
     
     
+    // persist settings because user has changes fontsize
     func getFontSizeAsInt() -> Int {
         settings["fontsize"] = String(Int(fontSize))
-        self.persistSettings()
+        self.storageManager.persist(settings: settings)
         return Int(fontSize)
     }
     
 
     func persist() {
-        let storageManager = storage.init()
-        storageManager.persist(withNames: names)
-        storageManager.persist(withNumbers: phoneNumbers)
-        self.persistSettings()
-    }
-
-    
-    
-    func persistSettings() {
-        let storageManager = storage.init()
-        storageManager.persist(settings: settings)
+        self.storageManager.persist(withNames: names)
+        self.storageManager.persist(withNumbers: phoneNumbers)
+        self.storageManager.persist(settings: settings)
     }
     
     
     func load() {
-        let storageManager = storage.init()
-        
         do {
-            self.names = try storageManager.loadNames()
-            self.phoneNumbers = try storageManager.loadNumbers()
-            settings = try storageManager.loadSettings()
+            self.names = try self.storageManager.loadNames()
+            self.phoneNumbers = try self.storageManager.loadNumbers()
+            self.settings = try self.storageManager.loadSettings()
         } catch {
             
         }
