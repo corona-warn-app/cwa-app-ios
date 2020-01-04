@@ -23,13 +23,6 @@ struct SettingsView: View {
                     Text("Size: \(model.getFontSizeAsInt())")
                 }
             }
-                Section {
-                        Button(action: {
-                    }) {
-                        Text("OK")
-                    }
-            }
-
            }
            .navigationBarTitle(Text("Settings"))
        }
