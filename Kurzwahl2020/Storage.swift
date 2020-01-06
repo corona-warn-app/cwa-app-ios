@@ -46,7 +46,7 @@ class storage {
     
     func persist(withNumbers : [String], withFilename: String = "" ) {
         
-        let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
+        let filename : String = (withFilename.count == 0 ? numbersFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fullPath = directory.appendingPathComponent(filename)
         do {
@@ -65,7 +65,7 @@ class storage {
         do {
             try NSKeyedArchiver.archivedData(withRootObject: settings, requiringSecureCoding: false).write(to: fullPath)
         } catch {
-      
+            print("Store settings failed")
         }
     }
     
@@ -75,34 +75,47 @@ class storage {
     
 // https://stackoverflow.com/questions/49526740/nskeyedunarchiver-unarchivetoplevelobjectwithdata-is-obsoleted-in-swift-4
     func loadNames(withFilename : String = "") throws ->[String] {
+        var result : [String] = [""]
         let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent(filename)
+        do {
         let data = try Data(contentsOf: fileURL)
-        let result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
-        
+        result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+        } catch {
+            print("load Names failed")
+        }
         return result
     }
     
 
     func loadNumbers(withFilename : String = "") throws ->[String] {
+        var result : [String] = [""]
         let filename : String = (withFilename.count == 0 ? numbersFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent(filename)
+        do {
         let data = try Data(contentsOf: fileURL)
-        let result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
-        
+        result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+        } catch {
+            print("load Numbers failed")
+        }
         return result
     }
     
     
     func loadSettings(withFilename : String = "") throws ->[String : String] {
+        var result: [String : String] = ["":""]
         let filename : String = (withFilename.count == 0 ? settingsFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent(filename)
-        let data = try Data(contentsOf: fileURL)
-        let result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String : String]
-        
+        do {
+            let data = try Data(contentsOf: fileURL)
+            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String : String]
+            return result
+        } catch {
+            print("load settings failed")
+        }
         return result
     }
     

@@ -161,7 +161,7 @@ class kurzwahlModel: ObservableObject{
             self.phoneNumbers = try self.storageManager.loadNumbers()
             self.settings = try self.storageManager.loadSettings()
         } catch {
-            
+            print("kurwahlMode load failed")
         }
     }
 
