@@ -116,6 +116,7 @@ class storage {
             return result
         } catch {
             print("load settings failed")
+            result = ["fontsize" : "22"]
         }
         return result
     }
@@ -132,7 +133,15 @@ class storage {
         let fullPathSettings = directory.appendingPathComponent(settingsFileName)
         do {
             try FileManager.default.removeItem(at: fullPathNames)
+        } catch let error as NSError {
+            print("Error: \(error.domain)")
+        }
+        do {
             try FileManager.default.removeItem(at: fullPathNumbers)
+        } catch let error as NSError {
+            print("Error: \(error.domain)")
+        }
+        do {
             try FileManager.default.removeItem(at: fullPathSettings)
         } catch let error as NSError {
             print("Error: \(error.domain)")

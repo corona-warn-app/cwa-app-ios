@@ -42,7 +42,7 @@ final class NavigationStack: ObservableObject  {
     }
     
     func home( ){
-        currentView = NavigationItem( view: AnyView(HomeView(model: kurzwahlModel())))
+        currentView = NavigationItem( view: AnyView(HomeView()))
         viewStack.removeAll()
     }
 }
@@ -64,7 +64,7 @@ struct HomeViewX: View {
     var body: some View {
         TabView(selection: $selection) {
             Text("Click me").onTapGesture(count: 1){
-                self.navigation.advance(NavigationItem(view: AnyView(editTile(model: kurzwahlModel()))))
+                self.navigation.advance(NavigationItem(view: AnyView(editTile())))
                 }
             .tabItem {
                 Image(systemName: selection == 0 ? "1.square.fill" : "1.square")

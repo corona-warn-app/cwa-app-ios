@@ -11,7 +11,7 @@ import SwiftUI
 
 
 struct editTile: View {
-    @ObservedObject var model : kurzwahlModel
+//    @ObservedObject var model : kurzwahlModel
     @State var tile : Int = 0
     @State private var name : String = ""
     @State private var number : String = ""
@@ -43,6 +43,6 @@ struct editTile: View {
 
 struct editTile_Previews: PreviewProvider {
     static var previews: some View {
-        editTile(model: globalDataModel)
+        editTile()
     }
 }

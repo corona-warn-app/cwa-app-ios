@@ -12,7 +12,7 @@ import SwiftUI
 struct ContentView2: View {
     var body: some View {
         NavigationHost()
-            .environmentObject(NavigationStack( NavigationItem( view: AnyView(HomeView(model: kurzwahlModel())))))
+            .environmentObject(NavigationStack( NavigationItem( view: AnyView(HomeView()))))
     }
 }
 
@@ -21,7 +21,7 @@ struct HomeView: View {
     @EnvironmentObject var navigation: NavigationStack
     @State private var selection = 0
     @GestureState var isLongPressed = false
-    @ObservedObject var model : kurzwahlModel
+ //   @ObservedObject var model : kurzwahlModel
 
   
     //detect the dark mode
@@ -62,7 +62,7 @@ struct HomeView: View {
             }.tag(1)
 
         // settings view
-            SettingsView(model: globalDataModel).onDisappear{self.model.persistSettings()}
+            SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
             .tabItem {
                 Image(systemName: selection == 2 ? "3.square.fill" : "3.square")
             }.tag(3)
@@ -95,8 +95,8 @@ struct HomeView: View {
         
 
     fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
-        return Text("\(model.getName(withId: withTileNumber))").multilineTextAlignment(.center)
-            .font(Font.custom(model.font, size: model.fontSize))
+        return Text("\(globalDataModel.getName(withId: withTileNumber))").multilineTextAlignment(.center)
+            .font(Font.custom(globalDataModel.font, size: globalDataModel.fontSize))
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
             .padding(.horizontal)
@@ -111,7 +111,7 @@ struct HomeView: View {
             .background(Color.appColor(withTileNumber))
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
             .onTapGesture(count: 2) {
-                self.navigation.advance(NavigationItem(view: AnyView(editTile(model: kurzwahlModel(), tile: withTileNumber))))
+                self.navigation.advance(NavigationItem(view: AnyView(editTile(tile: withTileNumber))))
             }
         }
     
