@@ -158,10 +158,18 @@ class kurzwahlModel: ObservableObject{
     func load() {
         do {
             self.names = try self.storageManager.loadNames()
+        } catch {
+                print("kurwahlModel load names failed")
+        }
+        do {
             self.phoneNumbers = try self.storageManager.loadNumbers()
+        } catch {
+            print("kurwahlModel loadNumbers failed")
+        }
+        do {
             self.settings = try self.storageManager.loadSettings()
         } catch {
-            print("kurwahlMode load failed")
+            print("kurwahlModel load settings failed")
         }
     }
 

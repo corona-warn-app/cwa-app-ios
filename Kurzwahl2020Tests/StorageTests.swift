@@ -78,5 +78,5 @@ class StorageTests: XCTestCase {
         XCTAssertTrue(result == testSettings)
     }
     
-    
+
 }

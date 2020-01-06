@@ -28,7 +28,7 @@ class storage {
     fileprivate let settingsFileName = "CBC24settings"
     
     init() {
-        
+        //self.deleteFilesFromAppgroup()
     }
     
 
@@ -78,6 +78,7 @@ class storage {
         var result : [String] = [""]
         let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
+        
         let fileURL = directory.appendingPathComponent(filename)
         do {
         let data = try Data(contentsOf: fileURL)
@@ -118,6 +119,27 @@ class storage {
         }
         return result
     }
+    
+    
+    func deleteFilesFromAppgroup() {
+        let numbersFileName = "CBC24numbers"
+        let namesFileName = "CBC24names"
+        let settingsFileName = "CBC24settings"
+        
+        let directory : URL = FileManager.sharedContainerURL()
+        let fullPathNames = directory.appendingPathComponent(namesFileName)
+        let fullPathNumbers = directory.appendingPathComponent(numbersFileName)
+        let fullPathSettings = directory.appendingPathComponent(settingsFileName)
+        do {
+            try FileManager.default.removeItem(at: fullPathNames)
+            try FileManager.default.removeItem(at: fullPathNumbers)
+            try FileManager.default.removeItem(at: fullPathSettings)
+        } catch let error as NSError {
+            print("Error: \(error.domain)")
+        }
+        
+    }
+    
     
 }
 
