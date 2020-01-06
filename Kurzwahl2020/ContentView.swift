@@ -31,6 +31,7 @@ struct ContentView: View {
     @State private var selection = 0
     @GestureState var isLongPressed = false
     @ObservedObject var model : kurzwahlModel
+    @State private var showingSheet = false
     
     //detect the dark mode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -75,6 +76,7 @@ struct ContentView: View {
     
 // draw one tile
     fileprivate func tile(withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
+        
         return self.textLabel(withTileNumber: withTileNumber, height: height, width: width)
             .frame(width: width, height: height)
             .background(Color.appColor(withTileNumber))
@@ -83,15 +85,17 @@ struct ContentView: View {
                 TapGesture(count: 2)
                     .onEnded {_ in
                         print("double tapped")
-                        editTile(model: globalDataModel)
                 }
             )
             .gesture(
                 TapGesture(count: 1)
                     .onEnded {_ in
                         print("tapped")
+                        self.showingSheet = true
                 }
-            )
+        ).actionSheet(isPresented: $showingSheet){
+            ActionSheet(title: Text("What do you want to do?"), message: Text("There's only one choice..."), buttons: [.default(Text("Dismiss Action Sheet"))])
+        }
             .gesture(
                 LongPressGesture(minimumDuration: 1)
                     .onEnded { _ in
@@ -100,6 +104,7 @@ struct ContentView: View {
             )
 
     }
+    
     
     
 // draw a HStack with two tiles
