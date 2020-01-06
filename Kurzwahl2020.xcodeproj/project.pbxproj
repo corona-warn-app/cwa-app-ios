@@ -24,6 +24,7 @@
 		50ADCF882369D87D007B248B /* Colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF872369D87D007B248B /* Colors.json */; };
 		7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */; };
 		7E3D7D0B23B6447400C0E29F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0A23B6447400C0E29F /* SettingsView.swift */; };
+		7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */; };
 		7EC1B80323C100E8004B7396 /* editTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1B80223C100E8004B7396 /* editTile.swift */; };
 		7EFD45B823B2744200DA0F97 /* SettingsViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreExample.swift; sourceTree = "<group>"; };
 		7E3D7D0A23B6447400C0E29F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "SwiftUI Doc & Help.md"; sourceTree = "<group>"; };
+		7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStack.swift; sourceTree = "<group>"; };
 		7E4F6A1F23BB93BA00530294 /* Kurzwahl2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kurzwahl2020.entitlements; sourceTree = "<group>"; };
 		7EC1B80223C100E8004B7396 /* editTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editTile.swift; sourceTree = "<group>"; };
 		7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewExample.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				50ADCF812369C135007B248B /* ModelColor.swift */,
 				509989A923B9466300C19C15 /* kurzwahlModel.swift */,
 				7EC1B80223C100E8004B7396 /* editTile.swift */,
+				7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */,
 				50ADCF832369C35F007B248B /* Storage.swift */,
 				502BF53C236399BD00FDE7BF /* Assets.xcassets */,
 				502BF541236399BD00FDE7BF /* LaunchScreen.storyboard */,
@@ -265,6 +268,7 @@
 				502BF53B236399BB00FDE7BF /* ContentView.swift in Sources */,
 				50ADCF842369C35F007B248B /* Storage.swift in Sources */,
 				7EC1B80323C100E8004B7396 /* editTile.swift in Sources */,
+				7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */,
 				509989AA23B9466300C19C15 /* kurzwahlModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

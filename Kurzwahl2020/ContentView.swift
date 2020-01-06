@@ -81,6 +81,16 @@ struct ContentView: View {
             .frame(width: width, height: height)
             .background(Color.appColor(withTileNumber))
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
+
+    }
+
+
+    fileprivate func backuptile(withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
+        
+        return self.textLabel(withTileNumber: withTileNumber, height: height, width: width)
+            .frame(width: width, height: height)
+            .background(Color.appColor(withTileNumber))
+            .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
             .gesture(
                 TapGesture(count: 2)
                     .onEnded {_ in
@@ -93,9 +103,7 @@ struct ContentView: View {
                         print("tapped")
                         self.showingSheet = true
                 }
-        ).actionSheet(isPresented: $showingSheet){
-            ActionSheet(title: Text("What do you want to do?"), message: Text("There's only one choice..."), buttons: [.default(Text("Dismiss Action Sheet"))])
-        }
+           )
             .gesture(
                 LongPressGesture(minimumDuration: 1)
                     .onEnded { _ in
