@@ -14,11 +14,6 @@
 
 
 import SwiftUI
-
-    
-/*
- Task: implement the tap gesture to start a phone call
-*/
  
 /*
  implement a launch screen:
@@ -31,7 +26,6 @@ struct ContentView: View {
     @State private var selection = 0
     @GestureState var isLongPressed = false
     @ObservedObject var model : kurzwahlModel
-    @State private var showingSheet = false
     
     //detect the dark mode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -61,15 +55,13 @@ struct ContentView: View {
     }
     
 
-       fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
-        return Text("\(model.getName(withId: withTileNumber))").multilineTextAlignment(.center)
-            .font(Font.custom(model.font, size: model.fontSize))
-            
-            .foregroundColor(Color.white)
-            .frame(width: width, height: height, alignment: .center)
-            .padding(.horizontal)
-            .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
-            
+    fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
+    return Text("\(model.getName(withId: withTileNumber))").multilineTextAlignment(.center)
+        .font(Font.custom(model.font, size: model.fontSize))
+        .foregroundColor(Color.white)
+        .frame(width: width, height: height, alignment: .center)
+        .padding(.horizontal)
+        .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
             
     }
     
@@ -101,7 +93,6 @@ struct ContentView: View {
                 TapGesture(count: 1)
                     .onEnded {_ in
                         print("tapped")
-                        self.showingSheet = true
                 }
            )
             .gesture(

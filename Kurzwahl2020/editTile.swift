@@ -14,30 +14,27 @@ struct editTile: View {
     @ObservedObject var model : kurzwahlModel
     @State private var name : String = ""
     @State private var number : String = ""
+    @EnvironmentObject var navigation: NavigationStack
     
     var body: some View {
-        NavigationView {
+        
+        VStack{
+            BackView( title: "Edit View",action:{
+            self.navigation.unwind()
+               })
             Form {
                 Section(header: Text("Enter Name and Phone Number")) {
                     TextField("Name", text: $name).disableAutocorrection(true)
                     TextField("Number", text: $number).disableAutocorrection(true)
                     } //.labelsHidden
                 HStack {
-                Button(action: {
-                    
-                }) {
+                Button(action: {self.navigation.unwind()}) {
                     Text("OK")
                     }.buttonStyle(PlainButtonStyle())
-                    
-                    
-                Button(action: {
-                    
-                }) {
-                    Text("Cancel")
-                }
                 }
             }
-        }.navigationBarTitle(Text("Settings"))
+            
+        }
     }
 }
 

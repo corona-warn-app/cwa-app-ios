@@ -42,22 +42,22 @@ final class NavigationStack: ObservableObject  {
     }
     
     func home( ){
-        currentView = NavigationItem( view: AnyView(HomeView()))
+        currentView = NavigationItem( view: AnyView(HomeView(model: kurzwahlModel())))
         viewStack.removeAll()
     }
 }
 
 
 
-struct ContentView2: View {
+struct ContentViewX: View {
     var body: some View {
         NavigationHost()
-            .environmentObject(NavigationStack( NavigationItem( view: AnyView(HomeView()))))
+            .environmentObject(NavigationStack( NavigationItem( view: AnyView(HomeViewX()))))
     }
 }
 
 
-struct HomeView: View {
+struct HomeViewX: View {
     @EnvironmentObject var navigation: NavigationStack
     @State private var selection = 0
   
@@ -87,12 +87,12 @@ struct HomeView: View {
 
 
 
-struct NextView: View {
+struct NextViewX: View {
     @EnvironmentObject var navigation: NavigationStack
   
      var body: some View {
          VStack{
-       BackView( title: "Next View",  action:{
+       BackViewX( title: "Next View",  action:{
            self.navigation.unwind()
               }, homeAction: {
                  self.navigation.home()
@@ -106,7 +106,7 @@ struct NextView: View {
 
 
 
-struct TitleView: View{
+struct TitleViewX: View{
     var title: String
     
     var homeAction: ()->Void
@@ -128,7 +128,7 @@ struct TitleView: View{
 }
 
 
-struct BackView: View{
+struct BackViewX: View{
     var title: String
     var action: ()->Void
     var homeAction: ()->Void
