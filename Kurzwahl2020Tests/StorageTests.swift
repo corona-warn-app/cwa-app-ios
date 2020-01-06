@@ -43,11 +43,7 @@ class StorageTests: XCTestCase {
     func testPersistForNames() {
         var result : [String] = [""]
         sut.persist(withNames: testNames, withFilename: namesTestfile)
-        do {
-            result = try sut.loadNames(withFilename: namesTestfile)
-        } catch {
-            
-        }
+        result = sut.loadNames(withFilename: namesTestfile)
         
         XCTAssertTrue(result == testNames)
     }
@@ -56,11 +52,7 @@ class StorageTests: XCTestCase {
     func testPersistForNumbers() {
         var result : [String] = [""]
         sut.persist(withNames: testNumbers, withFilename: numbersTestfile)
-        do {
-            result = try sut.loadNumbers(withFilename: numbersTestfile)
-        } catch {
-            
-        }
+        result = sut.loadNumbers(withFilename: numbersTestfile)
         
         XCTAssertTrue(result == testNumbers)
     }
@@ -69,11 +61,7 @@ class StorageTests: XCTestCase {
     func testPersistForSettings() {
         var result : [String : String] = ["":""]
         sut.persist(settings: testSettings, withFilename: settingsTestfile)
-        do {
-            result = try sut.loadSettings(withFilename: settingsTestfile)
-        } catch {
-            
-        }
+        result = sut.loadSettings(withFilename: settingsTestfile)
         
         XCTAssertTrue(result == testSettings)
     }

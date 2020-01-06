@@ -74,7 +74,7 @@ class storage {
 //  Apple:  Use +unarchivedObjectOfClass:fromData:error: instead
     
 // https://stackoverflow.com/questions/49526740/nskeyedunarchiver-unarchivetoplevelobjectwithdata-is-obsoleted-in-swift-4
-    func loadNames(withFilename : String = "") throws ->[String] {
+    func loadNames(withFilename : String = "") ->[String] {
         var result : [String] = [""]
         let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
@@ -90,7 +90,7 @@ class storage {
     }
     
 
-    func loadNumbers(withFilename : String = "") throws ->[String] {
+    func loadNumbers(withFilename : String = "") ->[String] {
         var result : [String] = [""]
         let filename : String = (withFilename.count == 0 ? numbersFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
@@ -105,7 +105,7 @@ class storage {
     }
     
     
-    func loadSettings(withFilename : String = "") throws ->[String : String] {
+    func loadSettings(withFilename : String = "") ->[String : String] {
         var result: [String : String] = ["":""]
         let filename : String = (withFilename.count == 0 ? settingsFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
