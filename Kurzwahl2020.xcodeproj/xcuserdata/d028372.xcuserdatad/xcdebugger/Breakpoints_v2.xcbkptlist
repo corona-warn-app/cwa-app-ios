@@ -78,8 +78,8 @@
             filePath = "Kurzwahl2020/HomeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "textLabel(withTileNumber:height:width:)"
             landmarkType = "7">
          </BreakpointContent>

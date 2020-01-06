@@ -48,9 +48,7 @@ struct HomeView: View {
             }
             .tabItem {
                 Image(systemName: selection == 0 ? "1.square.fill" : "1.square")
-            }.tag(0).onTapGesture(count: 2) {
-                self.navigation.advance(NavigationItem(view: AnyView(editTile(model: kurzwahlModel()))))
-            }
+            }.tag(0)
         // 2nd screen
             GeometryReader { geometry in
                 VStack(spacing: self.vspacing()) {
@@ -112,6 +110,9 @@ struct HomeView: View {
             .frame(width: width, height: height)
             .background(Color.appColor(withTileNumber))
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
+            .onTapGesture(count: 2) {
+                self.navigation.advance(NavigationItem(view: AnyView(editTile(model: kurzwahlModel(), tile: withTileNumber))))
+            }
         }
     
 }

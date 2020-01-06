@@ -12,6 +12,7 @@ import SwiftUI
 
 struct editTile: View {
     @ObservedObject var model : kurzwahlModel
+    @State var tile : Int = 0
     @State private var name : String = ""
     @State private var number : String = ""
     @EnvironmentObject var navigation: NavigationStack
@@ -26,6 +27,7 @@ struct editTile: View {
                 Section(header: Text("Enter Name and Phone Number")) {
                     TextField("Name", text: $name).disableAutocorrection(true)
                     TextField("Number", text: $number).disableAutocorrection(true)
+                    Text("Tile \(tile)")
                     } //.labelsHidden
                 HStack {
                 Button(action: {self.navigation.unwind()}) {
