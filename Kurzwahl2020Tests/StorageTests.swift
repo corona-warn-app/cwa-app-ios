@@ -11,7 +11,7 @@ import XCTest
 
 class StorageTests: XCTestCase {
     var sut : storage = storage()
-    var testNames : [String] = ["abc", "def"]
+    var testNames : [String : String] = ["0":"abc", "1":"def"]
     var testNumbers : [String] = ["012", "+49"]
     var testSettings : [String : String] = ["alpha" : "beta", "charlie": "delta"]
     let namesTestfile : String = "namesTestfile"
@@ -41,7 +41,7 @@ class StorageTests: XCTestCase {
 
     
     func testPersistForNames() {
-        var result : [String] = [""]
+        var result : [String:String] = ["":""]
         sut.persist(withNames: testNames, withFilename: namesTestfile)
         result = sut.loadNames(withFilename: namesTestfile)
         
@@ -51,7 +51,7 @@ class StorageTests: XCTestCase {
     
     func testPersistForNumbers() {
         var result : [String] = [""]
-        sut.persist(withNames: testNumbers, withFilename: numbersTestfile)
+        sut.persist(withNumbers: testNumbers, withFilename: numbersTestfile)
         result = sut.loadNumbers(withFilename: numbersTestfile)
         
         XCTAssertTrue(result == testNumbers)
