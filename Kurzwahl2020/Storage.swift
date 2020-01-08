@@ -32,7 +32,7 @@ class storage {
     }
     
 
-    func persist(withNames : [String : String], withFilename: String = "" ) {
+    func persist(withNames : [Int : String], withFilename: String = "" ) {
         let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fullPath = directory.appendingPathComponent(filename)
@@ -44,7 +44,7 @@ class storage {
     }
 
     
-    func persist(withNumbers : [String], withFilename: String = "" ) {
+    func persist(withNumbers : [Int:String], withFilename: String = "" ) {
         
         let filename : String = (withFilename.count == 0 ? numbersFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
@@ -74,15 +74,15 @@ class storage {
 //  Apple:  Use +unarchivedObjectOfClass:fromData:error: instead
     
 // https://stackoverflow.com/questions/49526740/nskeyedunarchiver-unarchivetoplevelobjectwithdata-is-obsoleted-in-swift-4
-    func loadNames(withFilename : String = "") ->[String:String] {
-        var result : [String:String] = ["":""]
+    func loadNames(withFilename : String = "") ->[Int:String] {
+        var result : [Int:String] = [0:""]
         let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         
         let fileURL = directory.appendingPathComponent(filename)
         do {
         let data = try Data(contentsOf: fileURL)
-            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String:String]
+            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [Int:String]
         } catch {
             print("load Names failed")
         }
@@ -90,14 +90,14 @@ class storage {
     }
     
 
-    func loadNumbers(withFilename : String = "") ->[String] {
-        var result : [String] = [""]
+    func loadNumbers(withFilename : String = "") ->[Int:String] {
+        var result : [Int:String] = [0:""]
         let filename : String = (withFilename.count == 0 ? numbersFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent(filename)
         do {
         let data = try Data(contentsOf: fileURL)
-        result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [Int:String]
         } catch {
             print("load Numbers failed")
         }
