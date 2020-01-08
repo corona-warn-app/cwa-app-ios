@@ -39,7 +39,7 @@ class storage {
         do {
             try NSKeyedArchiver.archivedData(withRootObject: withNames, requiringSecureCoding: false).write(to: fullPath)
         } catch {
-      
+            print("Store names failes")
         }
     }
 
@@ -52,7 +52,7 @@ class storage {
         do {
             try NSKeyedArchiver.archivedData(withRootObject: withNumbers, requiringSecureCoding: false).write(to: fullPath)
         } catch {
-      
+            print("Store numbers failes")
         }
     }
 

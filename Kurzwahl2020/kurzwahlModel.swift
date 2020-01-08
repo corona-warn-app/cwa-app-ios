@@ -141,7 +141,11 @@ class kurzwahlModel: ObservableObject{
     
 
     func persist() {
-        self.storageManager.persist(withNames: names)
+        var displayNames : [Int:String] = [0:""]
+        for i in 0...(self.tiles.count - 1) {
+            displayNames[i] = tiles[i].name
+        }
+        self.storageManager.persist(withNames: displayNames)
         self.storageManager.persist(withNumbers: phoneNumbers)
         self.storageManager.persist(settings: settings)
     }
@@ -157,6 +161,9 @@ class kurzwahlModel: ObservableObject{
     
     func load() {
         self.names = self.storageManager.loadNames()
+        for i in 0...(self.names.count - 1) {
+            tiles[i].name = names[i]!
+        }
         self.phoneNumbers = self.storageManager.loadNumbers()
         self.settings = self.storageManager.loadSettings()
     }
