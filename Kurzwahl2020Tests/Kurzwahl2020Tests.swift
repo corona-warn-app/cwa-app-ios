@@ -105,21 +105,40 @@ class Kurzwahl2020Tests: XCTestCase {
 
     func testTilesModifyTiles() {
 
-        let bob = tile.init(id: 1, name: "Bob", phoneNumber: "0621888")
+        let bob = tile.init(id: 0, name: "Bob", phoneNumber: "0621888")
         sut.modifyTile(withTile: bob)
         
-//        let charlie = tile.init(id: 1, name: "Charlie", phoneNumber: "0621777")
-//        sut.modifyTile(withTile: charlie)
+        let charlie = tile.init(id: 23, name: "Charlie", phoneNumber: "0621777")
+        sut.modifyTile(withTile: charlie)
         
         var x = tile(id: 0, name: "x", phoneNumber: "x")
         do {
-            x = try sut.getTile(withId: 1)
+            x = try sut.getTile(withId: 0)
         } catch {
-        
+            XCTFail()
         }
         XCTAssertTrue(x.id == bob.id)
         XCTAssertTrue(x.name == bob.name)
         XCTAssertTrue(x.phoneNumber == bob.phoneNumber)
+        
+        
+        do {
+            x = try sut.getTile(withId: 24)
+            XCTFail()
+        } catch {
+        
+        }
+        
+        do {
+            x = try sut.getTile(withId: 23)
+            XCTAssertTrue(x.id == charlie.id)
+            XCTAssertTrue(x.name == charlie.name)
+            XCTAssertTrue(x.phoneNumber == charlie.phoneNumber)
+        } catch {
+            XCTFail()
+        }
+
+        
     }
     
     
