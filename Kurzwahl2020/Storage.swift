@@ -32,7 +32,7 @@ class storage {
     }
     
 
-    func persist(withNames : [Int : String], withFilename: String = "" ) {
+    func persist(withNames : [String], withFilename: String = "" ) {
         let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fullPath = directory.appendingPathComponent(filename)
@@ -74,15 +74,15 @@ class storage {
 //  Apple:  Use +unarchivedObjectOfClass:fromData:error: instead
     
 // https://stackoverflow.com/questions/49526740/nskeyedunarchiver-unarchivetoplevelobjectwithdata-is-obsoleted-in-swift-4
-    func loadNames(withFilename : String = "") ->[Int:String] {
-        var result : [Int:String] = [0:""]
+    func loadNames(withFilename : String = "") ->[String] {
+        var result : [String] = [""]
         let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         
         let fileURL = directory.appendingPathComponent(filename)
         do {
         let data = try Data(contentsOf: fileURL)
-            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [Int:String]
+            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
         } catch {
             print("load Names failed")
         }

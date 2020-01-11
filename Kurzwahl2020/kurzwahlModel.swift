@@ -48,6 +48,7 @@ struct tile {
     
 var globalNumberOfRows: Int = appdefaults.rows.large
 var globalDataModel : kurzwahlModel = kurzwahlModel()
+let globalMaxTileNumber : Int = 23
 let APPGROUP : String = "group.org.tcfos.callbycolor"
 
 // global constants
@@ -82,26 +83,29 @@ class kurzwahlModel: ObservableObject{
     @Published var font : String = "PingFang TC Medium"
     @Published var fontSize : CGFloat = 0
     
-    private var names : [Int : String] =
-        [0:"Alpha", 1:"Bravo", 2:"Charlie", 3:"Delta", 4:"Echo", 5:"Foxtrott",
-         6:"Golf", 7:"Hotel", 8:"India", 9:"Juliet", 10:"Kilo", 11:"Lima",
-         12:"Mike", 13:"November", 14:"Oscar", 15:"Papa", 16:"Quebec", 17:"Romeo",
-         18:"Sierra", 19:"Tango", 20:"Uniform", 21:"Victor", 22:"Whiskey", 23:"X-ray",
-         24:"Yankee", 25:"Zulu"]
+//    private var names : [Int : String] =
+//        [0:"Alpha", 1:"Bravo", 2:"Charlie", 3:"Delta", 4:"Echo", 5:"Foxtrott",
+//         6:"Golf", 7:"Hotel", 8:"India", 9:"Juliet", 10:"Kilo", 11:"Lima",
+//         12:"Mike", 13:"November", 14:"Oscar", 15:"Papa", 16:"Quebec", 17:"Romeo",
+//         18:"Sierra", 19:"Tango", 20:"Uniform", 21:"Victor", 22:"Whiskey", 23:"X-ray",
+//         24:"Yankee", 25:"Zulu"]
+        private var names : [String] =
+            ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
+             "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
+             "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo",
+             "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
+             "Yankee", "Zulu"]
+
     private var phoneNumbers : [ Int:String ] = [0:""]
     private var colors : [ String ] = [""]
     
     //Dictionary of settings
     var settings : [String : String] = ["fontsize" : "24"]
     let storageManager = storage.init()
-    
+
     
     init() {
-        var x: tile
-        for i in 0...23 {
-            x = tile(id: i, name: names[i]!, phoneNumber: "062111223344")
-            tiles.append(x)
-        }
+        initializeDefaultNames()
         self.load()
         fontSize = CGFloat(((settings["fontsize"] ?? "18") as NSString).doubleValue)
     }
@@ -141,8 +145,8 @@ class kurzwahlModel: ObservableObject{
     
 
     func persist() {
-        var displayNames : [Int:String] = [0:""]
-        for i in 0...(self.tiles.count - 1) {
+        var displayNames : [String] = [""]
+        for i in 0...globalMaxTileNumber {
             displayNames[i] = tiles[i].name
         }
         self.storageManager.persist(withNames: displayNames)
@@ -160,12 +164,23 @@ class kurzwahlModel: ObservableObject{
     
     
     func load() {
-        self.names = self.storageManager.loadNames()
-        for i in 0...(self.names.count - 1) {
-            tiles[i].name = names[i]!
+        let result = self.storageManager.loadNames()
+        if result.count == globalMaxTileNumber {
+            for i in 0...globalMaxTileNumber {
+                tiles[i].name = names[i]
+            }
         }
         self.phoneNumbers = self.storageManager.loadNumbers()
         self.settings = self.storageManager.loadSettings()
+    }
+    
+    
+    fileprivate func initializeDefaultNames() {
+        var x: tile
+        for i in 0...globalMaxTileNumber {
+            x = tile(id: i, name: names[i], phoneNumber: "")
+            tiles.append(x)
+        }
     }
 
 }
