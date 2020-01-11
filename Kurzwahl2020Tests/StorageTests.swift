@@ -11,7 +11,7 @@ import XCTest
 
 class StorageTests: XCTestCase {
     var sut : storage = storage()
-    var testNames : [Int : String] = [0:"abc", 1:"def"]
+    var testNames : [String] = []
     var testNumbers : [Int:String] = [0:"012", 1:"+49"]
     var testSettings : [String : String] = ["alpha" : "beta", "charlie": "delta"]
     let namesTestfile : String = "namesTestfile"
@@ -21,6 +21,9 @@ class StorageTests: XCTestCase {
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        for i in 0...globalMaxTileNumber{
+            testNames.append("Bürgermeister Müller")
+        }
     }
 
     
@@ -41,7 +44,7 @@ class StorageTests: XCTestCase {
 
     
     func testPersistForNames() {
-        var result : [Int:String] = [0:""]
+        var result : [String] = [""]
         sut.persist(withNames: testNames, withFilename: namesTestfile)
         result = sut.loadNames(withFilename: namesTestfile)
         

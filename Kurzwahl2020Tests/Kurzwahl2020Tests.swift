@@ -160,6 +160,6 @@ class Kurzwahl2020Tests: XCTestCase {
          "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
          "Yankee", "Zulu"]
         
-        sut.persist()
+        //sut.persist()
     }
 }
