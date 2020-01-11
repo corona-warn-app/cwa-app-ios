@@ -118,6 +118,13 @@ struct HomeView: View {
                                  name: globalDataModel.getName(withId: withTileNumber),
                                  number: globalDataModel.getNumber(withId: withTileNumber)))))
             }
+//            .onTapGesture(count: 1) {
+//                self.navigation.advance(NavigationItem(
+//                                   view: AnyView(
+//                                       editTile(tileId: withTileNumber,
+//                                                name: globalDataModel.getName(withId: withTileNumber),
+//                                                number: globalDataModel.getNumber(withId: withTileNumber)))))
+//            }
         }
     
 }
