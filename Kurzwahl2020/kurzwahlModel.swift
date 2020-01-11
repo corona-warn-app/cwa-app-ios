@@ -96,7 +96,7 @@ class kurzwahlModel: ObservableObject{
              "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
              "Yankee", "Zulu"]
 
-    private var phoneNumbers : [ Int:String ] = [0:""]
+    private var phoneNumbers : [String] = [""]
     private var colors : [ String ] = [""]
     
     //Dictionary of settings
@@ -105,7 +105,7 @@ class kurzwahlModel: ObservableObject{
 
     
     init() {
-        initializeDefaultNames()
+        initializeDefaultTiles()
         self.load()
         fontSize = CGFloat(((settings["fontsize"] ?? "18") as NSString).doubleValue)
     }
@@ -139,18 +139,33 @@ class kurzwahlModel: ObservableObject{
     }
     
     
+    func getNumber(withId: Int) -> String {
+        if withId < tiles.count {
+            return tiles[withId].phoneNumber
+        }
+        else {
+            return ""
+        }
+    }
+
+
     func getFontSizeAsInt() -> Int {
         return Int(fontSize)
     }
     
 
     func persist() {
-        var displayNames : [String] = [""]
+        var displayNames = [String]()
         for i in 0...globalMaxTileNumber {
-            displayNames[i] = tiles[i].name
+            displayNames.append(self.tiles[i].name)
         }
         self.storageManager.persist(withNames: displayNames)
-        self.storageManager.persist(withNumbers: phoneNumbers)
+        
+        var displayNumbers = [String]()
+        for i in 0...globalMaxTileNumber {
+            displayNumbers.append(self.tiles[i].phoneNumber)
+        }
+        self.storageManager.persist(withNumbers: displayNumbers)
         self.storageManager.persist(settings: settings)
     }
     
@@ -164,21 +179,32 @@ class kurzwahlModel: ObservableObject{
     
     
     func load() {
-        let result = self.storageManager.loadNames()
-        if result.count == globalMaxTileNumber {
+        var namesFromFile : [String]
+        namesFromFile = self.storageManager.loadNames()
+        if namesFromFile.count > 0 {
+            for i in 0...(namesFromFile.count - 1) {
+                tiles[i].name = namesFromFile[i]
+            }
+        } else {
             for i in 0...globalMaxTileNumber {
-                tiles[i].name = names[i]
+                tiles[i].name = ""
             }
         }
-        self.phoneNumbers = self.storageManager.loadNumbers()
+
+        let numbersFromFile = self.storageManager.loadNumbers()
+        if numbersFromFile.count > 0 {
+            for i in 0...globalMaxTileNumber {
+                tiles[i].phoneNumber = numbersFromFile[i]
+            }
+        }
         self.settings = self.storageManager.loadSettings()
     }
     
     
-    fileprivate func initializeDefaultNames() {
+    fileprivate func initializeDefaultTiles() {
         var x: tile
         for i in 0...globalMaxTileNumber {
-            x = tile(id: i, name: names[i], phoneNumber: "")
+            x = tile(id: i, name: "", phoneNumber: "")
             tiles.append(x)
         }
     }

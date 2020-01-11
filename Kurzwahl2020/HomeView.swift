@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 
 struct ContentView2: View {
@@ -21,7 +22,7 @@ struct HomeView: View {
     @EnvironmentObject var navigation: NavigationStack
     @State private var selection = 0
     @GestureState var isLongPressed = false
- //   @ObservedObject var model : kurzwahlModel
+//    @ObservedObject var model : kurzwahlModel
 
   
     //detect the dark mode
@@ -111,7 +112,11 @@ struct HomeView: View {
             .background(Color.appColor(withTileNumber))
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
             .onTapGesture(count: 2) {
-                self.navigation.advance(NavigationItem(view: AnyView(editTile(tileId: withTileNumber))))
+                self.navigation.advance(NavigationItem(
+                    view: AnyView(
+                        editTile(tileId: withTileNumber,
+                                 name: globalDataModel.getName(withId: withTileNumber),
+                                 number: globalDataModel.getNumber(withId: withTileNumber)))))
             }
         }
     

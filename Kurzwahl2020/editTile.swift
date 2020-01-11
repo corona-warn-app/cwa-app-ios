@@ -13,8 +13,8 @@ import SwiftUI
 struct editTile: View {
 //    @ObservedObject var model : kurzwahlModel
     @State var tileId : Int = 0
-    @State private var name : String = ""
-    @State private var number : String = ""
+    @State var name : String = ""
+    @State var number : String = ""
     @EnvironmentObject var navigation: NavigationStack
     
     var body: some View {

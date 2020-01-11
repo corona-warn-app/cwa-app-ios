@@ -12,7 +12,7 @@ import XCTest
 class StorageTests: XCTestCase {
     var sut : storage = storage()
     var testNames : [String] = []
-    var testNumbers : [Int:String] = [0:"012", 1:"+49"]
+    var testNumbers : [String] = []
     var testSettings : [String : String] = ["alpha" : "beta", "charlie": "delta"]
     let namesTestfile : String = "namesTestfile"
     let numbersTestfile : String = "numbersTestfile"
@@ -23,6 +23,7 @@ class StorageTests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         for i in 0...globalMaxTileNumber{
             testNames.append("Bürgermeister Müller")
+            testNumbers.append(String(i))
         }
     }
 
@@ -49,15 +50,18 @@ class StorageTests: XCTestCase {
         result = sut.loadNames(withFilename: namesTestfile)
         
         XCTAssertTrue(result == testNames)
+        XCTAssertTrue(testNames.count == globalMaxTileNumber + 1)
+        
     }
     
     
     func testPersistForNumbers() {
-        var result : [Int:String] = [0:""]
+        var result : [String] = [""]
         sut.persist(withNumbers: testNumbers, withFilename: numbersTestfile)
         result = sut.loadNumbers(withFilename: numbersTestfile)
         
         XCTAssertTrue(result == testNumbers)
+        XCTAssertTrue( testNumbers.count == globalMaxTileNumber + 1)
     }
 
     

@@ -44,7 +44,7 @@ class storage {
     }
 
     
-    func persist(withNumbers : [Int:String], withFilename: String = "" ) {
+    func persist(withNumbers : [String], withFilename: String = "" ) {
         
         let filename : String = (withFilename.count == 0 ? numbersFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
@@ -75,29 +75,34 @@ class storage {
     
 // https://stackoverflow.com/questions/49526740/nskeyedunarchiver-unarchivetoplevelobjectwithdata-is-obsoleted-in-swift-4
     func loadNames(withFilename : String = "") ->[String] {
-        var result : [String] = [""]
+        var result : [String]
+        var namesFromFile : [String]?
+        let defaultNames : [String] = Array(repeating: "", count: globalMaxTileNumber + 1)
+        
         let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         
         let fileURL = directory.appendingPathComponent(filename)
         do {
         let data = try Data(contentsOf: fileURL)
-            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+            namesFromFile = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as? [String]
+            result = namesFromFile ?? defaultNames
         } catch {
             print("load Names failed")
+            result = defaultNames
         }
         return result
     }
     
 
-    func loadNumbers(withFilename : String = "") ->[Int:String] {
-        var result : [Int:String] = [0:""]
+    func loadNumbers(withFilename : String = "") ->[String] {
+        var result : [String] = [""]
         let filename : String = (withFilename.count == 0 ? numbersFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent(filename)
         do {
         let data = try Data(contentsOf: fileURL)
-            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [Int:String]
+            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
         } catch {
             print("load Numbers failed")
         }
