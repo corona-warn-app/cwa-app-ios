@@ -193,7 +193,7 @@ class kurzwahlModel: ObservableObject{
 
         let numbersFromFile = self.storageManager.loadNumbers()
         if numbersFromFile.count > 0 {
-            for i in 0...globalMaxTileNumber {
+            for i in 0...(numbersFromFile.count - 1) {
                 tiles[i].phoneNumber = numbersFromFile[i]
             }
         }
