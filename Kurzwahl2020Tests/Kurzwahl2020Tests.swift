@@ -33,73 +33,19 @@ class Kurzwahl2020Tests: XCTestCase {
         }
     }
 //MARK: tiles class test
-    func testTilesGetTiles() {
-        
-        let bravo = tile.init(id: 1, name: "Bravo", phoneNumber: "062111223344")
-        let lima = tile.init(id: 11, name: "Lima", phoneNumber: "062111223344")
-       
-        var testBravo: tile
-        var testLima: tile
-        
-        do {
-            testBravo = try sut.getTile(withId: 1)
-            testLima = try sut.getTile(withId: 11)
-        } catch {
-            testBravo = tile(id: 0, name: "x", phoneNumber: "x")
-            testLima = tile(id: 0, name: "x", phoneNumber: "x")
-        }
-        XCTAssertTrue(testBravo.id == bravo.id)
-        XCTAssertTrue(testBravo.name == bravo.name)
-        XCTAssertTrue(testBravo.phoneNumber == bravo.phoneNumber)
-
-        XCTAssertTrue(testLima.id == lima.id)
-        XCTAssertTrue(testLima.name == lima.name)
-        XCTAssertTrue(testLima.phoneNumber == lima.phoneNumber)
-    }
-
-    
-    func testTilesGetTilesBoundCheck() {
-        let maxIndex = globalNumberOfRows * 2 * 2 - 1
-        let maxIndexPlusOne = maxIndex + 1
-        let Xray = tile.init(id: 23, name: "X-ray", phoneNumber: "062111223344")
-       
-        var testXray: tile
-        var testNull: tile
-        testNull = tile(id: 0, name: "0", phoneNumber: "0")
-        
-        do {
-            testXray = try sut.getTile(withId: maxIndex)
-        } catch {
-            testXray = testNull
-        }
-        XCTAssertTrue(testXray.id == Xray.id)
-        XCTAssertTrue(testXray.name == Xray.name)
-        XCTAssertTrue(testXray.phoneNumber == Xray.phoneNumber)
-        
-        do {
-            testXray = try sut.getTile(withId: maxIndexPlusOne)
-        } catch {
-            testXray = testNull
-        }
-        XCTAssertTrue(testXray.id == testNull.id)
-        XCTAssertTrue(testXray.name == testNull.name)
-        XCTAssertTrue(testXray.phoneNumber == testNull.phoneNumber)
-        
-    }
-    
-    
+  
     func testTilesGetName() {
+        let bob = tile.init(id: 0, name: "Bob", phoneNumber: "0621888")
+        sut.modifyTile(withTile: bob)
         
-        let bravo = tile.init(id: 1, name: "Bravo", phoneNumber: "062111223344")
-        let lima = tile.init(id: 42, name: "Lima", phoneNumber: "062111223344")
-       
-        var testName: String
+        let charlie = tile.init(id: globalMaxTileNumber, name: "Charlie", phoneNumber: "0621777")
+        sut.modifyTile(withTile: charlie)
         
-        testName = sut.getName(withId: bravo.id)
-        XCTAssertTrue(testName == bravo.name)
+        let testName1 = sut.getName(withId: bob.id)
+        XCTAssertTrue(testName1 == bob.name)
         
-        testName = sut.getName(withId: lima.id)
-        XCTAssertFalse(testName == lima.name)
+        let testName2 = sut.getName(withId: charlie.id)
+        XCTAssertTrue(testName2 == charlie.name)
       
     }
 
