@@ -432,7 +432,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc24;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc36;
 				PRODUCT_NAME = Kurzwahl2020;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -453,7 +453,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc24;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc36;
 				PRODUCT_NAME = Kurzwahl2020;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
