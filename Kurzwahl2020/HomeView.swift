@@ -62,10 +62,23 @@ struct HomeView: View {
                 Image(systemName: selection == 1 ? "2.square.fill" : "2.square")
             }.tag(1)
 
+        // 3nd screen
+            GeometryReader { geometry in
+                VStack(spacing: self.vspacing()) {
+                    ForEach((2*globalNumberOfRows...(3*globalNumberOfRows-1)), id: \.self) {
+                        self.hstackTiles($0, geometry)
+                    }
+                }
+            }
+            .tabItem {
+                Image(systemName: selection == 2 ? "3.square.fill" : "3.square")
+            }.tag(2)
+
+
         // settings view
             SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
             .tabItem {
-                Image(systemName: selection == 2 ? "3.square.fill" : "3.square")
+                Image(systemName: selection == 3 ? "4.square.fill" : "4.square")
             }.tag(3)
         }
     }

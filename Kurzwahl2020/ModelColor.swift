@@ -28,7 +28,21 @@ var AssetColorList: [String] = [
     //    2nd screen – lipstick pink
     "E69D95", "E07260", "C83773", "B8A89F",
     "665A5C", "C64247", "B4938C", "EAA598",
-    "9B7983", "B897BB", "885D8D", "742E34"
+    "9B7983", "B897BB", "885D8D", "742E34",
+
+    // 3rd screen – forest
+    "5b6c48",
+    "afc1a7",
+    "415740",
+    "6b8760",
+    "213522",
+    "593649",
+    "7e5ef2",
+    "b2e2be",
+    "5d8c60",
+    "bfe28b",
+    "c189d9",
+    "2b220f"
 ]
 
 
@@ -36,7 +50,7 @@ var AssetColorList: [String] = [
 extension Color {
     static func appColor(_ id: Int) -> Color? {
         var name: String
-        if id < 24 {
+        if id < globalMaxTileNumber {
             name = AssetColorList[id]
         }
         else {

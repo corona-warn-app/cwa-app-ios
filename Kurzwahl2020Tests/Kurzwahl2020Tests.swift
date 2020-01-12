@@ -54,7 +54,7 @@ class Kurzwahl2020Tests: XCTestCase {
         let bob = tile.init(id: 0, name: "Bob", phoneNumber: "0621888")
         sut.modifyTile(withTile: bob)
         
-        let charlie = tile.init(id: 23, name: "Charlie", phoneNumber: "0621777")
+        let charlie = tile.init(id: globalMaxTileNumber, name: "Charlie", phoneNumber: "0621777")
         sut.modifyTile(withTile: charlie)
         
         var x = tile(id: 0, name: "x", phoneNumber: "x")
@@ -69,14 +69,14 @@ class Kurzwahl2020Tests: XCTestCase {
         
         
         do {
-            x = try sut.getTile(withId: 24)
+            x = try sut.getTile(withId: globalMaxTileNumber + 1)
             XCTFail()
         } catch {
         
         }
         
         do {
-            x = try sut.getTile(withId: 23)
+            x = try sut.getTile(withId: globalMaxTileNumber)
             XCTAssertTrue(x.id == charlie.id)
             XCTAssertTrue(x.name == charlie.name)
             XCTAssertTrue(x.phoneNumber == charlie.phoneNumber)
@@ -90,7 +90,7 @@ class Kurzwahl2020Tests: XCTestCase {
     
     func testTilesModifyTilesWithIllegalId() {
         
-        let charlie = tile.init(id: 42, name: "Charlie", phoneNumber: "0621333333")
+        let charlie = tile.init(id: 99, name: "Charlie", phoneNumber: "0621333333")
         let dummy = tile(id: 0, name: "x", phoneNumber: "x")
         sut.modifyTile(withTile: charlie)
 

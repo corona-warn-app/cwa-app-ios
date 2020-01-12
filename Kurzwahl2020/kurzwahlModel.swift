@@ -48,7 +48,7 @@ struct tile {
     
 var globalNumberOfRows: Int = appdefaults.rows.large
 var globalDataModel : kurzwahlModel = kurzwahlModel()
-let globalMaxTileNumber : Int = 23
+let globalMaxTileNumber : Int = 35
 let APPGROUP : String = "group.org.tcfos.callbycolor"
 
 // global constants
