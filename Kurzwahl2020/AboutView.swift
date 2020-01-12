@@ -10,10 +10,16 @@
 //    return [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
 
 import SwiftUI
+import Combine
 
 struct AboutView: View {
+    @EnvironmentObject var navigation: NavigationStack
+    
     var body: some View {
-        VStack(alignment: .center, spacing: 4){
+        VStack(){
+            BackView( title: "Edit View",action:{
+            self.navigation.unwind()
+               })
             Text("Call by Color 36").font(Font.custom(globalDataModel.font, size: 26))
             Text("Version 1.0").font(Font.custom(globalDataModel.font, size: 18))
             Divider()

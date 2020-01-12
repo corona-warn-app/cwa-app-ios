@@ -16,7 +16,7 @@ struct TestView: View {
     
    var body: some View {
     VStack{
-        TitleView( title: "Settings", homeAction: {self.navigation.home()})
+        TitleView( title: "Settings")
         Form {
             Section(header: Text("Font Size")) {
                 Stepper(value: $model.fontSize, in: 12...64) {
@@ -28,7 +28,7 @@ struct TestView: View {
                     view: AnyView(AboutView()))) }) {
                     Text("About")
             }.buttonStyle(PlainButtonStyle())
-        }
+        }.navigationBarTitle(Text("Settings"))
        }
     }
     

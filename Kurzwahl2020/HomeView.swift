@@ -171,21 +171,13 @@ struct NextView: View {
 
 struct TitleView: View{
     var title: String
-    
-    var homeAction: ()->Void
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+//    var homeAction: ()->Void
     
      var body: some View {
         ZStack{
-            Rectangle().fill(Color.gray).frame( height: 40 )
-            HStack{
-                Spacer()
-        Text(title).padding(.leading, 20).font(Font.system(size: 20.0))
-                Spacer()
-                Button( action: homeAction){
-                    Image(uiImage: UIImage(systemName:  "house", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .bold, scale: .large))! )
-                    .padding(.trailing, 20)
-                }.foregroundColor(Color.black)
-            }
+            Rectangle().fill(colorScheme == .light ? Color.white : Color.black).frame( height: 40 )
+                Text(title).font(Font.system(size: 28.0, weight: .bold))
         }
     }
 }
