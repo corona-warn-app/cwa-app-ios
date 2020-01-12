@@ -83,7 +83,8 @@ struct HomeView: View {
 
 
         // settings view
-            SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
+            TestView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
+            //SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
             .tabItem {
                 Image(systemName: selection == 3 ? "4.square.fill" : "4.square")
             }.tag(3)
