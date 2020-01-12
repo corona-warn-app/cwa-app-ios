@@ -9,12 +9,10 @@
 /* Begin PBXBuildFile section */
 		502BF537236399BB00FDE7BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF536236399BB00FDE7BF /* AppDelegate.swift */; };
 		502BF539236399BB00FDE7BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF538236399BB00FDE7BF /* SceneDelegate.swift */; };
-		502BF53B236399BB00FDE7BF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF53A236399BB00FDE7BF /* ContentView.swift */; };
 		502BF53D236399BD00FDE7BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 502BF53C236399BD00FDE7BF /* Assets.xcassets */; };
 		502BF540236399BD00FDE7BF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 502BF53F236399BD00FDE7BF /* Preview Assets.xcassets */; };
 		502BF543236399BD00FDE7BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 502BF541236399BD00FDE7BF /* LaunchScreen.storyboard */; };
 		502BF54E236399BD00FDE7BF /* Kurzwahl2020Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */; };
-		502BF55B23639B4E00FDE7BF /* CollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF55A23639B4E00FDE7BF /* CollectionVC.swift */; };
 		505F052623BDF0290032B776 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F052523BDF0290032B776 /* StorageTests.swift */; };
 		505F055B23C3C7E50032B776 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F055A23C3C7E50032B776 /* HomeView.swift */; };
 		5094A7A62365E324004D0932 /* Notizen.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5094A7A52365E324004D0932 /* Notizen.rtf */; };
@@ -45,7 +43,6 @@
 		502BF533236399BB00FDE7BF /* Kurzwahl2020.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kurzwahl2020.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		502BF536236399BB00FDE7BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		502BF538236399BB00FDE7BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		502BF53A236399BB00FDE7BF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		502BF53C236399BD00FDE7BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		502BF53F236399BD00FDE7BF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		502BF542236399BD00FDE7BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,7 +50,6 @@
 		502BF549236399BD00FDE7BF /* Kurzwahl2020Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kurzwahl2020Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kurzwahl2020Tests.swift; sourceTree = "<group>"; };
 		502BF54F236399BD00FDE7BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		502BF55A23639B4E00FDE7BF /* CollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionVC.swift; sourceTree = "<group>"; };
 		505F052523BDF0290032B776 /* StorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		505F055A23C3C7E50032B776 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5094A7A52365E324004D0932 /* Notizen.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notizen.rtf; sourceTree = "<group>"; };
@@ -114,8 +110,6 @@
 				7E4F6A1F23BB93BA00530294 /* Kurzwahl2020.entitlements */,
 				502BF536236399BB00FDE7BF /* AppDelegate.swift */,
 				502BF538236399BB00FDE7BF /* SceneDelegate.swift */,
-				502BF55A23639B4E00FDE7BF /* CollectionVC.swift */,
-				502BF53A236399BB00FDE7BF /* ContentView.swift */,
 				7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */,
 				7E3D7D0A23B6447400C0E29F /* SettingsView.swift */,
 				7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */,
@@ -271,8 +265,6 @@
 				7E3D7D0B23B6447400C0E29F /* SettingsView.swift in Sources */,
 				50ADCF822369C135007B248B /* ModelColor.swift in Sources */,
 				7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */,
-				502BF55B23639B4E00FDE7BF /* CollectionVC.swift in Sources */,
-				502BF53B236399BB00FDE7BF /* ContentView.swift in Sources */,
 				50ADCF842369C35F007B248B /* Storage.swift in Sources */,
 				7EC1B80323C100E8004B7396 /* editTile.swift in Sources */,
 				7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */,

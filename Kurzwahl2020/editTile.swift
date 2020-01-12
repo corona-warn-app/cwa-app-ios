@@ -11,7 +11,7 @@ import SwiftUI
 
 
 struct editTile: View {
-//    @ObservedObject var model : kurzwahlModel
+
     @State var tileId : Int = 0
     @State var name : String = ""
     @State var number : String = ""
@@ -27,7 +27,7 @@ struct editTile: View {
                 Section(header: Text("Enter Name and Phone Number")) {
                     TextField("Name", text: $name).disableAutocorrection(true)
                     TextField("Number", text: $number).disableAutocorrection(true)
-                    Text("Tile \(tileId)")
+//                    Text("Tile \(tileId)")
                     } //.labelsHidden
                 HStack {
                 Button(action: {
@@ -35,7 +35,7 @@ struct editTile: View {
                     globalDataModel.persist()
                     self.navigation.unwind()}) {
                     Text("OK")
-                    }.buttonStyle(PlainButtonStyle())
+                }.buttonStyle(PlainButtonStyle())
                 }
             }
             
@@ -47,5 +47,24 @@ struct editTile: View {
 struct editTile_Previews: PreviewProvider {
     static var previews: some View {
         editTile()
+    }
+}
+
+
+
+struct BackView: View{
+    var title: String
+    var action: ()->Void
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    var body: some View {
+        ZStack{
+//            Rectangle().fill(Color.secondary).frame( height: 40 )
+            Rectangle().fill(colorScheme == .light ? Color.white : Color.black).frame( height: 40 )
+            HStack{
+                Button( action: action){ Text("Cancel").padding(.leading, 15)
+                }.foregroundColor(Color.accentColor)
+            Spacer()
+            }
+        }
     }
 }

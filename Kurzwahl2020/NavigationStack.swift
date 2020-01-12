@@ -6,6 +6,8 @@
 //  Created by Andreas Vogel on 06.01.20.
 //  Copyright © 2020 Vogel, Andreas. All rights reserved.
 //
+// NavigationStack:
+// http://codingpills.ioneanu.com/swiftui-custom-navigation/
 
 import SwiftUI
 

@@ -5,6 +5,15 @@
 //  Created by Vogel, Andreas on 06.01.20.
 //  Copyright © 2020 Vogel, Andreas. All rights reserved.
 //
+// Cell Geometry     :width , height        View Height   # rows
+// Phone SE          : 158  , 89,33         548           n rows
+// iPhone 8          : 185.5, 105.833       647           n rows
+// iPhone 11         : 205  , 134.333       818           n+1 rows
+// iPhone 11 Pro     : 185.5, 120.333       734           n+1 rows
+// iPhone 11 Pro max : 205  , 134.333       818           n+1 rows
+//
+// NavigationStack:
+// http://codingpills.ioneanu.com/swiftui-custom-navigation/
 
 import SwiftUI
 import Combine
@@ -22,8 +31,6 @@ struct HomeView: View {
     @EnvironmentObject var navigation: NavigationStack
     @State private var selection = 0
     @GestureState var isLongPressed = false
-//    @ObservedObject var model : kurzwahlModel
-
   
     //detect the dark mode
     @Environment(\.colorScheme) var colorScheme: ColorScheme
@@ -177,23 +184,6 @@ struct TitleView: View{
                     Image(uiImage: UIImage(systemName:  "house", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .bold, scale: .large))! )
                     .padding(.trailing, 20)
                 }.foregroundColor(Color.black)
-            }
-        }
-    }
-}
-
-
-struct BackView: View{
-    var title: String
-    var action: ()->Void
-    
-    var body: some View {
-        ZStack{
-            Rectangle().fill(Color.gray).frame( height: 40 )
-            HStack{
-                Button( action: action){ Text("Cancel").padding(.leading, 20)
-                }.foregroundColor(Color.black)
-            Spacer()
             }
         }
     }
