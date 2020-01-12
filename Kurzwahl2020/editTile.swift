@@ -36,7 +36,14 @@ struct editTile: View {
                     self.navigation.unwind()}) {
                     Text("OK")
                 }.buttonStyle(PlainButtonStyle())
+                    
                 }
+//                Button(action: {
+//                    self.navigation.advance(NavigationItem(
+//                        view: AnyView(AboutView()))) }) {
+//                    Text("About")
+//                            
+//                }.buttonStyle(PlainButtonStyle())
             }
             
         }
