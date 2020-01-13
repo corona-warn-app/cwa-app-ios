@@ -5,6 +5,11 @@
 //  Created by Andreas Vogel on 04.01.20.
 //  Copyright © 2020 Vogel, Andreas. All rights reserved.
 //
+// openURL https://stackoverflow.com/questions/26178324/application-openurl-in-swift
+// https://stackoverflow.com/questions/38964264/openurl-in-ios10
+// https://useyourloaf.com/blog/openurl-deprecated-in-ios10/
+//
+
 
 import SwiftUI
 
