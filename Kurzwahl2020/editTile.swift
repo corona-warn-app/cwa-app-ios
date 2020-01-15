@@ -80,10 +80,5 @@ struct BackView: View{
         }
     }
     
-    
-    func makeCall() {
-        let x = "tel://0725322141"
-        let path = URL(string: x)
-        UIApplication.shared.open(path!, options: [:], completionHandler: nil)
-    }
+
 }

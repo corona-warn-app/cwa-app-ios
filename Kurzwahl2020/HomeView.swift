@@ -139,14 +139,21 @@ struct HomeView: View {
                                  name: globalDataModel.getName(withId: withTileNumber),
                                  number: globalDataModel.getNumber(withId: withTileNumber)))))
             }
-//            .onTapGesture(count: 1) {
+            .onTapGesture(count: 1) { self.makeCall()
 //                self.navigation.advance(NavigationItem(
 //                                   view: AnyView(
 //                                       editTile(tileId: withTileNumber,
 //                                                name: globalDataModel.getName(withId: withTileNumber),
 //                                                number: globalDataModel.getNumber(withId: withTileNumber)))))
-//            }
+            }
         }
+    
+    
+    func makeCall() {
+        let x = "tel://0725322141"
+        let path = URL(string: x)
+        UIApplication.shared.open(path!, options: [:], completionHandler: nil)
+    }
     
 }
 

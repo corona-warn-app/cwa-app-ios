@@ -28,7 +28,7 @@ class storage {
     fileprivate let settingsFileName = "CBC24settings"
     
     init() {
-        //self.deleteFilesFromAppgroup()
+//        self.deleteFilesFromAppgroup()
     }
     
 
