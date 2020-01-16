@@ -51,9 +51,9 @@ struct HomeView: View {
                             
                     ForEach((0...(globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
-                    }
+                    }//.background(SwiftUI.Color(red: 0.1, green: 0.1, blue: 0.1))
                 }
-            }
+            }//.background(SwiftUI.Color(red: 0.1, green: 0.1, blue: 0.1))
             .tabItem {
                 Image(systemName: selection == 0 ? "1.square.fill" : "1.square")
             }.tag(0)
@@ -88,7 +88,7 @@ struct HomeView: View {
             .tabItem {
                 Image(systemName: selection == 3 ? "4.square.fill" : "4.square")
             }.tag(3)
-        }
+        }//.background(SwiftUI.Color(red: 0.2, green: 0.2, blue: 0.2).edgesIgnoringSafeArea(.all))
     }
 
 

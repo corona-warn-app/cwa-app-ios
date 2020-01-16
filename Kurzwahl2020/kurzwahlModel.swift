@@ -61,9 +61,9 @@ struct appdefaults : Hashable {
     struct colorScheme{
         struct dark{
             static let opacity : Double = 0.8
-            static let cornerRadius : CGFloat = 5
-            static let hspacing : CGFloat = 3
-            static let vspacing : CGFloat = 1
+            static let cornerRadius : CGFloat = 3
+            static let hspacing : CGFloat = 4
+            static let vspacing : CGFloat = 2
         }
         struct light{
             static let opacity : Double = 1.0
