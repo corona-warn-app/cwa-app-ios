@@ -60,14 +60,14 @@ struct appdefaults : Hashable {
     //static let font : String = "PingFang TC Medium"
     struct colorScheme{
         struct dark{
-            static let opacity : Double = 0.8
-            static let cornerRadius : CGFloat = 3
+            static let opacity : Double = 0.85
+            static let cornerRadius : CGFloat = 4
             static let hspacing : CGFloat = 4
             static let vspacing : CGFloat = 2
         }
         struct light{
             static let opacity : Double = 1.0
-            static let cornerRadius : CGFloat = 0
+            static let cornerRadius : CGFloat = 2
             static let hspacing : CGFloat = 3
             static let vspacing : CGFloat = 1
         }

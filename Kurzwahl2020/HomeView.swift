@@ -122,7 +122,7 @@ struct HomeView: View {
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)
             .padding(.horizontal)
-            .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
+            //.opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
         }
         
         
@@ -131,6 +131,7 @@ struct HomeView: View {
         return self.textLabel(withTileNumber: withTileNumber, height: height, width: width)
             .frame(width: width, height: height)
             .background(Color.appColor(withTileNumber))
+            .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
             .onTapGesture(count: 2) {
                 self.navigation.advance(NavigationItem(
