@@ -157,6 +157,13 @@ struct HomeView: View {
         phoneNumber = phoneNumber.replacingOccurrences(of: "/", with: "")
         //phoneNumber = phoneNumber.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
         
+        if phoneNumber[phoneNumber.startIndex] == "+" {
+            phoneNumber = phoneNumber.digits
+            phoneNumber.insert("+", at: phoneNumber.startIndex)
+        } else {
+            phoneNumber = phoneNumber.digits
+        }
+        
         if phoneNumber.count > 0 {
             let url = URL(string: scheme + phoneNumber)
             UIApplication.shared.open(url!, options: [:], completionHandler: nil)
@@ -197,9 +204,9 @@ struct TitleView: View{
     }
 }
 
-//extension String {
-//    var digits: String {
-//        return components(separatedBy: CharacterSet.decimalDigits.inverted)
-//            .joined()
-//    }
-//}
+extension String {
+    private static var digits = UnicodeScalar("0")..."9"
+    var digits: String {
+        return String(unicodeScalars.filter(String.digits.contains))
+    }
+}
