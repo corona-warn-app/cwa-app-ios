@@ -152,7 +152,10 @@ struct HomeView: View {
     
     func makeCall(_ withTileNumber: Int) {
         let scheme : String = "tel://"
-        let url = URL(string: scheme + globalDataModel.getNumber(withId: withTileNumber))
+        var phoneNumber = globalDataModel.getNumber(withId: withTileNumber).trimmingCharacters(in: .whitespacesAndNewlines)
+        phoneNumber = phoneNumber.replacingOccurrences(of: " ", with: "")
+        phoneNumber = phoneNumber.replacingOccurrences(of: "/", with: "")
+        let url = URL(string: scheme + phoneNumber)
         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
     
