@@ -31,7 +31,7 @@ struct editTile: View {
             Form {
                 Section(header: Text("Enter Name and Phone Number")) {
                     TextField("Name", text: $name).disableAutocorrection(true)
-                    TextField("Number", text: $number).disableAutocorrection(true)
+                    TextField("Number", text: $number).disableAutocorrection(true).keyboardType(/*@START_MENU_TOKEN@*/.phonePad/*@END_MENU_TOKEN@*/)
 //                    Text("Tile \(tileId)")
                     } //.labelsHidden
                 HStack {
@@ -39,7 +39,7 @@ struct editTile: View {
                     globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number))
                     globalDataModel.persist()
                     self.navigation.unwind()}) {
-                    Text("OK")
+                    Text("OK").foregroundColor(Color.accentColor)
                 }.buttonStyle(PlainButtonStyle())
                     
                 }
