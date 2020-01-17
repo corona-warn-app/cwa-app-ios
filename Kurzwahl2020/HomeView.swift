@@ -155,6 +155,7 @@ struct HomeView: View {
         var phoneNumber = globalDataModel.getNumber(withId: withTileNumber).trimmingCharacters(in: .whitespacesAndNewlines)
         phoneNumber = phoneNumber.replacingOccurrences(of: " ", with: "")
         phoneNumber = phoneNumber.replacingOccurrences(of: "/", with: "")
+        //phoneNumber = phoneNumber.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
         let url = URL(string: scheme + phoneNumber)
         UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
@@ -192,3 +193,10 @@ struct TitleView: View{
         }
     }
 }
+
+//extension String {
+//    var digits: String {
+//        return components(separatedBy: CharacterSet.decimalDigits.inverted)
+//            .joined()
+//    }
+//}
