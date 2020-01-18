@@ -16,17 +16,27 @@ struct AboutView: View {
     @EnvironmentObject var navigation: NavigationStack
     
     var body: some View {
-        VStack(){
+        
+        VStack{
             BackView( title: "Edit View",action:{
-            self.navigation.unwind()
-               })
-            Text("Call by Color 36").font(Font.custom(globalDataModel.font, size: 26))
-            Text("Version 1.0").font(Font.custom(globalDataModel.font, size: 18))
-            Divider()
-            Text("Privacy Policy").font(Font.custom(globalDataModel.font, size: 18))
-            Text("In case you want to copy names and phone numbers from your contacts then please grant access to your contacts. All information you enter in this app will stay on your iPhone. No personal information is collected by this app.").font(Font.custom(globalDataModel.font, size: 18)).padding(.horizontal)
-//            Text("All information you enter in this app will stay on your iPhone. No personal information is collected by this app. ").font(Font.custom(globalDataModel.font, size: 18)).padding(.horizontal)
+                self.navigation.unwind()
+            })
+            VStack{
+                Text("Call by Color 36").font(Font.custom(globalDataModel.font, size: 26))
+                Text("Version 1.0").font(Font.custom(globalDataModel.font, size: 18))
+                
+                    Image("Icon120").cornerRadius(20)
+                    Spacer()
+                        .fixedSize()
+                        .frame(width: 150, height: 20)
+                
+                Text("Privacy Policy").font(Font.custom(globalDataModel.font, size: 26)).frame(height: 50)
+                Text("All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts.").font(Font.custom(globalDataModel.font, size: 18)).padding(.horizontal).multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
+                Spacer()
+                
+            }
         }
+        
     }
 }
 
