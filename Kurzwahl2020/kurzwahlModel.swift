@@ -57,7 +57,6 @@ struct appdefaults : Hashable {
     static let small = 5
     static let large = 6
     }
-    //static let font : String = "PingFang TC Medium"
     struct colorScheme{
         struct dark{
             static let opacity : Double = 0.85

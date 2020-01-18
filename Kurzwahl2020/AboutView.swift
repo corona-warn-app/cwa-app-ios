@@ -31,7 +31,7 @@ struct AboutView: View {
                         .frame(width: 150, height: 20)
                 
                 Text("Privacy Policy").font(Font.custom(globalDataModel.font, size: 26)).frame(height: 50)
-                Text("All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts.").font(Font.custom(globalDataModel.font, size: 18)).padding(.horizontal).multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
+                Text("All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts if asked.").customFont(name: globalDataModel.font, style: .body).padding(.horizontal).multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                 Spacer()
                 
             }
@@ -45,3 +45,33 @@ struct AboutView_Previews: PreviewProvider {
         AboutView()
     }
 }
+
+
+
+@available(iOS 13, macCatalyst 13, tvOS 13, watchOS 6, *)
+struct CustomFont: ViewModifier {
+    @Environment(\.sizeCategory) var sizeCategory
+
+    var name: String
+    var style: UIFont.TextStyle
+    var weight: Font.Weight = .regular
+
+    func body(content: Content) -> some View {
+        return content.font(Font.custom(
+            name,
+            size: UIFont.preferredFont(forTextStyle: style).pointSize)
+            .weight(weight))
+    }
+}
+
+@available(iOS 13, macCatalyst 13, tvOS 13, watchOS 6, *)
+extension View {
+    func customFont(
+        name: String,
+        style: UIFont.TextStyle,
+        weight: Font.Weight = .regular) -> some View {
+        return self.modifier(CustomFont(name: name, style: style, weight: weight))
+    }
+}
+
+

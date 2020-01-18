@@ -16,7 +16,7 @@ import SwiftUI
 
 
 struct editTile: View {
-
+    
     @State var tileId : Int = 0
     @State var name : String = ""
     @State var number : String = ""
@@ -26,29 +26,22 @@ struct editTile: View {
         
         VStack{
             BackView( title: "Edit View",action:{
-            self.navigation.unwind()
-               })
+                self.navigation.unwind()
+            })//.font(Font.system(size: 22))
             Form {
                 Section(header: Text("Enter Name and Phone Number")) {
                     TextField("Name", text: $name).disableAutocorrection(true)
                     TextField("Number", text: $number).disableAutocorrection(true).keyboardType(/*@START_MENU_TOKEN@*/.phonePad/*@END_MENU_TOKEN@*/)
-//                    Text("Tile \(tileId)")
-                    } //.labelsHidden
+                }//.font(Font.system(size: 22)) //.labelsHidden
                 HStack {
-                Button(action: {
-                    globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number))
-                    globalDataModel.persist()
-                    self.navigation.unwind()}) {
-                    Text("OK").foregroundColor(Color.accentColor)
-                }.buttonStyle(PlainButtonStyle())
+                    Button(action: {
+                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number))
+                        globalDataModel.persist()
+                        self.navigation.unwind()}) {
+                            Text("OK").foregroundColor(Color.accentColor)
+                    }.buttonStyle(PlainButtonStyle())//.font(Font.system(size: 22))
                     
                 }
-//                Button(action: {
-//                    self.navigation.advance(NavigationItem(
-//                        view: AnyView(AboutView()))) }) {
-//                    Text("About")
-//                            
-//                }.buttonStyle(PlainButtonStyle())
             }
             
         }
@@ -70,15 +63,15 @@ struct BackView: View{
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     var body: some View {
         ZStack{
-//            Rectangle().fill(Color.secondary).frame( height: 40 )
+            //            Rectangle().fill(Color.secondary).frame( height: 40 )
             Rectangle().fill(colorScheme == .light ? Color.white : Color.black).frame( height: 40 )
             HStack{
                 Button( action: action){ Text("Cancel").padding(.leading, 15)
                 }.foregroundColor(Color.accentColor)
-            Spacer()
+                Spacer()
             }
         }
     }
     
-
+    
 }

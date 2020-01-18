@@ -21,7 +21,7 @@ struct SettingsView: View {
             Section(header: Text("Font Size")) {
                 Stepper(value: $model.fontSize, in: 12...64) {
                     Text("Size: \(model.getFontSizeAsInt())")
-                } //.labelsHidden
+                }//.font(Font.system(size: 22)) //.labelsHidden
             }
            }
            .navigationBarTitle(Text("Settings"))

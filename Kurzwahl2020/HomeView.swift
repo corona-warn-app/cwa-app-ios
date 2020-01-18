@@ -189,19 +189,6 @@ struct NextView: View {
 
 
 
-struct TitleView: View{
-    var title: String
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-     var body: some View {
-        ZStack{
-            Rectangle().fill(colorScheme == .light ? Color.white : Color.black).frame( height: 40 )
-                Text(title).font(Font.system(size: 28.0, weight: .bold))
-        }
-    }
-}
-
-
-
 extension String {
     private static var digits = UnicodeScalar("0")..."9"
     var digits: String {
