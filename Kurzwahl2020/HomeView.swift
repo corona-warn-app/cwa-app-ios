@@ -102,30 +102,7 @@ struct HomeView: View {
     }
     
     
-    //calculate the dimensions of the tile (aspect ratio 1.61)
-    fileprivate func dimensions(_ geometry: GeometryProxy)->(CGFloat, CGFloat) {
-        let geo = geometry.size.height
-        let vMaxSize = geo / CGFloat(globalNumberOfRows) - vspacing() * CGFloat(globalNumberOfRows) + 1
-        var hsize = geometry.size.width / 2 - hspacing()
-        var vsize = hsize / 1.61
-        if (vsize > vMaxSize ) {
-            vsize = vMaxSize
-            hsize = vsize * 1.61
-        }
-        return(vsize, hsize)
-    }
-        
-
-    fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
-        return Text("\(globalDataModel.getName(withId: withTileNumber))").multilineTextAlignment(.center)
-            .font(Font.custom(globalDataModel.font, size: globalDataModel.fontSize))
-            .foregroundColor(Color.white)
-            .frame(width: width, height: height, alignment: .center)
-            .padding(.horizontal)
-            //.opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
-        }
-        
-        
+    
     // draw one tile
     fileprivate func tile(withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
         return self.textLabel(withTileNumber: withTileNumber, height: height, width: width)
@@ -139,15 +116,36 @@ struct HomeView: View {
                         editTile(tileId: withTileNumber,
                                  name: globalDataModel.getName(withId: withTileNumber),
                                  number: globalDataModel.getNumber(withId: withTileNumber)))))
-            }
-            .onTapGesture(count: 1) { self.makeCall(withTileNumber)
-//                self.navigation.advance(NavigationItem(
-//                                   view: AnyView(
-//                                       editTile(tileId: withTileNumber,
-//                                                name: globalDataModel.getName(withId: withTileNumber),
-//                                                number: globalDataModel.getNumber(withId: withTileNumber)))))
-            }
         }
+        .onTapGesture(count: 1) { self.makeCall(withTileNumber)
+        }
+    }
+    
+    
+    
+    //calculate the dimensions of the tile (aspect ratio 1.61)
+    fileprivate func dimensions(_ geometry: GeometryProxy)->(CGFloat, CGFloat) {
+        let geo = geometry.size.height
+        let vMaxSize = geo / CGFloat(globalNumberOfRows) - vspacing() * CGFloat(globalNumberOfRows) + 1
+        var hsize = geometry.size.width / 2 - hspacing()
+        var vsize = hsize / 1.61
+        if (vsize > vMaxSize ) {
+            vsize = vMaxSize
+            hsize = vsize * 1.61
+        }
+        return(vsize, hsize)
+    }
+    
+    
+
+    fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
+        return Text("\(globalDataModel.getName(withId: withTileNumber))").multilineTextAlignment(.center)
+            .font(Font.custom(globalDataModel.font, size: globalDataModel.fontSize))
+            .foregroundColor(Color.white)
+            .frame(width: width, height: height, alignment: .center)
+            .padding(.horizontal)
+        }
+        
     
     
     func makeCall(_ withTileNumber: Int) {
@@ -170,22 +168,22 @@ struct HomeView: View {
         }
     }
     
-}
+}  //HomeView
 
 
 
 struct NextView: View {
     @EnvironmentObject var navigation: NavigationStack
-  
-     var body: some View {
-         VStack{
-       BackView( title: "Next View",  action:{
-           self.navigation.unwind()
-              })
-       List{
-           Text("I am NextView")
-       }
-   }
+    
+    var body: some View {
+        VStack{
+            BackView( title: "Next View",  action:{
+                self.navigation.unwind()
+            })
+            List{
+                Text("I am NextView")
+            }
+        }
     }
 }
 
@@ -194,8 +192,6 @@ struct NextView: View {
 struct TitleView: View{
     var title: String
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-//    var homeAction: ()->Void
-    
      var body: some View {
         ZStack{
             Rectangle().fill(colorScheme == .light ? Color.white : Color.black).frame( height: 40 )
@@ -203,6 +199,8 @@ struct TitleView: View{
         }
     }
 }
+
+
 
 extension String {
     private static var digits = UnicodeScalar("0")..."9"
