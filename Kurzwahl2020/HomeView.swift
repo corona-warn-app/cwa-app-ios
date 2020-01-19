@@ -21,8 +21,7 @@ import Combine
 
 
 final class HomeViewState: ObservableObject {
-    // private setter because no other object should be able to modify this
-    //private (set) var previousSelectedTab = -1
+    // store the current tab of HomeView
     @Published var selectedTab: Int = 0
 }
 
@@ -38,7 +37,8 @@ struct ContentView2: View {
 
 struct HomeView: View {
     @EnvironmentObject var navigation: NavigationStack
-    @State private var selection = 0
+    //@State private var selection : Int = 0
+    @EnvironmentObject var appState : HomeViewState
     @GestureState var isLongPressed = false
   
     //detect the dark mode
@@ -54,7 +54,7 @@ struct HomeView: View {
     }
     
     var body: some View {
-        TabView(selection: $selection) {
+        TabView(selection: $appState.selectedTab) {
             GeometryReader { geometry in
                 VStack(spacing: self.vspacing()) {
                             
@@ -64,7 +64,7 @@ struct HomeView: View {
                 }
             }//.background(SwiftUI.Color(red: 0.1, green: 0.1, blue: 0.1))
             .tabItem {
-                Image(systemName: selection == 0 ? "1.square.fill" : "1.square")
+                Image(systemName: appState.selectedTab == 0 ? "1.square.fill" : "1.square")
             }.tag(0)
         // 2nd screen
             GeometryReader { geometry in
@@ -75,7 +75,7 @@ struct HomeView: View {
                 }
             }
             .tabItem {
-                Image(systemName: selection == 1 ? "2.square.fill" : "2.square")
+                Image(systemName: appState.selectedTab == 1 ? "2.square.fill" : "2.square")
             }.tag(1)
 
         // 3nd screen
@@ -87,14 +87,14 @@ struct HomeView: View {
                 }
             }
             .tabItem {
-                Image(systemName: selection == 2 ? "3.square.fill" : "3.square")
+                Image(systemName: appState.selectedTab == 2 ? "3.square.fill" : "3.square")
             }.tag(2)
 
 
         // settings view
             SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
             .tabItem {
-                Image(systemName: selection == 3 ? "4.square.fill" : "4.square")
+                Image(systemName: appState.selectedTab == 3 ? "4.square.fill" : "4.square")
                 Text("Settings")
             }.tag(3)
         }//.background(SwiftUI.Color(red: 0.2, green: 0.2, blue: 0.2).edgesIgnoringSafeArea(.all))
