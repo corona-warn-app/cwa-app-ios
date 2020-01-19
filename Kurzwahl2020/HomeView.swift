@@ -87,6 +87,7 @@ struct HomeView: View {
             //SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
             .tabItem {
                 Image(systemName: selection == 3 ? "4.square.fill" : "4.square")
+                Text("Settings")
             }.tag(3)
         }//.background(SwiftUI.Color(red: 0.2, green: 0.2, blue: 0.2).edgesIgnoringSafeArea(.all))
     }

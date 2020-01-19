@@ -23,6 +23,7 @@ struct SettingsView: View {
                     Text("Size: \(model.getFontSizeAsInt())")
                 }//.font(Font.system(size: 22)) //.labelsHidden
             }
+            .padding(.leading, 2.0)
            }
            .navigationBarTitle(Text("Settings"))
        }

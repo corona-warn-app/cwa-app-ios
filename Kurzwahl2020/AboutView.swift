@@ -18,14 +18,14 @@ struct AboutView: View {
     var body: some View {
         
         VStack{
-            BackView( title: "Edit View",action:{
+            AboutBackView( title: "Edit View",action:{
                 self.navigation.unwind()
             })
             VStack{
                 Text("Call by Color 36").font(Font.custom(globalDataModel.font, size: 26))
                 Text("Version 1.0").font(Font.custom(globalDataModel.font, size: 18))
                 
-                    Image("Icon120").cornerRadius(20)
+                Image("Icon120").frame(width: 80, height: 80).cornerRadius(20)
                     Spacer()
                         .fixedSize()
                         .frame(width: 150, height: 20)
@@ -46,6 +46,24 @@ struct AboutView_Previews: PreviewProvider {
     }
 }
 
+
+
+struct AboutBackView: View{
+    var title: String
+    var action: ()->Void
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    var body: some View {
+        ZStack{
+            //            Rectangle().fill(Color.secondary).frame( height: 40 )
+            Rectangle().fill(colorScheme == .light ? Color.white : Color.black).frame( height: 40 )
+            HStack{
+                Button( action: action){ Text("Back").padding(.leading, 15)
+                }.foregroundColor(Color.accentColor)
+                Spacer()
+            }
+        }
+    }
+}
 
 
 @available(iOS 13, macCatalyst 13, tvOS 13, watchOS 6, *)
