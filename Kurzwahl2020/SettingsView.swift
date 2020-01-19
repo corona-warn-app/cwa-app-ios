@@ -29,6 +29,14 @@ struct SettingsView: View {
                     view: AnyView(AboutView()))) }) {
                         Text("About")
                     }.buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {
+                        self.navigation.advance(NavigationItem(
+                    view: AnyView(PrivacyView()))) }) {
+                        Text("Privacy Statement")
+                    }.buttonStyle(PlainButtonStyle())
+                    
+                    
                 }.navigationBarTitle(Text("Settings"))
             }
         }
