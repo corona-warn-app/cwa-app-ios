@@ -164,14 +164,15 @@ struct HomeView: View {
         phoneNumber = phoneNumber.replacingOccurrences(of: "/", with: "")
         //phoneNumber = phoneNumber.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
         
-        if phoneNumber[phoneNumber.startIndex] == "+" {
-            phoneNumber = phoneNumber.digits
-            phoneNumber.insert("+", at: phoneNumber.startIndex)
-        } else {
-            phoneNumber = phoneNumber.digits
-        }
-        
         if phoneNumber.count > 0 {
+            if phoneNumber[phoneNumber.startIndex] == "+" {
+                phoneNumber = phoneNumber.digits
+                phoneNumber.insert("+", at: phoneNumber.startIndex)
+            } else {
+                phoneNumber = phoneNumber.digits
+            }
+            
+            
             let url = URL(string: scheme + phoneNumber)
             UIApplication.shared.open(url!, options: [:], completionHandler: nil)
         }
