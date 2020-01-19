@@ -19,6 +19,15 @@ import SwiftUI
 import Combine
 
 
+
+final class HomeViewState: ObservableObject {
+    // private setter because no other object should be able to modify this
+    //private (set) var previousSelectedTab = -1
+    @Published var selectedTab: Int = 0
+}
+
+
+
 struct ContentView2: View {
     var body: some View {
         NavigationHost()
