@@ -23,9 +23,8 @@
 		50ADCF882369D87D007B248B /* Colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF872369D87D007B248B /* Colors.json */; };
 		7E3D6CFF23C9D4CB002E4239 /* StoreToFileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D6CFE23C9D4CB002E4239 /* StoreToFileTest.swift */; };
 		7E3D6D0323CB8FD7002E4239 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D6D0223CB8FD7002E4239 /* AboutView.swift */; };
-		7E3D6D0523CB997B002E4239 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D6D0423CB997B002E4239 /* TestView.swift */; };
+		7E3D6D0523CB997B002E4239 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D6D0423CB997B002E4239 /* SettingsView.swift */; };
 		7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */; };
-		7E3D7D0B23B6447400C0E29F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D7D0A23B6447400C0E29F /* SettingsView.swift */; };
 		7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */; };
 		7EC1B80323C100E8004B7396 /* editTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1B80223C100E8004B7396 /* editTile.swift */; };
 		7EFD45B823B2744200DA0F97 /* SettingsViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */; };
@@ -62,9 +61,8 @@
 		50ADCF872369D87D007B248B /* Colors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Colors.json; sourceTree = "<group>"; };
 		7E3D6CFE23C9D4CB002E4239 /* StoreToFileTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreToFileTest.swift; sourceTree = "<group>"; };
 		7E3D6D0223CB8FD7002E4239 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; wrapsLines = 1; };
-		7E3D6D0423CB997B002E4239 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		7E3D6D0423CB997B002E4239 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreExample.swift; sourceTree = "<group>"; };
-		7E3D7D0A23B6447400C0E29F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "SwiftUI Doc & Help.md"; sourceTree = "<group>"; };
 		7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStack.swift; sourceTree = "<group>"; };
 		7E4F6A1F23BB93BA00530294 /* Kurzwahl2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kurzwahl2020.entitlements; sourceTree = "<group>"; };
@@ -115,8 +113,7 @@
 				502BF536236399BB00FDE7BF /* AppDelegate.swift */,
 				502BF538236399BB00FDE7BF /* SceneDelegate.swift */,
 				7EFD45B723B2744200DA0F97 /* SettingsViewExample.swift */,
-				7E3D7D0A23B6447400C0E29F /* SettingsView.swift */,
-				7E3D6D0423CB997B002E4239 /* TestView.swift */,
+				7E3D6D0423CB997B002E4239 /* SettingsView.swift */,
 				7E3D6D0223CB8FD7002E4239 /* AboutView.swift */,
 				7E3D7D0823B6419100C0E29F /* SettingsStoreExample.swift */,
 				50ADCF812369C135007B248B /* ModelColor.swift */,
@@ -269,13 +266,12 @@
 				505F055B23C3C7E50032B776 /* HomeView.swift in Sources */,
 				502BF539236399BB00FDE7BF /* SceneDelegate.swift in Sources */,
 				7E3D6D0323CB8FD7002E4239 /* AboutView.swift in Sources */,
-				7E3D7D0B23B6447400C0E29F /* SettingsView.swift in Sources */,
 				50ADCF822369C135007B248B /* ModelColor.swift in Sources */,
 				7E3D7D0923B6419100C0E29F /* SettingsStoreExample.swift in Sources */,
 				50ADCF842369C35F007B248B /* Storage.swift in Sources */,
 				7EC1B80323C100E8004B7396 /* editTile.swift in Sources */,
 				7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */,
-				7E3D6D0523CB997B002E4239 /* TestView.swift in Sources */,
+				7E3D6D0523CB997B002E4239 /* SettingsView.swift in Sources */,
 				509989AA23B9466300C19C15 /* kurzwahlModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

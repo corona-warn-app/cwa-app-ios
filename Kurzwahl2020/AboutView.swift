@@ -25,13 +25,13 @@ struct AboutView: View {
                 Text("Call by Color 36").font(Font.custom(globalDataModel.font, size: 26))
                 Text("Version 1.0").font(Font.custom(globalDataModel.font, size: 18))
                 
-                Image("Icon120").frame(width: 80, height: 80).cornerRadius(20)
+                Image("Icon120").resizable().frame(width: 60, height: 60).cornerRadius(20)
                     Spacer()
                         .fixedSize()
-                        .frame(width: 150, height: 20)
+                        .frame(width: 150, height: 15)
                 
                 Text("Privacy Policy").font(Font.custom(globalDataModel.font, size: 26)).frame(height: 50)
-                Text("All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts if asked.").customFont(name: globalDataModel.font, style: .body).padding(.horizontal).multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
+                Text("All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts if asked.").multilineTextAlignment(.leading).customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
                 Spacer()
                 
             }
