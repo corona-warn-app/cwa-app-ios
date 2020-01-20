@@ -197,6 +197,13 @@ class kurzwahlModel: ObservableObject{
                 tiles[i].phoneNumber = numbersFromFile[i]
             }
         }
+        
+        let colorsFromFile = self.storageManager.loadColors()
+        if colors.count > 0 {
+            for i in 0...(colorsFromFile.count - 1 ) {
+                tiles[i].backgroundColor = Color.init(colorsFromFile[i], bundle: nil)
+            }
+        }
         self.settings = self.storageManager.loadSettings()
     }
     

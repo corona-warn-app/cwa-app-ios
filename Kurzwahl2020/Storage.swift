@@ -26,6 +26,7 @@ class storage {
     fileprivate let numbersFileName = "CBC24numbers"
     fileprivate let namesFileName = "CBC24names"
     fileprivate let settingsFileName = "CBC24settings"
+    fileprivate let colorsFileName = "CBC24colors"
     
     init() {
 //        self.deleteFilesFromAppgroup()
@@ -105,6 +106,21 @@ class storage {
             result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
         } catch {
             print("load Numbers failed")
+        }
+        return result
+    }
+    
+    
+    func loadColors(withFilename : String = "") ->[String] {
+        var result : [String] = [""]
+        let filename : String = (withFilename.count == 0 ? colorsFileName : withFilename)
+        let directory : URL = FileManager.sharedContainerURL()
+        let fileURL = directory.appendingPathComponent(filename)
+        do {
+        let data = try Data(contentsOf: fileURL)
+            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+        } catch {
+            print("load Colors failed")
         }
         return result
     }
