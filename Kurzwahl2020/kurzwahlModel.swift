@@ -43,7 +43,7 @@ struct tile {
     var id: Int
     var name: String
     var phoneNumber: String
-    var backgroundColor: Color
+    var backgroundColor: String
 }
     
     
@@ -148,6 +148,26 @@ class kurzwahlModel: ObservableObject{
         }
     }
 
+    
+    func getColorName(withId: Int) -> String {
+        if withId < tiles.count {
+            return tiles[withId].backgroundColor
+        }
+        else {
+            return ""
+        }
+    }
+    
+    
+    func getColor(withId: Int) -> Color {
+        if withId < tiles.count {
+            return Color.init(tiles[withId].backgroundColor, bundle: nil)
+        }
+        else {
+            return Color.black
+        }
+    }
+    
 
     func getFontSizeAsInt() -> Int {
         return Int(fontSize)
@@ -170,7 +190,7 @@ class kurzwahlModel: ObservableObject{
         
         var displayColors = [String]()
         for i in 0...globalMaxTileNumber {
-//            displayColors.append(self.tiles[i].backgroundColor.)
+            displayColors.append(self.tiles[i].backgroundColor)
         }
         self.storageManager.persist(withColors: displayColors)
 
@@ -219,7 +239,7 @@ class kurzwahlModel: ObservableObject{
     fileprivate func initializeDefaultTiles() {
         var aTile: tile
         for i in 0...globalMaxTileNumber {
-            aTile = tile(id: i, name: "", phoneNumber: "", backgroundColor: Color.appColor(i)!)
+            aTile = tile(id: i, name: "", phoneNumber: "", backgroundColor: AssetColorList[i])
             tiles.append(aTile)
         }
     }

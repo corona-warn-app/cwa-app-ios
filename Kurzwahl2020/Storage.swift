@@ -124,14 +124,14 @@ class storage {
     }
     
     
-    func loadColors(withFilename : String = "") ->[Color] {
-        var result = [Color]()
+    func loadColors(withFilename : String = "") ->[String] {
+        var result = [String]()
         let filename : String = (withFilename.count == 0 ? colorsFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent(filename)
         do {
         let data = try Data(contentsOf: fileURL)
-            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [Color]
+            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
         } catch {
             print("load Colors failed")
         }
@@ -165,6 +165,7 @@ class storage {
         let fullPathNames = directory.appendingPathComponent(namesFileName)
         let fullPathNumbers = directory.appendingPathComponent(numbersFileName)
         let fullPathSettings = directory.appendingPathComponent(settingsFileName)
+        let fullPathColors = directory.appendingPathComponent(colorsFileName)
         do {
             try FileManager.default.removeItem(at: fullPathNames)
         } catch let error as NSError {
@@ -180,7 +181,11 @@ class storage {
         } catch let error as NSError {
             print("Error: \(error.domain)")
         }
-        
+        do {
+            try FileManager.default.removeItem(at: fullPathColors)
+        } catch let error as NSError {
+            print("Error: \(error.domain)")
+        }
     }
     
     

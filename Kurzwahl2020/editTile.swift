@@ -36,7 +36,7 @@ struct editTile: View {
                 }//.font(Font.system(size: 22)) //.labelsHidden
                 HStack {
                     Button(action: {
-                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number, backgroundColor: self.noColor))
+                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number, backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
                         globalDataModel.persist()
                         self.navigation.unwind()}) {
                             Text("OK").foregroundColor(Color.accentColor)
