@@ -13,9 +13,11 @@ class StorageTests: XCTestCase {
     var sut : storage = storage()
     var testNames : [String] = []
     var testNumbers : [String] = []
+    var testColors : [String] = []
     var testSettings : [String : String] = ["alpha" : "beta", "charlie": "delta"]
     let namesTestfile : String = "namesTestfile"
     let numbersTestfile : String = "numbersTestfile"
+    let colorsTestfile : String = "colorsTestfile"
     let settingsTestfile : String = "settingsTestfile"
 
     
@@ -24,6 +26,7 @@ class StorageTests: XCTestCase {
         for i in 0...globalMaxTileNumber{
             testNames.append("Bürgermeister Müller")
             testNumbers.append(String(i))
+            testColors.append("Color" + String(i))
         }
     }
 
@@ -64,6 +67,16 @@ class StorageTests: XCTestCase {
         XCTAssertTrue( testNumbers.count == globalMaxTileNumber + 1)
     }
 
+    
+    func testPersistForColors() {
+        var result : [String] = [""]
+        sut.persist(withColors: testColors, withFilename: colorsTestfile)
+        result = sut.loadColors(withFilename: colorsTestfile)
+        
+        XCTAssertTrue(result == testColors)
+        XCTAssertTrue( testColors.count == globalMaxTileNumber + 1)
+    }
+    
     
     func testPersistForSettings() {
         var result : [String : String] = ["":""]
