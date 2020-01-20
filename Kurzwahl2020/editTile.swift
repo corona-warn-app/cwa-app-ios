@@ -21,6 +21,7 @@ struct editTile: View {
     @State var name : String = ""
     @State var number : String = ""
     @EnvironmentObject var navigation: NavigationStack
+    var noColor = Color(.black)
     
     var body: some View {
         
@@ -35,7 +36,7 @@ struct editTile: View {
                 }//.font(Font.system(size: 22)) //.labelsHidden
                 HStack {
                     Button(action: {
-                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number))
+                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number, backgroundColor: self.noColor))
                         globalDataModel.persist()
                         self.navigation.unwind()}) {
                             Text("OK").foregroundColor(Color.accentColor)

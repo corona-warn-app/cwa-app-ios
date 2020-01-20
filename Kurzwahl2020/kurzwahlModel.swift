@@ -43,6 +43,7 @@ struct tile {
     var id: Int
     var name: String
     var phoneNumber: String
+    var backgroundColor: Color
 }
     
     
@@ -201,10 +202,10 @@ class kurzwahlModel: ObservableObject{
     
     
     fileprivate func initializeDefaultTiles() {
-        var x: tile
+        var aTile: tile
         for i in 0...globalMaxTileNumber {
-            x = tile(id: i, name: "", phoneNumber: "")
-            tiles.append(x)
+            aTile = tile(id: i, name: "", phoneNumber: "", backgroundColor: Color.appColor(i)!)
+            tiles.append(aTile)
         }
     }
 
