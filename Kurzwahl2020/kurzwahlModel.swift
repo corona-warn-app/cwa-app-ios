@@ -166,6 +166,14 @@ class kurzwahlModel: ObservableObject{
             displayNumbers.append(self.tiles[i].phoneNumber)
         }
         self.storageManager.persist(withNumbers: displayNumbers)
+
+        
+        var displayColors = [String]()
+        for i in 0...globalMaxTileNumber {
+//            displayColors.append(self.tiles[i].backgroundColor.)
+        }
+        self.storageManager.persist(withColors: displayColors)
+
         self.storageManager.persist(settings: settings)
     }
     
@@ -199,9 +207,9 @@ class kurzwahlModel: ObservableObject{
         }
         
         let colorsFromFile = self.storageManager.loadColors()
-        if colors.count > 0 {
+        if colorsFromFile.count > 0 {
             for i in 0...(colorsFromFile.count - 1 ) {
-                tiles[i].backgroundColor = Color.init(colorsFromFile[i], bundle: nil)
+                tiles[i].backgroundColor = colorsFromFile[i]
             }
         }
         self.settings = self.storageManager.loadSettings()

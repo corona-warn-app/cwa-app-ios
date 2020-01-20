@@ -58,6 +58,19 @@ class storage {
     }
 
     
+    func persist(withColors : [String], withFilename: String = "" ) {
+        
+        let filename : String = (withFilename.count == 0 ? colorsFileName : withFilename)
+        let directory : URL = FileManager.sharedContainerURL()
+        let fullPath = directory.appendingPathComponent(filename)
+        do {
+            try NSKeyedArchiver.archivedData(withRootObject: withColors, requiringSecureCoding: false).write(to: fullPath)
+        } catch {
+            print("Store colors failes")
+        }
+    }
+    
+    
     func persist(settings : [String : String], withFilename: String = "" ) {
         
         let filename : String = (withFilename.count == 0 ? settingsFileName : withFilename)
@@ -111,14 +124,14 @@ class storage {
     }
     
     
-    func loadColors(withFilename : String = "") ->[String] {
-        var result : [String] = [""]
+    func loadColors(withFilename : String = "") ->[Color] {
+        var result = [Color]()
         let filename : String = (withFilename.count == 0 ? colorsFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent(filename)
         do {
         let data = try Data(contentsOf: fileURL)
-            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [Color]
         } catch {
             print("load Colors failed")
         }
