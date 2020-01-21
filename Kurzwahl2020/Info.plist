@@ -59,5 +59,7 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcons.appiconset</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Access to contacts</string>
 </dict>
 </plist>
