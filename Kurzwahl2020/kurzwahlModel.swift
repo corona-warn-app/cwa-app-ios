@@ -45,8 +45,8 @@ struct tile {
     var phoneNumber: String
     var backgroundColor: String
 }
-    
-    
+
+
 var globalNumberOfRows: Int = appdefaults.rows.large
 var globalDataModel : kurzwahlModel = kurzwahlModel()
 let globalMaxTileNumber : Int = 35
@@ -55,8 +55,8 @@ let APPGROUP : String = "group.org.tcfos.callbycolor"
 // global constants
 struct appdefaults : Hashable {
     struct rows {
-    static let small = 5
-    static let large = 6
+        static let small = 5
+        static let large = 6
     }
     struct colorScheme{
         struct dark{
@@ -83,26 +83,13 @@ class kurzwahlModel: ObservableObject{
     @Published var font : String = "PingFang TC Medium"
     @Published var fontSize : CGFloat = 0
     
-//    private var names : [Int : String] =
-//        [0:"Alpha", 1:"Bravo", 2:"Charlie", 3:"Delta", 4:"Echo", 5:"Foxtrott",
-//         6:"Golf", 7:"Hotel", 8:"India", 9:"Juliet", 10:"Kilo", 11:"Lima",
-//         12:"Mike", 13:"November", 14:"Oscar", 15:"Papa", 16:"Quebec", 17:"Romeo",
-//         18:"Sierra", 19:"Tango", 20:"Uniform", 21:"Victor", 22:"Whiskey", 23:"X-ray",
-//         24:"Yankee", 25:"Zulu"]
-        private var names : [String] =
-            ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
-             "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
-             "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo",
-             "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
-             "Yankee", "Zulu"]
-
     private var phoneNumbers : [String] = [""]
     private var colors : [ String ] = [""]
     
     //Dictionary of settings
     var settings : [String : String] = ["fontsize" : "24"]
     let storageManager = storage.init()
-
+    
     
     init() {
         initializeDefaultTiles()
@@ -120,7 +107,7 @@ class kurzwahlModel: ObservableObject{
         }
     }
     
-   
+    
     func modifyTile(withTile: tile)   {
         if withTile.id >= 0 && withTile.id < tiles.count{
             tiles[withTile.id] = withTile
@@ -128,7 +115,7 @@ class kurzwahlModel: ObservableObject{
         }
     }
     
-
+    
     func getName(withId: Int) -> String {
         if withId < tiles.count {
             return tiles[withId].name
@@ -147,7 +134,7 @@ class kurzwahlModel: ObservableObject{
             return ""
         }
     }
-
+    
     
     func getColorName(withId: Int) -> String {
         if withId < tiles.count {
@@ -168,12 +155,24 @@ class kurzwahlModel: ObservableObject{
         }
     }
     
-
+    
+    func getUIColor(withId: Int) -> UIColor {
+        if withId < tiles.count {
+            //let c = Color.init(tiles[withId].backgroundColor, bundle: nil)
+            let u : UIColor = UIColor.init(named: tiles[withId].backgroundColor)!
+            return u
+        }
+        else {
+            return UIColor.init(named: "black")!
+        }
+    }
+    
+    
     func getFontSizeAsInt() -> Int {
         return Int(fontSize)
     }
     
-
+    
     func persist() {
         var displayNames = [String]()
         for i in 0...globalMaxTileNumber {
@@ -186,14 +185,14 @@ class kurzwahlModel: ObservableObject{
             displayNumbers.append(self.tiles[i].phoneNumber)
         }
         self.storageManager.persist(withNumbers: displayNumbers)
-
+        
         
         var displayColors = [String]()
         for i in 0...globalMaxTileNumber {
             displayColors.append(self.tiles[i].backgroundColor)
         }
         self.storageManager.persist(withColors: displayColors)
-
+        
         self.storageManager.persist(settings: settings)
     }
     
@@ -218,7 +217,7 @@ class kurzwahlModel: ObservableObject{
                 tiles[i].name = ""
             }
         }
-
+        
         let numbersFromFile = self.storageManager.loadNumbers()
         if numbersFromFile.count > 0 {
             for i in 0...(numbersFromFile.count - 1) {
@@ -243,6 +242,6 @@ class kurzwahlModel: ObservableObject{
             tiles.append(aTile)
         }
     }
-
+    
 }
 

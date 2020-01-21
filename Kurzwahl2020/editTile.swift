@@ -20,6 +20,7 @@ struct editTile: View {
     @State var tileId : Int = 0
     @State var name : String = ""
     @State var number : String = ""
+    @State var colorHexCode : String = ""
     @EnvironmentObject var navigation: NavigationStack
     var noColor = Color(.black)
     
@@ -32,8 +33,12 @@ struct editTile: View {
             Form {
                 Section(header: Text("Enter Name and Phone Number")) {
                     TextField("Name", text: $name).disableAutocorrection(true)
-                    TextField("Number", text: $number).disableAutocorrection(true).keyboardType(/*@START_MENU_TOKEN@*/.phonePad/*@END_MENU_TOKEN@*/)
+                    TextField("Number", text: $number).disableAutocorrection(true).keyboardType(.phonePad)
+                    
                 }//.font(Font.system(size: 22)) //.labelsHidden
+//                Section(header: Text("Color Code – experimental")) {
+//                    TextField( globalDataModel.getUIColor(withId: tileId).hexCode(), text: $colorHexCode)
+//                }
                 HStack {
                     Button(action: {
                         globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number, backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
@@ -75,4 +80,25 @@ struct BackView: View{
     }
     
     
+}
+
+
+
+// provide a hex code for a UIColor
+extension UIColor {
+    func hexCode() -> String {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        let hexCodeRed : String = String(NSString(format:"%02X", Int(255 * red)))
+        let hexCodeGreen : String = String(NSString(format:"%02X", Int(255 * green)))
+        let hexCodeBlue : String = String(NSString(format:"%02X", Int(255 * blue)))
+        let hexCodeAlpha : String = String(NSString(format:"%02X", Int(255 * alpha)))
+        
+        return(hexCodeRed + hexCodeGreen + hexCodeBlue + hexCodeAlpha)
+        
+        
+    }
 }

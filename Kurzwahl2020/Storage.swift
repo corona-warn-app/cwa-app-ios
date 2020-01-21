@@ -4,6 +4,10 @@
 //
 //  Created by Vogel, Andreas on 30.10.19.
 //  Copyright © 2019 Vogel, Andreas. All rights reserved.
+
+// store names, numbers, and colors as [String] in different files.
+// Store the files in an appgroup so that they can be shared
+// with other apps, e. g. an AppleWatch app.
 //
 // iOS Persistence: https://www.iosapptemplates.com/blog/ios-development/data-persistence-ios-swift
 //
@@ -17,9 +21,6 @@
 
 import SwiftUI
 import Foundation
-
-// can we use simple arrays to store data to file?
-
 
 
 class storage {
