@@ -137,6 +137,18 @@ class Kurzwahl2020Tests: XCTestCase {
         let testColor : Color = Color.init(colorName, bundle: nil)
         XCTAssertEqual(testColor, aColor)
     }
+
+    
+//    func testGetUIColor() {
+//        let colorName : String = "OrangeFF9500"
+//        let bob = tile.init(id: 0, name: "Bob", phoneNumber: "0621888", backgroundColor: colorName)
+//        sut.modifyTile(withTile: bob)
+//        
+//        let aColor : UIColor = sut.getUIColor(withId: 0)
+//        let testColor : Color = Color.init(colorName, bundle: nil)
+//        let myColor = Color(aColor)
+//        XCTAssertEqual(testColor, Color(aColor))
+//    }
     
     
     func testPersist() {
