@@ -152,13 +152,19 @@ class Kurzwahl2020Tests: XCTestCase {
     
     
     func testPersist() {
-        var names : [String] =
-        ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
-         "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
-         "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo",
-         "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
-         "Yankee", "Zulu"]
+//        var names : [String] =
+//        ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrott",
+//         "Golf", "Hotel", "India", "Juliet", "Kilo", "Lima",
+//         "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo",
+//         "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-ray",
+//         "Yankee", "Zulu"]
         
         sut.persist()
+    }
+    
+    func testContacts() {
+        let cr = contactReader()
+        let result = cr.test()
+        XCTAssertTrue( result.count > 0)
     }
 }
