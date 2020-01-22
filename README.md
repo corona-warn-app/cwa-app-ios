@@ -21,10 +21,10 @@ iOS Swift Kurzwahl App 2020, programmiert in Swift mit Xcode 11.1
 
 ## Github und Xcode:
 https://www.raywenderlich.com/675-how-to-use-git-source-control-with-xcode-9
-Open the Xcode preferences, choose tab _Accounst_ and add the git repository as a remote repository. Use local commits to store your work in the local git repo. At the end of the day push everything to the remote repo.
-
-## UICollectionView Tutorial
-https://www.raywenderlich.com/9334-uicollectionview-tutorial-getting-started
+Open the Xcode preferences, choose tab _Accounts_ and add the git repository as a remote repository.
+In the Source Control navigator of Xcode, right-click on the project name 
+at the top of the left-hand pane and select "Create <projectname> Remote...".
+Use local commits to store your work in the local git repo. At the end of the day push everything to the remote repo.
 
 ## GIT 
 Single Branch
