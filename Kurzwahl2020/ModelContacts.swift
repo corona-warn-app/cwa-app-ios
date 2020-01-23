@@ -11,8 +11,8 @@ import Contacts
 import Combine
 
 
-struct myContact {
-    var id: Int
+struct myContact : Identifiable {
+    var id = UUID()
     var name: String
     var phoneNumber: String
 }
@@ -71,7 +71,7 @@ class contactReader: ObservableObject{
                     if phoneNo.label == CNLabelPhoneNumberMobile {
                         let istEineMobileNummer = (phoneNo.value).stringValue
                         print(istEineMobileNummer)
-                        let aContact = myContact(id: i, name: name, phoneNumber: istEineMobileNummer)
+                        let aContact = myContact(name: name, phoneNumber: istEineMobileNummer)
                         self.myContacts.append(aContact)
                     }
                 }
