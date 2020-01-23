@@ -164,7 +164,7 @@ class Kurzwahl2020Tests: XCTestCase {
     
     func testContacts() {
         let cr = contactReader()
-        let result = cr.test()
+        let result = cr.contactsFromAddressBook()
         XCTAssertTrue( result.count > 0)
     }
 }
