@@ -8,20 +8,34 @@
 
 import SwiftUI
 import Contacts
+import Combine
 
 struct ContactView: View {
-    @EnvironmentObject var navigation: NavigationStack
+    
+    let result = contactReader().contactsFromAddressBook()
     
     var body: some View {
         VStack{
-            AboutBackView( title: "Contact View",action:{
-                self.navigation.unwind()
-            })
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            Spacer()
+            List {
+                ForEach(result) { person in
+                    contactRow(person: person)
+                }
+            }
         }
     }
 }
+
+
+
+struct contactRow: View {
+    var person : myContact
+    var body: some View {
+        Text(person.name)
+    }
+}
+
+
+
 
 
 
