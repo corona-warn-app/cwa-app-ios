@@ -1,10 +1,13 @@
 #  SwiftUI Documentation
 
 ## Apple
+Documentation of SwiftUI: https://developer.apple.com/documentation/swiftui
 
-https://developer.apple.com/tutorials/swiftui/
+Tutorials: https://developer.apple.com/tutorials/swiftui/
 
 ## WWWDC 2019 Videos
+
+Summary of WWDC 2019 Lectures: https://github.com/Blackjacx/WWDC
 
 ### Introducing SwiftUI
 https://developer.apple.com/videos/play/wwdc2019/204
@@ -149,6 +152,15 @@ https://www.egeniq.com/blog/deeper-understanding-swiftui
 ## Apple Human Interface Guidelines – Gestures
 https://developer.apple.com/design/human-interface-guidelines/ios/user-interaction/gestures/
 
+
+## SwiftUI Environment Variables
+A collection of environment values. Examples:
+* colorScheme
+* presentationMode
+* timeZone
+* verticalSizeClass
+
+https://developer.apple.com/documentation/swiftui/environmentvalues
 
 ## Hacking Swift
 What’s the difference between @ObservedObject, @State, and @EnvironmentObject?
