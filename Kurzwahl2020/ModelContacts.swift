@@ -9,12 +9,14 @@
 import Foundation
 import Contacts
 import Combine
-
+import UIKit
 
 struct myContact : Identifiable {
     var id = UUID()
     var name: String
     var phoneNumber: String
+    var imageDataAvailable : Bool
+//    var thumbnailImageData : Data
 }
 
 
@@ -46,13 +48,22 @@ class contactReader: ObservableObject{
             // get the contacts
             
             var contacts = [CNContact]()
-            let request = CNContactFetchRequest(keysToFetch: [CNContactIdentifierKey as NSString, CNContactPhoneNumbersKey as NSString, CNContactFormatter.descriptorForRequiredKeys(for: .fullName)])
+            let contactKeys = [CNContactIdentifierKey as CNKeyDescriptor,
+                               CNContactImageDataKey as CNKeyDescriptor,
+                               CNContactPhoneNumbersKey as CNKeyDescriptor,
+                               CNContactImageDataKey as CNKeyDescriptor,
+                               CNContactImageDataAvailableKey as CNKeyDescriptor,
+                               CNContactImageDataKey as CNKeyDescriptor,
+                               CNContactFormatter.descriptorForRequiredKeys(for: .fullName)]
+            let request = CNContactFetchRequest(keysToFetch: contactKeys)
             
             do {
                 try store.enumerateContacts(with: request) { contact, stop in
                     contacts.append(contact)
                 }
-            } catch {
+                
+                
+            } catch  {
                 print(error)
             }
             
@@ -61,17 +72,19 @@ class contactReader: ObservableObject{
             let formatter = CNContactFormatter()
             formatter.style = .fullName
             for contact in contacts {
-                print(formatter.string(from: contact) ?? "???")
-                
-                
                 let name = formatter.string(from: contact) ?? "???"
-                
+                print(name)
+                var aContact = myContact(name: name, phoneNumber: "", imageDataAvailable: false)
+                aContact.imageDataAvailable = contact.imageDataAvailable
                 // If phoneNo a Mobilenumber, then put into Array:
                 for phoneNo in contact.phoneNumbers {
                     if phoneNo.label == CNLabelPhoneNumberMobile {
                         let istEineMobileNummer = (phoneNo.value).stringValue
                         print(istEineMobileNummer)
-                        let aContact = myContact(name: name, phoneNumber: istEineMobileNummer)
+                        aContact.imageDataAvailable = contact.imageDataAvailable
+                        aContact.phoneNumber = istEineMobileNummer
+                        
+                        
                         self.myContacts.append(aContact)
                     }
                 }
