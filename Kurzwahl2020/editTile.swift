@@ -41,24 +41,20 @@ struct editTile: View {
 //                }
                 HStack {
                     Button(action: {
-                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number, backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
-                        globalDataModel.persist()
-                        self.navigation.unwind()}) {
-                            Text("OK").foregroundColor(Color.accentColor)
-                    }.buttonStyle(PlainButtonStyle())//.font(Font.system(size: 22))
-                }
-                HStack {
-//                    Button(action: {
-//                        self.navigation.advance(NavigationItem(
-//                    view: AnyView(ContactView()))) }) {
-//                        Text("Contacts")
-//                    }.buttonStyle(PlainButtonStyle())
-                    Button(action: {
                         self.navigation.advance(NavigationItem(
                     view: AnyView(ContactView()))) }) {
                         Text("Contacts")
                     }.buttonStyle(PlainButtonStyle())
                     
+                }
+
+                HStack {
+                    Button(action: {
+                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number, backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
+                        globalDataModel.persist()
+                        self.navigation.unwind()}) {
+                            Text("OK").foregroundColor(Color.accentColor)
+                    }.buttonStyle(PlainButtonStyle())//.font(Font.system(size: 22))
                 }
             }
             

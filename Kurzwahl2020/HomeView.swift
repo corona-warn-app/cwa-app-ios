@@ -124,7 +124,7 @@ struct HomeView: View {
             .onTapGesture(count: 2) {
                 self.navigation.advance(NavigationItem(
                     view: AnyView(
-                        editTileNavView(tileId: withTileNumber,
+                        editTile(tileId: withTileNumber,
                                  name: globalDataModel.getName(withId: withTileNumber),
                                  number: globalDataModel.getNumber(withId: withTileNumber)))))
         }

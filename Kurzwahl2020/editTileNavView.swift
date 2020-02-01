@@ -20,7 +20,7 @@ struct editTileNavView: View {
     
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             Form {
                 Section(header: Text("Enter Name and Phone Number")) {
                     TextField("Name", text: $name).disableAutocorrection(true)
@@ -47,7 +47,7 @@ struct editTileNavView: View {
                 }
             }
             
-        }.navigationBarTitle(Text("Contact Details"))
+//        }.navigationBarTitle(Text("Contact Details"))
         
     }
 }
