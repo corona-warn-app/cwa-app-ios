@@ -88,7 +88,7 @@ struct BackView: View{
                 Spacer()
                 Text(title).padding(.leading, 20).font(Font.system(size: 20)).padding(.trailing, 20)
                 Spacer()
-                Button( action: okAction){ Text("OK").padding(.leading, 15)
+                Button( action: okAction){ Text("OK").padding(.trailing, 15)
                 }.foregroundColor(Color.accentColor)
             }
         }
