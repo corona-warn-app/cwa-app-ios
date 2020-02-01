@@ -40,9 +40,8 @@ class ContactTest: XCTestCase {
         XCTAssertTrue( myContacts.count > 0)
         
         for contact in myContacts {
-            for phoneNumber in contact.allNumbers {
-                XCTAssertTrue(phoneNumber.count > 0)
-            }
+            XCTAssertTrue(contact.phoneNumber.count > 0)
+            XCTAssertTrue(contact.label.count > 0)
         }
     }
 

@@ -33,13 +33,14 @@ struct contactRow: View {
         HStack {
             Text(person.name)
             Spacer()
-            if person.imageDataAvailable == true {
-                Image(uiImage: UIImage(data: person.thumbnailImageData)! ).resizable()
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle().size(width:50, height:50 ) )
-//                    .frame(width: 20, height: 20)
-                    .aspectRatio(contentMode: ContentMode.fit)
-            }
+            Text(person.label)
+
+//            if person.imageDataAvailable == true {
+//                Image(uiImage: UIImage(data: person.thumbnailImageData)! ).resizable()
+//                    .frame(width: 50, height: 50)
+//                    .clipShape(Circle().size(width:50, height:50 ) )
+//                    .aspectRatio(contentMode: ContentMode.fit)
+//            }
         }
     }
 }

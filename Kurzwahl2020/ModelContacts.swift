@@ -15,7 +15,7 @@ struct myContact : Identifiable {
     var id = UUID()
     var name: String
     var phoneNumber: String
-    var allNumbers : [String]
+    var label: String
     var imageDataAvailable : Bool
     var thumbnailImageData : Data
 }
@@ -71,15 +71,14 @@ class contactReader: ObservableObject{
             // do something with the contacts array (e.g. print the names)
             let formatter = CNContactFormatter()
             formatter.style = .fullName
-            var contactImageData = Data()
             var contactThumbnailData = Data()
             
             for contact in contacts {
                 var allNumbers =  [String]()
+                var allLabels =  [String]()
                 let name = formatter.string(from: contact) ?? "???"
                 
                 if contact.imageDataAvailable == true {
-                    contactImageData = contact.imageData ?? Data()
                     contactThumbnailData = contact.thumbnailImageData ?? Data()
                 }
                 
@@ -90,22 +89,19 @@ class contactReader: ObservableObject{
                         phoneNo.label == CNLabelPhoneNumberMain ||
                         phoneNo.label == "_$!<Home>!$_" ||
                         phoneNo.label == "_$!<Work>!$_" ) {
-                        
+// https://stackoverflow.com/questions/58578341/how-to-implement-localization-in-swift-ui
                         if phoneNo.value.stringValue.count > 0 {
                             allNumbers.append(phoneNo.value.stringValue)
+                            allLabels.append(phoneNo.label ?? "")
                         }
+                        self.myContacts.append(myContact(name: name,
+                                                         phoneNumber: phoneNo.value.stringValue,
+                                                         label: phoneNo.label ?? "",
+                                                         imageDataAvailable: contact.imageDataAvailable,
+                                                         thumbnailImageData: contactThumbnailData)
+                        )
                     }
                 }
-                
-                if allNumbers.count > 0 {
-                    self.myContacts.append(myContact(name: name,
-                                                     phoneNumber: "",
-                                                     allNumbers: allNumbers,
-                                                     imageDataAvailable: contact.imageDataAvailable,
-                                                     thumbnailImageData: contactThumbnailData)
-                    )
-                }
-                
             }
         }
         return self.myContacts
