@@ -46,6 +46,18 @@ struct editTile: View {
                         self.navigation.unwind()}) {
                             Text("OK").foregroundColor(Color.accentColor)
                     }.buttonStyle(PlainButtonStyle())//.font(Font.system(size: 22))
+                }
+                HStack {
+//                    Button(action: {
+//                        self.navigation.advance(NavigationItem(
+//                    view: AnyView(ContactView()))) }) {
+//                        Text("Contacts")
+//                    }.buttonStyle(PlainButtonStyle())
+                    Button(action: {
+                        self.navigation.advance(NavigationItem(
+                    view: AnyView(ContactView()))) }) {
+                        Text("Contacts")
+                    }.buttonStyle(PlainButtonStyle())
                     
                 }
             }
