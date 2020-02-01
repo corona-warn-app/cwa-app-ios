@@ -29,11 +29,15 @@ struct ContactView: View {
 
 struct contactRow: View {
     var person : myContact
+    @EnvironmentObject var navigation: NavigationStack
     var body: some View {
         HStack {
-            Text(person.name)
+            Button(action: {self.navigation.unwind()} ){
+                Text(person.name)
+            }
             Spacer()
             Text(person.label)
+            
 
 //            if person.imageDataAvailable == true {
 //                Image(uiImage: UIImage(data: person.thumbnailImageData)! ).resizable()
