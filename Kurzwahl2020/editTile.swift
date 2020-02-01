@@ -22,6 +22,7 @@ struct editTile: View {
     @State var number : String = ""
     @State var colorHexCode : String = ""
     @EnvironmentObject var navigation: NavigationStack
+    @EnvironmentObject var userSelectedContact: selectedContact
     var noColor = Color(.black)
     
     var body: some View {

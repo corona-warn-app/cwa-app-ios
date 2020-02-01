@@ -12,6 +12,7 @@ import Combine
 
 struct ContactView: View {
     @EnvironmentObject var editNavigation: NavigationStack
+    
     let result = contactReader().contactsFromAddressBook()
     
     var body: some View {
@@ -30,10 +31,12 @@ struct ContactView: View {
 struct contactRow: View {
     var person : myContact
     @EnvironmentObject var navigation: NavigationStack
-
+    @EnvironmentObject var userSelectedContact: selectedContact
     var body: some View {
         HStack {
-            Button(action: {                
+            Button(action: {
+                self.userSelectedContact.name = self.person.name
+                self.userSelectedContact.phoneNumber = self.person.phoneNumber
                 self.navigation.unwind()} ){
                 Text(person.name)
             }.buttonStyle(PlainButtonStyle())
