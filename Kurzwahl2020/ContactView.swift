@@ -30,7 +30,17 @@ struct ContactView: View {
 struct contactRow: View {
     var person : myContact
     var body: some View {
-        Text(person.name)
+        HStack {
+            Text(person.name)
+            Spacer()
+            if person.imageDataAvailable == true {
+                Image(uiImage: UIImage(data: person.thumbnailImageData)! ).resizable()
+                    .frame(width: 50, height: 50)
+                    .clipShape(Circle().size(width:50, height:50 ) )
+//                    .frame(width: 20, height: 20)
+                    .aspectRatio(contentMode: ContentMode.fit)
+            }
+        }
     }
 }
 

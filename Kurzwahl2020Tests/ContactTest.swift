@@ -38,6 +38,12 @@ class ContactTest: XCTestCase {
         let myContacts = reader.contactsFromAddressBook()
         XCTAssertNotNil(myContacts)
         XCTAssertTrue( myContacts.count > 0)
+        
+        for contact in myContacts {
+            for phoneNumber in contact.allNumbers {
+                XCTAssertTrue(phoneNumber.count > 0)
+            }
+        }
     }
 
 }
