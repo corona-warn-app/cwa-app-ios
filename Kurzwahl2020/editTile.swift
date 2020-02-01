@@ -22,7 +22,7 @@ struct editTile: View {
     @State var number : String = ""
     @State var colorHexCode : String = ""
     @EnvironmentObject var navigation: NavigationStack
-    @EnvironmentObject var userSelectedContact: selectedContact
+//    @EnvironmentObject var userSelectedContact: selectedContact
     var noColor = Color(.black)
     
     var body: some View {
@@ -35,8 +35,8 @@ struct editTile: View {
 
             Form {
                 Section(header: Text("Enter Name and Phone Number")) {
-                    TextField("Name", text: $name).disableAutocorrection(true)
-                    TextField("Number", text: $number).disableAutocorrection(true).keyboardType(.phonePad)
+                    TextField("Name", text: self.$name).disableAutocorrection(true)
+                    TextField("Number", text: self.$number).disableAutocorrection(true).keyboardType(.phonePad)
                     
                 }//.font(Font.system(size: 22)) //.labelsHidden
 //                Section(header: Text("Color Code – experimental")) {

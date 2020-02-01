@@ -18,7 +18,7 @@ struct ContactView: View {
     var body: some View {
         VStack{
             List {
-                ForEach(result) { person in
+                ForEach(result) { person  in
                     contactRow(person: person)
                 }
             }
@@ -30,13 +30,14 @@ struct ContactView: View {
 
 struct contactRow: View {
     var person : myContact
+//    @Binding var name : String
+//    @Binding var number : String
     @EnvironmentObject var navigation: NavigationStack
+    
     @EnvironmentObject var userSelectedContact: selectedContact
     var body: some View {
         HStack {
             Button(action: {
-                self.userSelectedContact.name = self.person.name
-                self.userSelectedContact.phoneNumber = self.person.phoneNumber
                 self.navigation.unwind()} ){
                 Text(person.name)
             }.buttonStyle(PlainButtonStyle())

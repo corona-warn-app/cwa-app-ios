@@ -30,7 +30,7 @@ final class selectedContact : ObservableObject {
 // https://stackoverflow.com/questions/24852175/how-to-retrieve-address-book-contacts-with-swift
 
 class contactReader: ObservableObject{
-    @Published var myContacts = [myContact]()
+    var myContacts = [myContact]()
     
     func contactsFromAddressBook() -> [myContact] {
         let status = CNContactStore.authorizationStatus(for: .contacts)
