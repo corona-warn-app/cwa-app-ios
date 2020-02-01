@@ -26,7 +26,6 @@ struct myContact : Identifiable {
 
 class contactReader: ObservableObject{
     @Published var myContacts = [myContact]()
-    var counter : Int = 0
     
     func contactsFromAddressBook() -> [myContact] {
         let status = CNContactStore.authorizationStatus(for: .contacts)

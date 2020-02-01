@@ -30,9 +30,11 @@ struct ContactView: View {
 struct contactRow: View {
     var person : myContact
     @EnvironmentObject var navigation: NavigationStack
+
     var body: some View {
         HStack {
-            Button(action: {self.navigation.unwind()} ){
+            Button(action: {                
+                self.navigation.unwind()} ){
                 Text(person.name)
             }.buttonStyle(PlainButtonStyle())
             Spacer()
