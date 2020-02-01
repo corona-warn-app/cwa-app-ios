@@ -9,11 +9,13 @@
 import SwiftUI
 
 struct editTileNavView: View {
+    @EnvironmentObject var editNavigation: NavigationStack
+    
     @State var tileId : Int = 0
     @State var name : String = ""
     @State var number : String = ""
     @State var colorHexCode : String = ""
-    @EnvironmentObject var navigation: NavigationStack
+    
     var noColor = Color(.black)
     
     
@@ -26,9 +28,12 @@ struct editTileNavView: View {
                     
                 }//.font(Font.system(size: 22)) //.labelsHidden
                 HStack {
-                    NavigationLink(destination: ContactView()) {
+                    //                    NavigationLink(destination: ContactView()) {
+                    Button(action: {
+                        self.editNavigation.advance(NavigationItem(
+                    view: AnyView(ContactView()))) }) {
                         Text("Contacts")
-                    }
+                    }.buttonStyle(PlainButtonStyle())
                     
                 }
 
@@ -36,7 +41,7 @@ struct editTileNavView: View {
                     Button(action: {
                         globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number, backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
                         globalDataModel.persist()
-                        self.navigation.unwind()}) {
+                        self.editNavigation.unwind()}) {
                             Text("OK").foregroundColor(Color.accentColor)
                     }.buttonStyle(PlainButtonStyle())//.font(Font.system(size: 22))
                 }
