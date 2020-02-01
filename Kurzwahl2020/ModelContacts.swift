@@ -16,7 +16,8 @@ struct myContact : Identifiable {
     var name: String
     var phoneNumber: String
     var imageDataAvailable : Bool
-//    var thumbnailImageData : Data
+    var imageData : Data
+    var thumbnailImageData : Data
 }
 
 
@@ -53,7 +54,7 @@ class contactReader: ObservableObject{
                                CNContactPhoneNumbersKey as CNKeyDescriptor,
                                CNContactImageDataKey as CNKeyDescriptor,
                                CNContactImageDataAvailableKey as CNKeyDescriptor,
-                               CNContactImageDataKey as CNKeyDescriptor,
+                               CNContactThumbnailImageDataKey as CNKeyDescriptor,
                                CNContactFormatter.descriptorForRequiredKeys(for: .fullName)]
             let request = CNContactFetchRequest(keysToFetch: contactKeys)
             
@@ -71,17 +72,25 @@ class contactReader: ObservableObject{
             var i : Int = 0
             let formatter = CNContactFormatter()
             formatter.style = .fullName
+            var contactImageData = Data()
+            var contactThumbnailData = Data()
+            
             for contact in contacts {
                 let name = formatter.string(from: contact) ?? "???"
-                print(name)
-                var aContact = myContact(name: name, phoneNumber: "", imageDataAvailable: false)
-                aContact.imageDataAvailable = contact.imageDataAvailable
+                
+                if contact.imageDataAvailable == true {
+                    contactImageData = contact.imageData ?? Data()
+                    contactThumbnailData = contact.thumbnailImageData ?? Data()
+                }
+                
+                var aContact = myContact(name: name, phoneNumber: "", imageDataAvailable: contact.imageDataAvailable, imageData: contactImageData, thumbnailImageData: contactThumbnailData)
+                
+                
                 // If phoneNo a Mobilenumber, then put into Array:
                 for phoneNo in contact.phoneNumbers {
                     if phoneNo.label == CNLabelPhoneNumberMobile {
                         let istEineMobileNummer = (phoneNo.value).stringValue
                         print(istEineMobileNummer)
-                        aContact.imageDataAvailable = contact.imageDataAvailable
                         aContact.phoneNumber = istEineMobileNummer
                         
                         
