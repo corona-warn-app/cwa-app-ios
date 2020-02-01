@@ -27,9 +27,11 @@ struct editTile: View {
     var body: some View {
         
         VStack{
-            BackView( title: "Edit View",action:{
-                self.navigation.unwind()
-            })//.font(Font.system(size: 22))
+            BackView( title: "Edit View",
+                      okAction: {self.navigation.unwind()},
+                      cancelAction: {self.navigation.unwind()}
+            )
+
             Form {
                 Section(header: Text("Enter Name and Phone Number")) {
                     TextField("Name", text: $name).disableAutocorrection(true)
@@ -73,16 +75,21 @@ struct editTile_Previews: PreviewProvider {
 
 struct BackView: View{
     var title: String
-    var action: ()->Void
+    var okAction: ()->Void
+    var cancelAction: ()->Void
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     var body: some View {
         ZStack{
             //            Rectangle().fill(Color.secondary).frame( height: 40 )
             Rectangle().fill(colorScheme == .light ? Color.white : Color.black).frame( height: 40 )
             HStack{
-                Button( action: action){ Text("Cancel").padding(.leading, 15)
+                Button( action: cancelAction){ Text("Cancel").padding(.leading, 15)
                 }.foregroundColor(Color.accentColor)
                 Spacer()
+                Text(title).padding(.leading, 20).font(Font.system(size: 20)).padding(.trailing, 20)
+                Spacer()
+                Button( action: okAction){ Text("OK").padding(.leading, 15)
+                }.foregroundColor(Color.accentColor)
             }
         }
     }

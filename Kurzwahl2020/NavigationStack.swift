@@ -73,7 +73,7 @@ struct HomeViewX: View {
             }.tag(0)
 
             Text("DoubleTap me").onTapGesture(count: 2){
-                self.navigation.advance(NavigationItem(view: AnyView(NextView())))
+                self.navigation.advance(NavigationItem(view: AnyView(NextViewX())))
             }
             .tabItem {
                 Image(systemName: selection == 1 ? "2.square.fill" : "2.square")
@@ -108,7 +108,7 @@ struct NextViewX: View {
 
 
 
-struct TitleViewX: View{
+struct TitleView: View{
     var title: String
     
     var homeAction: ()->Void
@@ -139,16 +139,16 @@ struct BackViewX: View{
             Rectangle().fill(Color.gray).frame( height: 40 )
             HStack{
                 Button( action: action){
-          Image(uiImage: UIImage(systemName:  "arrow.turn.down.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large))! )
-                    .padding(.leading, 20)
+                    Image(uiImage: UIImage(systemName:  "arrow.turn.down.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large))! )
+                        .padding(.leading, 20)
                 }.foregroundColor(Color.black)
                 
                 Spacer()
-        Text(title).padding(.leading, 20).font(Font.system(size: 20)).padding(.trailing, 20)
+                Text(title).padding(.leading, 20).font(Font.system(size: 20)).padding(.trailing, 20)
                 Spacer()
                 Button( action: homeAction){
-          Image(uiImage: UIImage(systemName:  "house", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15.0, weight: .bold, scale: .large))! )
-                    .padding(.trailing, 20)
+                    Image(uiImage: UIImage(systemName:  "house", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15.0, weight: .bold, scale: .large))! )
+                        .padding(.trailing, 20)
                 }.foregroundColor(Color.black)
             }
         }

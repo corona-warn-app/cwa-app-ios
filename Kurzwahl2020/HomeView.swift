@@ -184,20 +184,20 @@ struct HomeView: View {
 
 
 
-struct NextView: View {
-    @EnvironmentObject var navigation: NavigationStack
-    
-    var body: some View {
-        VStack{
-            BackView( title: "Next View",  action:{
-                self.navigation.unwind()
-            })
-            List{
-                Text("I am NextView")
-            }
-        }
-    }
-}
+//struct NextView: View {
+//    @EnvironmentObject var navigation: NavigationStack
+//    
+//    var body: some View {
+//        VStack{
+//            BackView( title: "Next View",  action:{
+//                self.navigation.unwind()
+//            })
+//            List{
+//                Text("I am NextView")
+//            }
+//        }
+//    }
+//}
 
 
 

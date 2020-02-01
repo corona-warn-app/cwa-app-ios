@@ -17,7 +17,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             VStack{
-//           TitleView( title: "Settings")
                 Form {
                     Section(header: Text("Font Size")) {
                         Stepper(value: $model.fontSize, in: 12...64) {
