@@ -82,8 +82,6 @@ class kurzwahlModel: ObservableObject{
     @Published var tiles: [tile] = []
     @Published var font : String = "PingFang TC Medium"
     @Published var fontSize : CGFloat = 0
-    @Published var userSelectedName: String = ""
-    @Published var userSelectedNumber: String = ""
     
     private var phoneNumbers : [String] = [""]
     private var colors : [ String ] = [""]

@@ -14,15 +14,18 @@
 import SwiftUI
 
 
+final class EditViewState: ObservableObject {
+    @Published var userSelectedName = String()
+    @Published var userSelectedNumber = String()
+}
+
 
 struct editTile: View {
     
     @State var tileId : Int = 0
-    @State var name : String = ""
-    @State var number : String = ""
     @State var colorHexCode : String = ""
     @EnvironmentObject var navigation: NavigationStack
-//    @EnvironmentObject var userSelectedContact: selectedContact
+    @EnvironmentObject var editViewState : EditViewState
     var noColor = Color(.black)
     
     var body: some View {
@@ -35,8 +38,8 @@ struct editTile: View {
 
             Form {
                 Section(header: Text("Enter Name and Phone Number")) {
-                    TextField("Name", text: self.$name).disableAutocorrection(true)
-                    TextField("Number", text: self.$number).disableAutocorrection(true).keyboardType(.phonePad)
+                    TextField("Name", text: $editViewState.userSelectedName).disableAutocorrection(true)
+                    TextField("Number", text: $editViewState.userSelectedNumber).disableAutocorrection(true).keyboardType(.phonePad)
                     
                 }//.font(Font.system(size: 22)) //.labelsHidden
 //                Section(header: Text("Color Code – experimental")) {
@@ -53,7 +56,10 @@ struct editTile: View {
 
                 HStack {
                     Button(action: {
-                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId, name: self.name, phoneNumber: self.number, backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
+                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId,
+                                                                       name: self.editViewState.userSelectedName,
+                                                                       phoneNumber: self.editViewState.userSelectedNumber,
+                                                                       backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
                         globalDataModel.persist()
                         self.navigation.unwind()}) {
                             Text("OK").foregroundColor(Color.accentColor)

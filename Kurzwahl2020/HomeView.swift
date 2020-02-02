@@ -37,8 +37,9 @@ struct ContentView2: View {
 
 struct HomeView: View {
     @EnvironmentObject var navigation: NavigationStack
-    //@State private var selection : Int = 0
+
     @EnvironmentObject var appState : HomeViewState
+    @EnvironmentObject var editViewState : EditViewState
     @GestureState var isLongPressed = false
   
     //detect the dark mode
@@ -122,14 +123,15 @@ struct HomeView: View {
             .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
             .onTapGesture(count: 2) {
+//                let editViewStateObject = EditViewState()
+                self.editViewState.userSelectedName = globalDataModel.getName(withId: withTileNumber)
+                self.editViewState.userSelectedNumber = globalDataModel.getNumber(withId: withTileNumber)
                 self.navigation.advance(NavigationItem(
                     view: AnyView(
-                        editTile(tileId: withTileNumber,
-                                 name: globalDataModel.getName(withId: withTileNumber),
-                                 number: globalDataModel.getNumber(withId: withTileNumber)))))
-        }
-        .onTapGesture(count: 1) { self.makeCall(withTileNumber)
-        }
+                        editTile(tileId: withTileNumber))))
+            }
+            .onTapGesture(count: 1) { self.makeCall(withTileNumber)
+            }
     }
     
     
