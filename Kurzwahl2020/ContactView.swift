@@ -30,14 +30,14 @@ struct ContactView: View {
 
 struct contactRow: View {
     var person : myContact
-//    @Binding var name : String
-//    @Binding var number : String
     @EnvironmentObject var navigation: NavigationStack
+    @EnvironmentObject var kurzwahlModel: kurzwahlModel
     
-    @EnvironmentObject var userSelectedContact: selectedContact
     var body: some View {
         HStack {
             Button(action: {
+                self.kurzwahlModel.userSelectedName = self.person.name
+                self.kurzwahlModel.userSelectedNumber = self.person.phoneNumber
                 self.navigation.unwind()} ){
                 Text(person.name)
             }.buttonStyle(PlainButtonStyle())

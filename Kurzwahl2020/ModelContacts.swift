@@ -20,11 +20,6 @@ struct myContact : Identifiable {
     var thumbnailImageData : Data
 }
 
-final class selectedContact : ObservableObject {
-    @Published var name: String = ""
-    @Published var phoneNumber: String = ""
-
-}
 
 // see https://stackoverflow.com/questions/41304147/how-can-i-get-all-my-contacts-phone-numbers-into-an-array
 // https://stackoverflow.com/questions/24852175/how-to-retrieve-address-book-contacts-with-swift
