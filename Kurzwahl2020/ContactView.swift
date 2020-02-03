@@ -44,7 +44,7 @@ struct contactRow: View {
                 } else {
                     self.editViewState.userSelectedName = self.person.name
                     self.editViewState.userSelectedNumber = self.person.phoneNumber
-                    self.navigation.advance(NavigationItem(view: AnyView(ContactDetailView())))
+                    self.navigation.advance(NavigationItem(view: AnyView(ContactDetailView(name: self.person.name))))
                     
                 }
             })

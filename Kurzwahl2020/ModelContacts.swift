@@ -147,5 +147,17 @@ class contactReader: ObservableObject{
         return count
     }
     
+    
+    
+    func getNumbers(forName: String)->[myContact] {
+        var result = [myContact]()
+        for contact in myContacts {
+            if (contact.name == forName) {
+                result.append(contact)
+            }
+        }
+        return result
+    }
+    
 }
 
