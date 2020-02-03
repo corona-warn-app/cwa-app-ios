@@ -140,5 +140,16 @@ class contactReader: ObservableObject{
     }
     
     
+    
+    func getNumberOfPhoneNumbers(forContactName: String)-> Int {
+        var count : Int = 0
+        for contact in myContacts {
+            if (contact.name == forContactName) {
+                count += 1
+            }
+        }
+        return count
+    }
+    
 }
 
