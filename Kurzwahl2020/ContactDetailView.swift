@@ -43,7 +43,7 @@ struct contactDetailRow: View {
             Button(action: {
                 self.editViewState.userSelectedName = self.person.name
                 self.editViewState.userSelectedNumber = self.person.phoneNumber
-                self.navigation.unwind()})
+                self.navigation.unwind2()})
             {
                 Text(person.name)
             }.buttonStyle(PlainButtonStyle())

@@ -38,6 +38,20 @@ final class NavigationStack: ObservableObject  {
         currentView = viewStack[last]
         viewStack.remove(at: last)
     }
+    func unwind2(){
+        if viewStack.count == 0{
+            return
+        }
+        var last = viewStack.count - 1
+        currentView = viewStack[last]
+        viewStack.remove(at: last)
+        if viewStack.count == 0{
+            return
+        }
+        last = viewStack.count - 1
+        currentView = viewStack[last]
+        viewStack.remove(at: last)
+    }
     func advance(_ view:NavigationItem){
         viewStack.append( currentView)
         currentView = view
