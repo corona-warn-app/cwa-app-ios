@@ -32,28 +32,37 @@ struct editTile: View {
         
         VStack{
             BackView( title: "Edit View",
-                      okAction: {self.navigation.unwind()},
-                      cancelAction: {self.navigation.unwind()}
+                      okAction: {
+                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId,
+                                                                       name: self.editViewState.userSelectedName,
+                                                                       phoneNumber: self.editViewState.userSelectedNumber,
+                                                                       backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
+                        globalDataModel.persist()
+                        self.navigation.unwind()
+                        },
+                      cancelAction: {
+                        self.navigation.unwind()
+                        }
             )
-
+            
             Form {
                 Section(header: Text("Enter Name and Phone Number")) {
                     TextField("Name", text: $editViewState.userSelectedName).disableAutocorrection(true)
                     TextField("Number", text: $editViewState.userSelectedNumber).disableAutocorrection(true).keyboardType(.phonePad)
                     
                 }//.font(Font.system(size: 22)) //.labelsHidden
-//                Section(header: Text("Color Code – experimental")) {
-//                    TextField( globalDataModel.getUIColor(withId: tileId).hexCode(), text: $colorHexCode)
-//                }
+                //                Section(header: Text("Color Code – experimental")) {
+                //                    TextField( globalDataModel.getUIColor(withId: tileId).hexCode(), text: $colorHexCode)
+                //                }
                 HStack {
                     Button(action: {
                         self.navigation.advance(NavigationItem(
-                    view: AnyView(ContactView()))) }) {
-                        Text("Contacts")
+                            view: AnyView(ContactView()))) }) {
+                                Text("Contacts")
                     }.buttonStyle(PlainButtonStyle())
                     
                 }
-
+                
                 HStack {
                     Button(action: {
                         globalDataModel.modifyTile(withTile: tile.init(id: self.tileId,
