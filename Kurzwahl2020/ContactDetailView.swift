@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Contacts
 
 struct ContactDetailView: View {
     @State var name : String = ""
@@ -48,7 +49,13 @@ struct contactDetailRow: View {
                 Text(person.name)
             }.buttonStyle(PlainButtonStyle())
             Spacer()
-            Text(person.label)
+            if person.label == CNLabelPhoneNumberMobile {
+                Text("Mobile").font(.footnote).fontWeight(.light)
+            } else if person.label == CNLabelPhoneNumberiPhone {
+                Text("iPhone").font(.footnote).fontWeight(.light)
+            } else if person.label == CNLabelPhoneNumberMain {
+                Text("Main").font(.footnote).fontWeight(.light)
+            }
             
             
             if person.imageDataAvailable == true {
