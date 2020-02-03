@@ -14,7 +14,7 @@ struct ContactView: View {
     @EnvironmentObject var editNavigation: NavigationStack
     @EnvironmentObject var editViewState : EditViewState
     
-    let contacts = contactReader().getUniqueContacts()
+    let contacts = contactDataModel.getUniqueContacts()
     
     var body: some View {
         VStack{
@@ -33,19 +33,18 @@ struct contactRow: View {
     var person : myContact
     @EnvironmentObject var navigation: NavigationStack
     @EnvironmentObject var editViewState : EditViewState
-    @EnvironmentObject var datamodel : contactReader
     
     var body: some View {
         HStack {
             Button(action: {
-                if (self.datamodel.getNumberOfPhoneNumbers(forContactName: self.person.name) == 1){
+                if (contactDataModel.getNumberOfPhoneNumbers(forContactName: self.person.name) == 1){
                     self.editViewState.userSelectedName = self.person.name
                     self.editViewState.userSelectedNumber = self.person.phoneNumber
                     self.navigation.unwind()
                 } else {
                     self.editViewState.userSelectedName = self.person.name
                     self.editViewState.userSelectedNumber = self.person.phoneNumber
-                    self.navigation.unwind()
+                    self.navigation.advance(NavigationItem(view: AnyView(ContactDetailView())))
                     
                 }
             })
