@@ -54,4 +54,36 @@ class ContactTest: XCTestCase {
         XCTAssertTrue( myContacts.count > 0)
     }
 
+    
+    func testGetNumbersForContact() {
+        let reader = contactReader()
+        let myContacts = reader.contactsFromAddressBook()
+        
+        struct test : Hashable {
+            var name : String
+            var count : Int
+        }
+        var testSet = Set<test>()
+        
+        var i : Int = 0
+        var lastname : String = ""
+        for contact in myContacts {
+            if lastname == "" {
+                lastname = contact.name
+                i = 1
+            } else if lastname != contact.name {
+                testSet.insert(test(name: lastname, count: i))
+                XCTAssertTrue(reader.getNumberOfPhoneNumbers(forContactName: lastname) == i)
+                
+                lastname = contact.name
+                i = 1
+            } else if lastname == contact.name{
+                i += 1
+            }
+        }
+        
+ 
+    }
+
+
 }

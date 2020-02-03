@@ -55,6 +55,10 @@ struct contactDetailRow: View {
                 Text("iPhone").font(.footnote).fontWeight(.light)
             } else if person.label == CNLabelPhoneNumberMain {
                 Text("Main").font(.footnote).fontWeight(.light)
+            } else if person.label == "_$!<Home>!$_" {
+                Text("Home").font(.footnote).fontWeight(.light)
+            } else if person.label == "_$!<Work>!$_" {
+                Text("Work").font(.footnote).fontWeight(.light)
             }
             
             
