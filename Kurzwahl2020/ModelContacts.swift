@@ -109,11 +109,22 @@ class contactReader: ObservableObject{
                 }
             }
         }
-        uniqueContacts = self.removeDuplicates(arrayOfContacts: myContacts)
         return self.myContacts
     }
 
 
+    
+    func getUniqueContacts() -> [myContact] {
+        if uniqueContacts.count == 0 {
+            if myContacts.count == 0 {
+                uniqueContacts = self.removeDuplicates(arrayOfContacts: self.contactsFromAddressBook())
+            }
+            uniqueContacts = self.removeDuplicates(arrayOfContacts: myContacts)
+        }
+        return uniqueContacts
+    }
+    
+    
     
     func removeDuplicates(arrayOfContacts: [myContact]) -> [myContact] {
         var added = [String]()

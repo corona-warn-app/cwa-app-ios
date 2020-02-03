@@ -14,7 +14,7 @@ struct ContactView: View {
     @EnvironmentObject var editNavigation: NavigationStack
     @EnvironmentObject var editViewState : EditViewState
     
-    let result = contactReader().contactsFromAddressBook()
+    let result = contactReader().getUniqueContacts()
     
     var body: some View {
         VStack{

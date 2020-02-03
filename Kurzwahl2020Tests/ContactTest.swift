@@ -44,5 +44,14 @@ class ContactTest: XCTestCase {
             XCTAssertTrue(contact.label.count > 0)
         }
     }
+    
+    
+    
+    func testUniqueContacts() {
+        let reader = contactReader()
+        let myContacts = reader.getUniqueContacts()
+        XCTAssertNotNil(myContacts)
+        XCTAssertTrue( myContacts.count > 0)
+    }
 
 }
