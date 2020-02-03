@@ -7,11 +7,15 @@
 //
 
 import Foundation
-import Contacts
+import Contacts // Make sure to supply a NSContactsUsageDescription in your Info.plist
 import Combine
 import UIKit
 
-struct myContact : Identifiable {
+struct myContact : Identifiable, Hashable {
+    static func < (lhs: myContact, rhs: myContact) -> Bool {
+        lhs.name < rhs.name
+    }
+    
     var id = UUID()
     var name: String
     var phoneNumber: String
@@ -26,6 +30,7 @@ struct myContact : Identifiable {
 
 class contactReader: ObservableObject{
     var myContacts = [myContact]()
+    var uniqueContacts = [myContact]()
     
     func contactsFromAddressBook() -> [myContact] {
         let status = CNContactStore.authorizationStatus(for: .contacts)
@@ -56,6 +61,7 @@ class contactReader: ObservableObject{
                                CNContactThumbnailImageDataKey as CNKeyDescriptor,
                                CNContactFormatter.descriptorForRequiredKeys(for: .fullName)]
             let request = CNContactFetchRequest(keysToFetch: contactKeys)
+            request.sortOrder = CNContactSortOrder.familyName
             
             do {
                 try store.enumerateContacts(with: request) { contact, stop in
@@ -103,8 +109,25 @@ class contactReader: ObservableObject{
                 }
             }
         }
+        uniqueContacts = self.removeDuplicates(arrayOfContacts: myContacts)
         return self.myContacts
     }
+
+
+    
+    func removeDuplicates(arrayOfContacts: [myContact]) -> [myContact] {
+        var added = [String]()
+        var result = [myContact]()
+        
+        for contact in arrayOfContacts {
+            if !added.contains(contact.name) {
+                result.append(contact)
+                added.append(contact.name)
+            }
+        }
+        return result
+    }
+    
     
 }
 
