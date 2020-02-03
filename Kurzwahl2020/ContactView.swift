@@ -43,15 +43,15 @@ struct contactRow: View {
                 Text(person.name)
             }.buttonStyle(PlainButtonStyle())
             Spacer()
-            Text(person.label)
+//            Text(person.label)
             
 
-//            if person.imageDataAvailable == true {
-//                Image(uiImage: UIImage(data: person.thumbnailImageData)! ).resizable()
-//                    .frame(width: 50, height: 50)
-//                    .clipShape(Circle().size(width:50, height:50 ) )
-//                    .aspectRatio(contentMode: ContentMode.fit)
-//            }
+            if person.imageDataAvailable == true {
+                Image(uiImage: UIImage(data: person.thumbnailImageData)! ).resizable()
+                    .frame(width: 50, height: 50)
+                    .clipShape(Circle().size(width:50, height:50 ) )
+                    .aspectRatio(contentMode: ContentMode.fit)
+            }
         }
     }
 }
