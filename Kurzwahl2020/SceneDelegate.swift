@@ -55,7 +55,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let appState = HomeViewState()
         let editViewState = EditViewState()
-        let contentView = ContentView2().environmentObject(appState).environmentObject(editViewState)
+        let contactDataModel = contactReader()
+        let contentView = ContentView2().environmentObject(appState).environmentObject(editViewState).environmentObject(contactDataModel)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

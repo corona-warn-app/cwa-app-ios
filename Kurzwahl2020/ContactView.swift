@@ -14,12 +14,12 @@ struct ContactView: View {
     @EnvironmentObject var editNavigation: NavigationStack
     @EnvironmentObject var editViewState : EditViewState
     
-    let result = contactReader().getUniqueContacts()
+    let contacts = contactReader().getUniqueContacts()
     
     var body: some View {
         VStack{
             List {
-                ForEach(result) { person  in
+                ForEach(contacts) { person  in
                     contactRow(person: person)
                 }
             }
@@ -33,13 +33,23 @@ struct contactRow: View {
     var person : myContact
     @EnvironmentObject var navigation: NavigationStack
     @EnvironmentObject var editViewState : EditViewState
+    @EnvironmentObject var datamodel : contactReader
     
     var body: some View {
         HStack {
             Button(action: {
-                self.editViewState.userSelectedName = self.person.name
-                self.editViewState.userSelectedNumber = self.person.phoneNumber
-                self.navigation.unwind()} ){
+                if (self.datamodel.getNumberOfPhoneNumbers(forContactName: self.person.name) == 1){
+                    self.editViewState.userSelectedName = self.person.name
+                    self.editViewState.userSelectedNumber = self.person.phoneNumber
+                    self.navigation.unwind()
+                } else {
+                    self.editViewState.userSelectedName = self.person.name
+                    self.editViewState.userSelectedNumber = self.person.phoneNumber
+                    self.navigation.unwind()
+                    
+                }
+            })
+            {
                 Text(person.name)
             }.buttonStyle(PlainButtonStyle())
             Spacer()

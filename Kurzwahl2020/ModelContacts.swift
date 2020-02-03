@@ -11,11 +11,7 @@ import Contacts // Make sure to supply a NSContactsUsageDescription in your Info
 import Combine
 import UIKit
 
-struct myContact : Identifiable, Hashable {
-    static func < (lhs: myContact, rhs: myContact) -> Bool {
-        lhs.name < rhs.name
-    }
-    
+struct myContact : Identifiable, Hashable {    
     var id = UUID()
     var name: String
     var phoneNumber: String
@@ -126,7 +122,7 @@ class contactReader: ObservableObject{
     
     
     
-    func removeDuplicates(arrayOfContacts: [myContact]) -> [myContact] {
+    fileprivate func removeDuplicates(arrayOfContacts: [myContact]) -> [myContact] {
         var added = [String]()
         var result = [myContact]()
         
