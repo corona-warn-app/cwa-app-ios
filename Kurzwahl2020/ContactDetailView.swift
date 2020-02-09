@@ -17,6 +17,11 @@ struct ContactDetailView: View {
     
     var body: some View {
         VStack {
+            SingleActionBackView( title: "Select Item",
+                                  buttonText: "Cancel",
+                                  action:{
+                                    self.editNavigation.unwind()
+            })
             List {
                 ForEach(contactDataModel.getNumbers(forName: self.name)) { person in
                     contactDetailRow(person: person)

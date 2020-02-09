@@ -13,8 +13,10 @@ struct PrivacyView: View {
     
     var body: some View {
         VStack{
-            AboutBackView( title: "Edit View",action:{
-                self.navigation.unwind()
+            SingleActionBackView( title: "Edit View",
+                                  buttonText: "Back",
+                                  action:{
+                                    self.navigation.unwind()
             })
             VStack{
 

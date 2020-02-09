@@ -18,8 +18,10 @@ struct AboutView: View {
     var body: some View {
         
         VStack{
-            AboutBackView( title: "Edit View",action:{
-                self.navigation.unwind()
+            SingleActionBackView( title: "Edit View",
+                                  buttonText: "Back",
+                                  action:{
+                                    self.navigation.unwind()
             })
             VStack{
                 Text("Call by Color 36").font(Font.custom(globalDataModel.font, size: 26))
@@ -48,16 +50,18 @@ struct AboutView_Previews: PreviewProvider {
 
 
 
-struct AboutBackView: View{
+struct SingleActionBackView: View{
     var title: String
+    var buttonText: String
     var action: ()->Void
+    
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     var body: some View {
         ZStack{
             //            Rectangle().fill(Color.secondary).frame( height: 40 )
             Rectangle().fill(colorScheme == .light ? Color.white : Color.black).frame( height: 40 )
             HStack{
-                Button( action: action){ Text("Back").padding(.leading, 15)
+                Button( action: action){ Text(self.buttonText).padding(.leading, 15)
                 }.foregroundColor(Color.accentColor)
                 Spacer()
             }
