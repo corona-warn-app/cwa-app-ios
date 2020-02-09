@@ -52,27 +52,29 @@ struct contactDetailRow: View {
                 self.navigation.unwind2()})
             {
                 Text(person.name)
+                
+                Spacer()
+                if person.label == CNLabelPhoneNumberMobile {
+                    Text("Mobile").font(.footnote).fontWeight(.light)
+                } else if person.label == CNLabelPhoneNumberiPhone {
+                    Text("iPhone").font(.footnote).fontWeight(.light)
+                } else if person.label == CNLabelPhoneNumberMain {
+                    Text("Main").font(.footnote).fontWeight(.light)
+                } else if person.label == "_$!<Home>!$_" {
+                    Text("Home").font(.footnote).fontWeight(.light)
+                } else if person.label == "_$!<Work>!$_" {
+                    Text("Work").font(.footnote).fontWeight(.light)
+                }
+                
+                
+                
+                if person.imageDataAvailable == true {
+                    Image(uiImage: UIImage(data: person.thumbnailImageData)! ).resizable()
+                        .frame(width: 50, height: 50)
+                        .clipShape(Circle().size(width:50, height:50 ) )
+                        .aspectRatio(contentMode: ContentMode.fit)
+                }
             }.buttonStyle(PlainButtonStyle())
-            Spacer()
-            if person.label == CNLabelPhoneNumberMobile {
-                Text("Mobile").font(.footnote).fontWeight(.light)
-            } else if person.label == CNLabelPhoneNumberiPhone {
-                Text("iPhone").font(.footnote).fontWeight(.light)
-            } else if person.label == CNLabelPhoneNumberMain {
-                Text("Main").font(.footnote).fontWeight(.light)
-            } else if person.label == "_$!<Home>!$_" {
-                Text("Home").font(.footnote).fontWeight(.light)
-            } else if person.label == "_$!<Work>!$_" {
-                Text("Work").font(.footnote).fontWeight(.light)
-            }
-            
-            
-            if person.imageDataAvailable == true {
-                Image(uiImage: UIImage(data: person.thumbnailImageData)! ).resizable()
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle().size(width:50, height:50 ) )
-                    .aspectRatio(contentMode: ContentMode.fit)
-            }
         }
     }
 }
