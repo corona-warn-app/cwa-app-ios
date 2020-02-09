@@ -18,6 +18,11 @@ struct ContactView: View {
     
     var body: some View {
         VStack{
+            SingleActionBackView( title: "Select Item",
+                                  buttonText: "Cancel",
+                                  action:{
+                                    self.editNavigation.unwind()
+            })
             List {
                 ForEach(contacts) { person  in
                     contactRow(person: person)
