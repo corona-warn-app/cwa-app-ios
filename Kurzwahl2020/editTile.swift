@@ -58,20 +58,17 @@ struct editTile: View {
                     Button(action: {
                         self.navigation.advance(NavigationItem(
                             view: AnyView(ContactView()))) }) {
-                                Text("Contacts")
+                                Text("Contacts").foregroundColor(Color.accentColor)
                     }.buttonStyle(PlainButtonStyle())
                     
                 }
                 
                 HStack {
                     Button(action: {
-                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId,
-                                                                       name: self.editViewState.userSelectedName,
-                                                                       phoneNumber: self.editViewState.userSelectedNumber,
-                                                                       backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
-                        globalDataModel.persist()
-                        self.navigation.unwind()}) {
-                            Text("OK").foregroundColor(Color.accentColor)
+                        self.editViewState.userSelectedName = ""
+                        self.editViewState.userSelectedNumber = ""
+                        }) {
+                            Text("Clear").foregroundColor(Color.accentColor)
                     }.buttonStyle(PlainButtonStyle())//.font(Font.system(size: 22))
                 }
             }
