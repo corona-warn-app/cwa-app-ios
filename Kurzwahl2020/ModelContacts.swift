@@ -72,15 +72,23 @@ class contactReader: ObservableObject{
             // do something with the contacts array (e.g. print the names)
             let formatter = CNContactFormatter()
             formatter.style = .fullName
-            var contactThumbnailData = Data()
+
             
             for contact in contacts {
                 var allNumbers =  [String]()
                 var allLabels =  [String]()
+                var imageDataAvailable : Bool = false
+                var contactThumbnailData = Data()
+                
                 let name = formatter.string(from: contact) ?? "???"
                 
                 if contact.imageDataAvailable == true {
-                    contactThumbnailData = contact.thumbnailImageData ?? Data()
+                    if contact.thumbnailImageData != nil {
+                        contactThumbnailData = contact.thumbnailImageData ?? Data()
+                        imageDataAvailable = true
+                    } else {
+                        imageDataAvailable = false
+                    }
                 }
                 
                 // If phoneNo a Mobilenumber, then put into Array:
@@ -98,7 +106,7 @@ class contactReader: ObservableObject{
                         self.myContacts.append(myContact(name: name,
                                                          phoneNumber: phoneNo.value.stringValue,
                                                          label: phoneNo.label ?? "",
-                                                         imageDataAvailable: contact.imageDataAvailable,
+                                                         imageDataAvailable: imageDataAvailable,
                                                          thumbnailImageData: contactThumbnailData)
                         )
                     }
