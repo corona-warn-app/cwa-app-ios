@@ -114,6 +114,15 @@ struct HomeView: View {
     
     
     
+    fileprivate func switchToEditTile(_ withTileNumber: Int) {
+        self.editViewState.userSelectedName = globalDataModel.getName(withId: withTileNumber)
+        self.editViewState.userSelectedNumber = globalDataModel.getNumber(withId: withTileNumber)
+        self.navigation.advance(NavigationItem(
+            view: AnyView(
+                editTile(tileId: withTileNumber))))
+    }
+
+    
     // draw one tile
     fileprivate func tile(withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
         return self.textLabel(withTileNumber: withTileNumber, height: height, width: width)
@@ -123,15 +132,14 @@ struct HomeView: View {
             .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
             .onTapGesture(count: 2) {
-//                let editViewStateObject = EditViewState()
-                self.editViewState.userSelectedName = globalDataModel.getName(withId: withTileNumber)
-                self.editViewState.userSelectedNumber = globalDataModel.getNumber(withId: withTileNumber)
-                self.navigation.advance(NavigationItem(
-                    view: AnyView(
-                        editTile(tileId: withTileNumber))))
+                self.switchToEditTile(withTileNumber)
+            }
+            .onLongPressGesture {
+                self.switchToEditTile(withTileNumber)
             }
             .onTapGesture(count: 1) { self.makeCall(withTileNumber)
             }
+
     }
     
     
@@ -183,24 +191,6 @@ struct HomeView: View {
     }
     
 }  //HomeView
-
-
-
-//struct NextView: View {
-//    @EnvironmentObject var navigation: NavigationStack
-//    
-//    var body: some View {
-//        VStack{
-//            BackView( title: "Next View",  action:{
-//                self.navigation.unwind()
-//            })
-//            List{
-//                Text("I am NextView")
-//            }
-//        }
-//    }
-//}
-
 
 
 extension String {
