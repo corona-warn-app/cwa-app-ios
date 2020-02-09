@@ -75,8 +75,6 @@ class contactReader: ObservableObject{
 
             
             for contact in contacts {
-                var allNumbers =  [String]()
-                var allLabels =  [String]()
                 var imageDataAvailable : Bool = false
                 var contactThumbnailData = Data()
                 
@@ -99,10 +97,6 @@ class contactReader: ObservableObject{
                         phoneNo.label == "_$!<Home>!$_" ||
                         phoneNo.label == "_$!<Work>!$_" ) {
 // https://stackoverflow.com/questions/58578341/how-to-implement-localization-in-swift-ui
-                        if phoneNo.value.stringValue.count > 0 {
-                            allNumbers.append(phoneNo.value.stringValue)
-                            allLabels.append(phoneNo.label ?? "")
-                        }
                         self.myContacts.append(myContact(name: name,
                                                          phoneNumber: phoneNo.value.stringValue,
                                                          label: phoneNo.label ?? "",
