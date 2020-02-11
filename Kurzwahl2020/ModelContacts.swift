@@ -17,7 +17,7 @@ struct myContact : Identifiable, Hashable {
     var phoneNumber: String
     var label: String
     var imageDataAvailable : Bool
-    var thumbnailImageData : Data
+    var thumbnailImageData : Data?
 }
 
 
@@ -76,14 +76,14 @@ class contactReader: ObservableObject{
             
             for contact in contacts {
                 var imageDataAvailable : Bool = false
-                var contactThumbnailData = Data()
+                var contactThumbnailData : Data?
                 
                 let name = formatter.string(from: contact) ?? "???"
                 
                 if contact.imageDataAvailable == true {
-                    if contact.thumbnailImageData != nil {
-                        contactThumbnailData = contact.thumbnailImageData ?? Data()
+                    if let imageData = contact.thumbnailImageData {
                         imageDataAvailable = true
+                        contactThumbnailData = imageData
                     } else {
                         imageDataAvailable = false
                     }
