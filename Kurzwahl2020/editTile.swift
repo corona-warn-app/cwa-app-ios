@@ -47,7 +47,16 @@ struct editTile: View {
             
             Form {
                 Section(header: Text("Enter Name and Phone Number")) {
-                    TextField("Name", text: $editViewState.userSelectedName).disableAutocorrection(true)
+                    HStack {
+                        TextField("Name", text: $editViewState.userSelectedName).disableAutocorrection(true)
+//                        Spacer()
+//                        if person.imageDataAvailable == true {
+//                            Image(uiImage: UIImage(data: person.thumbnailImageData!)! ).resizable()
+//                                .frame(width: 50, height: 50)
+//                                .clipShape(Circle().size(width:50, height:50 ) )
+//                                .aspectRatio(contentMode: ContentMode.fit)
+//                        }
+                    }
                     TextField("Number", text: $editViewState.userSelectedNumber).disableAutocorrection(true).keyboardType(.phonePad)
                     
                 }//.font(Font.system(size: 22)) //.labelsHidden
