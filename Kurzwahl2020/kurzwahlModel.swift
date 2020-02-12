@@ -73,6 +73,10 @@ struct appdefaults : Hashable {
             static let vspacing : CGFloat = 1
         }
     }
+    struct tilesize {
+        static let aspectRatioStandard : CGFloat = 1.61
+        static let aspectRatioIPhoneSE : CGFloat = 1.98
+    }
 }
 
 

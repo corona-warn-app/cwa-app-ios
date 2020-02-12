@@ -149,10 +149,21 @@ struct HomeView: View {
         let geo = geometry.size.height
         let vMaxSize = geo / CGFloat(globalNumberOfRows) - vspacing() * CGFloat(globalNumberOfRows) + 1
         var hsize = geometry.size.width / 2 - hspacing()
-        var vsize = hsize / 1.61
+        
+        var vsize : CGFloat = 0
+        if DeviceType.IS_IPHONE_SE == false {
+            vsize = hsize / appdefaults.tilesize.aspectRatioStandard
+        } else {
+            vsize = hsize / appdefaults.tilesize.aspectRatioIPhoneSE
+        }
+        
         if (vsize > vMaxSize ) {
             vsize = vMaxSize
-            hsize = vsize * 1.61
+            if DeviceType.IS_IPHONE_SE == false {
+                hsize = vsize * appdefaults.tilesize.aspectRatioStandard
+            } else {
+                hsize = vsize * appdefaults.tilesize.aspectRatioIPhoneSE
+            }
         }
         return(vsize, hsize)
     }
