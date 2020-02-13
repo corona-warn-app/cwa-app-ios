@@ -161,5 +161,18 @@ class contactReader: ObservableObject{
         return result
     }
     
+    
+    
+//    func presentSettingsActionSheet() {
+//        let alert = UIAlertController(title: "Permission to Contacts", message: "This app needs access to contacts in order to ...", preferredStyle: .actionSheet)
+//        alert.addAction(UIAlertAction(title: "Go to Settings", style: .default) { _ in
+//            let url = URL(string: UIApplication.openSettingsURLString)!
+//            UIApplication.shared.open(url)
+//        })
+//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+//        present(alert, animated: true)
+//    }
+    
+    
 }
 
