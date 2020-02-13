@@ -45,10 +45,21 @@ struct contactRow: View {
                 if (contactDataModel.getNumberOfPhoneNumbers(forContactName: self.person.name) == 1){
                     self.editViewState.userSelectedName = self.person.name
                     self.editViewState.userSelectedNumber = self.person.phoneNumber
+                    self.editViewState.label = self.person.label
+                    self.editViewState.imageDataAvailable = self.person.imageDataAvailable
+                    if self.editViewState.imageDataAvailable == true {
+                        self.editViewState.thumbnailImageData = self.person.thumbnailImageData
+                    }
+                    
                     self.navigation.unwind()
                 } else {
                     self.editViewState.userSelectedName = self.person.name
                     self.editViewState.userSelectedNumber = self.person.phoneNumber
+                    self.editViewState.label = self.person.label
+                    self.editViewState.imageDataAvailable = self.person.imageDataAvailable
+                    if self.editViewState.imageDataAvailable == true {
+                        self.editViewState.thumbnailImageData = self.person.thumbnailImageData
+                    }
                     self.navigation.advance(NavigationItem(view: AnyView(ContactDetailView(name: self.person.name))))
                     
                 }

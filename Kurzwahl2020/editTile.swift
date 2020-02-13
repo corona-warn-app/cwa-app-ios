@@ -17,6 +17,9 @@ import SwiftUI
 final class EditViewState: ObservableObject {
     @Published var userSelectedName = String()
     @Published var userSelectedNumber = String()
+    @Published var label = String()
+    @Published var imageDataAvailable = Bool()
+    @Published var thumbnailImageData : Data?
 }
 
 
@@ -49,13 +52,13 @@ struct editTile: View {
                 Section(header: Text("Enter Name and Phone Number")) {
                     HStack {
                         TextField("Name", text: $editViewState.userSelectedName).disableAutocorrection(true)
-//                        Spacer()
-//                        if person.imageDataAvailable == true {
-//                            Image(uiImage: UIImage(data: person.thumbnailImageData!)! ).resizable()
-//                                .frame(width: 50, height: 50)
-//                                .clipShape(Circle().size(width:50, height:50 ) )
-//                                .aspectRatio(contentMode: ContentMode.fit)
-//                        }
+                        Spacer()
+                        if self.editViewState.imageDataAvailable == true {
+                            Image(uiImage: UIImage(data: self.editViewState.thumbnailImageData!)! ).resizable()
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle().size(width:50, height:50 ) )
+                                .aspectRatio(contentMode: ContentMode.fit)
+                        }
                     }
                     TextField("Number", text: $editViewState.userSelectedNumber).disableAutocorrection(true).keyboardType(.phonePad)
                     
