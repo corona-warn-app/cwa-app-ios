@@ -96,7 +96,7 @@ struct HomeView: View {
         // settings view
             SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
             .tabItem {
-                Image(systemName: appState.selectedTab == 3 ? "4.square.fill" : "4.square")
+                Image(systemName: appState.selectedTab == 3 ? "gear" : "gear")
                 Text("Settings")
             }.tag(3)
         }//.background(SwiftUI.Color(red: 0.2, green: 0.2, blue: 0.2).edgesIgnoringSafeArea(.all))
@@ -127,19 +127,34 @@ struct HomeView: View {
     fileprivate func tile(withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
         return self.textLabel(withTileNumber: withTileNumber, height: height, width: width)
             .frame(width: width, height: height)
-            //.background(globalDataModel.getColor(withId: withTileNumber))
             .background(Color(globalDataModel.getUIColor(withId: withTileNumber)))
             .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
+
             .onTapGesture(count: 2) {
                 self.switchToEditTile(withTileNumber)
             }
-            .onLongPressGesture {
-                self.switchToEditTile(withTileNumber)
-            }
+            //        .onLongPressGesture {
+            //            self.switchToEditTile(withTileNumber)
+            //        }
             .onTapGesture(count: 1) { self.makeCall(withTileNumber)
             }
-
+        .contextMenu {
+            Button(action: {
+                self.switchToEditTile(withTileNumber)
+            }) {
+                Text("Edit")
+                Image(systemName: "pencil")
+            }
+            
+            Button(action: {
+                self.makeCall(withTileNumber)
+            }) {
+                Text("Call number")
+                Image(systemName: "phone.circle")
+            }
+        }
+        
     }
     
     
