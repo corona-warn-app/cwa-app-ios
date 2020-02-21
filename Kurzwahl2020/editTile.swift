@@ -71,6 +71,8 @@ struct editTile: View {
                         self.navigation.advance(NavigationItem(
                             view: AnyView(ContactView()))) }) {
                                 Text("Contacts").foregroundColor(Color.accentColor)
+                                Spacer()
+                                Image(systemName: "person.2")
                     }.buttonStyle(PlainButtonStyle())
                     
                 }
@@ -81,6 +83,8 @@ struct editTile: View {
                         self.editViewState.userSelectedNumber = ""
                         }) {
                             Text("Clear").foregroundColor(Color.accentColor)
+                            Spacer()
+                            Image(systemName: "trash")
                     }.buttonStyle(PlainButtonStyle())//.font(Font.system(size: 22))
                 }
             }
