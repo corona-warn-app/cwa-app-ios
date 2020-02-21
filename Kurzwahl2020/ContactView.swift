@@ -73,8 +73,8 @@ struct contactRow: View {
 
             if person.imageDataAvailable == true {
                 Image(uiImage: UIImage(data: person.thumbnailImageData!)! ).resizable()
-                    .frame(width: 50, height: 50)
-                    .clipShape(Circle().size(width:50, height:50 ) )
+                    .frame(width: appdefaults.thumbnailSize, height: appdefaults.thumbnailSize)
+                    .clipShape(Circle().size(width:appdefaults.thumbnailSize, height:appdefaults.thumbnailSize ) )
                     .aspectRatio(contentMode: ContentMode.fit)
             }
         }
