@@ -12,6 +12,7 @@
 
 
 import SwiftUI
+import Contacts
 
 
 final class EditViewState: ObservableObject {
@@ -67,13 +68,23 @@ struct editTile: View {
                 //                    TextField( globalDataModel.getUIColor(withId: tileId).hexCode(), text: $colorHexCode)
                 //                }
                 HStack {
-                    Button(action: {
-                        self.navigation.advance(NavigationItem(
-                            view: AnyView(ContactView()))) }) {
-                                Text("Contacts").foregroundColor(Color.accentColor)
-                                Spacer()
-                                Image(systemName: "person.2")
-                    }.buttonStyle(PlainButtonStyle())
+                    if CNContactStore.authorizationStatus(for: .contacts) == CNAuthorizationStatus.authorized {
+                        Button(action: {
+                            self.navigation.advance(NavigationItem(
+                                view: AnyView(ContactView()))) }) {
+                                    Text("Contacts").foregroundColor(Color.accentColor)
+                                    Spacer()
+                                    Image(systemName: "person.2")
+                        }.buttonStyle(PlainButtonStyle())
+                    } else {
+                        Button(action: {
+                            self.navigation.advance(NavigationItem(
+                                view: AnyView(AboutView()))) }) {
+                                    Text("Contacts").foregroundColor(Color.accentColor)
+                                    Spacer()
+                                    Image(systemName: "person.2")
+                        }.buttonStyle(PlainButtonStyle())
+                    }
                     
                 }
                 
