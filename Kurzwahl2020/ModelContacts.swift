@@ -31,7 +31,7 @@ class contactReader: ObservableObject{
     func contactsFromAddressBook() -> [myContact] {
         let status = CNContactStore.authorizationStatus(for: .contacts)
         if status == .denied || status == .restricted {
-            //            presentSettingsActionSheet()
+            print("CNContactStore.authorizationStatus denied")
             return self.myContacts
         }
         
@@ -41,7 +41,7 @@ class contactReader: ObservableObject{
         store.requestAccess(for: .contacts) { granted, error in
             guard granted else {
                 DispatchQueue.main.async {
-                    //                    self.presentSettingsActionSheet()
+                    print("requestAccess: \(granted)")
                 }
                 return
             }
@@ -52,10 +52,10 @@ class contactReader: ObservableObject{
             let contactKeys = [CNContactIdentifierKey as CNKeyDescriptor,
                                CNContactImageDataKey as CNKeyDescriptor,
                                CNContactPhoneNumbersKey as CNKeyDescriptor,
-//                               CNContactImageDataKey as CNKeyDescriptor,
-                               CNContactImageDataAvailableKey as CNKeyDescriptor,
-                               CNContactThumbnailImageDataKey as CNKeyDescriptor,
-                               CNContactFormatter.descriptorForRequiredKeys(for: .fullName)]
+                               //                               CNContactImageDataKey as CNKeyDescriptor,
+                CNContactImageDataAvailableKey as CNKeyDescriptor,
+                CNContactThumbnailImageDataKey as CNKeyDescriptor,
+                CNContactFormatter.descriptorForRequiredKeys(for: .fullName)]
             let request = CNContactFetchRequest(keysToFetch: contactKeys)
             request.sortOrder = CNContactSortOrder.familyName
             
@@ -72,7 +72,7 @@ class contactReader: ObservableObject{
             // do something with the contacts array (e.g. print the names)
             let formatter = CNContactFormatter()
             formatter.style = .fullName
-
+            
             
             for contact in contacts {
                 var imageDataAvailable : Bool = false
@@ -96,7 +96,7 @@ class contactReader: ObservableObject{
                         phoneNo.label == CNLabelPhoneNumberMain ||
                         phoneNo.label == "_$!<Home>!$_" ||
                         phoneNo.label == "_$!<Work>!$_" ) {
-// https://stackoverflow.com/questions/58578341/how-to-implement-localization-in-swift-ui
+                        // https://stackoverflow.com/questions/58578341/how-to-implement-localization-in-swift-ui
                         self.myContacts.append(myContact(name: name,
                                                          phoneNumber: phoneNo.value.stringValue,
                                                          label: phoneNo.label ?? "",
@@ -109,8 +109,8 @@ class contactReader: ObservableObject{
         }
         return self.myContacts
     }
-
-
+    
+    
     
     func getUniqueContacts() -> [myContact] {
         if uniqueContacts.count == 0 {
@@ -161,18 +161,4 @@ class contactReader: ObservableObject{
         return result
     }
     
-    
-    
-//    func presentSettingsActionSheet() {
-//        let alert = UIAlertController(title: "Permission to Contacts", message: "This app needs access to contacts in order to ...", preferredStyle: .actionSheet)
-//        alert.addAction(UIAlertAction(title: "Go to Settings", style: .default) { _ in
-//            let url = URL(string: UIApplication.openSettingsURLString)!
-//            UIApplication.shared.open(url)
-//        })
-//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-//        present(alert, animated: true)
-//    }
-    
-    
 }
-
