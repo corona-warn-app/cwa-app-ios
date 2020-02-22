@@ -79,7 +79,7 @@ struct editTile: View {
                     } else {
                         Button(action: {
                             self.navigation.advance(NavigationItem(
-                                view: AnyView(AboutView()))) }) {
+                                view: AnyView(AskForAccessToContactsView()))) }) {
                                     Text("Contacts").foregroundColor(Color.accentColor)
                                     Spacer()
                                     Image(systemName: "person.2")
