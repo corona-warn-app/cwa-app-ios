@@ -26,6 +26,7 @@ struct AboutView: View {
             VStack{
                 Text("Call by Color 36").font(Font.custom(globalDataModel.font, size: 26))
                 Text("Version 1.0").font(Font.custom(globalDataModel.font, size: 18))
+                Text("Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)").font(Font.custom(globalDataModel.font, size: 18))
                 
                 Image("Icon120").resizable().frame(width: 120, height: 120).cornerRadius(20)
                     Spacer()
