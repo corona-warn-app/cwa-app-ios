@@ -42,9 +42,15 @@ struct editTile: View {
                                                                        phoneNumber: self.editViewState.userSelectedNumber,
                                                                        backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
                         globalDataModel.persist()
+                        self.editViewState.imageDataAvailable = false
+                        self.editViewState.label = ""
+                        self.editViewState.thumbnailImageData = Data()
                         self.navigation.unwind()
                         },
                       cancelAction: {
+                        self.editViewState.imageDataAvailable = false
+                        self.editViewState.label = ""
+                        self.editViewState.thumbnailImageData = Data()
                         self.navigation.unwind()
                         }
             )
@@ -56,8 +62,8 @@ struct editTile: View {
                         Spacer()
                         if self.editViewState.imageDataAvailable == true {
                             Image(uiImage: UIImage(data: self.editViewState.thumbnailImageData!)! ).resizable()
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle().size(width:50, height:50 ) )
+                                .frame(width: appdefaults.thumbnailSize, height: appdefaults.thumbnailSize)
+                                .clipShape(Circle().size(width:appdefaults.thumbnailSize, height:appdefaults.thumbnailSize ) )
                                 .aspectRatio(contentMode: ContentMode.fit)
                         }
                     }
@@ -92,6 +98,9 @@ struct editTile: View {
                     Button(action: {
                         self.editViewState.userSelectedName = ""
                         self.editViewState.userSelectedNumber = ""
+                        self.editViewState.imageDataAvailable = false
+                        self.editViewState.label = ""
+                        self.editViewState.thumbnailImageData = Data()
                         }) {
                             Text("Clear").foregroundColor(Color.accentColor)
                             Spacer()
