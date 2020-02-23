@@ -42,15 +42,11 @@ struct editTile: View {
                                                                        phoneNumber: self.editViewState.userSelectedNumber,
                                                                        backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
                         globalDataModel.persist()
-                        self.editViewState.imageDataAvailable = false
-                        self.editViewState.label = ""
-                        self.editViewState.thumbnailImageData = Data()
+                        self.cleanEditViewState()
                         self.navigation.unwind()
                         },
                       cancelAction: {
-                        self.editViewState.imageDataAvailable = false
-                        self.editViewState.label = ""
-                        self.editViewState.thumbnailImageData = Data()
+                        self.cleanEditViewState()
                         self.navigation.unwind()
                         }
             )
@@ -96,11 +92,7 @@ struct editTile: View {
                 
                 HStack {
                     Button(action: {
-                        self.editViewState.userSelectedName = ""
-                        self.editViewState.userSelectedNumber = ""
-                        self.editViewState.imageDataAvailable = false
-                        self.editViewState.label = ""
-                        self.editViewState.thumbnailImageData = Data()
+                        self.cleanEditViewState()
                         }) {
                             Text("Clear").foregroundColor(Color.accentColor)
                             Spacer()
@@ -111,7 +103,22 @@ struct editTile: View {
             
         }
     }
+
+
+
+    func cleanEditViewState() {
+        editViewState.userSelectedName = ""
+        editViewState.userSelectedNumber = ""
+        editViewState.imageDataAvailable = false
+        editViewState.label = ""
+        editViewState.thumbnailImageData = Data()
+    }
+
 }
+
+
+
+
 
 
 struct editTile_Previews: PreviewProvider {
