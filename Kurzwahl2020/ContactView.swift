@@ -66,23 +66,18 @@ struct contactRow: View {
             })
             {
                 Text(person.name)
+                Spacer()
+                if person.imageDataAvailable == true {
+                    Image(uiImage: UIImage(data: person.thumbnailImageData!)! ).resizable()
+                        .frame(width: appdefaults.thumbnailSize, height: appdefaults.thumbnailSize)
+                        .clipShape(Circle().size(width:appdefaults.thumbnailSize, height:appdefaults.thumbnailSize ) )
+                        .aspectRatio(contentMode: ContentMode.fit)
+                }
             }.buttonStyle(PlainButtonStyle())
-            Spacer()
-//            Text(person.label)
-            
 
-            if person.imageDataAvailable == true {
-                Image(uiImage: UIImage(data: person.thumbnailImageData!)! ).resizable()
-                    .frame(width: appdefaults.thumbnailSize, height: appdefaults.thumbnailSize)
-                    .clipShape(Circle().size(width:appdefaults.thumbnailSize, height:appdefaults.thumbnailSize ) )
-                    .aspectRatio(contentMode: ContentMode.fit)
-            }
         }
     }
 }
-
-
-
 
 
 
