@@ -8,3 +8,25 @@
  https://www.hackingwithswift.com/example-code/uikit/how-to-localize-your-ios-app
  
 */
+
+// String %@
+// Integer %lld
+
+// SettingsView
+"Font Size" = "Schriftgröße";
+"Size: %lld" = "Größe: %lld";
+"About" = "Über Call By Color";
+"Privacy Statement" = "Datenschutz";
+"Settings" = "Einstellungen";
+
+// ContactView
+"Select Contact" = "Wähle Kontakt";
+"Cancel" = "Abbruch";
+
+// AboutView
+"Back" = "Zurück";
+"Call by Color 36" = "Call by Color 36";
+"Copyright 2020 Andreas Vogel" = "Copyright 2020 Andreas Vogel";
+
+// PrivacyView
+"Privacy Policy" = "Datenschutz";

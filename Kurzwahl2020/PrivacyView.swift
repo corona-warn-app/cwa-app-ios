@@ -14,7 +14,7 @@ struct PrivacyView: View {
     var body: some View {
         VStack{
             SingleActionBackView( title: "Edit View",
-                                  buttonText: "Back",
+                                  buttonText: NSLocalizedString("Back", comment: "Navigation bar Back button"),
                                   action:{
                                     self.navigation.unwind()
             })

@@ -18,8 +18,8 @@ struct ContactView: View {
     
     var body: some View {
         VStack{
-            SingleActionBackView( title: "Select Item",
-                                  buttonText: "Cancel",
+            SingleActionBackView( title: "Select Contact",
+                                  buttonText: NSLocalizedString("Cancel", comment: "Navigation bar Cancel button"),
                                   action:{
                                     self.editNavigation.unwind()
             })

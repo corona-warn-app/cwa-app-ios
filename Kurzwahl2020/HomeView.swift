@@ -15,6 +15,9 @@
 // NavigationStack:
 // http://codingpills.ioneanu.com/swiftui-custom-navigation/
 
+// Mastering buttons:
+// https://swiftwithmajid.com/2020/02/19/mastering-buttons-in-swiftui/
+
 import SwiftUI
 import Combine
 
