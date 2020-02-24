@@ -35,7 +35,7 @@ struct editTile: View {
     var body: some View {
         
         VStack{
-            BackView( title: "Edit View",
+            BackView( title: NSLocalizedString("Edit", comment: "Navigation bar title"),
                       okAction: {
                         globalDataModel.modifyTile(withTile: tile.init(id: self.tileId,
                                                                        name: self.editViewState.userSelectedName,

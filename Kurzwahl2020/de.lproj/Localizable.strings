@@ -24,7 +24,7 @@
 "Cancel" = "Abbruch";
 
 // ContactDetailView
-"Select Item" = "Eintrag auswählen";
+"Phone Numbers" = "Telefonnummern";
 
 // AskForAccessToContactsView
 "In case you want to access your contacts to pick phone numbers then please go to Settings appto grant access." = "Falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten, dann erlauben sie dieser App den Zugriff auf die Kontakte in den iPhone-Einstellungen.";
@@ -40,7 +40,8 @@
 
 
 // editTile
-"Enter Name and Phone Number" = "ZZZ NOT LOCALIZED ZZZ";
+"Edit View" = "Eingabe";
+"Enter Name and Phone Number" = "Eingabe von Name und Telefonnummer";
 "Name" = "Name";
 "Number" = "Nummer";
 "Contacts" = "Kontakte";
@@ -49,4 +50,4 @@
 
 // HomeView
 "Edit" = "Editieren";
-"Call number" = "Anrufen"
+"Call number" = "Anrufen";

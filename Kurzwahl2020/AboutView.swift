@@ -18,7 +18,7 @@ struct AboutView: View {
     var body: some View {
         
         VStack{
-            SingleActionBackView( title: "Edit View",
+            SingleActionBackView( title:"",
                                   buttonText: NSLocalizedString("Back", comment: "Navigation bar Back button"),
                                   action:{
                                     self.navigation.unwind()
@@ -64,6 +64,8 @@ struct SingleActionBackView: View{
             HStack{
                 Button( action: action){ Text(self.buttonText).padding(.leading, 15)
                 }.foregroundColor(Color.accentColor)
+                Spacer()
+                Text(title).font(Font.system(size: 20))
                 Spacer()
             }
         }
