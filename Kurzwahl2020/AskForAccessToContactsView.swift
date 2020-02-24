@@ -14,7 +14,7 @@ struct AskForAccessToContactsView: View {
     var body: some View {
         
         VStack{
-            SingleActionBackView( title: "Edit View",
+            SingleActionBackView( title: "",
                                   buttonText: "Back",
                                   action:{
                                     self.navigation.unwind()

@@ -23,6 +23,12 @@
 "Select Contact" = "Wähle Kontakt";
 "Cancel" = "Abbruch";
 
+// ContactDetailView
+"Select Item" = "Eintrag auswählen";
+
+// AskForAccessToContactsView
+"In case you want to access your contacts to pick phone numbers then please go to Settings appto grant access." = "Falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten, dann erlauben sie dieser App den Zugriff auf die Kontakte in den iPhone-Einstellungen.";
+
 // AboutView
 "Back" = "Zurück";
 "Call by Color 36" = "Call by Color 36";
@@ -30,3 +36,17 @@
 
 // PrivacyView
 "Privacy Policy" = "Datenschutz";
+"All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts if asked." = "Alle Namen und Telefonnummer, die sie in der App speichern, werden nur lokal auf dem Gerät gespeichert. Diese App sammelt keine personenbezogenen Daten. Die App benötigt den Zugang zu den Kontakten, falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten.";
+
+
+// editTile
+"Enter Name and Phone Number" = "ZZZ NOT LOCALIZED ZZZ";
+"Name" = "Name";
+"Number" = "Nummer";
+"Contacts" = "Kontakte";
+"Clear" = "Löschen";
+"OK" = "OK";
+
+// HomeView
+"Edit" = "Editieren";
+"Call number" = "Anrufen"
