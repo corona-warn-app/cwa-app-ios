@@ -30,7 +30,7 @@ class storage {
     fileprivate let colorsFileName = "CBC24colors"
     
     init() {
-//        self.deleteFilesFromAppgroup()
+        self.deleteFilesFromAppgroup()
     }
     
 

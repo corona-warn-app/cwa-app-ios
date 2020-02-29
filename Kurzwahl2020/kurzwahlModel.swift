@@ -49,7 +49,7 @@ struct phoneTile {
 var globalNumberOfRows: Int = appdefaults.rows.large
 var globalDataModel : kurzwahlModel = kurzwahlModel()
 var contactDataModel : contactReader = contactReader()
-let globalMaxTileNumber : Int = 35
+var globalMaxTileNumber : Int = 35
 let APPGROUP : String = "group.org.tcfos.callbycolor"
 
 // global constants
@@ -242,7 +242,13 @@ class kurzwahlModel: ObservableObject{
     
     fileprivate func initializeDefaultTiles() {
         var aTile: phoneTile
-        let colorPalette = ColorPaletteSummer + ColorPaletteDarkPink + ColorPaletteBlue
+        let colorPalette =
+//            ColorPaletteSummer +
+            ColorPaletteDarkPink +
+            ColorPaletteBlue +
+            ColorPaletteGreen +
+            ColorPaletteRed 
+        globalMaxTileNumber = colorPalette.count - 1
         for i in 0...globalMaxTileNumber {
             aTile = phoneTile(id: i, name: "", phoneNumber: "", backgroundColor: colorPalette[i])
             tiles.append(aTile)

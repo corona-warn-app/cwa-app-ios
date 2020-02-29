@@ -83,25 +83,37 @@ struct HomeView: View {
                 Image(systemName: appState.selectedTab == 1 ? "2.square.fill" : "2.square")
             }.tag(1)
 
-        // 3nd screen
+            // 3nd screen
+                GeometryReader { geometry in
+                    VStack(spacing: self.vspacing()) {
+                        ForEach((2*globalNumberOfRows...(3*globalNumberOfRows-1)), id: \.self) {
+                            self.hstackTiles($0, geometry)
+                        }
+                    }
+                }
+                .tabItem {
+                    Image(systemName: appState.selectedTab == 2 ? "3.square.fill" : "3.square")
+                }.tag(2)
+            
+//        // 4nd screen
             GeometryReader { geometry in
                 VStack(spacing: self.vspacing()) {
-                    ForEach((2*globalNumberOfRows...(3*globalNumberOfRows-1)), id: \.self) {
+                    ForEach((3*globalNumberOfRows...(4*globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
                     }
                 }
             }
             .tabItem {
-                Image(systemName: appState.selectedTab == 2 ? "3.square.fill" : "3.square")
-            }.tag(2)
+                Image(systemName: appState.selectedTab == 3 ? "4.square.fill" : "4.square")
+            }.tag(3)
 
 
         // settings view
             SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
             .tabItem {
-                Image(systemName: appState.selectedTab == 3 ? "gear" : "gear")
+                Image(systemName: appState.selectedTab == 4 ? "gear" : "gear")
                 Text("Settings")
-            }.tag(3)
+            }.tag(4)
         }//.background(SwiftUI.Color(red: 0.2, green: 0.2, blue: 0.2).edgesIgnoringSafeArea(.all))
     }
 
