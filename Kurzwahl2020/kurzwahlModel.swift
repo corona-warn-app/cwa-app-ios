@@ -242,8 +242,9 @@ class kurzwahlModel: ObservableObject{
     
     fileprivate func initializeDefaultTiles() {
         var aTile: phoneTile
+        let colorPalette = ColorPaletteSummer + ColorPaletteDarkPink + ColorPaletteBlue
         for i in 0...globalMaxTileNumber {
-            aTile = phoneTile(id: i, name: "", phoneNumber: "", backgroundColor: AssetColorList[i])
+            aTile = phoneTile(id: i, name: "", phoneNumber: "", backgroundColor: colorPalette[i])
             tiles.append(aTile)
         }
     }

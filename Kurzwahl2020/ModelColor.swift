@@ -10,17 +10,20 @@
 
 
 // the color names refer to the items in Asset.xcassets
-let AssetColorList: [String] = [
+let ColorPaletteSummer: [String] = [
     "OrangeFF9500","Darkblue00398E", "RedFF3A2D",  "RedAC193D",
     "Green008A00", "OrangeD24726", "Green00A600", "Blue2E8DEF",
-    "Darkgrey6E6E6E", "lightGreyAEAEAE", "DarkViolet5856D6", "grey8E8E8E",
-    
-    //    2nd screen – dark pink
+    "Darkgrey6E6E6E", "lightGreyAEAEAE", "DarkViolet5856D6", "grey8E8E8E"]
+
+
+let ColorPaletteDarkPink: [String] = [
     "E69D95", "E07260", "C83773", "B8A89F",
     "665A5C", "C64247", "B4938C", "EAA598",
     "9B7983", "B897BB", "885D8D", "742E34",
+]
 
-    // 3rd screen – forest
+
+let ColorPaletteForest: [String] = [
     "5b6c48",
     "afc1a7",
     "415740",
@@ -35,7 +38,14 @@ let AssetColorList: [String] = [
     "2b220f"
 ]
 
-
+let ColorPaletteBlue: [String] = [
+"Blue003C76","Blue003C76",
+"Blue00417F","Blue00417F",
+"Blue00488C","Blue00488C",
+"Blue004F99","Blue004F99",
+"Blue0055A6","Blue0055A6",
+"Blue005CB2","Blue005CB2"
+]
 // for a given number return the corresponding color
 //extension Color {
 //    static func appColor(_ id: Int) -> Color? {
