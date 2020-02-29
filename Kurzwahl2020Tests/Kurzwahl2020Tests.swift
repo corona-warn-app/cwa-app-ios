@@ -27,10 +27,10 @@ class Kurzwahl2020Tests: XCTestCase {
 //MARK: tiles class test
   
     func testTilesGetName() {
-        let bob = tile.init(id: 0, name: "Bob", phoneNumber: "0621888", backgroundColor: "testColor")
+        let bob = phoneTile.init(id: 0, name: "Bob", phoneNumber: "0621888", backgroundColor: "testColor")
         sut.modifyTile(withTile: bob)
         
-        let charlie = tile.init(id: globalMaxTileNumber, name: "Charlie", phoneNumber: "0621777", backgroundColor: "testColor")
+        let charlie = phoneTile.init(id: globalMaxTileNumber, name: "Charlie", phoneNumber: "0621777", backgroundColor: "testColor")
         sut.modifyTile(withTile: charlie)
         
         let testName1 = sut.getName(withId: bob.id)
@@ -43,13 +43,13 @@ class Kurzwahl2020Tests: XCTestCase {
 
     func testTilesModifyTiles() {
 
-        let bob = tile.init(id: 0, name: "Bob", phoneNumber: "0621888", backgroundColor: "testColor")
+        let bob = phoneTile.init(id: 0, name: "Bob", phoneNumber: "0621888", backgroundColor: "testColor")
         sut.modifyTile(withTile: bob)
         
-        let charlie = tile.init(id: globalMaxTileNumber, name: "Charlie", phoneNumber: "0621777", backgroundColor: "testColor")
+        let charlie = phoneTile.init(id: globalMaxTileNumber, name: "Charlie", phoneNumber: "0621777", backgroundColor: "testColor")
         sut.modifyTile(withTile: charlie)
         
-        var x = tile(id: 0, name: "x", phoneNumber: "x", backgroundColor: "x")
+        var x = phoneTile(id: 0, name: "x", phoneNumber: "x", backgroundColor: "x")
         do {
             x = try sut.getTile(withId: 0)
         } catch {
@@ -82,8 +82,8 @@ class Kurzwahl2020Tests: XCTestCase {
     
     func testTilesModifyTilesWithIllegalId() {
         
-        let charlie = tile.init(id: 99, name: "Charlie", phoneNumber: "0621333333", backgroundColor: "ColorBlue")
-        let dummy = tile(id: 0, name: "x", phoneNumber: "x", backgroundColor: "x")
+        let charlie = phoneTile.init(id: 99, name: "Charlie", phoneNumber: "0621333333", backgroundColor: "ColorBlue")
+        let dummy = phoneTile(id: 0, name: "x", phoneNumber: "x", backgroundColor: "x")
         sut.modifyTile(withTile: charlie)
 
 
@@ -110,7 +110,7 @@ class Kurzwahl2020Tests: XCTestCase {
     
     
     func testGetColorName() {
-        let bob = tile.init(id: 0, name: "Bob", phoneNumber: "0621888", backgroundColor: "OrangeFF9500")
+        let bob = phoneTile.init(id: 0, name: "Bob", phoneNumber: "0621888", backgroundColor: "OrangeFF9500")
         sut.modifyTile(withTile: bob)
         
         let aColor = sut.getColorName(withId: 0)
@@ -120,7 +120,7 @@ class Kurzwahl2020Tests: XCTestCase {
     
     func testGetColor() {
         let colorName : String = "OrangeFF9500"
-        let bob = tile.init(id: 0, name: "Bob", phoneNumber: "0621888", backgroundColor: colorName)
+        let bob = phoneTile.init(id: 0, name: "Bob", phoneNumber: "0621888", backgroundColor: colorName)
         sut.modifyTile(withTile: bob)
         
         let aColor = sut.getColor(withId: 0)

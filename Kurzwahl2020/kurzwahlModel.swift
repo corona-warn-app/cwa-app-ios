@@ -31,7 +31,6 @@
 
 
 
-import Foundation
 import SwiftUI
 import Combine
 
@@ -39,7 +38,7 @@ enum tileError : Error {
     case badIndex
 }
 
-struct tile {
+struct phoneTile {
     var id: Int
     var name: String
     var phoneNumber: String
@@ -85,7 +84,7 @@ class kurzwahlModel: ObservableObject{
     
     var didChange = PassthroughSubject<Void, Never>()
     
-    @Published var tiles: [tile] = []
+    @Published var tiles: [phoneTile] = []
     @Published var font : String = "PingFang TC Medium"
     @Published var fontSize : CGFloat = 0
     
@@ -104,7 +103,7 @@ class kurzwahlModel: ObservableObject{
     }
     
     
-    func getTile(withId: Int) throws ->tile  {
+    func getTile(withId: Int) throws ->phoneTile  {
         if withId < tiles.count {
             return tiles[withId]
         }
@@ -114,7 +113,7 @@ class kurzwahlModel: ObservableObject{
     }
     
     
-    func modifyTile(withTile: tile)   {
+    func modifyTile(withTile: phoneTile)   {
         if withTile.id >= 0 && withTile.id < tiles.count{
             tiles[withTile.id] = withTile
             didChange.send()
@@ -242,9 +241,9 @@ class kurzwahlModel: ObservableObject{
     
     
     fileprivate func initializeDefaultTiles() {
-        var aTile: tile
+        var aTile: phoneTile
         for i in 0...globalMaxTileNumber {
-            aTile = tile(id: i, name: "", phoneNumber: "", backgroundColor: AssetColorList[i])
+            aTile = phoneTile(id: i, name: "", phoneNumber: "", backgroundColor: AssetColorList[i])
             tiles.append(aTile)
         }
     }

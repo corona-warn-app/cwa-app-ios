@@ -124,7 +124,22 @@ struct HomeView: View {
             view: AnyView(
                 editTile(tileId: withTileNumber))))
     }
+    
+    
+    
+    func clearTile(_ withTileNumber: Int) {
+        editViewState.userSelectedName = ""
+        editViewState.userSelectedNumber = ""
+        editViewState.imageDataAvailable = false
+        editViewState.label = ""
+        editViewState.thumbnailImageData = Data()
+        globalDataModel.modifyTile(withTile: phoneTile.init(id: withTileNumber,
+                                                            name: self.editViewState.userSelectedName,
+                                                            phoneNumber: self.editViewState.userSelectedNumber,
+                                                            backgroundColor: globalDataModel.getColorName(withId: withTileNumber)))
+    }
 
+    
     
     // draw one tile
     fileprivate func tile(withTileNumber: Int, _ height: CGFloat, _ width: CGFloat) -> some View {
@@ -149,8 +164,13 @@ struct HomeView: View {
                 Text("Edit")
                 Image(systemName: "pencil")
             }
-            
             Button(action: {
+                self.clearTile(withTileNumber)
+            }) {
+                Text("Clear")
+                Image(systemName: "trash")
+            }
+                        Button(action: {
                 self.makeCall(withTileNumber)
             }) {
                 Text("Call number")

@@ -37,7 +37,7 @@ struct editTile: View {
         VStack{
             BackView( title: NSLocalizedString("Edit", comment: "Navigation bar title"),
                       okAction: {
-                        globalDataModel.modifyTile(withTile: tile.init(id: self.tileId,
+                        globalDataModel.modifyTile(withTile: phoneTile.init(id: self.tileId,
                                                                        name: self.editViewState.userSelectedName,
                                                                        phoneNumber: self.editViewState.userSelectedNumber,
                                                                        backgroundColor: globalDataModel.getColorName(withId: self.tileId)))
