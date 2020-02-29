@@ -31,6 +31,12 @@ struct SettingsView: View {
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
+                    view: AnyView(AskForAccessToContactsView()))) }) {
+                        Text("Help")
+                    }.buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {
+                        self.navigation.advance(NavigationItem(
                     view: AnyView(PrivacyView()))) }) {
                         Text("Privacy Statement")
                     }.buttonStyle(PlainButtonStyle())
