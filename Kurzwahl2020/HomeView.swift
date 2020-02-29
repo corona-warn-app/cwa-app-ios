@@ -65,13 +65,14 @@ struct HomeView: View {
                             
                     ForEach((0...(globalNumberOfRows-1)), id: \.self) {
                         self.hstackTiles($0, geometry)
-                    }//.background(SwiftUI.Color(red: 0.1, green: 0.1, blue: 0.1))
+                    }
                 }
-            }//.background(SwiftUI.Color(red: 0.1, green: 0.1, blue: 0.1))
+            }
             .tabItem {
                 Image(systemName: appState.selectedTab == 0 ? "1.square.fill" : "1.square")
             }.tag(0)
-        // 2nd screen
+            
+            // 2nd screen
             GeometryReader { geometry in
                 VStack(spacing: self.vspacing()) {
                     ForEach((globalNumberOfRows...(2*globalNumberOfRows-1)), id: \.self) {
@@ -95,7 +96,7 @@ struct HomeView: View {
                     Image(systemName: appState.selectedTab == 2 ? "3.square.fill" : "3.square")
                 }.tag(2)
             
-//        // 4nd screen
+            // 4nd screen
             GeometryReader { geometry in
                 VStack(spacing: self.vspacing()) {
                     ForEach((3*globalNumberOfRows...(4*globalNumberOfRows-1)), id: \.self) {
@@ -108,13 +109,13 @@ struct HomeView: View {
             }.tag(3)
 
 
-        // settings view
+            // settings view
             SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}
             .tabItem {
                 Image(systemName: appState.selectedTab == 4 ? "gear" : "gear")
                 Text("Settings")
             }.tag(4)
-        }//.background(SwiftUI.Color(red: 0.2, green: 0.2, blue: 0.2).edgesIgnoringSafeArea(.all))
+        }
     }
 
 
@@ -160,36 +161,32 @@ struct HomeView: View {
             .background(Color(globalDataModel.getUIColor(withId: withTileNumber)))
             .opacity(colorScheme == .light ? appdefaults.colorScheme.light.opacity : appdefaults.colorScheme.dark.opacity)
             .cornerRadius(colorScheme == .light ? appdefaults.colorScheme.light.cornerRadius : appdefaults.colorScheme.dark.cornerRadius)
-
+            
             .onTapGesture(count: 2) {
                 self.switchToEditTile(withTileNumber)
             }
-            //        .onLongPressGesture {
-            //            self.switchToEditTile(withTileNumber)
-            //        }
             .onTapGesture(count: 1) { self.makeCall(withTileNumber)
             }
-        .contextMenu {
-            Button(action: {
-                self.switchToEditTile(withTileNumber)
-            }) {
-                Text("Edit")
-                Image(systemName: "pencil")
+            .contextMenu {
+                Button(action: {
+                    self.switchToEditTile(withTileNumber)
+                }) {
+                    Text("Edit")
+                    Image(systemName: "pencil")
+                }
+                Button(action: {
+                    self.clearTile(withTileNumber)
+                }) {
+                    Text("Clear")
+                    Image(systemName: "trash")
+                }
+                Button(action: {
+                    self.makeCall(withTileNumber)
+                }) {
+                    Text("Call number")
+                    Image(systemName: "phone.circle")
+                }
             }
-            Button(action: {
-                self.clearTile(withTileNumber)
-            }) {
-                Text("Clear")
-                Image(systemName: "trash")
-            }
-                        Button(action: {
-                self.makeCall(withTileNumber)
-            }) {
-                Text("Call number")
-                Image(systemName: "phone.circle")
-            }
-        }
-        
     }
     
     
