@@ -13,6 +13,7 @@
 		502BF540236399BD00FDE7BF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 502BF53F236399BD00FDE7BF /* Preview Assets.xcassets */; };
 		502BF543236399BD00FDE7BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 502BF541236399BD00FDE7BF /* LaunchScreen.storyboard */; };
 		502BF54E236399BD00FDE7BF /* Kurzwahl2020Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */; };
+		505B608D240C57FB0041A592 /* ColorSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505B608C240C57FB0041A592 /* ColorSelectView.swift */; };
 		505F052623BDF0290032B776 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F052523BDF0290032B776 /* StorageTests.swift */; };
 		505F055B23C3C7E50032B776 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F055A23C3C7E50032B776 /* HomeView.swift */; };
 		5094A7A62365E324004D0932 /* Notizen.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5094A7A52365E324004D0932 /* Notizen.rtf */; };
@@ -56,6 +57,7 @@
 		502BF549236399BD00FDE7BF /* Kurzwahl2020Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kurzwahl2020Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kurzwahl2020Tests.swift; sourceTree = "<group>"; };
 		502BF54F236399BD00FDE7BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		505B608C240C57FB0041A592 /* ColorSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectView.swift; sourceTree = "<group>"; };
 		505F052523BDF0290032B776 /* StorageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		505F055A23C3C7E50032B776 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5094A7A52365E324004D0932 /* Notizen.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notizen.rtf; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */,
 				7E3D6D0223CB8FD7002E4239 /* AboutView.swift */,
 				50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */,
+				505B608C240C57FB0041A592 /* ColorSelectView.swift */,
 				7E4086102401EE6C00D50EF8 /* Localizable.strings */,
 				7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */,
 				50ADCF812369C135007B248B /* ModelColor.swift */,
@@ -290,6 +293,7 @@
 				7E5C786423E8AA3200E25902 /* ContactDetailView.swift in Sources */,
 				50ADCF822369C135007B248B /* ModelColor.swift in Sources */,
 				50ADCF842369C35F007B248B /* Storage.swift in Sources */,
+				505B608D240C57FB0041A592 /* ColorSelectView.swift in Sources */,
 				7EC1B80323C100E8004B7396 /* editTile.swift in Sources */,
 				7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */,
 				50AD8B6A23D8EDEB00819FD1 /* ContactView.swift in Sources */,

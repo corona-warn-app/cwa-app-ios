@@ -40,7 +40,11 @@ struct SettingsView: View {
                     view: AnyView(PrivacyView()))) }) {
                         Text("Privacy Statement")
                     }.buttonStyle(PlainButtonStyle())
-                    
+                    Button(action: {
+                        self.navigation.advance(NavigationItem(
+                    view: AnyView(ColorSelectView()))) }) {
+                        Text("Colors")
+                    }.buttonStyle(PlainButtonStyle())
                     
                 }.navigationBarTitle(Text("Settings"))
             }
