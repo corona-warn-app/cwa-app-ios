@@ -23,8 +23,10 @@ class ColorManagementTests: XCTestCase {
     }
 
     func testGetThumbnail() {
-        let index : Int = 0
-        sut.getThumbnail(withIndex: index)
+        XCTAssertTrue(sut.getThumbnailName(withIndex: 0).count > 0 )
+        XCTAssertTrue(sut.getThumbnailName(withIndex: 1).count > 0 )
+        XCTAssertTrue(sut.getThumbnailName(withIndex: 2).count > 0 )
+        XCTAssertTrue(sut.getThumbnailName(withIndex: 3).count == 0 )
     }
 
 }

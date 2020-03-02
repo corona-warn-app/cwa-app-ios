@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ColorSelectView: View {
     @EnvironmentObject var navigation: NavigationStack
+    let cm: ColorManagement = ColorManagement()
     
     var body: some View {
         VStack{
@@ -21,13 +22,13 @@ struct ColorSelectView: View {
             VStack{
                 Text("Show the two/three screens").multilineTextAlignment(.leading).customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
                 HStack{
-                    Image("Standard Light Mode").resizable()
+                    Image(cm.getThumbnailName(withIndex: 0)).resizable()
                         .frame(width: 100, height: 190)
                     
-                    Image("DarkPink Light Mode").resizable()
+                    Image(cm.getThumbnailName(withIndex: 1)).resizable()
                         .frame(width: 100, height: 190)
                     
-                    Image("Red Light Mode").resizable()
+                    Image(cm.getThumbnailName(withIndex: 2)).resizable()
                         .frame(width: 100, height: 190)
                 }
                 Spacer()
