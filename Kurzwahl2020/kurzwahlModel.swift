@@ -243,10 +243,10 @@ class kurzwahlModel: ObservableObject{
     fileprivate func initializeDefaultTiles() {
         var aTile: phoneTile
         let colorPalette =
-//            ColorPaletteSummer +
+            ColorPaletteSummer +
             ColorPaletteDarkPink +
-            ColorPaletteBlue +
-            ColorPaletteGreen +
+//            ColorPaletteBlue +
+//            ColorPaletteGreen +
             ColorPaletteRed 
         globalMaxTileNumber = colorPalette.count - 1
         for i in 0...globalMaxTileNumber {

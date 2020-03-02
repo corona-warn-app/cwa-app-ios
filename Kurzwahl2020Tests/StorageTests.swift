@@ -14,7 +14,7 @@ class StorageTests: XCTestCase {
     var testNames : [String] = []
     var testNumbers : [String] = []
     var testColors : [String] = []
-    var testSettings : [String : String] = ["alpha" : "beta", "charlie": "delta"]
+    var testSettings : [String : String] = ["alpha" : "beta", "charlie": "delta", "123":"456"]
     let namesTestfile : String = "namesTestfile"
     let numbersTestfile : String = "numbersTestfile"
     let colorsTestfile : String = "colorsTestfile"

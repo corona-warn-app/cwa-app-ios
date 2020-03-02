@@ -151,17 +151,17 @@ class storage {
             return result
         } catch {
             print("load settings failed")
-            result = ["fontsize" : "22"]
+            result = ["fontsize" : "22",
+                      "ColorPalette0" : "Standard Light Mode",
+                      "ColorPalette1" : "DarkPink Light Mode",
+                      "ColorPalette2" : "Red Light Mode"
+            ]
         }
         return result
     }
     
     
     func deleteFilesFromAppgroup() {
-        let numbersFileName = "CBC24numbers"
-        let namesFileName = "CBC24names"
-        let settingsFileName = "CBC24settings"
-        
         let directory : URL = FileManager.sharedContainerURL()
         let fullPathNames = directory.appendingPathComponent(namesFileName)
         let fullPathNumbers = directory.appendingPathComponent(numbersFileName)
