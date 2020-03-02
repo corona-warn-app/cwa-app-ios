@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50164489240CFC26005FA948 /* ColorManagementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50164488240CFC26005FA948 /* ColorManagementTests.swift */; };
 		502BF537236399BB00FDE7BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF536236399BB00FDE7BF /* AppDelegate.swift */; };
 		502BF539236399BB00FDE7BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF538236399BB00FDE7BF /* SceneDelegate.swift */; };
 		502BF53D236399BD00FDE7BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 502BF53C236399BD00FDE7BF /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50164488240CFC26005FA948 /* ColorManagementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManagementTests.swift; sourceTree = "<group>"; };
 		502BF533236399BB00FDE7BF /* Kurzwahl2020.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kurzwahl2020.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		502BF536236399BB00FDE7BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		502BF538236399BB00FDE7BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,9 +135,9 @@
 				7E3D6D0223CB8FD7002E4239 /* AboutView.swift */,
 				50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */,
 				505B608C240C57FB0041A592 /* ColorSelectView.swift */,
+				50ADCF812369C135007B248B /* ModelColor.swift */,
 				7E4086102401EE6C00D50EF8 /* Localizable.strings */,
 				7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */,
-				50ADCF812369C135007B248B /* ModelColor.swift */,
 				7EC1B80223C100E8004B7396 /* editTile.swift */,
 				7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */,
 				509989A923B9466300C19C15 /* kurzwahlModel.swift */,
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				505F052523BDF0290032B776 /* StorageTests.swift */,
+				50164488240CFC26005FA948 /* ColorManagementTests.swift */,
 				7E2E0DE523E5CA0700825EC1 /* ContactTest.swift */,
 				7E3D6CFE23C9D4CB002E4239 /* StoreToFileTest.swift */,
 				502BF54D236399BD00FDE7BF /* Kurzwahl2020Tests.swift */,
@@ -308,6 +311,7 @@
 			files = (
 				7E2E0DE623E5CA0700825EC1 /* ContactTest.swift in Sources */,
 				502BF54E236399BD00FDE7BF /* Kurzwahl2020Tests.swift in Sources */,
+				50164489240CFC26005FA948 /* ColorManagementTests.swift in Sources */,
 				505F052623BDF0290032B776 /* StorageTests.swift in Sources */,
 				7E3D6CFF23C9D4CB002E4239 /* StoreToFileTest.swift in Sources */,
 			);
