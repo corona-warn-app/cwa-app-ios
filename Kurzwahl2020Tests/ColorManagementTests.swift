@@ -28,5 +28,10 @@ class ColorManagementTests: XCTestCase {
         XCTAssertTrue(sut.getThumbnailName(withIndex: 2).count > 0 )
         XCTAssertTrue(sut.getThumbnailName(withIndex: 3).count == 0 )
     }
+    
+    func testGetAllThumbnails() {
+        let result = sut.getAllThumbnails()
+        XCTAssertTrue(result.count == 3)
+    }
 
 }
