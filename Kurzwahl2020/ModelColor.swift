@@ -63,11 +63,10 @@ let ColorPaletteRed: [String] = [
 
 class ColorManagement {
     func getThumbnailName(withIndex: Int) -> String {
-        // how to read a png file from assets
         switch withIndex {
-        case 0: return "Standard Light Mode"
-        case 1: return "DarkPink Light Mode"
-        case 2: return "Red Light Mode"
+        case 0: return globalDataModel.settings["ColorPalette0"]!
+        case 1: return globalDataModel.settings["ColorPalette1"]!
+        case 2: return globalDataModel.settings["ColorPalette2"]!
         default:
             return ""
         }
