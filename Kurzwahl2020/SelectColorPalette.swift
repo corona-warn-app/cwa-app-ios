@@ -11,6 +11,7 @@ import SwiftUI
 struct SelectColorPalette: View {
     @EnvironmentObject var navigation: NavigationStack
     
+    
     var body: some View {
         VStack {
             SingleActionBackView( title: "",
@@ -20,6 +21,8 @@ struct SelectColorPalette: View {
             })
             
             Text("Select a new palette")
+        
+
             Spacer()
         }
     }

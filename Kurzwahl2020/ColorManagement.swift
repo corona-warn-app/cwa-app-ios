@@ -71,7 +71,12 @@ class ColorManagement {
             return ""
         }
     }
-}
+    
+    func getAllThumbnails() -> [String] {
+        return ["a","b"]
+    }
+    
+} //class
 
 
 
