@@ -21,11 +21,11 @@ struct SelectColorPalette: View {
             })
             
             Text("Select a new palette")
-//            List {
-//                ForEach(cm.getAllThumbnails()) { palette in
-//                    thumbnailRow(name: palette)
-//                }
-//            }
+            List {
+                ForEach(cm.getAllThumbnails()) { p in
+                    thumbnailRow(name: p.name)
+                }
+            }
             Spacer()
         }
     }
@@ -42,6 +42,6 @@ struct SelectColorPalette_Previews: PreviewProvider {
 struct thumbnailRow : View {
     var name:String
     var body: some View {
-        Text("This is a row")
+        Text(name)
     }
 }
