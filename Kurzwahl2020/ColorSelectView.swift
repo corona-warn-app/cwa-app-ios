@@ -24,21 +24,21 @@ struct ColorSelectView: View {
                 HStack{
                     Button(action: {
                         self.navigation.advance(NavigationItem(
-                            view: AnyView(AboutView()))) }) {
+                            view: AnyView(SelectColorPalette()))) }) {
                                 Image(cm.getThumbnailName(withIndex: 0)).resizable()
                                     .frame(width: 100, height: 190).padding()
                     }.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
-                            view: AnyView(AboutView()))) }) {
+                            view: AnyView(SelectColorPalette()))) }) {
                                 Image(cm.getThumbnailName(withIndex: 1)).resizable()
                                     .frame(width: 100, height: 190).padding()
                     }.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
-                            view: AnyView(AboutView()))) }) {
+                            view: AnyView(SelectColorPalette()))) }) {
                                 Image(cm.getThumbnailName(withIndex: 2)).resizable()
                                     .frame(width: 100, height: 190).padding()
                     }.buttonStyle(PlainButtonStyle())

@@ -24,6 +24,7 @@
 		50ADCF842369C35F007B248B /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF832369C35F007B248B /* Storage.swift */; };
 		50ADCF862369C46D007B248B /* people.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF852369C46D007B248B /* people.json */; };
 		50ADCF882369D87D007B248B /* Colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF872369D87D007B248B /* Colors.json */; };
+		50ADF97C240EAA3100850FB6 /* SelectColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADF97B240EAA3100850FB6 /* SelectColorPalette.swift */; };
 		50C3564F2401C4510026ABE5 /* AskForAccessToContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */; };
 		50C8558C23D98EC400AAB7F2 /* ModelContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */; };
 		7E16FDEF23D4AD92005DAAF3 /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */; };
@@ -69,6 +70,7 @@
 		50ADCF832369C35F007B248B /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		50ADCF852369C46D007B248B /* people.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = people.json; sourceTree = "<group>"; };
 		50ADCF872369D87D007B248B /* Colors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Colors.json; sourceTree = "<group>"; };
+		50ADF97B240EAA3100850FB6 /* SelectColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorPalette.swift; sourceTree = "<group>"; };
 		50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForAccessToContactsView.swift; sourceTree = "<group>"; };
 		50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContacts.swift; sourceTree = "<group>"; };
 		7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				7E3D6D0223CB8FD7002E4239 /* AboutView.swift */,
 				50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */,
 				505B608C240C57FB0041A592 /* ColorSelectView.swift */,
+				50ADF97B240EAA3100850FB6 /* SelectColorPalette.swift */,
 				50ADCF812369C135007B248B /* ModelColor.swift */,
 				7E4086102401EE6C00D50EF8 /* Localizable.strings */,
 				7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */,
@@ -288,6 +291,7 @@
 			files = (
 				50C3564F2401C4510026ABE5 /* AskForAccessToContactsView.swift in Sources */,
 				502BF537236399BB00FDE7BF /* AppDelegate.swift in Sources */,
+				50ADF97C240EAA3100850FB6 /* SelectColorPalette.swift in Sources */,
 				50C8558C23D98EC400AAB7F2 /* ModelContacts.swift in Sources */,
 				7E16FDEF23D4AD92005DAAF3 /* PrivacyView.swift in Sources */,
 				505F055B23C3C7E50032B776 /* HomeView.swift in Sources */,
