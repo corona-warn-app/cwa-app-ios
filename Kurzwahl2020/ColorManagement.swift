@@ -60,6 +60,11 @@ let ColorPaletteRed: [String] = [
 ]
 
 
+struct x: Hashable, Identifiable {
+    var id: ObjectIdentifier
+    var name: String
+}
+
 
 class ColorManagement {
     func getThumbnailName(withIndex: Int) -> String {
@@ -73,6 +78,7 @@ class ColorManagement {
     }
     
     func getAllThumbnails() -> [String] {
+        
         return ["a","b"]
     }
     

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SelectColorPalette: View {
     @EnvironmentObject var navigation: NavigationStack
-    
+    let cm: ColorManagement = ColorManagement()
     
     var body: some View {
         VStack {
@@ -21,8 +21,11 @@ struct SelectColorPalette: View {
             })
             
             Text("Select a new palette")
-        
-
+//            List {
+//                ForEach(cm.getAllThumbnails()) { palette in
+//                    thumbnailRow(name: palette)
+//                }
+//            }
             Spacer()
         }
     }
@@ -31,5 +34,14 @@ struct SelectColorPalette: View {
 struct SelectColorPalette_Previews: PreviewProvider {
     static var previews: some View {
         SelectColorPalette()
+    }
+}
+
+
+
+struct thumbnailRow : View {
+    var name:String
+    var body: some View {
+        Text("This is a row")
     }
 }
