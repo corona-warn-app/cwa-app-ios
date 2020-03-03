@@ -20,16 +20,28 @@ struct ColorSelectView: View {
                                     self.navigation.unwind()
             })
             VStack{
-                Text("Show the two/three screens").multilineTextAlignment(.leading).customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
+                Text("Change the colors for each screen").multilineTextAlignment(.leading).customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
                 HStack{
-                    Image(cm.getThumbnailName(withIndex: 0)).resizable()
-                        .frame(width: 100, height: 190)
+                    Button(action: {
+                        self.navigation.advance(NavigationItem(
+                            view: AnyView(AboutView()))) }) {
+                                Image(cm.getThumbnailName(withIndex: 0)).resizable()
+                                    .frame(width: 100, height: 190).padding()
+                    }.buttonStyle(PlainButtonStyle())
                     
-                    Image(cm.getThumbnailName(withIndex: 1)).resizable()
-                        .frame(width: 100, height: 190)
+                    Button(action: {
+                        self.navigation.advance(NavigationItem(
+                            view: AnyView(AboutView()))) }) {
+                                Image(cm.getThumbnailName(withIndex: 1)).resizable()
+                                    .frame(width: 100, height: 190).padding()
+                    }.buttonStyle(PlainButtonStyle())
                     
-                    Image(cm.getThumbnailName(withIndex: 2)).resizable()
-                        .frame(width: 100, height: 190)
+                    Button(action: {
+                        self.navigation.advance(NavigationItem(
+                            view: AnyView(AboutView()))) }) {
+                                Image(cm.getThumbnailName(withIndex: 2)).resizable()
+                                    .frame(width: 100, height: 190).padding()
+                    }.buttonStyle(PlainButtonStyle())
                 }
                 Spacer()
             }
