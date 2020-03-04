@@ -23,7 +23,7 @@ struct SelectColorPalette: View {
             Text("Select a new palette")
             List {
                 ForEach(cm.getAllThumbnails()) { p in
-                    thumbnailRow(name: p.name)
+                    thumbnailRow(colorPalette: p)
                 }
             }
             Spacer()
@@ -40,8 +40,17 @@ struct SelectColorPalette_Previews: PreviewProvider {
 
 
 struct thumbnailRow : View {
-    var name:String
+    var colorPalette: palette
+    @EnvironmentObject var navigation: NavigationStack
     var body: some View {
-        Text(name)
+        HStack{
+            Button(action: {
+                self.navigation.unwind() })
+            {
+                Text(self.colorPalette.name)
+                Spacer()
+                Image(self.colorPalette.thumbnail).resizable().frame(width: 30, height: 57)
+            }.buttonStyle(PlainButtonStyle())
+        }
     }
 }

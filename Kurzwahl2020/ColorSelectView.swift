@@ -20,7 +20,7 @@ struct ColorSelectView: View {
                                     self.navigation.unwind()
             })
             VStack{
-                Text("Change the colors for each screen").multilineTextAlignment(.leading).customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
+                Text("Select picture to change the colors").multilineTextAlignment(.leading).customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
                 HStack{
                     Button(action: {
                         self.navigation.advance(NavigationItem(
