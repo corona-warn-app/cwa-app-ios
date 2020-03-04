@@ -8,8 +8,16 @@
 
 import SwiftUI
 
+
+final class PaletteSelectViewState: ObservableObject {
+    @Published var selectedPaletteName = String()
+}
+
+
 struct ColorSelectView: View {
     @EnvironmentObject var navigation: NavigationStack
+    @EnvironmentObject var paletteViewState: PaletteSelectViewState
+    
     let cm: ColorManagement = ColorManagement()
     
     var body: some View {
@@ -20,7 +28,10 @@ struct ColorSelectView: View {
                                     self.navigation.unwind()
             })
             VStack{
-                Text("Select picture to change the colors").multilineTextAlignment(.leading).customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
+                Text("Select picture to change the colors")
+                    .multilineTextAlignment(.leading)
+                    .customFont(name: globalDataModel.font, style: .body)
+                    .padding(.horizontal)
                 HStack{
                     Button(action: {
                         self.navigation.advance(NavigationItem(

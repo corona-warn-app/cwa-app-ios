@@ -40,11 +40,13 @@ struct SelectColorPalette_Previews: PreviewProvider {
 
 
 struct thumbnailRow : View {
+    @EnvironmentObject var paletteViewState: PaletteSelectViewState
     var colorPalette: palette
     @EnvironmentObject var navigation: NavigationStack
     var body: some View {
         HStack{
             Button(action: {
+                self.paletteViewState.selectedPaletteName = self.colorPalette.name
                 self.navigation.unwind() })
             {
                 Text(self.colorPalette.name)
