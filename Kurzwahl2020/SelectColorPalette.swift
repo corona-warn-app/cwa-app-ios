@@ -50,7 +50,7 @@ struct thumbnailRow : View {
     var body: some View {
         HStack{
             Button(action: {
-                self.colorManager.setPalette(withIndex: self.screenIndex, name: self.colorPalette.name)
+                self.colorManager.setScreenPalette(withIndex: self.screenIndex, name: self.colorPalette.name)
                 self.navigation.unwind() })
             {
                 Text(self.colorPalette.name)

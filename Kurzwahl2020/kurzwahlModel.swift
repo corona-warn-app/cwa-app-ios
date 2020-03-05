@@ -81,7 +81,6 @@ struct appdefaults : Hashable {
 
 
 class kurzwahlModel: ObservableObject{
-    
     var didChange = PassthroughSubject<Void, Never>()
     
     @Published var tiles: [phoneTile] = []
@@ -240,14 +239,27 @@ class kurzwahlModel: ObservableObject{
     }
     
     
+//    func initializeDefaultTiles() {
+//        var aTile: phoneTile
+//        var colorPalette = [String]()
+//        for index in 0...2 {
+//            let name = colorManager.getScreenPaletteName(withIndex: index)
+//            colorPalette.append(contentsOf: colorManager.getPalette(withName: name).colors)
+//        }
+//        globalMaxTileNumber = colorPalette.count - 1
+//        for i in 0...globalMaxTileNumber {
+//            aTile = phoneTile(id: i, name: "", phoneNumber: "", backgroundColor: colorPalette[i])
+//            tiles.append(aTile)
+//        }
+//    }
+    
+    
     fileprivate func initializeDefaultTiles() {
         var aTile: phoneTile
         let colorPalette =
             ColorPaletteSummer +
-            ColorPaletteDarkPink +
-//            ColorPaletteBlue +
-//            ColorPaletteGreen +
-            ColorPaletteRed 
+                ColorPaletteDarkPink +
+        ColorPaletteRed
         globalMaxTileNumber = colorPalette.count - 1
         for i in 0...globalMaxTileNumber {
             aTile = phoneTile(id: i, name: "", phoneNumber: "", backgroundColor: colorPalette[i])

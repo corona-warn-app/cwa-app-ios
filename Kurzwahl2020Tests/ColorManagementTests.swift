@@ -35,11 +35,24 @@ class ColorManagementTests: XCTestCase {
     }
     
     func testSetPalette() {
-        sut.setPalette(withIndex: 0, name: c_red)
-        let result = sut.getUserSelectedPalette(withIndex: 0)
+        sut.setScreenPalette(withIndex: 0, name: c_red)
+        let result = sut.getScreenPaletteName(withIndex: 0)
         XCTAssertEqual(result, c_red)
         
         XCTAssertEqual(sut.getThumbnailName(withIndex: 0), c_tn_red_lm)
     }
 
+    func testColorCodes() {
+        for p in sut.getAllPalettes() {
+            
+            XCTAssertTrue(p.colors.count == 12)
+        }
+    }
+    
+    func testGetPalette(byName: String) {
+        for p in sut.getAllPalettes() {
+            let p = sut.getPalette(withName: p.name)
+            XCTAssertTrue(p.colors.count == 12)
+        }
+    }
 }

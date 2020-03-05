@@ -57,7 +57,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let editViewState = EditViewState()
         let paletteSelectViewState = PaletteSelectViewState()
         let colorManager = ColorManagement()
-        let contentView = ContentView2().environmentObject(appState).environmentObject(editViewState).environmentObject(paletteSelectViewState).environmentObject(colorManager)
+        let contentView = ContentView2().environmentObject(appState)
+            .environmentObject(editViewState)
+            .environmentObject(paletteSelectViewState)
+            .environmentObject(colorManager)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -67,8 +70,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             window.makeKeyAndVisible()
         }
- 
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

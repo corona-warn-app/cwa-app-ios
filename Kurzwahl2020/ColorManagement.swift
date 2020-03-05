@@ -10,6 +10,7 @@
 
 
 import Foundation
+import Combine
 // 3.3.2020 new data model
 
 struct palette: Identifiable, Hashable {
@@ -86,21 +87,17 @@ class ColorManagement : ObservableObject {
     
     var userScreen = [palette]()
     
-    var userSelection : userSelectedPalettes = userSelectedPalettes(p0: "", p1: "", p2: "")
-    
     init() {
         
         print("ColorManagemen init")
         allPalettes.append(palette(name: c_summerTime, thumbnail: "Standard Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
         allPalettes.append(palette(name: c_darkPink, thumbnail: "DarkPink Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
-        allPalettes.append(palette(name: c_red
-            , thumbnail: "Red Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
+        allPalettes.append(palette(name: c_red, thumbnail: "Red Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
         
         //TODO: read from file
         userScreen.append(self.allPalettes[0])
         userScreen.append(self.allPalettes[1])
         userScreen.append(self.allPalettes[2])
-        
     }
     
     
@@ -113,18 +110,42 @@ class ColorManagement : ObservableObject {
     }
     
     
-    func getUserSelectedPalette(withIndex: Int) -> String {
+    func getScreenPaletteName(withIndex: Int) -> String {
         return userScreen[withIndex].name
     }
     
-    func setPalette(withIndex: Int, name: String) {
+    func setScreenPalette(withIndex: Int, name: String) {
         for p in allPalettes {
             if p.name == name {
                 userScreen[withIndex] = p
             }
         }
-      
     }
+    
+    func getColors(forPalette: String) -> [String] {
+        var result = [String]()
+        for p in allPalettes {
+            if p.name == forPalette {
+                result = p.colors
+            }
+        }
+        return result
+    }
+    
+    func getAllPalettes() -> [palette]{
+        return allPalettes
+    }
+    
+    func getPalette(withName: String) -> palette{
+        var result = palette(name: "", thumbnail: "", thumbnailDarkMode: "", colors: [""])
+        for p in allPalettes {
+            if p.name == withName {
+                result = p
+            }
+        }
+        return result
+    }
+    
 } //class
 
 
