@@ -17,8 +17,8 @@ final class PaletteSelectViewState: ObservableObject {
 struct ColorSelectView: View {
     @EnvironmentObject var navigation: NavigationStack
     @EnvironmentObject var paletteViewState: PaletteSelectViewState
+    @EnvironmentObject var colorManager: ColorManagement
 //    let viewState: PaletteSelectViewState = PaletteSelectViewState()
-    let cm: ColorManagement = ColorManagement()
     
     var body: some View {
         VStack{
@@ -35,22 +35,22 @@ struct ColorSelectView: View {
                 HStack{
                     Button(action: {
                         self.navigation.advance(NavigationItem(
-                            view: AnyView(SelectColorPalette()))) }) {
-                                Image(cm.getThumbnailName(withIndex: 0)).resizable()
+                            view: AnyView(SelectColorPalette(screenIndex: 0)))) }) {
+                                Image(colorManager.getThumbnailName(withIndex: 0)).resizable()
                                     .frame(width: 100, height: 190).padding()
                     }.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
-                            view: AnyView(SelectColorPalette()))) }) {
-                                Image(cm.getThumbnailName(withIndex: 1)).resizable()
+                            view: AnyView(SelectColorPalette(screenIndex: 1)))) }) {
+                                Image(colorManager.getThumbnailName(withIndex: 1)).resizable()
                                     .frame(width: 100, height: 190).padding()
                     }.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
-                            view: AnyView(SelectColorPalette()))) }) {
-                                Image(cm.getThumbnailName(withIndex: 2)).resizable()
+                            view: AnyView(SelectColorPalette(screenIndex: 2)))) }) {
+                                Image(colorManager.getThumbnailName(withIndex: 2)).resizable()
                                     .frame(width: 100, height: 190).padding()
                     }.buttonStyle(PlainButtonStyle())
                 }

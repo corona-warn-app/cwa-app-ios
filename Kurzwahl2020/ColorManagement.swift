@@ -21,8 +21,6 @@ struct palette: Identifiable, Hashable {
 }
 
 
-
-
 // the color names refer to the items in Asset.xcassets
 let ColorPaletteSummer: [String] = [
     "OrangeFF9500", "Darkblue00398E", "RedFF3A2D",  "RedAC193D",
@@ -67,33 +65,66 @@ let ColorPaletteRed: [String] = [
     "Red8C0000","Red8C0000"]
 
 
+// constants: Names of the palettes
+let c_summerTime : String = "Summer Time"
+let c_darkPink : String = "Dark Pink"
+let c_red : String = "Red"
+
+// constants: file names for thumbnails in Light & Dark Mode
+let c_tn_summerTime_lm = "Standard Light Mode"
+let c_tn_darkPink_lm = "DarkPink Light Mode"
+let c_tn_red_lm = "Red Light Mode"
 
 
-
-class ColorManagement {
+class ColorManagement : ObservableObject {
     var allPalettes = [palette]()
+    struct userSelectedPalettes {
+        var p0 : String
+        var p1 : String
+        var p2 : String
+    }
+    
+    var userScreen = [palette]()
+    
+    var userSelection : userSelectedPalettes = userSelectedPalettes(p0: "", p1: "", p2: "")
+    
     init() {
-
-        allPalettes.append(palette(name: "Summer Time", thumbnail: "Standard Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
-        allPalettes.append(palette(name: "Dark Pink", thumbnail: "DarkPink Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
-        allPalettes.append(palette(name: "Red", thumbnail: "Red Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
+        
+        print("ColorManagemen init")
+        allPalettes.append(palette(name: c_summerTime, thumbnail: "Standard Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
+        allPalettes.append(palette(name: c_darkPink, thumbnail: "DarkPink Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
+        allPalettes.append(palette(name: c_red
+            , thumbnail: "Red Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
+        
+        //TODO: read from file
+        userScreen.append(self.allPalettes[0])
+        userScreen.append(self.allPalettes[1])
+        userScreen.append(self.allPalettes[2])
+        
     }
     
     
     func getThumbnailName(withIndex: Int) -> String {
-        switch withIndex {
-        case 0: return globalDataModel.settings["ColorPalette0"]!
-        case 1: return globalDataModel.settings["ColorPalette1"]!
-        case 2: return globalDataModel.settings["ColorPalette2"]!
-        default:
-            return ""
-        }
+        return userScreen[withIndex].thumbnail
     }
     
     func getAllThumbnails() -> [palette] {
         return allPalettes
     }
     
+    
+    func getUserSelectedPalette(withIndex: Int) -> String {
+        return userScreen[withIndex].name
+    }
+    
+    func setPalette(withIndex: Int, name: String) {
+        for p in allPalettes {
+            if p.name == name {
+                userScreen[withIndex] = p
+            }
+        }
+      
+    }
 } //class
 
 

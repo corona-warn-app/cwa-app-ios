@@ -26,12 +26,20 @@ class ColorManagementTests: XCTestCase {
         XCTAssertTrue(sut.getThumbnailName(withIndex: 0).count > 0 )
         XCTAssertTrue(sut.getThumbnailName(withIndex: 1).count > 0 )
         XCTAssertTrue(sut.getThumbnailName(withIndex: 2).count > 0 )
-        XCTAssertTrue(sut.getThumbnailName(withIndex: 3).count == 0 )
+        
     }
     
     func testGetAllThumbnails() {
         let result = sut.getAllThumbnails()
         XCTAssertTrue(result.count == 3)
+    }
+    
+    func testSetPalette() {
+        sut.setPalette(withIndex: 0, name: c_red)
+        let result = sut.getUserSelectedPalette(withIndex: 0)
+        XCTAssertEqual(result, c_red)
+        
+        XCTAssertEqual(sut.getThumbnailName(withIndex: 0), c_tn_red_lm)
     }
 
 }

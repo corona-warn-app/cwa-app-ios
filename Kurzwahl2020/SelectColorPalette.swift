@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct SelectColorPalette: View {
+    var screenIndex: Int
     @EnvironmentObject var navigation: NavigationStack
-    let cm: ColorManagement = ColorManagement()
+    @EnvironmentObject var colorManager: ColorManagement
     
     var body: some View {
         VStack {
@@ -22,8 +23,8 @@ struct SelectColorPalette: View {
             
             Text("Select a new palette")
             List {
-                ForEach(cm.getAllThumbnails()) { p in
-                    thumbnailRow(colorPalette: p)
+                ForEach(colorManager.getAllThumbnails()) { p in
+                    thumbnailRow(colorPalette: p, screenIndex: self.screenIndex)
                 }
             }
             Spacer()
@@ -33,20 +34,23 @@ struct SelectColorPalette: View {
 
 struct SelectColorPalette_Previews: PreviewProvider {
     static var previews: some View {
-        SelectColorPalette()
+        SelectColorPalette(screenIndex: 0)
     }
 }
 
 
 
 struct thumbnailRow : View {
-    @EnvironmentObject var paletteViewState: PaletteSelectViewState
-    var colorPalette: palette
     @EnvironmentObject var navigation: NavigationStack
+    @EnvironmentObject var paletteViewState: PaletteSelectViewState
+    @EnvironmentObject var colorManager : ColorManagement
+    var colorPalette: palette
+    var screenIndex: Int
+    
     var body: some View {
         HStack{
             Button(action: {
-                self.paletteViewState.selectedPaletteName = self.colorPalette.name
+                self.colorManager.setPalette(withIndex: self.screenIndex, name: self.colorPalette.name)
                 self.navigation.unwind() })
             {
                 Text(self.colorPalette.name)
