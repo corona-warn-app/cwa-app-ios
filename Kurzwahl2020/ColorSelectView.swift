@@ -17,7 +17,7 @@ final class PaletteSelectViewState: ObservableObject {
 struct ColorSelectView: View {
     @EnvironmentObject var navigation: NavigationStack
     @EnvironmentObject var paletteViewState: PaletteSelectViewState
-    
+//    let viewState: PaletteSelectViewState = PaletteSelectViewState()
     let cm: ColorManagement = ColorManagement()
     
     var body: some View {
