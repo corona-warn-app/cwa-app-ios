@@ -44,15 +44,15 @@ class ColorManagementTests: XCTestCase {
 
     func testColorCodes() {
         for p in sut.getAllPalettes() {
-            
             XCTAssertTrue(p.colors.count == 12)
         }
     }
     
-    func testGetPalette(byName: String) {
+    func testGetPalette() {
         for p in sut.getAllPalettes() {
             let p = sut.getPalette(withName: p.name)
             XCTAssertTrue(p.colors.count == 12)
         }
     }
+    
 }
