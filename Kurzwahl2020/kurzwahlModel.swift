@@ -25,11 +25,6 @@
 //       get { defaults.integer(forKey: Keys.sleepGoal) }
 //   }
 
-// User changes fontsize on settings screen. How can we update and
-// persist the settings dictionary?
-
-
-
 
 import SwiftUI
 import Combine
@@ -80,9 +75,10 @@ struct appdefaults : Hashable {
 }
 
 
+
 class kurzwahlModel: ObservableObject{
     var didChange = PassthroughSubject<Void, Never>()
-    
+//    @EnvironmentObject var cm : ColorManagement
     @Published var tiles: [phoneTile] = []
     @Published var font : String = "PingFang TC Medium"
     @Published var fontSize : CGFloat = 0
@@ -190,13 +186,11 @@ class kurzwahlModel: ObservableObject{
         }
         self.storageManager.persist(withNumbers: displayNumbers)
         
-        
         var displayColors = [String]()
         for i in 0...globalMaxTileNumber {
             displayColors.append(self.tiles[i].backgroundColor)
         }
         self.storageManager.persist(withColors: displayColors)
-        
         self.storageManager.persist(settings: settings)
     }
     
@@ -229,37 +223,69 @@ class kurzwahlModel: ObservableObject{
             }
         }
         
-        let colorsFromFile = self.storageManager.loadColors()
-        if colorsFromFile.count > 0 {
-            for i in 0...(colorsFromFile.count - 1 ) {
-                tiles[i].backgroundColor = colorsFromFile[i]
-            }
-        }
+//        let colorsFromFile = self.storageManager.loadColors()
+//        if colorsFromFile.count > 0 {
+//            for i in 0...(colorsFromFile.count - 1 ) {
+//                tiles[i].backgroundColor = colorsFromFile[i]
+//            }
+//        }
         self.settings = self.storageManager.loadSettings()
     }
     
     
-//    func initializeDefaultTiles() {
-//        var aTile: phoneTile
-//        var colorPalette = [String]()
-//        for index in 0...2 {
-//            let name = colorManager.getScreenPaletteName(withIndex: index)
-//            colorPalette.append(contentsOf: colorManager.getPalette(withName: name).colors)
-//        }
-//        globalMaxTileNumber = colorPalette.count - 1
-//        for i in 0...globalMaxTileNumber {
-//            aTile = phoneTile(id: i, name: "", phoneNumber: "", backgroundColor: colorPalette[i])
-//            tiles.append(aTile)
+//    func setColorsFromSettings() {
+//        for i in 0...2 {
+//            let name = cm.getScreenPaletteName(withIndex: i)
+//            let colors = cm.getColors(forPalette: name)
+//            let j = i * 12
+//            var k = 0
+//            for color in colors {
+//                tiles[j+k].backgroundColor = color
+//                k = k + 1
+//            }
 //        }
 //    }
     
     
+    func getUserSelectedPalette(withIndex: Int) -> String {
+        var result : String
+        switch withIndex {
+        case 0:
+            result = settings["ColorPalette0"]!
+        case 1:
+            result = settings["ColorPalette1"]!
+        case 2:
+            result = settings["ColorPalette2"]!
+        default:
+            result = ""
+        }
+        return result
+    }
+    
+    
+    
+    func updateScreenPalette(withIndex: Int, palette: palette) {
+        //var settings : [String : String] = ["fontsize" : "24"]
+        
+        switch withIndex {
+        case 0:
+            settings["ColorPalette0"] = palette.name
+        case 1:
+            settings["ColorPalette1"] = palette.name
+        case 2:
+            settings["ColorPalette2"] = palette.name
+        default:
+            print("updateScreenPalette: illegal index: \(withIndex)")
+        }
+        storageManager.persist(settings: self.settings)
+//        self.setColorsFromSettings()
+    
+    }
+       
+    
     fileprivate func initializeDefaultTiles() {
         var aTile: phoneTile
-        let colorPalette =
-            ColorPaletteSummer +
-                ColorPaletteDarkPink +
-        ColorPaletteRed
+        let colorPalette = ColorPaletteSummer + ColorPaletteDarkPink + ColorPaletteRed
         globalMaxTileNumber = colorPalette.count - 1
         for i in 0...globalMaxTileNumber {
             aTile = phoneTile(id: i, name: "", phoneNumber: "", backgroundColor: colorPalette[i])

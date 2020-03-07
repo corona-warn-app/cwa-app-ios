@@ -68,14 +68,14 @@ class StorageTests: XCTestCase {
     }
 
     
-    func testPersistForColors() {
-        var result : [String] = [""]
-        sut.persist(withColors: testColors, withFilename: colorsTestfile)
-        result = sut.loadColors(withFilename: colorsTestfile)
-        
-        XCTAssertTrue(result == testColors)
-        XCTAssertTrue( testColors.count == globalMaxTileNumber + 1)
-    }
+//    func testPersistForColors() {
+//        var result : [String] = [""]
+//        sut.persist(withColors: testColors, withFilename: colorsTestfile)
+//        result = sut.loadColors(withFilename: colorsTestfile)
+//        
+//        XCTAssertTrue(result == testColors)
+//        XCTAssertTrue( testColors.count == globalMaxTileNumber + 1)
+//    }
     
     
     func testPersistForSettings() {

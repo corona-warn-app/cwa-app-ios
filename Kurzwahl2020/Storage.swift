@@ -125,19 +125,19 @@ class storage {
     }
     
     
-    func loadColors(withFilename : String = "") ->[String] {
-        var result = [String]()
-        let filename : String = (withFilename.count == 0 ? colorsFileName : withFilename)
-        let directory : URL = FileManager.sharedContainerURL()
-        let fileURL = directory.appendingPathComponent(filename)
-        do {
-        let data = try Data(contentsOf: fileURL)
-            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
-        } catch {
-            print("load Colors failed")
-        }
-        return result
-    }
+//    func loadColors(withFilename : String = "") ->[String] {
+//        var result = [String]()
+//        let filename : String = (withFilename.count == 0 ? colorsFileName : withFilename)
+//        let directory : URL = FileManager.sharedContainerURL()
+//        let fileURL = directory.appendingPathComponent(filename)
+//        do {
+//        let data = try Data(contentsOf: fileURL)
+//            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+//        } catch {
+//            print("load Colors failed")
+//        }
+//        return result
+//    }
     
     
     func loadSettings(withFilename : String = "") ->[String : String] {
@@ -152,9 +152,9 @@ class storage {
         } catch {
             print("load settings failed")
             result = ["fontsize" : "22",
-                      "ColorPalette0" : "Standard Light Mode",
-                      "ColorPalette1" : "DarkPink Light Mode",
-                      "ColorPalette2" : "Red Light Mode"
+                      "ColorPalette0" : c_summerTime,
+                      "ColorPalette1" : c_darkPink,
+                      "ColorPalette2" : c_red
             ]
         }
         return result

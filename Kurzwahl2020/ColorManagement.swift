@@ -70,6 +70,8 @@ let ColorPaletteRed: [String] = [
 let c_summerTime : String = "Summer Time"
 let c_darkPink : String = "Dark Pink"
 let c_red : String = "Red"
+let c_green : String = "Green"
+let c_blue : String = "Blue"
 
 // constants: file names for thumbnails in Light & Dark Mode
 let c_tn_summerTime_lm = "Standard Light Mode"
@@ -78,26 +80,20 @@ let c_tn_red_lm = "Red Light Mode"
 
 
 class ColorManagement : ObservableObject {
-    var allPalettes = [palette]()
-    struct userSelectedPalettes {
-        var p0 : String
-        var p1 : String
-        var p2 : String
-    }
-    
-    var userScreen = [palette]()
+    var allPalettes = [palette]() //array of all available palettes
+    var userScreen = [palette]()  // the three used palettes
     
     init() {
         
         print("ColorManagemen init")
-        allPalettes.append(palette(name: c_summerTime, thumbnail: "Standard Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
-        allPalettes.append(palette(name: c_darkPink, thumbnail: "DarkPink Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
+        allPalettes.append(palette(name: c_summerTime, thumbnail: "Standard Light Mode", thumbnailDarkMode: "", colors:ColorPaletteSummer))
+        allPalettes.append(palette(name: c_darkPink, thumbnail: "DarkPink Light Mode", thumbnailDarkMode: "", colors:ColorPaletteDarkPink))
         allPalettes.append(palette(name: c_red, thumbnail: "Red Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
         
-        //TODO: read from file
-        userScreen.append(self.allPalettes[0])
-        userScreen.append(self.allPalettes[1])
-        userScreen.append(self.allPalettes[2])
+        // read from file
+        for i in 0...2 {
+            self.setScreenPalette(withIndex: i, name: globalDataModel.getUserSelectedPalette(withIndex: i))
+        }
     }
     
     
@@ -117,7 +113,9 @@ class ColorManagement : ObservableObject {
     func setScreenPalette(withIndex: Int, name: String) {
         for p in allPalettes {
             if p.name == name {
-                userScreen[withIndex] = p
+                userScreen.insert(p, at: withIndex)
+                //update settings
+                globalDataModel.updateScreenPalette(withIndex: withIndex, palette: p)
             }
         }
     }

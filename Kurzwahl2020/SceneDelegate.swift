@@ -53,14 +53,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
 
+        let colorManager = ColorManagement()
         let appState = HomeViewState()
         let editViewState = EditViewState()
         let paletteSelectViewState = PaletteSelectViewState()
-        let colorManager = ColorManagement()
         let contentView = ContentView2().environmentObject(appState)
+            .environmentObject(colorManager)
             .environmentObject(editViewState)
             .environmentObject(paletteSelectViewState)
-            .environmentObject(colorManager)
+            
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
