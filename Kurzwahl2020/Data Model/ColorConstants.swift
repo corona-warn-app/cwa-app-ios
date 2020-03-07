@@ -9,6 +9,20 @@
 import Foundation
 
 
+// constants: Names of the palettes
+let c_summerTime : String = "Summer Time"
+let c_darkPink : String = "Dark Pink"
+let c_red : String = "Red"
+let c_green : String = "Green"
+let c_blue : String = "Blue"
+
+// constants: file names for thumbnails in Light & Dark Mode
+let c_tn_summerTime_lm = "Standard Light Mode"
+let c_tn_darkPink_lm = "DarkPink Light Mode"
+let c_tn_red_lm = "Red Light Mode"
+
+
+
 // the color names refer to the items in Asset.xcassets
 let ColorPaletteSummer: [String] = [
     "OrangeFF9500", "Darkblue00398E", "RedFF3A2D",  "RedAC193D",

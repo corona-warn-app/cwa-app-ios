@@ -181,11 +181,11 @@
 		7E82628724138BE4008E141C /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */,
 				50ADCF812369C135007B248B /* ColorManagement.swift */,
 				7E8262882413920A008E141C /* ColorConstants.swift */,
 				509989A923B9466300C19C15 /* kurzwahlModel.swift */,
 				50ADCF832369C35F007B248B /* Storage.swift */,
+				50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";

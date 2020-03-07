@@ -19,6 +19,19 @@
 // https://blog.zeroseven.de/app-entwicklung/erfolgreiche-veroeffentlichung-einer-ios-app-mit-app-extensions/
 // https://agostini.tech/2017/08/13/sharing-data-between-applications-and-extensions-using-app-groups/
 
+//+---------------------------------------------------------+
+//|  kurzwahlModel                                          |
+//   let storageManager = storage.init()                    |
+//+---------------------------------------------------------+
+//         |
+//         |
+//         V
+//+--------------------+
+//| storage            |
+//+--------------------+
+
+
+
 import SwiftUI
 import Foundation
 

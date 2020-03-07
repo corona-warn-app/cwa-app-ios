@@ -25,6 +25,16 @@
 //       get { defaults.integer(forKey: Keys.sleepGoal) }
 //   }
 
+//+---------------------------------------------------------+
+//|  kurzwahlModel                                          |
+//|  var globalDataModel : kurzwahlModel = kurzwahlModel()  |
+//+---------------------------------------------------------+
+// used by:
+// Colors: ColorManagement, HomeView, editTile
+// Font: AskForAccessToContactsView, AboutView, ColorSelectView, PrivacyView
+// Tiles: editTile, HomeView
+//
+
 
 import SwiftUI
 import Combine
