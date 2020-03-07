@@ -1,5 +1,5 @@
 //
-//  editTile.swift
+//  editView.swift
 //  Kurzwahl2020
 //
 //  Created by Andreas Vogel on 04.01.20.
@@ -24,7 +24,7 @@ final class EditViewState: ObservableObject {
 }
 
 
-struct editTile: View {
+struct editView: View {
     
     @State var tileId : Int = 0
     @State var colorHexCode : String = ""
@@ -121,9 +121,9 @@ struct editTile: View {
 
 
 
-struct editTile_Previews: PreviewProvider {
+struct editView_Previews: PreviewProvider {
     static var previews: some View {
-        editTile()
+        editView()
     }
 }
 

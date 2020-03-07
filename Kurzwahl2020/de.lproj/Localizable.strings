@@ -40,7 +40,7 @@
 "All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts if asked." = "Alle Namen und Telefonnummer, die sie in der App speichern, werden nur lokal auf dem Gerät gespeichert. Diese App sammelt keine personenbezogenen Daten. Die App benötigt den Zugang zu den Kontakten, falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten.";
 
 
-// editTile
+// editView
 "Edit View" = "Eingabe";
 "Enter Name and Phone Number" = "Eingabe von Name und Telefonnummer";
 "Name" = "Name";

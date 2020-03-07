@@ -135,7 +135,7 @@ struct HomeView: View {
         self.editViewState.userSelectedNumber = globalDataModel.getNumber(withId: withTileNumber)
         self.navigation.advance(NavigationItem(
             view: AnyView(
-                editTile(tileId: withTileNumber))))
+                editView(tileId: withTileNumber))))
     }
     
     

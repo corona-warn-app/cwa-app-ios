@@ -30,9 +30,9 @@
 //|  var globalDataModel : kurzwahlModel = kurzwahlModel()  |
 //+---------------------------------------------------------+
 // used by:
-// Colors: ColorManagement, HomeView, editTile
+// Colors: ColorManagement, HomeView, editView
 // Font: AskForAccessToContactsView, AboutView, ColorSelectView, PrivacyView
-// Tiles: editTile, HomeView
+// Tiles: editView, HomeView
 //
 
 

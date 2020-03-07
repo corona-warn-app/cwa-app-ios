@@ -36,7 +36,7 @@
 		7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */; };
 		7E5C786423E8AA3200E25902 /* ContactDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C786323E8AA3200E25902 /* ContactDetailView.swift */; };
 		7E8262892413920A008E141C /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262882413920A008E141C /* ColorConstants.swift */; };
-		7EC1B80323C100E8004B7396 /* editTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1B80223C100E8004B7396 /* editTile.swift */; };
+		7EC1B80323C100E8004B7396 /* editView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1B80223C100E8004B7396 /* editView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,7 +87,7 @@
 		7E4F6A1F23BB93BA00530294 /* Kurzwahl2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kurzwahl2020.entitlements; sourceTree = "<group>"; };
 		7E5C786323E8AA3200E25902 /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
 		7E8262882413920A008E141C /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
-		7EC1B80223C100E8004B7396 /* editTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editTile.swift; sourceTree = "<group>"; };
+		7EC1B80223C100E8004B7396 /* editView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +142,7 @@
 				50ADF97B240EAA3100850FB6 /* SelectColorPalette.swift */,
 				7E4086102401EE6C00D50EF8 /* Localizable.strings */,
 				7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */,
-				7EC1B80223C100E8004B7396 /* editTile.swift */,
+				7EC1B80223C100E8004B7396 /* editView.swift */,
 				7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */,
 				505F055A23C3C7E50032B776 /* HomeView.swift */,
 				502BF53C236399BD00FDE7BF /* Assets.xcassets */,
@@ -312,7 +312,7 @@
 				50ADCF822369C135007B248B /* ColorManagement.swift in Sources */,
 				50ADCF842369C35F007B248B /* Storage.swift in Sources */,
 				505B608D240C57FB0041A592 /* ColorSelectView.swift in Sources */,
-				7EC1B80323C100E8004B7396 /* editTile.swift in Sources */,
+				7EC1B80323C100E8004B7396 /* editView.swift in Sources */,
 				7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */,
 				50AD8B6A23D8EDEB00819FD1 /* ContactView.swift in Sources */,
 				7E8262892413920A008E141C /* ColorConstants.swift in Sources */,
