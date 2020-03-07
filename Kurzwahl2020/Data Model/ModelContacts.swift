@@ -6,6 +6,25 @@
 //  Copyright © 2020 Vogel, Andreas. All rights reserved.
 //
 
+//+---------------------------------------------------------+
+//|  kurzwahlModel                                          |
+//   var contactDataModel : contactReader = contactReader() |
+//+---------------------------------------------------------+
+
+//+--------------------+ +-----------------------------+
+//| ContactView        | | ContactDetailView           |
+//+--------------------+ +-----------------------------+
+//         |                            |
+//         |                            |
+//         V                            V
+//+----------------------------------------------------+
+//|  contactReader                                     |
+//+----------------------------------------------------+
+
+
+
+
+
 import Foundation
 import Contacts // Make sure to supply a NSContactsUsageDescription in your Info.plist
 import Combine
