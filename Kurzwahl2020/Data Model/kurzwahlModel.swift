@@ -166,18 +166,6 @@ class kurzwahlModel: ObservableObject{
     }
     
     
-    func getUIColor(withId: Int) -> UIColor {
-        if withId < tiles.count {
-            //let c = Color.init(tiles[withId].backgroundColor, bundle: nil)
-            let u : UIColor = UIColor.init(named: tiles[withId].backgroundColor)!
-            return u
-        }
-        else {
-            return UIColor.init(named: "black")!
-        }
-    }
-    
-    
     func getFontSizeAsInt() -> Int {
         return Int(fontSize)
     }

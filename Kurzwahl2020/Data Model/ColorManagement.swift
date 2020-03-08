@@ -30,7 +30,7 @@
 
 
 
-import Foundation
+import SwiftUI
 import Combine
 
 
@@ -43,21 +43,32 @@ struct palette: Identifiable, Hashable {
 }
 
 
-
 class ColorManagement : ObservableObject {
     var allPalettes = [palette]() //array of all available palettes
-    var userScreen = [palette]()  // the three used palettes
+    var userScreen = [palette]()  //the three used palettes
+    var allColors = [String]()    //array with all color code of the selected 3 palettes
+    
     
     init() {
-        
         print("ColorManagemen init")
         allPalettes.append(palette(name: c_summerTime, thumbnail: "Standard Light Mode", thumbnailDarkMode: "", colors:ColorPaletteSummer))
         allPalettes.append(palette(name: c_darkPink, thumbnail: "DarkPink Light Mode", thumbnailDarkMode: "", colors:ColorPaletteDarkPink))
         allPalettes.append(palette(name: c_red, thumbnail: "Red Light Mode", thumbnailDarkMode: "", colors:ColorPaletteRed))
         
-        // read from file
         for i in 0...2 {
             self.setScreenPalette(withIndex: i, name: globalDataModel.getUserSelectedPalette(withIndex: i))
+        }
+        setAllColors()
+    }
+    
+    
+    func getUIColor(withId: Int) -> UIColor {
+        if withId < allColors.count {
+            let u : UIColor = UIColor.init(named: allColors[withId])!
+            return u
+        }
+        else {
+            return UIColor.init(named: "black")!
         }
     }
     
@@ -65,6 +76,7 @@ class ColorManagement : ObservableObject {
     func getThumbnailName(withIndex: Int) -> String {
         return userScreen[withIndex].thumbnail
     }
+    
     
     func getAllThumbnails() -> [palette] {
         return allPalettes
@@ -74,6 +86,7 @@ class ColorManagement : ObservableObject {
     func getScreenPaletteName(withIndex: Int) -> String {
         return userScreen[withIndex].name
     }
+    
     
     func setScreenPalette(withIndex: Int, name: String) {
         for p in allPalettes {
@@ -85,6 +98,16 @@ class ColorManagement : ObservableObject {
         }
     }
     
+    
+    func setAllColors() {
+        allColors.removeAll()
+        for i in 0...2 {
+            let p = getScreenPaletteName(withIndex: i)
+            allColors = allColors + getColors(forPalette: p)
+        }
+    }
+
+    
     func getColors(forPalette: String) -> [String] {
         var result = [String]()
         for p in allPalettes {
@@ -95,9 +118,11 @@ class ColorManagement : ObservableObject {
         return result
     }
     
+    
     func getAllPalettes() -> [palette]{
         return allPalettes
     }
+    
     
     func getPalette(withName: String) -> palette{
         var result = palette(name: "", thumbnail: "", thumbnailDarkMode: "", colors: [""])
@@ -110,22 +135,3 @@ class ColorManagement : ObservableObject {
     }
     
 } //class
-
-
-
-
-
-// for a given number return the corresponding color
-//extension Color {
-//    static func appColor(_ id: Int) -> Color? {
-//        var name: String
-//        if id < globalMaxTileNumber {
-//            name = AssetColorList[id]
-//        }
-//        else {
-//            name = "Black"
-//        }
-//        return Color.init(name, bundle: nil)
-//    }
-//}
-
