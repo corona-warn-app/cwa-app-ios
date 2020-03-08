@@ -18,8 +18,15 @@ let c_blue : String = "Blue"
 
 // constants: file names for thumbnails in Light & Dark Mode
 let c_tn_summerTime_lm = "Standard Light Mode"
+let c_tn_summerTime_dm = "Standard Dark Mode"
 let c_tn_darkPink_lm = "DarkPink Light Mode"
+let c_tn_darkPink_dm = "DarkPink Dark Mode"
 let c_tn_red_lm = "Red Light Mode"
+let c_tn_red_dm = "Red Dark Mode"
+let c_tn_green_lm = "Green Light Mode"
+let c_tn_green_dm = "Green Dark Mode"
+let c_tn_blue_lm = "Blue Light Mode"
+let c_tn_blue_dm = "Blue Dark Mode"
 
 
 
