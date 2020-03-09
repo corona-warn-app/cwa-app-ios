@@ -23,7 +23,7 @@ struct SelectColorPalette: View {
             
             Text("Select a new palette")
             List {
-                ForEach(colorManager.getAllThumbnails()) { p in
+                ForEach(colorManager.getAllPalettes()) { p in
                     thumbnailRow(colorPalette: p, screenIndex: self.screenIndex)
                 }
             }

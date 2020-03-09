@@ -51,9 +51,9 @@ class ColorManagement : ObservableObject {
     
     init() {
         print("ColorManagemen init")
-        allPalettes.append(palette(name: c_summerTime, thumbnail: "Standard Light Mode", thumbnailDarkMode: c_tn_summerTime_dm, colors:ColorPaletteSummer))
-        allPalettes.append(palette(name: c_darkPink, thumbnail: "DarkPink Light Mode", thumbnailDarkMode: c_tn_darkPink_dm, colors:ColorPaletteDarkPink))
-        allPalettes.append(palette(name: c_red, thumbnail: "Red Light Mode", thumbnailDarkMode: c_tn_red_dm, colors:ColorPaletteRed))
+        allPalettes.append(palette(name: c_summerTime, thumbnail: c_tn_summerTime_lm, thumbnailDarkMode: c_tn_summerTime_dm, colors:ColorPaletteSummer))
+        allPalettes.append(palette(name: c_darkPink, thumbnail: c_tn_darkPink_lm, thumbnailDarkMode: c_tn_darkPink_dm, colors:ColorPaletteDarkPink))
+        allPalettes.append(palette(name: c_red, thumbnail: c_tn_red_lm, thumbnailDarkMode: c_tn_red_dm, colors:ColorPaletteRed))
         allPalettes.append(palette(name: c_green, thumbnail: c_tn_green_lm, thumbnailDarkMode: c_tn_green_dm, colors:ColorPaletteGreen))
         allPalettes.append(palette(name: c_blue, thumbnail: c_tn_blue_lm, thumbnailDarkMode: c_tn_blue_dm, colors:ColorPaletteBlue))
         
@@ -80,7 +80,7 @@ class ColorManagement : ObservableObject {
     }
     
     
-    func getAllThumbnails() -> [palette] {
+    func getAllPalettes() -> [palette] {
         return allPalettes
     }
     
@@ -130,11 +130,6 @@ class ColorManagement : ObservableObject {
             }
         }
         return result
-    }
-    
-    
-    func getAllPalettes() -> [palette]{
-        return allPalettes
     }
     
     

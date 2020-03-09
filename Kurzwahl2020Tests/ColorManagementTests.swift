@@ -30,8 +30,8 @@ class ColorManagementTests: XCTestCase {
     }
     
     func testGetAllThumbnails() {
-        let result = sut.getAllThumbnails()
-        XCTAssertTrue(result.count == 3)
+        let result = sut.getAllPalettes()
+        XCTAssertTrue(result.count == 5)
     }
     
     func testSetPalette() {
