@@ -151,6 +151,7 @@ struct HomeView: View {
                                                             name: self.editViewState.userSelectedName,
                                                             phoneNumber: self.editViewState.userSelectedNumber,
                                                             backgroundColor: globalDataModel.getColorName(withId: withTileNumber)))
+        globalDataModel.persist()
     }
 
     
