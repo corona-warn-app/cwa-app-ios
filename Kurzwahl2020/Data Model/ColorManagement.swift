@@ -101,6 +101,18 @@ class ColorManagement : ObservableObject {
     }
     
     
+    func modifyScreenPalette(withIndex: Int, name: String) {
+        for p in allPalettes {
+            if p.name == name {
+                userScreen.remove(at: withIndex)
+                userScreen.insert(p, at: withIndex)
+                //update settings
+                globalDataModel.updateScreenPalette(withIndex: withIndex, palette: p)
+            }
+        }
+    }
+    
+    
     func setAllColors() {
         allColors.removeAll()
         for i in 0...2 {

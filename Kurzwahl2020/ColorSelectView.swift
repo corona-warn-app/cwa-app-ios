@@ -37,21 +37,21 @@ struct ColorSelectView: View {
                         self.navigation.advance(NavigationItem(
                             view: AnyView(SelectColorPalette(screenIndex: 0)))) }) {
                                 Image(colorManager.getThumbnailName(withIndex: 0)).resizable()
-                                    .frame(width: 100, height: 190).padding()
+                                    .frame(width: 100, height: 190)//.padding()
                     }.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
                             view: AnyView(SelectColorPalette(screenIndex: 1)))) }) {
                                 Image(colorManager.getThumbnailName(withIndex: 1)).resizable()
-                                    .frame(width: 100, height: 190).padding()
+                                    .frame(width: 100, height: 190)//.padding()
                     }.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
                             view: AnyView(SelectColorPalette(screenIndex: 2)))) }) {
                                 Image(colorManager.getThumbnailName(withIndex: 2)).resizable()
-                                    .frame(width: 100, height: 190).padding()
+                                    .frame(width: 100, height: 190)//.padding()
                     }.buttonStyle(PlainButtonStyle())
                 }
                 Spacer()
