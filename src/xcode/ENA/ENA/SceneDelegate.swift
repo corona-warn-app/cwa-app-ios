@@ -12,12 +12,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+        setupRootViewController()
+        window.makeKeyAndVisible()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onboardingFlagDidChanged(_:)), name: .onboardingFlagDidChanged, object: nil)
+    }
+    
+    private func setupRootViewController() {
+        let onboardingWasShown = UserSettings.onboardingWasShown
+        let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)
+        let rootViewController: UIViewController
+        switch instructor {
+        case .main:
+            rootViewController = TabBarController.initiate(for: .tabbar)
+        case .onboarding:
+            rootViewController = OnboardingViewController.initiate(for: .onboarding)
+        }
+        window?.rootViewController = rootViewController
+    }
+    
+    @objc func onboardingFlagDidChanged(_ notification: NSNotification) {
+        setupRootViewController()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
