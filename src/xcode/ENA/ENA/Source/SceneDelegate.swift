@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         setupRootViewController()
         window.makeKeyAndVisible()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onboardingFlagDidChanged(_:)), name: .onboardingFlagDidChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onboardingFlagDidChange(_:)), name: .onboardingFlagDidChange, object: nil)
     }
     
     private func setupRootViewController() {
@@ -35,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = rootViewController
     }
     
-    @objc func onboardingFlagDidChanged(_ notification: NSNotification) {
+    @objc func onboardingFlagDidChange(_ notification: NSNotification) {
         setupRootViewController()
     }
 
