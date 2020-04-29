@@ -8,7 +8,6 @@
 
 import Foundation
 
-/// UserDefaults wrapper, can store only basic data types.
 @propertyWrapper class UserDefaultsStorage<T> {
     private var key: String
     private var defaultValue: T

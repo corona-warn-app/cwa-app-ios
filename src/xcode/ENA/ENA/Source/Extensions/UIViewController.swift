@@ -9,13 +9,6 @@
 import UIKit
 
 extension UIViewController {
-    /// Returns the instance of Self created from specified storyboard.
-    /// ViewController should have Storyboard ID in the storyboard.
-    ///
-    /// Usage: ViewController.initiate(for: .main)
-    ///
-    /// - Parameter storyboard: The name of the storyboard.
-    /// - Returns: The instance of Self.
     static func initiate(for storyboard: AppStoryboard) -> Self {
         storyboard.initiate(viewControllerType: self)
     }

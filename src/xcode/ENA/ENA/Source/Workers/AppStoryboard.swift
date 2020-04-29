@@ -8,8 +8,6 @@
 
 import UIKit
 
-/// Creates view controllers instances from specific storyaboad.
-/// When you create new storyboard, you should add new case to this enum.
 enum AppStoryboard: String {
     case main = "Main"
     case tabbar = "Tabbar"
@@ -19,10 +17,6 @@ enum AppStoryboard: String {
         return UIStoryboard(name: rawValue, bundle: nil)
     }
 
-    /// Returns the instance if UIViewController created from current case.
-    ///
-    /// - Parameter viewControllerType: The type of UIViewController.
-    /// - Returns: The Instance of UIViewController.
     func initiate<T: UIViewController>(viewControllerType: T.Type) -> T {
         let storyboard = UIStoryboard(name: rawValue, bundle: nil)
         let viewControllerIdentifier = viewControllerType.stringName()

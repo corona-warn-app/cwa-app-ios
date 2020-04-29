@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import MockENFramework
 
 class OnboardingViewController: UIViewController {
+    
+    @IBOutlet var enLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

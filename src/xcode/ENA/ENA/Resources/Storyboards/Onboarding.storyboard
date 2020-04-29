@@ -26,24 +26,43 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXy-vf-8aB">
-                                <rect key="frame" x="168" y="444" width="78" height="30"/>
-                                <state key="normal" title="onboarding"/>
-                                <connections>
-                                    <action selector="onboardingTapped:" destination="41S-4p-XNa" eventType="touchUpInside" id="tBw-My-EPZ"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WsI-Zo-6tK">
+                                <rect key="frame" x="90" y="464" width="234.5" height="68.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exposure Notification: Enabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yjf-52-26l">
+                                        <rect key="frame" x="0.0" y="0.0" width="234.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXy-vf-8aB">
+                                        <rect key="frame" x="67" y="28.5" width="100" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="NPh-Wc-95Y"/>
+                                            <constraint firstAttribute="height" constant="40" id="YY6-h3-Oxl"/>
+                                        </constraints>
+                                        <state key="normal" title="Next"/>
+                                        <connections>
+                                            <action selector="onboardingTapped:" destination="41S-4p-XNa" eventType="touchUpInside" id="tBw-My-EPZ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="WsI-Zo-6tK" firstAttribute="centerX" secondItem="Ok1-BE-Jlo" secondAttribute="centerX" id="1IH-Fd-y7K"/>
                             <constraint firstItem="4YP-sr-NmW" firstAttribute="top" secondItem="6Fs-fV-DVy" secondAttribute="top" constant="80" id="2Wb-z1-NjF"/>
-                            <constraint firstItem="cXy-vf-8aB" firstAttribute="top" secondItem="4YP-sr-NmW" secondAttribute="bottom" constant="20" id="CrP-2s-UFg"/>
-                            <constraint firstItem="cXy-vf-8aB" firstAttribute="centerX" secondItem="Ok1-BE-Jlo" secondAttribute="centerX" id="MGl-ow-49s"/>
                             <constraint firstItem="6Fs-fV-DVy" firstAttribute="trailing" secondItem="4YP-sr-NmW" secondAttribute="trailing" constant="20" id="Ybm-Ic-Hqi"/>
                             <constraint firstItem="4YP-sr-NmW" firstAttribute="leading" secondItem="6Fs-fV-DVy" secondAttribute="leading" constant="20" id="a18-QV-3gi"/>
+                            <constraint firstItem="WsI-Zo-6tK" firstAttribute="top" secondItem="4YP-sr-NmW" secondAttribute="bottom" constant="40" id="p2k-SN-Bav"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Fs-fV-DVy"/>
                     </view>
+                    <connections>
+                        <outlet property="enLabel" destination="yjf-52-26l" id="TL8-Qq-ZkR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7zS-vV-obp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

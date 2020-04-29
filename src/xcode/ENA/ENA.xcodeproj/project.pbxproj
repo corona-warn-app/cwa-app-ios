@@ -157,6 +157,20 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		51D420D524598AC200AD70CA /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				85D75973245705F6008175F0 /* Models */,
+				85D75972245705CA008175F0 /* Views */,
+				85D759712457059A008175F0 /* Scenes */,
+				51D420B224583AA400AD70CA /* Workers */,
+				51D420B524583B5100AD70CA /* Extensions */,
+				85D7593E2457048F008175F0 /* AppDelegate.swift */,
+				85D759402457048F008175F0 /* SceneDelegate.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		85D759322457048F008175F0 = {
 			isa = PBXGroup;
 			children = (
@@ -180,15 +194,8 @@
 		85D7593D2457048F008175F0 /* ENA */ = {
 			isa = PBXGroup;
 			children = (
+				51D420D524598AC200AD70CA /* Source */,
 				85D7597424570615008175F0 /* Resources */,
-				85D75973245705F6008175F0 /* Models */,
-				85D75972245705CA008175F0 /* Views */,
-				85D759712457059A008175F0 /* Scenes */,
-				51D420B224583AA400AD70CA /* Workers */,
-				51D420B524583B5100AD70CA /* Extensions */,
-				85D7593E2457048F008175F0 /* AppDelegate.swift */,
-				85D759402457048F008175F0 /* SceneDelegate.swift */,
-				85D7594F24570491008175F0 /* Info.plist */,
 			);
 			path = ENA;
 			sourceTree = "<group>";
@@ -226,19 +233,22 @@
 			isa = PBXGroup;
 			children = (
 			);
-			path = Views;
+			name = Views;
+			path = ../Views;
 			sourceTree = "<group>";
 		};
 		85D75973245705F6008175F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Models;
+			name = Models;
+			path = ../Models;
 			sourceTree = "<group>";
 		};
 		85D7597424570615008175F0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				85D7594F24570491008175F0 /* Info.plist */,
 				85D75976245706BD008175F0 /* Assets */,
 				85D75975245706B0008175F0 /* Storyboards */,
 				85D759472457048F008175F0 /* ENA.xcdatamodeld */,
@@ -580,7 +590,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75QSJ8SMAA;
-				INFOPLIST_FILE = ENA/Info.plist;
+				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -598,7 +608,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 75QSJ8SMAA;
-				INFOPLIST_FILE = ENA/Info.plist;
+				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

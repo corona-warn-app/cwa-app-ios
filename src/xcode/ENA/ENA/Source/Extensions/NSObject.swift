@@ -9,9 +9,6 @@
 import Foundation
 
 extension NSObject {
-    /// Returns the string representation of NSObject class.
-    ///
-    /// - Returns: String representation of the instance.
     static func stringName() -> String {
         String(describing: self)
     }
