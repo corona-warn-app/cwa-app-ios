@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5107E3E82459B4F70042FC9B /* MockENFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5107E3E72459B4F70042FC9B /* MockENFramework.framework */; };
+		5107E3E92459B4F70042FC9B /* MockENFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5107E3E72459B4F70042FC9B /* MockENFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420B02458397300AD70CA /* Onboarding.storyboard */; };
 		51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B324583ABB00AD70CA /* AppStoryboard.swift */; };
 		51D420B724583B7200AD70CA /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B624583B7200AD70CA /* NSObject.swift */; };
@@ -48,7 +50,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5107E3EA2459B4F70042FC9B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5107E3E92459B4F70042FC9B /* MockENFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		5107E3D82459B2D60042FC9B /* MockENFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockENFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5107E3DC2459B3140042FC9B /* MockENFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockENFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5107E3E02459B3F80042FC9B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		5107E3E72459B4F70042FC9B /* MockENFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockENFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51D420B02458397300AD70CA /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		51D420B324583ABB00AD70CA /* AppStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoryboard.swift; sourceTree = "<group>"; };
 		51D420B624583B7200AD70CA /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
@@ -84,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5107E3E82459B4F70042FC9B /* MockENFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +125,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5107E3D72459B2D60042FC9B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5107E3E72459B4F70042FC9B /* MockENFramework.framework */,
+				5107E3E02459B3F80042FC9B /* CloudKit.framework */,
+				5107E3DC2459B3140042FC9B /* MockENFramework.framework */,
+				5107E3D82459B2D60042FC9B /* MockENFramework.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		51D420AF2458308400AD70CA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +210,7 @@
 				85D7595724570491008175F0 /* ENATests */,
 				85D7596224570491008175F0 /* ENAUITests */,
 				85D7593C2457048F008175F0 /* Products */,
+				5107E3D72459B2D60042FC9B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -286,6 +319,7 @@
 				85D759372457048F008175F0 /* Sources */,
 				85D759382457048F008175F0 /* Frameworks */,
 				85D759392457048F008175F0 /* Resources */,
+				5107E3EA2459B4F70042FC9B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
