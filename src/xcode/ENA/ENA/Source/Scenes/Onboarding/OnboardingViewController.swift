@@ -22,7 +22,7 @@ class OnboardingViewController: UIViewController {
     @IBAction func onboardingTapped(_ sender: Any) {
         UserSettings.onboardingWasShown = true
         
-        let notification = Notification(name: .onboardingFlagDidChanged)
+        let notification = Notification(name: .onboardingFlagDidChange)
         NotificationCenter.default.post(notification)
     }
     

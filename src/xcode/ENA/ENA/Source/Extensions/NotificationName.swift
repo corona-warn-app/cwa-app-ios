@@ -9,5 +9,5 @@
 import Foundation
 
 extension Notification.Name {
-    static var onboardingFlagDidChanged = Notification.Name("onboardingFlagDidChanged")
+    static var onboardingFlagDidChange = Notification.Name("onboardingFlagDidChange")
 }
