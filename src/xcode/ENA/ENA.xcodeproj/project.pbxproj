@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */; };
 		01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB8A6A2459E67D00042245 /* ExposureVerificationServiceDelegate.swift */; };
+		51C737BB245B142B00286105 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BA245B142B00286105 /* PageViewController.swift */; };
+		51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BC245B349700286105 /* OnboardingInfoViewController.swift */; };
+		51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BE245B3B5D00286105 /* OnboardingInfo.swift */; };
 		51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420B02458397300AD70CA /* Onboarding.storyboard */; };
 		51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B324583ABB00AD70CA /* AppStoryboard.swift */; };
 		51D420B724583B7200AD70CA /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B624583B7200AD70CA /* NSObject.swift */; };
@@ -57,6 +60,9 @@
 /* Begin PBXFileReference section */
 		01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageManager.swift; sourceTree = "<group>"; };
 		01AB8A6A2459E67D00042245 /* ExposureVerificationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureVerificationServiceDelegate.swift; sourceTree = "<group>"; };
+		51C737BA245B142B00286105 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		51C737BC245B349700286105 /* OnboardingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewController.swift; sourceTree = "<group>"; };
+		51C737BE245B3B5D00286105 /* OnboardingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfo.swift; sourceTree = "<group>"; };
 		51D420B02458397300AD70CA /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		51D420B324583ABB00AD70CA /* AppStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoryboard.swift; sourceTree = "<group>"; };
 		51D420B624583B7200AD70CA /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
@@ -137,7 +143,10 @@
 		51D420AF2458308400AD70CA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				51C737BA245B142B00286105 /* PageViewController.swift */,
 				51D420C7245840A000AD70CA /* OnboardingViewController.swift */,
+				51C737BC245B349700286105 /* OnboardingInfoViewController.swift */,
+				51C737BE245B3B5D00286105 /* OnboardingInfo.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -472,24 +481,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
 				01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
 				51D420C024583D1100AD70CA /* TabBarController.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
+				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController.swift in Sources */,
 				51D420CC245849A700AD70CA /* UserSettings.swift in Sources */,
 				51D420CA2458466300AD70CA /* UserDefaultsStorage.swift in Sources */,
 				85D759822459A85A008175F0 /* ExposureVerificationService.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
+				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
+				51C737BB245B142B00286105 /* PageViewController.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				51D420C8245840A000AD70CA /* OnboardingViewController.swift in Sources */,
-				01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */,				
+				01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */,
 				51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
