@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import ExposureNotification
 
 class ExposureVerificationService : NSObject {
     
@@ -19,7 +20,7 @@ class ExposureVerificationService : NSObject {
     @UserDefaultsStorage(key: "lastProcessedPackageTime", defaultValue: nil)
     static var lastProcessedPackageTime: Date?
     
-    func verifyExposure() {
+    func verifyExposureIfNeeded() {
         // Check the timeframe since last succesfull download of a package.
         if !checkLastEVSession() {
             return  // Avoid DDoS by allowing only one request per hour
@@ -28,7 +29,7 @@ class ExposureVerificationService : NSObject {
         // Prepare parameter for download task
         let requestParam = formatPackageRequestName()
         
-        // Subscribe to notififaction center: Transfer background download, once the user kill the app or move it to background.
+        // Subscribe to notififaction center: Transfer background download, once the user kills the app or move it to background.
         // ...
         
         // Download the diff packages since last update
@@ -46,18 +47,16 @@ class ExposureVerificationService : NSObject {
     }
     
     private func checkLastEVSession() -> Bool {
-        let now = Date()
         guard let lastProcessedPackageTime = Self.lastProcessedPackageTime else{
             return true  // No date stored -> first session
         }
         
-        let hoursSinceLastRequest = now.timeIntervalSince(lastProcessedPackageTime) / 3600
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.hour], from: lastProcessedPackageTime, to: Date())
+        let hoursSinceLastRequest = dateComponents.hour ?? 0
 
-        if hoursSinceLastRequest > 1 {
-            return true
-        } else {
-            return false
-        }
+        // Only allow one request per hour
+        return hoursSinceLastRequest > 1
     }
     
 }
@@ -68,33 +67,28 @@ extension ExposureVerificationService : URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         // Extract result from file
         do {
+            // Copy .tmp file to an accessible URL
             let documentsUrl = try
                 FileManager.default.url(for: .documentDirectory,
                                         in: .userDomainMask,
-                                        appropriateFor: location,
+                                        appropriateFor: nil,
                                         create: false)
             let destinationUrl = documentsUrl.appendingPathComponent(location.lastPathComponent)
             try FileManager.default.moveItem(at: location, to: destinationUrl)
-            let content = try String(contentsOf: destinationUrl)
             
-            // Continue with content
+            // Pass file to PackageManager
+            let pm = PackageManager()
+            pm.processDownloadedPackages(fileURL: destinationUrl)
             
+            // Get result from PackageManager/ExposureVerificationSession + notify delegate
+            
+            // Filemanager.default.removeItem
         } catch {
             // Handle error
             
             // Notify delegate
+            
         }
-        
-        // Format result to be able to use Apple's API
-        // Outsource the code for parsing packages to a worker (Workers/PackageManager.swift)
-        
-        // Create the ExposureDetectionSession from API
-        
-        // Call addDiagnosisKey to get the result
-        
-        // Notify delegate about the result
-        
-        // Filemanager.default.removeItem
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {

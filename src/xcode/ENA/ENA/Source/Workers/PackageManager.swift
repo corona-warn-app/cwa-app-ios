@@ -9,10 +9,13 @@
 import Foundation
 
 class PackageManager {
-    private static var shared = PackageManager()
-    
-    func shared() -> PackageManager {
-        return Self.shared
+
+    func processDownloadedPackages(fileURL: URL) {
+        // Get + parse content of file
+        
+        // Create the ExposureDetectionSession from API
+        
+        // Call addDiagnosisKey to get the result
+        
     }
-    
 }
