@@ -36,6 +36,10 @@
 		85D759822459A85A008175F0 /* ExposureVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D759812459A85A008175F0 /* ExposureVerificationService.swift */; };
 		CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */; };
 		CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */; };
+		CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */; };
+		CD99A3A3245B327100BF12AF /* TanEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */; };
+		CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A3A4245B334100BF12AF /* Confirmation.storyboard */; };
+		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
 		EE70C23D245B09EA00AC9B2F /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localization.strings */; };
 /* End PBXBuildFile section */
 
@@ -92,6 +96,10 @@
 		85D759812459A85A008175F0 /* ExposureVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureVerificationService.swift; sourceTree = "<group>"; };
 		CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfExposureViewController.swift; sourceTree = "<group>"; };
 		CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SelfExposure.storyboard; sourceTree = "<group>"; };
+		CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TanEntry.storyboard; sourceTree = "<group>"; };
+		CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanEntryViewController.swift; sourceTree = "<group>"; };
+		CD99A3A4245B334100BF12AF /* Confirmation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
+		CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localization.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -338,6 +346,8 @@
 			isa = PBXGroup;
 			children = (
 				CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */,
+				CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */,
+				CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */,
 			);
 			path = SelfExposure;
 			sourceTree = "<group>";
@@ -346,6 +356,8 @@
 			isa = PBXGroup;
 			children = (
 				CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */,
+				CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */,
+				CD99A3A4245B334100BF12AF /* Confirmation.storyboard */,
 			);
 			path = SelfExposure;
 			sourceTree = "<group>";
@@ -464,7 +476,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				51D420D224586AE800AD70CA /* Tabbar.storyboard in Resources */,
+				CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
+				CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localization.strings in Resources */,
 				CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */,
 				51D420CE245869C800AD70CA /* Main.storyboard in Resources */,
@@ -495,6 +509,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */,
 				01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
@@ -514,6 +529,7 @@
 				51D420C8245840A000AD70CA /* OnboardingViewController.swift in Sources */,
 				01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */,
 				51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */,
+				CD99A3A3245B327100BF12AF /* TanEntryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
