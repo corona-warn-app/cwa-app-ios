@@ -472,11 +472,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
+
 				01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */,
-=======
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
->>>>>>> Add view controller for ExposureNotifcation setting.
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
 				51D420C024583D1100AD70CA /* TabBarController.swift in Sources */,
@@ -491,12 +489,8 @@
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				51D420C8245840A000AD70CA /* OnboardingViewController.swift in Sources */,
-<<<<<<< HEAD
-				01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */,
-				51D420C624583E4500AD70CA /* MainViewController.swift in Sources */,
-=======
+				01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */,				
 				51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */,
->>>>>>> add Home Screen.
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
