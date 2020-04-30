@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB8A6A2459E67D00042245 /* ExposureVerificationServiceDelegate.swift */; };
 		5107E3E82459B4F70042FC9B /* MockENFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5107E3E72459B4F70042FC9B /* MockENFramework.framework */; };
 		5107E3E92459B4F70042FC9B /* MockENFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5107E3E72459B4F70042FC9B /* MockENFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420B02458397300AD70CA /* Onboarding.storyboard */; };
@@ -66,6 +67,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01AB8A6A2459E67D00042245 /* ExposureVerificationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureVerificationServiceDelegate.swift; sourceTree = "<group>"; };
 		5107E3D82459B2D60042FC9B /* MockENFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockENFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5107E3DC2459B3140042FC9B /* MockENFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockENFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5107E3E02459B3F80042FC9B /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -127,6 +129,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01AB8A692459E65D00042245 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				01AB8A6A2459E67D00042245 /* ExposureVerificationServiceDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		5107E3D72459B2D60042FC9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +204,7 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				01AB8A692459E65D00042245 /* Protocols */,
 				85D759802459A82D008175F0 /* Services */,
 				85D75973245705F6008175F0 /* Models */,
 				85D75972245705CA008175F0 /* Views */,
@@ -469,6 +480,7 @@
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				51D420C8245840A000AD70CA /* OnboardingViewController.swift in Sources */,
+				01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */,
 				51D420C624583E4500AD70CA /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
