@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--# TESTERGEBNIS MELDEN-->
+        <!--Self Exposure-->
         <scene sceneID="vW8-f3-rax">
             <objects>
-                <viewController id="jHV-Q9-MPt" customClass="SelfExposureViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jHV-Q9-MPt" userLabel="Self Exposure" customClass="SelfExposureViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="A3R-fo-mLt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -84,7 +84,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Rmx-jE-hTD"/>
                     </view>
-                    <navigationItem key="navigationItem" title="# TESTERGEBNIS MELDEN" id="BTS-ub-6o8"/>
+                    <navigationItem key="navigationItem" title="# TESTERGEBNIS MELDEN" id="BTS-ub-6o8" userLabel="NavigationItem"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="AUm-Jt-TR0" id="2Pm-he-cov"/>
