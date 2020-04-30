@@ -75,6 +75,6 @@ fileprivate extension String {
     static let nextSync = NSLocalizedString("ExposureDetection_nextSync", comment: "")
     
     static let info = NSLocalizedString("ExposureDetection_info", comment: "")
-    static let infoText = NSLocalizedString("ExposureDetection_nextSync", comment: "")
+    static let infoText = NSLocalizedString("ExposureDetection_infoText", comment: "")
     
 }

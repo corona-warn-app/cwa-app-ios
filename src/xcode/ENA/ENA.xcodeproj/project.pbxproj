@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */; };
 		01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */; };
-		01B0C6B8245B23C2006F5A69 /* ExposureVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B7245B23C2006F5A69 /* ExposureVerificationService.swift */; };
-		01B0C6BA245B23D0006F5A69 /* ExposureVerificationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B9245B23D0006F5A69 /* ExposureVerificationServiceDelegate.swift */; };
+		01B0C6B8245B23C2006F5A69 /* ExposureDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */; };
+		01B0C6BA245B23D0006F5A69 /* ExposureDetectionServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B9245B23D0006F5A69 /* ExposureDetectionServiceDelegate.swift */; };
 		51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420B02458397300AD70CA /* Onboarding.storyboard */; };
 		51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B324583ABB00AD70CA /* AppStoryboard.swift */; };
 		51D420B724583B7200AD70CA /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B624583B7200AD70CA /* NSObject.swift */; };
@@ -35,7 +35,7 @@
 		85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594C24570491008175F0 /* LaunchScreen.storyboard */; };
 		85D7595924570491008175F0 /* ENATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7595824570491008175F0 /* ENATests.swift */; };
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
-		EE70C23D245B09EA00AC9B2F /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localization.strings */; };
+		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,8 +58,8 @@
 /* Begin PBXFileReference section */
 		01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
 		01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageManager.swift; sourceTree = "<group>"; };
-		01B0C6B7245B23C2006F5A69 /* ExposureVerificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureVerificationService.swift; sourceTree = "<group>"; };
-		01B0C6B9245B23D0006F5A69 /* ExposureVerificationServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureVerificationServiceDelegate.swift; sourceTree = "<group>"; };
+		01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionService.swift; sourceTree = "<group>"; };
+		01B0C6B9245B23D0006F5A69 /* ExposureDetectionServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionServiceDelegate.swift; sourceTree = "<group>"; };
 		51D420B02458397300AD70CA /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		51D420B324583ABB00AD70CA /* AppStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoryboard.swift; sourceTree = "<group>"; };
 		51D420B624583B7200AD70CA /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
@@ -90,8 +90,8 @@
 		85D7595F24570491008175F0 /* ENAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ENAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D7596324570491008175F0 /* ENAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests.swift; sourceTree = "<group>"; };
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localization.strings; sourceTree = "<group>"; };
-		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
+		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +123,7 @@
 		01AB8A692459E65D00042245 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				01B0C6B9245B23D0006F5A69 /* ExposureVerificationServiceDelegate.swift */,
+				01B0C6B9245B23D0006F5A69 /* ExposureDetectionServiceDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -326,7 +326,7 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				01B0C6B7245B23C2006F5A69 /* ExposureVerificationService.swift */,
+				01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -334,7 +334,7 @@
 		EE70C239245B09E900AC9B2F /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				EE70C23A245B09E900AC9B2F /* Localization.strings */,
+				EE70C23A245B09E900AC9B2F /* Localizable.strings */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -446,7 +446,7 @@
 			files = (
 				51D420D224586AE800AD70CA /* Tabbar.storyboard in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
-				EE70C23D245B09EA00AC9B2F /* Localization.strings in Resources */,
+				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51D420CE245869C800AD70CA /* Main.storyboard in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				51D420D024586AB300AD70CA /* Settings.storyboard in Resources */,
@@ -476,10 +476,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */,
-				01B0C6B8245B23C2006F5A69 /* ExposureVerificationService.swift in Sources */,
+				01B0C6B8245B23C2006F5A69 /* ExposureDetectionService.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
-				01B0C6BA245B23D0006F5A69 /* ExposureVerificationServiceDelegate.swift in Sources */,
+				01B0C6BA245B23D0006F5A69 /* ExposureDetectionServiceDelegate.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
 				51D420C024583D1100AD70CA /* TabBarController.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
@@ -537,13 +537,13 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		EE70C23A245B09E900AC9B2F /* Localization.strings */ = {
+		EE70C23A245B09E900AC9B2F /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				EE70C23B245B09E900AC9B2F /* de */,
 				EE70C23C245B09E900AC9B2F /* en */,
 			);
-			name = Localization.strings;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
