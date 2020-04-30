@@ -8,5 +8,5 @@
 
 //Put german language strings here
 
-"status_Active" = "active";
-"status_Inactive" = "inactive";
+"status_Active" = "aktiv";
+"status_Inactive" = "inaktiv";
