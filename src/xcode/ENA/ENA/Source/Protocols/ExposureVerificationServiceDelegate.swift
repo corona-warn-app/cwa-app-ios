@@ -1,5 +1,5 @@
 //
-//  ExposureVerificationServiceDelegate.swift
+//  ExposureDetectionServiceDelegate.swift
 //  ENA
 //
 //  Created by Bormeth, Marc on 29.04.20.
@@ -8,17 +8,17 @@
 
 import Foundation
 
-enum ExposureVerificationError {
+enum ExposureDetectionError {
     case foo  // tbc..
 }
 
-struct ExposureVerificationResult {
+struct ExposureDetectionResult {
     let userHasBeenExposed: Bool
     let daysSinceLastExposure: Date?
     let numberOfExposures: Int?
 }
 
-protocol ExposureVerificationServiceDelegate: class {
-    func didFailWithError(error: ExposureVerificationError)  // TODO: Add sender
-    func didFinish(result: ExposureVerificationResult)  // TODO: Add sender
+protocol ExposureDetectionServiceDelegate: class {
+    func didFailWithError(error: ExposureDetectionError)  // TODO: Add sender
+    func didFinish(result: ExposureDetectionResult)  // TODO: Add sender
 }
