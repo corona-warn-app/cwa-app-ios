@@ -19,6 +19,6 @@ struct ExposureVerificationResult {
 }
 
 protocol ExposureVerificationServiceDelegate: class {
-    func didFailWithError(error: ExposureVerificationError)
-    func didFinish(result: ExposureVerificationResult)
+    func didFailWithError(error: ExposureVerificationError)  // TODO: Add sender
+    func didFinish(result: ExposureVerificationResult)  // TODO: Add sender
 }

@@ -11,8 +11,6 @@ import MockENFramework
 
 class ExposureVerificationService : NSObject {
     
-    static var shared = ExposureVerificationService()
-    
     weak var delegate: ExposureVerificationServiceDelegate?
     
     private lazy var downloadSession = URLSession(configuration: URLSessionConfiguration.default,
@@ -31,8 +29,10 @@ class ExposureVerificationService : NSObject {
         // Prepare parameter for download task
         let requestParam = formatPackageRequestName()
         
+        // Subscribe to notififaction center: Transfer background download, once the user kill the app or move it to background.
+        // ...
+        
         // Download the diff packages since last update
-        // Consider: Transfer background download, once the user kill the app or move it to background.
         let task = downloadSession.downloadTask(with: URL(string: "https://file-examples.com/wp-content/uploads/2017/02/file_example_CSV_5000.csv")!)
         task.resume()
         
@@ -85,6 +85,7 @@ extension ExposureVerificationService : URLSessionDownloadDelegate {
         }
         
         // Format result to be able to use Apple's API
+        // Outsource the code for parsing packages to a worker (Workers/PackageManager.swift)
         
         // Create the ExposureDetectionSession from API
         
@@ -97,6 +98,7 @@ extension ExposureVerificationService : URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         print("Downloading ...")
+        // Notify delegate about progress
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {

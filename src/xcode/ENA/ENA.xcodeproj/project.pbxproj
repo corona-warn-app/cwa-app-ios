@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */; };
 		01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB8A6A2459E67D00042245 /* ExposureVerificationServiceDelegate.swift */; };
 		5107E3E82459B4F70042FC9B /* MockENFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5107E3E72459B4F70042FC9B /* MockENFramework.framework */; };
 		5107E3E92459B4F70042FC9B /* MockENFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5107E3E72459B4F70042FC9B /* MockENFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -67,6 +68,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageManager.swift; sourceTree = "<group>"; };
 		01AB8A6A2459E67D00042245 /* ExposureVerificationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureVerificationServiceDelegate.swift; sourceTree = "<group>"; };
 		5107E3D82459B2D60042FC9B /* MockENFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockENFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5107E3DC2459B3140042FC9B /* MockENFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MockENFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +165,7 @@
 				51D420C92458466300AD70CA /* UserDefaultsStorage.swift */,
 				51D420CB245849A700AD70CA /* UserSettings.swift */,
 				51D420BA24583BF400AD70CA /* LaunchInstructor.swift */,
+				01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
 				51D420C024583D1100AD70CA /* TabBarController.swift in Sources */,
