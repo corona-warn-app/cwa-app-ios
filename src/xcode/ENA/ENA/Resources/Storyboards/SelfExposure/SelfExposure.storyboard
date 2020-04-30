@@ -89,6 +89,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
                     <connections>
                         <outlet property="descriptionLabel" destination="AUm-Jt-TR0" id="2Pm-he-cov"/>
                         <outlet property="submitButton" destination="qkb-UR-bJM" id="lN0-o3-sIn"/>
+                        <outlet property="titleLabel" destination="5sh-xR-9Kv" id="CbG-da-Kc9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BK5-1m-h7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -40,7 +40,7 @@
 		CD99A3A3245B327100BF12AF /* TanEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */; };
 		CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A3A4245B334100BF12AF /* Confirmation.storyboard */; };
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
-		EE70C23D245B09EA00AC9B2F /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localization.strings */; };
+		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,8 +100,8 @@
 		CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanEntryViewController.swift; sourceTree = "<group>"; };
 		CD99A3A4245B334100BF12AF /* Confirmation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
 		CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
-		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localization.strings; sourceTree = "<group>"; };
-		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
+		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,7 +365,7 @@
 		EE70C239245B09E900AC9B2F /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				EE70C23A245B09E900AC9B2F /* Localization.strings */,
+				EE70C23A245B09E900AC9B2F /* Localizable.strings */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -479,7 +479,7 @@
 				CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */,
-				EE70C23D245B09EA00AC9B2F /* Localization.strings in Resources */,
+				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */,
 				51D420CE245869C800AD70CA /* Main.storyboard in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
@@ -573,13 +573,13 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		EE70C23A245B09E900AC9B2F /* Localization.strings */ = {
+		EE70C23A245B09E900AC9B2F /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				EE70C23B245B09E900AC9B2F /* de */,
 				EE70C23C245B09E900AC9B2F /* en */,
 			);
-			name = Localization.strings;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

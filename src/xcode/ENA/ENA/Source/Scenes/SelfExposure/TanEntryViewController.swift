@@ -17,7 +17,9 @@ class TanEntryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        titleLabel.text = .title
+        descriptionLabel.text = .description
+        submitButton.setTitle(.submit, for: .normal)
     }
     
     @IBAction func submitClicked(_ sender: Any) {
@@ -32,5 +34,10 @@ class TanEntryViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+}
 
+fileprivate extension String {
+    static let title = NSLocalizedString("SelfExposure_TANEntry_Title", comment: "")
+    static let description = NSLocalizedString("SelfExposure_TANEntry_Description", comment: "")
+    static let submit = NSLocalizedString("SelfExposure_TANEntry_Submit", comment: "")
 }
