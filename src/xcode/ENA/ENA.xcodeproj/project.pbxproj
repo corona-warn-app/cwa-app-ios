@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */; };
+		01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB8A6A2459E67D00042245 /* ExposureVerificationServiceDelegate.swift */; };
 		51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420B02458397300AD70CA /* Onboarding.storyboard */; };
 		51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B324583ABB00AD70CA /* AppStoryboard.swift */; };
 		51D420B724583B7200AD70CA /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B624583B7200AD70CA /* NSObject.swift */; };
@@ -14,7 +16,7 @@
 		51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420BA24583BF400AD70CA /* LaunchInstructor.swift */; };
 		51D420C024583D1100AD70CA /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420BF24583D1100AD70CA /* TabBarController.swift */; };
 		51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C324583E3300AD70CA /* SettingsViewController.swift */; };
-		51D420C624583E4500AD70CA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C524583E4500AD70CA /* MainViewController.swift */; };
+		51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C524583E4500AD70CA /* HomeScreenViewController.swift */; };
 		51D420C8245840A000AD70CA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C7245840A000AD70CA /* OnboardingViewController.swift */; };
 		51D420CA2458466300AD70CA /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C92458466300AD70CA /* UserDefaultsStorage.swift */; };
 		51D420CC245849A700AD70CA /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420CB245849A700AD70CA /* UserSettings.swift */; };
@@ -23,6 +25,7 @@
 		51D420D224586AE800AD70CA /* Tabbar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420D124586AE700AD70CA /* Tabbar.storyboard */; };
 		51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
 		858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858F6F6D245A103C009FFD33 /* ExposureNotification.framework */; };
+		858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858F6F72245AED03009FFD33 /* ExposureNotificationSettingViewController.swift */; };
 		85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7593E2457048F008175F0 /* AppDelegate.swift */; };
 		85D759412457048F008175F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D759402457048F008175F0 /* SceneDelegate.swift */; };
 		85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 85D759472457048F008175F0 /* ENA.xcdatamodeld */; };
@@ -30,8 +33,10 @@
 		85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594C24570491008175F0 /* LaunchScreen.storyboard */; };
 		85D7595924570491008175F0 /* ENATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7595824570491008175F0 /* ENATests.swift */; };
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
-		CDEB07C82459D6A8007657FB /* SelfExposure.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDEB07C72459D6A8007657FB /* SelfExposure.storyboard */; };
-		CDEB07CB2459D834007657FB /* SelfExposureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEB07CA2459D834007657FB /* SelfExposureViewController.swift */; };
+		85D759822459A85A008175F0 /* ExposureVerificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D759812459A85A008175F0 /* ExposureVerificationService.swift */; };
+		CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */; };
+		CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */; };
+		EE70C23D245B09EA00AC9B2F /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localization.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageManager.swift; sourceTree = "<group>"; };
+		01AB8A6A2459E67D00042245 /* ExposureVerificationServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureVerificationServiceDelegate.swift; sourceTree = "<group>"; };
 		51D420B02458397300AD70CA /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		51D420B324583ABB00AD70CA /* AppStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoryboard.swift; sourceTree = "<group>"; };
 		51D420B624583B7200AD70CA /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
@@ -59,7 +66,7 @@
 		51D420BA24583BF400AD70CA /* LaunchInstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchInstructor.swift; sourceTree = "<group>"; };
 		51D420BF24583D1100AD70CA /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		51D420C324583E3300AD70CA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		51D420C524583E4500AD70CA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		51D420C524583E4500AD70CA /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		51D420C7245840A000AD70CA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		51D420C92458466300AD70CA /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		51D420CB245849A700AD70CA /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -68,6 +75,7 @@
 		51D420D124586AE700AD70CA /* Tabbar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tabbar.storyboard; sourceTree = "<group>"; };
 		51D420D324586DCA00AD70CA /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		858F6F6D245A103C009FFD33 /* ExposureNotification.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExposureNotification.framework; path = System/Library/Frameworks/ExposureNotification.framework; sourceTree = SDKROOT; };
+		858F6F72245AED03009FFD33 /* ExposureNotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureNotificationSettingViewController.swift; sourceTree = "<group>"; };
 		85D7593B2457048F008175F0 /* ENA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ENA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D7593E2457048F008175F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85D759402457048F008175F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,8 +89,11 @@
 		85D7595F24570491008175F0 /* ENAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ENAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D7596324570491008175F0 /* ENAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests.swift; sourceTree = "<group>"; };
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CDEB07C72459D6A8007657FB /* SelfExposure.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SelfExposure.storyboard; sourceTree = "<group>"; };
-		CDEB07CA2459D834007657FB /* SelfExposureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfExposureViewController.swift; sourceTree = "<group>"; };
+		85D759812459A85A008175F0 /* ExposureVerificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureVerificationService.swift; sourceTree = "<group>"; };
+		CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfExposureViewController.swift; sourceTree = "<group>"; };
+		CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SelfExposure.storyboard; sourceTree = "<group>"; };
+		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localization.strings; sourceTree = "<group>"; };
+		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +122,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01AB8A692459E65D00042245 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				01AB8A6A2459E67D00042245 /* ExposureVerificationServiceDelegate.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		5107E3D72459B2D60042FC9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +153,7 @@
 				51D420C92458466300AD70CA /* UserDefaultsStorage.swift */,
 				51D420CB245849A700AD70CA /* UserSettings.swift */,
 				51D420BA24583BF400AD70CA /* LaunchInstructor.swift */,
+				01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -159,7 +179,7 @@
 		51D420C124583D3100AD70CA /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				51D420C524583E4500AD70CA /* MainViewController.swift */,
+				51D420C524583E4500AD70CA /* HomeScreenViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -175,6 +195,8 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				01AB8A692459E65D00042245 /* Protocols */,
+				85D759802459A82D008175F0 /* Services */,
 				85D75973245705F6008175F0 /* Models */,
 				85D75972245705CA008175F0 /* Views */,
 				85D759712457059A008175F0 /* Scenes */,
@@ -184,6 +206,14 @@
 				85D759402457048F008175F0 /* SceneDelegate.swift */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		858F6F71245AEC05009FFD33 /* ENSetting */ = {
+			isa = PBXGroup;
+			children = (
+				858F6F72245AED03009FFD33 /* ExposureNotificationSettingViewController.swift */,
+			);
+			path = ENSetting;
 			sourceTree = "<group>";
 		};
 		85D759322457048F008175F0 = {
@@ -237,7 +267,8 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				CDEB07C92459D81A007657FB /* SelfExposure */,
+				CD99A398245B229F00BF12AF /* SelfExposure */,
+				858F6F71245AEC05009FFD33 /* ENSetting */,
 				51D420BE24583D0600AD70CA /* Tabbar */,
 				51D420C124583D3100AD70CA /* Main */,
 				51D420C224583D7B00AD70CA /* Settings */,
@@ -265,6 +296,7 @@
 		85D7597424570615008175F0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EE70C239245B09E900AC9B2F /* Localization */,
 				85D7594F24570491008175F0 /* Info.plist */,
 				85D75976245706BD008175F0 /* Assets */,
 				85D75975245706B0008175F0 /* Storyboards */,
@@ -276,7 +308,7 @@
 		85D75975245706B0008175F0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				CD99A394245B18DC00BF12AF /* SelfExposure */,
+				CD99A39B245B22DA00BF12AF /* SelfExposure */,
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420B02458397300AD70CA /* Onboarding.storyboard */,
 				51D420D124586AE700AD70CA /* Tabbar.storyboard */,
@@ -294,20 +326,36 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		CD99A394245B18DC00BF12AF /* SelfExposure */ = {
+		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CDEB07C72459D6A8007657FB /* SelfExposure.storyboard */,
+				85D759812459A85A008175F0 /* ExposureVerificationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CD99A398245B229F00BF12AF /* SelfExposure */ = {
+			isa = PBXGroup;
+			children = (
+				CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */,
 			);
 			path = SelfExposure;
 			sourceTree = "<group>";
 		};
-		CDEB07C92459D81A007657FB /* SelfExposure */ = {
+		CD99A39B245B22DA00BF12AF /* SelfExposure */ = {
 			isa = PBXGroup;
 			children = (
-				CDEB07CA2459D834007657FB /* SelfExposureViewController.swift */,
+				CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */,
 			);
 			path = SelfExposure;
+			sourceTree = "<group>";
+		};
+		EE70C239245B09E900AC9B2F /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				EE70C23A245B09E900AC9B2F /* Localization.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,6 +444,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 85D759322457048F008175F0;
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
@@ -416,9 +465,10 @@
 			files = (
 				51D420D224586AE800AD70CA /* Tabbar.storyboard in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
+				EE70C23D245B09EA00AC9B2F /* Localization.strings in Resources */,
+				CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */,
 				51D420CE245869C800AD70CA /* Main.storyboard in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
-				CDEB07C82459D6A8007657FB /* SelfExposure.storyboard in Resources */,
 				51D420D024586AB300AD70CA /* Settings.storyboard in Resources */,
 				51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */,
 			);
@@ -445,21 +495,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */,
+				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
 				51D420C024583D1100AD70CA /* TabBarController.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
-				CDEB07CB2459D834007657FB /* SelfExposureViewController.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController.swift in Sources */,
 				51D420CC245849A700AD70CA /* UserSettings.swift in Sources */,
 				51D420CA2458466300AD70CA /* UserDefaultsStorage.swift in Sources */,
+				85D759822459A85A008175F0 /* ExposureVerificationService.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
+				CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				51D420C8245840A000AD70CA /* OnboardingViewController.swift in Sources */,
-				51D420C624583E4500AD70CA /* MainViewController.swift in Sources */,
+				01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */,
+				51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,6 +555,15 @@
 				85D7594D24570491008175F0 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		EE70C23A245B09E900AC9B2F /* Localization.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE70C23B245B09E900AC9B2F /* de */,
+				EE70C23C245B09E900AC9B2F /* en */,
+			);
+			name = Localization.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
