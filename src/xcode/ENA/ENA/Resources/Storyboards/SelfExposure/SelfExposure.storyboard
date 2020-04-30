@@ -29,9 +29,9 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUm-Jt-TR0" userLabel="Description Label">
                                                 <rect key="frame" x="0.0" y="51.5" width="374" height="264"/>
-                                                <mutableString key="text">#Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.
+                                                <string key="text">#Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.</mutableString>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
                                 <rect key="frame" x="0.0" y="483.5" width="414" height="80"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qkb-UR-bJM">
-                                        <rect key="frame" x="20" y="25" width="374" height="30"/>
+                                        <rect key="frame" x="100" y="25" width="214" height="30"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="# TAN Eingeben">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -66,8 +66,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="qkb-UR-bJM" secondAttribute="trailing" constant="20" id="3ok-uJ-6UB"/>
-                                    <constraint firstItem="qkb-UR-bJM" firstAttribute="leading" secondItem="OyQ-Eo-cWd" secondAttribute="leading" constant="20" id="Tnt-fN-jrZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="qkb-UR-bJM" secondAttribute="trailing" constant="100" id="3ok-uJ-6UB"/>
+                                    <constraint firstItem="qkb-UR-bJM" firstAttribute="leading" secondItem="OyQ-Eo-cWd" secondAttribute="leading" constant="100" id="Tnt-fN-jrZ"/>
                                     <constraint firstItem="qkb-UR-bJM" firstAttribute="top" secondItem="OyQ-Eo-cWd" secondAttribute="top" constant="25" id="eeM-vC-1CY"/>
                                     <constraint firstAttribute="bottom" secondItem="qkb-UR-bJM" secondAttribute="bottom" constant="25" id="znN-lr-rH9"/>
                                 </constraints>
