@@ -8,11 +8,14 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-
+class HomeScreenViewController: UIViewController {
+    @IBOutlet weak var updateButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        updateButton.tintColor = UIColor.black
+        updateButton.backgroundColor = UIColor.gray
     }
 
 }

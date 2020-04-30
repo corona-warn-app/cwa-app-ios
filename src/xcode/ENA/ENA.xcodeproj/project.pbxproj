@@ -16,7 +16,7 @@
 		51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420BA24583BF400AD70CA /* LaunchInstructor.swift */; };
 		51D420C024583D1100AD70CA /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420BF24583D1100AD70CA /* TabBarController.swift */; };
 		51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C324583E3300AD70CA /* SettingsViewController.swift */; };
-		51D420C624583E4500AD70CA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C524583E4500AD70CA /* MainViewController.swift */; };
+		51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C524583E4500AD70CA /* HomeScreenViewController.swift */; };
 		51D420C8245840A000AD70CA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C7245840A000AD70CA /* OnboardingViewController.swift */; };
 		51D420CA2458466300AD70CA /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C92458466300AD70CA /* UserDefaultsStorage.swift */; };
 		51D420CC245849A700AD70CA /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420CB245849A700AD70CA /* UserSettings.swift */; };
@@ -64,7 +64,7 @@
 		51D420BA24583BF400AD70CA /* LaunchInstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchInstructor.swift; sourceTree = "<group>"; };
 		51D420BF24583D1100AD70CA /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		51D420C324583E3300AD70CA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		51D420C524583E4500AD70CA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		51D420C524583E4500AD70CA /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		51D420C7245840A000AD70CA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		51D420C92458466300AD70CA /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		51D420CB245849A700AD70CA /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 		51D420C124583D3100AD70CA /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				51D420C524583E4500AD70CA /* MainViewController.swift */,
+				51D420C524583E4500AD70CA /* HomeScreenViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -491,8 +491,12 @@
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				51D420C8245840A000AD70CA /* OnboardingViewController.swift in Sources */,
+<<<<<<< HEAD
 				01AB8A6B2459E67D00042245 /* ExposureVerificationServiceDelegate.swift in Sources */,
 				51D420C624583E4500AD70CA /* MainViewController.swift in Sources */,
+=======
+				51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */,
+>>>>>>> add Home Screen.
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
