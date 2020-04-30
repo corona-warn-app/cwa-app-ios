@@ -10,7 +10,7 @@
         <!--Tan Entry View Controller-->
         <scene sceneID="Uvu-es-GhX">
             <objects>
-                <viewController id="Rld-X1-mQS" userLabel="Tan Entry View Controller" customClass="TanEntryViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TanEntryViewController" id="Rld-X1-mQS" userLabel="Tan Entry View Controller" customClass="TanEntryViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Ax-gX-QDO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

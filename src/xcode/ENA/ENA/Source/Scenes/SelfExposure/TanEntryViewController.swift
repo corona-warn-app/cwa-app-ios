@@ -23,6 +23,8 @@ class TanEntryViewController: UIViewController {
     }
     
     @IBAction func submitClicked(_ sender: Any) {
+        let confirmationViewController = ConfirmationViewController.initiate(for: .selfExposureConfirmation)
+        self.navigationController?.pushViewController(confirmationViewController, animated: true)
     }
     
     /*

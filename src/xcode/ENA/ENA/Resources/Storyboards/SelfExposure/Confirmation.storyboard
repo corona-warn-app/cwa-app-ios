@@ -10,7 +10,7 @@
         <!--Confirmation View Controller-->
         <scene sceneID="Ilu-qr-JWl">
             <objects>
-                <viewController id="X5a-v7-Ksg" userLabel="Confirmation View Controller" customClass="ConfirmationViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConfirmationViewController" id="X5a-v7-Ksg" userLabel="Confirmation View Controller" customClass="ConfirmationViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Fp-93-cY2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -57,6 +57,9 @@
                                         <state key="normal" title="# Abschliessen">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="submitClicked:" destination="X5a-v7-Ksg" eventType="touchUpInside" id="kpu-BU-tI4"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

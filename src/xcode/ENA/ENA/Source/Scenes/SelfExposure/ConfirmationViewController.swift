@@ -21,6 +21,9 @@ class ConfirmationViewController: UIViewController {
         submitButton.setTitle(.submit, for: .normal)
     }
     
+    @IBAction func submitClicked(_ sender: Any) {
+        navigationController?.popToRootViewController(animated: true)
+    }
 
     /*
     // MARK: - Navigation

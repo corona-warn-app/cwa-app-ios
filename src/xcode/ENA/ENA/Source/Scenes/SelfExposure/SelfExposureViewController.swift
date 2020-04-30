@@ -19,9 +19,14 @@ class SelfExposureViewController: UIViewController {
         titleLabel.text = .title
         descriptionLabel.text = .description
         submitButton.setTitle(.submit, for: .normal)
+
+        navigationItem.title = .navigationBarTitle
     }
 
-    @IBAction func submitClicked(_ sender: Any) {}
+    @IBAction func submitClicked(_ sender: Any) {
+        let tanEntryViewController = TanEntryViewController.initiate(for: .selfExposureTanEntry)
+        self.navigationController?.pushViewController(tanEntryViewController, animated: true)
+    }
     
     /*
     // MARK: - Navigation
@@ -38,4 +43,5 @@ fileprivate extension String {
     static let title = NSLocalizedString("SelfExposure_Title", comment: "")
     static let description = NSLocalizedString("SelfExposure_Description", comment: "")
     static let submit = NSLocalizedString("SelfExposure_Submit", comment: "")
+    static let navigationBarTitle = NSLocalizedString("SelfExposure_Nav_Title", comment: "")
 }
