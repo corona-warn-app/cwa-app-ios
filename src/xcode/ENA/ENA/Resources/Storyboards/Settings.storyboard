@@ -274,7 +274,73 @@
                     <view key="view" contentMode="scaleToFill" id="jQp-ED-SYd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="cEi-3Y-TMb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-2J-2gh">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="284"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9t6-rj-j0U">
+                                                <rect key="frame" x="16" y="20" width="382" height="244"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auswirkungen des Zurücksetzens" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDb-RN-MMz">
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="Zqn-v9-Vf8"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vY8-lF-Iik">
+                                                        <rect key="frame" x="0.0" y="60" width="382" height="184"/>
+                                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    </textView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.94551116229999999" green="0.94564706089999995" blue="0.94548147920000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="9t6-rj-j0U" firstAttribute="top" secondItem="Jvh-2J-2gh" secondAttribute="top" constant="20" id="VsO-nx-2bj"/>
+                                            <constraint firstAttribute="bottom" secondItem="9t6-rj-j0U" secondAttribute="bottom" constant="20" id="boG-PJ-Txa"/>
+                                            <constraint firstItem="9t6-rj-j0U" firstAttribute="leading" secondItem="Jvh-2J-2gh" secondAttribute="leading" constant="16" id="mrE-Nb-FEg"/>
+                                            <constraint firstAttribute="trailing" secondItem="9t6-rj-j0U" secondAttribute="trailing" constant="16" id="qw8-dJ-gzf"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfX-fP-g8Q">
+                                        <rect key="frame" x="0.0" y="300" width="414" height="100"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bc7-qT-kCv">
+                                                <rect key="frame" x="124" y="32.5" width="166" height="35"/>
+                                                <color key="backgroundColor" red="0.76018077139999995" green="0.76029145720000002" blue="0.76015669109999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <state key="normal" title="Zurücksetzen">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.86611944439999999" green="0.86624443529999995" blue="0.86609220499999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="Bc7-qT-kCv" firstAttribute="height" secondItem="PfX-fP-g8Q" secondAttribute="height" multiplier="0.35" id="0Np-KW-9ip"/>
+                                            <constraint firstItem="Bc7-qT-kCv" firstAttribute="centerX" secondItem="PfX-fP-g8Q" secondAttribute="centerX" id="TRj-Ws-VYl"/>
+                                            <constraint firstItem="Bc7-qT-kCv" firstAttribute="width" secondItem="PfX-fP-g8Q" secondAttribute="width" multiplier="0.4" id="YzD-3I-Dgy"/>
+                                            <constraint firstItem="Bc7-qT-kCv" firstAttribute="centerY" secondItem="PfX-fP-g8Q" secondAttribute="centerY" id="lZJ-k0-ggc"/>
+                                            <constraint firstAttribute="height" constant="100" id="rbY-lt-V7S"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="cEi-3Y-TMb" firstAttribute="top" secondItem="HXg-F4-hg3" secondAttribute="top" id="KVk-bA-emK"/>
+                            <constraint firstItem="cEi-3Y-TMb" firstAttribute="leading" secondItem="HXg-F4-hg3" secondAttribute="leading" id="SlO-lh-lzV"/>
+                            <constraint firstItem="HXg-F4-hg3" firstAttribute="trailing" secondItem="cEi-3Y-TMb" secondAttribute="trailing" id="g7j-kD-mmL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="HXg-F4-hg3"/>
                     </view>
                 </viewController>
