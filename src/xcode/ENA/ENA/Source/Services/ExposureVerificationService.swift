@@ -2,12 +2,11 @@
 //  ExposureVerificationService.swift
 //  ENA
 //
-//  Created by Hu, Hao on 29.04.20.
+//  Created by Bormeth, Marc on 29.04.20.
 //  Copyright © 2020 SAP SE. All rights reserved.
 //
 
 import Foundation
-import MockENFramework
 
 class ExposureVerificationService : NSObject {
     
@@ -77,7 +76,8 @@ extension ExposureVerificationService : URLSessionDownloadDelegate {
             let destinationUrl = documentsUrl.appendingPathComponent(location.lastPathComponent)
             try FileManager.default.moveItem(at: location, to: destinationUrl)
             let content = try String(contentsOf: destinationUrl)
-            print(content)
+            
+            // Continue with content
             
         } catch {
             // Handle error
