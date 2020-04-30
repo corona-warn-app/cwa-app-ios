@@ -20,17 +20,24 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setupView()
+    }
+
+    private func setupView() {
+        // receive status of manager
+        let status = ENStatus.active
+        setTrackingStatus(for: status)
     }
 
     private func setTrackingStatus(for status: ENStatus) {
         switch status {
         case .active:
             DispatchQueue.main.async {
-                self.trackingStatusLabel.text = "Aktiv"
+                self.trackingStatusLabel.text = NSLocalizedString("status_Active", comment: "")
             }
         default:
             DispatchQueue.main.async {
-                self.trackingStatusLabel.text = "Inaktiv"
+                self.trackingStatusLabel.text = NSLocalizedString("status_Inactive", comment: "")
             }
         }
     }

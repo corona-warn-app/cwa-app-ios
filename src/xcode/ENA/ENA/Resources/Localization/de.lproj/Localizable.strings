@@ -7,3 +7,6 @@
 */
 
 //Put german language strings here
+
+"status_Active" = "active";
+"status_Inactive" = "inactive";
