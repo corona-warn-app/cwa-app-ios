@@ -120,6 +120,79 @@
             </objects>
             <point key="canvasLocation" x="73.913043478260875" y="150"/>
         </scene>
+        <!--Exposure Detection View Controller-->
+        <scene sceneID="9qb-b2-Oyw">
+            <objects>
+                <viewController id="grs-iX-12H" customClass="ExposureDetectionViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Q2n-ys-3ZB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xyo-BT-9TB">
+                                <rect key="frame" x="0.0" y="94" width="414" height="128"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="137" translatesAutoresizingMaskIntoConstraints="NO" id="Bf1-Gf-8X2">
+                                        <rect key="frame" x="7" y="-9" width="399.5" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kontakt Festgestellt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rle-Kg-eoH">
+                                                <rect key="frame" x="0.0" y="0.0" width="165.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vor 3 Tagen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZ3-z3-fPX">
+                                                <rect key="frame" x="302.5" y="0.0" width="97" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <viewLayoutGuide key="safeArea" id="iKl-By-eh1"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bih-i9-XxX">
+                                <rect key="frame" x="0.0" y="343" width="414" height="302"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rVa-aM-5gI">
+                                        <rect key="frame" x="8" y="50" width="398" height="244"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QzT-Ej-n67">
+                                        <rect key="frame" x="186" y="14" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="QzT-Ej-n67" firstAttribute="centerX" secondItem="Bih-i9-XxX" secondAttribute="centerX" id="jNn-0w-PGI"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Bih-i9-XxX" firstAttribute="leading" secondItem="xyo-BT-9TB" secondAttribute="leading" id="5rn-xG-cH3"/>
+                            <constraint firstItem="Bih-i9-XxX" firstAttribute="top" secondItem="xyo-BT-9TB" secondAttribute="top" id="B2k-CQ-dQr"/>
+                            <constraint firstItem="xyo-BT-9TB" firstAttribute="leading" secondItem="TV3-sj-1q2" secondAttribute="leading" id="IRN-va-QCq"/>
+                            <constraint firstItem="Bih-i9-XxX" firstAttribute="top" secondItem="xyo-BT-9TB" secondAttribute="top" id="Ou9-ax-fmQ"/>
+                            <constraint firstItem="TV3-sj-1q2" firstAttribute="trailing" secondItem="xyo-BT-9TB" secondAttribute="trailing" id="drM-d2-ZHb"/>
+                            <constraint firstItem="xyo-BT-9TB" firstAttribute="top" secondItem="TV3-sj-1q2" secondAttribute="top" constant="50" id="nAD-v4-JkB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TV3-sj-1q2"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y9e-BT-iX4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1079.7101449275362" y="152.67857142857142"/>
+        </scene>
     </scenes>
     <resources>
         <image name="house" catalog="system" width="128" height="110"/>
