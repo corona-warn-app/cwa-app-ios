@@ -214,7 +214,6 @@
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="urF-CJ-bct">
                                                         <rect key="frame" x="16" y="0.0" width="382" height="183.5"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -262,6 +261,11 @@
                     <tabBarItem key="tabBarItem" title="" image="gear" catalog="system" id="A1n-sL-6Lr"/>
                     <navigationItem key="navigationItem" title="Einstellungen" id="S63-om-aAO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="dataInWifiOnlySwitch" destination="kus-5F-HfW" id="Cfz-zh-oc0"/>
+                        <outlet property="notificationsSwitch" destination="WcY-CI-pnc" id="13E-AL-rma"/>
+                        <outlet property="trackingStatusLabel" destination="XH4-DH-GyW" id="lz3-jO-tyd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ag-R4-o5F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
