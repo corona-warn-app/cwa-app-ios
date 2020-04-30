@@ -30,6 +30,8 @@
 		85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594C24570491008175F0 /* LaunchScreen.storyboard */; };
 		85D7595924570491008175F0 /* ENATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7595824570491008175F0 /* ENATests.swift */; };
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
+		CDEB07C82459D6A8007657FB /* SelfExposure.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDEB07C72459D6A8007657FB /* SelfExposure.storyboard */; };
+		CDEB07CB2459D834007657FB /* SelfExposureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEB07CA2459D834007657FB /* SelfExposureViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		85D7595F24570491008175F0 /* ENAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ENAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D7596324570491008175F0 /* ENAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests.swift; sourceTree = "<group>"; };
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CDEB07C72459D6A8007657FB /* SelfExposure.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SelfExposure.storyboard; sourceTree = "<group>"; };
+		CDEB07CA2459D834007657FB /* SelfExposureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfExposureViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +237,7 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				CDEB07C92459D81A007657FB /* SelfExposure */,
 				51D420BE24583D0600AD70CA /* Tabbar */,
 				51D420C124583D3100AD70CA /* Main */,
 				51D420C224583D7B00AD70CA /* Settings */,
@@ -271,6 +276,7 @@
 		85D75975245706B0008175F0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				CD99A394245B18DC00BF12AF /* SelfExposure */,
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420B02458397300AD70CA /* Onboarding.storyboard */,
 				51D420D124586AE700AD70CA /* Tabbar.storyboard */,
@@ -286,6 +292,22 @@
 				85D7594A24570491008175F0 /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		CD99A394245B18DC00BF12AF /* SelfExposure */ = {
+			isa = PBXGroup;
+			children = (
+				CDEB07C72459D6A8007657FB /* SelfExposure.storyboard */,
+			);
+			path = SelfExposure;
+			sourceTree = "<group>";
+		};
+		CDEB07C92459D81A007657FB /* SelfExposure */ = {
+			isa = PBXGroup;
+			children = (
+				CDEB07CA2459D834007657FB /* SelfExposureViewController.swift */,
+			);
+			path = SelfExposure;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,6 +418,7 @@
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				51D420CE245869C800AD70CA /* Main.storyboard in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
+				CDEB07C82459D6A8007657FB /* SelfExposure.storyboard in Resources */,
 				51D420D024586AB300AD70CA /* Settings.storyboard in Resources */,
 				51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */,
 			);
@@ -426,6 +449,7 @@
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
 				51D420C024583D1100AD70CA /* TabBarController.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
+				CDEB07CB2459D834007657FB /* SelfExposureViewController.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController.swift in Sources */,
 				51D420CC245849A700AD70CA /* UserSettings.swift in Sources */,
 				51D420CA2458466300AD70CA /* UserDefaultsStorage.swift in Sources */,
