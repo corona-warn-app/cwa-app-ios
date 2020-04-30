@@ -22,7 +22,7 @@ class ExposureVerificationService : NSObject {
     
     func verifyExposure() {
         // Check the timeframe since last succesfull download of a package.
-        if (!checkLastEVSession()) {
+        if !checkLastEVSession() {
             return  // Avoid DDoS by allowing only one request per hour
         }
         
@@ -54,7 +54,7 @@ class ExposureVerificationService : NSObject {
         
         let hoursSinceLastRequest = now.timeIntervalSince(lastProcessedPackageTime) / 3600
 
-        if (hoursSinceLastRequest > 1) {
+        if hoursSinceLastRequest > 1 {
             return true
         } else {
             return false
@@ -80,8 +80,9 @@ extension ExposureVerificationService : URLSessionDownloadDelegate {
             print(content)
             
         } catch {
+            // Handle error
+            
             // Notify delegate
-            print("Error: \(error)")
         }
         
         // Format result to be able to use Apple's API
