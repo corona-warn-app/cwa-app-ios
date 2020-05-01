@@ -6,4 +6,7 @@
   Copyright © 2020 SAP SE. All rights reserved.
 */
 
-//Put english language strings here
+//Put german language strings here
+
+"status_Active" = "aktiv";
+"status_Inactive" = "inaktiv";
