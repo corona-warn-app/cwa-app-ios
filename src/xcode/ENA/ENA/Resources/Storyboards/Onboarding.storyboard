@@ -135,22 +135,26 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UHi-7e-l0K" userLabel="Bluetooth container">
                                 <rect key="frame" x="16" y="376.33333333333331" width="343" height="80"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Bluetooth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPW-fG-3x1">
-                                        <rect key="frame" x="16" y="29.666666666666686" width="246" height="20.333333333333329"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="245" verticalHuggingPriority="251" text="Bluetooth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPW-fG-3x1">
+                                        <rect key="frame" x="16" y="29.666666666666686" width="249" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAj-U9-jb3">
-                                        <rect key="frame" x="278" y="24.333333333333371" width="51" height="31"/>
-                                    </switch>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7Q-xg-INv">
+                                        <rect key="frame" x="281" y="25" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="bluetoothButtonTapped:" destination="cqC-M1-8RB" eventType="touchUpInside" id="dF8-pE-WDm"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="l7Q-xg-INv" firstAttribute="centerY" secondItem="UHi-7e-l0K" secondAttribute="centerY" id="4Z0-Nk-Ylp"/>
                                     <constraint firstItem="wPW-fG-3x1" firstAttribute="leading" secondItem="UHi-7e-l0K" secondAttribute="leading" constant="16" id="Cse-nz-8dM"/>
-                                    <constraint firstItem="dAj-U9-jb3" firstAttribute="leading" secondItem="wPW-fG-3x1" secondAttribute="trailing" constant="16" id="PP3-ZB-eJa"/>
-                                    <constraint firstAttribute="trailing" secondItem="dAj-U9-jb3" secondAttribute="trailing" constant="16" id="YcR-D3-I5d"/>
-                                    <constraint firstItem="dAj-U9-jb3" firstAttribute="centerY" secondItem="UHi-7e-l0K" secondAttribute="centerY" id="mQx-X2-aRg"/>
+                                    <constraint firstAttribute="trailing" secondItem="l7Q-xg-INv" secondAttribute="trailing" constant="16" id="XQK-ee-Xef"/>
+                                    <constraint firstItem="l7Q-xg-INv" firstAttribute="leading" secondItem="wPW-fG-3x1" secondAttribute="trailing" constant="16" id="kq4-XQ-qH2"/>
                                     <constraint firstAttribute="height" constant="80" id="nh9-6E-JZ8"/>
                                     <constraint firstItem="wPW-fG-3x1" firstAttribute="centerY" secondItem="UHi-7e-l0K" secondAttribute="centerY" id="zW3-qQ-6VW"/>
                                 </constraints>
@@ -159,22 +163,16 @@
                                 <rect key="frame" x="16" y="472.33333333333326" width="343" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJv-35-c0O">
-                                        <rect key="frame" x="16" y="29.666666666666686" width="246" height="20.333333333333329"/>
+                                        <rect key="frame" x="16.000000000000007" y="29.666666666666686" width="96.666666666666686" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dx5-9H-FhU">
-                                        <rect key="frame" x="278" y="24.333333333333371" width="51" height="31"/>
-                                    </switch>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="dx5-9H-FhU" secondAttribute="trailing" constant="16" id="OkS-lz-Nbh"/>
-                                    <constraint firstItem="dx5-9H-FhU" firstAttribute="centerY" secondItem="AIL-bs-ORO" secondAttribute="centerY" id="dVa-Mv-lB8"/>
                                     <constraint firstItem="OJv-35-c0O" firstAttribute="centerY" secondItem="AIL-bs-ORO" secondAttribute="centerY" id="eo9-4N-eUc"/>
                                     <constraint firstAttribute="height" constant="80" id="hGq-Xx-TES"/>
-                                    <constraint firstItem="dx5-9H-FhU" firstAttribute="leading" secondItem="OJv-35-c0O" secondAttribute="trailing" constant="16" id="hb1-Xw-5NS"/>
                                     <constraint firstItem="OJv-35-c0O" firstAttribute="leading" secondItem="AIL-bs-ORO" secondAttribute="leading" constant="16" id="xbT-8t-t8I"/>
                                 </constraints>
                             </view>
@@ -199,11 +197,10 @@
                         <viewLayoutGuide key="safeArea" id="4H4-yi-Q1Y"/>
                     </view>
                     <connections>
+                        <outlet property="bluetoothButton" destination="l7Q-xg-INv" id="ETJ-bg-pVt"/>
                         <outlet property="bluetoothLabel" destination="wPW-fG-3x1" id="D91-wV-kq8"/>
-                        <outlet property="bluetoothSwitch" destination="dAj-U9-jb3" id="cP8-sx-HWY"/>
                         <outlet property="imageView" destination="AhJ-v0-YzW" id="iWC-Zl-UPL"/>
                         <outlet property="notificationLabel" destination="OJv-35-c0O" id="VLU-FT-1S9"/>
-                        <outlet property="notificationSwitch" destination="dx5-9H-FhU" id="EiH-6W-ER8"/>
                         <outlet property="titleLabel" destination="Uuf-Dg-91L" id="GOf-j2-YCl"/>
                     </connections>
                 </viewController>

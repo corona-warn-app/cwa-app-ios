@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreBluetooth
 
 protocol OnboardingPermissionsViewControllerDelegate: AnyObject {
     func permissionsDidChange(onboardingPermissions: OnboardingPermissionsViewController)
@@ -14,18 +15,23 @@ protocol OnboardingPermissionsViewControllerDelegate: AnyObject {
 
 class OnboardingPermissionsViewController: UIViewController {
     
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet private var imageView: UIImageView!
+    @IBOutlet private var titleLabel: UILabel!
     
-    @IBOutlet var bluetoothLabel: UILabel!
-    @IBOutlet var bluetoothSwitch: UISwitch!
+    @IBOutlet private var bluetoothLabel: UILabel!
+    @IBOutlet private var bluetoothButton: UIButton!
 
-    @IBOutlet var notificationLabel: UILabel!
-    @IBOutlet var notificationSwitch: UISwitch!
+    @IBOutlet private var notificationLabel: UILabel!
+    
+    private var centralManager: CBCentralManager!
+    
+    private var isBluetoothAuthorized: Bool {
+        CBCentralManager.authorization == .allowedAlways
+    }
     
     weak var delegate: OnboardingPermissionsViewControllerDelegate?
     
-    var onboardingPermissions: OnboardingPermissions? {
+    private var onboardingPermissions: OnboardingPermissions = OnboardingPermissions.testData() {
         didSet {
             updateUI()
         }
@@ -33,48 +39,56 @@ class OnboardingPermissionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bluetoothSwitch.addTarget(self, action: #selector(switchStateDidChange(_:)), for: .valueChanged)
-        notificationSwitch.addTarget(self, action: #selector(switchStateDidChange(_:)), for: .valueChanged)
         updateUI()
     }
     
-    @objc private func switchStateDidChange(_ switch: UISwitch) {
-        delegate?.permissionsDidChange(onboardingPermissions: self)
+    @IBAction private func bluetoothButtonTapped(_ sender: UIButton) {
+        askBluetoothPermissions()
     }
     
     private func updateUI() {
         guard isViewLoaded else { return }
-        titleLabel.text = onboardingPermissions?.title
-        if let imageName = onboardingPermissions?.imageName {
-            imageView.image = UIImage(named: imageName)
-        } else {
-            imageView.image = nil
-        }
-        if let permissions = onboardingPermissions?.permissions {
-            for permission in permissions {
-                switch permission {
-                case .bluetooth:
-                    bluetoothLabel.text = permission.title
-                    bluetoothSwitch.isOn = false
-                case .notifications:
-                    notificationLabel.text = permission.title
-                    notificationSwitch.isOn = false
-                }
-            }
-        } else {
-            bluetoothLabel.text = nil
-            bluetoothSwitch.isOn = false
-            notificationLabel.text = nil
-            notificationSwitch.isOn = false
+        titleLabel.text = onboardingPermissions.title
+        imageView.image = UIImage(named: onboardingPermissions.imageName)
+        
+        bluetoothLabel.text = onboardingPermissions.bluetoothTitle
+        notificationLabel.text = onboardingPermissions.notificationsTitle
+        
+        configureBluetoothButton()
+    }
+    
+    private func configureBluetoothButton() {
+        let authorization = CBCentralManager.authorization
+        bluetoothButton.isEnabled = authorization == .notDetermined
+        switch authorization {
+        case .notDetermined:
+            bluetoothButton.setTitle("Please provide permissions", for: .normal)
+        case .restricted:
+            bluetoothButton.setTitle("Access is restricted", for: .normal)
+        case .denied:
+            bluetoothButton.setTitle("Please go to the settings", for: .normal)
+        case .allowedAlways:
+            bluetoothButton.setTitle("Access is provided", for: .normal)
+        @unknown default:
+            bluetoothButton.setTitle("Unknown", for: .normal)
         }
     }
     
+    private func askBluetoothPermissions() {
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+    }
 }
  
 extension OnboardingPermissionsViewController: OnboardingNextPageAvailable {
     func isNextPageAvailable() -> Bool {
-        let isBluetoothAvailable = bluetoothSwitch.isOn
-        let isNotificationsAvailable = notificationSwitch.isOn
-        return isBluetoothAvailable && isNotificationsAvailable
+        let isNotificationsAvailable = true
+        return isBluetoothAuthorized && isNotificationsAvailable
+    }
+}
+
+extension OnboardingPermissionsViewController: CBCentralManagerDelegate {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        configureBluetoothButton()
+        delegate?.permissionsDidChange(onboardingPermissions: self)
     }
 }

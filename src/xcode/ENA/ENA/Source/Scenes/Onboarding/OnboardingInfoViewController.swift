@@ -35,7 +35,6 @@ class OnboardingInfoViewController: UIViewController {
         }
         textView.text = onboardingInfo?.text
     }
-    
 }
 
 extension OnboardingInfoViewController: OnboardingNextPageAvailable {

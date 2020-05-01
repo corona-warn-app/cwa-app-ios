@@ -50,7 +50,6 @@ class OnboardingViewController: UIViewController {
         }
         let permissionVC = OnboardingPermissionsViewController.initiate(for: .onboarding)
         permissionVC.delegate = self
-        permissionVC.onboardingPermissions = onboardingPermissions
         pages.append(permissionVC)
     }
     
