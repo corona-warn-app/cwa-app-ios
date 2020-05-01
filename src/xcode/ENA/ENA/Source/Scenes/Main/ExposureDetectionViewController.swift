@@ -20,6 +20,8 @@ class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
     
+    private lazy var exposureDetectionService = ExposureDetectionService(delegate: self)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,9 +36,12 @@ class ExposureDetectionViewController: UIViewController {
         infoTextView.text = .infoText
     }
     
-
+    
+    // MARK: - String formatters
     private func formatLastContact() -> String {
-        return "Vor 3 Tagen"
+        var str: String = .lastContactTextDays
+        str = str.replacingOccurrences(of: "$", with: String(3))
+        return str
     }
     
     private func formatLastSync() -> String {
@@ -46,7 +51,7 @@ class ExposureDetectionViewController: UIViewController {
     }
     
     private func formatNextSync() -> String {
-        return .nextSync
+        return "\(String.nextSync) \(String(18)) \(String.hours)"
     }
     
     /*
@@ -61,11 +66,21 @@ class ExposureDetectionViewController: UIViewController {
 
 }
 
+extension ExposureDetectionViewController: ExposureDetectionServiceDelegate {
+    func didFinish(_ sender: ExposureDetectionService, result: ExposureDetectionResult) {
+        
+    }
+    
+    func didFailWithError(_ sender: ExposureDetectionService, error: ExposureDetectionError) {
+
+    }
+}
+
 fileprivate extension String {
-    static let today = NSLocalizedString("today", comment: "")
-    static let yesterday = NSLocalizedString("yesterday", comment: "")
-    static let hour = NSLocalizedString("hour", comment: "")
-    static let hours = NSLocalizedString("hours", comment: "")
+    static let today = NSLocalizedString("Today", comment: "")
+    static let yesterday = NSLocalizedString("Yesterday", comment: "")
+    static let hour = NSLocalizedString("Hour", comment: "")
+    static let hours = NSLocalizedString("Hours", comment: "")
     
     static let lastContactTitle = NSLocalizedString("ExposureDetection_lastContactTitle", comment: "")
     static let lastContactTextDays = NSLocalizedString("ExposureDetection_lastContactText", comment: "")

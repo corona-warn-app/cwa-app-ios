@@ -11,7 +11,7 @@ import ExposureNotification
 
 class ExposureDetectionService : NSObject {
     
-    weak var delegate: ExposureDetectionServiceDelegate?
+    private weak var delegate: ExposureDetectionServiceDelegate?
     
     private lazy var downloadSession = URLSession(configuration: URLSessionConfiguration.default,
                                                   delegate: self,
@@ -19,6 +19,10 @@ class ExposureDetectionService : NSObject {
     
     @UserDefaultsStorage(key: "lastProcessedPackageTime", defaultValue: nil)
     static var lastProcessedPackageTime: Date?
+    
+    init(delegate: ExposureDetectionServiceDelegate?) {
+        self.delegate = delegate
+    }
     
     func verifyExposureIfNeeded() {
         // Check the timeframe since last succesfull download of a package.

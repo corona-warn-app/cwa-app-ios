@@ -18,7 +18,7 @@
 "ExposureDetection_lastContactText" = "Vor $ Tagen";
 "ExposureDetection_lastSync" = "Letzte Aktualisierung: Vor ";
 "ExposureDetection_synchronize" = "Aktualisieren";
-"ExposureDetection_nextSync" = "Nächste automatische Prüfung in ";
+"ExposureDetection_nextSync" = "Nächste automatische Prüfung in";
 "ExposureDetection_info" = "Info";
 "ExposureDetection_infoText" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
 

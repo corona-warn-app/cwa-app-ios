@@ -19,6 +19,6 @@ struct ExposureDetectionResult {
 }
 
 protocol ExposureDetectionServiceDelegate: class {
-    func didFailWithError(error: ExposureDetectionError)  // TODO: Add sender
-    func didFinish(result: ExposureDetectionResult)  // TODO: Add sender
+    func didFinish(_ sender: ExposureDetectionService, result: ExposureDetectionResult)
+    func didFailWithError(_ sender: ExposureDetectionService, error: ExposureDetectionError)
 }

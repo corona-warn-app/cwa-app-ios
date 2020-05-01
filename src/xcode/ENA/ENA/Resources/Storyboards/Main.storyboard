@@ -170,17 +170,30 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="80" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mij-nc-dp8">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FkH-wJ-aER">
                                                         <rect key="frame" x="0.0" y="45" width="314" height="30"/>
-                                                        <color key="backgroundColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="80" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mij-nc-dp8">
+                                                                <rect key="frame" x="50" y="0.0" width="214" height="30"/>
+                                                                <color key="backgroundColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="Cb2-A3-VC1"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                                <state key="normal" title="Sync">
+                                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                </state>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="Cb2-A3-VC1"/>
+                                                            <constraint firstAttribute="width" constant="314" id="DkG-2u-R9U"/>
+                                                            <constraint firstAttribute="bottom" secondItem="mij-nc-dp8" secondAttribute="bottom" id="LLT-wf-Je5"/>
+                                                            <constraint firstItem="mij-nc-dp8" firstAttribute="top" secondItem="FkH-wJ-aER" secondAttribute="top" id="PLR-Rt-pSm"/>
+                                                            <constraint firstItem="mij-nc-dp8" firstAttribute="leading" secondItem="FkH-wJ-aER" secondAttribute="leading" constant="50" id="cAA-lu-48u"/>
+                                                            <constraint firstAttribute="trailing" secondItem="mij-nc-dp8" secondAttribute="trailing" constant="50" id="hke-uP-MR7"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                                        <state key="normal" title="Sync">
-                                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        </state>
-                                                    </button>
+                                                    </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nextSync" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xGq-mj-68f">
                                                         <rect key="frame" x="0.0" y="100" width="314" height="20"/>
                                                         <constraints>
