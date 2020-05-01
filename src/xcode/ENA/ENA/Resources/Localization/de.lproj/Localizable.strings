@@ -10,3 +10,15 @@
 
 "status_Active" = "aktiv";
 "status_Inactive" = "inaktiv";
+"SelfExposure_Title" = "Laborergebnis für COVID-19";
+"SelfExposure_Description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
+"SelfExposure_Submit" = "TAN Eingeben";
+"SelfExposure_TANEntry_Title" = "Labor TAN";
+"SelfExposure_TANEntry_Description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
+"SelfExposure_TANEntry_Submit" = "TAN Prüfen";
+"SelfExposure_Nav_Title" = "Testergebnis Melden";
+"SelfExposure_Confirmation_Title" = "Positive Diagnose";
+"SelfExposure_Confirmation_Description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
+"SelfExposure_Confirmation_Submit" = "Abschliessen";
