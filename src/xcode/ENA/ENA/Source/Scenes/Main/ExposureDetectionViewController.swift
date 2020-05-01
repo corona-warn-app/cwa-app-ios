@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ExposureNotification
 
 class ExposureDetectionViewController: UIViewController {
     
@@ -67,11 +68,11 @@ class ExposureDetectionViewController: UIViewController {
 }
 
 extension ExposureDetectionViewController: ExposureDetectionServiceDelegate {
-    func didFinish(_ sender: ExposureDetectionService, result: ExposureDetectionResult) {
+    func didFinish(_ sender: ExposureDetectionService, result: ENExposureDetectionSummary) {
         
     }
     
-    func didFailWithError(_ sender: ExposureDetectionService, error: ExposureDetectionError) {
+    func didFailWithError(_ sender: ExposureDetectionService, error: Error) {
 
     }
 }
