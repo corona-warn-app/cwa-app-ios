@@ -83,6 +83,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cy8-h4-pZV">
                                 <rect key="frame" x="135.66666666666666" y="773" width="142.99999999999997" height="30"/>
                                 <state key="normal" title="Testergebnis Melden"/>
+                                <connections>
+                                    <action selector="submitResultDidClick:" destination="nJh-Ox-BtJ" eventType="touchUpInside" id="f67-9h-cf5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjC-KK-bhn">
                                 <rect key="frame" x="165.66666666666666" y="454" width="83" height="30"/>

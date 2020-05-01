@@ -22,7 +22,7 @@ class ConfirmationViewController: UIViewController {
     }
     
     @IBAction func submitClicked(_ sender: Any) {
-        navigationController?.popToRootViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
