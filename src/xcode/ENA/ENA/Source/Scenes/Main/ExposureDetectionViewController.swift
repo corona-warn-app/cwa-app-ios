@@ -54,6 +54,13 @@ class ExposureDetectionViewController: UIViewController {
     private func formatNextSync() -> String {
         return "\(String.nextSync) \(String(18)) \(String.hours)"
     }
+
+
+    @IBAction func refresh(_ sender: UIButton) {
+        print("refreshing…")
+        exposureDetectionService.detectExposureIfNeeded()
+        // Here we have to do what exaclty?
+    }
     
     /*
     // MARK: - Navigation
