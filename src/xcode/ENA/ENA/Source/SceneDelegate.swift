@@ -25,9 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func setupRootViewController() {
         
         
-//        let onboardingWasShown = UserSettings.onboardingWasShown
-        //FIXME: For demo, so we always show the true.
-        let instructor = LaunchInstructor.configure(onboardingWasShown: true)
+        let onboardingWasShown = UserSettings.onboardingWasShown
+        //For a demo, we can set it to true.
+        let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)
         let rootViewController: UIViewController
         switch instructor {
         case .main:
