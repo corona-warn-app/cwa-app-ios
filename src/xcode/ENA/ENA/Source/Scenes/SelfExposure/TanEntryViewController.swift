@@ -29,13 +29,17 @@ class TanEntryViewController: UIViewController {
     }
 
     private func submitSelfExposure() {
-        service.submitSelfExposure { error in
+        guard let tan = tanTextField.text else {
+            return
+        }
+
+        service.submitSelfExposure(tan: tan) { [weak self] error in
             guard error == nil else {
                 //handle error
                 return
             }
 
-            loadConfirmationScreen()
+            self?.loadConfirmationScreen()
         }
     }
 
