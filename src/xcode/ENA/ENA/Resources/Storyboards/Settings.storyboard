@@ -195,9 +195,7 @@
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="uYn-mg-qmD" kind="popoverPresentation" popoverAnchorView="qSz-jA-LSk" id="doN-PI-mJr">
-                                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                            </segue>
+                                                            <segue destination="uYn-mg-qmD" kind="show" id="doN-PI-mJr"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -269,18 +267,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ag-R4-o5F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="15.942028985507248" y="108.48214285714285"/>
+            <point key="canvasLocation" x="-88" y="113"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="6J2-Ed-W8B">
             <objects>
                 <viewController id="uYn-mg-qmD" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jQp-ED-SYd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="cEi-3Y-TMb">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="400"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-2J-2gh">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="284"/>
@@ -347,6 +345,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HXg-F4-hg3"/>
                     </view>
+                    <navigationItem key="navigationItem" id="bKX-qt-cMp"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1Q-hW-w3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
