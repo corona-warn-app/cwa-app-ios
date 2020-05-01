@@ -13,7 +13,9 @@ class TanEntryViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var tanTextField: UITextField!
-    
+
+    let service: ExposureSubmissionService = ExposureSubmissionServiceImpl()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,6 +25,21 @@ class TanEntryViewController: UIViewController {
     }
     
     @IBAction func submitClicked(_ sender: Any) {
+        submitSelfExposure()
+    }
+
+    private func submitSelfExposure() {
+        service.submitSelfExposure { error in
+            guard error == nil else {
+                //handle error
+                return
+            }
+
+            loadConfirmationScreen()
+        }
+    }
+
+    private func loadConfirmationScreen() {
         let confirmationViewController = ConfirmationViewController.initiate(for: .selfExposureConfirmation)
         self.navigationController?.pushViewController(confirmationViewController, animated: true)
     }
