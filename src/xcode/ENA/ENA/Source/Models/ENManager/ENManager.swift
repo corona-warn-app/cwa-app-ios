@@ -10,7 +10,7 @@ import ExposureNotification
 import Foundation
 
 final class ENManager {
-    static let sharedManager = ENManager()
+    static let sharedManager = ExposureNotification.ENManager()
 
     private init() {}
 }
