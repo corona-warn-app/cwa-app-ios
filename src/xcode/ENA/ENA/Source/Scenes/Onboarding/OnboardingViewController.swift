@@ -8,32 +8,25 @@
 
 import UIKit
 
+protocol OnboardingNextPageAvailable {
+    func isNextPageAvailable() -> Bool
+}
+
 class OnboardingViewController: UIViewController {
     
     private var pageViewController: UIPageViewController?
     private var pages: [UIViewController] = []
-    private var infos = OnboardingInfo.testData()
+    private var onboardingInfos = OnboardingInfo.testData()
+    private var onboardingPermissions = OnboardingPermissions.testData()
     
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var buttonContainerView: UIView!
     
-    @IBAction func onboardingTapped(_ sender: Any) {
-        
-        print(currentIndex)
-        let nextIndex = currentIndex + 1
-        guard nextIndex >= 0 && nextIndex < pages.count else { return }
-        let vc = pages[nextIndex]
-        pageViewController?.setViewControllers([vc], direction: .forward, animated: true, completion: nil)
-        updateButton()
-        // UserSettings.onboardingWasShown = true
-        // let notification = Notification(name: .onboardingFlagDidChange)
-        // NotificationCenter.default.post(notification)
-    }
-    
-    private func updateButton() {
-        let isLastPage = currentIndex == pages.count - 1
-        let title = isLastPage ? NSLocalizedString("onboarding_button_finish", comment: "") : NSLocalizedString("onboarding_button_next", comment: "")
-        nextButton.setTitle(title, for: .normal)
+    private var currentIndex: Int {
+        guard let pageViewController = pageViewController else { return 0 }
+        guard let firstViewController = pageViewController.viewControllers?.first else { return 0 }
+        guard let index = pages.firstIndex(of: firstViewController) else { return 0 }
+        return index
     }
     
     override func viewDidLoad() {
@@ -50,11 +43,15 @@ class OnboardingViewController: UIViewController {
     }
     
     private func createPages() {
-        pages = infos.map { info in
-            let vc = OnboardingInfoViewController.initiate(for: .onboarding)
-            vc.onboardingInfo = info
-            return vc
+        pages = onboardingInfos.map { info in
+            let infoVC = OnboardingInfoViewController.initiate(for: .onboarding)
+            infoVC.onboardingInfo = info
+            return infoVC
         }
+        let permissionVC = OnboardingPermissionsViewController.initiate(for: .onboarding)
+        permissionVC.delegate = self
+        permissionVC.onboardingPermissions = onboardingPermissions
+        pages.append(permissionVC)
     }
     
     private func createPageController() {
@@ -72,11 +69,29 @@ class OnboardingViewController: UIViewController {
         self.pageViewController = pageViewController
     }
     
-    private var currentIndex: Int {
-        guard let pageViewController = pageViewController else { return 0 }
-        guard let firstViewController = pageViewController.viewControllers?.first else { return 0 }
-        guard let index = pages.firstIndex(of: firstViewController) else { return 0 }
-        return index
+    @IBAction func onboardingTapped(_ sender: Any) {
+        let isLastPage = currentIndex == pages.count - 1
+        if isLastPage {
+             UserSettings.onboardingWasShown = true
+             let notification = Notification(name: .onboardingFlagDidChange)
+             NotificationCenter.default.post(notification)
+        } else {
+            let nextIndex = currentIndex + 1
+            let vc = pages[nextIndex]
+            pageViewController?.setViewControllers([vc], direction: .forward, animated: true, completion: nil)
+            updateButton()
+        }
+    }
+    
+    private func updateButton() {
+        let isLastPage = currentIndex == pages.count - 1
+        let title = isLastPage ? NSLocalizedString("onboarding_button_finish", comment: "") : NSLocalizedString("onboarding_button_next", comment: "")
+        nextButton.setTitle(title, for: .normal)
+        
+        if let onboardingPage = pages[currentIndex] as? OnboardingNextPageAvailable {
+            let isNextPageAvailable = onboardingPage.isNextPageAvailable()
+            nextButton.isEnabled = isNextPageAvailable
+        }
     }
 }
 
@@ -107,6 +122,12 @@ extension OnboardingViewController: UIPageViewControllerDataSource {
 
 extension OnboardingViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        updateButton()
+    }
+}
+
+extension OnboardingViewController: OnboardingPermissionsViewControllerDelegate {
+    func permissionsDidChange(onboardingPermissions: OnboardingPermissionsViewController) {
         updateButton()
     }
 }

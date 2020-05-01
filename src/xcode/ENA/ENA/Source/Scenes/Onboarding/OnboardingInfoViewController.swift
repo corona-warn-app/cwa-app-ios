@@ -37,3 +37,9 @@ class OnboardingInfoViewController: UIViewController {
     }
     
 }
+
+extension OnboardingInfoViewController: OnboardingNextPageAvailable {
+    func isNextPageAvailable() -> Bool {
+        true
+    }
+}
