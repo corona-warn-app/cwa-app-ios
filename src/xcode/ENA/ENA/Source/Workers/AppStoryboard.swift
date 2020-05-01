@@ -12,6 +12,7 @@ enum AppStoryboard: String {
     case main = "Main"
     case tabbar = "Tabbar"
     case onboarding = "Onboarding"
+    case exposureNotificationSetting = "ExposureNotificationSetting"
     case selfExposure = "SelfExposure"
     case selfExposureTanEntry = "TanEntry"
     case selfExposureConfirmation = "Confirmation"
