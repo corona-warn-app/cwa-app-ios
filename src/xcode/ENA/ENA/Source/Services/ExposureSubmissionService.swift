@@ -25,31 +25,35 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
     func submitSelfExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
         let enManager = ENManager()
 
+        let complete: (ExposureSubmissionError?) -> Void = {
+            completionHandler($0)
+            enManager.invalidate()
+        }
+
         enManager.activate { error in
             if let error = error {
-                completionHandler(self.parseError(error))
+                complete(self.parseError(error))
                 return
             }
 
             if enManager.exposureNotificationStatus != .active {
-                completionHandler(.notActivated)
+                complete(.notActivated)
                 return
             }
 
             enManager.getDiagnosisKeys { keys, error in
                 if let error = error {
-                    completionHandler(self.parseError(error))
+                    complete(self.parseError(error))
                     return
                 }
 
                 guard let keys = keys else {
-                    completionHandler(.noKeys)
+                    complete(.noKeys)
                     return
                 }
 
                 self.covService.submitSelfExposure(tan: tan, diagnosisKeys: keys) { error in
-                    completionHandler(error == nil ? nil : self.parseError(error!))
-                    enManager.invalidate()
+                    complete(error == nil ? nil : self.parseError(error!))
                 }
             }
         }
