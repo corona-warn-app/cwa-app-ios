@@ -9,7 +9,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.sap.ena</key>
-		<string>ZK2MG3TWVQ/ena-3</string>
+		<string>ena-3</string>
 	</dict>
 </dict>
 </plist>
