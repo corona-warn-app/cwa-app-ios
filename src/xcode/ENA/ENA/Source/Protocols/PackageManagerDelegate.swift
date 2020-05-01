@@ -8,6 +8,6 @@
 
 import ExposureNotification
 
-protocol PackageManagerDelegate: class {
-    func didDownloadPackages(_ sender: PackageManager, result: [ENTemporaryExposureKey])
-}
+//protocol PackageManagerDelegate: class {
+//    func didDownloadPackages(_ sender: PackageManager, result: [ENTemporaryExposureKey])
+//}
