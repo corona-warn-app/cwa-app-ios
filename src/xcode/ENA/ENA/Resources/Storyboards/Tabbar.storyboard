@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,11 +18,12 @@
                     <connections>
                         <segue destination="Qsq-TR-tgT" kind="relationship" relationship="viewControllers" id="YrO-x7-Ef2"/>
                         <segue destination="GTt-aC-rNZ" kind="relationship" relationship="viewControllers" id="GMN-M2-SH0"/>
+                        <segue destination="Wvv-0j-O5v" kind="relationship" relationship="viewControllers" id="JHO-xh-glk"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fy7-Ic-kqi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-565" y="-571"/>
+            <point key="canvasLocation" x="-701" y="-584"/>
         </scene>
         <!--Main-->
         <scene sceneID="m87-K3-LIL">
@@ -43,6 +44,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v1B-J7-swH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="24" y="-488"/>
+        </scene>
+        <!--SelfExposure-->
+        <scene sceneID="17o-De-4Ct">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SelfExposure" id="Wvv-0j-O5v" userLabel="SelfExposure" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Nqj-bf-Gxn"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vg6-dM-BVe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18" y="-367"/>
         </scene>
     </scenes>
 </document>

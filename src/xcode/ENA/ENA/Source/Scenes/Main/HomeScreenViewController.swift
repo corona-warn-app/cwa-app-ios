@@ -17,5 +17,9 @@ class HomeScreenViewController: UIViewController {
         updateButton.tintColor = UIColor.black
         updateButton.backgroundColor = UIColor.gray
     }
-
+    @IBAction func settingButtonDidClick(_ sender: Any) {
+        let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
+        self.present(vc, animated: true, completion: nil)        
+    }
+    
 }

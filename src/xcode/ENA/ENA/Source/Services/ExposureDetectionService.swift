@@ -1,5 +1,5 @@
 //
-//  ExposureVerificationService.swift
+//  ExposureDetectionService.swift
 //  ENA
 //
 //  Created by Bormeth, Marc on 29.04.20.
@@ -9,9 +9,9 @@
 import Foundation
 import ExposureNotification
 
-class ExposureVerificationService : NSObject {
+class ExposureDetectionService : NSObject {
     
-    weak var delegate: ExposureVerificationServiceDelegate?
+    private weak var delegate: ExposureDetectionServiceDelegate?
     
     private lazy var downloadSession = URLSession(configuration: URLSessionConfiguration.default,
                                                   delegate: self,
@@ -19,6 +19,10 @@ class ExposureVerificationService : NSObject {
     
     @UserDefaultsStorage(key: "lastProcessedPackageTime", defaultValue: nil)
     static var lastProcessedPackageTime: Date?
+    
+    init(delegate: ExposureDetectionServiceDelegate?) {
+        self.delegate = delegate
+    }
     
     func verifyExposureIfNeeded() {
         // Check the timeframe since last succesfull download of a package.
@@ -62,7 +66,7 @@ class ExposureVerificationService : NSObject {
 }
 
 // MARK: - Download & parse packages
-extension ExposureVerificationService : URLSessionDownloadDelegate {
+extension ExposureDetectionService : URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         // Extract result from file
@@ -80,7 +84,7 @@ extension ExposureVerificationService : URLSessionDownloadDelegate {
             let pm = PackageManager()
             pm.processDownloadedPackages(fileURL: destinationUrl)
             
-            // Get result from PackageManager/ExposureVerificationSession + notify delegate
+            // Get result from PackageManager/ExposureDetectionSession + notify delegate
             
             // Filemanager.default.removeItem
         } catch {
@@ -100,4 +104,32 @@ extension ExposureVerificationService : URLSessionDownloadDelegate {
         
     }
 
+}
+
+// MARK: - Exposure Detection Session
+extension ExposureDetectionService {
+    func startExposureDetectionSession() {
+        let queue = DispatchQueue.global(qos: .background)
+        let session = ENExposureDetectionSession()
+        
+        session.dispatchQueue = queue
+        
+        session.activate() { error in
+            if error != nil {
+                // Handle error
+                return
+            }
+        }
+        
+        // Call addDiagnosisKeys with up to maxKeyCount keys. (Loop)
+        
+        // Wait for the completion handler for addDiagnosisKeys to be invoked with a nil error.
+        
+        // Repeat the previous two steps until all keys are provided to the system or an error occurs.
+        
+        // Call finishedDiagnosisKeysWithCompletion.
+        
+        // Wait for the completion handler for finishedDiagnosisKeysWithCompletion to be invoked with a nil error
+        
+    }
 }
