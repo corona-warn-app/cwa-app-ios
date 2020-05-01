@@ -23,12 +23,12 @@ class ExposureDetectionService {
         self.queue = DispatchQueue(label: "com.sap.exposureDetection")
     }
 
-    func verifyExposureIfNeeded() {
-        // Check the timeframe since last succesfull download of a package.
-        if !checkLastEVSession() {
-            return  // Avoid DDoS by allowing only one request per hour
-        }
-
+    func detectExposureIfNeeded() {
+//        // Check the timeframe since last succesfull download of a package.
+//        if !checkLastEVSession() {
+//            return  // Avoid DDoS by allowing only one request per hour
+//        }
+//
         self.sessionStartTime = Date()
 
         // Prepare parameter for download task
@@ -80,7 +80,7 @@ class ExposureDetectionService {
 
 // MARK: - Exposure Detection Session
 extension ExposureDetectionService {
-    func startExposureDetectionSession(diagnosisKeys: [ENTemporaryExposureKey]) {
+    private func startExposureDetectionSession(diagnosisKeys: [ENTemporaryExposureKey]) {
         let session = ENExposureDetectionSession()
 
         session.activate() { error in

@@ -183,6 +183,9 @@
                                                                 <state key="normal" title="Sync">
                                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="refresh:" destination="grs-iX-12H" eventType="touchUpInside" id="E1f-qy-wrg"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
