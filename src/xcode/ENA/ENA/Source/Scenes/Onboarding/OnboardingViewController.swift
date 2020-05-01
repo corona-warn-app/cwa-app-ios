@@ -32,7 +32,7 @@ class OnboardingViewController: UIViewController {
     
     private func updateButton() {
         let isLastPage = currentIndex == pages.count - 1
-        let title = isLastPage ? "Finish" : "Next"
+        let title = isLastPage ? NSLocalizedString("onboarding_button_finish", comment: "") : NSLocalizedString("onboarding_button_next", comment: "")
         nextButton.setTitle(title, for: .normal)
     }
     

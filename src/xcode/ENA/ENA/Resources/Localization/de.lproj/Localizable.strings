@@ -10,3 +10,7 @@
 
 "status_Active" = "aktiv";
 "status_Inactive" = "inaktiv";
+
+// Onboarding
+"onboarding_button_next" = "Nächste";
+"onboarding_button_finish" = "Fertig";
