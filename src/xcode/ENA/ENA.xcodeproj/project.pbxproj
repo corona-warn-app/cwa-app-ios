@@ -45,7 +45,7 @@
 		CD99A3A3245B327100BF12AF /* TanEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */; };
 		CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A3A4245B334100BF12AF /* Confirmation.storyboard */; };
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
-		EE6119E3245C850E00AB38A1 /* ENManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6119E2245C850E00AB38A1 /* ENManager.swift */; };
+		EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6119E2245C850E00AB38A1 /* ExposureManager.swift */; };
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -111,7 +111,7 @@
 		CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanEntryViewController.swift; sourceTree = "<group>"; };
 		CD99A3A4245B334100BF12AF /* Confirmation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
 		CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
-		EE6119E2245C850E00AB38A1 /* ENManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENManager.swift; sourceTree = "<group>"; };
+		EE6119E2245C850E00AB38A1 /* ExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -234,7 +234,7 @@
 		51EE9A6A245C0F7900F2544F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EE6119E1245C849700AB38A1 /* ENManager */,
+				EE6119E1245C849700AB38A1 /* ExposureManager */,
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
 			);
 			path = Models;
@@ -394,12 +394,12 @@
 			path = SelfExposure;
 			sourceTree = "<group>";
 		};
-		EE6119E1245C849700AB38A1 /* ENManager */ = {
+		EE6119E1245C849700AB38A1 /* ExposureManager */ = {
 			isa = PBXGroup;
 			children = (
-				EE6119E2245C850E00AB38A1 /* ENManager.swift */,
+				EE6119E2245C850E00AB38A1 /* ExposureManager.swift */,
 			);
-			path = ENManager;
+			path = ExposureManager;
 			sourceTree = "<group>";
 		};
 		EE70C239245B09E900AC9B2F /* Localization */ = {
@@ -570,7 +570,7 @@
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
-				EE6119E3245C850E00AB38A1 /* ENManager.swift in Sources */,
+				EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */,
 				51C737BB245B142B00286105 /* OnboardingViewController.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */,
