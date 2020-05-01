@@ -10,7 +10,7 @@
         <!--Home Screen View Controller-->
         <scene sceneID="W0H-5i-BnT">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="nJh-Ox-BtJ" customClass="HomeScreenViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeScreenViewController" id="nJh-Ox-BtJ" customClass="HomeScreenViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sT4-kF-os7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -27,6 +27,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juj-bc-2tR">
                                         <rect key="frame" x="356" y="30.666666666666671" width="30" height="30"/>
                                         <state key="normal" title="&gt;"/>
+                                        <connections>
+                                            <action selector="exposureNotifcationSettingBtnDidClick:" destination="nJh-Ox-BtJ" eventType="touchUpInside" id="885-qf-iNf"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -80,34 +83,61 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cy8-h4-pZV">
                                 <rect key="frame" x="135.66666666666666" y="773" width="142.99999999999997" height="30"/>
                                 <state key="normal" title="Testergebnis Melden"/>
+                                <connections>
+                                    <action selector="submitResultDidClick:" destination="nJh-Ox-BtJ" eventType="touchUpInside" id="f67-9h-cf5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjC-KK-bhn">
-                                <rect key="frame" x="150.66666666666666" y="424" width="112.99999999999997" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="113" id="YQh-M1-ZAC"/>
-                                </constraints>
+                                <rect key="frame" x="165.66666666666666" y="454" width="83" height="30"/>
                                 <state key="normal" title="Akualisieren"/>
                                 <connections>
                                     <segue destination="grs-iX-12H" kind="show" id="6tg-IR-Tt0"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEO-fu-tNF">
+                                <rect key="frame" x="117" y="252" width="180" height="180"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="PpO-t0-nIU"/>
+                                    <constraint firstAttribute="height" constant="180" id="ceG-2m-eOe"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alles OK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WtP-xW-Ujs">
+                                <rect key="frame" x="173.66666666666666" y="331.66666666666669" width="67" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhC-fA-tui">
+                                <rect key="frame" x="161" y="492" width="92" height="30"/>
+                                <state key="normal" title="Einstellungen"/>
+                                <connections>
+                                    <action selector="settingBtnDidClick:" destination="nJh-Ox-BtJ" eventType="touchUpInside" id="xbD-At-3V2"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Tvi-Dq-Lf5" firstAttribute="top" secondItem="sT4-kF-os7" secondAttribute="top" constant="591" id="19Z-zg-PdF"/>
+                            <constraint firstItem="WtP-xW-Ujs" firstAttribute="centerY" secondItem="oEO-fu-tNF" secondAttribute="centerY" id="1Qf-GD-EOR"/>
                             <constraint firstItem="v4v-VG-sHq" firstAttribute="top" secondItem="Tvi-Dq-Lf5" secondAttribute="bottom" constant="23" id="4Wa-qS-6l8"/>
+                            <constraint firstItem="oEO-fu-tNF" firstAttribute="centerX" secondItem="0j2-HK-2jO" secondAttribute="centerX" id="8sI-Nf-k8c"/>
                             <constraint firstItem="MNQ-uk-IJN" firstAttribute="top" secondItem="0j2-HK-2jO" secondAttribute="top" constant="25" id="9Vz-HG-XE5"/>
                             <constraint firstItem="AoO-Wf-5fu" firstAttribute="top" secondItem="MNQ-uk-IJN" secondAttribute="bottom" constant="44" id="DfI-tC-nk1"/>
+                            <constraint firstItem="nhC-fA-tui" firstAttribute="top" secondItem="fjC-KK-bhn" secondAttribute="bottom" constant="8" id="EH3-qA-030"/>
                             <constraint firstItem="Cy8-h4-pZV" firstAttribute="centerX" secondItem="0j2-HK-2jO" secondAttribute="centerX" id="Eea-3N-MD6"/>
                             <constraint firstItem="MNQ-uk-IJN" firstAttribute="trailing" secondItem="0j2-HK-2jO" secondAttribute="trailing" id="F3a-h6-DZc"/>
                             <constraint firstItem="0j2-HK-2jO" firstAttribute="bottom" secondItem="Cy8-h4-pZV" secondAttribute="bottom" constant="10" id="IcX-eF-gZu"/>
+                            <constraint firstItem="fjC-KK-bhn" firstAttribute="centerX" secondItem="0j2-HK-2jO" secondAttribute="centerX" id="Rfv-vv-44x"/>
                             <constraint firstItem="MNQ-uk-IJN" firstAttribute="leading" secondItem="0j2-HK-2jO" secondAttribute="leading" id="SVT-sH-NF8"/>
-                            <constraint firstItem="fjC-KK-bhn" firstAttribute="top" secondItem="AoO-Wf-5fu" secondAttribute="bottom" constant="199" id="Tx2-Ql-Oab"/>
+                            <constraint firstItem="oEO-fu-tNF" firstAttribute="top" secondItem="AoO-Wf-5fu" secondAttribute="bottom" constant="27" id="ZIj-8J-Cmm"/>
+                            <constraint firstItem="fjC-KK-bhn" firstAttribute="top" secondItem="oEO-fu-tNF" secondAttribute="bottom" constant="22" id="cHv-Gz-X0m"/>
                             <constraint firstItem="Tvi-Dq-Lf5" firstAttribute="leading" secondItem="MNQ-uk-IJN" secondAttribute="leading" id="evv-eK-Rni"/>
-                            <constraint firstItem="fjC-KK-bhn" firstAttribute="centerX" secondItem="0j2-HK-2jO" secondAttribute="centerX" id="mnV-1g-LHK"/>
                             <constraint firstItem="Tvi-Dq-Lf5" firstAttribute="trailing" secondItem="MNQ-uk-IJN" secondAttribute="trailing" id="nTC-zo-YCD"/>
                             <constraint firstItem="Cy8-h4-pZV" firstAttribute="top" secondItem="v4v-VG-sHq" secondAttribute="bottom" constant="15" id="od9-w0-Lgp"/>
+                            <constraint firstItem="WtP-xW-Ujs" firstAttribute="centerX" secondItem="oEO-fu-tNF" secondAttribute="centerX" id="pMd-UN-5E0"/>
                             <constraint firstItem="Tvi-Dq-Lf5" firstAttribute="trailing" secondItem="v4v-VG-sHq" secondAttribute="trailing" id="r6I-B4-n4n"/>
+                            <constraint firstItem="nhC-fA-tui" firstAttribute="centerX" secondItem="0j2-HK-2jO" secondAttribute="centerX" id="t8Q-tJ-V4S"/>
                             <constraint firstItem="Tvi-Dq-Lf5" firstAttribute="leading" secondItem="v4v-VG-sHq" secondAttribute="leading" id="u2g-mg-foJ"/>
                             <constraint firstItem="AoO-Wf-5fu" firstAttribute="centerX" secondItem="0j2-HK-2jO" secondAttribute="centerX" id="wbd-1c-PfH"/>
                         </constraints>
@@ -116,6 +146,8 @@
                     <tabBarItem key="tabBarItem" title="" image="house" catalog="system" id="xUu-5i-bm5"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="circleView" destination="oEO-fu-tNF" id="qkT-rS-88D"/>
+                        <outlet property="settingButton" destination="nhC-fA-tui" id="IeF-0z-ba5"/>
                         <outlet property="updateButton" destination="fjC-KK-bhn" id="rRA-wZ-6Lr"/>
                     </connections>
                 </viewController>
