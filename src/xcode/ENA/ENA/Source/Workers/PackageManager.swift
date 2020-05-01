@@ -14,9 +14,13 @@ class PackageManager: NSObject {
                                                   delegate: self,
                                                   delegateQueue: nil)
 
-    func downloadDiagnosisKeys(urlSuffix: String) {
-        // Add either completion handler or delegate to notify ExposureDetectionService
+    private weak var delegate: PackageManagerDelegate?
 
+    init(delegate: PackageManagerDelegate?) {
+        self.delegate = delegate
+    }
+
+    func downloadDiagnosisKeys(urlSuffix: String) {
         // Download the diff packages since last update
         let task = downloadSession.downloadTask(with: URL(string: "https://file-examples.com/wp-content/uploads/2017/02/file_example_CSV_5000.csv")!)
         task.resume()

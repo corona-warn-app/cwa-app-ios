@@ -29,7 +29,7 @@ class ExposureDetectionService {
         // Prepare parameter for download task
         let requestParam = formatPackageRequestName()
 
-        let pm = PackageManager()
+        let pm = PackageManager(delegate: self)
         pm.downloadDiagnosisKeys(urlSuffix: requestParam)
 
     }
@@ -57,9 +57,16 @@ class ExposureDetectionService {
 
 }
 
+// MARK: - PackageManagerDelegate
+extension ExposureDetectionService: PackageManagerDelegate {
+    func didDownloadPackages(_ sender: PackageManager, result: [ENTemporaryExposureKey]) {
+        startExposureDetectionSession(diagnosisKeys: result)
+    }
+}
+
 // MARK: - Exposure Detection Session
 extension ExposureDetectionService {
-    func startExposureDetectionSession() {
+    func startExposureDetectionSession(diagnosisKeys: [ENTemporaryExposureKey]) {
         let session = ENExposureDetectionSession()
 
         session.activate() { error in
