@@ -24,3 +24,7 @@
 
 "status_Active" = "active";
 "status_Inactive" = "inactive";
+
+// Onboarding
+"onboarding_button_next" = "next";
+"onboarding_button_finish" = "finish";
