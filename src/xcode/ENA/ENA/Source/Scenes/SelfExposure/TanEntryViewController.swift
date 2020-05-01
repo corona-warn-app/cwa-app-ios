@@ -34,8 +34,12 @@ class TanEntryViewController: UIViewController {
         }
 
         service.submitSelfExposure(tan: tan) { [weak self] error in
-            guard error == nil else {
-                //handle error
+            if error != nil {
+                let alert = UIAlertController(title: .alertTitleGeneral, message: .alertMessageGeneral, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: .alertActionOk, style: .default, handler: nil))
+
+                self?.present(alert, animated: true, completion: nil)
+
                 return
             }
 
@@ -53,4 +57,7 @@ fileprivate extension String {
     static let title = NSLocalizedString("SelfExposure_TANEntry_Title", comment: "")
     static let description = NSLocalizedString("SelfExposure_TANEntry_Description", comment: "")
     static let submit = NSLocalizedString("SelfExposure_TANEntry_Submit", comment: "")
+    static let alertTitleGeneral = NSLocalizedString("AlertTitleGeneral", comment: "")
+    static let alertMessageGeneral = NSLocalizedString("AlertMessageGeneral", comment: "")
+    static let alertActionOk = NSLocalizedString("AlertActionOk", comment: "")
 }
