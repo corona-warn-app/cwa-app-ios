@@ -27,6 +27,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juj-bc-2tR">
                                         <rect key="frame" x="356" y="30.5" width="30" height="30"/>
                                         <state key="normal" title="&gt;"/>
+                                        <connections>
+                                            <segue destination="fzz-3z-QXq" kind="presentation" id="ucN-kQ-phS"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -119,6 +122,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbO-KN-WEC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="73.913043478260875" y="150"/>
+        </scene>
+        <!--ExposureNotificationSetting-->
+        <scene sceneID="zsr-KV-z3M">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ExposureNotificationSetting" id="fzz-3z-QXq" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VKN-1U-Fmb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1155" y="99"/>
         </scene>
     </scenes>
     <resources>
