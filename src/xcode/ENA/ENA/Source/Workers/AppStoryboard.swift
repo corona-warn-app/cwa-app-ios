@@ -12,6 +12,7 @@ enum AppStoryboard: String {
     case main = "Main"
     case tabbar = "Tabbar"
     case onboarding = "Onboarding"
+    case exposureNotificationSetting = "ExposureNotificationSetting"
 
     var instance: UIStoryboard {
         return UIStoryboard(name: rawValue, bundle: nil)

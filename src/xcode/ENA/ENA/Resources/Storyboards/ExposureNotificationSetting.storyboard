@@ -10,7 +10,7 @@
         <!--Exposure Notification Setting View Controller-->
         <scene sceneID="khU-8P-XpG">
             <objects>
-                <viewController id="OYM-wn-8tE" customClass="ExposureNotificationSettingViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExposureNotificationSettingViewController" id="OYM-wn-8tE" customClass="ExposureNotificationSettingViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZGh-Is-puY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,7 +83,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjE-Mm-T4r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1151" y="69"/>
+            <point key="canvasLocation" x="441" y="-17"/>
         </scene>
     </scenes>
 </document>
