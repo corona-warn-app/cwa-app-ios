@@ -12,12 +12,15 @@ import ExposureNotification
 class ExposureDetectionService {
 
     private weak var delegate: ExposureDetectionServiceDelegate?
+    private var queue: DispatchQueue
+    private var sessionStartTime: Date?
 
     @UserDefaultsStorage(key: "lastProcessedPackageTime", defaultValue: nil)
     static var lastProcessedPackageTime: Date?
 
     init(delegate: ExposureDetectionServiceDelegate?) {
         self.delegate = delegate
+        self.queue = DispatchQueue(label: "com.sap.exposureDetection")
     }
 
     func verifyExposureIfNeeded() {
@@ -25,6 +28,8 @@ class ExposureDetectionService {
         if !checkLastEVSession() {
             return  // Avoid DDoS by allowing only one request per hour
         }
+
+        self.sessionStartTime = Date()
 
         // Prepare parameter for download task
         let requestParam = formatPackageRequestName()
@@ -85,15 +90,58 @@ extension ExposureDetectionService {
             }
         }
 
-        // Call addDiagnosisKeys with up to maxKeyCount keys. (Loop)
+        // Call addDiagnosisKeys with up to maxKeyCount keys
+        var addDiagnosisKeysRetVal: Error?
+        queue.async {
+            addDiagnosisKeysRetVal = self.addKeys(session, diagnosisKeys)
+        }
 
-        // Wait for the completion handler for addDiagnosisKeys to be invoked with a nil error.
+        guard addDiagnosisKeysRetVal == nil else {
+            self.delegate?.didFailWithError(self, error: addDiagnosisKeysRetVal!)
+            return
+        }
 
-        // Repeat the previous two steps until all keys are provided to the system or an error occurs.
+        // Get result from session
+        session.finishedDiagnosisKeys { (summary, error) in
+            guard error == nil else {
+                self.delegate?.didFailWithError(self, error: error! )
+                return
+            }
+            guard let summary = summary else {
+                return
+            }
+            self.delegate?.didFinish(self, result: summary)
 
-        // Call finishedDiagnosisKeysWithCompletion.
+            if self.sessionStartTime != nil {
+                Self.lastProcessedPackageTime = self.sessionStartTime!
+            }
+        }
 
-        // Wait for the completion handler for finishedDiagnosisKeysWithCompletion to be invoked with a nil error
+    }
 
+    func addKeys(_ session: ENExposureDetectionSession, _ keys: [ENTemporaryExposureKey]) -> Error? {
+        var index = 0
+        var returnValue: Error?
+        while index < keys.count {
+            let semaphore = DispatchSemaphore(value: 0)
+            let endIndex = index + session.maximumKeyCount > keys.count ? keys.count : index + session.maximumKeyCount
+            let slice = keys[index..<endIndex]
+
+            session.addDiagnosisKeys(Array(slice)) { (error) in
+                guard error == nil else {
+                    returnValue = error
+                    semaphore.signal()
+                    return
+                }
+                semaphore.signal()
+
+            }
+            semaphore.wait()
+            if returnValue != nil {
+                return returnValue
+            }
+            index += session.maximumKeyCount
+        }
+        return returnValue
     }
 }
