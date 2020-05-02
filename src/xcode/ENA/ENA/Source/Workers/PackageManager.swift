@@ -42,7 +42,7 @@ class PackageManager: NSObject {
         }
     }
 
-    func sendDiagnosisKeys(_ diagnosisKeys: [Data], tan: String, completionHandler completeWith: @escaping SendCompletionHandler) {
+    func sendDiagnosisKeys(_ diagnosisKeys: [ENTemporaryExposureKey], tan: String, completionHandler completeWith: @escaping SendCompletionHandler) {
            switch mode {
            case .development:
             // In development we simply assume that everything just works.
@@ -52,7 +52,7 @@ class PackageManager: NSObject {
            }
        }
 
-    private func productionSendDiagnosisKeys(_ keys: [Data], tan: String, completionHandler completeWith: @escaping SendCompletionHandler) {
+    private func productionSendDiagnosisKeys(_ keys: [ENTemporaryExposureKey], tan: String, completionHandler completeWith: @escaping SendCompletionHandler) {
         // TODO: implementation missing.
         fatalError("not implemented")
     }

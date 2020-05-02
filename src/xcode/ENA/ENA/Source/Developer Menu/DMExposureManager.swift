@@ -1,20 +1,19 @@
-//
-//  ExposureManager.swift
-//  ENA
-//
-//  Created by Steinmetz, Conrad on 01.05.20.
-//  Copyright © 2020 SAP SE. All rights reserved.
-//
+/*
+See LICENSE folder for this sample’s licensing information.
 
-import ExposureNotification
+Abstract:
+A class that manages a singleton ENManager object.
+*/
+
 import Foundation
+import ExposureNotification
 
-final class ExposureManager {
-    static let shared = ExposureManager()
+
+class DMExposureManager {
 
     let manager = ENManager()
 
-    private init() {
+    init() {
         manager.activate { _ in
             // Ensure exposure notifications are enabled if we are authorized
             // We could get into this state where we are authorized, but exposure notifications are not enabled if the user initially denied Exposure Notifications during onboarding, but then flipped on the "COVID-19 Exposure Notifications" switch in Settings
@@ -29,4 +28,6 @@ final class ExposureManager {
     deinit {
         manager.invalidate()
     }
+
+    static let shared = DMExposureManager()
 }

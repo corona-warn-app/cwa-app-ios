@@ -115,6 +115,14 @@
                                     <action selector="settingBtnDidClick:" destination="nJh-Ox-BtJ" eventType="touchUpInside" id="xbD-At-3V2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bs-Oc-itm">
+                                <rect key="frame" x="151" y="536" width="113" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Entwickler Menu"/>
+                                <connections>
+                                    <action selector="showDeveloperMenu:" destination="nJh-Ox-BtJ" eventType="touchUpInside" id="x3O-Ww-4pM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
