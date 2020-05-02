@@ -26,15 +26,18 @@ class ExposureDetectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupView()
+    }
+
+    private func setupView() {
         contactTitleLabel.text = .lastContactTitle
         let lastContactStringFormat = NSLocalizedString("lastDays", comment: "")
         lastContactLabel.text = String.localizedStringWithFormat(lastContactStringFormat, 3)
 
-
         updateLastSyncLabel()
-        syncButton.setTitle(.synchronize, for: [])
-        nextSyncLabel.text = formatNextSync()
-        
+        updateNextSyncLabel()
+
+        syncButton.setTitle(.synchronize, for: .normal)
         infoTitleLabel.text = .info
         infoTextView.text = .infoText
     }
@@ -50,8 +53,9 @@ class ExposureDetectionViewController: UIViewController {
         self.lastSyncLabel.text =  String.localizedStringWithFormat(lastContactStringFormat, hours)
     }
     
-    private func formatNextSync() -> String {
-        return "\(String.nextSync) \(String(18)) "
+    private func updateNextSyncLabel() {
+        let stringFormat = NSLocalizedString("nextSync", comment: "")
+        nextSyncLabel.text = String.localizedStringWithFormat(stringFormat, 18)
     }
 
 
@@ -72,13 +76,10 @@ extension ExposureDetectionViewController: ExposureDetectionServiceDelegate {
     }
 }
 
-fileprivate extension String { 
+fileprivate extension String {
 
     static let lastContactTitle = NSLocalizedString("ExposureDetection_lastContactTitle", comment: "")
-    
-    static let lastSyncInfo = NSLocalizedString("ExposureDetection_lastSyncInfo", comment: "")
     static let synchronize = NSLocalizedString("ExposureDetection_synchronize", comment: "")
-    static let nextSync = NSLocalizedString("ExposureDetection_nextSync", comment: "")
     
     static let info = NSLocalizedString("ExposureDetection_info", comment: "")
     static let infoText = NSLocalizedString("ExposureDetection_infoText", comment: "")

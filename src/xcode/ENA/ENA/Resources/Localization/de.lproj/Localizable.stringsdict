@@ -40,5 +40,23 @@
 			<string>Vor %u Tagen</string>
 		</dict>
 	</dict>
+    <key>nextSync</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+            <string>Nächste Überprüfung in wenigen Minuten</string>
+            <key>one</key>
+            <string>Nächste Überprüfung in 1 Minute</string>
+            <key>other</key>
+            <string>Nächste Überprüfung in %u Minuten</string>
+        </dict>
+    </dict>
 </dict>
 </plist>
