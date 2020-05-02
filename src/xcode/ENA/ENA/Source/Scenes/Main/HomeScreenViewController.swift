@@ -56,7 +56,15 @@ extension HomeScreenViewController {
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
-    
+
+    @IBAction func showDeveloperMenu(_ sender: Any) {
+        let storyboard = AppStoryboard.developerMenu.instance
+        guard let developerMenuController = storyboard.instantiateInitialViewController() else {
+            fatalError("shoould not happen")
+        }
+           self.present(developerMenuController, animated: true, completion: nil)
+       }
+
 }
 
 extension UIButton {
