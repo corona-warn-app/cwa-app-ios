@@ -75,7 +75,7 @@ class DebugViewController: UITableViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .cancel))
             present(alert, animated: true, completion: nil)
         } else {
-            ExposureManager.shared.manager.setExposureNotificationEnabled(true) { error in
+            DMExposureManager.shared.manager.setExposureNotificationEnabled(true) { error in
                 if let error = error as? ENError, error.code == .notAuthorized {
                     // Encourage the user to consider enabling Exposure Notifications.
                     // Provide a button to allow the user to open Settings to enable it.
@@ -266,7 +266,7 @@ class DebugViewController: UITableViewController {
         // Collect test results, and get user consent to share their diagnosis before sharing with your server.
         let yesterday = Date().addingTimeInterval(-60 * 60 * 24)
         var testResult = TestResult(dateAdministered: yesterday, dateReceived: Date(), isShared: false)
-        ExposureManager.shared.manager.getDiagnosisKeys { temporaryExposureKeys, error in
+        DMExposureManager.shared.manager.getDiagnosisKeys { temporaryExposureKeys, error in
             if let error = error as? ENError, error.code == .notAuthorized {
                 LocalStore.shared.testResults.append(testResult)
             } else if let error = error {
@@ -288,7 +288,7 @@ class DebugViewController: UITableViewController {
     // MARK: - Disable Exposure Notifications
 
     func disableExposureNotifications() {
-        ExposureManager.shared.manager.setExposureNotificationEnabled(false) { error in
+        DMExposureManager.shared.manager.setExposureNotificationEnabled(false) { error in
             if let error = error {
                 showError(error, from: self)
             }

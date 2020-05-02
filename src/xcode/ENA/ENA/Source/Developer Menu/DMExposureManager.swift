@@ -9,7 +9,7 @@ import Foundation
 import ExposureNotification
 
 
-class ExposureManager {
+class DMExposureManager {
 
     let manager = ENManager()
 
@@ -29,5 +29,5 @@ class ExposureManager {
         manager.invalidate()
     }
 
-    static let shared = ExposureManager()
+    static let shared = DMExposureManager()
 }
