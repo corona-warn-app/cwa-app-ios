@@ -13,7 +13,9 @@ class TanEntryViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var tanTextField: UITextField!
-    
+
+    let service: ExposureSubmissionService = ExposureSubmissionServiceImpl()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,8 +25,31 @@ class TanEntryViewController: UIViewController {
     }
     
     @IBAction func submitClicked(_ sender: Any) {
+        submitSelfExposure()
+    }
+
+    private func submitSelfExposure() {
+        guard let tan = tanTextField.text else {
+            return
+        }
+
+        service.submitSelfExposure(tan: tan) { [weak self] error in
+            if error != nil {
+                let alert = UIAlertController(title: .alertTitleGeneral, message: .alertMessageGeneral, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: .alertActionOk, style: .default, handler: nil))
+
+                self?.present(alert, animated: true, completion: nil)
+
+                return
+            }
+
+            self?.loadConfirmationScreen()
+        }
+    }
+
+    private func loadConfirmationScreen() {
         let confirmationViewController = ConfirmationViewController.initiate(for: .selfExposureConfirmation)
-        self.navigationController?.pushViewController(confirmationViewController, animated: true)
+        navigationController?.pushViewController(confirmationViewController, animated: true)
     }
 }
 
@@ -32,4 +57,7 @@ fileprivate extension String {
     static let title = NSLocalizedString("SelfExposure_TANEntry_Title", comment: "")
     static let description = NSLocalizedString("SelfExposure_TANEntry_Description", comment: "")
     static let submit = NSLocalizedString("SelfExposure_TANEntry_Submit", comment: "")
+    static let alertTitleGeneral = NSLocalizedString("AlertTitleGeneral", comment: "")
+    static let alertMessageGeneral = NSLocalizedString("AlertMessageGeneral", comment: "")
+    static let alertActionOk = NSLocalizedString("AlertActionOk", comment: "")
 }

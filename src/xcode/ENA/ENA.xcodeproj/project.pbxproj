@@ -11,6 +11,7 @@
 		01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */; };
 		01B0C6B8245B23C2006F5A69 /* ExposureDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */; };
 		01B0C6BA245B23D0006F5A69 /* ExposureDetectionServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B9245B23D0006F5A69 /* ExposureDetectionServiceDelegate.swift */; };
+		01C28E11245D9BE30045EFFA /* DMLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C28E10245D9BE30045EFFA /* DMLocalStore.swift */; };
 		51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* UIColor.swift */; };
 		51C737BB245B142B00286105 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BA245B142B00286105 /* OnboardingViewController.swift */; };
 		51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BC245B349700286105 /* OnboardingInfoViewController.swift */; };
@@ -38,14 +39,23 @@
 		85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594C24570491008175F0 /* LaunchScreen.storyboard */; };
 		85D7595924570491008175F0 /* ENATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7595824570491008175F0 /* ENATests.swift */; };
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
+		B10FB02D245D8A85004CA11E /* TintLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB02C245D8A85004CA11E /* TintLabel.swift */; };
+		B1569DD7245D703C0079FCD7 /* DMServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DD6245D703C0079FCD7 /* DMServer.swift */; };
+		B1569DDB245D70770079FCD7 /* DMExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DDA245D70770079FCD7 /* DMExposureManager.swift */; };
+		B1569DDD245D70880079FCD7 /* DMErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DDC245D70880079FCD7 /* DMErrorHandling.swift */; };
+		B1569DDF245D70990079FCD7 /* DMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DDE245D70990079FCD7 /* DMViewController.swift */; };
+		B1569DE1245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */; };
+		B1569DE3245D70DD0079FCD7 /* DeveloperMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */; };
 		CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */; };
 		CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */; };
 		CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */; };
 		CD99A3A3245B327100BF12AF /* TanEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */; };
 		CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A3A4245B334100BF12AF /* Confirmation.storyboard */; };
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
+		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
 		EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6119E2245C850E00AB38A1 /* ExposureManager.swift */; };
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
+		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +80,7 @@
 		01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageManager.swift; sourceTree = "<group>"; };
 		01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionService.swift; sourceTree = "<group>"; };
 		01B0C6B9245B23D0006F5A69 /* ExposureDetectionServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionServiceDelegate.swift; sourceTree = "<group>"; };
+		01C28E10245D9BE30045EFFA /* DMLocalStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMLocalStore.swift; sourceTree = "<group>"; };
 		51895EDB245E16CD0085DA38 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		51C737BA245B142B00286105 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		51C737BC245B349700286105 /* OnboardingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewController.swift; sourceTree = "<group>"; };
@@ -104,15 +115,24 @@
 		85D7595F24570491008175F0 /* ENAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ENAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D7596324570491008175F0 /* ENAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests.swift; sourceTree = "<group>"; };
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B10FB02C245D8A85004CA11E /* TintLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintLabel.swift; sourceTree = "<group>"; };
+		B1569DD6245D703C0079FCD7 /* DMServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServer.swift; sourceTree = "<group>"; };
+		B1569DDA245D70770079FCD7 /* DMExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMExposureManager.swift; sourceTree = "<group>"; };
+		B1569DDC245D70880079FCD7 /* DMErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorHandling.swift; sourceTree = "<group>"; };
+		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
+		B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugDiagnosisKeysViewController.swift; sourceTree = "<group>"; };
+		B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DeveloperMenu.storyboard; sourceTree = "<group>"; };
 		CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfExposureViewController.swift; sourceTree = "<group>"; };
 		CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SelfExposure.storyboard; sourceTree = "<group>"; };
 		CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TanEntry.storyboard; sourceTree = "<group>"; };
 		CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanEntryViewController.swift; sourceTree = "<group>"; };
 		CD99A3A4245B334100BF12AF /* Confirmation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
 		CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
+		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
 		EE6119E2245C850E00AB38A1 /* ExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +237,7 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B1569DD5245D6C790079FCD7 /* Developer Menu */,
 				51EE9A6B245C0F7E00F2544F /* Views */,
 				51EE9A6A245C0F7900F2544F /* Models */,
 				01AB8A692459E65D00042245 /* Protocols */,
@@ -347,6 +368,7 @@
 		85D75975245706B0008175F0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */,
 				CD99A39B245B22DA00BF12AF /* SelfExposure */,
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420B02458397300AD70CA /* Onboarding.storyboard */,
@@ -369,8 +391,23 @@
 			isa = PBXGroup;
 			children = (
 				01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */,
+				CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		B1569DD5245D6C790079FCD7 /* Developer Menu */ = {
+			isa = PBXGroup;
+			children = (
+				01C28E10245D9BE30045EFFA /* DMLocalStore.swift */,
+				B10FB02C245D8A85004CA11E /* TintLabel.swift */,
+				B1569DDE245D70990079FCD7 /* DMViewController.swift */,
+				B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */,
+				B1569DD6245D703C0079FCD7 /* DMServer.swift */,
+				B1569DDA245D70770079FCD7 /* DMExposureManager.swift */,
+				B1569DDC245D70880079FCD7 /* DMErrorHandling.swift */,
+			);
+			path = "Developer Menu";
 			sourceTree = "<group>";
 		};
 		CD99A398245B229F00BF12AF /* SelfExposure */ = {
@@ -405,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				EE70C23A245B09E900AC9B2F /* Localizable.strings */,
+				EE92A340245D96DA006B97B0 /* Localizable.stringsdict */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -517,8 +555,10 @@
 				CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */,
+				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */,
+				B1569DE3245D70DD0079FCD7 /* DeveloperMenu.storyboard in Resources */,
 				51D420CE245869C800AD70CA /* Main.storyboard in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				858F6F75245B1374009FFD33 /* ExposureNotificationSetting.storyboard in Resources */,
@@ -551,25 +591,33 @@
 				CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */,
 				01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */,
+				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
+				01C28E11245D9BE30045EFFA /* DMLocalStore.swift in Sources */,
 				01B0C6B8245B23C2006F5A69 /* ExposureDetectionService.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
+				B1569DDD245D70880079FCD7 /* DMErrorHandling.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
+				B1569DD7245D703C0079FCD7 /* DMServer.swift in Sources */,
 				01B0C6BA245B23D0006F5A69 /* ExposureDetectionServiceDelegate.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
 				51D420C024583D1100AD70CA /* TabBarController.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController.swift in Sources */,
+				B1569DDF245D70990079FCD7 /* DMViewController.swift in Sources */,
 				51D420CC245849A700AD70CA /* UserSettings.swift in Sources */,
 				51D420CA2458466300AD70CA /* UserDefaultsStorage.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
+				B1569DE1245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift in Sources */,
 				CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */,
 				51C737BB245B142B00286105 /* OnboardingViewController.swift in Sources */,
+				B1569DDB245D70770079FCD7 /* DMExposureManager.swift in Sources */,
+				B10FB02D245D8A85004CA11E /* TintLabel.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */,
 				51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */,
@@ -624,6 +672,14 @@
 				EE70C23C245B09E900AC9B2F /* en */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		EE92A340245D96DA006B97B0 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE92A33F245D96DA006B97B0 /* de */,
+			);
+			name = Localizable.stringsdict;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -769,7 +825,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = ZK2MG3TWVQ;
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
@@ -779,7 +835,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ena;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "ena-4";
+				PROVISIONING_PROFILE_SPECIFIER = covid19;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
