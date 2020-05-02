@@ -27,9 +27,11 @@ class ExposureDetectionViewController: UIViewController {
         super.viewDidLoad()
 
         contactTitleLabel.text = .lastContactTitle
-        lastContactLabel.text = formatLastContact()
-        
-        lastSyncLabel.text = formatLastSync()
+        let lastContactStringFormat = NSLocalizedString("lastDays", comment: "")
+        lastContactLabel.text = String.localizedStringWithFormat(lastContactStringFormat, 3)
+
+
+        updateLastSyncLabel()
         syncButton.setTitle(.synchronize, for: [])
         nextSyncLabel.text = formatNextSync()
         
@@ -37,31 +39,19 @@ class ExposureDetectionViewController: UIViewController {
         infoTextView.text = .infoText
     }
     
-    
-    // MARK: - String formatters
-    private func formatLastContact() -> String {
-        var str: String = .lastContactTextDays
-        str = str.replacingOccurrences(of: "$", with: String(3))
-        return str
-    }
-    
-    private func formatLastSync() -> String {
-        var str: String = .lastSyncInfo
+    private func updateLastSyncLabel() {
 
-        let lastSync = ExposureDetectionService.lastProcessedPackageTime
-        if lastSync == nil {
-            str.append(" \(String.never)")
-        } else {
-            str.append(" \(String.lastSyncData)")
-            let hours = Calendar.current.component(.hour, from: lastSync!)
-            str = str.replacingOccurrences(of: "$", with: String(hours))
+        let lastContactStringFormat = NSLocalizedString("lastHours", comment: "")
+        guard let lastSync = ExposureDetectionService.lastProcessedPackageTime else {
+            self.lastSyncLabel.text = NSLocalizedString("unknown_time", comment: "")
+            return
         }
-
-        return str
+        let hours = Calendar.current.component(.hour, from: lastSync)
+        self.lastSyncLabel.text =  String.localizedStringWithFormat(lastContactStringFormat, hours)
     }
     
     private func formatNextSync() -> String {
-        return "\(String.nextSync) \(String(18)) \(String.hours)"
+        return "\(String.nextSync) \(String(18)) "
     }
 
 
@@ -73,7 +63,7 @@ class ExposureDetectionViewController: UIViewController {
 extension ExposureDetectionViewController: ExposureDetectionServiceDelegate {
     func didFinish(_ sender: ExposureDetectionService, result: ENExposureDetectionSummary) {
         DispatchQueue.main.async {
-            self.lastSyncLabel.text = self.formatLastSync()
+            self.updateLastSyncLabel()
         }
     }
     
@@ -82,18 +72,11 @@ extension ExposureDetectionViewController: ExposureDetectionServiceDelegate {
     }
 }
 
-fileprivate extension String {
-    static let today = NSLocalizedString("Today", comment: "")
-    static let yesterday = NSLocalizedString("Yesterday", comment: "")
-    static let hour = NSLocalizedString("Hour", comment: "")
-    static let hours = NSLocalizedString("Hours", comment: "")
-    static let never = NSLocalizedString("Never", comment: "")
-    
+fileprivate extension String { 
+
     static let lastContactTitle = NSLocalizedString("ExposureDetection_lastContactTitle", comment: "")
-    static let lastContactTextDays = NSLocalizedString("ExposureDetection_lastContactText", comment: "")
     
     static let lastSyncInfo = NSLocalizedString("ExposureDetection_lastSyncInfo", comment: "")
-    static let lastSyncData = NSLocalizedString("ExposureDetection_lastSyncData", comment: "")
     static let synchronize = NSLocalizedString("ExposureDetection_synchronize", comment: "")
     static let nextSync = NSLocalizedString("ExposureDetection_nextSync", comment: "")
     

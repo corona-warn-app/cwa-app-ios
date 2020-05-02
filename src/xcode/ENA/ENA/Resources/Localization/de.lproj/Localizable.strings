@@ -6,19 +6,11 @@
   Copyright © 2020 SAP SE. All rights reserved.
 */
 //Put german language strings here
-
-// General
-"Today" = "Heute";
-"Yesterday" = "Gestern";
-"Hour" = "Stunde";
-"Hours" = "Stunden";
-"Never" = "Noch nie";
-
+"unknown_time" = "Zeitpunkt unbekannt";
 // Scene-specific
 "ExposureDetection_lastContactTitle" = "Kontakt Festgestellt";
-"ExposureDetection_lastContactText" = "Vor $ Tagen";
+
 "ExposureDetection_lastSyncInfo" = "Letzte Aktualisierung:";
-"ExposureDetection_lastSyncData" = "Vor $ Tagen";
 "ExposureDetection_synchronize" = "Aktualisieren";
 "ExposureDetection_nextSync" = "Nächste automatische Prüfung in";
 "ExposureDetection_info" = "Info";
