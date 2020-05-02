@@ -10,45 +10,45 @@ import UIKit
 import ExposureNotification
 
 class ExposureDetectionViewController: UIViewController {
-    
+
     @IBOutlet weak var contactTitleLabel: UILabel!
     @IBOutlet weak var lastContactLabel: UILabel!
 
     @IBOutlet weak var lastSyncLabel: UILabel!
     @IBOutlet weak var syncButton: UIButton!
     @IBOutlet weak var nextSyncLabel: UILabel!
-    
+
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
-    
+
     private lazy var exposureDetectionService = ExposureDetectionService(delegate: self)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         contactTitleLabel.text = .lastContactTitle
         lastContactLabel.text = formatLastContact()
-        
+
         lastSyncLabel.text = formatLastSync()
         syncButton.setTitle(.synchronize, for: [])
         nextSyncLabel.text = formatNextSync()
-        
+
         infoTitleLabel.text = .info
         infoTextView.text = .infoText
     }
-    
-    
+
+
     // MARK: - String formatters
     private func formatLastContact() -> String {
         var str: String = .lastContactTextDays
         str = str.replacingOccurrences(of: "$", with: String(3))
         return str
     }
-    
+
     private func formatLastSync() -> String {
         var str: String = .lastSyncInfo
 
-        let lastSync = ExposureDetectionService.lastProcessedPackageTime
+        let lastSync = PersistenceManager.shared.dateLastExposureDetection
         if lastSync == nil {
             str.append(" \(String.never)")
         } else {
@@ -59,7 +59,7 @@ class ExposureDetectionViewController: UIViewController {
 
         return str
     }
-    
+
     private func formatNextSync() -> String {
         return "\(String.nextSync) \(String(18)) \(String.hours)"
     }
@@ -76,7 +76,7 @@ extension ExposureDetectionViewController: ExposureDetectionServiceDelegate {
             self.lastSyncLabel.text = self.formatLastSync()
         }
     }
-    
+
     func didFailWithError(_ sender: ExposureDetectionService, error: Error) {
 
     }
@@ -88,16 +88,16 @@ fileprivate extension String {
     static let hour = NSLocalizedString("Hour", comment: "")
     static let hours = NSLocalizedString("Hours", comment: "")
     static let never = NSLocalizedString("Never", comment: "")
-    
+
     static let lastContactTitle = NSLocalizedString("ExposureDetection_lastContactTitle", comment: "")
     static let lastContactTextDays = NSLocalizedString("ExposureDetection_lastContactText", comment: "")
-    
+
     static let lastSyncInfo = NSLocalizedString("ExposureDetection_lastSyncInfo", comment: "")
     static let lastSyncData = NSLocalizedString("ExposureDetection_lastSyncData", comment: "")
     static let synchronize = NSLocalizedString("ExposureDetection_synchronize", comment: "")
     static let nextSync = NSLocalizedString("ExposureDetection_nextSync", comment: "")
-    
+
     static let info = NSLocalizedString("ExposureDetection_info", comment: "")
     static let infoText = NSLocalizedString("ExposureDetection_infoText", comment: "")
-    
+
 }

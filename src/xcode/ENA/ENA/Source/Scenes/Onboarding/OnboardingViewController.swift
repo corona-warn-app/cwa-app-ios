@@ -72,7 +72,7 @@ class OnboardingViewController: UIViewController {
     @IBAction func onboardingTapped(_ sender: Any) {
         let isLastPage = currentIndex == pages.count - 1
         if isLastPage {
-             UserSettings.onboardingWasShown = true
+             PersistenceManager.shared.isOnboarded = true
              let notification = Notification(name: .onboardingFlagDidChange)
              NotificationCenter.default.post(notification)
         } else {

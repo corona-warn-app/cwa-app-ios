@@ -19,9 +19,6 @@ class ExposureDetectionService {
 
     private static let numberOfPastDaysRelevantForDetection = 14
 
-    @UserDefaultsStorage(key: "lastProcessedPackageTime", defaultValue: nil)
-    static var lastProcessedPackageTime: Date?
-
     init(delegate: ExposureDetectionServiceDelegate?) {
         self.delegate = delegate
         self.queue = DispatchQueue(label: "com.sap.exposureDetection")
@@ -64,12 +61,12 @@ class ExposureDetectionService {
     }
 
     private func checkLastEVSession() -> Bool {
-        guard let lastProcessedPackageTime = Self.lastProcessedPackageTime else{
+        guard let dateLastExposureDetection = PersistenceManager.shared.dateLastExposureDetection else{
             return true  // No date stored -> first session
         }
 
         let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents([.hour], from: lastProcessedPackageTime, to: Date())
+        let dateComponents = calendar.dateComponents([.hour], from: dateLastExposureDetection, to: Date())
         let hoursSinceLastRequest = dateComponents.hour ?? 0
 
         // Only allow one request per hour
@@ -109,7 +106,7 @@ extension ExposureDetectionService {
 
                             // Update timestamp of last successfull session
                             if self.sessionStartTime != nil {
-                                Self.lastProcessedPackageTime = self.sessionStartTime!
+                                PersistenceManager.shared.dateLastExposureDetection = self.sessionStartTime!
                             }
 
                             self.delegate?.didFinish(self, result: summary)
