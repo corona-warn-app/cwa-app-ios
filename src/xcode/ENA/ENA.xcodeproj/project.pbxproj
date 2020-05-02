@@ -53,6 +53,7 @@
 		CD99A3A3245B327100BF12AF /* TanEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */; };
 		CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A3A4245B334100BF12AF /* Confirmation.storyboard */; };
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
+		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
 		EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6119E2245C850E00AB38A1 /* ExposureManager.swift */; };
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
@@ -129,6 +130,7 @@
 		CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanEntryViewController.swift; sourceTree = "<group>"; };
 		CD99A3A4245B334100BF12AF /* Confirmation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
 		CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
+		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
 		EE6119E2245C850E00AB38A1 /* ExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */,
+				CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 			files = (
 				CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */,
 				01A8DC7C245AB6A30075AFB5 /* PackageManager.swift in Sources */,
+				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				01C28E11245D9BE30045EFFA /* DMLocalStore.swift in Sources */,
 				01B0C6B8245B23C2006F5A69 /* ExposureDetectionService.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
