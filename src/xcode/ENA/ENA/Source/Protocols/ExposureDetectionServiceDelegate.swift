@@ -6,7 +6,7 @@
 //  Copyright © 2020 SAP SE. All rights reserved.
 //
 
-import Foundation
+import ExposureNotification
 
 enum ExposureDetectionError {
     case foo  // tbc..
@@ -18,7 +18,8 @@ struct ExposureDetectionResult {
     let numberOfExposures: Int?
 }
 
+/// All delegate methods will be called on the main queue.
 protocol ExposureDetectionServiceDelegate: class {
-    func didFinish(_ sender: ExposureDetectionService, result: ExposureDetectionResult)
-    func didFailWithError(_ sender: ExposureDetectionService, error: ExposureDetectionError)
+    func didFinish(_ sender: ExposureDetectionService, result: ENExposureDetectionSummary)
+    func didFailWithError(_ sender: ExposureDetectionService, error: Error)
 }

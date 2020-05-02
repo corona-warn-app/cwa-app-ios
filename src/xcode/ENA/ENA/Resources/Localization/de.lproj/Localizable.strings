@@ -12,11 +12,13 @@
 "Yesterday" = "Gestern";
 "Hour" = "Stunde";
 "Hours" = "Stunden";
+"Never" = "Noch nie";
 
 // Scene-specific
 "ExposureDetection_lastContactTitle" = "Kontakt Festgestellt";
 "ExposureDetection_lastContactText" = "Vor $ Tagen";
-"ExposureDetection_lastSync" = "Letzte Aktualisierung: Vor ";
+"ExposureDetection_lastSyncInfo" = "Letzte Aktualisierung:";
+"ExposureDetection_lastSyncData" = "Vor $ Tagen";
 "ExposureDetection_synchronize" = "Aktualisieren";
 "ExposureDetection_nextSync" = "Nächste automatische Prüfung in";
 "ExposureDetection_info" = "Info";
