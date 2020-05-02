@@ -46,8 +46,17 @@ class ExposureDetectionViewController: UIViewController {
     }
     
     private func formatLastSync() -> String {
-        var str: String = .lastSync
-        str = str.replacingOccurrences(of: "$", with: String(4))
+        var str: String = .lastSyncInfo
+
+        let lastSync = ExposureDetectionService.lastProcessedPackageTime
+        if lastSync == nil {
+            str.append(" \(String.never)")
+        } else {
+            str.append(" \(String.lastSyncData)")
+            let hours = Calendar.current.component(.hour, from: lastSync!)
+            str = str.replacingOccurrences(of: "$", with: String(hours))
+        }
+
         return str
     }
     
@@ -76,7 +85,10 @@ class ExposureDetectionViewController: UIViewController {
 
 extension ExposureDetectionViewController: ExposureDetectionServiceDelegate {
     func didFinish(_ sender: ExposureDetectionService, result: ENExposureDetectionSummary) {
-        
+        // FIXME: Use NotificationCenter instead of ExposureDetectionServiceDelegate
+        DispatchQueue.main.async {
+            self.lastSyncLabel.text = self.formatLastSync()
+        }
     }
     
     func didFailWithError(_ sender: ExposureDetectionService, error: Error) {
@@ -89,11 +101,13 @@ fileprivate extension String {
     static let yesterday = NSLocalizedString("Yesterday", comment: "")
     static let hour = NSLocalizedString("Hour", comment: "")
     static let hours = NSLocalizedString("Hours", comment: "")
+    static let never = NSLocalizedString("Never", comment: "")
     
     static let lastContactTitle = NSLocalizedString("ExposureDetection_lastContactTitle", comment: "")
     static let lastContactTextDays = NSLocalizedString("ExposureDetection_lastContactText", comment: "")
     
-    static let lastSync = NSLocalizedString("ExposureDetection_lastSync", comment: "")
+    static let lastSyncInfo = NSLocalizedString("ExposureDetection_lastSyncInfo", comment: "")
+    static let lastSyncData = NSLocalizedString("ExposureDetection_lastSyncData", comment: "")
     static let synchronize = NSLocalizedString("ExposureDetection_synchronize", comment: "")
     static let nextSync = NSLocalizedString("ExposureDetection_nextSync", comment: "")
     

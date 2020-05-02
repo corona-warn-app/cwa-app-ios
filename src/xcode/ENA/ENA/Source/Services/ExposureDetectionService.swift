@@ -11,7 +11,9 @@ import ExposureNotification
 
 class ExposureDetectionService {
 
+    // FIXME: Use NotificationCenter instead of delegate (Multiple ViewControllers will need the result/summary)
     private weak var delegate: ExposureDetectionServiceDelegate?
+
     private var queue: DispatchQueue
     private var sessionStartTime: Date?
 
@@ -24,18 +26,19 @@ class ExposureDetectionService {
     }
 
     func detectExposureIfNeeded() {
-//        // Check the timeframe since last succesfull download of a package.
+        // Check the timeframe since last succesfull download of a package.
+// FIXME: Enable check after testing
 //        if !checkLastEVSession() {
 //            return  // Avoid DDoS by allowing only one request per hour
 //        }
-//
-        self.sessionStartTime = Date()
+
+        self.sessionStartTime = Date()  // will be used once the session succeeded
 
         // Prepare parameter for download task
-        let requestParam = formatPackageRequestName()
+        let timeframe = getTimeframeToFetchKeys()
 
         let pm = PackageManager(mode: .development)
-        pm.diagnosisKeys(since: Date()) { result in
+        pm.diagnosisKeys(since: timeframe) { result in
             // todo
             switch result {
             case .success(let keys):
@@ -49,11 +52,16 @@ class ExposureDetectionService {
     }
 
     // MARK: - Private helper methods
-    private func formatPackageRequestName() -> String {
+    private func getTimeframeToFetchKeys() -> Date {
         // Case 1: First request -> Fetch last 14 days
         // Case 2: Request within 2 weeks from last request -> just format timestamp
         // Case 3: Last request older than upper threshold -> limit to threshold
-        return "06-03-22"
+
+        let twoWeeksAgo = Calendar.current.date(byAdding: .day, value: -14, to: Date())
+        guard twoWeeksAgo != nil else {
+            return Date()
+        }
+        return twoWeeksAgo!
     }
 
     private func checkLastEVSession() -> Bool {
@@ -71,13 +79,6 @@ class ExposureDetectionService {
 
 }
 
-// MARK: - PackageManagerDelegate
-//extension ExposureDetectionService: PackageManagerDelegate {
-//    func didDownloadPackages(_ sender: PackageManager, result: [ENTemporaryExposureKey]) {
-//        startExposureDetectionSession(diagnosisKeys: result)
-//    }
-//}
-
 // MARK: - Exposure Detection Session
 extension ExposureDetectionService {
     private func startExposureDetectionSession(diagnosisKeys: [ENTemporaryExposureKey]) {
@@ -88,7 +89,7 @@ extension ExposureDetectionService {
                 // Handle error
                 return
             }
-            // Call addDiagnosisKeys with up to maxKeyCount keys
+            // Call addDiagnosisKeys with up to maxKeyCount keys + wait for completion
             self.queue.async {
                 let addDiagnosisKeysRetVal = self.addKeys(session, diagnosisKeys)
                 DispatchQueue.main.async {
@@ -105,11 +106,13 @@ extension ExposureDetectionService {
                         guard let summary = summary else {
                             return
                         }
-                        self.delegate?.didFinish(self, result: summary)
 
+                        // Update timestamp of last successfull session
                         if self.sessionStartTime != nil {
                             Self.lastProcessedPackageTime = self.sessionStartTime!
                         }
+
+                        self.delegate?.didFinish(self, result: summary)
                     }
                 }
 
