@@ -17,6 +17,8 @@ class ExposureDetectionService {
     private var queue: DispatchQueue
     private var sessionStartTime: Date?
 
+    private static let numberOfPastDaysRelevantForDetection = 14
+
     @UserDefaultsStorage(key: "lastProcessedPackageTime", defaultValue: nil)
     static var lastProcessedPackageTime: Date?
 
@@ -27,15 +29,15 @@ class ExposureDetectionService {
 
     func detectExposureIfNeeded() {
         // Check the timeframe since last succesfull download of a package.
-// FIXME: Enable check after testing
-//        if !checkLastEVSession() {
-//            return  // Avoid DDoS by allowing only one request per hour
-//        }
+        // FIXME: Enable check after testing
+        //        if !checkLastEVSession() {
+        //            return  // Avoid DDoS by allowing only one request per hour
+        //        }
 
         self.sessionStartTime = Date()  // will be used once the session succeeded
 
         // Prepare parameter for download task
-        let timeframe = getTimeframeToFetchKeys()
+        let timeframe = timeframeToFetchKeys()
 
         let pm = PackageManager(mode: .development)
         pm.diagnosisKeys(since: timeframe) { result in
@@ -52,16 +54,13 @@ class ExposureDetectionService {
     }
 
     // MARK: - Private helper methods
-    private func getTimeframeToFetchKeys() -> Date {
+    private func timeframeToFetchKeys() -> Date {
         // Case 1: First request -> Fetch last 14 days
         // Case 2: Request within 2 weeks from last request -> just format timestamp
         // Case 3: Last request older than upper threshold -> limit to threshold
-
-        let twoWeeksAgo = Calendar.current.date(byAdding: .day, value: -14, to: Date())
-        guard twoWeeksAgo != nil else {
-            return Date()
-        }
-        return twoWeeksAgo!
+        let numberOfRelevantDays = type(of: self).numberOfPastDaysRelevantForDetection
+        let now = Date()
+        return Calendar.current.date(byAdding: .day, value: -numberOfRelevantDays, to: now) ?? now
     }
 
     private func checkLastEVSession() -> Bool {
@@ -91,28 +90,30 @@ extension ExposureDetectionService {
             }
             // Call addDiagnosisKeys with up to maxKeyCount keys + wait for completion
             self.queue.async {
-                let addDiagnosisKeysRetVal = self.addKeys(session, diagnosisKeys)
+                let result = self.addKeys(session, diagnosisKeys)
                 DispatchQueue.main.async {
-                    guard addDiagnosisKeysRetVal == nil else {
-                        self.delegate?.didFailWithError(self, error: addDiagnosisKeysRetVal!)
-                        return
-                    }
-                    // Get result from session
-                    session.finishedDiagnosisKeys { (summary, error) in
-                        guard error == nil else {
-                            self.delegate?.didFailWithError(self, error: error! )
-                            return
-                        }
-                        guard let summary = summary else {
-                            return
-                        }
+                    switch result {
+                    case .failure(let error):
+                        self.delegate?.didFailWithError(self, error: error)
+                    case .success(_):
+                        // Get result from session
+                        session.finishedDiagnosisKeys { (summary, error) in
+                            // This is called on the main queue
+                            guard error == nil else {
+                                self.delegate?.didFailWithError(self, error: error! )
+                                return
+                            }
+                            guard let summary = summary else {
+                                return
+                            }
 
-                        // Update timestamp of last successfull session
-                        if self.sessionStartTime != nil {
-                            Self.lastProcessedPackageTime = self.sessionStartTime!
-                        }
+                            // Update timestamp of last successfull session
+                            if self.sessionStartTime != nil {
+                                Self.lastProcessedPackageTime = self.sessionStartTime!
+                            }
 
-                        self.delegate?.didFinish(self, result: summary)
+                            self.delegate?.didFinish(self, result: summary)
+                        }
                     }
                 }
 
@@ -120,29 +121,29 @@ extension ExposureDetectionService {
         }
     }
 
-    func addKeys(_ session: ENExposureDetectionSession, _ keys: [ENTemporaryExposureKey]) -> Error? {
+    func addKeys(_ session: ENExposureDetectionSession, _ keys: [ENTemporaryExposureKey]) -> Result<Void, Error> {
         var index = 0
-        var returnValue: Error?
+        var resultError: Error?
         while index < keys.count {
             let semaphore = DispatchSemaphore(value: 0)
             let endIndex = index + session.maximumKeyCount > keys.count ? keys.count : index + session.maximumKeyCount
             let slice = keys[index..<endIndex]
 
             session.addDiagnosisKeys(Array(slice)) { (error) in
+                // This is called on the main queue
                 guard error == nil else {
-                    returnValue = error
+                    resultError = error
                     semaphore.signal()
                     return
                 }
                 semaphore.signal()
-
             }
             semaphore.wait()
-            if returnValue != nil {
-                return returnValue
+            if let resultError = resultError {
+                return .failure(resultError)
             }
             index += session.maximumKeyCount
         }
-        return returnValue
+        return .success(Void())
     }
 }

@@ -66,26 +66,12 @@ class ExposureDetectionViewController: UIViewController {
 
 
     @IBAction func refresh(_ sender: UIButton) {
-        print("refreshing…")
         exposureDetectionService.detectExposureIfNeeded()
-        // Here we have to do what exaclty?
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension ExposureDetectionViewController: ExposureDetectionServiceDelegate {
     func didFinish(_ sender: ExposureDetectionService, result: ENExposureDetectionSummary) {
-        // FIXME: Use NotificationCenter instead of ExposureDetectionServiceDelegate
         DispatchQueue.main.async {
             self.lastSyncLabel.text = self.formatLastSync()
         }

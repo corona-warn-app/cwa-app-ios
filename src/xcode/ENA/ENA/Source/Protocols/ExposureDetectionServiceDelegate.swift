@@ -18,6 +18,7 @@ struct ExposureDetectionResult {
     let numberOfExposures: Int?
 }
 
+/// All delegate methods will be called on the main queue.
 protocol ExposureDetectionServiceDelegate: class {
     func didFinish(_ sender: ExposureDetectionService, result: ENExposureDetectionSummary)
     func didFailWithError(_ sender: ExposureDetectionService, error: Error)
