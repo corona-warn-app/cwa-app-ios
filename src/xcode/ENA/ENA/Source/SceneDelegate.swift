@@ -18,13 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         setupRootViewController()
         window.makeKeyAndVisible()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(onboardingFlagDidChange(_:)), name: .onboardingFlagDidChange, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
     }
-    
+
     private func setupRootViewController() {
-        
-        
+
         let onboardingWasShown = PersistenceManager.shared.isOnboarded
         //For a demo, we can set it to true.
         let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)
@@ -35,11 +34,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         case .onboarding:
             rootViewController = OnboardingViewController.initiate(for: .onboarding)
         }
-        
+
         window?.rootViewController = rootViewController
     }
-    
-    @objc func onboardingFlagDidChange(_ notification: NSNotification) {
+
+    @objc func isOnboardedDidChange(_ notification: NSNotification) {
         setupRootViewController()
     }
 

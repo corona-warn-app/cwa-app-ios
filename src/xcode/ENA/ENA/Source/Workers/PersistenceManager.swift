@@ -44,10 +44,12 @@ class PersistenceManager {
 
     static let shared = PersistenceManager()
 
-    @Persisted(key: "isOnboarded", notificationName: .init("PersistenceManagerIsOnboardedDidChange"), defaultValue: true)
+    // TODO: Define init() and call a clean up function of the local storage
+
+    @Persisted(key: "isOnboarded", notificationName: Notification.Name.isOnboardedDidChange, defaultValue: true)
     var isOnboarded: Bool
 
-    @Persisted(key: "dateLastExposureDetection", notificationName: .init("PersistenceManagerDateLastExposureDetectionDidChange"), defaultValue: nil)
+    @Persisted(key: "dateLastExposureDetection", notificationName: Notification.Name.dateLastExposureDetectionDidChange, defaultValue: nil)
     var dateLastExposureDetection: Date?
 
 }

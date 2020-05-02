@@ -13,25 +13,25 @@ protocol OnboardingNextPageAvailable {
 }
 
 class OnboardingViewController: UIViewController {
-    
+
     private var pageViewController: UIPageViewController?
     private var pages: [UIViewController] = []
     private var onboardingInfos = OnboardingInfo.testData()
     private var onboardingPermissions = OnboardingPermissions.testData()
-    
+
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var buttonContainerView: UIView!
-    
+
     private var currentIndex: Int {
         guard let pageViewController = pageViewController else { return 0 }
         guard let firstViewController = pageViewController.viewControllers?.first else { return 0 }
         guard let index = pages.firstIndex(of: firstViewController) else { return 0 }
         return index
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         createPages()
         createPageController()
         pageViewController?.dataSource = self
@@ -41,7 +41,7 @@ class OnboardingViewController: UIViewController {
         }
         updateButton()
     }
-    
+
     private func createPages() {
         pages = onboardingInfos.map { info in
             let infoVC = OnboardingInfoViewController.initiate(for: .onboarding)
@@ -53,7 +53,7 @@ class OnboardingViewController: UIViewController {
         permissionVC.onboardingPermissions = onboardingPermissions
         pages.append(permissionVC)
     }
-    
+
     private func createPageController() {
         let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
         let pageView = pageViewController.view!
@@ -68,13 +68,11 @@ class OnboardingViewController: UIViewController {
         pageViewController.didMove(toParent: self)
         self.pageViewController = pageViewController
     }
-    
+
     @IBAction func onboardingTapped(_ sender: Any) {
         let isLastPage = currentIndex == pages.count - 1
         if isLastPage {
              PersistenceManager.shared.isOnboarded = true
-             let notification = Notification(name: .onboardingFlagDidChange)
-             NotificationCenter.default.post(notification)
         } else {
             let nextIndex = currentIndex + 1
             let vc = pages[nextIndex]
@@ -82,12 +80,12 @@ class OnboardingViewController: UIViewController {
             updateButton()
         }
     }
-    
+
     private func updateButton() {
         let isLastPage = currentIndex == pages.count - 1
         let title = isLastPage ? NSLocalizedString("onboarding_button_finish", comment: "") : NSLocalizedString("onboarding_button_next", comment: "")
         nextButton.setTitle(title, for: .normal)
-        
+
         if let onboardingPage = pages[currentIndex] as? OnboardingNextPageAvailable {
             let isNextPageAvailable = onboardingPage.isNextPageAvailable()
             nextButton.isEnabled = isNextPageAvailable
@@ -96,21 +94,21 @@ class OnboardingViewController: UIViewController {
 }
 
 extension OnboardingViewController: UIPageViewControllerDataSource {
-    
+
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = pages.firstIndex(of: viewController) else { return nil }
         let next = pages.index(after: index)
         guard next >= 0 && next < pages.count else { return nil }
         return pages[next]
     }
-    
+
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = pages.firstIndex(of: viewController) else { return nil }
         let previous = pages.index(before: index)
         guard previous >= 0 && previous < pages.count else { return nil }
         return pages[previous]
     }
-    
+
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         pages.count
     }

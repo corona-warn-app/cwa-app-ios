@@ -21,14 +21,14 @@ class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
 
-    private lazy var exposureDetectionService = ExposureDetectionService(delegate: self)
+    private lazy var exposureDetectionService = ExposureDetectionService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateLastSyncLabel),
-                                               name: NSNotification.Name(rawValue: "PersistenceManagerDateLastExposureDetectionDidChange"),
+                                               name: .dateLastExposureDetectionDidChange,
                                                object: nil)
 
         setupView()
@@ -66,18 +66,6 @@ class ExposureDetectionViewController: UIViewController {
 
     @IBAction func refresh(_ sender: UIButton) {
         exposureDetectionService.detectExposureIfNeeded()
-    }
-}
-
-extension ExposureDetectionViewController: ExposureDetectionServiceDelegate {
-    func didFinish(_ sender: ExposureDetectionService, result: ENExposureDetectionSummary) {
-        DispatchQueue.main.async {
-            self.updateLastSyncLabel()
-        }
-    }
-
-    func didFailWithError(_ sender: ExposureDetectionService, error: Error) {
-
     }
 }
 
