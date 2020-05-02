@@ -16,45 +16,33 @@ protocol ExposureSubmissionService {
 }
 
 class ExposureSubmissionServiceImpl: ExposureSubmissionService {
-    let covService: CovService
+    let packageManager: PackageManager
 
-    init(_ covService: CovService? = nil) {
-        self.covService = covService ?? CovServiceImpl()
+    init(_ packageManager: PackageManager? = nil) {
+        self.packageManager = packageManager ?? PackageManager(mode: .development)
     }
 
     func submitSelfExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
-        let enManager = ENManager()
+        let enManager = ExposureManager.shared.manager
 
-        let complete: (ExposureSubmissionError?) -> Void = {
-            completionHandler($0)
-            enManager.invalidate()
+        if enManager.exposureNotificationStatus != .active {
+            completionHandler(.notActivated)
+            return
         }
 
-        enManager.activate { error in
+        enManager.getDiagnosisKeys { keys, error in
             if let error = error {
-                complete(self.parseError(error))
+                completionHandler(self.parseError(error))
                 return
             }
 
-            if enManager.exposureNotificationStatus != .active {
-                complete(.notActivated)
+            guard let keys = keys else {
+                completionHandler(.noKeys)
                 return
             }
 
-            enManager.getDiagnosisKeys { keys, error in
-                if let error = error {
-                    complete(self.parseError(error))
-                    return
-                }
-
-                guard let keys = keys else {
-                    complete(.noKeys)
-                    return
-                }
-
-                self.covService.submitSelfExposure(tan: tan, diagnosisKeys: keys) { error in
-                    complete(error == nil ? nil : self.parseError(error!))
-                }
+            self.packageManager.sendDiagnosisKeys(keys, tan: tan) { error in
+                completionHandler(error == nil ? nil : self.parseError(error!))
             }
         }
     }
@@ -70,15 +58,4 @@ enum ExposureSubmissionError : Error {
     case notActivated
     case noKeys
     case other
-}
-
-// TODO: Service stub, remove
-protocol CovService {
-    func submitSelfExposure(tan: String, diagnosisKeys: [ENTemporaryExposureKey], completionHandler: @escaping (Error?) -> ())
-}
-
-class CovServiceImpl: CovService {
-    func submitSelfExposure(tan: String, diagnosisKeys: [ENTemporaryExposureKey], completionHandler: @escaping (Error?) -> ()) {
-        completionHandler(nil)
-    }
 }
