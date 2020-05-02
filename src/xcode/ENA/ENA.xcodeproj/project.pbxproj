@@ -47,6 +47,7 @@
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
 		EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6119E2245C850E00AB38A1 /* ExposureManager.swift */; };
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
+		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		EE6119E2245C850E00AB38A1 /* ExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				EE70C23A245B09E900AC9B2F /* Localizable.strings */,
+				EE92A340245D96DA006B97B0 /* Localizable.stringsdict */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */,
+				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */,
 				51D420CE245869C800AD70CA /* Main.storyboard in Resources */,
@@ -628,6 +632,14 @@
 				EE70C23C245B09E900AC9B2F /* en */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		EE92A340245D96DA006B97B0 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE92A33F245D96DA006B97B0 /* de */,
+			);
+			name = Localizable.stringsdict;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
