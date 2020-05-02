@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreBluetooth
+import ExposureNotification
 
 protocol OnboardingPermissionsViewControllerDelegate: AnyObject {
     func permissionsDidChange(onboardingPermissions: OnboardingPermissionsViewController)
@@ -22,11 +23,16 @@ class OnboardingPermissionsViewController: UIViewController {
     @IBOutlet private var bluetoothButton: UIButton!
 
     @IBOutlet private var notificationLabel: UILabel!
+    @IBOutlet private var explosureNotificationsButton: UIButton!
     
     private var centralManager: CBCentralManager!
     
     private var isBluetoothAuthorized: Bool {
         CBCentralManager.authorization == .allowedAlways
+    }
+    
+    private var isExplosureNotificationsAuthorized: Bool {
+        ENManager.authorizationStatus == .authorized
     }
     
     weak var delegate: OnboardingPermissionsViewControllerDelegate?
@@ -46,6 +52,10 @@ class OnboardingPermissionsViewController: UIViewController {
         askBluetoothPermissions()
     }
     
+    @IBAction private func explosureNotificationsButtonTapped(_ sender: UIButton) {
+        askExposureNotificationsPermissions()
+    }
+    
     private func updateUI() {
         guard isViewLoaded else { return }
         titleLabel.text = onboardingPermissions.title
@@ -55,7 +65,10 @@ class OnboardingPermissionsViewController: UIViewController {
         notificationLabel.text = onboardingPermissions.notificationsTitle
         
         configureBluetoothButton()
+        configureExposureNotificationsButton()
     }
+    
+    // MARK: Bluetooth
     
     private func configureBluetoothButton() {
         let authorization = CBCentralManager.authorization
@@ -77,12 +90,58 @@ class OnboardingPermissionsViewController: UIViewController {
     private func askBluetoothPermissions() {
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
+    
+    // MARK: Exposure notifications
+    
+    private func configureExposureNotificationsButton() {
+        let authorization = ENManager.authorizationStatus
+        // explosureNotificationsButton.isEnabled = authorization == .unknown
+        switch authorization {
+        case .unknown:
+            explosureNotificationsButton.setTitle("Please provide permissions", for: .normal)
+        case .restricted:
+            explosureNotificationsButton.setTitle("Access is restricted", for: .normal)
+        case .notAuthorized:
+            explosureNotificationsButton.setTitle("Please go to the settings", for: .normal)
+        case .authorized:
+            explosureNotificationsButton.setTitle("Access is provided", for: .normal)
+        @unknown default:
+            explosureNotificationsButton.setTitle("Unknown", for: .normal)
+        }
+    }
+    
+    private func askExposureNotificationsPermissions() {
+        ExposureManager.shared.manager.setExposureNotificationEnabled(true) { error in
+            if let error = error as? ENError, error.code == .notAuthorized {
+                print("Encourage the user to consider enabling Exposure Notifications.")
+                // self.openSettings()
+            } else if let error = error {
+                self.showError(error, from: self)
+            } else {
+                print("GOOD")
+            }
+            self.configureExposureNotificationsButton()
+            self.delegate?.permissionsDidChange(onboardingPermissions: self)
+        }
+    }
+    
+    // MARK: - Open Settings
+    
+    func openSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    func showError(_ error: Error, from viewController: UIViewController) {
+        let alert = UIAlertController(title: "Error", message: String(describing: error), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        viewController.present(alert, animated: true, completion: nil)
+    }
 }
  
 extension OnboardingPermissionsViewController: OnboardingNextPageAvailable {
     func isNextPageAvailable() -> Bool {
-        let isNotificationsAvailable = true
-        return isBluetoothAuthorized && isNotificationsAvailable
+        isBluetoothAuthorized && isExplosureNotificationsAuthorized
     }
 }
 

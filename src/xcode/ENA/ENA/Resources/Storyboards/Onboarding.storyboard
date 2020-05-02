@@ -162,17 +162,27 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AIL-bs-ORO" userLabel="Bluetooth container">
                                 <rect key="frame" x="16" y="472.33333333333326" width="343" height="80"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJv-35-c0O">
-                                        <rect key="frame" x="16.000000000000007" y="29.666666666666686" width="96.666666666666686" height="20.333333333333329"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="245" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJv-35-c0O">
+                                        <rect key="frame" x="16" y="29.666666666666686" width="249" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXG-d2-7EI">
+                                        <rect key="frame" x="281" y="25" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="explosureNotificationsButtonTapped:" destination="cqC-M1-8RB" eventType="touchUpInside" id="7fG-OY-rdF"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="fXG-d2-7EI" firstAttribute="centerY" secondItem="AIL-bs-ORO" secondAttribute="centerY" id="Q9V-4j-FvQ"/>
                                     <constraint firstItem="OJv-35-c0O" firstAttribute="centerY" secondItem="AIL-bs-ORO" secondAttribute="centerY" id="eo9-4N-eUc"/>
                                     <constraint firstAttribute="height" constant="80" id="hGq-Xx-TES"/>
+                                    <constraint firstAttribute="trailing" secondItem="fXG-d2-7EI" secondAttribute="trailing" constant="16" id="mWL-Ur-ufI"/>
+                                    <constraint firstItem="fXG-d2-7EI" firstAttribute="leading" secondItem="OJv-35-c0O" secondAttribute="trailing" constant="16" id="n3b-D7-2QI"/>
                                     <constraint firstItem="OJv-35-c0O" firstAttribute="leading" secondItem="AIL-bs-ORO" secondAttribute="leading" constant="16" id="xbT-8t-t8I"/>
                                 </constraints>
                             </view>
@@ -199,6 +209,7 @@
                     <connections>
                         <outlet property="bluetoothButton" destination="l7Q-xg-INv" id="ETJ-bg-pVt"/>
                         <outlet property="bluetoothLabel" destination="wPW-fG-3x1" id="D91-wV-kq8"/>
+                        <outlet property="explosureNotificationsButton" destination="fXG-d2-7EI" id="onj-hu-EX8"/>
                         <outlet property="imageView" destination="AhJ-v0-YzW" id="iWC-Zl-UPL"/>
                         <outlet property="notificationLabel" destination="OJv-35-c0O" id="VLU-FT-1S9"/>
                         <outlet property="titleLabel" destination="Uuf-Dg-91L" id="GOf-j2-YCl"/>
