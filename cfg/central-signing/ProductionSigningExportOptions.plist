@@ -9,7 +9,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.sap.ena</key>
-		<string>ena-4</string>
+		<string>covid19</string>
 	</dict>
 </dict>
 </plist>
