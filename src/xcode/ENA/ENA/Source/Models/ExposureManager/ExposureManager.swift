@@ -10,6 +10,7 @@ import ExposureNotification
 import Foundation
 
 final class ExposureManager {
+
     static let shared = ExposureManager()
 
     let manager = ENManager()
