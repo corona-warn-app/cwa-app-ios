@@ -28,4 +28,11 @@ enum AppStoryboard: String {
         guard let vc = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier) as? T else { fatalError("Can't initiate \(viewControllerIdentifier) for \(rawValue) storyboard") }
         return vc
     }
+    
+    func initiateInitial() -> UIViewController {
+        let storyboard = UIStoryboard(name: rawValue, bundle: nil)
+        guard let vc = storyboard.instantiateInitialViewController() else { fatalError("Can't initiate start UIViewController for \(rawValue) storyboard") }
+        return vc
+    }
+    
 }
