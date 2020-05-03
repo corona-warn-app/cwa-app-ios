@@ -35,7 +35,7 @@ class PersistedAndPublished<Value: Codable> {
         }
     }
 
-    var projectedValue: Persisted<Value> {
+    var projectedValue: PersistedAndPublished<Value> {
         get { self }
     }
 }
