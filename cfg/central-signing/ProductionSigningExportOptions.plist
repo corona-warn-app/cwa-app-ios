@@ -9,7 +9,7 @@
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.sap.ena</key>
-		<string>covid19</string>
+		<string>SAP_SE_Generic_Distribution_Profile</string>
 	</dict>
 </dict>
 </plist>
