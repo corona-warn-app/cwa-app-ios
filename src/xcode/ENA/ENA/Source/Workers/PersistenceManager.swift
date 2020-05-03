@@ -7,7 +7,7 @@
 import Foundation
 
 @propertyWrapper
-class Persisted<Value: Codable> {
+class PersistedAndPublished<Value: Codable> {
 
     init(key: String, notificationName: Notification.Name, defaultValue: Value) {
         self.key = key
@@ -46,10 +46,10 @@ class PersistenceManager {
 
     // TODO: Define init() and call a clean up function of the local storage
 
-    @Persisted(key: "isOnboarded", notificationName: Notification.Name.isOnboardedDidChange, defaultValue: true)
+    @PersistedAndPublished(key: "isOnboarded", notificationName: Notification.Name.isOnboardedDidChange, defaultValue: true)
     var isOnboarded: Bool
 
-    @Persisted(key: "dateLastExposureDetection", notificationName: Notification.Name.dateLastExposureDetectionDidChange, defaultValue: nil)
+    @PersistedAndPublished(key: "dateLastExposureDetection", notificationName: Notification.Name.dateLastExposureDetectionDidChange, defaultValue: nil)
     var dateLastExposureDetection: Date?
 
 }
