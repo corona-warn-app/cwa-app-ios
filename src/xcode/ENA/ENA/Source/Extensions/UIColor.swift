@@ -80,6 +80,14 @@ extension UIColor {
             return .systemRed
         case .critical:
             return .systemOrange
+
+        }
+    }
+
+    func renderImage(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        UIGraphicsImageRenderer(size: size).image { rendererContext in
+        setFill()
+        rendererContext.fill(CGRect(origin: .zero, size: size))
         }
     }
 }
