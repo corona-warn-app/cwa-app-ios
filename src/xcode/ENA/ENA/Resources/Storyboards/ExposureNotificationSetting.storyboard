@@ -26,6 +26,9 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9M-pM-8Cm">
                                         <rect key="frame" x="338" y="26" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="contactTracingValueChanged:" destination="OYM-wn-8tE" eventType="valueChanged" id="qk7-iQ-2J9"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -80,6 +83,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kqu-OW-WbU"/>
                     </view>
+                    <connections>
+                        <outlet property="contactTracingSwitch" destination="r9M-pM-8Cm" id="hqt-tw-0xd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjE-Mm-T4r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
