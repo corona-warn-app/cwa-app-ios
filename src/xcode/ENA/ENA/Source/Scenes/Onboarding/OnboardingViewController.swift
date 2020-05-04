@@ -13,18 +13,18 @@ protocol OnboardingNextPageAvailable {
 }
 
 final class OnboardingViewController: UIViewController {
-    
+
     private var pages: [OnboardingInfoViewController] = []
     private var onboardingInfos = OnboardingInfo.testData()
-    
+
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var nextButton: UIButton!
     @IBOutlet var buttonContainerView: UIView!
     @IBOutlet var pageControl: UIPageControl!
-    
+
     private var currentIndex: Int = 0
     private lazy var maxIndex: Int = onboardingInfos.count - 1
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         createPages()
@@ -32,12 +32,12 @@ final class OnboardingViewController: UIViewController {
         configureNextButton()
         updateNextButton()
     }
-    
+
     @IBAction func onboardingTapped(_ sender: Any) {
         let vc = pages[currentIndex]
         vc.run(index: currentIndex)
     }
-    
+
     private func createPages() {
         pages = children.compactMap { $0 as? OnboardingInfoViewController }
         for i in 0..<onboardingInfos.count {
@@ -45,7 +45,7 @@ final class OnboardingViewController: UIViewController {
             pages[i].delegate = self
         }
     }
-    
+
     private func configurePageControl() {
         pageControl.numberOfPages = pages.count
         pageControl.currentPage = currentIndex
@@ -53,7 +53,7 @@ final class OnboardingViewController: UIViewController {
         pageControl.pageIndicatorTintColor = .separator
         pageControl.currentPageIndicatorTintColor = .label
     }
-    
+
     private func configureNextButton() {
         nextButton.setTitleColor(.white, for: .normal)
         let image = UIColor.systemIndigo.renderImage()
@@ -61,7 +61,7 @@ final class OnboardingViewController: UIViewController {
         nextButton.layer.cornerRadius = 20.0
         nextButton.layer.masksToBounds = true
     }
-    
+
     private func updateNextButton() {
         let isLastPage = currentIndex == maxIndex
         let title = isLastPage ? NSLocalizedString("onboarding_button_finish", comment: "") : NSLocalizedString("onboarding_button_next", comment: "")
@@ -70,12 +70,10 @@ final class OnboardingViewController: UIViewController {
 }
 
 extension OnboardingViewController: OnboardingInfoViewControllerDelegate {
-    
+
     func didFinished(onboardingInfoViewController: OnboardingInfoViewController) {
         if currentIndex == maxIndex {
-            UserSettings.onboardingWasShown = true
-            let notification = Notification(name: .onboardingFlagDidChange)
-            NotificationCenter.default.post(notification)
+            PersistenceManager.shared.isOnboarded = true
             return
         }
         let next = currentIndex + 1
