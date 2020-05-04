@@ -34,7 +34,7 @@ class ExposureNotificationSettingViewController: UIViewController {
         checkNotifcationEnablement()
     }
     
-    
+
     deinit {
         print("[ExposureNotificationSettingViewController deinit] got called.")
         NotificationCenter.default.removeObserver(self)
@@ -43,6 +43,12 @@ class ExposureNotificationSettingViewController: UIViewController {
 }
 
 extension ExposureNotificationSettingViewController {
+    
+    
+    @IBAction func closeButtonClicked(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
     @IBAction func contactTracingValueChanged(_ sender: Any) {
                 
