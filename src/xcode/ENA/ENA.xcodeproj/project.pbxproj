@@ -54,6 +54,8 @@
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
 		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
 		EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2A245F0B32008B06F9 /* ColorStyle.swift */; };
+		EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */; };
+		EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */; };
 		EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6119E2245C850E00AB38A1 /* ExposureManager.swift */; };
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
@@ -131,6 +133,8 @@
 		CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
 		EE278B2A245F0B32008B06F9 /* ColorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorStyle.swift; sourceTree = "<group>"; };
+		EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InviteFriends.storyboard; sourceTree = "<group>"; };
+		EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsInviteController.swift; sourceTree = "<group>"; };
 		EE6119E2245C850E00AB38A1 /* ExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -345,6 +349,7 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				EE278B2E245F2C58008B06F9 /* FriendsInvite */,
 				CD99A398245B229F00BF12AF /* SelfExposure */,
 				858F6F71245AEC05009FFD33 /* ENSetting */,
 				51D420BE24583D0600AD70CA /* Tabbar */,
@@ -378,6 +383,7 @@
 				51D420CD245869C800AD70CA /* Main.storyboard */,
 				858F6F74245B1374009FFD33 /* ExposureNotificationSetting.storyboard */,
 				51D420CF24586AB300AD70CA /* Settings.storyboard */,
+				EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -439,6 +445,14 @@
 				EE278B2A245F0B32008B06F9 /* ColorStyle.swift */,
 			);
 			path = ColorStyle;
+			sourceTree = "<group>";
+		};
+		EE278B2E245F2C58008B06F9 /* FriendsInvite */ = {
+			isa = PBXGroup;
+			children = (
+				EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */,
+			);
+			path = FriendsInvite;
 			sourceTree = "<group>";
 		};
 		EE6119E1245C849700AB38A1 /* ExposureManager */ = {
@@ -567,6 +581,7 @@
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
+				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */,
 				B1569DE3245D70DD0079FCD7 /* DeveloperMenu.storyboard in Resources */,
@@ -618,6 +633,7 @@
 				B1569DDF245D70990079FCD7 /* DMViewController.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
+				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
