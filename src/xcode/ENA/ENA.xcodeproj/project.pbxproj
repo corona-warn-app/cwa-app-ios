@@ -18,8 +18,8 @@
 		51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BC245B349700286105 /* OnboardingInfoViewController.swift */; };
 		51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BE245B3B5D00286105 /* OnboardingInfo.swift */; };
 		51CE1B2F245F5CFC002CF42A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */; };
-		51CE1B4A246016B0002CF42A /* UICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B49246016B0002CF42A /* UICollectionViewCell.swift */; };
-		51CE1B4C246016D1002CF42A /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B4B246016D1002CF42A /* UICollectionReusableView.swift */; };
+		51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */; };
+		51CE1B4C246016D1002CF42A /* UICollectionReusableView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */; };
 		51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B5424604DD2002CF42A /* HomeLayout.swift */; };
 		51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B76246078B6002CF42A /* ActivateCollectionViewCell.xib */; };
 		51CE1B86246078B6002CF42A /* SubmitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B77246078B6002CF42A /* SubmitCollectionViewCell.swift */; };
@@ -34,7 +34,7 @@
 		51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B81246078B6002CF42A /* HomeFooterSupplementaryView.xib */; };
 		51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B82246078B6002CF42A /* HomeFooterSupplementaryView.swift */; };
 		51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B84246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift */; };
-		51CE1BB52460AC83002CF42A /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BB42460AC82002CF42A /* UICollectionView.swift */; };
+		51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */; };
 		51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BB92460AFD8002CF42A /* HomeActivateCellConfigurator.swift */; };
 		51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BBC2460B1CB002CF42A /* CollectionViewCellConfigurator.swift */; };
 		51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BBE2460B222002CF42A /* HomeRiskCellConfigurator.swift */; };
@@ -43,8 +43,8 @@
 		51CE1BC52460B2AF002CF42A /* HomeSettingsCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BC42460B2AF002CF42A /* HomeSettingsCellConfigurator.swift */; };
 		51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420B02458397300AD70CA /* Onboarding.storyboard */; };
 		51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B324583ABB00AD70CA /* AppStoryboard.swift */; };
-		51D420B724583B7200AD70CA /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B624583B7200AD70CA /* NSObject.swift */; };
-		51D420B924583B8300AD70CA /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B824583B8300AD70CA /* UIViewController.swift */; };
+		51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B624583B7200AD70CA /* NSObject+Identifier.swift */; };
+		51D420B924583B8300AD70CA /* UIViewController+AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */; };
 		51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420BA24583BF400AD70CA /* LaunchInstructor.swift */; };
 		51D420C024583D1100AD70CA /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420BF24583D1100AD70CA /* TabBarController.swift */; };
 		51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C324583E3300AD70CA /* SettingsViewController.swift */; };
@@ -131,8 +131,8 @@
 		51C737BC245B349700286105 /* OnboardingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewController.swift; sourceTree = "<group>"; };
 		51C737BE245B3B5D00286105 /* OnboardingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfo.swift; sourceTree = "<group>"; };
 		51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		51CE1B49246016B0002CF42A /* UICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCell.swift; sourceTree = "<group>"; };
-		51CE1B4B246016D1002CF42A /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
+		51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Identifier.swift"; sourceTree = "<group>"; };
+		51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+Identifier.swift"; sourceTree = "<group>"; };
 		51CE1B5424604DD2002CF42A /* HomeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLayout.swift; sourceTree = "<group>"; };
 		51CE1B76246078B6002CF42A /* ActivateCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivateCollectionViewCell.xib; sourceTree = "<group>"; };
 		51CE1B77246078B6002CF42A /* SubmitCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 		51CE1B81246078B6002CF42A /* HomeFooterSupplementaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeFooterSupplementaryView.xib; sourceTree = "<group>"; };
 		51CE1B82246078B6002CF42A /* HomeFooterSupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFooterSupplementaryView.swift; sourceTree = "<group>"; };
 		51CE1B84246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionSystemBackgroundDecorationView.swift; sourceTree = "<group>"; };
-		51CE1BB42460AC82002CF42A /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
+		51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Dequeue.swift"; sourceTree = "<group>"; };
 		51CE1BB92460AFD8002CF42A /* HomeActivateCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeActivateCellConfigurator.swift; sourceTree = "<group>"; };
 		51CE1BBC2460B1CB002CF42A /* CollectionViewCellConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellConfigurator.swift; sourceTree = "<group>"; };
 		51CE1BBE2460B222002CF42A /* HomeRiskCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellConfigurator.swift; sourceTree = "<group>"; };
@@ -156,8 +156,8 @@
 		51CE1BC42460B2AF002CF42A /* HomeSettingsCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSettingsCellConfigurator.swift; sourceTree = "<group>"; };
 		51D420B02458397300AD70CA /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		51D420B324583ABB00AD70CA /* AppStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoryboard.swift; sourceTree = "<group>"; };
-		51D420B624583B7200AD70CA /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
-		51D420B824583B8300AD70CA /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		51D420B624583B7200AD70CA /* NSObject+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Identifier.swift"; sourceTree = "<group>"; };
+		51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+AppStoryboard.swift"; sourceTree = "<group>"; };
 		51D420BA24583BF400AD70CA /* LaunchInstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchInstructor.swift; sourceTree = "<group>"; };
 		51D420BF24583D1100AD70CA /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		51D420C324583E3300AD70CA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -335,14 +335,14 @@
 		51D420B524583B5100AD70CA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				51D420B624583B7200AD70CA /* NSObject.swift */,
-				51D420B824583B8300AD70CA /* UIViewController.swift */,
-				51CE1B49246016B0002CF42A /* UICollectionViewCell.swift */,
-				51CE1B4B246016D1002CF42A /* UICollectionReusableView.swift */,
+				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
+				51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */,
+				51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */,
+				51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */,
+				51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */,
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
 				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
 				51895EDB245E16CD0085DA38 /* UIColor.swift */,
-				51CE1BB42460AC82002CF42A /* UICollectionView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -791,25 +791,25 @@
 				51CE1B2F245F5CFC002CF42A /* HomeViewController.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				01C28E11245D9BE30045EFFA /* DMLocalStore.swift in Sources */,
-				51CE1BB52460AC83002CF42A /* UICollectionView.swift in Sources */,
-				51CE1B4A246016B0002CF42A /* UICollectionViewCell.swift in Sources */,
+				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
+				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
 				01B0C6B8245B23C2006F5A69 /* ExposureDetectionService.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				B1569DDD245D70880079FCD7 /* DMErrorHandling.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
 				B1569DD7245D703C0079FCD7 /* DMServer.swift in Sources */,
-				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
+				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
 				51D420C024583D1100AD70CA /* TabBarController.swift in Sources */,
 				51CE1B86246078B6002CF42A /* SubmitCollectionViewCell.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
 				51CE1BC12460B256002CF42A /* HomeSubmitCellConfigurator.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
-				51D420B924583B8300AD70CA /* UIViewController.swift in Sources */,
+				51D420B924583B8300AD70CA /* UIViewController+AppStoryboard.swift in Sources */,
 				B1569DDF245D70990079FCD7 /* DMViewController.swift in Sources */,
 				51CE1BC52460B2AF002CF42A /* HomeSettingsCellConfigurator.swift in Sources */,
 				5111E7632460BB1500ED6498 /* HomeInteractor.swift in Sources */,
-				51CE1B4C246016D1002CF42A /* UICollectionReusableView.swift in Sources */,
+				51CE1B4C246016D1002CF42A /* UICollectionReusableView+Identifier.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */,
 				51CE1B89246078B6002CF42A /* RiskCollectionViewCell.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
