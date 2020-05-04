@@ -22,8 +22,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Cards"
-        
-        // view.backgroundColor = .systemGroupedBackground
         configureHierarchy()
         configureDataSource()
     }
@@ -36,7 +34,7 @@ class HomeViewController: UIViewController {
         present(naviController, animated: true, completion: nil)
     }
     
-    func showExposureNotifcationSettingBtn() {
+    func showExposureNotifcationSetting() {
         let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
         present(vc, animated: true, completion: nil)
     }
@@ -53,6 +51,14 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: Configuration
+    
+    private var homeLayout: HomeLayout!
+    
+    private func createLayout() -> UICollectionViewLayout {
+        homeLayout = HomeLayout()
+        homeLayout.delegate = self
+        return homeLayout.collectionLayout()
+    }
     
     private func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
@@ -132,88 +138,10 @@ class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController {
-    private func createLayout() -> UICollectionViewLayout {
-        let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            guard let sectionKind = Section(rawValue: sectionIndex) else { return nil }
-            let section = self.layoutSection(for: sectionKind, layoutEnvironment: layoutEnvironment)
-            return section
-        }
-        let config = UICollectionViewCompositionalLayoutConfiguration()
-        config.interSectionSpacing = 32.0
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150.0))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-         config.boundarySupplementaryItems = [header]
-        let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: config)
-        layout.register(SectionSystemBackgroundDecorationView.self, forDecorationViewOfKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
-        return layout
+extension HomeViewController: HomeLayoutDelegate {
+    func homeLayout(homeLayout: HomeLayout, for sectionIndex: Int) -> Section? {
+        Section(rawValue: sectionIndex)
     }
-    
-    private func layoutSection(for section: Section, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        switch section {
-        case .main:
-            return mainSection()
-        case .info:
-            return infoSection()
-        case .settings:
-            return settingsSection()
-        }
-    }
-    
-    private func mainSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let itemSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
-        let item2 = NSCollectionLayoutItem(layoutSize: itemSize2)
-        
-        let itemSize3 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
-        let item3 = NSCollectionLayoutItem(layoutSize: itemSize3)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1000.0))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item, item2, item3])
-        group.interItemSpacing = .fixed(16)
-        
-        let section = NSCollectionLayoutSection(group: group)
-        let insets: CGFloat = 16.0
-        section.contentInsets = .init(top: insets, leading: insets, bottom: insets, trailing: insets)
-        
-        let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
-        section.decorationItems = [sectionBackgroundDecoration]
-        
-        return section
-    }
-    
-    private func infoSection() -> NSCollectionLayoutSection {
-        
-        let itemSize1 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100.0))
-        let item1 = NSCollectionLayoutItem(layoutSize: itemSize1)
-        
-        let itemSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100.0))
-        let item2 = NSCollectionLayoutItem(layoutSize: itemSize2)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200.0))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item1, item2])
-        group.interItemSpacing = .fixed(4)
-        
-        let section = NSCollectionLayoutSection(group: group)
-        let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
-        section.decorationItems = [sectionBackgroundDecoration]
-        return section
-    }
-     
-    private func settingsSection() -> NSCollectionLayoutSection {
-        
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50.0))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        return section
-    }
-    
 }
 
 extension HomeViewController: UICollectionViewDelegate {
@@ -223,7 +151,7 @@ extension HomeViewController: UICollectionViewDelegate {
         switch section {
         case .main:
             if row == 0 {
-                showExposureNotifcationSettingBtn()
+                showExposureNotifcationSetting()
             } else if row == 1 {
                 
             } else {
