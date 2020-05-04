@@ -15,9 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        // TODO: Remove this when instance is created in the flow. This is only for simulating an instance created early
-        let enManager = ExposureManager.shared.manager
-
         return true
     }
 

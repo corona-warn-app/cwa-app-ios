@@ -62,7 +62,8 @@ class OnboardingInfoViewController: UIViewController {
     
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
         // still in the development
-        ExposureManager.shared.manager.setExposureNotificationEnabled(true) { error in
+        let manager = ExposureManager()
+        manager.activate { error in
             if let error = error as? ENError, error.code == .notAuthorized {
                 print("Encourage the user to consider enabling Exposure Notifications.")
                 completion?()

@@ -3,31 +3,45 @@
 //  ENA
 //
 //  Created by Steinmetz, Conrad on 01.05.20.
-//  Copyright © 2020 SAP SE. All rights reserved.
 //
 
 import ExposureNotification
 import Foundation
 
-final class ExposureManager {
+class ExposureManager {
+    private var manager: ENManager?
 
-    static let shared = ExposureManager()
+    init() {
+        self.manager = ENManager()
+    }
 
-    let manager = ENManager()
+    func activate(completion: ((Error?) -> Void)?) {
+        manager!.activate { (activationError) in
+            if let activationError = activationError {
+                completion?(activationError)
+                return
+            }
 
-    private init() {
-        manager.activate { _ in
-            // Ensure exposure notifications are enabled if we are authorized
-            // We could get into this state where we are authorized, but exposure notifications are not enabled if the user initially denied Exposure Notifications during onboarding, but then flipped on the "COVID-19 Exposure Notifications" switch in Settings
-            if ENManager.authorizationStatus == .authorized && !self.manager.exposureNotificationEnabled {
-                self.manager.setExposureNotificationEnabled(true) { _ in
-                    // No error handling for attempts to enable on launch
+            if !self.manager!.exposureNotificationEnabled {
+                self.manager!.setExposureNotificationEnabled(true) { enableError in
+                    if let enableError = enableError {
+                        completion?(enableError)
+                        return
+                    }
+                    completion?(nil)
                 }
+            } else {
+                completion?(nil)
             }
         }
     }
 
+    func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+        self.manager!.getDiagnosisKeys(completionHandler: completionHandler)
+    }
+
     deinit {
-        manager.invalidate()
+        self.manager!.invalidate()
+        self.manager = nil
     }
 }
