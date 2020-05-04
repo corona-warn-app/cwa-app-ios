@@ -8,13 +8,14 @@
 
 import ExposureNotification
 import UIKit
+import MessageUI
 
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var trackingStatusLabel: UILabel!
     @IBOutlet weak var notificationsSwitch: UISwitch!
     @IBOutlet weak var dataInWifiOnlySwitch: UISwitch!
-
+    @IBOutlet weak var sendLogFileView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,43 @@ class SettingsViewController: UIViewController {
         setupView()
     }
 
+    @IBAction func sendLogFile(_ sender: Any) {
+        let alert = UIAlertController(title: "Send Log", message: "", preferredStyle: .alert)
+        alert.addTextField { textField in
+            textField.placeholder = "Please enter email"
+        }
+
+        let action = UIAlertAction(title: "Send Log File", style: .default) { [weak self] _ in
+            guard let emailText = alert.textFields?[0].text else {
+                return
+            }
+
+            if !MFMailComposeViewController.canSendMail() {
+                return
+            }
+
+            let composeVC = MFMailComposeViewController()
+            composeVC.delegate = self
+            composeVC.setToRecipients([emailText])
+            composeVC.setSubject("Log File")
+
+            guard let logFile = appLogger.getLoggedData() else {
+                return
+            }
+            composeVC.addAttachmentData(logFile, mimeType: "txt", fileName: "Log")
+
+            self?.present(composeVC, animated: true, completion: nil)
+        }
+
+        alert.addAction(action)
+
+        self.present(alert, animated: true, completion: nil)
+    }
+
     private func setupView() {
+        #if DEBUG
+            sendLogFileView.isHidden = false
+        #endif
         // receive status of manager
         let status = ENStatus.active
         setTrackingStatus(for: status)
@@ -42,4 +79,11 @@ class SettingsViewController: UIViewController {
         }
     }
 
+}
+
+extension SettingsViewController : UINavigationControllerDelegate {
+    func mailComposeController(controller: MFMailComposeViewController,
+                               didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
