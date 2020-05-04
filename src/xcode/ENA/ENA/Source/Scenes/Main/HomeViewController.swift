@@ -55,8 +55,19 @@ class HomeViewController: UIViewController {
     private func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.delegate = self
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .systemBackground
+        let safeLayoutGuide = view.safeAreaLayoutGuide
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
+            collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor),
+        ])
+        
+        collectionView.backgroundColor = .systemGroupedBackground
         let nib1 = UINib(nibName: ActivateCollectionViewCell.reuseIdentifier, bundle: nil)
         collectionView.register(nib1, forCellWithReuseIdentifier: ActivateCollectionViewCell.reuseIdentifier)
         let nib2 = UINib(nibName: ActionCollectionViewCell.reuseIdentifier, bundle: nil)
@@ -69,7 +80,8 @@ class HomeViewController: UIViewController {
         let nib5 = UINib(nibName: SettingsCollectionViewCell.reuseIdentifier, bundle: nil)
         collectionView.register(nib5, forCellWithReuseIdentifier: SettingsCollectionViewCell.reuseIdentifier)
         
-        view.addSubview(collectionView)
+        collectionView.register(TitleSupplementaryView.self, forSupplementaryViewOfKind: "HEADER", withReuseIdentifier: TitleSupplementaryView.reuseIdentifier)
+
     }
     
     private func configureDataSource() {
@@ -102,7 +114,28 @@ class HomeViewController: UIViewController {
             
             return c
         }
-        
+        dataSource.supplementaryViewProvider = { (
+            collectionView: UICollectionView,
+            kind: String,
+            indexPath: IndexPath) -> UICollectionReusableView? in
+            
+            // Get a supplementary view of the desired kind.
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: TitleSupplementaryView.reuseIdentifier,
+                for: indexPath) as? TitleSupplementaryView else { fatalError("Cannot create new supplementary") }
+
+            // Populate the view with our section's description.
+            print(indexPath)
+            supplementaryView.label.text = "da"
+            supplementaryView.backgroundColor = .lightGray
+            supplementaryView.layer.borderColor = UIColor.black.cgColor
+            supplementaryView.layer.borderWidth = 1.0
+
+            // Return the view.
+            return supplementaryView
+            
+        }
         var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
         snapshot.appendSections([.main])
         snapshot.appendItems(Array(1...3))
@@ -122,8 +155,14 @@ extension HomeViewController {
             return section
         }
         let config = UICollectionViewCompositionalLayoutConfiguration()
-        config.interSectionSpacing = 20.0
+        config.interSectionSpacing = 32.0
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50.0))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "HEADER", alignment: .top)
+        header.zIndex = 2
+        header.pinToVisibleBounds = true
+        config.boundarySupplementaryItems = [header]
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: config)
+        layout.register(SectionSystemBackgroundDecorationView.self, forDecorationViewOfKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
         return layout
     }
     
@@ -153,6 +192,12 @@ extension HomeViewController {
         group.interItemSpacing = .fixed(16)
         
         let section = NSCollectionLayoutSection(group: group)
+        let insets: CGFloat = 16.0
+        section.contentInsets = .init(top: insets, leading: insets, bottom: insets, trailing: insets)
+        
+        let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
+        section.decorationItems = [sectionBackgroundDecoration]
+        
         return section
     }
     
@@ -169,6 +214,8 @@ extension HomeViewController {
         group.interItemSpacing = .fixed(4)
         
         let section = NSCollectionLayoutSection(group: group)
+        let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
+        section.decorationItems = [sectionBackgroundDecoration]
         return section
     }
      
