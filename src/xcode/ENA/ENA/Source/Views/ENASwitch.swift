@@ -9,6 +9,7 @@
 import UIKit
 
 /// A Switch UI control which has the same behavior of UISwitch, but with different tint color.
+@IBDesignable
 final class ENASwitch: UISwitch {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,5 +23,9 @@ final class ENASwitch: UISwitch {
     
     private func customizeSwitch() {
         self.onTintColor = UIColor.preferredColor(for: .tintColor)
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        customizeSwitch()
     }
 }
