@@ -31,18 +31,26 @@ class ExposureDetectionService {
 
         // Prepare parameter for download task
         let timeframe = timeframeToFetchKeys()
-
-        let pm = PackageManager(mode: .development)
-        pm.diagnosisKeys(since: timeframe) { result in
-            // todo
+        Server.shared.getExposureConfiguration { result in
             switch result {
-            case .success(let keys):
-                self.startExposureDetectionSession(diagnosisKeys: keys)
+
+            case .success(let config):
+                let pm = PackageManager(mode: .development)
+                pm.diagnosisKeys(since: timeframe) { result in
+                    switch result {
+                    case .success(let keys):
+                        self.startExposureDetectionSession(configuration: config, diagnosisKeys: keys)
+                    case .failure(_):
+                        // TODO
+                        print("fail")
+                    }
+                }
             case .failure(_):
-                // TODO
-                print("fail")
+                fatalError("implementation missing")
             }
+
         }
+
 
     }
 
@@ -73,9 +81,12 @@ class ExposureDetectionService {
 
 // MARK: - Exposure Detection Session
 extension ExposureDetectionService {
-    private func startExposureDetectionSession(diagnosisKeys: [ENTemporaryExposureKey]) {
+    private func startExposureDetectionSession(
+        configuration: ENExposureConfiguration,
+        diagnosisKeys: [ENTemporaryExposureKey]
+    ) {
         let session = ENExposureDetectionSession()
-
+        session.configuration = configuration
         session.activate() { error in
             if error != nil {
                 // Handle error
@@ -100,6 +111,14 @@ extension ExposureDetectionService {
                             }
                             guard let summary = summary else {
                                 return
+                            }
+
+                            session.getExposureInfo(withMaximumCount: 100) { (info, done, exposureError) in
+                                if let exposureError = exposureError {
+                                    print("getExposureInfo failed: \(exposureError)")
+                                    return
+                                }
+                                print("got getExposureInfo: \(String(describing: info))")
                             }
 
                             // Update timestamp of last successfull session
