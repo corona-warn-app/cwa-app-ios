@@ -10,49 +10,86 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet var topContainerView: UIView!
+    
     enum Section: Int {
         case main
         case info
         case settings
     }
     
-    var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
-    var collectionView: UICollectionView! = nil
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
+    private var collectionView: UICollectionView! = nil
+    private var homeLayout: HomeLayout!
+    private var homeInteractor: HomeInteractor = HomeInteractor()
+    
+    private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Cards"
+
+        prepareData()
         configureHierarchy()
         configureDataSource()
+        configureUI()
     }
     
     // MARK: Actions
     
-    func showSubmitResult() {
+    @IBAction private func infoButtonTapped(_ sender: UIButton) {
+        print(#function)
+    }
+    
+    private func showSubmitResult() {
         let vc = SelfExposureViewController.initiate(for: .selfExposure)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
     
-    func showExposureNotifcationSetting() {
+    private func showExposureNotifcationSetting() {
         let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
         present(vc, animated: true, completion: nil)
     }
     
-    func showSetting() {
+    private func showSetting() {
         let vc = SettingsViewController.initiate(for: .settings)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
 
-    func showDeveloperMenu() {
+    private func showDeveloperMenu() {
         let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
         present(developerMenuController, animated: true, completion: nil)
     }
     
+    private func showScreen(at indexPath: IndexPath) {
+        guard let section = Section(rawValue: indexPath.section) else { return }
+        let row = indexPath.row
+        switch section {
+        case .main:
+            if row == 0 {
+                showExposureNotifcationSetting()
+            } else if row == 1 {
+                // show risk page
+            } else {
+                showSubmitResult()
+            }
+        case .info:
+            if row == 0 {
+                // show share page
+            } else {
+                // show page about COVID-19
+            }
+        case .settings:
+            showSetting()
+        }
+    }
+    
     // MARK: Configuration
     
-    private var homeLayout: HomeLayout!
+    private func prepareData() {
+        cellConfigurators = homeInteractor.cellConfigurators()
+    }
     
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
@@ -65,62 +102,25 @@ class HomeViewController: UIViewController {
         collectionView.delegate = self
         let safeLayoutGuide = view.safeAreaLayoutGuide
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(collectionView)
-        
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-            collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
-        collectionView.backgroundColor = .systemGroupedBackground
-        let nib1 = UINib(nibName: ActivateCollectionViewCell.reuseIdentifier, bundle: nil)
-        collectionView.register(nib1, forCellWithReuseIdentifier: ActivateCollectionViewCell.reuseIdentifier)
-        let nib2 = UINib(nibName: ActionCollectionViewCell.reuseIdentifier, bundle: nil)
-        collectionView.register(nib2, forCellWithReuseIdentifier: ActionCollectionViewCell.reuseIdentifier)
-        let nib3 = UINib(nibName: SubmitCollectionViewCell.reuseIdentifier, bundle: nil)
-        collectionView.register(nib3, forCellWithReuseIdentifier: SubmitCollectionViewCell.reuseIdentifier)
-        let nib4 = UINib(nibName: InfoCollectionViewCell.reuseIdentifier, bundle: nil)
-        collectionView.register(nib4, forCellWithReuseIdentifier: InfoCollectionViewCell.reuseIdentifier)
-        
-        let nib5 = UINib(nibName: SettingsCollectionViewCell.reuseIdentifier, bundle: nil)
-        collectionView.register(nib5, forCellWithReuseIdentifier: SettingsCollectionViewCell.reuseIdentifier)
-        
+        collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
         collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
     }
     
     private func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self]
             (collectionView: UICollectionView, indexPath: IndexPath, identifier: Int) -> UICollectionViewCell? in
-            let c: UICollectionViewCell
-            if identifier == 1 {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActivateCollectionViewCell.reuseIdentifier, for: indexPath) as? ActivateCollectionViewCell else { fatalError("Cannot create the cell") }
-                // cell.titleLabel.text = "Active"
-                c = cell
-            } else if identifier == 2 {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActionCollectionViewCell.reuseIdentifier, for: indexPath) as? ActionCollectionViewCell else { fatalError("Cannot create the cell") }
-               // cell.titleLabel.text = "Action "
-                c = cell
-            } else if identifier == 3 {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SubmitCollectionViewCell.reuseIdentifier, for: indexPath) as? SubmitCollectionViewCell else { fatalError("Cannot create the cell") }
-               // cell.titleLabel.text = "Submit"
-                c = cell
-            } else if identifier == 4 || identifier == 5 {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: InfoCollectionViewCell.reuseIdentifier, for: indexPath) as? InfoCollectionViewCell else { fatalError("Cannot create the cell") }
-               // cell.titleLabel.text = "Submit"
-                c = cell
-            } else if identifier == 6 {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingsCollectionViewCell.reuseIdentifier, for: indexPath) as? SettingsCollectionViewCell else { fatalError("Cannot create the cell") }
-               // cell.titleLabel.text = "Submit"
-                c = cell
-            } else {
-                fatalError()
-            }
-            
-            return c
+            let configurator = self.cellConfigurators[identifier]
+            let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
+            configurator.configureAny(cell: cell)
+            return cell
         }
         dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
             guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier, for: indexPath) as? HomeFooterSupplementaryView else { fatalError("Cannot create new supplementary") }
@@ -129,12 +129,17 @@ class HomeViewController: UIViewController {
         }
         var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(Array(1...3))
+        snapshot.appendItems(Array(0...2))
         snapshot.appendSections([.info])
-        snapshot.appendItems(Array(4...5))
+        snapshot.appendItems(Array(3...4))
         snapshot.appendSections([.settings])
-        snapshot.appendItems([6])
+        snapshot.appendItems([5])
         dataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
+    private func configureUI () {
+        collectionView.backgroundColor = .systemGroupedBackground
+        topContainerView.backgroundColor = .systemBackground
     }
 }
 
@@ -146,21 +151,6 @@ extension HomeViewController: HomeLayoutDelegate {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let section = Section(rawValue: indexPath.section) else { return }
-        let row = indexPath.row
-        switch section {
-        case .main:
-            if row == 0 {
-                showExposureNotifcationSetting()
-            } else if row == 1 {
-                
-            } else {
-                showSubmitResult()
-            }
-        case .info:
-            break
-        case .settings:
-            showSetting()
-        }
+        showScreen(at: indexPath)
     }
 }

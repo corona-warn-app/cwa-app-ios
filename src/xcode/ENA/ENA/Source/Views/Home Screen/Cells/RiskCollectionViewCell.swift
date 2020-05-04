@@ -1,5 +1,5 @@
 //
-//  ActionCollectionViewCell.swift
+//  RiskCollectionViewCell.swift
 //  ENA
 //
 //  Created by Tikhonov, Aleksandr on 03.05.20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActionCollectionViewCell: UICollectionViewCell {
+class RiskCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var chevronImageView: UIImageView!
@@ -18,8 +18,6 @@ class ActionCollectionViewCell: UICollectionViewCell {
     @IBOutlet var dateLabel: UILabel!
     
     @IBOutlet var contactButton: UIButton!
-    
-    static let reuseIdentifier = "ActionCollectionViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()

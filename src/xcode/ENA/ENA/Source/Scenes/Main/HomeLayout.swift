@@ -29,6 +29,7 @@ final class HomeLayout {
          config.boundarySupplementaryItems = [header]
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: config)
         layout.register(SectionSystemBackgroundDecorationView.self, forDecorationViewOfKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
+        
         return layout
     }
     
@@ -59,7 +60,7 @@ final class HomeLayout {
         
         let section = NSCollectionLayoutSection(group: group)
         let insets: CGFloat = 16.0
-        section.contentInsets = .init(top: insets, leading: insets, bottom: insets, trailing: insets)
+        section.contentInsets = .init(top: insets, leading: insets, bottom: 0.0, trailing: insets)
         
         let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
         section.decorationItems = [sectionBackgroundDecoration]

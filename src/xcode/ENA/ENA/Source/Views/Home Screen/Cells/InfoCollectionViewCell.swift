@@ -14,6 +14,4 @@ class InfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
     
-    static let reuseIdentifier = "InfoCollectionViewCell"
-
 }

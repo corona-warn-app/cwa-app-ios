@@ -12,7 +12,5 @@ class SettingsCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var chevronImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
-    
-    static let reuseIdentifier = "SettingsCollectionViewCell"
 
 }

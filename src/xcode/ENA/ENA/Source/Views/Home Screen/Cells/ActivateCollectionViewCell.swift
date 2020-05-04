@@ -14,8 +14,6 @@ class ActivateCollectionViewCell: UICollectionViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var chevronImageView: UIImageView!
     
-    static let reuseIdentifier = "ActivateCollectionViewCell"
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = 10.0

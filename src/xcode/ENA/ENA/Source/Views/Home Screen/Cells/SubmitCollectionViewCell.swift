@@ -15,8 +15,6 @@ class SubmitCollectionViewCell: UICollectionViewCell {
     @IBOutlet var bodyLabel: UILabel!
     @IBOutlet var contactButton: UIButton!
     
-    static let reuseIdentifier = "SubmitCollectionViewCell"
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = 10.0
