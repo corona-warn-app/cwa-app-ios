@@ -30,7 +30,8 @@
 		51CE1B48246015C8002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B47246015C8002CF42A /* SectionSystemBackgroundDecorationView.swift */; };
 		51CE1B4A246016B0002CF42A /* UICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B49246016B0002CF42A /* UICollectionViewCell.swift */; };
 		51CE1B4C246016D1002CF42A /* UICollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B4B246016D1002CF42A /* UICollectionReusableView.swift */; };
-		51CE1B4F24602004002CF42A /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B4E24602004002CF42A /* TitleSupplementaryView.swift */; };
+		51CE1B522460478C002CF42A /* HomeFooterSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B502460478C002CF42A /* HomeFooterSupplementaryView.swift */; };
+		51CE1B532460478C002CF42A /* HomeFooterSupplementaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B512460478C002CF42A /* HomeFooterSupplementaryView.xib */; };
 		51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420B02458397300AD70CA /* Onboarding.storyboard */; };
 		51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B324583ABB00AD70CA /* AppStoryboard.swift */; };
 		51D420B724583B7200AD70CA /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B624583B7200AD70CA /* NSObject.swift */; };
@@ -116,7 +117,8 @@
 		51CE1B47246015C8002CF42A /* SectionSystemBackgroundDecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionSystemBackgroundDecorationView.swift; sourceTree = "<group>"; };
 		51CE1B49246016B0002CF42A /* UICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCell.swift; sourceTree = "<group>"; };
 		51CE1B4B246016D1002CF42A /* UICollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionReusableView.swift; sourceTree = "<group>"; };
-		51CE1B4E24602004002CF42A /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
+		51CE1B502460478C002CF42A /* HomeFooterSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFooterSupplementaryView.swift; sourceTree = "<group>"; };
+		51CE1B512460478C002CF42A /* HomeFooterSupplementaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeFooterSupplementaryView.xib; sourceTree = "<group>"; };
 		51D420B02458397300AD70CA /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		51D420B324583ABB00AD70CA /* AppStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoryboard.swift; sourceTree = "<group>"; };
 		51D420B624583B7200AD70CA /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
@@ -214,7 +216,7 @@
 		51CE1B30245F5D22002CF42A /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
-				51CE1B4D24601FF8002CF42A /* Header */,
+				51CE1B4D24601FF8002CF42A /* Footers */,
 				51CE1B46246015B8002CF42A /* Decorations */,
 				51CE1B31245F5D32002CF42A /* Cells */,
 			);
@@ -246,12 +248,13 @@
 			path = Decorations;
 			sourceTree = "<group>";
 		};
-		51CE1B4D24601FF8002CF42A /* Header */ = {
+		51CE1B4D24601FF8002CF42A /* Footers */ = {
 			isa = PBXGroup;
 			children = (
-				51CE1B4E24602004002CF42A /* TitleSupplementaryView.swift */,
+				51CE1B502460478C002CF42A /* HomeFooterSupplementaryView.swift */,
+				51CE1B512460478C002CF42A /* HomeFooterSupplementaryView.xib */,
 			);
-			path = Header;
+			path = Footers;
 			sourceTree = "<group>";
 		};
 		51D420AF2458308400AD70CA /* Onboarding */ = {
@@ -649,6 +652,7 @@
 				CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */,
 				51CE1B3D245F5D51002CF42A /* SubmitCollectionViewCell.xib in Resources */,
 				51CE1B42245F5D51002CF42A /* SettingsCollectionViewCell.xib in Resources */,
+				51CE1B532460478C002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				51CE1B45245F5D51002CF42A /* ActionCollectionViewCell.xib in Resources */,
 				51CE1B44245F5D51002CF42A /* ActivateCollectionViewCell.xib in Resources */,
@@ -712,6 +716,7 @@
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				51CE1B40245F5D51002CF42A /* SettingsCollectionViewCell.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
+				51CE1B522460478C002CF42A /* HomeFooterSupplementaryView.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				B1569DE1245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift in Sources */,
 				CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */,
@@ -719,7 +724,6 @@
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				51CE1B3E245F5D51002CF42A /* ActivateCollectionViewCell.swift in Sources */,
 				EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */,
-				51CE1B4F24602004002CF42A /* TitleSupplementaryView.swift in Sources */,
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
 				51C737BB245B142B00286105 /* OnboardingViewController.swift in Sources */,
 				B1569DDB245D70770079FCD7 /* DMExposureManager.swift in Sources */,

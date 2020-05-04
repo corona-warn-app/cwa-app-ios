@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootViewController: UIViewController
         switch instructor {
         case .main:
-            rootViewController = HomeViewController.initiate(for: .main)
+            rootViewController = AppStoryboard.main.initiateInitial()
         case .onboarding:
             rootViewController = OnboardingViewController.initiate(for: .onboarding)
         }

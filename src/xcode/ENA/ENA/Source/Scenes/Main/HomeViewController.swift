@@ -22,6 +22,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Cards"
+        
+        // view.backgroundColor = .systemGroupedBackground
         configureHierarchy()
         configureDataSource()
     }
@@ -64,7 +66,7 @@ class HomeViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
             collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
         collectionView.backgroundColor = .systemGroupedBackground
@@ -80,8 +82,8 @@ class HomeViewController: UIViewController {
         let nib5 = UINib(nibName: SettingsCollectionViewCell.reuseIdentifier, bundle: nil)
         collectionView.register(nib5, forCellWithReuseIdentifier: SettingsCollectionViewCell.reuseIdentifier)
         
-        collectionView.register(TitleSupplementaryView.self, forSupplementaryViewOfKind: "HEADER", withReuseIdentifier: TitleSupplementaryView.reuseIdentifier)
-
+        let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
+        collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
     }
     
     private func configureDataSource() {
@@ -114,27 +116,10 @@ class HomeViewController: UIViewController {
             
             return c
         }
-        dataSource.supplementaryViewProvider = { (
-            collectionView: UICollectionView,
-            kind: String,
-            indexPath: IndexPath) -> UICollectionReusableView? in
-            
-            // Get a supplementary view of the desired kind.
-            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: TitleSupplementaryView.reuseIdentifier,
-                for: indexPath) as? TitleSupplementaryView else { fatalError("Cannot create new supplementary") }
-
-            // Populate the view with our section's description.
-            print(indexPath)
-            supplementaryView.label.text = "da"
-            supplementaryView.backgroundColor = .lightGray
-            supplementaryView.layer.borderColor = UIColor.black.cgColor
-            supplementaryView.layer.borderWidth = 1.0
-
-            // Return the view.
+        dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier, for: indexPath) as? HomeFooterSupplementaryView else { fatalError("Cannot create new supplementary") }
+            supplementaryView.configure()
             return supplementaryView
-            
         }
         var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
         snapshot.appendSections([.main])
@@ -156,11 +141,9 @@ extension HomeViewController {
         }
         let config = UICollectionViewCompositionalLayoutConfiguration()
         config.interSectionSpacing = 32.0
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50.0))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "HEADER", alignment: .top)
-        header.zIndex = 2
-        header.pinToVisibleBounds = true
-        config.boundarySupplementaryItems = [header]
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150.0))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+         config.boundarySupplementaryItems = [header]
         let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: config)
         layout.register(SectionSystemBackgroundDecorationView.self, forDecorationViewOfKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
         return layout
@@ -178,16 +161,16 @@ extension HomeViewController {
     }
     
     private func mainSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1.0/5.0))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let itemSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1.0/2.0))
+        let itemSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
         let item2 = NSCollectionLayoutItem(layoutSize: itemSize2)
         
-        let itemSize3 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1.0/2.0))
+        let itemSize3 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
         let item3 = NSCollectionLayoutItem(layoutSize: itemSize3)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1.0))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1000.0))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item, item2, item3])
         group.interItemSpacing = .fixed(16)
         
@@ -203,13 +186,13 @@ extension HomeViewController {
     
     private func infoSection() -> NSCollectionLayoutSection {
         
-        let itemSize1 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1.0/2.0))
+        let itemSize1 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100.0))
         let item1 = NSCollectionLayoutItem(layoutSize: itemSize1)
         
-        let itemSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1.0/2.0))
+        let itemSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100.0))
         let item2 = NSCollectionLayoutItem(layoutSize: itemSize2)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1.0))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200.0))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item1, item2])
         group.interItemSpacing = .fixed(4)
         
@@ -221,10 +204,10 @@ extension HomeViewController {
      
     private func settingsSection() -> NSCollectionLayoutSection {
         
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1.0))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1.0))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50.0))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
