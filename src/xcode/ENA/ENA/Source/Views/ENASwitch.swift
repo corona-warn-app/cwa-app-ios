@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ENASwitch: UISwitch {
+/// A Switch UI control which has the same behavior of UISwitch, but with different tint color.
+final class ENASwitch: UISwitch {
     override init(frame: CGRect) {
         super.init(frame: frame)
         customizeSwitch()
