@@ -11,6 +11,10 @@ import CocoaLumberjackSwift
 
 let appLogger = Logger()
 
+func log(message: String, level: LogLevel = .info, file: String = #file, line: UInt = #line, function: String = #function) {
+    appLogger.log(message: message, level: level, file: file, line: line, function: function)
+}
+
 class Logger {
     init() {
         DDLog.add(createFileLogger())
@@ -20,7 +24,7 @@ class Logger {
         #endif
     }
 
-    public func log(message: String, level: LogLevel = .info, file: String = #file, line: UInt = #line, function: String = #function) {
+    public func log(message: String, level: LogLevel = .info, file: String, line: UInt, function: String) {
         let message = DDLogMessage(message: message, level: mapLogLevel(level), flag: .info, context: 0, file: file, function: function, line: line, tag: nil, options: .dontCopyMessage, timestamp: nil)
 
         DDLog.log(asynchronous: true, message: message)
