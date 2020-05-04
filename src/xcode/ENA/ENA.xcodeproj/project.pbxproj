@@ -401,6 +401,7 @@
 		B1569DD5245D6C790079FCD7 /* Developer Menu */ = {
 			isa = PBXGroup;
 			children = (
+				B102BDC324606A9D00CD55A2 /* Exposure.swift */,
 				01C28E10245D9BE30045EFFA /* DMLocalStore.swift */,
 				B10FB02C245D8A85004CA11E /* TintLabel.swift */,
 				B1569DDE245D70990079FCD7 /* DMViewController.swift */,
@@ -444,7 +445,6 @@
 			isa = PBXGroup;
 			children = (
 				EE6119E2245C850E00AB38A1 /* ExposureManager.swift */,
-				B102BDC324606A9D00CD55A2 /* Exposure.swift */,
 			);
 			path = Exposure;
 			sourceTree = "<group>";
