@@ -17,6 +17,7 @@ enum AppStoryboard: String {
     case selfExposureConfirmation = "Confirmation"
     case settings = "Settings"
     case developerMenu = "DeveloperMenu"
+    case inviteFriends = "InviteFriends"
 
     var instance: UIStoryboard {
         return UIStoryboard(name: rawValue, bundle: nil)

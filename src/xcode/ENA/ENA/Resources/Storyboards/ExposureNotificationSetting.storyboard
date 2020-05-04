@@ -24,7 +24,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9M-pM-8Cm">
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9M-pM-8Cm" customClass="ENASwitch" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="338" y="26" width="51" height="31"/>
                                         <connections>
                                             <action selector="contactTracingValueChanged:" destination="OYM-wn-8tE" eventType="valueChanged" id="qk7-iQ-2J9"/>
