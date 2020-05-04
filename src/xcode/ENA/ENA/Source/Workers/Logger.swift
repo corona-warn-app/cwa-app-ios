@@ -21,7 +21,9 @@ func logError(message: String, level: LogLevel = .error, file: String = #file, l
 
 class Logger {
     init() {
+        #if !APP_STORE
         DDLog.add(createFileLogger())
+        #endif
 
         #if DEBUG
         DDLog.add(createConsoleLogger())
