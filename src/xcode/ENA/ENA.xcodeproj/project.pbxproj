@@ -31,6 +31,7 @@
 		858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858F6F6D245A103C009FFD33 /* ExposureNotification.framework */; };
 		858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858F6F72245AED03009FFD33 /* ExposureNotificationSettingViewController.swift */; };
 		858F6F75245B1374009FFD33 /* ExposureNotificationSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 858F6F74245B1374009FFD33 /* ExposureNotificationSetting.storyboard */; };
+		8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595BF5E246032D90056EA27 /* ENASwitch.swift */; };
 		85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7593E2457048F008175F0 /* AppDelegate.swift */; };
 		85D759412457048F008175F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D759402457048F008175F0 /* SceneDelegate.swift */; };
 		85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 85D759472457048F008175F0 /* ENA.xcdatamodeld */; };
@@ -117,6 +118,7 @@
 		858F6F6D245A103C009FFD33 /* ExposureNotification.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExposureNotification.framework; path = System/Library/Frameworks/ExposureNotification.framework; sourceTree = SDKROOT; };
 		858F6F72245AED03009FFD33 /* ExposureNotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureNotificationSettingViewController.swift; sourceTree = "<group>"; };
 		858F6F74245B1374009FFD33 /* ExposureNotificationSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ExposureNotificationSetting.storyboard; sourceTree = "<group>"; };
+		8595BF5E246032D90056EA27 /* ENASwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENASwitch.swift; sourceTree = "<group>"; };
 		85D7593B2457048F008175F0 /* ENA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ENA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D7593E2457048F008175F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85D759402457048F008175F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -259,8 +261,8 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8595BF5D246032C40056EA27 /* Views */,
 				B1569DD5245D6C790079FCD7 /* Developer Menu */,
-				51EE9A6B245C0F7E00F2544F /* Views */,
 				51EE9A6A245C0F7900F2544F /* Models */,
 				01AB8A692459E65D00042245 /* Protocols */,
 				85D759802459A82D008175F0 /* Services */,
@@ -280,13 +282,6 @@
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		51EE9A6B245C0F7E00F2544F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		51EE9A6C245C0FB500F2544F /* Onboarding */ = {
@@ -310,6 +305,14 @@
 				858F6F72245AED03009FFD33 /* ExposureNotificationSettingViewController.swift */,
 			);
 			path = ENSetting;
+			sourceTree = "<group>";
+		};
+		8595BF5D246032C40056EA27 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8595BF5E246032D90056EA27 /* ENASwitch.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		85D759322457048F008175F0 = {
@@ -654,6 +657,7 @@
 				01B0C6B8245B23C2006F5A69 /* ExposureDetectionService.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				B1569DDD245D70880079FCD7 /* DMErrorHandling.swift in Sources */,
+				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
 				B1569DD7245D703C0079FCD7 /* DMServer.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
@@ -895,7 +899,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ena;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = covid43;
+				PROVISIONING_PROFILE_SPECIFIER = "ena-4";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -907,9 +911,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 75QSJ8SMAA;
+				DEVELOPMENT_TEAM = ZK2MG3TWVQ;
 				INFOPLIST_FILE = ENATests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -929,9 +933,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 75QSJ8SMAA;
+				DEVELOPMENT_TEAM = ZK2MG3TWVQ;
 				INFOPLIST_FILE = ENATests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

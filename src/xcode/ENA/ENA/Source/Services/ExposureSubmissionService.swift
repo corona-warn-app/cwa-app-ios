@@ -23,26 +23,27 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
     }
 
     func submitSelfExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
-        let enManager = ExposureManager.shared.manager
-
-        if enManager.exposureNotificationStatus != .active {
-            completionHandler(.notActivated)
-            return
-        }
-
-        enManager.getDiagnosisKeys { keys, error in
-            if let error = error {
-                completionHandler(self.parseError(error))
+        let manager = ExposureManager()
+        manager.activate { error in
+            if let _ = error {
+                completionHandler(.notActivated)
                 return
             }
 
-            guard let keys = keys else {
-                completionHandler(.noKeys)
-                return
-            }
+            manager.accessDiagnosisKeys { keys, error in
+                if let error = error {
+                    completionHandler(self.parseError(error))
+                    return
+                }
 
-            self.packageManager.sendDiagnosisKeys(keys, tan: tan) { error in
-                completionHandler(error == nil ? nil : self.parseError(error!))
+                guard let keys = keys else {
+                    completionHandler(.noKeys)
+                    return
+                }
+
+                self.packageManager.sendDiagnosisKeys(keys, tan: tan) { error in
+                    completionHandler(error == nil ? nil : self.parseError(error!))
+                }
             }
         }
     }

@@ -62,9 +62,14 @@ class OnboardingInfoViewController: UIViewController {
     
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
         // still in the development
-        ExposureManager.shared.manager.setExposureNotificationEnabled(true) { error in
-            if let error = error as? ENError, error.code == .notAuthorized {
-                print("Encourage the user to consider enabling Exposure Notifications.")
+        let manager = ExposureManager()
+        manager.activate { error in
+            if let error = error {
+                switch error {
+                case .exposureNotificationRequired:
+                    print("Encourage the user to consider enabling Exposure Notifications.")
+                }
+
                 completion?()
             } else if let error = error {
                 self.showError(error, from: self, completion: completion)
@@ -79,7 +84,7 @@ class OnboardingInfoViewController: UIViewController {
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
-    func showError(_ error: Error, from viewController: UIViewController, completion: (() -> Void)?) {
+    func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
         let alert = UIAlertController(title: "Error", message: String(describing: error), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel))
         viewController.present(alert, animated: true, completion: completion)
