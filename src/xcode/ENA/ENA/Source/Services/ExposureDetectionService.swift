@@ -11,19 +11,12 @@ import ExposureNotification
 
 class ExposureDetectionService {
 
-    // FIXME: Use NotificationCenter instead of delegate (Multiple ViewControllers will need the result/summary)
-    private weak var delegate: ExposureDetectionServiceDelegate?
-
     private var queue: DispatchQueue
     private var sessionStartTime: Date?
 
-    private static let numberOfPastDaysRelevantForDetection = 14
+    private static let numberOfPastDaysRelevantForDetection = 14  // TODO: Move to config class / .plist
 
-    @UserDefaultsStorage(key: "lastProcessedPackageTime", defaultValue: nil)
-    static var lastProcessedPackageTime: Date?
-
-    init(delegate: ExposureDetectionServiceDelegate?) {
-        self.delegate = delegate
+    init() {
         self.queue = DispatchQueue(label: "com.sap.exposureDetection")
     }
 
@@ -64,12 +57,12 @@ class ExposureDetectionService {
     }
 
     private func checkLastEVSession() -> Bool {
-        guard let lastProcessedPackageTime = Self.lastProcessedPackageTime else{
+        guard let dateLastExposureDetection = PersistenceManager.shared.dateLastExposureDetection else{
             return true  // No date stored -> first session
         }
 
         let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents([.hour], from: lastProcessedPackageTime, to: Date())
+        let dateComponents = calendar.dateComponents([.hour], from: dateLastExposureDetection, to: Date())
         let hoursSinceLastRequest = dateComponents.hour ?? 0
 
         // Only allow one request per hour
@@ -94,13 +87,15 @@ extension ExposureDetectionService {
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):
-                        self.delegate?.didFailWithError(self, error: error)
+                        let notification = Notification(name: Notification.Name.exposureDetectionSessionDidFail, object: error, userInfo: nil)
+                        NotificationCenter.default.post(notification)
                     case .success(_):
                         // Get result from session
                         session.finishedDiagnosisKeys { (summary, error) in
                             // This is called on the main queue
                             guard error == nil else {
-                                self.delegate?.didFailWithError(self, error: error! )
+                                let notification = Notification(name: Notification.Name.exposureDetectionSessionDidFail, object: error, userInfo: nil)
+                                NotificationCenter.default.post(notification)
                                 return
                             }
                             guard let summary = summary else {
@@ -109,10 +104,10 @@ extension ExposureDetectionService {
 
                             // Update timestamp of last successfull session
                             if self.sessionStartTime != nil {
-                                Self.lastProcessedPackageTime = self.sessionStartTime!
+                                PersistenceManager.shared.dateLastExposureDetection = self.sessionStartTime!
                             }
 
-                            self.delegate?.didFinish(self, result: summary)
+                            // TODO: Send exposures / summary to PersistenceManager
                         }
                     }
                 }

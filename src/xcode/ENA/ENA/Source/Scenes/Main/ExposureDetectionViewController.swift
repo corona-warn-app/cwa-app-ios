@@ -10,21 +10,26 @@ import UIKit
 import ExposureNotification
 
 class ExposureDetectionViewController: UIViewController {
-    
+
     @IBOutlet weak var contactTitleLabel: UILabel!
     @IBOutlet weak var lastContactLabel: UILabel!
 
     @IBOutlet weak var lastSyncLabel: UILabel!
     @IBOutlet weak var syncButton: UIButton!
     @IBOutlet weak var nextSyncLabel: UILabel!
-    
+
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
-    
-    private lazy var exposureDetectionService = ExposureDetectionService(delegate: self)
-    
+
+    private lazy var exposureDetectionService = ExposureDetectionService()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateLastSyncLabel),
+                                               name: .dateLastExposureDetectionDidChange,
+                                               object: nil)
 
         setupView()
     }
@@ -41,18 +46,18 @@ class ExposureDetectionViewController: UIViewController {
         infoTitleLabel.text = .info
         infoTextView.text = .infoText
     }
-    
-    private func updateLastSyncLabel() {
+
+    @objc func updateLastSyncLabel() {
 
         let lastContactStringFormat = NSLocalizedString("lastHours", comment: "")
-        guard let lastSync = ExposureDetectionService.lastProcessedPackageTime else {
+        guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
             self.lastSyncLabel.text = NSLocalizedString("unknown_time", comment: "")
             return
         }
         let hours = Calendar.current.component(.hour, from: lastSync)
         self.lastSyncLabel.text =  String.localizedStringWithFormat(lastContactStringFormat, hours)
     }
-    
+
     private func updateNextSyncLabel() {
         let stringFormat = NSLocalizedString("nextSync", comment: "")
         nextSyncLabel.text = String.localizedStringWithFormat(stringFormat, 18)
@@ -64,24 +69,12 @@ class ExposureDetectionViewController: UIViewController {
     }
 }
 
-extension ExposureDetectionViewController: ExposureDetectionServiceDelegate {
-    func didFinish(_ sender: ExposureDetectionService, result: ENExposureDetectionSummary) {
-        DispatchQueue.main.async {
-            self.updateLastSyncLabel()
-        }
-    }
-    
-    func didFailWithError(_ sender: ExposureDetectionService, error: Error) {
-
-    }
-}
-
 fileprivate extension String {
 
     static let lastContactTitle = NSLocalizedString("ExposureDetection_lastContactTitle", comment: "")
     static let synchronize = NSLocalizedString("ExposureDetection_synchronize", comment: "")
-    
+
     static let info = NSLocalizedString("ExposureDetection_info", comment: "")
     static let infoText = NSLocalizedString("ExposureDetection_infoText", comment: "")
-    
+
 }

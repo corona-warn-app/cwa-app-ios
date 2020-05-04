@@ -9,5 +9,7 @@
 import Foundation
 
 extension Notification.Name {
-    static var onboardingFlagDidChange = Notification.Name("onboardingFlagDidChange")
+    static var isOnboardedDidChange                 = Notification.Name("isOnboardedDidChange")
+    static var dateLastExposureDetectionDidChange   = Notification.Name("dateLastExposureDetectionDidChange")
+    static var exposureDetectionSessionDidFail      = Notification.Name("exposureDetectionSessionDidFail")
 }
