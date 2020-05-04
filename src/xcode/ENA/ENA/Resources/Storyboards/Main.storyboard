@@ -251,12 +251,17 @@
                                                     <constraint firstAttribute="height" constant="120" id="jsM-hE-oai"/>
                                                 </constraints>
                                             </stackView>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="WJi-6I-vKe">
+                                                <rect key="frame" x="197" y="196" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstItem="Bf1-Gf-8X2" firstAttribute="top" secondItem="xyo-BT-9TB" secondAttribute="top" constant="20" id="748-Y0-gfC"/>
                                             <constraint firstItem="ZRT-HT-fzE" firstAttribute="top" secondItem="Rle-Kg-eoH" secondAttribute="bottom" constant="30" id="BMD-r4-BaW"/>
                                             <constraint firstItem="ZRT-HT-fzE" firstAttribute="leading" secondItem="xyo-BT-9TB" secondAttribute="leading" constant="50" id="HtR-uy-qAl"/>
+                                            <constraint firstItem="WJi-6I-vKe" firstAttribute="top" secondItem="xGq-mj-68f" secondAttribute="bottom" constant="4" id="WFj-TF-j2K"/>
+                                            <constraint firstItem="WJi-6I-vKe" firstAttribute="centerX" secondItem="xyo-BT-9TB" secondAttribute="centerX" id="nEI-1J-Kdd"/>
                                             <constraint firstAttribute="trailing" secondItem="Bf1-Gf-8X2" secondAttribute="trailing" constant="16" id="sSV-K3-qGt"/>
                                             <constraint firstItem="Bf1-Gf-8X2" firstAttribute="leading" secondItem="xyo-BT-9TB" secondAttribute="leading" constant="16" id="wsL-WX-brQ"/>
                                             <constraint firstAttribute="trailing" secondItem="ZRT-HT-fzE" secondAttribute="trailing" constant="50" id="ye0-wv-PhA"/>
@@ -312,6 +317,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="4So-Ru-cM5"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="WJi-6I-vKe" id="UTP-Po-afp"/>
                         <outlet property="contactTitleLabel" destination="Rle-Kg-eoH" id="dQ2-dv-LhO"/>
                         <outlet property="infoTextView" destination="rVa-aM-5gI" id="2Mu-PR-XRe"/>
                         <outlet property="infoTitleLabel" destination="QzT-Ej-n67" id="91g-Nu-Ggj"/>
