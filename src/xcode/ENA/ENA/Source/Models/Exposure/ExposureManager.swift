@@ -9,9 +9,8 @@ import ExposureNotification
 import Foundation
 
 enum ExposureNotificationError {
-    case exposureNotificationRequired // tbc..
+    case exposureNotificationRequired
 }
-
 
 /**
 *   @brief    Wrapper for ENManager to avoid code duplication and to abstract error handling
@@ -23,10 +22,10 @@ final class ExposureManager {
     private let manager: ENManager
 
     init() {
-        self.manager = ENManager()
+        manager = ENManager()
     }
 
-    /// Activates ENManager and asks user for permission to enable ExposureNotification
+    /// Activates `ENManager` and asks user for permission to enable ExposureNotification.
     /// If the user declines, completion handler will set the error to exposureNotificationRequired
     func activate(completion: @escaping CompletionHandler) {
         manager.activate { (activationError) in
@@ -49,13 +48,14 @@ final class ExposureManager {
         }
     }
 
-    /// Wrapper for ENManager.getDiagnosisKeys
+    /// Wrapper for `ENManager.getDiagnosisKeys`. You have to call `ExposureManager.activate` before calling this method.
     func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-        if !self.manager.exposureNotificationEnabled {
+        if !manager.exposureNotificationEnabled {
             let error = ENError(.notAuthorized)
             completionHandler(nil, error)
+            return
         }
-        self.manager.getDiagnosisKeys(completionHandler: completionHandler)
+        manager.getDiagnosisKeys(completionHandler: completionHandler)
     }
 
     private func handleENError(error: Error, completion: @escaping CompletionHandler) {
@@ -71,10 +71,9 @@ final class ExposureManager {
         } else {
             fatalError("Not implemented \(error.localizedDescription)")
         }
-        return
     }
 
     deinit {
-        self.manager.invalidate()
+        manager.invalidate()
     }
 }
