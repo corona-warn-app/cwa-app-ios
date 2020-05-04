@@ -62,6 +62,12 @@ class HomeViewController: UIViewController {
         present(developerMenuController, animated: true, completion: nil)
     }
     
+    private func showInviteFriends() {
+        let vc = FriendsInviteController.initiate(for: .inviteFriends)
+        let naviController = UINavigationController(rootViewController: vc)
+        self.present(naviController, animated: true, completion: nil)
+    }
+    
     private func showScreen(at indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
         let row = indexPath.row
@@ -76,7 +82,7 @@ class HomeViewController: UIViewController {
             }
         case .info:
             if row == 0 {
-                // show share page
+                showInviteFriends()
             } else {
                 // show page about COVID-19
             }
