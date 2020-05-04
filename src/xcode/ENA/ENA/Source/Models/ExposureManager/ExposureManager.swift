@@ -8,40 +8,73 @@
 import ExposureNotification
 import Foundation
 
-class ExposureManager {
-    private var manager: ENManager?
+enum ExposureNotificationError {
+    case exposureNotificationRequired // tbc..
+}
+
+
+/**
+*   @brief    Wrapper for ENManager to avoid code duplication and to abstract error handling
+*/
+final class ExposureManager {
+
+    typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
+
+    private let manager: ENManager
 
     init() {
         self.manager = ENManager()
     }
 
-    func activate(completion: ((Error?) -> Void)?) {
-        manager!.activate { (activationError) in
+    /// Activates ENManager and asks user for permission to enable ExposureNotification
+    /// If the user declines, completion handler will set the error to exposureNotificationRequired
+    func activate(completion: @escaping CompletionHandler) {
+        manager.activate { (activationError) in
             if let activationError = activationError {
-                completion?(activationError)
+                self.handleENError(error: activationError, completion: completion)
                 return
             }
 
-            if !self.manager!.exposureNotificationEnabled {
-                self.manager!.setExposureNotificationEnabled(true) { enableError in
+            if !self.manager.exposureNotificationEnabled {
+                self.manager.setExposureNotificationEnabled(true) { enableError in
                     if let enableError = enableError {
-                        completion?(enableError)
+                        self.handleENError(error: enableError, completion: completion)
                         return
                     }
-                    completion?(nil)
+                    completion(nil)
                 }
             } else {
-                completion?(nil)
+                completion(nil)
             }
         }
     }
 
+    /// Wrapper for ENManager.getDiagnosisKeys
     func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-        self.manager!.getDiagnosisKeys(completionHandler: completionHandler)
+        if !self.manager.exposureNotificationEnabled {
+            let error = ENError(.notAuthorized)
+            completionHandler(nil, error)
+        }
+        self.manager.getDiagnosisKeys(completionHandler: completionHandler)
+    }
+
+    private func handleENError(error: Error, completion: @escaping CompletionHandler) {
+        if let error = error as? ENError {
+            switch error.code {
+            case .notAuthorized:
+                print("Failed: \(error.localizedDescription)")
+                completion(ExposureNotificationError.exposureNotificationRequired)
+            default:
+                // TODO: Add missing cases
+                fatalError("Not implemented \(error.localizedDescription)")
+            }
+        } else {
+            fatalError("Not implemented \(error.localizedDescription)")
+        }
+        return
     }
 
     deinit {
-        self.manager!.invalidate()
-        self.manager = nil
+        self.manager.invalidate()
     }
 }
