@@ -25,33 +25,32 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
     func submitSelfExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
         log(message: "Started self exposure submission...")
 
-        let enManager = ExposureManager.shared.manager
-
-        if enManager.exposureNotificationStatus != .active {
-            log(message: "Exposure notification service not activated.", level: .warning)
-            completionHandler(.notActivated)
-            return
-        }
-
-        enManager.getDiagnosisKeys { keys, error in
-            if let error = error {
-                logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
-                completionHandler(self.parseError(error))
+        let manager = ExposureManager()
+        manager.activate { error in
+            if let _ = error {
+                log(message: "Exposure notification service not activated.", level: .warning)
+                completionHandler(.notActivated)
                 return
             }
 
-            guard let keys = keys else {
-                log(message: "No diagnosis keys present on the device.")
-                completionHandler(.noKeys)
-                return
-            }
-
-            self.packageManager.sendDiagnosisKeys(keys, tan: tan) { error in
+            manager.accessDiagnosisKeys { keys, error in
                 if let error = error {
-                    logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+                    logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
+                    completionHandler(self.parseError(error))
+                    return
                 }
 
-                completionHandler(error == nil ? nil : self.parseError(self.parseError(error!)))
+                guard let keys = keys else {
+                    completionHandler(.noKeys)
+                    return
+                }
+
+                self.packageManager.sendDiagnosisKeys(keys, tan: tan) { error in
+                    if let error = error {
+                        logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+                    }
+                    completionHandler(error == nil ? nil : self.parseError(error!))
+                }
             }
         }
     }
