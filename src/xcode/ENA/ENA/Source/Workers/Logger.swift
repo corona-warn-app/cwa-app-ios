@@ -15,6 +15,10 @@ func log(message: String, level: LogLevel = .info, file: String = #file, line: U
     appLogger.log(message: message, level: level, file: file, line: line, function: function)
 }
 
+func logError(message: String, level: LogLevel = .error, file: String = #file, line: UInt = #line, function: String = #function) {
+    appLogger.log(message: message, level: level, file: file, line: line, function: function)
+}
+
 class Logger {
     init() {
         DDLog.add(createFileLogger())
