@@ -105,8 +105,10 @@ class _Client: NSObject {
     }
 
     func sendDiagnosisKeys(_ diagnosisKeys: [ENTemporaryExposureKey], tan: String, completionHandler completeWith: @escaping SendCompletionHandler) {
-        switch mode {
-        case .development:
+           log(message: "Sending diagnosis keys for submission.")
+
+           switch mode {
+           case .development:
             // In development we simply assume that everything just works.
             completeWith(/* error */ nil)
         case .production:

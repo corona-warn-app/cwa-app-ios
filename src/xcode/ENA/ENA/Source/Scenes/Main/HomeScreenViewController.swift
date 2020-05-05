@@ -21,8 +21,8 @@ class HomeScreenViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showExposureDetection" {
-            guard let expDetVC = segue.destination as? ExposureDetectionViewController else { fatalError() }
-            expDetVC.exposureDetectionService = ExposureDetectionService(client: client)
+            guard let exposureDetectionVC = segue.destination as? ExposureDetectionViewController else { fatalError() }
+            exposureDetectionVC.exposureDetectionService = ExposureDetectionService(delegate: exposureDetectionVC, client: client)
         }
         super.prepare(for: segue, sender: sender)
     }

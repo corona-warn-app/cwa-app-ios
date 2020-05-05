@@ -9,16 +9,24 @@
 import Foundation
 import ExposureNotification
 
-class ExposureDetectionService {
+protocol ExposureDetectionServiceDelegate: class {
+    func exposureDetectionServiceDidStart(_ service: ExposureDetectionService) -> Void
+    func exposureDetectionServiceDidFinish(_ service: ExposureDetectionService, summary: ENExposureDetectionSummary) -> Void
+    func exposureDetectionServiceDidFail(_ service: ExposureDetectionService, error: Error) -> Void
+}
 
+final class ExposureDetectionService {
     private var queue: DispatchQueue
     private var sessionStartTime: Date?
+    private weak var delegate: ExposureDetectionServiceDelegate?
     private let client: Client
 
-    private static let numberOfPastDaysRelevantForDetection = 14  // TODO: Move to config class / .plist
+    fileprivate static let numberOfPastDaysRelevantForDetection = 14  // TODO: Move to config class / .plist
+    fileprivate static let numberCountExposureInfo = 100
 
-    init(client: Client) {
-        queue = DispatchQueue(label: "com.sap.exposureDetection")
+    init(delegate: ExposureDetectionServiceDelegate, client: Client) {
+        self.queue = DispatchQueue(label: "com.sap.exposureDetection")
+        self.delegate = delegate
         self.client = client
     }
 
@@ -31,29 +39,27 @@ class ExposureDetectionService {
 
         self.sessionStartTime = Date()  // will be used once the session succeeded
 
-        client.fetch() { result in
-            // todo
-            switch result {
-            case .success(let keys):
-                self.startExposureDetectionSession(diagnosisKeys: keys)
-            case .failure(_):
-                // TODO
-                print("fail")
+        // Prepare parameter for download task
+        client.exposureConfiguration { configurationResult in
+            switch configurationResult {
+            case .success(let configuration):
+                self.client.fetch() { result in
+                    // todo
+                    switch result {
+                        case .success(let keys):
+                            self.startExposureDetectionSession(configuration: configuration, diagnosisKeys: keys)
+                        case .failure(_):
+                        // TODO
+                        print("fail")
+                    }
+                }
+            case .failure(let error):
+                print("error: \(error)")
             }
         }
-
     }
 
     // MARK: - Private helper methods
-    private func timeframeToFetchKeys() -> Date {
-        // Case 1: First request -> Fetch last 14 days
-        // Case 2: Request within 2 weeks from last request -> just format timestamp
-        // Case 3: Last request older than upper threshold -> limit to threshold
-        let numberOfRelevantDays = type(of: self).numberOfPastDaysRelevantForDetection
-        let now = Date()
-        return Calendar.current.date(byAdding: .day, value: -numberOfRelevantDays, to: now) ?? now
-    }
-
     private func checkLastEVSession() -> Bool {
         guard let dateLastExposureDetection = PersistenceManager.shared.dateLastExposureDetection else{
             return true  // No date stored -> first session
@@ -71,33 +77,54 @@ class ExposureDetectionService {
 
 // MARK: - Exposure Detection Session
 extension ExposureDetectionService {
-    private func startExposureDetectionSession(diagnosisKeys: [ENTemporaryExposureKey]) {
-        let session = ENExposureDetectionSession()
 
+    private func failWith(error: Error) {
+        delegate?.exposureDetectionServiceDidFail(self, error: error)
+    }
+
+    private func startExposureDetectionSession(
+        configuration: ENExposureConfiguration,
+        diagnosisKeys: [ENTemporaryExposureKey]
+    ) {
+        delegate?.exposureDetectionServiceDidStart(self)
+
+        let session = ENExposureDetectionSession()
+        session.configuration = configuration
         session.activate() { error in
-            if error != nil {
-                // Handle error
+            if let error = error {
+                self.failWith(error: error)
                 return
             }
+
             // Call addDiagnosisKeys with up to maxKeyCount keys + wait for completion
             self.queue.async {
                 let result = self.addKeys(session, diagnosisKeys)
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):
-                        let notification = Notification(name: Notification.Name.exposureDetectionSessionDidFail, object: error, userInfo: nil)
-                        NotificationCenter.default.post(notification)
+                        self.failWith(error: error)
+                        return
                     case .success(_):
                         // Get result from session
-                        session.finishedDiagnosisKeys { (summary, error) in
+                        session.finishedDiagnosisKeys { (summary, finishError) in
                             // This is called on the main queue
-                            guard error == nil else {
-                                let notification = Notification(name: Notification.Name.exposureDetectionSessionDidFail, object: error, userInfo: nil)
-                                NotificationCenter.default.post(notification)
+                            if let finishError = finishError {
+                                self.failWith(error: finishError)
                                 return
                             }
+
                             guard let summary = summary else {
-                                return
+                                fatalError("how can this happen apple?")
+                            }
+
+                            self.delegate?.exposureDetectionServiceDidFinish(self, summary: summary)
+
+                            session.getExposureInfo(withMaximumCount: type(of: self).numberCountExposureInfo) { (info, done, exposureError) in
+                                if let exposureError = exposureError {
+                                    print("getExposureInfo failed: \(exposureError)")
+                                    return
+                                }
+                                print("got getExposureInfo: \(String(describing: info))")
                             }
 
                             // Update timestamp of last successfull session

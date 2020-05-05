@@ -11,6 +11,8 @@ import ExposureNotification
 
 class ExposureDetectionViewController: UIViewController {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
     @IBOutlet weak var contactTitleLabel: UILabel!
     @IBOutlet weak var lastContactLabel: UILabel!
 
@@ -77,4 +79,29 @@ fileprivate extension String {
     static let info = NSLocalizedString("ExposureDetection_info", comment: "")
     static let infoText = NSLocalizedString("ExposureDetection_infoText", comment: "")
 
+}
+
+extension ExposureDetectionViewController : ExposureDetectionServiceDelegate {
+    func exposureDetectionServiceDidStart(_ service: ExposureDetectionService) {
+        activityIndicator.startAnimating()
+    }
+
+    func exposureDetectionServiceDidFinish(_ service: ExposureDetectionService, summary: ENExposureDetectionSummary) {
+        activityIndicator.stopAnimating()
+        infoTextView.text = summary.pretty
+    }
+
+    func exposureDetectionServiceDidFail(_ service: ExposureDetectionService, error: Error) {
+        activityIndicator.stopAnimating()
+    }
+}
+
+fileprivate extension ENExposureDetectionSummary {
+    var pretty: String {
+        return """
+        daysSinceLastExposure: \(daysSinceLastExposure)
+        matchedKeyCount: \(matchedKeyCount)
+        maximumRiskScore: \(maximumRiskScore)
+        """
+    }
 }

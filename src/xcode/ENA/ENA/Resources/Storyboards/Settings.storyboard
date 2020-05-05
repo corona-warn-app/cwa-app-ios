@@ -184,6 +184,24 @@
                                                     <constraint firstItem="Upj-lQ-YNH" firstAttribute="leading" secondItem="W1m-Tt-NHn" secondAttribute="leading" constant="16" id="lmJ-9w-BoC"/>
                                                 </constraints>
                                             </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13S-MQ-Cc0">
+                                                <rect key="frame" x="0.0" y="340" width="414" height="20"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPP-35-Ufe">
+                                                        <rect key="frame" x="16" y="10" width="93" height="0.0"/>
+                                                        <state key="normal" title="Send Log File"/>
+                                                        <connections>
+                                                            <action selector="sendLogFile:" destination="ZTw-L4-dxd" eventType="touchUpInside" id="DRn-w2-zNa"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.87161592511356178" green="0.87161592511356178" blue="0.87161592511356178" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="MPP-35-Ufe" firstAttribute="top" secondItem="13S-MQ-Cc0" secondAttribute="top" constant="10" id="OZJ-Ie-kg0"/>
+                                                    <constraint firstAttribute="bottom" secondItem="MPP-35-Ufe" secondAttribute="bottom" constant="10" id="f0M-tq-ctk"/>
+                                                    <constraint firstItem="MPP-35-Ufe" firstAttribute="leading" secondItem="13S-MQ-Cc0" secondAttribute="leading" constant="16" id="vZX-BK-EhO"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Un7-dV-pLN">
                                                 <rect key="frame" x="0.0" y="348" width="414" height="100"/>
                                                 <subviews>
@@ -262,12 +280,13 @@
                     <connections>
                         <outlet property="dataInWifiOnlySwitch" destination="kus-5F-HfW" id="Cfz-zh-oc0"/>
                         <outlet property="notificationsSwitch" destination="WcY-CI-pnc" id="13E-AL-rma"/>
+                        <outlet property="sendLogFileView" destination="13S-MQ-Cc0" id="Z7s-Fc-Px9"/>
                         <outlet property="trackingStatusLabel" destination="XH4-DH-GyW" id="lz3-jO-tyd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ag-R4-o5F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-88" y="113"/>
+            <point key="canvasLocation" x="-88.405797101449281" y="112.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="6J2-Ed-W8B">
