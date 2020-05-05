@@ -40,9 +40,7 @@ final class DebugCodeScanViewController: UIViewController {
     override func viewDidLoad() {
         scanView.dataHandler = { data in
             if let diagnosisKey = try? JSONDecoder().decode(CodableDiagnosisKey.self, from: data) {
-                if !Server.shared.diagnosisKeys.contains(diagnosisKey) {
-                    Server.shared.diagnosisKeys.append(diagnosisKey)
-                }
+                self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
                 self.dismiss(animated: true, completion: nil)
             }
         }
@@ -66,10 +64,12 @@ final fileprivate class DebugCodeScanView: UIView {
 
     fileprivate var dataHandler: DataHandler = { _ in }
 
+    fileprivate var captureSession: AVCaptureSession
+
     init() {
+        captureSession = AVCaptureSession()
 
         super.init(frame: .zero)
-        let captureSession = AVCaptureSession()
 
         let captureDevice = AVCaptureDevice.default(for: .video)!
         guard let captureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return  }
@@ -98,6 +98,7 @@ extension DebugCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue, let data = string.data(using: .utf8) {
             dataHandler(data)
+            self.captureSession.stopRunning()
         }
     }
 }

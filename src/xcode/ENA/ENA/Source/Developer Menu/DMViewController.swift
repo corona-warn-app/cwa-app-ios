@@ -81,6 +81,15 @@ extension DeveloperMenuViewController: DebugCodeScanViewControllerDelegate {
         print("scan done")
         client.submit(keys: [diagnosisKey.temporaryExposureKey], tan: "not needed") { error in
             print("done")
+            self.client.fetch() { result in
+                switch result {
+                case .success(let keys):
+                    self.keys = keys
+                case .failure(_):
+                    self.keys = []
+                }
+                self.tableView.reloadData()
+            }
         }
     }
 }

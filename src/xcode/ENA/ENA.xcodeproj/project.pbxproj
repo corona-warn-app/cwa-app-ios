@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0109A59E2461B0A700641363 /* ExposureDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */; };
 		013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* PersistenceManager.swift */; };
 		0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */; };
-		01B0C6B8245B23C2006F5A69 /* ExposureDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */; };
 		01B2D15F24616F270054713A /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2D15E24616F270054713A /* Client.swift */; };
 		01C28E11245D9BE30045EFFA /* DMLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C28E10245D9BE30045EFFA /* DMLocalStore.swift */; };
 		51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* UIColor.swift */; };
@@ -39,9 +39,9 @@
 		85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594C24570491008175F0 /* LaunchScreen.storyboard */; };
 		85D7595924570491008175F0 /* ENATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7595824570491008175F0 /* ENATests.swift */; };
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
-		B102BDC424606A9D00CD55A2 /* Exposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDC324606A9D00CD55A2 /* Exposure.swift */; };
 		B102BDBF24603FF800CD55A2 /* security.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDBD24603FF800CD55A2 /* security.pb.swift */; };
 		B102BDC024603FF800CD55A2 /* exposure_keys.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */; };
+		B102BDC424606A9D00CD55A2 /* Exposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDC324606A9D00CD55A2 /* Exposure.swift */; };
 		B10FB02D245D8A85004CA11E /* TintLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB02C245D8A85004CA11E /* TintLabel.swift */; };
 		B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = B10FB02F246036F3004CA11E /* SwiftProtobuf */; };
 		B1569DD7245D703C0079FCD7 /* DMServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DD6245D703C0079FCD7 /* DMServer.swift */; };
@@ -139,12 +139,12 @@
 		85D7595F24570491008175F0 /* ENAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ENAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D7596324570491008175F0 /* ENAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests.swift; sourceTree = "<group>"; };
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B102BDC324606A9D00CD55A2 /* Exposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exposure.swift; sourceTree = "<group>"; };
 		B102BDB224603FD600CD55A2 /* ENABackend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ENABackend.h; sourceTree = "<group>"; };
 		B102BDB324603FD600CD55A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B102BDBD24603FF800CD55A2 /* security.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = security.pb.swift; path = ../../../../../proto/output/security.pb.swift; sourceTree = "<group>"; };
 		B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_keys.pb.swift; path = ../../../../../proto/output/exposure_keys.pb.swift; sourceTree = "<group>"; };
 		B102BDC22460410600CD55A2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B102BDC324606A9D00CD55A2 /* Exposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exposure.swift; sourceTree = "<group>"; };
 		B10FB02C245D8A85004CA11E /* TintLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintLabel.swift; sourceTree = "<group>"; };
 		B1569DD6245D703C0079FCD7 /* DMServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServer.swift; sourceTree = "<group>"; };
 		B1569DDA245D70770079FCD7 /* DMExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMExposureManager.swift; sourceTree = "<group>"; };
@@ -684,7 +684,6 @@
 				51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				01C28E11245D9BE30045EFFA /* DMLocalStore.swift in Sources */,
-				01B0C6B8245B23C2006F5A69 /* ExposureDetectionService.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				B1569DDD245D70880079FCD7 /* DMErrorHandling.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
@@ -701,6 +700,7 @@
 				B1569DDF245D70990079FCD7 /* DMViewController.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
+				0109A59E2461B0A700641363 /* ExposureDetectionService.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
