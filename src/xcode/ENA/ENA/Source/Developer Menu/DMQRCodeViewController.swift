@@ -9,16 +9,20 @@
 import UIKit
 
 final class DMQRCodeViewController : UIViewController {
-    private let key: CodableDiagnosisKey
-
+    // MARK: Creating a Code generating View Controller
     init(key: CodableDiagnosisKey) {
         self.key = key
         super.init(nibName: nil, bundle: nil)
     }
+
     required init?(coder: NSCoder) {
         fatalError()
     }
 
+    // MARK: Properties
+    private let key: CodableDiagnosisKey
+
+    // MARK: UIViewController
     override func loadView() {
         do {
             let data = try JSONEncoder().encode(key)
