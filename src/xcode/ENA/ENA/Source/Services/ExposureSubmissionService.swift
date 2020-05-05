@@ -23,15 +23,19 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
     }
 
     func submitSelfExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
+        log(message: "Started self exposure submission...")
+
         let manager = ExposureManager()
         manager.activate { error in
             if let _ = error {
+                log(message: "Exposure notification service not activated.", level: .warning)
                 completionHandler(.notActivated)
                 return
             }
 
             manager.accessDiagnosisKeys { keys, error in
                 if let error = error {
+                    logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
                     completionHandler(self.parseError(error))
                     return
                 }
@@ -42,6 +46,9 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
                 }
 
                 self.packageManager.sendDiagnosisKeys(keys, tan: tan) { error in
+                    if let error = error {
+                        logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+                    }
                     completionHandler(error == nil ? nil : self.parseError(error!))
                 }
             }

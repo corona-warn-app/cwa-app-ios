@@ -39,6 +39,7 @@
 		85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594C24570491008175F0 /* LaunchScreen.storyboard */; };
 		85D7595924570491008175F0 /* ENATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7595824570491008175F0 /* ENATests.swift */; };
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
+		B102BDC424606A9D00CD55A2 /* Exposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDC324606A9D00CD55A2 /* Exposure.swift */; };
 		B102BDBF24603FF800CD55A2 /* security.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDBD24603FF800CD55A2 /* security.pb.swift */; };
 		B102BDC024603FF800CD55A2 /* exposure_keys.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */; };
 		B10FB02D245D8A85004CA11E /* TintLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB02C245D8A85004CA11E /* TintLabel.swift */; };
@@ -56,6 +57,8 @@
 		CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A3A4245B334100BF12AF /* Confirmation.storyboard */; };
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
 		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
+		CD99A3C52461558200BF12AF /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD99A3C42461558200BF12AF /* CocoaLumberjackSwift */; };
+		CD99A3C7246155C300BF12AF /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C6246155C300BF12AF /* Logger.swift */; };
 		EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2A245F0B32008B06F9 /* ColorStyle.swift */; };
 		EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */; };
 		EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */; };
@@ -138,6 +141,7 @@
 		85D7595F24570491008175F0 /* ENAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ENAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D7596324570491008175F0 /* ENAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests.swift; sourceTree = "<group>"; };
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B102BDC324606A9D00CD55A2 /* Exposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exposure.swift; sourceTree = "<group>"; };
 		B102BDB224603FD600CD55A2 /* ENABackend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ENABackend.h; sourceTree = "<group>"; };
 		B102BDB324603FD600CD55A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B102BDBD24603FF800CD55A2 /* security.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = security.pb.swift; path = ../../../../../proto/output/security.pb.swift; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 		CD99A3A4245B334100BF12AF /* Confirmation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
 		CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
+		CD99A3C6246155C300BF12AF /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		EE278B2A245F0B32008B06F9 /* ColorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorStyle.swift; sourceTree = "<group>"; };
 		EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InviteFriends.storyboard; sourceTree = "<group>"; };
 		EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsInviteController.swift; sourceTree = "<group>"; };
@@ -177,6 +182,7 @@
 			files = (
 				858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */,
 				B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */,
+				CD99A3C52461558200BF12AF /* CocoaLumberjackSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +230,7 @@
 		51D420B224583AA400AD70CA /* Workers */ = {
 			isa = PBXGroup;
 			children = (
+				CD99A3C6246155C300BF12AF /* Logger.swift */,
 				EE278B29245F0B32008B06F9 /* ColorStyle */,
 				51D420B324583ABB00AD70CA /* AppStoryboard.swift */,
 				51D420BA24583BF400AD70CA /* LaunchInstructor.swift */,
@@ -290,7 +297,7 @@
 		51EE9A6A245C0F7900F2544F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EE6119E1245C849700AB38A1 /* ExposureManager */,
+				EE6119E1245C849700AB38A1 /* Exposure */,
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
 			);
 			path = Models;
@@ -461,6 +468,7 @@
 		B1569DD5245D6C790079FCD7 /* Developer Menu */ = {
 			isa = PBXGroup;
 			children = (
+				B102BDC324606A9D00CD55A2 /* Exposure.swift */,
 				01C28E10245D9BE30045EFFA /* DMLocalStore.swift */,
 				B10FB02C245D8A85004CA11E /* TintLabel.swift */,
 				B1569DDE245D70990079FCD7 /* DMViewController.swift */,
@@ -508,12 +516,12 @@
 			path = FriendsInvite;
 			sourceTree = "<group>";
 		};
-		EE6119E1245C849700AB38A1 /* ExposureManager */ = {
+		EE6119E1245C849700AB38A1 /* Exposure */ = {
 			isa = PBXGroup;
 			children = (
 				EE6119E2245C850E00AB38A1 /* ExposureManager.swift */,
 			);
-			path = ExposureManager;
+			path = Exposure;
 			sourceTree = "<group>";
 		};
 		EE70C239245B09E900AC9B2F /* Localization */ = {
@@ -554,6 +562,7 @@
 			name = ENA;
 			packageProductDependencies = (
 				B10FB02F246036F3004CA11E /* SwiftProtobuf */,
+				CD99A3C42461558200BF12AF /* CocoaLumberjackSwift */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -630,6 +639,7 @@
 			mainGroup = 85D759322457048F008175F0;
 			packageReferences = (
 				B10FB02E246036F3004CA11E /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+				CD99A3C32461558200BF12AF /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -708,10 +718,12 @@
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
+				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				B1569DE1245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift in Sources */,
 				CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
+				B102BDC424606A9D00CD55A2 /* Exposure.swift in Sources */,
 				EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */,
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
 				EE98C75D2461901A00A4A734 /* AppInfoTableViewCell.swift in Sources */,
@@ -939,7 +951,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ena;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "ena-4";
+				PROVISIONING_PROFILE_SPECIFIER = covid43;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1079,6 +1091,14 @@
 				minimumVersion = 1.8.0;
 			};
 		};
+		CD99A3C32461558200BF12AF /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.6.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1086,6 +1106,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B10FB02E246036F3004CA11E /* XCRemoteSwiftPackageReference "swift-protobuf" */;
 			productName = SwiftProtobuf;
+		};
+		CD99A3C42461558200BF12AF /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD99A3C32461558200BF12AF /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 
