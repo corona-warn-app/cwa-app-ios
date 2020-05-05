@@ -12,20 +12,26 @@ import ExposureNotification
 class ExposureNotificationSettingViewController: UIViewController {
     @IBOutlet weak var contactTracingSwitch: UISwitch!
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var enableTrackingLabel: UILabel!
+    @IBOutlet weak var introductionLabel: UILabel!
+    @IBOutlet weak var introductionText: UITextView!
+    
+    
     //TODO: This should be checked later.
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        //TODO: Subscribe to the even when the app from backendground to foreground should also check the statsu.
-        
         NotificationCenter
             .default
             .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { notifcation in
                 print("[viewDidLoad]: willEnterForegroundNotification, checking notifcation status.")
                 self.checkNotifcationEnablement()
         }
+        
+        setUIText()
                 
     }
     
@@ -42,8 +48,18 @@ class ExposureNotificationSettingViewController: UIViewController {
     
 }
 
+
+// MARK: UI and Storyboard
 extension ExposureNotificationSettingViewController {
     
+    private func setUIText() {
+        titleLabel.text = .title
+        enableTrackingLabel.text = .enableTracing
+        introductionLabel.text = .introductionTitle
+        introductionText.text = .introductionText
+    }
+    
+ 
     
     @IBAction func closeButtonClicked(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -142,4 +158,16 @@ extension ExposureNotificationSettingViewController {
             }
         }
     }
+    
+
+     
+}
+
+fileprivate extension String {
+    //ENS is set as the prefix, standing for Exposure Notifcation Setting
+    static let title = NSLocalizedString("ENS_Tracing_Setting_Title", comment: "The title of the view")
+    static let enableTracing = NSLocalizedString("ENS_Enable_Tracing", comment: "The enable tracing")
+    static let introductionTitle = NSLocalizedString("ENS_Introduction_Title", comment: "The introduction label")
+    static let introductionText = NSLocalizedString("ENS_Introduction_Text", comment: "The introduction text")
+    
 }

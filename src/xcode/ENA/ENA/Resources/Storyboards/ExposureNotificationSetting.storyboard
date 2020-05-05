@@ -101,7 +101,7 @@
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="soZ-GX-MBT">
                                         <rect key="frame" x="35.5" y="53" width="343" height="334"/>
-                                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -158,6 +158,10 @@
                     </view>
                     <connections>
                         <outlet property="contactTracingSwitch" destination="r9M-pM-8Cm" id="hqt-tw-0xd"/>
+                        <outlet property="enableTrackingLabel" destination="1Vi-oF-bcg" id="MrQ-qn-Iv4"/>
+                        <outlet property="introductionLabel" destination="fz0-v0-tYv" id="MN4-e5-Ciq"/>
+                        <outlet property="introductionText" destination="soZ-GX-MBT" id="kAW-z5-xUt"/>
+                        <outlet property="titleLabel" destination="vOE-8V-qNb" id="ygx-Bu-SSG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vjE-Mm-T4r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
