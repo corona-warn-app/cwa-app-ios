@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelfExposureViewController: UIViewController {
+class ExposureSubmissionViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
@@ -21,11 +21,6 @@ class SelfExposureViewController: UIViewController {
         submitButton.setTitle(.submit, for: .normal)
 
         navigationItem.title = .navigationBarTitle
-    }
-
-    @IBAction func submitClicked(_ sender: Any) {
-        let tanEntryViewController = TanEntryViewController.initiate(for: .selfExposureTanEntry)
-        self.navigationController?.pushViewController(tanEntryViewController, animated: true)
     }
 }
 
