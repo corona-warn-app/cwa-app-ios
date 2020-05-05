@@ -14,7 +14,6 @@ class DebugViewController: UITableViewController {
     // MARK: - Table View
 
     enum Section: Int {
-        case general
         case diagnosisKeys
     }
 
@@ -38,25 +37,6 @@ class DebugViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
         switch Section(rawValue: indexPath.section)! {
-        case .general:
-            switch GeneralRow(rawValue: indexPath.row)! {
-            case .enableExposureNotifications:
-                enableExposureNotifications()
-            case .checkExposureNow:
-                checkExposure()
-            case .simulateExposure:
-                simulateExposure()
-            case .simulateUserNotification:
-                simulateUserNotification()
-            case .notifyOthers:
-                notifyOthers()
-            case .disableExposureNotifications:
-                disableExposureNotifications()
-            case .resetLocalExposures:
-                resetLocalExposures()
-            case .resetLocalTestResults:
-                resetLocalTestResults()
-            }
         case .diagnosisKeys:
             switch DiagnosisKeysRow(rawValue: indexPath.row)! {
             case .show:

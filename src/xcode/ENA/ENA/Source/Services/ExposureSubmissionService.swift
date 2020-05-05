@@ -16,10 +16,10 @@ protocol ExposureSubmissionService {
 }
 
 class ExposureSubmissionServiceImpl: ExposureSubmissionService {
-    let packageManager: PackageManager
+    let client: Client
 
-    init(_ packageManager: PackageManager? = nil) {
-        self.packageManager = packageManager ?? PackageManager(mode: .development)
+    init(_ client: Client? = nil) {
+        self.client = client ?? Client(mode: .development)
     }
 
     func submitSelfExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
@@ -41,7 +41,7 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
                     return
                 }
 
-                self.packageManager.sendDiagnosisKeys(keys, tan: tan) { error in
+                self.client.sendDiagnosisKeys(keys, tan: tan) { error in
                     completionHandler(error == nil ? nil : self.parseError(error!))
                 }
             }

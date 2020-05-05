@@ -32,8 +32,8 @@ class ExposureDetectionService {
         // Prepare parameter for download task
         let timeframe = timeframeToFetchKeys()
 
-        let pm = PackageManager(mode: .development)
-        pm.diagnosisKeys(since: timeframe) { result in
+        let client = Client(mode: .development)
+        client.diagnosisKeys(since: timeframe) { result in
             // todo
             switch result {
             case .success(let keys):

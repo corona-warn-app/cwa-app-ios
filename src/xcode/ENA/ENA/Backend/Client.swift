@@ -1,13 +1,67 @@
 //
-//  PackageManager.swift
+//  BackendConnection.swift
 //  ENA
 //
-//  Created by Bormeth, Marc on 30.04.20.
-//  Copyright © 2020 SAP SE. All rights reserved.
+//  Created by Bormeth, Marc on 05.05.20.
 //
 
 import Foundation
 import ExposureNotification
+
+
+
+protocol _Client {
+    typealias ExposureConfigurationCompletionHandler = (Result<ENExposureConfiguration, Error>) -> Void
+    typealias SubmitKeysCompletionHandler = (Error?) -> Void
+    typealias FetchKeysCompletionHandler = (Result<[ENTemporaryExposureKey], Error>) -> Void
+
+    func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler)
+    func submitKeys(keys: [ENTemporaryExposureKey], completion: @escaping SubmitKeysCompletionHandler)
+    func fetch(completion: @escaping FetchKeysCompletionHandler)
+}
+
+//class HTTPClient: _Client {
+//    func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
+//        <#code#>
+//    }
+//
+//    func submitKeys(keys: [ENTemporaryExposureKey], completion: @escaping SubmitKeysCompletionHandler) {
+//        <#code#>
+//    }
+//
+//    func fetch(completion: @escaping FetchKeysCompletionHandler) {
+//        <#code#>
+//    }
+//}
+
+class MockClient: _Client {
+    private var submittedKeys = [ENTemporaryExposureKey]()
+
+    func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
+        let exposureConfiguration = ENExposureConfiguration()
+        exposureConfiguration.minimumRiskScore = 0
+        exposureConfiguration.attenuationWeight = 50
+        exposureConfiguration.attenuationScores = [1, 2, 3, 4, 5, 6, 7, 8]
+        exposureConfiguration.daysSinceLastExposureWeight = 50
+        exposureConfiguration.daysSinceLastExposureScores = [1, 2, 3, 4, 5, 6, 7, 8]
+        exposureConfiguration.durationWeight = 50
+        exposureConfiguration.durationScores = [1, 2, 3, 4, 5, 6, 7, 8]
+        exposureConfiguration.transmissionRiskWeight = 50
+        exposureConfiguration.transmissionRiskScores = [1, 2, 3, 4, 5, 6, 7, 8]
+
+        completion(.success(exposureConfiguration))
+    }
+
+    func submitKeys(keys: [ENTemporaryExposureKey], completion: @escaping SubmitKeysCompletionHandler) {
+        submittedKeys.append(contentsOf: keys)
+    }
+
+    func fetch(completion: @escaping FetchKeysCompletionHandler) {
+        completion(.success(submittedKeys))
+    }
+
+
+}
 
 fileprivate extension Data {
     static func randomKeyData() -> Data {
@@ -20,7 +74,7 @@ fileprivate extension Data {
 
 }
 
-class PackageManager: NSObject {
+class Client: NSObject {
 
     enum Mode {
         case production
@@ -43,14 +97,19 @@ class PackageManager: NSObject {
     }
 
     func sendDiagnosisKeys(_ diagnosisKeys: [ENTemporaryExposureKey], tan: String, completionHandler completeWith: @escaping SendCompletionHandler) {
-           switch mode {
-           case .development:
-            // In development we simply assume that everything just works.
-            completeWith(/* error */ nil)
-           case .production:
-            productionSendDiagnosisKeys(diagnosisKeys, tan: tan, completionHandler: completeWith)
-           }
+       switch mode {
+       case .development:
+        // In development we simply assume that everything just works.
+        completeWith(/* error */ nil)
+       case .production:
+        productionSendDiagnosisKeys(diagnosisKeys, tan: tan, completionHandler: completeWith)
        }
+    }
+
+    func exposureConfiguration(completion: (Result<ENExposureConfiguration, Error>) -> Void) {
+        // TODO: Implement server connection instead of mock data
+
+    }
 
     private func productionSendDiagnosisKeys(_ keys: [ENTemporaryExposureKey], tan: String, completionHandler completeWith: @escaping SendCompletionHandler) {
         // TODO: implementation missing.
@@ -93,7 +152,7 @@ class PackageManager: NSObject {
 }
 
 // MARK: - Download & parse packages
-extension PackageManager : URLSessionDownloadDelegate {
+extension Client : URLSessionDownloadDelegate {
     // TODO: move this to the production implementation at some point
     // TODO: think about encryption
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
