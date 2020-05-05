@@ -62,6 +62,10 @@
 		EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6119E2245C850E00AB38A1 /* ExposureManager.swift */; };
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
+		EE98C759246166DF00A4A734 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C758246166DF00A4A734 /* AppInformationViewController.swift */; };
+		EE98C75B2461672900A4A734 /* AppInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE98C75A2461672900A4A734 /* AppInfo.storyboard */; };
+		EE98C75D2461901A00A4A734 /* AppInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C75C2461901A00A4A734 /* AppInfoTableViewCell.swift */; };
+		EE98C75F2461AD2500A4A734 /* AppInformationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98C75E2461AD2500A4A734 /* AppInformationDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +164,10 @@
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		EE98C758246166DF00A4A734 /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
+		EE98C75A2461672900A4A734 /* AppInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AppInfo.storyboard; sourceTree = "<group>"; };
+		EE98C75C2461901A00A4A734 /* AppInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoTableViewCell.swift; sourceTree = "<group>"; };
+		EE98C75E2461AD2500A4A734 /* AppInformationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +381,7 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				EE98C757246166C000A4A734 /* AppInformation */,
 				EE278B2E245F2C58008B06F9 /* FriendsInvite */,
 				CD99A398245B229F00BF12AF /* SelfExposure */,
 				858F6F71245AEC05009FFD33 /* ENSetting */,
@@ -408,6 +417,7 @@
 				858F6F74245B1374009FFD33 /* ExposureNotificationSetting.storyboard */,
 				51D420CF24586AB300AD70CA /* Settings.storyboard */,
 				EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */,
+				EE98C75A2461672900A4A734 /* AppInfo.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -513,6 +523,16 @@
 				EE92A340245D96DA006B97B0 /* Localizable.stringsdict */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		EE98C757246166C000A4A734 /* AppInformation */ = {
+			isa = PBXGroup;
+			children = (
+				EE98C758246166DF00A4A734 /* AppInformationViewController.swift */,
+				EE98C75C2461901A00A4A734 /* AppInfoTableViewCell.swift */,
+				EE98C75E2461AD2500A4A734 /* AppInformationDetailViewController.swift */,
+			);
+			path = AppInformation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -632,6 +652,7 @@
 				CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
+				EE98C75B2461672900A4A734 /* AppInfo.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */,
 				B1569DE3245D70DD0079FCD7 /* DeveloperMenu.storyboard in Resources */,
@@ -673,6 +694,7 @@
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				B1569DDD245D70880079FCD7 /* DMErrorHandling.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
+				EE98C759246166DF00A4A734 /* AppInformationViewController.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
 				B1569DD7245D703C0079FCD7 /* DMServer.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
@@ -692,6 +714,7 @@
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */,
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
+				EE98C75D2461901A00A4A734 /* AppInfoTableViewCell.swift in Sources */,
 				51C737BB245B142B00286105 /* OnboardingViewController.swift in Sources */,
 				B102BDC024603FF800CD55A2 /* exposure_keys.pb.swift in Sources */,
 				B1569DDB245D70770079FCD7 /* DMExposureManager.swift in Sources */,
@@ -701,6 +724,7 @@
 				51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */,
 				CD99A3A3245B327100BF12AF /* TanEntryViewController.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
+				EE98C75F2461AD2500A4A734 /* AppInformationDetailViewController.swift in Sources */,
 				B102BDBF24603FF800CD55A2 /* security.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

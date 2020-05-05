@@ -52,7 +52,7 @@ extension HomeScreenViewController {
     }
     
     @IBAction func settingBtnDidClick(_ sender: Any) {
-        let vc = FriendsInviteController.initiate(for: .inviteFriends)
+        let vc = AppInformationViewController.initiate(for: .appInformation)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
