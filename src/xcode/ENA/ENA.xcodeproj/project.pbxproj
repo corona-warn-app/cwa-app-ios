@@ -39,6 +39,7 @@
 		85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594C24570491008175F0 /* LaunchScreen.storyboard */; };
 		85D7595924570491008175F0 /* ENATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7595824570491008175F0 /* ENATests.swift */; };
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
+		B102BDC424606A9D00CD55A2 /* Exposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDC324606A9D00CD55A2 /* Exposure.swift */; };
 		B102BDBF24603FF800CD55A2 /* security.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDBD24603FF800CD55A2 /* security.pb.swift */; };
 		B102BDC024603FF800CD55A2 /* exposure_keys.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */; };
 		B10FB02D245D8A85004CA11E /* TintLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB02C245D8A85004CA11E /* TintLabel.swift */; };
@@ -136,6 +137,7 @@
 		85D7595F24570491008175F0 /* ENAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ENAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85D7596324570491008175F0 /* ENAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests.swift; sourceTree = "<group>"; };
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B102BDC324606A9D00CD55A2 /* Exposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exposure.swift; sourceTree = "<group>"; };
 		B102BDB224603FD600CD55A2 /* ENABackend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ENABackend.h; sourceTree = "<group>"; };
 		B102BDB324603FD600CD55A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B102BDBD24603FF800CD55A2 /* security.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = security.pb.swift; path = ../../../../../proto/output/security.pb.swift; sourceTree = "<group>"; };
@@ -287,7 +289,7 @@
 		51EE9A6A245C0F7900F2544F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EE6119E1245C849700AB38A1 /* ExposureManager */,
+				EE6119E1245C849700AB38A1 /* Exposure */,
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
 			);
 			path = Models;
@@ -456,6 +458,7 @@
 		B1569DD5245D6C790079FCD7 /* Developer Menu */ = {
 			isa = PBXGroup;
 			children = (
+				B102BDC324606A9D00CD55A2 /* Exposure.swift */,
 				01C28E10245D9BE30045EFFA /* DMLocalStore.swift */,
 				B10FB02C245D8A85004CA11E /* TintLabel.swift */,
 				B1569DDE245D70990079FCD7 /* DMViewController.swift */,
@@ -503,12 +506,12 @@
 			path = FriendsInvite;
 			sourceTree = "<group>";
 		};
-		EE6119E1245C849700AB38A1 /* ExposureManager */ = {
+		EE6119E1245C849700AB38A1 /* Exposure */ = {
 			isa = PBXGroup;
 			children = (
 				EE6119E2245C850E00AB38A1 /* ExposureManager.swift */,
 			);
-			path = ExposureManager;
+			path = Exposure;
 			sourceTree = "<group>";
 		};
 		EE70C239245B09E900AC9B2F /* Localization */ = {
@@ -698,6 +701,7 @@
 				B1569DE1245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift in Sources */,
 				CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
+				B102BDC424606A9D00CD55A2 /* Exposure.swift in Sources */,
 				EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */,
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
 				51C737BB245B142B00286105 /* OnboardingViewController.swift in Sources */,
@@ -923,7 +927,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ena;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "ena-4";
+				PROVISIONING_PROFILE_SPECIFIER = covid43;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
