@@ -26,6 +26,7 @@ final class ENASwitch: UISwitch {
     }
     
     override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
         customizeSwitch()
     }
 }
