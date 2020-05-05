@@ -34,6 +34,8 @@ final class DMQRCodeViewController : UIViewController {
             let qrCode = UIImage(cgImage: qrCodeCGImage)
             let iv = UIImageView(image: qrCode)
             let view = UIView()
+            iv.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            iv.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
             view.backgroundColor = .white
             iv.widthAnchor.constraint(equalToConstant: 300).isActive = true
             iv.heightAnchor.constraint(equalToConstant: 300).isActive = true

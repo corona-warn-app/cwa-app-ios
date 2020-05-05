@@ -18,6 +18,14 @@ class HomeScreenViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showExposureDetection" {
+            guard let expDetVC = segue.destination as? ExposureDetectionViewController else { fatalError() }
+            expDetVC.exposureDetectionService = ExposureDetectionService(client: client)
+        }
+        super.prepare(for: segue, sender: sender)
+    }
 }
 
 extension HomeScreenViewController {

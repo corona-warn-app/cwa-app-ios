@@ -13,11 +13,13 @@ class ExposureDetectionService {
 
     private var queue: DispatchQueue
     private var sessionStartTime: Date?
+    private let client: Client
 
     private static let numberOfPastDaysRelevantForDetection = 14  // TODO: Move to config class / .plist
 
-    init() {
-        self.queue = DispatchQueue(label: "com.sap.exposureDetection")
+    init(client: Client) {
+        queue = DispatchQueue(label: "com.sap.exposureDetection")
+        self.client = client
     }
 
     func detectExposureIfNeeded() {
@@ -29,11 +31,7 @@ class ExposureDetectionService {
 
         self.sessionStartTime = Date()  // will be used once the session succeeded
 
-        // Prepare parameter for download task
-        let timeframe = timeframeToFetchKeys()
-
-        let client = _Client(mode: .development)
-        client.diagnosisKeys(since: timeframe) { result in
+        client.fetch() { result in
             // todo
             switch result {
             case .success(let keys):

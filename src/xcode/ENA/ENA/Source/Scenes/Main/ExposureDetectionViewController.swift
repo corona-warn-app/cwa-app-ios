@@ -21,7 +21,7 @@ class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
 
-    private lazy var exposureDetectionService = ExposureDetectionService()
+    var exposureDetectionService: ExposureDetectionService?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +65,7 @@ class ExposureDetectionViewController: UIViewController {
 
 
     @IBAction func refresh(_ sender: UIButton) {
-        exposureDetectionService.detectExposureIfNeeded()
+        exposureDetectionService?.detectExposureIfNeeded()
     }
 }
 
