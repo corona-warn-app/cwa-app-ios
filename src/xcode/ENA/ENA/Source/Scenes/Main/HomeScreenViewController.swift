@@ -12,16 +12,12 @@ class HomeScreenViewController: UIViewController {
     @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var circleView: UIView!
     @IBOutlet weak var settingButton: UIButton!
+    private let client: Client = MockClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         setupViews()
-
     }
-
-
-
 }
 
 extension HomeScreenViewController {
@@ -31,19 +27,16 @@ extension HomeScreenViewController {
         
         let frame = circleView.frame
         circleView.layer.cornerRadius = frame.size.height / 2
-        
     }
 }
-
-
 
 extension HomeScreenViewController {
     
     @IBAction func submitResultDidClick(_ sender: Any) {
         let vc = SelfExposureViewController.initiate(for: .selfExposure)
+        vc.exposureSubmissionService = ExposureSubmissionServiceImpl(client: client)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
-        
     }
     
     @IBAction func exposureNotifcationSettingBtnDidClick(_ sender: Any) {
@@ -58,13 +51,9 @@ extension HomeScreenViewController {
     }
 
     @IBAction func showDeveloperMenu(_ sender: Any) {
-        let storyboard = AppStoryboard.developerMenu.instance
-        guard let developerMenuController = storyboard.instantiateInitialViewController() else {
-            fatalError("shoould not happen")
-        }
-           self.present(developerMenuController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: DeveloperMenuViewController(client: client))
+           self.present(navigationController, animated: true, completion: nil)
        }
-
 }
 
 extension UIButton {

@@ -18,8 +18,8 @@ protocol ExposureSubmissionService {
 class ExposureSubmissionServiceImpl: ExposureSubmissionService {
     let client: Client
 
-    init(_ client: Client? = nil) {
-        self.client = client ?? Client(mode: .development)
+    init(client: Client) {
+        self.client = client
     }
 
     func submitSelfExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
@@ -41,7 +41,7 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
                     return
                 }
 
-                self.client.sendDiagnosisKeys(keys, tan: tan) { error in
+                self.client.submit(keys: keys, tan: tan) { error in
                     completionHandler(error == nil ? nil : self.parseError(error!))
                 }
             }

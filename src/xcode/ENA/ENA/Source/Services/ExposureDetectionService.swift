@@ -32,7 +32,7 @@ class ExposureDetectionService {
         // Prepare parameter for download task
         let timeframe = timeframeToFetchKeys()
 
-        let client = Client(mode: .development)
+        let client = _Client(mode: .development)
         client.diagnosisKeys(since: timeframe) { result in
             // todo
             switch result {

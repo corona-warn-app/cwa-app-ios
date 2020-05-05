@@ -8,17 +8,25 @@
 import Foundation
 import ExposureNotification
 
-
-
-protocol _Client {
+protocol Client {
     typealias ExposureConfigurationCompletionHandler = (Result<ENExposureConfiguration, Error>) -> Void
     typealias SubmitKeysCompletionHandler = (Error?) -> Void
     typealias FetchKeysCompletionHandler = (Result<[ENTemporaryExposureKey], Error>) -> Void
 
+    /// `completion` will be called on the main queue.
     func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler)
-    func submitKeys(keys: [ENTemporaryExposureKey], completion: @escaping SubmitKeysCompletionHandler)
+
+    /// `completion` will be called on the main queue.
+    func submit(keys: [ENTemporaryExposureKey], tan: String, completion: @escaping SubmitKeysCompletionHandler)
+
+    /// `completion` will be called on the main queue.
     func fetch(completion: @escaping FetchKeysCompletionHandler)
 }
+
+
+
+
+
 
 //class HTTPClient: _Client {
 //    func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
@@ -34,7 +42,7 @@ protocol _Client {
 //    }
 //}
 
-class MockClient: _Client {
+class MockClient: Client {
     private var submittedKeys = [ENTemporaryExposureKey]()
 
     func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
@@ -52,7 +60,7 @@ class MockClient: _Client {
         completion(.success(exposureConfiguration))
     }
 
-    func submitKeys(keys: [ENTemporaryExposureKey], completion: @escaping SubmitKeysCompletionHandler) {
+    func submit(keys: [ENTemporaryExposureKey], tan: String, completion: @escaping SubmitKeysCompletionHandler) {
         submittedKeys.append(contentsOf: keys)
     }
 
@@ -66,15 +74,15 @@ class MockClient: _Client {
 fileprivate extension Data {
     static func randomKeyData() -> Data {
         var bytes = [UInt8](repeating: 0, count: 16)
-          if(SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) != 0) {
-              fatalError("this should never happen")
-          }
+        if(SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) != 0) {
+            fatalError("this should never happen")
+        }
         return Data(bytes)
     }
 
 }
 
-class Client: NSObject {
+class _Client: NSObject {
 
     enum Mode {
         case production
@@ -97,13 +105,13 @@ class Client: NSObject {
     }
 
     func sendDiagnosisKeys(_ diagnosisKeys: [ENTemporaryExposureKey], tan: String, completionHandler completeWith: @escaping SendCompletionHandler) {
-       switch mode {
-       case .development:
-        // In development we simply assume that everything just works.
-        completeWith(/* error */ nil)
-       case .production:
-        productionSendDiagnosisKeys(diagnosisKeys, tan: tan, completionHandler: completeWith)
-       }
+        switch mode {
+        case .development:
+            // In development we simply assume that everything just works.
+            completeWith(/* error */ nil)
+        case .production:
+            productionSendDiagnosisKeys(diagnosisKeys, tan: tan, completionHandler: completeWith)
+        }
     }
 
     func exposureConfiguration(completion: (Result<ENExposureConfiguration, Error>) -> Void) {
@@ -143,16 +151,16 @@ class Client: NSObject {
                                                   delegate: self,
                                                   delegateQueue: .main)
 
-//    private weak var delegate: PackageManagerDelegate?
+    //    private weak var delegate: PackageManagerDelegate?
     private let mode: Mode
     init(mode: Mode) {
-//        self.delegate = delegate
+        //        self.delegate = delegate
         self.mode = mode
     }
 }
 
 // MARK: - Download & parse packages
-extension Client : URLSessionDownloadDelegate {
+extension _Client : URLSessionDownloadDelegate {
     // TODO: move this to the production implementation at some point
     // TODO: think about encryption
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {

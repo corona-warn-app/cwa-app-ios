@@ -14,7 +14,7 @@ class TanEntryViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var tanTextField: UITextField!
 
-    let service: ExposureSubmissionService = ExposureSubmissionServiceImpl()
+    var exposureSubmissionService: ExposureSubmissionService?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class TanEntryViewController: UIViewController {
             return
         }
 
-        service.submitSelfExposure(tan: tan) { [weak self] error in
+        exposureSubmissionService?.submitSelfExposure(tan: tan) { [weak self] error in
             if error != nil {
                 let alert = UIAlertController(title: .alertTitleGeneral, message: .alertMessageGeneral, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: .alertActionOk, style: .default, handler: nil))

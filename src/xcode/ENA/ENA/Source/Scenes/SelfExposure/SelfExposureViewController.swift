@@ -8,10 +8,11 @@
 
 import UIKit
 
-class SelfExposureViewController: UIViewController {
+final class SelfExposureViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
+    var exposureSubmissionService: ExposureSubmissionService?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,9 @@ class SelfExposureViewController: UIViewController {
 
     @IBAction func submitClicked(_ sender: Any) {
         let tanEntryViewController = TanEntryViewController.initiate(for: .selfExposureTanEntry)
-        self.navigationController?.pushViewController(tanEntryViewController, animated: true)
+        precondition(exposureSubmissionService != nil, "`exposureSubmissionService` needs to be set prior submitting.")
+        tanEntryViewController.exposureSubmissionService = exposureSubmissionService
+        navigationController?.pushViewController(tanEntryViewController, animated: true)
     }
 }
 

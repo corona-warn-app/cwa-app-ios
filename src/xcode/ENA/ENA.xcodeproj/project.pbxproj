@@ -49,6 +49,7 @@
 		B1569DDF245D70990079FCD7 /* DMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DDE245D70990079FCD7 /* DMViewController.swift */; };
 		B1569DE1245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */; };
 		B1569DE3245D70DD0079FCD7 /* DeveloperMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */; };
+		B1741B3E24619179006275D9 /* DMQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */; };
 		CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */; };
 		CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */; };
 		CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */; };
@@ -146,6 +147,7 @@
 		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugDiagnosisKeysViewController.swift; sourceTree = "<group>"; };
 		B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DeveloperMenu.storyboard; sourceTree = "<group>"; };
+		B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeViewController.swift; sourceTree = "<group>"; };
 		CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfExposureViewController.swift; sourceTree = "<group>"; };
 		CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SelfExposure.storyboard; sourceTree = "<group>"; };
 		CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TanEntry.storyboard; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 				01C28E10245D9BE30045EFFA /* DMLocalStore.swift */,
 				B10FB02C245D8A85004CA11E /* TintLabel.swift */,
 				B1569DDE245D70990079FCD7 /* DMViewController.swift */,
+				B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */,
 				B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */,
 				B1569DD6245D703C0079FCD7 /* DMServer.swift */,
 				B1569DDA245D70770079FCD7 /* DMExposureManager.swift */,
@@ -672,6 +675,7 @@
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				B1569DDD245D70880079FCD7 /* DMErrorHandling.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
+				B1741B3E24619179006275D9 /* DMQRCodeViewController.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
 				B1569DD7245D703C0079FCD7 /* DMServer.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
