@@ -21,7 +21,8 @@ final class ExposureDetectionService {
     private var sessionStartTime: Date?
     private weak var delegate: ExposureDetectionServiceDelegate?
 
-    private static let numberOfPastDaysRelevantForDetection = 14  // TODO: Move to config class / .plist
+    fileprivate static let numberOfPastDaysRelevantForDetection = 14  // TODO: Move to config class / .plist
+    fileprivate static let numberCountExposureInfo = 100
 
     init(delegate: ExposureDetectionServiceDelegate) {
         self.queue = DispatchQueue(label: "com.sap.exposureDetection")
@@ -104,7 +105,7 @@ extension ExposureDetectionService {
                 self.failWith(error: error)
                 return
             }
-           
+
             // Call addDiagnosisKeys with up to maxKeyCount keys + wait for completion
             self.queue.async {
                 let result = self.addKeys(session, diagnosisKeys)
@@ -128,7 +129,7 @@ extension ExposureDetectionService {
 
                             self.delegate?.exposureDetectionServiceDidFinish(self, summary: summary)
 
-                            session.getExposureInfo(withMaximumCount: 100) { (info, done, exposureError) in
+                            session.getExposureInfo(withMaximumCount: type(of: self).numberCountExposureInfo) { (info, done, exposureError) in
                                 if let exposureError = exposureError {
                                     print("getExposureInfo failed: \(exposureError)")
                                     return
