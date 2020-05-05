@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "CocoaLumberjack",
+        "repositoryURL": "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
+        "state": {
+          "branch": null,
+          "revision": "ca78b3dbbb7fb88ee58943592930dc9e2469ba9e",
+          "version": "3.6.1"
+        }
+      },
+      {
         "package": "SwiftProtobuf",
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
