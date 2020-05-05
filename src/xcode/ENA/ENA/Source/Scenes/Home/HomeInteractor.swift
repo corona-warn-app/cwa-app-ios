@@ -26,8 +26,12 @@ class HomeInteractor {
         submitConfigurator.submitAction = { [unowned self] in
             self.homeViewController.showSubmitResult()
         }
-        let info1Configurator = HomeInfoCellConfigurator(title: "Teilen Sie die App", body: "Laden Sie Andere zum Mitmachen ein, denn zusammen sind wir stärker.")
-        let info2Configurator = HomeInfoCellConfigurator(title: "Über COVID-19 informieren", body: "Finden Sie verlässliche Antworten und konkrete informationen, wie Sie sich schützen und anderen helfen können")
+        let title1 = NSLocalizedString("home_info_card_share_title", comment: "")
+        let body1 = NSLocalizedString("home_info_card_share_body", comment: "")
+        let info1Configurator = HomeInfoCellConfigurator(title: title1, body: body1)
+        let title2 = NSLocalizedString("home_info_card_about_title", comment: "")
+        let body2 = NSLocalizedString("home_info_card_about_body", comment: "")
+        let info2Configurator = HomeInfoCellConfigurator(title: title2, body: body2)
         let settingsConfigurator = HomeSettingsCellConfigurator()
         let configurators: [CollectionViewCellConfiguratorAny] = [activeConfigurator, riskConfigurator, submitConfigurator, info1Configurator, info2Configurator, settingsConfigurator]
         return configurators

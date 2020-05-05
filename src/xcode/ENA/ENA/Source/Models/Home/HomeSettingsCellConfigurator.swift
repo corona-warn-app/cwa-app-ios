@@ -12,6 +12,6 @@ class HomeSettingsCellConfigurator: CollectionViewCellConfigurator {
     
     func configure(cell: SettingsCollectionViewCell) {
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
-        cell.titleLabel.text = "Einstellungen"
+        cell.titleLabel.text = NSLocalizedString("home_settings_card_title", comment: "")
     }
 }

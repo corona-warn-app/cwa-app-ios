@@ -358,14 +358,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		51D420C124583D3100AD70CA /* Main */ = {
+		51D420C124583D3100AD70CA /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */,
 				5111E7622460BB1500ED6498 /* HomeInteractor.swift */,
 				51CE1B5424604DD2002CF42A /* HomeLayout.swift */,
 			);
-			path = Main;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		51D420C224583D7B00AD70CA /* Settings */ = {
@@ -490,7 +490,7 @@
 			isa = PBXGroup;
 			children = (
 				51D420AF2458308400AD70CA /* Onboarding */,
-				51D420C124583D3100AD70CA /* Main */,
+				51D420C124583D3100AD70CA /* Home */,
 				514E81312461946E00636861 /* ExposureDetection */,
 				EE278B2E245F2C58008B06F9 /* FriendsInvite */,
 				CD99A398245B229F00BF12AF /* SelfExposure */,

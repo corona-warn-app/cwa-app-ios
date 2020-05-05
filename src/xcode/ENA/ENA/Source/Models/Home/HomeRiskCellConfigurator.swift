@@ -12,14 +12,25 @@ class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     
     var contactAction: (() -> Void)?
     
+    let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter
+    }()
+    
     func configure(cell: RiskCollectionViewCell) {
         cell.delegate = self
         cell.iconImageView.image = UIImage(named: "onboarding_ipad")
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
-        cell.titleLabel.text = "Geringes Risiko"
-        cell.bodyLabel.text = "Es wurde kein Kontakt mit COVID-19 erkannt."
-        cell.dateLabel.text = "Letzte Überprüfung: 09:32, 28.04.2020"
-        cell.contactButton.setTitle("Kontakte überprüfen", for: .normal)
+        cell.titleLabel.text = NSLocalizedString("home_risk_card_title", comment: "")
+        cell.bodyLabel.text = NSLocalizedString("home_risk_card_body", comment: "")
+        
+        let date = Date()
+        let dateString = dateFormatter.string(from: date) // or DateFormatter.localizedString(from:, dateStyle:, timeStyle:)
+        let dateKey = NSLocalizedString("home_risk_card_date", comment: "")
+        cell.dateLabel.text = String(format: dateKey, dateString)
+        let buttonTile = NSLocalizedString("home_risk_card_button", comment: "")
+        cell.contactButton.setTitle(buttonTile, for: .normal)
     }
 }
 
