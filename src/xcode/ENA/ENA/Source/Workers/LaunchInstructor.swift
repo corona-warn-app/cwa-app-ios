@@ -9,10 +9,10 @@
 import Foundation
 
 enum LaunchInstructor {
-    case main
+    case home
     case onboarding
     
     static func configure(onboardingWasShown: Bool) -> LaunchInstructor {
-        onboardingWasShown ? .main : .onboarding
+        onboardingWasShown ? .home : .onboarding
     }
 }

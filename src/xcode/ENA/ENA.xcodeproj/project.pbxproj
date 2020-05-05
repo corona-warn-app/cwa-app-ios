@@ -47,10 +47,8 @@
 		51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B624583B7200AD70CA /* NSObject+Identifier.swift */; };
 		51D420B924583B8300AD70CA /* UIViewController+AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */; };
 		51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420BA24583BF400AD70CA /* LaunchInstructor.swift */; };
-		51D420C024583D1100AD70CA /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420BF24583D1100AD70CA /* TabBarController.swift */; };
 		51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C324583E3300AD70CA /* SettingsViewController.swift */; };
-		51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C524583E4500AD70CA /* HomeScreenViewController.swift */; };
-		51D420CE245869C800AD70CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CD245869C800AD70CA /* Main.storyboard */; };
+		51D420CE245869C800AD70CA /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CD245869C800AD70CA /* Home.storyboard */; };
 		51D420D024586AB300AD70CA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CF24586AB300AD70CA /* Settings.storyboard */; };
 		51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
 		85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85142500245DA0B3009D2791 /* UIViewController+Alert.swift */; };
@@ -161,10 +159,8 @@
 		51D420B624583B7200AD70CA /* NSObject+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Identifier.swift"; sourceTree = "<group>"; };
 		51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+AppStoryboard.swift"; sourceTree = "<group>"; };
 		51D420BA24583BF400AD70CA /* LaunchInstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchInstructor.swift; sourceTree = "<group>"; };
-		51D420BF24583D1100AD70CA /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		51D420C324583E3300AD70CA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		51D420C524583E4500AD70CA /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
-		51D420CD245869C800AD70CA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		51D420CD245869C800AD70CA /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		51D420CF24586AB300AD70CA /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		51D420D324586DCA00AD70CA /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		85142500245DA0B3009D2791 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -247,6 +243,14 @@
 				858F6F6D245A103C009FFD33 /* ExposureNotification.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		514E81312461946E00636861 /* ExposureDetection */ = {
+			isa = PBXGroup;
+			children = (
+				01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */,
+			);
+			path = ExposureDetection;
 			sourceTree = "<group>";
 		};
 		51CE1B74246078B6002CF42A /* Home Screen */ = {
@@ -349,19 +353,9 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		51D420BE24583D0600AD70CA /* Tabbar */ = {
-			isa = PBXGroup;
-			children = (
-				51D420BF24583D1100AD70CA /* TabBarController.swift */,
-			);
-			path = Tabbar;
-			sourceTree = "<group>";
-		};
 		51D420C124583D3100AD70CA /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */,
-				51D420C524583E4500AD70CA /* HomeScreenViewController.swift */,
 				51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */,
 				5111E7622460BB1500ED6498 /* HomeInteractor.swift */,
 				51CE1B5424604DD2002CF42A /* HomeLayout.swift */,
@@ -490,13 +484,13 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				51D420AF2458308400AD70CA /* Onboarding */,
+				51D420C124583D3100AD70CA /* Main */,
+				514E81312461946E00636861 /* ExposureDetection */,
 				EE278B2E245F2C58008B06F9 /* FriendsInvite */,
 				CD99A398245B229F00BF12AF /* SelfExposure */,
 				858F6F71245AEC05009FFD33 /* ENSetting */,
-				51D420BE24583D0600AD70CA /* Tabbar */,
-				51D420C124583D3100AD70CA /* Main */,
 				51D420C224583D7B00AD70CA /* Settings */,
-				51D420AF2458308400AD70CA /* Onboarding */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -521,7 +515,7 @@
 				CD99A39B245B22DA00BF12AF /* SelfExposure */,
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420B02458397300AD70CA /* Onboarding.storyboard */,
-				51D420CD245869C800AD70CA /* Main.storyboard */,
+				51D420CD245869C800AD70CA /* Home.storyboard */,
 				514E812F24618E3D00636861 /* ExposureDetection.storyboard */,
 				858F6F74245B1374009FFD33 /* ExposureNotificationSetting.storyboard */,
 				51D420CF24586AB300AD70CA /* Settings.storyboard */,
@@ -757,7 +751,7 @@
 				CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
 				B1569DE3245D70DD0079FCD7 /* DeveloperMenu.storyboard in Resources */,
-				51D420CE245869C800AD70CA /* Main.storyboard in Resources */,
+				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
 				51CE1B8E246078B6002CF42A /* SettingsCollectionViewCell.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				51CE1B88246078B6002CF42A /* RiskCollectionViewCell.xib in Resources */,
@@ -804,7 +798,6 @@
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
 				B1569DD7245D703C0079FCD7 /* DMServer.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
-				51D420C024583D1100AD70CA /* TabBarController.swift in Sources */,
 				51CE1B86246078B6002CF42A /* SubmitCollectionViewCell.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
 				51CE1BC12460B256002CF42A /* HomeSubmitCellConfigurator.swift in Sources */,
@@ -839,7 +832,6 @@
 				B10FB02D245D8A85004CA11E /* TintLabel.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */,
-				51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */,
 				CD99A3A3245B327100BF12AF /* TanEntryViewController.swift in Sources */,
 				51CE1B8C246078B6002CF42A /* SettingsCollectionViewCell.swift in Sources */,
 				51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */,

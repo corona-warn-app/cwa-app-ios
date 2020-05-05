@@ -13,8 +13,8 @@ class HomeViewController: UIViewController {
     @IBOutlet var topContainerView: UIView!
     
     enum Section: Int {
-        case main
-        case info
+        case actions
+        case infos
         case settings
     }
     
@@ -77,7 +77,7 @@ class HomeViewController: UIViewController {
         guard let section = Section(rawValue: indexPath.section) else { return }
         let row = indexPath.row
         switch section {
-        case .main:
+        case .actions:
             if row == 0 {
                 showExposureNotificationSetting()
             } else if row == 1 {
@@ -85,7 +85,7 @@ class HomeViewController: UIViewController {
             } else {
                 showSubmitResult()
             }
-        case .info:
+        case .infos:
             if row == 0 {
                 showInviteFriends()
             } else {
@@ -139,9 +139,9 @@ class HomeViewController: UIViewController {
             return supplementaryView
         }
         var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
-        snapshot.appendSections([.main])
+        snapshot.appendSections([.actions])
         snapshot.appendItems(Array(0...2))
-        snapshot.appendSections([.info])
+        snapshot.appendSections([.infos])
         snapshot.appendItems(Array(3...4))
         snapshot.appendSections([.settings])
         snapshot.appendItems([5])
