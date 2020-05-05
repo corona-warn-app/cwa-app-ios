@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol RiskCollectionViewCellDelegate: AnyObject {
+    func contactButtonTapped(cell: RiskCollectionViewCell)
+}
+
 class RiskCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var iconImageView: UIImageView!
@@ -19,6 +23,8 @@ class RiskCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var contactButton: UIButton!
     
+    weak var delegate: RiskCollectionViewCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = 10.0
@@ -26,7 +32,7 @@ class RiskCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func contactButtonTapped(_ sender: UIButton) {
-        print(#function)
+        delegate?.contactButtonTapped(cell: self)
     }
     
 }

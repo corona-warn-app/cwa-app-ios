@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct HomeSettingsCellConfigurator: CollectionViewCellConfigurator {
+class HomeSettingsCellConfigurator: CollectionViewCellConfigurator {
     
     func configure(cell: SettingsCollectionViewCell) {
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")

@@ -8,12 +8,20 @@
 
 import UIKit
 
+protocol SubmitCollectionViewCellDelegate: AnyObject {
+    func submitButtonTapped(cell: SubmitCollectionViewCell)
+}
+
 class SubmitCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
     @IBOutlet var contactButton: UIButton!
+    
+    weak var delegate: SubmitCollectionViewCellDelegate?
+    
+    var submitAction: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,7 +30,7 @@ class SubmitCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func submitButtonTapped(_ sender: UIButton) {
-        print(#function)
+        delegate?.submitButtonTapped(cell: self)
     }
 
 }

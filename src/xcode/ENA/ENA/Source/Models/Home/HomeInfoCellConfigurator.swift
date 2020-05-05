@@ -8,10 +8,15 @@
 
 import UIKit
 
-struct HomeInfoCellConfigurator: CollectionViewCellConfigurator {
+class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
     
     var title: String
     var body: String
+    
+    init(title: String, body: String) {
+        self.title = title
+        self.body = body
+    }
     
     func configure(cell: InfoCollectionViewCell) {
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")

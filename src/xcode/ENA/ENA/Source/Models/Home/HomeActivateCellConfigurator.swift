@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct HomeActivateCellConfigurator: CollectionViewCellConfigurator {
+class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
     
     func configure(cell: ActivateCollectionViewCell) {
         
