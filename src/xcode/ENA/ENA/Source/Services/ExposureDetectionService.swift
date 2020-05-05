@@ -9,15 +9,24 @@
 import Foundation
 import ExposureNotification
 
-class ExposureDetectionService {
+protocol ExposureDetectionServiceDelegate: class {
+    func exposureDetectionServiceDidStart(_ service: ExposureDetectionService) -> Void
+    func exposureDetectionServiceDidFinish(_ service: ExposureDetectionService, summary: ENExposureDetectionSummary) -> Void
+    func exposureDetectionServiceDidFail(_ service: ExposureDetectionService, error: Error) -> Void
+}
+
+final class ExposureDetectionService {
 
     private var queue: DispatchQueue
     private var sessionStartTime: Date?
+    private weak var delegate: ExposureDetectionServiceDelegate?
 
-    private static let numberOfPastDaysRelevantForDetection = 14  // TODO: Move to config class / .plist
+    fileprivate static let numberOfPastDaysRelevantForDetection = 14  // TODO: Move to config class / .plist
+    fileprivate static let numberCountExposureInfo = 100
 
-    init() {
+    init(delegate: ExposureDetectionServiceDelegate) {
         self.queue = DispatchQueue(label: "com.sap.exposureDetection")
+        self.delegate = delegate
     }
 
     func detectExposureIfNeeded() {
@@ -31,19 +40,24 @@ class ExposureDetectionService {
 
         // Prepare parameter for download task
         let timeframe = timeframeToFetchKeys()
-
-        let pm = PackageManager(mode: .development)
-        pm.diagnosisKeys(since: timeframe) { result in
-            // todo
+        Server.shared.getExposureConfiguration { result in
             switch result {
-            case .success(let keys):
-                self.startExposureDetectionSession(diagnosisKeys: keys)
+
+            case .success(let config):
+                let pm = PackageManager(mode: .development)
+                pm.diagnosisKeys(since: timeframe) { result in
+                    switch result {
+                    case .success(let keys):
+                        self.startExposureDetectionSession(configuration: config, diagnosisKeys: keys)
+                    case .failure(_):
+                        // TODO
+                        print("fail")
+                    }
+                }
             case .failure(_):
-                // TODO
-                print("fail")
+                fatalError("implementation missing")
             }
         }
-
     }
 
     // MARK: - Private helper methods
@@ -73,33 +87,54 @@ class ExposureDetectionService {
 
 // MARK: - Exposure Detection Session
 extension ExposureDetectionService {
-    private func startExposureDetectionSession(diagnosisKeys: [ENTemporaryExposureKey]) {
-        let session = ENExposureDetectionSession()
 
+    private func failWith(error: Error) {
+        delegate?.exposureDetectionServiceDidFail(self, error: error)
+    }
+
+    private func startExposureDetectionSession(
+        configuration: ENExposureConfiguration,
+        diagnosisKeys: [ENTemporaryExposureKey]
+    ) {
+        delegate?.exposureDetectionServiceDidStart(self)
+
+        let session = ENExposureDetectionSession()
+        session.configuration = configuration
         session.activate() { error in
-            if error != nil {
-                // Handle error
+            if let error = error {
+                self.failWith(error: error)
                 return
             }
+
             // Call addDiagnosisKeys with up to maxKeyCount keys + wait for completion
             self.queue.async {
                 let result = self.addKeys(session, diagnosisKeys)
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):
-                        let notification = Notification(name: Notification.Name.exposureDetectionSessionDidFail, object: error, userInfo: nil)
-                        NotificationCenter.default.post(notification)
+                        self.failWith(error: error)
+                        return
                     case .success(_):
                         // Get result from session
-                        session.finishedDiagnosisKeys { (summary, error) in
+                        session.finishedDiagnosisKeys { (summary, finishError) in
                             // This is called on the main queue
-                            guard error == nil else {
-                                let notification = Notification(name: Notification.Name.exposureDetectionSessionDidFail, object: error, userInfo: nil)
-                                NotificationCenter.default.post(notification)
+                            if let finishError = finishError {
+                                self.failWith(error: finishError)
                                 return
                             }
+
                             guard let summary = summary else {
-                                return
+                                fatalError("how can this happen apple?")
+                            }
+
+                            self.delegate?.exposureDetectionServiceDidFinish(self, summary: summary)
+
+                            session.getExposureInfo(withMaximumCount: type(of: self).numberCountExposureInfo) { (info, done, exposureError) in
+                                if let exposureError = exposureError {
+                                    print("getExposureInfo failed: \(exposureError)")
+                                    return
+                                }
+                                print("got getExposureInfo: \(String(describing: info))")
                             }
 
                             // Update timestamp of last successfull session
