@@ -8,7 +8,7 @@
 import ExposureNotification
 import Foundation
 
-enum ExposureNotificationError {
+enum ExposureNotificationError: Error {
     case exposureNotificationRequired
 }
 
