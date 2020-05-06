@@ -22,7 +22,7 @@ class ConfirmationViewController: UIViewController {
     }
     
     @IBAction func submitClicked(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }
 

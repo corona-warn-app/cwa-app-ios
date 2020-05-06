@@ -22,11 +22,6 @@ class SelfExposureViewController: UIViewController {
 
         navigationItem.title = .navigationBarTitle
     }
-
-    @IBAction func submitClicked(_ sender: Any) {
-        let tanEntryViewController = TanEntryViewController.initiate(for: .selfExposureTanEntry)
-        self.navigationController?.pushViewController(tanEntryViewController, animated: true)
-    }
 }
 
 fileprivate extension String {

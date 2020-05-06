@@ -122,7 +122,7 @@ extension ExposureNotificationSettingViewController {
             let exposureEnabled = enManager.exposureNotificationEnabled
             self.contactTracingSwitch.setOn(exposureEnabled, animated: true)
             enManager.invalidate()
-            
+            print("")
         }
         
         enManager.invalidationHandler = {

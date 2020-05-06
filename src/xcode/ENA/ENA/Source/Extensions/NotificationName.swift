@@ -8,8 +8,11 @@
 
 import Foundation
 
+private func _withPrefix(_ name: String) -> Notification.Name {
+    return Notification.Name("com.sap.ena.\(name)")
+}
+
 extension Notification.Name {
-    static var isOnboardedDidChange                 = Notification.Name("isOnboardedDidChange")
-    static var dateLastExposureDetectionDidChange   = Notification.Name("dateLastExposureDetectionDidChange")
-    static var exposureDetectionSessionDidFail      = Notification.Name("exposureDetectionSessionDidFail")
+    static let isOnboardedDidChange                 = _withPrefix("isOnboardedDidChange")
+    static let dateLastExposureDetectionDidChange   = _withPrefix("dateLastExposureDetectionDidChange")
 }
