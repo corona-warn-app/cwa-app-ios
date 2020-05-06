@@ -9,7 +9,7 @@
 import UIKit
 import ExposureNotification
 
-class ExposureDetectionViewController: UIViewController {
+final class ExposureDetectionViewController: UIViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
@@ -50,11 +50,11 @@ class ExposureDetectionViewController: UIViewController {
 
     @objc func updateLastSyncLabel() {
         guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
-            self.lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
+            lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
             return
         }
         let hours = Calendar.current.component(.hour, from: lastSync)
-        self.lastSyncLabel.text =  String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
+        lastSyncLabel.text =  String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
     }
 
     private func updateNextSyncLabel() {
@@ -65,13 +65,6 @@ class ExposureDetectionViewController: UIViewController {
     @IBAction func refresh(_ sender: UIButton) {
         exposureDetectionService?.detectExposureIfNeeded()
     }
-}
-
-fileprivate extension String {
-    static let lastContactTitle = NSLocalizedString("ExposureDetection_lastContactTitle", comment: "")
-    static let synchronize = NSLocalizedString("ExposureDetection_synchronize", comment: "")
-    static let info = NSLocalizedString("ExposureDetection_info", comment: "")
-    static let infoText = NSLocalizedString("ExposureDetection_infoText", comment: "")
 }
 
 extension ExposureDetectionViewController : ExposureDetectorDelegate {
