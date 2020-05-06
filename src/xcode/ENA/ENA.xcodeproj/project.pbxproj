@@ -76,10 +76,8 @@
 		B1569DE1245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */; };
 		B1569DE3245D70DD0079FCD7 /* DeveloperMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */; };
 		CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */; };
-		CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */; };
-		CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */; };
+		CD99A39D245B22EF00BF12AF /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		CD99A3A3245B327100BF12AF /* TanEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */; };
-		CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A3A4245B334100BF12AF /* Confirmation.storyboard */; };
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
 		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
 		CD99A3C52461558200BF12AF /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD99A3C42461558200BF12AF /* CocoaLumberjackSwift */; };
@@ -200,10 +198,8 @@
 		B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugDiagnosisKeysViewController.swift; sourceTree = "<group>"; };
 		B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DeveloperMenu.storyboard; sourceTree = "<group>"; };
 		CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfExposureViewController.swift; sourceTree = "<group>"; };
-		CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SelfExposure.storyboard; sourceTree = "<group>"; };
-		CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TanEntry.storyboard; sourceTree = "<group>"; };
+		CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ExposureSubmission.storyboard; sourceTree = "<group>"; };
 		CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TanEntryViewController.swift; sourceTree = "<group>"; };
-		CD99A3A4245B334100BF12AF /* Confirmation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Confirmation.storyboard; sourceTree = "<group>"; };
 		CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
 		CD99A3C6246155C300BF12AF /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -503,7 +499,7 @@
 				51D420C124583D3100AD70CA /* Home */,
 				514E81312461946E00636861 /* ExposureDetection */,
 				EE278B2E245F2C58008B06F9 /* FriendsInvite */,
-				CD99A398245B229F00BF12AF /* SelfExposure */,
+				CD99A398245B229F00BF12AF /* ExposureSubmission */,
 				858F6F71245AEC05009FFD33 /* ENSetting */,
 				51D420C224583D7B00AD70CA /* Settings */,
 			);
@@ -527,7 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */,
-				CD99A39B245B22DA00BF12AF /* SelfExposure */,
+				CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */,
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420B02458397300AD70CA /* Onboarding.storyboard */,
 				51D420CD245869C800AD70CA /* Home.storyboard */,
@@ -590,24 +586,14 @@
 			path = "Developer Menu";
 			sourceTree = "<group>";
 		};
-		CD99A398245B229F00BF12AF /* SelfExposure */ = {
+		CD99A398245B229F00BF12AF /* ExposureSubmission */ = {
 			isa = PBXGroup;
 			children = (
 				CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */,
 				CD99A3A2245B327100BF12AF /* TanEntryViewController.swift */,
 				CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */,
 			);
-			path = SelfExposure;
-			sourceTree = "<group>";
-		};
-		CD99A39B245B22DA00BF12AF /* SelfExposure */ = {
-			isa = PBXGroup;
-			children = (
-				CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */,
-				CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */,
-				CD99A3A4245B334100BF12AF /* Confirmation.storyboard */,
-			);
-			path = SelfExposure;
+			path = ExposureSubmission;
 			sourceTree = "<group>";
 		};
 		EE278B29245F0B32008B06F9 /* ColorStyle */ = {
@@ -749,17 +735,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD99A3A5245B334100BF12AF /* Confirmation.storyboard in Resources */,
 				514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */,
 				51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
-				CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */,
 				51CE1B8D246078B6002CF42A /* SubmitCollectionViewCell.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
-				CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */,
+				CD99A39D245B22EF00BF12AF /* ExposureSubmission.storyboard in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
+				CD99A39D245B22EF00BF12AF /* ExposureSubmission.storyboard in Resources */,
 				B1569DE3245D70DD0079FCD7 /* DeveloperMenu.storyboard in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
 				51CE1B8E246078B6002CF42A /* SettingsCollectionViewCell.xib in Resources */,
@@ -832,6 +817,7 @@
 				CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
+				CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				B102BDC424606A9D00CD55A2 /* Exposure.swift in Sources */,
 				51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */,

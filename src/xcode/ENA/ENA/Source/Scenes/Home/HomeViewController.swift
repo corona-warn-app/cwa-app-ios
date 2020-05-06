@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
         case actions
         case infos
         case settings
+        
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil

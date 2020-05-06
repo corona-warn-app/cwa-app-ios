@@ -95,6 +95,10 @@
                                                     <constraint firstAttribute="height" constant="120" id="vVh-bz-OIB"/>
                                                 </constraints>
                                             </stackView>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="bm4-Aw-ATy">
+                                                <rect key="frame" x="197" y="217" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
@@ -156,6 +160,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="FXx-e5-zlh"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="bm4-Aw-ATy" id="Fgi-Z1-fMY"/>
                         <outlet property="contactTitleLabel" destination="KFb-3S-9MT" id="VoS-Cx-9ag"/>
                         <outlet property="infoTextView" destination="Tqe-Q3-3NQ" id="c4B-yq-Fcx"/>
                         <outlet property="infoTitleLabel" destination="pYm-eM-63O" id="MmM-NW-p1m"/>
