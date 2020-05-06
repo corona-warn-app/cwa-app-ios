@@ -48,7 +48,7 @@ class TanEntryViewController: UIViewController {
     }
 
     private func loadConfirmationScreen() {
-        let confirmationViewController = ConfirmationViewController.initiate(for: .selfExposureConfirmation)
+        let confirmationViewController = ConfirmationViewController.initiate(for: .exposureSubmission)
         navigationController?.pushViewController(confirmationViewController, animated: true)
     }
 }

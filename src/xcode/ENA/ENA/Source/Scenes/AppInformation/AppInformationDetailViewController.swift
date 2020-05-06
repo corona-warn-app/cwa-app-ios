@@ -9,8 +9,4 @@
 import Foundation
 import UIKit
 
-class AppInformationDetailViewController: UIViewController {
-
-    public static let storyboardID = "AppInformationDetailViewController"
-
-}
+final class AppInformationDetailViewController: UIViewController {}
