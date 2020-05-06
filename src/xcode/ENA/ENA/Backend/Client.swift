@@ -63,12 +63,3 @@ class MockClient: Client {
     }
 }
 
-fileprivate extension Data {
-    static func randomKeyData() -> Data {
-        var bytes = [UInt8](repeating: 0, count: 16)
-        if(SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) != 0) {
-            fatalError("this should never happen")
-        }
-        return Data(bytes)
-    }
-}
