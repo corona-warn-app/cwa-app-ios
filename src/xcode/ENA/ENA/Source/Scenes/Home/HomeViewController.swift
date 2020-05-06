@@ -16,7 +16,6 @@ class HomeViewController: UIViewController {
         case actions
         case infos
         case settings
-        
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
@@ -37,6 +36,11 @@ class HomeViewController: UIViewController {
         configureDataSource()
         configureUI()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        developerMenu.enableIfAllowed()
+    }
     
     // MARK: Actions
     
@@ -45,7 +49,7 @@ class HomeViewController: UIViewController {
     }
     
     func showSubmitResult() {
-        let vc = SelfExposureViewController.initiate(for: .selfExposure)
+        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
