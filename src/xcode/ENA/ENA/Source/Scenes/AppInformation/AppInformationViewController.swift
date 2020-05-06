@@ -17,18 +17,13 @@ class AppInformationViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
 
-    private let labels = ["Über die App", "Datenschutz", "Nutzungsbedingungen", "Hotline & Feedback", "Hilfe", "Datenschutz"]
+    private let labels = AppStrings.AppInformation.labels
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableview.delegate = self
         tableview.dataSource = self
-
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
 
         tableViewHeightConstraint.constant = CGFloat(labels.count) * tableViewCellHeight
     }

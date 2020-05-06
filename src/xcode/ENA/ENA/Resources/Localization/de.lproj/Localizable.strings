@@ -65,3 +65,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "home_info_card_about_body" = "Finden Sie verlässliche Antworten und konkrete informationen, wie Sie sich schützen und anderen helfen können";
 
 "home_settings_card_title" = "Einstellungen";
+
+//App information
+
+"App_Info" = "Über die App";
+"App_Privacy" = "Datenschutz";
+"App_Terms" = "Nutzungsbedingungen";
+"App_Hotline" = "Hotline & Feedback";
+"App_Help" = "Hilfe";
+"App_Imprint" = "Impressum";

@@ -55,4 +55,14 @@ struct AppStrings {
         static let onboardingFinish = NSLocalizedString("Onboarding_Finish", comment: "")
         static let onboardingNext = NSLocalizedString("Onboarding_Next", comment: "")
     }
+
+    struct AppInformation {
+        static let appInfoLabel1 = NSLocalizedString("App_Info", comment: "")
+        static let appInfoLabel2 = NSLocalizedString("App_Privacy", comment: "")
+        static let appInfoLabel3 = NSLocalizedString("App_Terms", comment: "")
+        static let appInfoLabel4 = NSLocalizedString("App_Hotline", comment: "")
+        static let appInfoLabel5 = NSLocalizedString("App_Help", comment: "")
+        static let appInfoLabel6 = NSLocalizedString("App_Imprint", comment: "")
+        static let labels = [appInfoLabel1, appInfoLabel2, appInfoLabel3, appInfoLabel4, appInfoLabel5, appInfoLabel6]
+    }
 }
