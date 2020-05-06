@@ -20,6 +20,7 @@
 "Onboarding_Next" = "Nächste";
 "Onboarding_Finish" = "Fertig";
 
+// Exposure Submission
 "ExposureSubmission_Title" = "Laborergebnis für COVID-19";
 "ExposureSubmission_Description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.
 
@@ -35,3 +36,32 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "Alert_TitleGeneral" = "Ein Fehler ist aufgetreten";
 "Alert_MessageGeneral" = "Bitte versuche Sie es erneut.";
 "Alert_ActionOk" = "Ok";
+
+//Tracing Enable/Disable Settings
+//Tracing Enable/Disable Settings
+"ENS_Tracing_Setting_Title" = "Tracing";
+"ENS_Enable_Tracing" = "Tracing erlauben";
+"ENS_Introduction_Title" = "So funktioniert Tracking:";
+"ENS_Introduction_Text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+// Home
+
+// Home Cards
+
+"home_activate_card_button" = "Tracing ist aktiv";
+
+"home_risk_card_title" = "Geringes Risiko";
+"home_risk_card_body" = "Es wurde kein Kontakt mit COVID-19 erkannt.";
+"home_risk_card_date" = "Letzte Überprüfung: %@";
+"home_risk_card_button" = "Kontakte überprüfen";
+
+"home_submit_card_title" = "Ich wurde getestet";
+"home_submit_card_body" = "Melden Sie Ihren Befund annonym, damit Kontaktpersonnen informiert werden können";
+"home_submit_card_button" = "Befund melden";
+
+"home_info_card_share_title" = "Teilen Sie die App";
+"home_info_card_share_body" = "Laden Sie Andere zum Mitmachen ein, denn zusammen sind wir stärker.";
+"home_info_card_about_title" = "Über COVID-19 informieren";
+"home_info_card_about_body" = "Finden Sie verlässliche Antworten und konkrete informationen, wie Sie sich schützen und anderen helfen können";
+
+"home_settings_card_title" = "Einstellungen";

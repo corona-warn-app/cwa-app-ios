@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExposureSubmissionViewController: UIViewController {
+class SelfExposureViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
