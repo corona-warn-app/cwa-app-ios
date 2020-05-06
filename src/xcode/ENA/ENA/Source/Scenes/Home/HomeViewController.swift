@@ -16,16 +16,18 @@ class HomeViewController: UIViewController {
         case actions
         case infos
         case settings
-        
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     private var collectionView: UICollectionView! = nil
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
-    
+    private let client: Client = MockClient()
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
-    
+    private lazy var developerMenu: DMDeveloperMenu = {
+           return DMDeveloperMenu(presentingViewController: self, client: client)
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         homeInteractor = HomeInteractor(homeViewController: self)
@@ -33,6 +35,11 @@ class HomeViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         configureUI()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        developerMenu.enableIfAllowed()
     }
     
     // MARK: Actions
@@ -71,6 +78,7 @@ class HomeViewController: UIViewController {
     
     func showExposureDetection() {
         let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
+        exposureDetectionViewController.exposureDetectionService = ExposureDetector(delegate: exposureDetectionViewController, client: client)
         present(exposureDetectionViewController, animated: true, completion: nil)
     }
 

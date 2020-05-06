@@ -91,7 +91,7 @@
                                 <rect key="frame" x="165.66666666666666" y="454" width="83" height="30"/>
                                 <state key="normal" title="Akualisieren"/>
                                 <connections>
-                                    <segue destination="grs-iX-12H" kind="show" id="6tg-IR-Tt0"/>
+                                    <segue destination="grs-iX-12H" kind="show" identifier="showExposureDetection" id="6tg-IR-Tt0"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEO-fu-tNF">

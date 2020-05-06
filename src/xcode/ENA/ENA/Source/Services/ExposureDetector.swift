@@ -1,5 +1,5 @@
 //
-//  ExposureDetectionService.swift
+//  ExposureDetector.swift
 //  ENA
 //
 //  Created by Bormeth, Marc on 29.04.20.
@@ -9,94 +9,70 @@
 import Foundation
 import ExposureNotification
 
-protocol ExposureDetectionServiceDelegate: class {
-    func exposureDetectionServiceDidStart(_ service: ExposureDetectionService) -> Void
-    func exposureDetectionServiceDidFinish(_ service: ExposureDetectionService, summary: ENExposureDetectionSummary) -> Void
-    func exposureDetectionServiceDidFail(_ service: ExposureDetectionService, error: Error) -> Void
+protocol ExposureDetectorDelegate: class {
+    func exposureDetectorDidStart(_ detector: ExposureDetector) -> Void
+    func exposureDetectorDidFinish(_ detector: ExposureDetector, summary: ENExposureDetectionSummary) -> Void
+    func exposureDetectorDidFail(_ detector: ExposureDetector, error: Error) -> Void
 }
 
-final class ExposureDetectionService {
-
+/// Allows to detect exposures.
+final class ExposureDetector {
+    // MARK: Properties
     private var queue: DispatchQueue
     private var sessionStartTime: Date?
-    private weak var delegate: ExposureDetectionServiceDelegate?
+    private weak var delegate: ExposureDetectorDelegate?
+    private let client: Client
 
-    fileprivate static let numberOfPastDaysRelevantForDetection = 14  // TODO: Move to config class / .plist
     fileprivate static let numberCountExposureInfo = 100
 
-    init(delegate: ExposureDetectionServiceDelegate) {
+    // MARK: Creating an Exposure Detector
+
+    /// Creates an exposure detector that can be used to determine the risk of the current user.
+    ///
+    /// Parameters:
+    /// - delegate: The delegate will be informed about the current state of the detection.
+    /// - client: A `Client` that allows the detector to retrieve diagnosis keys.
+    init(delegate: ExposureDetectorDelegate, client: Client) {
         self.queue = DispatchQueue(label: "com.sap.exposureDetection")
         self.delegate = delegate
+        self.client = client
     }
 
+    /// Kicks off the exposure detection.
     func detectExposureIfNeeded() {
-        // Check the timeframe since last succesfull download of a package.
-        // FIXME: Enable check after testing
-        //        if !checkLastEVSession() {
-        //            return  // Avoid DDoS by allowing only one request per hour
-        //        }
-
         self.sessionStartTime = Date()  // will be used once the session succeeded
 
         // Prepare parameter for download task
-        let timeframe = timeframeToFetchKeys()
-        Server.shared.getExposureConfiguration { result in
-            switch result {
-
-            case .success(let config):
-                let pm = PackageManager(mode: .development)
-                pm.diagnosisKeys(since: timeframe) { result in
+        client.exposureConfiguration { configurationResult in
+            switch configurationResult {
+            case .success(let configuration):
+                self.client.fetch() { result in
+                    // todo
                     switch result {
-                    case .success(let keys):
-                        self.startExposureDetectionSession(configuration: config, diagnosisKeys: keys)
-                    case .failure(_):
-                        // TODO
+                        case .success(let keys):
+                            self.startExposureDetectionSession(configuration: configuration, diagnosisKeys: keys)
+                        case .failure(_):
                         print("fail")
                     }
                 }
-            case .failure(_):
-                fatalError("implementation missing")
+            case .failure(let error):
+                print("error: \(error)")
             }
         }
     }
-
-    // MARK: - Private helper methods
-    private func timeframeToFetchKeys() -> Date {
-        // Case 1: First request -> Fetch last 14 days
-        // Case 2: Request within 2 weeks from last request -> just format timestamp
-        // Case 3: Last request older than upper threshold -> limit to threshold
-        let numberOfRelevantDays = type(of: self).numberOfPastDaysRelevantForDetection
-        let now = Date()
-        return Calendar.current.date(byAdding: .day, value: -numberOfRelevantDays, to: now) ?? now
-    }
-
-    private func checkLastEVSession() -> Bool {
-        guard let dateLastExposureDetection = PersistenceManager.shared.dateLastExposureDetection else{
-            return true  // No date stored -> first session
-        }
-
-        let calendar = Calendar.current
-        let dateComponents = calendar.dateComponents([.hour], from: dateLastExposureDetection, to: Date())
-        let hoursSinceLastRequest = dateComponents.hour ?? 0
-
-        // Only allow one request per hour
-        return hoursSinceLastRequest > 1
-    }
-
 }
 
-// MARK: - Exposure Detection Session
-extension ExposureDetectionService {
-
+// MARK: Helper
+private extension ExposureDetector {
     private func failWith(error: Error) {
-        delegate?.exposureDetectionServiceDidFail(self, error: error)
+        delegate?.exposureDetectorDidFail(self, error: error)
     }
 
     private func startExposureDetectionSession(
         configuration: ENExposureConfiguration,
         diagnosisKeys: [ENTemporaryExposureKey]
     ) {
-        delegate?.exposureDetectionServiceDidStart(self)
+        delegate?.exposureDetectorDidStart(self)
 
         let session = ENExposureDetectionSession()
         session.configuration = configuration
@@ -127,7 +103,7 @@ extension ExposureDetectionService {
                                 fatalError("how can this happen apple?")
                             }
 
-                            self.delegate?.exposureDetectionServiceDidFinish(self, summary: summary)
+                            self.delegate?.exposureDetectorDidFinish(self, summary: summary)
 
                             session.getExposureInfo(withMaximumCount: type(of: self).numberCountExposureInfo) { (info, done, exposureError) in
                                 if let exposureError = exposureError {
