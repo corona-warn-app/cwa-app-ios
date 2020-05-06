@@ -29,8 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)
         let rootViewController: UIViewController
         switch instructor {
-        case .main:
-            rootViewController = HomeScreenViewController.initiate(for: .main)
+        case .home:
+            rootViewController = AppStoryboard.home.initiateInitial()
         case .onboarding:
             rootViewController = OnboardingViewController.initiate(for: .onboarding)
         }
@@ -73,7 +73,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
-
 }
-

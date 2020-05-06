@@ -55,6 +55,7 @@ class MockClient: Client {
 
     func submit(keys: [ENTemporaryExposureKey], tan: String, completion: @escaping SubmitKeysCompletionHandler) {
         submittedKeys.append(contentsOf: keys)
+        completion(/* error */ nil)
     }
 
     func fetch(completion: @escaping FetchKeysCompletionHandler) {

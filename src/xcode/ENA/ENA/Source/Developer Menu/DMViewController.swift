@@ -70,14 +70,14 @@ extension DMViewController: DMQRCodeScanViewControllerDelegate {
             keys: [diagnosisKey.temporaryExposureKey],
             tan: "not needed") {
                 error in
-                self.client.fetch() { result in
+                self.client.fetch() { [weak self] result in
                     switch result {
                     case .success(let keys):
-                        self.keys = keys
+                        self?.keys = keys
                     case .failure(_):
-                        self.keys = []
+                        self?.keys = []
                     }
-                    self.tableView.reloadData()
+                    self?.tableView.reloadData()
                 }
         }
     }

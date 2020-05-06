@@ -9,16 +9,18 @@
 import UIKit
 
 enum AppStoryboard: String {
-    case main = "Main"
+    case home = "Home"
     case onboarding = "Onboarding"
     case exposureNotificationSetting = "ExposureNotificationSetting"
-    case selfExposure = "SelfExposure"
-    case selfExposureTanEntry = "TanEntry"
-    case selfExposureConfirmation = "Confirmation"
+    case exposureSubmission = "ExposureSubmission"
     case settings = "Settings"
     case developerMenu = "DeveloperMenu"
     case inviteFriends = "InviteFriends"
-
+//    case selfExposure = "SelfExposure"
+    case exposureDetection = "ExposureDetection"
+    case selfExposureTanEntry = "selfExposureTanEntry"
+    case selfExposureConfirmation = "selfExposureConfirmation"
+    
     var instance: UIStoryboard {
         return UIStoryboard(name: rawValue, bundle: nil)
     }
@@ -29,4 +31,11 @@ enum AppStoryboard: String {
         guard let vc = storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier) as? T else { fatalError("Can't initiate \(viewControllerIdentifier) for \(rawValue) storyboard") }
         return vc
     }
+    
+    func initiateInitial() -> UIViewController {
+        let storyboard = UIStoryboard(name: rawValue, bundle: nil)
+        guard let vc = storyboard.instantiateInitialViewController() else { fatalError("Can't initiate start UIViewController for \(rawValue) storyboard") }
+        return vc
+    }
+    
 }
