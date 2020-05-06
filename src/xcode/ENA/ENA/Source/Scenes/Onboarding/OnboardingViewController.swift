@@ -64,7 +64,7 @@ final class OnboardingViewController: UIViewController {
 
     private func updateNextButton() {
         let isLastPage = currentIndex == maxIndex
-        let title = isLastPage ? NSLocalizedString("onboarding_button_finish", comment: "") : NSLocalizedString("onboarding_button_next", comment: "")
+        let title = isLastPage ? AppStrings.Onboarding.onboardingFinish : AppStrings.Onboarding.onboardingNext
         nextButton.setTitle(title, for: .normal)
     }
 }

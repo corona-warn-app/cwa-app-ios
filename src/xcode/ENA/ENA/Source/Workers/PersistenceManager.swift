@@ -43,12 +43,10 @@ class PersistedAndPublished<Value: Codable> {
 final class PersistenceManager {
     static let shared = PersistenceManager()
 
-    // TODO: Define init() and call a clean up function of the local storage
-
     @PersistedAndPublished(
         key: "isOnboarded",
         notificationName: Notification.Name.isOnboardedDidChange,
-        defaultValue: true
+        defaultValue: false
     )
     var isOnboarded: Bool
 

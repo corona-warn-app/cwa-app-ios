@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>lastHours</key>
+	<key>ExposureDetection_LastHours</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
@@ -20,7 +20,7 @@
 			<string>Vor %u Stunden</string>
 		</dict>
 	</dict>
-	<key>lastDays</key>
+	<key>ExposureDetection_LastDays</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
@@ -40,23 +40,23 @@
 			<string>Vor %u Tagen</string>
 		</dict>
 	</dict>
-    <key>nextSync</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@VARIABLE@</string>
-        <key>VARIABLE</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>u</string>
-            <key>zero</key>
-            <string>Nächste Überprüfung in wenigen Minuten</string>
-            <key>one</key>
-            <string>Nächste Überprüfung in 1 Minute</string>
-            <key>other</key>
-            <string>Nächste Überprüfung in %u Minuten</string>
-        </dict>
-    </dict>
+	<key>ExposureDetection_NextSync</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Nächste Überprüfung in wenigen Minuten</string>
+			<key>one</key>
+			<string>Nächste Überprüfung in 1 Minute</string>
+			<key>other</key>
+			<string>Nächste Überprüfung in %u Minuten</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
