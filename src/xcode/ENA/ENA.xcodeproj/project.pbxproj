@@ -82,6 +82,7 @@
 		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
 		CD99A3C52461558200BF12AF /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD99A3C42461558200BF12AF /* CocoaLumberjackSwift */; };
 		CD99A3C7246155C300BF12AF /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C6246155C300BF12AF /* Logger.swift */; };
+		CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C92461A47C00BF12AF /* AppStrings.swift */; };
 		EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2A245F0B32008B06F9 /* ColorStyle.swift */; };
 		EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */; };
 		EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */; };
@@ -203,6 +204,7 @@
 		CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
 		CD99A3C6246155C300BF12AF /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		CD99A3C92461A47C00BF12AF /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		EE278B2A245F0B32008B06F9 /* ColorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorStyle.swift; sourceTree = "<group>"; };
 		EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InviteFriends.storyboard; sourceTree = "<group>"; };
 		EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsInviteController.swift; sourceTree = "<group>"; };
@@ -340,9 +342,6 @@
 			isa = PBXGroup;
 			children = (
 				CD99A3C6246155C300BF12AF /* Logger.swift */,
-				EE278B29245F0B32008B06F9 /* ColorStyle */,
-				51D420B324583ABB00AD70CA /* AppStoryboard.swift */,
-				51D420BA24583BF400AD70CA /* LaunchInstructor.swift */,
 				01A8DC7B245AB6A30075AFB5 /* PackageManager.swift */,
 				013DC101245DAC4E00EE58B0 /* PersistenceManager.swift */,
 			);
@@ -385,6 +384,7 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				CD99A3C82461A44B00BF12AF /* View Helpers */,
 				51CE1BBB2460B1BA002CF42A /* Protocols */,
 				8595BF5D246032C40056EA27 /* Views */,
 				B1569DD5245D6C790079FCD7 /* Developer Menu */,
@@ -594,6 +594,17 @@
 				CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */,
 			);
 			path = ExposureSubmission;
+			sourceTree = "<group>";
+		};
+		CD99A3C82461A44B00BF12AF /* View Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EE278B29245F0B32008B06F9 /* ColorStyle */,
+				51D420B324583ABB00AD70CA /* AppStoryboard.swift */,
+				51D420BA24583BF400AD70CA /* LaunchInstructor.swift */,
+				CD99A3C92461A47C00BF12AF /* AppStrings.swift */,
+			);
+			path = "View Helpers";
 			sourceTree = "<group>";
 		};
 		EE278B29245F0B32008B06F9 /* ColorStyle */ = {
@@ -833,6 +844,7 @@
 				51CE1B8C246078B6002CF42A /* SettingsCollectionViewCell.swift in Sources */,
 				51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
+				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
 				51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */,
 				B102BDBF24603FF800CD55A2 /* security.pb.swift in Sources */,

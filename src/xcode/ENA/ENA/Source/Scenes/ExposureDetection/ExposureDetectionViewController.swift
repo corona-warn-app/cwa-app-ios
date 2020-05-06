@@ -37,48 +37,34 @@ class ExposureDetectionViewController: UIViewController {
     }
 
     private func setupView() {
-        contactTitleLabel.text = .lastContactTitle
-        let lastContactStringFormat = NSLocalizedString("lastDays", comment: "")
-        lastContactLabel.text = String.localizedStringWithFormat(lastContactStringFormat, 3)
+        contactTitleLabel.text = AppStrings.ExposureDetection.lastContactTitle
+        lastContactLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactDays, 3)
 
         updateLastSyncLabel()
         updateNextSyncLabel()
 
-        syncButton.setTitle(.synchronize, for: .normal)
-        infoTitleLabel.text = .info
-        infoTextView.text = .infoText
+        syncButton.setTitle(AppStrings.ExposureDetection.synchronize, for: .normal)
+        infoTitleLabel.text = AppStrings.ExposureDetection.info
+        infoTextView.text = AppStrings.ExposureDetection.infoText
     }
 
     @objc func updateLastSyncLabel() {
-
-        let lastContactStringFormat = NSLocalizedString("lastHours", comment: "")
         guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
-            self.lastSyncLabel.text = NSLocalizedString("unknown_time", comment: "")
+            self.lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
             return
         }
         let hours = Calendar.current.component(.hour, from: lastSync)
-        self.lastSyncLabel.text =  String.localizedStringWithFormat(lastContactStringFormat, hours)
+        self.lastSyncLabel.text =  String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
     }
 
     private func updateNextSyncLabel() {
-        let stringFormat = NSLocalizedString("nextSync", comment: "")
-        nextSyncLabel.text = String.localizedStringWithFormat(stringFormat, 18)
+        nextSyncLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.nextSync, 18)
     }
 
 
     @IBAction func refresh(_ sender: UIButton) {
         exposureDetectionService.detectExposureIfNeeded()
     }
-}
-
-fileprivate extension String {
-
-    static let lastContactTitle = NSLocalizedString("ExposureDetection_lastContactTitle", comment: "")
-    static let synchronize = NSLocalizedString("ExposureDetection_synchronize", comment: "")
-
-    static let info = NSLocalizedString("ExposureDetection_info", comment: "")
-    static let infoText = NSLocalizedString("ExposureDetection_infoText", comment: "")
-
 }
 
 extension ExposureDetectionViewController : ExposureDetectionServiceDelegate {

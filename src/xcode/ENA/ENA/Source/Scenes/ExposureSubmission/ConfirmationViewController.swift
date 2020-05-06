@@ -16,18 +16,12 @@ class ConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.text = .title
-        descriptionLabel.text = .description
-        submitButton.setTitle(.submit, for: .normal)
+        titleLabel.text = AppStrings.ExposureSubmissionConfirmation.title
+        descriptionLabel.text = AppStrings.ExposureSubmissionConfirmation.description
+        submitButton.setTitle(AppStrings.ExposureSubmissionConfirmation.submit, for: .normal)
     }
     
     @IBAction func submitClicked(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-}
-
-fileprivate extension String {
-    static let title = NSLocalizedString("SelfExposure_Confirmation_Title", comment: "")
-    static let description = NSLocalizedString("SelfExposure_Confirmation_Description", comment: "")
-    static let submit = NSLocalizedString("SelfExposure_Confirmation_Submit", comment: "")
 }

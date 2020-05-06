@@ -70,11 +70,11 @@ class SettingsViewController: UIViewController {
         switch status {
         case .active:
             DispatchQueue.main.async {
-                self.trackingStatusLabel.text = NSLocalizedString("status_Active", comment: "")
+                self.trackingStatusLabel.text = AppStrings.Settings.trackingStatusActive
             }
         default:
             DispatchQueue.main.async {
-                self.trackingStatusLabel.text = NSLocalizedString("status_Inactive", comment: "")
+                self.trackingStatusLabel.text = AppStrings.Settings.trackingStatusInactive
             }
         }
     }

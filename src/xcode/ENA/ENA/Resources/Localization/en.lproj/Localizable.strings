@@ -9,20 +9,17 @@
 
 
 // Scene-specific
-"ExposureDetection_lastContactTitle" = "Contact Determined";
-"ExposureDetection_synchronize" = "Synchronize";
-"ExposureDetection_info" = "Information";
-"ExposureDetection_infoText" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
+"ExposureDetection_LastContactTitle" = "Contact Determined";
+"ExposureDetection_Synchronize" = "Synchronize";
+"ExposureDetection_Info" = "Information";
+"ExposureDetection_InfoText" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
 
-"status_Active" = "active";
-"status_Inactive" = "inactive";
+"Settings_StatusActive" = "active";
+"Settings_StatusInactive" = "inactive";
 
 // Onboarding
-"onboarding_button_next" = "next";
-"onboarding_button_finish" = "finish";
-
-
-
+"Onboarding_Next" = "next";
+"Onboarding_Finish" = "finish";
 
 //Tracing Enable/Disable Settings
 

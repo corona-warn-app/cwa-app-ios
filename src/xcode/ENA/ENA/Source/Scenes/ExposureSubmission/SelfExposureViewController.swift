@@ -16,17 +16,10 @@ class SelfExposureViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.text = .title
-        descriptionLabel.text = .description
-        submitButton.setTitle(.submit, for: .normal)
+        titleLabel.text = AppStrings.ExposureSubmission.title
+        descriptionLabel.text = AppStrings.ExposureSubmission.description
+        submitButton.setTitle(AppStrings.ExposureSubmission.submit, for: .normal)
 
-        navigationItem.title = .navigationBarTitle
+        navigationItem.title = AppStrings.ExposureSubmission.navigationBarTitle
     }
-}
-
-fileprivate extension String {
-    static let title = NSLocalizedString("SelfExposure_Title", comment: "")
-    static let description = NSLocalizedString("SelfExposure_Description", comment: "")
-    static let submit = NSLocalizedString("SelfExposure_Submit", comment: "")
-    static let navigationBarTitle = NSLocalizedString("SelfExposure_Nav_Title", comment: "")
 }
