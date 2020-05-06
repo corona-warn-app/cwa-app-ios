@@ -55,15 +55,12 @@ extension AppInformationViewController: UITableViewDelegate, UITableViewDataSour
         return cell
     }
 
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let viewController = storyboard?.instantiateViewController(identifier: AppInformationDetailViewController.storyboardID) as? AppInformationDetailViewController,
-            indexPath.row < labels.count else {
+
+        guard indexPath.row < labels.count else {
             return
         }
+        let viewController = AppInformationDetailViewController.initiate(for: .appInformation)
         viewController.title = labels[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
