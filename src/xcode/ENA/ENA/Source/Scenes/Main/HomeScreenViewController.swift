@@ -13,16 +13,24 @@ class HomeScreenViewController: UIViewController {
     @IBOutlet weak var circleView: UIView!
     @IBOutlet weak var settingButton: UIButton!
     private let client: Client = MockClient()
-    
+    private lazy var developerMenu: DMDeveloperMenu = {
+        return DMDeveloperMenu(presentingViewController: self, client: client)
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        developerMenu.enableIfAllowed()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showExposureDetection" {
             guard let exposureDetectionVC = segue.destination as? ExposureDetectionViewController else { fatalError() }
-            exposureDetectionVC.exposureDetectionService = ExposureDetectionService(delegate: exposureDetectionVC, client: client)
+            
+            exposureDetectionVC.exposureDetectionService = ExposureDetector(delegate: exposureDetectionVC, client: client)
         }
         super.prepare(for: segue, sender: sender)
     }
@@ -59,7 +67,7 @@ extension HomeScreenViewController {
     }
 
     @IBAction func showDeveloperMenu(_ sender: Any) {
-        let navigationController = UINavigationController(rootViewController: DeveloperMenuViewController(client: client))
+        let navigationController = UINavigationController(rootViewController: DMViewController(client: client))
            self.present(navigationController, animated: true, completion: nil)
        }
 }

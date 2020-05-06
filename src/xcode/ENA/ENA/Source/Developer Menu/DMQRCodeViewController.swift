@@ -8,9 +8,10 @@
 
 import UIKit
 
+/// A view controller that displays a `DMCodableDiagnosisKey` as a QR code.
 final class DMQRCodeViewController : UIViewController {
     // MARK: Creating a Code generating View Controller
-    init(key: CodableDiagnosisKey) {
+    init(key: DMCodableDiagnosisKey) {
         self.key = key
         super.init(nibName: nil, bundle: nil)
     }
@@ -20,34 +21,65 @@ final class DMQRCodeViewController : UIViewController {
     }
 
     // MARK: Properties
-    private let key: CodableDiagnosisKey
+    private let key: DMCodableDiagnosisKey
+    private var JSONEncodedKey: Data {
+        // This should always work thus we can safely use !
+        return try! JSONEncoder().encode(key)
+    }
+
+    /// We are reusing the context between instances
+    fileprivate static let context = CIContext()
 
     // MARK: UIViewController
     override func loadView() {
-        do {
-            let data = try JSONEncoder().encode(key)
-            let context = CIContext()
-            guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
-                return
-            }
-            filter.setDefaults()
-            filter.setValue(data, forKey: "inputMessage")
-            let extent = filter.outputImage!.extent
-            let scaled = filter.outputImage!.transformed(by: CGAffineTransform(scaleX: 5.0, y: 5.0))
-            let qrCodeCGImage = context.createCGImage(scaled, from: CGRect(origin: .zero, size: CGSize(width: extent.width * 5.0, height: extent.height * 5.0)))!
-            let qrCode = UIImage(cgImage: qrCodeCGImage)
-            let iv = UIImageView(image: qrCode)
-            let view = UIView()
-            iv.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(iv)
-            iv.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            iv.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-            view.backgroundColor = .white
-            iv.widthAnchor.constraint(equalToConstant: 300).isActive = true
-            iv.heightAnchor.constraint(equalToConstant: 300).isActive = true
-            self.view = view
-        } catch(let error) {
-            print(error)
-        }
+        let filter = CIFilter.QRCodeGeneratingFilter(with: JSONEncodedKey)
+        let QRCodeImage = UIImage(cgImage: filter.bigOutputCGImage)
+        let imageView = UIImageView(image: QRCodeImage)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        // Creating the actual view and embedding the image view that displays the QR ode
+        let view = UIView()
+        view.addSubview(view)
+        imageView.center(in: view)
+        imageView.constrainSize(to: CGSize(width: 300, height: 300))
+        view.backgroundColor = .white
+        self.view = view
+    }
+}
+
+fileprivate extension CIFilter {
+    class func QRCodeGeneratingFilter(with data: Data) -> CIFilter {
+        // We expect there to always be a QR code generator
+        let filter = CIFilter(name: "CIQRCodeGenerator")!
+        filter.setDefaults()
+        filter.setValue(data, forKey: "inputMessage")
+        return filter
+    }
+
+    private var existingOutputImage: CIImage {
+        outputImage!
+    }
+
+    private var scaleFactor: CGFloat { 5.0 }
+
+    private var bigOutputImage: CIImage {
+        existingOutputImage.transformed(by: CGAffineTransform(scaleX: scaleFactor, y: scaleFactor))
+    }
+
+    var bigOutputCGImage: CGImage {
+        let extent = existingOutputImage.extent
+        return DMQRCodeViewController.context.createCGImage(bigOutputImage, from: CGRect(origin: .zero, size: CGSize(width: extent.width * scaleFactor, height: extent.height * scaleFactor)))!
+    }
+}
+
+fileprivate extension UIView {
+    func constrainSize(to size: CGSize) {
+        widthAnchor.constraint(equalToConstant: size.width).isActive = true
+        heightAnchor.constraint(equalToConstant: size.height).isActive = true
+    }
+
+    func center(in view: UIView) {
+        view.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        view.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 }

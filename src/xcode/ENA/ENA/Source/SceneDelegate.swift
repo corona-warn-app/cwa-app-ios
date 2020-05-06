@@ -35,6 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             rootViewController = OnboardingViewController.initiate(for: .onboarding)
         }
 
+
         window?.rootViewController = rootViewController
     }
 

@@ -23,7 +23,7 @@ class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
 
-    var exposureDetectionService: ExposureDetectionService?
+    var exposureDetectionService: ExposureDetector?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,26 +72,23 @@ class ExposureDetectionViewController: UIViewController {
 }
 
 fileprivate extension String {
-
     static let lastContactTitle = NSLocalizedString("ExposureDetection_lastContactTitle", comment: "")
     static let synchronize = NSLocalizedString("ExposureDetection_synchronize", comment: "")
-
     static let info = NSLocalizedString("ExposureDetection_info", comment: "")
     static let infoText = NSLocalizedString("ExposureDetection_infoText", comment: "")
-
 }
 
-extension ExposureDetectionViewController : ExposureDetectionServiceDelegate {
-    func exposureDetectionServiceDidStart(_ service: ExposureDetectionService) {
+extension ExposureDetectionViewController : ExposureDetectorDelegate {
+    func exposureDetectorDidStart(_ detector: ExposureDetector) {
         activityIndicator.startAnimating()
     }
 
-    func exposureDetectionServiceDidFinish(_ service: ExposureDetectionService, summary: ENExposureDetectionSummary) {
+    func exposureDetectorDidFinish(_ detector: ExposureDetector, summary: ENExposureDetectionSummary) {
         activityIndicator.stopAnimating()
         infoTextView.text = summary.pretty
     }
 
-    func exposureDetectionServiceDidFail(_ service: ExposureDetectionService, error: Error) {
+    func exposureDetectorDidFail(_ detector: ExposureDetector, error: Error) {
         activityIndicator.stopAnimating()
     }
 }

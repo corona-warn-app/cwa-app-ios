@@ -2,40 +2,29 @@ import UIKit
 import ExposureNotification
 import UserNotifications
 
-fileprivate extension CodableDiagnosisKey {
-    init(temporaryKey key: ENTemporaryExposureKey) {
-        self.init(keyData: key.keyData, rollingStartNumber: key.rollingStartNumber, transmissionRiskLevel: key.transmissionRiskLevel.rawValue)
-    }
-    var temporaryExposureKey: ENTemporaryExposureKey {
-        let key = ENTemporaryExposureKey()
-        key.keyData = keyData
-        key.rollingStartNumber = rollingStartNumber
-        if let riskLevel = ENRiskLevel(rawValue: transmissionRiskLevel) {
-            key.transmissionRiskLevel = riskLevel
-        }
-        return key
-    }
-}
-
-final class DeveloperMenuViewController: UITableViewController {
-    private let client: Client
-    private var keys = [ENTemporaryExposureKey]()
-
+/// The root view controller of the developer menu.
+final class DMViewController: UITableViewController {
+    // MARK: Creating a developer menu view controller
     init(client: Client) {
         self.client = client
         super.init(style: .plain)
         self.title = "Developer Menu"
     }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: Properties
+    private let client: Client
+    private var keys = [ENTemporaryExposureKey]()
+
+    // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "KeyCell")
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "qrcode.viewfinder"), style: .plain, target: self, action: #selector(showScanner))
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -51,11 +40,10 @@ final class DeveloperMenuViewController: UITableViewController {
         }
     }
 
-    // MARK: QR Code
+    // MARK: QR Code related
     @objc
     private func showScanner() {
-        print("scan")
-        present(DebugCodeScanViewController(delegate: self), animated: true)
+        present(DMViewController(client: client), animated: true)
     }
 
     // MARK: UITableView
@@ -71,25 +59,43 @@ final class DeveloperMenuViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let key = CodableDiagnosisKey(temporaryKey: keys[indexPath.row])
+        let key = DMCodableDiagnosisKey(temporaryKey: keys[indexPath.row])
         navigationController?.pushViewController(DMQRCodeViewController(key: key), animated: true)
     }
 }
 
-extension DeveloperMenuViewController: DebugCodeScanViewControllerDelegate {
-    func debugCodeScanViewController(_ viewController: DebugCodeScanViewController, didScan diagnosisKey: CodableDiagnosisKey) {
-        print("scan done")
-        client.submit(keys: [diagnosisKey.temporaryExposureKey], tan: "not needed") { error in
-            print("done")
-            self.client.fetch() { result in
-                switch result {
-                case .success(let keys):
-                    self.keys = keys
-                case .failure(_):
-                    self.keys = []
+extension DMViewController: DMQRCodeScanViewControllerDelegate {
+    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: DMCodableDiagnosisKey) {
+        client.submit(
+            keys: [diagnosisKey.temporaryExposureKey],
+            tan: "not needed") {
+                error in
+                self.client.fetch() { result in
+                    switch result {
+                    case .success(let keys):
+                        self.keys = keys
+                    case .failure(_):
+                        self.keys = []
+                    }
+                    self.tableView.reloadData()
                 }
-                self.tableView.reloadData()
-            }
         }
+    }
+}
+
+/// Helper to convert an `DMCodableDiagnosisKey` to and from `ENTemporaryExposureKey`.
+fileprivate extension DMCodableDiagnosisKey {
+    init(temporaryKey key: ENTemporaryExposureKey) {
+        self.init(keyData: key.keyData, rollingStartNumber: key.rollingStartNumber, transmissionRiskLevel: key.transmissionRiskLevel.rawValue)
+    }
+
+    var temporaryExposureKey: ENTemporaryExposureKey {
+        let key = ENTemporaryExposureKey()
+        key.keyData = keyData
+        key.rollingStartNumber = rollingStartNumber
+        if let riskLevel = ENRiskLevel(rawValue: transmissionRiskLevel) {
+            key.transmissionRiskLevel = riskLevel
+        }
+        return key
     }
 }

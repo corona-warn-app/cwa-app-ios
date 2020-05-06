@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0109A59E2461B0A700641363 /* ExposureDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */; };
+		0109A59E2461B0A700641363 /* ExposureDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B7245B23C2006F5A69 /* ExposureDetector.swift */; };
 		013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* PersistenceManager.swift */; };
 		0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */; };
 		01B2D15F24616F270054713A /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2D15E24616F270054713A /* Client.swift */; };
-		01C28E11245D9BE30045EFFA /* DMLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C28E10245D9BE30045EFFA /* DMLocalStore.swift */; };
 		51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* UIColor.swift */; };
 		51C737BB245B142B00286105 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BA245B142B00286105 /* OnboardingViewController.swift */; };
 		51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BC245B349700286105 /* OnboardingInfoViewController.swift */; };
@@ -41,17 +40,12 @@
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
 		B102BDBF24603FF800CD55A2 /* security.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDBD24603FF800CD55A2 /* security.pb.swift */; };
 		B102BDC024603FF800CD55A2 /* exposure_keys.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */; };
-		B102BDC424606A9D00CD55A2 /* Exposure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDC324606A9D00CD55A2 /* Exposure.swift */; };
-		B10FB02D245D8A85004CA11E /* TintLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FB02C245D8A85004CA11E /* TintLabel.swift */; };
 		B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = B10FB02F246036F3004CA11E /* SwiftProtobuf */; };
-		B1569DD7245D703C0079FCD7 /* DMServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DD6245D703C0079FCD7 /* DMServer.swift */; };
-		B1569DDB245D70770079FCD7 /* DMExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DDA245D70770079FCD7 /* DMExposureManager.swift */; };
-		B1569DDD245D70880079FCD7 /* DMErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DDC245D70880079FCD7 /* DMErrorHandling.swift */; };
 		B1569DDF245D70990079FCD7 /* DMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DDE245D70990079FCD7 /* DMViewController.swift */; };
-		B1569DE1245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */; };
-		B1569DE3245D70DD0079FCD7 /* DeveloperMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */; };
 		B1741B3E24619179006275D9 /* DMQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */; };
-		B1741B412461A511006275D9 /* DebugCodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B402461A511006275D9 /* DebugCodeScanViewController.swift */; };
+		B1741B412461A511006275D9 /* DMQRCodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */; };
+		B1741B442461C257006275D9 /* DMDeveloperMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B432461C257006275D9 /* DMDeveloperMenu.swift */; };
+		B1741B472461C97C006275D9 /* DMCodableDiagnosisKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B462461C97C006275D9 /* DMCodableDiagnosisKey.swift */; };
 		CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */; };
 		CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */; };
 		CD99A39F245B2BD300BF12AF /* TanEntry.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */; };
@@ -102,9 +96,8 @@
 /* Begin PBXFileReference section */
 		013DC101245DAC4E00EE58B0 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
-		01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionService.swift; sourceTree = "<group>"; };
+		01B0C6B7245B23C2006F5A69 /* ExposureDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetector.swift; sourceTree = "<group>"; };
 		01B2D15E24616F270054713A /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
-		01C28E10245D9BE30045EFFA /* DMLocalStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMLocalStore.swift; sourceTree = "<group>"; };
 		51895EDB245E16CD0085DA38 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		51C737BA245B142B00286105 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		51C737BC245B349700286105 /* OnboardingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewController.swift; sourceTree = "<group>"; };
@@ -144,16 +137,12 @@
 		B102BDBD24603FF800CD55A2 /* security.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = security.pb.swift; path = ../../../../../proto/output/security.pb.swift; sourceTree = "<group>"; };
 		B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_keys.pb.swift; path = ../../../../../proto/output/exposure_keys.pb.swift; sourceTree = "<group>"; };
 		B102BDC22460410600CD55A2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		B102BDC324606A9D00CD55A2 /* Exposure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exposure.swift; sourceTree = "<group>"; };
-		B10FB02C245D8A85004CA11E /* TintLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintLabel.swift; sourceTree = "<group>"; };
-		B1569DD6245D703C0079FCD7 /* DMServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMServer.swift; sourceTree = "<group>"; };
-		B1569DDA245D70770079FCD7 /* DMExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMExposureManager.swift; sourceTree = "<group>"; };
-		B1569DDC245D70880079FCD7 /* DMErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMErrorHandling.swift; sourceTree = "<group>"; };
 		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
-		B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDebugDiagnosisKeysViewController.swift; sourceTree = "<group>"; };
-		B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DeveloperMenu.storyboard; sourceTree = "<group>"; };
 		B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeViewController.swift; sourceTree = "<group>"; };
-		B1741B402461A511006275D9 /* DebugCodeScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugCodeScanViewController.swift; sourceTree = "<group>"; };
+		B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeScanViewController.swift; sourceTree = "<group>"; };
+		B1741B422461C105006275D9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B1741B432461C257006275D9 /* DMDeveloperMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeveloperMenu.swift; sourceTree = "<group>"; };
+		B1741B462461C97C006275D9 /* DMCodableDiagnosisKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMCodableDiagnosisKey.swift; sourceTree = "<group>"; };
 		CD99A399245B22B700BF12AF /* SelfExposureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfExposureViewController.swift; sourceTree = "<group>"; };
 		CD99A39C245B22EE00BF12AF /* SelfExposure.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SelfExposure.storyboard; sourceTree = "<group>"; };
 		CD99A39E245B2BD300BF12AF /* TanEntry.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TanEntry.storyboard; sourceTree = "<group>"; };
@@ -199,13 +188,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01AB8A692459E65D00042245 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		5107E3D72459B2D60042FC9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,7 +260,6 @@
 				8595BF5D246032C40056EA27 /* Views */,
 				B1569DD5245D6C790079FCD7 /* Developer Menu */,
 				51EE9A6A245C0F7900F2544F /* Models */,
-				01AB8A692459E65D00042245 /* Protocols */,
 				85D759802459A82D008175F0 /* Services */,
 				85D759712457059A008175F0 /* Scenes */,
 				51D420B224583AA400AD70CA /* Workers */,
@@ -410,7 +391,6 @@
 		85D75975245706B0008175F0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				B1569DE2245D70DD0079FCD7 /* DeveloperMenu.storyboard */,
 				CD99A39B245B22DA00BF12AF /* SelfExposure */,
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420B02458397300AD70CA /* Onboarding.storyboard */,
@@ -433,7 +413,7 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				01B0C6B7245B23C2006F5A69 /* ExposureDetectionService.swift */,
+				01B0C6B7245B23C2006F5A69 /* ExposureDetector.swift */,
 				CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */,
 			);
 			path = Services;
@@ -462,16 +442,12 @@
 		B1569DD5245D6C790079FCD7 /* Developer Menu */ = {
 			isa = PBXGroup;
 			children = (
-				B1741B402461A511006275D9 /* DebugCodeScanViewController.swift */,
-				B102BDC324606A9D00CD55A2 /* Exposure.swift */,
-				01C28E10245D9BE30045EFFA /* DMLocalStore.swift */,
-				B10FB02C245D8A85004CA11E /* TintLabel.swift */,
-				B1569DDE245D70990079FCD7 /* DMViewController.swift */,
+				B1741B462461C97C006275D9 /* DMCodableDiagnosisKey.swift */,
+				B1741B432461C257006275D9 /* DMDeveloperMenu.swift */,
+				B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */,
 				B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */,
-				B1569DE0245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift */,
-				B1569DD6245D703C0079FCD7 /* DMServer.swift */,
-				B1569DDA245D70770079FCD7 /* DMExposureManager.swift */,
-				B1569DDC245D70880079FCD7 /* DMErrorHandling.swift */,
+				B1569DDE245D70990079FCD7 /* DMViewController.swift */,
+				B1741B422461C105006275D9 /* README.md */,
 			);
 			path = "Developer Menu";
 			sourceTree = "<group>";
@@ -650,7 +626,6 @@
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				CD99A39D245B22EF00BF12AF /* SelfExposure.storyboard in Resources */,
-				B1569DE3245D70DD0079FCD7 /* DeveloperMenu.storyboard in Resources */,
 				51D420CE245869C800AD70CA /* Main.storyboard in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				858F6F75245B1374009FFD33 /* ExposureNotificationSetting.storyboard in Resources */,
@@ -683,39 +658,34 @@
 				CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
-				01C28E11245D9BE30045EFFA /* DMLocalStore.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
-				B1569DDD245D70880079FCD7 /* DMErrorHandling.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				B1741B3E24619179006275D9 /* DMQRCodeViewController.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
-				B1569DD7245D703C0079FCD7 /* DMServer.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject.swift in Sources */,
 				51D420C024583D1100AD70CA /* TabBarController.swift in Sources */,
+				B1741B472461C97C006275D9 /* DMCodableDiagnosisKey.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
-				B1741B412461A511006275D9 /* DebugCodeScanViewController.swift in Sources */,
+				B1741B412461A511006275D9 /* DMQRCodeScanViewController.swift in Sources */,
 				01B2D15F24616F270054713A /* Client.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController.swift in Sources */,
 				B1569DDF245D70990079FCD7 /* DMViewController.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
-				0109A59E2461B0A700641363 /* ExposureDetectionService.swift in Sources */,
+				0109A59E2461B0A700641363 /* ExposureDetector.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
-				B1569DE1245D70A90079FCD7 /* DMDebugDiagnosisKeysViewController.swift in Sources */,
 				CD99A39A245B22B700BF12AF /* SelfExposureViewController.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
-				B102BDC424606A9D00CD55A2 /* Exposure.swift in Sources */,
 				EE6119E3245C850E00AB38A1 /* ExposureManager.swift in Sources */,
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
+				B1741B442461C257006275D9 /* DMDeveloperMenu.swift in Sources */,
 				51C737BB245B142B00286105 /* OnboardingViewController.swift in Sources */,
 				B102BDC024603FF800CD55A2 /* exposure_keys.pb.swift in Sources */,
-				B1569DDB245D70770079FCD7 /* DMExposureManager.swift in Sources */,
-				B10FB02D245D8A85004CA11E /* TintLabel.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */,
 				51D420C624583E4500AD70CA /* HomeScreenViewController.swift in Sources */,

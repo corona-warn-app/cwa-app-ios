@@ -1,5 +1,5 @@
 //
-//  DebugCodeScanViewController.swift
+//  DMQRCodeScanViewController.swift
 //  ENA
 //
 //  Created by Kienle, Christian on 05.05.20.
@@ -10,16 +10,16 @@ import UIKit
 import AVFoundation
 import ExposureNotification
 
-protocol DebugCodeScanViewControllerDelegate: class {
+protocol DMQRCodeScanViewControllerDelegate: class {
     func debugCodeScanViewController(
-        _ viewController: DebugCodeScanViewController,
-        didScan diagnosisKey: CodableDiagnosisKey
+        _ viewController: DMQRCodeScanViewController,
+        didScan diagnosisKey: DMCodableDiagnosisKey
     )
 }
 
-final class DebugCodeScanViewController: UIViewController {
+final class DMQRCodeScanViewController: UIViewController {
     // MARK: Creating a Debug Code Scan View Controller
-    init(delegate: DebugCodeScanViewControllerDelegate) {
+    init(delegate: DMQRCodeScanViewControllerDelegate) {
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
@@ -29,8 +29,8 @@ final class DebugCodeScanViewController: UIViewController {
     }
 
     // MARK: Properties
-    private let scanView = DebugCodeScanView()
-    private weak var delegate: DebugCodeScanViewControllerDelegate?
+    private let scanView = DMQRCodeScanView()
+    private weak var delegate: DMQRCodeScanViewControllerDelegate?
 
     // MARK: UIViewController
     override func loadView() {
@@ -39,7 +39,7 @@ final class DebugCodeScanViewController: UIViewController {
 
     override func viewDidLoad() {
         scanView.dataHandler = { data in
-            if let diagnosisKey = try? JSONDecoder().decode(CodableDiagnosisKey.self, from: data) {
+            if let diagnosisKey = try? JSONDecoder().decode(DMCodableDiagnosisKey.self, from: data) {
                 self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
                 self.dismiss(animated: true, completion: nil)
             }
@@ -49,30 +49,29 @@ final class DebugCodeScanViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         true
     }
-
-    @IBAction func tap() {
-        dismiss(animated: true, completion: nil)
-    }
 }
 
-final fileprivate class DebugCodeScanView: UIView {
+fileprivate final class DMQRCodeScanView: UIView {
+    // MARK: Types
     typealias DataHandler = (Data) -> Void
 
+    // MARK: UIView
     override class var layerClass: AnyClass {
         return AVCaptureVideoPreviewLayer.self
     }
 
+    // MARK: Properties
     fileprivate var dataHandler: DataHandler = { _ in }
-
     fileprivate var captureSession: AVCaptureSession
 
+    // MARK: Creating a code scan view
     init() {
         captureSession = AVCaptureSession()
 
         super.init(frame: .zero)
 
         let captureDevice = AVCaptureDevice.default(for: .video)!
-        guard let captureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return  }
+        guard let captureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return }
 
         captureSession.addInput(captureDeviceInput)
 
@@ -83,7 +82,7 @@ final fileprivate class DebugCodeScanView: UIView {
 
         captureSession.startRunning()
 
-        guard let videoPreviewLayer = layer as? AVCaptureVideoPreviewLayer else { return  }
+        guard let videoPreviewLayer = layer as? AVCaptureVideoPreviewLayer else { return }
         videoPreviewLayer.videoGravity = .resizeAspectFill
         videoPreviewLayer.session = captureSession
     }
@@ -94,7 +93,7 @@ final fileprivate class DebugCodeScanView: UIView {
 }
 
 
-extension DebugCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
+extension DMQRCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue, let data = string.data(using: .utf8) {
             dataHandler(data)
