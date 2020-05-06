@@ -42,7 +42,7 @@ class HomeViewController: UIViewController {
     }
     
     func showSubmitResult() {
-        let vc = SelfExposureViewController.initiate(for: .exposureSubmission)
+        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
