@@ -40,7 +40,7 @@ extension HomeScreenViewController {
 extension HomeScreenViewController {
     
     @IBAction func submitResultDidClick(_ sender: Any) {
-        let vc = SelfExposureViewController.initiate(for: .selfExposure)
+        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
         
