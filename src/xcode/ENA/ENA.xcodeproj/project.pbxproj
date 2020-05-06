@@ -10,7 +10,6 @@
 		0109A59E2461B0A700641363 /* ExposureDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B7245B23C2006F5A69 /* ExposureDetector.swift */; };
 		013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* PersistenceManager.swift */; };
 		0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */; };
-		01A8DC7C245AB6A30075AFB5 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		01B0C6B8245B23C2006F5A69 /* ExposureDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0C6B7245B23C2006F5A69 /* ExposureDetector.swift */; };
 		01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
@@ -77,7 +76,6 @@
 		B1741B542462DE21006275D9 /* SelfExposureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B522462DE21006275D9 /* SelfExposureViewController.swift */; };
 		B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */; };
 		B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B592462F4DE006275D9 /* TanEntryViewController.swift */; };
-		CD99A39D245B22EF00BF12AF /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
 		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
 		CD99A3C52461558200BF12AF /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD99A3C42461558200BF12AF /* CocoaLumberjackSwift */; };
@@ -87,6 +85,10 @@
 		EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */; };
 		EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */; };
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
+		EE85998F2462EFD4002E7AE2 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85998C2462EFD4002E7AE2 /* AppInformationViewController.swift */; };
+		EE8599902462EFD4002E7AE2 /* AppInformationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85998D2462EFD4002E7AE2 /* AppInformationDetailViewController.swift */; };
+		EE8599912462EFD4002E7AE2 /* AppInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85998E2462EFD4002E7AE2 /* AppInfoTableViewCell.swift */; };
+		EE8599932462EFFD002E7AE2 /* AppInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE8599922462EFFD002E7AE2 /* AppInfo.storyboard */; };
 		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
 /* End PBXBuildFile section */
 
@@ -206,6 +208,10 @@
 		EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsInviteController.swift; sourceTree = "<group>"; };
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EE85998C2462EFD4002E7AE2 /* AppInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
+		EE85998D2462EFD4002E7AE2 /* AppInformationDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInformationDetailViewController.swift; sourceTree = "<group>"; };
+		EE85998E2462EFD4002E7AE2 /* AppInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoTableViewCell.swift; sourceTree = "<group>"; };
+		EE8599922462EFFD002E7AE2 /* AppInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppInfo.storyboard; sourceTree = "<group>"; };
 		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -483,6 +489,7 @@
 			isa = PBXGroup;
 			children = (
 				B1741B512462DE21006275D9 /* SelfExposure */,
+				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				51D420AF2458308400AD70CA /* Onboarding */,
 				51D420C124583D3100AD70CA /* Home */,
 				514E81312461946E00636861 /* ExposureDetection */,
@@ -510,6 +517,7 @@
 		85D75975245706B0008175F0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				EE8599922462EFFD002E7AE2 /* AppInfo.storyboard */,
 				CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */,
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420B02458397300AD70CA /* Onboarding.storyboard */,
@@ -622,6 +630,16 @@
 				EE92A340245D96DA006B97B0 /* Localizable.stringsdict */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		EE85998B2462EFD4002E7AE2 /* AppInformation */ = {
+			isa = PBXGroup;
+			children = (
+				EE85998C2462EFD4002E7AE2 /* AppInformationViewController.swift */,
+				EE85998D2462EFD4002E7AE2 /* AppInformationDetailViewController.swift */,
+				EE85998E2462EFD4002E7AE2 /* AppInfoTableViewCell.swift */,
+			);
+			path = AppInformation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -746,8 +764,8 @@
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
-				CD99A39D245B22EF00BF12AF /* ExposureSubmission.storyboard in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
+				EE8599932462EFFD002E7AE2 /* AppInfo.storyboard in Resources */,
 				51CE1B8E246078B6002CF42A /* SettingsCollectionViewCell.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				51CE1B88246078B6002CF42A /* RiskCollectionViewCell.xib in Resources */,
@@ -783,7 +801,6 @@
 				CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */,
 				01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */,
-				01A8DC7C245AB6A30075AFB5 /* (null) in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
 				B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */,
@@ -822,8 +839,10 @@
 				B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
+				EE85998F2462EFD4002E7AE2 /* AppInformationViewController.swift in Sources */,
 				51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */,
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
+				EE8599902462EFD4002E7AE2 /* AppInformationDetailViewController.swift in Sources */,
 				51C737BB245B142B00286105 /* OnboardingViewController.swift in Sources */,
 				51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */,
 				B102BDC024603FF800CD55A2 /* exposure_keys.pb.swift in Sources */,
@@ -835,6 +854,7 @@
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
+				EE8599912462EFD4002E7AE2 /* AppInfoTableViewCell.swift in Sources */,
 				51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */,
 				B1741B542462DE21006275D9 /* SelfExposureViewController.swift in Sources */,
 				B102BDBF24603FF800CD55A2 /* security.pb.swift in Sources */,

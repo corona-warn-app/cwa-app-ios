@@ -81,6 +81,12 @@ class HomeViewController: UIViewController {
         exposureDetectionViewController.exposureDetectionService = ExposureDetector(delegate: exposureDetectionViewController, client: client)
         present(exposureDetectionViewController, animated: true, completion: nil)
     }
+
+    func showAppInformation() {
+        let vc = AppInformationViewController.initiate(for: .appInformation)
+        let naviController = UINavigationController(rootViewController: vc)
+        self.present(naviController, animated: true, completion: nil)
+    }
     
     private func showScreen(at indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
@@ -98,7 +104,7 @@ class HomeViewController: UIViewController {
             if row == 0 {
                 showInviteFriends()
             } else {
-                // show page about COVID-19
+                showAppInformation()
             }
         case .settings:
             showSetting()
