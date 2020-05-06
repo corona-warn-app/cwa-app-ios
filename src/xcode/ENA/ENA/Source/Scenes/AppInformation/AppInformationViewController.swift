@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-fileprivate let tableviewCellHeight: CGFloat = 50.0
+fileprivate let tableViewCellHeight: CGFloat = 50.0
 
 class AppInformationViewController: UIViewController {
 
@@ -30,15 +30,14 @@ class AppInformationViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        tableview.layoutIfNeeded()
-        tableViewHeightConstraint.constant = tableview.contentSize.height
+        tableViewHeightConstraint.constant = CGFloat(labels.count) * tableViewCellHeight
     }
 }
 
 extension AppInformationViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableviewCellHeight
+        return tableViewCellHeight
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
