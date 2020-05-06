@@ -20,3 +20,25 @@
 // Onboarding
 "onboarding_button_next" = "next";
 "onboarding_button_finish" = "finish";
+
+// Home
+
+// Home Cards
+
+"home_activate_card_button" = "Tracing is active";
+
+"home_risk_card_title" = "Minimal risk";
+"home_risk_card_body" = "No contact with COVID-19 was detected.";
+"home_risk_card_date" = "Last review: %@";
+"home_risk_card_button" = "Check contacts";
+
+"home_submit_card_title" = "I would be tested";
+"home_submit_card_body" = "Report your findings anonymously so that contact persons can be informed";
+"home_submit_card_button" = "Report findings";
+
+"home_info_card_share_title" = "Share the App";
+"home_info_card_share_body" = "Invite others to join in, because together we are stronger.";
+"home_info_card_about_title" = "Info about COVID-19";
+"home_info_card_about_body" = "Find reliable answers and specific information on how to protect yourself and help others";
+
+"home_settings_card_title" = "Settings";

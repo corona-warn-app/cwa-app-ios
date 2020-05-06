@@ -35,3 +35,25 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "AlertTitleGeneral" = "Ein Fehler ist aufgetreten";
 "AlertMessageGeneral" = "Bitte versuche Sie es erneut.";
 "AlertActionOk" = "Ok";
+
+// Home
+
+// Home Cards
+
+"home_activate_card_button" = "Tracing ist aktiv";
+
+"home_risk_card_title" = "Geringes Risiko";
+"home_risk_card_body" = "Es wurde kein Kontakt mit COVID-19 erkannt.";
+"home_risk_card_date" = "Letzte Überprüfung: %@";
+"home_risk_card_button" = "Kontakte überprüfen";
+
+"home_submit_card_title" = "Ich wurde getestet";
+"home_submit_card_body" = "Melden Sie Ihren Befund annonym, damit Kontaktpersonnen informiert werden können";
+"home_submit_card_button" = "Befund melden";
+
+"home_info_card_share_title" = "Teilen Sie die App";
+"home_info_card_share_body" = "Laden Sie Andere zum Mitmachen ein, denn zusammen sind wir stärker.";
+"home_info_card_about_title" = "Über COVID-19 informieren";
+"home_info_card_about_body" = "Finden Sie verlässliche Antworten und konkrete informationen, wie Sie sich schützen und anderen helfen können";
+
+"home_settings_card_title" = "Einstellungen";

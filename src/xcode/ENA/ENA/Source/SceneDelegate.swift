@@ -29,8 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)
         let rootViewController: UIViewController
         switch instructor {
-        case .main:
-            rootViewController = HomeScreenViewController.initiate(for: .main)
+        case .home:
+            rootViewController = AppStoryboard.home.initiateInitial()
         case .onboarding:
             rootViewController = OnboardingViewController.initiate(for: .onboarding)
         }
