@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+## This script converts *.proto files to *.pb.swift files.
+## In order to work properly protoc should be installed.
+
 set -euo pipefail
 IFS=$'\n\t'
 
@@ -10,4 +14,4 @@ if ! hash protoc 2>/dev/null; then
     exit
 fi
 
-protoc  --swift_out=./output ./security.proto ./exposure_keys.proto
+protoc  --swift_out=./output ./security.proto ./exposure_keys.proto ./DeveloperDiagnosisKeyFileProtobuf.proto
