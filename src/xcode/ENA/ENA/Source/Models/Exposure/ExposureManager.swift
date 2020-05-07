@@ -23,9 +23,19 @@ struct Preconditions: OptionSet {
     static let all: Preconditions = [.authorized, .enabled, .active]
 }
 
-//protocol Manager {
-//    func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
-//}
+protocol Manager: NSObjectProtocol {
+    static var authorizationStatus: ENAuthorizationStatus { get }
+    func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+    func activate(completionHandler: @escaping ENErrorHandler)
+    func invalidate()
+    var exposureNotificationEnabled: Bool { get }
+    func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler)
+    var exposureNotificationStatus: ENStatus { get }
+    func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+}
+
+extension ENManager: Manager {}
+
 //
 //extension ENManager: Manager {}
 
@@ -36,10 +46,10 @@ final class ExposureManager {
 
     typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
 
-    private let manager: ENManager
+    private let manager: Manager
 
-    init() {
-        manager = ENManager()
+    init(manager: Manager = ENManager()) {
+        self.manager = manager
     }
 
     // MARK:- Activation
@@ -80,8 +90,7 @@ final class ExposureManager {
 
     func preconditions() -> Preconditions {
         var preconditions: Preconditions = []
-
-        if ENManager.authorizationStatus == ENAuthorizationStatus.authorized { preconditions.insert(.authorized) }
+        if type(of: manager).authorizationStatus == ENAuthorizationStatus.authorized { preconditions.insert(.authorized) }
         if manager.exposureNotificationEnabled { preconditions.insert(.enabled) }
         if manager.exposureNotificationStatus == .active { preconditions.insert(.active) }
 
