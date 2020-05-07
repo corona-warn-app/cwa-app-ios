@@ -9,7 +9,7 @@
 import UIKit
 import ExposureNotification
 
-class ExposureDetectionViewController: UIViewController {
+final class ExposureDetectionViewController: UIViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
@@ -23,7 +23,7 @@ class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
 
-    private lazy var exposureDetectionService = ExposureDetectionService(delegate: self)
+    var exposureDetectionService: ExposureDetector?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,11 +50,11 @@ class ExposureDetectionViewController: UIViewController {
 
     @objc func updateLastSyncLabel() {
         guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
-            self.lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
+            lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
             return
         }
         let hours = Calendar.current.component(.hour, from: lastSync)
-        self.lastSyncLabel.text =  String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
+        lastSyncLabel.text =  String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
     }
 
     private func updateNextSyncLabel() {
@@ -63,21 +63,21 @@ class ExposureDetectionViewController: UIViewController {
 
 
     @IBAction func refresh(_ sender: UIButton) {
-        exposureDetectionService.detectExposureIfNeeded()
+        exposureDetectionService?.detectExposureIfNeeded()
     }
 }
 
-extension ExposureDetectionViewController : ExposureDetectionServiceDelegate {
-    func exposureDetectionServiceDidStart(_ service: ExposureDetectionService) {
+extension ExposureDetectionViewController : ExposureDetectorDelegate {
+    func exposureDetectorDidStart(_ detector: ExposureDetector) {
         activityIndicator.startAnimating()
     }
 
-    func exposureDetectionServiceDidFinish(_ service: ExposureDetectionService, summary: ENExposureDetectionSummary) {
+    func exposureDetectorDidFinish(_ detector: ExposureDetector, summary: ENExposureDetectionSummary) {
         activityIndicator.stopAnimating()
         infoTextView.text = summary.pretty
     }
 
-    func exposureDetectionServiceDidFail(_ service: ExposureDetectionService, error: Error) {
+    func exposureDetectorDidFail(_ detector: ExposureDetector, error: Error) {
         activityIndicator.stopAnimating()
     }
 }

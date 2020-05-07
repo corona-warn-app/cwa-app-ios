@@ -14,26 +14,26 @@ class TanEntryViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var tanTextField: UITextField!
 
-    let service: ExposureSubmissionService = ExposureSubmissionServiceImpl()
+    var exposureSubmissionService: ExposureSubmissionService?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+   override func viewDidLoad() {
+           super.viewDidLoad()
 
-        titleLabel.text = AppStrings.ExposureSubmissionTanEntry.title
-        descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
-        submitButton.setTitle(AppStrings.ExposureSubmissionTanEntry.submit, for: .normal)
-    }
-    
-    @IBAction func submitClicked(_ sender: Any) {
-        submitSelfExposure()
-    }
+           titleLabel.text = AppStrings.ExposureSubmissionTanEntry.title
+           descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
+           submitButton.setTitle(AppStrings.ExposureSubmissionTanEntry.submit, for: .normal)
+       }
+
+       @IBAction func submitClicked(_ sender: Any) {
+           submitSelfExposure()
+       }
 
     private func submitSelfExposure() {
         guard let tan = tanTextField.text else {
             return
         }
 
-        service.submitSelfExposure(tan: tan) { [weak self] error in
+        exposureSubmissionService?.submitSelfExposure(tan: tan) { [weak self] error in
             if error != nil {
                 let alert = UIAlertController(title: AppStrings.Commom.alertTitleGeneral, message: AppStrings.Commom.alertMessageGeneral, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: AppStrings.Commom.alertActionOk, style: .default, handler: nil))
@@ -48,6 +48,7 @@ class TanEntryViewController: UIViewController {
     }
 
     private func loadConfirmationScreen() {
-        performSegue(withIdentifier: "ShowConfirmation", sender: nil)
+        let confirmationViewController = ConfirmationViewController.initiate(for: .exposureSubmission)
+        navigationController?.pushViewController(confirmationViewController, animated: true)
     }
 }

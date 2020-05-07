@@ -60,7 +60,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Qud-2M-w8y" kind="show" id="DZz-wb-iU1"/>
+                                            <segue destination="Qud-2M-w8y" kind="show" identifier="showTanEntry" id="DZz-wb-iU1"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -94,7 +94,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BK5-1m-h7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="151" y="-319"/>
+            <point key="canvasLocation" x="304" y="-433"/>
         </scene>
         <!--Tan Entry View Controller-->
         <scene sceneID="O9X-nG-kdB">

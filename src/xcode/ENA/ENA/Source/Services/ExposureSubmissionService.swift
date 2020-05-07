@@ -16,10 +16,10 @@ protocol ExposureSubmissionService {
 }
 
 class ExposureSubmissionServiceImpl: ExposureSubmissionService {
-    let packageManager: PackageManager
+    let client: Client
 
-    init(_ packageManager: PackageManager? = nil) {
-        self.packageManager = packageManager ?? PackageManager(mode: .development)
+    init(client: Client) {
+        self.client = client
     }
 
     func submitSelfExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
@@ -45,7 +45,7 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
                     return
                 }
 
-                self.packageManager.sendDiagnosisKeys(keys, tan: tan) { error in
+                self.client.submit(keys: keys, tan: tan) { error in
                     if let error = error {
                         logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
                     }

@@ -16,16 +16,18 @@ class HomeViewController: UIViewController {
         case actions
         case infos
         case settings
-        
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     private var collectionView: UICollectionView! = nil
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
-    
+    private let client: Client = MockClient()
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
-    
+    private lazy var developerMenu: DMDeveloperMenu = {
+           return DMDeveloperMenu(presentingViewController: self, client: client)
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         homeInteractor = HomeInteractor(homeViewController: self)
@@ -33,6 +35,11 @@ class HomeViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         configureUI()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        developerMenu.enableIfAllowed()
     }
     
     // MARK: Actions
@@ -42,7 +49,7 @@ class HomeViewController: UIViewController {
     }
     
     func showSubmitResult() {
-        let vc = SelfExposureViewController.initiate(for: .selfExposure)
+        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
@@ -71,7 +78,14 @@ class HomeViewController: UIViewController {
     
     func showExposureDetection() {
         let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
+        exposureDetectionViewController.exposureDetectionService = ExposureDetector(delegate: exposureDetectionViewController, client: client)
         present(exposureDetectionViewController, animated: true, completion: nil)
+    }
+
+    func showAppInformation() {
+        let vc = AppInformationViewController.initiate(for: .appInformation)
+        let naviController = UINavigationController(rootViewController: vc)
+        self.present(naviController, animated: true, completion: nil)
     }
     
     private func showScreen(at indexPath: IndexPath) {
@@ -90,7 +104,7 @@ class HomeViewController: UIViewController {
             if row == 0 {
                 showInviteFriends()
             } else {
-                // show page about COVID-19
+                showAppInformation()
             }
         case .settings:
             showSetting()
