@@ -10,6 +10,17 @@ import Foundation
 
 enum ExposureNotificationError: Error {
     case exposureNotificationRequired
+    case exposureNotificationAuthorization
+}
+
+struct ENPreconditions: OptionSet {
+    let rawValue: Int
+
+    static let authorized   = ENPreconditions(rawValue: 1 << 0)
+    static let enabled      = ENPreconditions(rawValue: 1 << 1)
+    static let active       = ENPreconditions(rawValue: 1 << 2)
+
+    static let all: ENPreconditions = [.authorized, .enabled, .active]
 }
 
 /**
@@ -25,51 +36,94 @@ final class ExposureManager {
         manager = ENManager()
     }
 
+    // MARK:- Activation
+
     /// Activates `ENManager` and asks user for permission to enable ExposureNotification.
     /// If the user declines, completion handler will set the error to exposureNotificationRequired
     func activate(completion: @escaping CompletionHandler) {
         manager.activate { (activationError) in
             if let activationError = activationError {
+                logError(message: "Failed to activate ENManager: \(activationError.localizedDescription)")
                 self.handleENError(error: activationError, completion: completion)
                 return
-            }
-
-            if !self.manager.exposureNotificationEnabled {
-                self.manager.setExposureNotificationEnabled(true) { enableError in
-                    if let enableError = enableError {
-                        self.handleENError(error: enableError, completion: completion)
-                        return
-                    }
-                    completion(nil)
-                }
-            } else {
-                completion(nil)
             }
         }
     }
 
+    // MARK:- Enable
+
+    func enable(completion: @escaping CompletionHandler) {
+        changeEnabled(to: true, completion: completion)
+    }
+
+    func disable(completion: @escaping CompletionHandler) {
+        changeEnabled(to: false, completion: completion)
+    }
+
+    func preconditions() -> ENPreconditions {
+        var preconditions: ENPreconditions = []
+
+        if ENManager.authorizationStatus == ENAuthorizationStatus.authorized { preconditions.insert(.authorized) }
+        if manager.exposureNotificationEnabled { preconditions.insert(.enabled) }
+        if manager.exposureNotificationStatus == .active { preconditions.insert(.active) }
+
+        return preconditions
+    }
+
+    private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
+        if self.manager.exposureNotificationEnabled != status {
+            self.manager.setExposureNotificationEnabled(status) { error in
+                if let error = error {
+                    logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
+                    self.handleENError(error: error, completion: completion)
+                    return
+                }
+                completion(nil)
+            }
+        } else {
+            completion(nil)
+        }
+    }
+
+    // MARK:- Diagnosis Keys
+
     /// Wrapper for `ENManager.getDiagnosisKeys`. You have to call `ExposureManager.activate` before calling this method.
     func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
         if !manager.exposureNotificationEnabled {
-            let error = ENError(.notAuthorized)
+            let error = ENError(.notEnabled)
             completionHandler(nil, error)
             return
         }
         manager.getDiagnosisKeys(completionHandler: completionHandler)
     }
 
+    // MARK:- Reset
+    func reset(completion: @escaping CompletionHandler) {
+        log(message: "Resetting data")
+        manager.resetAllData() { error in
+            if let error = error {
+                self.handleENError(error: error, completion: completion)
+                return
+            }
+            completion(nil)
+        }
+    }
+
+    // MARK:- Error Handling
+
     private func handleENError(error: Error, completion: @escaping CompletionHandler) {
         if let error = error as? ENError {
             switch error.code {
             case .notAuthorized:
-                print("Failed: \(error.localizedDescription)")
+                completion(ExposureNotificationError.exposureNotificationAuthorization)
+            case .notEnabled:
                 completion(ExposureNotificationError.exposureNotificationRequired)
             default:
                 // TODO: Add missing cases
-                fatalError("Not implemented \(error.localizedDescription)")
+                fatalError("[ExposureManager] Not implemented \(error.localizedDescription)")
             }
         } else {
-            fatalError("Not implemented \(error.localizedDescription)")
+            fatalError("[ExposureManager] Not implemented \(error.localizedDescription)")
         }
     }
 
