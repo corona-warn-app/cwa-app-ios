@@ -1,0 +1,25 @@
+### Global configuration
+
+# Enable rules which are not in the default set
+opt_in_rules:
+
+# Disable rules which are in the default set
+disabled_rules:
+
+# Included paths (disables --path option)
+included:
+  - ENA
+  
+# Exclude paths
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+
+# Rules use by 'swiftlint analyze' (experimental)
+analyzer_rules:
+
+# Reporter tyoe (xcode, json, csv, checkstyle, junit, html, emoji, sonarqube, markdown)
+reporter: "xcode"
+
+
+### Rule specific configuration
+
+line_length: 120
