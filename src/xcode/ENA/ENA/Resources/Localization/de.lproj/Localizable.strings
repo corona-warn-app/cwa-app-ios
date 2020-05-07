@@ -6,13 +6,20 @@
   Copyright © 2020 SAP SE. All rights reserved.
 */
 //Put german language strings here
+
+// General
+"Alert_TitleGeneral" = "Ein Fehler ist aufgetreten";
+"Alert_MessageGeneral" = "Bitte versuche Sie es erneut.";
+"Alert_ActionOk" = "Ok";
+
+// Exposure Detection
 "ExposureDetection_LastSync" = "Zeitpunkt unbekannt";
-// Scene-specific
 "ExposureDetection_LastContactTitle" = "Kontakt Festgestellt";
 "ExposureDetection_Synchronize" = "Aktualisieren";
 "ExposureDetection_Info" = "Info";
 "ExposureDetection_InfoText" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
 
+// Settings
 "Settings_StatusActive" = "aktiv";
 "Settings_StatusInactive" = "inaktiv";
 
@@ -33,41 +40,34 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "ExposureSubmissionConfirmation_Title" = "Positive Diagnose";
 "ExposureSubmissionConfirmation_Description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
 "ExposureSubmissionConfirmation_Submit" = "Abschliessen";
-"Alert_TitleGeneral" = "Ein Fehler ist aufgetreten";
-"Alert_MessageGeneral" = "Bitte versuche Sie es erneut.";
-"Alert_ActionOk" = "Ok";
 
-//Tracing Enable/Disable Settings
-//Tracing Enable/Disable Settings
+// Tracing Enable/Disable Settings
 "ExposureNotificationSetting_TracingSettingTitle" = "Tracing";
 "ExposureNotificationSetting_EnableTracing" = "Tracing erlauben";
 "ExposureNotificationSetting_IntroductionTitle" = "So funktioniert Tracking:";
 "ExposureNotificationSetting_IntroductionText" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
 
 // Home
-
 // Home Cards
+"Home_Activate_Title" = "Tracing ist aktiv";
 
-"home_activate_card_button" = "Tracing ist aktiv";
+"Home_RiskCard_Title" = "Geringes Risiko";
+"Home_RiskCard_Body" = "Es wurde kein Kontakt mit COVID-19 erkannt.";
+"Home_RiskCard_Date" = "Letzte Überprüfung: %@";
+"Home_RiskCard_Button" = "Kontakte überprüfen";
 
-"home_risk_card_title" = "Geringes Risiko";
-"home_risk_card_body" = "Es wurde kein Kontakt mit COVID-19 erkannt.";
-"home_risk_card_date" = "Letzte Überprüfung: %@";
-"home_risk_card_button" = "Kontakte überprüfen";
+"Home_SubmitCard_Title" = "Ich wurde getestet";
+"Home_SubmitCard_Body" = "Melden Sie Ihren Befund annonym, damit Kontaktpersonnen informiert werden können";
+"Home_SubmitCard_Button" = "Befund melden";
 
-"home_submit_card_title" = "Ich wurde getestet";
-"home_submit_card_body" = "Melden Sie Ihren Befund annonym, damit Kontaktpersonnen informiert werden können";
-"home_submit_card_button" = "Befund melden";
+"Home_InfoCard_ShareTitle" = "Teilen Sie die App";
+"Home_InfoCard_ShareBody" = "Laden Sie Andere zum Mitmachen ein, denn zusammen sind wir stärker.";
+"Home_InfoCard_AboutTitle" = "Über COVID-19 informieren";
+"Home_InfoCard_AboutBody" = "Finden Sie verlässliche Antworten und konkrete informationen, wie Sie sich schützen und anderen helfen können";
 
-"home_info_card_share_title" = "Teilen Sie die App";
-"home_info_card_share_body" = "Laden Sie Andere zum Mitmachen ein, denn zusammen sind wir stärker.";
-"home_info_card_about_title" = "Über COVID-19 informieren";
-"home_info_card_about_body" = "Finden Sie verlässliche Antworten und konkrete informationen, wie Sie sich schützen und anderen helfen können";
-
-"home_settings_card_title" = "Einstellungen";
+"Home_SettingsCard_Title" = "Einstellungen";
 
 //App information
-
 "App_Info" = "Über die App";
 "App_Privacy" = "Datenschutz";
 "App_Terms" = "Nutzungsbedingungen";

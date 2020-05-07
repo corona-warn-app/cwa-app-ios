@@ -13,7 +13,7 @@ class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
     func configure(cell: ActivateCollectionViewCell) {
         
         cell.iconImageView.image = UIImage(named: "onboarding_note")
-        cell.titleLabel.text = NSLocalizedString("Tracing ist aktiv", comment: "")
+        cell.titleLabel.text = AppStrings.Home.activateTitle
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
         
     }

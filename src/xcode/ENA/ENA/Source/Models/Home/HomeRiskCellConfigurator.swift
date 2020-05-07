@@ -22,14 +22,14 @@ class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         cell.delegate = self
         cell.iconImageView.image = UIImage(named: "onboarding_ipad")
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
-        cell.titleLabel.text = NSLocalizedString("home_risk_card_title", comment: "")
-        cell.bodyLabel.text = NSLocalizedString("home_risk_card_body", comment: "")
+        cell.titleLabel.text = AppStrings.Home.riskCardTitle
+        cell.bodyLabel.text = AppStrings.Home.riskCardBody
         
         let date = Date()
         let dateString = dateFormatter.string(from: date) // or DateFormatter.localizedString(from:, dateStyle:, timeStyle:)
-        let dateKey = NSLocalizedString("home_risk_card_date", comment: "")
+        let dateKey = AppStrings.Home.riskCardDate
         cell.dateLabel.text = String(format: dateKey, dateString)
-        let buttonTile = NSLocalizedString("home_risk_card_button", comment: "")
+        let buttonTile = AppStrings.Home.riskCardButton
         cell.contactButton.setTitle(buttonTile, for: .normal)
     }
 }

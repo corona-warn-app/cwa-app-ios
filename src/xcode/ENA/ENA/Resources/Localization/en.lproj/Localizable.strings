@@ -7,13 +7,13 @@
 */
 //Put english language strings here
 
-
-// Scene-specific
+// Exposure Detection
 "ExposureDetection_LastContactTitle" = "Contact Determined";
 "ExposureDetection_Synchronize" = "Synchronize";
 "ExposureDetection_Info" = "Information";
 "ExposureDetection_InfoText" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
 
+// Settings
 "Settings_StatusActive" = "active";
 "Settings_StatusInactive" = "inactive";
 
@@ -21,32 +21,28 @@
 "Onboarding_Next" = "next";
 "Onboarding_Finish" = "finish";
 
-//Tracing Enable/Disable Settings
-
-//Tracing Enable/Disable Settings
+// Tracing Enable/Disable Settings
 "ExposureNotificationSetting_TracingSettingTitle" = "Tracing";
 "ExposureNotificationSetting_EnableTracing" = "Tracing erlauben";
 "ExposureNotificationSetting_IntroductionTitle" = "So funktioniert Tracking:";
 "ExposureNotificationSetting_IntroductionText" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
 
 // Home
-
 // Home Cards
+"Home_Activate_Title" = "Tracing is active";
 
-"home_activate_card_button" = "Tracing is active";
+"Home_RiskCard_Title" = "Minimal risk";
+"Home_RiskCard_Body" = "No contact with COVID-19 was detected.";
+"Home_RiskCard_Date" = "Last review: %@";
+"Home_RiskCard_Button" = "Check contacts";
 
-"home_risk_card_title" = "Minimal risk";
-"home_risk_card_body" = "No contact with COVID-19 was detected.";
-"home_risk_card_date" = "Last review: %@";
-"home_risk_card_button" = "Check contacts";
+"Home_SubmitCard_Title" = "I would be tested";
+"Home_SubmitCard_Body" = "Report your findings anonymously so that contact persons can be informed";
+"Home_SubmitCard_Button" = "Report findings";
 
-"home_submit_card_title" = "I would be tested";
-"home_submit_card_body" = "Report your findings anonymously so that contact persons can be informed";
-"home_submit_card_button" = "Report findings";
+"Home_InfoCard_ShareTitle" = "Share the App";
+"Home_InfoCard_ShareBody" = "Invite others to join in, because together we are stronger.";
+"Home_InfoCard_AboutTitle" = "Info about COVID-19";
+"Home_InfoCard_AboutBody" = "Find reliable answers and specific information on how to protect yourself and help others";
 
-"home_info_card_share_title" = "Share the App";
-"home_info_card_share_body" = "Invite others to join in, because together we are stronger.";
-"home_info_card_about_title" = "Info about COVID-19";
-"home_info_card_about_body" = "Find reliable answers and specific information on how to protect yourself and help others";
-
-"home_settings_card_title" = "Settings";
+"Home_SettingsCard_Title" = "Settings";
