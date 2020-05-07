@@ -24,6 +24,7 @@ final class DMQRCodeViewController : UIViewController {
     private let key: DMCodableDiagnosisKey
     private var JSONEncodedKey: Data {
         // This should always work thus we can safely use !
+		// TODO: Please double check
 		// swiftlint:disable force_try
         return try! JSONEncoder().encode(key)
 		// swiftlint:enable force_try
