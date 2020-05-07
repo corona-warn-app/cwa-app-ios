@@ -25,6 +25,7 @@ final class ExposureDetectionViewController: UIViewController {
 
     var exposureDetectionService: ExposureDetector?
     var client: Client?
+    var exposureManager: ExposureManager?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,8 +79,8 @@ final class ExposureDetectionViewController: UIViewController {
             case .success(let configuration):
                 client.fetch() { [weak self] fetchResult in
                     switch fetchResult {
-                        case .success(let keys):
-                            self?.startExposureDetector(configuration: configuration, newKeys: keys)
+                        case .success(let urls):
+                            self?.startExposureDetector(configuration: configuration, diagnosisKeyURLs: urls)
                         case .failure(_):
                         print("fail")
                     }
@@ -90,9 +91,24 @@ final class ExposureDetectionViewController: UIViewController {
         }
     }
 
-    private func startExposureDetector(configuration: ENExposureConfiguration, newKeys: [ENTemporaryExposureKey]) {
-        let detector = ExposureDetector(configuration: configuration, newKeys: newKeys, delegate: self)
-        detector.resume()
+    private func startExposureDetector(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL]) {
+        guard let exposureManager = exposureManager else {
+            fatalError("exposureManager cannot be nil here.")
+        }
+        log(message: "Starting exposure detector")
+        let _ = exposureManager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { (summary, error) in
+            if let error = error {
+                logError(message: "Exposure detection failed due to underlying error: \(error.localizedDescription)")
+                return
+            }
+            guard let summary = summary else {
+                fatalError("can never happen")
+            }
+            log(message: "Exposure detection finished with summary: \(summary.pretty)")
+        }
+    
+//        let detector = ExposureDetector(configuration: configuration, newKeys: newKeysURLs, delegate: self)
+//        detector.resume()
     }
 }
 

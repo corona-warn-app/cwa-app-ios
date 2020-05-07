@@ -17,7 +17,8 @@ final class DMViewController: UITableViewController {
 
     // MARK: Properties
     private let client: Client
-    private var keys = [ENTemporaryExposureKey]()
+    private var urls = [URL]()
+    private var keys = [Key]()
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -32,12 +33,23 @@ final class DMViewController: UITableViewController {
         client.fetch() { result in
             switch result {
             case .success(let keys):
-                self.keys = keys
+                self.urls = keys
+                self.extractKeys(from: keys.first!)
             case .failure(_):
-                self.keys = []
+                self.urls = []
             }
             self.tableView.reloadData()
         }
+    }
+    
+    private func extractKeys(from url: URL) {
+        guard let data = try? Data(contentsOf: url) else {
+            fatalError("never")
+        }
+        guard let file = try? File(serializedData: data) else {
+            fatalError("never never ever")
+        }
+        keys = file.key
     }
 
     // MARK: QR Code related
@@ -54,32 +66,42 @@ final class DMViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "KeyCell", for: indexPath)
         let key = keys[indexPath.row]
-        cell.textLabel?.text = (key.keyData.base64EncodedString())
+        cell.textLabel?.text = key.keyData.base64EncodedString()
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let key = DMCodableDiagnosisKey(temporaryKey: keys[indexPath.row])
+        let key = keys[indexPath.row]
         navigationController?.pushViewController(DMQRCodeViewController(key: key), animated: true)
     }
 }
 
 extension DMViewController: DMQRCodeScanViewControllerDelegate {
-    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: DMCodableDiagnosisKey) {
+    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Key) {
         client.submit(
             keys: [diagnosisKey.temporaryExposureKey],
             tan: "not needed") {
                 error in
                 self.client.fetch() { [weak self] result in
                     switch result {
-                    case .success(let keys):
-                        self?.keys = keys
+                    case .success(let urls):
+                        self?.urls = urls
                     case .failure(_):
-                        self?.keys = []
+                        self?.urls = []
                     }
                     self?.tableView.reloadData()
                 }
         }
+    }
+}
+
+extension Key {
+    var temporaryExposureKey: ENTemporaryExposureKey {
+        let key = ENTemporaryExposureKey()
+        key.keyData = keyData
+        key.rollingStartNumber = rollingStartNumber
+        key.transmissionRiskLevel = UInt8(transmissionRiskLevel)
+        return key
     }
 }
 
@@ -89,11 +111,12 @@ fileprivate extension DMCodableDiagnosisKey {
         self.init(keyData: key.keyData, rollingPeriod: key.rollingPeriod, rollingStartNumber: key.rollingStartNumber, transmissionRiskLevel: key.transmissionRiskLevel)
     }
 
-    var temporaryExposureKey: ENTemporaryExposureKey {
-        let key = ENTemporaryExposureKey()
-        key.keyData = keyData
-        key.rollingStartNumber = rollingStartNumber
-        key.transmissionRiskLevel = transmissionRiskLevel
-        return key
-    }
+//    var temporaryExposureKey: Key {
+//        
+//        var key = Key()
+//        key.keyData = keyData
+//        key.rollingStartNumber = rollingStartNumber
+//        key.transmissionRiskLevel = transmissionRiskLevel
+//        return key
+//    }
 }

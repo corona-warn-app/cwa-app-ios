@@ -13,7 +13,7 @@ import ExposureNotification
 protocol DMQRCodeScanViewControllerDelegate: class {
     func debugCodeScanViewController(
         _ viewController: DMQRCodeScanViewController,
-        didScan diagnosisKey: DMCodableDiagnosisKey
+        didScan diagnosisKey: Key
     )
 }
 
@@ -39,7 +39,7 @@ final class DMQRCodeScanViewController: UIViewController {
 
     override func viewDidLoad() {
         scanView.dataHandler = { data in
-            if let diagnosisKey = try? JSONDecoder().decode(DMCodableDiagnosisKey.self, from: data) {
+            if let diagnosisKey = try? Key(serializedData: data) {
                 self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
                 self.dismiss(animated: true, completion: nil)
             }

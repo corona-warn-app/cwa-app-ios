@@ -11,7 +11,7 @@ import UIKit
 /// A view controller that displays a `DMCodableDiagnosisKey` as a QR code.
 final class DMQRCodeViewController : UIViewController {
     // MARK: Creating a Code generating View Controller
-    init(key: DMCodableDiagnosisKey) {
+    init(key: Key) {
         self.key = key
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,10 +21,10 @@ final class DMQRCodeViewController : UIViewController {
     }
 
     // MARK: Properties
-    private let key: DMCodableDiagnosisKey
-    private var JSONEncodedKey: Data {
+    private let key: Key
+    private var PBEncodedKey: Data {
         // This should always work thus we can safely use !
-        return try! JSONEncoder().encode(key)
+        return try! key.serializedData()
     }
 
     /// We are reusing the context between instances
@@ -32,7 +32,7 @@ final class DMQRCodeViewController : UIViewController {
 
     // MARK: UIViewController
     override func loadView() {
-        let filter = CIFilter.QRCodeGeneratingFilter(with: JSONEncodedKey)
+        let filter = CIFilter.QRCodeGeneratingFilter(with: PBEncodedKey)
         let QRCodeImage = UIImage(cgImage: filter.bigOutputCGImage)
         let imageView = UIImageView(image: QRCodeImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false

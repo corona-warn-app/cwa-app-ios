@@ -22,12 +22,17 @@ class HomeViewController: UIViewController {
     private var collectionView: UICollectionView! = nil
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
-    private let client: Client = MockClient()
+    private lazy var client: Client = {
+        let fileManager = FileManager()
+        let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileUrl = documentDir.appendingPathComponent("keys", isDirectory: false).appendingPathExtension("proto")
+        return MockClient(submittedKeysFileURL: fileUrl)
+    }()
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     private lazy var developerMenu: DMDeveloperMenu = {
            return DMDeveloperMenu(presentingViewController: self, client: client)
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         homeInteractor = HomeInteractor(homeViewController: self)
@@ -77,9 +82,26 @@ class HomeViewController: UIViewController {
     }
     
     func showExposureDetection() {
-        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
-        exposureDetectionViewController.client = client
-        present(exposureDetectionViewController, animated: true, completion: nil)
+        let manager = ExposureManager()
+        manager.activate { error in
+            if let error = error {
+                switch error {
+                case .exposureNotificationRequired:
+                    log(message: "Encourage the user to consider enabling Exposure Notifications.")
+                case .exposureNotificationAuthorization:
+                    log(message: "Encourage the user to authorize this application")
+                }
+                let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
+                exposureDetectionViewController.client = self.client
+                exposureDetectionViewController.exposureManager = manager
+                self.present(exposureDetectionViewController, animated: true, completion: nil)
+            } else if let error = error {
+                logError(message: error.localizedDescription)
+            } else {
+                fatalError("ja") 
+            }
+        }
+        
     }
 
     func showAppInformation() {

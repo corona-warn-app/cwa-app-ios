@@ -23,6 +23,12 @@ struct Preconditions: OptionSet {
     static let all: Preconditions = [.authorized, .enabled, .active]
 }
 
+//protocol Manager {
+//    func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+//}
+//
+//extension ENManager: Manager {}
+
 /**
 *   @brief    Wrapper for ENManager to avoid code duplication and to abstract error handling
 */
@@ -83,6 +89,11 @@ final class ExposureManager {
         } else {
             completion(nil)
         }
+    }
+    
+    // MARK: Detect Exposures
+    func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
+        return manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs, completionHandler: completionHandler)
     }
 
     // MARK:- Diagnosis Keys
