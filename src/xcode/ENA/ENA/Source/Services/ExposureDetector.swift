@@ -10,18 +10,33 @@ import Foundation
 import ExposureNotification
 
 protocol ExposureDetectorDelegate: class {
+    /// Called shortly after `resume` has been called.
     func exposureDetectorDidStart(_ detector: ExposureDetector) -> Void
+
+    /// Called if a detector was able to successfully finish a detection session. If anything did not work this will not be called.
     func exposureDetectorDidFinish(_ detector: ExposureDetector, summary: ENExposureDetectionSummary) -> Void
+
+    /// Called if an error occurred after calling `resume`. If `exposureDetectorDidFail` is called `exposureDetectorDidFinish` will not.
+    /// Those two delegate methods exclude each other. For sanity.
     func exposureDetectorDidFail(_ detector: ExposureDetector, error: Error) -> Void
 }
 
 /// Allows to detect exposures.
+///
+/// In order to work properly, `ExposureDetector` needs several things:
+/// - A configuration object: see `ENExposureConfiguration` for more details.
+/// - A set of new diagnosis keys to consider for the detection: see `ENTemporaryExposureKey` for more details.
+/// - A newly created `ExposureDetectionSession`. The `ExposureDetector` will configure that session accordingly and use it to perform the actual detection.
+/// - A delegate that will be informed about the progress of the detection.
+///
+/// By default, an `ExposureDetector` is not doing anything after it has been created. You have to call `resume` in order to start the actual detection. It is considered a programmer error to call `resume` more than once.
 final class ExposureDetector {
     // MARK: Properties
+    private let configuration: ENExposureConfiguration
+    private let newKeys: [ENTemporaryExposureKey]
     private var queue: DispatchQueue
     private var sessionStartTime: Date?
     private weak var delegate: ExposureDetectorDelegate?
-    private let client: Client
 
     fileprivate static let numberCountExposureInfo = 100
 
@@ -30,54 +45,31 @@ final class ExposureDetector {
     /// Creates an exposure detector that can be used to determine the risk of the current user.
     ///
     /// Parameters:
+    /// - configuration: The `ENExposureConfiguration` used to weight the risk parameters.
+    /// - newKeys: A set of new diagosis keys that will be added to the session.
+    /// - session: A fresh instance of anything that conforms to `ExposureDetectionSession`. In practice this will simply be an instance of `ENExposureDetectionSession` created with the designated initializer.
     /// - delegate: The delegate will be informed about the current state of the detection.
-    /// - client: A `Client` that allows the detector to retrieve diagnosis keys.
-    init(delegate: ExposureDetectorDelegate, client: Client) {
-        self.queue = DispatchQueue(label: "com.sap.exposureDetection")
+    init(configuration: ENExposureConfiguration, newKeys: [ENTemporaryExposureKey], delegate: ExposureDetectorDelegate) {
+        self.configuration = configuration
+        self.newKeys = newKeys
         self.delegate = delegate
-        self.client = client
+        queue = DispatchQueue(label: "com.sap.ExposureDetector")
     }
 
-    /// Kicks off the exposure detection.
-    func detectExposureIfNeeded() {
-        self.sessionStartTime = Date()  // will be used once the session succeeded
-
-        // Prepare parameter for download task
-        client.exposureConfiguration { configurationResult in
-            switch configurationResult {
-            case .success(let configuration):
-                self.client.fetch() { result in
-                    // todo
-                    switch result {
-                        case .success(let keys):
-                            self.startExposureDetectionSession(configuration: configuration, diagnosisKeys: keys)
-                        case .failure(_):
-                        print("fail")
-                    }
-                }
-            case .failure(let error):
-                print("error: \(error)")
-            }
-        }
-    }
-}
-
-// MARK: Helper
-private extension ExposureDetector {
-    private func failWith(error: Error) {
-        delegate?.exposureDetectorDidFail(self, error: error)
-    }
-
-    private func startExposureDetectionSession(
-        configuration: ENExposureConfiguration,
-        diagnosisKeys: [ENTemporaryExposureKey]
-    ) {
+    /// Resumes the exposure detector.
+    ///
+    /// Calling this method will have the following effects:
+    /// - The underlying session will be configured and activated.
+    /// - `newKeys` will be added to the session
+    /// - An exposure summary (see `ENExposureDetectionSummary`) will be passed to the `delegate`.
+    ///
+    /// Once a detector has been resumed it cannot be stoped – yet. TODO
+    func resume() {
         delegate?.exposureDetectorDidStart(self)
-
-        // Call addDiagnosisKeys with up to maxKeyCount keys + wait for completion
+        sessionStartTime = Date()  // will be used once the session succeeded
         self.queue.async {
-//            let result = self.addKeys(session, diagnosisKeys)
-            DispatchQueue.main.async {
+//            let result = self.addAllNewKeysSync()
+//            DispatchQueue.main.async {
 //                switch result {
 //                case .failure(let error):
 //                    self.failWith(error: error)
@@ -97,7 +89,7 @@ private extension ExposureDetector {
 //
 //                        self.delegate?.exposureDetectorDidFinish(self, summary: summary)
 //
-//                        session.getExposureInfo(withMaximumCount: type(of: self).numberCountExposureInfo) { (info, done, exposureError) in
+//                        self.session.getExposureInfo(withMaximumCount: type(of: self).numberCountExposureInfo) { (info, done, exposureError) in
 //                            if let exposureError = exposureError {
 //                                print("getExposureInfo failed: \(exposureError)")
 //                                return
@@ -113,17 +105,25 @@ private extension ExposureDetector {
 //                        // TODO: Send exposures / summary to PersistenceManager
 //                    }
 //                }
-            }
+//            }
         }
     }
+}
 
-//    func addKeys(_ session: ENExposureDetectionSession, _ keys: [ENTemporaryExposureKey]) -> Result<Void, Error> {
+// MARK: Helper
+private extension ExposureDetector {
+    private func failWith(error: Error) {
+        delegate?.exposureDetectorDidFail(self, error: error)
+    }
+
+    /// Synchronously adds all new keys to the underlying detection session.
+//    private func addAllNewKeysSync() -> Result<Void, Error> {
 //        var index = 0
 //        var resultError: Error?
-//        while index < keys.count {
+//        while index < newKeys.count {
 //            let semaphore = DispatchSemaphore(value: 0)
-//            let endIndex = index + session.maximumKeyCount > keys.count ? keys.count : index + session.maximumKeyCount
-//            let slice = keys[index..<endIndex]
+//            let endIndex = index + session.maximumKeyCount > newKeys.count ? newKeys.count : index + session.maximumKeyCount
+//            let slice = newKeys[index..<endIndex]
 //
 //            session.addDiagnosisKeys(Array(slice)) { (error) in
 //                // This is called on the main queue

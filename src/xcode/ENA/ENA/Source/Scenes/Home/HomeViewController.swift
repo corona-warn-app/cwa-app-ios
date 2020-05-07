@@ -78,7 +78,7 @@ class HomeViewController: UIViewController {
     
     func showExposureDetection() {
         let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
-        exposureDetectionViewController.exposureDetectionService = ExposureDetector(delegate: exposureDetectionViewController, client: client)
+        exposureDetectionViewController.client = client
         present(exposureDetectionViewController, animated: true, completion: nil)
     }
 
