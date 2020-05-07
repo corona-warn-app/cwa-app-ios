@@ -34,7 +34,9 @@ final class DMViewController: UITableViewController {
             switch result {
             case .success(let keys):
                 self.urls = keys
-                self.extractKeys(from: keys.first!)
+                self.urls.forEach { url in
+                    self.extractKeys(from: url)
+                }
             case .failure(_):
                 self.urls = []
             }
@@ -42,6 +44,7 @@ final class DMViewController: UITableViewController {
         }
     }
     
+
     private func extractKeys(from url: URL) {
         guard let data = try? Data(contentsOf: url) else {
             fatalError("never")
