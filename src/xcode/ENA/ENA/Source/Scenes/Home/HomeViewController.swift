@@ -92,14 +92,13 @@ class HomeViewController: UIViewController {
                 case .exposureNotificationAuthorization:
                     log(message: "Encourage the user to authorize this application")
                 }
+            } else if let error = error {
+                logError(message: error.localizedDescription)
+            } else {
                 let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
                 exposureDetectionViewController.client = self.client
                 exposureDetectionViewController.exposureManager = manager
                 self.present(exposureDetectionViewController, animated: true, completion: nil)
-            } else if let error = error {
-                logError(message: error.localizedDescription)
-            } else {
-                fatalError("ja") 
             }
         }
         

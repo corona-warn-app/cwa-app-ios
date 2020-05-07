@@ -39,7 +39,7 @@ final class DMQRCodeViewController : UIViewController {
 
         // Creating the actual view and embedding the image view that displays the QR ode
         let view = UIView()
-        view.addSubview(view)
+        view.addSubview(imageView)
         imageView.center(in: view)
         imageView.constrainSize(to: CGSize(width: 300, height: 300))
         view.backgroundColor = .white
