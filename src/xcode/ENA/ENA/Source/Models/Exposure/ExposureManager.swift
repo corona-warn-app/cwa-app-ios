@@ -53,7 +53,6 @@ final class ExposureManager {
                 self.handleENError(error: activationError, completion: completion)
                 return
             }
-
             completion(nil)
         }
     }
@@ -68,6 +67,17 @@ final class ExposureManager {
         changeEnabled(to: false, completion: completion)
     }
 
+    private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
+        self.manager.setExposureNotificationEnabled(status) { error in
+            if let error = error {
+                logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
+                self.handleENError(error: error, completion: completion)
+                return
+            }
+            completion(nil)
+        }
+    }
+
     func preconditions() -> Preconditions {
         var preconditions: Preconditions = []
 
@@ -76,21 +86,6 @@ final class ExposureManager {
         if manager.exposureNotificationStatus == .active { preconditions.insert(.active) }
 
         return preconditions
-    }
-
-    private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
-        if self.manager.exposureNotificationEnabled != status {
-            self.manager.setExposureNotificationEnabled(status) { error in
-                if let error = error {
-                    logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
-                    self.handleENError(error: error, completion: completion)
-                    return
-                }
-                completion(nil)
-            }
-        } else {
-            completion(nil)
-        }
     }
     
     // MARK: Detect Exposures
