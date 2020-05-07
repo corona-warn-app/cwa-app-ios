@@ -73,7 +73,6 @@
 		B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1569DDE245D70990079FCD7 /* DMViewController.swift */; };
 		B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */; };
 		B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B592462F4DE006275D9 /* TanEntryViewController.swift */; };
-		B1A651FD24632A96004952AF /* ExposureDetectionSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A651FC24632A96004952AF /* ExposureDetectionSession.swift */; };
 		B1A651FF2463FDA3004952AF /* ExposureDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A651FE2463FDA3004952AF /* ExposureDetectorTests.swift */; };
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
 		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
@@ -194,7 +193,6 @@
 		B1741B462461C97C006275D9 /* DMCodableDiagnosisKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMCodableDiagnosisKey.swift; sourceTree = "<group>"; };
 		B1741B482462C207006275D9 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		B1741B592462F4DE006275D9 /* TanEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TanEntryViewController.swift; sourceTree = "<group>"; };
-		B1A651FC24632A96004952AF /* ExposureDetectionSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionSession.swift; sourceTree = "<group>"; };
 		B1A651FE2463FDA3004952AF /* ExposureDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectorTests.swift; sourceTree = "<group>"; };
 		CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionViewController.swift; sourceTree = "<group>"; };
 		CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ExposureSubmission.storyboard; sourceTree = "<group>"; };
@@ -541,7 +539,6 @@
 			isa = PBXGroup;
 			children = (
 				01B0C6B7245B23C2006F5A69 /* ExposureDetector.swift */,
-				B1A651FC24632A96004952AF /* ExposureDetectionSession.swift */,
 				CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */,
 			);
 			path = Services;
@@ -838,7 +835,6 @@
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				EE85998F2462EFD4002E7AE2 /* AppInformationViewController.swift in Sources */,
-				B1A651FD24632A96004952AF /* ExposureDetectionSession.swift in Sources */,
 				51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */,
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
 				EE8599902462EFD4002E7AE2 /* AppInformationDetailViewController.swift in Sources */,

@@ -10,6 +10,7 @@ import ExposureNotification
 
 struct DMCodableDiagnosisKey: Codable, Equatable {
     let keyData: Data
+    let rollingPeriod: ENIntervalNumber
     let rollingStartNumber: ENIntervalNumber
-    let transmissionRiskLevel: ENRiskLevel.RawValue
+    let transmissionRiskLevel: ENRiskLevel
 }

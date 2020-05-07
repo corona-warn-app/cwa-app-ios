@@ -15,7 +15,7 @@ protocol ExposureDetectorDelegate: class {
 
     /// Called if a detector was able to successfully finish a detection session. If anything did not work this will not be called.
     func exposureDetectorDidFinish(_ detector: ExposureDetector, summary: ENExposureDetectionSummary) -> Void
-    
+
     /// Called if an error occurred after calling `resume`. If `exposureDetectorDidFail` is called `exposureDetectorDidFinish` will not.
     /// Those two delegate methods exclude each other. For sanity.
     func exposureDetectorDidFail(_ detector: ExposureDetector, error: Error) -> Void
@@ -34,7 +34,6 @@ final class ExposureDetector {
     // MARK: Properties
     private let configuration: ENExposureConfiguration
     private let newKeys: [ENTemporaryExposureKey]
-    private let session: ExposureDetectionSession
     private var queue: DispatchQueue
     private var sessionStartTime: Date?
     private weak var delegate: ExposureDetectorDelegate?
@@ -50,9 +49,8 @@ final class ExposureDetector {
     /// - newKeys: A set of new diagosis keys that will be added to the session.
     /// - session: A fresh instance of anything that conforms to `ExposureDetectionSession`. In practice this will simply be an instance of `ENExposureDetectionSession` created with the designated initializer.
     /// - delegate: The delegate will be informed about the current state of the detection.
-    init(configuration: ENExposureConfiguration, newKeys: [ENTemporaryExposureKey], session: ExposureDetectionSession, delegate: ExposureDetectorDelegate) {
+    init(configuration: ENExposureConfiguration, newKeys: [ENTemporaryExposureKey], delegate: ExposureDetectorDelegate) {
         self.configuration = configuration
-        self.session = session
         self.newKeys = newKeys
         self.delegate = delegate
         queue = DispatchQueue(label: "com.sap.ExposureDetector")
@@ -69,69 +67,45 @@ final class ExposureDetector {
     func resume() {
         delegate?.exposureDetectorDidStart(self)
         sessionStartTime = Date()  // will be used once the session succeeded
-        configureAndActivateSession { [weak self] session in
-            guard let self = self else {
-                return
-            }
-            self.queue.async {
-                let result = self.addAllNewKeysSync()
-                DispatchQueue.main.async {
-                    switch result {
-                    case .failure(let error):
-                        self.failWith(error: error)
-                        return
-                    case .success(_):
-                        // Get result from session
-                        session.finishedDiagnosisKeys { (summary, finishError) in
-                            // This is called on the main queue
-                            if let finishError = finishError {
-                                self.failWith(error: finishError)
-                                return
-                            }
-
-                            guard let summary = summary else {
-                                fatalError("how can this happen apple?")
-                            }
-
-                            self.delegate?.exposureDetectorDidFinish(self, summary: summary)
-
-                            self.session.getExposureInfo(withMaximumCount: type(of: self).numberCountExposureInfo) { (info, done, exposureError) in
-                                if let exposureError = exposureError {
-                                    print("getExposureInfo failed: \(exposureError)")
-                                    return
-                                }
-                                print("got getExposureInfo: \(String(describing: info))")
-                            }
-
-                            // Update timestamp of last successfull session
-                            if self.sessionStartTime != nil {
-                                PersistenceManager.shared.dateLastExposureDetection = self.sessionStartTime!
-                            }
-
-                            // TODO: Send exposures / summary to PersistenceManager
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private typealias ConfiguredAndActivatedHandler = (ExposureDetectionSession) -> Void
-    /// Configures and activates the underlying session.
-    ///
-    /// If something went wrong the delegate is informed about that. If everything happened without any errors `successHandler` is called with the configured and activated session.
-    /// Parameters:
-    /// - successHandler: Called if no errors happened. Will be called on the main queue with the configured and activated session.
-    private func configureAndActivateSession(successHandler: @escaping ConfiguredAndActivatedHandler) {
-        let session = self.session
-        session.configuration = configuration
-        session.dispatchQueue = .main
-        session.activate { [weak self] error in
-            if let error = error {
-                self?.failWith(error: error)
-                return
-            }
-            successHandler(session)
+        self.queue.async {
+//            let result = self.addAllNewKeysSync()
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .failure(let error):
+//                    self.failWith(error: error)
+//                    return
+//                case .success(_):
+//                    // Get result from session
+//                    session.finishedDiagnosisKeys { (summary, finishError) in
+//                        // This is called on the main queue
+//                        if let finishError = finishError {
+//                            self.failWith(error: finishError)
+//                            return
+//                        }
+//
+//                        guard let summary = summary else {
+//                            fatalError("how can this happen apple?")
+//                        }
+//
+//                        self.delegate?.exposureDetectorDidFinish(self, summary: summary)
+//
+//                        self.session.getExposureInfo(withMaximumCount: type(of: self).numberCountExposureInfo) { (info, done, exposureError) in
+//                            if let exposureError = exposureError {
+//                                print("getExposureInfo failed: \(exposureError)")
+//                                return
+//                            }
+//                            print("got getExposureInfo: \(String(describing: info))")
+//                        }
+//
+//                        // Update timestamp of last successfull session
+//                        if self.sessionStartTime != nil {
+//                            PersistenceManager.shared.dateLastExposureDetection = self.sessionStartTime!
+//                        }
+//
+//                        // TODO: Send exposures / summary to PersistenceManager
+//                    }
+//                }
+//            }
         }
     }
 }
@@ -143,29 +117,29 @@ private extension ExposureDetector {
     }
 
     /// Synchronously adds all new keys to the underlying detection session.
-    private func addAllNewKeysSync() -> Result<Void, Error> {
-        var index = 0
-        var resultError: Error?
-        while index < newKeys.count {
-            let semaphore = DispatchSemaphore(value: 0)
-            let endIndex = index + session.maximumKeyCount > newKeys.count ? newKeys.count : index + session.maximumKeyCount
-            let slice = newKeys[index..<endIndex]
-
-            session.addDiagnosisKeys(Array(slice)) { (error) in
-                // This is called on the main queue
-                guard error == nil else {
-                    resultError = error
-                    semaphore.signal()
-                    return
-                }
-                semaphore.signal()
-            }
-            semaphore.wait()
-            if let resultError = resultError {
-                return .failure(resultError)
-            }
-            index += session.maximumKeyCount
-        }
-        return .success(Void())
-    }
+//    private func addAllNewKeysSync() -> Result<Void, Error> {
+//        var index = 0
+//        var resultError: Error?
+//        while index < newKeys.count {
+//            let semaphore = DispatchSemaphore(value: 0)
+//            let endIndex = index + session.maximumKeyCount > newKeys.count ? newKeys.count : index + session.maximumKeyCount
+//            let slice = newKeys[index..<endIndex]
+//
+//            session.addDiagnosisKeys(Array(slice)) { (error) in
+//                // This is called on the main queue
+//                guard error == nil else {
+//                    resultError = error
+//                    semaphore.signal()
+//                    return
+//                }
+//                semaphore.signal()
+//            }
+//            semaphore.wait()
+//            if let resultError = resultError {
+//                return .failure(resultError)
+//            }
+//            index += session.maximumKeyCount
+//        }
+//        return .success(Void())
+//    }
 }

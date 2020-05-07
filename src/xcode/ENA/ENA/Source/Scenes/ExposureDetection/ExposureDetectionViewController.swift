@@ -91,8 +91,7 @@ final class ExposureDetectionViewController: UIViewController {
     }
 
     private func startExposureDetector(configuration: ENExposureConfiguration, newKeys: [ENTemporaryExposureKey]) {
-        let session = ENExposureDetectionSession()
-        let detector = ExposureDetector(configuration: configuration, newKeys: newKeys, session: session, delegate: self)
+        let detector = ExposureDetector(configuration: configuration, newKeys: newKeys, delegate: self)
         detector.resume()
     }
 }
