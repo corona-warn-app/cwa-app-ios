@@ -65,4 +65,31 @@ struct AppStrings {
         static let appInfoLabel6 = NSLocalizedString("App_Imprint", comment: "")
         static let labels = [appInfoLabel1, appInfoLabel2, appInfoLabel3, appInfoLabel4, appInfoLabel5, appInfoLabel6]
     }
+
+    struct ExposureNotificationSetting {
+        static let title = NSLocalizedString("ExposureNotificationSetting_TracingSettingTitle", comment: "The title of the view")
+        static let enableTracing = NSLocalizedString("ExposureNotificationSetting_EnableTracing", comment: "The enable tracing")
+        static let introductionTitle = NSLocalizedString("ExposureNotificationSetting_IntroductionTitle", comment: "The introduction label")
+        static let introductionText = NSLocalizedString("ExposureNotificationSetting_IntroductionText", comment: "The introduction text")
+    }
+
+    struct Home {
+        static let activateTitle = NSLocalizedString("Home_Activate_Title", comment: "")
+
+        static let riskCardTitle = NSLocalizedString("Home_RiskCard_Title", comment: "")
+        static let riskCardBody = NSLocalizedString("Home_RiskCard_Body", comment: "")
+        static let riskCardDate = NSLocalizedString("Home_RiskCard_Date", comment: "")
+        static let riskCardButton = NSLocalizedString("Home_RiskCard_Button", comment: "")
+
+        static let submitCardTitle = NSLocalizedString("Home_SubmitCard_Title", comment: "")
+        static let submitCardBody = NSLocalizedString("Home_SubmitCard_Body", comment: "")
+        static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
+
+        static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
+
+        static let infoCardShareTitle = NSLocalizedString("Home_InfoCard_ShareTitle", comment: "")
+        static let infoCardShareBody = NSLocalizedString("Home_InfoCard_ShareBody", comment: "")
+        static let infoCardAboutTitle = NSLocalizedString("Home_InfoCard_AboutTitle", comment: "")
+        static let infoCardAboutBody = NSLocalizedString("Home_InfoCard_AboutBody", comment: "")
+    }
 }
