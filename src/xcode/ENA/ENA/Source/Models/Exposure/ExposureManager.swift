@@ -13,14 +13,14 @@ enum ExposureNotificationError: Error {
     case exposureNotificationAuthorization
 }
 
-struct ENPreconditions: OptionSet {
+struct Preconditions: OptionSet {
     let rawValue: Int
 
-    static let authorized   = ENPreconditions(rawValue: 1 << 0)
-    static let enabled      = ENPreconditions(rawValue: 1 << 1)
-    static let active       = ENPreconditions(rawValue: 1 << 2)
+    static let authorized   = Preconditions(rawValue: 1 << 0)
+    static let enabled      = Preconditions(rawValue: 1 << 1)
+    static let active       = Preconditions(rawValue: 1 << 2)
 
-    static let all: ENPreconditions = [.authorized, .enabled, .active]
+    static let all: Preconditions = [.authorized, .enabled, .active]
 }
 
 /**
@@ -60,8 +60,8 @@ final class ExposureManager {
         changeEnabled(to: false, completion: completion)
     }
 
-    func preconditions() -> ENPreconditions {
-        var preconditions: ENPreconditions = []
+    func preconditions() -> Preconditions {
+        var preconditions: Preconditions = []
 
         if ENManager.authorizationStatus == ENAuthorizationStatus.authorized { preconditions.insert(.authorized) }
         if manager.exposureNotificationEnabled { preconditions.insert(.enabled) }
