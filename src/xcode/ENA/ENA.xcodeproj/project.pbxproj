@@ -67,7 +67,6 @@
 		B107C95D246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107C95C246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift */; };
 		B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = B10FB02F246036F3004CA11E /* SwiftProtobuf */; };
 		B1741B492462C207006275D9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B482462C207006275D9 /* Client.swift */; };
-		B1741B4A2462C219006275D9 /* DMCodableDiagnosisKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B462461C97C006275D9 /* DMCodableDiagnosisKey.swift */; };
 		B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */; };
 		B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B432461C257006275D9 /* DMDeveloperMenu.swift */; };
 		B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */; };
@@ -192,7 +191,6 @@
 		B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeScanViewController.swift; sourceTree = "<group>"; };
 		B1741B422461C105006275D9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B1741B432461C257006275D9 /* DMDeveloperMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeveloperMenu.swift; sourceTree = "<group>"; };
-		B1741B462461C97C006275D9 /* DMCodableDiagnosisKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMCodableDiagnosisKey.swift; sourceTree = "<group>"; };
 		B1741B482462C207006275D9 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		B1741B592462F4DE006275D9 /* TanEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TanEntryViewController.swift; sourceTree = "<group>"; };
 		B1A651FE2463FDA3004952AF /* ExposureDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectorTests.swift; sourceTree = "<group>"; };
@@ -560,7 +558,6 @@
 		B1569DD5245D6C790079FCD7 /* Developer Menu */ = {
 			isa = PBXGroup;
 			children = (
-				B1741B462461C97C006275D9 /* DMCodableDiagnosisKey.swift */,
 				B1741B432461C257006275D9 /* DMDeveloperMenu.swift */,
 				B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */,
 				B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */,
@@ -811,7 +808,6 @@
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController+AppStoryboard.swift in Sources */,
 				51CE1BC52460B2AF002CF42A /* HomeSettingsCellConfigurator.swift in Sources */,
-				B1741B4A2462C219006275D9 /* DMCodableDiagnosisKey.swift in Sources */,
 				5111E7632460BB1500ED6498 /* HomeInteractor.swift in Sources */,
 				51CE1B4C246016D1002CF42A /* UICollectionReusableView+Identifier.swift in Sources */,
 				013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */,
