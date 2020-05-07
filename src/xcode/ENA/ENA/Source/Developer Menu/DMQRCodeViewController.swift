@@ -52,6 +52,7 @@ fileprivate extension CIFilter {
         // We expect there to always be a QR code generator
         let filter = CIFilter(name: "CIQRCodeGenerator")!
         filter.setDefaults()
+        log(message: "\(data)")
         filter.setValue(data, forKey: "inputMessage")
         return filter
     }

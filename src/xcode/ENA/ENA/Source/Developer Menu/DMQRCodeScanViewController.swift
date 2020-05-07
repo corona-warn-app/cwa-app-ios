@@ -39,9 +39,12 @@ final class DMQRCodeScanViewController: UIViewController {
 
     override func viewDidLoad() {
         scanView.dataHandler = { data in
-            if let diagnosisKey = try? Key(serializedData: data) {
+            do {
+                let diagnosisKey = try Key(serializedData: data)
                 self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
                 self.dismiss(animated: true, completion: nil)
+            } catch (let error) {
+                logError(message: "Failed to deserialize qr to key: \(error.localizedDescription)")
             }
         }
     }
@@ -95,9 +98,13 @@ fileprivate final class DMQRCodeScanView: UIView {
 
 extension DMQRCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue, let data = string.data(using: .utf8) {
+        if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let descriptor = metadataObject.descriptor as? CIQRCodeDescriptor {
             self.captureSession.stopRunning()
+            let data = descriptor.errorCorrectedPayload
+            log(message: "\(data)")
             dataHandler(data)
+        } else {
+            logError(message: "Nope")
         }
     }
 }

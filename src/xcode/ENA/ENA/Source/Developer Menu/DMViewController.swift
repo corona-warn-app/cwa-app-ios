@@ -55,7 +55,7 @@ final class DMViewController: UITableViewController {
     // MARK: QR Code related
     @objc
     private func showScanner() {
-        present(DMViewController(client: client), animated: true)
+        present(DMQRCodeScanViewController(delegate: self), animated: true)
     }
 
     // MARK: UITableView
