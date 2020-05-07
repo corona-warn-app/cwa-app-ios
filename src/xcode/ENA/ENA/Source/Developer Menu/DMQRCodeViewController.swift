@@ -22,9 +22,9 @@ final class DMQRCodeViewController : UIViewController {
 
     // MARK: Properties
     private let key: Key
-    private var PBEncodedKey: Data {
+    private var base64EncodedKey: Data {
         // This should always work thus we can safely use !
-        return try! key.serializedData()
+        return try! key.serializedData().base64EncodedData()
     }
 
     /// We are reusing the context between instances
@@ -32,7 +32,7 @@ final class DMQRCodeViewController : UIViewController {
 
     // MARK: UIViewController
     override func loadView() {
-        let filter = CIFilter.QRCodeGeneratingFilter(with: PBEncodedKey)
+        let filter = CIFilter.QRCodeGeneratingFilter(with: base64EncodedKey)
         let QRCodeImage = UIImage(cgImage: filter.bigOutputCGImage)
         let imageView = UIImageView(image: QRCodeImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false

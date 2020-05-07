@@ -98,9 +98,9 @@ fileprivate final class DMQRCodeScanView: UIView {
 
 extension DMQRCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let descriptor = metadataObject.descriptor as? CIQRCodeDescriptor {
+        if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue {
             self.captureSession.stopRunning()
-            let data = descriptor.errorCorrectedPayload
+            let data = Data(base64Encoded: string)!
             log(message: "\(data)")
             dataHandler(data)
         } else {
