@@ -24,7 +24,8 @@ final class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTextView: UITextView!
 
     var exposureDetectionService: ExposureDetector?
-
+    var client: Client?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,7 +64,36 @@ final class ExposureDetectionViewController: UIViewController {
 
 
     @IBAction func refresh(_ sender: UIButton) {
-        exposureDetectionService?.detectExposureIfNeeded()
+        guard let client = client else {
+            fatalError("`client` must be set before being able to refresh.")
+        }
+
+        // The user wants to know his/her current risk. We have to do several things in order to be able to display
+        // the risk.
+        // 1. Get the configuration from the backend.
+        // 2. Get new diagnosis keys from the backend.
+        // 3. Create a detector and start it.
+        client.exposureConfiguration { configurationResult in
+            switch configurationResult {
+            case .success(let configuration):
+                client.fetch() { [weak self] fetchResult in
+                    switch fetchResult {
+                        case .success(let keys):
+                            self?.startExposureDetector(configuration: configuration, newKeys: keys)
+                        case .failure(_):
+                        print("fail")
+                    }
+                }
+            case .failure(let error):
+                print("error: \(error)")
+            }
+        }
+    }
+
+    private func startExposureDetector(configuration: ENExposureConfiguration, newKeys: [ENTemporaryExposureKey]) {
+        let session = ENExposureDetectionSession()
+        let detector = ExposureDetector(configuration: configuration, newKeys: newKeys, session: session, delegate: self)
+        detector.resume()
     }
 }
 
