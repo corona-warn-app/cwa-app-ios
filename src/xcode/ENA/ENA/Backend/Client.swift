@@ -42,13 +42,14 @@ class MockClient: Client {
         let exposureConfiguration = ENExposureConfiguration()
         exposureConfiguration.minimumRiskScore = 0
         exposureConfiguration.attenuationWeight = 50
-        exposureConfiguration.attenuationScores = [1, 2, 3, 4, 5, 6, 7, 8]
+        exposureConfiguration.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+        exposureConfiguration.attenuationWeight = 50
+        exposureConfiguration.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
         exposureConfiguration.daysSinceLastExposureWeight = 50
-        exposureConfiguration.daysSinceLastExposureScores = [1, 2, 3, 4, 5, 6, 7, 8]
+        exposureConfiguration.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
         exposureConfiguration.durationWeight = 50
-        exposureConfiguration.durationScores = [1, 2, 3, 4, 5, 6, 7, 8]
+        exposureConfiguration.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
         exposureConfiguration.transmissionRiskWeight = 50
-        exposureConfiguration.transmissionRiskScores = [1, 2, 3, 4, 5, 6, 7, 8]
 
         completion(.success(exposureConfiguration))
     }

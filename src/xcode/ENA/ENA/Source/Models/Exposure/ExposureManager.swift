@@ -97,18 +97,6 @@ final class ExposureManager {
         manager.getDiagnosisKeys(completionHandler: completionHandler)
     }
 
-    // MARK:- Reset
-    func reset(completion: @escaping CompletionHandler) {
-        log(message: "Resetting data")
-        manager.resetAllData() { error in
-            if let error = error {
-                self.handleENError(error: error, completion: completion)
-                return
-            }
-            completion(nil)
-        }
-    }
-
     // MARK:- Error Handling
 
     private func handleENError(error: Error, completion: @escaping CompletionHandler) {

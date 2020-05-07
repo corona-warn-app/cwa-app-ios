@@ -86,16 +86,14 @@ extension DMViewController: DMQRCodeScanViewControllerDelegate {
 /// Helper to convert an `DMCodableDiagnosisKey` to and from `ENTemporaryExposureKey`.
 fileprivate extension DMCodableDiagnosisKey {
     init(temporaryKey key: ENTemporaryExposureKey) {
-        self.init(keyData: key.keyData, rollingStartNumber: key.rollingStartNumber, transmissionRiskLevel: key.transmissionRiskLevel.rawValue)
+        self.init(keyData: key.keyData, rollingPeriod: key.rollingPeriod, rollingStartNumber: key.rollingStartNumber, transmissionRiskLevel: key.transmissionRiskLevel)
     }
 
     var temporaryExposureKey: ENTemporaryExposureKey {
         let key = ENTemporaryExposureKey()
         key.keyData = keyData
         key.rollingStartNumber = rollingStartNumber
-        if let riskLevel = ENRiskLevel(rawValue: transmissionRiskLevel) {
-            key.transmissionRiskLevel = riskLevel
-        }
+        key.transmissionRiskLevel = transmissionRiskLevel
         return key
     }
 }
