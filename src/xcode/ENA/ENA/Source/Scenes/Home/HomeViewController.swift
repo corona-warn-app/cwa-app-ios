@@ -55,6 +55,7 @@ class HomeViewController: UIViewController {
     
     func showSubmitResult() {
         let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
+        vc.exposureSubmissionService = ExposureSubmissionServiceImpl(client: client)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }

@@ -487,7 +487,6 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				B1741B512462DE21006275D9 /* SelfExposure */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				51D420AF2458308400AD70CA /* Onboarding */,
 				51D420C124583D3100AD70CA /* Home */,
@@ -571,14 +570,6 @@
 			path = "Developer Menu";
 			sourceTree = "<group>";
 		};
-		B1741B512462DE21006275D9 /* SelfExposure */ = {
-			isa = PBXGroup;
-			children = (
-				B1741B592462F4DE006275D9 /* TanEntryViewController.swift */,
-			);
-			path = SelfExposure;
-			sourceTree = "<group>";
-		};
 		B1741B572462EB26006275D9 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -590,6 +581,7 @@
 			isa = PBXGroup;
 			children = (
 				CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */,
+				B1741B592462F4DE006275D9 /* TanEntryViewController.swift */,
 				CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */,
 			);
 			path = ExposureSubmission;

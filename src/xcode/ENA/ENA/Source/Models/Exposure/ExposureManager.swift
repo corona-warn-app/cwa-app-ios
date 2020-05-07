@@ -53,6 +53,8 @@ final class ExposureManager {
                 self.handleENError(error: activationError, completion: completion)
                 return
             }
+
+            completion(nil)
         }
     }
 
