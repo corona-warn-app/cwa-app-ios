@@ -184,7 +184,7 @@ opt_in_rules:
   - valid_ibinspectable                               # @IBInspectable should be applied to variables only, have its type explicit and be of a supported type
   - vertical_parameter_alignment                      # Function parameters should be aligned vertically if they're in multiple lines in a declaration.
   - vertical_parameter_alignment_on_call              # Function parameters should be aligned vertically if they're in multiple lines in a method call.
-  #  - vertical_whitespace                            # Limit vertical whitespace to a single empty line.
+  - vertical_whitespace                               # Limit vertical whitespace to a single empty line.
   #  - vertical_whitespace_between_cases              # Include a single empty line between switch cases.
   #  - vertical_whitespace_closing_braces             # Don't include vertical whitespace (empty line) before closing braces.
   #  - vertical_whitespace_opening_braces             # Don't include vertical whitespace (empty line) after opening braces.
@@ -227,3 +227,6 @@ trailing_whitespace:
 
 type_name:
   max_length: 50
+
+vertical_whitespace:
+  max_empty_lines: 2
