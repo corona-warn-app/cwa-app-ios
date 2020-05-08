@@ -124,17 +124,14 @@ extension ExposureNotificationSettingViewController {
             switch status {
                 case .bluetoothOff:
                     alertError(message: "Bluetooth is off", title: "Error")
-                    break
 //                case .disabled:
 //                    //Q: What is the different between this disable and the exposureNotificationEnabled?
 //                    alertError(message: "Exposure Notification is disabled", title: "Error")
 //                    break
                 case .restricted:
                     alertError(message: "Exposure Notification is not active due to system restrictions, such as parental controls", title: "Error")
-                    break
                 case .unknown:
                     alertError(message: "Status of Exposure Notification is unknown. This is the status before ENManager has activated successfully", title: "Error")
-                    break
                 default:
                     break
             }
