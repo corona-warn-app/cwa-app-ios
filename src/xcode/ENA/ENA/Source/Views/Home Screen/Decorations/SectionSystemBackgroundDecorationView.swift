@@ -23,4 +23,3 @@ class SectionSystemBackgroundDecorationView: UICollectionReusableView {
         backgroundColor = color
     }
 }
-

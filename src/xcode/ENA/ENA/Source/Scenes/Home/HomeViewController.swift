@@ -13,9 +13,11 @@ class HomeViewController: UIViewController {
     @IBOutlet var topContainerView: UIView!
     
     enum Section: Int {
+		// swiftlint:disable explicit_enum_raw_value
         case actions
         case infos
         case settings
+		// swiftlint:enable explicit_enum_raw_value
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
@@ -158,7 +160,7 @@ class HomeViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
             collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)

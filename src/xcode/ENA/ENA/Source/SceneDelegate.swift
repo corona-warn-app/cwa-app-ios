@@ -39,7 +39,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = rootViewController
     }
 
-    @objc func isOnboardedDidChange(_ notification: NSNotification) {
+    @objc
+	func isOnboardedDidChange(_ notification: NSNotification) {
         setupRootViewController()
     }
 
