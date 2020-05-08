@@ -77,12 +77,22 @@ class SettingsViewController: UIViewController {
         // receive status of manager
         let status = ENStatus.active
         setTrackingStatus(for: status)
-        setNotificationStatus(for: status)
+        notificationSettings()
 
         tracingStackView.isUserInteractionEnabled = false
         notificationStackView.isUserInteractionEnabled = false
-        tracingContainerView.setBorder(at: [.top, .bottom], with: UIColor.preferredColor(for: ColorStyle.border), thickness: 1)
+        tracingContainerView.setBorder(at: [.top, .bottom],
+                                       with: UIColor.preferredColor(for: ColorStyle.border),
+                                       thickness: 1)
         notificationsContainerView.setBorder(at: [.top, .bottom], with: UIColor.preferredColor(for: ColorStyle.border), thickness: 1)
+    }
+
+    private func notificationSettings() {
+        let currentCenter = UNUserNotificationCenter.current()
+
+        currentCenter.getNotificationSettings(completionHandler: { settings in
+            self.setNotificationStatus(for: settings.authorizationStatus)
+        })
     }
 
     private func setTrackingStatus(for status: ENStatus) {
@@ -98,9 +108,9 @@ class SettingsViewController: UIViewController {
         }
     }
 
-    private func setNotificationStatus(for status: ENStatus) {
+    private func setNotificationStatus(for status: UNAuthorizationStatus) {
         switch status {
-        case .active:
+        case .authorized:
             DispatchQueue.main.async {
                 self.notificationStatusLabel.text = AppStrings.Settings.trackingStatusActive
             }
