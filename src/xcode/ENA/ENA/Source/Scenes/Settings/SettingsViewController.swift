@@ -30,6 +30,9 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func showNotificationSettings(_ sender: Any) {
+        if let notificationsSettingsURL = URL(string: "App-prefs:NOTIFICATIONS_ID") {
+            UIApplication.shared.open(notificationsSettingsURL)
+        }
     }
 
     @IBAction func showTracingDetails(_ sender: Any) {
@@ -112,11 +115,27 @@ class SettingsViewController: UIViewController {
         switch status {
         case .authorized:
             DispatchQueue.main.async {
-                self.notificationStatusLabel.text = AppStrings.Settings.trackingStatusActive
+                self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
+            }
+        case .notDetermined:
+            let currentCenter = UNUserNotificationCenter.current()
+            currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+
+                if let error = error {
+                    // Handle the error here.
+                    DispatchQueue.main.async {
+                        self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
+                }
+                // Enable or disable features based on the authorization.
             }
         default:
             DispatchQueue.main.async {
-                self.notificationStatusLabel.text = AppStrings.Settings.trackingStatusInactive
+                self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
             }
         }
     }
