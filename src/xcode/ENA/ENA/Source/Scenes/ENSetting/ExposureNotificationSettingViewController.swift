@@ -26,7 +26,7 @@ class ExposureNotificationSettingViewController: UIViewController {
         NotificationCenter
             .default
             .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { notifcation in
-                print("[viewDidLoad]: willEnterForegroundNotification, checking notifcation status.")
+                log(message: "[viewDidLoad]: willEnterForegroundNotification, checking notifcation status.")
                 self.checkNotifcationEnablement()
             }
 
@@ -39,7 +39,7 @@ class ExposureNotificationSettingViewController: UIViewController {
     }
 
     deinit {
-        print("[ExposureNotificationSettingViewController deinit] got called.")
+        log(message: "[ExposureNotificationSettingViewController deinit] got called.")
         NotificationCenter.default.removeObserver(self)
     }
 }
@@ -61,6 +61,7 @@ extension ExposureNotificationSettingViewController {
         let enManager = ENManager()
         enManager.activate { error in
             if let error = error as NSError? {
+                logError(message: error.localizedDescription)
                 self.alertError(message: error.localizedDescription, title: "Error")
                 return
             }
@@ -71,10 +72,10 @@ extension ExposureNotificationSettingViewController {
                 if let error = error as? ENError {
                     if error.code == .notAuthorized {
                         //TODO:Tell the user to enable it on the setting, It can help users to jump to the settings page.
-                        print("[contactTracingValueChanged]: Tell the user to enable it on the setting")
+                        log(message: "[contactTracingValueChanged]: Tell the user to enable it on the setting", level: .warning)
                     }
 
-                    print("[contactTracingValueChanged] Error occurs, while setExposureNotificationEnabled. Error code is \(error.code.rawValue) ")
+                    logError(message: "[contactTracingValueChanged] Error occurs, while setExposureNotificationEnabled. Error code is \(error.code.rawValue) ")
                 }
 
                 //Check status again.
@@ -86,7 +87,7 @@ extension ExposureNotificationSettingViewController {
         enManager.invalidationHandler = {
             
             //Oberserver the behaviour of ENManager.
-            print("[contactTracingValueChanged]: EnManaber invalid")
+            log(message: "[contactTracingValueChanged]: EnManaber invalid")
         }
     }
 }
@@ -97,7 +98,7 @@ extension ExposureNotificationSettingViewController {
 
         enManager.activate { error in
             if let error = error as NSError? {
-                print("[contactTracingValueChanged]: \(error.localizedDescription)")
+                logError(message: "[contactTracingValueChanged]: \(error.localizedDescription)")
                 return
             }
 
@@ -105,12 +106,12 @@ extension ExposureNotificationSettingViewController {
             let exposureEnabled = enManager.exposureNotificationEnabled
             self.contactTracingSwitch.setOn(exposureEnabled, animated: true)
             enManager.invalidate()
-            print("")
+            log(message: "")
         }
 
         enManager.invalidationHandler = {
             //Oberserver the behaviour of ENManager.
-            print("[checkNotifcationEnablement]: EnManaber invalidationHandler got called.")
+            log(message: "[checkNotifcationEnablement]: EnManaber invalidationHandler got called.")
         }
     }
 
