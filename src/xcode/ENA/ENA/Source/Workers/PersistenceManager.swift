@@ -35,9 +35,7 @@ class PersistedAndPublished<Value: Codable> {
         }
     }
 
-    var projectedValue: PersistedAndPublished<Value> {
-        get { self }
-    }
+    var projectedValue: PersistedAndPublished<Value> { self }
 }
 
 final class PersistenceManager {

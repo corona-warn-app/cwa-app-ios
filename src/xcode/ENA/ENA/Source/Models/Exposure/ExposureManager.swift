@@ -102,7 +102,7 @@ final class ExposureManager {
         return manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs, completionHandler: completionHandler)
     }
 
-    // MARK:- Diagnosis Keys
+    // MARK: - Diagnosis Keys
 
     /// Wrapper for `ENManager.getDiagnosisKeys`. You have to call `ExposureManager.activate` before calling this method.
     func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
@@ -114,7 +114,7 @@ final class ExposureManager {
         manager.getDiagnosisKeys(completionHandler: completionHandler)
     }
 
-    // MARK:- Error Handling
+    // MARK: - Error Handling
 
     private func handleENError(error: Error, completion: @escaping CompletionHandler) {
         if let error = error as? ENError {

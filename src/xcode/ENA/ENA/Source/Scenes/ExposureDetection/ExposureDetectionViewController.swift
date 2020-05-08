@@ -26,7 +26,7 @@ final class ExposureDetectionViewController: UIViewController {
     var exposureDetectionService: ExposureDetector?
     var client: Client?
     var exposureManager: ExposureManager?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
