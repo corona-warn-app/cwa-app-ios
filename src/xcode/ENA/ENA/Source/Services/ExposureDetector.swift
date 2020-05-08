@@ -11,14 +11,14 @@ import ExposureNotification
 
 protocol ExposureDetectorDelegate: class {
     /// Called shortly after `resume` has been called.
-    func exposureDetectorDidStart(_ detector: ExposureDetector) -> Void
+    func exposureDetectorDidStart(_ detector: ExposureDetector)
 
     /// Called if a detector was able to successfully finish a detection session. If anything did not work this will not be called.
-    func exposureDetectorDidFinish(_ detector: ExposureDetector, summary: ENExposureDetectionSummary) -> Void
+    func exposureDetectorDidFinish(_ detector: ExposureDetector, summary: ENExposureDetectionSummary)
 
     /// Called if an error occurred after calling `resume`. If `exposureDetectorDidFail` is called `exposureDetectorDidFinish` will not.
     /// Those two delegate methods exclude each other. For sanity.
-    func exposureDetectorDidFail(_ detector: ExposureDetector, error: Error) -> Void
+    func exposureDetectorDidFail(_ detector: ExposureDetector, error: Error)
 }
 
 /// Allows to detect exposures.

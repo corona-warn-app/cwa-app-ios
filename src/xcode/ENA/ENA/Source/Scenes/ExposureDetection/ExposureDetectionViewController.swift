@@ -49,7 +49,8 @@ final class ExposureDetectionViewController: UIViewController {
         infoTextView.text = AppStrings.ExposureDetection.infoText
     }
 
-    @objc func updateLastSyncLabel() {
+    @objc
+	func updateLastSyncLabel() {
         guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
             lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
             return
@@ -77,12 +78,12 @@ final class ExposureDetectionViewController: UIViewController {
             switch configurationResult {
             case .success(let configuration):
                 client.fetch() { [weak self] fetchResult in
-                    switch fetchResult {
-                        case .success(let keys):
-                            self?.startExposureDetector(configuration: configuration, newKeys: keys)
-                        case .failure(_):
-                        print("fail")
-                    }
+					switch fetchResult {
+					case .success(let keys):
+						self?.startExposureDetector(configuration: configuration, newKeys: keys)
+					case .failure(_):
+						print("fail")
+					}
                 }
             case .failure(let error):
                 print("error: \(error)")
