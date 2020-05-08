@@ -28,7 +28,7 @@ class ExposureNotificationSettingViewController: UIViewController {
             .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { notifcation in
                 print("[viewDidLoad]: willEnterForegroundNotification, checking notifcation status.")
                 self.checkNotifcationEnablement()
-        }
+            }
 
         setUIText()
     }
@@ -95,7 +95,7 @@ extension ExposureNotificationSettingViewController {
     private func checkNotifcationEnablement(){
         let enManager = ENManager()
 
-        enManager.activate { (error) in
+        enManager.activate { error in
             if let error = error as NSError? {
                 print("[contactTracingValueChanged]: \(error.localizedDescription)")
                 return
@@ -114,29 +114,25 @@ extension ExposureNotificationSettingViewController {
         }
     }
 
-    private func checkNotifcationStatus(for enManager:ENManager) {
+    private func checkNotifcationStatus(for enManager: ENManager) {
         assert(enManager.exposureNotificationStatus != .unknown)
         let status = enManager.exposureNotificationStatus
         if status == .active || status == .disabled{
             let isEnable = enManager.exposureNotificationEnabled
             contactTracingSwitch.setOn(isEnable, animated: true)
             } else {
-            switch status {
-                case .bluetoothOff:
-                    alertError(message: "Bluetooth is off", title: "Error")
-                    break
-//                case .disabled:
-//                    //Q: What is the different between this disable and the exposureNotificationEnabled?
-//                    alertError(message: "Exposure Notification is disabled", title: "Error")
-//                    break
-                case .restricted:
-                    alertError(message: "Exposure Notification is not active due to system restrictions, such as parental controls", title: "Error")
-                    break
-                case .unknown:
-                    alertError(message: "Status of Exposure Notification is unknown. This is the status before ENManager has activated successfully", title: "Error")
-                    break
-                default:
-                    break
+        switch status {
+            case .bluetoothOff:
+                alertError(message: "Bluetooth is off", title: "Error")
+//            case .disabled:
+//                //Q: What is the different between this disable and the exposureNotificationEnabled?
+//                alertError(message: "Exposure Notification is disabled", title: "Error")
+            case .restricted:
+                alertError(message: "Exposure Notification is not active due to system restrictions, such as parental controls", title: "Error")
+            case .unknown:
+                alertError(message: "Status of Exposure Notification is unknown. This is the status before ENManager has activated successfully", title: "Error")
+            default:
+                break
             }
         }
     }

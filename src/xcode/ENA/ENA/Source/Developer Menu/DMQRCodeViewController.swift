@@ -8,26 +8,25 @@
 
 import UIKit
 
-/// A view controller that displays a `DMCodableDiagnosisKey` as a QR code.
+/// A view controller that displays a `Key` as a QR code.
 final class DMQRCodeViewController : UIViewController {
     // MARK: Creating a Code generating View Controller
-    init(key: DMCodableDiagnosisKey) {
+    init(key: Key) {
         self.key = key
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
-        fatalError()
+		fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: Properties
-    private let key: DMCodableDiagnosisKey
-    private var JSONEncodedKey: Data {
+    private let key: Key
+    private var base64EncodedKey: Data {
         // This should always work thus we can safely use !
-		// TODO: Please double check
+        // TODO: Please double check
 		// swiftlint:disable force_try
-        return try! JSONEncoder().encode(key)
-		// swiftlint:enable force_try
+        return try! key.serializedData().base64EncodedData()
     }
 
     /// We are reusing the context between instances
@@ -35,14 +34,14 @@ final class DMQRCodeViewController : UIViewController {
 
     // MARK: UIViewController
     override func loadView() {
-        let filter = CIFilter.QRCodeGeneratingFilter(with: JSONEncodedKey)
+        let filter = CIFilter.QRCodeGeneratingFilter(with: base64EncodedKey)
         let QRCodeImage = UIImage(cgImage: filter.bigOutputCGImage)
         let imageView = UIImageView(image: QRCodeImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         // Creating the actual view and embedding the image view that displays the QR ode
         let view = UIView()
-        view.addSubview(view)
+        view.addSubview(imageView)
         imageView.center(in: view)
         imageView.constrainSize(to: CGSize(width: 300, height: 300))
         view.backgroundColor = .white
@@ -55,6 +54,7 @@ fileprivate extension CIFilter {
         // We expect there to always be a QR code generator
         let filter = CIFilter(name: "CIQRCodeGenerator")!
         filter.setDefaults()
+        log(message: "\(data)")
         filter.setValue(data, forKey: "inputMessage")
         return filter
     }

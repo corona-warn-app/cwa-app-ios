@@ -27,7 +27,7 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
 
         let manager = ExposureManager()
         manager.activate { error in
-            if let _ = error {
+            if nil != error {
                 log(message: "Exposure notification service not activated.", level: .warning)
                 completionHandler(.notActivated)
                 return
@@ -62,7 +62,7 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
 }
 
 // TODO: Refactor to a separate file
-enum ExposureSubmissionError : Error {
+enum ExposureSubmissionError: Error {
     case notActivated
     case noKeys
     case other
