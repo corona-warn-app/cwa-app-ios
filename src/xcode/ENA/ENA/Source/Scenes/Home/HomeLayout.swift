@@ -99,4 +99,3 @@ final class HomeLayout {
     }
     
 }
-
