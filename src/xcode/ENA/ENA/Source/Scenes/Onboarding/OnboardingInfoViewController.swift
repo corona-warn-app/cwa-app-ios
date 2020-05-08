@@ -67,16 +67,26 @@ class OnboardingInfoViewController: UIViewController {
             if let error = error {
                 switch error {
                 case .exposureNotificationRequired:
-                    log(message: "Encourage the user to consider enabling Exposure Notifications.")
+                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
                 case .exposureNotificationAuthorization:
-                    log(message: "Encourage the user to authorize this application")
+                    log(message: "Encourage the user to authorize this application", level: .warning)
                 }
 
                 completion?()
             } else if let error = error {
                 self.showError(error, from: self, completion: completion)
             } else {
-                completion?()
+                manager.enable { enableError in
+                    if let enableError = enableError {
+                        switch enableError {
+                        case .exposureNotificationRequired:
+                            log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+                        case .exposureNotificationAuthorization:
+                            log(message: "Encourage the user to authorize this application", level: .warning)
+                        }
+                    }
+                    completion?()
+                }
             }
         }
     }

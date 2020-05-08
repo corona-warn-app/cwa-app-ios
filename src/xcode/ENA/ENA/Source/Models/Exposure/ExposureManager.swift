@@ -23,6 +23,22 @@ struct Preconditions: OptionSet {
     static let all: Preconditions = [.authorized, .enabled, .active]
 }
 
+protocol Manager: NSObjectProtocol {
+    static var authorizationStatus: ENAuthorizationStatus { get }
+    func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+    func activate(completionHandler: @escaping ENErrorHandler)
+    func invalidate()
+    var exposureNotificationEnabled: Bool { get }
+    func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler)
+    var exposureNotificationStatus: ENStatus { get }
+    func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+}
+
+extension ENManager: Manager {}
+
+//
+//extension ENManager: Manager {}
+
 /**
 *   @brief    Wrapper for ENManager to avoid code duplication and to abstract error handling
 */
@@ -30,10 +46,10 @@ final class ExposureManager {
 
     typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
 
-    private let manager: ENManager
+    private let manager: Manager
 
-    init() {
-        manager = ENManager()
+    init(manager: Manager = ENManager()) {
+        self.manager = manager
     }
 
     // MARK: - Activation
@@ -47,6 +63,7 @@ final class ExposureManager {
                 self.handleENError(error: activationError, completion: completion)
                 return
             }
+            completion(nil)
         }
     }
 
@@ -60,29 +77,29 @@ final class ExposureManager {
         changeEnabled(to: false, completion: completion)
     }
 
+    private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
+        self.manager.setExposureNotificationEnabled(status) { error in
+            if let error = error {
+                logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
+                self.handleENError(error: error, completion: completion)
+                return
+            }
+            completion(nil)
+        }
+    }
+
     func preconditions() -> Preconditions {
         var preconditions: Preconditions = []
-
-        if ENManager.authorizationStatus == ENAuthorizationStatus.authorized { preconditions.insert(.authorized) }
+        if type(of: manager).authorizationStatus == ENAuthorizationStatus.authorized { preconditions.insert(.authorized) }
         if manager.exposureNotificationEnabled { preconditions.insert(.enabled) }
         if manager.exposureNotificationStatus == .active { preconditions.insert(.active) }
 
         return preconditions
     }
-
-    private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
-        if self.manager.exposureNotificationEnabled != status {
-            self.manager.setExposureNotificationEnabled(status) { error in
-                if let error = error {
-                    logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
-                    self.handleENError(error: error, completion: completion)
-                    return
-                }
-                completion(nil)
-            }
-        } else {
-            completion(nil)
-        }
+    
+    // MARK: Detect Exposures
+    func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
+        return manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs, completionHandler: completionHandler)
     }
 
     // MARK: - Diagnosis Keys

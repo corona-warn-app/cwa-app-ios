@@ -23,9 +23,9 @@ final class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
 
-    var exposureDetectionService: ExposureDetector?
     var client: Client?
-    
+    var exposureManager: ExposureManager?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -78,43 +78,44 @@ final class ExposureDetectionViewController: UIViewController {
             switch configurationResult {
             case .success(let configuration):
                 client.fetch() { [weak self] fetchResult in
-					switch fetchResult {
-					case .success(let keys):
-						self?.startExposureDetector(configuration: configuration, newKeys: keys)
-					case .failure(_):
-						print("fail")
-					}
+                    switch fetchResult {
+                        case .success(let urls):
+                            self?.startExposureDetector(configuration: configuration, diagnosisKeyURLs: urls)
+                        case .failure(let fetchError):
+                            logError(message: "Failed to fetch using client: \(fetchError)")
+                    }
                 }
             case .failure(let error):
-                print("error: \(error)")
+                logError(message: "Failed to get configuration: \(error)")
             }
         }
     }
 
-    private func startExposureDetector(configuration: ENExposureConfiguration, newKeys: [ENTemporaryExposureKey]) {
-        let detector = ExposureDetector(configuration: configuration, newKeys: newKeys, delegate: self)
-        detector.resume()
-    }
-}
-
-extension ExposureDetectionViewController: ExposureDetectorDelegate {
-    func exposureDetectorDidStart(_ detector: ExposureDetector) {
+    private func startExposureDetector(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL]) {
+        guard let exposureManager = exposureManager else {
+            fatalError("exposureManager cannot be nil here.")
+        }
+        log(message: "Starting exposure detector")
         activityIndicator.startAnimating()
-    }
-
-    func exposureDetectorDidFinish(_ detector: ExposureDetector, summary: ENExposureDetectionSummary) {
-        activityIndicator.stopAnimating()
-        infoTextView.text = summary.pretty
-    }
-
-    func exposureDetectorDidFail(_ detector: ExposureDetector, error: Error) {
-        activityIndicator.stopAnimating()
+        let _ = exposureManager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { (summary, error) in
+            if let error = error {
+                self.activityIndicator.stopAnimating()
+                logError(message: "Exposure detection failed due to underlying error: \(error.localizedDescription)")
+                return
+            }
+            guard let summary = summary else {
+                fatalError("can never happen")
+            }
+            log(message: "Exposure detection finished with summary: \(summary.pretty)")
+            self.activityIndicator.stopAnimating()
+            self.infoTextView.text = summary.pretty
+        }
     }
 }
 
 fileprivate extension ENExposureDetectionSummary {
     var pretty: String {
-        return """
+        """
         daysSinceLastExposure: \(daysSinceLastExposure)
         matchedKeyCount: \(matchedKeyCount)
         maximumRiskScore: \(maximumRiskScore)

@@ -13,7 +13,7 @@ import ExposureNotification
 protocol DMQRCodeScanViewControllerDelegate: class {
     func debugCodeScanViewController(
         _ viewController: DMQRCodeScanViewController,
-        didScan diagnosisKey: DMCodableDiagnosisKey
+        didScan diagnosisKey: Key
     )
 }
 
@@ -39,9 +39,12 @@ final class DMQRCodeScanViewController: UIViewController {
 
     override func viewDidLoad() {
         scanView.dataHandler = { data in
-            if let diagnosisKey = try? JSONDecoder().decode(DMCodableDiagnosisKey.self, from: data) {
+            do {
+                let diagnosisKey = try Key(serializedData: data)
                 self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
                 self.dismiss(animated: true, completion: nil)
+            } catch (let error) {
+                logError(message: "Failed to deserialize qr to key: \(error.localizedDescription)")
             }
         }
     }
@@ -92,12 +95,15 @@ fileprivate final class DMQRCodeScanView: UIView {
     }
 }
 
-
 extension DMQRCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue, let data = string.data(using: .utf8) {
+        if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue {
             self.captureSession.stopRunning()
+            let data = Data(base64Encoded: string)!
+            log(message: "\(data)")
             dataHandler(data)
+        } else {
+            logError(message: "Nope")
         }
     }
 }
