@@ -7,35 +7,51 @@
 //
 
 import UIKit
+import ExposureNotification
 
-class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
+final class HomeRiskCellConfigurator {
+    // MARK: Creating a Home Risk Cell Configurator
+    init(homeViewController: HomeViewController) {
+        self.homeViewController = homeViewController
+    }
     
+    // MARK: Properties
+    unowned var homeViewController: HomeViewController
     var contactAction: (() -> Void)?
-    
-    let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        return dateFormatter
-    }()
-    
+}
+
+extension HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     func configure(cell: RiskCollectionViewCell) {
-        cell.delegate = self
-        cell.iconImageView.image = UIImage(named: "onboarding_ipad")
-        cell.chevronImageView.image = UIImage(systemName: "chevron.right")
-        cell.titleLabel.text = AppStrings.Home.riskCardTitle
-        cell.bodyLabel.text = AppStrings.Home.riskCardBody
+        let summary = homeViewController.summary
+        let level = summary?.riskLevel ?? .unknown
+        let risk = RiskCollectionViewCell.Risk(level: level, date: Date())
+        let model = RiskCollectionViewCell.Model(risk: risk)
         
-        let date = Date()
-        let dateString = dateFormatter.string(from: date) // or DateFormatter.localizedString(from:, dateStyle:, timeStyle:)
-        let dateKey = AppStrings.Home.riskCardDate
-        cell.dateLabel.text = String(format: dateKey, dateString)
-        let buttonTile = AppStrings.Home.riskCardButton
-        cell.contactButton.setTitle(buttonTile, for: .normal)
+        // The delegate will be called back when the cell's primary action is triggered
+        cell.configure(with: model, delegate: self)
     }
 }
 
 extension HomeRiskCellConfigurator: RiskCollectionViewCellDelegate {
     func contactButtonTapped(cell: RiskCollectionViewCell) {
         contactAction?()
+    }
+}
+
+private extension ENExposureDetectionSummary {
+    var riskLevel: RiskCollectionViewCell.RiskLevel {
+        // The mapping between the maximum risk score and the `RiskCollectionViewCell.RiskLevel`
+        // is simply our best guess for the moment. If you see this and have more information about the
+        // mapping to use don't hesitate to change the following code.
+        switch maximumRiskScore {
+        case 1, 2, 3:
+            return .low
+        case 4, 5, 6:
+            return .moderate
+        case 7, 8:
+            return .high
+        default:
+            return .unknown
+        }
     }
 }

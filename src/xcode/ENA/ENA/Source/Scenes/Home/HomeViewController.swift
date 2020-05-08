@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ExposureNotification
 
 class HomeViewController: UIViewController {
     
@@ -19,7 +20,7 @@ class HomeViewController: UIViewController {
         case settings
 		// swiftlint:enable explicit_enum_raw_value
     }
-    
+    var summary: ENExposureDetectionSummary?
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     private var collectionView: UICollectionView! = nil
     private var homeLayout: HomeLayout!
@@ -32,7 +33,7 @@ class HomeViewController: UIViewController {
     }()
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     private lazy var developerMenu: DMDeveloperMenu = {
-           return DMDeveloperMenu(presentingViewController: self, client: client)
+        DMDeveloperMenu(presentingViewController: self, client: client)
     }()
     
     override func viewDidLoad() {
@@ -101,6 +102,7 @@ class HomeViewController: UIViewController {
                 logError(message: error.localizedDescription)
             } else {
                 let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
+                exposureDetectionViewController.delegate = self
                 exposureDetectionViewController.client = self.client
                 exposureDetectionViewController.exposureManager = manager
                 self.present(exposureDetectionViewController, animated: true, completion: nil)
@@ -139,7 +141,6 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: Configuration
-    
     private func prepareData() {
         cellConfigurators = homeInteractor.cellConfigurators()
     }
@@ -156,12 +157,14 @@ class HomeViewController: UIViewController {
         let safeLayoutGuide = view.safeAreaLayoutGuide
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
+        NSLayoutConstraint.activate(
+            [
             collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
             collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+            ]
+        )
         collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
         collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
@@ -206,5 +209,13 @@ extension HomeViewController: HomeLayoutDelegate {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         showScreen(at: indexPath)
+    }
+}
+
+extension HomeViewController: ExposureDetectionViewControllerDelegate {
+    func exposureDetectionViewController(_ controller: ExposureDetectionViewController, didReceiveSummary summary: ENExposureDetectionSummary) {
+        log(message: "got summary: \(summary.description)")
+        self.summary = summary
+        collectionView.reloadData()
     }
 }

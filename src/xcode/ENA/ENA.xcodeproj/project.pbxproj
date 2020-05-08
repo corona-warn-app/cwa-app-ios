@@ -65,6 +65,8 @@
 		B102BDC024603FF800CD55A2 /* exposure_keys.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */; };
 		B107C95D246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107C95C246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift */; };
 		B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = B10FB02F246036F3004CA11E /* SwiftProtobuf */; };
+		B111EE2A2465CFA9001AEBB4 /* LocalizableRisk.strings in Resources */ = {isa = PBXBuildFile; fileRef = B111EE292465CFA9001AEBB4 /* LocalizableRisk.strings */; };
+		B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */; };
 		B1741B492462C207006275D9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B482462C207006275D9 /* Client.swift */; };
 		B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */; };
 		B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B432461C257006275D9 /* DMDeveloperMenu.swift */; };
@@ -185,6 +187,8 @@
 		B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_keys.pb.swift; path = ../../../../../proto/output/exposure_keys.pb.swift; sourceTree = "<group>"; };
 		B102BDC22460410600CD55A2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B107C95C246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeveloperDiagnosisKeyFileProtobuf.pb.swift; path = ../../../../../proto/output/DeveloperDiagnosisKeyFileProtobuf.pb.swift; sourceTree = "<group>"; };
+		B111EE292465CFA9001AEBB4 /* LocalizableRisk.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizableRisk.strings; sourceTree = "<group>"; };
+		B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeViewController.swift; sourceTree = "<group>"; };
 		B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeScanViewController.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 				51CE1B7B246078B6002CF42A /* InfoCollectionViewCell.xib */,
 				51CE1B7D246078B6002CF42A /* SettingsCollectionViewCell.swift */,
 				51CE1B7F246078B6002CF42A /* SettingsCollectionViewCell.xib */,
+				B111EE292465CFA9001AEBB4 /* LocalizableRisk.strings */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -356,6 +361,7 @@
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
 				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
 				51895EDB245E16CD0085DA38 /* UIColor.swift */,
+				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -744,6 +750,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B111EE2A2465CFA9001AEBB4 /* LocalizableRisk.strings in Resources */,
 				514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */,
 				51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
@@ -845,6 +852,7 @@
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
 				B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */,
+				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				EE85998F2462EFD4002E7AE2 /* AppInformationViewController.swift in Sources */,

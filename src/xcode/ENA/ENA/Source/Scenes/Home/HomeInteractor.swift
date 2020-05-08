@@ -18,7 +18,7 @@ class HomeInteractor {
     
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
         let activeConfigurator = HomeActivateCellConfigurator()
-        let riskConfigurator = HomeRiskCellConfigurator()
+        let riskConfigurator = HomeRiskCellConfigurator(homeViewController: homeViewController)
         riskConfigurator.contactAction = { [unowned self] in
             self.homeViewController.showExposureDetection()
         }
