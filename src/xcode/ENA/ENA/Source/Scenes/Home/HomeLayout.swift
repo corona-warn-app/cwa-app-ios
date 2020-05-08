@@ -17,9 +17,6 @@ final class HomeLayout {
     weak var delegate: HomeLayoutDelegate?
     
     func collectionLayout() -> UICollectionViewLayout {
-        let x = UIButton()
-        x.titleLabel?.text = "Welcome_Screen_Titl".localized
-        
         let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { [unowned self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             guard let homeSection = self.delegate?.homeLayout(homeLayout: self, for: sectionIndex) else { return nil }
             let section = self.layoutSection(for: homeSection, layoutEnvironment: layoutEnvironment)
