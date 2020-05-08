@@ -49,7 +49,8 @@ final class ExposureDetectionViewController: UIViewController {
         infoTextView.text = AppStrings.ExposureDetection.infoText
     }
 
-    @objc func updateLastSyncLabel() {
+    @objc
+	func updateLastSyncLabel() {
         guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
             lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
             return
