@@ -45,7 +45,7 @@ class HomeViewController: UIViewController {
     // MARK: Actions
     
     @IBAction private func infoButtonTapped(_ sender: UIButton) {
-        print(#function)
+        log(message: "")
     }
     
     func showSubmitResult() {
@@ -149,7 +149,11 @@ class HomeViewController: UIViewController {
             return cell
         }
         dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier, for: indexPath) as? HomeFooterSupplementaryView else { fatalError("Cannot create new supplementary") }
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier, for: indexPath) as? HomeFooterSupplementaryView else {
+                let error = "Cannot create new supplementary"
+                logError(message: error)
+                fatalError(error)
+            }
             supplementaryView.configure()
             return supplementaryView
         }

@@ -91,10 +91,10 @@ final class ExposureDetector {
 //
 //                        self.session.getExposureInfo(withMaximumCount: type(of: self).numberCountExposureInfo) { (info, done, exposureError) in
 //                            if let exposureError = exposureError {
-//                                print("getExposureInfo failed: \(exposureError)")
+//                                logError(message: "getExposureInfo failed: \(exposureError)")
 //                                return
 //                            }
-//                            print("got getExposureInfo: \(String(describing: info))")
+//                            log(message:"got getExposureInfo: \(String(describing: info))")
 //                        }
 //
 //                        // Update timestamp of last successfull session
@@ -113,6 +113,7 @@ final class ExposureDetector {
 // MARK: Helper
 private extension ExposureDetector {
     private func failWith(error: Error) {
+        logError(message: error.localizedDescription)
         delegate?.exposureDetectorDidFail(self, error: error)
     }
 
