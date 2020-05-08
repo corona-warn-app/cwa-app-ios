@@ -84,7 +84,10 @@ class HomeViewController: UIViewController {
     
     func showExposureDetection() {
         let manager = ExposureManager()
-        manager.activate { error in
+        manager.activate { [weak self] error in
+            guard let self = self else {
+                return
+            }
             if let error = error {
                 switch error {
                 case .exposureNotificationRequired:

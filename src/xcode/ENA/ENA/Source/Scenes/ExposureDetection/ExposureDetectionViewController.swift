@@ -81,12 +81,12 @@ final class ExposureDetectionViewController: UIViewController {
                     switch fetchResult {
                         case .success(let urls):
                             self?.startExposureDetector(configuration: configuration, diagnosisKeyURLs: urls)
-                        case .failure(_):
-                        print("fail")
+                        case .failure(let fetchError):
+                            logError(message: "Failed to fetch using client: \(fetchError)")
                     }
                 }
             case .failure(let error):
-                print("error: \(error)")
+                logError(message: "Failed to get configuration: \(error)")
             }
         }
     }
