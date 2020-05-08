@@ -23,7 +23,6 @@ final class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
 
-    var exposureDetectionService: ExposureDetector?
     var client: Client?
     var exposureManager: ExposureManager?
 
