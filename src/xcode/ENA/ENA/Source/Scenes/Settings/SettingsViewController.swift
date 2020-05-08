@@ -16,12 +16,20 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var notificationsSwitch: UISwitch!
     @IBOutlet weak var dataInWifiOnlySwitch: UISwitch!
     @IBOutlet weak var sendLogFileView: UIView!
+    @IBOutlet weak var tracingStackView: UIStackView!
+    @IBOutlet weak var tracingContainerView: UIView!
+    @IBOutlet weak var tracingButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setupView()
+    }
+
+    @IBAction func showTracingDetails(_ sender: Any) {
+        let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
+        present(vc, animated: true, completion: nil)
     }
 
     @IBAction func sendLogFile(_ sender: Any) {
@@ -64,6 +72,9 @@ class SettingsViewController: UIViewController {
         // receive status of manager
         let status = ENStatus.active
         setTrackingStatus(for: status)
+
+        tracingStackView.isUserInteractionEnabled = false
+        tracingContainerView.setBorder(at: [.top, .bottom], with: UIColor.preferredColor(for: ColorStyle.border), thickness: 1)
     }
 
     private func setTrackingStatus(for status: ENStatus) {

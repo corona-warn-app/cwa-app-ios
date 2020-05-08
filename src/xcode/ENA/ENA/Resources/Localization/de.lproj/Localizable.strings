@@ -20,8 +20,8 @@
 "ExposureDetection_InfoText" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
 
 // Settings
-"Settings_StatusActive" = "aktiv";
-"Settings_StatusInactive" = "inaktiv";
+"Settings_StatusActive" = "An";
+"Settings_StatusInactive" = "Aus";
 
 // Onboarding
 "Onboarding_Next" = "Nächste";
