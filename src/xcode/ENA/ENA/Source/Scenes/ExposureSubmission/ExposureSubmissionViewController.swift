@@ -13,6 +13,8 @@ class ExposureSubmissionViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
 
+    var exposureSubmissionService: ExposureSubmissionService?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,5 +23,19 @@ class ExposureSubmissionViewController: UIViewController {
         submitButton.setTitle(AppStrings.ExposureSubmission.submit, for: .normal)
 
         navigationItem.title = AppStrings.ExposureSubmission.navigationBarTitle
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        precondition(exposureSubmissionService != nil, "`exposureSubmissionService` needs to be set prior submitting.")
+
+        if segue.identifier != "showTanEntry" {
+            return
+        }
+
+        guard let tanEntryViewController = segue.destination as? TanEntryViewController else {
+            return
+        }
+
+        tanEntryViewController.exposureSubmissionService = exposureSubmissionService
     }
 }

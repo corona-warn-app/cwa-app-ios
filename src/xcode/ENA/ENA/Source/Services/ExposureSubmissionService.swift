@@ -27,7 +27,7 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
 
         let manager = ExposureManager()
         manager.activate { error in
-            if let _ = error {
+            if nil != error {
                 log(message: "Exposure notification service not activated.", level: .warning)
                 completionHandler(.notActivated)
                 return

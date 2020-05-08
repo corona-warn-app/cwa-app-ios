@@ -13,21 +13,28 @@ class HomeViewController: UIViewController {
     @IBOutlet var topContainerView: UIView!
     
     enum Section: Int {
+		// swiftlint:disable explicit_enum_raw_value
         case actions
         case infos
         case settings
+		// swiftlint:enable explicit_enum_raw_value
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     private var collectionView: UICollectionView! = nil
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
-    private let client: Client = MockClient()
+    private lazy var client: Client = {
+        let fileManager = FileManager()
+        let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let fileUrl = documentDir.appendingPathComponent("keys", isDirectory: false).appendingPathExtension("proto")
+        return MockClient(submittedKeysFileURL: fileUrl)
+    }()
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     private lazy var developerMenu: DMDeveloperMenu = {
            return DMDeveloperMenu(presentingViewController: self, client: client)
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         homeInteractor = HomeInteractor(homeViewController: self)
@@ -50,6 +57,7 @@ class HomeViewController: UIViewController {
     
     func showSubmitResult() {
         let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
+        vc.exposureSubmissionService = ExposureSubmissionServiceImpl(client: client)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
@@ -77,9 +85,28 @@ class HomeViewController: UIViewController {
     }
     
     func showExposureDetection() {
-        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
-        exposureDetectionViewController.client = client
-        present(exposureDetectionViewController, animated: true, completion: nil)
+        let manager = ExposureManager()
+        manager.activate { [weak self] error in
+            guard let self = self else {
+                return
+            }
+            if let error = error {
+                switch error {
+                case .exposureNotificationRequired:
+                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+                case .exposureNotificationAuthorization:
+                    log(message: "Encourage the user to authorize this application", level: .warning)
+                }
+            } else if let error = error {
+                logError(message: error.localizedDescription)
+            } else {
+                let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
+                exposureDetectionViewController.client = self.client
+                exposureDetectionViewController.exposureManager = manager
+                self.present(exposureDetectionViewController, animated: true, completion: nil)
+            }
+        }
+        
     }
 
     func showAppInformation() {
@@ -133,7 +160,7 @@ class HomeViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
             collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)

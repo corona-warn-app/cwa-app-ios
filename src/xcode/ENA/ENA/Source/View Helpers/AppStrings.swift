@@ -8,33 +8,33 @@
 
 import UIKit
 
-struct AppStrings {
-    struct Commom {
+enum AppStrings {
+    enum Commom {
         static let alertTitleGeneral = NSLocalizedString("Alert_TitleGeneral", comment: "")
         static let alertMessageGeneral = NSLocalizedString("Alert_MessageGeneral", comment: "")
         static let alertActionOk = NSLocalizedString("Alert_ActionOk", comment: "")
     }
 
-    struct ExposureSubmission {
+    enum ExposureSubmission {
         static let title = NSLocalizedString("ExposureSubmission_Title", comment: "")
         static let description = NSLocalizedString("ExposureSubmission_Description", comment: "")
         static let submit = NSLocalizedString("ExposureSubmission_Submit", comment: "")
         static let navigationBarTitle = NSLocalizedString("ExposureSubmission_NavTitle", comment: "")
     }
 
-    struct ExposureSubmissionTanEntry {
+    enum ExposureSubmissionTanEntry {
         static let title = NSLocalizedString("ExposureSubmissionTanEntry_Title", comment: "")
         static let description = NSLocalizedString("ExposureSubmissionTanEntry_Description", comment: "")
         static let submit = NSLocalizedString("ExposureSubmissionTanEntry_Submit", comment: "")
     }
 
-    struct ExposureSubmissionConfirmation {
+    enum ExposureSubmissionConfirmation {
         static let title = NSLocalizedString("ExposureSubmissionConfirmation_Title", comment: "")
         static let description = NSLocalizedString("ExposureSubmissionConfirmation_Description", comment: "")
         static let submit = NSLocalizedString("ExposureSubmissionConfirmation_Submit", comment: "")
     }
 
-    struct ExposureDetection {
+    enum ExposureDetection {
         static let lastContactDays = NSLocalizedString("ExposureDetection_LastDays", comment: "")
         static let lastContactHours = NSLocalizedString("ExposureDetection_LastHours", comment: "")
         static let lastContactTitle = NSLocalizedString("ExposureDetection_LastContactTitle", comment: "")
@@ -46,17 +46,17 @@ struct AppStrings {
         static let nextSync = NSLocalizedString("ExposureDetection_NextSync", comment: "")
     }
 
-    struct Settings {
+    enum Settings {
         static let trackingStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
         static let trackingStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
     }
 
-    struct Onboarding {
+    enum Onboarding {
         static let onboardingFinish = NSLocalizedString("Onboarding_Finish", comment: "")
         static let onboardingNext = NSLocalizedString("Onboarding_Next", comment: "")
     }
 
-    struct AppInformation {
+    enum AppInformation {
         static let appInfoLabel1 = NSLocalizedString("App_Info", comment: "")
         static let appInfoLabel2 = NSLocalizedString("App_Privacy", comment: "")
         static let appInfoLabel3 = NSLocalizedString("App_Terms", comment: "")
@@ -66,14 +66,14 @@ struct AppStrings {
         static let labels = [appInfoLabel1, appInfoLabel2, appInfoLabel3, appInfoLabel4, appInfoLabel5, appInfoLabel6]
     }
 
-    struct ExposureNotificationSetting {
+    enum ExposureNotificationSetting {
         static let title = NSLocalizedString("ExposureNotificationSetting_TracingSettingTitle", comment: "The title of the view")
         static let enableTracing = NSLocalizedString("ExposureNotificationSetting_EnableTracing", comment: "The enable tracing")
         static let introductionTitle = NSLocalizedString("ExposureNotificationSetting_IntroductionTitle", comment: "The introduction label")
         static let introductionText = NSLocalizedString("ExposureNotificationSetting_IntroductionText", comment: "The introduction text")
     }
 
-    struct Home {
+    enum Home {
         static let activateTitle = NSLocalizedString("Home_Activate_Title", comment: "")
 
         static let riskCardTitle = NSLocalizedString("Home_RiskCard_Title", comment: "")

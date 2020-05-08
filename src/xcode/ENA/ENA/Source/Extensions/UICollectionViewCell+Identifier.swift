@@ -13,5 +13,3 @@ extension UICollectionViewCell {
         stringName()
     }
 }
-
-
