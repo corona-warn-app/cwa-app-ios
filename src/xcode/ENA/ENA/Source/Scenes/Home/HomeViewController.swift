@@ -13,9 +13,11 @@ class HomeViewController: UIViewController {
     @IBOutlet var topContainerView: UIView!
     
     enum Section: Int {
+		// swiftlint:disable explicit_enum_raw_value
         case actions
         case infos
         case settings
+		// swiftlint:enable explicit_enum_raw_value
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
