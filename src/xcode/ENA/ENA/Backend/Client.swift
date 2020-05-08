@@ -56,7 +56,9 @@ class MockClient: Client {
                     }
                 }
             }
+            // swiftlint:disable force_try
             let data = try! file.serializedData()
+            // swiftlint:disable force_try
             try! data.write(to: submittedKeysFileURL)
             log(message: "Wrote \(submittedKeys.count) keys to \(submittedKeysFileURL)")
         }
