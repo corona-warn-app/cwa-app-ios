@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public enum ColorStyle: Int {
+public enum ColorStyle {
     case darkText
     case lightText
     case tintColor
