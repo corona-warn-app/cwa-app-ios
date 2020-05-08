@@ -224,3 +224,6 @@ line_length:
 
 trailing_whitespace:
   ignores_empty_lines: true
+
+type_name:
+  max_length: 50
