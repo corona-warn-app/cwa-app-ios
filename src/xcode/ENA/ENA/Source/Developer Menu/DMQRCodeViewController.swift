@@ -9,7 +9,7 @@
 import UIKit
 
 /// A view controller that displays a `DMCodableDiagnosisKey` as a QR code.
-final class DMQRCodeViewController : UIViewController {
+final class DMQRCodeViewController: UIViewController {
     // MARK: Creating a Code generating View Controller
     init(key: DMCodableDiagnosisKey) {
         self.key = key

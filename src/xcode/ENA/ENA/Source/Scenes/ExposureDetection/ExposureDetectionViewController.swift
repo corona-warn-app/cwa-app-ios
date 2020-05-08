@@ -96,7 +96,7 @@ final class ExposureDetectionViewController: UIViewController {
     }
 }
 
-extension ExposureDetectionViewController : ExposureDetectorDelegate {
+extension ExposureDetectionViewController: ExposureDetectorDelegate {
     func exposureDetectorDidStart(_ detector: ExposureDetector) {
         activityIndicator.startAnimating()
     }

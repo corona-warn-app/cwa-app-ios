@@ -114,7 +114,7 @@ extension ExposureNotificationSettingViewController {
         }
     }
 
-    private func checkNotifcationStatus(for enManager:ENManager) {
+    private func checkNotifcationStatus(for enManager: ENManager) {
         assert(enManager.exposureNotificationStatus != .unknown)
         let status = enManager.exposureNotificationStatus
         if status == .active || status == .disabled{
