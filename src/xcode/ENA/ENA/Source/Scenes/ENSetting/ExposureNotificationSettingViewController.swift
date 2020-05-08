@@ -11,15 +11,14 @@ import ExposureNotification
 
 class ExposureNotificationSettingViewController: UIViewController {
     @IBOutlet weak var contactTracingSwitch: UISwitch!
-    
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var enableTrackingLabel: UILabel!
     @IBOutlet weak var introductionLabel: UILabel!
     @IBOutlet weak var introductionText: UITextView!
-    
-    
+
     //TODO: This should be checked later.
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,109 +29,92 @@ class ExposureNotificationSettingViewController: UIViewController {
                 print("[viewDidLoad]: willEnterForegroundNotification, checking notifcation status.")
                 self.checkNotifcationEnablement()
         }
-        
+
         setUIText()
-                
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkNotifcationEnablement()
     }
-    
 
     deinit {
         print("[ExposureNotificationSettingViewController deinit] got called.")
         NotificationCenter.default.removeObserver(self)
     }
-    
 }
-
 
 // MARK: UI and Storyboard
 extension ExposureNotificationSettingViewController {
-    
     private func setUIText() {
-        titleLabel.text = .title
-        enableTrackingLabel.text = .enableTracing
-        introductionLabel.text = .introductionTitle
-        introductionText.text = .introductionText
+        titleLabel.text = AppStrings.ExposureNotificationSetting.title
+        enableTrackingLabel.text = AppStrings.ExposureNotificationSetting.enableTracing
+        introductionLabel.text = AppStrings.ExposureNotificationSetting.introductionTitle
+        introductionText.text = AppStrings.ExposureNotificationSetting.introductionText
     }
-    
- 
-    
+
     @IBAction func closeButtonClicked(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
+
     @IBAction func contactTracingValueChanged(_ sender: Any) {
-                
         let enManager = ENManager()
         enManager.activate { error in
-            
             if let error = error as NSError? {
                 self.alertError(message: error.localizedDescription, title: "Error")
                 return
             }
-            
+
             assert(enManager.exposureNotificationStatus != .unknown)
             let isEnable = self.contactTracingSwitch.isOn
             enManager.setExposureNotificationEnabled(isEnable) { error in
-                
                 if let error = error as? ENError {
                     if error.code == .notAuthorized {
                         //TODO:Tell the user to enable it on the setting, It can help users to jump to the settings page.
                         print("[contactTracingValueChanged]: Tell the user to enable it on the setting")
                     }
-                    
+
                     print("[contactTracingValueChanged] Error occurs, while setExposureNotificationEnabled. Error code is \(error.code.rawValue) ")
                 }
-                
-                
+
                 //Check status again.
                 self.checkNotifcationStatus(for: enManager)
                 enManager.invalidate()
             }
         }
-        
+
         enManager.invalidationHandler = {
             
             //Oberserver the behaviour of ENManager.
             print("[contactTracingValueChanged]: EnManaber invalid")
         }
-        
     }
 }
 
 extension ExposureNotificationSettingViewController {
-    
     private func checkNotifcationEnablement(){
-        
         let enManager = ENManager()
-        
+
         enManager.activate { (error) in
-                    
             if let error = error as NSError? {
                 print("[contactTracingValueChanged]: \(error.localizedDescription)")
                 return
             }
-            
+
             assert(enManager.exposureNotificationStatus != .unknown)
             let exposureEnabled = enManager.exposureNotificationEnabled
             self.contactTracingSwitch.setOn(exposureEnabled, animated: true)
             enManager.invalidate()
             print("")
         }
-        
+
         enManager.invalidationHandler = {
             //Oberserver the behaviour of ENManager.
             print("[checkNotifcationEnablement]: EnManaber invalidationHandler got called.")
         }
     }
-    
-    
-    private func checkNotifcationStatus(for enManager:ENManager) {
+
+    private func checkNotifcationStatus(for enManager: ENManager) {
         assert(enManager.exposureNotificationStatus != .unknown)
         let status = enManager.exposureNotificationStatus
         if status == .active || status == .disabled{
@@ -158,16 +140,4 @@ extension ExposureNotificationSettingViewController {
             }
         }
     }
-    
-
-     
-}
-
-fileprivate extension String {
-    //ENS is set as the prefix, standing for Exposure Notifcation Setting
-    static let title = NSLocalizedString("ENS_Tracing_Setting_Title", comment: "The title of the view")
-    static let enableTracing = NSLocalizedString("ENS_Enable_Tracing", comment: "The enable tracing")
-    static let introductionTitle = NSLocalizedString("ENS_Introduction_Title", comment: "The introduction label")
-    static let introductionText = NSLocalizedString("ENS_Introduction_Text", comment: "The introduction text")
-    
 }

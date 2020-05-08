@@ -17,13 +17,15 @@ final class DMQRCodeViewController : UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        fatalError()
+		fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: Properties
     private let key: Key
     private var base64EncodedKey: Data {
         // This should always work thus we can safely use !
+        // TODO: Please double check
+		// swiftlint:disable force_try
         return try! key.serializedData().base64EncodedData()
     }
 

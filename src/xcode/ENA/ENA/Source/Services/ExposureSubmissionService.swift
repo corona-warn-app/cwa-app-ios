@@ -62,7 +62,7 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
 }
 
 // TODO: Refactor to a separate file
-enum ExposureSubmissionError : Error {
+enum ExposureSubmissionError: Error {
     case notActivated
     case noKeys
     case other

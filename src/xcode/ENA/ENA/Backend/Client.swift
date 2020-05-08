@@ -27,7 +27,7 @@ protocol Client {
     /// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
     /// Parameters:
     /// - keys: An array of `ENTemporaryExposureKey`s  to submit to the backend.
-    /// - tan: A transaction number 
+    /// - tan: A transaction number
     func submit(keys: [ENTemporaryExposureKey], tan: String, completion: @escaping SubmitKeysCompletionHandler)
 
     /// `completion` will be called on the main queue.

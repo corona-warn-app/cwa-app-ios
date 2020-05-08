@@ -26,11 +26,11 @@ class HomeInteractor {
         submitConfigurator.submitAction = { [unowned self] in
             self.homeViewController.showSubmitResult()
         }
-        let title1 = NSLocalizedString("home_info_card_share_title", comment: "")
-        let body1 = NSLocalizedString("home_info_card_share_body", comment: "")
+        let title1 = AppStrings.Home.infoCardShareTitle
+        let body1 = AppStrings.Home.infoCardShareBody
         let info1Configurator = HomeInfoCellConfigurator(title: title1, body: body1)
-        let title2 = NSLocalizedString("home_info_card_about_title", comment: "")
-        let body2 = NSLocalizedString("home_info_card_about_body", comment: "")
+        let title2 = AppStrings.Home.infoCardAboutTitle
+        let body2 = AppStrings.Home.infoCardAboutBody
         let info2Configurator = HomeInfoCellConfigurator(title: title2, body: body2)
         let settingsConfigurator = HomeSettingsCellConfigurator()
         let configurators: [CollectionViewCellConfiguratorAny] = [activeConfigurator, riskConfigurator, submitConfigurator, info1Configurator, info2Configurator, settingsConfigurator]
