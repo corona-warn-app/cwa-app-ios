@@ -65,6 +65,11 @@ final class ExposureDetector {
     ///
     /// Once a detector has been resumed it cannot be stoped – yet. TODO
     func resume() {
+        // 1. wir brauchen diese configuration
+        // 2. wir brauchen remoturls der neuen keys
+        // 3. wir müssen die remoteurls runterladen in neue dateien -> localUrls
+        // 4. enmanager.detect(config, localUrls)
+        
         delegate?.exposureDetectorDidStart(self)
         sessionStartTime = Date()  // will be used once the session succeeded
         self.queue.async {

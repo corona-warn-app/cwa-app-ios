@@ -76,7 +76,17 @@ class OnboardingInfoViewController: UIViewController {
             } else if let error = error {
                 self.showError(error, from: self, completion: completion)
             } else {
-                completion?()
+                manager.enable { enableError in
+                    if let enableError = enableError {
+                        switch enableError {
+                        case .exposureNotificationRequired:
+                            log(message: "Encourage the user to consider enabling Exposure Notifications.")
+                        case .exposureNotificationAuthorization:
+                            log(message: "Encourage the user to authorize this application")
+                        }
+                    }
+                    completion?()
+                }
             }
         }
     }

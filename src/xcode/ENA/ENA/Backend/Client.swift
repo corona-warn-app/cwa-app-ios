@@ -12,7 +12,7 @@ import ExposureNotification
 protocol Client {
     // MARK: Types
     typealias SubmitKeysCompletionHandler = (Error?) -> Void
-    typealias FetchKeysCompletionHandler = (Result<[ENTemporaryExposureKey], Error>) -> Void
+    typealias FetchKeysCompletionHandler = (Result<[URL], Error>) -> Void
 
     // MARK: Interacting with a Client
 
@@ -23,7 +23,6 @@ protocol Client {
     /// Parameters:
     /// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
     func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler)
-
 
     /// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
     /// Parameters:
@@ -36,7 +35,34 @@ protocol Client {
 }
 
 class MockClient: Client {
-    private var submittedKeys = [ENTemporaryExposureKey]()
+    // MARK: Creating a Mock Client
+    init(submittedKeysFileURL: URL) {
+        self.submittedKeysFileURL = submittedKeysFileURL
+    }
+
+    // MARK: Properties
+    private let submittedKeysFileURL: URL
+    
+    private var submittedKeys = [ENTemporaryExposureKey]() {
+        didSet {
+            log(message: "Writing \(submittedKeys.count) keys)")
+            let file = File.with { file in
+                file.key = submittedKeys.map { diagnosisKey in
+                    Key.with { key in
+                        key.keyData = diagnosisKey.keyData
+                        key.rollingPeriod = diagnosisKey.rollingPeriod
+                        key.rollingStartNumber = diagnosisKey.rollingStartNumber
+                        key.transmissionRiskLevel = Int32(diagnosisKey.transmissionRiskLevel)
+                    }
+                }
+            }
+            // swiftlint:disable force_try
+            let data = try! file.serializedData()
+            // swiftlint:disable force_try
+            try! data.write(to: submittedKeysFileURL)
+            log(message: "Wrote \(submittedKeys.count) keys to \(submittedKeysFileURL)")
+        }
+    }
 
     func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
         let exposureConfiguration = ENExposureConfiguration()
@@ -55,12 +81,12 @@ class MockClient: Client {
     }
 
     func submit(keys: [ENTemporaryExposureKey], tan: String, completion: @escaping SubmitKeysCompletionHandler) {
-        submittedKeys.append(contentsOf: keys)
+        submittedKeys += keys
         completion(/* error */ nil)
     }
 
     func fetch(completion: @escaping FetchKeysCompletionHandler) {
-        completion(.success(submittedKeys))
+        completion(.success([submittedKeysFileURL]))
     }
 }
 
