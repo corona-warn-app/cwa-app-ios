@@ -28,7 +28,7 @@ class ExposureNotificationSettingViewController: UIViewController {
             .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { notifcation in
                 print("[viewDidLoad]: willEnterForegroundNotification, checking notifcation status.")
                 self.checkNotifcationEnablement()
-        }
+            }
 
         setUIText()
     }
