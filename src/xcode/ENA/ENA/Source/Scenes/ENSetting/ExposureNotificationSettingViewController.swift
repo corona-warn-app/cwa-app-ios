@@ -95,7 +95,7 @@ extension ExposureNotificationSettingViewController {
     private func checkNotifcationEnablement(){
         let enManager = ENManager()
 
-        enManager.activate { (error) in
+        enManager.activate { error in
             if let error = error as NSError? {
                 print("[contactTracingValueChanged]: \(error.localizedDescription)")
                 return
