@@ -52,12 +52,12 @@ final class ExposureManager {
         self.manager = manager
     }
 
-    // MARK:- Activation
+    // MARK: - Activation
 
     /// Activates `ENManager` and asks user for permission to enable ExposureNotification.
     /// If the user declines, completion handler will set the error to exposureNotificationRequired
     func activate(completion: @escaping CompletionHandler) {
-        manager.activate { (activationError) in
+        manager.activate { activationError in
             if let activationError = activationError {
                 logError(message: "Failed to activate ENManager: \(activationError.localizedDescription)")
                 self.handleENError(error: activationError, completion: completion)
@@ -67,7 +67,7 @@ final class ExposureManager {
         }
     }
 
-    // MARK:- Enable
+    // MARK: - Enable
 
     func enable(completion: @escaping CompletionHandler) {
         changeEnabled(to: true, completion: completion)
