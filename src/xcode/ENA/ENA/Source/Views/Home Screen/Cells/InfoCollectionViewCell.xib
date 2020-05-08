@@ -49,7 +49,6 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Nid-Qb-FC5" firstAttribute="leading" secondItem="U6l-FR-h2s" secondAttribute="leadingMargin" id="T8A-AG-42b"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Nid-Qb-FC5" secondAttribute="trailing" id="Ul1-CK-Lvi"/>
