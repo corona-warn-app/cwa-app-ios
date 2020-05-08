@@ -96,8 +96,10 @@ final class ExposureDetectionViewController: UIViewController {
             fatalError("exposureManager cannot be nil here.")
         }
         log(message: "Starting exposure detector")
+        activityIndicator.startAnimating()
         let _ = exposureManager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { (summary, error) in
             if let error = error {
+                self.activityIndicator.stopAnimating()
                 logError(message: "Exposure detection failed due to underlying error: \(error.localizedDescription)")
                 return
             }
@@ -105,31 +107,15 @@ final class ExposureDetectionViewController: UIViewController {
                 fatalError("can never happen")
             }
             log(message: "Exposure detection finished with summary: \(summary.pretty)")
+            self.activityIndicator.stopAnimating()
+            self.infoTextView.text = summary.pretty
         }
-    
-//        let detector = ExposureDetector(configuration: configuration, newKeys: newKeysURLs, delegate: self)
-//        detector.resume()
-    }
-}
-
-extension ExposureDetectionViewController: ExposureDetectorDelegate {
-    func exposureDetectorDidStart(_ detector: ExposureDetector) {
-        activityIndicator.startAnimating()
-    }
-
-    func exposureDetectorDidFinish(_ detector: ExposureDetector, summary: ENExposureDetectionSummary) {
-        activityIndicator.stopAnimating()
-        infoTextView.text = summary.pretty
-    }
-
-    func exposureDetectorDidFail(_ detector: ExposureDetector, error: Error) {
-        activityIndicator.stopAnimating()
     }
 }
 
 fileprivate extension ENExposureDetectionSummary {
     var pretty: String {
-        return """
+        """
         daysSinceLastExposure: \(daysSinceLastExposure)
         matchedKeyCount: \(matchedKeyCount)
         maximumRiskScore: \(maximumRiskScore)

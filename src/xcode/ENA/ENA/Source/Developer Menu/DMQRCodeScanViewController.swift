@@ -95,7 +95,6 @@ fileprivate final class DMQRCodeScanView: UIView {
     }
 }
 
-
 extension DMQRCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue {
