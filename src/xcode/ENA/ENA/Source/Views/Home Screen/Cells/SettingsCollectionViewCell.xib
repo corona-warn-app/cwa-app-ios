@@ -19,20 +19,19 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pze-uJ-dtm" userLabel="Container View">
                         <rect key="frame" x="0.0" y="0.0" width="441" height="91"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="SWM-vp-490">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SWM-vp-490">
                                 <rect key="frame" x="0.0" y="0.0" width="441" height="91"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0y8-pA-fjp">
-                                        <rect key="frame" x="0.0" y="0.0" width="405" height="91"/>
+                                        <rect key="frame" x="0.0" y="35.5" width="63.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8Io-AM-qve">
-                                        <rect key="frame" x="409" y="2" width="32" height="87.5"/>
+                                        <rect key="frame" x="409" y="37.5" width="32" height="16.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="9RO-Ba-TI8"/>
-                                            <constraint firstAttribute="height" priority="750" constant="64" id="Ao5-FZ-oeW"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>

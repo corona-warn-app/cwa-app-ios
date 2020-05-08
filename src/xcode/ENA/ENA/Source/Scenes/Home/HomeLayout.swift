@@ -17,6 +17,9 @@ final class HomeLayout {
     weak var delegate: HomeLayoutDelegate?
     
     func collectionLayout() -> UICollectionViewLayout {
+        let x = UIButton()
+        x.titleLabel?.text = "Welcome_Screen_Titl".localized
+        
         let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { [unowned self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             guard let homeSection = self.delegate?.homeLayout(homeLayout: self, for: sectionIndex) else { return nil }
             let section = self.layoutSection(for: homeSection, layoutEnvironment: layoutEnvironment)
@@ -72,7 +75,7 @@ final class HomeLayout {
         
         let itemSize1 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100.0))
         let item1 = NSCollectionLayoutItem(layoutSize: itemSize1)
-        
+        item1.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: nil, trailing: nil, bottom: .fixed(8))
         let itemSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100.0))
         let item2 = NSCollectionLayoutItem(layoutSize: itemSize2)
         
@@ -81,6 +84,9 @@ final class HomeLayout {
         group.interItemSpacing = .fixed(4)
         
         let section = NSCollectionLayoutSection(group: group)
+        let insets: CGFloat = 16.0
+        section.contentInsets = .init(top: insets, leading: insets, bottom: 0.0, trailing: insets)
+
         let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
         section.decorationItems = [sectionBackgroundDecoration]
         return section
@@ -93,8 +99,10 @@ final class HomeLayout {
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50.0))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        
         let section = NSCollectionLayoutSection(group: group)
+        let insets: CGFloat = 16.0
+        section.contentInsets = .init(top: insets, leading: insets, bottom: 0.0, trailing: insets)
+
         return section
     }
     
