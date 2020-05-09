@@ -30,9 +30,10 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func showNotificationSettings(_ sender: Any) {
-        if let notificationsSettingsURL = URL(string: "App-prefs:NOTIFICATIONS_ID") {
-            UIApplication.shared.open(notificationsSettingsURL)
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsURL) else {
+            return
         }
+        UIApplication.shared.open(settingsURL)
     }
 
     @IBAction func showTracingDetails(_ sender: Any) {
@@ -112,29 +113,23 @@ class SettingsViewController: UIViewController {
     }
 
     private func setNotificationStatus(for status: UNAuthorizationStatus) {
-        switch status {
-        case .authorized:
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            switch status {
+            case .authorized:
                 self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
-            }
-        case .notDetermined:
-            let currentCenter = UNUserNotificationCenter.current()
-            currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            case .notDetermined:
+                let currentCenter = UNUserNotificationCenter.current()
+                currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
 
-                if let error = error {
-                    // Handle the error here.
-                    DispatchQueue.main.async {
+                    if let error = error {
+                        // Handle the error here.
                         self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
+                        return
                     }
-                    return
-                }
-                DispatchQueue.main.async {
                     self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
+                    // Enable or disable features based on the authorization.
                 }
-                // Enable or disable features based on the authorization.
-            }
-        default:
-            DispatchQueue.main.async {
+            default:
                 self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
             }
         }
