@@ -127,6 +127,7 @@
                 <outlet property="contactButton" destination="clu-W7-HTL" id="ZP5-XU-TEM"/>
                 <outlet property="dateLabel" destination="vKd-uI-6fE" id="b0V-HB-wec"/>
                 <outlet property="iconImageView" destination="cC1-tx-ElR" id="rCs-ch-Whd"/>
+                <outlet property="riskIndicatorContainer" destination="6sx-gi-fDy" id="ZRC-6U-0P8"/>
                 <outlet property="titleLabel" destination="gno-nj-MZX" id="mus-pa-Ikd"/>
             </connections>
             <point key="canvasLocation" x="110.86956521739131" y="112.16517857142857"/>

@@ -9,6 +9,10 @@
 import UIKit
 import ExposureNotification
 
+protocol ExposureDetectionViewControllerDelegate: class {
+    func exposureDetectionViewController(_ controller: ExposureDetectionViewController, didReceiveSummary summary: ENExposureDetectionSummary)
+}
+
 final class ExposureDetectionViewController: UIViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -25,6 +29,7 @@ final class ExposureDetectionViewController: UIViewController {
 
     var client: Client?
     var exposureManager: ExposureManager?
+    weak var delegate: ExposureDetectionViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +113,7 @@ final class ExposureDetectionViewController: UIViewController {
             guard let summary = summary else {
                 fatalError("can never happen")
             }
+            self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
             log(message: "Exposure detection finished with summary: \(summary.pretty)")
             self.activityIndicator.stopAnimating()
             self.infoTextView.text = summary.pretty
