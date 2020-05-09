@@ -13,6 +13,16 @@ enum ExposureNotificationError: Error {
     case exposureNotificationAuthorization
 }
 
+struct Preconditions: OptionSet {
+    let rawValue: Int
+
+    static let authorized = Preconditions(rawValue: 1 << 0)
+    static let enabled = Preconditions(rawValue: 1 << 1)
+    static let active = Preconditions(rawValue: 1 << 2)
+
+    static let all: Preconditions = [.authorized, .enabled, .active]
+}
+
 @objc protocol Manager: NSObjectProtocol {
     static var authorizationStatus: ENAuthorizationStatus { get }
     func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
@@ -112,9 +122,9 @@ final class ExposureManager: NSObject {
 
         let message = """
         New status of EN framework:
-            Authorized: \(ENManager.authorizationStatus.description())
+            Authorized: \(ENManager.authorizationStatus.debugDescription)
             enabled: \(manager.exposureNotificationEnabled)
-            status: \(manager.exposureNotificationStatus.description())
+            status: \(manager.exposureNotificationStatus.debugDescription)
         """
         log(message: message)
 
