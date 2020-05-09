@@ -82,7 +82,7 @@ class SettingsViewController: UIViewController {
     }
 
     private func setupView() {
-        #if DEBUG
+        #if !APP_STORE
             sendLogFileView.isHidden = false
         #endif
         // receive status of manager
@@ -92,23 +92,27 @@ class SettingsViewController: UIViewController {
 
         tracingStackView.isUserInteractionEnabled = false
         notificationStackView.isUserInteractionEnabled = false
-        tracingContainerView.setBorder(at: [.top, .bottom],
-                                       with: UIColor.preferredColor(for: ColorStyle.border),
-                                       thickness: 1)
+        tracingContainerView.setBorder(
+            at: [.top, .bottom],
+            with: UIColor.preferredColor(for: ColorStyle.border),
+            thickness: 1
+        )
         notificationsContainerView.setBorder(at: [.top, .bottom], with: UIColor.preferredColor(for: ColorStyle.border), thickness: 1)
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(willEnterForeground),
-                                               name: UIApplication.willEnterForegroundNotification,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willEnterForeground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: UIApplication.shared
+        )
     }
 
     private func notificationSettings() {
         let currentCenter = UNUserNotificationCenter.current()
 
-        currentCenter.getNotificationSettings(completionHandler: { settings in
+        currentCenter.getNotificationSettings { settings in
             self.setNotificationStatus(for: settings.authorizationStatus)
-        })
+        }
     }
 
     private func setTrackingStatus(for status: ENStatus) {
@@ -131,15 +135,16 @@ class SettingsViewController: UIViewController {
                 self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
             case .notDetermined:
                 let currentCenter = UNUserNotificationCenter.current()
-                currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-
-                    if let error = error {
-                        // Handle the error here.
-                        self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
-                        return
+                currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { _, error in
+                    DispatchQueue.main.async {
+                        if error != nil {
+                            // Handle the error here.
+                            self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
+                            return
+                        }
+                        self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
+                        // Enable or disable features based on the authorization.
                     }
-                    self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
-                    // Enable or disable features based on the authorization.
                 }
             default:
                 self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
