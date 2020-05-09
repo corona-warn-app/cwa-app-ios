@@ -49,6 +49,8 @@ enum AppStrings {
     enum Settings {
         static let trackingStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
         static let trackingStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
+        static let notificationStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
+        static let notificationStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
     }
 
     enum Onboarding {
