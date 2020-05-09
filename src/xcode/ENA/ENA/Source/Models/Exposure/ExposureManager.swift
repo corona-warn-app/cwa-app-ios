@@ -27,9 +27,7 @@ enum ExposureNotificationError: Error {
 
 extension ENManager: Manager {}
 
-/**
-*   @brief    Wrapper for ENManager to avoid code duplication and to abstract error handling
-*/
+/// Wrapper for ENManager to avoid code duplication and to abstract error handling
 final class ExposureManager: NSObject {
 
     typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
@@ -137,39 +135,38 @@ final class ExposureManager: NSObject {
 }
 
 // MARK: Pretty print (Only for debugging)
-
-fileprivate extension ENStatus {
-    func description() -> String {
-        switch self.rawValue {
-        case ENStatus.unknown.rawValue:
+extension ENStatus: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        switch self {
+        case .unknown:
             return "unknown"
-        case ENStatus.active.rawValue:
+        case .active:
             return "active"
-        case ENStatus.disabled.rawValue:
+        case .disabled:
             return "disabled"
-        case ENStatus.bluetoothOff.rawValue:
+        case .bluetoothOff:
             return "bluetoothOff"
-        case ENStatus.restricted.rawValue:
+        case .restricted:
             return "restricted"
         default:
-            return ""
+            return "not handled"
         }
     }
 }
 
-fileprivate extension ENAuthorizationStatus {
-    func description() -> String {
-        switch self.rawValue {
-        case ENAuthorizationStatus.unknown.rawValue:
+extension ENAuthorizationStatus: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        switch self {
+        case .unknown:
             return "unknown"
-        case ENAuthorizationStatus.restricted.rawValue:
+        case .restricted:
             return "restricted"
-        case ENAuthorizationStatus.authorized.rawValue:
+        case .authorized:
             return "authorized"
-        case ENAuthorizationStatus.notAuthorized.rawValue:
+        case .notAuthorized:
             return "not authorized"
         default:
-            return ""
+            return "not handled"
         }
     }
 }
