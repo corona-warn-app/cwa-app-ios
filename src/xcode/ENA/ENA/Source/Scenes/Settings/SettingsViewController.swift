@@ -13,15 +13,32 @@ import MessageUI
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var trackingStatusLabel: UILabel!
-    @IBOutlet weak var notificationsSwitch: UISwitch!
-    @IBOutlet weak var dataInWifiOnlySwitch: UISwitch!
+    @IBOutlet weak var dataInWifiOnlySwitch: ENASwitch!
     @IBOutlet weak var sendLogFileView: UIView!
+    @IBOutlet weak var tracingStackView: UIStackView!
+    @IBOutlet weak var tracingContainerView: UIView!
+    @IBOutlet weak var tracingButton: UIButton!
+    @IBOutlet weak var notificationStatusLabel: UILabel!
+    @IBOutlet weak var notificationsContainerView: UIView!
+    @IBOutlet weak var notificationStackView: UIStackView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         setupView()
+    }
+
+    @IBAction func showNotificationSettings(_ sender: Any) {
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsURL) else {
+            return
+        }
+        UIApplication.shared.open(settingsURL)
+    }
+
+    @IBAction func showTracingDetails(_ sender: Any) {
+        let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
+        present(vc, animated: true, completion: nil)
     }
 
     @IBAction func sendLogFile(_ sender: Any) {
@@ -57,6 +74,11 @@ class SettingsViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
+    @objc
+    private func willEnterForeground() {
+        notificationSettings()
+    }
+
     private func setupView() {
         #if DEBUG
             sendLogFileView.isHidden = false
@@ -64,6 +86,27 @@ class SettingsViewController: UIViewController {
         // receive status of manager
         let status = ENStatus.active
         setTrackingStatus(for: status)
+        notificationSettings()
+
+        tracingStackView.isUserInteractionEnabled = false
+        notificationStackView.isUserInteractionEnabled = false
+        tracingContainerView.setBorder(at: [.top, .bottom],
+                                       with: UIColor.preferredColor(for: ColorStyle.border),
+                                       thickness: 1)
+        notificationsContainerView.setBorder(at: [.top, .bottom], with: UIColor.preferredColor(for: ColorStyle.border), thickness: 1)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(willEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
+    }
+
+    private func notificationSettings() {
+        let currentCenter = UNUserNotificationCenter.current()
+
+        currentCenter.getNotificationSettings(completionHandler: { settings in
+            self.setNotificationStatus(for: settings.authorizationStatus)
+        })
     }
 
     private func setTrackingStatus(for status: ENStatus) {
@@ -75,6 +118,29 @@ class SettingsViewController: UIViewController {
         default:
             DispatchQueue.main.async {
                 self.trackingStatusLabel.text = AppStrings.Settings.trackingStatusInactive
+            }
+        }
+    }
+
+    private func setNotificationStatus(for status: UNAuthorizationStatus) {
+        DispatchQueue.main.async {
+            switch status {
+            case .authorized:
+                self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
+            case .notDetermined:
+                let currentCenter = UNUserNotificationCenter.current()
+                currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+
+                    if let error = error {
+                        // Handle the error here.
+                        self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
+                        return
+                    }
+                    self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
+                    // Enable or disable features based on the authorization.
+                }
+            default:
+                self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
             }
         }
     }
