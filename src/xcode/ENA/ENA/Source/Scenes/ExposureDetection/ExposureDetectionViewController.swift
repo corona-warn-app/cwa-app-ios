@@ -31,6 +31,8 @@ final class ExposureDetectionViewController: UIViewController {
     var client: Client?
     var exposureManager: ExposureManager?
     weak var delegate: ExposureDetectionViewControllerDelegate?
+    weak var exposureDetectionSummary: ENExposureDetectionSummary?
+    var riskView: RiskView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +62,11 @@ final class ExposureDetectionViewController: UIViewController {
         guard let riskView = UINib(nibName: "RiskView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? RiskView else {
             return
         }
+        if let summary = exposureDetectionSummary {
+            riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
+            riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
+        }
+        riskView.titleRiskLabel.text = "Kein Risiko"
         riskView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(riskView)
         NSLayoutConstraint.activate([
@@ -68,6 +75,7 @@ final class ExposureDetectionViewController: UIViewController {
             riskView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             riskView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
         ])
+        self.riskView = riskView
     }
 
     @objc

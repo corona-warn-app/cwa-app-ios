@@ -105,6 +105,7 @@ class HomeViewController: UIViewController {
                 exposureDetectionViewController.delegate = self
                 exposureDetectionViewController.client = self.client
                 exposureDetectionViewController.exposureManager = manager
+                exposureDetectionViewController.exposureDetectionSummary = self.summary
                 self.present(exposureDetectionViewController, animated: true, completion: nil)
             }
         }

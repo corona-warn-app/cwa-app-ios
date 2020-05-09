@@ -129,6 +129,9 @@
                                             <integer key="value" value="6"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="viewTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="cwj-dJ-Hog"/>
+                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Bu-H5-aJe">
                                     <rect key="frame" x="0.0" y="100" width="382" height="20"/>
@@ -150,6 +153,14 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="daysSinceLastExposureLabel" destination="iXX-rl-0ra" id="C36-YR-vCf"/>
+                <outlet property="lastSyncLabel" destination="JCa-mv-ZV6" id="ptJ-Xw-vHn"/>
+                <outlet property="matchedKeyCountLabel" destination="5Su-g8-hJq" id="Tu3-Lh-UXS"/>
+                <outlet property="refreshButton" destination="7I7-N5-2jD" id="zJQ-rR-V1x"/>
+                <outlet property="riskDetailDescriptionLabel" destination="g8f-vF-ejN" id="fp2-h2-JAa"/>
+                <outlet property="titleRiskLabel" destination="Xxn-dE-KtX" id="HYK-Zl-o04"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="148.66071428571428"/>
         </view>
     </objects>
