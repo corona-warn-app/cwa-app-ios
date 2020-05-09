@@ -58,21 +58,42 @@ final class ExposureDetectionViewController: UIViewController {
         infoTextView.text = AppStrings.ExposureDetection.infoText
     }
 
+    private func updateRiskView() {
+        guard let riskView = self.riskView else {
+            return
+        }
+
+        if let summary = exposureDetectionSummary, summary.riskLevel != .unknown {
+           riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
+           riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
+
+           if summary.riskLevel == .low {
+               riskView.highRiskDetailView.isHidden = false
+               riskView.riskDetailDescriptionLabel.text = "Es wurde ein geringes Risiko erkannt"
+               riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
+               riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.critical)
+           } else {
+               riskView.highRiskDetailView.isHidden = false
+               riskView.riskDetailDescriptionLabel.text = "Vor \(summary.daysSinceLastExposure) Tagen hattest du das letzte Mal Kontakt mit Personen, die mit COVID 19 infiziert wurden"
+               riskView.riskImageView.image = UIImage(systemName: "cloud.bolt")
+               riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.negative)
+           }
+
+        } else {
+           riskView.titleRiskLabel.text = "Risiko unbekannt"
+           riskView.daysSinceLastExposureLabel.text = "0"
+           riskView.matchedKeyCountLabel.text = "0"
+           riskView.highRiskDetailView.isHidden = true
+           riskView.riskDetailDescriptionLabel.text = "Es wurde kein Kontakt mit COVID 19 erkannt"
+           riskView.riskImageView.image = UIImage(systemName: "sun.min")
+           riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
+       }
+
+    }
+
     private func setupHeaderRiskView(to view: UIView) {
         guard let riskView = UINib(nibName: "RiskView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? RiskView else {
             return
-        }
-        if let summary = exposureDetectionSummary {
-            riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
-            riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
-        } else {
-            riskView.titleRiskLabel.text = "Risiko unbekannt"
-            riskView.daysSinceLastExposureLabel.text = "0"
-            riskView.matchedKeyCountLabel.text = "0"
-            riskView.highRiskDetailView.isHidden = true
-            riskView.riskDetailDescriptionLabel.text = "Es wurde kein Kontakt mit COVID 19 erkannt"
-            riskView.riskImageView.image = UIImage(systemName: "sun.min")
-            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
         }
         riskView.translatesAutoresizingMaskIntoConstraints = false
         riskView.delegate = self
@@ -84,6 +105,7 @@ final class ExposureDetectionViewController: UIViewController {
             riskView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
         ])
         self.riskView = riskView
+        updateRiskView()
     }
 
     @objc
@@ -145,10 +167,12 @@ final class ExposureDetectionViewController: UIViewController {
             guard let summary = summary else {
                 fatalError("can never happen")
             }
+            self.exposureDetectionSummary = summary
             self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
             log(message: "Exposure detection finished with summary: \(summary.pretty)")
             self.activityIndicator.stopAnimating()
             self.infoTextView.text = summary.pretty
+            self.updateRiskView()
         }
     }
 }
@@ -166,5 +190,23 @@ fileprivate extension ENExposureDetectionSummary {
         matchedKeyCount: \(matchedKeyCount)
         maximumRiskScore: \(maximumRiskScore)
         """
+    }
+}
+
+private extension ENExposureDetectionSummary {
+    var riskLevel: RiskCollectionViewCell.RiskLevel {
+        // The mapping between the maximum risk score and the `RiskCollectionViewCell.RiskLevel`
+        // is simply our best guess for the moment. If you see this and have more information about the
+        // mapping to use don't hesitate to change the following code.
+        switch maximumRiskScore {
+        case 1, 2, 3:
+            return .low
+        case 4, 5, 6:
+            return .moderate
+        case 7, 8:
+            return .high
+        default:
+            return .unknown
+        }
     }
 }
