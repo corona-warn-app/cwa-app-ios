@@ -13,8 +13,18 @@ protocol OnboardingNextPageAvailable {
 }
 
 final class OnboardingViewController: UIViewController {
+    // MARK: Creating an Onboarding View Controller
+    init?(coder: NSCoder, exposureManager: ExposureManager) {
+        self.manager = exposureManager
+        super.init(coder: coder)
+    }
 
-    var manager: ExposureManager?
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has intentionally not been implemented")
+    }
+
+    // MARK: Properties
+    let manager: ExposureManager
 
     private var pages: [OnboardingInfoViewController] = []
     private var onboardingInfos = OnboardingInfo.testData()
@@ -45,7 +55,6 @@ final class OnboardingViewController: UIViewController {
         for i in 0..<onboardingInfos.count {
             pages[i].onboardingInfo = onboardingInfos[i]
             pages[i].delegate = self
-            pages[i].manager = manager
         }
     }
 
@@ -73,7 +82,6 @@ final class OnboardingViewController: UIViewController {
 }
 
 extension OnboardingViewController: OnboardingInfoViewControllerDelegate {
-
     func didFinished(onboardingInfoViewController: OnboardingInfoViewController) {
         if currentIndex == maxIndex {
             PersistenceManager.shared.isOnboarded = true

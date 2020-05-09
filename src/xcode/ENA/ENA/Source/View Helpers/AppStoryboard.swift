@@ -19,7 +19,6 @@ enum AppStoryboard: String {
     case exposureDetection = "ExposureDetection"
     case appInformation = "AppInfo"
 
-
     var instance: UIStoryboard {
         return UIStoryboard(name: rawValue, bundle: nil)
     }
@@ -34,7 +33,7 @@ enum AppStoryboard: String {
         }
         return vc
     }
-    
+
     func initiateInitial<T: UIViewController>() -> T {
         let storyboard = UIStoryboard(name: rawValue, bundle: nil)
         guard let vc = storyboard.instantiateInitialViewController() as? T else {
@@ -44,5 +43,4 @@ enum AppStoryboard: String {
         }
         return vc
     }
-    
 }

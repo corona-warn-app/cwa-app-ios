@@ -68,7 +68,6 @@ final class ExposureDetectionViewController: UIViewController {
         nextSyncLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.nextSync, 18)
     }
 
-
     @IBAction func refresh(_ sender: UIButton) {
         guard let client = client else {
             let error = "`client` must be set before being able to refresh."

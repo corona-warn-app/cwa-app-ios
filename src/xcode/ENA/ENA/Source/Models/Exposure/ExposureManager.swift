@@ -36,9 +36,6 @@ struct Preconditions: OptionSet {
 
 extension ENManager: Manager {}
 
-//
-//extension ENManager: Manager {}
-
 /**
 *   @brief    Wrapper for ENManager to avoid code duplication and to abstract error handling
 */

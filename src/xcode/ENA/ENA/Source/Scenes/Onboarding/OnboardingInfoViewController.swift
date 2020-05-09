@@ -14,18 +14,22 @@ protocol OnboardingInfoViewControllerDelegate: AnyObject {
 }
 
 class OnboardingInfoViewController: UIViewController {
-    
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var textView: UITextView!
-    
     weak var delegate: OnboardingInfoViewControllerDelegate?
-    var manager: ExposureManager?
-    
+
     var onboardingInfo: OnboardingInfo! {
         didSet {
             updateUI()
         }
+    }
+
+    // This gives us access to the exposure manager of our parent.
+    // We should find a nicer way to get to the manager though.
+    private var manager: ExposureManager {
+        // swiftlint:disable:next force_cast
+        (parent as! OnboardingViewController).manager
     }
 
     override func viewDidLoad() {
@@ -36,7 +40,7 @@ class OnboardingInfoViewController: UIViewController {
         viewRespectsSystemMinimumLayoutMargins = false
         view.layoutMargins = .zero
     }
-    
+
     func run(index: Int) {
         let closure: () -> Void = {
             self.delegate?.didFinished(onboardingInfoViewController: self)
@@ -47,7 +51,7 @@ class OnboardingInfoViewController: UIViewController {
             closure()
         }
     }
-    
+
     private func updateUI() {
         guard isViewLoaded else { return }
         guard let onboardingInfo = onboardingInfo else { return }
@@ -57,15 +61,9 @@ class OnboardingInfoViewController: UIViewController {
         imageView.image = UIImage(named: onboardingInfo.imageName)
         textView.text = onboardingInfo.text
     }
-    
-    
+
     // MARK: Exposure notifications
-    
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
-        // still in the development
-        guard let manager = manager else {
-            fatalError("Didn't inject ExposureManager into HomeVC")
-        }
         manager.activate { error in
             if let error = error {
                 switch error {
@@ -79,7 +77,7 @@ class OnboardingInfoViewController: UIViewController {
             } else if let error = error {
                 self.showError(error, from: self, completion: completion)
             } else {
-                self.manager!.enable { enableError in
+                self.manager.enable { enableError in
                     if let enableError = enableError {
                         switch enableError {
                         case .exposureNotificationRequired:
@@ -93,12 +91,12 @@ class OnboardingInfoViewController: UIViewController {
             }
         }
     }
-    
+
     func openSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
-    
+
     func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
         let alert = UIAlertController(title: "Error", message: String(describing: error), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel))

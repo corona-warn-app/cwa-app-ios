@@ -31,14 +31,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootViewController: UIViewController
         switch instructor {
         case .home:
-            let homeController: HomeViewController = AppStoryboard.home.initiateInitial()
-            homeController.manager = manager
-            rootViewController = homeController
-
+            let storyboard = AppStoryboard.home.instance
+            let homeViewController = storyboard.instantiateInitialViewController { coder -> HomeViewController? in
+                HomeViewController(coder: coder, exposureManager: manager)
+            }
+            rootViewController = homeViewController!
         case .onboarding:
-            let onboardingController: OnboardingViewController = OnboardingViewController.initiate(for: .onboarding)
-            onboardingController.manager = manager
-            rootViewController = onboardingController
+            let storyboard = AppStoryboard.onboarding.instance
+            let onboardingViewController = storyboard.instantiateInitialViewController { coder -> OnboardingViewController? in
+                OnboardingViewController(coder: coder, exposureManager: manager)
+            }
+            rootViewController = onboardingViewController!
         }
 
         window?.rootViewController = rootViewController

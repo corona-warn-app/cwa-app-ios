@@ -9,18 +9,20 @@
 import UIKit
 import ExposureNotification
 
-class HomeViewController: UIViewController {
-    
-    @IBOutlet var topContainerView: UIView!
-    
-    enum Section: Int {
-		// swiftlint:disable explicit_enum_raw_value
-        case actions
-        case infos
-        case settings
-		// swiftlint:enable explicit_enum_raw_value
+final class HomeViewController: UIViewController {
+    // MARK: Creating a Home View Controller
+    init?(coder: NSCoder, exposureManager: ExposureManager) {
+        self.exposureManager = exposureManager
+        super.init(coder: coder)
     }
-    var manager: ExposureManager?
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has intentionally not been implemented")
+    }
+    
+    // MARK: Properties
+    @IBOutlet var topContainerView: UIView!
+    let exposureManager: ExposureManager?
     var summary: ENExposureDetectionSummary?
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     private var collectionView: UICollectionView! = nil
@@ -37,6 +39,16 @@ class HomeViewController: UIViewController {
         DMDeveloperMenu(presentingViewController: self, client: client)
     }()
     
+    // MARK: Types
+    enum Section: Int {
+        // swiftlint:disable explicit_enum_raw_value
+        case actions
+        case infos
+        case settings
+        // swiftlint:enable explicit_enum_raw_value
+    }
+    
+    // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         homeInteractor = HomeInteractor(homeViewController: self)
@@ -45,30 +57,30 @@ class HomeViewController: UIViewController {
         configureDataSource()
         configureUI()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         developerMenu.enableIfAllowed()
     }
     
     // MARK: Actions
-    
     @IBAction private func infoButtonTapped(_ sender: UIButton) {
         log(message: "")
     }
     
+    // MARK: Misc
     func showSubmitResult() {
         let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
         vc.exposureSubmissionService = ExposureSubmissionServiceImpl(client: client)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
-    
+
     func showExposureNotificationSetting() {
         let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
         present(vc, animated: true, completion: nil)
     }
-    
+
     func showSetting() {
         let vc = SettingsViewController.initiate(for: .settings)
         let naviController = UINavigationController(rootViewController: vc)
@@ -79,15 +91,15 @@ class HomeViewController: UIViewController {
         let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
         present(developerMenuController, animated: true, completion: nil)
     }
-    
+
     func showInviteFriends() {
         let vc = FriendsInviteController.initiate(for: .inviteFriends)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
-    
+
     func showExposureDetection() {
-        guard let manager = manager else {
+        guard let manager = exposureManager else {
             fatalError("Didn't inject ExposureManager into HomeVC")
         }
         manager.activate { [weak self] error in
@@ -119,7 +131,7 @@ class HomeViewController: UIViewController {
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
-    
+
     private func showScreen(at indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
         let row = indexPath.row
@@ -142,18 +154,18 @@ class HomeViewController: UIViewController {
             showSetting()
         }
     }
-    
+
     // MARK: Configuration
     private func prepareData() {
         cellConfigurators = homeInteractor.cellConfigurators()
     }
-    
+
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self
         return homeLayout.collectionLayout()
     }
-    
+
     private func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.delegate = self
@@ -162,10 +174,10 @@ class HomeViewController: UIViewController {
         view.addSubview(collectionView)
         NSLayoutConstraint.activate(
             [
-            collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-            collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
+                collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ]
         )
         collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
