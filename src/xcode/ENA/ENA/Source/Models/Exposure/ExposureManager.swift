@@ -52,20 +52,6 @@ final class ExposureManager: NSObject {
     init(manager: Manager = ENManager()) {
         self.manager = manager
         super.init()
-
-        observeENFramework()
-    }
-
-    // MARK: Observers
-
-    private func observeENFramework() {
-        // TODO: Add delegate, etc. here to update changes
-        exposureNotificationEnabledObserver = observe(\.manager.exposureNotificationEnabled, options: [.new]) {_, _ in
-            _ = self.preconditions()
-        }
-        exposureNotificationStatus = observe(\.manager.exposureNotificationStatus, options: [.new]) {_, _ in
-            _ = self.preconditions()
-        }
     }
 
     // MARK: Activation
@@ -106,35 +92,6 @@ final class ExposureManager: NSObject {
             }
             completion(nil)
         }
-    }
-
-    /// Returns an instance of the OptionSet `Preconditions`
-    /// Only if `Preconditions.all()`
-    func preconditions() -> Preconditions {
-        var preconditions = Preconditions()
-        if type(of: manager).authorizationStatus == ENAuthorizationStatus.authorized {
-            preconditions.insert(.authorized)
-        }
-        if manager.exposureNotificationEnabled {
-            preconditions.insert(.enabled)
-        }
-        if manager.exposureNotificationStatus == .active {
-            preconditions.insert(.active)
-        }
-
-        let message = """
-        New status of EN framework:
-            Authorized: \(ENManager.authorizationStatus.description())
-            enabled: \(manager.exposureNotificationEnabled)
-            status: \(manager.exposureNotificationStatus.description())
-        """
-        log(message: message)
-
-        if preconditions == Preconditions.all {
-            log(message: "Enabled")
-        }
-
-        return preconditions
     }
 
     // MARK: Detect Exposures
