@@ -56,7 +56,7 @@ final class ExposureDetectionViewController: UIViewController {
 
     // MARK: Notification Handler
     @objc
-	func updateLastSyncLabel() {
+    func updateLastSyncLabel() {
         guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
             lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
             return
@@ -100,25 +100,43 @@ final class ExposureDetectionViewController: UIViewController {
         }
     }
 
+    // Important:
+    // See HomeViewController for more details as to why we do this.
     private func startExposureDetector(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL]) {
-        guard let exposureManager = exposureManager else {
-            fatalError("exposureManager cannot be nil here.")
-        }
         log(message: "Starting exposure detector")
         activityIndicator.startAnimating()
-        _ = exposureManager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { summary, error in
+
+        let exposureManager = ExposureManager()
+
+        func stopAndInvalidate() {
+            activityIndicator.stopAnimating()
+            exposureManager.invalidate()
+        }
+
+        func start() {
+            _ = exposureManager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { summary, error in
+                if let error = error {
+                    logError(message: "Exposure detection failed due to underlying error: \(error.localizedDescription)")
+                    stopAndInvalidate()
+                    return
+                }
+                guard let summary = summary else {
+                    fatalError("can never happen")
+                }
+                self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
+                log(message: "Exposure detection finished with summary: \(summary.pretty)")
+                self.infoTextView.text = summary.pretty
+                stopAndInvalidate()
+            }
+        }
+
+        exposureManager.activate { error in
             if let error = error {
-                self.activityIndicator.stopAnimating()
-                logError(message: "Exposure detection failed due to underlying error: \(error.localizedDescription)")
+                logError(message: "Unable to detect exposures because exposure manager could not be activated due to: \(error)")
+                stopAndInvalidate()
                 return
             }
-            guard let summary = summary else {
-                fatalError("can never happen")
-            }
-            self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
-            log(message: "Exposure detection finished with summary: \(summary.pretty)")
-            self.activityIndicator.stopAnimating()
-            self.infoTextView.text = summary.pretty
+            start()
         }
     }
 }
