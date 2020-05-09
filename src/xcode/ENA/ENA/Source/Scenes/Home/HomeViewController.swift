@@ -65,10 +65,12 @@ class HomeViewController: UIViewController {
     
     func showExposureNotificationSetting() {
         
-        //TODO: This is just a test.
-        let enStoryBoard = UIStoryboard(name: "ExposureNotificationSetting", bundle: nil)
+                
+        let enStoryBoard = AppStoryboard.exposureNotificationSetting.instance
         
+        //TODO: This is a workaround approach, create exposure manager everytime.
         let manager = ExposureManager()
+        
         manager.activate { [weak self] error in
             guard let self = self else {
                 return
@@ -85,12 +87,11 @@ class HomeViewController: UIViewController {
             } else {
                 let vc = enStoryBoard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
                     return ExposureNotificationSettingViewController(coder: coder, manager: manager)
-                })
+                }
+                )
                 self.present(vc, animated: true, completion: nil)
             }
         }
-                        
-        
     }
     
     func showSetting() {
