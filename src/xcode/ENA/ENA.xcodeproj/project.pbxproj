@@ -65,6 +65,7 @@
 		B102BDC024603FF800CD55A2 /* exposure_keys.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */; };
 		B107C95D246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B107C95C246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift */; };
 		B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = B10FB02F246036F3004CA11E /* SwiftProtobuf */; };
+		B111EDEB2465B1E7001AEBB4 /* MockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EDEA2465B1E7001AEBB4 /* MockClient.swift */; };
 		B1741B492462C207006275D9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B482462C207006275D9 /* Client.swift */; };
 		B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */; };
 		B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B432461C257006275D9 /* DMDeveloperMenu.swift */; };
@@ -186,6 +187,7 @@
 		B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_keys.pb.swift; path = ../../../../../proto/output/exposure_keys.pb.swift; sourceTree = "<group>"; };
 		B102BDC22460410600CD55A2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B107C95C246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeveloperDiagnosisKeyFileProtobuf.pb.swift; path = ../../../../../proto/output/DeveloperDiagnosisKeyFileProtobuf.pb.swift; sourceTree = "<group>"; };
+		B111EDEA2465B1E7001AEBB4 /* MockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockClient.swift; path = ENA/Source/Client/MockClient.swift; sourceTree = SOURCE_ROOT; };
 		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeViewController.swift; sourceTree = "<group>"; };
 		B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeScanViewController.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B111EDEC2465B1F4001AEBB4 /* Client */,
 				CD99A3C82461A44B00BF12AF /* View Helpers */,
 				51CE1BBB2460B1BA002CF42A /* Protocols */,
 				8595BF5D246032C40056EA27 /* Views */,
@@ -548,13 +551,21 @@
 		B102BDC12460405F00CD55A2 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
-				B1741B482462C207006275D9 /* Client.swift */,
 				B102BDBE24603FF800CD55A2 /* exposure_keys.pb.swift */,
 				B102BDBD24603FF800CD55A2 /* security.pb.swift */,
 				B107C95C246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift */,
 				B102BDC22460410600CD55A2 /* README.md */,
 			);
 			path = Backend;
+			sourceTree = "<group>";
+		};
+		B111EDEC2465B1F4001AEBB4 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				B111EDEA2465B1E7001AEBB4 /* MockClient.swift */,
+				B1741B482462C207006275D9 /* Client.swift */,
+			);
+			path = Client;
 			sourceTree = "<group>";
 		};
 		B1569DD5245D6C790079FCD7 /* Developer Menu */ = {
@@ -845,6 +856,7 @@
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */,
 				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
+				B111EDEB2465B1E7001AEBB4 /* MockClient.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
 				B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */,
