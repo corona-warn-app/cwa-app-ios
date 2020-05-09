@@ -13,7 +13,7 @@ import MessageUI
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var trackingStatusLabel: UILabel!
-    @IBOutlet weak var dataInWifiOnlySwitch: UISwitch!
+    @IBOutlet weak var dataInWifiOnlySwitch: ENASwitch!
     @IBOutlet weak var sendLogFileView: UIView!
     @IBOutlet weak var tracingStackView: UIStackView!
     @IBOutlet weak var tracingContainerView: UIView!

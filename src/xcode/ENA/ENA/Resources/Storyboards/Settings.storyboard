@@ -324,7 +324,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="clK-Ow-biC">
                                                                 <rect key="frame" x="282" y="0.0" width="100" height="60"/>
                                                                 <subviews>
-                                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kus-5F-HfW">
+                                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kus-5F-HfW" customClass="ENASwitch" customModule="ENA" customModuleProvider="target">
                                                                         <rect key="frame" x="25.5" y="14.5" width="51" height="31"/>
                                                                     </switch>
                                                                 </subviews>
@@ -434,7 +434,7 @@
                     <navigationItem key="navigationItem" title="Einstellungen" id="S63-om-aAO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="dataInWifiOnlySwitch" destination="kus-5F-HfW" id="Cfz-zh-oc0"/>
+                        <outlet property="dataInWifiOnlySwitch" destination="kus-5F-HfW" id="yLX-iF-kmt"/>
                         <outlet property="notificationStackView" destination="nvc-X3-7V1" id="en6-eu-GXj"/>
                         <outlet property="notificationStatusLabel" destination="iPP-r8-fgN" id="6gf-DW-MWU"/>
                         <outlet property="notificationsContainerView" destination="Abn-Sa-AcY" id="ayV-e3-Cig"/>
