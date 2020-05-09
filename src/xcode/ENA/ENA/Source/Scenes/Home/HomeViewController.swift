@@ -22,7 +22,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: Properties
     @IBOutlet var topContainerView: UIView!
-    let exposureManager: ExposureManager?
+    private let exposureManager: ExposureManager
     var summary: ENExposureDetectionSummary?
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     private var collectionView: UICollectionView! = nil
@@ -99,10 +99,7 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureDetection() {
-        guard let manager = exposureManager else {
-            fatalError("Didn't inject ExposureManager into HomeVC")
-        }
-        manager.activate { [weak self] error in
+        exposureManager.activate { [weak self] error in
             guard let self = self else {
                 return
             }
@@ -119,11 +116,10 @@ final class HomeViewController: UIViewController {
                 let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
                 exposureDetectionViewController.delegate = self
                 exposureDetectionViewController.client = self.client
-                exposureDetectionViewController.exposureManager = manager
+                exposureDetectionViewController.exposureManager = self.exposureManager
                 self.present(exposureDetectionViewController, animated: true, completion: nil)
             }
         }
-        
     }
 
     func showAppInformation() {
