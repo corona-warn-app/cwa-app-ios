@@ -108,7 +108,7 @@ final class HomeViewController: UIViewController {
         //   exposureNotificationAuthorization were handled by just logging a warning.
         // - The activated manager was injected into `ExposureDetectionViewController` by setting a property on it.
         //
-        // We have temporarily remove this code because it caused an error (invalid use of API - detection already running).
+        // We had to temporarily remove this code because it caused an error (invalid use of API - detection already running).
         // This error also happens in Apple's sample code and does not happen if ExposureManager is created on demand for
         // every exposure detection request. There are other situations where this error does not happen like when the internal
         // state of `ENManager` is mutated before kicking of an exposure detection. Our current workaround is to simply
