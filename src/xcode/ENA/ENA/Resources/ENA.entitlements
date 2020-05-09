@@ -4,5 +4,7 @@
 <dict>
 	<key>com.apple.developer.exposure-notification</key>
 	<true/>
+	<key>com.apple.developer.exposure-notification-test</key>
+	<true/>
 </dict>
 </plist>

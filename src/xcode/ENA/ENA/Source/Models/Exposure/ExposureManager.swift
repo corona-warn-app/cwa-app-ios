@@ -32,6 +32,7 @@ struct Preconditions: OptionSet {
     func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler)
     @objc dynamic var exposureNotificationStatus: ENStatus { get }
     func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+    func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 }
 
 extension ENManager: Manager {}
@@ -145,6 +146,9 @@ final class ExposureManager: NSObject {
     }
 
     // MARK: Diagnosis Keys
+    func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+        manager.getTestDiagnosisKeys(completionHandler: completionHandler)
+    }
 
     /// Wrapper for `ENManager.getDiagnosisKeys`
     /// `ExposureManager` needs to be activated and enabled

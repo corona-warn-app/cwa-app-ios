@@ -37,27 +37,35 @@ final class DMViewController: UITableViewController {
 
         tableView.register(KeyCell.self, forCellReuseIdentifier: KeyCell.reuseIdentifier)
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "qrcode.viewfinder"), style: .plain, target: self, action: #selector(showScanner))
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(generateTestKeys)),
+            UIBarButtonItem(image: UIImage(systemName: "qrcode.viewfinder"), style: .plain, target: self, action: #selector(showScanner))
+        ]
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        resetAndFetchKeys()
+    }
+
+    // MARK: Fetching Keys
+    private func resetAndFetchKeys() {
         urls = []
         keys = []
-        client.fetch() { result in
+        client.fetch { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let urls):
                 self.urls = urls
                 self.urls.forEach { url in
                     self.extractKeys(from: url)
                 }
-            case .failure(_):
+            case .failure:
                 self.urls = []
             }
             self.tableView.reloadData()
         }
     }
-    
 
     private func extractKeys(from url: URL) {
         guard let data = try? Data(contentsOf: url) else {
@@ -72,7 +80,7 @@ final class DMViewController: UITableViewController {
         }
         keys += file.key
         // Newer keys come before older keys
-        keys.sort { (lhKey, rhKey) -> Bool in
+        keys.sort { lhKey, rhKey -> Bool in
             return lhKey.rollingStartNumber > rhKey.rollingStartNumber
         }
     }
@@ -81,6 +89,50 @@ final class DMViewController: UITableViewController {
     @objc
     private func showScanner() {
         present(DMQRCodeScanViewController(delegate: self), animated: true)
+    }
+
+    // MARK: Test Keys
+
+    // This method generates test keys and submits them to the backend.
+    // Later we may split that up in two different actions:
+    // 1. generate the keys
+    // 2. let the tester manually submit those keys using the API
+    // For now we simply submit automatically.
+    @objc
+    private func generateTestKeys() {
+        let manager = ExposureManager()
+        manager.activate { activationError in
+            if let activationError = activationError {
+                logError(message: "Failed to generate test keys because exposure manager could not be activated due to: \(activationError)")
+                return
+            }
+            manager.enable { enableError in
+                if let enableError = enableError {
+                    logError(message: "Failed to generate test keys because exposure manager could not be enabled due to: \(enableError)")
+                    return
+                }
+                manager.getTestDiagnosisKeys { [weak self] keys, error in
+                    guard let self = self else {
+                        return
+                    }
+                    if let error = error {
+                        logError(message: "Failed to generate test keys due to: \(error)")
+                        return
+                    }
+                    // TODO: Invalidate the manager here
+                    let _keys = keys ?? []
+                    log(message: "Got diagnosis keys: \(_keys)", level: .info)
+                    print("Keys: \(String(describing: keys))")
+                    self.client.submit(keys: keys ?? [], tan: "not needed here") { [weak self] submitError in
+                        if let submitError = submitError {
+                            logError(message: "Failed to submit test keys due to: \(submitError)")
+                            return
+                        }
+                        self?.resetAndFetchKeys()
+                    }
+                }
+            }
+        }
     }
 
     // MARK: UITableView
