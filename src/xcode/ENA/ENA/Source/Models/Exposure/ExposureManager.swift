@@ -123,9 +123,9 @@ final class ExposureManager: NSObject {
 
         let message = """
         New status of EN framework:
-            Authorized: \(ENManager.authorizationStatus.rawValue)
+            Authorized: \(ENManager.authorizationStatus.description())
             enabled: \(manager.exposureNotificationEnabled)
-            status: \(manager.exposureNotificationStatus.rawValue)
+            status: \(manager.exposureNotificationStatus.description())
         """
         log(message: message)
 
@@ -182,5 +182,43 @@ final class ExposureManager: NSObject {
 
     deinit {
         manager.invalidate()
+    }
+}
+
+// MARK: Pretty print (Only for debugging)
+
+fileprivate extension ENStatus {
+    func description() -> String {
+        switch self.rawValue {
+        case ENStatus.unknown.rawValue:
+            return "unknown"
+        case ENStatus.active.rawValue:
+            return "active"
+        case ENStatus.disabled.rawValue:
+            return "disabled"
+        case ENStatus.bluetoothOff.rawValue:
+            return "bluetoothOff"
+        case ENStatus.restricted.rawValue:
+            return "restricted"
+        default:
+            return ""
+        }
+    }
+}
+
+fileprivate extension ENAuthorizationStatus {
+    func description() -> String {
+        switch self.rawValue {
+        case ENAuthorizationStatus.unknown.rawValue:
+            return "unknown"
+        case ENAuthorizationStatus.restricted.rawValue:
+            return "restricted"
+        case ENAuthorizationStatus.authorized.rawValue:
+            return "authorized"
+        case ENAuthorizationStatus.notAuthorized.rawValue:
+            return "not authorized"
+        default:
+            return ""
+        }
     }
 }
