@@ -51,6 +51,7 @@
 		51D420D024586AB300AD70CA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CF24586AB300AD70CA /* Settings.storyboard */; };
 		51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
 		85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85142500245DA0B3009D2791 /* UIViewController+Alert.swift */; };
+		8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8539874E2467094E00D28B62 /* AppIcon.xcassets */; };
 		858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858F6F6D245A103C009FFD33 /* ExposureNotification.framework */; };
 		858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858F6F72245AED03009FFD33 /* ExposureNotificationSettingViewController.swift */; };
 		858F6F75245B1374009FFD33 /* ExposureNotificationSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 858F6F74245B1374009FFD33 /* ExposureNotificationSetting.storyboard */; };
@@ -168,6 +169,7 @@
 		51D420D324586DCA00AD70CA /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		71AFBD922464251000F91006 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		85142500245DA0B3009D2791 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		8539874E2467094E00D28B62 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		85790F2E245C6B72003D47E1 /* ENA.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENA.entitlements; sourceTree = "<group>"; };
 		858F6F6D245A103C009FFD33 /* ExposureNotification.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExposureNotification.framework; path = System/Library/Frameworks/ExposureNotification.framework; sourceTree = SDKROOT; };
 		858F6F72245AED03009FFD33 /* ExposureNotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureNotificationSettingViewController.swift; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 		85D75976245706BD008175F0 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				8539874E2467094E00D28B62 /* AppIcon.xcassets */,
 				85D7594A24570491008175F0 /* Assets.xcassets */,
 			);
 			path = Assets;
@@ -775,6 +778,7 @@
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
+				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				EE8599932462EFFD002E7AE2 /* AppInfo.storyboard in Resources */,
 				51CE1B8E246078B6002CF42A /* SettingsCollectionViewCell.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
