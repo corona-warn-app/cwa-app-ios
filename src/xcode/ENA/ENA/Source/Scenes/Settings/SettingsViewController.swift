@@ -48,6 +48,8 @@ class SettingsViewController: UIViewController {
         }
 
         let action = UIAlertAction(title: "Send Log File", style: .default) { [weak self] _ in
+            guard let strongSelf = self else { return }
+
             guard let emailText = alert.textFields?[0].text else {
                 return
             }
@@ -57,7 +59,7 @@ class SettingsViewController: UIViewController {
             }
 
             let composeVC = MFMailComposeViewController()
-            composeVC.delegate = self
+            composeVC.mailComposeDelegate = strongSelf
             composeVC.setToRecipients([emailText])
             composeVC.setSubject("Log File")
 
@@ -144,11 +146,10 @@ class SettingsViewController: UIViewController {
             }
         }
     }
-
 }
 
-extension SettingsViewController: UINavigationControllerDelegate {
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
 }
