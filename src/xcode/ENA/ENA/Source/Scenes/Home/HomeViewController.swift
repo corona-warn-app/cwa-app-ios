@@ -64,8 +64,34 @@ class HomeViewController: UIViewController {
     }
     
     func showExposureNotificationSetting() {
-        let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
-        present(vc, animated: true, completion: nil)
+        
+                
+        let enStoryBoard = AppStoryboard.exposureNotificationSetting.instance
+        
+        //TODO: This is a workaround approach, create exposure manager everytime.
+        let manager = ExposureManager()
+        
+        manager.activate { [weak self] error in
+            guard let self = self else {
+                return
+            }
+            if let error = error {
+                switch error {
+                case .exposureNotificationRequired:
+                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+                case .exposureNotificationAuthorization:
+                    log(message: "Encourage the user to authorize this application", level: .warning)
+                }
+            } else if let error = error {
+                logError(message: error.localizedDescription)
+            } else {
+                let vc = enStoryBoard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
+                    return ExposureNotificationSettingViewController(coder: coder, manager: manager)
+                }
+                )
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
     }
     
     func showSetting() {
