@@ -65,9 +65,17 @@ final class ExposureDetectionViewController: UIViewController {
         if let summary = exposureDetectionSummary {
             riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
             riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
+        } else {
+            riskView.titleRiskLabel.text = "Risiko unbekannt"
+            riskView.daysSinceLastExposureLabel.text = "0"
+            riskView.matchedKeyCountLabel.text = "0"
+            riskView.highRiskDetailView.isHidden = true
+            riskView.riskDetailDescriptionLabel.text = "Es wurde kein Kontakt mit COVID 19 erkannt"
+            riskView.riskImageView.image = UIImage(systemName: "sun.min")
+            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
         }
-        riskView.titleRiskLabel.text = "Kein Risiko"
         riskView.translatesAutoresizingMaskIntoConstraints = false
+        riskView.delegate = self
         view.addSubview(riskView)
         NSLayoutConstraint.activate([
             riskView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -93,7 +101,7 @@ final class ExposureDetectionViewController: UIViewController {
     }
 
 
-    @IBAction func refresh(_ sender: UIButton) {
+    @IBAction func refresh(_ sender: Any) {
         guard let client = client else {
             let error = "`client` must be set before being able to refresh."
             logError(message: error)
@@ -142,6 +150,12 @@ final class ExposureDetectionViewController: UIViewController {
             self.activityIndicator.stopAnimating()
             self.infoTextView.text = summary.pretty
         }
+    }
+}
+
+extension ExposureDetectionViewController: RiskViewDelegate {
+    func refreshView() {
+        self.refresh(self)
     }
 }
 

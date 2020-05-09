@@ -21,6 +21,8 @@ class RiskView: UIView {
     @IBOutlet weak var lastSyncLabel: UILabel!
     @IBOutlet weak var daysSinceLastExposureLabel: UILabel!
     @IBOutlet weak var matchedKeyCountLabel: UILabel!
+    @IBOutlet weak var highRiskDetailView: UIStackView!
+    @IBOutlet weak var riskImageView: UIImageView!
 
     weak var delegate: RiskViewDelegate?
 
