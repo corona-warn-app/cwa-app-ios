@@ -108,6 +108,7 @@ final class ExposureManager {
     func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
         if !manager.exposureNotificationEnabled {
             let error = ENError(.notEnabled)
+            logError(message: error.localizedDescription)
             completionHandler(nil, error)
             return
         }
@@ -125,10 +126,14 @@ final class ExposureManager {
                 completion(ExposureNotificationError.exposureNotificationRequired)
             default:
                 // TODO: Add missing cases
-                fatalError("[ExposureManager] Not implemented \(error.localizedDescription)")
+                let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
+                logError(message: error)
+                fatalError(error)
             }
         } else {
-            fatalError("[ExposureManager] Not implemented \(error.localizedDescription)")
+            let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
+            logError(message: error)
+            fatalError(error)
         }
     }
 

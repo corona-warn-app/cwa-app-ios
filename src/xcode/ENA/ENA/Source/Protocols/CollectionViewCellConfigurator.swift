@@ -29,7 +29,9 @@ extension CollectionViewCellConfigurator {
         if let cell = cell as? CellType {
             configure(cell: cell)
         } else {
-            fatalError("\(cell) isn't conformed CellType")
+            let error = "\(cell) isn't conformed CellType"
+            logError(message: error)
+            fatalError(error)
         }
     }
 }

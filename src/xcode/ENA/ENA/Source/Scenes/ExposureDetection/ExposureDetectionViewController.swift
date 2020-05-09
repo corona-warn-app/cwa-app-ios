@@ -71,7 +71,9 @@ final class ExposureDetectionViewController: UIViewController {
 
     @IBAction func refresh(_ sender: UIButton) {
         guard let client = client else {
-            fatalError("`client` must be set before being able to refresh.")
+            let error = "`client` must be set before being able to refresh."
+            logError(message: error)
+            fatalError(error)
         }
 
         // The user wants to know his/her current risk. We have to do several things in order to be able to display
@@ -87,11 +89,11 @@ final class ExposureDetectionViewController: UIViewController {
                         case .success(let urls):
                             self?.startExposureDetector(configuration: configuration, diagnosisKeyURLs: urls)
                         case .failure(let fetchError):
-                            logError(message: "Failed to fetch using client: \(fetchError)")
+                            logError(message: "Failed to fetch using client: \(fetchError.localizedDescription)")
                     }
                 }
             case .failure(let error):
-                logError(message: "Failed to get configuration: \(error)")
+                logError(message: "Failed to get configuration: \(error.localizedDescription)")
             }
         }
     }
