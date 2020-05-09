@@ -182,6 +182,13 @@ final class ExposureManager: NSObject {
         }
     }
 
+    // MARK: Invalidate
+    func invalidate() {
+        manager.invalidate()
+    }
+    
+    // MARK: Memory
+
     deinit {
         manager.invalidate()
     }

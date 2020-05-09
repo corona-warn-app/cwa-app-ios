@@ -99,27 +99,25 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureDetection() {
-        exposureManager.activate { [weak self] error in
-            guard let self = self else {
-                return
-            }
-            if let error = error {
-                switch error {
-                case .exposureNotificationRequired:
-                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-                case .exposureNotificationAuthorization:
-                    log(message: "Encourage the user to authorize this application", level: .warning)
-                }
-            } else if let error = error {
-                logError(message: error.localizedDescription)
-            } else {
-                let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
-                exposureDetectionViewController.delegate = self
-                exposureDetectionViewController.client = self.client
-                exposureDetectionViewController.exposureManager = self.exposureManager
-                self.present(exposureDetectionViewController, animated: true, completion: nil)
-            }
-        }
+        // IMPORTANT:
+        // In pull request #98 (https://github.com/corona-warn-app/cwa-app-ios/pull/98) we had to remove code
+        // that used the already injected `ExposureManager` and did the following:
+        //
+        // - The manager was activated.
+        // - Some basic error handling was performed – specifically exposureNotificationRequired and
+        //   exposureNotificationAuthorization were handled by just logging a warning.
+        // - The activated manager was injected into `ExposureDetectionViewController` by setting a property on it.
+        //
+        // We have temporarily remove this code because it caused an error (invalid use of API - detection already running).
+        // This error also happens in Apple's sample code and does not happen if ExposureManager is created on demand for
+        // every exposure detection request. There are other situations where this error does not happen like when the internal
+        // state of `ENManager` is mutated before kicking of an exposure detection. Our current workaround is to simply
+        // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
+
+        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
+        exposureDetectionViewController.delegate = self
+        exposureDetectionViewController.client = self.client
+        present(exposureDetectionViewController, animated: true, completion: nil)
     }
 
     func showAppInformation() {
