@@ -82,7 +82,7 @@ class SettingsViewController: UIViewController {
     }
 
     private func setupView() {
-        #if DEBUG
+        #if !APP_STORE
             sendLogFileView.isHidden = false
         #endif
         // receive status of manager
