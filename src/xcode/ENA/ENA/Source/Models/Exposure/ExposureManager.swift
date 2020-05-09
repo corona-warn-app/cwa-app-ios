@@ -16,9 +16,9 @@ enum ExposureNotificationError: Error {
 struct Preconditions: OptionSet {
     let rawValue: Int
 
-    static let authorized   = Preconditions(rawValue: 1 << 0)
-    static let enabled      = Preconditions(rawValue: 1 << 1)
-    static let active       = Preconditions(rawValue: 1 << 2)
+    static let authorized = Preconditions(rawValue: 1 << 0)
+    static let enabled = Preconditions(rawValue: 1 << 1)
+    static let active = Preconditions(rawValue: 1 << 2)
 
     static let all: Preconditions = [.authorized, .enabled, .active]
 }
@@ -72,8 +72,8 @@ final class ExposureManager: NSObject {
 
     // MARK: Activation
 
-    /// Activates `ENManager` and asks user for permission to enable ExposureNotification.
-    /// If the user declines, completion handler will set the error to exposureNotificationRequired
+    /// Activates `ENManager`
+    /// Needs to be called before `ExposureManager.enable()`
     func activate(completion: @escaping CompletionHandler) {
         manager.activate { activationError in
             if let activationError = activationError {
@@ -87,10 +87,14 @@ final class ExposureManager: NSObject {
 
     // MARK: Enable
 
+    /// Asks user for permission to enable ExposureNotification and enables it, if the user grants permission
+    /// Expects the callee to invoke `ExposureManager.activate` prior to this function call
     func enable(completion: @escaping CompletionHandler) {
         changeEnabled(to: true, completion: completion)
     }
 
+    /// Disables the ExposureNotification framework
+    /// Expects the callee to invoke `ExposureManager.activate` prior to this function call
     func disable(completion: @escaping CompletionHandler) {
         changeEnabled(to: false, completion: completion)
     }
@@ -106,25 +110,47 @@ final class ExposureManager: NSObject {
         }
     }
 
+    /// Returns an instance of the OptionSet `Preconditions`
+    /// Only if `Preconditions.all()`
     func preconditions() -> Preconditions {
         var preconditions = Preconditions()
-        if type(of: manager).authorizationStatus == ENAuthorizationStatus.authorized { preconditions.insert(.authorized) }
-        if manager.exposureNotificationEnabled { preconditions.insert(.enabled) }
-        if manager.exposureNotificationStatus == .active { preconditions.insert(.active) }
+        if type(of: manager).authorizationStatus == ENAuthorizationStatus.authorized {
+            preconditions.insert(.authorized)
+        }
+        if manager.exposureNotificationEnabled {
+            preconditions.insert(.enabled)
+        }
+        if manager.exposureNotificationStatus == .active {
+            preconditions.insert(.active)
+        }
 
-        log(message: "\nAuthorized: \(ENManager.authorizationStatus.rawValue), enabled: \(manager.exposureNotificationEnabled), status: \(manager.exposureNotificationStatus.rawValue)")
+        let message = """
+        New status of EN framework:
+            Authorized: \(ENManager.authorizationStatus.rawValue)
+            enabled: \(manager.exposureNotificationEnabled)
+            status: \(manager.exposureNotificationStatus.rawValue)
+        """
+        log(message: message)
+
+        if preconditions == Preconditions.all {
+            log(message: "Enabled")
+        }
 
         return preconditions
     }
     
     // MARK: Detect Exposures
+
+    /// Wrapper for `ENManager.detectExposures`
+    /// `ExposureManager` needs to be activated and enabled
     func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
-        return manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs, completionHandler: completionHandler)
+        manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs, completionHandler: completionHandler)
     }
 
     // MARK: Diagnosis Keys
 
-    /// Wrapper for `ENManager.getDiagnosisKeys`. You have to call `ExposureManager.activate` before calling this method.
+    /// Wrapper for `ENManager.getDiagnosisKeys`
+    /// `ExposureManager` needs to be activated and enabled
     func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
         if !manager.exposureNotificationEnabled {
             let error = ENError(.notEnabled)
