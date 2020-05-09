@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
         case settings
 		// swiftlint:enable explicit_enum_raw_value
     }
+    var manager: ExposureManager?
     var summary: ENExposureDetectionSummary?
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     private var collectionView: UICollectionView! = nil
@@ -86,7 +87,9 @@ class HomeViewController: UIViewController {
     }
     
     func showExposureDetection() {
-        let manager = ExposureManager()
+        guard let manager = manager else {
+            fatalError("Didn't inject ExposureManager into HomeVC")
+        }
         manager.activate { [weak self] error in
             guard let self = self else {
                 return

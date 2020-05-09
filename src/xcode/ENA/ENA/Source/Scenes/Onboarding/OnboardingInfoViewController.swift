@@ -20,13 +20,14 @@ class OnboardingInfoViewController: UIViewController {
     @IBOutlet var textView: UITextView!
     
     weak var delegate: OnboardingInfoViewControllerDelegate?
+    var manager: ExposureManager?
     
     var onboardingInfo: OnboardingInfo! {
         didSet {
             updateUI()
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
@@ -62,7 +63,9 @@ class OnboardingInfoViewController: UIViewController {
     
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
         // still in the development
-        let manager = ExposureManager()
+        guard let manager = manager else {
+            fatalError("Didn't inject ExposureManager into HomeVC")
+        }
         manager.activate { error in
             if let error = error {
                 switch error {
@@ -76,7 +79,7 @@ class OnboardingInfoViewController: UIViewController {
             } else if let error = error {
                 self.showError(error, from: self, completion: completion)
             } else {
-                manager.enable { enableError in
+                self.manager!.enable { enableError in
                     if let enableError = enableError {
                         switch enableError {
                         case .exposureNotificationRequired:

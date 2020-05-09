@@ -14,6 +14,8 @@ protocol OnboardingNextPageAvailable {
 
 final class OnboardingViewController: UIViewController {
 
+    var manager: ExposureManager?
+
     private var pages: [OnboardingInfoViewController] = []
     private var onboardingInfos = OnboardingInfo.testData()
 
@@ -43,6 +45,7 @@ final class OnboardingViewController: UIViewController {
         for i in 0..<onboardingInfos.count {
             pages[i].onboardingInfo = onboardingInfos[i]
             pages[i].delegate = self
+            pages[i].manager = manager
         }
     }
 
