@@ -32,6 +32,7 @@ protocol Manager: NSObjectProtocol {
     func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler)
     var exposureNotificationStatus: ENStatus { get }
     func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+    func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 }
 
 extension ENManager: Manager {}
@@ -100,6 +101,10 @@ final class ExposureManager {
     // MARK: Detect Exposures
     func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
         return manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs, completionHandler: completionHandler)
+    }
+
+    func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+        manager.getTestDiagnosisKeys(completionHandler: completionHandler)
     }
 
     // MARK: - Diagnosis Keys
