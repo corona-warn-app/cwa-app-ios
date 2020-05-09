@@ -74,6 +74,11 @@ class SettingsViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
+    @objc
+    private func willEnterForeground() {
+        notificationSettings()
+    }
+
     private func setupView() {
         #if DEBUG
             sendLogFileView.isHidden = false
@@ -89,6 +94,11 @@ class SettingsViewController: UIViewController {
                                        with: UIColor.preferredColor(for: ColorStyle.border),
                                        thickness: 1)
         notificationsContainerView.setBorder(at: [.top, .bottom], with: UIColor.preferredColor(for: ColorStyle.border), thickness: 1)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(willEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
     }
 
     private func notificationSettings() {
