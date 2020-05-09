@@ -62,6 +62,7 @@ final class ExposureDetectionViewController: UIViewController {
         guard let riskView = self.riskView else {
             return
         }
+        riskView.lastSyncLabel.text = "Letzte Überprüfung: \(Date())"
 
         if let summary = exposureDetectionSummary, summary.riskLevel != .unknown {
            riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
@@ -83,7 +84,7 @@ final class ExposureDetectionViewController: UIViewController {
            riskView.titleRiskLabel.text = "Risiko unbekannt"
            riskView.daysSinceLastExposureLabel.text = "0"
            riskView.matchedKeyCountLabel.text = "0"
-           riskView.highRiskDetailView.isHidden = true
+           riskView.highRiskDetailView.isHidden = true //disable or enable view as you want
            riskView.riskDetailDescriptionLabel.text = "Es wurde kein Kontakt mit COVID 19 erkannt"
            riskView.riskImageView.image = UIImage(systemName: "sun.min")
            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)

@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UFr-qV-Wt0">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="529"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="409"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="rwo-sb-L9a">
                                                 <rect key="frame" x="16" y="20" width="382" height="22"/>
@@ -111,10 +111,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Lc-F8-Tfd">
-                                        <rect key="frame" x="0.0" y="559" width="414" height="259"/>
+                                        <rect key="frame" x="0.0" y="439" width="414" height="379"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="x7c-Ds-NH8">
-                                                <rect key="frame" x="8" y="20" width="398" height="219"/>
+                                                <rect key="frame" x="8" y="20" width="398" height="339"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pYm-eM-63O">
                                                         <rect key="frame" x="183" y="0.0" width="32" height="20.5"/>
@@ -123,7 +123,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqe-Q3-3NQ">
-                                                        <rect key="frame" x="0.0" y="35.5" width="398" height="183.5"/>
+                                                        <rect key="frame" x="0.0" y="35.5" width="398" height="303.5"/>
                                                         <accessibility key="accessibilityConfiguration">
                                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                                         </accessibility>
@@ -144,6 +144,9 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="UFr-qV-Wt0" firstAttribute="height" secondItem="klM-Yn-pdR" secondAttribute="height" multiplier="0.5" id="1MX-o5-41H"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
