@@ -26,6 +26,7 @@ final class ExposureDetectionViewController: UIViewController {
 
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
+    @IBOutlet weak var riskViewContainerView: UIView!
 
     var client: Client?
     var exposureManager: ExposureManager?
@@ -40,6 +41,7 @@ final class ExposureDetectionViewController: UIViewController {
                                                object: nil)
 
         setupView()
+        setupHeaderRiskView(to: riskViewContainerView)
     }
 
     private func setupView() {
@@ -52,6 +54,20 @@ final class ExposureDetectionViewController: UIViewController {
         syncButton.setTitle(AppStrings.ExposureDetection.synchronize, for: .normal)
         infoTitleLabel.text = AppStrings.ExposureDetection.info
         infoTextView.text = AppStrings.ExposureDetection.infoText
+    }
+
+    private func setupHeaderRiskView(to view: UIView) {
+        guard let riskView = UINib(nibName: "RiskView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? RiskView else {
+            return
+        }
+        riskView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(riskView)
+        NSLayoutConstraint.activate([
+            riskView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            riskView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            riskView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            riskView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
+        ])
     }
 
     @objc

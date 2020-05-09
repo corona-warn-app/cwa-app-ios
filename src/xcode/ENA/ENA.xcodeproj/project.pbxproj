@@ -91,6 +91,8 @@
 		EE8599912462EFD4002E7AE2 /* AppInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85998E2462EFD4002E7AE2 /* AppInfoTableViewCell.swift */; };
 		EE8599932462EFFD002E7AE2 /* AppInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE8599922462EFFD002E7AE2 /* AppInfo.storyboard */; };
 		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
+		EEF7900B2466ED6F0065EBD5 /* RiskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEF7900A2466ED6F0065EBD5 /* RiskView.xib */; };
+		EEF7900D2466F6E40065EBD5 /* RiskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF7900C2466F6E40065EBD5 /* RiskView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +220,8 @@
 		EE85998E2462EFD4002E7AE2 /* AppInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoTableViewCell.swift; sourceTree = "<group>"; };
 		EE8599922462EFFD002E7AE2 /* AppInfo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppInfo.storyboard; sourceTree = "<group>"; };
 		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		EEF7900A2466ED6F0065EBD5 /* RiskView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskView.xib; sourceTree = "<group>"; };
+		EEF7900C2466F6E40065EBD5 /* RiskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +442,7 @@
 		8595BF5D246032C40056EA27 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EEF790092466ED410065EBD5 /* ExposureDetection */,
 				8595BF5E246032D90056EA27 /* ENASwitch.swift */,
 				51CE1B74246078B6002CF42A /* Home Screen */,
 			);
@@ -650,6 +655,15 @@
 			path = AppInformation;
 			sourceTree = "<group>";
 		};
+		EEF790092466ED410065EBD5 /* ExposureDetection */ = {
+			isa = PBXGroup;
+			children = (
+				EEF7900A2466ED6F0065EBD5 /* RiskView.xib */,
+				EEF7900C2466F6E40065EBD5 /* RiskView.swift */,
+			);
+			path = ExposureDetection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -770,6 +784,7 @@
 				51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				51CE1B8D246078B6002CF42A /* SubmitCollectionViewCell.xib in Resources */,
+				EEF7900B2466ED6F0065EBD5 /* RiskView.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
@@ -845,6 +860,7 @@
 				51CE1B86246078B6002CF42A /* SubmitCollectionViewCell.swift in Sources */,
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
+				EEF7900D2466F6E40065EBD5 /* RiskView.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
 				51CE1BC12460B256002CF42A /* HomeSubmitCellConfigurator.swift in Sources */,
 				B107C95D246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift in Sources */,
