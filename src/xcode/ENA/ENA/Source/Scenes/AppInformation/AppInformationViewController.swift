@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-fileprivate let tableViewCellHeight: CGFloat = 50.0
+private let tableViewCellHeight: CGFloat = 50.0
 
 class AppInformationViewController: UIViewController {
 

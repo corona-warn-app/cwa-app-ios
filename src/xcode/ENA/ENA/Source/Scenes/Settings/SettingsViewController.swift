@@ -82,8 +82,7 @@ class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: UINavigationControllerDelegate {
-    func mailComposeController(controller: MFMailComposeViewController,
-                               didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         controller.dismiss(animated: true, completion: nil)
     }
 }

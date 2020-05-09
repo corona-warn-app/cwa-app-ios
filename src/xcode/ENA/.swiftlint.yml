@@ -70,7 +70,7 @@ opt_in_rules:
   - identical_operands                                # Comparing two identical operands is likely a mistake.
   #  - identifier_name                                # Identifier names should only contain alphanumeric characters and start with a lowercase character or should only contain capital letters. In an exception to the above, variable names may start with a capital letter when they are declared static and immutable. Variable names should not be too long or too short.
   - implicit_getter                                   # Computed read-only properties and subscripts should avoid using the get keyword.
-  - implicit_return                                   # Prefer implicit returns in closures, functions and getters.
+  #  - implicit_return                                # Prefer implicit returns in closures, functions and getters.
   #  - implicitly_unwrapped_optional                  # Implicitly unwrapped optionals should be avoided when possible.
   #  - indentation_width                              # Indent code using either one tab or the configured amount of spaces, unindent to match previous indentations. Don't indent the first line.
   - inert_defer                                       # If defer is at the end of its parent scope, it will be executed right where it is anyway.
@@ -184,7 +184,7 @@ opt_in_rules:
   - valid_ibinspectable                               # @IBInspectable should be applied to variables only, have its type explicit and be of a supported type
   - vertical_parameter_alignment                      # Function parameters should be aligned vertically if they're in multiple lines in a declaration.
   - vertical_parameter_alignment_on_call              # Function parameters should be aligned vertically if they're in multiple lines in a method call.
-  #  - vertical_whitespace                            # Limit vertical whitespace to a single empty line.
+  - vertical_whitespace                               # Limit vertical whitespace to a single empty line.
   #  - vertical_whitespace_between_cases              # Include a single empty line between switch cases.
   #  - vertical_whitespace_closing_braces             # Don't include vertical whitespace (empty line) before closing braces.
   #  - vertical_whitespace_opening_braces             # Don't include vertical whitespace (empty line) after opening braces.
@@ -216,7 +216,17 @@ reporter: "xcode"
 
 ### Rule specific configuration
 
-line_length: 120
+line_length:
+  warning: 200
+  error: 250
+  ignores_function_declarations: true
+  ignores_comments: true
 
 trailing_whitespace:
   ignores_empty_lines: true
+
+type_name:
+  max_length: 50
+
+vertical_whitespace:
+  max_empty_lines: 2

@@ -23,10 +23,9 @@ final class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
 
-    var exposureDetectionService: ExposureDetector?
     var client: Client?
     var exposureManager: ExposureManager?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,7 +49,8 @@ final class ExposureDetectionViewController: UIViewController {
         infoTextView.text = AppStrings.ExposureDetection.infoText
     }
 
-    @objc func updateLastSyncLabel() {
+    @objc
+	func updateLastSyncLabel() {
         guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
             lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
             return
@@ -66,7 +66,9 @@ final class ExposureDetectionViewController: UIViewController {
 
     @IBAction func refresh(_ sender: UIButton) {
         guard let client = client else {
-            fatalError("`client` must be set before being able to refresh.")
+            let error = "`client` must be set before being able to refresh."
+            logError(message: error)
+            fatalError(error)
         }
 
         // The user wants to know his/her current risk. We have to do several things in order to be able to display
@@ -81,12 +83,12 @@ final class ExposureDetectionViewController: UIViewController {
                     switch fetchResult {
                         case .success(let urls):
                             self?.startExposureDetector(configuration: configuration, diagnosisKeyURLs: urls)
-                        case .failure(_):
-                        print("fail")
+                        case .failure(let fetchError):
+                            logError(message: "Failed to fetch using client: \(fetchError.localizedDescription)")
                     }
                 }
             case .failure(let error):
-                print("error: \(error)")
+                logError(message: "Failed to get configuration: \(error.localizedDescription)")
             }
         }
     }

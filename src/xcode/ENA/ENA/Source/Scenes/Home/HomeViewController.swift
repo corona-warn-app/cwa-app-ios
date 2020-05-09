@@ -13,9 +13,11 @@ class HomeViewController: UIViewController {
     @IBOutlet var topContainerView: UIView!
     
     enum Section: Int {
+		// swiftlint:disable explicit_enum_raw_value
         case actions
         case infos
         case settings
+		// swiftlint:enable explicit_enum_raw_value
     }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
@@ -50,7 +52,7 @@ class HomeViewController: UIViewController {
     // MARK: Actions
     
     @IBAction private func infoButtonTapped(_ sender: UIButton) {
-        print(#function)
+        log(message: "")
     }
     
     func showSubmitResult() {
@@ -84,13 +86,16 @@ class HomeViewController: UIViewController {
     
     func showExposureDetection() {
         let manager = ExposureManager()
-        manager.activate { error in
+        manager.activate { [weak self] error in
+            guard let self = self else {
+                return
+            }
             if let error = error {
                 switch error {
                 case .exposureNotificationRequired:
-                    log(message: "Encourage the user to consider enabling Exposure Notifications.")
+                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
                 case .exposureNotificationAuthorization:
-                    log(message: "Encourage the user to authorize this application")
+                    log(message: "Encourage the user to authorize this application", level: .warning)
                 }
             } else if let error = error {
                 logError(message: error.localizedDescription)
@@ -155,7 +160,7 @@ class HomeViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
             collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
@@ -171,7 +176,11 @@ class HomeViewController: UIViewController {
             return cell
         }
         dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier, for: indexPath) as? HomeFooterSupplementaryView else { fatalError("Cannot create new supplementary") }
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier, for: indexPath) as? HomeFooterSupplementaryView else {
+                let error = "Cannot create new supplementary"
+                logError(message: error)
+                fatalError(error)
+            }
             supplementaryView.configure()
             return supplementaryView
         }
