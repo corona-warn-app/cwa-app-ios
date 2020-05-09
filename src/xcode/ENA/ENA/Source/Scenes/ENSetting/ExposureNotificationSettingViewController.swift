@@ -16,16 +16,30 @@ class ExposureNotificationSettingViewController: UIViewController {
     @IBOutlet weak var enableTrackingLabel: UILabel!
     @IBOutlet weak var introductionLabel: UILabel!
     @IBOutlet weak var introductionText: UITextView!
+    
+    let manager: ExposureManager
+    
+    
+    init?(coder: NSCoder, manager: ExposureManager) {
+        
+        self.manager = manager
+        super.init(coder: coder)
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
 
-    //TODO: This should be checked later.
-
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        NotificationCenter
+        _ = NotificationCenter
             .default
-            .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { notifcation in
+            .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
                 log(message: "[viewDidLoad]: willEnterForegroundNotification, checking notifcation status.")
                 self.checkNotifcationEnablement()
             }
