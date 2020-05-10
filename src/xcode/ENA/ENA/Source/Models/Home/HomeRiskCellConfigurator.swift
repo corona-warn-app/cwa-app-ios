@@ -29,6 +29,7 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         self.date = date
     }
     
+    // MARK: Configuration
     func configure(cell: RiskCollectionViewCell) {
         
         let title: String = self.title(for: riskLevel)
@@ -97,7 +98,7 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     func indicatorColor(for riskLevel: RiskLevel) -> UIColor {
         switch riskLevel {
         case .unknown:
-            return .clear
+            return .white
         case .low:
             return .green
         case .high:

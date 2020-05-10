@@ -67,7 +67,6 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     func configure(with viewModel: ViewModel, delegate: RiskCollectionViewCellDelegate) {
         self.delegate = delegate
         
-        //riskIndicatorContainer?.backgroundColor = level.backgroundColor
         titleLabel.text = viewModel.title
         titleLabel.textColor = viewModel.titleColor
         bodyLabel.text = viewModel.body

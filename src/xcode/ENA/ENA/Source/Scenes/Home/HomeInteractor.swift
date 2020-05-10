@@ -12,13 +12,28 @@ import ExposureNotification
 final class HomeInteractor {
     
     private unowned var homeViewController: HomeViewController
-    
     private let persistenceManager = PersistenceManager.shared
-    
     private var detectionSummary: ENExposureDetectionSummary?
+    private(set) var exposureManager: ExposureManager
     
-    init(homeViewController: HomeViewController) {
+    private(set) var client: Client = {
+        let fileManager = FileManager.default
+        let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileUrl = documentDir.appendingPathComponent("keys", isDirectory: false).appendingPathExtension("proto")
+        return MockClient(submittedKeysFileURL: fileUrl)
+    }()
+    
+    private lazy var developerMenu: DMDeveloperMenu = {
+        DMDeveloperMenu(presentingViewController: homeViewController, client: client)
+    }()
+    
+    init(homeViewController: HomeViewController, exposureManager: ExposureManager) {
         self.homeViewController = homeViewController
+        self.exposureManager = exposureManager
+    }
+    
+    func developerMenuEnableIfAllowed() {
+        developerMenu.enableIfAllowed()
     }
     
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
