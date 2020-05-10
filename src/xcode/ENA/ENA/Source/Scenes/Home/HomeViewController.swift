@@ -24,8 +24,8 @@ final class HomeViewController: UIViewController {
     @IBOutlet var topContainerView: UIView!
     private let exposureManager: ExposureManager
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
-    private var collectionView: UICollectionView! = nil
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
+    private var collectionView: UICollectionView!
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
     
@@ -182,10 +182,15 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: Configuration
-    private func prepareData() {
+    
+    func prepareData() {
         cellConfigurators = homeInteractor.cellConfigurators()
     }
 
+    func reloadData() {
+        collectionView.reloadData()
+    }
+    
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self

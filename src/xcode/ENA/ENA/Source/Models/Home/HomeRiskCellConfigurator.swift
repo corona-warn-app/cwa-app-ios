@@ -18,19 +18,19 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     private var riskLevel: RiskLevel
     
     private static let dateFormatter: DateFormatter = {
-          let dateFormatter = DateFormatter()
-          dateFormatter.dateStyle = .medium
-          return dateFormatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter
     }()
     
     // MARK: Creating a Home Risk Cell Configurator
-    init(detectionSummary: ENExposureDetectionSummary, date: Date?) {
-        self.riskLevel = RiskLevel.risk(riskScore: detectionSummary.maximumRiskScore)
+    init(riskLevel: RiskLevel, date: Date?) {
+        self.riskLevel = riskLevel
         self.date = date
     }
     
     func configure(cell: RiskCollectionViewCell) {
-
+        
         let title: String = self.title(for: riskLevel)
         let titleColor: UIColor = self.titleColor(for: riskLevel)
         
@@ -42,27 +42,28 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
             dateString = String(format: dateKey, string)
         }
         
+        let color: UIColor = indicatorColor(for: riskLevel)
         
         let chevronTintColor: UIColor = self.chevronTintColor(for: riskLevel)
-        let iconImage: UIImage? = UIImage(named: "onboarding_ipad")
         let chevronImage: UIImage? = UIImage(systemName: "chevron.right")
-
+        let iconImage: UIImage? = UIImage(named: "onboarding_ipad")
         
         let viewModel = RiskCollectionViewCell.ViewModel(
             title: title,
             titleColor: titleColor,
-            chevronTintColor: chevronTintColor,
-            iconImage: iconImage,
-            chevronImage: chevronImage,
             body: body,
-            date: dateString
+            date: dateString,
+            color: color,
+            chevronTintColor: chevronTintColor,
+            chevronImage: chevronImage,
+            iconImage: iconImage
         )
         
         // The delegate will be called back when the cell's primary action is triggered
         cell.configure(with: viewModel, delegate: self)
     }
-
-
+    
+    
     func title(for riskLevel: RiskLevel) -> String {
         let key: String
         switch riskLevel {
@@ -77,7 +78,7 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         }
         return key
     }
-
+    
     func body(for riskLevel: RiskLevel) -> String {
         let key: String
         switch riskLevel {
@@ -92,8 +93,8 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         }
         return key
     }
-
-    func containerColor(for riskLevel: RiskLevel) -> UIColor {
+    
+    func indicatorColor(for riskLevel: RiskLevel) -> UIColor {
         switch riskLevel {
         case .unknown:
             return .clear

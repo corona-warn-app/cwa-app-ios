@@ -20,20 +20,22 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     class ViewModel {
         let title: String
         let titleColor: UIColor
-        let chevronTintColor: UIColor
-        let iconImage: UIImage?
-        let chevronImage: UIImage?
         let body: String
         let date: String?
+        let color: UIColor
+        let chevronTintColor: UIColor
+        let chevronImage: UIImage?
+        let iconImage: UIImage?
         
-        init(title: String, titleColor: UIColor, chevronTintColor: UIColor, iconImage: UIImage?, chevronImage: UIImage?, body: String, date: String?) {
+        init(title: String, titleColor: UIColor, body: String, date: String?, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, iconImage: UIImage?) {
             self.title = title
             self.titleColor = titleColor
-            self.chevronTintColor = chevronTintColor
-            self.iconImage = iconImage
-            self.chevronImage = chevronImage
             self.body = body
             self.date = date
+            self.color = color
+            self.chevronTintColor = chevronTintColor
+            self.chevronImage = chevronImage
+            self.iconImage = iconImage
         }
     }
     
@@ -47,7 +49,7 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     @IBOutlet var bodyLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var contactButton: UIButton!
-    @IBOutlet var riskIndicatorContainer: UIView!
+    @IBOutlet var viewContainer: UIView!
 
     // MARK: Nib Loading
     override func awakeFromNib() {
@@ -68,12 +70,13 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         //riskIndicatorContainer?.backgroundColor = level.backgroundColor
         titleLabel.text = viewModel.title
         titleLabel.textColor = viewModel.titleColor
-        chevronImageView.tintColor = viewModel.chevronTintColor
-        iconImageView.image = viewModel.iconImage
-        chevronImageView.image = viewModel.chevronImage
         bodyLabel.text = viewModel.body
         dateLabel.text = viewModel.date
         dateLabel.isHidden = viewModel.date == nil
+        viewContainer.backgroundColor = viewModel.color
+        chevronImageView.tintColor = viewModel.chevronTintColor
+        chevronImageView.image = viewModel.chevronImage
+        iconImageView.image = viewModel.iconImage
         contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
     }
 }

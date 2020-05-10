@@ -15,7 +15,7 @@ final class HomeInteractor {
     
     private let persistenceManager = PersistenceManager.shared
     
-    private var summary: ENExposureDetectionSummary?
+    private var detectionSummary: ENExposureDetectionSummary?
     
     init(homeViewController: HomeViewController) {
         self.homeViewController = homeViewController
@@ -25,7 +25,13 @@ final class HomeInteractor {
         let activeConfigurator = HomeActivateCellConfigurator()
         let date = persistenceManager.dateLastExposureDetection
 
-        let riskConfigurator = HomeRiskCellConfigurator(detectionSummary: summary!, date: date)
+        let riskLevel: RiskLevel
+        if let detectionSummary = detectionSummary {
+            riskLevel = RiskLevel.risk(riskScore: detectionSummary.maximumRiskScore)
+        } else {
+            riskLevel = .unknown
+        }
+        let riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, date: date)
         riskConfigurator.contactAction = { [unowned self] in
             self.homeViewController.showExposureDetection()
         }
@@ -48,7 +54,8 @@ final class HomeInteractor {
 extension HomeInteractor: ExposureDetectionViewControllerDelegate {
     func exposureDetectionViewController(_ controller: ExposureDetectionViewController, didReceiveSummary summary: ENExposureDetectionSummary) {
         log(message: "got summary: \(summary.description)")
-        self.summary = summary
-        // collectionView.reloadData()
+        detectionSummary = summary
+        homeViewController.prepareData()
+        homeViewController.reloadData()
     }
 }
