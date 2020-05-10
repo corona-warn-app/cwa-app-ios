@@ -26,7 +26,6 @@ final class TanEntryViewController: UIViewController {
     }
 
     // MARK: Actions
-    // TODO: Rename this method
     @IBAction func submitClicked(_ sender: Any) {
         submitSelfExposure()
     }

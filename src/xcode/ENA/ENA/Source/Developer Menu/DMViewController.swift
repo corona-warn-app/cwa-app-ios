@@ -119,10 +119,8 @@ final class DMViewController: UITableViewController {
                         logError(message: "Failed to generate test keys due to: \(error)")
                         return
                     }
-                    // TODO: Invalidate the manager here
                     let _keys = keys ?? []
                     log(message: "Got diagnosis keys: \(_keys)", level: .info)
-                    print("Keys: \(String(describing: keys))")
                     self.client.submit(keys: keys ?? [], tan: "not needed here") { [weak self] submitError in
                         if let submitError = submitError {
                             logError(message: "Failed to submit test keys due to: \(submitError)")
@@ -159,23 +157,24 @@ extension DMViewController: DMQRCodeScanViewControllerDelegate {
     func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Key) {
         client.submit(
             keys: [diagnosisKey.temporaryExposureKey],
-            tan: "not needed") {
-                error in
-                self.client.fetch() { [weak self] result in
-                    switch result {
-                    case .success(let urls):
-                        self?.urls = urls
-                    case .failure(_):
-                        self?.urls = []
-                    }
-                    self?.tableView.reloadData()
+            tan: "not needed"
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.client.fetch { [weak self] result in
+                switch result {
+                case .success(let urls):
+                    self?.urls = urls
+                case .failure:
+                    self?.urls = []
                 }
+                self?.tableView.reloadData()
+            }
         }
     }
 }
 
 private extension DateFormatter {
-    class func rollingPeriodDateFormatter() -> DateFormatter{
+    class func rollingPeriodDateFormatter() -> DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium

@@ -30,13 +30,23 @@ class Logger {
         #endif
     }
 
-    public func log(message: String, level: LogLevel = .info, file: String, line: UInt, function: String) {
-        let message = DDLogMessage(message: message, level: mapLogLevel(level), flag: .info, context: 0, file: file, function: function, line: line, tag: nil, options: .dontCopyMessage, timestamp: nil)
-
+    func log(message: String, level: LogLevel = .info, file: String, line: UInt, function: String) {
+        let message = DDLogMessage(
+            message: message,
+            level: mapLogLevel(level),
+            flag: .info,
+            context: 0,
+            file: file,
+            function: function,
+            line: line,
+            tag: nil,
+            options: .dontCopyMessage,
+            timestamp: nil
+        )
         DDLog.log(asynchronous: true, message: message)
     }
 
-    public func getLoggedData() -> Data? {
+    func getLoggedData() -> Data? {
         var data = Data()
 
         guard let logFileManager = DDLog.allLoggers.compactMap({ $0 as? DDFileLogger }).first?.logFileManager else {
