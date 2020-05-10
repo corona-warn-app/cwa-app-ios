@@ -15,12 +15,6 @@ protocol ExposureDetectionViewControllerDelegate: AnyObject {
 
 final class ExposureDetectionViewController: UIViewController {
     // MARK: Properties
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var contactTitleLabel: UILabel!
-    @IBOutlet weak var lastContactLabel: UILabel!
-    @IBOutlet weak var lastSyncLabel: UILabel!
-    @IBOutlet weak var syncButton: UIButton!
-    @IBOutlet weak var nextSyncLabel: UILabel!
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var riskViewContainerView: UIView!
@@ -43,18 +37,14 @@ final class ExposureDetectionViewController: UIViewController {
         )
 
         setupView()
-        setupHeaderRiskView(to: riskViewContainerView)
     }
 
     // MARK: Helper
     private func setupView() {
-        contactTitleLabel.text = AppStrings.ExposureDetection.lastContactTitle
-        lastContactLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactDays, 3)
-
+        setupHeaderRiskView(to: riskViewContainerView)
         updateLastSyncLabel()
         updateNextSyncLabel()
 
-        syncButton.setTitle(AppStrings.ExposureDetection.synchronize, for: .normal)
         infoTitleLabel.text = AppStrings.ExposureDetection.info
         infoTextView.text = AppStrings.ExposureDetection.infoText
     }
@@ -63,7 +53,8 @@ final class ExposureDetectionViewController: UIViewController {
         guard let riskView = self.riskView else {
             return
         }
-        riskView.lastSyncLabel.text = "Letzte Überprüfung: \(Date())"
+        updateLastSyncLabel()
+        updateNextSyncLabel()
 
         if let summary = exposureDetectionSummary, summary.riskLevel != .unknown {
             riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
@@ -71,33 +62,33 @@ final class ExposureDetectionViewController: UIViewController {
 
             switch summary.riskLevel {
             case .low:
-                riskView.titleRiskLabel.text = "Geringes Risiko"
+                riskView.titleRiskLabel.text = AppStrings.RiskView.lowRisk
                 riskView.highRiskDetailView.isHidden = false
-                riskView.riskDetailDescriptionLabel.text = "Es wurde ein geringes Risiko erkannt"
+                riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.lowRiskDetail
                 riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
                 riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
             case .moderate:
-                riskView.titleRiskLabel.text = "Moderates Risiko"
+                riskView.titleRiskLabel.text = AppStrings.RiskView.moderateRisk
                 riskView.highRiskDetailView.isHidden = false
-                riskView.riskDetailDescriptionLabel.text = "Es wurde ein moderates Risiko erkannt"
+                riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.moderateRiskDetail
                 riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
                 riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.critical)
             default:
-                riskView.titleRiskLabel.text = "Hohes Risiko"
+                riskView.titleRiskLabel.text = AppStrings.RiskView.highRisk
                 riskView.highRiskDetailView.isHidden = false
-                riskView.riskDetailDescriptionLabel.text = "Vor \(summary.daysSinceLastExposure) Tagen hattest du das letzte Mal Kontakt mit Personen, die mit COVID 19 infiziert wurden"
+                riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.highRiskDetail
                 riskView.riskImageView.image = UIImage(systemName: "cloud.bolt")
                 riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.negative)
             }
 
         } else {
-           riskView.titleRiskLabel.text = "Risiko unbekannt"
-           riskView.daysSinceLastExposureLabel.text = "0"
-           riskView.matchedKeyCountLabel.text = "0"
-           riskView.highRiskDetailView.isHidden = true //disable or enable view as you want
-           riskView.riskDetailDescriptionLabel.text = "Es wurde kein Kontakt mit COVID 19 erkannt"
-           riskView.riskImageView.image = UIImage(systemName: "sun.min")
-           riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
+            riskView.titleRiskLabel.text = AppStrings.RiskView.unknownRisk
+            riskView.daysSinceLastExposureLabel.text = "0"
+            riskView.matchedKeyCountLabel.text = "0"
+            riskView.highRiskDetailView.isHidden = true //disable or enable view as you want
+            riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.unknownRiskDetail
+            riskView.riskImageView.image = UIImage(systemName: "sun.min")
+            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
        }
 
     }
@@ -121,16 +112,23 @@ final class ExposureDetectionViewController: UIViewController {
 
     @objc
     func updateLastSyncLabel() {
+        guard let riskView = self.riskView else {
+            return
+        }
         guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
-            lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
+            riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSyncUnknown
             return
         }
         let hours = Calendar.current.component(.hour, from: lastSync)
-        lastSyncLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
+        riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSync + String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
     }
 
     private func updateNextSyncLabel() {
-        nextSyncLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.nextSync, 18)
+        guard let riskView = self.riskView else {
+            return
+        }
+        riskView.refreshButton.setTitle(String.localizedStringWithFormat(AppStrings.ExposureDetection.nextSync, 0), for: .normal)
+        //TODO make timer to setTitle and enable disable button appropriately
     }
 
 
@@ -167,12 +165,10 @@ final class ExposureDetectionViewController: UIViewController {
     // See HomeViewController for more details as to why we do this.
     private func startExposureDetector(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL]) {
         log(message: "Starting exposure detector")
-        activityIndicator.startAnimating()
 
         let exposureManager = ExposureManager()
 
         func stopAndInvalidate() {
-            activityIndicator.stopAnimating()
             exposureManager.invalidate()
         }
 

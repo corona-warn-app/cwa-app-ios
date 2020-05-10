@@ -99,13 +99,13 @@ extension RiskCollectionViewCell.RiskLevel {
         let key: String
         switch self {
         case .unknown:
-            key = "Es wurde kein Kontakt mit COVID 19 erkannt"
+            key = AppStrings.RiskView.unknownRiskDetail
         case .low:
-            key = "Es wurde ein geringes Risiko erkannt"
+            key = AppStrings.RiskView.lowRiskDetail
         case .high:
-            key = "Es wurde ein hohes Risiko erkannt"
+            key = AppStrings.RiskView.highRiskDetail
         case .moderate:
-            key = "Es wurde ein moderates Risiko erkannt"
+            key = AppStrings.RiskView.moderateRiskDetail
         }
         return key
     }

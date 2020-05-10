@@ -51,7 +51,7 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Nächste Überprüfung in wenigen Minuten</string>
+			<string>Kontakte überprüfen</string>
 			<key>one</key>
 			<string>Nächste Überprüfung in 1 Minute</string>
 			<key>other</key>
