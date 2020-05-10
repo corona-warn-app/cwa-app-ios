@@ -10,9 +10,13 @@ import UIKit
 import ExposureNotification
 
 final class HomeRiskCellConfigurator {
+    
+    private var date: Date?
+    
     // MARK: Creating a Home Risk Cell Configurator
-    init(homeViewController: HomeViewController) {
+    init(homeViewController: HomeViewController, date: Date?) {
         self.homeViewController = homeViewController
+        self.date = date
     }
     
     // MARK: Properties
@@ -24,7 +28,7 @@ extension HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     func configure(cell: RiskCollectionViewCell) {
         let summary = homeViewController.summary
         let level = summary?.riskLevel ?? .unknown
-        let risk = RiskCollectionViewCell.Risk(level: level, date: Date())
+        let risk = RiskCollectionViewCell.Risk(level: level, date: date)
         let model = RiskCollectionViewCell.Model(risk: risk)
         
         // The delegate will be called back when the cell's primary action is triggered

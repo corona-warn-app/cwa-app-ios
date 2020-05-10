@@ -8,9 +8,11 @@
 
 import Foundation
 
-class HomeInteractor {
+final class HomeInteractor {
     
-    unowned var homeViewController: HomeViewController
+    private unowned var homeViewController: HomeViewController
+    
+    private let persistenceManager = PersistenceManager.shared
     
     init(homeViewController: HomeViewController) {
         self.homeViewController = homeViewController
@@ -18,7 +20,9 @@ class HomeInteractor {
     
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
         let activeConfigurator = HomeActivateCellConfigurator()
-        let riskConfigurator = HomeRiskCellConfigurator(homeViewController: homeViewController)
+        let date = persistenceManager.dateLastExposureDetection
+
+        let riskConfigurator = HomeRiskCellConfigurator(homeViewController: homeViewController, date: date)
         riskConfigurator.contactAction = { [unowned self] in
             self.homeViewController.showExposureDetection()
         }
