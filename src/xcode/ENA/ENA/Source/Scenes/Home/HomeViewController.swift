@@ -70,10 +70,8 @@ final class HomeViewController: UIViewController {
     
     // MARK: Misc
     func showSubmitResult() {
-        let storyboard = AppStoryboard.exposureSubmission.instance
-        let vc = storyboard.instantiateViewController(identifier: ExposureSubmissionViewController.stringName()) { [unowned self] coder in
+        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { [unowned self] coder in
             let exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: self.client)
-
             return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: exposureSubmissionService)
         }
         let naviController = UINavigationController(rootViewController: vc)
@@ -112,18 +110,18 @@ final class HomeViewController: UIViewController {
     }
 
     func showSetting() {
-        let vc = SettingsViewController.initiate(for: .settings)
+        let vc = SettingsViewController.initiate(for: .settings, creator: nil)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
 
     func showDeveloperMenu() {
-        let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
+        guard let developerMenuController = AppStoryboard.developerMenu.initiateInitial() else { return }
         present(developerMenuController, animated: true, completion: nil)
     }
 
     func showInviteFriends() {
-        let vc = FriendsInviteController.initiate(for: .inviteFriends)
+        let vc = FriendsInviteController.initiate(for: .inviteFriends, creator: nil)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
@@ -144,14 +142,14 @@ final class HomeViewController: UIViewController {
         // state of `ENManager` is mutated before kicking of an exposure detection. Our current workaround is to simply
         // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
 
-        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
+        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection, creator: nil)
         exposureDetectionViewController.delegate = self
         exposureDetectionViewController.client = self.client
         present(exposureDetectionViewController, animated: true, completion: nil)
     }
 
     func showAppInformation() {
-        let vc = AppInformationViewController.initiate(for: .appInformation)
+        let vc = AppInformationViewController.initiate(for: .appInformation, creator: nil)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
