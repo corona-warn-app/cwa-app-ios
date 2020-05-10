@@ -6,12 +6,12 @@
 //  Copyright © 2020 SAP SE. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class AppInfoTableViewCell: UITableViewCell {
+final class AppInfoTableViewCell: UITableViewCell {
+    // MARK: Helper
+    static var identifier = "AppInfoCell"
 
+    // MARK: Properties
     @IBOutlet weak var titleLabel: UILabel!
-
-    public static var identifier = "AppInfoCell"
 }

@@ -9,21 +9,18 @@
 import UIKit
 import ExposureNotification
 
-protocol ExposureDetectionViewControllerDelegate: class {
+protocol ExposureDetectionViewControllerDelegate: AnyObject {
     func exposureDetectionViewController(_ controller: ExposureDetectionViewController, didReceiveSummary summary: ENExposureDetectionSummary)
 }
 
 final class ExposureDetectionViewController: UIViewController {
-
+    // MARK: Properties
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
     @IBOutlet weak var contactTitleLabel: UILabel!
     @IBOutlet weak var lastContactLabel: UILabel!
-
     @IBOutlet weak var lastSyncLabel: UILabel!
     @IBOutlet weak var syncButton: UIButton!
     @IBOutlet weak var nextSyncLabel: UILabel!
-
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var riskViewContainerView: UIView!
@@ -34,18 +31,22 @@ final class ExposureDetectionViewController: UIViewController {
     weak var exposureDetectionSummary: ENExposureDetectionSummary?
     var riskView: RiskView?
 
+    // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateLastSyncLabel),
-                                               name: .dateLastExposureDetectionDidChange,
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateLastSyncLabel),
+            name: .dateLastExposureDetectionDidChange,
+            object: nil
+        )
 
         setupView()
         setupHeaderRiskView(to: riskViewContainerView)
     }
 
+    // MARK: Helper
     private func setupView() {
         contactTitleLabel.text = AppStrings.ExposureDetection.lastContactTitle
         lastContactLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactDays, 3)
@@ -110,13 +111,13 @@ final class ExposureDetectionViewController: UIViewController {
     }
 
     @objc
-	func updateLastSyncLabel() {
+    func updateLastSyncLabel() {
         guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
             lastSyncLabel.text = AppStrings.ExposureDetection.lastSync
             return
         }
         let hours = Calendar.current.component(.hour, from: lastSync)
-        lastSyncLabel.text =  String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
+        lastSyncLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
     }
 
     private func updateNextSyncLabel() {
@@ -139,12 +140,12 @@ final class ExposureDetectionViewController: UIViewController {
         client.exposureConfiguration { configurationResult in
             switch configurationResult {
             case .success(let configuration):
-                client.fetch() { [weak self] fetchResult in
+                client.fetch { [weak self] fetchResult in
                     switch fetchResult {
-                        case .success(let urls):
-                            self?.startExposureDetector(configuration: configuration, diagnosisKeyURLs: urls)
-                        case .failure(let fetchError):
-                            logError(message: "Failed to fetch using client: \(fetchError.localizedDescription)")
+                    case .success(let urls):
+                        self?.startExposureDetector(configuration: configuration, diagnosisKeyURLs: urls)
+                    case .failure(let fetchError):
+                        logError(message: "Failed to fetch using client: \(fetchError.localizedDescription)")
                     }
                 }
             case .failure(let error):
@@ -153,27 +154,45 @@ final class ExposureDetectionViewController: UIViewController {
         }
     }
 
+    // Important:
+    // See HomeViewController for more details as to why we do this.
     private func startExposureDetector(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL]) {
-        guard let exposureManager = exposureManager else {
-            fatalError("exposureManager cannot be nil here.")
-        }
         log(message: "Starting exposure detector")
         activityIndicator.startAnimating()
-        let _ = exposureManager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { (summary, error) in
+
+        let exposureManager = ExposureManager()
+
+        func stopAndInvalidate() {
+            activityIndicator.stopAnimating()
+            exposureManager.invalidate()
+        }
+
+        func start() {
+            _ = exposureManager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { summary, error in
+                if let error = error {
+                    logError(message: "Exposure detection failed due to underlying error: \(error.localizedDescription)")
+                    stopAndInvalidate()
+                    return
+                }
+                guard let summary = summary else {
+                    fatalError("can never happen")
+                }
+                self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
+                log(message: "Exposure detection finished with summary: \(summary.pretty)")
+                self.infoTextView.text = summary.pretty
+                self.updateRiskView()
+                stopAndInvalidate()
+            }
+        }
+
+        exposureManager.activate { error in
             if let error = error {
-                self.activityIndicator.stopAnimating()
-                logError(message: "Exposure detection failed due to underlying error: \(error.localizedDescription)")
+                logError(message: "Unable to detect exposures because exposure manager could not be activated due to: \(error)")
+                stopAndInvalidate()
                 return
             }
-            guard let summary = summary else {
-                fatalError("can never happen")
-            }
-            self.exposureDetectionSummary = summary
-            self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
-            log(message: "Exposure detection finished with summary: \(summary.pretty)")
-            self.activityIndicator.stopAnimating()
-            self.infoTextView.text = summary.pretty
-            self.updateRiskView()
+            start()
+
         }
     }
 }

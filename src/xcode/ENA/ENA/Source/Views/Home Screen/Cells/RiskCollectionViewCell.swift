@@ -118,16 +118,16 @@ private extension RiskCollectionViewCell.RiskLevel {
     var textColor: UIColor {
         switch self {
         case .unknown:
-            // swiftlint:disable discouraged_object_literal
+            // swiftlint:disable:next discouraged_object_literal
             return #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         case .low:
-            // swiftlint:disable discouraged_object_literal
+            // swiftlint:disable:next discouraged_object_literal
             return #colorLiteral(red: 0.9090440273, green: 1, blue: 0.8056635857, alpha: 1)
         case .high:
-            // swiftlint:disable discouraged_object_literal
+            // swiftlint:disable:next discouraged_object_literal
             return #colorLiteral(red: 1, green: 0.8961167932, blue: 0.8636761308, alpha: 1)
         case .moderate:
-            // swiftlint:disable discouraged_object_literal
+            // swiftlint:disable:next discouraged_object_literal
             return #colorLiteral(red: 1, green: 0.9306703806, blue: 0.8244562745, alpha: 1)
         }
     }
