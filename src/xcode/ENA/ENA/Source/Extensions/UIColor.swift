@@ -30,7 +30,7 @@ extension UIColor {
         case .lightText:
             return .lightGray
         case .tintColor:
-            return .systemBlue
+            return UIColor(red: 0.00, green: 0.53, blue: 0.70, alpha: 1.00)
 
         case .separator:
             return .systemGray2
