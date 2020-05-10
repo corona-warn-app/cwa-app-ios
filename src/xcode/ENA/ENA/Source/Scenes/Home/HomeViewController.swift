@@ -70,8 +70,12 @@ final class HomeViewController: UIViewController {
     
     // MARK: Misc
     func showSubmitResult() {
-        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
-        vc.exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: client)
+        let storyboard = AppStoryboard.exposureSubmission.instance
+        let vc = storyboard.instantiateViewController(identifier: ExposureSubmissionViewController.stringName()) { [unowned self] coder in
+            let exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: self.client)
+
+            return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: exposureSubmissionService)
+        }
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
