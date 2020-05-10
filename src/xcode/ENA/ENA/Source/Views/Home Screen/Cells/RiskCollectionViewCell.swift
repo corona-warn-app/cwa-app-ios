@@ -72,7 +72,7 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         chevronImageView.tintColor = level.accessoryTintColor
         iconImageView.image = UIImage(named: "onboarding_ipad")
         chevronImageView.image = UIImage(systemName: "chevron.right")
-        bodyLabel.text = AppStrings.Home.riskCardBody
+        bodyLabel.text = level.localizedStringBody
         dateLabel.text = risk.localizedDateLabelText
         dateLabel.isHidden = risk.localizedDateLabelText == nil
         contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
@@ -94,6 +94,22 @@ private extension RiskCollectionViewCell.RiskLevel {
         }
         return key.localized(tableName: "LocalizableRisk")
     }
+
+    var localizedStringBody: String {
+        let key: String
+        switch self {
+        case .unknown:
+            key = "Es wurde kein Kontakt mit COVID 19 erkannt"
+        case .low:
+            key = "Es wurde ein geringes Risiko erkannt"
+        case .high:
+            key = "Es wurde ein hohes Risiko erkannt"
+        case .moderate:
+            key = "Es wurde ein moderates Risiko erkannt"
+        }
+        return key
+    }
+
     
     var backgroundColor: UIColor {
         switch self {
