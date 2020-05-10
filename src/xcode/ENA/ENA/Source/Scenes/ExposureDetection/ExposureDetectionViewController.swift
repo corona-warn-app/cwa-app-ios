@@ -23,6 +23,8 @@ final class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var nextSyncLabel: UILabel!
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
+
+    @IBOutlet weak var infoLabel: UILabel!
     var client: Client?
     var exposureManager: ExposureManager?
     weak var delegate: ExposureDetectionViewControllerDelegate?
@@ -125,7 +127,8 @@ final class ExposureDetectionViewController: UIViewController {
                 }
                 self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
                 log(message: "Exposure detection finished with summary: \(summary.pretty)")
-                self.infoTextView.text = summary.pretty
+                self.infoLabel.backgroundColor = summary.riskLevel.backgroundColor
+                self.infoLabel.attributedText = summary.pretty
                 stopAndInvalidate()
             }
         }
@@ -142,11 +145,17 @@ final class ExposureDetectionViewController: UIViewController {
 }
 
 fileprivate extension ENExposureDetectionSummary {
-    var pretty: String {
-        """
-        daysSinceLastExposure: \(daysSinceLastExposure)
-        matchedKeyCount: \(matchedKeyCount)
-        maximumRiskScore: \(maximumRiskScore)
-        """
+    var pretty: NSAttributedString {
+        let string = NSMutableAttributedString()
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.systemFont(ofSize: 30)
+        ]
+        string.append(NSAttributedString(string: "\n\(riskLevel.localizedString)", attributes: attributes))
+        string.append(NSAttributedString(string: "\n\n\n\(daysSinceLastExposure) Tage seit Kontakt", attributes: attributes))
+        string.append(NSAttributedString(string: "\n\(matchedKeyCount) Kontakte\n\n", attributes: attributes))
+        string.append(NSAttributedString(string: "\n Max Risk Score:\(maximumRiskScore)", attributes: attributes))
+        return string
+
     }
 }

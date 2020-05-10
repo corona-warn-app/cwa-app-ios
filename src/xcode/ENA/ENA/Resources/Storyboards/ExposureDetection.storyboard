@@ -122,8 +122,14 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Risk" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nt9-DD-bx8">
+                                                        <rect key="frame" x="12" y="35.5" width="374" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqe-Q3-3NQ">
-                                                        <rect key="frame" x="0.0" y="35.5" width="398" height="467"/>
+                                                        <rect key="frame" x="0.0" y="71" width="398" height="431.5"/>
                                                         <accessibility key="accessibilityConfiguration">
                                                             <accessibilityTraits key="traits" notEnabled="YES"/>
                                                         </accessibility>
@@ -133,6 +139,11 @@
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Nt9-DD-bx8" firstAttribute="leading" secondItem="x7c-Ds-NH8" secondAttribute="leading" constant="12" id="ECy-h4-Zl2"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Nt9-DD-bx8" secondAttribute="trailing" constant="12" id="ZEu-Db-865"/>
+                                                    <constraint firstItem="Nt9-DD-bx8" firstAttribute="centerX" secondItem="x7c-Ds-NH8" secondAttribute="centerX" id="b6F-ib-lBv"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.94551116229999999" green="0.94564706089999995" blue="0.94548147920000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -162,6 +173,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="bm4-Aw-ATy" id="Fgi-Z1-fMY"/>
                         <outlet property="contactTitleLabel" destination="KFb-3S-9MT" id="VoS-Cx-9ag"/>
+                        <outlet property="infoLabel" destination="Nt9-DD-bx8" id="KOd-GP-PbJ"/>
                         <outlet property="infoTextView" destination="Tqe-Q3-3NQ" id="c4B-yq-Fcx"/>
                         <outlet property="infoTitleLabel" destination="pYm-eM-63O" id="MmM-NW-p1m"/>
                         <outlet property="lastContactLabel" destination="NUc-lX-hvH" id="47I-dk-xGX"/>
