@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol RiskViewDelegate: class {
-    func refreshView()
+    func refreshView(riskView: RiskView)
 }
 
 class RiskView: UIView {
@@ -27,7 +27,7 @@ class RiskView: UIView {
     weak var delegate: RiskViewDelegate?
 
     @IBAction func viewTapped(_ sender: UIButton) {
-        delegate?.refreshView()
+        delegate?.refreshView(riskView: self)
     }
 
 

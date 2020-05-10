@@ -23,7 +23,15 @@ final class ExposureDetectionViewController: UIViewController {
     var exposureManager: ExposureManager?
     weak var delegate: ExposureDetectionViewControllerDelegate?
     weak var exposureDetectionSummary: ENExposureDetectionSummary?
-    var riskView: RiskView?
+    let riskView: RiskView
+
+    required init?(coder: NSCoder) {
+        guard let riskView = UINib(nibName: "RiskView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? RiskView else {
+              fatalError("It should not happen. RiskView is not avaiable")
+        }
+        self.riskView = riskView
+        super.init(coder: coder)
+    }
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -42,45 +50,20 @@ final class ExposureDetectionViewController: UIViewController {
     // MARK: Helper
     private func setupView() {
         setupHeaderRiskView(to: riskViewContainerView)
-        updateLastSyncLabel()
-        updateNextSyncLabel()
 
         infoTitleLabel.text = AppStrings.ExposureDetection.info
         infoTextView.text = AppStrings.ExposureDetection.infoText
     }
 
     private func updateRiskView() {
-        guard let riskView = self.riskView else {
-            return
-        }
         updateLastSyncLabel()
         updateNextSyncLabel()
 
         if let summary = exposureDetectionSummary, summary.riskLevel != .unknown {
             riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
             riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
-
-            switch summary.riskLevel {
-            case .low:
-                riskView.titleRiskLabel.text = AppStrings.RiskView.lowRisk
-                riskView.highRiskDetailView.isHidden = false
-                riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.lowRiskDetail
-                riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
-                riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
-            case .moderate:
-                riskView.titleRiskLabel.text = AppStrings.RiskView.moderateRisk
-                riskView.highRiskDetailView.isHidden = false
-                riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.moderateRiskDetail
-                riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
-                riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.critical)
-            default:
-                riskView.titleRiskLabel.text = AppStrings.RiskView.highRisk
-                riskView.highRiskDetailView.isHidden = false
-                riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.highRiskDetail
-                riskView.riskImageView.image = UIImage(systemName: "cloud.bolt")
-                riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.negative)
-            }
-
+            riskView.highRiskDetailView.isHidden = false
+            setRiskView(to: summary.riskLevel)
         } else {
             riskView.titleRiskLabel.text = AppStrings.RiskView.unknownRisk
             riskView.daysSinceLastExposureLabel.text = "0"
@@ -90,37 +73,50 @@ final class ExposureDetectionViewController: UIViewController {
             riskView.riskImageView.image = UIImage(systemName: "sun.min")
             riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
        }
+    }
 
+    private func setRiskView(to riskLevel: RiskCollectionViewCell.RiskLevel) {
+        switch riskLevel {
+        case .low:
+            riskView.titleRiskLabel.text = AppStrings.RiskView.lowRisk
+            riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.lowRiskDetail
+            riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
+            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
+        case .moderate:
+            riskView.titleRiskLabel.text = AppStrings.RiskView.moderateRisk
+            riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.moderateRiskDetail
+            riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
+            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.critical)
+        default:
+            riskView.titleRiskLabel.text = AppStrings.RiskView.highRisk
+            riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.highRiskDetail
+            riskView.riskImageView.image = UIImage(systemName: "cloud.bolt")
+            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.negative)
+        }
     }
 
     private func setupHeaderRiskView(to view: UIView) {
-        guard let riskView = UINib(nibName: "RiskView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? RiskView else {
-            return
-        }
         riskView.translatesAutoresizingMaskIntoConstraints = false
-        riskView.delegate = self
         view.addSubview(riskView)
-        NSLayoutConstraint.activate([
+        NSLayoutConstraint.activate(
+            [
             riskView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             riskView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             riskView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             riskView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
-        ])
-        self.riskView = riskView
-        updateRiskView()
+            ]
+        )
+        riskView.delegate = self
+        self.updateRiskView()
     }
 
     @objc
     func updateLastSyncLabel() {
-        guard let riskView = self.riskView else {
-            return
-        }
         guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
             riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSyncUnknown
             return
         }
         riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSync + lastSync.description
-
 
         //TODO Fix date issues
         //let hours = Calendar.current.component(.hour, from: lastSync)
@@ -128,9 +124,6 @@ final class ExposureDetectionViewController: UIViewController {
     }
 
     private func updateNextSyncLabel() {
-        guard let riskView = self.riskView else {
-            return
-        }
         riskView.refreshButton.setTitle(String.localizedStringWithFormat(AppStrings.ExposureDetection.nextSync, 0), for: .normal)
         //TODO make timer to setTitle and enable disable button appropriately
     }
@@ -210,8 +203,8 @@ final class ExposureDetectionViewController: UIViewController {
 }
 
 extension ExposureDetectionViewController: RiskViewDelegate {
-    func refreshView() {
-        self.refresh(self)
+    func refreshView(riskView: RiskView) {
+        self.refresh(riskView)
     }
 }
 
