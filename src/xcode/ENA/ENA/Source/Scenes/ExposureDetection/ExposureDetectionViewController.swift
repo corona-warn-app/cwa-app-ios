@@ -153,7 +153,8 @@ fileprivate extension ENExposureDetectionSummary {
         ]
         string.append(NSAttributedString(string: "\n\(riskLevel.localizedString)", attributes: attributes))
         string.append(NSAttributedString(string: "\n\n\n\(daysSinceLastExposure) Tage seit Kontakt", attributes: attributes))
-          string.append(NSAttributedString(string: "\n\(matchedKeyCount) Kontakte\n\n", attributes: attributes))
+        string.append(NSAttributedString(string: "\n\(matchedKeyCount) Kontakte\n\n", attributes: attributes))
+        string.append(NSAttributedString(string: "\n Max Risk Score:\(maximumRiskScore)", attributes: attributes))
         return string
 
     }
