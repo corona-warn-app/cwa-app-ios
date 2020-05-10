@@ -9,7 +9,7 @@
 import UIKit
 import ExposureNotification
 
-final class HomeRiskCellConfigurator {
+final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     
     // MARK: Properties
     var contactAction: (() -> Void)?
@@ -17,27 +17,24 @@ final class HomeRiskCellConfigurator {
     private var date: Date?
     private var riskLevel: RiskLevel
     
-    // MARK: Creating a Home Risk Cell Configurator
-    init(detectionSummary: ENExposureDetectionSummary, date: Date?) {
-        self.riskLevel = RiskLevel.risk(riskScore: detectionSummary.maximumRiskScore)
-        self.date = date
-    }
-    
     private static let dateFormatter: DateFormatter = {
           let dateFormatter = DateFormatter()
           dateFormatter.dateStyle = .medium
           return dateFormatter
     }()
     
-}
-
-extension HomeRiskCellConfigurator: CollectionViewCellConfigurator {
+    // MARK: Creating a Home Risk Cell Configurator
+    init(detectionSummary: ENExposureDetectionSummary, date: Date?) {
+        self.riskLevel = RiskLevel.risk(riskScore: detectionSummary.maximumRiskScore)
+        self.date = date
+    }
+    
     func configure(cell: RiskCollectionViewCell) {
 
-        let titleKey: String = self.titleKey(for: riskLevel)
+        let title: String = self.title(for: riskLevel)
         let titleColor: UIColor = self.titleColor(for: riskLevel)
         
-        let bodyKey: String = self.bodyKey(for: riskLevel)
+        let body: String = self.body(for: riskLevel)
         var dateString: String?
         if let date = date {
             let string = HomeRiskCellConfigurator.dateFormatter.string(from: date)
@@ -52,44 +49,36 @@ extension HomeRiskCellConfigurator: CollectionViewCellConfigurator {
 
         
         let viewModel = RiskCollectionViewCell.ViewModel(
-            title: titleKey,
+            title: title,
             titleColor: titleColor,
             chevronTintColor: chevronTintColor,
             iconImage: iconImage,
             chevronImage: chevronImage,
-            body: bodyKey,
+            body: body,
             date: dateString
         )
-        
         
         // The delegate will be called back when the cell's primary action is triggered
         cell.configure(with: viewModel, delegate: self)
     }
-}
 
-extension HomeRiskCellConfigurator: RiskCollectionViewCellDelegate {
-    func contactButtonTapped(cell: RiskCollectionViewCell) {
-        contactAction?()
-    }
-}
 
-extension HomeRiskCellConfigurator {
-    func titleKey(for riskLevel: RiskLevel) -> String {
+    func title(for riskLevel: RiskLevel) -> String {
         let key: String
         switch riskLevel {
         case .unknown:
-            key = "Risk_Unknown_Button_Title"
+            key = AppStrings.Home.riskCardUnknownTitle
         case .low:
-            key = "Risk_Low_Button_Title"
+            key = AppStrings.Home.riskCardLowTitle
         case .high:
-            key = "Risk_High_Button_Title"
+            key = AppStrings.Home.riskCardHighTitle
         case .moderate:
-            key = "Risk_Moderate_Button_Title"
+            key = AppStrings.Home.riskCardModerateTitle
         }
         return key
     }
 
-    func bodyKey(for riskLevel: RiskLevel) -> String {
+    func body(for riskLevel: RiskLevel) -> String {
         let key: String
         switch riskLevel {
         case .unknown:
@@ -104,7 +93,6 @@ extension HomeRiskCellConfigurator {
         return key
     }
 
-    
     func containerColor(for riskLevel: RiskLevel) -> UIColor {
         switch riskLevel {
         case .unknown:
@@ -117,7 +105,6 @@ extension HomeRiskCellConfigurator {
             return .orange
         }
     }
-    
     
     func chevronTintColor(for riskLevel: RiskLevel) -> UIColor {
         riskLevel == .unknown ? .systemBlue : titleColor(for: riskLevel)
@@ -138,5 +125,11 @@ extension HomeRiskCellConfigurator {
             // swiftlint:disable:next discouraged_object_literal
             return #colorLiteral(red: 1, green: 0.9306703806, blue: 0.8244562745, alpha: 1)
         }
+    }
+}
+
+extension HomeRiskCellConfigurator: RiskCollectionViewCellDelegate {
+    func contactButtonTapped(cell: RiskCollectionViewCell) {
+        contactAction?()
     }
 }

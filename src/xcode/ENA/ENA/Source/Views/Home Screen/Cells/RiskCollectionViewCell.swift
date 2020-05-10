@@ -14,22 +14,8 @@ protocol RiskCollectionViewCellDelegate: AnyObject {
 
 /// A cell that visualizes the current risk and allows the user to calculate he/his current risk.
 final class RiskCollectionViewCell: UICollectionViewCell {
-    // MARK: Helpers
-    private static let dateFormatter: DateFormatter = {
-          let dateFormatter = DateFormatter()
-          dateFormatter.dateStyle = .medium
-          return dateFormatter
-    }()
     
-    // MARK: Model related Types
-    struct Risk {
-        let level: RiskLevel
-        let date: Date?
-    }
-    
-    struct Model {
-        let risk: Risk
-    }
+    // MARK: ViewModel
     
     class ViewModel {
         let title: String
@@ -83,29 +69,11 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         titleLabel.text = viewModel.title
         titleLabel.textColor = viewModel.titleColor
         chevronImageView.tintColor = viewModel.chevronTintColor
-        iconImageView.image = viewModel.iconImage //UIImage(named: "onboarding_ipad")
-        chevronImageView.image = viewModel.chevronImage // UIImage(systemName: "chevron.right")
+        iconImageView.image = viewModel.iconImage
+        chevronImageView.image = viewModel.chevronImage
         bodyLabel.text = viewModel.body
         dateLabel.text = viewModel.date
         dateLabel.isHidden = viewModel.date == nil
         contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
-    }
-}
-
-
-private extension RiskCollectionViewCell.Risk {
-    var localizedDateLabelText: String? {
-        guard let formattedDate = formattedDate else {
-            return nil
-        }
-        let localizedFormat = AppStrings.Home.riskCardDate.localized()
-        return String(format: localizedFormat, formattedDate)
-    }
-    
-    var formattedDate: String? {
-        if let date = date {
-            return RiskCollectionViewCell.dateFormatter.string(from: date)
-        }
-        return nil
     }
 }

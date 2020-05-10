@@ -69,7 +69,6 @@
 		B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = B10FB02F246036F3004CA11E /* SwiftProtobuf */; };
 		B111EDEB2465B1E7001AEBB4 /* MockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EDEA2465B1E7001AEBB4 /* MockClient.swift */; };
 		B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */; };
-		B111EE692466A3A5001AEBB4 /* LocalizableRisk.strings in Resources */ = {isa = PBXBuildFile; fileRef = B111EE6B2466A3A5001AEBB4 /* LocalizableRisk.strings */; };
 		B1741B492462C207006275D9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B482462C207006275D9 /* Client.swift */; };
 		B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */; };
 		B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B432461C257006275D9 /* DMDeveloperMenu.swift */; };
@@ -197,8 +196,6 @@
 		B107C95C246421F500247C32 /* DeveloperDiagnosisKeyFileProtobuf.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeveloperDiagnosisKeyFileProtobuf.pb.swift; path = ../../../../../proto/output/DeveloperDiagnosisKeyFileProtobuf.pb.swift; sourceTree = "<group>"; };
 		B111EDEA2465B1E7001AEBB4 /* MockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockClient.swift; path = ENA/Source/Client/MockClient.swift; sourceTree = SOURCE_ROOT; };
 		B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
-		B111EE6A2466A3A5001AEBB4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LocalizableRisk.strings; sourceTree = "<group>"; };
-		B111EE6C2466A3AB001AEBB4 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LocalizableRisk.strings; sourceTree = "<group>"; };
 		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeViewController.swift; sourceTree = "<group>"; };
 		B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeScanViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				514E81332461B97700636861 /* ExposureManager.swift */,
+				518A69FA24687D5800444E66 /* RiskLevel.swift */,
 			);
 			path = Exposure;
 			sourceTree = "<group>";
@@ -304,7 +302,6 @@
 				51CE1B7B246078B6002CF42A /* InfoCollectionViewCell.xib */,
 				51CE1B7D246078B6002CF42A /* SettingsCollectionViewCell.swift */,
 				51CE1B7F246078B6002CF42A /* SettingsCollectionViewCell.xib */,
-				B111EE6B2466A3A5001AEBB4 /* LocalizableRisk.strings */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -331,7 +328,6 @@
 			children = (
 				51CE1BB92460AFD8002CF42A /* HomeActivateCellConfigurator.swift */,
 				51CE1BBE2460B222002CF42A /* HomeRiskCellConfigurator.swift */,
-				518A69FA24687D5800444E66 /* RiskLevel.swift */,
 				51CE1BC02460B256002CF42A /* HomeSubmitCellConfigurator.swift */,
 				51CE1BC22460B28D002CF42A /* HomeInfoCellConfigurator.swift */,
 				51CE1BC42460B2AF002CF42A /* HomeSettingsCellConfigurator.swift */,
@@ -787,7 +783,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B111EE692466A3A5001AEBB4 /* LocalizableRisk.strings in Resources */,
 				514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */,
 				51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
@@ -957,15 +952,6 @@
 				85D7594D24570491008175F0 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		B111EE6B2466A3A5001AEBB4 /* LocalizableRisk.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B111EE6A2466A3A5001AEBB4 /* en */,
-				B111EE6C2466A3AB001AEBB4 /* de */,
-			);
-			name = LocalizableRisk.strings;
 			sourceTree = "<group>";
 		};
 		EE70C23A245B09E900AC9B2F /* Localizable.strings */ = {

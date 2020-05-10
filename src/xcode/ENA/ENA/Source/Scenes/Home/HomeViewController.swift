@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import ExposureNotification
 
 final class HomeViewController: UIViewController {
+    
     // MARK: Creating a Home View Controller
     init?(coder: NSCoder, exposureManager: ExposureManager) {
         self.exposureManager = exposureManager
@@ -23,11 +23,12 @@ final class HomeViewController: UIViewController {
     // MARK: Properties
     @IBOutlet var topContainerView: UIView!
     private let exposureManager: ExposureManager
-    var summary: ENExposureDetectionSummary?
+    
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     private var collectionView: UICollectionView! = nil
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
+    
     private lazy var client: Client = {
         let fileManager = FileManager()
         let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -35,6 +36,7 @@ final class HomeViewController: UIViewController {
         return MockClient(submittedKeysFileURL: fileUrl)
     }()
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
+    
     private lazy var developerMenu: DMDeveloperMenu = {
         DMDeveloperMenu(presentingViewController: self, client: client)
     }()
@@ -141,15 +143,15 @@ final class HomeViewController: UIViewController {
         // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
 
         let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
-        exposureDetectionViewController.delegate = self
-        exposureDetectionViewController.client = self.client
+        exposureDetectionViewController.delegate = homeInteractor
+        exposureDetectionViewController.client = client
         present(exposureDetectionViewController, animated: true, completion: nil)
     }
 
     func showAppInformation() {
         let vc = AppInformationViewController.initiate(for: .appInformation)
         let naviController = UINavigationController(rootViewController: vc)
-        self.present(naviController, animated: true, completion: nil)
+        present(naviController, animated: true, completion: nil)
     }
 
     private func showScreen(at indexPath: IndexPath) {
@@ -247,13 +249,5 @@ extension HomeViewController: HomeLayoutDelegate {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         showScreen(at: indexPath)
-    }
-}
-
-extension HomeViewController: ExposureDetectionViewControllerDelegate {
-    func exposureDetectionViewController(_ controller: ExposureDetectionViewController, didReceiveSummary summary: ENExposureDetectionSummary) {
-        log(message: "got summary: \(summary.description)")
-        self.summary = summary
-        collectionView.reloadData()
     }
 }
