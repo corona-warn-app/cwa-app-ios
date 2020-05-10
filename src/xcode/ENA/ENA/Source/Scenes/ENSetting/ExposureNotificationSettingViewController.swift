@@ -12,7 +12,7 @@ import ExposureNotification
 class ExposureNotificationSettingViewController: UIViewController {
     @IBOutlet weak var contactTracingSwitch: UISwitch!
 
-    @IBOutlet weak var titleLabel: UILabel!
+
     @IBOutlet weak var enableTrackingLabel: UILabel!
     @IBOutlet weak var introductionLabel: UILabel!
     @IBOutlet weak var introductionText: UITextView!
@@ -58,17 +58,12 @@ class ExposureNotificationSettingViewController: UIViewController {
 // MARK: UI and Storyboard
 extension ExposureNotificationSettingViewController {
     private func setUIText() {
-        titleLabel.text = AppStrings.ExposureNotificationSetting.title
         enableTrackingLabel.text = AppStrings.ExposureNotificationSetting.enableTracing
         introductionLabel.text = AppStrings.ExposureNotificationSetting.introductionTitle
         introductionText.text = AppStrings.ExposureNotificationSetting.introductionText
     }
 
-    @IBAction func closeButtonClicked(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
 
-    
     @IBAction func contactTracingValueChanged(_ sender: Any) {
         if contactTracingSwitch.isOn {
             manager.enable {[weak self] error in

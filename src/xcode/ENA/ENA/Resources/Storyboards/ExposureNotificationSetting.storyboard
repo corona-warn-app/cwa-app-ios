@@ -16,13 +16,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tracing_banner" translatesAutoresizingMaskIntoConstraints="NO" id="lNO-xx-Re0">
-                                <rect key="frame" x="0.0" y="66" width="414" height="227"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="227"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="lNO-xx-Re0" secondAttribute="height" multiplier="414:227" id="pIV-aS-39q"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="urj-pv-kKv" userLabel="Setting Container">
-                                <rect key="frame" x="0.0" y="338" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="316" width="414" height="60"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IFf-bz-5dp">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
@@ -56,22 +56,22 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EINSTELLUNG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKh-Q2-GQH">
-                                <rect key="frame" x="20" y="314" width="88" height="16"/>
+                                <rect key="frame" x="20" y="292" width="88" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zjI-qz-3Ud" userLabel="Text Container">
-                                <rect key="frame" x="0.0" y="406" width="414" height="456"/>
+                                <rect key="frame" x="0.0" y="384" width="414" height="478"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aktivieren Sie die Protokollierung der Kontakte" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fz0-v0-tYv">
-                                        <rect key="frame" x="20" y="0.0" width="328" height="75"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                        <rect key="frame" x="20" y="0.0" width="340" height="78.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="soZ-GX-MBT">
-                                        <rect key="frame" x="20" y="93.5" width="363" height="329.5"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="soZ-GX-MBT">
+                                        <rect key="frame" x="20" y="78.5" width="363" height="399.5"/>
                                         <string key="text">Die COVID-19 Kontakprotokoll Mitteilungen sollen Ihnen helfen, wenn Sie mit einem Benutzer in Kontakt gekommen sind, der sich später als postiv auf COVID-19 getestet meldet. Sie können diese Mitteilungen jederzeit abshalten.
 
 COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln von zufälligen ID. Diese ID's sind eine zufällige Folge von Zahlen, die Sie für andere Benutzer nicht identifizierbar machen und die sich mehrmals täglich ändern, um Ihre Privatshäre zu schützen.</string>
@@ -81,15 +81,15 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
                                     </textView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="soZ-GX-MBT" firstAttribute="top" secondItem="fz0-v0-tYv" secondAttribute="bottom" id="0Fd-5l-axZ"/>
                                     <constraint firstItem="fz0-v0-tYv" firstAttribute="top" secondItem="zjI-qz-3Ud" secondAttribute="top" id="2s0-cc-v7x"/>
                                     <constraint firstItem="fz0-v0-tYv" firstAttribute="leading" secondItem="zjI-qz-3Ud" secondAttribute="leading" constant="20" id="I30-fe-rDw"/>
                                     <constraint firstItem="fz0-v0-tYv" firstAttribute="height" relation="greaterThanOrEqual" secondItem="zjI-qz-3Ud" secondAttribute="height" multiplier="0.164474" id="MvH-FQ-3gG"/>
                                     <constraint firstItem="soZ-GX-MBT" firstAttribute="leading" secondItem="fz0-v0-tYv" secondAttribute="leading" id="OVa-9S-U5M"/>
                                     <constraint firstItem="fz0-v0-tYv" firstAttribute="top" secondItem="zjI-qz-3Ud" secondAttribute="top" id="YCf-DA-gwL"/>
-                                    <constraint firstAttribute="bottom" secondItem="soZ-GX-MBT" secondAttribute="bottom" constant="33" id="Yej-Sd-ya7"/>
-                                    <constraint firstItem="soZ-GX-MBT" firstAttribute="trailing" secondItem="fz0-v0-tYv" secondAttribute="trailing" multiplier="1.1" id="bh4-dW-lgn"/>
-                                    <constraint firstItem="soZ-GX-MBT" firstAttribute="firstBaseline" secondItem="fz0-v0-tYv" secondAttribute="baseline" constant="24" symbolType="layoutAnchor" id="fi7-72-XRi"/>
-                                    <constraint firstAttribute="trailing" secondItem="fz0-v0-tYv" secondAttribute="trailing" constant="66" id="hYE-oY-4j8"/>
+                                    <constraint firstItem="soZ-GX-MBT" firstAttribute="trailing" secondItem="fz0-v0-tYv" secondAttribute="trailing" multiplier="1.1" constant="-13.000000000000057" id="bh4-dW-lgn"/>
+                                    <constraint firstAttribute="bottom" secondItem="soZ-GX-MBT" secondAttribute="bottom" id="hAX-js-sNB"/>
+                                    <constraint firstAttribute="trailing" secondItem="fz0-v0-tYv" secondAttribute="trailing" constant="54" id="hYE-oY-4j8"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -100,7 +100,7 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
                             <constraint firstItem="urj-pv-kKv" firstAttribute="trailing" secondItem="Kqu-OW-WbU" secondAttribute="trailing" id="AXS-d2-SDl"/>
                             <constraint firstItem="Kqu-OW-WbU" firstAttribute="bottom" secondItem="zjI-qz-3Ud" secondAttribute="bottom" id="EmP-2N-zAR"/>
                             <constraint firstItem="zjI-qz-3Ud" firstAttribute="trailing" secondItem="Kqu-OW-WbU" secondAttribute="trailing" id="Jjm-MM-f2x"/>
-                            <constraint firstItem="lNO-xx-Re0" firstAttribute="top" secondItem="Kqu-OW-WbU" secondAttribute="top" constant="22" id="S4S-n9-C4g"/>
+                            <constraint firstItem="lNO-xx-Re0" firstAttribute="top" secondItem="Kqu-OW-WbU" secondAttribute="top" id="S4S-n9-C4g"/>
                             <constraint firstItem="QKh-Q2-GQH" firstAttribute="leading" secondItem="Kqu-OW-WbU" secondAttribute="leading" constant="20" id="XpD-y0-pdi"/>
                             <constraint firstItem="lNO-xx-Re0" firstAttribute="trailing" secondItem="Kqu-OW-WbU" secondAttribute="trailing" id="YnQ-Mi-9kf"/>
                             <constraint firstItem="zjI-qz-3Ud" firstAttribute="top" secondItem="urj-pv-kKv" secondAttribute="bottom" constant="8" id="dNv-tk-Hkm"/>
