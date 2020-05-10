@@ -22,7 +22,7 @@ final class HomeInteractor {
         let activeConfigurator = HomeActivateCellConfigurator()
         let date = persistenceManager.dateLastExposureDetection
 
-        let riskConfigurator = HomeRiskCellConfigurator(homeViewController: homeViewController, date: date)
+        let riskConfigurator = HomeRiskCellConfigurator(detectionSummary: homeViewController.summary!, date: date)
         riskConfigurator.contactAction = { [unowned self] in
             self.homeViewController.showExposureDetection()
         }

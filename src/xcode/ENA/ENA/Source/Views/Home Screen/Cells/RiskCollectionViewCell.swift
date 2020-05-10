@@ -27,12 +27,28 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         let date: Date?
     }
     
-    enum RiskLevel {
-        case unknown, low, high, moderate
-    }
-    
     struct Model {
         let risk: Risk
+    }
+    
+    class ViewModel {
+        let title: String
+        let titleColor: UIColor
+        let chevronTintColor: UIColor
+        let iconImage: UIImage?
+        let chevronImage: UIImage?
+        let body: String
+        let date: String?
+        
+        init(title: String, titleColor: UIColor, chevronTintColor: UIColor, iconImage: UIImage?, chevronImage: UIImage?, body: String, date: String?) {
+            self.title = title
+            self.titleColor = titleColor
+            self.chevronTintColor = chevronTintColor
+            self.iconImage = iconImage
+            self.chevronImage = chevronImage
+            self.body = body
+            self.date = date
+        }
     }
     
     // MARK: Properties
@@ -60,94 +76,22 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: Configuring the UI
-    func configure(with model: Model, delegate: RiskCollectionViewCellDelegate) {
+    func configure(with viewModel: ViewModel, delegate: RiskCollectionViewCellDelegate) {
         self.delegate = delegate
         
-        let risk = model.risk
-        let level = risk.level
-        
-        riskIndicatorContainer?.backgroundColor = level.backgroundColor
-        titleLabel.text = level.localizedString
-        titleLabel.textColor = level.textColor
-        chevronImageView.tintColor = level.accessoryTintColor
-        iconImageView.image = UIImage(named: "onboarding_ipad")
-        chevronImageView.image = UIImage(systemName: "chevron.right")
-        bodyLabel.text = level.localizedStringBody
-        dateLabel.text = risk.localizedDateLabelText
-        dateLabel.isHidden = risk.localizedDateLabelText == nil
+        //riskIndicatorContainer?.backgroundColor = level.backgroundColor
+        titleLabel.text = viewModel.title
+        titleLabel.textColor = viewModel.titleColor
+        chevronImageView.tintColor = viewModel.chevronTintColor
+        iconImageView.image = viewModel.iconImage //UIImage(named: "onboarding_ipad")
+        chevronImageView.image = viewModel.chevronImage // UIImage(systemName: "chevron.right")
+        bodyLabel.text = viewModel.body
+        dateLabel.text = viewModel.date
+        dateLabel.isHidden = viewModel.date == nil
         contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
     }
 }
 
-extension RiskCollectionViewCell.RiskLevel {
-    var localizedString: String {
-        let key: String
-        switch self {
-        case .unknown:
-            key = "Risk_Unknown_Button_Title"
-        case .low:
-            key = "Risk_Low_Button_Title"
-        case .high:
-            key = "Risk_High_Button_Title"
-        case .moderate:
-            key = "Risk_Moderate_Button_Title"
-        }
-        return key.localized(tableName: "LocalizableRisk")
-    }
-
-    var localizedStringBody: String {
-        let key: String
-        switch self {
-        case .unknown:
-            key = AppStrings.RiskView.unknownRiskDetail
-        case .low:
-            key = AppStrings.RiskView.lowRiskDetail
-        case .high:
-            key = AppStrings.RiskView.highRiskDetail
-        case .moderate:
-            key = AppStrings.RiskView.moderateRiskDetail
-        }
-        return key
-    }
-
-    
-    var backgroundColor: UIColor {
-        switch self {
-        case .unknown:
-            return .clear
-        case .low:
-            return .green
-        case .high:
-            return .red
-        case .moderate:
-            return .orange
-        }
-    }
-    
-    var accessoryTintColor: UIColor {
-        if case .unknown = self {
-            return .systemBlue
-        }
-        return textColor
-    }
-    
-    var textColor: UIColor {
-        switch self {
-        case .unknown:
-            // swiftlint:disable:next discouraged_object_literal
-            return #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        case .low:
-            // swiftlint:disable:next discouraged_object_literal
-            return #colorLiteral(red: 0.9090440273, green: 1, blue: 0.8056635857, alpha: 1)
-        case .high:
-            // swiftlint:disable:next discouraged_object_literal
-            return #colorLiteral(red: 1, green: 0.8961167932, blue: 0.8636761308, alpha: 1)
-        case .moderate:
-            // swiftlint:disable:next discouraged_object_literal
-            return #colorLiteral(red: 1, green: 0.9306703806, blue: 0.8244562745, alpha: 1)
-        }
-    }
-}
 
 private extension RiskCollectionViewCell.Risk {
     var localizedDateLabelText: String? {
