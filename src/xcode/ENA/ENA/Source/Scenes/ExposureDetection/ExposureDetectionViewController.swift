@@ -189,7 +189,6 @@ final class ExposureDetectionViewController: UIViewController {
                 self.exposureDetectionSummary = summary
                 self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
                 log(message: "Exposure detection finished with summary: \(summary.pretty)")
-                self.infoTextView.text = summary.pretty
                 self.updateRiskView()
                 stopAndInvalidate()
             }
@@ -214,29 +213,17 @@ extension ExposureDetectionViewController: RiskViewDelegate {
 }
 
 fileprivate extension ENExposureDetectionSummary {
-    var pretty: String {
-        """
-        daysSinceLastExposure: \(daysSinceLastExposure)
-        matchedKeyCount: \(matchedKeyCount)
-        maximumRiskScore: \(maximumRiskScore)
-        """
-    }
-}
+    var pretty: NSAttributedString {
+        let string = NSMutableAttributedString()
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.systemFont(ofSize: 30)
+        ]
+        string.append(NSAttributedString(string: "\n\(riskLevel.localizedString)", attributes: attributes))
+        string.append(NSAttributedString(string: "\n\n\n\(daysSinceLastExposure) Tage seit Kontakt", attributes: attributes))
+        string.append(NSAttributedString(string: "\n\(matchedKeyCount) Kontakte\n\n", attributes: attributes))
+        string.append(NSAttributedString(string: "\n Max Risk Score:\(maximumRiskScore)", attributes: attributes))
+        return string
 
-private extension ENExposureDetectionSummary {
-    var riskLevel: RiskCollectionViewCell.RiskLevel {
-        // The mapping between the maximum risk score and the `RiskCollectionViewCell.RiskLevel`
-        // is simply our best guess for the moment. If you see this and have more information about the
-        // mapping to use don't hesitate to change the following code.
-        switch maximumRiskScore {
-        case 1, 2, 3:
-            return .low
-        case 4, 5, 6:
-            return .moderate
-        case 7, 8:
-            return .high
-        default:
-            return .unknown
-        }
     }
 }

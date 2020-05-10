@@ -38,7 +38,7 @@ extension HomeRiskCellConfigurator: RiskCollectionViewCellDelegate {
     }
 }
 
-private extension ENExposureDetectionSummary {
+extension ENExposureDetectionSummary {
     var riskLevel: RiskCollectionViewCell.RiskLevel {
         // The mapping between the maximum risk score and the `RiskCollectionViewCell.RiskLevel`
         // is simply our best guess for the moment. If you see this and have more information about the

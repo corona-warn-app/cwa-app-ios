@@ -79,7 +79,7 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     }
 }
 
-private extension RiskCollectionViewCell.RiskLevel {
+extension RiskCollectionViewCell.RiskLevel {
     var localizedString: String {
         let key: String
         switch self {
