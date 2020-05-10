@@ -71,16 +71,19 @@ final class ExposureDetectionViewController: UIViewController {
 
             switch summary.riskLevel {
             case .low:
+                riskView.titleRiskLabel.text = "Geringes Risiko"
                 riskView.highRiskDetailView.isHidden = false
                 riskView.riskDetailDescriptionLabel.text = "Es wurde ein geringes Risiko erkannt"
                 riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
                 riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
             case .moderate:
+                riskView.titleRiskLabel.text = "Moderates Risiko"
                 riskView.highRiskDetailView.isHidden = false
                 riskView.riskDetailDescriptionLabel.text = "Es wurde ein moderates Risiko erkannt"
                 riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
                 riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.critical)
             default:
+                riskView.titleRiskLabel.text = "Hohes Risiko"
                 riskView.highRiskDetailView.isHidden = false
                 riskView.riskDetailDescriptionLabel.text = "Vor \(summary.daysSinceLastExposure) Tagen hattest du das letzte Mal Kontakt mit Personen, die mit COVID 19 infiziert wurden"
                 riskView.riskImageView.image = UIImage(systemName: "cloud.bolt")
