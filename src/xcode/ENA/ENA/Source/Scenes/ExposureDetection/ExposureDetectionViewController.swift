@@ -66,20 +66,26 @@ final class ExposureDetectionViewController: UIViewController {
         riskView.lastSyncLabel.text = "Letzte Überprüfung: \(Date())"
 
         if let summary = exposureDetectionSummary, summary.riskLevel != .unknown {
-           riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
-           riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
+            riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
+            riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
 
-           if summary.riskLevel == .low {
-               riskView.highRiskDetailView.isHidden = false
-               riskView.riskDetailDescriptionLabel.text = "Es wurde ein geringes Risiko erkannt"
-               riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
-               riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.critical)
-           } else {
-               riskView.highRiskDetailView.isHidden = false
-               riskView.riskDetailDescriptionLabel.text = "Vor \(summary.daysSinceLastExposure) Tagen hattest du das letzte Mal Kontakt mit Personen, die mit COVID 19 infiziert wurden"
-               riskView.riskImageView.image = UIImage(systemName: "cloud.bolt")
-               riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.negative)
-           }
+            switch summary.riskLevel {
+            case .low:
+                riskView.highRiskDetailView.isHidden = false
+                riskView.riskDetailDescriptionLabel.text = "Es wurde ein geringes Risiko erkannt"
+                riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
+                riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
+            case .moderate:
+                riskView.highRiskDetailView.isHidden = false
+                riskView.riskDetailDescriptionLabel.text = "Es wurde ein moderates Risiko erkannt"
+                riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
+                riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
+            default:
+                riskView.highRiskDetailView.isHidden = false
+                riskView.riskDetailDescriptionLabel.text = "Vor \(summary.daysSinceLastExposure) Tagen hattest du das letzte Mal Kontakt mit Personen, die mit COVID 19 infiziert wurden"
+                riskView.riskImageView.image = UIImage(systemName: "cloud.bolt")
+                riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.negative)
+            }
 
         } else {
            riskView.titleRiskLabel.text = "Risiko unbekannt"
