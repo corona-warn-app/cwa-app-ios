@@ -10,8 +10,8 @@ import ExposureNotification
 import UIKit
 import MessageUI
 
-class SettingsViewController: UIViewController {
-
+final class SettingsViewController: UIViewController {
+    // MARK: Properties
     @IBOutlet weak var trackingStatusLabel: UILabel!
     @IBOutlet weak var dataInWifiOnlySwitch: ENASwitch!
     @IBOutlet weak var sendLogFileView: UIView!
@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var notificationsContainerView: UIView!
     @IBOutlet weak var notificationStackView: UIStackView!
 
+    // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,19 +30,22 @@ class SettingsViewController: UIViewController {
         setupView()
     }
 
-    @IBAction func showNotificationSettings(_ sender: Any) {
-        guard let settingsURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsURL) else {
-            return
+    // MARK: Actions
+    @IBAction func showNotificationSettings(_: Any) {
+        guard
+            let settingsURL = URL(string: UIApplication.openSettingsURLString),
+            UIApplication.shared.canOpenURL(settingsURL) else {
+                return
         }
         UIApplication.shared.open(settingsURL)
     }
 
-    @IBAction func showTracingDetails(_ sender: Any) {
+    @IBAction func showTracingDetails(_: Any) {
         let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
         present(vc, animated: true, completion: nil)
     }
 
-    @IBAction func sendLogFile(_ sender: Any) {
+    @IBAction func sendLogFile(_: Any) {
         let alert = UIAlertController(title: "Send Log", message: "", preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "Please enter email"
@@ -72,8 +76,7 @@ class SettingsViewController: UIViewController {
         }
 
         alert.addAction(action)
-
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 
     @objc
@@ -81,6 +84,7 @@ class SettingsViewController: UIViewController {
         notificationSettings()
     }
 
+    // MARK: View Helper
     private func setupView() {
         #if !APP_STORE
             sendLogFileView.isHidden = false

@@ -9,17 +9,20 @@
 import UIKit
 import ExposureNotification
 
-class HomeViewController: UIViewController {
-    
-    @IBOutlet var topContainerView: UIView!
-    
-    enum Section: Int {
-		// swiftlint:disable explicit_enum_raw_value
-        case actions
-        case infos
-        case settings
-		// swiftlint:enable explicit_enum_raw_value
+final class HomeViewController: UIViewController {
+    // MARK: Creating a Home View Controller
+    init?(coder: NSCoder, exposureManager: ExposureManager) {
+        self.exposureManager = exposureManager
+        super.init(coder: coder)
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has intentionally not been implemented")
+    }
+    
+    // MARK: Properties
+    @IBOutlet var topContainerView: UIView!
+    private let exposureManager: ExposureManager
     var summary: ENExposureDetectionSummary?
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     private var collectionView: UICollectionView! = nil
@@ -36,6 +39,16 @@ class HomeViewController: UIViewController {
         DMDeveloperMenu(presentingViewController: self, client: client)
     }()
     
+    // MARK: Types
+    enum Section: Int {
+        // swiftlint:disable explicit_enum_raw_value
+        case actions
+        case infos
+        case settings
+        // swiftlint:enable explicit_enum_raw_value
+    }
+    
+    // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         homeInteractor = HomeInteractor(homeViewController: self)
@@ -44,49 +57,33 @@ class HomeViewController: UIViewController {
         configureDataSource()
         configureUI()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         developerMenu.enableIfAllowed()
     }
     
     // MARK: Actions
-    
     @IBAction private func infoButtonTapped(_ sender: UIButton) {
         log(message: "")
     }
     
+    // MARK: Misc
     func showSubmitResult() {
         let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
         vc.exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: client)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
-    
-    func showExposureNotificationSetting() {
-        let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
-        present(vc, animated: true, completion: nil)
-    }
-    
-    func showSetting() {
-        let vc = SettingsViewController.initiate(for: .settings)
-        let naviController = UINavigationController(rootViewController: vc)
-        present(naviController, animated: true, completion: nil)
-    }
 
-    func showDeveloperMenu() {
-        let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
-        present(developerMenuController, animated: true, completion: nil)
-    }
-    
-    func showInviteFriends() {
-        let vc = FriendsInviteController.initiate(for: .inviteFriends)
-        let naviController = UINavigationController(rootViewController: vc)
-        self.present(naviController, animated: true, completion: nil)
-    }
-    
-    func showExposureDetection() {
+    func showExposureNotificationSetting() {
+        
+                
+        let enStoryBoard = AppStoryboard.exposureNotificationSetting.instance
+        
+        //TODO: This is a workaround approach, create exposure manager everytime.
         let manager = ExposureManager()
+        
         manager.activate { [weak self] error in
             guard let self = self else {
                 return
@@ -101,14 +98,52 @@ class HomeViewController: UIViewController {
             } else if let error = error {
                 logError(message: error.localizedDescription)
             } else {
-                let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
-                exposureDetectionViewController.delegate = self
-                exposureDetectionViewController.client = self.client
-                exposureDetectionViewController.exposureManager = manager
-                self.present(exposureDetectionViewController, animated: true, completion: nil)
+                let vc = enStoryBoard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
+                    return ExposureNotificationSettingViewController(coder: coder, manager: manager)
+                }
+                )
+                self.present(vc, animated: true, completion: nil)
             }
         }
-        
+    }
+
+    func showSetting() {
+        let vc = SettingsViewController.initiate(for: .settings)
+        let naviController = UINavigationController(rootViewController: vc)
+        present(naviController, animated: true, completion: nil)
+    }
+
+    func showDeveloperMenu() {
+        let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
+        present(developerMenuController, animated: true, completion: nil)
+    }
+
+    func showInviteFriends() {
+        let vc = FriendsInviteController.initiate(for: .inviteFriends)
+        let naviController = UINavigationController(rootViewController: vc)
+        self.present(naviController, animated: true, completion: nil)
+    }
+
+    func showExposureDetection() {
+        // IMPORTANT:
+        // In pull request #98 (https://github.com/corona-warn-app/cwa-app-ios/pull/98) we had to remove code
+        // that used the already injected `ExposureManager` and did the following:
+        //
+        // - The manager was activated.
+        // - Some basic error handling was performed – specifically exposureNotificationRequired and
+        //   exposureNotificationAuthorization were handled by just logging a warning.
+        // - The activated manager was injected into `ExposureDetectionViewController` by setting a property on it.
+        //
+        // We had to temporarily remove this code because it caused an error (invalid use of API - detection already running).
+        // This error also happens in Apple's sample code and does not happen if ExposureManager is created on demand for
+        // every exposure detection request. There are other situations where this error does not happen like when the internal
+        // state of `ENManager` is mutated before kicking of an exposure detection. Our current workaround is to simply
+        // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
+
+        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
+        exposureDetectionViewController.delegate = self
+        exposureDetectionViewController.client = self.client
+        present(exposureDetectionViewController, animated: true, completion: nil)
     }
 
     func showAppInformation() {
@@ -116,7 +151,7 @@ class HomeViewController: UIViewController {
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
-    
+
     private func showScreen(at indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
         let row = indexPath.row
@@ -139,18 +174,18 @@ class HomeViewController: UIViewController {
             showSetting()
         }
     }
-    
+
     // MARK: Configuration
     private func prepareData() {
         cellConfigurators = homeInteractor.cellConfigurators()
     }
-    
+
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self
         return homeLayout.collectionLayout()
     }
-    
+
     private func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.delegate = self
@@ -159,10 +194,10 @@ class HomeViewController: UIViewController {
         view.addSubview(collectionView)
         NSLayoutConstraint.activate(
             [
-            collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-            collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
+                collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ]
         )
         collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })

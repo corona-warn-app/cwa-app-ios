@@ -25,7 +25,7 @@ final class DMQRCodeViewController : UIViewController {
     private var base64EncodedKey: Data {
         // This should always work thus we can safely use !
         // TODO: Please double check
-		// swiftlint:disable force_try
+		// swiftlint:disable:next force_try
         return try! key.serializedData().base64EncodedData()
     }
 

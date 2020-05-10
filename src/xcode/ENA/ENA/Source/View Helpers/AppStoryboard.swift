@@ -19,7 +19,6 @@ enum AppStoryboard: String {
     case exposureDetection = "ExposureDetection"
     case appInformation = "AppInfo"
 
-
     var instance: UIStoryboard {
         return UIStoryboard(name: rawValue, bundle: nil)
     }
@@ -34,15 +33,14 @@ enum AppStoryboard: String {
         }
         return vc
     }
-    
-    func initiateInitial() -> UIViewController {
+
+    func initiateInitial<T: UIViewController>() -> T {
         let storyboard = UIStoryboard(name: rawValue, bundle: nil)
-        guard let vc = storyboard.instantiateInitialViewController() else {
+        guard let vc = storyboard.instantiateInitialViewController() as? T else {
             let error = "Can't initiate start UIViewController for \(rawValue) storyboard"
             logError(message: error)
             fatalError(error)
         }
         return vc
     }
-    
 }

@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func setupRootViewController() {
+        let manager = ExposureManager()
 
         let onboardingWasShown = PersistenceManager.shared.isOnboarded
         //For a demo, we can set it to true.
@@ -30,11 +31,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootViewController: UIViewController
         switch instructor {
         case .home:
-            rootViewController = AppStoryboard.home.initiateInitial()
+            let storyboard = AppStoryboard.home.instance
+            let homeViewController = storyboard.instantiateInitialViewController { coder -> HomeViewController? in
+                HomeViewController(coder: coder, exposureManager: manager)
+            }
+            rootViewController = homeViewController!
         case .onboarding:
-            rootViewController = OnboardingViewController.initiate(for: .onboarding)
+            let storyboard = AppStoryboard.onboarding.instance
+            let onboardingViewController = storyboard.instantiateInitialViewController { coder -> OnboardingViewController? in
+                OnboardingViewController(coder: coder, exposureManager: manager)
+            }
+            rootViewController = onboardingViewController!
         }
-
 
         window?.rootViewController = rootViewController
     }
