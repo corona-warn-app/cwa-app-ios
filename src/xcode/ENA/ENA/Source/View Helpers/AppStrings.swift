@@ -43,6 +43,7 @@ enum AppStrings {
         static let info = NSLocalizedString("ExposureDetection_Info", comment: "")
         static let infoText = NSLocalizedString("ExposureDetection_InfoText", comment: "")
         static let lastSync = NSLocalizedString("ExposureDetection_LastSync", comment: "")
+        static let lastSyncUnknown = NSLocalizedString("ExposureDetection_LastSyncUnknown", comment: "")
         static let nextSync = NSLocalizedString("ExposureDetection_NextSync", comment: "")
     }
 
@@ -93,5 +94,17 @@ enum AppStrings {
         static let infoCardShareBody = NSLocalizedString("Home_InfoCard_ShareBody", comment: "")
         static let infoCardAboutTitle = NSLocalizedString("Home_InfoCard_AboutTitle", comment: "")
         static let infoCardAboutBody = NSLocalizedString("Home_InfoCard_AboutBody", comment: "")
+    }
+
+    enum RiskView {
+        static let unknownRisk = NSLocalizedString("unknown_risk", comment: "")
+        static let lowRisk = NSLocalizedString("low_risk", comment: "")
+        static let moderateRisk = NSLocalizedString("moderate_risk", comment: "")
+        static let highRisk = NSLocalizedString("high_risk", comment: "")
+
+        static let unknownRiskDetail = NSLocalizedString("unknown_risk_detail", comment: "")
+        static let lowRiskDetail = NSLocalizedString("low_risk_detail", comment: "")
+        static let moderateRiskDetail = NSLocalizedString("moderate_risk_detail", comment: "")
+        static let highRiskDetail = NSLocalizedString("high_risk_detail", comment: "")
     }
 }
