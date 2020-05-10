@@ -54,7 +54,7 @@ extension AppInformationViewController: UITableViewDelegate, UITableViewDataSour
         guard indexPath.row < labels.count else {
             return
         }
-        let viewController = AppInformationDetailViewController.initiate(for: .appInformation, creator: nil)
+        let viewController = AppInformationDetailViewController.initiate(for: .appInformation)
         viewController.title = labels[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }

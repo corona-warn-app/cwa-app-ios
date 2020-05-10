@@ -41,7 +41,7 @@ final class SettingsViewController: UIViewController {
     }
 
     @IBAction func showTracingDetails(_: Any) {
-        let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting, creator: nil)
+        let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
         present(vc, animated: true, completion: nil)
     }
 

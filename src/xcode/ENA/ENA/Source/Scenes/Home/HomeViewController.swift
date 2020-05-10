@@ -110,7 +110,7 @@ final class HomeViewController: UIViewController {
     }
 
     func showSetting() {
-        let vc = SettingsViewController.initiate(for: .settings, creator: nil)
+        let vc = SettingsViewController.initiate(for: .settings)
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
@@ -121,7 +121,7 @@ final class HomeViewController: UIViewController {
     }
 
     func showInviteFriends() {
-        let vc = FriendsInviteController.initiate(for: .inviteFriends, creator: nil)
+        let vc = FriendsInviteController.initiate(for: .inviteFriends)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
@@ -142,14 +142,14 @@ final class HomeViewController: UIViewController {
         // state of `ENManager` is mutated before kicking of an exposure detection. Our current workaround is to simply
         // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
 
-        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection, creator: nil)
+        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
         exposureDetectionViewController.delegate = self
         exposureDetectionViewController.client = self.client
         present(exposureDetectionViewController, animated: true, completion: nil)
     }
 
     func showAppInformation() {
-        let vc = AppInformationViewController.initiate(for: .appInformation, creator: nil)
+        let vc = AppInformationViewController.initiate(for: .appInformation)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
