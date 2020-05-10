@@ -80,7 +80,7 @@
                                     <constraint firstAttribute="height" constant="60" id="4q0-Ff-Xqe"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Contact"/>
                                 <connections>
                                     <action selector="contactButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="40G-bw-yhE"/>
