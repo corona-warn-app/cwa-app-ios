@@ -183,6 +183,7 @@ final class ExposureDetectionViewController: UIViewController {
                 guard let summary = summary else {
                     fatalError("can never happen")
                 }
+                self.exposureDetectionSummary = summary
                 self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
                 log(message: "Exposure detection finished with summary: \(summary.pretty)")
                 self.infoTextView.text = summary.pretty
