@@ -16,24 +16,27 @@ protocol ExposureSubmissionService {
 }
 
 class ExposureSubmissionServiceImpl: ExposureSubmissionService {
+    let manager: ExposureManager
     let client: Client
 
-    init(client: Client) {
+    init(manager: ExposureManager, client: Client) {
+        self.manager = manager
         self.client = client
     }
 
     func submitSelfExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
         log(message: "Started self exposure submission...")
 
-        let manager = ExposureManager()
-        manager.activate { error in
+        manager.activate { [weak self] error in
+            guard let self = self else { return }
+
             if nil != error {
                 log(message: "Exposure notification service not activated.", level: .warning)
                 completionHandler(.notActivated)
                 return
             }
 
-            manager.accessDiagnosisKeys { keys, error in
+            self.manager.accessDiagnosisKeys { keys, error in
                 if let error = error {
                     logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
                     completionHandler(self.parseError(error))
