@@ -119,8 +119,12 @@ final class ExposureDetectionViewController: UIViewController {
             riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSyncUnknown
             return
         }
-        let hours = Calendar.current.component(.hour, from: lastSync)
-        riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSync + String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
+        riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSync + lastSync.description
+
+
+        //TODO Fix date issues
+        //let hours = Calendar.current.component(.hour, from: lastSync)
+        //riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSync + String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
     }
 
     private func updateNextSyncLabel() {
@@ -166,6 +170,8 @@ final class ExposureDetectionViewController: UIViewController {
     private func startExposureDetector(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL]) {
         log(message: "Starting exposure detector")
 
+        let startDate = Date()
+
         let exposureManager = ExposureManager()
 
         func stopAndInvalidate() {
@@ -183,6 +189,7 @@ final class ExposureDetectionViewController: UIViewController {
                     fatalError("can never happen")
                 }
                 self.exposureDetectionSummary = summary
+                PersistenceManager.shared.dateLastExposureDetection = startDate
                 self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
                 log(message: "Exposure detection finished with summary: \(summary.pretty)")
                 self.updateRiskView()
