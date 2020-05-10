@@ -28,7 +28,7 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
         log(message: "Started self exposure submission...")
 
         manager.activate { [weak self] error in
-            guard let strongSelf = self else { return }
+            guard let self = self else { return }
 
             if nil != error {
                 log(message: "Exposure notification service not activated.", level: .warning)
@@ -36,10 +36,10 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
                 return
             }
 
-            strongSelf.manager.accessDiagnosisKeys { keys, error in
+            self.manager.accessDiagnosisKeys { keys, error in
                 if let error = error {
                     logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
-                    completionHandler(strongSelf.parseError(error))
+                    completionHandler(self.parseError(error))
                     return
                 }
 
@@ -48,11 +48,11 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
                     return
                 }
 
-                strongSelf.client.submit(keys: keys, tan: tan) { error in
+                self.client.submit(keys: keys, tan: tan) { error in
                     if let error = error {
                         logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
                     }
-                    completionHandler(error == nil ? nil : strongSelf.parseError(error!))
+                    completionHandler(error == nil ? nil : self.parseError(error!))
                 }
             }
         }

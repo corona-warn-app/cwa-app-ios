@@ -14,7 +14,7 @@ final class ExposureSubmissionViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
 
-    var exposureSubmissionService: ExposureSubmissionService
+    let exposureSubmissionService: ExposureSubmissionService
 
     init?(coder: NSCoder, exposureSubmissionService: ExposureSubmissionService) {
         self.exposureSubmissionService = exposureSubmissionService

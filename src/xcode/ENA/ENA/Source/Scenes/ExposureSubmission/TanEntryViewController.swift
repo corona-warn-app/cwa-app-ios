@@ -15,7 +15,7 @@ final class TanEntryViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var tanTextField: UITextField!
 
-    var exposureSubmissionService: ExposureSubmissionService
+    let exposureSubmissionService: ExposureSubmissionService
 
     // MARK: UIViewController
     init?(coder: NSCoder, exposureSubmissionService: ExposureSubmissionService) {
