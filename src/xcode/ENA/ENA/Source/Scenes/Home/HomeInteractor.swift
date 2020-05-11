@@ -39,7 +39,6 @@ final class HomeInteractor {
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
         let activeConfigurator = HomeActivateCellConfigurator()
         let date = persistenceManager.dateLastExposureDetection
-
         let riskLevel: RiskLevel
         if let detectionSummary = detectionSummary {
             riskLevel = RiskLevel(riskScore: detectionSummary.maximumRiskScore)
@@ -51,6 +50,8 @@ final class HomeInteractor {
             self.homeViewController.showExposureDetection()
         }
         let submitConfigurator = HomeSubmitCellConfigurator()
+
+        // swiftlint:disable:next unowned_variable_capture
         submitConfigurator.submitAction = { [unowned self] in
             self.homeViewController.showSubmitResult()
         }
