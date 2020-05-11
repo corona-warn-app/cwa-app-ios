@@ -29,7 +29,7 @@ final class DMViewController: UITableViewController {
     // MARK: Properties
     private let client: Client
     private var urls = [URL]()
-    private var keys = [Key]()
+    private var keys = [Apple_Key]()
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -38,18 +38,18 @@ final class DMViewController: UITableViewController {
         tableView.register(KeyCell.self, forCellReuseIdentifier: KeyCell.reuseIdentifier)
 
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(generateTestKeys)),
+            UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(generateTestApple_Keys)),
             UIBarButtonItem(image: UIImage(systemName: "qrcode.viewfinder"), style: .plain, target: self, action: #selector(showScanner))
         ]
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        resetAndFetchKeys()
+        resetAndFetchApple_Keys()
     }
 
-    // MARK: Fetching Keys
-    private func resetAndFetchKeys() {
+    // MARK: Fetching Apple_Keys
+    private func resetAndFetchApple_Keys() {
         urls = []
         keys = []
         client.fetch { [weak self] result in
@@ -58,7 +58,7 @@ final class DMViewController: UITableViewController {
             case .success(let urls):
                 self.urls = urls
                 self.urls.forEach { url in
-                    self.extractKeys(from: url)
+                    self.extractApple_Keys(from: url)
                 }
             case .failure:
                 self.urls = []
@@ -67,7 +67,7 @@ final class DMViewController: UITableViewController {
         }
     }
 
-    private func extractKeys(from url: URL) {
+    private func extractApple_Keys(from url: URL) {
         guard let data = try? Data(contentsOf: url) else {
             // This can happen initially if the user never submitted keys using the client.
             // In that case the url does not exist.
@@ -75,13 +75,13 @@ final class DMViewController: UITableViewController {
             // to avoid race conditions.
             return
         }
-        guard let file = try? File(serializedData: data) else {
-            fatalError("-serializedData: (File) failed. This probably happens because the Protocol Buffer schema changed. Try reinstalling the app. If that does not help consider creating an issue.")
+        guard let file = try? Apple_File(serializedData: data) else {
+            fatalError("-serializedData: (Apple_Key) failed. This probably happens because the Protocol Buffer schema changed. Try reinstalling the app. If that does not help consider creating an issue.")
         }
         keys += file.key
         // Newer keys come before older keys
-        keys.sort { lhKey, rhKey -> Bool in
-            return lhKey.rollingStartNumber > rhKey.rollingStartNumber
+        keys.sort { lhApple_Key, rhApple_Key -> Bool in
+            return lhApple_Key.rollingStartNumber > rhApple_Key.rollingStartNumber
         }
     }
 
@@ -91,7 +91,7 @@ final class DMViewController: UITableViewController {
         present(DMQRCodeScanViewController(delegate: self), animated: true)
     }
 
-    // MARK: Test Keys
+    // MARK: Test Apple_Keys
 
     // This method generates test keys and submits them to the backend.
     // Later we may split that up in two different actions:
@@ -99,7 +99,7 @@ final class DMViewController: UITableViewController {
     // 2. let the tester manually submit those keys using the API
     // For now we simply submit automatically.
     @objc
-    private func generateTestKeys() {
+    private func generateTestApple_Keys() {
         let manager = ExposureManager()
         manager.activate { activationError in
             if let activationError = activationError {
@@ -122,13 +122,13 @@ final class DMViewController: UITableViewController {
                     // TODO: Invalidate the manager here
                     let _keys = keys ?? []
                     log(message: "Got diagnosis keys: \(_keys)", level: .info)
-                    print("Keys: \(String(describing: keys))")
+                    print("Apple_Keys: \(String(describing: keys))")
                     self.client.submit(keys: keys ?? [], tan: "not needed here") { [weak self] submitError in
                         if let submitError = submitError {
                             logError(message: "Failed to submit test keys due to: \(submitError)")
                             return
                         }
-                        self?.resetAndFetchKeys()
+                        self?.resetAndFetchApple_Keys()
                     }
                 }
             }
@@ -141,7 +141,7 @@ final class DMViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "KeyCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Apple_KeyCell", for: indexPath)
         let key = keys[indexPath.row]
 
         cell.textLabel?.text = key.keyData.base64EncodedString()
@@ -156,9 +156,9 @@ final class DMViewController: UITableViewController {
 }
 
 extension DMViewController: DMQRCodeScanViewControllerDelegate {
-    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Key) {
+    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisApple_Key: Apple_Key) {
         client.submit(
-            keys: [diagnosisKey.temporaryExposureKey],
+            keys: [diagnosisApple_Key.temporaryExposureApple_Key],
             tan: "not needed") {
                 error in
                 self.client.fetch() { [weak self] result in
@@ -184,7 +184,7 @@ private extension DateFormatter {
     }
 }
 
-fileprivate extension Key {
+fileprivate extension Apple_Key {
     private static let dateFormatter: DateFormatter = .rollingPeriodDateFormatter()
 
     var rollingStartNumberDate: Date {
@@ -195,7 +195,7 @@ fileprivate extension Key {
         type(of: self).dateFormatter.string(from: rollingStartNumberDate)
     }
 
-    var temporaryExposureKey: ENTemporaryExposureKey {
+    var temporaryExposureApple_Key: ENTemporaryExposureKey {
         let key = ENTemporaryExposureKey()
         key.keyData = keyData
         key.rollingStartNumber = rollingStartNumber

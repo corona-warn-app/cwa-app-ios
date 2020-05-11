@@ -21,9 +21,9 @@ class MockClient: Client {
     private var submittedKeys = [ENTemporaryExposureKey]() {
         didSet {
             log(message: "Writing \(submittedKeys.count) keys)")
-            let file = File.with { file in
+            let file = Apple_File.with { file in
                 file.key = submittedKeys.map { diagnosisKey in
-                    Key.with { key in
+                    Apple_Key.with { key in
                         key.keyData = diagnosisKey.keyData
                         key.rollingPeriod = diagnosisKey.rollingPeriod
                         key.rollingStartNumber = diagnosisKey.rollingStartNumber

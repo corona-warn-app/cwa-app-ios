@@ -13,7 +13,7 @@ import ExposureNotification
 protocol DMQRCodeScanViewControllerDelegate: class {
     func debugCodeScanViewController(
         _ viewController: DMQRCodeScanViewController,
-        didScan diagnosisKey: Key
+        didScan diagnosisApple_Key: Apple_Key
     )
 }
 
@@ -40,8 +40,8 @@ final class DMQRCodeScanViewController: UIViewController {
     override func viewDidLoad() {
         scanView.dataHandler = { data in
             do {
-                let diagnosisKey = try Key(serializedData: data)
-                self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
+                let diagnosisApple_Key = try Apple_Key(serializedData: data)
+                self.delegate?.debugCodeScanViewController(self, didScan: diagnosisApple_Key)
                 self.dismiss(animated: true, completion: nil)
             } catch (let error) {
                 logError(message: "Failed to deserialize qr to key: \(error.localizedDescription)")

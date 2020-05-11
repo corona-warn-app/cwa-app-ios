@@ -8,10 +8,10 @@
 
 import UIKit
 
-/// A view controller that displays a `Key` as a QR code.
+/// A view controller that displays a `Apple_Key` as a QR code.
 final class DMQRCodeViewController : UIViewController {
     // MARK: Creating a Code generating View Controller
-    init(key: Key) {
+    init(key: Apple_Key) {
         self.key = key
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,8 +21,8 @@ final class DMQRCodeViewController : UIViewController {
     }
 
     // MARK: Properties
-    private let key: Key
-    private var base64EncodedKey: Data {
+    private let key: Apple_Key
+    private var base64EncodedApple_Key: Data {
         // This should always work thus we can safely use !
         // TODO: Please double check
 		// swiftlint:disable:next force_try
@@ -34,7 +34,7 @@ final class DMQRCodeViewController : UIViewController {
 
     // MARK: UIViewController
     override func loadView() {
-        let filter = CIFilter.QRCodeGeneratingFilter(with: base64EncodedKey)
+        let filter = CIFilter.QRCodeGeneratingFilter(with: base64EncodedApple_Key)
         let QRCodeImage = UIImage(cgImage: filter.bigOutputCGImage)
         let imageView = UIImageView(image: QRCodeImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false
