@@ -63,7 +63,11 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         // The delegate will be called back when the cell's primary action is triggered
         cell.configure(with: propertyHolder, delegate: self)
     }
+}
+
+extension HomeRiskCellConfigurator {
     
+    // MARK: RiskLevel Properties
     
     func titleText(for riskLevel: RiskLevel) -> String {
         let key: String
