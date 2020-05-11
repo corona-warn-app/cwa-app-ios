@@ -30,7 +30,8 @@ final class HomeViewController: UIViewController {
     private var homeInteractor: HomeInteractor!
     private lazy var client: Client = {
         let fileManager = FileManager()
-        let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        // swiftlint:disable:next force_unwrapping
+        let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first! // forcefully unwrapping for now. code will not run in app store delivery.
         let fileUrl = documentDir.appendingPathComponent("keys", isDirectory: false).appendingPathExtension("proto")
         return MockClient(submittedKeysFileURL: fileUrl)
     }()
@@ -79,11 +80,7 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureNotificationSetting() {
-        
-                
-        let enStoryBoard = AppStoryboard.exposureNotificationSetting.instance
-        
-        //TODO: This is a workaround approach, create exposure manager everytime.
+        let storyboard = AppStoryboard.exposureNotificationSetting.instance
         let manager = ExposureManager()
         
         manager.activate { [weak self] error in
@@ -100,8 +97,8 @@ final class HomeViewController: UIViewController {
             } else if let error = error {
                 logError(message: error.localizedDescription)
             } else {
-                let vc = enStoryBoard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
-                    return ExposureNotificationSettingViewController(coder: coder, manager: manager)
+                let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
+                    ExposureNotificationSettingViewController(coder: coder, manager: manager)
                 }
                 )
                 self.present(vc, animated: true, completion: nil)
@@ -208,18 +205,21 @@ final class HomeViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self]
-            (collectionView: UICollectionView, indexPath: IndexPath, identifier: Int) -> UICollectionViewCell? in
+        // swiftlint:disable:next unowned_variable_capture
+        dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self] collectionView, indexPath, identifier in
             let configurator = self.cellConfigurators[identifier]
             let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
             configurator.configureAny(cell: cell)
             return cell
         }
-        dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier, for: indexPath) as? HomeFooterSupplementaryView else {
-                let error = "Cannot create new supplementary"
-                logError(message: error)
-                fatalError(error)
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            let identifier = HomeFooterSupplementaryView.reusableViewIdentifier
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: identifier,
+                for: indexPath
+                ) as? HomeFooterSupplementaryView else {
+                    fatalError("Cannot create new supplementary")
             }
             supplementaryView.configure()
             return supplementaryView
