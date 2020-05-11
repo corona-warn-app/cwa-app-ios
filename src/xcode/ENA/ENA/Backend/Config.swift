@@ -7,12 +7,14 @@
 
 import Foundation
 
-struct BackendConfig {
-    let serverUrl: String
-    let apiVersion: String
+protocol BackendConfig {
+    var serverUrl: String { get }
+    var apiVersion: String { get }
+    var country: String { get }
 }
 
-let backendMockConfig = BackendConfig(
-    serverUrl: "http://localhost:8080",
-    apiVersion: "v1"
-)
+struct MockBackendConfig: BackendConfig {
+    var serverUrl = "http://localhost:8080"
+    var apiVersion = "v1"
+    var country = "DE"
+}
