@@ -14,7 +14,7 @@ protocol BackendConfig {
 }
 
 struct MockBackendConfig: BackendConfig {
-    var serverUrl = "http://localhost:8080"
+    var serverUrl = "http://distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io"
     var apiVersion = "v1"
     var country = "DE"
 }
