@@ -23,8 +23,7 @@ final class ConfirmationViewController: UIViewController {
         submitButton.setTitle(AppStrings.ExposureSubmissionConfirmation.submit, for: .normal)
     }
 
-    // MARK: Actions
-    @IBAction func submitClicked(_ sender: Any) {
+    @IBAction func submitTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
 }

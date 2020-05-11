@@ -71,8 +71,10 @@ final class HomeViewController: UIViewController {
     
     // MARK: Misc
     func showSubmitResult() {
-        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
-        vc.exposureSubmissionService = ExposureSubmissionServiceImpl(client: client)
+        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { [unowned self] coder in
+            let exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: self.client)
+            return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: exposureSubmissionService)
+        }
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }
@@ -111,7 +113,7 @@ final class HomeViewController: UIViewController {
     }
 
     func showDeveloperMenu() {
-        let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
+        guard let developerMenuController = AppStoryboard.developerMenu.initiateInitial() else { return }
         present(developerMenuController, animated: true, completion: nil)
     }
 
