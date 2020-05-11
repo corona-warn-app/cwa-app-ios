@@ -32,8 +32,11 @@ final class HomeViewController: UIViewController {
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     
     enum Section: Int {
+        // swiftlint:disable:next explicit_enum_raw_value
         case actions
+        // swiftlint:disable:next explicit_enum_raw_value
         case infos
+        // swiftlint:disable:next explicit_enum_raw_value
         case settings
     }
     
@@ -58,6 +61,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: Misc
     func showSubmitResult() {
+        // swiftlint:disable:next unowned_variable_capture
         let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { [unowned self] coder in
             let exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: self.homeInteractor.client)
             return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: exposureSubmissionService)
@@ -84,7 +88,8 @@ final class HomeViewController: UIViewController {
                 let storyboard = AppStoryboard.exposureNotificationSetting.instance
                 let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
                     ExposureNotificationSettingViewController(coder: coder, manager: manager)
-                })
+                }
+                )
                 self.present(vc, animated: true, completion: nil)
             }
         }
