@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import QuartzCore
 
 /// A Button which has the same behavior of UIButton, but with different tint color.
 @IBDesignable
