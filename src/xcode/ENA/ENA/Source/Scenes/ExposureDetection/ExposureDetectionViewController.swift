@@ -59,11 +59,11 @@ final class ExposureDetectionViewController: UIViewController {
         updateLastSyncLabel()
         updateNextSyncLabel()
 
-        if let summary = exposureDetectionSummary, RiskLevel.risk(riskScore: summary.maximumRiskScore) != .unknown {
+        if let summary = exposureDetectionSummary, RiskLevel(riskScore: summary.maximumRiskScore) != .unknown {
             riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
             riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
             riskView.highRiskDetailView.isHidden = false
-            setRiskView(to: RiskLevel.risk(riskScore: summary.maximumRiskScore) )
+            setRiskView(to: RiskLevel(riskScore: summary.maximumRiskScore) )
         } else {
             riskView.titleRiskLabel.text = AppStrings.RiskView.unknownRisk
             riskView.daysSinceLastExposureLabel.text = "0"
@@ -215,7 +215,7 @@ fileprivate extension ENExposureDetectionSummary {
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 30)
         ]
-        let title: String = self.title(for: RiskLevel.risk(riskScore: maximumRiskScore))
+        let title: String = self.title(for: RiskLevel(riskScore: maximumRiskScore))
         string.append(NSAttributedString(string: "\n\(title)", attributes: attributes))
         string.append(NSAttributedString(string: "\n\n\n\(daysSinceLastExposure) Tage seit Kontakt", attributes: attributes))
         string.append(NSAttributedString(string: "\n\(matchedKeyCount) Kontakte\n\n", attributes: attributes))

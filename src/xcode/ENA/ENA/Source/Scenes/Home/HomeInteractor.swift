@@ -42,7 +42,7 @@ final class HomeInteractor {
 
         let riskLevel: RiskLevel
         if let detectionSummary = detectionSummary {
-            riskLevel = RiskLevel.risk(riskScore: detectionSummary.maximumRiskScore)
+            riskLevel = RiskLevel(riskScore: detectionSummary.maximumRiskScore)
         } else {
             riskLevel = .unknown
         }

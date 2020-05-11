@@ -15,16 +15,16 @@ enum RiskLevel {
     case high
     case moderate
     
-    static func risk(riskScore: ENRiskScore) -> Self {
+    init(riskScore: ENRiskScore) {
         switch riskScore {
         case 1, 2, 3:
-            return .low
+            self = .low
         case 4, 5, 6:
-            return .moderate
+            self = .moderate
         case 7, 8:
-            return .high
+            self = .high
         default:
-            return .unknown
+            self = .unknown
         }
     }
 }
