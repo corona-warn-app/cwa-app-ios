@@ -17,7 +17,7 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     
     // MARK: ViewModel
     
-    class ViewModel {
+    final class PropertyHolder {
         let title: String
         let titleColor: UIColor
         let body: String
@@ -64,7 +64,7 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: Configuring the UI
-    func configure(with viewModel: ViewModel, delegate: RiskCollectionViewCellDelegate) {
+    func configure(with viewModel: PropertyHolder, delegate: RiskCollectionViewCellDelegate) {
         self.delegate = delegate
         
         titleLabel.text = viewModel.title

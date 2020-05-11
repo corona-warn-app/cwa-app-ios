@@ -32,10 +32,10 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     // MARK: Configuration
     func configure(cell: RiskCollectionViewCell) {
         
-        let title: String = self.title(for: riskLevel)
-        let titleColor: UIColor = self.titleColor(for: riskLevel)
+        let title: String = titleText(for: riskLevel)
+        let titleColor: UIColor = titleTextColor(for: riskLevel)
         
-        let body: String = self.body(for: riskLevel)
+        let body: String = bodyText(for: riskLevel)
         var dateString: String?
         if let date = date {
             let string = HomeRiskCellConfigurator.dateFormatter.string(from: date)
@@ -45,11 +45,11 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         
         let color: UIColor = indicatorColor(for: riskLevel)
         
-        let chevronTintColor: UIColor = self.chevronTintColor(for: riskLevel)
+        let chevronTintColor: UIColor = chevronColor(for: riskLevel)
         let chevronImage: UIImage? = UIImage(systemName: "chevron.right")
         let iconImage: UIImage? = UIImage(named: "onboarding_ipad")
         
-        let viewModel = RiskCollectionViewCell.ViewModel(
+        let propertyHolder = RiskCollectionViewCell.PropertyHolder(
             title: title,
             titleColor: titleColor,
             body: body,
@@ -61,11 +61,11 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         )
         
         // The delegate will be called back when the cell's primary action is triggered
-        cell.configure(with: viewModel, delegate: self)
+        cell.configure(with: propertyHolder, delegate: self)
     }
     
     
-    func title(for riskLevel: RiskLevel) -> String {
+    func titleText(for riskLevel: RiskLevel) -> String {
         let key: String
         switch riskLevel {
         case .unknown:
@@ -80,7 +80,7 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         return key
     }
     
-    func body(for riskLevel: RiskLevel) -> String {
+    func bodyText(for riskLevel: RiskLevel) -> String {
         let key: String
         switch riskLevel {
         case .unknown:
@@ -108,11 +108,11 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         }
     }
     
-    func chevronTintColor(for riskLevel: RiskLevel) -> UIColor {
-        riskLevel == .unknown ? .systemBlue : titleColor(for: riskLevel)
+    func chevronColor(for riskLevel: RiskLevel) -> UIColor {
+        riskLevel == .unknown ? .systemBlue : titleTextColor(for: riskLevel)
     }
     
-    func titleColor(for riskLevel: RiskLevel) -> UIColor {
+    func titleTextColor(for riskLevel: RiskLevel) -> UIColor {
         switch riskLevel {
         case .unknown:
             // swiftlint:disable:next discouraged_object_literal
