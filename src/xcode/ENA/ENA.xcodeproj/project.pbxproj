@@ -52,6 +52,7 @@
 		51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
 		85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85142500245DA0B3009D2791 /* UIViewController+Alert.swift */; };
 		8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8539874E2467094E00D28B62 /* AppIcon.xcassets */; };
+		853D987A24694A8700490DBA /* ENAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853D987924694A8700490DBA /* ENAButton.swift */; };
 		858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858F6F6D245A103C009FFD33 /* ExposureNotification.framework */; };
 		858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858F6F72245AED03009FFD33 /* ExposureNotificationSettingViewController.swift */; };
 		858F6F75245B1374009FFD33 /* ExposureNotificationSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 858F6F74245B1374009FFD33 /* ExposureNotificationSetting.storyboard */; };
@@ -171,6 +172,7 @@
 		71AFBD922464251000F91006 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		85142500245DA0B3009D2791 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		8539874E2467094E00D28B62 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
+		853D987924694A8700490DBA /* ENAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAButton.swift; sourceTree = "<group>"; };
 		85790F2E245C6B72003D47E1 /* ENA.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENA.entitlements; sourceTree = "<group>"; };
 		858F6F6D245A103C009FFD33 /* ExposureNotification.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExposureNotification.framework; path = System/Library/Frameworks/ExposureNotification.framework; sourceTree = SDKROOT; };
 		858F6F72245AED03009FFD33 /* ExposureNotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureNotificationSettingViewController.swift; sourceTree = "<group>"; };
@@ -432,6 +434,15 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		853D987824694A1E00490DBA /* BaseElements */ = {
+			isa = PBXGroup;
+			children = (
+				8595BF5E246032D90056EA27 /* ENASwitch.swift */,
+				853D987924694A8700490DBA /* ENAButton.swift */,
+			);
+			path = BaseElements;
+			sourceTree = "<group>";
+		};
 		858F6F71245AEC05009FFD33 /* ENSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,8 +454,8 @@
 		8595BF5D246032C40056EA27 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				853D987824694A1E00490DBA /* BaseElements */,
 				EEF790092466ED410065EBD5 /* ExposureDetection */,
-				8595BF5E246032D90056EA27 /* ENASwitch.swift */,
 				51CE1B74246078B6002CF42A /* Home Screen */,
 			);
 			path = Views;
@@ -852,6 +863,7 @@
 				51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */,
 				01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
+				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
 				B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */,
 				B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */,
