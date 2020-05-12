@@ -45,7 +45,7 @@ final class HTTPClient: Client {
 
         // swiftlint:disable:next force_unwrapping
         let url = URL(string: urlString)!
-        let task = session.dataTask(with: url) { result in
+        let task = session.pausedDataTask(with: url) { result in
             switch result {
             case .success(let data):
                 do {
@@ -154,10 +154,10 @@ final class HTTPClient: Client {
 // MARK: Extensions
 
 extension URLSession {
-    func dataTask(
+    func pausedDataTask(
         with url: URL,
         handler: @escaping (Result<Data, Error>) -> Void
-    ) -> URLSessionDataTask {
+    ) -> URLSessionTask {
         dataTask(with: url) { data, _, error in
             if let error = error {
                 handler(.failure(error))
