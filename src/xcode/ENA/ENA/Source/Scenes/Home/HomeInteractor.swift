@@ -7,19 +7,45 @@
 //
 
 import Foundation
+import ExposureNotification
 
-class HomeInteractor {
+final class HomeInteractor {
     
-    unowned var homeViewController: HomeViewController
+    private unowned var homeViewController: HomeViewController
+    private let persistenceManager = PersistenceManager.shared
+    private var detectionSummary: ENExposureDetectionSummary?
+    private(set) var exposureManager: ExposureManager
     
-    init(homeViewController: HomeViewController) {
+    private(set) var client: Client = {
+        let fileManager = FileManager.default
+        let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileUrl = documentDir.appendingPathComponent("keys", isDirectory: false).appendingPathExtension("proto")
+        return MockClient(submittedKeysFileURL: fileUrl)
+    }()
+    
+    private lazy var developerMenu: DMDeveloperMenu = {
+        DMDeveloperMenu(presentingViewController: homeViewController, client: client)
+    }()
+    
+    init(homeViewController: HomeViewController, exposureManager: ExposureManager) {
         self.homeViewController = homeViewController
+        self.exposureManager = exposureManager
+    }
+    
+    func developerMenuEnableIfAllowed() {
+        developerMenu.enableIfAllowed()
     }
     
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
         let activeConfigurator = HomeActivateCellConfigurator()
-        let riskConfigurator = HomeRiskCellConfigurator(homeViewController: homeViewController)
-        
+        let date = persistenceManager.dateLastExposureDetection
+        let riskLevel: RiskLevel
+        if let detectionSummary = detectionSummary {
+            riskLevel = RiskLevel(riskScore: detectionSummary.maximumRiskScore)
+        } else {
+            riskLevel = .unknown
+        }
+        let riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, date: date)
         // swiftlint:disable:next unowned_variable_capture
         riskConfigurator.contactAction = { [unowned self] in
             self.homeViewController.showExposureDetection()
@@ -39,5 +65,14 @@ class HomeInteractor {
         let settingsConfigurator = HomeSettingsCellConfigurator()
         let configurators: [CollectionViewCellConfiguratorAny] = [activeConfigurator, riskConfigurator, submitConfigurator, info1Configurator, info2Configurator, settingsConfigurator]
         return configurators
+    }
+}
+
+extension HomeInteractor: ExposureDetectionViewControllerDelegate {
+    func exposureDetectionViewController(_ controller: ExposureDetectionViewController, didReceiveSummary summary: ENExposureDetectionSummary) {
+        log(message: "got summary: \(summary.description)")
+        detectionSummary = summary
+        homeViewController.prepareData()
+        homeViewController.reloadData()
     }
 }

@@ -10,18 +10,24 @@ import Foundation
 import UIKit
 
 public enum ColorStyle {
-    case darkText
-    case lightText
+    case textPrimary1
+    case textPrimary2
+    case textPrimary3
+
     case tintColor
 
     case separator
-    case border
-    case shadow
+    case hairline
 
     case backgroundBase
     case backgroundContrast
     
     case positive
     case negative
-    case critical
+    case medium
+    case unknownRisk
+
+    case brandRed
+    case brandBlue
+    case brandMagenta
 }

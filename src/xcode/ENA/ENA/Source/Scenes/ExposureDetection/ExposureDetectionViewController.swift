@@ -59,11 +59,11 @@ final class ExposureDetectionViewController: UIViewController {
         updateLastSyncLabel()
         updateNextSyncLabel()
 
-        if let summary = exposureDetectionSummary, summary.riskLevel != .unknown {
+        if let summary = exposureDetectionSummary, RiskLevel(riskScore: summary.maximumRiskScore) != .unknown {
             riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
             riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
             riskView.highRiskDetailView.isHidden = false
-            setRiskView(to: summary.riskLevel)
+            setRiskView(to: RiskLevel(riskScore: summary.maximumRiskScore) )
         } else {
             riskView.titleRiskLabel.text = AppStrings.RiskView.unknownRisk
             riskView.daysSinceLastExposureLabel.text = "0"
@@ -75,7 +75,7 @@ final class ExposureDetectionViewController: UIViewController {
        }
     }
 
-    private func setRiskView(to riskLevel: RiskCollectionViewCell.RiskLevel) {
+    private func setRiskView(to riskLevel: RiskLevel) {
         switch riskLevel {
         case .low:
             riskView.titleRiskLabel.text = AppStrings.RiskView.lowRisk
@@ -86,7 +86,7 @@ final class ExposureDetectionViewController: UIViewController {
             riskView.titleRiskLabel.text = AppStrings.RiskView.moderateRisk
             riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.moderateRiskDetail
             riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
-            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.critical)
+            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.medium)
         default:
             riskView.titleRiskLabel.text = AppStrings.RiskView.highRisk
             riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.highRiskDetail
@@ -210,11 +210,28 @@ fileprivate extension ENExposureDetectionSummary {
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 30)
         ]
-        string.append(NSAttributedString(string: "\n\(riskLevel.localizedString)", attributes: attributes))
+        let title: String = self.title(for: RiskLevel(riskScore: maximumRiskScore))
+        string.append(NSAttributedString(string: "\n\(title)", attributes: attributes))
         string.append(NSAttributedString(string: "\n\n\n\(daysSinceLastExposure) Tage seit Kontakt", attributes: attributes))
         string.append(NSAttributedString(string: "\n\(matchedKeyCount) Kontakte\n\n", attributes: attributes))
         string.append(NSAttributedString(string: "\n Max Risk Score:\(maximumRiskScore)", attributes: attributes))
         return string
 
     }
+    
+    func title(for riskLevel: RiskLevel) -> String {
+        let key: String
+        switch riskLevel {
+        case .unknown:
+            key = AppStrings.Home.riskCardUnknownTitle
+        case .low:
+            key = AppStrings.Home.riskCardLowTitle
+        case .high:
+            key = AppStrings.Home.riskCardHighTitle
+        case .moderate:
+            key = AppStrings.Home.riskCardModerateTitle
+        }
+        return key
+    }
+    
 }
