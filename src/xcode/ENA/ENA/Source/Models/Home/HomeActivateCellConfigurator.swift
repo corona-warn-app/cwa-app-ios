@@ -9,10 +9,20 @@
 import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
+    
+    private var isActivate = false
+    
+    init(isActivate: Bool) {
+        self.isActivate = isActivate
+    }
+    
     // MARK: Configuring a Cell
     func configure(cell: ActivateCollectionViewCell) {
-        cell.iconImageView.image = UIImage(named: "onboarding_note")
-        cell.titleLabel.text = AppStrings.Home.activateTitle
+        
+        let iconImage: UIImage? = isActivate ? UIImage(named: "onboarding_note") : UIImage(named: "onboarding_ipad")
+        
+        cell.iconImageView.image = iconImage
+        cell.titleTextView.text = "That would drastically reduce." // AppStrings.Home.activateTitle
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
     }
 }

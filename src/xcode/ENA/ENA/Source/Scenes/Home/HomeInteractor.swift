@@ -17,7 +17,7 @@ class HomeInteractor {
     }
     
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
-        let activeConfigurator = HomeActivateCellConfigurator()
+        let activeConfigurator = HomeActivateCellConfigurator(isActivate: true)
         let riskConfigurator = HomeRiskCellConfigurator(homeViewController: homeViewController)
         
         // swiftlint:disable:next unowned_variable_capture
