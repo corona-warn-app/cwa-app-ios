@@ -198,8 +198,8 @@ final class ExposureDetectionViewController: UIViewController {
 }
 
 extension ExposureDetectionViewController: RiskViewDelegate {
-    func refreshButtonWasTapped(riskView: RiskView) {
-        self.refresh(riskView)
+    func riskView(riskView: RiskView, didTapRefreshButton _: UIButton) {
+        refresh(riskView)
     }
 }
 

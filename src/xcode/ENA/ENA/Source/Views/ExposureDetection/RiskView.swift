@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-protocol RiskViewDelegate: class {
-    func refreshButtonWasTapped(riskView: RiskView)
+protocol RiskViewDelegate: AnyObject {
+    func riskView(riskView: RiskView, didTapRefreshButton sender: UIButton)
 }
 
-class RiskView: UIView {
-
+final class RiskView: UIView {
+    // MARK: Properties
     @IBOutlet weak var titleRiskLabel: UILabel!
     @IBOutlet weak var riskDetailDescriptionLabel: UILabel!
     @IBOutlet weak var refreshButton: UIButton!
@@ -26,13 +26,8 @@ class RiskView: UIView {
 
     weak var delegate: RiskViewDelegate?
 
+    // MARK: Actions
     @IBAction func viewTapped(_ sender: UIButton) {
-        delegate?.refreshButtonWasTapped(riskView: self)
+        delegate?.riskView(riskView: self, didTapRefreshButton: sender)
     }
-
-
-    override class func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
 }
