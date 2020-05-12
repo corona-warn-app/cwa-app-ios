@@ -85,7 +85,7 @@ final class HTTPClient: Client {
 
         let request = createSubmissionRequest(tan: tan, keys: submissionPayloadData)
 
-        let dataTask = URLSession.shared.dataTask(with: request) { [weak self] _, response, error in
+        let dataTask = session.dataTask(with: request) { [weak self] _, response, error in
             guard let self = self else {
                 completion(.generalError)
                 return
