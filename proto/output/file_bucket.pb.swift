@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct FileBucket {
+struct Sap_FileBucket {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -33,8 +33,10 @@ struct FileBucket {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-extension FileBucket: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "FileBucket"
+fileprivate let _protobuf_package = "sap"
+
+extension Sap_FileBucket: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".FileBucket"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "files"),
   ]
@@ -55,7 +57,7 @@ extension FileBucket: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementatio
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: FileBucket, rhs: FileBucket) -> Bool {
+  static func ==(lhs: Sap_FileBucket, rhs: Sap_FileBucket) -> Bool {
     if lhs.files != rhs.files {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

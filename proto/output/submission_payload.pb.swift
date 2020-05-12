@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct SubmissionPayload {
+struct Sap_SubmissionPayload {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -33,8 +33,10 @@ struct SubmissionPayload {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-extension SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "SubmissionPayload"
+fileprivate let _protobuf_package = "sap"
+
+extension Sap_SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubmissionPayload"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "keys"),
   ]
@@ -55,7 +57,7 @@ extension SubmissionPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SubmissionPayload, rhs: SubmissionPayload) -> Bool {
+  static func ==(lhs: Sap_SubmissionPayload, rhs: Sap_SubmissionPayload) -> Bool {
     if lhs.keys != rhs.keys {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
