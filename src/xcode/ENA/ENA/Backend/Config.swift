@@ -8,13 +8,16 @@
 import Foundation
 
 protocol BackendConfig {
-    var serverUrl: String { get }
+    var distributionServerUrl: String { get }
     var apiVersion: String { get }
     var country: String { get }
+    var submissionServiceUrl: String { get }
 }
 
 struct MockBackendConfig: BackendConfig {
-    var serverUrl = "http://distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io"
+    var distributionServerUrl = "http://distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io"
     var apiVersion = "v1"
     var country = "DE"
+
+    var submissionServiceUrl: String { return "http://submission-cwa-server.apps.p006.otc.mcs-paas.io/version/\(apiVersion)/diagnosis-keys" }
 }

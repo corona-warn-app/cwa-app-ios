@@ -26,7 +26,6 @@ class HTTPClient: Client {
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         return formatter
     }()
-    let submissionEndpoint = "diagnosis-keys"
 
     func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
         
@@ -88,7 +87,7 @@ class HTTPClient: Client {
     }
 
     private func createSubmissionRequest(tan: String, keys: Data) -> URLRequest {
-        let url = URL(string: "http://submission-cwa-server.apps.p006.otc.mcs-paas.io/version/\(config.apiVersion)/\(submissionEndpoint)")
+        let url = URL(string: config.submissionServiceUrl)
         var request = URLRequest(url: url!)
 
         request.setValue(tan, forHTTPHeaderField: "cwa-authorization")
