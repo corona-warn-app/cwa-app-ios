@@ -17,7 +17,7 @@ class RiskLegendTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.allowsSelection = false
         tableView.estimatedRowHeight = tableViewCellHeight
         tableView.rowHeight = UITableView.automaticDimension
     }
