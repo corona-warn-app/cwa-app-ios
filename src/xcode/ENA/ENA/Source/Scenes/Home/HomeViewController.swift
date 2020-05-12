@@ -12,9 +12,10 @@ final class HomeViewController: UIViewController {
     
     // MARK: Creating a Home View Controller
     
-    init?(coder: NSCoder, exposureManager: ExposureManager) {
+    init?(coder: NSCoder, exposureManager: ExposureManager, store: Store) {
+        self.store = store
         super.init(coder: coder)
-        homeInteractor = HomeInteractor(homeViewController: self, exposureManager: exposureManager)
+        homeInteractor = HomeInteractor(homeViewController: self, exposureManager: exposureManager, store: store)
     }
     
     required init?(coder: NSCoder) {
@@ -22,7 +23,6 @@ final class HomeViewController: UIViewController {
     }
     
     // MARK: Properties
-    
     @IBOutlet var topContainerView: UIView!
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
@@ -30,7 +30,8 @@ final class HomeViewController: UIViewController {
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
-    
+    private let store: Store
+
     enum Section: Int {
         // swiftlint:disable:next explicit_enum_raw_value
         case actions
@@ -128,10 +129,16 @@ final class HomeViewController: UIViewController {
         // state of `ENManager` is mutated before kicking of an exposure detection. Our current workaround is to simply
         // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
 
-        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
-        exposureDetectionViewController.delegate = homeInteractor
-        exposureDetectionViewController.client = homeInteractor.client
-        present(exposureDetectionViewController, animated: true, completion: nil)
+        let storyboard = AppStoryboard.exposureDetection.instance
+        // swiftlint:disable:next unowned_variable_capture
+        let viewController = (storyboard.instantiateInitialViewController { [unowned self] coder in
+            ExposureDetectionViewController(coder: coder, store: self.store)
+            // swiftlint:disable:next force_unwrapping
+        })!
+        viewController.delegate = homeInteractor
+        viewController.client = homeInteractor.client
+
+        present(viewController, animated: true, completion: nil)
     }
 
     func showAppInformation() {
