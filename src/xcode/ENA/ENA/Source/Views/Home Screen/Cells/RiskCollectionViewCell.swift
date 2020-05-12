@@ -72,7 +72,7 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         chevronImageView.tintColor = level.accessoryTintColor
         iconImageView.image = UIImage(named: "onboarding_ipad")
         chevronImageView.image = UIImage(systemName: "chevron.right")
-        bodyLabel.text = AppStrings.Home.riskCardBody
+        bodyLabel.text = level.localizedStringBody
         dateLabel.text = risk.localizedDateLabelText
         dateLabel.isHidden = risk.localizedDateLabelText == nil
         contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
@@ -94,6 +94,22 @@ extension RiskCollectionViewCell.RiskLevel {
         }
         return key.localized(tableName: "LocalizableRisk")
     }
+
+    var localizedStringBody: String {
+        let key: String
+        switch self {
+        case .unknown:
+            key = AppStrings.RiskView.unknownRiskDetail
+        case .low:
+            key = AppStrings.RiskView.lowRiskDetail
+        case .high:
+            key = AppStrings.RiskView.highRiskDetail
+        case .moderate:
+            key = AppStrings.RiskView.moderateRiskDetail
+        }
+        return key
+    }
+
     
     var backgroundColor: UIColor {
         switch self {

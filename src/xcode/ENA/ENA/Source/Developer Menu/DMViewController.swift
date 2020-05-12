@@ -119,10 +119,8 @@ final class DMViewController: UITableViewController {
                         logError(message: "Failed to generate test keys due to: \(error)")
                         return
                     }
-                    // TODO: Invalidate the manager here
                     let _keys = keys ?? []
                     log(message: "Got diagnosis keys: \(_keys)", level: .info)
-                    print("Apple_Keys: \(String(describing: keys))")
                     self.client.submit(keys: keys ?? [], tan: "not needed here") { [weak self] submitError in
                         if let submitError = submitError {
                             logError(message: "Failed to submit test keys due to: \(submitError)")
@@ -141,7 +139,7 @@ final class DMViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Apple_KeyCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "KeyCell", for: indexPath)
         let key = keys[indexPath.row]
 
         cell.textLabel?.text = key.keyData.base64EncodedString()
@@ -156,26 +154,27 @@ final class DMViewController: UITableViewController {
 }
 
 extension DMViewController: DMQRCodeScanViewControllerDelegate {
-    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisApple_Key: Apple_Key) {
+    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Apple_Key) {
         client.submit(
-            keys: [diagnosisApple_Key.temporaryExposureApple_Key],
-            tan: "not needed") {
-                error in
-                self.client.fetch() { [weak self] result in
-                    switch result {
-                    case .success(let urls):
-                        self?.urls = urls
-                    case .failure(_):
-                        self?.urls = []
-                    }
-                    self?.tableView.reloadData()
+            keys: [diagnosisKey.temporaryExposureKey],
+            tan: "not needed"
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.client.fetch { [weak self] result in
+                switch result {
+                case .success(let urls):
+                    self?.urls = urls
+                case .failure:
+                    self?.urls = []
                 }
+                self?.tableView.reloadData()
+            }
         }
     }
 }
 
 private extension DateFormatter {
-    class func rollingPeriodDateFormatter() -> DateFormatter{
+    class func rollingPeriodDateFormatter() -> DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
@@ -195,7 +194,7 @@ fileprivate extension Apple_Key {
         type(of: self).dateFormatter.string(from: rollingStartNumberDate)
     }
 
-    var temporaryExposureApple_Key: ENTemporaryExposureKey {
+    var temporaryExposureKey: ENTemporaryExposureKey {
         let key = ENTemporaryExposureKey()
         key.keyData = keyData
         key.rollingStartNumber = rollingStartNumber

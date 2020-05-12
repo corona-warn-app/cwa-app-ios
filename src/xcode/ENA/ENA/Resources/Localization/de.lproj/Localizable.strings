@@ -13,7 +13,8 @@
 "Alert_ActionOk" = "Ok";
 
 // Exposure Detection
-"ExposureDetection_LastSync" = "Zeitpunkt unbekannt";
+"ExposureDetection_LastSync" = "Letzte Überprüfung: ";
+"ExposureDetection_LastSyncUnknown" = "Letzte Überprüfung: unbekannt";
 "ExposureDetection_LastContactTitle" = "Kontakt Festgestellt";
 "ExposureDetection_Synchronize" = "Aktualisieren";
 "ExposureDetection_Info" = "Info";
@@ -74,3 +75,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "App_Hotline" = "Hotline & Feedback";
 "App_Help" = "Hilfe";
 "App_Imprint" = "Impressum";
+
+//Risk View
+"unknown_risk" = "Risiko unbekannt";
+"low_risk" = "Geringes Risiko";
+"moderate_risk" = "Moderates Risiko";
+"high_risk" = "Hohes Risiko";
+
+"unknown_risk_detail" = "Es wurde kein Kontakt mit COVID 19 erkannt";
+"low_risk_detail" = "Es wurde ein geringes Risiko für den Kontakt mit COVID 19 erkannt";
+"moderate_risk_detail" = "Es wurde ein moderates Risiko für den Kontakt mit COVID 19 erkannt";
+"high_risk_detail" = "Es wurde ein hohes Risiko für den Kontakt mit COVID 19 erkannt";

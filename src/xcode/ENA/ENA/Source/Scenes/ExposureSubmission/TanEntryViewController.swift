@@ -14,9 +14,19 @@ final class TanEntryViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var tanTextField: UITextField!
-    var exposureSubmissionService: ExposureSubmissionService?
+
+    let exposureSubmissionService: ExposureSubmissionService
 
     // MARK: UIViewController
+    init?(coder: NSCoder, exposureSubmissionService: ExposureSubmissionService) {
+        self.exposureSubmissionService = exposureSubmissionService
+        super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,8 +36,7 @@ final class TanEntryViewController: UIViewController {
     }
 
     // MARK: Actions
-    // TODO: Rename this method
-    @IBAction func submitClicked(_ sender: Any) {
+    @IBAction func submitTapped(_ sender: Any) {
         submitSelfExposure()
     }
 
@@ -36,7 +45,7 @@ final class TanEntryViewController: UIViewController {
         guard let tan = tanTextField.text else {
             return
         }
-        exposureSubmissionService?.submitSelfExposure(tan: tan) { [weak self] error in
+        exposureSubmissionService.submitSelfExposure(tan: tan) { [weak self] error in
             if error != nil {
                 let alert = UIAlertController(title: AppStrings.Commom.alertTitleGeneral, message: AppStrings.Commom.alertMessageGeneral, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: AppStrings.Commom.alertActionOk, style: .default, handler: nil))

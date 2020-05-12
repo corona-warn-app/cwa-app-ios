@@ -60,7 +60,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Qud-2M-w8y" kind="show" identifier="showTanEntry" id="DZz-wb-iU1"/>
+                                            <segue destination="Qud-2M-w8y" kind="show" identifier="showTanEntry" destinationCreationSelector="createTanEntryViewControllerWithCoder:" id="DZz-wb-iU1"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -153,7 +153,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
-                                            <action selector="submitClicked:" destination="Qud-2M-w8y" eventType="touchUpInside" id="DPo-rC-sAx"/>
+                                            <action selector="submitTapped:" destination="Qud-2M-w8y" eventType="touchUpInside" id="DPo-rC-sAx"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -241,7 +241,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
-                                            <action selector="submitClicked:" destination="T09-2j-V3c" eventType="touchUpInside" id="YLe-H9-BGD"/>
+                                            <action selector="submitTapped:" destination="T09-2j-V3c" eventType="touchUpInside" id="YLe-H9-BGD"/>
                                         </connections>
                                     </button>
                                 </subviews>
