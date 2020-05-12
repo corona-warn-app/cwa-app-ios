@@ -48,21 +48,24 @@
                                                             <rect key="frame" x="16" y="16" width="50" height="50"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.grid.hex" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="MUg-g9-FGM">
-                                                                    <rect key="frame" x="0.0" y="0.5" width="50" height="48.5"/>
+                                                                    <rect key="frame" x="5" y="5.5" width="40" height="38.5"/>
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </imageView>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstItem="MUg-g9-FGM" firstAttribute="leading" secondItem="9Fo-Dx-p9v" secondAttribute="leading" id="275-b1-El3"/>
-                                                                <constraint firstAttribute="bottom" secondItem="MUg-g9-FGM" secondAttribute="bottom" id="N3z-Ts-oWv"/>
-                                                                <constraint firstItem="MUg-g9-FGM" firstAttribute="width" secondItem="9Fo-Dx-p9v" secondAttribute="width" id="OP6-m3-0nH"/>
-                                                                <constraint firstItem="MUg-g9-FGM" firstAttribute="top" secondItem="9Fo-Dx-p9v" secondAttribute="top" id="VMr-dD-wWl"/>
-                                                                <constraint firstItem="MUg-g9-FGM" firstAttribute="height" secondItem="9Fo-Dx-p9v" secondAttribute="height" id="dSS-zc-Ws5"/>
+                                                                <constraint firstItem="MUg-g9-FGM" firstAttribute="width" secondItem="9Fo-Dx-p9v" secondAttribute="width" multiplier="0.8" id="OP6-m3-0nH"/>
+                                                                <constraint firstItem="MUg-g9-FGM" firstAttribute="height" secondItem="9Fo-Dx-p9v" secondAttribute="height" multiplier="0.8" id="dSS-zc-Ws5"/>
                                                                 <constraint firstAttribute="height" constant="50" id="foi-F6-5tY"/>
                                                                 <constraint firstAttribute="width" constant="50" id="mVo-v2-Dz8"/>
-                                                                <constraint firstAttribute="trailing" secondItem="MUg-g9-FGM" secondAttribute="trailing" id="uJ5-1m-9RM"/>
+                                                                <constraint firstItem="MUg-g9-FGM" firstAttribute="centerY" secondItem="9Fo-Dx-p9v" secondAttribute="centerY" id="xK1-To-HON"/>
+                                                                <constraint firstItem="MUg-g9-FGM" firstAttribute="centerX" secondItem="9Fo-Dx-p9v" secondAttribute="centerX" id="yfV-6I-0yn"/>
                                                             </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                         </view>
                                                     </subviews>
                                                     <constraints>
@@ -71,7 +74,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="9Fo-Dx-p9v" secondAttribute="trailing" constant="16" id="shF-8q-rj0"/>
                                                     </constraints>
                                                 </view>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Dqs-ja-6uS">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Dqs-ja-6uS">
                                                     <rect key="frame" x="82" y="0.0" width="300" height="168"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iN3-IK-hyv">
@@ -81,21 +84,21 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brZ-DM-0H9">
-                                                            <rect key="frame" x="0.0" y="16" width="300" height="28.5"/>
+                                                            <rect key="frame" x="0.0" y="16" width="300" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="justified" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqn-ZG-vMC">
-                                                            <rect key="frame" x="0.0" y="50.5" width="300" height="117.5"/>
-                                                            <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqn-ZG-vMC">
+                                                            <rect key="frame" x="0.0" y="42" width="300" height="126"/>
+                                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="lqn-ZG-vMC" firstAttribute="height" secondItem="Dqs-ja-6uS" secondAttribute="height" multiplier="0.7" id="1Iv-OV-cex"/>
+                                                        <constraint firstItem="lqn-ZG-vMC" firstAttribute="height" secondItem="Dqs-ja-6uS" secondAttribute="height" multiplier="0.75" id="1Iv-OV-cex"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>

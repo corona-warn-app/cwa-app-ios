@@ -9,16 +9,14 @@
 import Foundation
 import UIKit
 
-fileprivate let tableViewCellHeight: CGFloat = 200
-
 class RiskLegendTableViewController: UITableViewController {
 
-    let riskLegend = ["unknown", "low", "moderate", "high"]
+    private let tableViewCellHeight: CGFloat = 200
 
+    let riskLegend = RiskLegendFactory.getSharedRiskLegendFactory().getRiskLegend()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tableView.register(RiskLegendTableViewCell.self, forCellReuseIdentifier: RiskLegendTableViewCell.identifier)
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -34,8 +32,12 @@ class RiskLegendTableViewController: UITableViewController {
             indexPath.row < riskLegend.count else {
             return UITableViewCell()
         }
-        cell.titleLabel.text = riskLegend[indexPath.row]
-        //cell.titleLabel.text = labels[indexPath.row]
+        cell.titleLabel.text = riskLegend[indexPath.row].title
+        cell.detailTextView.text = riskLegend[indexPath.row].description
+        cell.detailTextView.contentInset = .zero
+        cell.detailTextView.textContainer.lineFragmentPadding = 0
+        cell.iconImageView.image = UIImage(systemName: riskLegend[indexPath.row].imageName)
+        cell.iconBackgroundView.backgroundColor = riskLegend[indexPath.row].backgroundColor
 
         return cell
     }

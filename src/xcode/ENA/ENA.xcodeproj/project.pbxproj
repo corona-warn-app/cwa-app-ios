@@ -84,6 +84,7 @@
 		EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE20EA062469883900770683 /* RiskLegend.storyboard */; };
 		EE20EA0A24699A5800770683 /* RiskLegendTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20EA0924699A5800770683 /* RiskLegendTableViewController.swift */; };
 		EE20EA0C24699AA100770683 /* RiskLegendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20EA0B24699AA100770683 /* RiskLegendTableViewCell.swift */; };
+		EE20EA0E246ABED600770683 /* RiskLegendFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20EA0D246ABED600770683 /* RiskLegendFactory.swift */; };
 		EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2A245F0B32008B06F9 /* ColorStyle.swift */; };
 		EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */; };
 		EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */; };
@@ -216,6 +217,7 @@
 		EE20EA062469883900770683 /* RiskLegend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RiskLegend.storyboard; sourceTree = "<group>"; };
 		EE20EA0924699A5800770683 /* RiskLegendTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendTableViewController.swift; sourceTree = "<group>"; };
 		EE20EA0B24699AA100770683 /* RiskLegendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendTableViewCell.swift; sourceTree = "<group>"; };
+		EE20EA0D246ABED600770683 /* RiskLegendFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendFactory.swift; sourceTree = "<group>"; };
 		EE278B2A245F0B32008B06F9 /* ColorStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorStyle.swift; sourceTree = "<group>"; };
 		EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InviteFriends.storyboard; sourceTree = "<group>"; };
 		EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsInviteController.swift; sourceTree = "<group>"; };
@@ -635,6 +637,7 @@
 			children = (
 				EE20EA0924699A5800770683 /* RiskLegendTableViewController.swift */,
 				EE20EA0B24699AA100770683 /* RiskLegendTableViewCell.swift */,
+				EE20EA0D246ABED600770683 /* RiskLegendFactory.swift */,
 			);
 			path = Help;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
 				B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */,
 				B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */,
+				EE20EA0E246ABED600770683 /* RiskLegendFactory.swift in Sources */,
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,

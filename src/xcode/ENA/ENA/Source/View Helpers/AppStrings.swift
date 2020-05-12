@@ -106,5 +106,10 @@ enum AppStrings {
         static let lowRiskDetail = NSLocalizedString("low_risk_detail", comment: "")
         static let moderateRiskDetail = NSLocalizedString("moderate_risk_detail", comment: "")
         static let highRiskDetail = NSLocalizedString("high_risk_detail", comment: "")
+
+        static let unknownRiskDetailHelp = NSLocalizedString("unknown_risk_detail_help", comment: "")
+        static let lowRiskDetailHelp = NSLocalizedString("low_risk_detail_help", comment: "")
+        static let moderateRiskDetailHelp = NSLocalizedString("moderate_risk_detail_help", comment: "")
+        static let highRiskDetailHelp = NSLocalizedString("high_risk_detail_help", comment: "")
     }
 }
