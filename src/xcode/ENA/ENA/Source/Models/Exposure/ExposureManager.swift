@@ -157,7 +157,7 @@ final class ExposureManager: NSObject {
             completionHandler(nil, error)
             return
         }
-        manager.getDiagnosisKeys(completionHandler: completionHandler)
+        manager.getDiagnosisKeys(completionHandler: completionHandler) // TODO: Handle errors to return a meningful error of type ExposureNotificationError
     }
 
     // MARK: Error Handling

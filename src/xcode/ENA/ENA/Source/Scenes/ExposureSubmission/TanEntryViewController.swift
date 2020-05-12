@@ -36,7 +36,7 @@ final class TanEntryViewController: UIViewController {
         guard let tan = tanTextField.text else {
             return
         }
-        exposureSubmissionService?.submitSelfExposure(tan: tan) { [weak self] error in
+        exposureSubmissionService?.submitExposure(tan: tan) { [weak self] error in
             DispatchQueue.main.async {
                 if error != nil {
                     let alert = UIAlertController(title: AppStrings.Commom.alertTitleGeneral, message: AppStrings.Commom.alertMessageGeneral, preferredStyle: .alert)
