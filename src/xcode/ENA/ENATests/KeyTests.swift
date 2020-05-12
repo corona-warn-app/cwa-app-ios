@@ -14,14 +14,14 @@ class KeyTests: XCTestCase {
     // works. Currently this is needed by the developer menu in order to transfer keys from
     // device to device.
     func testKeyEncodeDecode() throws {
-        var kIn = Key()
+        var kIn = Sap_Key()
         kIn.keyData = Data(bytes: [1,2,3], count: 3)
         kIn.rollingPeriod = 1337
         kIn.rollingStartNumber = 42
         kIn.transmissionRiskLevel = 8
 
         let dataIn = try kIn.serializedData()
-        let kOut = try Key(serializedData: dataIn)
+        let kOut = try Sap_Key(serializedData: dataIn)
         XCTAssertEqual(kOut.keyData, Data(bytes: [1,2,3], count: 3))
         XCTAssertEqual(kOut.rollingPeriod, 1337)
         XCTAssertEqual(kOut.rollingStartNumber, 42)
