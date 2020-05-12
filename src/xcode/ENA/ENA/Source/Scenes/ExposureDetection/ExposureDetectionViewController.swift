@@ -117,15 +117,10 @@ final class ExposureDetectionViewController: UIViewController {
             return
         }
         riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSync + lastSync.description
-
-        //TODO Fix date issues
-        //let hours = Calendar.current.component(.hour, from: lastSync)
-        //riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSync + String.localizedStringWithFormat(AppStrings.ExposureDetection.lastContactHours, hours)
     }
 
     private func updateNextSyncLabel() {
         riskView.refreshButton.setTitle(String.localizedStringWithFormat(AppStrings.ExposureDetection.nextSync, 0), for: .normal)
-        //TODO make timer to setTitle and enable disable button appropriately
     }
 
 
@@ -203,8 +198,8 @@ final class ExposureDetectionViewController: UIViewController {
 }
 
 extension ExposureDetectionViewController: RiskViewDelegate {
-    func refreshButtonWasTapped(riskView: RiskView) {
-        self.refresh(riskView)
+    func riskView(riskView: RiskView, didTapRefreshButton _: UIButton) {
+        refresh(riskView)
     }
 }
 

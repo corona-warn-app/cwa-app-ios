@@ -43,7 +43,7 @@ final class DMQRCodeScanViewController: UIViewController {
                 let diagnosisKey = try Key(serializedData: data)
                 self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
                 self.dismiss(animated: true, completion: nil)
-            } catch (let error) {
+            } catch let error {
                 logError(message: "Failed to deserialize qr to key: \(error.localizedDescription)")
             }
         }
@@ -73,7 +73,8 @@ fileprivate final class DMQRCodeScanView: UIView {
 
         super.init(frame: .zero)
 
-        let captureDevice = AVCaptureDevice.default(for: .video)!
+        // swiftlint:disable:next force_unwrapping
+        let captureDevice = AVCaptureDevice.default(for: .video)! // forcing is okay - developer feature only
         guard let captureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return }
 
         captureSession.addInput(captureDeviceInput)
@@ -99,7 +100,8 @@ extension DMQRCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue {
             self.captureSession.stopRunning()
-            let data = Data(base64Encoded: string)!
+            // swiftlint:disable:next force_unwrapping
+            let data = Data(base64Encoded: string)! // using force is okay - developer feature only
             log(message: "\(data)")
             dataHandler(data)
         } else {

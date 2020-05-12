@@ -11,6 +11,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
+    // MARK: UISceneDelegate
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
@@ -21,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
     }
 
+    // MARK: Helper
     private func setupRootViewController() {
         let manager = ExposureManager()
 
@@ -31,15 +33,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         switch instructor {
         case .home:
             let storyboard = AppStoryboard.home.instance
-            let homeViewController = storyboard.instantiateInitialViewController { coder -> HomeViewController? in
+            let homeViewController = storyboard.instantiateInitialViewController { coder in
                 HomeViewController(coder: coder, exposureManager: manager)
             }
+            // swiftlint:disable:next force_unwrapping
             rootViewController = homeViewController!
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
-            let onboardingViewController = storyboard.instantiateInitialViewController { coder -> OnboardingViewController? in
+            let onboardingViewController = storyboard.instantiateInitialViewController { coder in
                 OnboardingViewController(coder: coder, exposureManager: manager)
             }
+            // swiftlint:disable:next force_unwrapping
             rootViewController = onboardingViewController!
         }
 

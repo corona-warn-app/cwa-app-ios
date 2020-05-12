@@ -51,20 +51,20 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
                 self.client.submit(keys: keys, tan: tan) { error in
                     if let error = error {
                         logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+                        completionHandler(self.parseError(error))
+                        return
                     }
-                    completionHandler(error == nil ? nil : self.parseError(error!))
+                    completionHandler(nil)
                 }
             }
         }
     }
 
     private func parseError(_ error: Error) -> ExposureSubmissionError {
-        // TODO: Transform to a meaningful error
         return .other
     }
 }
 
-// TODO: Refactor to a separate file
 enum ExposureSubmissionError: Error {
     case notActivated
     case noKeys

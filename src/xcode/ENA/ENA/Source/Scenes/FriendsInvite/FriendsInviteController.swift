@@ -10,15 +10,12 @@ import Foundation
 import LinkPresentation
 import UIKit
 
-class FriendsInviteController: UIViewController {
-
+final class FriendsInviteController: UIViewController {
     @IBAction func inviteAction(_ sender: UIButton) {
-
-        //TODO insert correct app ID and link
         if let url = URL(string: "https://apps.apple.com/de/app/") {
-            let vc = UIActivityViewController(activityItems: [url], applicationActivities: [])
-            vc.popoverPresentationController?.sourceView = self.view
-            present(vc, animated: true)
+            let inviteViewController = UIActivityViewController(activityItems: [url], applicationActivities: [])
+            inviteViewController.popoverPresentationController?.sourceView = view
+            present(inviteViewController, animated: true)
         }
     }
 }
