@@ -12,7 +12,7 @@ import UIKit
 class RiskLegendFactory {
 
     struct RiskLegendEntry {
-        var riskLevel: RiskCollectionViewCell.RiskLevel
+        var riskLevel: RiskLevel
         var backgroundColor: UIColor
         var imageName: String
         var title: String
@@ -28,7 +28,7 @@ class RiskLegendFactory {
     func getRiskLegend() -> [RiskLegendEntry] {
         return [
             RiskLegendEntry(riskLevel: .unknown,
-                            backgroundColor: UIColor.preferredColor(for: ColorStyle.lightText),
+                            backgroundColor: UIColor.preferredColor(for: ColorStyle.unknownRisk),
                             imageName: "sun.min",
                             title: AppStrings.RiskView.unknownRisk,
                             description: AppStrings.RiskView.unknownRiskDetailHelp),
@@ -38,7 +38,7 @@ class RiskLegendFactory {
                             title: AppStrings.RiskView.lowRisk,
                             description: AppStrings.RiskView.lowRiskDetailHelp),
             RiskLegendEntry(riskLevel: .moderate,
-                            backgroundColor: UIColor.preferredColor(for: ColorStyle.critical),
+                            backgroundColor: UIColor.preferredColor(for: ColorStyle.medium),
                             imageName: "cloud.rain",
                             title: AppStrings.RiskView.moderateRisk,
                             description: AppStrings.RiskView.moderateRiskDetailHelp),

@@ -17,10 +17,9 @@ class RiskLegendTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableViewCellHeight
+        tableView.estimatedRowHeight = tableViewCellHeight
+        tableView.rowHeight = UITableView.automaticDimension
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -28,8 +27,7 @@ class RiskLegendTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RiskLegendTableViewCell.identifier) as? RiskLegendTableViewCell,
-            indexPath.row < riskLegend.count else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RiskLegendTableViewCell.identifier) as? RiskLegendTableViewCell else {
             return UITableViewCell()
         }
         cell.titleLabel.text = riskLegend[indexPath.row].title
