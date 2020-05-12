@@ -8,8 +8,8 @@
 
 import UIKit
 
-/// A view controller that displays a `Apple_Key` as a QR code.
-final class DMQRCodeViewController : UIViewController {
+/// A view controller that displays a `Key` as a QR code.
+final class DMQRCodeViewController: UIViewController {
     // MARK: Creating a Code generating View Controller
     init(key: Apple_Key) {
         self.key = key
@@ -22,9 +22,8 @@ final class DMQRCodeViewController : UIViewController {
 
     // MARK: Properties
     private let key: Apple_Key
-    private var base64EncodedApple_Key: Data {
+    private var base64EncodedKey: Data {
         // This should always work thus we can safely use !
-        // TODO: Please double check
 		// swiftlint:disable:next force_try
         return try! key.serializedData().base64EncodedData()
     }
@@ -34,7 +33,7 @@ final class DMQRCodeViewController : UIViewController {
 
     // MARK: UIViewController
     override func loadView() {
-        let filter = CIFilter.QRCodeGeneratingFilter(with: base64EncodedApple_Key)
+        let filter = CIFilter.QRCodeGeneratingFilter(with: base64EncodedKey)
         let QRCodeImage = UIImage(cgImage: filter.bigOutputCGImage)
         let imageView = UIImageView(image: QRCodeImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +51,7 @@ final class DMQRCodeViewController : UIViewController {
 fileprivate extension CIFilter {
     class func QRCodeGeneratingFilter(with data: Data) -> CIFilter {
         // We expect there to always be a QR code generator
+        // swiftlint:disable:next force_unwrapping
         let filter = CIFilter(name: "CIQRCodeGenerator")!
         filter.setDefaults()
         log(message: "\(data)")
@@ -60,6 +60,7 @@ fileprivate extension CIFilter {
     }
 
     private var existingOutputImage: CIImage {
+        // swiftlint:disable:next force_unwrapping
         outputImage!
     }
 
@@ -71,6 +72,7 @@ fileprivate extension CIFilter {
 
     var bigOutputCGImage: CGImage {
         let extent = existingOutputImage.extent
+        // swiftlint:disable:next force_unwrapping
         return DMQRCodeViewController.context.createCGImage(bigOutputImage, from: CGRect(origin: .zero, size: CGSize(width: extent.width * scaleFactor, height: extent.height * scaleFactor)))!
     }
 }
