@@ -71,7 +71,7 @@ final class HomeViewController: UIViewController {
     // MARK: Misc
     func showSubmitResult() {
         let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission)
-        vc.exposureSubmissionService = ExposureSubmissionServiceImpl(client: client)
+        vc.exposureSubmissionService = ExposureSubmissionServiceImpl(client: HTTPClient(config: MockBackendConfig())) // TODO: use shared client object
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
     }

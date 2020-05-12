@@ -37,13 +37,15 @@ final class TanEntryViewController: UIViewController {
             return
         }
         exposureSubmissionService?.submitSelfExposure(tan: tan) { [weak self] error in
-            if error != nil {
-                let alert = UIAlertController(title: AppStrings.Commom.alertTitleGeneral, message: AppStrings.Commom.alertMessageGeneral, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: AppStrings.Commom.alertActionOk, style: .default, handler: nil))
-                self?.present(alert, animated: true, completion: nil)
-                return
+            DispatchQueue.main.async {
+                if error != nil {
+                    let alert = UIAlertController(title: AppStrings.Commom.alertTitleGeneral, message: AppStrings.Commom.alertMessageGeneral, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: AppStrings.Commom.alertActionOk, style: .default, handler: nil))
+                    self?.present(alert, animated: true, completion: nil)
+                    return
+                }
+                self?.loadConfirmationScreen()
             }
-            self?.loadConfirmationScreen()
         }
     }
 
