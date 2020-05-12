@@ -18,11 +18,11 @@ class HTTPClient: Client {
     // MARK: Properties
     private let config: BackendConfig
     private let session: URLSession
+
+    // Will be needed to format available days when fetching diagnosis keys
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
         formatter.dateFormat = "yyyy-mm-dd"
-        formatter.timeStyle = .medium
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         return formatter
     }()

@@ -38,18 +38,18 @@ final class DMViewController: UITableViewController {
         tableView.register(KeyCell.self, forCellReuseIdentifier: KeyCell.reuseIdentifier)
 
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(generateTestApple_Keys)),
+            UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(generateTestKeys)),
             UIBarButtonItem(image: UIImage(systemName: "qrcode.viewfinder"), style: .plain, target: self, action: #selector(showScanner))
         ]
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        resetAndFetchApple_Keys()
+        resetAndFetchKeys()
     }
 
-    // MARK: Fetching Apple_Keys
-    private func resetAndFetchApple_Keys() {
+    // MARK: Fetching Keys
+    private func resetAndFetchKeys() {
         urls = []
         keys = []
         client.fetch { [weak self] result in
@@ -58,7 +58,7 @@ final class DMViewController: UITableViewController {
             case .success(let urls):
                 self.urls = urls
                 self.urls.forEach { url in
-                    self.extractApple_Keys(from: url)
+                    self.extractKeys(from: url)
                 }
             case .failure:
                 self.urls = []
@@ -67,7 +67,7 @@ final class DMViewController: UITableViewController {
         }
     }
 
-    private func extractApple_Keys(from url: URL) {
+    private func extractKeys(from url: URL) {
         guard let data = try? Data(contentsOf: url) else {
             // This can happen initially if the user never submitted keys using the client.
             // In that case the url does not exist.
@@ -80,8 +80,8 @@ final class DMViewController: UITableViewController {
         }
         keys += file.key
         // Newer keys come before older keys
-        keys.sort { lhApple_Key, rhApple_Key -> Bool in
-            return lhApple_Key.rollingStartNumber > rhApple_Key.rollingStartNumber
+        keys.sort { lhKey, rhKey -> Bool in
+            return lhKey.rollingStartNumber > rhKey.rollingStartNumber
         }
     }
 
@@ -91,7 +91,7 @@ final class DMViewController: UITableViewController {
         present(DMQRCodeScanViewController(delegate: self), animated: true)
     }
 
-    // MARK: Test Apple_Keys
+    // MARK: Test Keys
 
     // This method generates test keys and submits them to the backend.
     // Later we may split that up in two different actions:
@@ -99,7 +99,7 @@ final class DMViewController: UITableViewController {
     // 2. let the tester manually submit those keys using the API
     // For now we simply submit automatically.
     @objc
-    private func generateTestApple_Keys() {
+    private func generateTestKeys() {
         let manager = ExposureManager()
         manager.activate { activationError in
             if let activationError = activationError {
@@ -126,7 +126,7 @@ final class DMViewController: UITableViewController {
                             logError(message: "Failed to submit test keys due to: \(submitError)")
                             return
                         }
-                        self?.resetAndFetchApple_Keys()
+                        self?.resetAndFetchKeys()
                     }
                 }
             }
