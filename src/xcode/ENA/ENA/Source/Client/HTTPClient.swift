@@ -18,14 +18,14 @@ final class HTTPClient: Client {
         static let mock = Configuration(baseURL: "http://distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io", apiVersion: "v1", country: "DE")
     }
 
-    init(configuration: Configuration = .mock, session: URLSession = URLSession.shared) {
+    init(configuration: Configuration = .mock, session: Session = URLSession.shared) {
         self.configuration = configuration
         self.session = session
     }
 
     // MARK: Properties
     private let configuration: Configuration
-    private let session: URLSession
+    private let session: Session
 
     // Will be needed to format available days when fetching diagnosis keys
     private lazy var dateFormatter: DateFormatter = {
@@ -43,7 +43,7 @@ final class HTTPClient: Client {
 
         // swiftlint:disable:next force_unwrapping
         let url = URL(string: urlString)!
-        let task = session.dataTask(with: url) { result in
+        let task = session.pausedDataTask(with: url) { result in
             switch result {
             case .success(let data):
                 do {
@@ -74,12 +74,12 @@ final class HTTPClient: Client {
 
 // MARK: Extensions
 
-extension URLSession {
-    func dataTask(
+extension Session {
+    func pausedDataTask(
         with url: URL,
         handler: @escaping (Result<Data, Error>) -> Void
-    ) -> URLSessionDataTask {
-        dataTask(with: url) { data, _, error in
+    ) -> SessionTask {
+        sessionTask(with: url) { data, _, error in
             if let error = error {
                 handler(.failure(error))
             } else {
