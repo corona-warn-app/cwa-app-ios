@@ -3,6 +3,7 @@
 syntax = "proto3";
 option java_multiple_files = true;
 import "risk_level.proto";
+package sap;
 
 message RiskScoreParameters {
 

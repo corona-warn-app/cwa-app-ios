@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-enum RiskLevel: SwiftProtobuf.Enum {
+enum Sap_RiskLevel: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case unspecified // = 0
   case lowest // = 1
@@ -70,9 +70,9 @@ enum RiskLevel: SwiftProtobuf.Enum {
 
 #if swift(>=4.2)
 
-extension RiskLevel: CaseIterable {
+extension Sap_RiskLevel: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [RiskLevel] = [
+  static var allCases: [Sap_RiskLevel] = [
     .unspecified,
     .lowest,
     .low,
@@ -89,7 +89,7 @@ extension RiskLevel: CaseIterable {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-extension RiskLevel: SwiftProtobuf._ProtoNameProviding {
+extension Sap_RiskLevel: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "RISK_LEVEL_UNSPECIFIED"),
     1: .same(proto: "RISK_LEVEL_LOWEST"),

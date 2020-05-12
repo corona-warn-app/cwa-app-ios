@@ -93,47 +93,47 @@ fileprivate extension ENExposureConfiguration {
     convenience init(from data: Data) throws {
         self.init()
 
-        let signedPayload = try SignedPayload(serializedData: data)
-        let riskscoreParameters = try RiskScoreParameters(serializedData: signedPayload.payload)
+        let signedPayload = try Sap_SignedPayload(serializedData: data)
+        let riskscoreParameters = try Sap_RiskScoreParameters(serializedData: signedPayload.payload)
 
-        self.minimumRiskScore = 0  // TODO: Update once the backend provides this value
+        minimumRiskScore = 0
 
-        self.attenuationWeight = riskscoreParameters.attenuationWeight
-        self.attenuationLevelValues = riskscoreParameters.attenuation.asArray
-        self.daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
-        self.daysSinceLastExposureWeight = riskscoreParameters.daysWeight
-        self.durationLevelValues = riskscoreParameters.duration.asArray
-        self.durationWeight = riskscoreParameters.durationWeight
-        self.transmissionRiskLevelValues = riskscoreParameters.transmission.asArray
-        self.transmissionRiskWeight = riskscoreParameters.transmissionWeight
+        attenuationWeight = riskscoreParameters.attenuationWeight
+        attenuationLevelValues = riskscoreParameters.attenuation.asArray
+        daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
+        daysSinceLastExposureWeight = riskscoreParameters.daysWeight
+        durationLevelValues = riskscoreParameters.duration.asArray
+        durationWeight = riskscoreParameters.durationWeight
+        transmissionRiskLevelValues = riskscoreParameters.transmission.asArray
+        transmissionRiskWeight = riskscoreParameters.transmissionWeight
     }
 }
 
-fileprivate extension RiskLevel {
+fileprivate extension Sap_RiskLevel {
     var asNumber: NSNumber {
         NSNumber(value: rawValue)
     }
 }
 
-fileprivate extension RiskScoreParameters.TransmissionRiskParameters {
+fileprivate extension Sap_RiskScoreParameters.TransmissionRiskParameters {
     var asArray: [NSNumber] {
         [appDefined1, appDefined2, appDefined3, appDefined4, appDefined5, appDefined6, appDefined7, appDefined8].map { $0.asNumber }
     }
 }
 
-fileprivate extension RiskScoreParameters.DaysSinceLastExposureRiskParameters {
+fileprivate extension Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
     var asArray: [NSNumber] {
         [ge14Days, ge12Lt14Days, ge10Lt12Days, ge8Lt10Days, ge6Lt8Days, ge4Lt6Days, ge2Lt4Days, ge0Lt2Days].map { $0.asNumber }
     }
 }
 
-fileprivate extension RiskScoreParameters.DurationRiskParameters {
+fileprivate extension Sap_RiskScoreParameters.DurationRiskParameters {
     var asArray: [NSNumber] {
         [eq0Min, gt0Le5Min, gt5Le10Min, gt10Le15Min, gt15Le20Min, gt20Le25Min, gt25Le30Min, gt30Min].map { $0.asNumber }
     }
 }
 
-fileprivate extension RiskScoreParameters.AttenuationRiskParameters {
+fileprivate extension Sap_RiskScoreParameters.AttenuationRiskParameters {
     var asArray: [NSNumber] {
         [gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, lt10Dbm].map { $0.asNumber }
     }

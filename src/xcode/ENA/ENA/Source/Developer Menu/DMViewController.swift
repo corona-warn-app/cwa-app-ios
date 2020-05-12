@@ -76,6 +76,7 @@ final class DMViewController: UITableViewController {
             return
         }
         guard let file = try? Apple_File(serializedData: data) else {
+            // swiftlint:disable:next line_length
             fatalError("-serializedData: (Apple_Key) failed. This probably happens because the Protocol Buffer schema changed. Try reinstalling the app. If that does not help consider creating an issue.")
         }
         keys += file.key
