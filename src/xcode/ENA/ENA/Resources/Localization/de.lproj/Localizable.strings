@@ -90,3 +90,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "low_risk_detail" = "Es wurde ein geringes Risiko für den Kontakt mit COVID 19 erkannt";
 "moderate_risk_detail" = "Es wurde ein moderates Risiko für den Kontakt mit COVID 19 erkannt";
 "high_risk_detail" = "Es wurde ein hohes Risiko für den Kontakt mit COVID 19 erkannt";
+
+"unknown_risk_detail_help" = "Das Infektionsrisiko ist unbekannt, da bisher noch keine Kontakte aufgezeichnet wurden.";
+"low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
+"moderate_risk_detail_help" = "Es besteht moderates Infektionsrisiko, da ein Kontakt mit wenigen infizierten Personen oder nur über Zeitpunkt hinweg aufgezeichnet wurde.";
+"high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";

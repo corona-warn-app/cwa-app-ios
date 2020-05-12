@@ -57,6 +57,10 @@ final class HomeViewController: UIViewController {
     // MARK: Actions
     @IBAction private func infoButtonTapped(_ sender: UIButton) {
         log(message: "")
+
+        let vc = RiskLegendTableViewController.initiate(for: .riskLegend)
+        let naviController = UINavigationController(rootViewController: vc)
+        self.present(naviController, animated: true, completion: nil)
     }
     
     // MARK: Misc
