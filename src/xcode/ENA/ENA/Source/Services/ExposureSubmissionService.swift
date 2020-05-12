@@ -27,7 +27,12 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
     func submitExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
         log(message: "Started exposure submission...")
 
-        manager.activate { error in
+        manager.activate { [weak self] error in
+            guard let self = self else {
+                completionHandler(.other)
+                return
+            }
+
             if let error = error {
                 log(message: "Exposure notification service not activated.", level: .warning)
                 completionHandler(self.parseExposureManagerError(error))
