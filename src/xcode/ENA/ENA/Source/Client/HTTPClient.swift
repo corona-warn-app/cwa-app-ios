@@ -8,15 +8,23 @@
 import Foundation
 import ExposureNotification
 
-class HTTPClient: Client {
+final class HTTPClient: Client {
+    struct Configuration {
+        // MARK: Properties
+        let baseURL: String
+        let apiVersion: String
+        let country: String
 
-    init(config: BackendConfig, session: URLSession = URLSession.shared) {
-        self.config = config
+        static let mock = Configuration(baseURL: "http://distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io", apiVersion: "v1", country: "DE")
+    }
+
+    init(configuration: Configuration = .mock, session: URLSession = URLSession.shared) {
+        self.configuration = configuration
         self.session = session
     }
 
     // MARK: Properties
-    private let config: BackendConfig
+    private let configuration: Configuration
     private let session: URLSession
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -29,7 +37,7 @@ class HTTPClient: Client {
 
     func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
 
-        let urlString = "\(config.serverUrl)/version/\(config.apiVersion)/parameters/country/\(config.country)"
+        let urlString = "\(configuration.baseURL)/version/\(configuration.apiVersion)/parameters/country/\(configuration.country)"
         log(message: "Fetching exposureConfiguation from: \(urlString)")
 
 
@@ -59,7 +67,7 @@ class HTTPClient: Client {
 
     func fetch(completion: @escaping FetchKeysCompletionHandler) {
         // swiftlint:disable:next force_unwrapping
-        _ = URL(string: "\(config.serverUrl)/version/\(config.apiVersion)/diagnosis-keys/country/\(config.country)/date/")!
+        _ = URL(string: "\(configuration.baseURL)/version/\(configuration.apiVersion)/diagnosis-keys/country/\(configuration.country)/date/")!
 
     }
 }

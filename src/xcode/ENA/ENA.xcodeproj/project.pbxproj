@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		011E13AC246806F700973467 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AB246806F700973467 /* Config.swift */; };
 		011E13AE24680A4000973467 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AD24680A4000973467 /* HTTPClient.swift */; };
 		013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* PersistenceManager.swift */; };
 		0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */; };
@@ -131,7 +130,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		011E13AB246806F700973467 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		011E13AD24680A4000973467 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
@@ -581,7 +579,6 @@
 				01EB1D2A246973F100A7908B /* signed_payload.pb.swift */,
 				01EB1D2C246973F100A7908B /* submission_payload.pb.swift */,
 				B102BDC22460410600CD55A2 /* README.md */,
-				011E13AB246806F700973467 /* Config.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -865,7 +862,6 @@
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
 				858F6F73245AED03009FFD33 /* ExposureNotificationSettingViewController.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
-				011E13AC246806F700973467 /* Config.swift in Sources */,
 				85D759492457048F008175F0 /* ENA.xcdatamodeld in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
 				51CE1B86246078B6002CF42A /* SubmitCollectionViewCell.swift in Sources */,
