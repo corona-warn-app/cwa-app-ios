@@ -36,7 +36,7 @@ extension UIColor {
         case .backgroundBase:
             return UIColor(named: "background")
         case .backgroundContrast:
-            return UIColor(named: "backgroundContrast")
+            return UIColor(named: "backgroundGroup")
         case .positive:
             return UIColor(named: "positive")
         case .negative:
