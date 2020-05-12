@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct SignedPayload {
+struct Sap_SignedPayload {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -40,8 +40,10 @@ struct SignedPayload {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-extension SignedPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "SignedPayload"
+fileprivate let _protobuf_package = "sap"
+
+extension Sap_SignedPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SignedPayload"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "payload"),
     2: .standard(proto: "certificate_chain"),
@@ -72,7 +74,7 @@ extension SignedPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SignedPayload, rhs: SignedPayload) -> Bool {
+  static func ==(lhs: Sap_SignedPayload, rhs: Sap_SignedPayload) -> Bool {
     if lhs.payload != rhs.payload {return false}
     if lhs.certificateChain != rhs.certificateChain {return false}
     if lhs.signature != rhs.signature {return false}

@@ -22,14 +22,14 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct RiskScoreParameters {
+struct Sap_RiskScoreParameters {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// App-specific mapping
-  var transmission: RiskScoreParameters.TransmissionRiskParameters {
-    get {return _transmission ?? RiskScoreParameters.TransmissionRiskParameters()}
+  var transmission: Sap_RiskScoreParameters.TransmissionRiskParameters {
+    get {return _transmission ?? Sap_RiskScoreParameters.TransmissionRiskParameters()}
     set {_transmission = newValue}
   }
   /// Returns true if `transmission` has been explicitly set.
@@ -39,8 +39,8 @@ struct RiskScoreParameters {
 
   var transmissionWeight: Double = 0
 
-  var duration: RiskScoreParameters.DurationRiskParameters {
-    get {return _duration ?? RiskScoreParameters.DurationRiskParameters()}
+  var duration: Sap_RiskScoreParameters.DurationRiskParameters {
+    get {return _duration ?? Sap_RiskScoreParameters.DurationRiskParameters()}
     set {_duration = newValue}
   }
   /// Returns true if `duration` has been explicitly set.
@@ -50,8 +50,8 @@ struct RiskScoreParameters {
 
   var durationWeight: Double = 0
 
-  var daysSinceLastExposure: RiskScoreParameters.DaysSinceLastExposureRiskParameters {
-    get {return _daysSinceLastExposure ?? RiskScoreParameters.DaysSinceLastExposureRiskParameters()}
+  var daysSinceLastExposure: Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
+    get {return _daysSinceLastExposure ?? Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters()}
     set {_daysSinceLastExposure = newValue}
   }
   /// Returns true if `daysSinceLastExposure` has been explicitly set.
@@ -61,8 +61,8 @@ struct RiskScoreParameters {
 
   var daysWeight: Double = 0
 
-  var attenuation: RiskScoreParameters.AttenuationRiskParameters {
-    get {return _attenuation ?? RiskScoreParameters.AttenuationRiskParameters()}
+  var attenuation: Sap_RiskScoreParameters.AttenuationRiskParameters {
+    get {return _attenuation ?? Sap_RiskScoreParameters.AttenuationRiskParameters()}
     set {_attenuation = newValue}
   }
   /// Returns true if `attenuation` has been explicitly set.
@@ -79,21 +79,21 @@ struct RiskScoreParameters {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var appDefined1: RiskLevel = .unspecified
+    var appDefined1: Sap_RiskLevel = .unspecified
 
-    var appDefined2: RiskLevel = .unspecified
+    var appDefined2: Sap_RiskLevel = .unspecified
 
-    var appDefined3: RiskLevel = .unspecified
+    var appDefined3: Sap_RiskLevel = .unspecified
 
-    var appDefined4: RiskLevel = .unspecified
+    var appDefined4: Sap_RiskLevel = .unspecified
 
-    var appDefined5: RiskLevel = .unspecified
+    var appDefined5: Sap_RiskLevel = .unspecified
 
-    var appDefined6: RiskLevel = .unspecified
+    var appDefined6: Sap_RiskLevel = .unspecified
 
-    var appDefined7: RiskLevel = .unspecified
+    var appDefined7: Sap_RiskLevel = .unspecified
 
-    var appDefined8: RiskLevel = .unspecified
+    var appDefined8: Sap_RiskLevel = .unspecified
 
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -106,28 +106,28 @@ struct RiskScoreParameters {
     // methods supported on all messages.
 
     /// D = 0 min, lowest risk
-    var eq0Min: RiskLevel = .unspecified
+    var eq0Min: Sap_RiskLevel = .unspecified
 
     /// 0 < D <= 5 min
-    var gt0Le5Min: RiskLevel = .unspecified
+    var gt0Le5Min: Sap_RiskLevel = .unspecified
 
     /// 5 < D <= 10 min
-    var gt5Le10Min: RiskLevel = .unspecified
+    var gt5Le10Min: Sap_RiskLevel = .unspecified
 
     /// 10 < D <= 15 min
-    var gt10Le15Min: RiskLevel = .unspecified
+    var gt10Le15Min: Sap_RiskLevel = .unspecified
 
     /// 15 < D <= 20 min
-    var gt15Le20Min: RiskLevel = .unspecified
+    var gt15Le20Min: Sap_RiskLevel = .unspecified
 
     /// 20 < D <= 25 min
-    var gt20Le25Min: RiskLevel = .unspecified
+    var gt20Le25Min: Sap_RiskLevel = .unspecified
 
     /// 25 < D <= 30 min
-    var gt25Le30Min: RiskLevel = .unspecified
+    var gt25Le30Min: Sap_RiskLevel = .unspecified
 
     /// > 30 min, highest risk
-    var gt30Min: RiskLevel = .unspecified
+    var gt30Min: Sap_RiskLevel = .unspecified
 
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -140,28 +140,28 @@ struct RiskScoreParameters {
     // methods supported on all messages.
 
     /// D >= 14 days, lowest risk
-    var ge14Days: RiskLevel = .unspecified
+    var ge14Days: Sap_RiskLevel = .unspecified
 
     /// 12 <= D < 14 days
-    var ge12Lt14Days: RiskLevel = .unspecified
+    var ge12Lt14Days: Sap_RiskLevel = .unspecified
 
     /// 10 <= D < 12 days
-    var ge10Lt12Days: RiskLevel = .unspecified
+    var ge10Lt12Days: Sap_RiskLevel = .unspecified
 
     /// 8 <= D < 10 days
-    var ge8Lt10Days: RiskLevel = .unspecified
+    var ge8Lt10Days: Sap_RiskLevel = .unspecified
 
     /// 6 <= D < 8 days
-    var ge6Lt8Days: RiskLevel = .unspecified
+    var ge6Lt8Days: Sap_RiskLevel = .unspecified
 
     /// 4 <= D < 6 days
-    var ge4Lt6Days: RiskLevel = .unspecified
+    var ge4Lt6Days: Sap_RiskLevel = .unspecified
 
     /// 2 <= D < 4 days
-    var ge2Lt4Days: RiskLevel = .unspecified
+    var ge2Lt4Days: Sap_RiskLevel = .unspecified
 
     /// 0 <= D < 2 days, highest risk
-    var ge0Lt2Days: RiskLevel = .unspecified
+    var ge0Lt2Days: Sap_RiskLevel = .unspecified
 
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -174,28 +174,28 @@ struct RiskScoreParameters {
     // methods supported on all messages.
 
     /// A > 73 dBm, lowest risk
-    var gt73Dbm: RiskLevel = .unspecified
+    var gt73Dbm: Sap_RiskLevel = .unspecified
 
     /// 63 < A <= 73 dBm
-    var gt63Le73Dbm: RiskLevel = .unspecified
+    var gt63Le73Dbm: Sap_RiskLevel = .unspecified
 
     /// 51 < A <= 63 dBm
-    var gt51Le63Dbm: RiskLevel = .unspecified
+    var gt51Le63Dbm: Sap_RiskLevel = .unspecified
 
     /// 33 < A <= 51 dBm
-    var gt33Le51Dbm: RiskLevel = .unspecified
+    var gt33Le51Dbm: Sap_RiskLevel = .unspecified
 
     /// 27 < A <= 33 dBm
-    var gt27Le33Dbm: RiskLevel = .unspecified
+    var gt27Le33Dbm: Sap_RiskLevel = .unspecified
 
     /// 15 < A <= 27 dBm
-    var gt15Le27Dbm: RiskLevel = .unspecified
+    var gt15Le27Dbm: Sap_RiskLevel = .unspecified
 
     /// 10 < A <= 15 dBm
-    var gt10Le15Dbm: RiskLevel = .unspecified
+    var gt10Le15Dbm: Sap_RiskLevel = .unspecified
 
     /// A <= 10 dBm, highest risk
-    var lt10Dbm: RiskLevel = .unspecified
+    var lt10Dbm: Sap_RiskLevel = .unspecified
 
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -204,16 +204,18 @@ struct RiskScoreParameters {
 
   init() {}
 
-  fileprivate var _transmission: RiskScoreParameters.TransmissionRiskParameters? = nil
-  fileprivate var _duration: RiskScoreParameters.DurationRiskParameters? = nil
-  fileprivate var _daysSinceLastExposure: RiskScoreParameters.DaysSinceLastExposureRiskParameters? = nil
-  fileprivate var _attenuation: RiskScoreParameters.AttenuationRiskParameters? = nil
+  fileprivate var _transmission: Sap_RiskScoreParameters.TransmissionRiskParameters? = nil
+  fileprivate var _duration: Sap_RiskScoreParameters.DurationRiskParameters? = nil
+  fileprivate var _daysSinceLastExposure: Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters? = nil
+  fileprivate var _attenuation: Sap_RiskScoreParameters.AttenuationRiskParameters? = nil
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-extension RiskScoreParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "RiskScoreParameters"
+fileprivate let _protobuf_package = "sap"
+
+extension Sap_RiskScoreParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".RiskScoreParameters"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "transmission"),
     2: .standard(proto: "transmission_weight"),
@@ -269,7 +271,7 @@ extension RiskScoreParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: RiskScoreParameters, rhs: RiskScoreParameters) -> Bool {
+  static func ==(lhs: Sap_RiskScoreParameters, rhs: Sap_RiskScoreParameters) -> Bool {
     if lhs._transmission != rhs._transmission {return false}
     if lhs.transmissionWeight != rhs.transmissionWeight {return false}
     if lhs._duration != rhs._duration {return false}
@@ -283,8 +285,8 @@ extension RiskScoreParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
   }
 }
 
-extension RiskScoreParameters.TransmissionRiskParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = RiskScoreParameters.protoMessageName + ".TransmissionRiskParameters"
+extension Sap_RiskScoreParameters.TransmissionRiskParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Sap_RiskScoreParameters.protoMessageName + ".TransmissionRiskParameters"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "app_defined_1"),
     2: .standard(proto: "app_defined_2"),
@@ -340,7 +342,7 @@ extension RiskScoreParameters.TransmissionRiskParameters: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: RiskScoreParameters.TransmissionRiskParameters, rhs: RiskScoreParameters.TransmissionRiskParameters) -> Bool {
+  static func ==(lhs: Sap_RiskScoreParameters.TransmissionRiskParameters, rhs: Sap_RiskScoreParameters.TransmissionRiskParameters) -> Bool {
     if lhs.appDefined1 != rhs.appDefined1 {return false}
     if lhs.appDefined2 != rhs.appDefined2 {return false}
     if lhs.appDefined3 != rhs.appDefined3 {return false}
@@ -354,8 +356,8 @@ extension RiskScoreParameters.TransmissionRiskParameters: SwiftProtobuf.Message,
   }
 }
 
-extension RiskScoreParameters.DurationRiskParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = RiskScoreParameters.protoMessageName + ".DurationRiskParameters"
+extension Sap_RiskScoreParameters.DurationRiskParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Sap_RiskScoreParameters.protoMessageName + ".DurationRiskParameters"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "eq_0_min"),
     2: .standard(proto: "gt_0_le_5_min"),
@@ -411,7 +413,7 @@ extension RiskScoreParameters.DurationRiskParameters: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: RiskScoreParameters.DurationRiskParameters, rhs: RiskScoreParameters.DurationRiskParameters) -> Bool {
+  static func ==(lhs: Sap_RiskScoreParameters.DurationRiskParameters, rhs: Sap_RiskScoreParameters.DurationRiskParameters) -> Bool {
     if lhs.eq0Min != rhs.eq0Min {return false}
     if lhs.gt0Le5Min != rhs.gt0Le5Min {return false}
     if lhs.gt5Le10Min != rhs.gt5Le10Min {return false}
@@ -425,8 +427,8 @@ extension RiskScoreParameters.DurationRiskParameters: SwiftProtobuf.Message, Swi
   }
 }
 
-extension RiskScoreParameters.DaysSinceLastExposureRiskParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = RiskScoreParameters.protoMessageName + ".DaysSinceLastExposureRiskParameters"
+extension Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Sap_RiskScoreParameters.protoMessageName + ".DaysSinceLastExposureRiskParameters"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "ge_14_days"),
     2: .standard(proto: "ge_12_lt_14_days"),
@@ -482,7 +484,7 @@ extension RiskScoreParameters.DaysSinceLastExposureRiskParameters: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: RiskScoreParameters.DaysSinceLastExposureRiskParameters, rhs: RiskScoreParameters.DaysSinceLastExposureRiskParameters) -> Bool {
+  static func ==(lhs: Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters, rhs: Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters) -> Bool {
     if lhs.ge14Days != rhs.ge14Days {return false}
     if lhs.ge12Lt14Days != rhs.ge12Lt14Days {return false}
     if lhs.ge10Lt12Days != rhs.ge10Lt12Days {return false}
@@ -496,8 +498,8 @@ extension RiskScoreParameters.DaysSinceLastExposureRiskParameters: SwiftProtobuf
   }
 }
 
-extension RiskScoreParameters.AttenuationRiskParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = RiskScoreParameters.protoMessageName + ".AttenuationRiskParameters"
+extension Sap_RiskScoreParameters.AttenuationRiskParameters: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Sap_RiskScoreParameters.protoMessageName + ".AttenuationRiskParameters"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "gt_73_dbm"),
     2: .standard(proto: "gt_63_le_73_dbm"),
@@ -553,7 +555,7 @@ extension RiskScoreParameters.AttenuationRiskParameters: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: RiskScoreParameters.AttenuationRiskParameters, rhs: RiskScoreParameters.AttenuationRiskParameters) -> Bool {
+  static func ==(lhs: Sap_RiskScoreParameters.AttenuationRiskParameters, rhs: Sap_RiskScoreParameters.AttenuationRiskParameters) -> Bool {
     if lhs.gt73Dbm != rhs.gt73Dbm {return false}
     if lhs.gt63Le73Dbm != rhs.gt63Le73Dbm {return false}
     if lhs.gt51Le63Dbm != rhs.gt51Le63Dbm {return false}
