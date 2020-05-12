@@ -13,7 +13,17 @@ final class ExposureSubmissionViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var submitButton: UIButton!
-    var exposureSubmissionService: ExposureSubmissionService?
+
+    let exposureSubmissionService: ExposureSubmissionService
+
+    init?(coder: NSCoder, exposureSubmissionService: ExposureSubmissionService) {
+        self.exposureSubmissionService = exposureSubmissionService
+        super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -26,17 +36,8 @@ final class ExposureSubmissionViewController: UIViewController {
         navigationItem.title = AppStrings.ExposureSubmission.navigationBarTitle
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        precondition(exposureSubmissionService != nil, "`exposureSubmissionService` needs to be set prior submitting.")
-
-        if segue.identifier != "showTanEntry" {
-            return
-        }
-
-        guard let tanEntryViewController = segue.destination as? TanEntryViewController else {
-            return
-        }
-
-        tanEntryViewController.exposureSubmissionService = exposureSubmissionService
+    @IBSegueAction
+    func createTanEntryViewController(coder: NSCoder) -> TanEntryViewController? {
+        return TanEntryViewController(coder: coder, exposureSubmissionService: exposureSubmissionService)
     }
 }

@@ -44,7 +44,6 @@ class MockClient: Client {
         exposureConfiguration.minimumRiskScore = 0
         exposureConfiguration.attenuationWeight = 50
         exposureConfiguration.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        exposureConfiguration.attenuationWeight = 50
         exposureConfiguration.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
         exposureConfiguration.daysSinceLastExposureWeight = 50
         exposureConfiguration.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]

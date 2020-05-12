@@ -16,16 +16,17 @@ protocol ExposureSubmissionService {
 }
 
 class ExposureSubmissionServiceImpl: ExposureSubmissionService {
+    let manager: ExposureManager
     let client: Client
 
-    init(client: Client) {
+    init(manager: ExposureManager, client: Client) {
+        self.manager = manager
         self.client = client
     }
 
     func submitExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
         log(message: "Started exposure submission...")
 
-        let manager = ExposureManager()
         manager.activate { error in
             if let error = error {
                 log(message: "Exposure notification service not activated.", level: .warning)
@@ -33,7 +34,7 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
                 return
             }
 
-            manager.accessDiagnosisKeys { keys, error in
+            self.manager.accessDiagnosisKeys { keys, error in
                 if let error = error {
                     logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
                     completionHandler(self.parseExposureManagerError(error as? ExposureNotificationError)) // TODO: Remove the cast after a meningful error is returned from ExposureManager
@@ -47,11 +48,13 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
 
                 self.client.submit(keys: keys, tan: tan) { error in
                     if let error = error {
-                        logError(message: "Error while submitting diagnosis keys: \(error.localizedDescription)")
+                        logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+                        completionHandler(self.parseServerError(error))
+                        return
                     }
 
                     log(message: "Successfully completed exposure sumbission.")
-                    completionHandler(error == nil ? nil : self.parseServerError(error!))
+                    completionHandler(nil)
                 }
             }
         }

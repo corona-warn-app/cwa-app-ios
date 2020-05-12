@@ -10,9 +10,7 @@ import Foundation
 import UIKit
 
 extension UIColor {
-
     public class func preferredColor(for style: ColorStyle, variant: UIUserInterfaceStyle = .light) -> UIColor {
-
         switch variant {
         case .light:
             return preferredColorLightVariant(for: style)
@@ -23,6 +21,7 @@ extension UIColor {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     private class func preferredColorLightVariant(for style: ColorStyle) -> UIColor {
         switch style {
         case .darkText:
@@ -31,19 +30,16 @@ extension UIColor {
             return .lightGray
         case .tintColor:
             return .systemBlue
-
         case .separator:
             return .systemGray2
         case .border:
             return .systemGray6
         case .shadow:
             return .systemGray3
-
         case .backgroundBase:
             return systemBackground
         case .backgroundContrast:
             return systemGroupedBackground
-
         case .positive:
             return .systemGreen
         case .negative:
@@ -53,6 +49,7 @@ extension UIColor {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     private class func preferredColorDarkVariant(for style: ColorStyle) -> UIColor {
         switch style {
         case .darkText:
@@ -61,14 +58,12 @@ extension UIColor {
             return .lightText
         case .tintColor:
             return .systemBlue
-
         case .separator:
             return .systemGray2
         case .border:
             return .systemGray6
         case .shadow:
             return .systemGray3
-
         case .backgroundBase:
             return systemBackground
         case .backgroundContrast:
@@ -80,7 +75,6 @@ extension UIColor {
             return .systemRed
         case .critical:
             return .systemOrange
-
         }
     }
 

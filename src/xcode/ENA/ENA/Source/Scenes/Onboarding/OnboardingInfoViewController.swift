@@ -55,8 +55,6 @@ class OnboardingInfoViewController: UIViewController {
     private func updateUI() {
         guard isViewLoaded else { return }
         guard let onboardingInfo = onboardingInfo else { return }
-        // here is big onboarding text, should it be translated?
-        // TODO: localize
         titleLabel.text = onboardingInfo.title
         imageView.image = UIImage(named: onboardingInfo.imageName)
         textView.text = onboardingInfo.text
