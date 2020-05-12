@@ -11,70 +11,46 @@ import UIKit
 
 extension UIColor {
     public class func preferredColor(for style: ColorStyle, variant: UIUserInterfaceStyle = .light) -> UIColor {
-        switch variant {
-        case .light:
-            return preferredColorLightVariant(for: style)
-        case .dark:
-            return preferredColorDarkVariant(for: style)
-        default:
-            return preferredColorLightVariant(for: style)
+        if let color = preferredColorVariant(for: style) {
+            return color
+        } else {
+            fatalError("Requested color is not available.")
         }
     }
 
     // swiftlint:disable:next cyclomatic_complexity
-    private class func preferredColorLightVariant(for style: ColorStyle) -> UIColor {
+    private class func preferredColorVariant(for style: ColorStyle) -> UIColor? {
         switch style {
-        case .darkText:
-            return .darkText
-        case .lightText:
-            return .lightGray
+        case .textPrimary1:
+            return UIColor(named: "textPrimary1")
+        case .textPrimary2:
+            return UIColor(named: "textPrimary2")
+        case .textPrimary3:
+            return UIColor(named: "textPrimary3")
         case .tintColor:
-            return .systemBlue
+            return UIColor(named: "tint")
         case .separator:
-            return .systemGray2
-        case .border:
-            return .systemGray6
-        case .shadow:
-            return .systemGray3
+            return UIColor(named: "separator")
+        case .hairline:
+            return UIColor(named: "hairline")
         case .backgroundBase:
-            return systemBackground
+            return UIColor(named: "background")
         case .backgroundContrast:
-            return systemGroupedBackground
+            return UIColor(named: "backgroundContrast")
         case .positive:
-            return .systemGreen
+            return UIColor(named: "positive")
         case .negative:
-            return .systemRed
-        case .critical:
-            return .systemOrange
-        }
-    }
-
-    // swiftlint:disable:next cyclomatic_complexity
-    private class func preferredColorDarkVariant(for style: ColorStyle) -> UIColor {
-        switch style {
-        case .darkText:
-            return .white
-        case .lightText:
-            return .lightText
-        case .tintColor:
-            return .systemBlue
-        case .separator:
-            return .systemGray2
-        case .border:
-            return .systemGray6
-        case .shadow:
-            return .systemGray3
-        case .backgroundBase:
-            return systemBackground
-        case .backgroundContrast:
-            return systemGroupedBackground
-
-        case .positive:
-            return .systemGreen
-        case .negative:
-            return .systemRed
-        case .critical:
-            return .systemOrange
+            return UIColor(named: "negative")
+        case .medium:
+            return UIColor(named: "medium")
+        case .unknownRisk:
+            return UIColor(named: "unknown")
+        case .brandRed:
+            return UIColor(named: "brandRed")
+        case .brandBlue:
+            return UIColor(named: "brandBlue")
+        case .brandMagenta:
+            return UIColor(named: "brandMagenta")
         }
     }
 
