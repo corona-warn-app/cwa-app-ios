@@ -52,7 +52,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 // Home Cards
 "Home_Activate_Title" = "Tracing ist aktiv";
 
-"Home_RiskCard_Title" = "Geringes Risiko";
+"Home_Risk_Unknown_Title" = "Risiko Unbekannt";
+"Home_Risk_Low_Title" = "Risiko Niedrig";
+"Home_Risk_High_Title" = "Risiko Moderat";
+"Home_Risk_Moderate_Title" = "Risiko Hoch";
+
 "Home_RiskCard_Body" = "Es wurde kein Kontakt mit COVID-19 erkannt.";
 "Home_RiskCard_Date" = "Letzte Überprüfung: %@";
 "Home_RiskCard_Button" = "Kontakte überprüfen";
@@ -86,3 +90,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "low_risk_detail" = "Es wurde ein geringes Risiko für den Kontakt mit COVID 19 erkannt";
 "moderate_risk_detail" = "Es wurde ein moderates Risiko für den Kontakt mit COVID 19 erkannt";
 "high_risk_detail" = "Es wurde ein hohes Risiko für den Kontakt mit COVID 19 erkannt";
+
+"unknown_risk_detail_help" = "Das Infektionsrisiko ist unbekannt, da bisher noch keine Kontakte aufgezeichnet wurden.";
+"low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
+"moderate_risk_detail_help" = "Es besteht moderates Infektionsrisiko, da ein Kontakt mit wenigen infizierten Personen oder nur über Zeitpunkt hinweg aufgezeichnet wurde.";
+"high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";

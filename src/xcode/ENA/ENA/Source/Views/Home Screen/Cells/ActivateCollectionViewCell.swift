@@ -27,6 +27,7 @@ class ActivateCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         wrapImage()
+        UIFont.preferredFont(forTextStyle: .callout)
     }
     
     private func wrapImage() {
