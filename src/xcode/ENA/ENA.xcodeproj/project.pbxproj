@@ -60,6 +60,9 @@
 		51D420CE245869C800AD70CA /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CD245869C800AD70CA /* Home.storyboard */; };
 		51D420D024586AB300AD70CA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CF24586AB300AD70CA /* Settings.storyboard */; };
 		51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
+		71888C37246A9CD3007AD508 /* DiagnosisKeyAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71888C36246A9CD3007AD508 /* DiagnosisKeyAPITests.swift */; };
+		71888C3C246AAF11007AD508 /* DiagnosisKeyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71888C3B246AAF11007AD508 /* DiagnosisKeyAPI.swift */; };
+		71888C3E246AC0C3007AD508 /* DiagnosisKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71888C3D246AC0C3007AD508 /* DiagnosisKeyManager.swift */; };
 		85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85142500245DA0B3009D2791 /* UIViewController+Alert.swift */; };
 		8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8539874E2467094E00D28B62 /* AppIcon.xcassets */; };
 		853D98832469DC5000490DBA /* ExposureNotificationSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853D98822469DC5000490DBA /* ExposureNotificationSetting.storyboard */; };
@@ -193,6 +196,9 @@
 		51D420CD245869C800AD70CA /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		51D420CF24586AB300AD70CA /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		51D420D324586DCA00AD70CA /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
+		71888C36246A9CD3007AD508 /* DiagnosisKeyAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisKeyAPITests.swift; sourceTree = "<group>"; };
+		71888C3B246AAF11007AD508 /* DiagnosisKeyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisKeyAPI.swift; sourceTree = "<group>"; };
+		71888C3D246AC0C3007AD508 /* DiagnosisKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisKeyManager.swift; sourceTree = "<group>"; };
 		71AFBD922464251000F91006 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		85142500245DA0B3009D2791 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		8539874E2467094E00D28B62 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
@@ -471,6 +477,15 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		71888C38246AAE87007AD508 /* Diagnosis Keys */ = {
+			isa = PBXGroup;
+			children = (
+				71888C3B246AAF11007AD508 /* DiagnosisKeyAPI.swift */,
+				71888C3D246AC0C3007AD508 /* DiagnosisKeyManager.swift */,
+			);
+			path = "Diagnosis Keys";
+			sourceTree = "<group>";
+		};
 		853D987824694A1E00490DBA /* BaseElements */ = {
 			isa = PBXGroup;
 			children = (
@@ -538,6 +553,7 @@
 				CDF27BD0246AD51A0044D32B /* Client */,
 				85D7595A24570491008175F0 /* Info.plist */,
 				B17A44A12464906A00CB195E /* KeyTests.swift */,
+				71888C36246A9CD3007AD508 /* DiagnosisKeyAPITests.swift */,
 				B1CF8D0F246C1F4100DBE135 /* ModeTests.swift */,
 			);
 			path = ENATests;
@@ -611,6 +627,7 @@
 			isa = PBXGroup;
 			children = (
 				CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */,
+				71888C38246AAE87007AD508 /* Diagnosis Keys */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1003,6 +1020,8 @@
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */,
 				51CE1B8C246078B6002CF42A /* SettingsCollectionViewCell.swift in Sources */,
+				71888C3C246AAF11007AD508 /* DiagnosisKeyAPI.swift in Sources */,
+				71888C3E246AC0C3007AD508 /* DiagnosisKeyManager.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */,
@@ -1019,6 +1038,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71888C37246A9CD3007AD508 /* DiagnosisKeyAPITests.swift in Sources */,
 				CDF27BD3246ADBA70044D32B /* ExposureSubmissionServiceTests.swift in Sources */,
 				B1CF8D10246C1F4100DBE135 /* ModeTests.swift in Sources */,
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
