@@ -16,19 +16,16 @@ enum DiagnosisKeyFile {
 
 
 class DiagnosisKeyManager {
-	static let shared = DiagnosisKeyManager()
-	
-	
+    // MARK: Creating a Diagnosis Key Manager
+    init(api: DiagnosisKeyAPI, country: String) {
+        self.api = api
+        self.country = country
+    }
+
+    // MARK: Properties
 	let api: DiagnosisKeyAPI
-	
 	private var calendar: Calendar { Calendar.current }
 	private let country: String
-	
-	
-	init(api: DiagnosisKeyAPI = DiagnosisKeyAPI.shared, country: String = "DE") {
-		self.api = api
-		self.country = country
-	}
 }
 
 

@@ -10,8 +10,12 @@
 import XCTest
 @testable import ENA
 
+// For testing only
+private extension DiagnosisKeyAPI {
+    static let shared = DiagnosisKeyAPI(configuration: .development, session: .shared)
+}
 
-class DiagnosisKeyAPITests: XCTestCase {
+final class DiagnosisKeyAPITests: XCTestCase {
 	let baseUrl: URL! = URL(string: "http://distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io")
 	
 	
