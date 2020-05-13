@@ -7,8 +7,8 @@
 //
 
 import XCTest
+import ExposureNotification
 @testable import ENA
-@testable import ExposureNotification
 
 class HTTPClientTests: XCTestCase {
     let expectationsTimeout: TimeInterval = 2
