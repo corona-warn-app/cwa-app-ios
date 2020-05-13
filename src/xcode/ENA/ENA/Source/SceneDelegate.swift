@@ -11,10 +11,16 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     private(set) var client: Client = {
-           let fileManager = FileManager.default
-           let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-           let fileUrl = documentDir.appendingPathComponent("keys", isDirectory: false).appendingPathExtension("proto")
-           return MockClient(submittedKeysFileURL: fileUrl)
+        let mode = Mode.from()
+
+        switch mode {
+        case .development:
+            return HTTPClient(configuration: .development)
+        case .production:
+            return HTTPClient(configuration: .production)
+        case .mock:
+            return MockClient()
+        }
        }()
 
     // MARK: UISceneDelegate

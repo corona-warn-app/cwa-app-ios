@@ -444,7 +444,6 @@
 		51D420D524598AC200AD70CA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B1CF8D11246C1FE500DBE135 /* Core */,
 				B111EDEC2465B1F4001AEBB4 /* Client */,
 				CD99A3C82461A44B00BF12AF /* View Helpers */,
 				51CE1BBB2460B1BA002CF42A /* Protocols */,
@@ -464,6 +463,7 @@
 		51EE9A6A245C0F7900F2544F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B1A7A1CC246C13CB00AD3470 /* Mode.swift */,
 				514E81322461B97700636861 /* Exposure */,
 				51CE1BB82460AE69002CF42A /* Home */,
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
@@ -677,14 +677,6 @@
 			children = (
 			);
 			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		B1CF8D11246C1FE500DBE135 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				B1A7A1CC246C13CB00AD3470 /* Mode.swift */,
-			);
-			path = Core;
 			sourceTree = "<group>";
 		};
 		CD99A398245B229F00BF12AF /* ExposureSubmission */ = {
