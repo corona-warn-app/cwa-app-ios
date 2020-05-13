@@ -80,7 +80,7 @@ final class HTTPClient: Client {
         guard let submissionPayloadData = try? submissionPayload.serializedData() else {
             // How's this possible Apple?
             logError(message: "Couldn't serialize submission payload.")
-            fatalError()
+            fatalError("Couldn't serialize submission payload.")
         }
 
         let request = createSubmissionRequest(tan: tan, keys: submissionPayloadData)
@@ -92,7 +92,6 @@ final class HTTPClient: Client {
             }
 
             if let error = error {
-                // TODO: Check network connection before the request
                 logError(message: "An error occurred while submitting keys to the server: \(error.localizedDescription)")
                 completion(.networkError)
                 return
@@ -120,6 +119,7 @@ final class HTTPClient: Client {
 
     private func createSubmissionRequest(tan: String, keys: Data) -> URLRequest {
         let url = URL(string: configuration.submissionServiceUrl)
+        // swiftlint:disable:next force_unwrapping
         var request = URLRequest(url: url!)
 
         request.setValue(tan, forHTTPHeaderField: "cwa-authorization")

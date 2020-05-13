@@ -156,7 +156,8 @@ final class ExposureManager: NSObject {
             completionHandler(nil, error)
             return
         }
-        manager.getDiagnosisKeys(completionHandler: completionHandler) // TODO: Handle errors to return a meningful error of type ExposureNotificationError
+        // see: https://github.com/corona-warn-app/cwa-app-ios/issues/169
+        manager.getDiagnosisKeys(completionHandler: completionHandler)
     }
 
     // MARK: Error Handling

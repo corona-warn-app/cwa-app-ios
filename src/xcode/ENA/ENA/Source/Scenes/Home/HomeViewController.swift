@@ -12,9 +12,14 @@ final class HomeViewController: UIViewController {
     
     // MARK: Creating a Home View Controller
     
-    init?(coder: NSCoder, exposureManager: ExposureManager) {
+    init?(coder: NSCoder, exposureManager: ExposureManager, client: Client) {
+        self.client = client
         super.init(coder: coder)
-        homeInteractor = HomeInteractor(homeViewController: self, exposureManager: exposureManager)
+        homeInteractor = HomeInteractor(
+            homeViewController: self,
+            exposureManager: exposureManager,
+            client: client
+        )
     }
     
     required init?(coder: NSCoder) {
@@ -30,7 +35,8 @@ final class HomeViewController: UIViewController {
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
-    
+    private let client: Client
+
     enum Section: Int {
         // swiftlint:disable:next explicit_enum_raw_value
         case actions
@@ -56,8 +62,6 @@ final class HomeViewController: UIViewController {
     
     // MARK: Actions
     @IBAction private func infoButtonTapped(_ sender: UIButton) {
-        log(message: "")
-
         let vc = RiskLegendTableViewController.initiate(for: .riskLegend)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
@@ -67,8 +71,8 @@ final class HomeViewController: UIViewController {
     func showSubmitResult() {
         // swiftlint:disable:next unowned_variable_capture
         let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { [unowned self] coder in
-            let exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: HTTPClient()) // TODO: use shared client object
-            return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: exposureSubmissionService)
+            let service = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: self.client)
+            return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: service)
         }
         let naviController = UINavigationController(rootViewController: vc)
         present(naviController, animated: true, completion: nil)
@@ -133,9 +137,10 @@ final class HomeViewController: UIViewController {
         // state of `ENManager` is mutated before kicking of an exposure detection. Our current workaround is to simply
         // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
 
-        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
+        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection) { coder in
+            ExposureDetectionViewController(coder: coder, client: self.client)
+        }
         exposureDetectionViewController.delegate = homeInteractor
-        exposureDetectionViewController.client = homeInteractor.client
         present(exposureDetectionViewController, animated: true, completion: nil)
     }
 

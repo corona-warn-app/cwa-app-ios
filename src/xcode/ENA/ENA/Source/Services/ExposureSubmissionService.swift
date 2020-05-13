@@ -42,7 +42,7 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
             self.manager.accessDiagnosisKeys { keys, error in
                 if let error = error {
                     logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
-                    completionHandler(self.parseExposureManagerError(error as? ExposureNotificationError)) // TODO: Remove the cast after a meningful error is returned from ExposureManager
+                    completionHandler(self.parseExposureManagerError(error as? ExposureNotificationError))
                     return
                 }
 
@@ -66,8 +66,6 @@ class ExposureSubmissionServiceImpl: ExposureSubmissionService {
     }
 
     private func parseExposureManagerError(_ error: ExposureNotificationError?) -> ExposureSubmissionError {
-        // TODO: Remove this and add further cases to the switch below,
-        // after a meningful error is returned from ExposureManager for accessDiagnosisKeys
         guard let enError = error else {
             return .other
         }
