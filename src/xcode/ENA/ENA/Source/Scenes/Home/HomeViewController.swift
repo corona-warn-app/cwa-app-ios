@@ -89,15 +89,10 @@ final class HomeViewController: UIViewController {
             } else if let error = error {
                 logError(message: error.localizedDescription)
             } else {
-<<<<<<< HEAD
-                let vc = enStoryBoard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
-                    return ExposureNotificationSettingViewController(coder: coder, manager: manager)
-                    
-=======
+
                 let storyboard = AppStoryboard.exposureNotificationSetting.instance
                 let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
                     ExposureNotificationSettingViewController(coder: coder, manager: manager)
->>>>>>> master
                 }
                 )
                 self.present(vc, animated: true, completion: nil)
