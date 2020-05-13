@@ -8,13 +8,11 @@
 
 import UIKit
 
-class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
-    
+final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
+    // MARK: Configuring a Cell
     func configure(cell: ActivateCollectionViewCell) {
-        
         cell.iconImageView.image = UIImage(named: "onboarding_note")
         cell.titleLabel.text = AppStrings.Home.activateTitle
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
-        
     }
 }

@@ -29,7 +29,7 @@ final class DMViewController: UITableViewController {
     // MARK: Properties
     private let client: Client
     private var urls = [URL]()
-    private var keys = [Key]()
+    private var keys = [Apple_Key]()
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -75,8 +75,9 @@ final class DMViewController: UITableViewController {
             // to avoid race conditions.
             return
         }
-        guard let file = try? File(serializedData: data) else {
-            fatalError("-serializedData: (File) failed. This probably happens because the Protocol Buffer schema changed. Try reinstalling the app. If that does not help consider creating an issue.")
+        guard let file = try? Apple_File(serializedData: data) else {
+            // swiftlint:disable:next line_length
+            fatalError("-serializedData: (Apple_Key) failed. This probably happens because the Protocol Buffer schema changed. Try reinstalling the app. If that does not help consider creating an issue.")
         }
         keys += file.key
         // Newer keys come before older keys
@@ -119,10 +120,8 @@ final class DMViewController: UITableViewController {
                         logError(message: "Failed to generate test keys due to: \(error)")
                         return
                     }
-                    // TODO: Invalidate the manager here
                     let _keys = keys ?? []
                     log(message: "Got diagnosis keys: \(_keys)", level: .info)
-                    print("Keys: \(String(describing: keys))")
                     self.client.submit(keys: keys ?? [], tan: "not needed here") { [weak self] submitError in
                         if let submitError = submitError {
                             logError(message: "Failed to submit test keys due to: \(submitError)")
@@ -156,26 +155,27 @@ final class DMViewController: UITableViewController {
 }
 
 extension DMViewController: DMQRCodeScanViewControllerDelegate {
-    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Key) {
+    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Apple_Key) {
         client.submit(
             keys: [diagnosisKey.temporaryExposureKey],
-            tan: "not needed") {
-                error in
-                self.client.fetch() { [weak self] result in
-                    switch result {
-                    case .success(let urls):
-                        self?.urls = urls
-                    case .failure(_):
-                        self?.urls = []
-                    }
-                    self?.tableView.reloadData()
+            tan: "not needed"
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.client.fetch { [weak self] result in
+                switch result {
+                case .success(let urls):
+                    self?.urls = urls
+                case .failure:
+                    self?.urls = []
                 }
+                self?.tableView.reloadData()
+            }
         }
     }
 }
 
 private extension DateFormatter {
-    class func rollingPeriodDateFormatter() -> DateFormatter{
+    class func rollingPeriodDateFormatter() -> DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
@@ -184,7 +184,7 @@ private extension DateFormatter {
     }
 }
 
-fileprivate extension Key {
+fileprivate extension Apple_Key {
     private static let dateFormatter: DateFormatter = .rollingPeriodDateFormatter()
 
     var rollingStartNumberDate: Date {

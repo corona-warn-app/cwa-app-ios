@@ -33,7 +33,11 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 // Home Cards
 "Home_Activate_Title" = "Tracing is active";
 
-"Home_RiskCard_Title" = "Minimal risk";
+"Home_Risk_Unknown_Title" = "Unknown Risk";
+"Home_Risk_Low_Title" = "Low Risk";
+"Home_Risk_High_Title" = "Moderate Risk";
+"Home_Risk_Moderate_Title" = "High Risk";
+
 "Home_RiskCard_Body" = "No contact with COVID-19 was detected.";
 "Home_RiskCard_Date" = "Last review: %@";
 "Home_RiskCard_Button" = "Check contacts";

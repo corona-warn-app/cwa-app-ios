@@ -21,9 +21,9 @@ class MockClient: Client {
     private var submittedKeys = [ENTemporaryExposureKey]() {
         didSet {
             log(message: "Writing \(submittedKeys.count) keys)")
-            let file = File.with { file in
+            let file = Apple_File.with { file in
                 file.key = submittedKeys.map { diagnosisKey in
-                    Key.with { key in
+                    Apple_Key.with { key in
                         key.keyData = diagnosisKey.keyData
                         key.rollingPeriod = diagnosisKey.rollingPeriod
                         key.rollingStartNumber = diagnosisKey.rollingStartNumber
@@ -44,7 +44,6 @@ class MockClient: Client {
         exposureConfiguration.minimumRiskScore = 0
         exposureConfiguration.attenuationWeight = 50
         exposureConfiguration.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        exposureConfiguration.attenuationWeight = 50
         exposureConfiguration.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
         exposureConfiguration.daysSinceLastExposureWeight = 50
         exposureConfiguration.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]

@@ -98,10 +98,10 @@ final class SettingsViewController: UIViewController {
         notificationStackView.isUserInteractionEnabled = false
         tracingContainerView.setBorder(
             at: [.top, .bottom],
-            with: UIColor.preferredColor(for: ColorStyle.border),
+            with: UIColor.preferredColor(for: ColorStyle.separator),
             thickness: 1
         )
-        notificationsContainerView.setBorder(at: [.top, .bottom], with: UIColor.preferredColor(for: ColorStyle.border), thickness: 1)
+        notificationsContainerView.setBorder(at: [.top, .bottom], with: UIColor.preferredColor(for: ColorStyle.separator), thickness: 1)
 
         NotificationCenter.default.addObserver(
             self,

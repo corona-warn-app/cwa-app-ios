@@ -57,7 +57,6 @@ final class ExposureManager: NSObject {
     // MARK: Observers
 
     private func observeENFramework() {
-        // TODO: Add delegate, etc. here to update changes
         exposureNotificationEnabledObserver = observe(\.manager.exposureNotificationEnabled, options: [.new]) {_, _ in
             _ = self.preconditions()
         }
@@ -157,7 +156,7 @@ final class ExposureManager: NSObject {
             completionHandler(nil, error)
             return
         }
-        manager.getDiagnosisKeys(completionHandler: completionHandler)
+        manager.getDiagnosisKeys(completionHandler: completionHandler) // TODO: Handle errors to return a meningful error of type ExposureNotificationError
     }
 
     // MARK: Error Handling
@@ -170,7 +169,6 @@ final class ExposureManager: NSObject {
             case .notEnabled:
                 completion(ExposureNotificationError.exposureNotificationRequired)
             default:
-                // TODO: Add missing cases
                 let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
                 logError(message: error)
                 fatalError(error)

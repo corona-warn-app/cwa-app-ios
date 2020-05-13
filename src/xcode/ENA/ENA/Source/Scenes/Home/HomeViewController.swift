@@ -7,13 +7,14 @@
 //
 
 import UIKit
-import ExposureNotification
 
 final class HomeViewController: UIViewController {
+    
     // MARK: Creating a Home View Controller
+    
     init?(coder: NSCoder, exposureManager: ExposureManager) {
-        self.exposureManager = exposureManager
         super.init(coder: coder)
+        homeInteractor = HomeInteractor(homeViewController: self, exposureManager: exposureManager)
     }
     
     required init?(coder: NSCoder) {
@@ -21,37 +22,27 @@ final class HomeViewController: UIViewController {
     }
     
     // MARK: Properties
+    
     @IBOutlet var topContainerView: UIView!
-    private let exposureManager: ExposureManager
-    var summary: ENExposureDetectionSummary?
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
-    private var collectionView: UICollectionView! = nil
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
+    private var collectionView: UICollectionView!
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
-    private lazy var client: Client = {
-        let fileManager = FileManager()
-        let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileUrl = documentDir.appendingPathComponent("keys", isDirectory: false).appendingPathExtension("proto")
-        return MockClient(submittedKeysFileURL: fileUrl)
-    }()
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
-    private lazy var developerMenu: DMDeveloperMenu = {
-        DMDeveloperMenu(presentingViewController: self, client: client)
-    }()
     
-    // MARK: Types
     enum Section: Int {
-        // swiftlint:disable explicit_enum_raw_value
+        // swiftlint:disable:next explicit_enum_raw_value
         case actions
+        // swiftlint:disable:next explicit_enum_raw_value
         case infos
+        // swiftlint:disable:next explicit_enum_raw_value
         case settings
-        // swiftlint:enable explicit_enum_raw_value
     }
     
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        homeInteractor = HomeInteractor(homeViewController: self)
         prepareData()
         configureHierarchy()
         configureDataSource()
@@ -60,20 +51,23 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        developerMenu.enableIfAllowed()
+        homeInteractor.developerMenuEnableIfAllowed()
     }
     
     // MARK: Actions
     @IBAction private func infoButtonTapped(_ sender: UIButton) {
         log(message: "")
+
+        let vc = RiskLegendTableViewController.initiate(for: .riskLegend)
+        let naviController = UINavigationController(rootViewController: vc)
+        self.present(naviController, animated: true, completion: nil)
     }
     
     // MARK: Misc
     func showSubmitResult() {
-        let storyboard = AppStoryboard.exposureSubmission.instance
-        let vc = storyboard.instantiateViewController(identifier: ExposureSubmissionViewController.stringName()) { [unowned self] coder in
-            let exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: self.client)
-
+        // swiftlint:disable:next unowned_variable_capture
+        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { [unowned self] coder in
+            let exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: HTTPClient()) // TODO: use shared client object
             return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: exposureSubmissionService)
         }
         let naviController = UINavigationController(rootViewController: vc)
@@ -82,16 +76,9 @@ final class HomeViewController: UIViewController {
 
     func showExposureNotificationSetting() {
         
-                
-        let enStoryBoard = AppStoryboard.exposureNotificationSetting.instance
-        
-        //TODO: This is a workaround approach, create exposure manager everytime.
         let manager = ExposureManager()
-        
         manager.activate { [weak self] error in
-            guard let self = self else {
-                return
-            }
+            guard let self = self else { return }
             if let error = error {
                 switch error {
                 case .exposureNotificationRequired:
@@ -102,9 +89,15 @@ final class HomeViewController: UIViewController {
             } else if let error = error {
                 logError(message: error.localizedDescription)
             } else {
+<<<<<<< HEAD
                 let vc = enStoryBoard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
                     return ExposureNotificationSettingViewController(coder: coder, manager: manager)
                     
+=======
+                let storyboard = AppStoryboard.exposureNotificationSetting.instance
+                let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
+                    ExposureNotificationSettingViewController(coder: coder, manager: manager)
+>>>>>>> master
                 }
                 )
                 self.present(vc, animated: true, completion: nil)
@@ -119,7 +112,7 @@ final class HomeViewController: UIViewController {
     }
 
     func showDeveloperMenu() {
-        let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
+        guard let developerMenuController = AppStoryboard.developerMenu.initiateInitial() else { return }
         present(developerMenuController, animated: true, completion: nil)
     }
 
@@ -146,15 +139,15 @@ final class HomeViewController: UIViewController {
         // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
 
         let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection)
-        exposureDetectionViewController.delegate = self
-        exposureDetectionViewController.client = self.client
+        exposureDetectionViewController.delegate = homeInteractor
+        exposureDetectionViewController.client = homeInteractor.client
         present(exposureDetectionViewController, animated: true, completion: nil)
     }
 
     func showAppInformation() {
         let vc = AppInformationViewController.initiate(for: .appInformation)
         let naviController = UINavigationController(rootViewController: vc)
-        self.present(naviController, animated: true, completion: nil)
+        present(naviController, animated: true, completion: nil)
     }
 
     private func showScreen(at indexPath: IndexPath) {
@@ -181,10 +174,15 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: Configuration
-    private func prepareData() {
+    
+    func prepareData() {
         cellConfigurators = homeInteractor.cellConfigurators()
     }
 
+    func reloadData() {
+        collectionView.reloadData()
+    }
+    
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self
@@ -211,18 +209,21 @@ final class HomeViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self]
-            (collectionView: UICollectionView, indexPath: IndexPath, identifier: Int) -> UICollectionViewCell? in
+        // swiftlint:disable:next unowned_variable_capture
+        dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self] collectionView, indexPath, identifier in
             let configurator = self.cellConfigurators[identifier]
             let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
             configurator.configureAny(cell: cell)
             return cell
         }
-        dataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier, for: indexPath) as? HomeFooterSupplementaryView else {
-                let error = "Cannot create new supplementary"
-                logError(message: error)
-                fatalError(error)
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            let identifier = HomeFooterSupplementaryView.reusableViewIdentifier
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: identifier,
+                for: indexPath
+                ) as? HomeFooterSupplementaryView else {
+                    fatalError("Cannot create new supplementary")
             }
             supplementaryView.configure()
             return supplementaryView
@@ -252,13 +253,5 @@ extension HomeViewController: HomeLayoutDelegate {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         showScreen(at: indexPath)
-    }
-}
-
-extension HomeViewController: ExposureDetectionViewControllerDelegate {
-    func exposureDetectionViewController(_ controller: ExposureDetectionViewController, didReceiveSummary summary: ENExposureDetectionSummary) {
-        log(message: "got summary: \(summary.description)")
-        self.summary = summary
-        collectionView.reloadData()
     }
 }

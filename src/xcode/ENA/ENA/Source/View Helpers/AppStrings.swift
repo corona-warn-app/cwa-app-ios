@@ -79,7 +79,11 @@ enum AppStrings {
     enum Home {
         static let activateTitle = NSLocalizedString("Home_Activate_Title", comment: "")
 
-        static let riskCardTitle = NSLocalizedString("Home_RiskCard_Title", comment: "")
+        static let riskCardUnknownTitle = NSLocalizedString("Home_Risk_Unknown_Title", comment: "")
+        static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
+        static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
+        static let riskCardModerateTitle = NSLocalizedString("Home_Risk_Moderate_Title", comment: "")
+            
         static let riskCardBody = NSLocalizedString("Home_RiskCard_Body", comment: "")
         static let riskCardDate = NSLocalizedString("Home_RiskCard_Date", comment: "")
         static let riskCardButton = NSLocalizedString("Home_RiskCard_Button", comment: "")
@@ -106,5 +110,10 @@ enum AppStrings {
         static let lowRiskDetail = NSLocalizedString("low_risk_detail", comment: "")
         static let moderateRiskDetail = NSLocalizedString("moderate_risk_detail", comment: "")
         static let highRiskDetail = NSLocalizedString("high_risk_detail", comment: "")
+
+        static let unknownRiskDetailHelp = NSLocalizedString("unknown_risk_detail_help", comment: "")
+        static let lowRiskDetailHelp = NSLocalizedString("low_risk_detail_help", comment: "")
+        static let moderateRiskDetailHelp = NSLocalizedString("moderate_risk_detail_help", comment: "")
+        static let highRiskDetailHelp = NSLocalizedString("high_risk_detail_help", comment: "")
     }
 }
