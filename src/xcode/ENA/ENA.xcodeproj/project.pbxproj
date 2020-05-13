@@ -83,13 +83,13 @@
 		B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */; };
 		B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B592462F4DE006275D9 /* TanEntryViewController.swift */; };
 		B17A44A22464906A00CB195E /* KeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17A44A12464906A00CB195E /* KeyTests.swift */; };
-		B1BC090B246AC0D400302424 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BC090A246AC0D400302424 /* Session.swift */; };
-		B1BC090D246AC16F00302424 /* HTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BC090C246AC16F00302424 /* HTTPClientTests.swift */; };
 		CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */; };
 		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
 		CD99A3C52461558200BF12AF /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD99A3C42461558200BF12AF /* CocoaLumberjackSwift */; };
 		CD99A3C7246155C300BF12AF /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C6246155C300BF12AF /* Logger.swift */; };
 		CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C92461A47C00BF12AF /* AppStrings.swift */; };
+		CDF27BD3246ADBA70044D32B /* ExposureSubmissionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */; };
+		CDF27BD5246ADBF30044D32B /* HTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF27BD4246ADBF30044D32B /* HTTPClientTests.swift */; };
 		EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE20EA062469883900770683 /* RiskLegend.storyboard */; };
 		EE20EA0A24699A5800770683 /* RiskLegendTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20EA0924699A5800770683 /* RiskLegendTableViewController.swift */; };
 		EE20EA0C24699AA100770683 /* RiskLegendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE20EA0B24699AA100770683 /* RiskLegendTableViewCell.swift */; };
@@ -222,8 +222,6 @@
 		B1741B482462C207006275D9 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		B1741B592462F4DE006275D9 /* TanEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TanEntryViewController.swift; sourceTree = "<group>"; };
 		B17A44A12464906A00CB195E /* KeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTests.swift; sourceTree = "<group>"; };
-		B1BC090A246AC0D400302424 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		B1BC090C246AC16F00302424 /* HTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientTests.swift; sourceTree = "<group>"; };
 		CD7F5C732466F6D400D3D03C /* ENATest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ENATest.entitlements; sourceTree = "<group>"; };
 		CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionViewController.swift; sourceTree = "<group>"; };
 		CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ExposureSubmission.storyboard; sourceTree = "<group>"; };
@@ -231,6 +229,8 @@
 		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
 		CD99A3C6246155C300BF12AF /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		CD99A3C92461A47C00BF12AF /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
+		CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceTests.swift; sourceTree = "<group>"; };
+		CDF27BD4246ADBF30044D32B /* HTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientTests.swift; sourceTree = "<group>"; };
 		EE20EA062469883900770683 /* RiskLegend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RiskLegend.storyboard; sourceTree = "<group>"; };
 		EE20EA0924699A5800770683 /* RiskLegendTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendTableViewController.swift; sourceTree = "<group>"; };
 		EE20EA0B24699AA100770683 /* RiskLegendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendTableViewCell.swift; sourceTree = "<group>"; };
@@ -529,9 +529,10 @@
 		85D7595724570491008175F0 /* ENATests */ = {
 			isa = PBXGroup;
 			children = (
+				CDF27BD1246AD5220044D32B /* Services */,
+				CDF27BD0246AD51A0044D32B /* Client */,
 				85D7595A24570491008175F0 /* Info.plist */,
 				B17A44A12464906A00CB195E /* KeyTests.swift */,
-				B1BC090C246AC16F00302424 /* HTTPClientTests.swift */,
 			);
 			path = ENATests;
 			sourceTree = "<group>";
@@ -629,7 +630,6 @@
 				B111EDEA2465B1E7001AEBB4 /* MockClient.swift */,
 				B1741B482462C207006275D9 /* Client.swift */,
 				011E13AD24680A4000973467 /* HTTPClient.swift */,
-				B1BC090A246AC0D400302424 /* Session.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -672,6 +672,22 @@
 				CD99A3C92461A47C00BF12AF /* AppStrings.swift */,
 			);
 			path = "View Helpers";
+			sourceTree = "<group>";
+		};
+		CDF27BD0246AD51A0044D32B /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				CDF27BD4246ADBF30044D32B /* HTTPClientTests.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		CDF27BD1246AD5220044D32B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CDF27BD2246ADBA70044D32B /* ExposureSubmissionServiceTests.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		EE20EA0824699A3A00770683 /* Help */ = {
@@ -977,7 +993,6 @@
 				51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
-				B1BC090B246AC0D400302424 /* Session.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
 				EE8599912462EFD4002E7AE2 /* AppInfoTableViewCell.swift in Sources */,
 				01EB1D2D246973F100A7908B /* exposure_notification.pb.swift in Sources */,
@@ -989,8 +1004,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1BC090D246AC16F00302424 /* HTTPClientTests.swift in Sources */,
+				CDF27BD3246ADBA70044D32B /* ExposureSubmissionServiceTests.swift in Sources */,
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
+				CDF27BD5246ADBF30044D32B /* HTTPClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

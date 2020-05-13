@@ -67,7 +67,7 @@ final class HomeViewController: UIViewController {
     func showSubmitResult() {
         // swiftlint:disable:next unowned_variable_capture
         let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { [unowned self] coder in
-            let exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: self.homeInteractor.client)
+            let exposureSubmissionService = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: HTTPClient()) // TODO: use shared client object
             return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: exposureSubmissionService)
         }
         let naviController = UINavigationController(rootViewController: vc)
