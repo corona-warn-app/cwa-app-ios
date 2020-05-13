@@ -8,6 +8,7 @@
 
 import UIKit
 import ExposureNotification
+import UserNotifications
 
 protocol OnboardingInfoViewControllerDelegate: AnyObject {
     func didFinished(onboardingInfoViewController: OnboardingInfoViewController)
@@ -32,6 +33,8 @@ class OnboardingInfoViewController: UIViewController {
         (parent as! OnboardingViewController).manager
     }
 
+    private let notificationCenter = UNUserNotificationCenter.current()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
@@ -42,13 +45,15 @@ class OnboardingInfoViewController: UIViewController {
     }
 
     func run(index: Int) {
-        let closure: () -> Void = {
+        let completion: () -> Void = {
             self.delegate?.didFinished(onboardingInfoViewController: self)
         }
-        if index == 2 {
-            askExposureNotificationsPermissions(completion: closure)
+        if index == 1 {
+            askLocalNotificationsPermissions(completion: completion)
+        } else if index == 2 {
+            askExposureNotificationsPermissions(completion: completion)
         } else {
-            closure()
+            completion()
         }
     }
 
@@ -90,6 +95,19 @@ class OnboardingInfoViewController: UIViewController {
         }
     }
 
+    private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+        notificationCenter.requestAuthorization(options: options) { _, error in
+            if let error = error {
+                // handle error
+                log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
+            }
+            DispatchQueue.main.async {
+                completion?()
+            }
+        }
+    }
+    
     func openSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
