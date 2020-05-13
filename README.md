@@ -1,4 +1,3 @@
-![CI](https://github.com/corona-warn-app/cwa-app-ios/workflows/Swift/badge.svg?branch=master)
 # COVID Tracing App for iOS
 
 ## Important Links
