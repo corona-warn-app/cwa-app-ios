@@ -27,26 +27,34 @@ class RiskLegendFactory {
 
     func getRiskLegend() -> [RiskLegendEntry] {
         return [
-            RiskLegendEntry(riskLevel: .unknown,
-                            backgroundColor: UIColor.preferredColor(for: ColorStyle.unknownRisk),
-                            imageName: "sun.min",
-                            title: AppStrings.RiskView.unknownRisk,
-                            description: AppStrings.RiskView.unknownRiskDetailHelp),
-            RiskLegendEntry(riskLevel: .low,
-                            backgroundColor: UIColor.preferredColor(for: ColorStyle.positive),
-                            imageName: "sun.dust",
-                            title: AppStrings.RiskView.lowRisk,
-                            description: AppStrings.RiskView.lowRiskDetailHelp),
-            RiskLegendEntry(riskLevel: .moderate,
-                            backgroundColor: UIColor.preferredColor(for: ColorStyle.medium),
-                            imageName: "cloud.rain",
-                            title: AppStrings.RiskView.moderateRisk,
-                            description: AppStrings.RiskView.moderateRiskDetailHelp),
-            RiskLegendEntry(riskLevel: .high,
-                            backgroundColor: UIColor.preferredColor(for: ColorStyle.negative),
-                            imageName: "cloud.bolt",
-                            title: AppStrings.RiskView.highRisk,
-                            description: AppStrings.RiskView.highRiskDetailHelp)
+            RiskLegendEntry(
+                riskLevel: .unknown,
+                backgroundColor: .preferredColor(for: .unknownRisk),
+                imageName: "sun.min",
+                title: AppStrings.RiskView.unknownRisk,
+                description: AppStrings.RiskView.unknownRiskDetailHelp
+            ),
+            RiskLegendEntry(
+                riskLevel: .low,
+                backgroundColor: .preferredColor(for: .positive),
+                imageName: "sun.dust",
+                title: AppStrings.RiskView.lowRisk,
+                description: AppStrings.RiskView.lowRiskDetailHelp
+            ),
+            RiskLegendEntry(
+                riskLevel: .moderate,
+                backgroundColor: .preferredColor(for: .medium),
+                imageName: "cloud.rain",
+                title: AppStrings.RiskView.moderateRisk,
+                description: AppStrings.RiskView.moderateRiskDetailHelp
+            ),
+            RiskLegendEntry(
+                riskLevel: .high,
+                backgroundColor: .preferredColor(for: .negative),
+                imageName: "cloud.bolt",
+                title: AppStrings.RiskView.highRisk,
+                description: AppStrings.RiskView.highRiskDetailHelp
+            )
         ]
     }
 }

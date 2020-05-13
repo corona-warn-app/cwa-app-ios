@@ -1,6 +1,5 @@
 import UIKit
 import ExposureNotification
-import UserNotifications
 
 private class KeyCell: UITableViewCell {
     static var reuseIdentifier = "KeyCell"

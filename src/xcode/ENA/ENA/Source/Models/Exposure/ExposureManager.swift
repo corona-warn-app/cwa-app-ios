@@ -156,6 +156,7 @@ final class ExposureManager: NSObject {
             completionHandler(nil, error)
             return
         }
+        // see: https://github.com/corona-warn-app/cwa-app-ios/issues/169
         manager.getDiagnosisKeys(completionHandler: completionHandler)
     }
 

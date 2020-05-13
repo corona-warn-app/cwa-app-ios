@@ -140,7 +140,6 @@ opt_in_rules:
   - redundant_objc_attribute                          # Objective-C attribute (@objc) is redundant in declaration.
   #  - redundant_optional_initialization              # Initializing an optional variable with nil is redundant.
   - redundant_set_access_control                      # Property setter access level shouldn't be explicit if it's the same as the variable access level.
-  #  - redundant_string_enum_value                    # String enum values can be omitted when they are equal to the enumcase name.
   #  - redundant_type_annotation                      # Variables should not have redundant type annotation
   #  - redundant_void_return                          # Returning Void in a function declaration is redundant.
   #  - required_deinit                                # Classes should have an explicit deinit method.
@@ -194,11 +193,10 @@ opt_in_rules:
   - xctfail_message                                   # An XCTFail call should include a description of the assertion.
   #  - yoda_condition                                 # The variable should be placed on the left, the constant on the right of a comparison operator.
 
-
-
 # Disable rules which are in the default set
 disabled_rules:
   - identifier_name
+  - redundant_string_enum_value # disabled because it conflicts with explicit_enum_raw_value
 
 # Included paths (disables --path option)
 included:

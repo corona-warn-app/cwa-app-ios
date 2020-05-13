@@ -10,6 +10,12 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    private(set) var client: Client = {
+           let fileManager = FileManager.default
+           let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+           let fileUrl = documentDir.appendingPathComponent("keys", isDirectory: false).appendingPathExtension("proto")
+           return MockClient(submittedKeysFileURL: fileUrl)
+       }()
 
     // MARK: UISceneDelegate
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -34,7 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         case .home:
             let storyboard = AppStoryboard.home.instance
             let homeViewController = storyboard.instantiateInitialViewController { coder in
-                HomeViewController(coder: coder, exposureManager: manager)
+                HomeViewController(coder: coder, exposureManager: manager, client: self.client)
             }
             // swiftlint:disable:next force_unwrapping
             rootViewController = homeViewController!

@@ -19,18 +19,23 @@ final class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var riskViewContainerView: UIView!
 
-    var client: Client?
+    let client: Client
     var exposureManager: ExposureManager?
     weak var delegate: ExposureDetectionViewControllerDelegate?
     weak var exposureDetectionSummary: ENExposureDetectionSummary?
     let riskView: RiskView
 
-    required init?(coder: NSCoder) {
+    init?(coder: NSCoder, client: Client) {
         guard let riskView = UINib(nibName: "RiskView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? RiskView else {
               fatalError("It should not happen. RiskView is not avaiable")
         }
+        self.client = client
         self.riskView = riskView
         super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIViewController
@@ -125,21 +130,16 @@ final class ExposureDetectionViewController: UIViewController {
 
 
     @IBAction func refresh(_ sender: Any) {
-        guard let client = client else {
-            let error = "`client` must be set before being able to refresh."
-            logError(message: error)
-            fatalError(error)
-        }
-
         // The user wants to know his/her current risk. We have to do several things in order to be able to display
         // the risk.
         // 1. Get the configuration from the backend.
         // 2. Get new diagnosis keys from the backend.
         // 3. Create a detector and start it.
-        client.exposureConfiguration { configurationResult in
+        client.exposureConfiguration { [weak self] configurationResult in
+            guard let self = self else { return }
             switch configurationResult {
             case .success(let configuration):
-                client.fetch { [weak self] fetchResult in
+                self.client.fetch { [weak self] fetchResult in
                     switch fetchResult {
                     case .success(let urls):
                         self?.startExposureDetector(configuration: configuration, diagnosisKeyURLs: urls)
