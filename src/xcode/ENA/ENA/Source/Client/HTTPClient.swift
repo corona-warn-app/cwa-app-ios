@@ -9,24 +9,16 @@ import Foundation
 import ExposureNotification
 
 final class HTTPClient: Client {
-    struct Configuration {
-        // MARK: Properties
-        let baseURL: String
-        let apiVersion: String
-        let country: String
-        var submissionServiceUrl: String { return "http://submission-cwa-server.apps.p006.otc.mcs-paas.io/version/\(apiVersion)/diagnosis-keys" }
-
-        static let mock = Configuration(baseURL: "http://distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io", apiVersion: "v1", country: "DE")
-
-    }
-
-    init(configuration: Configuration = .mock, session: URLSession = URLSession.shared) {
+   init(
+        configuration: BackendConfiguration = .development,
+        session: URLSession = URLSession.shared
+    ) {
         self.configuration = configuration
         self.session = session
     }
 
     // MARK: Properties
-    private let configuration: Configuration
+    private let configuration: BackendConfiguration
     private let session: URLSession
 
     // Will be needed to format available days when fetching diagnosis keys
@@ -118,9 +110,8 @@ final class HTTPClient: Client {
     }
 
     private func createSubmissionRequest(tan: String, keys: Data) -> URLRequest {
-        let url = URL(string: configuration.submissionServiceUrl)
-        // swiftlint:disable:next force_unwrapping
-        var request = URLRequest(url: url!)
+        let url = configuration.submissionServiceUrl
+        var request = URLRequest(url: url)
 
         request.setValue(tan, forHTTPHeaderField: "cwa-authorization")
         request.setValue(String(0), forHTTPHeaderField: "cwa-fake")

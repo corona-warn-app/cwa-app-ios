@@ -65,9 +65,9 @@
 		71888C3E246AC0C3007AD508 /* DiagnosisKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71888C3D246AC0C3007AD508 /* DiagnosisKeyManager.swift */; };
 		85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85142500245DA0B3009D2791 /* UIViewController+Alert.swift */; };
 		8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8539874E2467094E00D28B62 /* AppIcon.xcassets */; };
+		853D987A24694A8700490DBA /* ENAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853D987924694A8700490DBA /* ENAButton.swift */; };
 		853D98832469DC5000490DBA /* ExposureNotificationSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 853D98822469DC5000490DBA /* ExposureNotificationSetting.storyboard */; };
 		853D98852469DC8100490DBA /* ExposureNotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */; };
-		853D987A24694A8700490DBA /* ENAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853D987924694A8700490DBA /* ENAButton.swift */; };
 		858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 858F6F6D245A103C009FFD33 /* ExposureNotification.framework */; };
 		8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8595BF5E246032D90056EA27 /* ENASwitch.swift */; };
 		85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7593E2457048F008175F0 /* AppDelegate.swift */; };
@@ -78,6 +78,7 @@
 		B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = B10FB02F246036F3004CA11E /* SwiftProtobuf */; };
 		B111EDEB2465B1E7001AEBB4 /* MockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EDEA2465B1E7001AEBB4 /* MockClient.swift */; };
 		B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */; };
+		B12995E9246C344100854AD0 /* BackendConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12995E8246C344100854AD0 /* BackendConfiguration.swift */; };
 		B1741B492462C207006275D9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B482462C207006275D9 /* Client.swift */; };
 		B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */; };
 		B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B432461C257006275D9 /* DMDeveloperMenu.swift */; };
@@ -202,9 +203,9 @@
 		71AFBD922464251000F91006 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		85142500245DA0B3009D2791 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		8539874E2467094E00D28B62 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
+		853D987924694A8700490DBA /* ENAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAButton.swift; sourceTree = "<group>"; };
 		853D98822469DC5000490DBA /* ExposureNotificationSetting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ExposureNotificationSetting.storyboard; sourceTree = "<group>"; };
 		853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureNotificationSettingViewController.swift; sourceTree = "<group>"; };
-		853D987924694A8700490DBA /* ENAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAButton.swift; sourceTree = "<group>"; };
 		85790F2E245C6B72003D47E1 /* ENA.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENA.entitlements; sourceTree = "<group>"; };
 		858F6F6D245A103C009FFD33 /* ExposureNotification.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExposureNotification.framework; path = System/Library/Frameworks/ExposureNotification.framework; sourceTree = SDKROOT; };
 		8595BF5E246032D90056EA27 /* ENASwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENASwitch.swift; sourceTree = "<group>"; };
@@ -222,6 +223,7 @@
 		B102BDC22460410600CD55A2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B111EDEA2465B1E7001AEBB4 /* MockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MockClient.swift; path = ENA/Source/Client/MockClient.swift; sourceTree = SOURCE_ROOT; };
 		B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
+		B12995E8246C344100854AD0 /* BackendConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendConfiguration.swift; sourceTree = "<group>"; };
 		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeViewController.swift; sourceTree = "<group>"; };
 		B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeScanViewController.swift; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 				B111EDEA2465B1E7001AEBB4 /* MockClient.swift */,
 				B1741B482462C207006275D9 /* Client.swift */,
 				011E13AD24680A4000973467 /* HTTPClient.swift */,
+				B12995E8246C344100854AD0 /* BackendConfiguration.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -1006,6 +1009,7 @@
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
 				B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
+				B12995E9246C344100854AD0 /* BackendConfiguration.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
 				01EB1D2E246973F100A7908B /* risk_level.pb.swift in Sources */,
 				EE46E5D82466AEA50057627F /* UIView.swift in Sources */,

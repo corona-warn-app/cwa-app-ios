@@ -28,7 +28,7 @@ extension UIColor {
         case .textPrimary3:
             return UIColor(named: "textPrimary3")
         case .tintColor:
-            return UIColor(red: 0.00, green: 0.53, blue: 0.70, alpha: 1.00)            
+            return UIColor(red: 0.00, green: 0.53, blue: 0.70, alpha: 1.00)
         case .separator:
             return UIColor(named: "separator")
         case .hairline:
