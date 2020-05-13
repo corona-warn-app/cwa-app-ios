@@ -102,9 +102,8 @@ final class HomeViewController: UIViewController {
             } else if let error = error {
                 logError(message: error.localizedDescription)
             } else {
-                let vc = enStoryBoard.instantiateViewController(identifier: "ENSettingViewController", creator: { coder in
-                    //return ExposureNotificationSettingViewController(coder: coder, manager: manager)
-                    return ENSettingViewController(coder: coder, manager: manager)
+                let vc = enStoryBoard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
+                    return ExposureNotificationSettingViewController(coder: coder, manager: manager)
                     
                 }
                 )
