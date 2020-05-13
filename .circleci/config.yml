@@ -7,12 +7,12 @@ jobs:
 
     steps:
       - checkout
-#      - run:
-#        name: Install dependencies
-#        command: brew install swiftlint swift-protobuf
-      - run:
-        name: build
-        command: xcodebuild clean build -project src/xcode/ENA/ENA.xcodeproj -scheme ENA -destination "platform=iOS Simulator,OS=13.5,name=iPhone 11" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      - run: xcodebuild clean build -project src/xcode/ENA/ENA.xcodeproj -scheme ENA -destination "platform=iOS Simulator,OS=13.5,name=iPhone 11" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
 #      - run:
 #        name: test
 #        command: xcodebuild -project src/xcode/ENA/ENA.xcodeproj -scheme ENA -destination "platform=iOS Simulator,OS=13.5,name=iPhone 11" -skip-testing:ENATests/HTTPClientTests clean test | xcpretty
+
+workflows:
+    default:
+        jobs:
+          - build-and-test
