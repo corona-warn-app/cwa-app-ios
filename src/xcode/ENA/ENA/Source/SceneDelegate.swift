@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: Helper
     private func setupRootViewController() {
-        let manager = ExposureManager()
+        let manager = ENAExposureManager()
 
         let onboardingWasShown = PersistenceManager.shared.isOnboarded
         //For a demo, we can set it to true.

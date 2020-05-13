@@ -158,7 +158,7 @@ class HTTPClientTests: XCTestCase {
         let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
         let mockURLSession = MockUrlSession(data: nil, response: response, error: nil)
 
-        let client = HTTPClient(configuration: .mock, session: mockURLSession)
+        let client = HTTPClient(configuration: .development, session: mockURLSession)
 
         let expectation = self.expectation(description: "HTTPClient should have failed.")
 
@@ -178,7 +178,7 @@ class HTTPClientTests: XCTestCase {
         let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
         let mockURLSession = MockUrlSession(data: validSignedPayloadData, response: response, error: nil)
 
-        let client = HTTPClient(configuration: .mock, session: mockURLSession)
+        let client = HTTPClient(configuration: .development, session: mockURLSession)
 
         let expectation = self.expectation(description: "HTTPClient should have succeeded.")
 
@@ -191,42 +191,6 @@ class HTTPClientTests: XCTestCase {
             }
         }
         waitForExpectations(timeout: expectationsTimeout)
-    }
-}
-
-class MockURLSessionDataTask: URLSessionDataTask {
-    private let completion: () -> Void
-
-    init(completion: @escaping () -> Void) {
-        self.completion = completion
-    }
-
-    override func resume() {
-        completion()
-    }
-}
-
-class MockUrlSession: URLSession {
-    let data: Data?
-    let response: URLResponse?
-    let error: Error?
-
-    init(data: Data?, response: URLResponse?, error: Error?) {
-        self.data = data
-        self.response = response
-        self.error = error
-    }
-
-    override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        return MockURLSessionDataTask {
-            completionHandler(self.data, self.response, self.error)
-        }
-    }
-
-    override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        return MockURLSessionDataTask {
-            completionHandler(self.data, self.response, self.error)
-        }
     }
 }
 
