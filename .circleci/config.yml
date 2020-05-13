@@ -1,15 +1,18 @@
-# For a detailed guide to building and testing on iOS, read the docs:
-# https://circleci.com/docs/2.0/testing-ios/
-
 version: 2.1
 
 jobs:
-  build:
-
+  build-and-test:
     macos:
       xcode: 11.5.0
 
     steps:
       - checkout
-      - run: xcodebuild clean build -project src/xcode/ENA/ENA.xcodeproj -scheme ENA -destination "${{ matrix.destination }}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-
+#      - run:
+#        name: Install dependencies
+#        command: brew install swiftlint swift-protobuf
+      - run:
+        name: build
+        command: xcodebuild clean build -project src/xcode/ENA/ENA.xcodeproj -scheme ENA -destination "platform=iOS Simulator,OS=13.5,name=iPhone 11" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      - run:
+        name: test
+        command: xcodebuild -project src/xcode/ENA/ENA.xcodeproj -scheme ENA -destination "platform=iOS Simulator,OS=13.5,name=iPhone 11" -skip-testing:ENATests/HTTPClientTests clean test | xcpretty
