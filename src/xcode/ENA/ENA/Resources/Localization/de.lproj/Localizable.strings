@@ -97,3 +97,9 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
 "moderate_risk_detail_help" = "Es besteht moderates Infektionsrisiko, da ein Kontakt mit wenigen infizierten Personen oder nur über Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
+
+// Invite Friends
+"InviteFriends_NavTitle" = "Teilen Sie die App";
+"InviteFriends_Title" = "Zusammen sind wir stärker!";
+"InviteFriends_Description" = "Wenn alle mitmachen und die App benutzen, können  wir die Kurve flach halten. Also, laden Sie Ihre Freunde zum Mitmachen ein, denn zusammen sind wir stärker.";
+"InviteFriends_Button" = "Einladungslink versenden";
