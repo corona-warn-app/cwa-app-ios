@@ -19,14 +19,12 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     weak var delegate: RiskCollectionViewCellDelegate?
 
     // MARK: Outlets
-    @IBOutlet var iconImageView: UIImageView!
-    @IBOutlet var chevronImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var bodyLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var chevronImageView: UIImageView!
+    @IBOutlet var tableView: UITableView!
     @IBOutlet var contactButton: UIButton!
     @IBOutlet var viewContainer: UIView!
-
+    
     // MARK: Nib Loading
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,13 +43,13 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         
         titleLabel.text = propertyHolder.title
         titleLabel.textColor = propertyHolder.titleColor
-        bodyLabel.text = propertyHolder.body
-        dateLabel.text = propertyHolder.date
-        dateLabel.isHidden = propertyHolder.date == nil
+        // bodyLabel.text = propertyHolder.body
+        // dateLabel.text = propertyHolder.date
+        // dateLabel.isHidden = propertyHolder.date == nil
         viewContainer.backgroundColor = propertyHolder.color
         chevronImageView.tintColor = propertyHolder.chevronTintColor
         chevronImageView.image = propertyHolder.chevronImage
-        iconImageView.image = propertyHolder.iconImage
+        // iconImageView.image = propertyHolder.iconImage
         contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
     }
 }
