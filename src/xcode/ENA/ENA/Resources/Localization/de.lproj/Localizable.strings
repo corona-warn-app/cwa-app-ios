@@ -107,7 +107,7 @@ Gemeinsam können wir helfen, die Ausbreitung zu stoppen und gesund zu bleiben."
 "App_Information_Legal_Section3_Title" = "";
 "App_Information_Legal_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
 "App_Information_Legal_Section4_Title" = "Briefanschrift";
-"App_Information_Legal_Section4_Title" = "...";
+"App_Information_Legal_Section4_Text" = "...";
 
 // App Information - Privacy
 "App_Information_Privacy_Title" = "Datenschutz";
