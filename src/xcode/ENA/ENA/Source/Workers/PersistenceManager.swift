@@ -54,4 +54,11 @@ final class PersistenceManager {
         defaultValue: nil
     )
     var dateLastExposureDetection: Date?
+
+    @PersistedAndPublished(
+        key: "allowsCellularUse",
+        notificationName: Notification.Name.permissionCellularUseDidChange,
+        defaultValue: true
+    )
+    var allowsCellularUse: Bool
 }

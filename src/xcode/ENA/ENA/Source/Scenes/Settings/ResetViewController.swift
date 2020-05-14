@@ -20,6 +20,7 @@ final class ResetViewController: UIViewController {
     @IBAction func resetData(_ sender: Any) {
         PersistenceManager.shared.isOnboarded = false
         PersistenceManager.shared.dateLastExposureDetection = nil
+        PersistenceManager.shared.allowsCellularUse = true
         exit(0)
     }
 

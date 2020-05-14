@@ -61,9 +61,9 @@ final class SettingsViewController: UIViewController {
     // MARK: Actions
     @IBAction func mobileDataValueChanged(_ sender: Any) {
         if mobileDataSwitch.isOn {
-
+            PersistenceManager.shared.allowsCellularUse = true
         } else {
-            
+            PersistenceManager.shared.allowsCellularUse = false
         }
     }
 
@@ -133,6 +133,7 @@ final class SettingsViewController: UIViewController {
         #endif
         // receive status of manager
         checkTracingStatus()
+        checkMobileDataUsagePermission()
         notificationSettings()
         setupLocalizedLabels()
 
@@ -177,6 +178,12 @@ final class SettingsViewController: UIViewController {
         manager.preconditions().contains(.enabled) ?
             setTrackingStatusActive(to: true) :
             setTrackingStatusActive(to: false)
+    }
+
+    private func checkMobileDataUsagePermission() {
+        DispatchQueue.main.async {
+            self.mobileDataSwitch.setOn(PersistenceManager.shared.allowsCellularUse, animated: true)
+        }
     }
 
     private func setTrackingStatusActive(to active: Bool) {
