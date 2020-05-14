@@ -153,9 +153,6 @@
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, " adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alE-Ko-lpd">
                                                                 <rect key="frame" x="16" y="0.0" width="382" height="60"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="60" id="nhc-WP-DeJ"/>
-                                                                </constraints>
                                                                 <color key="textColor" name="textPrimary2"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -295,9 +292,6 @@
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, " adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0EJ-9Y-6cV">
                                                                 <rect key="frame" x="16" y="0.0" width="382" height="60"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="60" id="yy4-I3-bq9"/>
-                                                                </constraints>
                                                                 <color key="textColor" name="textPrimary2"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -419,9 +413,6 @@
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, " adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MZ-JG-gGN">
                                                                 <rect key="frame" x="16" y="0.0" width="382" height="60"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="60" id="krB-4r-CAL"/>
-                                                                </constraints>
                                                                 <color key="textColor" name="textPrimary2"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -489,9 +480,6 @@
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, " adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsx-SU-rVI">
                                                                 <rect key="frame" x="16" y="0.0" width="382" height="60"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="60" id="gYa-i5-6vo"/>
-                                                                </constraints>
                                                                 <color key="textColor" name="textPrimary2"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -539,6 +527,7 @@
                         <outlet property="notificationStackView" destination="nvc-X3-7V1" id="en6-eu-GXj"/>
                         <outlet property="notificationStatusLabel" destination="iPP-r8-fgN" id="6gf-DW-MWU"/>
                         <outlet property="notificationsContainerView" destination="Abn-Sa-AcY" id="ayV-e3-Cig"/>
+                        <outlet property="resetButton" destination="qSz-jA-LSk" id="V6U-bc-WL7"/>
                         <outlet property="sendLogFileView" destination="13S-MQ-Cc0" id="Z7s-Fc-Px9"/>
                         <outlet property="tracingButton" destination="d1t-Sb-Ie7" id="Gk6-Ha-gWc"/>
                         <outlet property="tracingContainerView" destination="SLz-ga-cMM" id="NEi-u5-89F"/>

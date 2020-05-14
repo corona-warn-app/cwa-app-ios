@@ -21,6 +21,7 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var notificationsContainerView: UIView!
     @IBOutlet weak var notificationStackView: UIStackView!
     @IBOutlet weak var mobileDataSwitch: ENASwitch!
+    @IBOutlet weak var resetButton: UIButton!
 
     let manager: ExposureManager
     init?(coder: NSCoder, manager: ExposureManager) {
@@ -44,6 +45,10 @@ final class SettingsViewController: UIViewController {
         super.viewWillAppear(animated)
 
         checkTracingStatus()
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        resetButton.sizeToFit()
     }
 
     // MARK: Actions
@@ -123,6 +128,8 @@ final class SettingsViewController: UIViewController {
         checkTracingStatus()
         notificationSettings()
 
+        resetButton.setTitle("Anwendung Zurücksetzen", for: .normal)
+        resetButton.titleLabel?.adjustsFontForContentSizeCategory = true
         tracingStackView.isUserInteractionEnabled = false
         notificationStackView.isUserInteractionEnabled = false
         tracingContainerView.setBorder(
