@@ -10,15 +10,37 @@ import UIKit
 import ExposureNotification
 import UserNotifications
 
+enum OnboardingPageType: Int, CaseIterable {
+	case togetherAgainstCoronaPage = 0
+	case privacyPage = 1
+	case enableLoggingOfContactsPage = 2
+	case howDoesDataExchangeWorkPage = 3
+	case alwaysStayInformedPage = 4
+	
+	func next() -> OnboardingPageType? {
+		return OnboardingPageType(rawValue: self.rawValue + 1)
+	}
+}
+
 protocol OnboardingInfoViewControllerDelegate: AnyObject {
-    func didFinished(onboardingInfoViewController: OnboardingInfoViewController)
+    func didFinishOnboarding(onboardingInfoViewController: OnboardingInfoViewController)
 }
 
 class OnboardingInfoViewController: UIViewController {
+	
+	var pageType: OnboardingPageType?
+	var exposureManager: ExposureManager?
+	
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var textView: UITextView!
+    @IBOutlet var boldLabel: UILabel!
+    @IBOutlet var textLabel: UILabel!
+    @IBOutlet var nextButton: UIButton!
+	@IBOutlet var pageControl: UIPageControl!
+	
     weak var delegate: OnboardingInfoViewControllerDelegate?
+
+	private var onboardingInfos = OnboardingInfo.testData()
 
     var onboardingInfo: OnboardingInfo! {
         didSet {
@@ -26,35 +48,32 @@ class OnboardingInfoViewController: UIViewController {
         }
     }
 
-    // This gives us access to the exposure manager of our parent.
-    // We should find a nicer way to get to the manager though.
-    private var manager: ExposureManager {
-        // swiftlint:disable:next force_cast
-        (parent as! OnboardingViewController).manager
-    }
-
     private let notificationCenter = UNUserNotificationCenter.current()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUI()
-        
+		guard let pageType = pageType else { return }
+		onboardingInfo = onboardingInfos[pageType.rawValue]
+        configureNextButton()
+        updateNextButton()
         // should be revised in the future
         viewRespectsSystemMinimumLayoutMargins = false
         view.layoutMargins = .zero
+		runActionForPageType()
     }
 
-    func run(index: Int) {
+    func runActionForPageType() {
         let completion: () -> Void = {
-            self.delegate?.didFinished(onboardingInfoViewController: self)
+            self.delegate?.didFinishOnboarding(onboardingInfoViewController: self)
         }
-        if index == 1 {
-            askLocalNotificationsPermissions(completion: completion)
-        } else if index == 2 {
-            askExposureNotificationsPermissions(completion: completion)
-        } else {
+		switch pageType {
+		case .privacyPage:
+			askLocalNotificationsPermissions(completion: completion)
+		case .enableLoggingOfContactsPage:
+			askExposureNotificationsPermissions(completion: completion)
+		default:
             completion()
-        }
+		}
     }
 
     private func updateUI() {
@@ -62,12 +81,27 @@ class OnboardingInfoViewController: UIViewController {
         guard let onboardingInfo = onboardingInfo else { return }
         titleLabel.text = onboardingInfo.title
         imageView.image = UIImage(named: onboardingInfo.imageName)
-        textView.text = onboardingInfo.text
+		if let imageSize = imageView.image?.size {
+			let aspectRatio	= imageSize.width / imageSize.height
+			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: aspectRatio, constant: 0.0).isActive = true
+		}
+
+		boldLabel.text = onboardingInfo.boldText
+		boldLabel.isHidden = onboardingInfo.boldText.isEmpty
+		textLabel.text = onboardingInfo.text
+		textLabel.isHidden = onboardingInfo.text.isEmpty
+		titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
+		boldLabel.font = UIFont.boldSystemFont(ofSize: boldLabel.font.pointSize)
+		pageControl.numberOfPages = OnboardingPageType.allCases.count
+		pageControl.currentPage = pageType?.rawValue ?? 0
+		pageControl.currentPageIndicatorTintColor = UIColor.systemGray
+		pageControl.pageIndicatorTintColor = UIColor.systemGray4
     }
 
     // MARK: Exposure notifications
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
-        manager.activate { error in
+		guard let exposureManager = exposureManager else { fatalError("Should have an instance of exposureManager here") }
+        exposureManager.activate { error in
             if let error = error {
                 switch error {
                 case .exposureNotificationRequired:
@@ -80,7 +114,7 @@ class OnboardingInfoViewController: UIViewController {
             } else if let error = error {
                 self.showError(error, from: self, completion: completion)
             } else {
-                self.manager.enable { enableError in
+                exposureManager.enable { enableError in
                     if let enableError = enableError {
                         switch enableError {
                         case .exposureNotificationRequired:
@@ -118,4 +152,30 @@ class OnboardingInfoViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .cancel))
         viewController.present(alert, animated: true, completion: completion)
     }
+	
+    private func configureNextButton() {
+        nextButton.setTitleColor(.white, for: .normal)
+		nextButton.backgroundColor = UIColor.preferredColor(for: .brandBlue)
+        nextButton.layer.cornerRadius = 10.0
+        nextButton.layer.masksToBounds = true
+    }
+
+    private func updateNextButton() {
+		let isLastPage = (pageType == .alwaysStayInformedPage)
+        let title = isLastPage ? AppStrings.Onboarding.onboardingFinish : AppStrings.Onboarding.onboardingNext
+        nextButton.setTitle(title, for: .normal)
+    }
+
+	
+    @IBAction func didTapNextButton(_ sender: Any) {
+		guard let nextPageType = pageType?.next() else {
+            PersistenceManager.shared.isOnboarded = true
+			return
+		}
+        let vc = OnboardingInfoViewController.initiate(for: .onboarding)
+		vc.pageType = nextPageType
+		vc.exposureManager = exposureManager
+		navigationController?.pushViewController(vc, animated: true)
+    }
+	
 }

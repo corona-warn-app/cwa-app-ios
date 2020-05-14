@@ -52,11 +52,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             rootViewController = homeViewController!
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
-            let onboardingViewController = storyboard.instantiateInitialViewController { coder in
-                OnboardingViewController(coder: coder, exposureManager: manager)
-            }
-            // swiftlint:disable:next force_unwrapping
-            rootViewController = onboardingViewController!
+
+			guard
+				let navViewController = storyboard.instantiateViewController(withIdentifier: "OnboardingNavigationController") as? UINavigationController,
+				let onboardingInfoViewController = navViewController.topViewController as? OnboardingInfoViewController
+				else { fatalError("ooooops") }
+
+			// remove 1 px bottom border on nav bar
+			navViewController.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+			navViewController.navigationBar.shadowImage = UIImage()
+
+			onboardingInfoViewController.pageType = .togetherAgainstCoronaPage
+			onboardingInfoViewController.exposureManager = manager
+			
+            rootViewController = navViewController
         }
 
         window?.rootViewController = rootViewController
