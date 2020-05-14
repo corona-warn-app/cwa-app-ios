@@ -24,6 +24,9 @@
 		514E81342461B97800636861 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514E81332461B97700636861 /* ExposureManager.swift */; };
 		514EE994246D4A5400DE4884 /* RiskItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE992246D4A5400DE4884 /* RiskItemTableViewCell.swift */; };
 		514EE995246D4A5400DE4884 /* RiskItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 514EE993246D4A5400DE4884 /* RiskItemTableViewCell.xib */; };
+		514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */; };
+		514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
+		514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */; };
 		51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* UIColor.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
 		518A6A1E246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A6A1D246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift */; };
@@ -165,6 +168,9 @@
 		514E81332461B97700636861 /* ExposureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
 		514EE992246D4A5400DE4884 /* RiskItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskItemTableViewCell.swift; sourceTree = "<group>"; };
 		514EE993246D4A5400DE4884 /* RiskItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskItemTableViewCell.xib; sourceTree = "<group>"; };
+		514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
+		514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Dequeue.swift"; sourceTree = "<group>"; };
+		514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellConfigurator.swift; sourceTree = "<group>"; };
 		51895EDB245E16CD0085DA38 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		518A69FA24687D5800444E66 /* RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevel.swift; sourceTree = "<group>"; };
 		518A6A1D246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellPropertyHolder.swift; sourceTree = "<group>"; };
@@ -334,6 +340,25 @@
 			path = "Risk Items";
 			sourceTree = "<group>";
 		};
+		514EE996246D4BDD00DE4884 /* UICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */,
+				51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */,
+				51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */,
+			);
+			path = UICollectionView;
+			sourceTree = "<group>";
+		};
+		514EE997246D4BEB00DE4884 /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */,
+				514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */,
+			);
+			path = UITableView;
+			sourceTree = "<group>";
+		};
 		518A6A1C246A9F6600444E66 /* HomeRiskCellConfigurator */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				51CE1BBC2460B1CB002CF42A /* CollectionViewCellConfigurator.swift */,
+				514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -429,11 +455,10 @@
 		51D420B524583B5100AD70CA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				514EE996246D4BDD00DE4884 /* UICollectionView */,
+				514EE997246D4BEB00DE4884 /* UITableView */,
 				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
 				51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */,
-				51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */,
-				51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */,
-				51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */,
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
 				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
 				51895EDB245E16CD0085DA38 /* UIColor.swift */,
@@ -993,6 +1018,7 @@
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
+				514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */,
 				B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */,
 				B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */,
 				EE20EA0E246ABED600770683 /* RiskLegendFactory.swift in Sources */,
@@ -1024,6 +1050,7 @@
 				518A6A1E246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				B1A7A1CD246C13CB00AD3470 /* Mode.swift in Sources */,
+				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
 				01EB1D2F246973F100A7908B /* file_bucket.pb.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */,
@@ -1031,6 +1058,7 @@
 				B111EDEB2465B1E7001AEBB4 /* MockClient.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
+				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
 				B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
 				B12995E9246C344100854AD0 /* BackendConfiguration.swift in Sources */,
