@@ -1,25 +1,22 @@
 //
-//  ExposureNotificationSettingViewController.swift
+//  ENSettingViewController.swift
 //  ENA
 //
-//  Created by Hu, Hao on 30.04.20.
+//  Created by Hu, Hao on 11.05.20.
 //  Copyright © 2020 SAP SE. All rights reserved.
 //
 
 import UIKit
-import ExposureNotification
 
-class ExposureNotificationSettingViewController: UIViewController {
-    @IBOutlet weak var contactTracingSwitch: UISwitch!
-
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var enableTrackingLabel: UILabel!
+class ExposureNotificationSettingViewController: UITableViewController {
+    
+    @IBOutlet weak var contactTracingSwitch: ENASwitch!
     @IBOutlet weak var introductionLabel: UILabel!
-    @IBOutlet weak var introductionText: UITextView!
+    @IBOutlet weak var introductionText: UILabel!
+    @IBOutlet weak var enableTrackingLabel: UILabel!
+    
     
     let manager: ExposureManager
-    
-    
     init?(coder: NSCoder, manager: ExposureManager) {
         self.manager = manager
         super.init(coder: coder)
@@ -29,68 +26,44 @@ class ExposureNotificationSettingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        _ = NotificationCenter
-            .default
-            .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
-                log(message: "[viewDidLoad]: willEnterForegroundNotification, checking notifcation status.")
-                self.checkNotificationStatus()
-            }
-
+        setupNotificationCenter()
         setUIText()
+        tableView.estimatedRowHeight = 280
+        tableView.rowHeight = UITableView.automaticDimension
+        
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkNotificationStatus()
-    }
-
-    deinit {
-        log(message: "deinit got called.")
-        NotificationCenter.default.removeObserver(self)
-    }
-}
-
-// MARK: UI and Storyboard
-extension ExposureNotificationSettingViewController {
-    private func setUIText() {
-        titleLabel.text = AppStrings.ExposureNotificationSetting.title
-        enableTrackingLabel.text = AppStrings.ExposureNotificationSetting.enableTracing
-        introductionLabel.text = AppStrings.ExposureNotificationSetting.introductionTitle
-        introductionText.text = AppStrings.ExposureNotificationSetting.introductionText
-    }
-
-    @IBAction func closeButtonClicked(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
     }
 
     
     @IBAction func contactTracingValueChanged(_ sender: Any) {
         if contactTracingSwitch.isOn {
             manager.enable {[weak self] error in
-                if let error = error {
-                    self?.handleEnableError(error)
-                } else {
-                    self?.checkNotificationStatus()
-                }
+                self?.handleErrorIfNeed(error)
             }
         } else {
             manager.disable {[weak self]  error in
-                if let error = error {
-                    self?.handleEnableError(error)
-                } else {
-                    self?.checkNotificationStatus()
-                }
+                self?.handleErrorIfNeed(error)
             }
         }
     }
 }
 
 extension ExposureNotificationSettingViewController {
+    
+    
+    private func setUIText() {
+        enableTrackingLabel.text = AppStrings.ExposureNotificationSetting.enableTracing
+        introductionLabel.text = AppStrings.ExposureNotificationSetting.introductionTitle
+        introductionText.text = AppStrings.ExposureNotificationSetting.introductionText
+    }
+    
     
     private func handleEnableError(_ error: ExposureNotificationError) {
         switch error {
@@ -103,10 +76,28 @@ extension ExposureNotificationSettingViewController {
         }
     }
     
+    
+    private func handleErrorIfNeed(_ error: ExposureNotificationError?) {
+        if let error = error {
+            handleEnableError(error)
+        } else {
+            checkNotificationStatus()
+        }
+    }
+    
     private func checkNotificationStatus() {
         manager.preconditions().contains(.enabled) ?
             contactTracingSwitch.setOn(true, animated: true) :
             contactTracingSwitch.setOn(false, animated: true)
+    }
+    
+    private func setupNotificationCenter() {
+        _ = NotificationCenter
+            .default
+            .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
+                log(message: "[viewDidLoad]: willEnterForegroundNotification, checking notifcation status.")
+                self.checkNotificationStatus()
+            }
     }
     
 }

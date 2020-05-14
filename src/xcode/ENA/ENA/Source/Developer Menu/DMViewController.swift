@@ -1,6 +1,5 @@
 import UIKit
 import ExposureNotification
-import UserNotifications
 
 private class KeyCell: UITableViewCell {
     static var reuseIdentifier = "KeyCell"
@@ -101,7 +100,7 @@ final class DMViewController: UITableViewController {
     // For now we simply submit automatically.
     @objc
     private func generateTestKeys() {
-        let manager = ExposureManager()
+        let manager = ENAExposureManager()
         manager.activate { activationError in
             if let activationError = activationError {
                 logError(message: "Failed to generate test keys because exposure manager could not be activated due to: \(activationError)")

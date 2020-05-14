@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "tracing_banner.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

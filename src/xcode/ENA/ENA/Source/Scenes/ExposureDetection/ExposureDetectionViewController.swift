@@ -15,10 +15,11 @@ protocol ExposureDetectionViewControllerDelegate: AnyObject {
 
 final class ExposureDetectionViewController: UIViewController {
     // MARK: Creating a Exposure Detection View Controller
-    required init?(coder: NSCoder, store: Store) {
+    required init?(coder: NSCoder, client: Client, store: Store) {
         guard let riskView = UINib(nibName: "RiskView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? RiskView else {
               fatalError("It should not happen. RiskView is not avaiable")
         }
+        self.client = client
         self.store = store
         self.riskView = riskView
         super.init(coder: coder)
@@ -34,7 +35,7 @@ final class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var riskViewContainerView: UIView!
 
     private let store: Store
-    var client: Client?
+    let client: Client
     var exposureManager: ExposureManager?
     weak var delegate: ExposureDetectionViewControllerDelegate?
     weak var exposureDetectionSummary: ENExposureDetectionSummary?
@@ -132,21 +133,16 @@ final class ExposureDetectionViewController: UIViewController {
 
 
     @IBAction func refresh(_ sender: Any) {
-        guard let client = client else {
-            let error = "`client` must be set before being able to refresh."
-            logError(message: error)
-            fatalError(error)
-        }
-
         // The user wants to know his/her current risk. We have to do several things in order to be able to display
         // the risk.
         // 1. Get the configuration from the backend.
         // 2. Get new diagnosis keys from the backend.
         // 3. Create a detector and start it.
-        client.exposureConfiguration { configurationResult in
+        client.exposureConfiguration { [weak self] configurationResult in
+            guard let self = self else { return }
             switch configurationResult {
             case .success(let configuration):
-                client.fetch { [weak self] fetchResult in
+                self.client.fetch { [weak self] fetchResult in
                     switch fetchResult {
                     case .success(let urls):
                         self?.startExposureDetector(configuration: configuration, diagnosisKeyURLs: urls)
@@ -167,7 +163,7 @@ final class ExposureDetectionViewController: UIViewController {
 
         let startDate = Date()
 
-        let exposureManager = ExposureManager()
+        let exposureManager = ENAExposureManager()
 
         func stopAndInvalidate() {
             exposureManager.invalidate()
@@ -225,7 +221,7 @@ fileprivate extension ENExposureDetectionSummary {
         return string
 
     }
-    
+
     func title(for riskLevel: RiskLevel) -> String {
         let key: String
         switch riskLevel {
@@ -240,5 +236,5 @@ fileprivate extension ENExposureDetectionSummary {
         }
         return key
     }
-    
+
 }

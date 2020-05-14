@@ -11,7 +11,7 @@ import ExposureNotification
 /// Describes how to interfact with the backend.
 protocol Client {
     // MARK: Types
-    typealias SubmitKeysCompletionHandler = (Error?) -> Void
+    typealias SubmitKeysCompletionHandler = (SubmissionError?) -> Void
     typealias FetchKeysCompletionHandler = (Result<[URL], Error>) -> Void
 
     // MARK: Interacting with a Client
@@ -32,4 +32,11 @@ protocol Client {
 
     /// `completion` will be called on the main queue.
     func fetch(completion: @escaping FetchKeysCompletionHandler)
+}
+
+enum SubmissionError: Error {
+    case generalError
+    case networkError
+    case invalidPayloadOrHeaders
+    case invalidTan
 }

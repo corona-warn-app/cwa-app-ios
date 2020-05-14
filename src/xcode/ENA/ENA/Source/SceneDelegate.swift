@@ -12,6 +12,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Properties
     var window: UIWindow?
     private let store = Store()
+    private(set) var client: Client = {
+        let mode = Mode.from()
+
+        switch mode {
+        case .development:
+            return HTTPClient(configuration: .development)
+        case .production:
+            return HTTPClient(configuration: .production)
+        case .mock:
+            return MockClient()
+        }
+       }()
 
     // MARK: UISceneDelegate
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -26,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: Helper
     private func setupRootViewController() {
-        let manager = ExposureManager()
+        let manager = ENAExposureManager()
 
         let onboardingWasShown = store.isOnboarded
         //For a demo, we can set it to true.
@@ -40,11 +52,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 HomeViewController(
                     coder: coder,
                     exposureManager: manager,
+                    client: self.client,
                     store: self.store
                 )
             }
             // swiftlint:disable:next force_unwrapping
-            rootViewController = homeViewController!
+            let navigationController = UINavigationController(rootViewController: homeViewController!)
+            rootViewController = navigationController
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
             let onboardingViewController = storyboard.instantiateInitialViewController { coder in

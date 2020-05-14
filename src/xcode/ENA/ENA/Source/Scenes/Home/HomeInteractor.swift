@@ -14,10 +14,12 @@ final class HomeInteractor {
     init(
         homeViewController: HomeViewController,
         exposureManager: ExposureManager,
+        client: Client,
         store: Store
     ) {
         self.homeViewController = homeViewController
         self.exposureManager = exposureManager
+        self.client = client
         self.store = store
     }
 
@@ -26,23 +28,16 @@ final class HomeInteractor {
     private let store: Store
     private var detectionSummary: ENExposureDetectionSummary?
     private(set) var exposureManager: ExposureManager
-    
-    private(set) var client: Client = {
-        let fileManager = FileManager.default
-        let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileUrl = documentDir.appendingPathComponent("keys", isDirectory: false).appendingPathExtension("proto")
-        return MockClient(submittedKeysFileURL: fileUrl)
-    }()
-    
+    private let client: Client
+
     private lazy var developerMenu: DMDeveloperMenu = {
         DMDeveloperMenu(presentingViewController: homeViewController, client: client)
     }()
 
-    
     func developerMenuEnableIfAllowed() {
         developerMenu.enableIfAllowed()
     }
-    
+
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
         let activeConfigurator = HomeActivateCellConfigurator()
         let date = store.dateLastExposureDetection

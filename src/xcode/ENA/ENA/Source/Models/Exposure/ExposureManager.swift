@@ -37,11 +37,20 @@ struct Preconditions: OptionSet {
 
 extension ENManager: Manager {}
 
-/// Wrapper for ENManager to avoid code duplication and to abstract error handling
-final class ExposureManager: NSObject {
-
+protocol ExposureManager {
     typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
 
+    func activate(completion: @escaping CompletionHandler)
+    func enable(completion: @escaping CompletionHandler)
+    func disable(completion: @escaping CompletionHandler)
+    func preconditions() -> Preconditions
+    func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+    func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+    func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+}
+
+/// Wrapper for ENManager to avoid code duplication and to abstract error handling
+final class ENAExposureManager: NSObject, ExposureManager {
     @objc private let manager: Manager
 
     private var exposureNotificationEnabledObserver: NSObject?
@@ -156,6 +165,7 @@ final class ExposureManager: NSObject {
             completionHandler(nil, error)
             return
         }
+        // see: https://github.com/corona-warn-app/cwa-app-ios/issues/169
         manager.getDiagnosisKeys(completionHandler: completionHandler)
     }
 
