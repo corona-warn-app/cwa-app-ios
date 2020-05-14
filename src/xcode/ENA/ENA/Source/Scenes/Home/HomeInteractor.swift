@@ -10,11 +10,12 @@ import Foundation
 import ExposureNotification
 
 final class HomeInteractor {
-    
+
     private unowned var homeViewController: HomeViewController
     private let persistenceManager = PersistenceManager.shared
     private var detectionSummary: ENExposureDetectionSummary?
     private(set) var exposureManager: ExposureManager
+
     private let client: Client
     
     private lazy var developerMenu: DMDeveloperMenu = {
@@ -26,13 +27,13 @@ final class HomeInteractor {
         self.exposureManager = exposureManager
         self.client = client
     }
-    
+
     func developerMenuEnableIfAllowed() {
         developerMenu.enableIfAllowed()
     }
-    
+
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
-        let activeConfigurator = HomeActivateCellConfigurator()
+        let activeConfigurator = HomeActivateCellConfigurator(isActivate: true)
         let date = persistenceManager.dateLastExposureDetection
         let riskLevel: RiskLevel
         if let detectionSummary = detectionSummary {
