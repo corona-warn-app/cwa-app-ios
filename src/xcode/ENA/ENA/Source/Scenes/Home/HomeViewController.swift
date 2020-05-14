@@ -145,9 +145,8 @@ final class HomeViewController: UIViewController {
     }
 
     func showAppInformation() {
-        let vc = AppInformationViewController.initiate(for: .appInformation)
-        let naviController = UINavigationController(rootViewController: vc)
-        present(naviController, animated: true, completion: nil)
+		let vc = AppStoryboard.appInformation.initiateInitial()!
+		present(vc, animated: true)
     }
 
     private func showScreen(at indexPath: IndexPath) {
