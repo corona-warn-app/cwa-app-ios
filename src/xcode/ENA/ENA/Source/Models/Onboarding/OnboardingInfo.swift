@@ -18,40 +18,41 @@ struct OnboardingInfo {
 extension OnboardingInfo {
     static func testData() -> [Self] {
         
-        let info1 = OnboardingInfo(
-            title: NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_title", comment: ""),
-            imageName: "onboarding_1",
-            boldText: NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_boldText", comment: ""),
-            text: NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_normalText", comment: "")
-		)
-        
-        let info2 = OnboardingInfo(
-            title: NSLocalizedString("OnboardingInfo_privacyPage_title", comment: ""),
-            imageName: "onboarding_2",
-            boldText: NSLocalizedString("OnboardingInfo_privacyPage_boldText", comment: ""),
-            text: NSLocalizedString("OnboardingInfo_privacyPage_normalText", comment: "")
-		)
-        
-        let info3 = OnboardingInfo(
-            title: NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_title", comment: ""),
-            imageName: "onboarding_3",
-            boldText: NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_boldText", comment: ""),
-            text: NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_normalText", comment: "")
-		)
-        
-        let info4 = OnboardingInfo(
-            title: NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_title", comment: ""),
-            imageName: "onboarding_1",
-            boldText: NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_boldText", comment: ""),
-            text: NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_normalText", comment: "")
-		)
-       
-        let info5 = OnboardingInfo(
-            title: NSLocalizedString("OnboardingInfo_alwaysStayInformedPage_title", comment: ""),
-            imageName: "onboarding_2",
-            boldText: NSLocalizedString("OnboardingInfo_alwaysStayInformedPage_boldText", comment: ""),
-            text: NSLocalizedString("OnboardingInfo_alwaysStayInformedPage_normalText", comment: "")
-		)
+		 let info1 = OnboardingInfo(
+			 title:
+			 AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title,
+			 imageName: "onboarding_1",
+			 boldText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_boldText,
+			 text: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText
+		 )
+		 
+		 let info2 = OnboardingInfo(
+			 title: AppStrings.Onboarding.onboardingInfo_privacyPage_title,
+			 imageName: "onboarding_2",
+			 boldText: AppStrings.Onboarding.onboardingInfo_privacyPage_boldText,
+			 text: AppStrings.Onboarding.onboardingInfo_privacyPage_normalText
+		 )
+		 
+		 let info3 = OnboardingInfo(
+			 title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_title,
+			 imageName: "onboarding_3",
+			 boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
+			 text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText
+		 )
+		 
+		 let info4 = OnboardingInfo(
+			 title: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title,
+			 imageName: "onboarding_1",
+			 boldText: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_boldText,
+			 text: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_normalText
+		 )
+		
+		 let info5 = OnboardingInfo(
+			 title: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_title,
+			 imageName: "onboarding_2",
+			 boldText: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_boldText,
+			 text: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_normalText
+		 )
 
         return [info1, info2, info3, info4, info5]
     }

@@ -20,6 +20,9 @@ enum OnboardingPageType: Int, CaseIterable {
 	func next() -> OnboardingPageType? {
 		return OnboardingPageType(rawValue: self.rawValue + 1)
 	}
+	func isLast() -> Bool {
+		return (self == OnboardingPageType.allCases.last)
+	}
 }
 
 protocol OnboardingInfoViewControllerDelegate: AnyObject {
@@ -79,19 +82,37 @@ class OnboardingInfoViewController: UIViewController {
     private func updateUI() {
         guard isViewLoaded else { return }
         guard let onboardingInfo = onboardingInfo else { return }
-        titleLabel.text = onboardingInfo.title
-        imageView.image = UIImage(named: onboardingInfo.imageName)
-		if let imageSize = imageView.image?.size {
-			let aspectRatio	= imageSize.width / imageSize.height
-			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: aspectRatio, constant: 0.0).isActive = true
-		}
 
-		boldLabel.text = onboardingInfo.boldText
-		boldLabel.isHidden = onboardingInfo.boldText.isEmpty
-		textLabel.text = onboardingInfo.text
-		textLabel.isHidden = onboardingInfo.text.isEmpty
-		titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
-		boldLabel.font = UIFont.boldSystemFont(ofSize: boldLabel.font.pointSize)
+        titleLabel.text = onboardingInfo.title
+        titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
+
+        imageView.image = UIImage(named: onboardingInfo.imageName)
+        if let imageSize = imageView.image?.size {
+            let aspectRatio = imageSize.width / imageSize.height
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: aspectRatio, constant: 0.0).isActive = true
+        }
+
+        boldLabel.text = onboardingInfo.boldText
+        boldLabel.font = UIFont.boldSystemFont(ofSize: boldLabel.font.pointSize)
+        boldLabel.isHidden = onboardingInfo.boldText.isEmpty
+
+        textLabel.text = onboardingInfo.text
+        textLabel.isHidden = onboardingInfo.text.isEmpty
+
+        pageControl.numberOfPages = OnboardingPageType.allCases.count
+        pageControl.currentPage = pageType?.rawValue ?? 0
+        pageControl.currentPageIndicatorTintColor = UIColor.systemGray
+        pageControl.pageIndicatorTintColor = UIColor.systemGray4
+
+        nextButton.setTitleColor(.white, for: .normal)
+		nextButton.backgroundColor = UIColor.preferredColor(for: .brandBlue)
+        nextButton.layer.cornerRadius = 10.0
+        nextButton.layer.masksToBounds = true
+		
+		let isLastPage = (pageType == .alwaysStayInformedPage)
+        let title = isLastPage ? AppStrings.Onboarding.onboardingFinish : AppStrings.Onboarding.onboardingNext
+        nextButton.setTitle(title, for: .normal)
+
 		pageControl.numberOfPages = OnboardingPageType.allCases.count
 		pageControl.currentPage = pageType?.rawValue ?? 0
 		pageControl.currentPageIndicatorTintColor = UIColor.systemGray
