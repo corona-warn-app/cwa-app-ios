@@ -50,10 +50,9 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         delegate?.contactButtonTapped(cell: self)
     }
     
-
     // MARK: Configuring the UI
     func configure(with propertyHolder: HomeRiskCellPropertyHolder, delegate: RiskCollectionViewCellDelegate) {
-
+        
         self.delegate = delegate
         
         titleLabel.text = propertyHolder.title
@@ -71,6 +70,9 @@ final class RiskCollectionViewCell: UICollectionViewCell {
                 stackView.addArrangedSubview(riskView)
                 itemConfigurator.configure(riskItemView: riskView)
             }
+        }
+        if let riskItemView = stackView.arrangedSubviews.last as? RiskItemView {
+            riskItemView.hideSeparator()
         }
     }
 }
