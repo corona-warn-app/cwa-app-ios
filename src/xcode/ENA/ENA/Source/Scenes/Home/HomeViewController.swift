@@ -28,8 +28,6 @@ final class HomeViewController: UIViewController {
     
     // MARK: Properties
     
-    @IBOutlet var topContainerView: UIView!
-    
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
     private var homeLayout: HomeLayout!
@@ -61,7 +59,8 @@ final class HomeViewController: UIViewController {
     }
     
     // MARK: Actions
-    @IBAction private func infoButtonTapped(_ sender: UIButton) {
+    @objc
+    private func infoButtonTapped(_ sender: UIButton) {
         let vc = RiskLegendTableViewController.initiate(for: .riskLegend)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
@@ -221,7 +220,7 @@ final class HomeViewController: UIViewController {
         NSLayoutConstraint.activate(
             [
                 collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-                collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
+                collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
                 collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
                 collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ]
@@ -262,8 +261,10 @@ final class HomeViewController: UIViewController {
     }
     
     private func configureUI () {
+        title = "Corona-Warn-App"
         collectionView.backgroundColor = .systemGroupedBackground
-        topContainerView.backgroundColor = .systemBackground
+        let infoImage = UIImage(systemName: "info.circle")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
     }
 }
 
