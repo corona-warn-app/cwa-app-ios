@@ -25,10 +25,6 @@ enum OnboardingPageType: Int, CaseIterable {
 	}
 }
 
-protocol OnboardingInfoViewControllerDelegate: AnyObject {
-    func didFinishOnboarding(onboardingInfoViewController: OnboardingInfoViewController)
-}
-
 class OnboardingInfoViewController: UIViewController {
 	
 	var pageType: OnboardingPageType?
@@ -39,17 +35,12 @@ class OnboardingInfoViewController: UIViewController {
     @IBOutlet var boldLabel: UILabel!
     @IBOutlet var textLabel: UILabel!
     @IBOutlet var nextButton: UIButton!
+	@IBOutlet var ignoreButton: UIButton!
 	@IBOutlet var pageControl: UIPageControl!
 	
-    weak var delegate: OnboardingInfoViewControllerDelegate?
-
 	private var onboardingInfos = OnboardingInfo.testData()
 
-    var onboardingInfo: OnboardingInfo! {
-        didSet {
-            updateUI()
-        }
-    }
+    var onboardingInfo: OnboardingInfo?
 
     private let notificationCenter = UNUserNotificationCenter.current()
     
@@ -57,25 +48,20 @@ class OnboardingInfoViewController: UIViewController {
         super.viewDidLoad()
 		guard let pageType = pageType else { return }
 		onboardingInfo = onboardingInfos[pageType.rawValue]
-        configureNextButton()
-        updateNextButton()
         // should be revised in the future
         viewRespectsSystemMinimumLayoutMargins = false
         view.layoutMargins = .zero
-		runActionForPageType()
+		updateUI()
     }
 
-    func runActionForPageType() {
-        let completion: () -> Void = {
-            self.delegate?.didFinishOnboarding(onboardingInfoViewController: self)
-        }
+    func runActionForPageType(completion: @escaping () -> Void) {
 		switch pageType {
-		case .privacyPage:
-			askLocalNotificationsPermissions(completion: completion)
 		case .enableLoggingOfContactsPage:
 			askExposureNotificationsPermissions(completion: completion)
+		case .alwaysStayInformedPage:
+			askLocalNotificationsPermissions(completion: completion)
 		default:
-            completion()
+			completion()
 		}
     }
 
@@ -84,7 +70,6 @@ class OnboardingInfoViewController: UIViewController {
         guard let onboardingInfo = onboardingInfo else { return }
 
         titleLabel.text = onboardingInfo.title
-        titleLabel.font = UIFont.boldSystemFont(ofSize: titleLabel.font.pointSize)
 
         imageView.image = UIImage(named: onboardingInfo.imageName)
         if let imageSize = imageView.image?.size {
@@ -93,7 +78,6 @@ class OnboardingInfoViewController: UIViewController {
         }
 
         boldLabel.text = onboardingInfo.boldText
-        boldLabel.font = UIFont.boldSystemFont(ofSize: boldLabel.font.pointSize)
         boldLabel.isHidden = onboardingInfo.boldText.isEmpty
 
         textLabel.text = onboardingInfo.text
@@ -104,21 +88,44 @@ class OnboardingInfoViewController: UIViewController {
         pageControl.currentPageIndicatorTintColor = UIColor.systemGray
         pageControl.pageIndicatorTintColor = UIColor.systemGray4
 
+		nextButton.setTitle(onboardingInfo.actionText, for: .normal)
         nextButton.setTitleColor(.white, for: .normal)
-		nextButton.backgroundColor = UIColor.preferredColor(for: .brandBlue)
+		nextButton.backgroundColor = UIColor.preferredColor(for: .onboardingButton)
         nextButton.layer.cornerRadius = 10.0
         nextButton.layer.masksToBounds = true
+		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 		
-		let isLastPage = (pageType == .alwaysStayInformedPage)
-        let title = isLastPage ? AppStrings.Onboarding.onboardingFinish : AppStrings.Onboarding.onboardingNext
-        nextButton.setTitle(title, for: .normal)
-
+		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
+        ignoreButton.setTitleColor(UIColor.preferredColor(for: .onboardingButton), for: .normal)
+		ignoreButton.backgroundColor = UIColor.clear
+		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
+		
 		pageControl.numberOfPages = OnboardingPageType.allCases.count
 		pageControl.currentPage = pageType?.rawValue ?? 0
 		pageControl.currentPageIndicatorTintColor = UIColor.systemGray
 		pageControl.pageIndicatorTintColor = UIColor.systemGray4
-    }
 
+		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
+		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+		
+		let insetPadding: CGFloat = 16
+		nextButton.contentEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
+		nextButton.titleEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
+		ignoreButton.contentEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
+		ignoreButton.titleEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
+			// content size has changed
+			titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
+			boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+		}
+	}
+	
+	
     // MARK: Exposure notifications
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
 		guard let exposureManager = exposureManager else { fatalError("Should have an instance of exposureManager here") }
@@ -174,21 +181,17 @@ class OnboardingInfoViewController: UIViewController {
         viewController.present(alert, animated: true, completion: completion)
     }
 	
-    private func configureNextButton() {
-        nextButton.setTitleColor(.white, for: .normal)
-		nextButton.backgroundColor = UIColor.preferredColor(for: .brandBlue)
-        nextButton.layer.cornerRadius = 10.0
-        nextButton.layer.masksToBounds = true
-    }
-
-    private func updateNextButton() {
-		let isLastPage = (pageType == .alwaysStayInformedPage)
-        let title = isLastPage ? AppStrings.Onboarding.onboardingFinish : AppStrings.Onboarding.onboardingNext
-        nextButton.setTitle(title, for: .normal)
-    }
-
-	
     @IBAction func didTapNextButton(_ sender: Any) {
+		runActionForPageType(completion: {
+			self.gotoNextScreen()
+		})
+    }
+
+    @IBAction func didTapIgnoreButton(_ sender: Any) {
+		gotoNextScreen()
+    }
+
+	func gotoNextScreen() {
 		guard let nextPageType = pageType?.next() else {
             PersistenceManager.shared.isOnboarded = true
 			return
@@ -197,6 +200,6 @@ class OnboardingInfoViewController: UIViewController {
 		vc.pageType = nextPageType
 		vc.exposureManager = exposureManager
 		navigationController?.pushViewController(vc, animated: true)
-    }
+	}
 	
 }

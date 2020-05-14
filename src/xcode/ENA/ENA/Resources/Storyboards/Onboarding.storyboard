@@ -95,24 +95,37 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qvx-Vc-jIj" userLabel="Container Button View">
                                         <rect key="frame" x="0.0" y="563" width="375" height="90"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjZ-ed-ItP">
-                                                <rect key="frame" x="16" y="25" width="343" height="40"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Dnb-sh-MSz">
+                                                <rect key="frame" x="16" y="8" width="343" height="74"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjZ-ed-ItP">
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="33"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <state key="normal" title="Next"/>
+                                                        <connections>
+                                                            <action selector="didTapNextButton:" destination="Vq1-Uv-hV6" eventType="touchUpInside" id="xFd-EU-3KZ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clc-Yy-2ht">
+                                                        <rect key="frame" x="0.0" y="41" width="343" height="33"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <state key="normal" title="Ignore"/>
+                                                        <connections>
+                                                            <action selector="didTapIgnoreButton:" destination="Vq1-Uv-hV6" eventType="touchUpInside" id="PgS-gx-x7Y"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="Sg1-0f-PPA"/>
+                                                    <constraint firstItem="XjZ-ed-ItP" firstAttribute="width" secondItem="Dnb-sh-MSz" secondAttribute="width" id="9zt-wd-3tB"/>
+                                                    <constraint firstItem="Clc-Yy-2ht" firstAttribute="width" secondItem="Dnb-sh-MSz" secondAttribute="width" id="mLL-Y2-UsJ"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <state key="normal" title="Next"/>
-                                                <connections>
-                                                    <action selector="didTapNextButton:" destination="Vq1-Uv-hV6" eventType="touchUpInside" id="xFd-EU-3KZ"/>
-                                                </connections>
-                                            </button>
+                                            </stackView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="XjZ-ed-ItP" secondAttribute="trailing" constant="16" id="Aqj-Pl-uRr"/>
-                                            <constraint firstItem="XjZ-ed-ItP" firstAttribute="centerY" secondItem="Qvx-Vc-jIj" secondAttribute="centerY" id="COd-2L-Y7h"/>
-                                            <constraint firstItem="XjZ-ed-ItP" firstAttribute="leading" secondItem="Qvx-Vc-jIj" secondAttribute="leading" constant="16" id="Wb3-xA-4fR"/>
-                                            <constraint firstItem="XjZ-ed-ItP" firstAttribute="centerX" secondItem="Qvx-Vc-jIj" secondAttribute="centerX" id="fhC-ox-6RY"/>
-                                            <constraint firstAttribute="height" constant="90" id="xj9-yb-Vjp"/>
+                                            <constraint firstAttribute="bottom" secondItem="Dnb-sh-MSz" secondAttribute="bottom" constant="8" id="RAd-tg-l4K"/>
+                                            <constraint firstItem="Dnb-sh-MSz" firstAttribute="top" secondItem="Qvx-Vc-jIj" secondAttribute="top" constant="8" id="bcz-UR-5dW"/>
+                                            <constraint firstAttribute="trailing" secondItem="Dnb-sh-MSz" secondAttribute="trailing" constant="16" id="tJC-eA-GSK"/>
+                                            <constraint firstItem="Dnb-sh-MSz" firstAttribute="leading" secondItem="Qvx-Vc-jIj" secondAttribute="leading" constant="16" id="ugt-uG-2W7"/>
                                         </constraints>
                                     </view>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="LrM-mC-RfM">
@@ -133,6 +146,7 @@
                     <navigationItem key="navigationItem" id="4Ft-pZ-AFP"/>
                     <connections>
                         <outlet property="boldLabel" destination="iX7-JF-1ms" id="Msl-h4-7Vz"/>
+                        <outlet property="ignoreButton" destination="Clc-Yy-2ht" id="i67-q6-JoV"/>
                         <outlet property="imageView" destination="mfP-Vw-3SQ" id="SAq-8U-IOS"/>
                         <outlet property="nextButton" destination="XjZ-ed-ItP" id="M6T-Jt-59B"/>
                         <outlet property="pageControl" destination="LrM-mC-RfM" id="GJS-hx-Ydg"/>
