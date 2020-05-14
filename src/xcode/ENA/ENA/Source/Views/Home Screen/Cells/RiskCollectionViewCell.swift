@@ -48,9 +48,9 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     }
     
     func update() {
-        heightConstraint.constant = itemVC?.tableView.contentSize.height ?? 15
+        //heightConstraint.constant = itemVC?.tableView.contentSize.height ?? 15
         print(#function, heightConstraint.constant)
-        itemVC?.parent?.view.setNeedsLayout()
+        //itemVC?.parent?.view.setNeedsLayout()
     }
     
     var parent: UIViewController!
