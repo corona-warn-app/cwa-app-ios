@@ -21,6 +21,23 @@
 "Onboarding_Next" = "next";
 "Onboarding_Finish" = "finish";
 
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Together against Corona";
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "The COVID Warn app was developed by the Robert Koch Institute to protect the community from the spread of the coronavirus.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "The COVID Alert app will safely record encounters you have with other users of the app. This will determine if you have been near a corona-infected person.\nTogether, we can help stop the spread and to stay in good health";
+"OnboardingInfo_privacyPage_title" = "Privacy";
+"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_normalText" = "You will remain undetected.\nYour data will be completely encrypted and transmitted pseudonymously.\n\nResponsible body within the meaning of Art. 4 Para. 7 GDPR:\n\nRobert Koch Institute\nNordufer 20\n13353 Berlin\nPlease read our data protection regulations .\n\nPrivacy Policy: ";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Enable logging of contacts";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "The COVID-19 contact log messages are intended to help you if you have come into contact with a user who later reports positive for COVID-19. You can switch these messages off at any time.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "How does data exchange work";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "If you have tested positive for COVID-19, we need your help to enter the findings in the COVID warning app so that the data can be uploaded to a highly secure server.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt.";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Always stay informed";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Activate your notifications so that the COVID warning app can immediately inform you of new events.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "";
+
+
 // Tracing Enable/Disable Settings
 "ExposureNotificationSetting_TracingSettingTitle" = "Tracing";
 "ExposureNotificationSetting_EnableTracing" = "Umfeldaufnahme aktivieren";
