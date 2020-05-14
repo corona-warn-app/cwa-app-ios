@@ -20,22 +20,29 @@
 // Onboarding
 "Onboarding_Next" = "next";
 "Onboarding_Finish" = "finish";
+"Onboarding_LetsGo_actionText" = "Let's go";
+"Onboarding_Continue_actionText" = "Continue";
+"Onboarding_DoNotActivate_actionText" = "Do not activate";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Together against Corona";
-"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "The COVID Warn app was developed by the Robert Koch Institute to protect the community from the spread of the coronavirus.";
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "The COVID Alert app will safely record encounters you have with other users of the app. This will determine if you have been near a corona-infected person.\nTogether, we can help stop the spread and to stay in good health";
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and all of us. With the COVID warning app, we break infection chains significantly faster.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "The app remembers encounters between people using smartphones - easily and securely using encrypted random IDs, without access to personal data. Your smartphone becomes a Corona early warning system: you can see your risk status and will be notified of new infections in the contact area.";
+
 "OnboardingInfo_privacyPage_title" = "Privacy";
 "OnboardingInfo_privacyPage_boldText" = "";
-"OnboardingInfo_privacyPage_normalText" = "You will remain undetected.\nYour data will be completely encrypted and transmitted pseudonymously.\n\nResponsible body within the meaning of Art. 4 Para. 7 GDPR:\n\nRobert Koch Institute\nNordufer 20\n13353 Berlin\nPlease read our data protection regulations .\n\nPrivacy Policy: ";
-"OnboardingInfo_enableLoggingOfContactsPage_title" = "Enable logging of contacts";
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "The COVID-19 contact log messages are intended to help you if you have come into contact with a user who later reports positive for COVID-19. You can switch these messages off at any time.";
+"OnboardingInfo_privacyPage_normalText" = "You will remain undetected.\nYour data will be completely encrypted and transmitted under a pseudonym.\n\nResponsible body within the meaning of Art. 4 Para. 7 GDPR:\n\nRobert Koch Institute\nNordufer 20\n13353 Berlin\nPlease read our data protection regulations.\n\nPrivacy information:";
+
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "How to enable risk detection";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To be able to analyze Covid 19 risks, you must allow the acquisition of random IDs and their transfer to other smartphones via Bluetooth. The function can be deactivated again at any time.";
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "";
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "How does data exchange work";
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "If you have tested positive for COVID-19, we need your help to enter the findings in the COVID warning app so that the data can be uploaded to a highly secure server.";
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt.";
-"OnboardingInfo_alwaysStayInformedPage_title" = "Always stay informed";
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Activate your notifications so that the COVID warning app can immediately inform you of new events.";
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Have you been tested positive?";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Then please report it via the COVID warning app. Voluntarily and safely. For everyone's health.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your message is reliably encrypted and processed via a secure server. As a result, your contacts can be warned, isolated or tested.";
+
+"OnboardingInfo_alwaysStayInformedPage_title" = "Receive warnings, know the risks";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can automatically inform you about your risk status and warn you when contacts are newly infected. Activate the messages for this now.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "In this way, you can have yourself tested at any time if necessary, or go into isolation to protect your fellow human beings.";
 
 
 // Tracing Enable/Disable Settings

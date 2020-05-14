@@ -57,6 +57,11 @@ enum AppStrings {
     enum Onboarding {
         static let onboardingFinish = NSLocalizedString("Onboarding_Finish", comment: "")
         static let onboardingNext = NSLocalizedString("Onboarding_Next", comment: "")
+		
+		static let onboardingLetsGo = NSLocalizedString("Onboarding_LetsGo_actionText", comment: "")
+		static let onboardingContinue = NSLocalizedString("Onboarding_Continue_actionText", comment: "")
+		static let onboardingDoNotActivate = NSLocalizedString("Onboarding_DoNotActivate_actionText", comment: "")
+		
 		static let onboardingInfo_togetherAgainstCoronaPage_title = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_title", comment: "")
 		static let onboardingInfo_togetherAgainstCoronaPage_boldText = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_boldText", comment: "")
 		static let onboardingInfo_togetherAgainstCoronaPage_normalText = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_normalText", comment: "")
