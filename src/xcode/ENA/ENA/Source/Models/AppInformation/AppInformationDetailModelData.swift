@@ -12,7 +12,7 @@ import UIKit
 
 extension AppInformationDetailModel {
 	static let about = AppInformationDetailModel(
-		headerImage: UIImage(named: "app-information-header-placeholder"),
+		headerImage: UIImage(named: "app-information-people"),
 		content: [
 			.headline(text: "App_Information_About_Title".localized),
 			.body(text: "App_Information_About_Description".localized),
@@ -22,7 +22,7 @@ extension AppInformationDetailModel {
 	
 	
 	static let contact = AppInformationDetailModel(
-		headerImage: UIImage(named: "app-information-header-placeholder"),
+		headerImage: UIImage(named: "app-information-notification"),
 		content: [
 			.headline(text: "App_Information_Contact_Title".localized),
 			.body(text: "App_Information_Contact_Description".localized),
@@ -35,7 +35,7 @@ extension AppInformationDetailModel {
 	
 	
 	static let legal = AppInformationDetailModel(
-		headerImage: UIImage(named: "app-information-header-placeholder"),
+		headerImage: UIImage(named: "app-information-security"),
 		content: [
 			.bold(text: "App_Information_Legal_Section1_Title".localized),
 			.body(text: "App_Information_Legal_Section1_Text".localized),
@@ -50,7 +50,7 @@ extension AppInformationDetailModel {
 	
 	
 	static let privacy = AppInformationDetailModel(
-		headerImage: UIImage(named: "app-information-header-placeholder"),
+		headerImage: UIImage(named: "app-information-security"),
 		content: [
 			.headline(text: "App_Information_Privacy_Title".localized),
 			.body(text: "App_Information_Privacy_Description".localized),
@@ -61,7 +61,7 @@ extension AppInformationDetailModel {
 	
 	
 	static let terms = AppInformationDetailModel(
-		headerImage: UIImage(named: "app-information-header-placeholder"),
+		headerImage: UIImage(named: "app-information-security"),
 		content: [
 			.headline(text: "App_Information_Terms_Title".localized),
 			.body(text: "App_Information_Terms_Description".localized),
