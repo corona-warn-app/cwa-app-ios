@@ -14,6 +14,7 @@ final class RiskItemTableViewController: UITableViewController {
     
     var titleColor: UIColor?
     var color: UIColor?
+    var riskLevel: RiskLevel = .unknown
     
     // MARK: Life-cycle
     
@@ -26,10 +27,20 @@ final class RiskItemTableViewController: UITableViewController {
     // MARK: Methods
     
     func prepareData() {
-        let c1 = HomeRiskItemCellConfigurator(title: "title 1", titleColor: titleColor, iconImageName: "Help", color: color)
-        let c2 = HomeRiskItemCellConfigurator(title: "title 2", titleColor: titleColor, iconImageName: "History", color: color)
-        let c3 = HomeRiskItemCellConfigurator(title: "title 3", titleColor: titleColor, iconImageName: "Home", color: color)
-        cellConfigurators = [c1, c2, c3]
+        switch riskLevel {
+        case .low:
+            break
+        case .moderate:
+            let c1 = HomeRiskItemCellConfigurator(title: "1 Kontakt", titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
+            let c2 = HomeRiskItemCellConfigurator(title: "12 Tage seit letztem Kontakt", titleColor: titleColor, iconImageName: "Calendar", color: color)
+            let c3 = HomeRiskItemCellConfigurator(title: "Letzte Prüfung: Heute, 9:32 Uhr", titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
+            cellConfigurators = [c1, c2, c3]
+        case .high:
+            break
+        case .unknown:
+            break
+        }
+
     }
     
     func configureTableView() {

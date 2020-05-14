@@ -37,8 +37,7 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         contactButton.titleLabel?.adjustsFontForContentSizeCategory = true
         contactButton.layer.cornerRadius = 10.0
         contactButton.layer.masksToBounds = true
-        contactButton.contentEdgeInsets = .init(top: 14, left: 8, bottom: 14, right: 8)
-        
+        contactButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
         let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
         [topContainer, middleContainer, bottomContainer].forEach {
             $0?.layoutMargins = containerInsets
@@ -50,41 +49,10 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         delegate?.contactButtonTapped(cell: self)
     }
     
-    
-    func update() {
-        layoutIfNeeded()
-        heightConstraint.constant = itemVC?.tableView.contentSize.height ?? 15
-        print(#function, heightConstraint.constant)
-    }
-    
-    var parent: UIViewController!
-    var itemVC: RiskItemTableViewController?
-    
+
     // MARK: Configuring the UI
     func configure(with propertyHolder: HomeRiskCellPropertyHolder, delegate: RiskCollectionViewCellDelegate) {
-        
-        if self.itemVC == nil {
-            let itemVC = RiskItemTableViewController.initiate(for: .home)
-            itemVC.titleColor = propertyHolder.titleColor
-            itemVC.color = propertyHolder.color
-            if let itemVCView = itemVC.view {
-                parent.addChild(itemVC)
-                itemVCView.translatesAutoresizingMaskIntoConstraints = false
-                middleContainer.addSubview(itemVCView)
-                NSLayoutConstraint.activate(
-                    [
-                        itemVCView.leadingAnchor.constraint(equalTo: middleContainer.layoutMarginsGuide.leadingAnchor),
-                        itemVCView.topAnchor.constraint(equalTo: middleContainer.topAnchor),
-                        itemVCView.trailingAnchor.constraint(equalTo: middleContainer.layoutMarginsGuide.trailingAnchor),
-                        itemVCView.bottomAnchor.constraint(equalTo: middleContainer.bottomAnchor)
-                    ]
-                )
-                itemVC.didMove(toParent: parent)
-                self.itemVC = itemVC
-            }
-        }
-        //
-        
+
         self.delegate = delegate
         
         titleLabel.text = propertyHolder.title

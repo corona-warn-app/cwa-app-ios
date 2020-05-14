@@ -42,8 +42,41 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         }
         let holder = HomeRiskCellPropertyHolder.propertyHolder(for: riskLevel, dateString: dateString)
         // The delegate will be called back when the cell's primary action is triggered
-        cell.parent = parent
         cell.configure(with: holder, delegate: self)
+    }
+    
+    func updateCell(_ cell: RiskCollectionViewCell) {
+        cell.layoutIfNeeded()
+        cell.heightConstraint.constant = itemVC?.tableView.contentSize.height ?? 15
+        // print(#function, heightConstraint.constant)
+    }
+    var itemVC: RiskItemTableViewController?
+    
+    
+    func aa() {
+        
+//        if self.itemVC == nil {
+//            let itemVC = RiskItemTableViewController.initiate(for: .home)
+//            itemVC.titleColor = propertyHolder.titleColor
+//            itemVC.color = propertyHolder.color
+//            if let itemVCView = itemVC.view {
+//                parent.addChild(itemVC)
+//                itemVCView.translatesAutoresizingMaskIntoConstraints = false
+//                middleContainer.addSubview(itemVCView)
+//                NSLayoutConstraint.activate(
+//                    [
+//                        itemVCView.leadingAnchor.constraint(equalTo: middleContainer.layoutMarginsGuide.leadingAnchor),
+//                        itemVCView.topAnchor.constraint(equalTo: middleContainer.topAnchor),
+//                        itemVCView.trailingAnchor.constraint(equalTo: middleContainer.layoutMarginsGuide.trailingAnchor),
+//                        itemVCView.bottomAnchor.constraint(equalTo: middleContainer.bottomAnchor)
+//                    ]
+//                )
+//                itemVC.didMove(toParent: parent)
+//                self.itemVC = itemVC
+//            }
+//        }
+        //
+        
     }
 }
 
