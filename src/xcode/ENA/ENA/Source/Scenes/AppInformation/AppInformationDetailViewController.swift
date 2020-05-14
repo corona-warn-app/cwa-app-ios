@@ -34,7 +34,7 @@ class AppInformationDetailViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cellContent = model.content[indexPath.item]
 		
-		let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellContent.cellType, for: indexPath) ?? UITableViewCell()
+		let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellContent.cellType.rawValue, for: indexPath)
 		
 		switch cellContent {
 		case .headline(let text):
@@ -83,13 +83,6 @@ extension AppInformationDetailViewController {
 		case tiny = "tinyCell"
 		case phone = "phoneCell"
 		case seperator = "separatorCell"
-	}
-}
-
-
-private extension UITableView {
-	func dequeueReusableCell<T: UITableViewCell>(withIdentifier identifier: AppInformationDetailViewController.ReusableCellIdentifier, for indexPath: IndexPath) -> T? {
-		return dequeueReusableCell(withIdentifier: identifier.rawValue, for: indexPath) as? T
 	}
 }
 
