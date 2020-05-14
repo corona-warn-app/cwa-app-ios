@@ -14,6 +14,13 @@ class AppInformationDetailViewController: UITableViewController {
 	var model: AppInformationDetailModel!
 	
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		navigationItem.title = model.title
+	}
+	
+	
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}

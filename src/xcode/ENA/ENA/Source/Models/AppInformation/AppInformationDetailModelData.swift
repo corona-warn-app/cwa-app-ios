@@ -12,6 +12,7 @@ import UIKit
 
 extension AppInformationDetailModel {
 	static let about = AppInformationDetailModel(
+		title: "App_Information_About_Navigation".localized,
 		headerImage: UIImage(named: "app-information-people"),
 		content: [
 			.headline(text: "App_Information_About_Title".localized),
@@ -22,6 +23,7 @@ extension AppInformationDetailModel {
 	
 	
 	static let contact = AppInformationDetailModel(
+		title: "App_Information_Contact_Navigation".localized,
 		headerImage: UIImage(named: "app-information-notification"),
 		content: [
 			.headline(text: "App_Information_Contact_Title".localized),
@@ -35,6 +37,7 @@ extension AppInformationDetailModel {
 	
 	
 	static let legal = AppInformationDetailModel(
+		title: "App_Information_Legal_Navigation".localized,
 		headerImage: UIImage(named: "app-information-security"),
 		content: [
 			.bold(text: "App_Information_Legal_Section1_Title".localized),
@@ -50,6 +53,7 @@ extension AppInformationDetailModel {
 	
 	
 	static let privacy = AppInformationDetailModel(
+		title: "App_Information_Privacy_Navigation".localized,
 		headerImage: UIImage(named: "app-information-security"),
 		content: [
 			.headline(text: "App_Information_Privacy_Title".localized),
@@ -61,6 +65,7 @@ extension AppInformationDetailModel {
 	
 	
 	static let terms = AppInformationDetailModel(
+		title: "App_Information_Terms_Navigation".localized,
 		headerImage: UIImage(named: "app-information-security"),
 		content: [
 			.headline(text: "App_Information_Terms_Title".localized),
@@ -71,6 +76,7 @@ extension AppInformationDetailModel {
 	
 	
 	static let helpTracing = AppInformationDetailModel(
+		title: "App_Information_Tracing_Navigation".localized,
 		headerImage: nil,
 		content: [
 			.bold(text: "App_Information_Tracing_Title".localized),
