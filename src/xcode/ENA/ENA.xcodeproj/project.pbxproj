@@ -70,6 +70,9 @@
 		71CC3E9F246D6B6800217F2C /* AppInformationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */; };
 		71CC3EA1246D6BBF00217F2C /* DynamicTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */; };
 		71CC3EA3246D6C4000217F2C /* UIFont+DynamicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */; };
+		71CC3EA5246D74E800217F2C /* AppInformationHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA4246D74E800217F2C /* AppInformationHelpViewController.swift */; };
+		71FD885E246D7E1500E804D0 /* AppInformationHelpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD885D246D7E1500E804D0 /* AppInformationHelpModel.swift */; };
+		71FD8860246D7E3100E804D0 /* AppInformationHelpModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD885F246D7E3100E804D0 /* AppInformationHelpModelData.swift */; };
 		85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85142500245DA0B3009D2791 /* UIViewController+Alert.swift */; };
 		8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8539874E2467094E00D28B62 /* AppIcon.xcassets */; };
 		853D987A24694A8700490DBA /* ENAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853D987924694A8700490DBA /* ENAButton.swift */; };
@@ -215,6 +218,9 @@
 		71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDetailViewController.swift; sourceTree = "<group>"; };
 		71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabel.swift; sourceTree = "<group>"; };
 		71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicType.swift"; sourceTree = "<group>"; };
+		71CC3EA4246D74E800217F2C /* AppInformationHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationHelpViewController.swift; sourceTree = "<group>"; };
+		71FD885D246D7E1500E804D0 /* AppInformationHelpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationHelpModel.swift; sourceTree = "<group>"; };
+		71FD885F246D7E3100E804D0 /* AppInformationHelpModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationHelpModelData.swift; sourceTree = "<group>"; };
 		85142500245DA0B3009D2791 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		8539874E2467094E00D28B62 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		853D987924694A8700490DBA /* ENAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAButton.swift; sourceTree = "<group>"; };
@@ -509,6 +515,8 @@
 			children = (
 				71CC3E9A246D5D6C00217F2C /* AppInformationDetailModel.swift */,
 				71CC3E9C246D5D8000217F2C /* AppInformationDetailModelData.swift */,
+				71FD885D246D7E1500E804D0 /* AppInformationHelpModel.swift */,
+				71FD885F246D7E3100E804D0 /* AppInformationHelpModelData.swift */,
 			);
 			path = AppInformation;
 			sourceTree = "<group>";
@@ -794,6 +802,7 @@
 			children = (
 				71CC3E97246D358E00217F2C /* AppInformationViewController.swift */,
 				71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */,
+				71CC3EA4246D74E800217F2C /* AppInformationHelpViewController.swift */,
 			);
 			path = AppInformation;
 			sourceTree = "<group>";
@@ -999,6 +1008,7 @@
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
+				71FD885E246D7E1500E804D0 /* AppInformationHelpModel.swift in Sources */,
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
 				B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */,
 				71CC3E9D246D5D8000217F2C /* AppInformationDetailModelData.swift in Sources */,
@@ -1028,8 +1038,10 @@
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				EE20EA0C24699AA100770683 /* RiskLegendTableViewCell.swift in Sources */,
+				71FD8860246D7E3100E804D0 /* AppInformationHelpModelData.swift in Sources */,
 				51CE1B87246078B6002CF42A /* ActivateCollectionViewCell.swift in Sources */,
 				51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */,
+				71CC3EA5246D74E800217F2C /* AppInformationHelpViewController.swift in Sources */,
 				518A6A1E246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				B1A7A1CD246C13CB00AD3470 /* Mode.swift in Sources */,

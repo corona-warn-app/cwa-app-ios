@@ -12,25 +12,26 @@ import UIKit
 
 class AppInformationViewController: UITableViewController {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		let destination = segue.destination
+		
 		guard
 			let segueIdentifier = segue.identifier,
-			let destination = segue.destination as? AppInformationDetailViewController,
 			let segue = SegueIdentifier(rawValue: segueIdentifier)
 			else { return }
 		
 		switch segue {
 		case .about:
-			destination.model = .about
+			(destination as? AppInformationDetailViewController)?.model = .about
 		case .contact:
-			destination.model = .contact
+			(destination as? AppInformationDetailViewController)?.model = .contact
 		case .help:
-			destination.model = .helpTracing
+			(destination as? AppInformationHelpViewController)?.model = .questions
 		case .legal:
-			destination.model = .legal
+			(destination as? AppInformationDetailViewController)?.model = .legal
 		case .privacy:
-			destination.model = .privacy
+			(destination as? AppInformationDetailViewController)?.model = .privacy
 		case .terms:
-			destination.model = .terms
+			(destination as? AppInformationDetailViewController)?.model = .terms
 		}
 	}
 }
