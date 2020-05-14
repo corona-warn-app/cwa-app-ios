@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HomeRiskItemCellConfigurator: TableViewCellConfigurator {
+final class HomeRiskItemCellConfigurator {
     
     var title: String
     var titleColor: UIColor?
@@ -22,11 +22,11 @@ final class HomeRiskItemCellConfigurator: TableViewCellConfigurator {
         self.color = color
     }
     
-    func configure(cell: RiskItemTableViewCell) {
+    func configure(riskItemView: RiskItemView) {
         let iconTintColor: UIColor = titleColor ?? .white
-        cell.imageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
-        cell.textLabel?.text = title
-        cell.textLabel?.textColor = titleColor
-        cell.backgroundColor = .orange //color
+        riskItemView.imageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
+        riskItemView.textLabel?.text = title
+        riskItemView.textLabel?.textColor = titleColor
+        riskItemView.backgroundColor = color
     }
 }

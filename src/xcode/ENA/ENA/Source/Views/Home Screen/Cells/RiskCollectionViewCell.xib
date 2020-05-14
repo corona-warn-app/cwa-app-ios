@@ -50,16 +50,30 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Btw-nv-sYv" userLabel="Middle Container">
-                                <rect key="frame" x="0.0" y="93.5" width="627" height="150"/>
+                                <rect key="frame" x="0.0" y="93.5" width="627" height="199.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hpO-ne-Sfx">
+                                        <rect key="frame" x="8" y="8" width="611" height="183.5"/>
+                                    </stackView>
+                                </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="950" constant="150" id="CMB-zN-Bd4"/>
+                                    <constraint firstItem="hpO-ne-Sfx" firstAttribute="top" secondItem="Btw-nv-sYv" secondAttribute="topMargin" id="FiU-z1-e7i"/>
+                                    <constraint firstItem="hpO-ne-Sfx" firstAttribute="leading" secondItem="Btw-nv-sYv" secondAttribute="leadingMargin" id="TGl-hw-iED"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="hpO-ne-Sfx" secondAttribute="trailing" id="Xq7-5E-wOg"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="hpO-ne-Sfx" secondAttribute="bottom" id="ayQ-Y7-3Q4"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="CMB-zN-Bd4"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pID-Ft-qds" userLabel="Bottom Container">
-                                <rect key="frame" x="0.0" y="243.5" width="627" height="132.5"/>
+                                <rect key="frame" x="0.0" y="293" width="627" height="83"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b20-mf-cB4">
-                                        <rect key="frame" x="8" y="8" width="611" height="82.5"/>
+                                        <rect key="frame" x="8" y="8" width="611" height="33"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <color key="tintColor" name="separator"/>
@@ -104,6 +118,7 @@
                 <outlet property="contactButton" destination="b20-mf-cB4" id="V1m-yh-Ony"/>
                 <outlet property="heightConstraint" destination="CMB-zN-Bd4" id="1mN-CK-BuV"/>
                 <outlet property="middleContainer" destination="Btw-nv-sYv" id="h1w-EX-5cP"/>
+                <outlet property="stackView" destination="hpO-ne-Sfx" id="OV6-b5-9OY"/>
                 <outlet property="titleLabel" destination="gno-nj-MZX" id="mus-pa-Ikd"/>
                 <outlet property="topContainer" destination="6sx-gi-fDy" id="oxB-aW-I9Q"/>
                 <outlet property="viewContainer" destination="P9r-4c-lUv" id="kvj-27-Y6X"/>

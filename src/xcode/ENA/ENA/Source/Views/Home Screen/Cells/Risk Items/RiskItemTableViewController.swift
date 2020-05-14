@@ -34,7 +34,7 @@ final class RiskItemTableViewController: UITableViewController {
             let c1 = HomeRiskItemCellConfigurator(title: "1 Kontakt", titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
             let c2 = HomeRiskItemCellConfigurator(title: "12 Tage seit letztem Kontakt", titleColor: titleColor, iconImageName: "Calendar", color: color)
             let c3 = HomeRiskItemCellConfigurator(title: "Letzte Prüfung: Heute, 9:32 Uhr", titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
-            cellConfigurators = [c1, c2, c3]
+            cellConfigurators = [] //[c1, c2, c3]
         case .high:
             break
         case .unknown:

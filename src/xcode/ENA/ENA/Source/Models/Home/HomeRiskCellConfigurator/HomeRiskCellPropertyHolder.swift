@@ -18,8 +18,9 @@ final class HomeRiskCellPropertyHolder {
     let chevronTintColor: UIColor
     let chevronImage: UIImage?
     let iconImage: UIImage?
+    let itemCellConfigurators: [HomeRiskItemCellConfigurator]
     
-    init(title: String, titleColor: UIColor, body: String, date: String?, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, iconImage: UIImage?) {
+    init(title: String, titleColor: UIColor, body: String, date: String?, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, iconImage: UIImage?, itemCellConfigurators: [HomeRiskItemCellConfigurator]) {
         self.title = title
         self.titleColor = titleColor
         self.body = body
@@ -28,6 +29,7 @@ final class HomeRiskCellPropertyHolder {
         self.chevronTintColor = chevronTintColor
         self.chevronImage = chevronImage
         self.iconImage = iconImage
+        self.itemCellConfigurators = itemCellConfigurators
     }
     
     // swiftlint:disable:next function_body_length
@@ -43,7 +45,8 @@ final class HomeRiskCellPropertyHolder {
                 color: UIColor.preferredColor(for: .unknownRisk),
                 chevronTintColor: .systemBlue,
                 chevronImage: UIImage(systemName: "chevron.right"),
-                iconImage: UIImage(named: "onboarding_ipad")
+                iconImage: UIImage(named: "onboarding_ipad"),
+                itemCellConfigurators: []
             )
         case .low:
             return HomeRiskCellPropertyHolder(
@@ -56,7 +59,8 @@ final class HomeRiskCellPropertyHolder {
                 // swiftlint:disable:next discouraged_object_literal
                 chevronTintColor: #colorLiteral(red: 0.9090440273, green: 1, blue: 0.8056635857, alpha: 1),
                 chevronImage: UIImage(systemName: "chevron.right"),
-                iconImage: UIImage(named: "onboarding_ipad")
+                iconImage: UIImage(named: "onboarding_ipad"),
+                itemCellConfigurators: []
             )
         case .high:
             return HomeRiskCellPropertyHolder(
@@ -69,18 +73,25 @@ final class HomeRiskCellPropertyHolder {
                 // swiftlint:disable:next discouraged_object_literal
                 chevronTintColor: #colorLiteral(red: 1, green: 0.8961167932, blue: 0.8636761308, alpha: 1),
                 chevronImage: UIImage(systemName: "chevron.right"),
-                iconImage: UIImage(named: "onboarding_ipad")
+                iconImage: UIImage(named: "onboarding_ipad"),
+                itemCellConfigurators: []
             )
         case .moderate:
+            let titleColor = UIColor.white
+            let color = UIColor.preferredColor(for: .medium)
+            let item1 = HomeRiskItemCellConfigurator(title: "1 Kontakt", titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
+            let item2 = HomeRiskItemCellConfigurator(title: "12 Tage seit letztem Kontakt", titleColor: titleColor, iconImageName: "Calendar", color: color)
+            let item3 = HomeRiskItemCellConfigurator(title: "Letzte Prüfung: Heute, 9:32 Uhr", titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardModerateTitle,
-                titleColor: .white,
+                titleColor: titleColor,
                 body: AppStrings.RiskView.moderateRiskDetail,
                 date: dateString,
-                color: UIColor.preferredColor(for: .medium),
+                color: color,
                 chevronTintColor: .white,
                 chevronImage: UIImage(systemName: "chevron.right"),
-                iconImage: UIImage(named: "onboarding_ipad")
+                iconImage: UIImage(named: "onboarding_ipad"),
+                itemCellConfigurators: [item1, item2, item3]
             )
         }
     }

@@ -28,6 +28,7 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     @IBOutlet var middleContainer: UIView!
     @IBOutlet var bottomContainer: UIView!
     @IBOutlet var heightConstraint: NSLayoutConstraint!
+    @IBOutlet var stackView: UIStackView!
     
     // MARK: Nib Loading
     override func awakeFromNib() {
@@ -63,5 +64,13 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
         contactButton.setTitleColor(UIColor.preferredColor(for: .textPrimary1), for: .normal)
         contactButton.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
+        
+        let nib = UINib(nibName: RiskItemView.stringName(), bundle: .main)
+        for itemConfigurator in propertyHolder.itemCellConfigurators {
+            if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
+                stackView.addArrangedSubview(riskView)
+                itemConfigurator.configure(riskItemView: riskView)
+            }
+        }
     }
 }

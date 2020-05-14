@@ -49,9 +49,9 @@ final class HomeViewController: UIViewController {
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.prepareAll()
-        }
+//        }
     }
     
     func prepareAll() {
@@ -249,7 +249,7 @@ final class HomeViewController: UIViewController {
         super.viewWillLayoutSubviews()
         let indexPath = IndexPath(row: 1, section: 0)
         if let cell = collectionView?.cellForItem(at: indexPath) as? RiskCollectionViewCell {
-            cell.update()
+            // cell.update()
         }
     }
 }
