@@ -13,7 +13,6 @@ import MessageUI
 final class SettingsViewController: UIViewController {
     // MARK: Properties
     @IBOutlet weak var trackingStatusLabel: UILabel!
-    @IBOutlet weak var dataInWifiOnlySwitch: ENASwitch!
     @IBOutlet weak var sendLogFileView: UIView!
     @IBOutlet weak var tracingStackView: UIStackView!
     @IBOutlet weak var tracingContainerView: UIView!
@@ -21,6 +20,8 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var notificationStatusLabel: UILabel!
     @IBOutlet weak var notificationsContainerView: UIView!
     @IBOutlet weak var notificationStackView: UIStackView!
+    @IBOutlet weak var mobileDataSwitch: ENASwitch!
+
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -31,6 +32,14 @@ final class SettingsViewController: UIViewController {
     }
 
     // MARK: Actions
+    @IBAction func mobileDataValueChanged(_ sender: Any) {
+        if mobileDataSwitch.isOn {
+
+        } else {
+            
+        }
+    }
+
     @IBAction func showNotificationSettings(_: Any) {
         guard
             let settingsURL = URL(string: UIApplication.openSettingsURLString),
@@ -44,6 +53,7 @@ final class SettingsViewController: UIViewController {
         let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
         present(vc, animated: true, completion: nil)
     }
+
 
     @IBAction func sendLogFile(_: Any) {
         let alert = UIAlertController(title: "Send Log", message: "", preferredStyle: .alert)
