@@ -15,62 +15,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="ovt-2C-uQj">
-                                <rect key="frame" x="26" y="108" width="362" height="734"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboarding_phone" translatesAutoresizingMaskIntoConstraints="NO" id="Nef-9B-PMu" userLabel="Image View">
-                                        <rect key="frame" x="0.0" y="0.0" width="362" height="220"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Zusammen sind wir stärker" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eV3-IT-zKZ" userLabel="Title Label">
-                                        <rect key="frame" x="0.0" y="243" width="362" height="64.5"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="rls-IW-rAh" userLabel="Description Text View">
-                                        <rect key="frame" x="0.0" y="330.5" width="362" height="200"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <mutableString key="text"># Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
-                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gke-J8-rI4">
-                                        <rect key="frame" x="0.0" y="553.5" width="362" height="180.5"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUL-Sc-qEZ" userLabel="Invite Button">
-                                                <rect key="frame" x="54.5" y="60.5" width="253" height="60"/>
-                                                <color key="backgroundColor" red="0.1765552759" green="0.49557942150000001" blue="0.65874922280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="UZV-yc-5GB"/>
-                                                </constraints>
-                                                <state key="normal" title="# Einladungslink verschicken">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="inviteAction:" destination="WdH-qU-vVw" eventType="touchUpInside" id="MBn-7z-hz4"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstItem="jUL-Sc-qEZ" firstAttribute="centerY" secondItem="Gke-J8-rI4" secondAttribute="centerY" id="6EA-ek-BCL"/>
-                                            <constraint firstItem="jUL-Sc-qEZ" firstAttribute="centerX" secondItem="Gke-J8-rI4" secondAttribute="centerX" id="EBW-bb-ctG"/>
-                                            <constraint firstItem="jUL-Sc-qEZ" firstAttribute="width" secondItem="Gke-J8-rI4" secondAttribute="width" multiplier="0.7" id="UPM-WH-xrM"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invite_friend" translatesAutoresizingMaskIntoConstraints="NO" id="JK0-JO-fAP" userLabel="Image View">
+                                <rect key="frame" x="16" y="148" width="382" height="150"/>
                                 <constraints>
-                                    <constraint firstItem="Nef-9B-PMu" firstAttribute="height" secondItem="ovt-2C-uQj" secondAttribute="height" multiplier="0.3" id="uf0-eC-HK0"/>
+                                    <constraint firstAttribute="height" constant="150" id="KLd-9h-oQs"/>
                                 </constraints>
-                            </stackView>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Zusammen sind wir stärker" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eV3-IT-zKZ" userLabel="Title Label">
+                                <rect key="frame" x="16" y="328" width="382" height="32.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="rls-IW-rAh" userLabel="Description Text View">
+                                <rect key="frame" x="16" y="380.5" width="382" height="183.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <mutableString key="text"># Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUL-Sc-qEZ" userLabel="Invite Button">
+                                <rect key="frame" x="16" y="786" width="382" height="60"/>
+                                <color key="backgroundColor" red="0.1765552759" green="0.49557942150000001" blue="0.65874922280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="UZV-yc-5GB"/>
+                                </constraints>
+                                <state key="normal" title="# Einladungslink verschicken">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="inviteAction:" destination="WdH-qU-vVw" eventType="touchUpInside" id="MBn-7z-hz4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ovt-2C-uQj" firstAttribute="top" secondItem="hpH-ff-bhX" secondAttribute="top" constant="20" id="55B-HL-3Rt"/>
-                            <constraint firstItem="hpH-ff-bhX" firstAttribute="trailing" secondItem="ovt-2C-uQj" secondAttribute="trailing" constant="26" id="Qmn-aS-emt"/>
-                            <constraint firstItem="ovt-2C-uQj" firstAttribute="leading" secondItem="hpH-ff-bhX" secondAttribute="leading" constant="26" id="RTJ-fd-umb"/>
-                            <constraint firstItem="hpH-ff-bhX" firstAttribute="bottom" secondItem="ovt-2C-uQj" secondAttribute="bottom" constant="20" id="cKw-7Q-ZrW"/>
+                            <constraint firstItem="rls-IW-rAh" firstAttribute="leading" secondItem="dg8-hO-bYb" secondAttribute="leading" constant="16" id="55F-6k-PCz"/>
+                            <constraint firstItem="rls-IW-rAh" firstAttribute="top" secondItem="eV3-IT-zKZ" secondAttribute="bottom" constant="20" id="6Ik-q1-sHn"/>
+                            <constraint firstItem="hpH-ff-bhX" firstAttribute="bottom" secondItem="jUL-Sc-qEZ" secondAttribute="bottom" constant="16" id="CW2-H4-YbZ"/>
+                            <constraint firstItem="eV3-IT-zKZ" firstAttribute="top" secondItem="JK0-JO-fAP" secondAttribute="bottom" constant="30" id="NAh-c1-HGR"/>
+                            <constraint firstItem="hpH-ff-bhX" firstAttribute="trailing" secondItem="JK0-JO-fAP" secondAttribute="trailing" constant="16" id="V3K-OD-nKz"/>
+                            <constraint firstItem="hpH-ff-bhX" firstAttribute="trailing" secondItem="eV3-IT-zKZ" secondAttribute="trailing" constant="16" id="WVO-E1-Hen"/>
+                            <constraint firstItem="JK0-JO-fAP" firstAttribute="top" secondItem="hpH-ff-bhX" secondAttribute="top" constant="60" id="Zdb-bI-8qk"/>
+                            <constraint firstItem="hpH-ff-bhX" firstAttribute="trailing" secondItem="jUL-Sc-qEZ" secondAttribute="trailing" constant="16" id="fGo-b6-2It"/>
+                            <constraint firstItem="jUL-Sc-qEZ" firstAttribute="leading" secondItem="hpH-ff-bhX" secondAttribute="leading" constant="16" id="oxr-cn-5ep"/>
+                            <constraint firstItem="eV3-IT-zKZ" firstAttribute="leading" secondItem="hpH-ff-bhX" secondAttribute="leading" constant="16" id="pN6-oc-VhP"/>
+                            <constraint firstItem="JK0-JO-fAP" firstAttribute="leading" secondItem="hpH-ff-bhX" secondAttribute="leading" constant="16" id="sch-lm-1I4"/>
+                            <constraint firstAttribute="trailing" secondItem="rls-IW-rAh" secondAttribute="trailing" constant="16" id="vAK-RY-SrS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hpH-ff-bhX"/>
                     </view>
@@ -105,6 +97,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="onboarding_phone" width="512" height="512"/>
+        <image name="invite_friend" width="1909" height="732"/>
     </resources>
 </document>
