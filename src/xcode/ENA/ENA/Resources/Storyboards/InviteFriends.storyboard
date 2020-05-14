@@ -15,26 +15,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invite_friend" translatesAutoresizingMaskIntoConstraints="NO" id="JK0-JO-fAP" userLabel="Image View">
-                                <rect key="frame" x="16" y="148" width="382" height="150"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DvA-ys-EYb">
+                                <rect key="frame" x="0.0" y="88" width="414" height="698"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbz-HJ-LCy">
+                                        <rect key="frame" x="16" y="0.0" width="382" height="451"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invite_friend" translatesAutoresizingMaskIntoConstraints="NO" id="JK0-JO-fAP" userLabel="Image View">
+                                                <rect key="frame" x="0.0" y="50" width="382" height="155"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="155" id="KLd-9h-oQs"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Zusammen sind wir stärker" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eV3-IT-zKZ" userLabel="Title Label">
+                                                <rect key="frame" x="0.0" y="215" width="382" height="32.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="rls-IW-rAh" userLabel="Description Text View">
+                                                <rect key="frame" x="0.0" y="267.5" width="382" height="183.5"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <string key="text"># Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="rls-IW-rAh" firstAttribute="top" secondItem="eV3-IT-zKZ" secondAttribute="bottom" constant="20" id="4La-8A-P1f"/>
+                                            <constraint firstAttribute="trailing" secondItem="rls-IW-rAh" secondAttribute="trailing" id="BTh-Vp-rh7"/>
+                                            <constraint firstItem="eV3-IT-zKZ" firstAttribute="leading" secondItem="pbz-HJ-LCy" secondAttribute="leading" id="DhY-7l-oK7"/>
+                                            <constraint firstAttribute="trailing" secondItem="JK0-JO-fAP" secondAttribute="trailing" id="JbR-Cr-bfd"/>
+                                            <constraint firstItem="eV3-IT-zKZ" firstAttribute="top" secondItem="JK0-JO-fAP" secondAttribute="bottom" constant="10" id="QSF-My-Kgc"/>
+                                            <constraint firstAttribute="bottom" secondItem="rls-IW-rAh" secondAttribute="bottom" id="a0V-2j-kcb"/>
+                                            <constraint firstItem="rls-IW-rAh" firstAttribute="leading" secondItem="pbz-HJ-LCy" secondAttribute="leading" id="aWM-ZT-eMq"/>
+                                            <constraint firstAttribute="trailing" secondItem="eV3-IT-zKZ" secondAttribute="trailing" id="fVZ-Fc-OT7"/>
+                                            <constraint firstItem="JK0-JO-fAP" firstAttribute="top" secondItem="pbz-HJ-LCy" secondAttribute="top" constant="50" id="rZQ-hi-xXI"/>
+                                            <constraint firstItem="JK0-JO-fAP" firstAttribute="leading" secondItem="pbz-HJ-LCy" secondAttribute="leading" id="wWe-Ua-gpR"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="KLd-9h-oQs"/>
+                                    <constraint firstItem="pbz-HJ-LCy" firstAttribute="leading" secondItem="DvA-ys-EYb" secondAttribute="leading" constant="16" id="9DN-1k-3sF"/>
+                                    <constraint firstItem="pbz-HJ-LCy" firstAttribute="top" secondItem="DvA-ys-EYb" secondAttribute="top" id="GTV-KR-k30"/>
+                                    <constraint firstItem="pbz-HJ-LCy" firstAttribute="trailing" secondItem="DvA-ys-EYb" secondAttribute="trailing" constant="16" id="kJ3-fV-MxD"/>
+                                    <constraint firstAttribute="bottom" secondItem="pbz-HJ-LCy" secondAttribute="bottom" id="qKz-3Z-mm2"/>
                                 </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Zusammen sind wir stärker" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eV3-IT-zKZ" userLabel="Title Label">
-                                <rect key="frame" x="16" y="328" width="382" height="32.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="rls-IW-rAh" userLabel="Description Text View">
-                                <rect key="frame" x="16" y="380.5" width="382" height="183.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <mutableString key="text"># Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUL-Sc-qEZ" userLabel="Invite Button">
                                 <rect key="frame" x="16" y="786" width="382" height="60"/>
                                 <color key="backgroundColor" red="0.1765552759" green="0.49557942150000001" blue="0.65874922280000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -51,18 +80,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="rls-IW-rAh" firstAttribute="leading" secondItem="dg8-hO-bYb" secondAttribute="leading" constant="16" id="55F-6k-PCz"/>
-                            <constraint firstItem="rls-IW-rAh" firstAttribute="top" secondItem="eV3-IT-zKZ" secondAttribute="bottom" constant="20" id="6Ik-q1-sHn"/>
                             <constraint firstItem="hpH-ff-bhX" firstAttribute="bottom" secondItem="jUL-Sc-qEZ" secondAttribute="bottom" constant="16" id="CW2-H4-YbZ"/>
-                            <constraint firstItem="eV3-IT-zKZ" firstAttribute="top" secondItem="JK0-JO-fAP" secondAttribute="bottom" constant="30" id="NAh-c1-HGR"/>
-                            <constraint firstItem="hpH-ff-bhX" firstAttribute="trailing" secondItem="JK0-JO-fAP" secondAttribute="trailing" constant="16" id="V3K-OD-nKz"/>
-                            <constraint firstItem="hpH-ff-bhX" firstAttribute="trailing" secondItem="eV3-IT-zKZ" secondAttribute="trailing" constant="16" id="WVO-E1-Hen"/>
-                            <constraint firstItem="JK0-JO-fAP" firstAttribute="top" secondItem="hpH-ff-bhX" secondAttribute="top" constant="60" id="Zdb-bI-8qk"/>
+                            <constraint firstItem="DvA-ys-EYb" firstAttribute="leading" secondItem="hpH-ff-bhX" secondAttribute="leading" id="FnG-dl-8Se"/>
+                            <constraint firstAttribute="width" secondItem="pbz-HJ-LCy" secondAttribute="width" constant="32" id="KD8-WB-7yP"/>
+                            <constraint firstItem="hpH-ff-bhX" firstAttribute="trailing" secondItem="DvA-ys-EYb" secondAttribute="trailing" id="QD5-NJ-RpP"/>
+                            <constraint firstItem="jUL-Sc-qEZ" firstAttribute="top" secondItem="DvA-ys-EYb" secondAttribute="bottom" id="Zin-Qb-Z6T"/>
                             <constraint firstItem="hpH-ff-bhX" firstAttribute="trailing" secondItem="jUL-Sc-qEZ" secondAttribute="trailing" constant="16" id="fGo-b6-2It"/>
+                            <constraint firstItem="hpH-ff-bhX" firstAttribute="top" secondItem="DvA-ys-EYb" secondAttribute="top" id="gh4-mp-Vjc"/>
                             <constraint firstItem="jUL-Sc-qEZ" firstAttribute="leading" secondItem="hpH-ff-bhX" secondAttribute="leading" constant="16" id="oxr-cn-5ep"/>
-                            <constraint firstItem="eV3-IT-zKZ" firstAttribute="leading" secondItem="hpH-ff-bhX" secondAttribute="leading" constant="16" id="pN6-oc-VhP"/>
-                            <constraint firstItem="JK0-JO-fAP" firstAttribute="leading" secondItem="hpH-ff-bhX" secondAttribute="leading" constant="16" id="sch-lm-1I4"/>
-                            <constraint firstAttribute="trailing" secondItem="rls-IW-rAh" secondAttribute="trailing" constant="16" id="vAK-RY-SrS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hpH-ff-bhX"/>
                     </view>
