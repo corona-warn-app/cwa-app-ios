@@ -550,10 +550,10 @@
             </objects>
             <point key="canvasLocation" x="-88.405797101449281" y="112.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Reset View Controller-->
         <scene sceneID="6J2-Ed-W8B">
             <objects>
-                <viewController id="uYn-mg-qmD" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResetViewController" id="uYn-mg-qmD" customClass="ResetViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jQp-ED-SYd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -601,7 +601,7 @@
                                                         <color key="textColor" name="textPrimary1"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vY8-lF-Iik">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vY8-lF-Iik">
                                                         <rect key="frame" x="0.0" y="42.5" width="382" height="282.5"/>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </string>
                                                         <color key="textColor" name="textPrimary1"/>
@@ -628,6 +628,9 @@
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Daten zurücksetzen"/>
+                                                <connections>
+                                                    <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -646,6 +649,9 @@
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <color key="tintColor" name="tint"/>
                                                 <state key="normal" title="Abbrechen"/>
+                                                <connections>
+                                                    <action selector="discard:" destination="uYn-mg-qmD" eventType="touchUpInside" id="VBe-FY-hDk"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -671,6 +677,13 @@
                         <viewLayoutGuide key="safeArea" id="HXg-F4-hg3"/>
                     </view>
                     <navigationItem key="navigationItem" id="bKX-qt-cMp"/>
+                    <connections>
+                        <outlet property="description1TextView" destination="vY8-lF-Iik" id="s4p-sS-KhS"/>
+                        <outlet property="discardResetButton" destination="IBM-os-0fd" id="9rf-NY-HUL"/>
+                        <outlet property="header1Label" destination="XDb-RN-MMz" id="QRR-5x-Jvb"/>
+                        <outlet property="resetButton" destination="wkA-Dj-yfV" id="hRW-hZ-9hA"/>
+                        <outlet property="titleLabel" destination="56c-gU-HMp" id="8Yl-dK-oG2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1Q-hW-w3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

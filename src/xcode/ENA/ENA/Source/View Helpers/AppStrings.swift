@@ -116,4 +116,12 @@ enum AppStrings {
         static let moderateRiskDetailHelp = NSLocalizedString("moderate_risk_detail_help", comment: "")
         static let highRiskDetailHelp = NSLocalizedString("high_risk_detail_help", comment: "")
     }
+
+    enum ResetView {
+        static let title = NSLocalizedString("reset_view_title", comment: "")
+        static let header1 = NSLocalizedString("reset_view_header1", comment: "")
+        static let description1 = NSLocalizedString("reset_view_description1", comment: "")
+        static let resetButton = NSLocalizedString("reset_view_reset_button", comment: "")
+        static let discardButton = NSLocalizedString("reset_view_discard", comment: "")
+    }
 }
