@@ -13,7 +13,7 @@ import UIKit
 final class FriendsInviteController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var inviteButton: UIButton!
+    @IBOutlet weak var inviteButton: ENAButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +22,17 @@ final class FriendsInviteController: UIViewController {
         navigationItem.title = AppStrings.InviteFriends.navigationBarTitle
 
         titleLabel.text = AppStrings.InviteFriends.title
+        titleLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 22))
+        titleLabel.adjustsFontForContentSizeCategory = true
+
         descriptionTextView.text = AppStrings.InviteFriends.description
+        descriptionTextView.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 17))
+        descriptionTextView.adjustsFontForContentSizeCategory = true
+
         inviteButton.setTitle(AppStrings.InviteFriends.submit, for: .normal)
+        inviteButton.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
+        inviteButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        inviteButton.titleLabel?.lineBreakMode = .byTruncatingHead
     }
 
     @IBAction func inviteAction(_ sender: UIButton) {
