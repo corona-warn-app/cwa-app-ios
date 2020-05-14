@@ -51,6 +51,8 @@ extension UIColor {
             return UIColor(named: "brandBlue")
         case .brandMagenta:
             return UIColor(named: "brandMagenta")
+		case .onboardingButton:
+			return UIColor(red: 2.0/255.0, green: 127.0/255.0, blue: 173.0/255.0, alpha: 1.00)
         }
     }
 
