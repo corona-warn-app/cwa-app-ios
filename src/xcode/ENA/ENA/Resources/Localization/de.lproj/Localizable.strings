@@ -24,6 +24,16 @@
 "Settings_StatusActive" = "An";
 "Settings_StatusInactive" = "Aus";
 
+"Settings_Tracing_Label" = "Umfeldaufnahme";
+"Settings_Notification_Label" = "Mitteilungen";
+"Settings_MobileData_Label" = "Mobile Datennutzung";
+"Settings_Reset_Label" = "Anwendung zurücksetzen";
+
+"Settings_Tracing_Description" = "Kurzer Erklärungstext zur Umfeldaufnahme und der Option diese zu deaktivieren";
+"Settings_Notification_Description" = "Erklärungstext zu dem Verhalten der Mitteilungen der App und dass diese nur lokal erzeugt werden.";
+"Settings_MobileData_Description" = "Erklärungstext über das durchschnittliche Datenvolumen für den Abgleich der Daten am Tag";
+"Settings_Reset_Description" = "Alle Ihre Daten werden gelöscht";
+
 // Onboarding
 "Onboarding_Next" = "Nächste";
 "Onboarding_Finish" = "Fertig";

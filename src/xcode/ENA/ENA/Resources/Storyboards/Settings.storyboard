@@ -478,7 +478,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obK-So-ZcA">
                                                         <rect key="frame" x="0.0" y="44" width="414" height="66"/>
                                                         <subviews>
-                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, " adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsx-SU-rVI">
+                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, " textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsx-SU-rVI">
                                                                 <rect key="frame" x="16" y="0.0" width="382" height="60"/>
                                                                 <color key="textColor" name="textPrimary2"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
@@ -523,15 +523,22 @@
                     <navigationItem key="navigationItem" title="Einstellungen" id="S63-om-aAO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="mobileDataLabel" destination="Oyg-sX-ahA" id="Dhz-pN-A36"/>
                         <outlet property="mobileDataSwitch" destination="f7l-5x-0bZ" id="Ux5-wL-u2e"/>
+                        <outlet property="mobileDataTextView" destination="0MZ-JG-gGN" id="k9X-zn-9PU"/>
+                        <outlet property="notificationLabel" destination="siu-1a-Mch" id="OYc-xr-Vmn"/>
                         <outlet property="notificationStackView" destination="nvc-X3-7V1" id="en6-eu-GXj"/>
                         <outlet property="notificationStatusLabel" destination="iPP-r8-fgN" id="6gf-DW-MWU"/>
+                        <outlet property="notificationTextView" destination="0EJ-9Y-6cV" id="5yt-cu-TDM"/>
                         <outlet property="notificationsContainerView" destination="Abn-Sa-AcY" id="ayV-e3-Cig"/>
                         <outlet property="resetButton" destination="qSz-jA-LSk" id="V6U-bc-WL7"/>
+                        <outlet property="resetTextView" destination="hsx-SU-rVI" id="T75-J6-6mA"/>
                         <outlet property="sendLogFileView" destination="13S-MQ-Cc0" id="Z7s-Fc-Px9"/>
                         <outlet property="tracingButton" destination="d1t-Sb-Ie7" id="Gk6-Ha-gWc"/>
                         <outlet property="tracingContainerView" destination="SLz-ga-cMM" id="NEi-u5-89F"/>
+                        <outlet property="tracingLabel" destination="f07-Nw-RQP" id="hI7-Cl-U1e"/>
                         <outlet property="tracingStackView" destination="ozj-eQ-neu" id="g4f-ZR-zKz"/>
+                        <outlet property="tracingTextView" destination="alE-Ko-lpd" id="Mec-M8-bAx"/>
                         <outlet property="trackingStatusLabel" destination="XH4-DH-GyW" id="lz3-jO-tyd"/>
                     </connections>
                 </viewController>

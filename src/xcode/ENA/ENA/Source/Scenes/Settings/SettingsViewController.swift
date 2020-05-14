@@ -12,7 +12,9 @@ import MessageUI
 
 final class SettingsViewController: UIViewController {
     // MARK: Properties
+    @IBOutlet weak var tracingLabel: UILabel!
     @IBOutlet weak var trackingStatusLabel: UILabel!
+    @IBOutlet weak var tracingTextView: UITextView!
     @IBOutlet weak var sendLogFileView: UIView!
     @IBOutlet weak var tracingStackView: UIStackView!
     @IBOutlet weak var tracingContainerView: UIView!
@@ -22,6 +24,11 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var notificationStackView: UIStackView!
     @IBOutlet weak var mobileDataSwitch: ENASwitch!
     @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var resetTextView: UITextView!
+    @IBOutlet weak var notificationLabel: UILabel!
+    @IBOutlet weak var notificationTextView: UITextView!
+    @IBOutlet weak var mobileDataLabel: UILabel!
+    @IBOutlet weak var mobileDataTextView: UITextView!
 
     let manager: ExposureManager
     init?(coder: NSCoder, manager: ExposureManager) {
@@ -127,9 +134,8 @@ final class SettingsViewController: UIViewController {
         // receive status of manager
         checkTracingStatus()
         notificationSettings()
+        setupLocalizedLabels()
 
-        resetButton.setTitle("Anwendung Zurücksetzen", for: .normal)
-        resetButton.titleLabel?.adjustsFontForContentSizeCategory = true
         tracingStackView.isUserInteractionEnabled = false
         notificationStackView.isUserInteractionEnabled = false
         tracingContainerView.setBorder(
@@ -145,6 +151,18 @@ final class SettingsViewController: UIViewController {
             name: UIApplication.willEnterForegroundNotification,
             object: UIApplication.shared
         )
+    }
+
+    private func setupLocalizedLabels() {
+        tracingLabel.text = AppStrings.Settings.tracingLabel
+        tracingTextView.text = AppStrings.Settings.tracingDescription
+        notificationLabel.text = AppStrings.Settings.notificationLabel
+        notificationTextView.text = AppStrings.Settings.notificationDescription
+        mobileDataLabel.text = AppStrings.Settings.mobileDataLabel
+        mobileDataTextView.text = AppStrings.Settings.mobileDataDescription
+        resetButton.setTitle(AppStrings.Settings.resetLabel, for: .normal)
+        resetButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        resetTextView.text = AppStrings.Settings.resetDescription
     }
 
     private func notificationSettings() {
