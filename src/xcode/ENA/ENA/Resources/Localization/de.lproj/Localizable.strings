@@ -28,6 +28,24 @@
 "Onboarding_Next" = "Nächste";
 "Onboarding_Finish" = "Fertig";
 
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Zusammen gegen Corona";
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Die COVID Warn-App wurde vom Robert Koch-Instituts entwickelt, um die Gemeinschaft vor der Verbreitung des Coronavirus zu schützen.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Die COVID Warn-App wird Begegnungen, die Sie mit anderen Benutzern der App haben, sicher notieren. Auf diese Weise wird ermittelt ob Sie sich in der Nähe eines Corona-Infizierten aufgehalten haben.\nGemeinsam können wir helfen, die Ausbreitung zu stoppen und gesund zu bleiben";
+"OnboardingInfo_privacyPage_title" = "Datenschutz";
+"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Aktivieren Sie die Protokollierung der Kontakte";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Die COVID-19 Kontaktprotokoll Mitteilungen sollen Ihnen helfen, wenn Sie mit einem Benutzer in Kontakt gekommen sind, der sich später als positiv auf COVID-19 getestet meldet. Sie können diese Mitteilungen jederzeit abschalten.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Wie funktioniert der Datenaustausch";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Wenn Sie positiv auf COVID-19 getestet wurden, benötigen wir Ihre mithilfe, den Befund in der COVID Warn-App einzutragen, damit die Daten auf einen hochsicheren Server hochzuladen werden";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt.";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Immer informiert bleiben";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Aktivieren Sie Ihre Mitteilungen, damit die COVID Warn-App Sie sofort über neue Ereignisse informieren kann.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "";
+
+
+
 // Exposure Submission
 "ExposureSubmission_Title" = "Laborergebnis für COVID-19";
 "ExposureSubmission_Description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.
@@ -97,3 +115,5 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
 "moderate_risk_detail_help" = "Es besteht moderates Infektionsrisiko, da ein Kontakt mit wenigen infizierten Personen oder nur über Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
+
+
