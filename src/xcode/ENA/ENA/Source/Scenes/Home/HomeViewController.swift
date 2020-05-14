@@ -71,7 +71,7 @@ final class HomeViewController: UIViewController {
     func showSubmitResult() {
         // swiftlint:disable:next unowned_variable_capture
         let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { [unowned self] coder in
-            let service = ExposureSubmissionServiceImpl(manager: ExposureManager(), client: self.client)
+            let service = ENAExposureSubmissionService(manager: ENAExposureManager(), client: self.client)
             return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: service)
         }
         let naviController = UINavigationController(rootViewController: vc)
@@ -80,7 +80,7 @@ final class HomeViewController: UIViewController {
 
     func showExposureNotificationSetting() {
         
-        let manager = ExposureManager()
+        let manager = ENAExposureManager()
         manager.activate { [weak self] error in
             guard let self = self else { return }
             if let error = error {

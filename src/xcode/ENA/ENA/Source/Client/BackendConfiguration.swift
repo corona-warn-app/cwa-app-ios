@@ -26,6 +26,8 @@ extension BackendConfiguration {
         apiVersion: "v1",
         country: "DE"
     )
+
+    static let production = development
 }
 
 private extension URL {

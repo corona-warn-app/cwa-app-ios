@@ -160,7 +160,7 @@ final class ExposureDetectionViewController: UIViewController {
 
         let startDate = Date()
 
-        let exposureManager = ExposureManager()
+        let exposureManager = ENAExposureManager()
 
         func stopAndInvalidate() {
             exposureManager.invalidate()

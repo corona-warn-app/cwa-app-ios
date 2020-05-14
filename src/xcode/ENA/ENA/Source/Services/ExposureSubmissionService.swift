@@ -15,7 +15,7 @@ protocol ExposureSubmissionService {
     func submitExposure(tan: String, completionHandler: @escaping ExposureSubmissionHandler)
 }
 
-class ExposureSubmissionServiceImpl: ExposureSubmissionService {
+class ENAExposureSubmissionService: ExposureSubmissionService {
     let manager: ExposureManager
     let client: Client
 
