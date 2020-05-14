@@ -12,14 +12,14 @@ final class RiskItemView: UIView {
     
     @IBOutlet var imageView: UIImageView!
     // it should be replaced on textview
-    @IBOutlet var textLabel: UILabel!
+    @IBOutlet var insetTextLabel: InsetLabel!
     @IBOutlet var separatorView: UIView!
     @IBOutlet var separatorHeightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         separatorHeightConstraint.constant = 0.5
-        
+        insetTextLabel.contentInsets = .init(top: 8.0, left: 0.0, bottom: 8.0, right: 0.0)
     }
     
     func hideSeparator() {

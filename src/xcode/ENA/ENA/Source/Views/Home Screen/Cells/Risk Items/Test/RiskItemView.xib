@@ -19,7 +19,7 @@
                         <constraint firstAttribute="width" constant="32" id="br8-Xz-Ghw"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CC-lx-ule">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2CC-lx-ule" customClass="InsetLabel" customModule="ENA" customModuleProvider="target">
                     <rect key="frame" x="40" y="44" width="535" height="77"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <nil key="textColor"/>
@@ -47,9 +47,9 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="imageView" destination="3I7-DI-BV1" id="WEI-Ef-sIA"/>
+                <outlet property="insetTextLabel" destination="2CC-lx-ule" id="ey4-3N-ycU"/>
                 <outlet property="separatorHeightConstraint" destination="2Ko-AP-a7I" id="vCM-XN-7l5"/>
                 <outlet property="separatorView" destination="xqB-br-Yjr" id="U2c-lj-ws8"/>
-                <outlet property="textLabel" destination="2CC-lx-ule" id="a9l-Xb-xhD"/>
             </connections>
             <point key="canvasLocation" x="207.97101449275365" y="88.058035714285708"/>
         </view>
