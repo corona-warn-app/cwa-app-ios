@@ -439,7 +439,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.87161592511356178" green="0.87161592511356178" blue="0.87161592511356178" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" name="backgroundGroup"/>
                                                 <constraints>
                                                     <constraint firstItem="MPP-35-Ufe" firstAttribute="top" secondItem="13S-MQ-Cc0" secondAttribute="top" constant="10" id="OZJ-Ie-kg0"/>
                                                     <constraint firstAttribute="bottom" secondItem="MPP-35-Ufe" secondAttribute="bottom" constant="10" id="f0M-tq-ctk"/>
@@ -460,7 +460,7 @@
                                                                     <color key="titleColor" name="negative"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <segue destination="uYn-mg-qmD" kind="show" id="doN-PI-mJr"/>
+                                                                    <segue destination="uYn-mg-qmD" kind="presentation" id="doN-PI-mJr"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>

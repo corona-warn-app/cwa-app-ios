@@ -131,6 +131,9 @@ final class SettingsViewController: UIViewController {
         #if !APP_STORE
             sendLogFileView.isHidden = false
         #endif
+
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+
         // receive status of manager
         checkTracingStatus()
         checkMobileDataUsagePermission()
