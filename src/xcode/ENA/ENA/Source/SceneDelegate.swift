@@ -44,12 +44,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootViewController: UIViewController
         switch instructor {
         case .home:
-            let storyboard = AppStoryboard.home.instance
-            let homeViewController = storyboard.instantiateInitialViewController { coder in
+            let homeViewController = AppStoryboard.home.initiateInitial { coder in
                 HomeViewController(coder: coder, exposureManager: manager, client: self.client)
             }
             // swiftlint:disable:next force_unwrapping
-            rootViewController = homeViewController!
+            let navigationController = UINavigationController(rootViewController: homeViewController!)
+            rootViewController = navigationController
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
             let onboardingViewController = storyboard.instantiateInitialViewController { coder in

@@ -14,68 +14,14 @@
                     <view key="view" contentMode="scaleToFill" id="id3-0g-rA2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HqP-SP-Nrx" userLabel="Top Container View">
-                                <rect key="frame" x="0.0" y="44" width="414" height="80"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zusammen gegen Corona" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYc-Qc-qni">
-                                        <rect key="frame" x="8" y="8" width="165.66666666666666" height="64"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bar-Gf-Iuw">
-                                        <rect key="frame" x="375.33333333333331" y="8" width="30.666666666666686" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" image="info.circle" catalog="system">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="27" weight="light"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="infoButtonTapped:" destination="nDx-eK-JR9" eventType="touchUpInside" id="lbe-gW-1Cr"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TeX-OT-dap">
-                                        <rect key="frame" x="8" y="63" width="165.66666666666666" height="4"/>
-                                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="4" id="hRe-5V-rdF"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="bYc-Qc-qni" firstAttribute="top" secondItem="HqP-SP-Nrx" secondAttribute="topMargin" id="4kx-l5-fq5"/>
-                                    <constraint firstAttribute="height" constant="80" id="6u3-7x-laa"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="bar-Gf-Iuw" secondAttribute="trailing" id="DXD-1w-yXe"/>
-                                    <constraint firstItem="bYc-Qc-qni" firstAttribute="width" secondItem="HqP-SP-Nrx" secondAttribute="width" multiplier="0.4" id="EMH-pp-vmX"/>
-                                    <constraint firstItem="TeX-OT-dap" firstAttribute="trailing" secondItem="bYc-Qc-qni" secondAttribute="trailing" id="LgS-M1-ZDN"/>
-                                    <constraint firstItem="bYc-Qc-qni" firstAttribute="leading" secondItem="HqP-SP-Nrx" secondAttribute="leadingMargin" id="Ro5-c0-E0A"/>
-                                    <constraint firstItem="TeX-OT-dap" firstAttribute="top" secondItem="bYc-Qc-qni" secondAttribute="bottom" constant="-9" id="RqN-FP-eQy"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="bYc-Qc-qni" secondAttribute="bottom" id="ZIX-wJ-yul"/>
-                                    <constraint firstItem="TeX-OT-dap" firstAttribute="leading" secondItem="bYc-Qc-qni" secondAttribute="leading" id="aTc-bz-Cch"/>
-                                    <constraint firstItem="bar-Gf-Iuw" firstAttribute="top" secondItem="HqP-SP-Nrx" secondAttribute="topMargin" id="dg9-18-g88"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="HqP-SP-Nrx" firstAttribute="leading" secondItem="H5b-9H-Duq" secondAttribute="leading" id="ETl-0w-I3V"/>
-                            <constraint firstItem="H5b-9H-Duq" firstAttribute="trailing" secondItem="HqP-SP-Nrx" secondAttribute="trailing" id="UTP-gA-Jo8"/>
-                            <constraint firstItem="HqP-SP-Nrx" firstAttribute="top" secondItem="H5b-9H-Duq" secondAttribute="top" id="k7w-jk-o68"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="H5b-9H-Duq"/>
                     </view>
                     <navigationItem key="navigationItem" id="Dij-1A-sIJ"/>
-                    <connections>
-                        <outlet property="topContainerView" destination="HqP-SP-Nrx" id="ick-ME-2fb"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A19-MT-Age" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="557" y="640"/>
+            <point key="canvasLocation" x="2376.811594202899" y="639.50892857142856"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="info.circle" catalog="system" width="128" height="121"/>
-    </resources>
 </document>
