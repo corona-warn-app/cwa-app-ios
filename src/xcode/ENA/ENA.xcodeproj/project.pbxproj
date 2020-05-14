@@ -28,6 +28,7 @@
 		514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
 		514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */; };
 		514EE9A0246D4DF800DE4884 /* HomeRiskItemCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99F246D4DF800DE4884 /* HomeRiskItemCellConfigurator.swift */; };
+		514EE9A2246D708E00DE4884 /* RiskItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE9A1246D708E00DE4884 /* RiskItemTableViewController.swift */; };
 		51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* UIColor.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
 		518A6A1E246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A6A1D246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift */; };
@@ -173,6 +174,7 @@
 		514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Dequeue.swift"; sourceTree = "<group>"; };
 		514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellConfigurator.swift; sourceTree = "<group>"; };
 		514EE99F246D4DF800DE4884 /* HomeRiskItemCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskItemCellConfigurator.swift; sourceTree = "<group>"; };
+		514EE9A1246D708E00DE4884 /* RiskItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskItemTableViewController.swift; sourceTree = "<group>"; };
 		51895EDB245E16CD0085DA38 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		518A69FA24687D5800444E66 /* RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevel.swift; sourceTree = "<group>"; };
 		518A6A1D246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellPropertyHolder.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 		514EE991246D4A1600DE4884 /* Risk Items */ = {
 			isa = PBXGroup;
 			children = (
+				514EE9A1246D708E00DE4884 /* RiskItemTableViewController.swift */,
 				514EE992246D4A5400DE4884 /* RiskItemTableViewCell.swift */,
 				514EE993246D4A5400DE4884 /* RiskItemTableViewCell.xib */,
 			);
@@ -1073,6 +1076,7 @@
 				B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
 				B12995E9246C344100854AD0 /* BackendConfiguration.swift in Sources */,
+				514EE9A2246D708E00DE4884 /* RiskItemTableViewController.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
 				01EB1D2E246973F100A7908B /* risk_level.pb.swift in Sources */,
 				EE46E5D82466AEA50057627F /* UIView.swift in Sources */,

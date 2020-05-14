@@ -29,6 +29,8 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         self.date = date
     }
     
+    var parent: UIViewController!
+    
     // MARK: Configuration
     func configure(cell: RiskCollectionViewCell) {
         
@@ -40,6 +42,7 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         }
         let holder = HomeRiskCellPropertyHolder.propertyHolder(for: riskLevel, dateString: dateString)
         // The delegate will be called back when the cell's primary action is triggered
+        cell.parent = parent
         cell.configure(with: holder, delegate: self)
     }
 }

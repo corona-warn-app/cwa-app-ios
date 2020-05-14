@@ -74,6 +74,24 @@
             </objects>
             <point key="canvasLocation" x="557" y="640"/>
         </scene>
+        <!--Risk Item Table View Controller-->
+        <scene sceneID="qaG-R3-5d7">
+            <objects>
+                <tableViewController storyboardIdentifier="RiskItemTableViewController" id="uJ5-KI-RhN" customClass="RiskItemTableViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZM7-wx-wqg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="uJ5-KI-RhN" id="1kj-zZ-4G9"/>
+                            <outlet property="delegate" destination="uJ5-KI-RhN" id="Y3w-nc-LnO"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QSe-Vb-tpX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1339" y="640"/>
+        </scene>
     </scenes>
     <resources>
         <image name="info.circle" catalog="system" width="128" height="121"/>

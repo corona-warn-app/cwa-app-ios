@@ -19,5 +19,4 @@ class ActivateCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 10.0
         layer.masksToBounds = true
     }
-
 }

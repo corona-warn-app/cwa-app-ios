@@ -17,19 +17,24 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     
     // MARK: Properties
     weak var delegate: RiskCollectionViewCellDelegate?
-
+    
     // MARK: Outlets
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var chevronImageView: UIImageView!
-    @IBOutlet var tableView: UITableView!
     @IBOutlet var contactButton: UIButton!
+    
     @IBOutlet var viewContainer: UIView!
+    @IBOutlet var topContainer: UIView!
+    @IBOutlet var middleContainer: UIView!
+    @IBOutlet var bottomContainer: UIView!
+    @IBOutlet var heightConstraint: NSLayoutConstraint!
     
     // MARK: Nib Loading
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = 10.0
         layer.masksToBounds = true
+        contactButton.titleLabel?.adjustsFontForContentSizeCategory = true
     }
     
     // MARK: Actions
@@ -37,8 +42,40 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         delegate?.contactButtonTapped(cell: self)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        update()
+    }
+    
+    func update() {
+        heightConstraint.constant = itemVC?.tableView.contentSize.height ?? 15
+        print(#function, heightConstraint.constant)
+        itemVC?.parent?.view.setNeedsLayout()
+    }
+    
+    var parent: UIViewController!
+    var itemVC: RiskItemTableViewController?
+    
     // MARK: Configuring the UI
     func configure(with propertyHolder: HomeRiskCellPropertyHolder, delegate: RiskCollectionViewCellDelegate) {
+        
+        if self.itemVC == nil {
+            let itemVC = RiskItemTableViewController.initiate(for: .home)
+            let itemVCView = itemVC.view!
+            parent.addChild(itemVC)
+            itemVCView.translatesAutoresizingMaskIntoConstraints = false
+            middleContainer.addSubview(itemVCView)
+            NSLayoutConstraint.activate([
+                itemVCView.leadingAnchor.constraint(equalTo: middleContainer.leadingAnchor),
+                itemVCView.topAnchor.constraint(equalTo: middleContainer.topAnchor),
+                itemVCView.trailingAnchor.constraint(equalTo: middleContainer.trailingAnchor),
+                itemVCView.bottomAnchor.constraint(equalTo: middleContainer.bottomAnchor),
+            ])
+            itemVC.didMove(toParent: parent)
+            self.itemVC = itemVC
+        }
+        //
+        
         self.delegate = delegate
         
         titleLabel.text = propertyHolder.title
