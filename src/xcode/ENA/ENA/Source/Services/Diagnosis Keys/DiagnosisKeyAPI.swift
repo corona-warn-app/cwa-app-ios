@@ -17,12 +17,20 @@ enum DiagnosisKeyAPIError: Error {
 }
 
 
-class DiagnosisKeyAPI {
-	static let shared = DiagnosisKeyAPI()
-	
-	private let session = URLSession.shared
-	
-	private let baseUrl: URL
+final class DiagnosisKeyAPI {
+    // MARK: Creating a Diagnosis Key API Instance
+    init(
+        configuration: BackendConfiguration,
+        session: URLSession
+    ) {
+        self.configuration = configuration
+        self.session = session
+    }
+
+    // MARK: Properties
+    private let session: URLSession
+    private let configuration: BackendConfiguration
+    private var baseUrl: URL { configuration.baseURL }
 	
 	// swiftlint:disable:next force_unwrapping
 	private(set) lazy var timeZone = TimeZone(identifier: "UTC")!
@@ -39,13 +47,6 @@ class DiagnosisKeyAPI {
 		formatter.dateFormat = "yyyy-MM-dd"
 		return formatter
 	}()
-	
-	
-	init(baseUrl: URL? = nil) {
-		// swiftlint:disable force_unwrapping
-		self.baseUrl = baseUrl?.deletingPathExtension() ?? URL(string: "http://distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io")!
-		// swiftlint:enable force_unwrapping
-	}
 }
 
 	

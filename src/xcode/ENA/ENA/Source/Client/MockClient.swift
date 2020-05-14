@@ -11,8 +11,9 @@ import ExposureNotification
 
 class MockClient: Client {
     // MARK: Creating a Mock Client
-    init(submittedKeysFileURL: URL) {
-        self.submittedKeysFileURL = submittedKeysFileURL
+    init() {
+        let documentDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        self.submittedKeysFileURL = documentDir.appendingPathComponent("keys", isDirectory: false).appendingPathExtension("proto")
     }
 
     // MARK: Properties
