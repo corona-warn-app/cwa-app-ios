@@ -9,6 +9,10 @@
 import Foundation
 
 extension String {
+	var localized: String {
+		return self.localized(tableName: nil)
+	}
+	
     func localized(tableName: String? = nil) -> String {
         return NSLocalizedString(self, tableName: tableName, comment: "")
     }
