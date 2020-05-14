@@ -29,7 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         setupRootViewController()
-
+        window.makeKeyAndVisible()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
     }
 
@@ -57,9 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // swiftlint:disable:next force_unwrapping
             rootViewController = onboardingViewController!
         }
-
         window?.rootViewController = rootViewController
-        window?.makeKeyAndVisible()
     }
 
     @objc

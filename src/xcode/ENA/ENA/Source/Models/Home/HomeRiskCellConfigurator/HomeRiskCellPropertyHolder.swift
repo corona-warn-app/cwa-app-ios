@@ -18,9 +18,9 @@ final class HomeRiskCellPropertyHolder {
     let chevronTintColor: UIColor
     let chevronImage: UIImage?
     let iconImage: UIImage?
-    let itemCellConfigurators: [HomeRiskItemCellConfigurator]
+    let itemCellConfigurators: [HomeRiskItemViewConfigurator]
     
-    init(title: String, titleColor: UIColor, body: String, date: String?, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, iconImage: UIImage?, itemCellConfigurators: [HomeRiskItemCellConfigurator]) {
+    init(title: String, titleColor: UIColor, body: String, date: String?, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, iconImage: UIImage?, itemCellConfigurators: [HomeRiskItemViewConfigurator]) {
         self.title = title
         self.titleColor = titleColor
         self.body = body
@@ -79,9 +79,9 @@ final class HomeRiskCellPropertyHolder {
         case .moderate:
             let titleColor = UIColor.white
             let color = UIColor.preferredColor(for: .medium)
-            let item1 = HomeRiskItemCellConfigurator(title: "1 Kontakt", titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
-            let item2 = HomeRiskItemCellConfigurator(title: "12 Tage seit letztem Kontakt", titleColor: titleColor, iconImageName: "Calendar", color: color)
-            let item3 = HomeRiskItemCellConfigurator(title: "Letzte Prüfung: Heute, 9:32 Uhr", titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
+            let item1 = HomeRiskItemViewConfigurator(title: "1 Kontakt", titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
+            let item2 = HomeRiskItemViewConfigurator(title: "12 Tage seit letztem Kontakt", titleColor: titleColor, iconImageName: "Calendar", color: color)
+            let item3 = HomeRiskItemViewConfigurator(title: "Letzte Prüfung: Heute, 9:32 Uhr", titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardModerateTitle,
                 titleColor: titleColor,

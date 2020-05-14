@@ -42,7 +42,6 @@ final class HomeInteractor {
             riskLevel = .unknown
         }
         let riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, date: date)
-        riskConfigurator.parent = homeViewController
         // swiftlint:disable:next unowned_variable_capture
         riskConfigurator.contactAction = { [unowned self] in
             self.homeViewController.showExposureDetection()

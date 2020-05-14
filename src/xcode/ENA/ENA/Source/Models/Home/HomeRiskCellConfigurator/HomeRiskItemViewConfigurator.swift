@@ -1,5 +1,5 @@
 //
-//  HomeRiskItemCellConfigurator.swift
+//  HomeRiskItemViewConfigurator.swift
 //  ENA
 //
 //  Created by Tikhonov, Aleksandr on 14.05.20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HomeRiskItemCellConfigurator {
+final class HomeRiskItemViewConfigurator {
     
     var title: String
     var titleColor: UIColor?

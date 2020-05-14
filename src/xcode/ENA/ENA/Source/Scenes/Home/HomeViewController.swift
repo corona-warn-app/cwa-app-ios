@@ -49,16 +49,14 @@ final class HomeViewController: UIViewController {
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-//        DispatchQueue.main.async {
-            self.prepareAll()
-//        }
-    }
-    
-    func prepareAll() {
         prepareData()
         configureHierarchy()
         configureDataSource()
         configureUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         homeInteractor.developerMenuEnableIfAllowed()
     }
     
@@ -243,14 +241,6 @@ final class HomeViewController: UIViewController {
     private func configureUI () {
         collectionView.backgroundColor = .systemGroupedBackground
         topContainerView.backgroundColor = .systemBackground
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        let indexPath = IndexPath(row: 1, section: 0)
-        if let cell = collectionView?.cellForItem(at: indexPath) as? RiskCollectionViewCell {
-            // cell.update()
-        }
     }
 }
 

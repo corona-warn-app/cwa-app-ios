@@ -78,6 +78,9 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <color key="tintColor" name="separator"/>
                                         <state key="normal" title="Button Button Button Button Button Button Button Button Button Button Button Button Button Button Button Button Button "/>
+                                        <connections>
+                                            <action selector="contactButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="4jG-3D-nyf"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
