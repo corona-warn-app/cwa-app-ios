@@ -29,7 +29,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         setupRootViewController()
-        window.makeKeyAndVisible()
 
         NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
     }
@@ -60,6 +59,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         window?.rootViewController = rootViewController
+        window?.makeKeyAndVisible()
+        
+        (rootViewController as? HomeViewController)?.prepareAll()
     }
 
     @objc

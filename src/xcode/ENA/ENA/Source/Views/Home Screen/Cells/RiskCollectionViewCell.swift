@@ -35,6 +35,7 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 10.0
         layer.masksToBounds = true
         contactButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        // contactButton.titleLabel?.numberOfLines = 2
     }
     
     // MARK: Actions
@@ -44,13 +45,14 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        update()
+        // update()
     }
     
     func update() {
-        //heightConstraint.constant = itemVC?.tableView.contentSize.height ?? 15
+        layoutIfNeeded()
+        heightConstraint.constant = itemVC?.tableView.contentSize.height ?? 15
         print(#function, heightConstraint.constant)
-        //itemVC?.parent?.view.setNeedsLayout()
+//        itemVC?.parent?.view.setNeedsLayout()
     }
     
     var parent: UIViewController!
@@ -84,7 +86,7 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         // dateLabel.text = propertyHolder.date
         // dateLabel.isHidden = propertyHolder.date == nil
         viewContainer.backgroundColor = propertyHolder.color
-        chevronImageView.tintColor = propertyHolder.chevronTintColor
+        // chevronImageView.tintColor = propertyHolder.chevronTintColor
         chevronImageView.image = propertyHolder.chevronImage
         // iconImageView.image = propertyHolder.iconImage
         contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
