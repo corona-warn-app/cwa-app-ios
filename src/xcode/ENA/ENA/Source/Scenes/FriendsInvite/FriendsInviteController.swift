@@ -22,7 +22,7 @@ final class FriendsInviteController: UIViewController {
         navigationItem.title = AppStrings.InviteFriends.navigationBarTitle
 
         titleLabel.text = AppStrings.InviteFriends.title
-        titleLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 22))
+        titleLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.boldSystemFont(ofSize: 22))
         titleLabel.adjustsFontForContentSizeCategory = true
 
         descriptionTextView.text = AppStrings.InviteFriends.description
