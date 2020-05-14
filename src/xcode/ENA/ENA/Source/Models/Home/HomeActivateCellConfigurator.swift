@@ -22,7 +22,7 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
         let iconImage: UIImage? = isActivate ? UIImage(named: "onboarding_note") : UIImage(named: "onboarding_ipad")
         
         cell.iconImageView.image = iconImage
-        cell.titleTextView.text = "That would drastically reduce." // AppStrings.Home.activateTitle
+        cell.titleTextView.text = AppStrings.Home.activateTitle
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
     }
 }
