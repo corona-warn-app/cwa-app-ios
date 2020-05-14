@@ -40,7 +40,7 @@ final class HomeRiskCellPropertyHolder {
                 titleColor: #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1),
                 body: AppStrings.RiskView.unknownRiskDetail,
                 date: dateString,
-                color: .white,
+                color: UIColor.preferredColor(for: .unknownRisk),
                 chevronTintColor: .systemBlue,
                 chevronImage: UIImage(systemName: "chevron.right"),
                 iconImage: UIImage(named: "onboarding_ipad")
@@ -52,7 +52,7 @@ final class HomeRiskCellPropertyHolder {
                 titleColor: #colorLiteral(red: 0.9090440273, green: 1, blue: 0.8056635857, alpha: 1),
                 body: AppStrings.RiskView.lowRiskDetail,
                 date: dateString,
-                color: .green,
+                color: UIColor.preferredColor(for: .positive),
                 // swiftlint:disable:next discouraged_object_literal
                 chevronTintColor: #colorLiteral(red: 0.9090440273, green: 1, blue: 0.8056635857, alpha: 1),
                 chevronImage: UIImage(systemName: "chevron.right"),
@@ -65,7 +65,7 @@ final class HomeRiskCellPropertyHolder {
                 titleColor: #colorLiteral(red: 0.06978602707, green: 0.1870820522, blue: 0.3886224329, alpha: 1),
                 body: AppStrings.RiskView.highRiskDetail,
                 date: dateString,
-                color: .red,
+                color: UIColor.preferredColor(for: .negative),
                 // swiftlint:disable:next discouraged_object_literal
                 chevronTintColor: #colorLiteral(red: 1, green: 0.8961167932, blue: 0.8636761308, alpha: 1),
                 chevronImage: UIImage(systemName: "chevron.right"),
@@ -74,13 +74,11 @@ final class HomeRiskCellPropertyHolder {
         case .moderate:
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardModerateTitle,
-                // swiftlint:disable:next discouraged_object_literal
-                titleColor: #colorLiteral(red: 1, green: 0.9306703806, blue: 0.8244562745, alpha: 1),
+                titleColor: .white,
                 body: AppStrings.RiskView.moderateRiskDetail,
                 date: dateString,
-                color: .orange,
-                // swiftlint:disable:next discouraged_object_literal
-                chevronTintColor: #colorLiteral(red: 1, green: 0.9306703806, blue: 0.8244562745, alpha: 1),
+                color: UIColor.preferredColor(for: .medium),
+                chevronTintColor: .white,
                 chevronImage: UIImage(systemName: "chevron.right"),
                 iconImage: UIImage(named: "onboarding_ipad")
             )

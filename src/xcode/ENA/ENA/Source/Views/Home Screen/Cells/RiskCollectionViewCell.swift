@@ -32,10 +32,17 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     // MARK: Nib Loading
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = 10.0
+        layer.cornerRadius = 14.0
         layer.masksToBounds = true
         contactButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        // contactButton.titleLabel?.numberOfLines = 2
+        contactButton.layer.cornerRadius = 10.0
+        contactButton.layer.masksToBounds = true
+        contactButton.contentEdgeInsets = .init(top: 14, left: 8, bottom: 14, right: 8)
+        
+        let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+        [topContainer, middleContainer, bottomContainer].forEach {
+            $0?.layoutMargins = containerInsets
+        }
     }
     
     // MARK: Actions
@@ -43,16 +50,11 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         delegate?.contactButtonTapped(cell: self)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // update()
-    }
     
     func update() {
         layoutIfNeeded()
         heightConstraint.constant = itemVC?.tableView.contentSize.height ?? 15
         print(#function, heightConstraint.constant)
-//        itemVC?.parent?.view.setNeedsLayout()
     }
     
     var parent: UIViewController!
@@ -63,18 +65,23 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         
         if self.itemVC == nil {
             let itemVC = RiskItemTableViewController.initiate(for: .home)
-            let itemVCView = itemVC.view!
-            parent.addChild(itemVC)
-            itemVCView.translatesAutoresizingMaskIntoConstraints = false
-            middleContainer.addSubview(itemVCView)
-            NSLayoutConstraint.activate([
-                itemVCView.leadingAnchor.constraint(equalTo: middleContainer.leadingAnchor),
-                itemVCView.topAnchor.constraint(equalTo: middleContainer.topAnchor),
-                itemVCView.trailingAnchor.constraint(equalTo: middleContainer.trailingAnchor),
-                itemVCView.bottomAnchor.constraint(equalTo: middleContainer.bottomAnchor),
-            ])
-            itemVC.didMove(toParent: parent)
-            self.itemVC = itemVC
+            itemVC.titleColor = propertyHolder.titleColor
+            itemVC.color = propertyHolder.color
+            if let itemVCView = itemVC.view {
+                parent.addChild(itemVC)
+                itemVCView.translatesAutoresizingMaskIntoConstraints = false
+                middleContainer.addSubview(itemVCView)
+                NSLayoutConstraint.activate(
+                    [
+                        itemVCView.leadingAnchor.constraint(equalTo: middleContainer.layoutMarginsGuide.leadingAnchor),
+                        itemVCView.topAnchor.constraint(equalTo: middleContainer.topAnchor),
+                        itemVCView.trailingAnchor.constraint(equalTo: middleContainer.layoutMarginsGuide.trailingAnchor),
+                        itemVCView.bottomAnchor.constraint(equalTo: middleContainer.bottomAnchor)
+                    ]
+                )
+                itemVC.didMove(toParent: parent)
+                self.itemVC = itemVC
+            }
         }
         //
         
@@ -82,13 +89,11 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         
         titleLabel.text = propertyHolder.title
         titleLabel.textColor = propertyHolder.titleColor
-        // bodyLabel.text = propertyHolder.body
-        // dateLabel.text = propertyHolder.date
-        // dateLabel.isHidden = propertyHolder.date == nil
         viewContainer.backgroundColor = propertyHolder.color
-        // chevronImageView.tintColor = propertyHolder.chevronTintColor
+        chevronImageView.tintColor = propertyHolder.chevronTintColor
         chevronImageView.image = propertyHolder.chevronImage
-        // iconImageView.image = propertyHolder.iconImage
         contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
+        contactButton.setTitleColor(UIColor.preferredColor(for: .textPrimary1), for: .normal)
+        contactButton.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
     }
 }

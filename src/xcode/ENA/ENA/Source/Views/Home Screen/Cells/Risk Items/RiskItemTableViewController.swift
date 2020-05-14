@@ -12,6 +12,9 @@ final class RiskItemTableViewController: UITableViewController {
     
     private var cellConfigurators: [TableViewCellConfiguratorAny] = []
     
+    var titleColor: UIColor?
+    var color: UIColor?
+    
     // MARK: Life-cycle
     
     override func viewDidLoad() {
@@ -20,16 +23,12 @@ final class RiskItemTableViewController: UITableViewController {
         configureTableView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     // MARK: Methods
     
     func prepareData() {
-        let c1 = HomeRiskItemCellConfigurator(title: "title 1", iconImageName: "onboarding_note")
-        let c2 = HomeRiskItemCellConfigurator(title: "title 2", iconImageName: "onboarding_phone")
-        let c3 = HomeRiskItemCellConfigurator(title: "title 3", iconImageName: "onboarding_ipad")
+        let c1 = HomeRiskItemCellConfigurator(title: "title 1", titleColor: titleColor, iconImageName: "Help", color: color)
+        let c2 = HomeRiskItemCellConfigurator(title: "title 2", titleColor: titleColor, iconImageName: "History", color: color)
+        let c3 = HomeRiskItemCellConfigurator(title: "title 3", titleColor: titleColor, iconImageName: "Home", color: color)
         cellConfigurators = [c1, c2, c3]
     }
     

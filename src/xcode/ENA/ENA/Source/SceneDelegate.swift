@@ -60,8 +60,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
-        
-        (rootViewController as? HomeViewController)?.prepareAll()
     }
 
     @objc

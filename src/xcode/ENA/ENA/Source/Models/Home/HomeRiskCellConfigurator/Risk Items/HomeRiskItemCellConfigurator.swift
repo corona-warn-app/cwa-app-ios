@@ -8,18 +8,25 @@
 
 import UIKit
 
-class HomeRiskItemCellConfigurator: TableViewCellConfigurator {
+final class HomeRiskItemCellConfigurator: TableViewCellConfigurator {
     
     var title: String
+    var titleColor: UIColor?
     var iconImageName: String
+    var color: UIColor?
     
-    init(title: String, iconImageName: String) {
+    init(title: String, titleColor: UIColor?, iconImageName: String, color: UIColor?) {
         self.title = title
+        self.titleColor = titleColor
         self.iconImageName = iconImageName
+        self.color = color
     }
     
     func configure(cell: RiskItemTableViewCell) {
-        cell.imageView?.image = UIImage(systemName: iconImageName)
+        let iconTintColor: UIColor = titleColor ?? .white
+        cell.imageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
         cell.textLabel?.text = title
+        cell.textLabel?.textColor = titleColor
+        cell.backgroundColor = .orange //color
     }
 }

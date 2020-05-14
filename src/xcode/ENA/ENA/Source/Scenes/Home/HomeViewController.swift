@@ -49,15 +49,9 @@ final class HomeViewController: UIViewController {
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
+        DispatchQueue.main.async {
+            self.prepareAll()
+        }
     }
     
     func prepareAll() {
@@ -250,16 +244,12 @@ final class HomeViewController: UIViewController {
         collectionView.backgroundColor = .systemGroupedBackground
         topContainerView.backgroundColor = .systemBackground
     }
-//
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-//        collectionView?.reloadData()
-        if let child = children.first as? RiskItemTableViewController { }
         let indexPath = IndexPath(row: 1, section: 0)
         if let cell = collectionView?.cellForItem(at: indexPath) as? RiskCollectionViewCell {
             cell.update()
-//            self.view.setNeedsLayout()
-//            self.view.layoutIfNeeded()
         }
     }
 }
