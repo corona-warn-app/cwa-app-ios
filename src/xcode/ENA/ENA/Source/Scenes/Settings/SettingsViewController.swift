@@ -22,6 +22,15 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var notificationStackView: UIStackView!
     @IBOutlet weak var mobileDataSwitch: ENASwitch!
 
+    let manager: ExposureManager
+    init?(coder: NSCoder, manager: ExposureManager) {
+        self.manager = manager
+        super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -29,6 +38,12 @@ final class SettingsViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setupView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        checkTracingStatus()
     }
 
     // MARK: Actions
@@ -50,8 +65,12 @@ final class SettingsViewController: UIViewController {
     }
 
     @IBAction func showTracingDetails(_: Any) {
-        let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
-        present(vc, animated: true, completion: nil)
+        let storyboard = AppStoryboard.exposureNotificationSetting.instance
+        let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
+            ExposureNotificationSettingViewController(coder: coder, manager: self.manager)
+        }
+        )
+        self.present(vc, animated: true, completion: nil)
     }
 
 
@@ -92,6 +111,7 @@ final class SettingsViewController: UIViewController {
     @objc
     private func willEnterForeground() {
         notificationSettings()
+        checkTracingStatus()
     }
 
     // MARK: View Helper
@@ -100,8 +120,7 @@ final class SettingsViewController: UIViewController {
             sendLogFileView.isHidden = false
         #endif
         // receive status of manager
-        let status = ENStatus.active
-        setTrackingStatus(for: status)
+        checkTracingStatus()
         notificationSettings()
 
         tracingStackView.isUserInteractionEnabled = false
@@ -129,14 +148,17 @@ final class SettingsViewController: UIViewController {
         }
     }
 
-    private func setTrackingStatus(for status: ENStatus) {
-        switch status {
-        case .active:
-            DispatchQueue.main.async {
+    private func checkTracingStatus() {
+        manager.preconditions().contains(.enabled) ?
+            setTrackingStatusActive(to: true) :
+            setTrackingStatusActive(to: false)
+    }
+
+    private func setTrackingStatusActive(to active: Bool) {
+        DispatchQueue.main.async {
+            if active {
                 self.trackingStatusLabel.text = AppStrings.Settings.trackingStatusActive
-            }
-        default:
-            DispatchQueue.main.async {
+            } else {
                 self.trackingStatusLabel.text = AppStrings.Settings.trackingStatusInactive
             }
         }
