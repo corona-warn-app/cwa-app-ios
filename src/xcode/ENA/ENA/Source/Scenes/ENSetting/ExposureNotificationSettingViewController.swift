@@ -35,6 +35,11 @@ class ExposureNotificationSettingViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkNotificationStatus()
+    }
 
     
     @IBAction func contactTracingValueChanged(_ sender: Any) {
