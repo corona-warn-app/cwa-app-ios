@@ -18,6 +18,12 @@ class AppInformationDetailViewController: UITableViewController {
 		super.viewWillAppear(animated)
 		
 		navigationItem.title = model.title
+		
+		if let headerImage = model.headerImage {
+			(tableView.tableHeaderView as? UIImageView)?.image = headerImage
+		} else {
+			tableView.tableHeaderView = nil
+		}
 	}
 	
 	
