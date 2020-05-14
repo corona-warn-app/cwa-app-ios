@@ -40,9 +40,10 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         contactButton.layer.masksToBounds = true
         contactButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
         let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
-        [topContainer, middleContainer, bottomContainer].forEach {
+        [topContainer, bottomContainer].forEach {
             $0?.layoutMargins = containerInsets
         }
+        middleContainer?.layoutMargins = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
     }
     
     // MARK: Actions
