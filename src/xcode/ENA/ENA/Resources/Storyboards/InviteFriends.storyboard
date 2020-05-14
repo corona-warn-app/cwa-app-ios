@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DvA-ys-EYb">
-                                <rect key="frame" x="0.0" y="88" width="414" height="698"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="682"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbz-HJ-LCy">
                                         <rect key="frame" x="16" y="0.0" width="382" height="451"/>
@@ -84,7 +84,7 @@
                             <constraint firstItem="DvA-ys-EYb" firstAttribute="leading" secondItem="hpH-ff-bhX" secondAttribute="leading" id="FnG-dl-8Se"/>
                             <constraint firstAttribute="width" secondItem="pbz-HJ-LCy" secondAttribute="width" constant="32" id="KD8-WB-7yP"/>
                             <constraint firstItem="hpH-ff-bhX" firstAttribute="trailing" secondItem="DvA-ys-EYb" secondAttribute="trailing" id="QD5-NJ-RpP"/>
-                            <constraint firstItem="jUL-Sc-qEZ" firstAttribute="top" secondItem="DvA-ys-EYb" secondAttribute="bottom" id="Zin-Qb-Z6T"/>
+                            <constraint firstItem="jUL-Sc-qEZ" firstAttribute="top" secondItem="DvA-ys-EYb" secondAttribute="bottom" constant="16" id="Zin-Qb-Z6T"/>
                             <constraint firstItem="hpH-ff-bhX" firstAttribute="trailing" secondItem="jUL-Sc-qEZ" secondAttribute="trailing" constant="16" id="fGo-b6-2It"/>
                             <constraint firstItem="hpH-ff-bhX" firstAttribute="top" secondItem="DvA-ys-EYb" secondAttribute="top" id="gh4-mp-Vjc"/>
                             <constraint firstItem="jUL-Sc-qEZ" firstAttribute="leading" secondItem="hpH-ff-bhX" secondAttribute="leading" constant="16" id="oxr-cn-5ep"/>
