@@ -25,11 +25,23 @@ enum OnboardingPageType: Int, CaseIterable {
 	}
 }
 
-class OnboardingInfoViewController: UIViewController {
+final class OnboardingInfoViewController: UIViewController {
 	
-	var pageType: OnboardingPageType?
-	var exposureManager: ExposureManager?
+	var pageType: OnboardingPageType
+	var exposureManager: ExposureManager
+	var store: Store
+
+    init?(coder: NSCoder, pageType: OnboardingPageType, exposureManager: ExposureManager, store: Store) {
+		self.pageType = pageType
+		self.exposureManager = exposureManager
+        self.store = store
+        super.init(coder: coder)
+    }
 	
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has intentionally not been implemented")
+    }
+
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var boldLabel: UILabel!
@@ -45,7 +57,6 @@ class OnboardingInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-		guard let pageType = pageType else { return }
 		onboardingInfo = onboardingInfos[pageType.rawValue]
         // should be revised in the future
         viewRespectsSystemMinimumLayoutMargins = false
@@ -117,8 +128,7 @@ class OnboardingInfoViewController: UIViewController {
 	
     // MARK: Exposure notifications
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
-		guard let exposureManager = exposureManager else { fatalError("Should have an instance of exposureManager here") }
-        exposureManager.activate { error in
+		exposureManager.activate { error in
             if let error = error {
                 switch error {
                 case .exposureNotificationRequired:
@@ -131,7 +141,7 @@ class OnboardingInfoViewController: UIViewController {
             } else if let error = error {
                 self.showError(error, from: self, completion: completion)
             } else {
-                exposureManager.enable { enableError in
+				self.exposureManager.enable { enableError in
                     if let enableError = enableError {
                         switch enableError {
                         case .exposureNotificationRequired:
@@ -181,14 +191,23 @@ class OnboardingInfoViewController: UIViewController {
     }
 
 	func gotoNextScreen() {
-		guard let nextPageType = pageType?.next() else {
-            PersistenceManager.shared.isOnboarded = true
+		guard let nextPageType = pageType.next() else {
+            store.isOnboarded = true
+			NotificationCenter.default.post(name: Notification.Name.isOnboardedDidChange, object: nil)
 			return
 		}
-        let vc = OnboardingInfoViewController.initiate(for: .onboarding)
-		vc.pageType = nextPageType
-		vc.exposureManager = exposureManager
-		navigationController?.pushViewController(vc, animated: true)
+		let storyboard = AppStoryboard.onboarding.instance
+		// swiftlint:disable:next unowned_variable_capture
+		let next = storyboard.instantiateInitialViewController { [unowned self] coder in
+			OnboardingInfoViewController(
+				coder: coder,
+				pageType: nextPageType,
+				exposureManager: self.exposureManager,
+				store: self.store
+			)
+		}
+		// swiftlint:disable:next force_unwrapping
+		navigationController?.pushViewController(next!, animated: true)
 	}
 	
 }
