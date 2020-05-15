@@ -27,10 +27,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="260" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" image="onboarding_note" translatesAutoresizingMaskIntoConstraints="NO" id="E8I-Ui-O6H">
-                                <rect key="frame" x="16" y="60" width="32" height="32"/>
+                                <rect key="frame" x="16" y="60" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="2aY-fh-yDd"/>
-                                    <constraint firstAttribute="width" constant="32" id="m5l-Ad-PW0"/>
+                                    <constraint firstAttribute="height" constant="24" id="2aY-fh-yDd"/>
+                                    <constraint firstAttribute="width" constant="24" id="m5l-Ad-PW0"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2Cb-Bg-07B">

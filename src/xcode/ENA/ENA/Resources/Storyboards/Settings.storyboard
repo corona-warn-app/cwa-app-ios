@@ -49,7 +49,7 @@
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BXf-es-jcf">
                                                                                 <rect key="frame" x="0.0" y="7" width="28" height="28"/>
                                                                                 <subviews>
-                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Umfeldaufnahme_Primary1" translatesAutoresizingMaskIntoConstraints="NO" id="TF9-2X-dC4">
+                                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UmfeldaufnahmeAktiv_Primary1" translatesAutoresizingMaskIntoConstraints="NO" id="TF9-2X-dC4">
                                                                                         <rect key="frame" x="1.5" y="1.5" width="25" height="25"/>
                                                                                         <color key="tintColor" name="textPrimary1"/>
                                                                                         <constraints>
@@ -715,7 +715,7 @@
     </scenes>
     <resources>
         <image name="Screen Shot 2020-05-14 at 12.53.09" width="375" height="167"/>
-        <image name="Umfeldaufnahme_Primary1" width="32" height="33"/>
+        <image name="UmfeldaufnahmeAktiv_Primary1" width="22" height="17"/>
         <image name="antenna.radiowaves.left.and.right" catalog="system" width="128" height="109"/>
         <image name="app.badge" catalog="system" width="128" height="118"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>

@@ -19,7 +19,7 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
     // MARK: Configuring a Cell
     func configure(cell: ActivateCollectionViewCell) {
         
-        var iconImage: UIImage? = isActivate ? UIImage(named: "Umfeldaufnahme_Primary1") : UIImage(named: "Umfeldaufnahme_NichtAktiv_Primary1")
+        var iconImage: UIImage? = isActivate ? UIImage(named: "UmfeldaufnahmeAktiv_Primary1") : UIImage(named: "UmfeldaufnahmeNichtAktiv_Primary1")
         let iconColor: UIColor = isActivate ? UIColor.preferredColor(for: .tintColor) : UIColor.preferredColor(for: .brandRed)
         iconImage = iconImage?.withTintColor(iconColor)
         

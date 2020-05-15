@@ -37,7 +37,7 @@ class ActivateCollectionViewCell: UICollectionViewCell {
         let lineHieghtRounded = lineHieght
         let offset: CGFloat = (lineHieghtRounded - iconImageFrame.height ) / 2.0
         
-        constraint.constant = max( offset.rounded(), 0)
+        constraint.constant = max(offset.rounded(), 0)
 
         
         iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
