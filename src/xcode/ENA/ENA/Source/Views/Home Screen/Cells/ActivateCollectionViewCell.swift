@@ -22,6 +22,7 @@ class ActivateCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 15.0
         layer.masksToBounds = true
         titleTextView.textContainerInset = .zero
+        titleTextView.textContainer.lineFragmentPadding = 0
     }
     
     override func layoutSubviews() {
@@ -33,9 +34,11 @@ class ActivateCollectionViewCell: UICollectionViewCell {
         guard let lineHieght = titleTextView.font?.lineHeight else { return }
         
         var iconImageFrame = convert(iconImageView.frame, to: titleTextView)
-        let lineHieghtRounded = lineHieght.rounded()
+        let lineHieghtRounded = lineHieght
         let offset: CGFloat = (lineHieghtRounded - iconImageFrame.height ) / 2.0
-        constraint.constant = offset
+        
+        constraint.constant = max( offset.rounded(), 0)
+
         
         iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
         let bezierPath = UIBezierPath(rect: iconImageFrame)

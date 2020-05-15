@@ -19,7 +19,9 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
     // MARK: Configuring a Cell
     func configure(cell: ActivateCollectionViewCell) {
         
-        let iconImage: UIImage? = isActivate ? UIImage(named: "onboarding_note") : UIImage(named: "onboarding_ipad")
+        var iconImage: UIImage? = isActivate ? UIImage(named: "Umfeldaufnahme_Primary1") : UIImage(named: "Umfeldaufnahme_NichtAktiv_Primary1")
+        let iconColor: UIColor = isActivate ? UIColor.preferredColor(for: .tintColor) : UIColor.preferredColor(for: .brandRed)
+        iconImage = iconImage?.withTintColor(iconColor)
         
         cell.iconImageView.image = iconImage
         cell.titleTextView.text = AppStrings.Home.activateTitle
