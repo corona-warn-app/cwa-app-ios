@@ -24,6 +24,16 @@
 "Settings_StatusActive" = "An";
 "Settings_StatusInactive" = "Aus";
 
+"Settings_Tracing_Label" = "Umfeldaufnahme";
+"Settings_Notification_Label" = "Mitteilungen";
+"Settings_MobileData_Label" = "Mobile Datennutzung";
+"Settings_Reset_Label" = "Anwendung zurücksetzen";
+
+"Settings_Tracing_Description" = "Kurzer Erklärungstext zur Umfeldaufnahme und der Option diese zu deaktivieren";
+"Settings_Notification_Description" = "Erklärungstext zu dem Verhalten der Mitteilungen der App und dass diese nur lokal erzeugt werden.";
+"Settings_MobileData_Description" = "Erklärungstext über das durchschnittliche Datenvolumen für den Abgleich der Daten am Tag";
+"Settings_Reset_Description" = "Alle Ihre Daten werden gelöscht";
+
 // Onboarding
 "Onboarding_Next" = "Nächste";
 "Onboarding_Finish" = "Fertig";
@@ -163,3 +173,10 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
 "moderate_risk_detail_help" = "Es besteht moderates Infektionsrisiko, da ein Kontakt mit wenigen infizierten Personen oder nur über Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
+
+//Reset View
+"reset_view_title" = "Anwendung zurücksetzen";
+"reset_view_header1" = "Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?";
+"reset_view_description1" = "Hier kommt ein Erklärungstext, der beschreibt was passiert wenn man die Anwendung zurücksetzt";
+"reset_view_reset_button" = "Daten zurücksetzen";
+"reset_view_discard" = "Abbrechen";
