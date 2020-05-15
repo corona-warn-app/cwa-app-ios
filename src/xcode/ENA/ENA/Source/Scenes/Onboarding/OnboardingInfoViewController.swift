@@ -90,7 +90,7 @@ class OnboardingInfoViewController: UIViewController {
 
 		nextButton.setTitle(onboardingInfo.actionText, for: .normal)
         nextButton.setTitleColor(.white, for: .normal)
-		nextButton.backgroundColor = UIColor.preferredColor(for: .onboardingButton)
+		nextButton.backgroundColor = UIColor.preferredColor(for: .tintColor)
         nextButton.layer.cornerRadius = 10.0
         nextButton.layer.masksToBounds = true
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
