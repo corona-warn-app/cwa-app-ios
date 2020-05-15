@@ -22,15 +22,15 @@ final class FriendsInviteController: UIViewController {
         navigationItem.title = AppStrings.InviteFriends.navigationBarTitle
 
         titleLabel.text = AppStrings.InviteFriends.title
-        titleLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.boldSystemFont(ofSize: 22))
+        titleLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.boldSystemFont(ofSize: 22))
         titleLabel.adjustsFontForContentSizeCategory = true
 
         descriptionLabel.text = AppStrings.InviteFriends.description
-        descriptionLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 17))
+        descriptionLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17))
         descriptionLabel.adjustsFontForContentSizeCategory = true
 
         inviteButton.setTitle(AppStrings.InviteFriends.submit, for: .normal)
-        inviteButton.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
+        inviteButton.titleLabel?.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
         inviteButton.titleLabel?.adjustsFontForContentSizeCategory = true
         inviteButton.titleLabel?.lineBreakMode = .byTruncatingHead
     }
