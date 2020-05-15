@@ -59,14 +59,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // swiftlint:disable:next force_unwrapping
             let navigationController = UINavigationController(rootViewController: homeViewController!)
             rootViewController = navigationController
+			navigationController.navigationBar.prefersLargeTitles = true
+			homeViewController?.navigationItem.largeTitleDisplayMode = .never
+			
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
-            let onboardingViewController = storyboard.instantiateInitialViewController { coder in
-                OnboardingViewController(coder: coder, exposureManager: manager, store: self.store)
-            }
+			// swiftlint:disable:next unowned_variable_capture
+			let onboardingViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
+				OnboardingInfoViewController(
+					coder: coder,
+					pageType: .togetherAgainstCoronaPage,
+					exposureManager: manager,
+					store: self.store
+				)
+			}
             // swiftlint:disable:next force_unwrapping
-            rootViewController = onboardingViewController!
-        }
+			let navigationController = UINavigationController(rootViewController: onboardingViewController!)
+            rootViewController = navigationController
+		}
 
         window?.rootViewController = rootViewController
     }

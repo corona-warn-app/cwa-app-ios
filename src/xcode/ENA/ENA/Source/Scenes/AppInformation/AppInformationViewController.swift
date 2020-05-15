@@ -2,7 +2,7 @@
 //  AppInformationViewController.swift
 //  ENA
 //
-//  Created by Steinmetz, Conrad on 05.05.20.
+//  Created by Marc-Peter Eisinger on 14.05.20.
 //  Copyright © 2020 SAP SE. All rights reserved.
 //
 
@@ -10,53 +10,40 @@ import Foundation
 import UIKit
 
 
-private let tableViewCellHeight: CGFloat = 50.0
-
-class AppInformationViewController: UIViewController {
-
-    @IBOutlet weak var tableview: UITableView!
-    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
-
-    private let labels = AppStrings.AppInformation.labels
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        tableview.delegate = self
-        tableview.dataSource = self
-
-        tableViewHeightConstraint.constant = CGFloat(labels.count) * tableViewCellHeight
-    }
+class AppInformationViewController: UITableViewController {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		let destination = segue.destination
+		
+		guard
+			let segueIdentifier = segue.identifier,
+			let segue = SegueIdentifier(rawValue: segueIdentifier)
+			else { return }
+		
+		switch segue {
+		case .about:
+			(destination as? AppInformationDetailViewController)?.model = .about
+		case .contact:
+			(destination as? AppInformationDetailViewController)?.model = .contact
+		case .help:
+			(destination as? AppInformationHelpViewController)?.model = .questions
+		case .legal:
+			(destination as? AppInformationDetailViewController)?.model = .legal
+		case .privacy:
+			(destination as? AppInformationDetailViewController)?.model = .privacy
+		case .terms:
+			(destination as? AppInformationDetailViewController)?.model = .terms
+		}
+	}
 }
 
-extension AppInformationViewController: UITableViewDelegate, UITableViewDataSource {
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableViewCellHeight
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return labels.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: AppInfoTableViewCell.identifier) as? AppInfoTableViewCell,
-            indexPath.row < labels.count else {
-            return UITableViewCell()
-        }
-        cell.titleLabel.text = labels[indexPath.row]
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        guard indexPath.row < labels.count else {
-            return
-        }
-        let viewController = AppInformationDetailViewController.initiate(for: .appInformation)
-        viewController.title = labels[indexPath.row]
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-
+extension AppInformationViewController {
+	private enum SegueIdentifier: String {
+		case about = "aboutSegue"
+		case contact = "contactSegue"
+		case legal = "legalSegue"
+		case privacy = "privacySegue"
+		case terms = "termsSegue"
+		case help = "helpSegue"
+	}
 }

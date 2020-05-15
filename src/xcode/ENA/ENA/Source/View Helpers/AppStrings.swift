@@ -52,12 +52,43 @@ enum AppStrings {
         static let trackingStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
         static let notificationStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
         static let notificationStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
+
+        static let tracingLabel = NSLocalizedString("Settings_Tracing_Label", comment: "")
+        static let notificationLabel = NSLocalizedString("Settings_Notification_Label", comment: "")
+        static let mobileDataLabel = NSLocalizedString("Settings_MobileData_Label", comment: "")
+        static let resetLabel = NSLocalizedString("Settings_Reset_Label", comment: "")
+
+        static let tracingDescription = NSLocalizedString("Settings_Tracing_Description", comment: "")
+        static let notificationDescription = NSLocalizedString("Settings_Notification_Description", comment: "")
+        static let mobileDataDescription = NSLocalizedString("Settings_MobileData_Description", comment: "")
+        static let resetDescription = NSLocalizedString("Settings_Reset_Description", comment: "")
     }
 
     enum Onboarding {
         static let onboardingFinish = NSLocalizedString("Onboarding_Finish", comment: "")
         static let onboardingNext = NSLocalizedString("Onboarding_Next", comment: "")
-    }
+		
+		static let onboardingLetsGo = NSLocalizedString("Onboarding_LetsGo_actionText", comment: "")
+		static let onboardingContinue = NSLocalizedString("Onboarding_Continue_actionText", comment: "")
+		static let onboardingDoNotActivate = NSLocalizedString("Onboarding_DoNotActivate_actionText", comment: "")
+		
+		static let onboardingInfo_togetherAgainstCoronaPage_title = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_title", comment: "")
+		static let onboardingInfo_togetherAgainstCoronaPage_boldText = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_boldText", comment: "")
+		static let onboardingInfo_togetherAgainstCoronaPage_normalText = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_normalText", comment: "")
+		static let onboardingInfo_privacyPage_title = NSLocalizedString("OnboardingInfo_privacyPage_title", comment: "")
+		static let onboardingInfo_privacyPage_boldText = NSLocalizedString("OnboardingInfo_privacyPage_boldText", comment: "")
+		static let onboardingInfo_privacyPage_normalText = NSLocalizedString("OnboardingInfo_privacyPage_normalText", comment: "")
+		static let onboardingInfo_enableLoggingOfContactsPage_title = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_title", comment: "")
+		static let onboardingInfo_enableLoggingOfContactsPage_boldText = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_boldText", comment: "")
+		static let onboardingInfo_enableLoggingOfContactsPage_normalText = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_normalText", comment: "")
+		static let onboardingInfo_howDoesDataExchangeWorkPage_title = NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_title", comment: "")
+		static let onboardingInfo_howDoesDataExchangeWorkPage_boldText = NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_boldText", comment: "")
+		static let onboardingInfo_howDoesDataExchangeWorkPage_normalText = NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_normalText", comment: "")
+		static let onboardingInfo_alwaysStayInformedPage_title = NSLocalizedString("OnboardingInfo_alwaysStayInformedPage_title", comment: "")
+		static let onboardingInfo_alwaysStayInformedPage_boldText = NSLocalizedString("OnboardingInfo_alwaysStayInformedPage_boldText", comment: "")
+		static let onboardingInfo_alwaysStayInformedPage_normalText = NSLocalizedString("OnboardingInfo_alwaysStayInformedPage_normalText", comment: "")
+
+	}
 
     enum AppInformation {
         static let appInfoLabel1 = NSLocalizedString("App_Info", comment: "")
@@ -115,5 +146,13 @@ enum AppStrings {
         static let lowRiskDetailHelp = NSLocalizedString("low_risk_detail_help", comment: "")
         static let moderateRiskDetailHelp = NSLocalizedString("moderate_risk_detail_help", comment: "")
         static let highRiskDetailHelp = NSLocalizedString("high_risk_detail_help", comment: "")
+    }
+
+    enum ResetView {
+        static let title = NSLocalizedString("reset_view_title", comment: "")
+        static let header1 = NSLocalizedString("reset_view_header1", comment: "")
+        static let description1 = NSLocalizedString("reset_view_description1", comment: "")
+        static let resetButton = NSLocalizedString("reset_view_reset_button", comment: "")
+        static let discardButton = NSLocalizedString("reset_view_discard", comment: "")
     }
 }
