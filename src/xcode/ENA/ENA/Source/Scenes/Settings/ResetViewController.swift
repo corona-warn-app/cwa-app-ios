@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol ResetDelegate: class {
+    func reset()
+}
+
 final class ResetViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -17,11 +21,10 @@ final class ResetViewController: UIViewController {
     @IBOutlet weak var resetButton: ENAButton!
     @IBOutlet weak var discardResetButton: UIButton!
 
+    weak var delegate: ResetDelegate?
+
     @IBAction func resetData(_ sender: Any) {
-        PersistenceManager.shared.isOnboarded = false
-        PersistenceManager.shared.dateLastExposureDetection = nil
-        PersistenceManager.shared.allowsCellularUse = true
-        exit(0)
+        delegate?.reset()
     }
 
     @IBAction func discard(_ sender: Any) {

@@ -31,8 +31,10 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var mobileDataTextView: UITextView!
 
     let manager: ExposureManager
-    init?(coder: NSCoder, manager: ExposureManager) {
+    let store: Store
+    init?(coder: NSCoder, manager: ExposureManager, store: Store) {
         self.manager = manager
+        self.store = store
         super.init(coder: coder)
     }
 
@@ -58,12 +60,18 @@ final class SettingsViewController: UIViewController {
         resetButton.sizeToFit()
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ResetViewController {
+            vc.delegate = self
+        }
+    }
+
     // MARK: Actions
     @IBAction func mobileDataValueChanged(_ sender: Any) {
         if mobileDataSwitch.isOn {
-            PersistenceManager.shared.allowsCellularUse = true
+            store.allowsCellularUse = true
         } else {
-            PersistenceManager.shared.allowsCellularUse = false
+            store.allowsCellularUse = false
         }
     }
 
@@ -82,7 +90,7 @@ final class SettingsViewController: UIViewController {
             ExposureNotificationSettingViewController(coder: coder, manager: self.manager)
         }
         )
-        self.present(vc, animated: true, completion: nil)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 
@@ -184,9 +192,7 @@ final class SettingsViewController: UIViewController {
     }
 
     private func checkMobileDataUsagePermission() {
-        DispatchQueue.main.async {
-            self.mobileDataSwitch.setOn(PersistenceManager.shared.allowsCellularUse, animated: true)
-        }
+        self.mobileDataSwitch.setOn(self.store.allowsCellularUse, animated: true)
     }
 
     private func setTrackingStatusActive(to active: Bool) {
@@ -227,5 +233,24 @@ final class SettingsViewController: UIViewController {
 extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension SettingsViewController: ResetDelegate {
+    func reset() {
+        store.isOnboarded = false
+        store.dateLastExposureDetection = nil
+        store.allowsCellularUse = true
+
+        let storyboard = AppStoryboard.onboarding.instance
+        let onboardingViewController = storyboard.instantiateInitialViewController { coder in
+            OnboardingViewController(coder: coder, exposureManager: self.manager, store: self.store)
+        }
+
+        if let onboardingVC = onboardingViewController {
+            navigationController?.setViewControllers([onboardingVC], animated: true)
+        } else {
+            fatalError("This should not happen when resetting the app. Onboardingview controller not defined.")
+        }
     }
 }
