@@ -202,7 +202,8 @@ fileprivate extension Sap_Key {
         return key
     }
 }
-fileprivate extension Apple_Key {
+
+private extension Apple_Key {
     func toSapKey() -> Sap_Key {
         Sap_Key.with {
             $0.keyData = self.keyData
@@ -210,6 +211,5 @@ fileprivate extension Apple_Key {
             $0.rollingStartNumber = self.rollingStartNumber
             $0.transmissionRiskLevel = self.transmissionRiskLevel
         }
-
     }
 }

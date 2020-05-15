@@ -65,26 +65,21 @@ class MockClient: Client {
     }
 }
 
-extension Sap_File {
+private extension Sap_File {
     func toAppleFile() -> Apple_File {
-        let keys = self.keys
-        return Apple_File.with {
-            $0.key = keys.map { $0.toAppleKey() }
+        Apple_File.with {
+            $0.key = self.keys.map { $0.toAppleKey() }
         }
     }
 }
 
-extension Sap_Key {
+private extension Sap_Key {
     func toAppleKey() -> Apple_Key {
-        let keyData = self.keyData
-        let rollingStartNumber = self.rollingStartNumber
-        let rollingPeriod = self.rollingPeriod
-        let transmissionRiskLevel = self.transmissionRiskLevel
-        return Apple_Key.with {
-            $0.keyData = keyData
-            $0.rollingStartNumber = rollingStartNumber
-            $0.rollingPeriod = rollingPeriod
-            $0.transmissionRiskLevel = transmissionRiskLevel
+        Apple_Key.with {
+            $0.keyData = self.keyData
+            $0.rollingStartNumber = self.rollingStartNumber
+            $0.rollingPeriod = self.rollingPeriod
+            $0.transmissionRiskLevel = self.transmissionRiskLevel
         }
     }
 }
