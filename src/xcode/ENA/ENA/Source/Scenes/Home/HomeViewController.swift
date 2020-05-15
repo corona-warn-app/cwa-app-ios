@@ -9,32 +9,32 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
-    
+
     // MARK: Creating a Home View Controller
-    
-    init?(coder: NSCoder, exposureManager: ExposureManager, client: Client) {
+
+    init?(coder: NSCoder, exposureManager: ExposureManager, client: Client, store: Store) {
         self.client = client
+        self.store = store
         super.init(coder: coder)
         homeInteractor = HomeInteractor(
             homeViewController: self,
             exposureManager: exposureManager,
-            client: client
+            client: client,
+            store: store
         )
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has intentionally not been implemented")
     }
-    
+
     // MARK: Properties
-    
-    @IBOutlet var topContainerView: UIView!
-    
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
+    private let store: Store
     private let client: Client
 
     enum Section: Int {
@@ -45,7 +45,7 @@ final class HomeViewController: UIViewController {
         // swiftlint:disable:next explicit_enum_raw_value
         case settings
     }
-    
+
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,19 +54,20 @@ final class HomeViewController: UIViewController {
         configureDataSource()
         configureUI()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         homeInteractor.developerMenuEnableIfAllowed()
     }
-    
+
     // MARK: Actions
-    @IBAction private func infoButtonTapped(_ sender: UIButton) {
+    @objc
+    private func infoButtonTapped(_ sender: UIButton) {
         let vc = RiskLegendTableViewController.initiate(for: .riskLegend)
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
-    
+
     // MARK: Misc
     func showSubmitResult() {
         // swiftlint:disable:next unowned_variable_capture
@@ -79,7 +80,7 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureNotificationSetting() {
-        
+
         let manager = ENAExposureManager()
         manager.activate { [weak self] error in
             guard let self = self else { return }
@@ -105,9 +106,32 @@ final class HomeViewController: UIViewController {
     }
 
     func showSetting() {
-        let vc = SettingsViewController.initiate(for: .settings)
+        /*let vc = SettingsViewController.initiate(for: .settings)
         let naviController = UINavigationController(rootViewController: vc)
-        present(naviController, animated: true, completion: nil)
+        present(naviController, animated: true, completion: nil)*/
+
+        let manager = ENAExposureManager()
+        manager.activate { [weak self] error in
+            guard let self = self else { return }
+            if let error = error {
+                switch error {
+                case .exposureNotificationRequired:
+                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+                case .exposureNotificationAuthorization:
+                    log(message: "Encourage the user to authorize this application", level: .warning)
+                }
+            } else if let error = error {
+                logError(message: error.localizedDescription)
+            } else {
+
+                let storyboard = AppStoryboard.settings.instance
+                let vc = storyboard.instantiateViewController(identifier: "SettingsViewController", creator: { coder in
+                    SettingsViewController(coder: coder, manager: manager, store: self.store)
+                }
+                )
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 
     func showDeveloperMenu() {
@@ -138,16 +162,16 @@ final class HomeViewController: UIViewController {
         // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
 
         let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection) { coder in
-            ExposureDetectionViewController(coder: coder, client: self.client)
+            ExposureDetectionViewController(coder: coder, client: self.client, store: self.store)
         }
         exposureDetectionViewController.delegate = homeInteractor
         present(exposureDetectionViewController, animated: true, completion: nil)
     }
 
     func showAppInformation() {
-        let vc = AppInformationViewController.initiate(for: .appInformation)
-        let naviController = UINavigationController(rootViewController: vc)
-        present(naviController, animated: true, completion: nil)
+		if let appInformatioViewController = AppStoryboard.appInformation.initiateInitial() {
+			navigationController?.pushViewController(appInformatioViewController, animated: true)
+		}
     }
 
     private func showScreen(at indexPath: IndexPath) {
@@ -174,7 +198,7 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: Configuration
-    
+
     func prepareData() {
         cellConfigurators = homeInteractor.cellConfigurators()
     }
@@ -182,7 +206,7 @@ final class HomeViewController: UIViewController {
     func reloadData() {
         collectionView.reloadData()
     }
-    
+
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self
@@ -198,7 +222,7 @@ final class HomeViewController: UIViewController {
         NSLayoutConstraint.activate(
             [
                 collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-                collectionView.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
+                collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
                 collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
                 collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ]
@@ -207,7 +231,7 @@ final class HomeViewController: UIViewController {
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
         collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
     }
-    
+
     private func configureDataSource() {
         // swiftlint:disable:next unowned_variable_capture
         dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self] collectionView, indexPath, identifier in
@@ -237,10 +261,12 @@ final class HomeViewController: UIViewController {
         snapshot.appendItems([5])
         dataSource.apply(snapshot, animatingDifferences: false)
     }
-    
+
     private func configureUI () {
+        title = "Corona-Warn-App"
         collectionView.backgroundColor = .systemGroupedBackground
-        topContainerView.backgroundColor = .systemBackground
+        let infoImage = UIImage(systemName: "info.circle")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
     }
 }
 
