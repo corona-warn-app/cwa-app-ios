@@ -8,16 +8,10 @@
 
 import UIKit
 
-class ActivateCollectionViewCell: UICollectionViewCell {
+class ActivateCollectionViewCell: HomeCardCollectionViewCell {
 
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var chevronImageView: UIImageView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        layer.cornerRadius = 10.0
-        layer.masksToBounds = true
-    }
 
 }
