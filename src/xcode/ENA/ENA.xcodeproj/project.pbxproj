@@ -601,6 +601,7 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
+				13126834246E89C1005297B7 /* Onboarding */,
 				85D7596324570491008175F0 /* ENAUITests.swift */,
 				85D7596524570491008175F0 /* Info.plist */,
 			);
@@ -751,6 +752,7 @@
 				51D420B324583ABB00AD70CA /* AppStoryboard.swift */,
 				51D420BA24583BF400AD70CA /* LaunchInstructor.swift */,
 				CD99A3C92461A47C00BF12AF /* AppStrings.swift */,
+				13126831246E88AC005297B7 /* AccessibilityIdentifiers.swift */,
 			);
 			path = "View Helpers";
 			sourceTree = "<group>";
@@ -1067,6 +1069,7 @@
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
 				EE8599902462EFD4002E7AE2 /* AppInformationDetailViewController.swift in Sources */,
 				01EB1D32246973F100A7908B /* submission_payload.pb.swift in Sources */,
+				13126832246E88AC005297B7 /* AccessibilityIdentifiers.swift in Sources */,
 				51C737BB245B142B00286105 /* OnboardingViewController.swift in Sources */,
 				51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
@@ -1105,7 +1108,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1312683A246E89C1005297B7 /* ENAUITestsOnboarding.swift in Sources */,
+				1312683E246E8A92005297B7 /* NotificationName.swift in Sources */,
+				13126839246E89C1005297B7 /* ENAUITests-Extensions.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
+				1312683C246E8A72005297B7 /* Store.swift in Sources */,
+				13126833246E88AC005297B7 /* AccessibilityIdentifiers.swift in Sources */,
+				13126838246E89C1005297B7 /* ENAUITestsOnboarding-Localized.swift in Sources */,
+				1312683D246E8A87005297B7 /* PersistedAndPublished.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
