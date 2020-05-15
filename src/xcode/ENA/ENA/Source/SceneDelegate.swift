@@ -9,7 +9,9 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    // MARK: Properties
     var window: UIWindow?
+    private let store = Store()
     private(set) var client: Client = {
         let mode = Mode.from()
 
@@ -38,18 +40,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func setupRootViewController() {
         let manager = ENAExposureManager()
 
-        let onboardingWasShown = PersistenceManager.shared.isOnboarded
+        let onboardingWasShown = store.isOnboarded
         //For a demo, we can set it to true.
         let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)
         let rootViewController: UIViewController
         switch instructor {
         case .home:
             let storyboard = AppStoryboard.home.instance
-            let homeViewController = storyboard.instantiateInitialViewController { coder in
-                HomeViewController(coder: coder, exposureManager: manager, client: self.client)
+            // swiftlint:disable:next unowned_variable_capture
+            let homeViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
+                HomeViewController(
+                    coder: coder,
+                    exposureManager: manager,
+                    client: self.client,
+                    store: self.store
+                )
             }
             // swiftlint:disable:next force_unwrapping
-            rootViewController = homeViewController!
+            let navigationController = UINavigationController(rootViewController: homeViewController!)
+            rootViewController = navigationController
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
 

@@ -10,30 +10,37 @@ import Foundation
 import ExposureNotification
 
 final class HomeInteractor {
-    
-    private unowned var homeViewController: HomeViewController
-    private let persistenceManager = PersistenceManager.shared
-    private var detectionSummary: ENExposureDetectionSummary?
-    private(set) var exposureManager: ExposureManager
-    private let client: Client
-    
-    private lazy var developerMenu: DMDeveloperMenu = {
-        DMDeveloperMenu(presentingViewController: homeViewController, client: client)
-    }()
-    
-    init(homeViewController: HomeViewController, exposureManager: ExposureManager, client: Client) {
+    // MARK: Creating
+    init(
+        homeViewController: HomeViewController,
+        exposureManager: ExposureManager,
+        client: Client,
+        store: Store
+    ) {
         self.homeViewController = homeViewController
         self.exposureManager = exposureManager
         self.client = client
+        self.store = store
     }
-    
+
+    // MARK: Properties
+    private unowned var homeViewController: HomeViewController
+    private let store: Store
+    private var detectionSummary: ENExposureDetectionSummary?
+    private(set) var exposureManager: ExposureManager
+    private let client: Client
+
+    private lazy var developerMenu: DMDeveloperMenu = {
+        DMDeveloperMenu(presentingViewController: homeViewController, client: client)
+    }()
+
     func developerMenuEnableIfAllowed() {
         developerMenu.enableIfAllowed()
     }
-    
+
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
         let activeConfigurator = HomeActivateCellConfigurator()
-        let date = persistenceManager.dateLastExposureDetection
+        let date = store.dateLastExposureDetection
         let riskLevel: RiskLevel
         if let detectionSummary = detectionSummary {
             riskLevel = RiskLevel(riskScore: detectionSummary.maximumRiskScore)

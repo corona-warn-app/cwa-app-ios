@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		011E13AE24680A4000973467 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AD24680A4000973467 /* HTTPClient.swift */; };
-		013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* PersistenceManager.swift */; };
+		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
 		0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */; };
 		01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
@@ -89,6 +89,9 @@
 		B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */; };
 		B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B592462F4DE006275D9 /* TanEntryViewController.swift */; };
 		B17A44A22464906A00CB195E /* KeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17A44A12464906A00CB195E /* KeyTests.swift */; };
+		B1BC090B246AC0D400302424 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BC090A246AC0D400302424 /* Session.swift */; };
+		B1BC090D246AC16F00302424 /* HTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BC090C246AC16F00302424 /* HTTPClientTests.swift */; };
+		B1BC090F246B1A0C00302424 /* PersistedAndPublished.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BC090E246B1A0C00302424 /* PersistedAndPublished.swift */; };
 		CD678F6B246C43E200B6A0F8 /* MockExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */; };
 		CD678F6D246C43EE00B6A0F8 /* MockTestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6C246C43EE00B6A0F8 /* MockTestClient.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
@@ -151,7 +154,7 @@
 
 /* Begin PBXFileReference section */
 		011E13AD24680A4000973467 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
-		013DC101245DAC4E00EE58B0 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
 		01EB1D27246973F100A7908B /* exposure_notification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_notification.pb.swift; path = ../../../../../proto/output/exposure_notification.pb.swift; sourceTree = "<group>"; };
 		01EB1D28246973F100A7908B /* risk_level.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_level.pb.swift; path = ../../../../../proto/output/risk_level.pb.swift; sourceTree = "<group>"; };
@@ -237,6 +240,9 @@
 		B1741B482462C207006275D9 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		B1741B592462F4DE006275D9 /* TanEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TanEntryViewController.swift; sourceTree = "<group>"; };
 		B17A44A12464906A00CB195E /* KeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTests.swift; sourceTree = "<group>"; };
+		B1BC090A246AC0D400302424 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		B1BC090C246AC16F00302424 /* HTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientTests.swift; sourceTree = "<group>"; };
+		B1BC090E246B1A0C00302424 /* PersistedAndPublished.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedAndPublished.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
 		CD678F6C246C43EE00B6A0F8 /* MockTestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTestClient.swift; sourceTree = "<group>"; };
 		CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
@@ -416,7 +422,8 @@
 			isa = PBXGroup;
 			children = (
 				CD99A3C6246155C300BF12AF /* Logger.swift */,
-				013DC101245DAC4E00EE58B0 /* PersistenceManager.swift */,
+				013DC101245DAC4E00EE58B0 /* Store.swift */,
+				B1BC090E246B1A0C00302424 /* PersistedAndPublished.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -1008,6 +1015,7 @@
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
 				EEF7900D2466F6E40065EBD5 /* RiskView.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
+				B1BC090F246B1A0C00302424 /* PersistedAndPublished.swift in Sources */,
 				51CE1BC12460B256002CF42A /* HomeSubmitCellConfigurator.swift in Sources */,
 				B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
@@ -1016,7 +1024,7 @@
 				EE20EA0A24699A5800770683 /* RiskLegendTableViewController.swift in Sources */,
 				5111E7632460BB1500ED6498 /* HomeInteractor.swift in Sources */,
 				51CE1B4C246016D1002CF42A /* UICollectionReusableView+Identifier.swift in Sources */,
-				013DC102245DAC4E00EE58B0 /* PersistenceManager.swift in Sources */,
+				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
 				51CE1B89246078B6002CF42A /* RiskCollectionViewCell.swift in Sources */,
 				01EB1D30246973F100A7908B /* signed_payload.pb.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
