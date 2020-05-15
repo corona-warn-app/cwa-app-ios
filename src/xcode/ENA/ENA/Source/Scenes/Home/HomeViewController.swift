@@ -9,30 +9,32 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
-    
+
     // MARK: Creating a Home View Controller
-    
-    init?(coder: NSCoder, exposureManager: ExposureManager, client: Client) {
+
+    init?(coder: NSCoder, exposureManager: ExposureManager, client: Client, store: Store) {
         self.client = client
+        self.store = store
         super.init(coder: coder)
         homeInteractor = HomeInteractor(
             homeViewController: self,
             exposureManager: exposureManager,
-            client: client
+            client: client,
+            store: store
         )
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has intentionally not been implemented")
     }
-    
+
     // MARK: Properties
-    
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
+    private let store: Store
     private let client: Client
 
     enum Section: Int {
@@ -43,7 +45,7 @@ final class HomeViewController: UIViewController {
         // swiftlint:disable:next explicit_enum_raw_value
         case settings
     }
-    
+
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,12 +54,12 @@ final class HomeViewController: UIViewController {
         configureDataSource()
         configureUI()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         homeInteractor.developerMenuEnableIfAllowed()
     }
-    
+
     // MARK: Actions
     @objc
     private func infoButtonTapped(_ sender: UIButton) {
@@ -65,7 +67,7 @@ final class HomeViewController: UIViewController {
         let naviController = UINavigationController(rootViewController: vc)
         self.present(naviController, animated: true, completion: nil)
     }
-    
+
     // MARK: Misc
     func showSubmitResult() {
         // swiftlint:disable:next unowned_variable_capture
@@ -78,7 +80,7 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureNotificationSetting() {
-        
+
         let manager = ENAExposureManager()
         manager.activate { [weak self] error in
             guard let self = self else { return }
@@ -137,7 +139,7 @@ final class HomeViewController: UIViewController {
         // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
 
         let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection) { coder in
-            ExposureDetectionViewController(coder: coder, client: self.client)
+            ExposureDetectionViewController(coder: coder, client: self.client, store: self.store)
         }
         exposureDetectionViewController.delegate = homeInteractor
         present(exposureDetectionViewController, animated: true, completion: nil)
@@ -173,7 +175,7 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: Configuration
-    
+
     func prepareData() {
         cellConfigurators = homeInteractor.cellConfigurators()
     }
@@ -181,7 +183,7 @@ final class HomeViewController: UIViewController {
     func reloadData() {
         collectionView.reloadData()
     }
-    
+
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self
@@ -206,7 +208,7 @@ final class HomeViewController: UIViewController {
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
         collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
     }
-    
+
     private func configureDataSource() {
         // swiftlint:disable:next unowned_variable_capture
         dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self] collectionView, indexPath, identifier in
@@ -236,7 +238,7 @@ final class HomeViewController: UIViewController {
         snapshot.appendItems([5])
         dataSource.apply(snapshot, animatingDifferences: false)
     }
-    
+
     private func configureUI () {
         title = "Corona-Warn-App"
         collectionView.backgroundColor = .systemGroupedBackground
