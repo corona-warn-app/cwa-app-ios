@@ -59,6 +59,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // swiftlint:disable:next force_unwrapping
             let navigationController = UINavigationController(rootViewController: homeViewController!)
             rootViewController = navigationController
+			navigationController.navigationBar.prefersLargeTitles = true
+			homeViewController?.navigationItem.largeTitleDisplayMode = .never
+			
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
 			// swiftlint:disable:next unowned_variable_capture

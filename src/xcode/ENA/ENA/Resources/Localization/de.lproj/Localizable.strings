@@ -24,6 +24,16 @@
 "Settings_StatusActive" = "An";
 "Settings_StatusInactive" = "Aus";
 
+"Settings_Tracing_Label" = "Umfeldaufnahme";
+"Settings_Notification_Label" = "Mitteilungen";
+"Settings_MobileData_Label" = "Mobile Datennutzung";
+"Settings_Reset_Label" = "Anwendung zurücksetzen";
+
+"Settings_Tracing_Description" = "Kurzer Erklärungstext zur Umfeldaufnahme und der Option diese zu deaktivieren";
+"Settings_Notification_Description" = "Erklärungstext zu dem Verhalten der Mitteilungen der App und dass diese nur lokal erzeugt werden.";
+"Settings_MobileData_Description" = "Erklärungstext über das durchschnittliche Datenvolumen für den Abgleich der Daten am Tag";
+"Settings_Reset_Description" = "Alle Ihre Daten werden gelöscht";
+
 // Onboarding
 "Onboarding_Next" = "Nächste";
 "Onboarding_Finish" = "Fertig";
@@ -99,13 +109,79 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 
 "Home_SettingsCard_Title" = "Einstellungen";
 
-//App information
+
+// App Information
 "App_Info" = "Über die App";
 "App_Privacy" = "Datenschutz";
 "App_Terms" = "Nutzungsbedingungen";
 "App_Hotline" = "Hotline & Feedback";
 "App_Help" = "Hilfe";
 "App_Imprint" = "Impressum";
+
+// App Information - About
+"App_Information_About_Navigation" = "Über die App";
+"App_Information_About_Title" = "Zusammen gegen Corona";
+"App_Information_About_Description" = "Die COVID Warn-App wurde vom Robert Koch-Instituts entwickelt, um die Gemeinschaft vor der Verbreitung des Coronavirus zu schützen.";
+"App_Information_About_Text" = "Die COVID Warn-App wird Begegnungen, die Sie mit anderen Benutzern der App haben, sicher notieren. Auf diese Weise wird ermittelt ob Sie sich in der Nähe eines Corona-Infizierten aufgehalten haben.
+
+Gemeinsam können wir helfen, die Ausbreitung zu stoppen und gesund zu bleiben.";
+
+// App Information - Contact
+"App_Information_Contact_Navigation" = "Kontakt";
+"App_Information_Contact_Title" = "Wie können wir Ihnen helfen";
+"App_Information_Contact_Description" = "Rufen Sie uns an, wenn Sie technische, datenschutzbezogene, gesundheitsbezogene oder psychologische Fragestellungen haben.";
+"App_Information_Contact_Hotline_Title" = "Technische Hotline";
+"App_Information_Contact_Hotline_Text" = "+49 080 XXX XXX";
+"App_Information_Contact_Hotline_Number" = "+49080123456";
+"App_Information_Contact_Hotline_Description" = "Unser technischer Kundenservice ist für Sie da. Die Wartezeit ist weniger als 5 Minuten im Moment.";
+"App_Information_Contact_Hotline_Terms" = "Unsere Öffnungszeiten:\nMo - Fr: 08:00 - 22:00 Uhr\nSa - So: 10:00 - 22:00 Uhr\nEs gelten die Preise Ihres Telefonanbieters.";
+
+// App Information - Legal
+"App_Information_Legal_Navigation" = "Impressum";
+"App_Information_Legal_Section1_Title" = "Anbieter";
+"App_Information_Legal_Section1_Text" = "Presse- und Informationsamt der Bundesregierung\nDorotheenstraße 84\n10117 Berlin\nTelefon: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
+"App_Information_Legal_Section2_Title" = "Gesetzlicher Vertreter";
+"App_Information_Legal_Section2_Text" = "Chef des Presse- und Informationsamtes der BundesRegierung";
+"App_Information_Legal_Section3_Title" = "";
+"App_Information_Legal_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
+"App_Information_Legal_Section4_Title" = "Briefanschrift";
+"App_Information_Legal_Section4_Text" = "...";
+
+// App Information - Privacy
+"App_Information_Privacy_Navigation" = "Datenschutz";
+"App_Information_Privacy_Title" = "Datenschutz";
+"App_Information_Privacy_Description" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.";
+"App_Information_Privacy_Text" = "Verantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:
+
+Robert Koch-Institut
+Nordufer 20
+13353 Berlin
+
+Bitte lesen Sie unsere Datenschutzbestimmungen.
+
+Datenschutzhinweise:
+Duis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla.";
+
+// App Information - Terms
+"App_Information_Terms_Navigation" = "Nutzungsbedingungen";
+"App_Information_Terms_Title" = "Nutzungsbedingungen";
+"App_Information_Terms_Description" = "Die nachfolgenden Nutzungsbedingungen gelten für die Nutzung der App und werden duch Aufruf oder Nutzung des Angebots oder einer einzelnen Funktion akzeptiert.";
+"App_Information_Terms_Text" = "...";
+
+// App Information - Tracing
+"App_Information_Tracing_Navigation" = "Wie funktioniert Tracing?";
+"App_Information_Tracing_Text" = "COVID-19 Kontaktprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln von zufälligen ID's.
+
+Diese ID’s sind eine zufällige Folge von Zahlen, die Sie für andere Benutzer nicht identifizierbar machen und die sich mehrmals täglich ändern, um Ihre Privatsphäre zu schützen.
+
+Ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est.
+
+Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla.
+
+Fusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.
+
+Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla. Fusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.";
+
 
 //Risk View
 "unknown_risk" = "Risiko unbekannt";
@@ -123,4 +199,9 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "moderate_risk_detail_help" = "Es besteht moderates Infektionsrisiko, da ein Kontakt mit wenigen infizierten Personen oder nur über Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
-
+//Reset View
+"reset_view_title" = "Anwendung zurücksetzen";
+"reset_view_header1" = "Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?";
+"reset_view_description1" = "Hier kommt ein Erklärungstext, der beschreibt was passiert wenn man die Anwendung zurücksetzt";
+"reset_view_reset_button" = "Daten zurücksetzen";
+"reset_view_discard" = "Abbrechen";
