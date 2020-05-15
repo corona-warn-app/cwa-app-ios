@@ -28,7 +28,7 @@ final class DMViewController: UITableViewController {
     // MARK: Properties
     private let client: Client
     private var urls = [URL]()
-    private var keys = [Apple_Key]()
+    private var keys = [Sap_Key]()
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -78,7 +78,7 @@ final class DMViewController: UITableViewController {
             // swiftlint:disable:next line_length
             fatalError("-serializedData: (Apple_Key) failed. This probably happens because the Protocol Buffer schema changed. Try reinstalling the app. If that does not help consider creating an issue.")
         }
-        keys += file.key
+        keys += file.key.map { $0.toSapKey() }
         // Newer keys come before older keys
         keys.sort { lhKey, rhKey -> Bool in
             return lhKey.rollingStartNumber > rhKey.rollingStartNumber
@@ -154,7 +154,7 @@ final class DMViewController: UITableViewController {
 }
 
 extension DMViewController: DMQRCodeScanViewControllerDelegate {
-    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Apple_Key) {
+    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Sap_Key) {
         client.submit(
             keys: [diagnosisKey.temporaryExposureKey],
             tan: "not needed"
@@ -183,7 +183,7 @@ private extension DateFormatter {
     }
 }
 
-fileprivate extension Apple_Key {
+fileprivate extension Sap_Key {
     private static let dateFormatter: DateFormatter = .rollingPeriodDateFormatter()
 
     var rollingStartNumberDate: Date {
@@ -200,5 +200,16 @@ fileprivate extension Apple_Key {
         key.rollingStartNumber = rollingStartNumber
         key.transmissionRiskLevel = UInt8(transmissionRiskLevel)
         return key
+    }
+}
+fileprivate extension Apple_Key {
+    func toSapKey() -> Sap_Key {
+        Sap_Key.with {
+            $0.keyData = self.keyData
+            $0.rollingPeriod = self.rollingPeriod
+            $0.rollingStartNumber = self.rollingStartNumber
+            $0.transmissionRiskLevel = self.transmissionRiskLevel
+        }
+
     }
 }
