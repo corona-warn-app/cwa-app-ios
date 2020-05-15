@@ -141,8 +141,7 @@ final class HomeViewController: UIViewController {
 
     func showInviteFriends() {
         let vc = FriendsInviteController.initiate(for: .inviteFriends)
-        let naviController = UINavigationController(rootViewController: vc)
-        self.present(naviController, animated: true, completion: nil)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showExposureDetection() {

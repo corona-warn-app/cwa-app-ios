@@ -199,6 +199,12 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "moderate_risk_detail_help" = "Es besteht moderates Infektionsrisiko, da ein Kontakt mit wenigen infizierten Personen oder nur über Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
+// Invite Friends
+"InviteFriends_NavTitle" = "Covid WARN-App Teilen";
+"InviteFriends_Title" = "Zusammen gegen Corona.";
+"InviteFriends_Description" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Downloaden ein!";
+"InviteFriends_Button" = "App teilen";
+
 //Reset View
 "reset_view_title" = "Anwendung zurücksetzen";
 "reset_view_header1" = "Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?";

@@ -148,6 +148,13 @@ enum AppStrings {
         static let highRiskDetailHelp = NSLocalizedString("high_risk_detail_help", comment: "")
     }
 
+    enum InviteFriends {
+        static let title = NSLocalizedString("InviteFriends_Title", comment: "")
+        static let description = NSLocalizedString("InviteFriends_Description", comment: "")
+        static let submit = NSLocalizedString("InviteFriends_Button", comment: "")
+        static let navigationBarTitle = NSLocalizedString("InviteFriends_NavTitle", comment: "")
+    }
+
     enum ResetView {
         static let title = NSLocalizedString("reset_view_title", comment: "")
         static let header1 = NSLocalizedString("reset_view_header1", comment: "")
