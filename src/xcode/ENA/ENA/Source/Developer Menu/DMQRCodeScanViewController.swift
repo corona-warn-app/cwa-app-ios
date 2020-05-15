@@ -13,7 +13,7 @@ import ExposureNotification
 protocol DMQRCodeScanViewControllerDelegate: class {
     func debugCodeScanViewController(
         _ viewController: DMQRCodeScanViewController,
-        didScan diagnosisKey: Apple_Key
+        didScan diagnosisKey: Sap_Key
     )
 }
 
@@ -40,7 +40,7 @@ final class DMQRCodeScanViewController: UIViewController {
     override func viewDidLoad() {
         scanView.dataHandler = { data in
             do {
-                let diagnosisKey = try Apple_Key(serializedData: data)
+                let diagnosisKey = try Sap_Key(serializedData: data)
                 self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
                 self.dismiss(animated: true, completion: nil)
             } catch let error {
@@ -101,7 +101,7 @@ extension DMQRCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
         if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue {
             self.captureSession.stopRunning()
             // swiftlint:disable:next force_unwrapping
-            let data = Data(base64Encoded: string)! // using force is okay - developer feature only
+            let data = Data(base64Encoded: string.trimmingCharacters(in: .whitespacesAndNewlines))! // using force is okay - developer feature only
             log(message: "\(data)")
             dataHandler(data)
         } else {
