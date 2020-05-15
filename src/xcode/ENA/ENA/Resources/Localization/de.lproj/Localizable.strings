@@ -37,6 +37,31 @@
 // Onboarding
 "Onboarding_Next" = "Nächste";
 "Onboarding_Finish" = "Fertig";
+"Onboarding_LetsGo_actionText" = "Los geht’s";
+"Onboarding_Continue_actionText" = "Weiter";
+"Onboarding_DoNotActivate_actionText" = "Nicht Aktivieren";
+
+
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Zusammen gegen Corona";
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der COVID Warn-App durchbrechen wir Infektionsketten entscheidend schneller.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Die App merkt sich Begegnungen zwischen Menschen anhand der Smartphones - einfach und sicher über verschlüsselte Zufalls-IDs, ohne einen Zugriff auf persönliche Daten. Ihr Smartphone wird zum Corona-Frühwarnsystem: Sie überblicken Ihren Risikostatus und werden bei Neuinfektionen im Kontaktumfeld benachrichtigt. ";
+
+"OnboardingInfo_privacyPage_title" = "Datenschutz";
+"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
+
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risikoerkennung ermöglichen";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Damit sich Covid-19-Risiken analysieren lassen, müssen Sie die Erfassung von Zufalls-IDs und deren Weitergabe an andere Smartphones per Bluetooth erlauben. Die Funktion lässt sich jederzeit wieder deaktivieren.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Sie sind positiv getestet? ";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Dann melden Sie es bitte über die COVID Warn-App. Freiwillig und sicher. Für die Gesundheit aller.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Meldung wird zuverlässig verschlüsselt über einen sicheren Server verarbeitet. In der Folge können Ihre Kontakte gewarnt werden, in Isolation gehen oder sich testen lassen.";
+
+"OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken kennen";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und  bei Neuinfizierungen von Kontakten warnen. Aktivieren Sie dafür jetzt die Mitteilungen.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich bei Bedarf jederzeit testen lassen oder zum Schutz Ihrer Mitmenschen in Isolation begeben.";
+
 
 // Exposure Submission
 "ExposureSubmission_Title" = "Laborergebnis für COVID-19";

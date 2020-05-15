@@ -20,6 +20,30 @@
 // Onboarding
 "Onboarding_Next" = "next";
 "Onboarding_Finish" = "finish";
+"Onboarding_LetsGo_actionText" = "Let's go";
+"Onboarding_Continue_actionText" = "Continue";
+"Onboarding_DoNotActivate_actionText" = "Do not activate";
+
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Together against Corona";
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and all of us. With the COVID warning app, we break infection chains significantly faster.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "The app remembers encounters between people using smartphones - easily and securely using encrypted random IDs, without access to personal data. Your smartphone becomes a Corona early warning system: you can see your risk status and will be notified of new infections in the contact area.";
+
+"OnboardingInfo_privacyPage_title" = "Privacy";
+"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_normalText" = "You will remain undetected.\nYour data will be completely encrypted and transmitted under a pseudonym.\n\nResponsible body within the meaning of Art. 4 Para. 7 GDPR:\n\nRobert Koch Institute\nNordufer 20\n13353 Berlin\nPlease read our data protection regulations.\n\nPrivacy information:";
+
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "How to enable risk detection";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To be able to analyze Covid 19 risks, you must allow the acquisition of random IDs and their transfer to other smartphones via Bluetooth. The function can be deactivated again at any time.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Have you been tested positive?";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Then please report it via the COVID warning app. Voluntarily and safely. For everyone's health.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your message is reliably encrypted and processed via a secure server. As a result, your contacts can be warned, isolated or tested.";
+
+"OnboardingInfo_alwaysStayInformedPage_title" = "Receive warnings, know the risks";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can automatically inform you about your risk status and warn you when contacts are newly infected. Activate the messages for this now.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "In this way, you can have yourself tested at any time if necessary, or go into isolation to protect your fellow human beings.";
+
 
 // Tracing Enable/Disable Settings
 "ExposureNotificationSetting_TracingSettingTitle" = "Tracing";
