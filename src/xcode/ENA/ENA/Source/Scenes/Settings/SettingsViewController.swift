@@ -241,16 +241,5 @@ extension SettingsViewController: ResetDelegate {
         store.isOnboarded = false
         store.dateLastExposureDetection = nil
         store.allowsCellularUse = true
-
-        let storyboard = AppStoryboard.onboarding.instance
-        let onboardingViewController = storyboard.instantiateInitialViewController { coder in
-            OnboardingViewController(coder: coder, exposureManager: self.manager, store: self.store)
-        }
-
-        if let onboardingVC = onboardingViewController {
-            navigationController?.setViewControllers([onboardingVC], animated: true)
-        } else {
-            fatalError("This should not happen when resetting the app. Onboardingview controller not defined.")
-        }
     }
 }
