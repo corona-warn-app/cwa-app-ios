@@ -34,7 +34,7 @@ class OnboardingInfoViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var boldLabel: UILabel!
     @IBOutlet var textLabel: UILabel!
-    @IBOutlet var nextButton: UIButton!
+    @IBOutlet var nextButton: ENAButton!
 	@IBOutlet var ignoreButton: UIButton!
 	
 	private var onboardingInfos = OnboardingInfo.testData()
@@ -83,10 +83,10 @@ class OnboardingInfoViewController: UIViewController {
         textLabel.isHidden = onboardingInfo.text.isEmpty
 
 		nextButton.setTitle(onboardingInfo.actionText, for: .normal)
-        nextButton.setTitleColor(.white, for: .normal)
-		nextButton.backgroundColor = UIColor.preferredColor(for: .tintColor)
-        nextButton.layer.cornerRadius = 10.0
-        nextButton.layer.masksToBounds = true
+//        nextButton.setTitleColor(.white, for: .normal)
+//		nextButton.backgroundColor = UIColor.preferredColor(for: .tintColor)
+//        nextButton.layer.cornerRadius = 10.0
+//        nextButton.layer.masksToBounds = true
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 		
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
@@ -99,8 +99,8 @@ class OnboardingInfoViewController: UIViewController {
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		
 		let insetPadding: CGFloat = 16
-		nextButton.contentEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
-		nextButton.titleEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
+//		nextButton.contentEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
+//		nextButton.titleEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
 		ignoreButton.contentEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
 		ignoreButton.titleEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
 	}
