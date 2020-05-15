@@ -175,10 +175,10 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
 // Invite Friends
-"InviteFriends_NavTitle" = "Teilen Sie die App";
-"InviteFriends_Title" = "Zusammen sind wir stärker!";
-"InviteFriends_Description" = "Wenn alle mitmachen und die App benutzen, können  wir die Kurve flach halten. Also, laden Sie Ihre Freunde zum Mitmachen ein, denn zusammen sind wir stärker.";
-"InviteFriends_Button" = "Einladungslink versenden";
+"InviteFriends_NavTitle" = "Covid WARN-App Teilen";
+"InviteFriends_Title" = "Zusammen gegen Corona.";
+"InviteFriends_Description" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Downloaden ein!";
+"InviteFriends_Button" = "App teilen";
 
 //Reset View
 "reset_view_title" = "Anwendung zurücksetzen";
