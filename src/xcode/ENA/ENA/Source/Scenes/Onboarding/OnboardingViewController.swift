@@ -47,6 +47,15 @@ final class OnboardingViewController: UIViewController {
         updateNextButton()
     }
 
+	func setupAccessibility() {
+		nextButton.isAccessibilityElement = true
+		let isLastPage = (currentIndex == maxIndex)
+        let accessibilityIdentifier = isLastPage ? Accessibility.Button.finish : Accessibility.Button.next
+		nextButton.accessibilityIdentifier = accessibilityIdentifier
+		nextButton.accessibilityTraits = .button
+	}
+
+	
     @IBAction func onboardingTapped(_ sender: Any) {
         let vc = pages[currentIndex]
         vc.run(index: currentIndex)
