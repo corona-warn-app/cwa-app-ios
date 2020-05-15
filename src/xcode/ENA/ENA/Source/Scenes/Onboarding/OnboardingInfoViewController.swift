@@ -62,6 +62,7 @@ final class OnboardingInfoViewController: UIViewController {
         viewRespectsSystemMinimumLayoutMargins = false
         view.layoutMargins = .zero
 		updateUI()
+		setupAccessibility()
     }
 
     func runActionForPageType(completion: @escaping () -> Void) {
@@ -94,10 +95,6 @@ final class OnboardingInfoViewController: UIViewController {
         textLabel.isHidden = onboardingInfo.text.isEmpty
 
 		nextButton.setTitle(onboardingInfo.actionText, for: .normal)
-//        nextButton.setTitleColor(.white, for: .normal)
-//		nextButton.backgroundColor = UIColor.preferredColor(for: .tintColor)
-//        nextButton.layer.cornerRadius = 10.0
-//        nextButton.layer.masksToBounds = true
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 		
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
@@ -108,12 +105,19 @@ final class OnboardingInfoViewController: UIViewController {
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		
-		let insetPadding: CGFloat = 16
-//		nextButton.contentEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
-//		nextButton.titleEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
-		ignoreButton.contentEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
-		ignoreButton.titleEdgeInsets = UIEdgeInsets(top: insetPadding, left: 0, bottom: insetPadding, right: 0)
+	}
+	
+	func setupAccessibility() {
+		imageView.isAccessibilityElement = false
+		titleLabel.isAccessibilityElement = true
+		boldLabel.isAccessibilityElement = true
+		textLabel.isAccessibilityElement = true
+		nextButton.isAccessibilityElement = true
+		ignoreButton.isAccessibilityElement = true
+
+		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
+		nextButton.accessibilityIdentifier = Accessibility.Button.next
+		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
