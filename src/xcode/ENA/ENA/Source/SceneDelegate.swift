@@ -65,7 +65,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
 			// swiftlint:disable:next unowned_variable_capture
-			let onboardingViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
+			let onboardingInfoViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
 				OnboardingInfoViewController(
 					coder: coder,
 					pageType: .togetherAgainstCoronaPage,
@@ -74,7 +74,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				)
 			}
             // swiftlint:disable:next force_unwrapping
-			let navigationController = UINavigationController(rootViewController: onboardingViewController!)
+			let navigationController = UINavigationController(rootViewController: onboardingInfoViewController!)
             rootViewController = navigationController
 		}
 
