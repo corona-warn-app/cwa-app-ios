@@ -1,8 +1,10 @@
 //
-//  PersistenceManager.swift
+//  PersistedAndPublished.swift
 //  ENA
 //
-
+//  Created by Kienle, Christian on 12.05.20.
+//  Copyright © 2020 SAP SE. All rights reserved.
+//
 
 import Foundation
 
@@ -36,22 +38,4 @@ class PersistedAndPublished<Value: Codable> {
     }
 
     var projectedValue: PersistedAndPublished<Value> { self }
-}
-
-final class PersistenceManager {
-    static let shared = PersistenceManager()
-
-    @PersistedAndPublished(
-        key: "isOnboarded",
-        notificationName: Notification.Name.isOnboardedDidChange,
-        defaultValue: false
-    )
-    var isOnboarded: Bool
-
-    @PersistedAndPublished(
-        key: "dateLastExposureDetection",
-        notificationName: Notification.Name.dateLastExposureDetectionDidChange,
-        defaultValue: nil
-    )
-    var dateLastExposureDetection: Date?
 }

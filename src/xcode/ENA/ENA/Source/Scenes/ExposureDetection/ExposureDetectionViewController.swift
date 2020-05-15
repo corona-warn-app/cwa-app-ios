@@ -14,22 +14,13 @@ protocol ExposureDetectionViewControllerDelegate: AnyObject {
 }
 
 final class ExposureDetectionViewController: UIViewController {
-    // MARK: Properties
-    @IBOutlet weak var infoTitleLabel: UILabel!
-    @IBOutlet weak var infoTextView: UITextView!
-    @IBOutlet weak var riskViewContainerView: UIView!
-
-    let client: Client
-    var exposureManager: ExposureManager?
-    weak var delegate: ExposureDetectionViewControllerDelegate?
-    weak var exposureDetectionSummary: ENExposureDetectionSummary?
-    let riskView: RiskView
-
-    init?(coder: NSCoder, client: Client) {
+    // MARK: Creating a Exposure Detection View Controller
+    required init?(coder: NSCoder, client: Client, store: Store) {
         guard let riskView = UINib(nibName: "RiskView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? RiskView else {
               fatalError("It should not happen. RiskView is not avaiable")
         }
         self.client = client
+        self.store = store
         self.riskView = riskView
         super.init(coder: coder)
     }
@@ -37,6 +28,18 @@ final class ExposureDetectionViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: Properties
+    @IBOutlet weak var infoTitleLabel: UILabel!
+    @IBOutlet weak var infoTextView: UITextView!
+    @IBOutlet weak var riskViewContainerView: UIView!
+
+    private let store: Store
+    let client: Client
+    var exposureManager: ExposureManager?
+    weak var delegate: ExposureDetectionViewControllerDelegate?
+    weak var exposureDetectionSummary: ENExposureDetectionSummary?
+    let riskView: RiskView
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -117,7 +120,7 @@ final class ExposureDetectionViewController: UIViewController {
 
     @objc
     func updateLastSyncLabel() {
-        guard let lastSync = PersistenceManager.shared.dateLastExposureDetection else {
+        guard let lastSync = store.dateLastExposureDetection else {
             riskView.lastSyncLabel.text = AppStrings.ExposureDetection.lastSyncUnknown
             return
         }
@@ -177,7 +180,7 @@ final class ExposureDetectionViewController: UIViewController {
                     fatalError("can never happen")
                 }
                 self.exposureDetectionSummary = summary
-                PersistenceManager.shared.dateLastExposureDetection = startDate
+                self.store.dateLastExposureDetection = startDate
                 self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
                 log(message: "Exposure detection finished with summary: \(summary.pretty)")
                 self.updateRiskView()
@@ -218,7 +221,7 @@ fileprivate extension ENExposureDetectionSummary {
         return string
 
     }
-    
+
     func title(for riskLevel: RiskLevel) -> String {
         let key: String
         switch riskLevel {
@@ -233,5 +236,5 @@ fileprivate extension ENExposureDetectionSummary {
         }
         return key
     }
-    
+
 }
