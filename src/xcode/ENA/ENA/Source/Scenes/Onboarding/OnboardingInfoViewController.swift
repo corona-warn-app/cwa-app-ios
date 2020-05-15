@@ -36,7 +36,6 @@ class OnboardingInfoViewController: UIViewController {
     @IBOutlet var textLabel: UILabel!
     @IBOutlet var nextButton: UIButton!
 	@IBOutlet var ignoreButton: UIButton!
-	@IBOutlet var pageControl: UIPageControl!
 	
 	private var onboardingInfos = OnboardingInfo.testData()
 
@@ -83,11 +82,6 @@ class OnboardingInfoViewController: UIViewController {
         textLabel.text = onboardingInfo.text
         textLabel.isHidden = onboardingInfo.text.isEmpty
 
-        pageControl.numberOfPages = OnboardingPageType.allCases.count
-        pageControl.currentPage = pageType?.rawValue ?? 0
-        pageControl.currentPageIndicatorTintColor = UIColor.systemGray
-        pageControl.pageIndicatorTintColor = UIColor.systemGray4
-
 		nextButton.setTitle(onboardingInfo.actionText, for: .normal)
         nextButton.setTitleColor(.white, for: .normal)
 		nextButton.backgroundColor = UIColor.preferredColor(for: .tintColor)
@@ -100,11 +94,6 @@ class OnboardingInfoViewController: UIViewController {
 		ignoreButton.backgroundColor = UIColor.clear
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
 		
-		pageControl.numberOfPages = OnboardingPageType.allCases.count
-		pageControl.currentPage = pageType?.rawValue ?? 0
-		pageControl.currentPageIndicatorTintColor = UIColor.systemGray
-		pageControl.pageIndicatorTintColor = UIColor.systemGray4
-
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)

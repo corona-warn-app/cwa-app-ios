@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1HX-Yf-LyV">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="2eY-pe-EqA">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="689.66666666666663"/>
@@ -93,7 +93,7 @@
                                         <viewLayoutGuide key="frameLayoutGuide" id="Aox-ZG-U3J"/>
                                     </scrollView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qvx-Vc-jIj" userLabel="Container Button View">
-                                        <rect key="frame" x="0.0" y="563" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="600" width="375" height="90"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Dnb-sh-MSz">
                                                 <rect key="frame" x="16" y="8" width="343" height="74"/>
@@ -128,9 +128,6 @@
                                             <constraint firstItem="Dnb-sh-MSz" firstAttribute="leading" secondItem="Qvx-Vc-jIj" secondAttribute="leading" constant="16" id="ugt-uG-2W7"/>
                                         </constraints>
                                     </view>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="LrM-mC-RfM">
-                                        <rect key="frame" x="0.0" y="653" width="375" height="37"/>
-                                    </pageControl>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -149,7 +146,6 @@
                         <outlet property="ignoreButton" destination="Clc-Yy-2ht" id="i67-q6-JoV"/>
                         <outlet property="imageView" destination="mfP-Vw-3SQ" id="SAq-8U-IOS"/>
                         <outlet property="nextButton" destination="XjZ-ed-ItP" id="M6T-Jt-59B"/>
-                        <outlet property="pageControl" destination="LrM-mC-RfM" id="GJS-hx-Ydg"/>
                         <outlet property="textLabel" destination="B7z-ur-AOj" id="owY-2Z-1FW"/>
                         <outlet property="titleLabel" destination="1kj-Lh-G2l" id="0J2-gj-RYK"/>
                     </connections>
