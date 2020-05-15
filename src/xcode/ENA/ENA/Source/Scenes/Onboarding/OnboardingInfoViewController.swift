@@ -142,18 +142,18 @@ final class OnboardingInfoViewController: UIViewController {
                 self.showError(error, from: self, completion: completion)
             } else {
 				self.exposureManager.enable { enableError in
-                    if let enableError = enableError {
-                        switch enableError {
-                        case .exposureNotificationRequired:
-                            log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-                        case .exposureNotificationAuthorization:
-                            log(message: "Encourage the user to authorize this application", level: .warning)
-                        }
-                    }
-                    completion?()
-                }
+					if let enableError = enableError {
+						switch enableError {
+						case .exposureNotificationRequired:
+							log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+						case .exposureNotificationAuthorization:
+							log(message: "Encourage the user to authorize this application", level: .warning)
+						}
+					}
+					completion?()
+				}
             }
-        }
+		}
     }
 
     private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
@@ -181,9 +181,11 @@ final class OnboardingInfoViewController: UIViewController {
     }
 	
     @IBAction func didTapNextButton(_ sender: Any) {
-		runActionForPageType(completion: {
-			self.gotoNextScreen()
-		})
+		runActionForPageType(
+			completion: {
+				self.gotoNextScreen()
+			}
+		)
     }
 
     @IBAction func didTapIgnoreButton(_ sender: Any) {
