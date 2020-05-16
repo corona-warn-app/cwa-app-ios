@@ -64,3 +64,22 @@ class MockClient: Client {
         completion(.success([submittedKeysFileURL]))
     }
 }
+
+private extension Sap_File {
+    func toAppleFile() -> Apple_File {
+        Apple_File.with {
+            $0.key = self.keys.map { $0.toAppleKey() }
+        }
+    }
+}
+
+private extension Sap_Key {
+    func toAppleKey() -> Apple_Key {
+        Apple_Key.with {
+            $0.keyData = self.keyData
+            $0.rollingStartNumber = self.rollingStartNumber
+            $0.rollingPeriod = self.rollingPeriod
+            $0.transmissionRiskLevel = self.transmissionRiskLevel
+        }
+    }
+}
