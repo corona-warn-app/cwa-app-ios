@@ -21,12 +21,11 @@
 		01EB1D342469770A00A7908B /* apple_exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB1D332469770A00A7908B /* apple_exposure_notification.pb.swift */; };
 		13126832246E88AC005297B7 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13126831246E88AC005297B7 /* AccessibilityIdentifiers.swift */; };
 		13126833246E88AC005297B7 /* AccessibilityIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13126831246E88AC005297B7 /* AccessibilityIdentifiers.swift */; };
-		13126838246E89C1005297B7 /* ENAUITestsOnboarding-Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13126835246E89C1005297B7 /* ENAUITestsOnboarding-Localized.swift */; };
-		13126839246E89C1005297B7 /* ENAUITests-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13126836246E89C1005297B7 /* ENAUITests-Extensions.swift */; };
-		1312683A246E89C1005297B7 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13126837246E89C1005297B7 /* ENAUITestsOnboarding.swift */; };
 		1312683C246E8A72005297B7 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
 		1312683D246E8A87005297B7 /* PersistedAndPublished.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BC090E246B1A0C00302424 /* PersistedAndPublished.swift */; };
 		1312683E246E8A92005297B7 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
+		13BD03B3246FDD6A00E2E28F /* ENAUITests-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BD03B1246FDD6A00E2E28F /* ENAUITests-Extensions.swift */; };
+		13BD03B4246FDD6A00E2E28F /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BD03B2246FDD6A00E2E28F /* ENAUITestsOnboarding.swift */; };
 		5111E7632460BB1500ED6498 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111E7622460BB1500ED6498 /* HomeInteractor.swift */; };
 		514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 514E812F24618E3D00636861 /* ExposureDetection.storyboard */; };
 		514E81342461B97800636861 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514E81332461B97700636861 /* ExposureManager.swift */; };
@@ -175,9 +174,8 @@
 		01EB1D2C246973F100A7908B /* submission_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = submission_payload.pb.swift; path = ../../../../../proto/output/submission_payload.pb.swift; sourceTree = "<group>"; };
 		01EB1D332469770A00A7908B /* apple_exposure_notification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apple_exposure_notification.pb.swift; path = ../../../../../proto/output/apple_exposure_notification.pb.swift; sourceTree = "<group>"; };
 		13126831246E88AC005297B7 /* AccessibilityIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityIdentifiers.swift; sourceTree = "<group>"; };
-		13126835246E89C1005297B7 /* ENAUITestsOnboarding-Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITestsOnboarding-Localized.swift"; sourceTree = "<group>"; };
-		13126836246E89C1005297B7 /* ENAUITests-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Extensions.swift"; sourceTree = "<group>"; };
-		13126837246E89C1005297B7 /* ENAUITestsOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsOnboarding.swift; sourceTree = "<group>"; };
+		13BD03B1246FDD6A00E2E28F /* ENAUITests-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Extensions.swift"; sourceTree = "<group>"; };
+		13BD03B2246FDD6A00E2E28F /* ENAUITestsOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsOnboarding.swift; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		514E812F24618E3D00636861 /* ExposureDetection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ExposureDetection.storyboard; sourceTree = "<group>"; };
 		514E81332461B97700636861 /* ExposureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
@@ -324,15 +322,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13126834246E89C1005297B7 /* Onboarding */ = {
+		13BD03B0246FDD6A00E2E28F /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				13126836246E89C1005297B7 /* ENAUITests-Extensions.swift */,
-				13126837246E89C1005297B7 /* ENAUITestsOnboarding.swift */,
-				13126835246E89C1005297B7 /* ENAUITestsOnboarding-Localized.swift */,
+				13BD03B1246FDD6A00E2E28F /* ENAUITests-Extensions.swift */,
+				13BD03B2246FDD6A00E2E28F /* ENAUITestsOnboarding.swift */,
 			);
-			name = Onboarding;
-			path = "../../../../../ENA stash/ENAUITests/Onboarding";
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		5107E3D72459B2D60042FC9B /* Frameworks */ = {
@@ -625,7 +621,7 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
-				13126834246E89C1005297B7 /* Onboarding */,
+				13BD03B0246FDD6A00E2E28F /* Onboarding */,
 				85D7596324570491008175F0 /* ENAUITests.swift */,
 				85D7596524570491008175F0 /* Info.plist */,
 			);
@@ -1132,13 +1128,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1312683A246E89C1005297B7 /* ENAUITestsOnboarding.swift in Sources */,
+				13BD03B3246FDD6A00E2E28F /* ENAUITests-Extensions.swift in Sources */,
 				1312683E246E8A92005297B7 /* NotificationName.swift in Sources */,
-				13126839246E89C1005297B7 /* ENAUITests-Extensions.swift in Sources */,
+				13BD03B4246FDD6A00E2E28F /* ENAUITestsOnboarding.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
 				1312683C246E8A72005297B7 /* Store.swift in Sources */,
 				13126833246E88AC005297B7 /* AccessibilityIdentifiers.swift in Sources */,
-				13126838246E89C1005297B7 /* ENAUITestsOnboarding-Localized.swift in Sources */,
 				1312683D246E8A87005297B7 /* PersistedAndPublished.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

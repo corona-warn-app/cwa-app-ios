@@ -8,6 +8,24 @@
 
 import XCTest
 
+enum SizeCategory: String {
+	case XS
+	case S
+	case M
+	case L
+	case XL
+	case XXL
+	case XXXL
+}
+enum SizeCategoryAccessibility: String {
+	case accessibility = "Accessibility"
+	case normal = ""
+	func description() -> String {
+		return self == .normal ? "" : "Accessibility"
+	}
+}
+
+
 extension XCUIElement {
 	func labelContains(text: String) -> Bool {
 		let predicate = NSPredicate(format: "label CONTAINS %@", text)
@@ -32,7 +50,7 @@ extension XCTestCase {
 	}
 
 	func local(_ key: String) -> String {
-		let testBundle = Bundle(for: PersistenceManager.self)
+		let testBundle = Bundle(for: Store.self)
 		if let currentLanguage = currentLanguage,
 			let testBundlePath = testBundle.path(forResource: currentLanguage.localeCode, ofType: "lproj") ?? testBundle.path(forResource: currentLanguage.langCode, ofType: "lproj"),
 			let localizedBundle = Bundle(path: testBundlePath)
@@ -42,23 +60,46 @@ extension XCTestCase {
 		return "?"
 	}
 	
-	func handleAlertTaps(alert: XCUIElement) {
-		let okButton = alert.buttons["OK"]
-		if okButton.exists {
-			okButton.tap()
+	func tapAllowOnAllDialogs() -> NSObjectProtocol {
+		return addUIInterruptionMonitor(withDescription: "UIAlert") {
+			(alert) -> Bool in
+			let okButton = alert.buttons[Accessibility.Alert.allowButton]
+			let allowButton = alert.buttons[Accessibility.Alert.okButton]
+			let firstButton = alert.buttons.element(boundBy: 1)
+			if okButton.exists {
+				okButton.tap()
+			} else if allowButton.exists {
+				allowButton.tap()
+			} else if firstButton.exists {
+			  firstButton.tap()
+			}
+			return true
 		}
-		
-		let allowButton = alert.buttons["Allow"]
-		if allowButton.exists {
-			allowButton.tap()
+	}
+
+	func tapDontAllowOnAllDialogs() -> NSObjectProtocol {
+		return addUIInterruptionMonitor(withDescription: "UIAlert") {
+			(alert) -> Bool in
+			let dontAllowButton = alert.buttons[Accessibility.Alert.dontAllowButton]
+			let cancelButton = alert.buttons[Accessibility.Alert.cancelButton]
+			let firstButton = alert.buttons.firstMatch
+			if dontAllowButton.exists {
+				dontAllowButton.tap()
+			} else if cancelButton.exists {
+				cancelButton.tap()
+			} else if firstButton.exists {
+			  firstButton.tap()
+			}
+			return true
 		}
 	}
 
 	func automaticallyHandleNotificationsDialog() {
 		addUIInterruptionMonitor(withDescription: "Local Notifications") {
 			(alert) -> Bool in
-			let notifPermission = "Would Like to Send You Notifications"
-			if alert.labelContains(text: notifPermission) {
+			let alertTitle = "Would Like to Send You Notifications"
+			print("#",#line,#function,alertTitle)
+			if alert.labelContains(text: alertTitle) {
 				alert.buttons["Allow"].tap()
 				return true
 			}
@@ -67,15 +108,27 @@ extension XCTestCase {
 	}
 	
 	func automaticallyHandleMicrophonePermissionsDialog() {
-		addUIInterruptionMonitor(withDescription: "Microphone Access") {
+		addUIInterruptionMonitor(withDescription: "COVID-19 Exposure Notifications") {
 			(alert) -> Bool in
-			let micPermission = "Would Like to Access the Microphone"
-			if alert.labelContains(text: micPermission) {
-				alert.buttons["OK"].tap()
+			let alertTitle = "Enable COVID-19 Exposure Notifications"
+			print("#",#line,#function,alertTitle)
+			if alert.labelContains(text: alertTitle) {
+				alert.buttons["Allow"].tap()
 				return true
 			}
 			return false
 		}
 	}
-	
+
+	func setPreferredContentSizeCategory(in app: XCUIApplication, accessibililty: SizeCategoryAccessibility, size: SizeCategory) {
+		// based on https://stackoverflow.com/questions/38316591/how-to-test-dynamic-type-larger-font-sizes-in-ios-simulator
+		app.launchArguments += [ "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)" ]
+	}
+
+	func setDefaults(for app: XCUIApplication) {
+		//app.launchEnvironment = ["CW_MODE": "mock"]
+		app.launchArguments += ["IsTesting"]
+		app.launchArguments += ["-isOnboarded","NO"]
+	}
+
 }

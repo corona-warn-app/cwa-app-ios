@@ -60,6 +60,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
         self.manager = manager
         super.init()
 
+		if !ProcessInfo.processInfo.arguments.contains("IsTesting") {
         observeENFramework()
     }
 
