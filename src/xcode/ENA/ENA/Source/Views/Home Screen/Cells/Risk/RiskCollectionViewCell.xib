@@ -57,17 +57,11 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" priority="950" constant="150" id="CMB-zN-Bd4"/>
                                     <constraint firstItem="hpO-ne-Sfx" firstAttribute="top" secondItem="Btw-nv-sYv" secondAttribute="topMargin" id="FiU-z1-e7i"/>
                                     <constraint firstItem="hpO-ne-Sfx" firstAttribute="leading" secondItem="Btw-nv-sYv" secondAttribute="leadingMargin" id="TGl-hw-iED"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="hpO-ne-Sfx" secondAttribute="trailing" id="Xq7-5E-wOg"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="hpO-ne-Sfx" secondAttribute="bottom" id="ayQ-Y7-3Q4"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="CMB-zN-Bd4"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pID-Ft-qds" userLabel="Bottom Container">
                                 <rect key="frame" x="0.0" y="293" width="627" height="83"/>
@@ -119,7 +113,6 @@
                 <outlet property="bottomContainer" destination="pID-Ft-qds" id="5jK-zb-80E"/>
                 <outlet property="chevronImageView" destination="nJl-O5-rry" id="Pnf-9I-Xn0"/>
                 <outlet property="contactButton" destination="b20-mf-cB4" id="V1m-yh-Ony"/>
-                <outlet property="heightConstraint" destination="CMB-zN-Bd4" id="1mN-CK-BuV"/>
                 <outlet property="middleContainer" destination="Btw-nv-sYv" id="h1w-EX-5cP"/>
                 <outlet property="stackView" destination="hpO-ne-Sfx" id="OV6-b5-9OY"/>
                 <outlet property="titleLabel" destination="gno-nj-MZX" id="mus-pa-Ikd"/>

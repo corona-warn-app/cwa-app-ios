@@ -27,7 +27,6 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
     @IBOutlet var topContainer: UIView!
     @IBOutlet var middleContainer: UIView!
     @IBOutlet var bottomContainer: UIView!
-    @IBOutlet var heightConstraint: NSLayoutConstraint!
     @IBOutlet var stackView: UIStackView!
     
     // MARK: Nib Loading
