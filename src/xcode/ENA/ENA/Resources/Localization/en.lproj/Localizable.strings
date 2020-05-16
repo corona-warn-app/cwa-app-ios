@@ -59,8 +59,8 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 
 "Home_Risk_Unknown_Title" = "Unknown Risk";
 "Home_Risk_Low_Title" = "Low Risk";
-"Home_Risk_High_Title" = "Moderate Risk";
-"Home_Risk_Moderate_Title" = "High Risk";
+"Home_Risk_Inactive_Title" = "Inactive";
+"Home_Risk_High_Title" = "High Risk";
 
 "Home_RiskCard_Body" = "No contact with COVID-19 was detected.";
 "Home_RiskCard_Date" = "Last review: %@";

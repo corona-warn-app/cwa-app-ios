@@ -90,9 +90,9 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "Home_Activate_Title" = "Tracing ist aktiv";
 
 "Home_Risk_Unknown_Title" = "Risiko Unbekannt";
+"Home_Risk_Inactive_Title" = "Keine Risikoprüfung";
 "Home_Risk_Low_Title" = "Risiko Niedrig";
 "Home_Risk_High_Title" = "Risiko Moderat";
-"Home_Risk_Moderate_Title" = "Risiko Hoch";
 
 "Home_RiskCard_Body" = "Es wurde kein Kontakt mit COVID-19 erkannt.";
 "Home_RiskCard_Date" = "Letzte Überprüfung: %@";
@@ -185,18 +185,18 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 
 //Risk View
 "unknown_risk" = "Risiko unbekannt";
+"inactive_risk" = "Keine Risikioprüfung";
 "low_risk" = "Geringes Risiko";
-"moderate_risk" = "Moderates Risiko";
 "high_risk" = "Hohes Risiko";
 
 "unknown_risk_detail" = "Es wurde kein Kontakt mit COVID 19 erkannt";
+"inactive_risk_detail" = "inactive";
 "low_risk_detail" = "Es wurde ein geringes Risiko für den Kontakt mit COVID 19 erkannt";
-"moderate_risk_detail" = "Es wurde ein moderates Risiko für den Kontakt mit COVID 19 erkannt";
 "high_risk_detail" = "Es wurde ein hohes Risiko für den Kontakt mit COVID 19 erkannt";
 
 "unknown_risk_detail_help" = "Das Infektionsrisiko ist unbekannt, da bisher noch keine Kontakte aufgezeichnet wurden.";
+"inactive_risk_detail_help" = "inactive";
 "low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
-"moderate_risk_detail_help" = "Es besteht moderates Infektionsrisiko, da ein Kontakt mit wenigen infizierten Personen oder nur über Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
 // Invite Friends
