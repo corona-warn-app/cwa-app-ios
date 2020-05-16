@@ -30,6 +30,6 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
     }
 	
 	func setupAccessibility(for cell: ActivateCollectionViewCell) {
-		cell.titleLabel.accessibilityIdentifier = Accessibility.StaticText.homeActivateTitle
+		cell.titleTextView.accessibilityIdentifier = Accessibility.StaticText.homeActivateTitle
 	}
 }
