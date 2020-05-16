@@ -51,6 +51,8 @@ extension UIColor {
             return UIColor(named: "brandBlue")
         case .brandMagenta:
             return UIColor(named: "brandMagenta")
+        case .shadow:
+            return UIColor(named: "shadow")
         }
     }
 

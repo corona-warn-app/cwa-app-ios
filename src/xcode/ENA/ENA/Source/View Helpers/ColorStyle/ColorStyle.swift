@@ -31,4 +31,5 @@ public enum ColorStyle {
     case brandBlue
     case brandMagenta
 	
+    case shadow
 }

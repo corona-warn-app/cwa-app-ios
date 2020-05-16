@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ActivateCollectionViewCell: UICollectionViewCell {
-    
+class ActivateCollectionViewCell: HomeCardCollectionViewCell {
+
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var titleTextView: UITextView!
     @IBOutlet var chevronImageView: UIImageView!
@@ -19,8 +19,6 @@ class ActivateCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = 15.0
-        layer.masksToBounds = true
         titleTextView.textContainerInset = .zero
         titleTextView.textContainer.lineFragmentPadding = 0
     }
@@ -36,9 +34,8 @@ class ActivateCollectionViewCell: UICollectionViewCell {
         var iconImageFrame = convert(iconImageView.frame, to: titleTextView)
         let lineHieghtRounded = lineHieght
         let offset: CGFloat = (lineHieghtRounded - iconImageFrame.height ) / 2.0
-        
-        constraint.constant = max(offset.rounded(), 0)
 
+        constraint.constant = max(offset.rounded(), 0)
         
         iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
         let bezierPath = UIBezierPath(rect: iconImageFrame)
