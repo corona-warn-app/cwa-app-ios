@@ -13,7 +13,7 @@ protocol RiskCollectionViewCellDelegate: AnyObject {
 }
 
 /// A cell that visualizes the current risk and allows the user to calculate he/his current risk.
-final class RiskCollectionViewCell: UICollectionViewCell {
+final class RiskCollectionViewCell: HomeCardCollectionViewCell {
     
     // MARK: Properties
     weak var delegate: RiskCollectionViewCellDelegate?
@@ -33,8 +33,6 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     // MARK: Nib Loading
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = 14.0
-        layer.masksToBounds = true
         contactButton.titleLabel?.adjustsFontForContentSizeCategory = true
         contactButton.layer.cornerRadius = 10.0
         contactButton.layer.masksToBounds = true
