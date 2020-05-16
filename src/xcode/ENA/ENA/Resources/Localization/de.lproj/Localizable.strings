@@ -98,9 +98,9 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "Home_RiskCard_Date" = "Letzte Überprüfung: %@";
 "Home_RiskCard_Button" = "Kontakte überprüfen";
 
-"Home_SubmitCard_Title" = "Ich wurde getestet";
-"Home_SubmitCard_Body" = "Melden Sie Ihren Befund annonym, damit Kontaktpersonnen informiert werden können";
-"Home_SubmitCard_Button" = "Befund melden";
+"Home_SubmitCard_Title" = "COVID Test";
+"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen.";
+"Home_SubmitCard_Button" = "Test registrieren";
 
 "Home_InfoCard_ShareTitle" = "Teilen Sie die App";
 "Home_InfoCard_ShareBody" = "Laden Sie Andere zum Mitmachen ein, denn zusammen sind wir stärker.";

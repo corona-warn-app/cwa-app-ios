@@ -21,8 +21,6 @@ class SubmitCollectionViewCell: HomeCardCollectionViewCell {
     
     weak var delegate: SubmitCollectionViewCellDelegate?
     
-    var submitAction: (() -> Void)?
-    
     @IBAction func submitButtonTapped(_ sender: UIButton) {
         delegate?.submitButtonTapped(cell: self)
     }
