@@ -153,6 +153,8 @@ enum AppStrings {
         static let description = NSLocalizedString("InviteFriends_Description", comment: "")
         static let submit = NSLocalizedString("InviteFriends_Button", comment: "")
         static let navigationBarTitle = NSLocalizedString("InviteFriends_NavTitle", comment: "")
+        static let shareTitle = NSLocalizedString("InviteFriends_ShareTitle", comment: "")
+        static let shareUrl = NSLocalizedString("InviteFriends_ShareUrl", comment: "")
     }
 
     enum ResetView {
