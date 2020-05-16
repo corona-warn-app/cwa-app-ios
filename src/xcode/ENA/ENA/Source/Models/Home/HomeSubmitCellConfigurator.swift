@@ -19,7 +19,10 @@ class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
         cell.bodyLabel.text = AppStrings.Home.submitCardBody
         let buttonTitle = AppStrings.Home.submitCardButton
         cell.contactButton.setTitle(buttonTitle, for: .normal)
-        cell.contactButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        guard let buttonLabel = cell.contactButton.titleLabel else { return }
+        buttonLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
+        buttonLabel.adjustsFontForContentSizeCategory = true
+        buttonLabel.lineBreakMode = .byWordWrapping
     }
 }
 
