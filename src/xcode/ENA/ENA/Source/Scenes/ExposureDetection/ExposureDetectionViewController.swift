@@ -67,11 +67,11 @@ final class ExposureDetectionViewController: UIViewController {
         updateLastSyncLabel()
         updateNextSyncLabel()
 
-        if let summary = exposureDetectionSummary, RiskLevel(riskScore: summary.maximumRiskScore) != .unknown {
+        if let summary = exposureDetectionSummary, let riskLevel = RiskLevel(riskScore: summary.maximumRiskScore) {
             riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
             riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
             riskView.highRiskDetailView.isHidden = false
-            setRiskView(to: RiskLevel(riskScore: summary.maximumRiskScore) )
+            setRiskView(to: riskLevel)
         } else {
             riskView.titleRiskLabel.text = AppStrings.RiskView.unknownRisk
             riskView.daysSinceLastExposureLabel.text = "0"
@@ -90,9 +90,9 @@ final class ExposureDetectionViewController: UIViewController {
             riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.lowRiskDetail
             riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
             riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
-        case .moderate:
-            riskView.titleRiskLabel.text = AppStrings.RiskView.moderateRisk
-            riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.moderateRiskDetail
+        case .inactive:
+            riskView.titleRiskLabel.text = AppStrings.RiskView.inactiveRisk
+            riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.inactiveRiskDetail
             riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
             riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.medium)
         default:
@@ -213,7 +213,7 @@ fileprivate extension ENExposureDetectionSummary {
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 30)
         ]
-        let title: String = self.title(for: RiskLevel(riskScore: maximumRiskScore))
+        let title: String = self.title(for: RiskLevel(riskScore: maximumRiskScore) ?? .unknown)
         string.append(NSAttributedString(string: "\n\(title)", attributes: attributes))
         string.append(NSAttributedString(string: "\n\n\n\(daysSinceLastExposure) Tage seit Kontakt", attributes: attributes))
         string.append(NSAttributedString(string: "\n\(matchedKeyCount) Kontakte\n\n", attributes: attributes))
@@ -227,12 +227,12 @@ fileprivate extension ENExposureDetectionSummary {
         switch riskLevel {
         case .unknown:
             key = AppStrings.Home.riskCardUnknownTitle
+        case .inactive:
+            key = AppStrings.Home.riskCardInactiveTitle
         case .low:
             key = AppStrings.Home.riskCardLowTitle
         case .high:
             key = AppStrings.Home.riskCardHighTitle
-        case .moderate:
-            key = AppStrings.Home.riskCardModerateTitle
         }
         return key
     }

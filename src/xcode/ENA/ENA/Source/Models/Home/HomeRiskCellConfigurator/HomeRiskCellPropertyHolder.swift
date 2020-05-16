@@ -39,6 +39,20 @@ final class HomeRiskCellPropertyHolder {
                 chevronImage: UIImage(systemName: "chevron.right"),
                 itemCellConfigurators: []
             )
+        case .inactive:
+            let titleColor = UIColor.white
+            let color = UIColor.preferredColor(for: .medium)
+            let item1 = HomeRiskItemViewConfigurator(title: "1 Kontakt", titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
+            let item2 = HomeRiskItemViewConfigurator(title: "12 Tage seit letztem Kontakt", titleColor: titleColor, iconImageName: "Calendar", color: color)
+            let item3 = HomeRiskItemViewConfigurator(title: "Letzte Prüfung: Heute, 9:32 Uhr", titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
+            return HomeRiskCellPropertyHolder(
+                title: AppStrings.Home.riskCardInactiveTitle,
+                titleColor: titleColor,
+                color: color,
+                chevronTintColor: .white,
+                chevronImage: UIImage(systemName: "chevron.right"),
+                itemCellConfigurators: [item1, item2, item3]
+            )
         case .low:
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardLowTitle,
@@ -60,20 +74,6 @@ final class HomeRiskCellPropertyHolder {
                 chevronTintColor: #colorLiteral(red: 1, green: 0.8961167932, blue: 0.8636761308, alpha: 1),
                 chevronImage: UIImage(systemName: "chevron.right"),
                 itemCellConfigurators: []
-            )
-        case .moderate:
-            let titleColor = UIColor.white
-            let color = UIColor.preferredColor(for: .medium)
-            let item1 = HomeRiskItemViewConfigurator(title: "1 Kontakt", titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
-            let item2 = HomeRiskItemViewConfigurator(title: "12 Tage seit letztem Kontakt", titleColor: titleColor, iconImageName: "Calendar", color: color)
-            let item3 = HomeRiskItemViewConfigurator(title: "Letzte Prüfung: Heute, 9:32 Uhr", titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
-            return HomeRiskCellPropertyHolder(
-                title: AppStrings.Home.riskCardModerateTitle,
-                titleColor: titleColor,
-                color: color,
-                chevronTintColor: .white,
-                chevronImage: UIImage(systemName: "chevron.right"),
-                itemCellConfigurators: [item1, item2, item3]
             )
         }
     }

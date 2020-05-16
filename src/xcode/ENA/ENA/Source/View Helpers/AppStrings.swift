@@ -111,9 +111,9 @@ enum AppStrings {
         static let activateTitle = NSLocalizedString("Home_Activate_Title", comment: "")
 
         static let riskCardUnknownTitle = NSLocalizedString("Home_Risk_Unknown_Title", comment: "")
+        static let riskCardInactiveTitle = NSLocalizedString("Home_Risk_Moderate_Title", comment: "")
         static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
         static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
-        static let riskCardModerateTitle = NSLocalizedString("Home_Risk_Moderate_Title", comment: "")
             
         static let riskCardBody = NSLocalizedString("Home_RiskCard_Body", comment: "")
         static let riskCardDate = NSLocalizedString("Home_RiskCard_Date", comment: "")
@@ -133,18 +133,18 @@ enum AppStrings {
 
     enum RiskView {
         static let unknownRisk = NSLocalizedString("unknown_risk", comment: "")
+        static let inactiveRisk = NSLocalizedString("inactive_risk", comment: "")
         static let lowRisk = NSLocalizedString("low_risk", comment: "")
-        static let moderateRisk = NSLocalizedString("moderate_risk", comment: "")
         static let highRisk = NSLocalizedString("high_risk", comment: "")
 
         static let unknownRiskDetail = NSLocalizedString("unknown_risk_detail", comment: "")
+        static let inactiveRiskDetail = NSLocalizedString("inactive_risk_detail", comment: "")
         static let lowRiskDetail = NSLocalizedString("low_risk_detail", comment: "")
-        static let moderateRiskDetail = NSLocalizedString("moderate_risk_detail", comment: "")
         static let highRiskDetail = NSLocalizedString("high_risk_detail", comment: "")
 
         static let unknownRiskDetailHelp = NSLocalizedString("unknown_risk_detail_help", comment: "")
+        static let inactiveRiskDetailHelp = NSLocalizedString("inactive_risk_detail_help", comment: "")
         static let lowRiskDetailHelp = NSLocalizedString("low_risk_detail_help", comment: "")
-        static let moderateRiskDetailHelp = NSLocalizedString("moderate_risk_detail_help", comment: "")
         static let highRiskDetailHelp = NSLocalizedString("high_risk_detail_help", comment: "")
     }
 
