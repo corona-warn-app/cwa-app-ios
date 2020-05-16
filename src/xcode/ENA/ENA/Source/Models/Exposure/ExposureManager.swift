@@ -61,7 +61,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
         super.init()
 
 		if !ProcessInfo.processInfo.arguments.contains("IsTesting") {
-        observeENFramework()
+			observeENFramework()
+		}
     }
 
     // MARK: Observers
@@ -130,11 +131,11 @@ final class ENAExposureManager: NSObject, ExposureManager {
         }
 
         let message = """
-        New status of EN framework:
-            Authorized: \(ENManager.authorizationStatus.debugDescription)
-            enabled: \(manager.exposureNotificationEnabled)
-            status: \(manager.exposureNotificationStatus.debugDescription)
-        """
+New status of EN framework:
+	Authorized: \(ENManager.authorizationStatus.debugDescription)
+	enabled: \(manager.exposureNotificationEnabled)
+	status: \(manager.exposureNotificationStatus.debugDescription)
+"""
         log(message: message)
 
         if preconditions == Preconditions.all {
