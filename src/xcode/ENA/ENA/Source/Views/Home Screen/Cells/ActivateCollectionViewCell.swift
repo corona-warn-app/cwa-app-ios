@@ -29,11 +29,11 @@ class ActivateCollectionViewCell: HomeCardCollectionViewCell {
     }
     
     private func wrapImage() {
-        guard let lineHieght = titleTextView.font?.lineHeight else { return }
+        guard let lineHeight = titleTextView.font?.lineHeight else { return }
         
         var iconImageFrame = convert(iconImageView.frame, to: titleTextView)
-        let lineHieghtRounded = lineHieght
-        let offset: CGFloat = (lineHieghtRounded - iconImageFrame.height ) / 2.0
+        let lineHeightRounded = lineHeight
+        let offset: CGFloat = (lineHeightRounded - iconImageFrame.height ) / 2.0
 
         constraint.constant = max(offset.rounded(), 0)
         
