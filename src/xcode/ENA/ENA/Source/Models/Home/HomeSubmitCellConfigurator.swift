@@ -19,6 +19,7 @@ class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
         cell.bodyLabel.text = AppStrings.Home.submitCardBody
         let buttonTitle = AppStrings.Home.submitCardButton
         cell.contactButton.setTitle(buttonTitle, for: .normal)
+        cell.contactButton.titleLabel?.adjustsFontForContentSizeCategory = true
     }
 }
 
