@@ -14,7 +14,7 @@ class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
     
     func configure(cell: SubmitCollectionViewCell) {
         cell.delegate = self
-        cell.iconImageView.image = UIImage(named: "onboarding_phone")
+        cell.iconImageView.image = UIImage(named: "Hand_with_phone")
         cell.titleLabel.text = AppStrings.Home.submitCardTitle
         cell.bodyLabel.text = AppStrings.Home.submitCardBody
         let buttonTitle = AppStrings.Home.submitCardButton
