@@ -78,7 +78,7 @@ class ENAUITestsOnboarding: XCTestCase {
 		setPreferredContentSizeCategory(in: app, accessibililty: .normal, size: .M)
 		app.launch()
 
-		tapAllowOnAllDialogs()
+		let _ = tapAllowOnAllDialogs()
 
 		// only run if onboarding screen is present
 		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
