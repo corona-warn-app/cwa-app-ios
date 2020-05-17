@@ -30,7 +30,7 @@ final class HomeRiskCellPropertyHolder {
         self.itemCellConfigurators = itemCellConfigurators
     }
     
-        
+    // swiftlint:disable:next function_body_length
     static func propertyHolder(for riskLevel: RiskLevel, dateString: String?) -> HomeRiskCellPropertyHolder {
         switch riskLevel {
         case .unknown:
