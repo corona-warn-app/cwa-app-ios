@@ -56,7 +56,6 @@ final class RiskItemView: UIView {
 
         topImageTopTextViewConstraint.constant = max(offset.rounded(), 0)
         let iconTitleDistance = leadingTextViewLeadingMarginConstraint.constant
-        print(iconTitleDistance)
         iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
         let bezierPath = UIBezierPath(rect: iconImageFrame)
         titleTextView.textContainer.exclusionPaths = [bezierPath]

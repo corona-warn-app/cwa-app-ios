@@ -21,7 +21,7 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
     // MARK: Outlets
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var chevronImageView: UIImageView!
-    @IBOutlet var contactButton: TitleButton!
+    @IBOutlet var contactButton: UIButton!
     
     @IBOutlet var viewContainer: UIView!
     @IBOutlet var topContainer: UIView!
@@ -42,11 +42,6 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
             $0?.layoutMargins = containerInsets
         }
         middleContainer?.layoutMargins = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contactButton.invalidateIntrinsicContentSize()
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -93,14 +88,5 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
         if let riskItemView = stackView.arrangedSubviews.last as? RiskItemView {
             riskItemView.hideSeparator()
         }
-    }
-}
-
-class TitleButton: UIButton {
-    override var intrinsicContentSize: CGSize {
-        let titleFitsSize = CGSize(width: frame.width, height: .greatestFiniteMagnitude)
-        let titleSize = titleLabel?.sizeThatFits(titleFitsSize) ?? .zero
-        let buttonSize = CGSize(width: titleSize.width + titleEdgeInsets.left + titleEdgeInsets.right, height: titleSize.height + titleEdgeInsets.top + titleEdgeInsets.bottom)
-        return buttonSize
     }
 }
