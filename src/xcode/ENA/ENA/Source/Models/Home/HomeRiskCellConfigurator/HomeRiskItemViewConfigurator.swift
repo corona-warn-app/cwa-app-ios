@@ -11,11 +11,11 @@ import UIKit
 final class HomeRiskItemViewConfigurator {
     
     var title: String
-    var titleColor: UIColor?
+    var titleColor: UIColor
     var iconImageName: String
-    var color: UIColor?
+    var color: UIColor
     
-    init(title: String, titleColor: UIColor?, iconImageName: String, color: UIColor?) {
+    init(title: String, titleColor: UIColor, iconImageName: String, color: UIColor) {
         self.title = title
         self.titleColor = titleColor
         self.iconImageName = iconImageName
@@ -23,11 +23,11 @@ final class HomeRiskItemViewConfigurator {
     }
     
     func configure(riskItemView: RiskItemView) {
-        let iconTintColor: UIColor = titleColor ?? .white
+        let iconTintColor = titleColor
         riskItemView.iconImageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
         riskItemView.titleTextView?.text = title
         riskItemView.titleTextView?.textColor = titleColor
-        riskItemView.separatorView?.backgroundColor = iconTintColor
+        riskItemView.separatorView?.backgroundColor = UIColor.white.withAlphaComponent(0.15)
         riskItemView.backgroundColor = color
     }
 }

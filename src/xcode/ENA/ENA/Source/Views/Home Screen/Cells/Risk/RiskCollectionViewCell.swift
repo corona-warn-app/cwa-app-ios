@@ -79,6 +79,7 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
         contactButton.isEnabled = propertyHolder.isButtonEnabled
         
         let nib = UINib(nibName: RiskItemView.stringName(), bundle: .main)
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         for itemConfigurator in propertyHolder.itemCellConfigurators {
             if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
                 stackView.addArrangedSubview(riskView)

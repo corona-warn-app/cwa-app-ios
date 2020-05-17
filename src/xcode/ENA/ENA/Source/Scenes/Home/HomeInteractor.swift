@@ -45,7 +45,7 @@ final class HomeInteractor {
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
 
         let activeConfigurator = HomeActivateCellConfigurator(isActivated: true)
-        let date = store.dateLastExposureDetection
+        let date = Date() //store.dateLastExposureDetection
 
         let riskLevel: RiskLevel
         if let detectionSummary = detectionSummary, let rlevel = RiskLevel(riskScore: detectionSummary.maximumRiskScore) {

@@ -27,7 +27,7 @@
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xqB-br-Yjr" userLabel="Separator View">
-                    <rect key="frame" x="60" y="154" width="495" height="1"/>
+                    <rect key="frame" x="60" y="154" width="515" height="1"/>
                     <color key="backgroundColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="2Ko-AP-a7I"/>
@@ -36,13 +36,13 @@
             </subviews>
             <constraints>
                 <constraint firstItem="LEZ-Xx-WVk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="54r-4R-zcD"/>
-                <constraint firstItem="xqB-br-Yjr" firstAttribute="trailing" secondItem="LEZ-Xx-WVk" secondAttribute="trailing" id="D9x-go-iH1"/>
                 <constraint firstAttribute="bottom" secondItem="xqB-br-Yjr" secondAttribute="bottom" id="Eec-3A-2t8"/>
                 <constraint firstAttribute="bottomMargin" secondItem="LEZ-Xx-WVk" secondAttribute="bottom" id="HeR-tk-VYN"/>
                 <constraint firstItem="xqB-br-Yjr" firstAttribute="leading" secondItem="LEZ-Xx-WVk" secondAttribute="leading" id="Tpl-Vs-lLK"/>
                 <constraint firstItem="3I7-DI-BV1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="XVe-ow-tIj"/>
                 <constraint firstItem="3I7-DI-BV1" firstAttribute="top" secondItem="LEZ-Xx-WVk" secondAttribute="top" id="e7K-Lz-rwZ"/>
                 <constraint firstItem="LEZ-Xx-WVk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" priority="900" id="jTr-vB-ZeC"/>
+                <constraint firstAttribute="trailing" secondItem="xqB-br-Yjr" secondAttribute="trailing" id="pTY-nO-oHb"/>
                 <constraint firstAttribute="trailingMargin" secondItem="LEZ-Xx-WVk" secondAttribute="trailing" id="qkz-AQ-SGd"/>
                 <constraint firstItem="LEZ-Xx-WVk" firstAttribute="leading" secondItem="3I7-DI-BV1" secondAttribute="trailing" priority="900" constant="16" id="vKn-ov-wKA"/>
             </constraints>

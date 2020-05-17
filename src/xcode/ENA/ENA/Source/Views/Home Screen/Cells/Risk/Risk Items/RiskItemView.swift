@@ -23,7 +23,7 @@ final class RiskItemView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        separatorHeightConstraint.constant = 0.5
+        separatorHeightConstraint.constant = 1
         titleTextView.textContainerInset = .zero
         titleTextView.textContainer.lineFragmentPadding = 0
         titleTextView.textContainerInset = .init(top: titleTopPadding, left: 0.0, bottom: titleTopPadding, right: 0.0)

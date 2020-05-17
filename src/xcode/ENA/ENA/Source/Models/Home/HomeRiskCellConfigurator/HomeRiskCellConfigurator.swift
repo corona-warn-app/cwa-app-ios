@@ -34,9 +34,7 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         
         var dateString: String?
         if let date = date {
-            let string = HomeRiskCellConfigurator.dateFormatter.string(from: date)
-            let dateKey = AppStrings.Home.riskCardDate
-            dateString = String(format: dateKey, string)
+            dateString = HomeRiskCellConfigurator.dateFormatter.string(from: date)
         }
         let holder = HomeRiskCellPropertyHolder.propertyHolder(for: riskLevel, dateString: dateString)
         // The delegate will be called back when the cell's primary action is triggered

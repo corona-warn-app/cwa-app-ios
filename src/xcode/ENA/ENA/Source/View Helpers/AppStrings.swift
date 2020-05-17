@@ -111,17 +111,25 @@ enum AppStrings {
         static let activateTitle = NSLocalizedString("Home_Activate_Title", comment: "")
 
         static let riskCardUnknownTitle = NSLocalizedString("Home_Risk_Unknown_Title", comment: "")
-        static let riskCardInactiveTitle = NSLocalizedString("Home_Risk_Inactive_Title", comment: "")
-        static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
-        static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
-        
         static let riskCardUnknownItemTitle = NSLocalizedString("Home_RiskCard_Unknown_Item_Title", comment: "")
         static let riskCardUnknownButton = NSLocalizedString("Home_RiskCard_Unknown_Button", comment: "")
         
-        static let riskCardBody = NSLocalizedString("Home_RiskCard_Body", comment: "")
-        static let riskCardDate = NSLocalizedString("Home_RiskCard_Date", comment: "")
-        static let riskCardButton = NSLocalizedString("Home_RiskCard_Button", comment: "")
-
+        static let riskCardInactiveTitle = NSLocalizedString("Home_Risk_Inactive_Title", comment: "")
+        static let riskCardInactiveActivateItemTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Title", comment: "")
+        static let riskCardInactiveDateItemTitle = NSLocalizedString("Home_Risk_Inactive_Date_Item_Title", comment: "")
+        static let riskCardInactiveButton = NSLocalizedString("Home_Risk_Inactive_Button", comment: "")
+        
+        static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
+        static let riskCardLowNoContactItemTitle = NSLocalizedString("Home_Risk_Low_NoContact_Item_Title", comment: "")
+        static let riskCardLowDateItemTitle = NSLocalizedString("Home_Risk_Low_Date_Item_Title", comment: "")
+        static let riskCardLowButton = NSLocalizedString("Home_Risk_Low_Button", comment: "")
+        
+        static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
+        static let riskCardHighNumberContactsItemTitle = NSLocalizedString("Home_Risk_High_Number_Contacts_Item_Title", comment: "")
+        static let riskCardHighLastContactItemTitle = NSLocalizedString("Home_Risk_High_Last_Contact_Item_Title", comment: "")
+        static let riskCardHighDateItemTitle = NSLocalizedString("Home_Risk_High_Date_Item_Title", comment: "")
+        static let riskCardHighButton = NSLocalizedString("Home_Risk_High_Button", comment: "")
+        
         static let submitCardTitle = NSLocalizedString("Home_SubmitCard_Title", comment: "")
         static let submitCardBody = NSLocalizedString("Home_SubmitCard_Body", comment: "")
         static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
