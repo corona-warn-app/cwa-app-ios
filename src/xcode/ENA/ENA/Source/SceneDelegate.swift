@@ -39,7 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Helper
     private func setupRootViewController() {
         let manager = ENAExposureManager()
-        let onboardingWasShown = true // store.isOnboarded
+        let onboardingWasShown = store.isOnboarded
         //For a demo, we can set it to true.
         let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)
         let rootViewController: UIViewController
