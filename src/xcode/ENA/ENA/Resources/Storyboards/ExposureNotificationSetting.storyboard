@@ -147,6 +147,7 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
                             <outlet property="delegate" destination="IOf-gd-WHN" id="P9x-7J-cxs"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="jvD-1R-16G"/>
                     <connections>
                         <outlet property="contactTracingSwitch" destination="2qw-aq-jOl" id="Hdv-Sc-xei"/>
                         <outlet property="enableTrackingLabel" destination="U0V-yi-Gjl" id="Cmw-mx-XfN"/>
@@ -156,7 +157,7 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvH-eJ-uzR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="85.507246376811594" y="120.53571428571428"/>
+            <point key="canvasLocation" x="-1220" y="48"/>
         </scene>
     </scenes>
     <resources>
