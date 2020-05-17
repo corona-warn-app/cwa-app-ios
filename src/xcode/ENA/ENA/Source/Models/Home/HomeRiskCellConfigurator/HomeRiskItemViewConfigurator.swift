@@ -24,9 +24,9 @@ final class HomeRiskItemViewConfigurator {
     
     func configure(riskItemView: RiskItemView) {
         let iconTintColor: UIColor = titleColor ?? .white
-        riskItemView.imageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
-        riskItemView.insetTextLabel?.text = title
-        riskItemView.insetTextLabel?.textColor = titleColor
+        riskItemView.iconImageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
+        riskItemView.titleTextView?.text = title
+        riskItemView.titleTextView?.textColor = titleColor
         riskItemView.separatorView?.backgroundColor = iconTintColor
         riskItemView.backgroundColor = color
     }
