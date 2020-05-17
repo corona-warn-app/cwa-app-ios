@@ -25,7 +25,7 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     
     // MARK: Creating a Home Risk Cell Configurator
     init(riskLevel: RiskLevel, date: Date?) {
-        self.riskLevel = .inactive // riskLevel
+        self.riskLevel = .unknown // riskLevel
         self.date = date
     }
     

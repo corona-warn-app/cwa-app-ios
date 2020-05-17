@@ -22,9 +22,15 @@ public enum ColorStyle {
     case backgroundBase
     case backgroundContrast
     
+    // home
+    
+    // common
+    case chevron
+    
+    // risk
     case positive
     case negative
-    case medium
+    case inactive
     case unknownRisk
 
     case brandRed

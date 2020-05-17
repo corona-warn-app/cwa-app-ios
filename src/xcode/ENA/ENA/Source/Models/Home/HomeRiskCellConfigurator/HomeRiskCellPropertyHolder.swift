@@ -15,33 +15,41 @@ final class HomeRiskCellPropertyHolder {
     let color: UIColor
     let chevronTintColor: UIColor
     let chevronImage: UIImage?
+    let buttonTitle: String
+    let isButtonEnabled: Bool
     let itemCellConfigurators: [HomeRiskItemViewConfigurator]
     
-    init(title: String, titleColor: UIColor, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, itemCellConfigurators: [HomeRiskItemViewConfigurator]) {
+    init(title: String, titleColor: UIColor, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, buttonTitle: String, isButtonEnabled: Bool, itemCellConfigurators: [HomeRiskItemViewConfigurator]) {
         self.title = title
         self.titleColor = titleColor
         self.color = color
         self.chevronTintColor = chevronTintColor
         self.chevronImage = chevronImage
+        self.buttonTitle = buttonTitle
+        self.isButtonEnabled = isButtonEnabled
         self.itemCellConfigurators = itemCellConfigurators
     }
     
-    // swiftlint:disable:next function_body_length
+        
     static func propertyHolder(for riskLevel: RiskLevel, dateString: String?) -> HomeRiskCellPropertyHolder {
+        
         switch riskLevel {
         case .unknown:
+            let titleColor = UIColor.white
+            let color = UIColor.preferredColor(for: .unknownRisk)
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardUnknownTitle,
-                // swiftlint:disable:next discouraged_object_literal
-                titleColor: #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1),
-                color: UIColor.preferredColor(for: .unknownRisk),
-                chevronTintColor: .systemBlue,
+                titleColor: titleColor,
+                color: color,
+                chevronTintColor: .preferredColor(for: .chevron),
                 chevronImage: UIImage(systemName: "chevron.right"),
+                buttonTitle: AppStrings.Home.riskCardButton,
+                isButtonEnabled: false,
                 itemCellConfigurators: []
             )
         case .inactive:
             let titleColor = UIColor.white
-            let color = UIColor.preferredColor(for: .medium)
+            let color = UIColor.preferredColor(for: .inactive)
             let item1 = HomeRiskItemViewConfigurator(title: "1 Kontakt", titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
             let item2 = HomeRiskItemViewConfigurator(title: "12 Tage seit letztem Kontakt", titleColor: titleColor, iconImageName: "Calendar", color: color)
             let item3 = HomeRiskItemViewConfigurator(title: "Letzte Prüfung: Heute, 9:32 Uhr", titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
@@ -51,29 +59,40 @@ final class HomeRiskCellPropertyHolder {
                 color: color,
                 chevronTintColor: .white,
                 chevronImage: UIImage(systemName: "chevron.right"),
+                buttonTitle: AppStrings.Home.riskCardButton,
+                isButtonEnabled: true,
                 itemCellConfigurators: [item1, item2, item3]
             )
         case .low:
+            let titleColor = UIColor.white
+            let color = UIColor.preferredColor(for: .positive)
+            let item1 = HomeRiskItemViewConfigurator(title: "Bisher keine Kontakte", titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
+            let item2 = HomeRiskItemViewConfigurator(title: "Letzte Prüfung: Heute, 9:32 Uhr", titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardLowTitle,
-                // swiftlint:disable:next discouraged_object_literal
-                titleColor: #colorLiteral(red: 0.9090440273, green: 1, blue: 0.8056635857, alpha: 1),
-                color: UIColor.preferredColor(for: .positive),
-                // swiftlint:disable:next discouraged_object_literal
-                chevronTintColor: #colorLiteral(red: 0.9090440273, green: 1, blue: 0.8056635857, alpha: 1),
+                titleColor: titleColor,
+                color: color,
+                chevronTintColor: .white,
                 chevronImage: UIImage(systemName: "chevron.right"),
-                itemCellConfigurators: []
+                buttonTitle: AppStrings.Home.riskCardButton,
+                isButtonEnabled: true,
+                itemCellConfigurators: [item1, item2]
             )
         case .high:
+            let titleColor = UIColor.white
+            let color = UIColor.preferredColor(for: .negative)
+            let item1 = HomeRiskItemViewConfigurator(title: "8 Kontakte mit erhöhtem Risiko", titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
+            let item2 = HomeRiskItemViewConfigurator(title: "2 Tage seit letztem Kontakt", titleColor: titleColor, iconImageName: "Calendar", color: color)
+            let item3 = HomeRiskItemViewConfigurator(title: "Letzte Prüfung: Heute, 9:32 Uhr", titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardHighTitle,
-                // swiftlint:disable:next discouraged_object_literal
-                titleColor: #colorLiteral(red: 0.06978602707, green: 0.1870820522, blue: 0.3886224329, alpha: 1),
-                color: UIColor.preferredColor(for: .negative),
-                // swiftlint:disable:next discouraged_object_literal
-                chevronTintColor: #colorLiteral(red: 1, green: 0.8961167932, blue: 0.8636761308, alpha: 1),
+                titleColor: titleColor,
+                color: color,
+                chevronTintColor: .white,
                 chevronImage: UIImage(systemName: "chevron.right"),
-                itemCellConfigurators: []
+                buttonTitle: AppStrings.Home.riskCardButton,
+                isButtonEnabled: true,
+                itemCellConfigurators: [item1, item2, item3]
             )
         }
     }

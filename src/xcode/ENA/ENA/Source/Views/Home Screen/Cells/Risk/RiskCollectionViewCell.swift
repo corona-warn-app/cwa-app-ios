@@ -43,6 +43,15 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
         middleContainer?.layoutMargins = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
     }
     
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let buttonPoint = convert(point, to: contactButton)
+        let containsPoint = contactButton.bounds.contains(buttonPoint)
+        if containsPoint && !contactButton.isEnabled {
+            return nil
+        }
+        return super.hitTest(point, with: event)
+    }
+    
     // MARK: Actions
     @IBAction func contactButtonTapped(_ sender: UIButton) {
         delegate?.contactButtonTapped(cell: self)
@@ -58,9 +67,10 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
         viewContainer.backgroundColor = propertyHolder.color
         chevronImageView.tintColor = propertyHolder.chevronTintColor
         chevronImageView.image = propertyHolder.chevronImage
-        contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
-        contactButton.setTitleColor(UIColor.preferredColor(for: .textPrimary1), for: .normal)
-        contactButton.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
+        contactButton.setTitle(propertyHolder.buttonTitle, for: .normal)
+//        contactButton.setTitleColor(UIColor.preferredColor(for: .textPrimary1), for: .normal)
+        contactButton.backgroundColor = .red // UIColor.preferredColor(for: .backgroundBase)
+        contactButton.isEnabled = false // propertyHolder.isButtonEnabled
         
         let nib = UINib(nibName: RiskItemView.stringName(), bundle: .main)
         for itemConfigurator in propertyHolder.itemCellConfigurators {

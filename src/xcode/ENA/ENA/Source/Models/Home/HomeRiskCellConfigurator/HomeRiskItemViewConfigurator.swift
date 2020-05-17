@@ -27,6 +27,7 @@ final class HomeRiskItemViewConfigurator {
         riskItemView.imageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
         riskItemView.insetTextLabel?.text = title
         riskItemView.insetTextLabel?.textColor = titleColor
+        riskItemView.separatorView?.backgroundColor = iconTintColor
         riskItemView.backgroundColor = color
     }
 }

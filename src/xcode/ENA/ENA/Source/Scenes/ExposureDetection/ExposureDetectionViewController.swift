@@ -94,7 +94,7 @@ final class ExposureDetectionViewController: UIViewController {
             riskView.titleRiskLabel.text = AppStrings.RiskView.inactiveRisk
             riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.inactiveRiskDetail
             riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
-            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.medium)
+            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.inactive)
         default:
             riskView.titleRiskLabel.text = AppStrings.RiskView.highRisk
             riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.highRiskDetail

@@ -36,7 +36,7 @@ class RiskLegendFactory {
             ),
             RiskLegendEntry(
                 riskLevel: .inactive,
-                backgroundColor: .preferredColor(for: .medium),
+                backgroundColor: .preferredColor(for: .inactive),
                 imageName: "cloud.rain",
                 title: AppStrings.RiskView.inactiveRisk,
                 description: AppStrings.RiskView.inactiveRiskDetailHelp
