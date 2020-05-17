@@ -37,15 +37,18 @@ final class HomeRiskCellPropertyHolder {
         case .unknown:
             let titleColor = UIColor.white
             let color = UIColor.preferredColor(for: .unknownRisk)
+            
+            let item = HomeRiskItemViewConfigurator(title: AppStrings.Home.riskCardUnknownItemTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
+            
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardUnknownTitle,
                 titleColor: titleColor,
                 color: color,
                 chevronTintColor: .preferredColor(for: .chevron),
                 chevronImage: UIImage(systemName: "chevron.right"),
-                buttonTitle: AppStrings.Home.riskCardButton,
+                buttonTitle: AppStrings.Home.riskCardUnknownButton,
                 isButtonEnabled: false,
-                itemCellConfigurators: []
+                itemCellConfigurators: [item]
             )
         case .inactive:
             let titleColor = UIColor.white

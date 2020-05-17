@@ -114,7 +114,10 @@ enum AppStrings {
         static let riskCardInactiveTitle = NSLocalizedString("Home_Risk_Inactive_Title", comment: "")
         static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
         static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
-            
+        
+        static let riskCardUnknownItemTitle = NSLocalizedString("Home_RiskCard_Unknown_Item_Title", comment: "")
+        static let riskCardUnknownButton = NSLocalizedString("Home_RiskCard_Unknown_Button", comment: "")
+        
         static let riskCardBody = NSLocalizedString("Home_RiskCard_Body", comment: "")
         static let riskCardDate = NSLocalizedString("Home_RiskCard_Date", comment: "")
         static let riskCardButton = NSLocalizedString("Home_RiskCard_Button", comment: "")

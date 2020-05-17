@@ -94,6 +94,11 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "Home_Risk_Low_Title" = "Risiko Niedrig";
 "Home_Risk_High_Title" = "Risiko Moderat";
 
+// Home Unknown card
+
+"Home_RiskCard_Unknown_Item_Title" = "Da Sie Ihre Umfeldaufzeichnung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
+"Home_RiskCard_Unknown_Button" = "Risikostatus prüfen";
+
 "Home_RiskCard_Body" = "Es wurde kein Kontakt mit COVID-19 erkannt.";
 "Home_RiskCard_Date" = "Letzte Überprüfung: %@";
 "Home_RiskCard_Button" = "Kontakte überprüfen";

@@ -67,10 +67,15 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
         viewContainer.backgroundColor = propertyHolder.color
         chevronImageView.tintColor = propertyHolder.chevronTintColor
         chevronImageView.image = propertyHolder.chevronImage
-        contactButton.setTitle(propertyHolder.buttonTitle, for: .normal)
-//        contactButton.setTitleColor(UIColor.preferredColor(for: .textPrimary1), for: .normal)
-        contactButton.backgroundColor = .red // UIColor.preferredColor(for: .backgroundBase)
-        contactButton.isEnabled = false // propertyHolder.isButtonEnabled
+        UIView.performWithoutAnimation {
+            contactButton.setTitle(propertyHolder.buttonTitle, for: .normal)
+            contactButton.layoutIfNeeded()
+        }
+        let buttonTitleColor = UIColor.preferredColor(for: .textPrimary1)
+        contactButton.setTitleColor(buttonTitleColor, for: .normal)
+        contactButton.setTitleColor(buttonTitleColor.withAlphaComponent(0.3), for: .disabled)
+        contactButton.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
+        contactButton.isEnabled = propertyHolder.isButtonEnabled
         
         let nib = UINib(nibName: RiskItemView.stringName(), bundle: .main)
         for itemConfigurator in propertyHolder.itemCellConfigurators {

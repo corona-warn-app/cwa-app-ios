@@ -62,6 +62,11 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "Home_Risk_Inactive_Title" = "Inactive";
 "Home_Risk_High_Title" = "High Risk";
 
+// Home Unknown card
+
+"Home_RiskCard_Unknown_Item_Title" = "Since you have not activated your environment recording long enough, we could not calculate any risk of infection for you.";
+"Home_RiskCard_Unknown_Button" = "Check risk status";
+
 "Home_RiskCard_Body" = "No contact with COVID-19 was detected.";
 "Home_RiskCard_Date" = "Last review: %@";
 "Home_RiskCard_Button" = "Check contacts";
