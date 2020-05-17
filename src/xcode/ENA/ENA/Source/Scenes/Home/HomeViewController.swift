@@ -100,7 +100,7 @@ final class HomeViewController: UIViewController {
                     ExposureNotificationSettingViewController(coder: coder, manager: manager)
                 }
                 )
-                self.present(vc, animated: true, completion: nil)
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         }
     }

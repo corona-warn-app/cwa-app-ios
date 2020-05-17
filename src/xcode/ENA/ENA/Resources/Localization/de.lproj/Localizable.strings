@@ -78,7 +78,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "ExposureSubmissionConfirmation_Submit" = "Abschliessen";
 
 // Tracing Enable/Disable Settings
-"ExposureNotificationSetting_TracingSettingTitle" = "Tracing";
+"ExposureNotificationSetting_TracingSettingTitle" = "Umfeldaufnahme";
 "ExposureNotificationSetting_EnableTracing" = "Umfeldaufnahme aktivieren";
 "ExposureNotificationSetting_IntroductionTitle" = "Aktivieren Sie die Protokollierung der Kontakte";
 "ExposureNotificationSetting_IntroductionText" = "Die COVID-19 Kontakprotokoll Mitteilungen sollen Ihnen helfen, wenn Sie mit einem Benutzer in Kontakt gekommen sind, der sich später als postiv auf COVID-19 getestet meldet. Sie können diese Mitteilungen jederzeit abshalten.
@@ -113,9 +113,9 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "Home_Risk_High_Date_Item_Title" = "Letzte Prüfung: %@";
 "Home_Risk_High_Button" = "Risikostatus prüfen";
 
-"Home_SubmitCard_Title" = "Ich wurde getestet";
-"Home_SubmitCard_Body" = "Melden Sie Ihren Befund annonym, damit Kontaktpersonnen informiert werden können";
-"Home_SubmitCard_Button" = "Befund melden";
+"Home_SubmitCard_Title" = "COVID Test";
+"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen.";
+"Home_SubmitCard_Button" = "Test registrieren";
 
 "Home_InfoCard_ShareTitle" = "Teilen Sie die App";
 "Home_InfoCard_ShareBody" = "Laden Sie Andere zum Mitmachen ein, denn zusammen sind wir stärker.";
@@ -219,6 +219,8 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_Title" = "Zusammen gegen Corona.";
 "InviteFriends_Description" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Downloaden ein!";
 "InviteFriends_Button" = "App teilen";
+"InviteFriends_ShareTitle" = "Zusammen gegen Corona. Ich bin dabei. Du auch?";
+"InviteFriends_ShareUrl" = "https://apps.apple.com/de";
 
 //Reset View
 "reset_view_title" = "Anwendung zurücksetzen";
