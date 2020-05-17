@@ -94,7 +94,7 @@ extension XCTestCase {
 		}
 	}
 
-	func automaticallyHandleNotificationsDialog() {
+	func tapAllowOnLocalNotificationsDialog() {
 		addUIInterruptionMonitor(withDescription: "Local Notifications") {
 			(alert) -> Bool in
 			let alertTitle = "Would Like to Send You Notifications"
@@ -107,7 +107,7 @@ extension XCTestCase {
 		}
 	}
 	
-	func automaticallyHandleMicrophonePermissionsDialog() {
+	func tapAllowOnCOVID19ExposureNotificationsDialog() {
 		addUIInterruptionMonitor(withDescription: "COVID-19 Exposure Notifications") {
 			(alert) -> Bool in
 			let alertTitle = "Enable COVID-19 Exposure Notifications"
