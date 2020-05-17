@@ -14,7 +14,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet." adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEZ-Xx-WVk">
-                    <rect key="frame" x="60" y="44" width="495" height="110"/>
+                    <rect key="frame" x="60" y="44" width="495" height="77"/>
                     <color key="textColor" name="textPrimary1"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -38,9 +38,9 @@
                 <constraint firstItem="LEZ-Xx-WVk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="54r-4R-zcD"/>
                 <constraint firstItem="xqB-br-Yjr" firstAttribute="trailing" secondItem="LEZ-Xx-WVk" secondAttribute="trailing" id="D9x-go-iH1"/>
                 <constraint firstAttribute="bottom" secondItem="xqB-br-Yjr" secondAttribute="bottom" id="Eec-3A-2t8"/>
+                <constraint firstAttribute="bottomMargin" secondItem="LEZ-Xx-WVk" secondAttribute="bottom" id="HeR-tk-VYN"/>
                 <constraint firstItem="xqB-br-Yjr" firstAttribute="leading" secondItem="LEZ-Xx-WVk" secondAttribute="leading" id="Tpl-Vs-lLK"/>
                 <constraint firstItem="3I7-DI-BV1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="XVe-ow-tIj"/>
-                <constraint firstItem="xqB-br-Yjr" firstAttribute="top" secondItem="LEZ-Xx-WVk" secondAttribute="bottom" id="azy-EK-20b"/>
                 <constraint firstItem="3I7-DI-BV1" firstAttribute="top" secondItem="LEZ-Xx-WVk" secondAttribute="top" id="e7K-Lz-rwZ"/>
                 <constraint firstItem="LEZ-Xx-WVk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" priority="900" id="jTr-vB-ZeC"/>
                 <constraint firstAttribute="trailingMargin" secondItem="LEZ-Xx-WVk" secondAttribute="trailing" id="qkz-AQ-SGd"/>

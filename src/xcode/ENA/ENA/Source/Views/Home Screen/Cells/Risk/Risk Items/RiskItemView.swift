@@ -19,11 +19,14 @@ final class RiskItemView: UIView {
     @IBOutlet var leadingTextViewLeadingMarginConstraint: NSLayoutConstraint!
     @IBOutlet var leadingTextViewTrailingImageViewConstraint: NSLayoutConstraint!
     
+    private let titleTopPadding: CGFloat = 8.0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         separatorHeightConstraint.constant = 0.5
         titleTextView.textContainerInset = .zero
         titleTextView.textContainer.lineFragmentPadding = 0
+        titleTextView.textContainerInset = .init(top: titleTopPadding, left: 0.0, bottom: titleTopPadding, right: 0.0)
         configureTextViewLayout()
     }
     
@@ -54,7 +57,7 @@ final class RiskItemView: UIView {
         let lineHeightRounded = lineHeight
         let offset: CGFloat = (lineHeightRounded - iconImageFrame.height ) / 2.0
 
-        topImageTopTextViewConstraint.constant = max(offset.rounded(), 0)
+        topImageTopTextViewConstraint.constant = max(offset.rounded(), 0) + titleTopPadding
         let iconTitleDistance = leadingTextViewLeadingMarginConstraint.constant
         iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
         let bezierPath = UIBezierPath(rect: iconImageFrame)
