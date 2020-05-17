@@ -46,7 +46,7 @@
 
 
 // Tracing Enable/Disable Settings
-"ExposureNotificationSetting_TracingSettingTitle" = "Tracing";
+"ExposureNotificationSetting_TracingSettingTitle" = "Umfeldaufnahme";
 "ExposureNotificationSetting_EnableTracing" = "Umfeldaufnahme aktivieren";
 "ExposureNotificationSetting_IntroductionTitle" = "Aktivieren Sie die Protokollierung der Kontakte";
 "ExposureNotificationSetting_IntroductionText" = "Die COVID-19 Kontakprotokoll Mitteilungen sollen Ihnen helfen, wenn Sie mit einem Benutzer in Kontakt gekommen sind, der sich später als postiv auf COVID-19 getestet meldet. Sie können diese Mitteilungen jederzeit abshalten.
