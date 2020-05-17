@@ -27,9 +27,15 @@ final class InsetLabel: UILabel {
     }
 
     private func addInsets(to size: CGSize) -> CGSize {
-        let width = size.width + contentInsets.left + contentInsets.right
-        let height = size.height + contentInsets.top + contentInsets.bottom
-        return CGSize(width: width, height: height)
+        size.accommodating(insets: contentInsets)
     }
+}
 
+private extension CGSize {
+    func accommodating(insets: UIEdgeInsets) -> CGSize {
+        CGSize(
+            width: width + insets.left + insets.right,
+            height: height + insets.top + insets.bottom
+        )
+    }
 }
