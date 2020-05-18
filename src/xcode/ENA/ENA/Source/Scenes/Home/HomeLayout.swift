@@ -98,7 +98,7 @@ final class HomeLayout {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50.0))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
-        let insets: CGFloat = 16.0
+		let insets: CGFloat = 0.0
         section.contentInsets = .init(top: insets, leading: insets, bottom: 0.0, trailing: insets)
 
         return section
