@@ -1,5 +1,5 @@
 //
-//  HomeSettingsCellConfigurator.swift
+//  HomeSimpleCellConfigurator.swift
 //  ENA
 //
 //  Created by Tikhonov, Aleksandr on 04.05.20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeSettingsCellConfigurator: CollectionViewCellConfigurator {
+class HomeSimpleCellConfigurator: CollectionViewCellConfigurator {
 
     var title: String
 	var position: CellConfiguratorIndexPosition
@@ -18,7 +18,7 @@ class HomeSettingsCellConfigurator: CollectionViewCellConfigurator {
         self.position = position
     }
 
-    func configure(cell: SettingsCollectionViewCell) {
+    func configure(cell: SimpleCollectionViewCell) {
 		cell.backgroundColor = UIColor.systemBackground
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
         cell.titleLabel.text = title

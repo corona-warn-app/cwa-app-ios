@@ -1,5 +1,5 @@
 //
-//  SettingsCollectionViewCell.swift
+//  SimpleCollectionViewCell.swift
 //  ENA
 //
 //  Created by Tikhonov, Aleksandr on 03.05.20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsCollectionViewCell: UICollectionViewCell {
+class SimpleCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var chevronImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!

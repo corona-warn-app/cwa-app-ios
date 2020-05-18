@@ -48,9 +48,9 @@
 		51CE1B89246078B6002CF42A /* RiskCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B7A246078B6002CF42A /* RiskCollectionViewCell.swift */; };
 		51CE1B8A246078B6002CF42A /* InfoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B7B246078B6002CF42A /* InfoCollectionViewCell.xib */; };
 		51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B7C246078B6002CF42A /* InfoCollectionViewCell.swift */; };
-		51CE1B8C246078B6002CF42A /* SettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B7D246078B6002CF42A /* SettingsCollectionViewCell.swift */; };
+		51CE1B8C246078B6002CF42A /* SimpleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B7D246078B6002CF42A /* SimpleCollectionViewCell.swift */; };
 		51CE1B8D246078B6002CF42A /* SubmitCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B7E246078B6002CF42A /* SubmitCollectionViewCell.xib */; };
-		51CE1B8E246078B6002CF42A /* SettingsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B7F246078B6002CF42A /* SettingsCollectionViewCell.xib */; };
+		51CE1B8E246078B6002CF42A /* SimpleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B7F246078B6002CF42A /* SimpleCollectionViewCell.xib */; };
 		51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B81246078B6002CF42A /* HomeFooterSupplementaryView.xib */; };
 		51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B82246078B6002CF42A /* HomeFooterSupplementaryView.swift */; };
 		51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B84246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift */; };
@@ -60,7 +60,7 @@
 		51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BBE2460B222002CF42A /* HomeRiskCellConfigurator.swift */; };
 		51CE1BC12460B256002CF42A /* HomeSubmitCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BC02460B256002CF42A /* HomeSubmitCellConfigurator.swift */; };
 		51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BC22460B28D002CF42A /* HomeInfoCellConfigurator.swift */; };
-		51CE1BC52460B2AF002CF42A /* HomeSettingsCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BC42460B2AF002CF42A /* HomeSettingsCellConfigurator.swift */; };
+		51CE1BC52460B2AF002CF42A /* HomeSimpleCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BC42460B2AF002CF42A /* HomeSimpleCellConfigurator.swift */; };
 		51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420B02458397300AD70CA /* Onboarding.storyboard */; };
 		51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B324583ABB00AD70CA /* AppStoryboard.swift */; };
 		51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420B624583B7200AD70CA /* NSObject+Identifier.swift */; };
@@ -220,9 +220,9 @@
 		51CE1B7A246078B6002CF42A /* RiskCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskCollectionViewCell.swift; sourceTree = "<group>"; };
 		51CE1B7B246078B6002CF42A /* InfoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCollectionViewCell.xib; sourceTree = "<group>"; };
 		51CE1B7C246078B6002CF42A /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
-		51CE1B7D246078B6002CF42A /* SettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCollectionViewCell.swift; sourceTree = "<group>"; };
+		51CE1B7D246078B6002CF42A /* SimpleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCollectionViewCell.swift; sourceTree = "<group>"; };
 		51CE1B7E246078B6002CF42A /* SubmitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitCollectionViewCell.xib; sourceTree = "<group>"; };
-		51CE1B7F246078B6002CF42A /* SettingsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsCollectionViewCell.xib; sourceTree = "<group>"; };
+		51CE1B7F246078B6002CF42A /* SimpleCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleCollectionViewCell.xib; sourceTree = "<group>"; };
 		51CE1B81246078B6002CF42A /* HomeFooterSupplementaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeFooterSupplementaryView.xib; sourceTree = "<group>"; };
 		51CE1B82246078B6002CF42A /* HomeFooterSupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFooterSupplementaryView.swift; sourceTree = "<group>"; };
 		51CE1B84246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionSystemBackgroundDecorationView.swift; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 		51CE1BBE2460B222002CF42A /* HomeRiskCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellConfigurator.swift; sourceTree = "<group>"; };
 		51CE1BC02460B256002CF42A /* HomeSubmitCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSubmitCellConfigurator.swift; sourceTree = "<group>"; };
 		51CE1BC22460B28D002CF42A /* HomeInfoCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInfoCellConfigurator.swift; sourceTree = "<group>"; };
-		51CE1BC42460B2AF002CF42A /* HomeSettingsCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSettingsCellConfigurator.swift; sourceTree = "<group>"; };
+		51CE1BC42460B2AF002CF42A /* HomeSimpleCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSimpleCellConfigurator.swift; sourceTree = "<group>"; };
 		51D420B02458397300AD70CA /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		51D420B324583ABB00AD70CA /* AppStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoryboard.swift; sourceTree = "<group>"; };
 		51D420B624583B7200AD70CA /* NSObject+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Identifier.swift"; sourceTree = "<group>"; };
@@ -473,8 +473,8 @@
 				51CE1B7E246078B6002CF42A /* SubmitCollectionViewCell.xib */,
 				51CE1B7C246078B6002CF42A /* InfoCollectionViewCell.swift */,
 				51CE1B7B246078B6002CF42A /* InfoCollectionViewCell.xib */,
-				51CE1B7D246078B6002CF42A /* SettingsCollectionViewCell.swift */,
-				51CE1B7F246078B6002CF42A /* SettingsCollectionViewCell.xib */,
+				51CE1B7D246078B6002CF42A /* SimpleCollectionViewCell.swift */,
+				51CE1B7F246078B6002CF42A /* SimpleCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -503,7 +503,7 @@
 				518A6A1C246A9F6600444E66 /* HomeRiskCellConfigurator */,
 				51CE1BC02460B256002CF42A /* HomeSubmitCellConfigurator.swift */,
 				51CE1BC22460B28D002CF42A /* HomeInfoCellConfigurator.swift */,
-				51CE1BC42460B2AF002CF42A /* HomeSettingsCellConfigurator.swift */,
+				51CE1BC42460B2AF002CF42A /* HomeSimpleCellConfigurator.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1121,7 +1121,7 @@
 				EE8599932462EFFD002E7AE2 /* AppInformation.storyboard in Resources */,
 				51B5B414246DF07300DC5D3E /* RiskItemView.xib in Resources */,
 				EE8599932462EFFD002E7AE2 /* AppInformation.storyboard in Resources */,
-				51CE1B8E246078B6002CF42A /* SettingsCollectionViewCell.xib in Resources */,
+				51CE1B8E246078B6002CF42A /* SimpleCollectionViewCell.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				51CE1B88246078B6002CF42A /* RiskCollectionViewCell.xib in Resources */,
 				51D420D024586AB300AD70CA /* Settings.storyboard in Resources */,
@@ -1214,7 +1214,7 @@
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController+AppStoryboard.swift in Sources */,
 				B11E619C246EE4E9004A056A /* UIFont+DynamicType.swift in Sources */,
-				51CE1BC52460B2AF002CF42A /* HomeSettingsCellConfigurator.swift in Sources */,
+				51CE1BC52460B2AF002CF42A /* HomeSimpleCellConfigurator.swift in Sources */,
 				EE20EA0A24699A5800770683 /* RiskLegendTableViewController.swift in Sources */,
 				B153096A24706F1000A4A1BD /* URLSession+Default.swift in Sources */,
 				5111E7632460BB1500ED6498 /* HomeInteractor.swift in Sources */,
@@ -1262,7 +1262,7 @@
 				B18C4119246DB22100B8D8CB /* VerifiedSapFileBucket.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */,
-				51CE1B8C246078B6002CF42A /* SettingsCollectionViewCell.swift in Sources */,
+				51CE1B8C246078B6002CF42A /* SimpleCollectionViewCell.swift in Sources */,
 				514EE9A0246D4DF800DE4884 /* HomeRiskItemViewConfigurator.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
