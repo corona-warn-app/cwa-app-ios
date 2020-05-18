@@ -203,10 +203,13 @@ final class HomeViewController: UIViewController {
             if row == 0 {
                 showInviteFriends()
             } else {
-                showAppInformation()
             }
         case .settings:
-            showSetting()
+            if row == 0 {
+                showAppInformation()
+            } else {
+				showSetting()
+            }
         }
     }
 
