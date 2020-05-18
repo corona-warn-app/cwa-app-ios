@@ -12,7 +12,7 @@ protocol SubmitCollectionViewCellDelegate: AnyObject {
     func submitButtonTapped(cell: SubmitCollectionViewCell)
 }
 
-class SubmitCollectionViewCell: UICollectionViewCell {
+class SubmitCollectionViewCell: HomeCardCollectionViewCell {
 
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
@@ -20,14 +20,6 @@ class SubmitCollectionViewCell: UICollectionViewCell {
     @IBOutlet var contactButton: UIButton!
     
     weak var delegate: SubmitCollectionViewCellDelegate?
-    
-    var submitAction: (() -> Void)?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        layer.cornerRadius = 10.0
-        layer.masksToBounds = true
-    }
     
     @IBAction func submitButtonTapped(_ sender: UIButton) {
         delegate?.submitButtonTapped(cell: self)

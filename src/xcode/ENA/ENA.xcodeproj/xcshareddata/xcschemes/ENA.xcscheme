@@ -40,7 +40,18 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "85D7593A2457048F008175F0"
+            BuildableName = "ENA.app"
+            BlueprintName = "ENA"
+            ReferencedContainer = "container:ENA.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -78,12 +89,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "CW_MODE"
-            value = "development"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "CW_MODE"
-            value = "production"
+            value = "https"
             isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable

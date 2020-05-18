@@ -12,8 +12,9 @@ import MessageUI
 
 final class SettingsViewController: UIViewController {
     // MARK: Properties
+    @IBOutlet weak var tracingLabel: UILabel!
     @IBOutlet weak var trackingStatusLabel: UILabel!
-    @IBOutlet weak var dataInWifiOnlySwitch: ENASwitch!
+    @IBOutlet weak var tracingTextView: UITextView!
     @IBOutlet weak var sendLogFileView: UIView!
     @IBOutlet weak var tracingStackView: UIStackView!
     @IBOutlet weak var tracingContainerView: UIView!
@@ -21,6 +22,25 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var notificationStatusLabel: UILabel!
     @IBOutlet weak var notificationsContainerView: UIView!
     @IBOutlet weak var notificationStackView: UIStackView!
+    @IBOutlet weak var mobileDataSwitch: ENASwitch!
+    @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var resetTextView: UITextView!
+    @IBOutlet weak var notificationLabel: UILabel!
+    @IBOutlet weak var notificationTextView: UITextView!
+    @IBOutlet weak var mobileDataLabel: UILabel!
+    @IBOutlet weak var mobileDataTextView: UITextView!
+
+    let manager: ExposureManager
+    let store: Store
+    init?(coder: NSCoder, manager: ExposureManager, store: Store) {
+        self.manager = manager
+        self.store = store
+        super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -30,7 +50,31 @@ final class SettingsViewController: UIViewController {
         setupView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        checkTracingStatus()
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        resetButton.sizeToFit()
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ResetViewController {
+            vc.delegate = self
+        }
+    }
+
     // MARK: Actions
+    @IBAction func mobileDataValueChanged(_ sender: Any) {
+        if mobileDataSwitch.isOn {
+            store.allowsCellularUse = true
+        } else {
+            store.allowsCellularUse = false
+        }
+    }
+
     @IBAction func showNotificationSettings(_: Any) {
         guard
             let settingsURL = URL(string: UIApplication.openSettingsURLString),
@@ -41,9 +85,14 @@ final class SettingsViewController: UIViewController {
     }
 
     @IBAction func showTracingDetails(_: Any) {
-        let vc = ExposureNotificationSettingViewController.initiate(for: .exposureNotificationSetting)
-        present(vc, animated: true, completion: nil)
+        let storyboard = AppStoryboard.exposureNotificationSetting.instance
+        let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
+            ExposureNotificationSettingViewController(coder: coder, manager: self.manager)
+        }
+        )
+        navigationController?.pushViewController(vc, animated: true)
     }
+
 
     @IBAction func sendLogFile(_: Any) {
         let alert = UIAlertController(title: "Send Log", message: "", preferredStyle: .alert)
@@ -82,6 +131,7 @@ final class SettingsViewController: UIViewController {
     @objc
     private func willEnterForeground() {
         notificationSettings()
+        checkTracingStatus()
     }
 
     // MARK: View Helper
@@ -89,10 +139,14 @@ final class SettingsViewController: UIViewController {
         #if !APP_STORE
             sendLogFileView.isHidden = false
         #endif
+
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+
         // receive status of manager
-        let status = ENStatus.active
-        setTrackingStatus(for: status)
+        checkTracingStatus()
+        checkMobileDataUsagePermission()
         notificationSettings()
+        setupLocalizedLabels()
 
         tracingStackView.isUserInteractionEnabled = false
         notificationStackView.isUserInteractionEnabled = false
@@ -111,6 +165,18 @@ final class SettingsViewController: UIViewController {
         )
     }
 
+    private func setupLocalizedLabels() {
+        tracingLabel.text = AppStrings.Settings.tracingLabel
+        tracingTextView.text = AppStrings.Settings.tracingDescription
+        notificationLabel.text = AppStrings.Settings.notificationLabel
+        notificationTextView.text = AppStrings.Settings.notificationDescription
+        mobileDataLabel.text = AppStrings.Settings.mobileDataLabel
+        mobileDataTextView.text = AppStrings.Settings.mobileDataDescription
+        resetButton.setTitle(AppStrings.Settings.resetLabel, for: .normal)
+        resetButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        resetTextView.text = AppStrings.Settings.resetDescription
+    }
+
     private func notificationSettings() {
         let currentCenter = UNUserNotificationCenter.current()
 
@@ -119,14 +185,21 @@ final class SettingsViewController: UIViewController {
         }
     }
 
-    private func setTrackingStatus(for status: ENStatus) {
-        switch status {
-        case .active:
-            DispatchQueue.main.async {
+    private func checkTracingStatus() {
+        manager.preconditions().contains(.enabled) ?
+            setTrackingStatusActive(to: true) :
+            setTrackingStatusActive(to: false)
+    }
+
+    private func checkMobileDataUsagePermission() {
+        self.mobileDataSwitch.setOn(self.store.allowsCellularUse, animated: true)
+    }
+
+    private func setTrackingStatusActive(to active: Bool) {
+        DispatchQueue.main.async {
+            if active {
                 self.trackingStatusLabel.text = AppStrings.Settings.trackingStatusActive
-            }
-        default:
-            DispatchQueue.main.async {
+            } else {
                 self.trackingStatusLabel.text = AppStrings.Settings.trackingStatusInactive
             }
         }
@@ -160,5 +233,13 @@ final class SettingsViewController: UIViewController {
 extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension SettingsViewController: ResetDelegate {
+    func reset() {
+        store.isOnboarded = false
+        store.dateLastExposureDetection = nil
+        store.allowsCellularUse = true
     }
 }

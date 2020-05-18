@@ -8,16 +8,40 @@
 
 import UIKit
 
-class ActivateCollectionViewCell: UICollectionViewCell {
+class ActivateCollectionViewCell: HomeCardCollectionViewCell {
 
     @IBOutlet var iconImageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var titleTextView: UITextView!
     @IBOutlet var chevronImageView: UIImageView!
+    @IBOutlet var viewContainer: UIView!
+    @IBOutlet var constraint: NSLayoutConstraint!
+    
+    private let iconTitleDistance: CGFloat = 10.0
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        layer.cornerRadius = 10.0
-        layer.masksToBounds = true
+        titleTextView.textContainerInset = .zero
+        titleTextView.textContainer.lineFragmentPadding = 0
+        let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+        viewContainer.layoutMargins = containerInsets
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        wrapImage()
+    }
+    
+    private func wrapImage() {
+        guard let lineHeight = titleTextView.font?.lineHeight else { return }
+        
+        var iconImageFrame = convert(iconImageView.frame, to: titleTextView)
+        let lineHeightRounded = lineHeight
+        let offset: CGFloat = (lineHeightRounded - iconImageFrame.height ) / 2.0
 
+        constraint.constant = max(offset.rounded(), 0)
+        
+        iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
+        let bezierPath = UIBezierPath(rect: iconImageFrame)
+        titleTextView.textContainer.exclusionPaths = [bezierPath]
+    }
 }

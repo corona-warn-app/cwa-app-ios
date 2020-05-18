@@ -20,9 +20,33 @@
 // Onboarding
 "Onboarding_Next" = "next";
 "Onboarding_Finish" = "finish";
+"Onboarding_LetsGo_actionText" = "Let's go";
+"Onboarding_Continue_actionText" = "Continue";
+"Onboarding_DoNotActivate_actionText" = "Do not activate";
+
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Together against Corona";
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and all of us. With the COVID warning app, we break infection chains significantly faster.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "The app remembers encounters between people using smartphones - easily and securely using encrypted random IDs, without access to personal data. Your smartphone becomes a Corona early warning system: you can see your risk status and will be notified of new infections in the contact area.";
+
+"OnboardingInfo_privacyPage_title" = "Privacy";
+"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_normalText" = "You will remain undetected.\nYour data will be completely encrypted and transmitted under a pseudonym.\n\nResponsible body within the meaning of Art. 4 Para. 7 GDPR:\n\nRobert Koch Institute\nNordufer 20\n13353 Berlin\nPlease read our data protection regulations.\n\nPrivacy information:";
+
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "How to enable risk detection";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To be able to analyze Covid 19 risks, you must allow the acquisition of random IDs and their transfer to other smartphones via Bluetooth. The function can be deactivated again at any time.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Have you been tested positive?";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Then please report it via the COVID warning app. Voluntarily and safely. For everyone's health.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your message is reliably encrypted and processed via a secure server. As a result, your contacts can be warned, isolated or tested.";
+
+"OnboardingInfo_alwaysStayInformedPage_title" = "Receive warnings, know the risks";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can automatically inform you about your risk status and warn you when contacts are newly infected. Activate the messages for this now.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "In this way, you can have yourself tested at any time if necessary, or go into isolation to protect your fellow human beings.";
+
 
 // Tracing Enable/Disable Settings
-"ExposureNotificationSetting_TracingSettingTitle" = "Tracing";
+"ExposureNotificationSetting_TracingSettingTitle" = "Umfeldaufnahme";
 "ExposureNotificationSetting_EnableTracing" = "Umfeldaufnahme aktivieren";
 "ExposureNotificationSetting_IntroductionTitle" = "Aktivieren Sie die Protokollierung der Kontakte";
 "ExposureNotificationSetting_IntroductionText" = "Die COVID-19 Kontakprotokoll Mitteilungen sollen Ihnen helfen, wenn Sie mit einem Benutzer in Kontakt gekommen sind, der sich später als postiv auf COVID-19 getestet meldet. Sie können diese Mitteilungen jederzeit abshalten.
@@ -33,14 +57,29 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 // Home Cards
 "Home_Activate_Title" = "Tracing is active";
 
+// Home Unknown card
 "Home_Risk_Unknown_Title" = "Unknown Risk";
-"Home_Risk_Low_Title" = "Low Risk";
-"Home_Risk_High_Title" = "Moderate Risk";
-"Home_Risk_Moderate_Title" = "High Risk";
+"Home_RiskCard_Unknown_Item_Title" = "Since you have not activated your environment recording long enough, we could not calculate any risk of infection for you.";
+"Home_RiskCard_Unknown_Button" = "Check risk status";
 
-"Home_RiskCard_Body" = "No contact with COVID-19 was detected.";
-"Home_RiskCard_Date" = "Last review: %@";
-"Home_RiskCard_Button" = "Check contacts";
+// Home Inactive card
+"Home_Risk_Inactive_Title" = "No risk assessment";
+"Home_Risk_Inactive_Activate_Item_Title" = "Activate the contact log to calculate your risk level.";
+"Home_Risk_Inactive_Date_Item_Title" = "Last test: %@";
+"Home_Risk_Inactive_Button" = "Activate contact log";
+
+// Home Low card
+"Home_Risk_Low_Title" = "Low Risk";
+"Home_Risk_Low_NoContact_Item_Title" = "No contacts so far";
+"Home_Risk_Low_Date_Item_Title" = "Last test: %@";
+"Home_Risk_Low_Button" = "Check risk status";
+
+// Home High card
+"Home_Risk_High_Title" = "High Risk";
+"Home_Risk_High_Number_Contacts_Item_Title" = "%d contacts with increased risk";
+"Home_Risk_High_Last_Contact_Item_Title" = "%d days since last contact";
+"Home_Risk_High_Date_Item_Title" = "Last test: %@";
+"Home_Risk_High_Button" = "Check risk status";
 
 "Home_SubmitCard_Title" = "I would be tested";
 "Home_SubmitCard_Body" = "Report your findings anonymously so that contact persons can be informed";

@@ -9,7 +9,75 @@
 import Foundation
 import ExposureNotification
 
-class MockClient: Client {
+extension ENExposureConfiguration {
+    // TODO: Make private once backend is fixed
+    class func mock() -> ENExposureConfiguration {
+        let config = ENExposureConfiguration()
+        config.minimumRiskScore = 0
+        config.attenuationWeight = 50
+        config.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+        config.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+        config.daysSinceLastExposureWeight = 50
+        config.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+        config.durationWeight = 50
+        config.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+        config.transmissionRiskWeight = 50
+        return config
+    }
+}
+
+final class MockClient: Client {
+    func fetchDay(_ day: String, completion completeWith: @escaping DayCompletionHandler) {
+        let bucket = Sap_FileBucket.with {
+            $0.files = [
+                Sap_File.with {
+                    $0.keys = submittedKeys.map { $0.sapKey }
+                }
+            ]
+        }
+        let signedPayload = Sap_SignedPayload.with {
+            // swiftlint:disable:next force_try
+            $0.payload = try! bucket.serializedData()
+        }
+
+        // swiftlint:disable:next force_try
+        let result = try! VerifiedSapFileBucket(verifiedPayload: VerifiedPayload(signedPayload: signedPayload))
+        completeWith(.success(result))
+    }
+
+    func fetchHour(
+        _ hour: Int,
+        day: String,
+        completion completeWith: @escaping HourCompletionHandler
+    ) {
+        let bucket = Sap_FileBucket.with {
+            $0.files = [
+                Sap_File()
+            ]
+        }
+        let signedPayload = Sap_SignedPayload.with {
+            // swiftlint:disable:next force_try
+            $0.payload = try! bucket.serializedData()
+        }
+        // swiftlint:disable:next force_try
+        let result = try! VerifiedSapFileBucket(verifiedPayload: VerifiedPayload(signedPayload: signedPayload))
+
+        completeWith(.success(result))
+    }
+
+    func availableDays(
+        completion completeWith: @escaping AvailableDaysCompletionHandler
+    ) {
+        completeWith(.success([.formattedToday()]))
+    }
+
+    func availableHours(
+        day: String,
+        completion completeWith: @escaping AvailableHoursCompletionHandler
+    ) {
+        completeWith(.success([]))
+    }
+
     // MARK: Creating a Mock Client
     init() {
         let documentDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -19,48 +87,14 @@ class MockClient: Client {
     // MARK: Properties
     private let submittedKeysFileURL: URL
     
-    private var submittedKeys = [ENTemporaryExposureKey]() {
-        didSet {
-            log(message: "Writing \(submittedKeys.count) keys)")
-            let file = Apple_File.with { file in
-                file.key = submittedKeys.map { diagnosisKey in
-                    Apple_Key.with { key in
-                        key.keyData = diagnosisKey.keyData
-                        key.rollingPeriod = diagnosisKey.rollingPeriod
-                        key.rollingStartNumber = diagnosisKey.rollingStartNumber
-                        key.transmissionRiskLevel = Int32(diagnosisKey.transmissionRiskLevel)
-                    }
-                }
-            }
-            // swiftlint:disable:next force_try
-            let data = try! file.serializedData()
-            // swiftlint:disable:next force_try
-            try! data.write(to: submittedKeysFileURL)
-            log(message: "Wrote \(submittedKeys.count) keys to \(submittedKeysFileURL)")
-        }
-    }
+    private var submittedKeys = [ENTemporaryExposureKey]()
 
     func exposureConfiguration(completion: @escaping ExposureConfigurationCompletionHandler) {
-        let exposureConfiguration = ENExposureConfiguration()
-        exposureConfiguration.minimumRiskScore = 0
-        exposureConfiguration.attenuationWeight = 50
-        exposureConfiguration.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        exposureConfiguration.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        exposureConfiguration.daysSinceLastExposureWeight = 50
-        exposureConfiguration.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        exposureConfiguration.durationWeight = 50
-        exposureConfiguration.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        exposureConfiguration.transmissionRiskWeight = 50
-
-        completion(.success(exposureConfiguration))
+        completion(.mock())
     }
 
     func submit(keys: [ENTemporaryExposureKey], tan: String, completion: @escaping SubmitKeysCompletionHandler) {
         submittedKeys += keys
         completion(/* error */ nil)
-    }
-
-    func fetch(completion: @escaping FetchKeysCompletionHandler) {
-        completion(.success([submittedKeysFileURL]))
     }
 }

@@ -9,10 +9,22 @@
 import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
+    
+    private var isActivated = false
+    
+    init(isActivated: Bool) {
+        self.isActivated = isActivated
+    }
+    
     // MARK: Configuring a Cell
     func configure(cell: ActivateCollectionViewCell) {
-        cell.iconImageView.image = UIImage(named: "onboarding_note")
-        cell.titleLabel.text = AppStrings.Home.activateTitle
+        
+        var iconImage: UIImage? = isActivated ? UIImage(named: "UmfeldaufnahmeAktiv_Primary1") : UIImage(named: "UmfeldaufnahmeNichtAktiv_Primary1")
+        let iconColor: UIColor = isActivated ? UIColor.preferredColor(for: .tintColor) : UIColor.preferredColor(for: .brandRed)
+        iconImage = iconImage?.withTintColor(iconColor)
+        
+        cell.iconImageView.image = iconImage
+        cell.titleTextView.text = AppStrings.Home.activateTitle
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
     }
 }

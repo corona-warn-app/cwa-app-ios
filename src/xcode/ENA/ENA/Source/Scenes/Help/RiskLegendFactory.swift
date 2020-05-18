@@ -35,18 +35,18 @@ class RiskLegendFactory {
                 description: AppStrings.RiskView.unknownRiskDetailHelp
             ),
             RiskLegendEntry(
+                riskLevel: .inactive,
+                backgroundColor: .preferredColor(for: .inactive),
+                imageName: "cloud.rain",
+                title: AppStrings.RiskView.inactiveRisk,
+                description: AppStrings.RiskView.inactiveRiskDetailHelp
+            ),
+            RiskLegendEntry(
                 riskLevel: .low,
                 backgroundColor: .preferredColor(for: .positive),
                 imageName: "sun.dust",
                 title: AppStrings.RiskView.lowRisk,
                 description: AppStrings.RiskView.lowRiskDetailHelp
-            ),
-            RiskLegendEntry(
-                riskLevel: .moderate,
-                backgroundColor: .preferredColor(for: .medium),
-                imageName: "cloud.rain",
-                title: AppStrings.RiskView.moderateRisk,
-                description: AppStrings.RiskView.moderateRiskDetailHelp
             ),
             RiskLegendEntry(
                 riskLevel: .high,

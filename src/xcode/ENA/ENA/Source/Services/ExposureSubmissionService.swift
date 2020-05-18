@@ -78,12 +78,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
     private func parseServerError(_ error: SubmissionError) -> ExposureSubmissionError {
         switch error {
-        case .generalError, .invalidPayloadOrHeaders:
+        case .invalidPayloadOrHeaders,
+             .other:
             return .other
         case .invalidTan:
             return .invalidTan
-        case .networkError:
-            return .networkError
         }
     }
 }
@@ -95,6 +94,4 @@ enum ExposureSubmissionError: Error {
     case noKeys
 
     case invalidTan
-    case networkError
-
 }

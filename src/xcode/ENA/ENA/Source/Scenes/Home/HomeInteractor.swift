@@ -10,7 +10,9 @@ import Foundation
 import ExposureNotification
 
 final class HomeInteractor {
+
     // MARK: Creating
+    
     init(
         homeViewController: HomeViewController,
         exposureManager: ExposureManager,
@@ -24,10 +26,12 @@ final class HomeInteractor {
     }
 
     // MARK: Properties
+    
     private unowned var homeViewController: HomeViewController
     private let store: Store
     private var detectionSummary: ENExposureDetectionSummary?
     private(set) var exposureManager: ExposureManager
+
     private let client: Client
 
     private lazy var developerMenu: DMDeveloperMenu = {
@@ -39,11 +43,13 @@ final class HomeInteractor {
     }
 
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
-        let activeConfigurator = HomeActivateCellConfigurator()
+
+        let activeConfigurator = HomeActivateCellConfigurator(isActivated: true)
         let date = store.dateLastExposureDetection
+
         let riskLevel: RiskLevel
-        if let detectionSummary = detectionSummary {
-            riskLevel = RiskLevel(riskScore: detectionSummary.maximumRiskScore)
+        if let detectionSummary = detectionSummary, let rlevel = RiskLevel(riskScore: detectionSummary.maximumRiskScore) {
+            riskLevel = rlevel
         } else {
             riskLevel = .unknown
         }

@@ -29,6 +29,7 @@ class ExposureNotificationSettingViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.largeTitleDisplayMode = .always
         setupNotificationCenter()
         setUIText()
         tableView.estimatedRowHeight = 280
@@ -59,6 +60,7 @@ extension ExposureNotificationSettingViewController {
     
     
     private func setUIText() {
+        title = AppStrings.ExposureNotificationSetting.title
         enableTrackingLabel.text = AppStrings.ExposureNotificationSetting.enableTracing
         introductionLabel.text = AppStrings.ExposureNotificationSetting.introductionTitle
         introductionText.text = AppStrings.ExposureNotificationSetting.introductionText

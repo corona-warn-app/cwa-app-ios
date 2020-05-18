@@ -9,25 +9,65 @@
 import Foundation
 
 struct BackendConfiguration {
+    struct Endpoints {
+        let distribution: URL
+        let submission: URL
+    }
+
     // MARK: Properties
-    let baseURL: URL
     let apiVersion: String
     let country: String
-    var submissionServiceUrl: URL {
-        baseURL
-            .appendingPathComponent(apiVersion)
-            .appendingPathComponent("diagnosis-keys")
+    let endpoints: Endpoints
+
+    var diagnosisKeysURL: URL {
+        endpoints
+            .distribution
+            .appendingDirectory("version")
+            .appendingDirectory(apiVersion)
+            .appendingDirectory("diagnosis-keys")
+    }
+
+    var regionalDiagnosisKeysURL: URL {
+        diagnosisKeysURL
+            .appendingDirectory("country")
+            .appendingDirectory(country)
+    }
+
+    var regionalConfigurationURL: URL {
+        endpoints
+            .distribution
+            .appendingDirectory("version")
+            .appendingDirectory(apiVersion)
+            .appendingDirectory("parameters")
+            .appendingDirectory("country")
+            .appendingDirectory(country)
+    }
+}
+
+private extension URL {
+    // TODO: This is wrong on production.
+    // Mock server reuires trailing slash
+    // Produiction does not.
+    func appendingDirectory(_ directory: String) -> URL {
+        appendingPathComponent(directory, isDirectory: true)
     }
 }
 
 extension BackendConfiguration {
-    static let development = BackendConfiguration(
-        baseURL: URL(staticString: "http://distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io"),
+    init(endpoints: Endpoints) {
+        self.init(apiVersion: "v1", country: "DE", endpoints: endpoints)
+    }
+    static let production = BackendConfiguration(
         apiVersion: "v1",
-        country: "DE"
+        country: "DE",
+        endpoints: Endpoints(
+            distribution: URL(staticString: "https://fixme.coronawarn.app"),
+            submission: URL(staticString: "https://fixme.coronawarn.app")
+        )
     )
 
-    static let production = development
+    // TODO: Fix this
+//    static let production = development
 }
 
 private extension URL {

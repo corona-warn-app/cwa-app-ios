@@ -13,11 +13,11 @@ protocol RiskCollectionViewCellDelegate: AnyObject {
 }
 
 /// A cell that visualizes the current risk and allows the user to calculate he/his current risk.
-final class RiskCollectionViewCell: UICollectionViewCell {
+final class RiskCollectionViewCell: HomeCardCollectionViewCell {
     
     // MARK: Properties
     weak var delegate: RiskCollectionViewCellDelegate?
-
+    
     // MARK: Outlets
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var chevronImageView: UIImageView!
@@ -26,13 +26,6 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var contactButton: UIButton!
     @IBOutlet var viewContainer: UIView!
-
-    // MARK: Nib Loading
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        layer.cornerRadius = 10.0
-        layer.masksToBounds = true
-    }
     
     // MARK: Actions
     @IBAction func contactButtonTapped(_ sender: UIButton) {
@@ -42,6 +35,8 @@ final class RiskCollectionViewCell: UICollectionViewCell {
     // MARK: Configuring the UI
     func configure(with propertyHolder: HomeRiskCellPropertyHolder, delegate: RiskCollectionViewCellDelegate) {
         self.delegate = delegate
+        
+        print(#function)
         
         titleLabel.text = propertyHolder.title
         titleLabel.textColor = propertyHolder.titleColor
@@ -53,5 +48,8 @@ final class RiskCollectionViewCell: UICollectionViewCell {
         chevronImageView.image = propertyHolder.chevronImage
         iconImageView.image = propertyHolder.iconImage
         contactButton.setTitle(AppStrings.Home.riskCardButton, for: .normal)
+        
+        backgroundColor = UIColor.preferredColor(for: .backgroundBase)
+        viewContainer.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
     }
 }

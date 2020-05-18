@@ -11,36 +11,22 @@ import XCTest
 @testable import ENA
 
 final class ModeTests: XCTestCase {
-    func testModeFromEnvironmentDictionary_Production() {
+    func testModeFromEnvironmentDictionary() {
         XCTAssertEqual(
-            Mode.from(environment: ["CW_MODE": "production"]).rawValue,
-            Mode.production.rawValue
+            Mode.from(environment: ["CW_MODE": "https"]).rawValue,
+            Mode.https.rawValue
         )
-    }
-
-    func testModeFromEnvironmentDictionary_Development() {
-        XCTAssertEqual(
-            Mode.from(environment: ["CW_MODE": "development"]).rawValue,
-            Mode.development.rawValue
-        )
-    }
-
-    func testModeFromEnvironmentDictionary_Mock() {
         XCTAssertEqual(
             Mode.from(environment: ["CW_MODE": "mock"]).rawValue,
             Mode.mock.rawValue
         )
-    }
-
-    func testModeFromEnvironmentDictionary_DefaultsToMock() {
-        XCTAssertEqual(
-            Mode.from(environment: [:]).rawValue,
-            Mode.mock.rawValue
-        )
-
         XCTAssertEqual(
             Mode.from(environment: ["CW_MODE": "xxx"]).rawValue,
-            Mode.mock.rawValue
+            Mode.https.rawValue
+        )
+        XCTAssertEqual(
+            Mode.from(environment: [:]).rawValue,
+            Mode.https.rawValue
         )
     }
 }

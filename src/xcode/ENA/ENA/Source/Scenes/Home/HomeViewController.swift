@@ -11,10 +11,17 @@ import UIKit
 final class HomeViewController: UIViewController {
 
     // MARK: Creating a Home View Controller
-
-    init?(coder: NSCoder, exposureManager: ExposureManager, client: Client, store: Store) {
+    
+    init?(
+        coder: NSCoder,
+        exposureManager: ExposureManager,
+        client: Client,
+        store: Store,
+        signedPayloadStore: SignedPayloadStore
+    ) {
         self.client = client
         self.store = store
+        self.signedPayloadStore = signedPayloadStore
         super.init(coder: coder)
         homeInteractor = HomeInteractor(
             homeViewController: self,
@@ -29,6 +36,8 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: Properties
+    private let signedPayloadStore: SignedPayloadStore
+
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
     private var homeLayout: HomeLayout!
@@ -100,15 +109,38 @@ final class HomeViewController: UIViewController {
                     ExposureNotificationSettingViewController(coder: coder, manager: manager)
                 }
                 )
-                self.present(vc, animated: true, completion: nil)
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         }
     }
 
     func showSetting() {
-        let vc = SettingsViewController.initiate(for: .settings)
+        /*let vc = SettingsViewController.initiate(for: .settings)
         let naviController = UINavigationController(rootViewController: vc)
-        present(naviController, animated: true, completion: nil)
+        present(naviController, animated: true, completion: nil)*/
+
+        let manager = ENAExposureManager()
+        manager.activate { [weak self] error in
+            guard let self = self else { return }
+            if let error = error {
+                switch error {
+                case .exposureNotificationRequired:
+                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+                case .exposureNotificationAuthorization:
+                    log(message: "Encourage the user to authorize this application", level: .warning)
+                }
+            } else if let error = error {
+                logError(message: error.localizedDescription)
+            } else {
+
+                let storyboard = AppStoryboard.settings.instance
+                let vc = storyboard.instantiateViewController(identifier: "SettingsViewController", creator: { coder in
+                    SettingsViewController(coder: coder, manager: manager, store: self.store)
+                }
+                )
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 
     func showDeveloperMenu() {
@@ -118,8 +150,7 @@ final class HomeViewController: UIViewController {
 
     func showInviteFriends() {
         let vc = FriendsInviteController.initiate(for: .inviteFriends)
-        let naviController = UINavigationController(rootViewController: vc)
-        self.present(naviController, animated: true, completion: nil)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showExposureDetection() {
