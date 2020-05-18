@@ -45,17 +45,22 @@ class ExposureDetectionRiskCell: UIView, NibLoadable {
 	}
 	
 	
-	func configure(for riskLevel: RiskLevel, contacts: Int, lastExposure: Date?, lastCheck: Date) {
+	func configure(for riskLevel: RiskLevel, contacts: Int, lastExposure: Int?, lastCheck: Date?) {
 		self.nibView.backgroundColor = riskLevel.color
 		
 		if riskLevel == .unknown {
 			self.contactLabel.text = AppStrings.ExposureDetection.unknownText
 		} else {
 			self.contactLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.contacts, contacts)
-			self.lastCheckLabel.text = AppStrings.ExposureDetection.lastCheck + " " + dateFormatter.string(from: lastCheck)
 			
-			if let lastExposure = lastExposure, let days = Calendar.current.dateComponents([.day], from: lastExposure, to: Date()).day {
-				self.lastExposureLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.lastExposure, days)
+			if let lastExposure = lastExposure {
+				self.lastExposureLabel.text = String.localizedStringWithFormat(AppStrings.ExposureDetection.lastExposure, lastExposure)
+			}
+			
+			if let lastCheck = lastCheck {
+				self.lastCheckLabel.text = AppStrings.ExposureDetection.lastCheck + " " + dateFormatter.string(from: lastCheck)
+			} else {
+				self.lastCheckLabel.text = AppStrings.ExposureDetection.lastCheckNever
 			}
 		}
 

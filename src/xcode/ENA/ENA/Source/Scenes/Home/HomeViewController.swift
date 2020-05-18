@@ -154,9 +154,8 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureDetection() {
-		// TODO
 		let exposureDetectionViewController = AppStoryboard.exposureDetection.initiateInitial(creator: { coder in
-			ExposureDetectionViewController(coder: coder, store: self.store)
+			ExposureDetectionViewController(coder: coder, store: self.store, client: self.client, signedPayloadStore: self.signedPayloadStore)
 		})
 		
 		if let exposureDetectionViewController = exposureDetectionViewController {

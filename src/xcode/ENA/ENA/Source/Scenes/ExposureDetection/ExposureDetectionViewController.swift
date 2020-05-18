@@ -8,16 +8,19 @@
 
 import Foundation
 import UIKit
+import ExposureNotification
 
-
-// TODO inject actual risk and exposure values
-// TODO listen to check now button
 
 class ExposureDetectionViewController: UIViewController {
 	let store: Store
+	let client: Client
+	let signedPayloadStore: SignedPayloadStore
 	
-	var model: ExposureDetectionModel = .unknownRisk
-	var riskLevel: RiskLevel = .unknown
+	private var model: ExposureDetectionModel = .unknownRisk
+	private var riskLevel: RiskLevel = .unknown
+	
+	private var exposureDetectionTransaction: ExposureDetectionTransaction?
+	private var exposureDetectionSummary: ENExposureDetectionSummary?
 
 	
 	@IBOutlet weak var tableView: UITableView!
@@ -28,8 +31,10 @@ class ExposureDetectionViewController: UIViewController {
 	}
 	
 	
-	init?(coder: NSCoder, store: Store) {
+	init?(coder: NSCoder, store: Store, client: Client, signedPayloadStore: SignedPayloadStore) {
 		self.store = store
+		self.client = client
+		self.signedPayloadStore = signedPayloadStore
 		super.init(coder: coder)
 	}
 
@@ -45,18 +50,9 @@ class ExposureDetectionViewController: UIViewController {
 	
 	
 	@IBAction func tappedCheckNow() {
-		// TODO
-		toggleRiskLevel()
-	}
-	
-	
-	// TODO debug
-	func toggleRiskLevel() {
-		switch riskLevel {
-		case .low: self.updateRiskLevel(riskLevel: .high)
-		case .high: self.updateRiskLevel(riskLevel: .unknown)
-		default: self.updateRiskLevel(riskLevel: .low)
-		}
+		log(message: "Starting exposure detection ...")
+		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: self.client, signedPayloadStore: self.signedPayloadStore)
+		self.exposureDetectionTransaction?.resume()
 	}
 	
 	
@@ -192,8 +188,12 @@ extension ExposureDetectionViewController: UITableViewDataSource, UITableViewDel
 		case .riskLevel:
 			let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.risk.rawValue, for: indexPath)
 			let view = cell.subviews[0].subviews[0] as? ExposureDetectionRiskCell
-			// TODO add actual data
-			view?.configure(for: self.riskLevel, contacts: 0, lastExposure: Date(), lastCheck: Date())
+			view?.configure(
+				for: self.riskLevel,
+				contacts: Int(exposureDetectionSummary?.matchedKeyCount ?? 0),
+				lastExposure: exposureDetectionSummary?.daysSinceLastExposure,
+				lastCheck: store.dateLastExposureDetection
+			)
 			
 			return cell
 			
@@ -258,7 +258,42 @@ extension ExposureDetectionViewController: UITableViewDataSource, UITableViewDel
 }
 
 
-class CustomCell: UITableViewCell {
-//	@IBOutlet weak var textLabel: UILabel!
-//	@IBOutlet weak var imageView: UIImageView!
+extension ExposureDetectionViewController: ExposureDetectionTransactionDelegate {
+	func exposureDetectionTransaction(_ transaction: ExposureDetectionTransaction, continueWithExposureManager: @escaping ContinueHandler, abort: @escaping AbortHandler) {
+		// Important:
+		// See HomeViewController for more details as to why we create a new manager here.
+		
+		let manager = ENAExposureManager()
+		manager.activate { error in
+			if let error = error {
+				let message = "Unable to detect exposures because exposure manager could not be activated due to: \(error)"
+				logError(message: message)
+				manager.invalidate()
+				abort(error)
+				// TODO: We should defer abort(…) until the invalidation handler has been called.
+				return
+			}
+			continueWithExposureManager(manager)
+		}
+	}
+	
+	func exposureDetectionTransaction(_ transaction: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
+		// TODO show error to user
+		logError(message: "Exposure transaction failed: \(reason)")
+		self.exposureDetectionTransaction = nil
+	}
+	
+	func exposureDetectionTransaction(_ transaction: ExposureDetectionTransaction, didDetectSummary summary: ENExposureDetectionSummary) {
+		self.exposureDetectionTransaction = nil
+		
+		self.store.dateLastExposureDetection = Date()
+
+		self.exposureDetectionSummary = summary
+		
+		self.updateRiskLevel(riskLevel: RiskLevel(riskScore: summary.maximumRiskScore) ?? .unknown)
+	}
+	
+	func exposureDetectionTransactionRequiresFormattedToday(_ transaction: ExposureDetectionTransaction) -> String {
+		return .formattedToday()
+	}
 }

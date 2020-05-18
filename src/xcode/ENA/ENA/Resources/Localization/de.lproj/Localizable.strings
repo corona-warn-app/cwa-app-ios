@@ -18,6 +18,7 @@
 "ExposureDetection_Unknown" = "Unbekanntest Risiko";
 
 "ExposureDetection_LastCheck" = "Letzte Prüfung:";
+"ExposureDetection_LastCheck_Never" = "Noch keine Prüfung durchgeführt.";
 "ExposureDetection_UnknownText" = "Das Infektionsrisiko wird berechnet, sobald genügend Daten zur Verfügung stehen.";
 
 "ExposureDetection_Guide1" = "Vermeiden Sie sozialen Kontakt";

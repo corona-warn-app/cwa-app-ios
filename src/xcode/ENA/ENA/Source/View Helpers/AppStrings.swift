@@ -44,6 +44,7 @@ enum AppStrings {
 		static let contacts = NSLocalizedString("ExposureDetection_Contacts", comment: "")
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
 		static let lastCheck = NSLocalizedString("ExposureDetection_LastCheck", comment: "")
+		static let lastCheckNever = NSLocalizedString("ExposureDetection_LastCheckNever", comment: "")
 		static let unknownText = NSLocalizedString("ExposureDetection_UnknownText", comment: "")
 
 		static let guide1 = NSLocalizedString("ExposureDetection_Guide1", comment: "")
