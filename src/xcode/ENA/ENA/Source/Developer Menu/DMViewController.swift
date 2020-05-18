@@ -18,7 +18,7 @@ final class DMViewController: UITableViewController {
     init(client: Client) {
         self.client = client
         super.init(style: .plain)
-        self.title = "Developer Menu"
+        title = "Developer Menu"
     }
 
     required init?(coder: NSCoder) {
@@ -27,8 +27,11 @@ final class DMViewController: UITableViewController {
 
     // MARK: Properties
     private let client: Client
-    private var urls = [URL]()
-    private var keys = [Sap_Key]()
+    private var keys = [Sap_Key]() {
+        didSet {
+            keys = self.keys.sorted()
+        }
+    }
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -49,39 +52,11 @@ final class DMViewController: UITableViewController {
 
     // MARK: Fetching Keys
     private func resetAndFetchKeys() {
-        urls = []
         keys = []
-        client.fetch { [weak self] result in
+        self.client.fetch { [weak self] keys in
             guard let self = self else { return }
-            switch result {
-            case .success(let urls):
-                self.urls = urls
-                self.urls.forEach { url in
-                    self.extractKeys(from: url)
-                }
-            case .failure:
-                self.urls = []
-            }
+            self.keys = keys
             self.tableView.reloadData()
-        }
-    }
-
-    private func extractKeys(from url: URL) {
-        guard let data = try? Data(contentsOf: url) else {
-            // This can happen initially if the user never submitted keys using the client.
-            // In that case the url does not exist.
-            // We do not check for existence of `url` prior to calling `contentsOf:` in order
-            // to avoid race conditions.
-            return
-        }
-        guard let file = try? Apple_File(serializedData: data) else {
-            // swiftlint:disable:next line_length
-            fatalError("-serializedData: (Apple_Key) failed. This probably happens because the Protocol Buffer schema changed. Try reinstalling the app. If that does not help consider creating an issue.")
-        }
-        keys += file.key.map { $0.toSapKey() }
-        // Newer keys come before older keys
-        keys.sort { lhKey, rhKey -> Bool in
-            return lhKey.rollingStartNumber > rhKey.rollingStartNumber
         }
     }
 
@@ -135,7 +110,7 @@ final class DMViewController: UITableViewController {
 
     // MARK: UITableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return keys.count
+        keys.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -160,15 +135,7 @@ extension DMViewController: DMQRCodeScanViewControllerDelegate {
             tan: "not needed"
         ) { [weak self] _ in
             guard let self = self else { return }
-            self.client.fetch { [weak self] result in
-                switch result {
-                case .success(let urls):
-                    self?.urls = urls
-                case .failure:
-                    self?.urls = []
-                }
-                self?.tableView.reloadData()
-            }
+            self.resetAndFetchKeys()
         }
     }
 }
@@ -187,7 +154,7 @@ fileprivate extension Sap_Key {
     private static let dateFormatter: DateFormatter = .rollingPeriodDateFormatter()
 
     var rollingStartNumberDate: Date {
-        return Date(timeIntervalSince1970: Double(rollingStartNumber * 600))
+        Date(timeIntervalSince1970: Double(rollingStartNumber * 600))
     }
 
     var formattedRollingStartNumberDate: String {
@@ -203,13 +170,40 @@ fileprivate extension Sap_Key {
     }
 }
 
-private extension Apple_Key {
-    func toSapKey() -> Sap_Key {
-        Sap_Key.with {
-            $0.keyData = self.keyData
-            $0.rollingPeriod = self.rollingPeriod
-            $0.rollingStartNumber = self.rollingStartNumber
-            $0.transmissionRiskLevel = self.transmissionRiskLevel
+extension Sap_Key: Comparable {
+    static func < (lhs: Sap_Key, rhs: Sap_Key) -> Bool {
+        lhs.rollingStartNumber > rhs.rollingStartNumber
+    }
+}
+
+private extension FetchedDaysAndHours {
+    var allBuckets: [VerifiedSapFileBucket] {
+        Array(days.bucketsByDay.values) + Array(hours.bucketsByHour.values)
+    }
+    var allKeys: [Sap_Key] {
+        Array(allFiles.map { $0.keys }.joined())
+    }
+    var allFiles: [Sap_File] {
+        Array(allBuckets.map { $0.files }.joined())
+    }
+}
+
+private extension Client {
+    typealias FetchCompletion = ([Sap_Key]) -> Void
+    func fetch(completion: @escaping FetchCompletion) {
+        availableDaysAndHoursUpUntil(.formattedToday()) { result in
+            switch result {
+            case .success(let daysAndHours):
+                self.fetchDays(
+                    daysAndHours.days,
+                    hours: daysAndHours.hours,
+                    of: .formattedToday()
+                ) { daysAndHours in
+                    completion(daysAndHours.allKeys)
+                }
+            case .failure(let error):
+                logError(message: "message: Failed to fetch all keys: \(error)")
+            }
         }
     }
 }
