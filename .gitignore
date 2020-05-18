@@ -77,10 +77,11 @@ Dependencies/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
+src/xcode/fastlane/report.xml
+src/xcode/fastlane/Preview.html
+src/xcode/fastlane/screenshots/**/*.png
+src/xcode/fastlane/test_output
+src/xcode/fastlane/README.md
 
 # Code Injection
 #
