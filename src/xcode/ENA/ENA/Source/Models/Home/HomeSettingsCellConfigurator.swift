@@ -10,12 +10,18 @@ import UIKit
 
 class HomeSettingsCellConfigurator: CollectionViewCellConfigurator {
 
-	var position: CellConfiguratorIndexPosition = .other
+    var title: String
+	var position: CellConfiguratorIndexPosition
 	
+    init(title: String, position: CellConfiguratorIndexPosition) {
+        self.title = title
+        self.position = position
+    }
+
     func configure(cell: SettingsCollectionViewCell) {
 		cell.backgroundColor = UIColor.systemBackground
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
-        cell.titleLabel.text = AppStrings.Home.settingsCardTitle
+        cell.titleLabel.text = title
 		
 		switch position {
 		case .first:

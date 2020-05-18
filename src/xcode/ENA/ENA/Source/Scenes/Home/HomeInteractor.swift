@@ -71,10 +71,12 @@ final class HomeInteractor {
 		let title2 = AppStrings.Home.infoCardAboutTitle
         let body2 = AppStrings.Home.infoCardAboutBody
         let info2Configurator = HomeInfoCellConfigurator(title: title2, body: body2)
-		let appInformationConfigurator = HomeSettingsCellConfigurator()
+		info2Configurator.position = .last
+
+		let appInformationConfigurator = HomeSettingsCellConfigurator(title: AppStrings.Home.appInformationCardTitle, position: .first)
 		appInformationConfigurator.position = .first
         
-		let settingsConfigurator = HomeSettingsCellConfigurator()
+		let settingsConfigurator = HomeSettingsCellConfigurator(title: AppStrings.Home.settingsCardTitle, position: .first)
 		settingsConfigurator.position = .last
 
 		let configurators: [CollectionViewCellConfiguratorAny] = [
