@@ -6,7 +6,7 @@ jobs:
       xcode: 11.5.0
 
     environment:
-      FASTLANE_LANE: test
+      FASTLANE_LANE: build_and_test
     steps:
       - checkout
       - run: cd src/xcode && bundle install
