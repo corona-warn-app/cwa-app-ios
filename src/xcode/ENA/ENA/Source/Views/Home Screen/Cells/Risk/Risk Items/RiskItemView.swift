@@ -27,6 +27,7 @@ final class RiskItemView: UIView {
         titleTextView.textContainerInset = .zero
         titleTextView.textContainer.lineFragmentPadding = 0
         titleTextView.textContainerInset = .init(top: titleTopPadding, left: 0.0, bottom: titleTopPadding, right: 0.0)
+        titleTextView.isUserInteractionEnabled = false
         configureTextViewLayout()
     }
     
