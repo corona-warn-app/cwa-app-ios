@@ -200,7 +200,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 
 //Risk View
 "unknown_risk" = "Risiko unbekannt";
-"inactive_risk" = "Keine Risikioprüfung";
+"inactive_risk" = "Keine Risikoprüfung";
 "low_risk" = "Geringes Risiko";
 "high_risk" = "Hohes Risiko";
 
