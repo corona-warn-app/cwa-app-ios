@@ -117,14 +117,13 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen.";
 "Home_SubmitCard_Button" = "Test registrieren";
 
-"Home_InfoCard_ShareTitle" = "Teilen Sie die App";
-"Home_InfoCard_ShareBody" = "Laden Sie Andere zum Mitmachen ein, denn zusammen sind wir stärker.";
-"Home_InfoCard_AboutTitle" = "Über COVID-19 informieren";
-"Home_InfoCard_AboutBody" = "Finden Sie verlässliche Antworten und konkrete informationen, wie Sie sich schützen und anderen helfen können";
+"Home_InfoCard_ShareTitle" = "Corona-Warn-App teilen";
+"Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Download ein!";
+"Home_InfoCard_AboutTitle" = "Über COVID-19";
+"Home_InfoCard_AboutBody" = "Finden Sie verlässliche Antworten und konkrete Informationen, wie Sie sich schützen und anderen helfen können.";
 
 "Home_SettingsCard_Title" = "Einstellungen";
 "Home_AppInformationCard_Title" = "App Informationen";
-
 
 // App Information
 "App_Info" = "Über die App";
