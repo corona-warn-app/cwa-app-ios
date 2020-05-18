@@ -11,10 +11,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          key: 1-gems-{{ checksum "src/xcode/Gemfile.lock" }}
       - run: bundle check || bundle config set path vendor/bundle
       - save_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          key: 1-gems-{{ checksum "src/xcode/Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
