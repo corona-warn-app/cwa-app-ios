@@ -14,20 +14,16 @@ class BorderView: UIView {
 
 extension UIView {
 
-	func setBorder(at edges: UIRectEdge, with color: UIColor, thickness: CGFloat, and inset: UIEdgeInsets = .zero) {
-		subviews.forEach { borderView in
-			guard let borderView = borderView as? BorderView else { return }
-			borderView.removeFromSuperview()
-		}
-        guard !edges.contains(.all) else {
+	func setBorder(at edges: [UIRectEdge], with color: UIColor, thickness: CGFloat, and inset: UIEdgeInsets = .zero) {
+		
+        if edges.contains(.all) {
 			addBorder(at: .bottom, with: color, thickness: thickness, and: inset)
 			addBorder(at: .left, with: color, thickness: thickness, and: inset)
 			addBorder(at: .right, with: color, thickness: thickness, and: inset)
 			addBorder(at: .top, with: color, thickness: thickness, and: inset)
             return
         }
-        let allCases = [UIRectEdge.bottom, UIRectEdge.left, UIRectEdge.right, UIRectEdge.top]
-        for rectEdge in allCases {
+        for rectEdge in edges {
             if edges.contains(rectEdge) {
                 addBorder(at: rectEdge, with: color, thickness: thickness, and: inset)
             }

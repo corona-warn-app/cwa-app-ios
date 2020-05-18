@@ -25,7 +25,7 @@ class HomeSimpleCellConfigurator: CollectionViewCellConfigurator {
 		
 		switch position {
 		case .first:
-			cell.setBorder(at: [.top], with: UIColor.systemGray5, thickness: 1.0)
+			cell.setBorder(at: [.top], with: UIColor.systemGray5, thickness: 1.0, and: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
 			cell.setBorder(at: [.bottom], with: UIColor.systemGray5, thickness: 1.0, and: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0))
 		case .other:
 			cell.setBorder(at: [.bottom], with: UIColor.systemGray5, thickness: 1.0, and: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0))
