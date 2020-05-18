@@ -62,7 +62,7 @@ class ENAUITestsOnboarding: XCTestCase {
 		app.launch()
 
 		// need to ensure user is not already onboared
-		PersistenceManager.shared.isOnboarded = false
+//		PersistenceManager.shared.isOnboarded = false
 		
 		// tap through the onboarding screens
 		app/*@START_MENU_TOKEN@*/.staticTexts["Nächste"]/*[[".buttons[\"Nächste\"].staticTexts[\"Nächste\"]",".staticTexts[\"Nächste\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()

@@ -78,7 +78,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "ExposureSubmissionConfirmation_Submit" = "Abschliessen";
 
 // Tracing Enable/Disable Settings
-"ExposureNotificationSetting_TracingSettingTitle" = "Tracing";
+"ExposureNotificationSetting_TracingSettingTitle" = "Umfeldaufnahme";
 "ExposureNotificationSetting_EnableTracing" = "Umfeldaufnahme aktivieren";
 "ExposureNotificationSetting_IntroductionTitle" = "Aktivieren Sie die Protokollierung der Kontakte";
 "ExposureNotificationSetting_IntroductionText" = "Die COVID-19 Kontakprotokoll Mitteilungen sollen Ihnen helfen, wenn Sie mit einem Benutzer in Kontakt gekommen sind, der sich später als postiv auf COVID-19 getestet meldet. Sie können diese Mitteilungen jederzeit abshalten.
@@ -89,18 +89,33 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 // Home Cards
 "Home_Activate_Title" = "Tracing ist aktiv";
 
-"Home_Risk_Unknown_Title" = "Risiko Unbekannt";
-"Home_Risk_Low_Title" = "Risiko Niedrig";
-"Home_Risk_High_Title" = "Risiko Moderat";
-"Home_Risk_Moderate_Title" = "Risiko Hoch";
+// Home Unknown card
+"Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
+"Home_RiskCard_Unknown_Item_Title" = "Da Sie Ihre Umfeldaufzeichnung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
+"Home_RiskCard_Unknown_Button" = "Risikostatus prüfen";
 
-"Home_RiskCard_Body" = "Es wurde kein Kontakt mit COVID-19 erkannt.";
-"Home_RiskCard_Date" = "Letzte Überprüfung: %@";
-"Home_RiskCard_Button" = "Kontakte überprüfen";
+// Home Inactive card
+"Home_Risk_Inactive_Title" = "Keine Risikoprüfung";
+"Home_Risk_Inactive_Activate_Item_Title" = "Aktivieren Sie das Kontaktprotokoll, um Ihre Risikostufe zu berechnen.";
+"Home_Risk_Inactive_Date_Item_Title" = "Letzte Prüfung: %@";
+"Home_Risk_Inactive_Button" = "Kontaktprotokoll aktivieren";
 
-"Home_SubmitCard_Title" = "Ich wurde getestet";
-"Home_SubmitCard_Body" = "Melden Sie Ihren Befund annonym, damit Kontaktpersonnen informiert werden können";
-"Home_SubmitCard_Button" = "Befund melden";
+// Home Low card
+"Home_Risk_Low_Title" = "Geringes Risiko";
+"Home_Risk_Low_NoContact_Item_Title" = "Bisher keine Kontakte";
+"Home_Risk_Low_Date_Item_Title" = "Letzte Prüfung: %@";
+"Home_Risk_Low_Button" = "Risikostatus prüfen";
+
+// Home High card
+"Home_Risk_High_Title" = "Erhöhtes Risiko";
+"Home_Risk_High_Number_Contacts_Item_Title" = "%d Kontakte mit erhöhtem Risiko";
+"Home_Risk_High_Last_Contact_Item_Title" = "%d Tage seit letztem Kontakt";
+"Home_Risk_High_Date_Item_Title" = "Letzte Prüfung: %@";
+"Home_Risk_High_Button" = "Risikostatus prüfen";
+
+"Home_SubmitCard_Title" = "COVID Test";
+"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen.";
+"Home_SubmitCard_Button" = "Test registrieren";
 
 "Home_InfoCard_ShareTitle" = "Teilen Sie die App";
 "Home_InfoCard_ShareBody" = "Laden Sie Andere zum Mitmachen ein, denn zusammen sind wir stärker.";
@@ -185,18 +200,18 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 
 //Risk View
 "unknown_risk" = "Risiko unbekannt";
+"inactive_risk" = "Keine Risikoprüfung";
 "low_risk" = "Geringes Risiko";
-"moderate_risk" = "Moderates Risiko";
 "high_risk" = "Hohes Risiko";
 
 "unknown_risk_detail" = "Es wurde kein Kontakt mit COVID 19 erkannt";
+"inactive_risk_detail" = "inactive";
 "low_risk_detail" = "Es wurde ein geringes Risiko für den Kontakt mit COVID 19 erkannt";
-"moderate_risk_detail" = "Es wurde ein moderates Risiko für den Kontakt mit COVID 19 erkannt";
 "high_risk_detail" = "Es wurde ein hohes Risiko für den Kontakt mit COVID 19 erkannt";
 
 "unknown_risk_detail_help" = "Das Infektionsrisiko ist unbekannt, da bisher noch keine Kontakte aufgezeichnet wurden.";
+"inactive_risk_detail_help" = "inactive";
 "low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
-"moderate_risk_detail_help" = "Es besteht moderates Infektionsrisiko, da ein Kontakt mit wenigen infizierten Personen oder nur über Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
 // Invite Friends
@@ -204,6 +219,8 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_Title" = "Zusammen gegen Corona.";
 "InviteFriends_Description" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Downloaden ein!";
 "InviteFriends_Button" = "App teilen";
+"InviteFriends_ShareTitle" = "Zusammen gegen Corona. Ich bin dabei. Du auch?";
+"InviteFriends_ShareUrl" = "https://apps.apple.com/de";
 
 //Reset View
 "reset_view_title" = "Anwendung zurücksetzen";

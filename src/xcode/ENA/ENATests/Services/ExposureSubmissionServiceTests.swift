@@ -43,18 +43,21 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
         let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
         let expectation = self.expectation(description: "ActivationError")
-        var error: ExposureSubmissionError?
 
         // Act
-        service.submitExposure(tan: tan) {
-            error = $0
-            expectation.fulfill()
+        service.submitExposure(tan: tan) { error in
+            defer { expectation.fulfill() }
+            guard let error = error else {
+                XCTFail("error expected")
+                return
+            }
+            guard case ExposureSubmissionError.enNotEnabled = error else {
+                XCTFail("We expect error to be of type enNotEnabled")
+                return
+            }
         }
 
         waitForExpectations(timeout: expectationsTimeout)
-
-        // Assert
-        XCTAssert(error == .enNotEnabled)
     }
 
     func testSubmitExpousure_NoKeys() {
@@ -64,18 +67,21 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
         let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
         let expectation = self.expectation(description: "NoKeys")
-        var error: ExposureSubmissionError?
 
         // Act
-        service.submitExposure(tan: tan) {
-            error = $0
-            expectation.fulfill()
+        service.submitExposure(tan: tan) { error in
+            defer { expectation.fulfill() }
+            guard let error = error else {
+                XCTFail("error expected")
+                return
+            }
+            guard case ExposureSubmissionError.noKeys = error else {
+                XCTFail("We expect error to be of type expectationsTimeout")
+                return
+            }
         }
 
         waitForExpectations(timeout: expectationsTimeout)
-
-        // Assert
-        XCTAssert(error == .noKeys)
     }
 
     func testSubmitExpousure_EmptyKeys() {
@@ -85,39 +91,21 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
         let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
         let expectation = self.expectation(description: "EmptyKeys")
-        var error: ExposureSubmissionError?
 
         // Act
-        service.submitExposure(tan: tan) {
-            error = $0
-            expectation.fulfill()
+        service.submitExposure(tan: tan) {error in
+            defer { expectation.fulfill() }
+            guard let error = error else {
+                XCTFail("error expected")
+                return
+            }
+            guard case ExposureSubmissionError.noKeys = error else {
+                XCTFail("We expect error to be of type noKeys")
+                return
+            }
         }
 
         waitForExpectations(timeout: expectationsTimeout)
-
-        // Assert
-        XCTAssert(error == .noKeys)
-    }
-
-    func testSubmitExpousure_NetworkError() {
-        // Arrange
-        let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
-        let client = MockTestClient(submissionError: .networkError)
-
-        let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
-        let expectation = self.expectation(description: "NetworkError")
-        var error: ExposureSubmissionError?
-
-        // Act
-        service.submitExposure(tan: tan) {
-            error = $0
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: expectationsTimeout)
-
-        // Assert
-        XCTAssert(error == .networkError)
     }
 
     func testSubmitExpousure_OtherError() {
@@ -127,18 +115,21 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
         let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
         let expectation = self.expectation(description: "OtherError")
-        var error: ExposureSubmissionError?
 
         // Act
-        service.submitExposure(tan: tan) {
-            error = $0
-            expectation.fulfill()
+        service.submitExposure(tan: tan) { error in
+            defer { expectation.fulfill() }
+            guard let error = error else {
+                XCTFail("error expected")
+                return
+            }
+            guard case ExposureSubmissionError.other = error else {
+                XCTFail("We expect error to be of type invalidTan")
+                return
+            }
         }
 
         waitForExpectations(timeout: expectationsTimeout)
-
-        // Assert
-        XCTAssert(error == .other)
     }
 
     func testSubmitExpousure_InvalidTan() {
@@ -148,17 +139,15 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
         let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
         let expectation = self.expectation(description: "InvalidTan")
-        var error: ExposureSubmissionError?
 
         // Act
-        service.submitExposure(tan: tan) {
-            error = $0
-            expectation.fulfill()
+        service.submitExposure(tan: tan) { error in
+            defer {
+                expectation.fulfill()
+            }
+            XCTAssert(error == .invalidTan)
         }
 
         waitForExpectations(timeout: expectationsTimeout)
-
-        // Assert
-        XCTAssert(error == .invalidTan)
     }
 }

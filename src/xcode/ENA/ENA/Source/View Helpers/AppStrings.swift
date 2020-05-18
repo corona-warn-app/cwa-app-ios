@@ -111,14 +111,25 @@ enum AppStrings {
         static let activateTitle = NSLocalizedString("Home_Activate_Title", comment: "")
 
         static let riskCardUnknownTitle = NSLocalizedString("Home_Risk_Unknown_Title", comment: "")
+        static let riskCardUnknownItemTitle = NSLocalizedString("Home_RiskCard_Unknown_Item_Title", comment: "")
+        static let riskCardUnknownButton = NSLocalizedString("Home_RiskCard_Unknown_Button", comment: "")
+        
+        static let riskCardInactiveTitle = NSLocalizedString("Home_Risk_Inactive_Title", comment: "")
+        static let riskCardInactiveActivateItemTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Title", comment: "")
+        static let riskCardInactiveDateItemTitle = NSLocalizedString("Home_Risk_Inactive_Date_Item_Title", comment: "")
+        static let riskCardInactiveButton = NSLocalizedString("Home_Risk_Inactive_Button", comment: "")
+        
         static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
+        static let riskCardLowNoContactItemTitle = NSLocalizedString("Home_Risk_Low_NoContact_Item_Title", comment: "")
+        static let riskCardLowDateItemTitle = NSLocalizedString("Home_Risk_Low_Date_Item_Title", comment: "")
+        static let riskCardLowButton = NSLocalizedString("Home_Risk_Low_Button", comment: "")
+        
         static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
-        static let riskCardModerateTitle = NSLocalizedString("Home_Risk_Moderate_Title", comment: "")
-            
-        static let riskCardBody = NSLocalizedString("Home_RiskCard_Body", comment: "")
-        static let riskCardDate = NSLocalizedString("Home_RiskCard_Date", comment: "")
-        static let riskCardButton = NSLocalizedString("Home_RiskCard_Button", comment: "")
-
+        static let riskCardHighNumberContactsItemTitle = NSLocalizedString("Home_Risk_High_Number_Contacts_Item_Title", comment: "")
+        static let riskCardHighLastContactItemTitle = NSLocalizedString("Home_Risk_High_Last_Contact_Item_Title", comment: "")
+        static let riskCardHighDateItemTitle = NSLocalizedString("Home_Risk_High_Date_Item_Title", comment: "")
+        static let riskCardHighButton = NSLocalizedString("Home_Risk_High_Button", comment: "")
+        
         static let submitCardTitle = NSLocalizedString("Home_SubmitCard_Title", comment: "")
         static let submitCardBody = NSLocalizedString("Home_SubmitCard_Body", comment: "")
         static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
@@ -133,18 +144,18 @@ enum AppStrings {
 
     enum RiskView {
         static let unknownRisk = NSLocalizedString("unknown_risk", comment: "")
+        static let inactiveRisk = NSLocalizedString("inactive_risk", comment: "")
         static let lowRisk = NSLocalizedString("low_risk", comment: "")
-        static let moderateRisk = NSLocalizedString("moderate_risk", comment: "")
         static let highRisk = NSLocalizedString("high_risk", comment: "")
 
         static let unknownRiskDetail = NSLocalizedString("unknown_risk_detail", comment: "")
+        static let inactiveRiskDetail = NSLocalizedString("inactive_risk_detail", comment: "")
         static let lowRiskDetail = NSLocalizedString("low_risk_detail", comment: "")
-        static let moderateRiskDetail = NSLocalizedString("moderate_risk_detail", comment: "")
         static let highRiskDetail = NSLocalizedString("high_risk_detail", comment: "")
 
         static let unknownRiskDetailHelp = NSLocalizedString("unknown_risk_detail_help", comment: "")
+        static let inactiveRiskDetailHelp = NSLocalizedString("inactive_risk_detail_help", comment: "")
         static let lowRiskDetailHelp = NSLocalizedString("low_risk_detail_help", comment: "")
-        static let moderateRiskDetailHelp = NSLocalizedString("moderate_risk_detail_help", comment: "")
         static let highRiskDetailHelp = NSLocalizedString("high_risk_detail_help", comment: "")
     }
 
@@ -153,6 +164,8 @@ enum AppStrings {
         static let description = NSLocalizedString("InviteFriends_Description", comment: "")
         static let submit = NSLocalizedString("InviteFriends_Button", comment: "")
         static let navigationBarTitle = NSLocalizedString("InviteFriends_NavTitle", comment: "")
+        static let shareTitle = NSLocalizedString("InviteFriends_ShareTitle", comment: "")
+        static let shareUrl = NSLocalizedString("InviteFriends_ShareUrl", comment: "")
     }
 
     enum ResetView {

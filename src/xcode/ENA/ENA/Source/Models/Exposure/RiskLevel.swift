@@ -11,20 +11,26 @@ import ExposureNotification
 
 enum RiskLevel {
     case unknown
+    case inactive
     case low
     case high
-    case moderate
     
-    init(riskScore: ENRiskScore) {
+    private static var lowRange: ClosedRange<ENRiskScore> {
+        1...4
+    }
+    
+    private static var highRange: ClosedRange<ENRiskScore> {
+        5...8
+    }
+    
+    init?(riskScore: ENRiskScore) {
         switch riskScore {
-        case 1, 2, 3:
+        case let score where RiskLevel.lowRange ~= score:
             self = .low
-        case 4, 5, 6:
-            self = .moderate
-        case 7, 8:
+        case let score where RiskLevel.highRange ~= score:
             self = .high
         default:
-            self = .unknown
+            return nil
         }
     }
 }

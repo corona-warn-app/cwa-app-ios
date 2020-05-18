@@ -13,6 +13,7 @@ class ActivateCollectionViewCell: HomeCardCollectionViewCell {
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var titleTextView: UITextView!
     @IBOutlet var chevronImageView: UIImageView!
+    @IBOutlet var viewContainer: UIView!
     @IBOutlet var constraint: NSLayoutConstraint!
     
     private let iconTitleDistance: CGFloat = 10.0
@@ -21,6 +22,8 @@ class ActivateCollectionViewCell: HomeCardCollectionViewCell {
         super.awakeFromNib()
         titleTextView.textContainerInset = .zero
         titleTextView.textContainer.lineFragmentPadding = 0
+        let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+        viewContainer.layoutMargins = containerInsets
     }
     
     override func layoutSubviews() {
