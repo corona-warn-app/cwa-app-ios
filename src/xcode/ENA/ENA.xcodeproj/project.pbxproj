@@ -72,8 +72,6 @@
 		714CD8652472883A00F56450 /* ExposureDetectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8642472883A00F56450 /* ExposureDetectionModel.swift */; };
 		714CD8672472885900F56450 /* ExposureDetectionModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8662472885900F56450 /* ExposureDetectionModelData.swift */; };
 		714CD869247297F800F56450 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD868247297F800F56450 /* NibLoadable.swift */; };
-		71CC3E9B246D5D6C00217F2C /* AppInformationDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3E9A246D5D6C00217F2C /* AppInformationDetailModel.swift */; };
-		71CC3EA1246D6BBF00217F2C /* DynamicTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */; };
 		71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */; };
 		71FD886424725F2000E804D0 /* ExposureDetectionRiskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FD886324725F2000E804D0 /* ExposureDetectionRiskCell.xib */; };
 		71FD886624725F3300E804D0 /* ExposureDetectionRiskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD886524725F3300E804D0 /* ExposureDetectionRiskCell.swift */; };
@@ -151,7 +149,6 @@
 		EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */; };
 		EE46E5D82466AEA50057627F /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE46E5D72466AEA50057627F /* UIView.swift */; };
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
-		EE8599932462EFFD002E7AE2 /* AppInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE8599922462EFFD002E7AE2 /* AppInformation.storyboard */; };
 		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
 		EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF10679246EBF8B009DFB4E /* ResetViewController.swift */; };
 /* End PBXBuildFile section */
@@ -1140,9 +1137,7 @@
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
-				EE8599932462EFFD002E7AE2 /* AppInformation.storyboard in Resources */,
 				51B5B414246DF07300DC5D3E /* RiskItemView.xib in Resources */,
-				EE8599932462EFFD002E7AE2 /* AppInformation.storyboard in Resources */,
 				51CE1B8E246078B6002CF42A /* SettingsCollectionViewCell.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				51CE1B88246078B6002CF42A /* RiskCollectionViewCell.xib in Resources */,
@@ -1268,7 +1263,6 @@
 				51B5B416246DF13D00DC5D3E /* RiskItemView.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
 				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
-				71CC3EA1246D6BBF00217F2C /* DynamicTypeLabel.swift in Sources */,
 				B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
@@ -1290,7 +1284,6 @@
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				51CE1B8C246078B6002CF42A /* SettingsCollectionViewCell.swift in Sources */,
 				514EE9A0246D4DF800DE4884 /* HomeRiskItemViewConfigurator.swift in Sources */,
-				71CC3E9B246D5D6C00217F2C /* AppInformationDetailModel.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				71FD886624725F3300E804D0 /* ExposureDetectionRiskCell.swift in Sources */,
