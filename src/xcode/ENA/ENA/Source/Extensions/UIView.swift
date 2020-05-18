@@ -9,9 +9,6 @@
 import Foundation
 import UIKit
 
-class BorderView: UIView {
-}
-
 extension UIView {
 
 	func setBorder(at edges: [UIRectEdge], with color: UIColor, thickness: CGFloat, and inset: UIEdgeInsets = .zero) {
@@ -33,7 +30,7 @@ extension UIView {
     //Use additional view in order to set constraints for border layer
 	private func addBorder(at rect: UIRectEdge, with color: UIColor, thickness: CGFloat, and inset: UIEdgeInsets) {
 
-        let layerContainerView = BorderView()
+        let layerContainerView = UIView()
         layerContainerView.backgroundColor = color
 
         switch rect {
