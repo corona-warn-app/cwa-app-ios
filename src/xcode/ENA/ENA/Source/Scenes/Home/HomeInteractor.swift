@@ -71,7 +71,6 @@ final class HomeInteractor {
 		let title2 = AppStrings.Home.infoCardAboutTitle
         let body2 = AppStrings.Home.infoCardAboutBody
         let info2Configurator = HomeInfoCellConfigurator(title: title2, body: body2)
-		info2Configurator.position = .last
 
 		let appInformationConfigurator = HomeSimpleCellConfigurator(title: AppStrings.Home.appInformationCardTitle, position: .first)
 		appInformationConfigurator.position = .first
