@@ -44,7 +44,6 @@ final class LocalDatabase: DataBaseWrapper {
         // Create tables
         let sqlStmt = """
             CREATE TABLE IF NOT EXISTS payloadStore (
-                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 payload BLOB NOT NULL,
                 day Date NOT NULL,
                 hour INTEGER
@@ -59,24 +58,22 @@ final class LocalDatabase: DataBaseWrapper {
             VALUES(?, ?, ?);
         """
 
-        // Transform day from String to Date to facilitate the clean up function
-        let date = dateFormatter.date(from: day) ?? Date()
-
         if !db.isOpen {
             db.open()
         }
+
+        // Transform day from String to Date to facilitate the clean up function
+        let date = dateFormatter.date(from: day) ?? Date()
 
         do {
             try db.executeUpdate(insertStr, values: [payload, date, hour ?? NSNull()])
         } catch {
             logError(message: "Failed to store keys in local db: \(error.localizedDescription)")
         }
-
-        db.close()
     }
 
     func fetchPayloads(with completion: @escaping FetchDBKeysCompletionHandler) {
-        let query = "SELECT * FROM payloadStore"
+        let query = "SELECT signedPayload, day, hour FROM payloadStore"
         var payloads = [(Data, String, Int?)]()
         let values = [Any]()
 
@@ -89,19 +86,13 @@ final class LocalDatabase: DataBaseWrapper {
                 let hour = Int(result.int(forColumn: "hour"))
                 payloads.append((data, day, hour))
             }
-            db.close()
             completion(payloads, nil)
-        }
-
-        if !db.isOpen {
-            db.open()
         }
 
         do {
             let result = try db.executeQuery(query, values: values)
             extractPayloads(result: result)
         } catch {
-            db.close()
             completion(nil, error)
         }
     }
@@ -110,16 +101,15 @@ final class LocalDatabase: DataBaseWrapper {
         let threshold: Int32 = Int32(date.timeIntervalSince1970)
         let stmt = "DELETE FROM payloadStore WHERE day < \(threshold);"
 
-        if !db.isOpen {
-            db.open()
-        }
-
         do {
             try db.executeUpdate(stmt, values: [Any]())
         } catch {
             // Don't notify, only a clean-up function
             logError(message: "Failed to clean-up db: \(error.localizedDescription)")
         }
+    }
+
+    deinit {
         db.close()
     }
 
