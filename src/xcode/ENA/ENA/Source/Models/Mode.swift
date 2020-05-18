@@ -10,8 +10,7 @@ import Foundation
 
 /// Represents the mode of the current execution.
 enum Mode: String {
-    case production = "production"
-    case development = "development"
+    case https = "https"
     case mock = "mock"
 
     static func from(environment: [String: String]) -> Mode {
@@ -19,7 +18,7 @@ enum Mode: String {
             return Mode.production
         #endif
         
-        let defaultMode: Mode = .mock
+        let defaultMode: Mode = .https
         let value = environment["CW_MODE"] ?? defaultMode.rawValue
         return Mode(rawValue: value) ?? defaultMode
     }

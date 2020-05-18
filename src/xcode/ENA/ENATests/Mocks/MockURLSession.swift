@@ -22,24 +22,24 @@ class MockURLSessionDataTask: URLSessionDataTask {
 
 class MockUrlSession: URLSession {
     let data: Data?
-    let response: URLResponse?
+    let nextResponse: URLResponse?
     let error: Error?
 
-    init(data: Data?, response: URLResponse?, error: Error?) {
+    init(data: Data?, nextResponse: URLResponse?, error: Error?) {
         self.data = data
-        self.response = response
+        self.nextResponse = nextResponse
         self.error = error
     }
 
     override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         return MockURLSessionDataTask {
-            completionHandler(self.data, self.response, self.error)
+            completionHandler(self.data, self.nextResponse, self.error)
         }
     }
 
     override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         return MockURLSessionDataTask {
-            completionHandler(self.data, self.response, self.error)
+            completionHandler(self.data, self.nextResponse, self.error)
         }
     }
 }

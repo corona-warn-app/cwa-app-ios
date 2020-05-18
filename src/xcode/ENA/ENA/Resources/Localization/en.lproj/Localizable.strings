@@ -57,14 +57,29 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 // Home Cards
 "Home_Activate_Title" = "Tracing is active";
 
+// Home Unknown card
 "Home_Risk_Unknown_Title" = "Unknown Risk";
-"Home_Risk_Low_Title" = "Low Risk";
-"Home_Risk_High_Title" = "Moderate Risk";
-"Home_Risk_Moderate_Title" = "High Risk";
+"Home_RiskCard_Unknown_Item_Title" = "Since you have not activated your environment recording long enough, we could not calculate any risk of infection for you.";
+"Home_RiskCard_Unknown_Button" = "Check risk status";
 
-"Home_RiskCard_Body" = "No contact with COVID-19 was detected.";
-"Home_RiskCard_Date" = "Last review: %@";
-"Home_RiskCard_Button" = "Check contacts";
+// Home Inactive card
+"Home_Risk_Inactive_Title" = "No risk assessment";
+"Home_Risk_Inactive_Activate_Item_Title" = "Activate the contact log to calculate your risk level.";
+"Home_Risk_Inactive_Date_Item_Title" = "Last test: %@";
+"Home_Risk_Inactive_Button" = "Activate contact log";
+
+// Home Low card
+"Home_Risk_Low_Title" = "Low Risk";
+"Home_Risk_Low_NoContact_Item_Title" = "No contacts so far";
+"Home_Risk_Low_Date_Item_Title" = "Last test: %@";
+"Home_Risk_Low_Button" = "Check risk status";
+
+// Home High card
+"Home_Risk_High_Title" = "High Risk";
+"Home_Risk_High_Number_Contacts_Item_Title" = "%d contacts with increased risk";
+"Home_Risk_High_Last_Contact_Item_Title" = "%d days since last contact";
+"Home_Risk_High_Date_Item_Title" = "Last test: %@";
+"Home_Risk_High_Button" = "Check risk status";
 
 "Home_SubmitCard_Title" = "I would be tested";
 "Home_SubmitCard_Body" = "Report your findings anonymously so that contact persons can be informed";

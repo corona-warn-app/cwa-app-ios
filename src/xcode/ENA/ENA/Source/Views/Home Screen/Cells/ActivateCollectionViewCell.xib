@@ -21,24 +21,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="829" height="285"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet." adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ad-Mo-axK">
-                                <rect key="frame" x="16" y="60" width="765" height="175"/>
+                                <rect key="frame" x="8" y="52" width="792" height="191"/>
                                 <color key="textColor" name="textPrimary1"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="260" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" image="onboarding_note" translatesAutoresizingMaskIntoConstraints="NO" id="E8I-Ui-O6H">
-                                <rect key="frame" x="16" y="60" width="24" height="24"/>
+                                <rect key="frame" x="8" y="52" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="2aY-fh-yDd"/>
                                     <constraint firstAttribute="width" constant="24" id="m5l-Ad-PW0"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2Cb-Bg-07B">
-                                <rect key="frame" x="789" y="134" width="32" height="17"/>
+                                <rect key="frame" x="808" y="134" width="13" height="17"/>
                                 <color key="tintColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="b9v-G4-FzR"/>
-                                </constraints>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 </preferredSymbolConfiguration>
@@ -48,11 +45,11 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="2Cb-Bg-07B" secondAttribute="trailing" id="EYh-RK-ZNd"/>
                             <constraint firstItem="E8I-Ui-O6H" firstAttribute="leading" secondItem="9Ad-Mo-axK" secondAttribute="leading" id="NSe-p5-SkN"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="9Ad-Mo-axK" secondAttribute="bottom" constant="8" id="SLS-YN-7Sb"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="9Ad-Mo-axK" secondAttribute="bottom" id="SLS-YN-7Sb"/>
                             <constraint firstItem="E8I-Ui-O6H" firstAttribute="top" secondItem="9Ad-Mo-axK" secondAttribute="top" id="aLN-Te-E8K"/>
-                            <constraint firstItem="9Ad-Mo-axK" firstAttribute="leading" secondItem="omf-Yc-Mgx" secondAttribute="leadingMargin" constant="8" id="dzr-UO-NB8"/>
+                            <constraint firstItem="9Ad-Mo-axK" firstAttribute="leading" secondItem="omf-Yc-Mgx" secondAttribute="leadingMargin" id="dzr-UO-NB8"/>
                             <constraint firstItem="2Cb-Bg-07B" firstAttribute="centerY" secondItem="omf-Yc-Mgx" secondAttribute="centerY" id="nui-9h-GHu"/>
-                            <constraint firstItem="9Ad-Mo-axK" firstAttribute="top" secondItem="omf-Yc-Mgx" secondAttribute="topMargin" constant="8" id="ufe-O0-Dm8"/>
+                            <constraint firstItem="9Ad-Mo-axK" firstAttribute="top" secondItem="omf-Yc-Mgx" secondAttribute="topMargin" id="ufe-O0-Dm8"/>
                             <constraint firstItem="2Cb-Bg-07B" firstAttribute="leading" secondItem="9Ad-Mo-axK" secondAttribute="trailing" constant="8" symbolic="YES" id="y5a-UX-FdC"/>
                         </constraints>
                     </view>
@@ -71,6 +68,7 @@
                 <outlet property="constraint" destination="aLN-Te-E8K" id="B6d-WF-cs2"/>
                 <outlet property="iconImageView" destination="E8I-Ui-O6H" id="jTY-MM-ym1"/>
                 <outlet property="titleTextView" destination="9Ad-Mo-axK" id="nuh-3w-Cun"/>
+                <outlet property="viewContainer" destination="omf-Yc-Mgx" id="F5p-f7-buP"/>
             </connections>
             <point key="canvasLocation" x="64.492753623188406" y="-62.611607142857139"/>
         </collectionViewCell>

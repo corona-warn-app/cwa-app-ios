@@ -15,13 +15,14 @@ protocol ExposureDetectionViewControllerDelegate: AnyObject {
 
 final class ExposureDetectionViewController: UIViewController {
     // MARK: Creating a Exposure Detection View Controller
-    required init?(coder: NSCoder, client: Client, store: Store) {
+    required init?(coder: NSCoder, client: Client, store: Store, signedPayloadStore: SignedPayloadStore) {
         guard let riskView = UINib(nibName: "RiskView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? RiskView else {
               fatalError("It should not happen. RiskView is not avaiable")
         }
         self.client = client
         self.store = store
         self.riskView = riskView
+        self.signedPayloadStore = signedPayloadStore
         super.init(coder: coder)
     }
 
@@ -33,13 +34,16 @@ final class ExposureDetectionViewController: UIViewController {
     @IBOutlet weak var infoTitleLabel: UILabel!
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var riskViewContainerView: UIView!
+    private var transaction: ExposureDetectionTransaction?
 
     private let store: Store
+    private let signedPayloadStore: SignedPayloadStore
     let client: Client
     var exposureManager: ExposureManager?
     weak var delegate: ExposureDetectionViewControllerDelegate?
     weak var exposureDetectionSummary: ENExposureDetectionSummary?
     let riskView: RiskView
+
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -67,11 +71,11 @@ final class ExposureDetectionViewController: UIViewController {
         updateLastSyncLabel()
         updateNextSyncLabel()
 
-        if let summary = exposureDetectionSummary, RiskLevel(riskScore: summary.maximumRiskScore) != .unknown {
+        if let summary = exposureDetectionSummary, let riskLevel = RiskLevel(riskScore: summary.maximumRiskScore) {
             riskView.daysSinceLastExposureLabel.text = "\(summary.daysSinceLastExposure)"
             riskView.matchedKeyCountLabel.text = "\(summary.matchedKeyCount)"
             riskView.highRiskDetailView.isHidden = false
-            setRiskView(to: RiskLevel(riskScore: summary.maximumRiskScore) )
+            setRiskView(to: riskLevel)
         } else {
             riskView.titleRiskLabel.text = AppStrings.RiskView.unknownRisk
             riskView.daysSinceLastExposureLabel.text = "0"
@@ -90,11 +94,11 @@ final class ExposureDetectionViewController: UIViewController {
             riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.lowRiskDetail
             riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
             riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.positive)
-        case .moderate:
-            riskView.titleRiskLabel.text = AppStrings.RiskView.moderateRisk
-            riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.moderateRiskDetail
+        case .inactive:
+            riskView.titleRiskLabel.text = AppStrings.RiskView.inactiveRisk
+            riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.inactiveRiskDetail
             riskView.riskImageView.image = UIImage(systemName: "cloud.rain")
-            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.medium)
+            riskView.backgroundColor = UIColor.preferredColor(for: ColorStyle.inactive)
         default:
             riskView.titleRiskLabel.text = AppStrings.RiskView.highRisk
             riskView.riskDetailDescriptionLabel.text = AppStrings.RiskView.highRiskDetail
@@ -131,72 +135,75 @@ final class ExposureDetectionViewController: UIViewController {
         riskView.refreshButton.setTitle(String.localizedStringWithFormat(AppStrings.ExposureDetection.nextSync, 0), for: .normal)
     }
 
-
     @IBAction func refresh(_ sender: Any) {
-        // The user wants to know his/her current risk. We have to do several things in order to be able to display
-        // the risk.
-        // 1. Get the configuration from the backend.
-        // 2. Get new diagnosis keys from the backend.
-        // 3. Create a detector and start it.
-        client.exposureConfiguration { [weak self] configurationResult in
-            guard let self = self else { return }
-            switch configurationResult {
-            case .success(let configuration):
-                self.client.fetch { [weak self] fetchResult in
-                    switch fetchResult {
-                    case .success(let urls):
-                        self?.startExposureDetector(configuration: configuration, diagnosisKeyURLs: urls)
-                    case .failure(let fetchError):
-                        logError(message: "Failed to fetch using client: \(fetchError.localizedDescription)")
-                    }
-                }
-            case .failure(let error):
-                logError(message: "Failed to get configuration: \(error.localizedDescription)")
+        guard transaction == nil else {
+            log(message: "Transaction already active. Please wait.")
+            return
+        }
+        // The user wants to know his/her current risk.
+        // We simply start the exposure detection transaction which does all the heavy lifting.
+        let transaction = ExposureDetectionTransaction(
+            delegate: self,
+            client: client,
+            signedPayloadStore: signedPayloadStore
+        )
+        log(message: "Starting exposure detection…")
+        self.transaction = transaction
+        transaction.resume()
+    }
+}
+
+extension ExposureDetectionViewController: ExposureDetectionTransactionDelegate {
+    func exposureDetectionTransaction(
+        _ transaction: ExposureDetectionTransaction,
+        didDetectSummary summary: ENExposureDetectionSummary
+    ) {
+        exposureDetectionSummary = summary
+        store.dateLastExposureDetection = Date()
+        delegate?.exposureDetectionViewController(
+            self,
+            didReceiveSummary: summary
+        )
+        log(message: "Exposure detection finished with summary: \(summary.pretty)")
+        updateRiskView()
+
+        self.transaction = nil
+    }
+
+    func exposureDetectionTransaction(
+        _ transaction: ExposureDetectionTransaction,
+        didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason
+    ) {
+        logError(message: "Exposure transaction failed: \(reason)")
+        self.transaction = nil
+    }
+
+    func exposureDetectionTransaction(
+        _ transaction: ExposureDetectionTransaction,
+        continueWithExposureManager: @escaping ContinueHandler,
+        abort: @escaping AbortHandler
+    ) {
+        // Important:
+        // See HomeViewController for more details as to why we create a new manager here.
+
+        let manager = ENAExposureManager()
+        manager.activate { error in
+            if let error = error {
+                let message = "Unable to detect exposures because exposure manager could not be activated due to: \(error)"
+                logError(message: message)
+                manager.invalidate()
+                abort(error)
+                // TODO: We should defer abort(…) until the invalidation handler has been called.
+                return
             }
+            continueWithExposureManager(manager)
         }
     }
 
-    // Important:
-    // See HomeViewController for more details as to why we do this.
-    private func startExposureDetector(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL]) {
-        log(message: "Starting exposure detector")
-
-        let startDate = Date()
-
-        let exposureManager = ENAExposureManager()
-
-        func stopAndInvalidate() {
-            exposureManager.invalidate()
-        }
-
-        func start() {
-            _ = exposureManager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { summary, error in
-                if let error = error {
-                    logError(message: "Exposure detection failed due to underlying error: \(error.localizedDescription)")
-                    stopAndInvalidate()
-                    return
-                }
-                guard let summary = summary else {
-                    fatalError("can never happen")
-                }
-                self.exposureDetectionSummary = summary
-                self.store.dateLastExposureDetection = startDate
-                self.delegate?.exposureDetectionViewController(self, didReceiveSummary: summary)
-                log(message: "Exposure detection finished with summary: \(summary.pretty)")
-                self.updateRiskView()
-                stopAndInvalidate()
-            }
-        }
-
-        exposureManager.activate { error in
-            if let error = error {
-                logError(message: "Unable to detect exposures because exposure manager could not be activated due to: \(error)")
-                stopAndInvalidate()
-                return
-            }
-            start()
-
-        }
+    func exposureDetectionTransactionRequiresFormattedToday(
+        _ transaction: ExposureDetectionTransaction
+    ) -> String {
+        .formattedToday()
     }
 }
 
@@ -213,7 +220,7 @@ fileprivate extension ENExposureDetectionSummary {
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 30)
         ]
-        let title: String = self.title(for: RiskLevel(riskScore: maximumRiskScore))
+        let title: String = self.title(for: RiskLevel(riskScore: maximumRiskScore) ?? .unknown)
         string.append(NSAttributedString(string: "\n\(title)", attributes: attributes))
         string.append(NSAttributedString(string: "\n\n\n\(daysSinceLastExposure) Tage seit Kontakt", attributes: attributes))
         string.append(NSAttributedString(string: "\n\(matchedKeyCount) Kontakte\n\n", attributes: attributes))
@@ -227,12 +234,12 @@ fileprivate extension ENExposureDetectionSummary {
         switch riskLevel {
         case .unknown:
             key = AppStrings.Home.riskCardUnknownTitle
+        case .inactive:
+            key = AppStrings.Home.riskCardInactiveTitle
         case .low:
             key = AppStrings.Home.riskCardLowTitle
         case .high:
             key = AppStrings.Home.riskCardHighTitle
-        case .moderate:
-            key = AppStrings.Home.riskCardModerateTitle
         }
         return key
     }

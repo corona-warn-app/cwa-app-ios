@@ -10,6 +10,22 @@ import ExposureNotification
 @testable import ENA
 
 class MockTestClient: Client {
+    func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
+        completion(.success([]))
+    }
+
+    func availableHours(day: String, completion: @escaping AvailableHoursCompletionHandler) {
+        completion(.success([]))
+    }
+
+    func fetchDay(_ day: String, completion completeWith: @escaping DayCompletionHandler) {
+
+    }
+
+    func fetchHour(_ hour: Int, day: String, completion completeWith: @escaping HourCompletionHandler) {
+        
+    }
+
     let submissionError: SubmissionError?
 
     init(submissionError: SubmissionError?) {
@@ -21,8 +37,5 @@ class MockTestClient: Client {
 
     func submit(keys: [ENTemporaryExposureKey], tan: String, completion: @escaping SubmitKeysCompletionHandler) {
         completion(submissionError)
-    }
-
-    func fetch(completion: @escaping FetchKeysCompletionHandler) {
     }
 }

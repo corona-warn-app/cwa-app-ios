@@ -11,10 +11,17 @@ import UIKit
 final class HomeViewController: UIViewController {
 
     // MARK: Creating a Home View Controller
-
-    init?(coder: NSCoder, exposureManager: ExposureManager, client: Client, store: Store) {
+    
+    init?(
+        coder: NSCoder,
+        exposureManager: ExposureManager,
+        client: Client,
+        store: Store,
+        signedPayloadStore: SignedPayloadStore
+    ) {
         self.client = client
         self.store = store
+        self.signedPayloadStore = signedPayloadStore
         super.init(coder: coder)
         homeInteractor = HomeInteractor(
             homeViewController: self,
@@ -29,6 +36,8 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: Properties
+    private let signedPayloadStore: SignedPayloadStore
+
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
     private var homeLayout: HomeLayout!
@@ -161,7 +170,12 @@ final class HomeViewController: UIViewController {
         // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
 
         let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection) { coder in
-            ExposureDetectionViewController(coder: coder, client: self.client, store: self.store)
+            ExposureDetectionViewController(
+                coder: coder,
+                client: self.client,
+                store: self.store,
+                signedPayloadStore: self.signedPayloadStore
+            )
         }
         exposureDetectionViewController.delegate = homeInteractor
         present(exposureDetectionViewController, animated: true, completion: nil)

@@ -12,17 +12,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Properties
     var window: UIWindow?
     private let store = Store()
-    private(set) var client: Client = {
-        let mode = Mode.from()
+    private let diagnosisKeysStore = SignedPayloadStore()
 
-        switch mode {
-        case .development:
-            return HTTPClient(configuration: .development)
-        case .production:
+    private(set) lazy var client: Client = {
+        #if APP_STORE
             return HTTPClient(configuration: .production)
-        case .mock:
+        #endif
+
+        if Mode.from() == .mock {
             return MockClient()
         }
+        
+        let store = self.store
+        guard
+            let distributionURLString = store.developerDistributionBaseURLOverride,
+            let submissionURLString = store.developerSubmissionBaseURLOverride,
+            let distributionURL = URL(string: distributionURLString),
+            let submissionURL = URL(string: submissionURLString) else {
+                return HTTPClient(configuration: .production)
+        }
+
+
+        let config = BackendConfiguration(
+            endpoints: .init(
+                distribution: distributionURL,
+                submission: submissionURL
+            )
+        )
+        return HTTPClient(configuration: config)
        }()
 
     // MARK: UISceneDelegate
@@ -39,21 +56,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Helper
     private func setupRootViewController() {
         let manager = ENAExposureManager()
-
         let onboardingWasShown = store.isOnboarded
         //For a demo, we can set it to true.
         let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)
         let rootViewController: UIViewController
         switch instructor {
         case .home:
-            let storyboard = AppStoryboard.home.instance
             // swiftlint:disable:next unowned_variable_capture
-            let homeViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
+            let homeViewController = AppStoryboard.home.initiateInitial { [unowned self] coder in
                 HomeViewController(
                     coder: coder,
                     exposureManager: manager,
                     client: self.client,
-                    store: self.store
+                    store: self.store,
+                    signedPayloadStore: self.diagnosisKeysStore
                 )
             }
             // swiftlint:disable:next force_unwrapping
@@ -65,7 +81,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
 			// swiftlint:disable:next unowned_variable_capture
-			let onboardingInfoViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
+            let onboardingViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
 				OnboardingInfoViewController(
 					coder: coder,
 					pageType: .togetherAgainstCoronaPage,
@@ -74,7 +90,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				)
 			}
             // swiftlint:disable:next force_unwrapping
-			let navigationController = UINavigationController(rootViewController: onboardingInfoViewController!)
+            let navigationController = UINavigationController(rootViewController: onboardingViewController!)
             rootViewController = navigationController
 		}
 
@@ -84,5 +100,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     @objc
 	func isOnboardedDidChange(_ notification: NSNotification) {
         setupRootViewController()
+    }
+
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        #if APP_STORE
+        return
+        #endif
+
+        guard let url = URLContexts.first?.url else {
+            return
+        }
+
+        guard let components = NSURLComponents(
+            url: url,
+            resolvingAgainstBaseURL: true
+            ),
+            let query = components.queryItems else {
+                return
+        }
+
+        if let submissionBaseURL = query.valueFor(queryItem: "submissionBaseURL") {
+            store.developerSubmissionBaseURLOverride = submissionBaseURL
+        }
+        if let distributionBaseURL = query.valueFor(queryItem: "distributionBaseURL") {
+            store.developerDistributionBaseURLOverride = distributionBaseURL
+        }
+
+        UserDefaults.standard.synchronize()
+    }
+}
+
+private extension Array where Element == URLQueryItem {
+    func valueFor(queryItem named: String) -> String? {
+        first(where: { $0.name == named })?.value
     }
 }

@@ -39,7 +39,7 @@ extension ENManager: Manager {}
 
 protocol ExposureManager {
     typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
-
+    func invalidate()
     func activate(completion: @escaping CompletionHandler)
     func enable(completion: @escaping CompletionHandler)
     func disable(completion: @escaping CompletionHandler)
@@ -51,18 +51,17 @@ protocol ExposureManager {
 
 /// Wrapper for ENManager to avoid code duplication and to abstract error handling
 final class ENAExposureManager: NSObject, ExposureManager {
+    // MARK: Properties
     @objc private let manager: Manager
-
     private var exposureNotificationEnabledObserver: NSObject?
     private var exposureNotificationStatus: NSObject?
+
+    // MARK: Creating a Manager
 
     init(manager: Manager = ENManager()) {
         self.manager = manager
         super.init()
-
-		if !ProcessInfo.processInfo.arguments.contains("IsTesting") {
 			observeENFramework()
-		}
     }
 
     // MARK: Observers
