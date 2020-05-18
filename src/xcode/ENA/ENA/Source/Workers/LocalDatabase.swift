@@ -9,14 +9,31 @@ import Foundation
 import FMDB
 import ExposureNotification
 
-final class LocalDatabase {
-    typealias FetchDBKeysCompletionHandler = (([ENTemporaryExposureKey]?, Error?) -> Void)
+protocol DataBaseWrapper {
+    typealias FetchDBKeysCompletionHandler = (([(Data, String, Int?)]?, Error? ) -> Void)
 
-    static let shared = LocalDatabase()
+    /// Store three-tuple that's fetched from the remote sever on local database
+    func storePayload(payload: Data, day: String, hour: Int?)
 
+    /// Get three-tuple that has been previously fetched from the remote sever from local database
+    func fetchPayloads(with completion: @escaping FetchDBKeysCompletionHandler)
+
+    /// Delete entries that aren't required any longer
+    func clean(until date: Date)
+
+}
+
+final class LocalDatabase: DataBaseWrapper {
     private let db: FMDatabase
 
-    private init() {
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-mm-dd"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        return formatter
+    }()
+
+    init() {
         // swiftlint:disable:next force_try
         let url = try! FileManager.default
                 .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -26,57 +43,54 @@ final class LocalDatabase {
 
         // Create tables
         let sqlStmt = """
-            CREATE TABLE IF NOT EXISTS exposureKeys (
+            CREATE TABLE IF NOT EXISTS payloadStore (
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                keyData BLOB NOT NULL,
-                rollingStartNumber INTEGER NOT NULL,
-                rollingPeriod INTEGER NOT NULL,
-                transmissionRiskLevel INTEGER NOT NULL
+                payload BLOB NOT NULL,
+                day Date NOT NULL,
+                hour INTEGER
             );
         """
         db.executeStatements(sqlStmt)
-
     }
 
-    /// Store ENTemporaryExposureKeys on local database
-    func addKeys(keys: [ENTemporaryExposureKey]) {
+    func storePayload(payload: Data, day: String, hour: Int?) {
         let insertStr = """
-            INSERT INTO exposureKeys(keyData, rollingStartNumber, rollingPeriod, transmissionRiskLevel)
-            VALUES(?, ?, ?, ?);
+            INSERT INTO payloadStore(signedPayload, day, hour)
+            VALUES(?, ?, ?);
         """
+
+        // Transform day from String to Date to facilitate the clean up function
+        let date = dateFormatter.date(from: day) ?? Date()
 
         if !db.isOpen {
             db.open()
         }
 
-        for key in keys {
-            do {
-                try db.executeUpdate(insertStr, values: [key.keyData, key.rollingPeriod, key.rollingStartNumber, key.transmissionRiskLevel])
-            } catch {
-                logError(message: "Failed to store keys in local db: \(error.localizedDescription)")
-            }
+        do {
+            try db.executeUpdate(insertStr, values: [payload, date, hour ?? NSNull()])
+        } catch {
+            logError(message: "Failed to store keys in local db: \(error.localizedDescription)")
         }
 
         db.close()
     }
 
-    /// Load all ENTemporaryExposureKeys from local database
-    func fetchKeys(with completion: @escaping FetchDBKeysCompletionHandler) {
-        let query = "SELECT * FROM exposureKeys"
-        var keys = [ENTemporaryExposureKey]()
+    func fetchPayloads(with completion: @escaping FetchDBKeysCompletionHandler) {
+        let query = "SELECT * FROM payloadStore"
+        var payloads = [(Data, String, Int?)]()
         let values = [Any]()
 
-        func extractKeys(result: FMResultSet) {
+        func extractPayloads(result: FMResultSet) {
             while result.next() {
-                let key = ENTemporaryExposureKey()
-                key.keyData = result.data(forColumn: "keyData") ?? Data()
-                key.rollingPeriod = UInt32(result.int(forColumn: "rollingPeriod"))
-                key.rollingStartNumber = UInt32(result.int(forColumn: "rollingStartNumber"))
-                key.transmissionRiskLevel = UInt8(result.int(forColumn: "transmissionRiskLevel"))
-                keys.append(key)
+                // swiftlint:disable:next force_unwrapping
+                let data = result.data(forColumn: "payload")!
+                // swiftlint:disable:next force_unwrapping
+                let day = dateFormatter.string(from: result.date(forColumn: "day")!)
+                let hour = Int(result.int(forColumn: "hour"))
+                payloads.append((data, day, hour))
             }
             db.close()
-            completion(keys, nil)
+            completion(payloads, nil)
         }
 
         if !db.isOpen {
@@ -85,17 +99,16 @@ final class LocalDatabase {
 
         do {
             let result = try db.executeQuery(query, values: values)
-            extractKeys(result: result)
+            extractPayloads(result: result)
         } catch {
             db.close()
             completion(nil, error)
         }
     }
 
-    /// Delete keys that aren't relevant anymore
     func clean(until date: Date) {
-        let threshold: Int32 = Int32(date.timeIntervalSince1970 / 600)
-        let stmt = "DELETE FROM exposureKeys WHERE rollingStartNumber < \(threshold);"
+        let threshold: Int32 = Int32(date.timeIntervalSince1970)
+        let stmt = "DELETE FROM payloadStore WHERE day < \(threshold);"
 
         if !db.isOpen {
             db.open()
