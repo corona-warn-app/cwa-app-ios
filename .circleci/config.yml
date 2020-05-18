@@ -5,21 +5,22 @@ jobs:
     macos:
       xcode: 11.5.0
 
+    working_directory: src/xcode
     environment:
       FASTLANE_LANE: build_and_test
     shell: /bin/zsh --login -o pipefail
     steps:
       - checkout
       - restore_cache:
-          key: 1-gems-{{ checksum "src/xcode/Gemfile.lock" }}
-      - run: cd src/xcode && bundle check || bundle config set path vendor/bundle
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+      - run: bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: 1-gems-{{ checksum "src/xcode/Gemfile.lock" }}
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
       - run:
           name: fastlane
-          command: cd src/xcode && bundle exec fastlane $FASTLANE_LANE
+          command: bundle exec fastlane $FASTLANE_LANE
 
 workflows:
     default:
