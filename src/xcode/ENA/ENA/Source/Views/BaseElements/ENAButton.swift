@@ -25,6 +25,8 @@ class ENAButton: UIButton {
     private func customizeButton() {
         setButtonColors()
         setRoundCorner(radius: 8.0)
+		
+		titleLabel?.adjustsFontForContentSizeCategory = true
     }
     
     

@@ -69,12 +69,3 @@ final class HomeInteractor {
         return configurators
     }
 }
-
-extension HomeInteractor: ExposureDetectionViewControllerDelegate {
-    func exposureDetectionViewController(_ controller: ExposureDetectionViewController, didReceiveSummary summary: ENExposureDetectionSummary) {
-        log(message: "got summary: \(summary.description)")
-        detectionSummary = summary
-        homeViewController.prepareData()
-        homeViewController.reloadData()
-    }
-}

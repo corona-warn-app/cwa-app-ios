@@ -123,26 +123,14 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureDetection() {
-        // IMPORTANT:
-        // In pull request #98 (https://github.com/corona-warn-app/cwa-app-ios/pull/98) we had to remove code
-        // that used the already injected `ExposureManager` and did the following:
-        //
-        // - The manager was activated.
-        // - Some basic error handling was performed – specifically exposureNotificationRequired and
-        //   exposureNotificationAuthorization were handled by just logging a warning.
-        // - The activated manager was injected into `ExposureDetectionViewController` by setting a property on it.
-        //
-        // We had to temporarily remove this code because it caused an error (invalid use of API - detection already running).
-        // This error also happens in Apple's sample code and does not happen if ExposureManager is created on demand for
-        // every exposure detection request. There are other situations where this error does not happen like when the internal
-        // state of `ENManager` is mutated before kicking of an exposure detection. Our current workaround is to simply
-        // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
-
-        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection) { coder in
-            ExposureDetectionViewController(coder: coder, client: self.client, store: self.store)
-        }
-        exposureDetectionViewController.delegate = homeInteractor
-        present(exposureDetectionViewController, animated: true, completion: nil)
+		// TODO
+		let exposureDetectionViewController = AppStoryboard.exposureDetection.initiateInitial(creator: { coder in
+			ExposureDetectionViewController(coder: coder, store: self.store)
+		})
+		
+		if let exposureDetectionViewController = exposureDetectionViewController {
+			present(exposureDetectionViewController, animated: true)
+		}
     }
 
     func showAppInformation() {

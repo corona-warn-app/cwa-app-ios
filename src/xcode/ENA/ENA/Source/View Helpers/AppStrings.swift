@@ -35,16 +35,39 @@ enum AppStrings {
     }
 
     enum ExposureDetection {
-        static let lastContactDays = NSLocalizedString("ExposureDetection_LastDays", comment: "")
-        static let lastContactHours = NSLocalizedString("ExposureDetection_LastHours", comment: "")
-        static let lastContactTitle = NSLocalizedString("ExposureDetection_LastContactTitle", comment: "")
-        static let synchronize = NSLocalizedString("ExposureDetection_Synchronize", comment: "")
+		static let lastContactDays = NSLocalizedString("ExposureDetection_LastDays", comment: "")
+		
+		static let low = NSLocalizedString("ExposureDetection_Low", comment: "")
+		static let high = NSLocalizedString("ExposureDetection_High", comment: "")
+		static let unknown = NSLocalizedString("ExposureDetection_Unknown", comment: "")
+		
+		static let contacts = NSLocalizedString("ExposureDetection_Contacts", comment: "")
+		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
+		static let lastCheck = NSLocalizedString("ExposureDetection_LastCheck", comment: "")
+		static let unknownText = NSLocalizedString("ExposureDetection_UnknownText", comment: "")
 
-        static let info = NSLocalizedString("ExposureDetection_Info", comment: "")
-        static let infoText = NSLocalizedString("ExposureDetection_InfoText", comment: "")
-        static let lastSync = NSLocalizedString("ExposureDetection_LastSync", comment: "")
-        static let lastSyncUnknown = NSLocalizedString("ExposureDetection_LastSyncUnknown", comment: "")
-        static let nextSync = NSLocalizedString("ExposureDetection_NextSync", comment: "")
+		static let guide1 = NSLocalizedString("ExposureDetection_Guide1", comment: "")
+		static let guide2 = NSLocalizedString("ExposureDetection_Guide2", comment: "")
+		static let guide3 = NSLocalizedString("ExposureDetection_Guide3", comment: "")
+		static let guide4 = NSLocalizedString("ExposureDetection_Guide4", comment: "")
+		static let guide5 = NSLocalizedString("ExposureDetection_Guide5", comment: "")
+
+		static let highGuide1 = NSLocalizedString("ExposureDetection_High_Guide1", comment: "")
+		static let highGuide2 = NSLocalizedString("ExposureDetection_High_Guide2", comment: "")
+
+		static let title = NSLocalizedString("ExposureDetection_Title", comment: "")
+		static let detailTitle = NSLocalizedString("ExposureDetection_Detail_Title", comment: "")
+		static let detailTextLow = NSLocalizedString("ExposureDetection_Detail_Text_Low", comment: "")
+		static let detailTextHigh = NSLocalizedString("ExposureDetection_Detail_Text_High", comment: "")
+		static let detailTextUnknown = NSLocalizedString("ExposureDetection_Detail_Text_Unknown", comment: "")
+		static let moreInformation = NSLocalizedString("ExposureDetection_MoreInformation", comment: "")
+		static let moreInformationUrl = NSLocalizedString("ExposureDetection_MoreInformation_URL", comment: "")
+		static let healthDepartment = NSLocalizedString("ExposureDetection_HealthDepartment", comment: "")
+		static let healthDepartmentNumber = NSLocalizedString("ExposureDetection_HealthDepartment_Number", comment: "")
+		static let help = NSLocalizedString("ExposureDetection_Help", comment: "")
+		static let hotline = NSLocalizedString("ExposureDetection_Hotline", comment: "")
+		static let hotlineNumber = NSLocalizedString("ExposureDetection_Hotline_Number", comment: "")
+		static let checkNow = NSLocalizedString("ExposureDetection_CheckNow", comment: "")
     }
 
     enum Settings {

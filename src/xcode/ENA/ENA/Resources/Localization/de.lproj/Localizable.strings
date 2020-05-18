@@ -13,12 +13,36 @@
 "Alert_ActionOk" = "Ok";
 
 // Exposure Detection
-"ExposureDetection_LastSync" = "Letzte Überprüfung: ";
-"ExposureDetection_LastSyncUnknown" = "Letzte Überprüfung: unbekannt";
-"ExposureDetection_LastContactTitle" = "Kontakt Festgestellt";
-"ExposureDetection_Synchronize" = "Aktualisieren";
-"ExposureDetection_Info" = "Info";
-"ExposureDetection_InfoText" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
+"ExposureDetection_Low" = "Geringes Risiko";
+"ExposureDetection_High" = "Hohes Risiko";
+"ExposureDetection_Unknown" = "Unbekanntest Risiko";
+
+"ExposureDetection_LastCheck" = "Letzte Prüfung:";
+"ExposureDetection_UnknownText" = "Das Infektionsrisiko wird berechnet, sobald genügend Daten zur Verfügung stehen.";
+
+"ExposureDetection_Guide1" = "Vermeiden Sie sozialen Kontakt";
+"ExposureDetection_Guide2" = "Waschen Sie Ihre Hände";
+"ExposureDetection_Guide3" = "Tragen Sie eine Schutzmaske";
+"ExposureDetection_Guide4" = "Halten Sie 2 Meter Abstand zu anderen Personen";
+"ExposureDetection_Guide5" = "Husten und Niesen Sie in Ihre Armbeuge";
+
+"ExposureDetection_High_Guide1" = "Bleiben Sie zu hause";
+"ExposureDetection_High_Guide2" = "Kontaktieeren Sie ihren Hausarzt oder das Gesundheitsamt";
+
+"ExposureDetection_Title" = "Verhalten Sie sich richtig:";
+"ExposureDetection_Detail_Title" = "Wie entsteht die Risikobewertung?";
+"ExposureDetection_Detail_Text_Low" = "Sie haben ein geringes Infektions-Risiko, da Sie infizierten Personen bisher garnicht oder nur über einen sehr kurzen Zeitraum und mit einer hohen Distanz begegnet sind.\n\nAnhand von Tracing-Daten zum Abstand, der Zeit und dem generellen Kontakt mit infizierten Personen, wird ihr Infektionsrisoko lokal auf ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Detail_Text_High" = "Sie haben ein hohes Infektions-Risiko, da Sie Lorem Ipsum…\n\nAnhand von Tracing-Daten zum Abstand, der Zeit und dem generellen Kontakt mit infizierten Personen, wird ihr Infektionsrisoko lokal auf ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Detail_Text_Unknown" = "Lorem Ipsum";
+"ExposureDetection_MoreInformation" = "Mehr Informationen";
+"ExposureDetection_MoreInformation_URL" = "";
+"ExposureDetection_HealthDepartment" = "Gesundheitsamt anrufen";
+"ExposureDetection_HealthDepartment_Number" = "0123456789";
+"ExposureDetection_Help" = "Hilfe";
+"ExposureDetection_Hotline" = "Hotline anrufen";
+"ExposureDetection_Hotline_Number" = "0123456789";
+"ExposureDetection_CheckNow" = "Risikoprüfung starten";
+
 
 // Settings
 "Settings_StatusActive" = "An";
