@@ -8,12 +8,6 @@
 
 import UIKit
 
-enum CellConfiguratorIndexPosition {
-	case first
-	case other
-	case last
-}
-
 protocol CollectionViewCellConfiguratorAny {
     var viewAnyType: UICollectionViewCell.Type { get }
     

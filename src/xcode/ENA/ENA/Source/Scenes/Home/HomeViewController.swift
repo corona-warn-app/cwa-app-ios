@@ -273,7 +273,7 @@ final class HomeViewController: UIViewController {
         snapshot.appendItems(Array(0...2))
         snapshot.appendSections([.infos])
         snapshot.appendItems(Array(3...4))
-        snapshot.appendSections([.settings])
+		snapshot.appendSections([.settings])
 		snapshot.appendItems(Array(5...6))
         dataSource.apply(snapshot, animatingDifferences: false)
     }

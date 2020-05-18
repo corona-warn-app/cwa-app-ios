@@ -19,29 +19,30 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U6l-FR-h2s" userLabel="Container View">
                         <rect key="frame" x="0.0" y="0.0" width="511" height="190"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Nid-Qb-FC5">
-                                <rect key="frame" x="0.0" y="0.0" width="511" height="190"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Nid-Qb-FC5">
+                                <rect key="frame" x="16" y="16" width="479" height="158"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XM7-LT-Nfc">
-                                        <rect key="frame" x="0.0" y="44" width="471" height="102"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XM7-LT-Nfc">
+                                        <rect key="frame" x="0.0" y="0.0" width="437.5" height="137"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" verticalCompressionResistancePriority="755" text="Title Title Title Title Title Title Title Title Title Title Title Title " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xM1-cv-GWJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="471" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="437.5" height="42.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agg-fi-lUn">
-                                                <rect key="frame" x="0.0" y="20.5" width="471" height="81.5"/>
+                                                <rect key="frame" x="0.0" y="50.5" width="437.5" height="86.5"/>
                                                 <string key="text">Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body </string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="jLY-i3-yRh">
-                                        <rect key="frame" x="479" y="87" width="32" height="16.5"/>
+                                        <rect key="frame" x="447" y="2" width="32" height="16.5"/>
+                                        <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="4J1-bZ-ADV"/>
                                         </constraints>
@@ -50,10 +51,10 @@
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Nid-Qb-FC5" firstAttribute="leading" secondItem="U6l-FR-h2s" secondAttribute="leading" id="OIj-wM-rJZ"/>
-                            <constraint firstAttribute="bottom" secondItem="Nid-Qb-FC5" secondAttribute="bottom" id="cff-GO-m3v"/>
-                            <constraint firstItem="Nid-Qb-FC5" firstAttribute="top" secondItem="U6l-FR-h2s" secondAttribute="top" id="jqr-YO-GVf"/>
-                            <constraint firstAttribute="trailing" secondItem="Nid-Qb-FC5" secondAttribute="trailing" id="rz1-RU-3Wz"/>
+                            <constraint firstItem="Nid-Qb-FC5" firstAttribute="leading" secondItem="U6l-FR-h2s" secondAttribute="leading" constant="16" id="OIj-wM-rJZ"/>
+                            <constraint firstAttribute="bottom" secondItem="Nid-Qb-FC5" secondAttribute="bottom" constant="16" id="cff-GO-m3v"/>
+                            <constraint firstItem="Nid-Qb-FC5" firstAttribute="top" secondItem="U6l-FR-h2s" secondAttribute="top" constant="16" id="jqr-YO-GVf"/>
+                            <constraint firstAttribute="trailing" secondItem="Nid-Qb-FC5" secondAttribute="trailing" constant="16" id="rz1-RU-3Wz"/>
                         </constraints>
                     </view>
                 </subviews>

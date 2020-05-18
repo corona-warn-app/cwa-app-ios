@@ -31,7 +31,6 @@ final class HomeInteractor {
     private let store: Store
     private var detectionSummary: ENExposureDetectionSummary?
     private(set) var exposureManager: ExposureManager
-
     private let client: Client
 
     private lazy var developerMenu: DMDeveloperMenu = {
@@ -64,19 +63,28 @@ final class HomeInteractor {
         submitConfigurator.submitAction = { [unowned self] in
             self.homeViewController.showSubmitResult()
         }
-        let title1 = AppStrings.Home.infoCardShareTitle
-        let body1 = AppStrings.Home.infoCardShareBody
-        let info1Configurator = HomeInfoCellConfigurator(title: title1, body: body1)
         
-		let title2 = AppStrings.Home.infoCardAboutTitle
-        let body2 = AppStrings.Home.infoCardAboutBody
-        let info2Configurator = HomeInfoCellConfigurator(title: title2, body: body2)
+		let info1Configurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.infoCardShareTitle,
+			body: AppStrings.Home.infoCardShareBody,
+			position: .first
+		)
+		let info2Configurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.infoCardAboutTitle,
+			body: AppStrings.Home.infoCardAboutBody,
+			position: .last
+		)
 
-		let appInformationConfigurator = HomeSimpleCellConfigurator(title: AppStrings.Home.appInformationCardTitle, position: .first)
-		appInformationConfigurator.position = .first
-        
-		let settingsConfigurator = HomeSimpleCellConfigurator(title: AppStrings.Home.settingsCardTitle, position: .first)
-		settingsConfigurator.position = .last
+		let appInformationConfigurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.appInformationCardTitle,
+			body: nil,
+			position: .first
+		)
+		let settingsConfigurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.settingsCardTitle,
+			body: nil,
+			position: .last
+		)
 
 		let configurators: [CollectionViewCellConfiguratorAny] = [
 			activeConfigurator,
