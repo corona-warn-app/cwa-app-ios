@@ -67,11 +67,23 @@ final class HomeInteractor {
         let title1 = AppStrings.Home.infoCardShareTitle
         let body1 = AppStrings.Home.infoCardShareBody
         let info1Configurator = HomeInfoCellConfigurator(title: title1, body: body1)
-        let title2 = AppStrings.Home.infoCardAboutTitle
+        
+		let title2 = AppStrings.Home.infoCardAboutTitle
         let body2 = AppStrings.Home.infoCardAboutBody
         let info2Configurator = HomeInfoCellConfigurator(title: title2, body: body2)
-        let settingsConfigurator = HomeSettingsCellConfigurator()
-        let configurators: [CollectionViewCellConfiguratorAny] = [activeConfigurator, riskConfigurator, submitConfigurator, info1Configurator, info2Configurator, settingsConfigurator]
+        
+		let appInformationConfigurator = HomeAppInformationCellConfigurator()
+		let settingsConfigurator = HomeSettingsCellConfigurator()
+
+		let configurators: [CollectionViewCellConfiguratorAny] = [
+			activeConfigurator,
+			riskConfigurator,
+			submitConfigurator,
+			info1Configurator,
+			info2Configurator,
+			appInformationConfigurator,
+			settingsConfigurator
+		]
         return configurators
     }
 }

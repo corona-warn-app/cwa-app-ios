@@ -19,17 +19,17 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pze-uJ-dtm" userLabel="Container View">
                         <rect key="frame" x="0.0" y="0.0" width="441" height="91"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SWM-vp-490">
-                                <rect key="frame" x="0.0" y="0.0" width="441" height="91"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SWM-vp-490">
+                                <rect key="frame" x="0.0" y="16" width="441" height="59"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0y8-pA-fjp">
-                                        <rect key="frame" x="0.0" y="35.5" width="63.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="19.5" width="401" height="20.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8Io-AM-qve">
-                                        <rect key="frame" x="409" y="37.5" width="32" height="16.5"/>
+                                        <rect key="frame" x="409" y="21.5" width="32" height="16.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="9RO-Ba-TI8"/>
                                         </constraints>
@@ -39,9 +39,9 @@
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="SWM-vp-490" secondAttribute="trailing" id="ETH-e7-gOC"/>
-                            <constraint firstItem="SWM-vp-490" firstAttribute="top" secondItem="pze-uJ-dtm" secondAttribute="top" id="Ete-l4-ssC"/>
+                            <constraint firstItem="SWM-vp-490" firstAttribute="top" secondItem="pze-uJ-dtm" secondAttribute="top" constant="16" id="Ete-l4-ssC"/>
                             <constraint firstItem="SWM-vp-490" firstAttribute="leading" secondItem="pze-uJ-dtm" secondAttribute="leading" id="PDo-5L-ENb"/>
-                            <constraint firstAttribute="bottom" secondItem="SWM-vp-490" secondAttribute="bottom" id="gKK-Pw-Bfh"/>
+                            <constraint firstAttribute="bottom" secondItem="SWM-vp-490" secondAttribute="bottom" constant="16" id="gKK-Pw-Bfh"/>
                         </constraints>
                     </view>
                 </subviews>
