@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1HX-Yf-LyV">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="644"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="610"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="2eY-pe-EqA">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="689.66666666666663"/>
@@ -93,13 +93,16 @@
                                         <viewLayoutGuide key="frameLayoutGuide" id="Aox-ZG-U3J"/>
                                     </scrollView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qvx-Vc-jIj" userLabel="Container Button View">
-                                        <rect key="frame" x="0.0" y="644" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="610" width="375" height="124"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Dnb-sh-MSz">
-                                                <rect key="frame" x="16" y="8" width="343" height="74"/>
+                                                <rect key="frame" x="16" y="8" width="343" height="108"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjZ-ed-ItP" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="33"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="RXZ-iw-otW"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <state key="normal" title="Next"/>
                                                         <connections>
@@ -107,7 +110,10 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clc-Yy-2ht">
-                                                        <rect key="frame" x="0.0" y="41" width="343" height="33"/>
+                                                        <rect key="frame" x="0.0" y="58" width="343" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="WAo-jw-dV0"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <state key="normal" title="Ignore"/>
                                                         <connections>
