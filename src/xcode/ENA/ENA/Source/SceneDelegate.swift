@@ -49,14 +49,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         setupRootViewController()
         window.makeKeyAndVisible()
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
     }
 
     // MARK: Helper
     private func setupRootViewController() {
         let manager = ENAExposureManager()
-
         let onboardingWasShown = store.isOnboarded
         //For a demo, we can set it to true.
         let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)

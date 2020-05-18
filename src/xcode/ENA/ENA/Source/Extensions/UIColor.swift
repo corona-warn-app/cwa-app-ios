@@ -37,11 +37,13 @@ extension UIColor {
             return UIColor(named: "background")
         case .backgroundContrast:
             return UIColor(named: "backgroundGroup")
+        case .chevron:
+            return UIColor(named: "chevron")
         case .positive:
             return UIColor(named: "positive")
         case .negative:
             return UIColor(named: "negative")
-        case .medium:
+        case .inactive:
             return UIColor(named: "medium")
         case .unknownRisk:
             return UIColor(named: "unknown")

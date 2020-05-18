@@ -10,17 +10,17 @@ import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
     
-    private var isActivate = false
+    private var isActivated = false
     
-    init(isActivate: Bool) {
-        self.isActivate = isActivate
+    init(isActivated: Bool) {
+        self.isActivated = isActivated
     }
     
     // MARK: Configuring a Cell
     func configure(cell: ActivateCollectionViewCell) {
         
-        var iconImage: UIImage? = isActivate ? UIImage(named: "UmfeldaufnahmeAktiv_Primary1") : UIImage(named: "UmfeldaufnahmeNichtAktiv_Primary1")
-        let iconColor: UIColor = isActivate ? UIColor.preferredColor(for: .tintColor) : UIColor.preferredColor(for: .brandRed)
+        var iconImage: UIImage? = isActivated ? UIImage(named: "UmfeldaufnahmeAktiv_Primary1") : UIImage(named: "UmfeldaufnahmeNichtAktiv_Primary1")
+        let iconColor: UIColor = isActivated ? UIColor.preferredColor(for: .tintColor) : UIColor.preferredColor(for: .brandRed)
         iconImage = iconImage?.withTintColor(iconColor)
         
         cell.iconImageView.image = iconImage

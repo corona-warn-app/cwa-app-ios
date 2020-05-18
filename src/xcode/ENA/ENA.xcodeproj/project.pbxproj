@@ -25,9 +25,16 @@
 		5111E7632460BB1500ED6498 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111E7622460BB1500ED6498 /* HomeInteractor.swift */; };
 		514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 514E812F24618E3D00636861 /* ExposureDetection.storyboard */; };
 		514E81342461B97800636861 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514E81332461B97700636861 /* ExposureManager.swift */; };
+		514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */; };
+		514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
+		514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */; };
+		514EE9A0246D4DF800DE4884 /* HomeRiskItemViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99F246D4DF800DE4884 /* HomeRiskItemViewConfigurator.swift */; };
 		51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* UIColor.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
 		518A6A1E246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A6A1D246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift */; };
+		51B5B414246DF07300DC5D3E /* RiskItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51B5B413246DF07300DC5D3E /* RiskItemView.xib */; };
+		51B5B416246DF13D00DC5D3E /* RiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5B415246DF13D00DC5D3E /* RiskItemView.swift */; };
+		51B5B418246E022600DC5D3E /* InsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5B417246E022600DC5D3E /* InsetLabel.swift */; };
 		51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */; };
 		51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BC245B349700286105 /* OnboardingInfoViewController.swift */; };
 		51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BE245B3B5D00286105 /* OnboardingInfo.swift */; };
@@ -189,9 +196,16 @@
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		514E812F24618E3D00636861 /* ExposureDetection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ExposureDetection.storyboard; sourceTree = "<group>"; };
 		514E81332461B97700636861 /* ExposureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
+		514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
+		514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Dequeue.swift"; sourceTree = "<group>"; };
+		514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellConfigurator.swift; sourceTree = "<group>"; };
+		514EE99F246D4DF800DE4884 /* HomeRiskItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskItemViewConfigurator.swift; sourceTree = "<group>"; };
 		51895EDB245E16CD0085DA38 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		518A69FA24687D5800444E66 /* RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevel.swift; sourceTree = "<group>"; };
 		518A6A1D246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskCellPropertyHolder.swift; sourceTree = "<group>"; };
+		51B5B413246DF07300DC5D3E /* RiskItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskItemView.xib; sourceTree = "<group>"; };
+		51B5B415246DF13D00DC5D3E /* RiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskItemView.swift; sourceTree = "<group>"; };
+		51B5B417246E022600DC5D3E /* InsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetLabel.swift; sourceTree = "<group>"; };
 		51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		51C737BC245B349700286105 /* OnboardingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewController.swift; sourceTree = "<group>"; };
 		51C737BE245B3B5D00286105 /* OnboardingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfo.swift; sourceTree = "<group>"; };
@@ -382,13 +396,60 @@
 			path = Exposure;
 			sourceTree = "<group>";
 		};
+		514EE991246D4A1600DE4884 /* Risk Items */ = {
+			isa = PBXGroup;
+			children = (
+				51B5B415246DF13D00DC5D3E /* RiskItemView.swift */,
+				51B5B413246DF07300DC5D3E /* RiskItemView.xib */,
+			);
+			path = "Risk Items";
+			sourceTree = "<group>";
+		};
+		514EE996246D4BDD00DE4884 /* UICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */,
+				51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */,
+				51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */,
+			);
+			path = UICollectionView;
+			sourceTree = "<group>";
+		};
+		514EE997246D4BEB00DE4884 /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */,
+				514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */,
+			);
+			path = UITableView;
+			sourceTree = "<group>";
+		};
 		518A6A1C246A9F6600444E66 /* HomeRiskCellConfigurator */ = {
 			isa = PBXGroup;
 			children = (
 				51CE1BBE2460B222002CF42A /* HomeRiskCellConfigurator.swift */,
 				518A6A1D246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift */,
+				514EE99F246D4DF800DE4884 /* HomeRiskItemViewConfigurator.swift */,
 			);
 			path = HomeRiskCellConfigurator;
+			sourceTree = "<group>";
+		};
+		51B5B419246E058100DC5D3E /* Risk */ = {
+			isa = PBXGroup;
+			children = (
+				51CE1B7A246078B6002CF42A /* RiskCollectionViewCell.swift */,
+				51CE1B79246078B6002CF42A /* RiskCollectionViewCell.xib */,
+				514EE991246D4A1600DE4884 /* Risk Items */,
+			);
+			path = Risk;
+			sourceTree = "<group>";
+		};
+		51B5B41A246E059700DC5D3E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				51B5B417246E022600DC5D3E /* InsetLabel.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		51CE1B74246078B6002CF42A /* Home Screen */ = {
@@ -407,8 +468,7 @@
 				51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */,
 				51CE1B78246078B6002CF42A /* ActivateCollectionViewCell.swift */,
 				51CE1B76246078B6002CF42A /* ActivateCollectionViewCell.xib */,
-				51CE1B7A246078B6002CF42A /* RiskCollectionViewCell.swift */,
-				51CE1B79246078B6002CF42A /* RiskCollectionViewCell.xib */,
+				51B5B419246E058100DC5D3E /* Risk */,
 				51CE1B77246078B6002CF42A /* SubmitCollectionViewCell.swift */,
 				51CE1B7E246078B6002CF42A /* SubmitCollectionViewCell.xib */,
 				51CE1B7C246078B6002CF42A /* InfoCollectionViewCell.swift */,
@@ -452,6 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				51CE1BBC2460B1CB002CF42A /* CollectionViewCellConfigurator.swift */,
+				514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -477,11 +538,10 @@
 		51D420B524583B5100AD70CA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				514EE996246D4BDD00DE4884 /* UICollectionView */,
+				514EE997246D4BEB00DE4884 /* UITableView */,
 				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
 				51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */,
-				51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */,
-				51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */,
-				51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */,
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
 				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
 				51895EDB245E16CD0085DA38 /* UIColor.swift */,
@@ -585,6 +645,7 @@
 		8595BF5D246032C40056EA27 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
 				EEF790092466ED410065EBD5 /* ExposureDetection */,
 				51CE1B74246078B6002CF42A /* Home Screen */,
@@ -1058,6 +1119,8 @@
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				EE8599932462EFFD002E7AE2 /* AppInformation.storyboard in Resources */,
+				51B5B414246DF07300DC5D3E /* RiskItemView.xib in Resources */,
+				EE8599932462EFFD002E7AE2 /* AppInformation.storyboard in Resources */,
 				51CE1B8E246078B6002CF42A /* SettingsCollectionViewCell.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				51CE1B88246078B6002CF42A /* RiskCollectionViewCell.xib in Resources */,
@@ -1120,11 +1183,13 @@
 				CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */,
 				01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */,
+				51B5B418246E022600DC5D3E /* InsetLabel.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
+				514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */,
 				B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */,
 				B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */,
 				EE20EA0E246ABED600770683 /* RiskLegendFactory.swift in Sources */,
@@ -1165,6 +1230,7 @@
 				518A6A1E246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				B1A7A1CD246C13CB00AD3470 /* Mode.swift in Sources */,
+				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
 				B10FD5ED246EAADC00E9D7F2 /* AppInformationDetailViewController.swift in Sources */,
 				01EB1D2F246973F100A7908B /* file_bucket.pb.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
@@ -1173,7 +1239,10 @@
 				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
 				B111EDEB2465B1E7001AEBB4 /* MockClient.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
+				51B5B416246DF13D00DC5D3E /* RiskItemView.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
+				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
+				71CC3EA1246D6BBF00217F2C /* DynamicTypeLabel.swift in Sources */,
 				B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
@@ -1195,6 +1264,10 @@
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */,
 				51CE1B8C246078B6002CF42A /* SettingsCollectionViewCell.swift in Sources */,
+				71888C3C246AAF11007AD508 /* DiagnosisKeyAPI.swift in Sources */,
+				514EE9A0246D4DF800DE4884 /* HomeRiskItemViewConfigurator.swift in Sources */,
+				71888C3E246AC0C3007AD508 /* DiagnosisKeyManager.swift in Sources */,
+				71CC3E9B246D5D6C00217F2C /* AppInformationDetailModel.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */,
