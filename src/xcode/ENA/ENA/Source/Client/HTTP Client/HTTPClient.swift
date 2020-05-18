@@ -23,19 +23,11 @@ final class HTTPClient: Client {
     private let configuration: BackendConfiguration
     private let session: URLSession
 
-    // Will be needed to format available days when fetching diagnosis keys
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-mm-dd"
-        formatter.timeZone = TimeZone(abbreviation: "UTC")
-        return formatter
-    }()
-
     func exposureConfiguration(
         completion: @escaping ExposureConfigurationCompletionHandler
     ) {
         log(message: "Fetching exposureConfiguation from: \(configuration.regionalConfigurationURL)")
-        GET(configuration.regionalConfigurationURL) { result in
+        session.GET(configuration.regionalConfigurationURL) { result in
             switch result {
             case .success(let response):
                 guard let data = response.body else {
@@ -73,7 +65,7 @@ final class HTTPClient: Client {
                 return
         }
 
-        response(for: request) { result in
+        session.response(for: request) { result in
             switch result {
             case .success(let response):
                 switch response.statusCode {
@@ -95,7 +87,7 @@ final class HTTPClient: Client {
             .regionalDiagnosisKeysURL
             .appendingPathComponent("date", isDirectory: true)
         
-        GET(url) { result in
+        session.GET(url) { result in
             switch result {
             case .success(let response):
                 guard let data = response.body else {
@@ -134,7 +126,7 @@ final class HTTPClient: Client {
             .appendingPathComponent(day, isDirectory: true)
             .appendingPathComponent("hour", isDirectory: true)
 
-        GET(url) { result in
+        session.GET(url) { result in
             switch result {
             case .success(let response):
                 // We accept 404 responses since this can happen in case there
@@ -164,50 +156,50 @@ final class HTTPClient: Client {
         }
     }
 
-      func fetchDay(
-          _ day: String,
-          completion completeWith: @escaping DayCompletionHandler
-      ) {
-          let url = configuration
-              .regionalDiagnosisKeysURL
-              .appendingPathComponent("date", isDirectory: true)
-              .appendingPathComponent(day, isDirectory: true)
+    func fetchDay(
+        _ day: String,
+        completion completeWith: @escaping DayCompletionHandler
+    ) {
+        let url = configuration
+            .regionalDiagnosisKeysURL
+            .appendingPathComponent("date", isDirectory: true)
+            .appendingPathComponent(day, isDirectory: true)
 
-          GET(url) { result in
-              switch result {
-              case .success(let response):
+        session.GET(url) { result in
+            switch result {
+            case .success(let response):
                 guard let dayData = response.body else {
                     completeWith(.failure(.invalidResponse))
                     return
                 }
-                  log(message: "got day: \(dayData.count)")
-                  do {
+                log(message: "got day: \(dayData.count)")
+                do {
                     let bucket = try VerifiedSapFileBucket(serializedSignedPayload: dayData)
                     completeWith(.success(bucket))
-                  } catch let error {
+                } catch let error {
                     print(error)
                     completeWith(.failure(.invalidResponse))
-                  }
-              case .failure(let error):
-                  completeWith(.failure(.httpError(error)))
-                  logError(message: "failed to get day: \(error)")
-              }
-          }
-      }
+                }
+            case .failure(let error):
+                completeWith(.failure(.httpError(error)))
+                logError(message: "failed to get day: \(error)")
+            }
+        }
+    }
 
     func fetchHour(
-          _ hour: Int,
-          day: String,
-          completion completeWith: @escaping HourCompletionHandler
-      ) {
-          let url = configuration
+        _ hour: Int,
+        day: String,
+        completion completeWith: @escaping HourCompletionHandler
+    ) {
+        let url = configuration
             .regionalDiagnosisKeysURL
             .appendingPathComponent("date", isDirectory: true)
             .appendingPathComponent(day, isDirectory: true)
             .appendingPathComponent("hour", isDirectory: true)
             .appendingPathComponent(String(hour), isDirectory: true)
         
-        GET(url) { result in
+        session.GET(url) { result in
             switch result {
             case .success(let response):
                 guard let hourData = response.body else {
@@ -226,40 +218,6 @@ final class HTTPClient: Client {
                 logError(message: "failed to get day: \(error)")
             }
         }
-      }
-
-   
-    typealias HTTPResult = Result<Response, HTTPError>
-    typealias HTTPCompletion = (HTTPResult) -> Void
-
-    // This method executes HTTP GET requests.
-    private func GET(_ url: URL, completion: @escaping HTTPCompletion) {
-        response(for: URLRequest(url: url), completion: completion)
-    }
-
-    // This method executes HTTP requests.
-    // It does some additional checks - purely for convenience:
-    // - if there is an error it aborts
-    // - if there is either no HTTP body and/or HTTPURLResponse it aborts
-    func response(
-        for request: URLRequest,
-        completion: @escaping HTTPCompletion
-    ) {
-        session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(.httpError(error)))
-                return
-            }
-            guard
-                let data = data,
-                let response = response as? HTTPURLResponse
-                else {
-                    completion(.failure(.noResponse))
-                    return
-            }
-            completion(.success(.init(body: data, statusCode: response.statusCode)))
-        }
-        .resume()
     }
 }
 
