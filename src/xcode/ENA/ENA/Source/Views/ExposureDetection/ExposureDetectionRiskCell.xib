@@ -16,6 +16,7 @@
                 <outlet property="lastExposureLabel" destination="lky-bn-5zS" id="qu2-br-VID"/>
                 <outlet property="lastExposureSeparator" destination="51m-tJ-ZqX" id="I9K-dS-Tpl"/>
                 <outlet property="lastExposureView" destination="uvh-fh-4TY" id="6Gf-xm-54T"/>
+                <outlet property="riskLabel" destination="mZc-bj-akb" id="xpg-A5-qNk"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

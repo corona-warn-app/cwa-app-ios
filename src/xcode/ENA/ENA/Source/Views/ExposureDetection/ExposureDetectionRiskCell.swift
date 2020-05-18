@@ -12,6 +12,7 @@ import UIKit
 
 @IBDesignable
 class ExposureDetectionRiskCell: UIView, NibLoadable {
+	@IBOutlet weak var riskLabel: UILabel!
 	@IBOutlet weak var contactLabel: UILabel!
 	@IBOutlet weak var lastExposureSeparator: UIView!
 	@IBOutlet weak var lastExposureView: UIView!
@@ -48,6 +49,8 @@ class ExposureDetectionRiskCell: UIView, NibLoadable {
 	func configure(for riskLevel: RiskLevel, contacts: Int, lastExposure: Int?, lastCheck: Date?) {
 		self.nibView.backgroundColor = riskLevel.color
 		
+		riskLabel.text = riskLevel.text
+		
 		if riskLevel == .unknown {
 			self.contactLabel.text = AppStrings.ExposureDetection.unknownText
 		} else {
@@ -73,6 +76,15 @@ class ExposureDetectionRiskCell: UIView, NibLoadable {
 
 
 private extension RiskLevel {
+	var text: String {
+		switch self {
+		case .low: return AppStrings.ExposureDetection.low
+		case .high: return AppStrings.ExposureDetection.high
+		case .unknown: return AppStrings.ExposureDetection.unknown
+		default: return AppStrings.ExposureDetection.unknown
+		}
+	}
+	
 	var color: UIColor {
 		switch self {
 		case .low: return .preferredColor(for: .positive)
