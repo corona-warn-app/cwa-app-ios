@@ -203,18 +203,18 @@ extension ExposureDetectionViewController: UITableViewDataSource, UITableViewDel
 			let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellContent.cellType.rawValue, for: indexPath)
 
 			switch cellContent {
-			case .headline(let text):
+			case let .headline(text):
 				cell.textLabel?.text = text
-			case .guide(let image, let text):
+			case let .guide(image, text):
 				cell.imageView?.image = image
 				cell.textLabel?.text = text
-			case .title(let text):
+			case let .title(text):
 				cell.textLabel?.text = text
-			case .text(let text):
+			case let .text(text):
 				cell.textLabel?.text = text
-			case .more(let text, _):
+			case let .more(text, _):
 				cell.textLabel?.text = text
-			case .phone(let text, _):
+			case let .phone(text, _):
 				cell.textLabel?.text = text
 			}
 			
