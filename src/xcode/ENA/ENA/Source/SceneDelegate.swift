@@ -63,7 +63,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootViewController: UIViewController
         switch instructor {
         case .home:
-            // swiftlint:disable:next unowned_variable_capture
             let homeViewController = AppStoryboard.home.initiateInitial { [unowned self] coder in
                 HomeViewController(
                     coder: coder,
@@ -81,7 +80,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
-            // swiftlint:disable:next unowned_variable_capture
             let onboardingViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
                 OnboardingInfoViewController(
                     coder: coder,
