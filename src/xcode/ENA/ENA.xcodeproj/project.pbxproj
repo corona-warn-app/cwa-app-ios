@@ -25,6 +25,7 @@
 		13410CF424733130002D292B /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13410CF324733130002D292B /* Accessibility.swift */; };
 		13410CF524733137002D292B /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13410CF324733130002D292B /* Accessibility.swift */; };
 		13410CF724733199002D292B /* ENAUITests-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13410CF624733199002D292B /* ENAUITests-Extensions.swift */; };
+		134EC50F247425FE004843D9 /* TestEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134EC50E247425FE004843D9 /* TestEnvironment.swift */; };
 		13FD1DF72474051700A7C7AB /* ENAUITestsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD1DF62474051700A7C7AB /* ENAUITestsHome.swift */; };
 		13FD1DFA2474152400A7C7AB /* CellConfiguratorIndexPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD1DF92474152400A7C7AB /* CellConfiguratorIndexPosition.swift */; };
 		5111E7632460BB1500ED6498 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111E7622460BB1500ED6498 /* HomeInteractor.swift */; };
@@ -201,6 +202,7 @@
 		13410CF124733029002D292B /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = ../../fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
 		13410CF324733130002D292B /* Accessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
 		13410CF624733199002D292B /* ENAUITests-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Extensions.swift"; sourceTree = "<group>"; };
+		134EC50E247425FE004843D9 /* TestEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEnvironment.swift; sourceTree = "<group>"; };
 		13FD1DF62474051700A7C7AB /* ENAUITestsHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsHome.swift; sourceTree = "<group>"; };
 		13FD1DF92474152400A7C7AB /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
@@ -974,6 +976,7 @@
 				51D420BA24583BF400AD70CA /* LaunchInstructor.swift */,
 				CD99A3C92461A47C00BF12AF /* AppStrings.swift */,
 				13410CF324733130002D292B /* Accessibility.swift */,
+				134EC50E247425FE004843D9 /* TestEnvironment.swift */,
 			);
 			path = "View Helpers";
 			sourceTree = "<group>";
@@ -1309,6 +1312,7 @@
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
 				01EB1D2E246973F100A7908B /* risk_level.pb.swift in Sources */,
+				134EC50F247425FE004843D9 /* TestEnvironment.swift in Sources */,
 				EE46E5D82466AEA50057627F /* UIView.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */,
