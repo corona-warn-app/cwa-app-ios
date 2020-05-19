@@ -20,16 +20,31 @@ class ENAUITestsHome: XCTestCase {
 
     func testHomeFlow_0000() throws {
 		let app = XCUIApplication()
+		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments += ["-isOnboarded","YES"]
-
-		setPreferredContentSizeCategory(in: app, accessibililty: .normal, size: .M)
+		app.launchEnvironment["isOnboarded"] = "YES"
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
 		app.launch()
 
+		NotificationCenter.default.post(name: Notification.Name.isOnboardedDidChange, object: nil)
+
 		// only run if onboarding screen is present
-		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
+		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+
+		// assert cells
+		let collectionView = app.collectionViews.element(boundBy:0)
 		
-		//scrollToElement(element: XCUIElement)
+		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.infoCardShareTitle])
+		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardShareTitle].exists)
+		
+		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.infoCardAboutTitle])
+		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardAboutTitle].exists)
+		
+		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.appInformationCardTitle])
+		XCTAssert(app.staticTexts[Accessibility.Cell.appInformationCardTitle].exists)
+		
+		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.settingsCardTitle])
+		XCTAssert(app.staticTexts[Accessibility.Cell.settingsCardTitle].exists)
 		
     }
 
