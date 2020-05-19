@@ -21,11 +21,11 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
     }
     
     func configure(cell: InfoCollectionViewCell) {
-		cell.backgroundColor = UIColor.systemBackground
+		cell.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
         cell.titleLabel.text = title
 		cell.bodyLabel.text = body
-		if let body = body {
+		if body != nil {
 			cell.labelStackView.spacing = 8.0
 		} else {
 			cell.labelStackView.spacing = 0.0
