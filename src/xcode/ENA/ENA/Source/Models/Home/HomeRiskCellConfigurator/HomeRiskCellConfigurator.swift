@@ -41,9 +41,18 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
             dateString = HomeRiskCellConfigurator.dateFormatter.string(from: date)
         }
         let numberRiskContactsString = String(numberRiskContacts)
-        let lastContactDateString = HomeRiskCellConfigurator.dateFormatter.string(from: lastContactDate)
         
-        let holder = HomeRiskCellPropertyHolder.propertyHolder(for: riskLevel, dateString: dateString, numberRiskContacts: numberRiskContactsString, lastContactDateString: lastContactDateString)
+        let calendar = Calendar.current
+        let now = Date()
+        let dateComponents = calendar.dateComponents([.day], from: lastContactDate, to: now)
+        let lastContactDateString = String(dateComponents.day ?? 0)
+        
+        let holder = HomeRiskCellPropertyHolder.propertyHolder(
+            riskLevel: riskLevel,
+            lastUpdateDateString: dateString,
+            numberRiskContacts: numberRiskContactsString,
+            lastContactDateString: lastContactDateString
+        )
         // The delegate will be called back when the cell's primary action is triggered
         cell.configure(with: holder, delegate: self)
     }
