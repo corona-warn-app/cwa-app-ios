@@ -15,7 +15,7 @@
 // Exposure Detection
 "ExposureDetection_Low" = "Geringes Risiko";
 "ExposureDetection_High" = "Hohes Risiko";
-"ExposureDetection_Unknown" = "Unbekanntest Risiko";
+"ExposureDetection_Unknown" = "Unbekanntes Risiko";
 
 "ExposureDetection_LastCheck" = "Letzte Prüfung:";
 "ExposureDetection_LastCheck_Never" = "Noch keine Prüfung durchgeführt.";
@@ -28,11 +28,11 @@
 "ExposureDetection_Guide5" = "Husten und Niesen Sie in Ihre Armbeuge";
 
 "ExposureDetection_High_Guide1" = "Bleiben Sie zu hause";
-"ExposureDetection_High_Guide2" = "Kontaktieeren Sie ihren Hausarzt oder das Gesundheitsamt";
+"ExposureDetection_High_Guide2" = "Kontaktieren Sie ihren Hausarzt oder das Gesundheitsamt";
 
 "ExposureDetection_Title" = "Verhalten Sie sich richtig:";
 "ExposureDetection_Detail_Title" = "Wie entsteht die Risikobewertung?";
-"ExposureDetection_Detail_Text_Low" = "Sie haben ein geringes Infektions-Risiko, da Sie infizierten Personen bisher garnicht oder nur über einen sehr kurzen Zeitraum und mit einer hohen Distanz begegnet sind.\n\nAnhand von Tracing-Daten zum Abstand, der Zeit und dem generellen Kontakt mit infizierten Personen, wird ihr Infektionsrisoko lokal auf ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Detail_Text_Low" = "Sie haben ein geringes Infektions-Risiko, da Sie infizierten Personen bisher gar nicht oder nur über einen sehr kurzen Zeitraum und mit einer hohen Distanz begegnet sind.\n\nAnhand von Tracing-Daten zum Abstand, der Zeit und dem generellen Kontakt mit infizierten Personen, wird ihr Infektionsrisoko lokal auf ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 "ExposureDetection_Detail_Text_High" = "Sie haben ein hohes Infektions-Risiko, da Sie Lorem Ipsum…\n\nAnhand von Tracing-Daten zum Abstand, der Zeit und dem generellen Kontakt mit infizierten Personen, wird ihr Infektionsrisoko lokal auf ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 "ExposureDetection_Detail_Text_Unknown" = "Lorem Ipsum";
 "ExposureDetection_MoreInformation" = "Mehr Informationen";
