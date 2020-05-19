@@ -35,7 +35,11 @@ final class HomeInteractor {
     private let client: Client
 
     private lazy var developerMenu: DMDeveloperMenu = {
-        DMDeveloperMenu(presentingViewController: homeViewController, client: client)
+        DMDeveloperMenu(
+            presentingViewController: homeViewController,
+            client: client,
+            store: store
+        )
     }()
 
     func developerMenuEnableIfAllowed() {

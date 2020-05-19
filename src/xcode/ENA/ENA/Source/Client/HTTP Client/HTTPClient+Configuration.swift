@@ -127,18 +127,31 @@ extension HTTPClient {
 
 extension HTTPClient.Configuration {
     struct Endpoint {
+        // MARK: Creating an Endpoint
+        init(
+            baseURL: URL,
+            requiresTrailingSlash: Bool,
+            requiresTrailingIndex: Bool = true
+        ) {
+            self.baseURL = baseURL
+            self.requiresTrailingSlash = requiresTrailingSlash
+            self.requiresTrailingIndex = false
+        }
+        
         // MARK: Properties
         let baseURL: URL
         let requiresTrailingSlash: Bool
+        let requiresTrailingIndex: Bool
 
         // MARK: Working with an Endpoint
         func appending(_ components: String...) -> URL {
-            components.reduce(baseURL) { result, component in
-                result.appendingPathComponent(
-                    component,
-                    isDirectory: self.requiresTrailingSlash
-                )
+            let url = components.reduce(baseURL) { result, component in
+                result.appendingPathComponent(component, isDirectory: self.requiresTrailingSlash)
             }
+            if requiresTrailingIndex {
+                return url.appendingPathComponent("index", isDirectory: false)
+            }
+            return url
         }
     }
 }

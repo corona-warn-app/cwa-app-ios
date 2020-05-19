@@ -15,6 +15,7 @@ extension URLSessionConfiguration {
         config.timeoutIntervalForRequest = 60
         config.timeoutIntervalForResource = 5 * 60
         config.httpCookieAcceptPolicy = .never // we don't like cookies - privacy
+        config.httpShouldSetCookies = false // we never send cookies
         config.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData // avoid stale data
         return config
     }

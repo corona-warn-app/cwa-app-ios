@@ -1,22 +1,15 @@
 import UIKit
 import ExposureNotification
 
-private class KeyCell: UITableViewCell {
-    static var reuseIdentifier = "KeyCell"
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 /// The root view controller of the developer menu.
 final class DMViewController: UITableViewController {
     // MARK: Creating a developer menu view controller
-    init(client: Client) {
+    init(
+        client: Client,
+        store: Store
+    ) {
         self.client = client
+        self.store = store
         super.init(style: .plain)
         title = "Developer Menu"
     }
@@ -27,6 +20,7 @@ final class DMViewController: UITableViewController {
 
     // MARK: Properties
     private let client: Client
+    private let store: Store
     private var keys = [Sap_Key]() {
         didSet {
             keys = self.keys.sorted()
@@ -39,20 +33,62 @@ final class DMViewController: UITableViewController {
 
         tableView.register(KeyCell.self, forCellReuseIdentifier: KeyCell.reuseIdentifier)
 
+        navigationItem.leftBarButtonItems = [
+            UIBarButtonItem(
+                barButtonSystemItem: .refresh,
+                target: self,
+                action: #selector(refreshKeys)
+            ),
+            UIBarButtonItem(
+                image: UIImage(systemName: "gear"),
+                style: .plain,
+                target: self,
+                action: #selector(showConfiguration)
+            )
+        ]
+
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(generateTestKeys)),
-            UIBarButtonItem(image: UIImage(systemName: "qrcode.viewfinder"), style: .plain, target: self, action: #selector(showScanner))
+            UIBarButtonItem(
+                barButtonSystemItem: .action,
+                target: self,
+                action: #selector(generateTestKeys)
+            ),
+            UIBarButtonItem(
+                image: UIImage(systemName: "qrcode.viewfinder"),
+                style: .plain,
+                target: self,
+                action: #selector(showScanner)
+            )
         ]
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        resetAndFetchKeys()
+
+        if keys.isEmpty {
+            resetAndFetchKeys()
+        }
+    }
+
+    // MARK: Configuration
+    @objc
+    private func showConfiguration() {
+        let viewController = DMConfigurationViewController(
+            distributionURL: store.developerDistributionBaseURLOverride,
+            submissionURL: store.developerSubmissionBaseURLOverride
+        )
+        navigationController?.pushViewController(viewController, animated: true)
     }
 
     // MARK: Fetching Keys
+    @objc
+    private func refreshKeys() {
+        resetAndFetchKeys()
+    }
+    
     private func resetAndFetchKeys() {
         keys = []
+        tableView.reloadData()
         self.client.fetch { [weak self] keys in
             guard let self = self else { return }
             self.keys = keys
@@ -96,7 +132,7 @@ final class DMViewController: UITableViewController {
                     }
                     let _keys = keys ?? []
                     log(message: "Got diagnosis keys: \(_keys)", level: .info)
-                    self.client.submit(keys: keys ?? [], tan: "not needed here") { [weak self] submitError in
+                    self.client.submit(keys: keys ?? [], tan: "TAN 123456") { [weak self] submitError in
                         if let submitError = submitError {
                             logError(message: "Failed to submit test keys due to: \(submitError)")
                             return
@@ -205,5 +241,16 @@ private extension Client {
                 logError(message: "message: Failed to fetch all keys: \(error)")
             }
         }
+    }
+}
+
+private class KeyCell: UITableViewCell {
+    static var reuseIdentifier = "KeyCell"
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

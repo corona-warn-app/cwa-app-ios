@@ -16,15 +16,22 @@ final class DMDeveloperMenu {
 
     /// Parameters:
     /// - presentingViewController: The instance of `UIViewController` which should receive a developer menu.
-    /// - client: The `Client` to use
-    init(presentingViewController: UIViewController, client: Client) {
+    /// - client: The `Client` to use.
+    /// - store: The `Store` is used to retrieve debug information.
+    init(
+        presentingViewController: UIViewController,
+        client: Client,
+        store: Store
+    ) {
         self.client = client
         self.presentingViewController = presentingViewController
+        self.store = store
     }
 
     // MARK: Properties
     private let presentingViewController: UIViewController
     private let client: Client
+    private let store: Store
 
     // MARK: Interacting with the developer menu
 
@@ -42,8 +49,15 @@ final class DMDeveloperMenu {
 
     @objc
     func showDeveloperMenu(_ sender: UITapGestureRecognizer) {
-        let navigationController = UINavigationController(rootViewController: DMViewController(client: client))
-        presentingViewController.present(navigationController, animated: true, completion: nil)
+        let devMenuController = DMViewController(client: client, store: store)
+        let navigationController = UINavigationController(
+            rootViewController: devMenuController
+        )
+        presentingViewController.present(
+            navigationController,
+            animated: true,
+            completion: nil
+        )
     }
 
     private func isAllowed() -> Bool {
