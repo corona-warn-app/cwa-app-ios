@@ -12,9 +12,6 @@ class ENAUITestsHome: XCTestCase {
 
     override func setUpWithError() throws {
 		continueAfterFailure = false
-		let app = XCUIApplication()
-		setupSnapshot(app)
-		app.launch()
     }
 
     override func tearDownWithError() throws {

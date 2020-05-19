@@ -47,7 +47,12 @@ extension XCUIElement {
 extension XCUIApplication {
 	func setDefaults() {
 		//launchEnvironment["CW_MODE"] = "mock"
-		launchEnvironment["XCUI"] = "true"
+		launchEnvironment["XCUI"] = "YES"
+	}
+	
+	func setPreferredContentSizeCategory(accessibililty: SizeCategoryAccessibility, size: SizeCategory) {
+		// based on https://stackoverflow.com/questions/38316591/how-to-test-dynamic-type-larger-font-sizes-in-ios-simulator
+		launchArguments += [ "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)" ]
 	}
 }
 
@@ -125,11 +130,6 @@ extension XCTestCase {
 			}
 			return false
 		}
-	}
-
-	func setPreferredContentSizeCategory(in app: XCUIApplication, accessibililty: SizeCategoryAccessibility, size: SizeCategory) {
-		// based on https://stackoverflow.com/questions/38316591/how-to-test-dynamic-type-larger-font-sizes-in-ios-simulator
-		app.launchArguments += [ "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)" ]
 	}
 
 }

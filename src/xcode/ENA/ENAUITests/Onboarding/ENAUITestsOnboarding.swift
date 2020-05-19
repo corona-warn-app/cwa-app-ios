@@ -14,7 +14,7 @@ class ENAUITestsOnboarding: XCTestCase {
 		continueAfterFailure = false
 		let app = XCUIApplication()
 		setupSnapshot(app)
-		app.launch()
+		app.setDefaults()
 	}
 	
 	override func tearDownWithError() throws {
@@ -44,10 +44,8 @@ class ENAUITestsOnboarding: XCTestCase {
 
 	func testOnboardingFlow_0000_DisablePermissions() throws {
 		let app = XCUIApplication()
-		app.setDefaults()
 		app.launchArguments += ["-isOnboarded","NO"]
-
-		setPreferredContentSizeCategory(in: app, accessibililty: .normal, size: .XXXL)
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XXXL)
 		app.launch()
 
 		// only run if onboarding screen is present
@@ -72,8 +70,8 @@ class ENAUITestsOnboarding: XCTestCase {
 
 	func testOnboardingFlow_0001_EnablePermissions() throws {
 		let app = XCUIApplication()
-		app.setDefaults()
-		setPreferredContentSizeCategory(in: app, accessibililty: .normal, size: .XS)
+		app.launchArguments += ["-isOnboarded","NO"]
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XS)
 		app.launch()
 
 		// only run if onboarding screen is present
