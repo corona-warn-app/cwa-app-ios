@@ -231,6 +231,8 @@ final class HomeViewController: UIViewController {
 
     private func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+		collectionView.isAccessibilityElement = false
+		collectionView.shouldGroupAccessibilityChildren = true
         collectionView.delegate = self
         let safeLayoutGuide = view.safeAreaLayoutGuide
         collectionView.translatesAutoresizingMaskIntoConstraints = false

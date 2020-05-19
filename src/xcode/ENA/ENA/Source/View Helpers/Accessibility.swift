@@ -32,4 +32,10 @@ enum Accessibility {
 		static let ignore = "ignore"
 		static let finish = "finish"
 	}
+	enum Cell {
+		static let infoCardShareTitle = "infoCardShareTitle"
+		static let infoCardAboutTitle = "infoCardAboutTitle"
+		static let appInformationCardTitle = "appInformationCardTitle"
+		static let settingsCardTitle = "settingsCardTitle"
+	}
 }
