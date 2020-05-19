@@ -44,6 +44,7 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
         middleContainer?.layoutMargins = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
     }
     
+    // Ignore touches on the button when it's disabled
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let buttonPoint = convert(point, to: contactButton)
         let containsPoint = contactButton.bounds.contains(buttonPoint)
