@@ -25,11 +25,8 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
         cell.titleLabel.text = title
 		cell.bodyLabel.text = body
-		if body != nil {
-			cell.labelStackView.spacing = 8.0
-		} else {
-			cell.labelStackView.spacing = 0.0
-		}
+		cell.bodyLabel.isHidden = (body == nil)
+
 		cell.clearBorders()
 		configureBorders(for: cell)
     }

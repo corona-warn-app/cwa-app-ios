@@ -70,7 +70,6 @@
             <connections>
                 <outlet property="bodyLabel" destination="agg-fi-lUn" id="9bh-Y8-AxB"/>
                 <outlet property="chevronImageView" destination="jLY-i3-yRh" id="cpN-1d-zDZ"/>
-                <outlet property="labelStackView" destination="XM7-LT-Nfc" id="Ivv-Fg-1zC"/>
                 <outlet property="titleLabel" destination="xM1-cv-GWJ" id="vXv-7m-xid"/>
             </connections>
             <point key="canvasLocation" x="29.710144927536234" y="149.33035714285714"/>
