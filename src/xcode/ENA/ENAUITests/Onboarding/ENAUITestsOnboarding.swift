@@ -13,9 +13,10 @@ class ENAUITestsOnboarding: XCTestCase {
 	override func setUp() {
 		continueAfterFailure = false
 		
-		// need to ensure user is not already onboarded
-		let store = Store()
-		store.isOnboarded = false
+		let app = XCUIApplication()
+		setupSnapshot(app)
+		app.launch()
+		
 	}
 	
 	override func tearDownWithError() throws {
@@ -55,10 +56,15 @@ class ENAUITestsOnboarding: XCTestCase {
 		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
 		
 		// tap through the onboarding screens
+		snapshot("ScreenShot_\(#function)_0000")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0001")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0002")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0003")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0004")
 		app.buttons[Accessibility.Button.next].tap()
 
 		removeUIInterruptionMonitor(dontAllowHandler)
@@ -68,6 +74,8 @@ class ENAUITestsOnboarding: XCTestCase {
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+		snapshot("ScreenShot_\(#function)_0005")
+		
 		removeUIInterruptionMonitor(allowHandler)
 		
 	}
@@ -84,12 +92,19 @@ class ENAUITestsOnboarding: XCTestCase {
 		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
 
 		// tap through the onboarding screens
+		snapshot("ScreenShot_\(#function)_0000")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0001")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0002")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0003")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0004")
 		app.buttons[Accessibility.Button.next].tap()
-	
+
+		snapshot("ScreenShot_\(#function)_0005")
+
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
 	}
@@ -104,11 +119,18 @@ class ENAUITestsOnboarding: XCTestCase {
 		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
 
 		// tap through the onboarding screens
+		snapshot("ScreenShot_\(#function)_0000")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0001")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0002")
 		app.buttons[Accessibility.Button.ignore].tap()
+		snapshot("ScreenShot_\(#function)_0003")
 		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0004")
 		app.buttons[Accessibility.Button.ignore].tap()
+
+		snapshot("ScreenShot_\(#function)_0005")
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])

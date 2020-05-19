@@ -49,17 +49,6 @@ extension XCTestCase {
 		return (langCode, localeCode)
 	}
 
-	func local(_ key: String) -> String {
-		let testBundle = Bundle(for: Store.self)
-		if let currentLanguage = currentLanguage,
-			let testBundlePath = testBundle.path(forResource: currentLanguage.localeCode, ofType: "lproj") ?? testBundle.path(forResource: currentLanguage.langCode, ofType: "lproj"),
-			let localizedBundle = Bundle(path: testBundlePath)
-		{
-			return NSLocalizedString(key, bundle: localizedBundle, comment: "")
-		}
-		return "?"
-	}
-	
 	func tapAllowOnAllDialogs() -> NSObjectProtocol {
 		return addUIInterruptionMonitor(withDescription: "UIAlert") {
 			(alert) -> Bool in
