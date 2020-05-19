@@ -135,6 +135,7 @@ enum AppStrings {
         static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
 
         static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
+		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
 
         static let infoCardShareTitle = NSLocalizedString("Home_InfoCard_ShareTitle", comment: "")
         static let infoCardShareBody = NSLocalizedString("Home_InfoCard_ShareBody", comment: "")

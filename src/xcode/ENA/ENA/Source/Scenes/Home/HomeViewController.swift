@@ -203,10 +203,13 @@ final class HomeViewController: UIViewController {
             if row == 0 {
                 showInviteFriends()
             } else {
-                showAppInformation()
             }
         case .settings:
-            showSetting()
+            if row == 0 {
+                showAppInformation()
+            } else {
+				showSetting()
+            }
         }
     }
 
@@ -270,8 +273,8 @@ final class HomeViewController: UIViewController {
         snapshot.appendItems(Array(0...2))
         snapshot.appendSections([.infos])
         snapshot.appendItems(Array(3...4))
-        snapshot.appendSections([.settings])
-        snapshot.appendItems([5])
+		snapshot.appendSections([.settings])
+		snapshot.appendItems(Array(5...6))
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 

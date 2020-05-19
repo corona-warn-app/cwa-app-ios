@@ -31,11 +31,14 @@ final class HomeInteractor {
     private let store: Store
     private var detectionSummary: ENExposureDetectionSummary?
     private(set) var exposureManager: ExposureManager
-
     private let client: Client
 
     private lazy var developerMenu: DMDeveloperMenu = {
-        DMDeveloperMenu(presentingViewController: homeViewController, client: client)
+        DMDeveloperMenu(
+            presentingViewController: homeViewController,
+            client: client,
+            store: store
+        )
     }()
 
     func developerMenuEnableIfAllowed() {
@@ -64,14 +67,38 @@ final class HomeInteractor {
         submitConfigurator.submitAction = { [unowned self] in
             self.homeViewController.showSubmitResult()
         }
-        let title1 = AppStrings.Home.infoCardShareTitle
-        let body1 = AppStrings.Home.infoCardShareBody
-        let info1Configurator = HomeInfoCellConfigurator(title: title1, body: body1)
-        let title2 = AppStrings.Home.infoCardAboutTitle
-        let body2 = AppStrings.Home.infoCardAboutBody
-        let info2Configurator = HomeInfoCellConfigurator(title: title2, body: body2)
-        let settingsConfigurator = HomeSettingsCellConfigurator()
-        let configurators: [CollectionViewCellConfiguratorAny] = [activeConfigurator, riskConfigurator, submitConfigurator, info1Configurator, info2Configurator, settingsConfigurator]
+        
+		let info1Configurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.infoCardShareTitle,
+			body: AppStrings.Home.infoCardShareBody,
+			position: .first
+		)
+		let info2Configurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.infoCardAboutTitle,
+			body: AppStrings.Home.infoCardAboutBody,
+			position: .last
+		)
+
+		let appInformationConfigurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.appInformationCardTitle,
+			body: nil,
+			position: .first
+		)
+		let settingsConfigurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.settingsCardTitle,
+			body: nil,
+			position: .last
+		)
+
+		let configurators: [CollectionViewCellConfiguratorAny] = [
+			activeConfigurator,
+			riskConfigurator,
+			submitConfigurator,
+			info1Configurator,
+			info2Configurator,
+			appInformationConfigurator,
+			settingsConfigurator
+		]
         return configurators
     }
 }

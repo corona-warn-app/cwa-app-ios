@@ -98,13 +98,13 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "CW_MODE"
-            value = "https"
+            key = "CWA_CLIENT_MODE"
+            value = "mock"
             isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "CW_MODE"
-            value = "mock"
+            key = "CWA_CLIENT_MODE"
+            value = "https"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
