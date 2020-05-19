@@ -42,11 +42,11 @@ platform :ios do
   desc "Generate screenshots from XCUITests"
   lane :grab_screenshots do
 
-    # Build
-    build_ios_app(
-      skip_codesigning: true,
-      skip_archive: true
-    )
+    # # Build
+    # build_ios_app(
+    #   skip_codesigning: true,
+    #   skip_archive: true
+    # )
 
     # UI Tests
     # Uncomment when ready

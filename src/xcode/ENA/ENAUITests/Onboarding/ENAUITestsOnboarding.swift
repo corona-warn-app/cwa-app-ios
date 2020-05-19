@@ -50,8 +50,6 @@ class ENAUITestsOnboarding: XCTestCase {
 		setPreferredContentSizeCategory(in: app, accessibililty: .normal, size: .XS)
 		app.launch()
 
-		let dontAllowHandler = tapDontAllowOnAllDialogs()
-
 		// only run if onboarding screen is present
 		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
 		
@@ -67,17 +65,9 @@ class ENAUITestsOnboarding: XCTestCase {
 		snapshot("ScreenShot_\(#function)_0004")
 		app.buttons[Accessibility.Button.next].tap()
 
-		removeUIInterruptionMonitor(dontAllowHandler)
-
-		let allowHandler = tapAllowOnAllDialogs()
-		app.staticTexts.element(boundBy: 1).tap()
-
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
 		snapshot("ScreenShot_\(#function)_0005")
-		
-		removeUIInterruptionMonitor(allowHandler)
-		
 	}
 
 	func testOnboardingFlow_0001_EnablePermissionsAndAccept() throws {
@@ -86,8 +76,6 @@ class ENAUITestsOnboarding: XCTestCase {
 		setPreferredContentSizeCategory(in: app, accessibililty: .normal, size: .M)
 		app.launch()
 
-		let _ = tapAllowOnAllDialogs()
-
 		// only run if onboarding screen is present
 		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
 
@@ -103,10 +91,9 @@ class ENAUITestsOnboarding: XCTestCase {
 		snapshot("ScreenShot_\(#function)_0004")
 		app.buttons[Accessibility.Button.next].tap()
 
-		snapshot("ScreenShot_\(#function)_0005")
-
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+		snapshot("ScreenShot_\(#function)_0005")
 	}
 
 	func testOnboardingFlow_0002_DisablePermissions() throws {
@@ -130,11 +117,9 @@ class ENAUITestsOnboarding: XCTestCase {
 		snapshot("ScreenShot_\(#function)_0004")
 		app.buttons[Accessibility.Button.ignore].tap()
 
-		snapshot("ScreenShot_\(#function)_0005")
-
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
-
+		snapshot("ScreenShot_\(#function)_0005")
 	}
 
 //	func testOnboardingFlow_Record() throws {
