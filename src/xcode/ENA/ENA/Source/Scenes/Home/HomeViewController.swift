@@ -47,11 +47,8 @@ final class HomeViewController: UIViewController {
     private let client: Client
 
     enum Section: Int {
-        // swiftlint:disable:next explicit_enum_raw_value
         case actions
-        // swiftlint:disable:next explicit_enum_raw_value
         case infos
-        // swiftlint:disable:next explicit_enum_raw_value
         case settings
     }
 
