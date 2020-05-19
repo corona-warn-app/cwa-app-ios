@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return HTTPClient(configuration: .production)
         #endif
 
-        if Mode.from() == .mock {
+        if ClientMode.default == .mock {
             return MockClient()
         }
         
@@ -32,11 +32,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 return HTTPClient(configuration: .production)
         }
 
-
-        let config = BackendConfiguration(
-            endpoints: .init(
-                distribution: distributionURL,
-                submission: submissionURL
+        let config = HTTPClient.Configuration(
+            apiVersion: "v1",
+            country: "DE",
+            endpoints: HTTPClient.Configuration.Endpoints(
+                distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
+                submission: .init(baseURL: submissionURL, requiresTrailingSlash: true)
             )
         )
         return HTTPClient(configuration: config)
