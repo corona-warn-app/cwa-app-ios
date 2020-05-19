@@ -39,8 +39,6 @@ extension ExposureDetectionModel {
 			.text(text: AppStrings.ExposureDetection.detailTextLow),
 			.more(text: AppStrings.ExposureDetection.moreInformation, url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
 		],
-		
-		
 		help: AppStrings.ExposureDetection.help,
 		hotline: (text: AppStrings.ExposureDetection.hotline, number: AppStrings.ExposureDetection.hotlineNumber),
 		checkButton: AppStrings.ExposureDetection.checkNow
@@ -57,8 +55,6 @@ extension ExposureDetectionModel {
 			.text(text: AppStrings.ExposureDetection.detailTextHigh),
 			.more(text: AppStrings.ExposureDetection.moreInformation, url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
 		],
-		
-		
 		help: AppStrings.ExposureDetection.help,
 		hotline: (text: AppStrings.ExposureDetection.hotline, number: AppStrings.ExposureDetection.hotlineNumber),
 		checkButton: AppStrings.ExposureDetection.checkNow
@@ -77,8 +73,6 @@ extension ExposureDetectionModel {
 			.text(text: AppStrings.ExposureDetection.detailTextUnknown),
 			.more(text: AppStrings.ExposureDetection.moreInformation, url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
 		],
-		
-		
 		help: AppStrings.ExposureDetection.help,
 		hotline: (text: AppStrings.ExposureDetection.hotline, number: AppStrings.ExposureDetection.hotlineNumber),
 		checkButton: AppStrings.ExposureDetection.checkNow
