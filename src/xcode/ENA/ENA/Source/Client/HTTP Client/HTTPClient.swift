@@ -161,19 +161,19 @@ final class HTTPClient: Client {
             case .success(let response):
                 guard let dayData = response.body else {
                     completeWith(.failure(.invalidResponse))
+                    logError(message: "Failed to download day '\(day)': invalid response")
                     return
                 }
-                log(message: "got day: \(dayData.count)")
                 do {
                     let bucket = try VerifiedSapFileBucket(serializedSignedPayload: dayData)
                     completeWith(.success(bucket))
                 } catch let error {
-                    print(error)
+                    logError(message: "Failed to download day '\(day)' due to error: \(error).")
                     completeWith(.failure(.invalidResponse))
                 }
             case .failure(let error):
                 completeWith(.failure(.httpError(error)))
-                logError(message: "failed to get day: \(error)")
+                logError(message: "Failed to download day '\(day)' due to error: \(error).")
             }
         }
     }

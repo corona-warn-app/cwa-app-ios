@@ -21,21 +21,28 @@ platform :ios do
     setup_circle_ci
   end
 
-  desc "Build and test app without any additional steps"
-  lane :build_and_test do
-
-    # Build
+  desc "Build project"
+  lane :build do
     build_ios_app(
       skip_codesigning: true,
-      skip_archive: true
+      skip_archive: true,
+      destination: "platform=iOS Simulator,OS=13.5,name=iPhone 11",
+      scheme: "ENA"
+    )
+  end
+
+  desc "Run tests"
+  lane :test do
+    # Unit Tests
+    run_tests(
+      scheme: "ENATests",
+      devices: ["iPhone 11"]
     )
 
-    # Unit Tests
-    # Uncomment when Apple resolved the issue to use ENTemporaryExposureKey in simulator
-    # run_tests( scheme: "ENATests" )
-
     # UI Tests
-    # Uncomment when ready
-    # run_tests( scheme: "ENAUITests" )
+    run_tests(
+      scheme: "ENAUITests"
+      # tbc..
+    )
   end
 end
