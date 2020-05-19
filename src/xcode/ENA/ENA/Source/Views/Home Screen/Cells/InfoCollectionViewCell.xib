@@ -25,13 +25,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XM7-LT-Nfc">
                                         <rect key="frame" x="0.0" y="0.0" width="458" height="115"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" verticalCompressionResistancePriority="998" text="Title Title Title Title Title Title Title Title Title Title Title Title " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xM1-cv-GWJ">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" verticalCompressionResistancePriority="998" text="Title Title Title Title Title Title Title Title Title Title Title Title " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xM1-cv-GWJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="458" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agg-fi-lUn">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agg-fi-lUn">
                                                 <rect key="frame" x="0.0" y="28.5" width="458" height="86.5"/>
                                                 <string key="text">Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body </string>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -70,6 +70,7 @@
             <connections>
                 <outlet property="bodyLabel" destination="agg-fi-lUn" id="9bh-Y8-AxB"/>
                 <outlet property="chevronImageView" destination="jLY-i3-yRh" id="cpN-1d-zDZ"/>
+                <outlet property="labelStackView" destination="XM7-LT-Nfc" id="Ivv-Fg-1zC"/>
                 <outlet property="titleLabel" destination="xM1-cv-GWJ" id="vXv-7m-xid"/>
             </connections>
             <point key="canvasLocation" x="29.710144927536234" y="149.33035714285714"/>

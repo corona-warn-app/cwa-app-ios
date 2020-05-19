@@ -24,10 +24,11 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 		cell.backgroundColor = UIColor.systemBackground
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
         cell.titleLabel.text = title
+		cell.bodyLabel.text = body
 		if let body = body {
-			cell.bodyLabel.text = body
+			cell.labelStackView.spacing = 8.0
 		} else {
-			cell.bodyLabel.isHidden = true
+			cell.labelStackView.spacing = 0.0
 		}
 		cell.clearBorders()
 		configureBorders(for: cell)
