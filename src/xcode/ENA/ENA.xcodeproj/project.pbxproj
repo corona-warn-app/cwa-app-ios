@@ -9,16 +9,33 @@
 /* Begin PBXBuildFile section */
 		011E13AE24680A4000973467 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E13AD24680A4000973467 /* HTTPClient.swift */; };
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
+		014D0E322474339A005A92DF /* exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2A2474339A005A92DF /* exposure_notification.pb.swift */; };
+		014D0E332474339A005A92DF /* exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2A2474339A005A92DF /* exposure_notification.pb.swift */; };
+		014D0E342474339A005A92DF /* exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2A2474339A005A92DF /* exposure_notification.pb.swift */; };
+		014D0E352474339A005A92DF /* file_bucket.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2B2474339A005A92DF /* file_bucket.pb.swift */; };
+		014D0E362474339A005A92DF /* file_bucket.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2B2474339A005A92DF /* file_bucket.pb.swift */; };
+		014D0E372474339A005A92DF /* file_bucket.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2B2474339A005A92DF /* file_bucket.pb.swift */; };
+		014D0E382474339A005A92DF /* risk_score_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2C2474339A005A92DF /* risk_score_parameters.pb.swift */; };
+		014D0E392474339A005A92DF /* risk_score_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2C2474339A005A92DF /* risk_score_parameters.pb.swift */; };
+		014D0E3A2474339A005A92DF /* risk_score_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2C2474339A005A92DF /* risk_score_parameters.pb.swift */; };
+		014D0E3B2474339A005A92DF /* submission_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2D2474339A005A92DF /* submission_payload.pb.swift */; };
+		014D0E3C2474339A005A92DF /* submission_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2D2474339A005A92DF /* submission_payload.pb.swift */; };
+		014D0E3D2474339A005A92DF /* submission_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2D2474339A005A92DF /* submission_payload.pb.swift */; };
+		014D0E3E2474339A005A92DF /* signed_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2E2474339A005A92DF /* signed_payload.pb.swift */; };
+		014D0E3F2474339A005A92DF /* signed_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2E2474339A005A92DF /* signed_payload.pb.swift */; };
+		014D0E402474339A005A92DF /* signed_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2E2474339A005A92DF /* signed_payload.pb.swift */; };
+		014D0E412474339A005A92DF /* apple_exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2F2474339A005A92DF /* apple_exposure_notification.pb.swift */; };
+		014D0E422474339A005A92DF /* apple_exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2F2474339A005A92DF /* apple_exposure_notification.pb.swift */; };
+		014D0E432474339A005A92DF /* apple_exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E2F2474339A005A92DF /* apple_exposure_notification.pb.swift */; };
+		014D0E442474339A005A92DF /* apple_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E302474339A005A92DF /* apple_export.pb.swift */; };
+		014D0E452474339A005A92DF /* apple_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E302474339A005A92DF /* apple_export.pb.swift */; };
+		014D0E462474339A005A92DF /* apple_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E302474339A005A92DF /* apple_export.pb.swift */; };
+		014D0E472474339A005A92DF /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E312474339A005A92DF /* risk_level.pb.swift */; };
+		014D0E482474339A005A92DF /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E312474339A005A92DF /* risk_level.pb.swift */; };
+		014D0E492474339A005A92DF /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E312474339A005A92DF /* risk_level.pb.swift */; };
 		0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */; };
 		01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
-		01EB1D2D246973F100A7908B /* exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB1D27246973F100A7908B /* exposure_notification.pb.swift */; };
-		01EB1D2E246973F100A7908B /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB1D28246973F100A7908B /* risk_level.pb.swift */; };
-		01EB1D2F246973F100A7908B /* file_bucket.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB1D29246973F100A7908B /* file_bucket.pb.swift */; };
-		01EB1D30246973F100A7908B /* signed_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB1D2A246973F100A7908B /* signed_payload.pb.swift */; };
-		01EB1D31246973F100A7908B /* risk_score_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB1D2B246973F100A7908B /* risk_score_parameters.pb.swift */; };
-		01EB1D32246973F100A7908B /* submission_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB1D2C246973F100A7908B /* submission_payload.pb.swift */; };
-		01EB1D342469770A00A7908B /* apple_exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB1D332469770A00A7908B /* apple_exposure_notification.pb.swift */; };
 		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
 		130CB19D246D931B00ADE602 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
 		130CB19E246D932F00ADE602 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
@@ -118,7 +135,6 @@
 		B1B9CF1F246ED2E8008F04F5 /* Sap_FilebucketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9CF1E246ED2E8008F04F5 /* Sap_FilebucketTests.swift */; };
 		B1B9CF21246ED2F2008F04F5 /* 2020-04-27-full-day-from-sap-api.proto in Resources */ = {isa = PBXBuildFile; fileRef = B1B9CF20246ED2F2008F04F5 /* 2020-04-27-full-day-from-sap-api.proto */; };
 		B1BC090F246B1A0C00302424 /* PersistedAndPublished.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BC090E246B1A0C00302424 /* PersistedAndPublished.swift */; };
-		B1C0BD802473E3D000F2DDEB /* apple_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C0BD7F2473E3D000F2DDEB /* apple_export.pb.swift */; };
 		B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */; };
 		B1D431CB246C84A400E728AD /* SignedPayloadStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CA246C84A400E728AD /* SignedPayloadStore.swift */; };
 		B1D431CE246C84F200E728AD /* SignedPayloadStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CC246C84ED00E728AD /* SignedPayloadStoreTests.swift */; };
@@ -186,14 +202,15 @@
 /* Begin PBXFileReference section */
 		011E13AD24680A4000973467 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		013DC101245DAC4E00EE58B0 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		014D0E2A2474339A005A92DF /* exposure_notification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_notification.pb.swift; path = ../../../gen/exposure_notification.pb.swift; sourceTree = "<group>"; };
+		014D0E2B2474339A005A92DF /* file_bucket.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = file_bucket.pb.swift; path = ../../../gen/file_bucket.pb.swift; sourceTree = "<group>"; };
+		014D0E2C2474339A005A92DF /* risk_score_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_score_parameters.pb.swift; path = ../../../gen/risk_score_parameters.pb.swift; sourceTree = "<group>"; };
+		014D0E2D2474339A005A92DF /* submission_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = submission_payload.pb.swift; path = ../../../gen/submission_payload.pb.swift; sourceTree = "<group>"; };
+		014D0E2E2474339A005A92DF /* signed_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signed_payload.pb.swift; path = ../../../gen/signed_payload.pb.swift; sourceTree = "<group>"; };
+		014D0E2F2474339A005A92DF /* apple_exposure_notification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apple_exposure_notification.pb.swift; path = ../../../gen/apple_exposure_notification.pb.swift; sourceTree = "<group>"; };
+		014D0E302474339A005A92DF /* apple_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apple_export.pb.swift; path = ../../../gen/apple_export.pb.swift; sourceTree = "<group>"; };
+		014D0E312474339A005A92DF /* risk_level.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_level.pb.swift; path = ../../../gen/risk_level.pb.swift; sourceTree = "<group>"; };
 		01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
-		01EB1D27246973F100A7908B /* exposure_notification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_notification.pb.swift; path = ../../../../../proto/output/exposure_notification.pb.swift; sourceTree = "<group>"; };
-		01EB1D28246973F100A7908B /* risk_level.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_level.pb.swift; path = ../../../../../proto/output/risk_level.pb.swift; sourceTree = "<group>"; };
-		01EB1D29246973F100A7908B /* file_bucket.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = file_bucket.pb.swift; path = ../../../../../proto/output/file_bucket.pb.swift; sourceTree = "<group>"; };
-		01EB1D2A246973F100A7908B /* signed_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signed_payload.pb.swift; path = ../../../../../proto/output/signed_payload.pb.swift; sourceTree = "<group>"; };
-		01EB1D2B246973F100A7908B /* risk_score_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_score_parameters.pb.swift; path = ../../../../../proto/output/risk_score_parameters.pb.swift; sourceTree = "<group>"; };
-		01EB1D2C246973F100A7908B /* submission_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = submission_payload.pb.swift; path = ../../../../../proto/output/submission_payload.pb.swift; sourceTree = "<group>"; };
-		01EB1D332469770A00A7908B /* apple_exposure_notification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apple_exposure_notification.pb.swift; path = ../../../../../proto/output/apple_exposure_notification.pb.swift; sourceTree = "<group>"; };
 		130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsOnboarding.swift; sourceTree = "<group>"; };
 		13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
@@ -300,7 +317,6 @@
 		B1B9CF1E246ED2E8008F04F5 /* Sap_FilebucketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sap_FilebucketTests.swift; sourceTree = "<group>"; };
 		B1B9CF20246ED2F2008F04F5 /* 2020-04-27-full-day-from-sap-api.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = "2020-04-27-full-day-from-sap-api.proto"; sourceTree = "<group>"; };
 		B1BC090E246B1A0C00302424 /* PersistedAndPublished.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedAndPublished.swift; sourceTree = "<group>"; };
-		B1C0BD7F2473E3D000F2DDEB /* apple_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apple_export.pb.swift; path = ../../../../../proto/output/apple_export.pb.swift; sourceTree = "<group>"; };
 		B1CF8D0F246C1F4100DBE135 /* ClientModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientModeTests.swift; sourceTree = "<group>"; };
 		B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+ConfigurationTests.swift"; sourceTree = "<group>"; };
 		B1D431CA246C84A400E728AD /* SignedPayloadStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedPayloadStore.swift; sourceTree = "<group>"; };
@@ -780,14 +796,14 @@
 		B102BDC12460405F00CD55A2 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
-				B1C0BD7F2473E3D000F2DDEB /* apple_export.pb.swift */,
-				01EB1D27246973F100A7908B /* exposure_notification.pb.swift */,
-				01EB1D332469770A00A7908B /* apple_exposure_notification.pb.swift */,
-				01EB1D29246973F100A7908B /* file_bucket.pb.swift */,
-				01EB1D28246973F100A7908B /* risk_level.pb.swift */,
-				01EB1D2B246973F100A7908B /* risk_score_parameters.pb.swift */,
-				01EB1D2A246973F100A7908B /* signed_payload.pb.swift */,
-				01EB1D2C246973F100A7908B /* submission_payload.pb.swift */,
+				014D0E302474339A005A92DF /* apple_export.pb.swift */,
+				014D0E2F2474339A005A92DF /* apple_exposure_notification.pb.swift */,
+				014D0E2A2474339A005A92DF /* exposure_notification.pb.swift */,
+				014D0E2B2474339A005A92DF /* file_bucket.pb.swift */,
+				014D0E312474339A005A92DF /* risk_level.pb.swift */,
+				014D0E2C2474339A005A92DF /* risk_score_parameters.pb.swift */,
+				014D0E2E2474339A005A92DF /* signed_payload.pb.swift */,
+				014D0E2D2474339A005A92DF /* submission_payload.pb.swift */,
 				B102BDC22460410600CD55A2 /* README.md */,
 			);
 			path = Backend;
@@ -1214,8 +1230,6 @@
 			files = (
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionTransactionDelegate.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
-				01EB1D31246973F100A7908B /* risk_score_parameters.pb.swift in Sources */,
-				01EB1D342469770A00A7908B /* apple_exposure_notification.pb.swift in Sources */,
 				CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */,
 				01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */,
@@ -1224,14 +1238,15 @@
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
-				B1C0BD802473E3D000F2DDEB /* apple_export.pb.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
+				014D0E3B2474339A005A92DF /* submission_payload.pb.swift in Sources */,
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
 				514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */,
 				B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */,
 				B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */,
 				B1DDDABE24713BAD00A07175 /* VerifiedSapFileBucket.swift in Sources */,
 				EE20EA0E246ABED600770683 /* RiskLegendFactory.swift in Sources */,
+				014D0E382474339A005A92DF /* risk_score_parameters.pb.swift in Sources */,
 				B10FD5EF246EAB0100E9D7F2 /* AppInformationHelpModel.swift in Sources */,
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
 				B1EAEC91247128ED003BE9A2 /* ClientMode.swift in Sources */,
@@ -1242,7 +1257,10 @@
 				B1D431CB246C84A400E728AD /* SignedPayloadStore.swift in Sources */,
 				B10FD5F2246EAB1600E9D7F2 /* AppInformationDetailModel.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
+				014D0E3E2474339A005A92DF /* signed_payload.pb.swift in Sources */,
+				014D0E472474339A005A92DF /* risk_level.pb.swift in Sources */,
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
+				014D0E322474339A005A92DF /* exposure_notification.pb.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
 				EEF7900D2466F6E40065EBD5 /* RiskView.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
@@ -1262,9 +1280,9 @@
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
 				51CE1B89246078B6002CF42A /* RiskCollectionViewCell.swift in Sources */,
 				B1F82DF224718C7300E2E56A /* DMConfigurationViewController.swift in Sources */,
-				01EB1D30246973F100A7908B /* signed_payload.pb.swift in Sources */,
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
+				014D0E412474339A005A92DF /* apple_exposure_notification.pb.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				EE20EA0C24699AA100770683 /* RiskLegendTableViewCell.swift in Sources */,
 				51CE1B87246078B6002CF42A /* ActivateCollectionViewCell.swift in Sources */,
@@ -1273,7 +1291,6 @@
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
 				B10FD5ED246EAADC00E9D7F2 /* AppInformationDetailViewController.swift in Sources */,
-				01EB1D2F246973F100A7908B /* file_bucket.pb.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
 				51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */,
@@ -1290,13 +1307,11 @@
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
-				01EB1D2E246973F100A7908B /* risk_level.pb.swift in Sources */,
 				EE46E5D82466AEA50057627F /* UIView.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
 				51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */,
 				B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */,
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
-				01EB1D32246973F100A7908B /* submission_payload.pb.swift in Sources */,
 				51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
 				0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */,
@@ -1306,11 +1321,12 @@
 				51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */,
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
+				014D0E352474339A005A92DF /* file_bucket.pb.swift in Sources */,
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
+				014D0E442474339A005A92DF /* apple_export.pb.swift in Sources */,
 				B14D0CD9246E946E00D5BEBC /* ExposureDetectionTransaction.swift in Sources */,
 				B154F59B246DD5CF003E891E /* Client+Convenience.swift in Sources */,
-				01EB1D2D246973F100A7908B /* exposure_notification.pb.swift in Sources */,
 				51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1323,16 +1339,24 @@
 				B1A76EA224714F7900EA5208 /* ClientModeTests.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
 				CD678F6B246C43E200B6A0F8 /* MockExposureManager.swift in Sources */,
+				014D0E422474339A005A92DF /* apple_exposure_notification.pb.swift in Sources */,
+				014D0E392474339A005A92DF /* risk_score_parameters.pb.swift in Sources */,
 				B18C411F246DB4B400B8D8CB /* Sap_Model.swift in Sources */,
+				014D0E482474339A005A92DF /* risk_level.pb.swift in Sources */,
+				014D0E452474339A005A92DF /* apple_export.pb.swift in Sources */,
 				B1A76E9F24714AC700EA5208 /* HTTPClient+Configuration.swift in Sources */,
 				B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */,
 				CDF27BD3246ADBA70044D32B /* ExposureSubmissionServiceTests.swift in Sources */,
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,
 				B1B9CF1F246ED2E8008F04F5 /* Sap_FilebucketTests.swift in Sources */,
+				014D0E332474339A005A92DF /* exposure_notification.pb.swift in Sources */,
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
 				CDF27BD5246ADBF30044D32B /* HTTPClientTests.swift in Sources */,
 				CD678F6D246C43EE00B6A0F8 /* MockTestClient.swift in Sources */,
+				014D0E362474339A005A92DF /* file_bucket.pb.swift in Sources */,
+				014D0E3F2474339A005A92DF /* signed_payload.pb.swift in Sources */,
+				014D0E3C2474339A005A92DF /* submission_payload.pb.swift in Sources */,
 				B1D431CE246C84F200E728AD /* SignedPayloadStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1341,9 +1365,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				014D0E402474339A005A92DF /* signed_payload.pb.swift in Sources */,
 				130CB19D246D931B00ADE602 /* Store.swift in Sources */,
 				130CB19E246D932F00ADE602 /* NotificationName.swift in Sources */,
+				014D0E372474339A005A92DF /* file_bucket.pb.swift in Sources */,
+				014D0E3D2474339A005A92DF /* submission_payload.pb.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
+				014D0E492474339A005A92DF /* risk_level.pb.swift in Sources */,
+				014D0E342474339A005A92DF /* exposure_notification.pb.swift in Sources */,
+				014D0E462474339A005A92DF /* apple_export.pb.swift in Sources */,
+				014D0E432474339A005A92DF /* apple_exposure_notification.pb.swift in Sources */,
+				014D0E3A2474339A005A92DF /* risk_score_parameters.pb.swift in Sources */,
 				130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1513,17 +1545,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = ZK2MG3TWVQ;
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
+				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/SAP CWA Test";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ena;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = covid43;
+				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1534,17 +1567,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = ZK2MG3TWVQ;
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
+				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/SAP CWA Test";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ena;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = covid43;
+				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1699,17 +1733,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = ZK2MG3TWVQ;
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
+				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/SAP CWA Test";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ena;
+				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = covid43;
+				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
