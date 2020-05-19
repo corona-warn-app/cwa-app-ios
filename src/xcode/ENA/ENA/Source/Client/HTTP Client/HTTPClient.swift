@@ -12,7 +12,7 @@ final class HTTPClient: Client {
    // MARK: Creating
 
    init(
-        configuration: BackendConfiguration = .production,
+        configuration: Configuration = .production,
         session: URLSession = .coronaWarnSession()
     ) {
         self.configuration = configuration
@@ -20,14 +20,14 @@ final class HTTPClient: Client {
     }
 
     // MARK: Properties
-    private let configuration: BackendConfiguration
+    private let configuration: Configuration
     private let session: URLSession
 
     func exposureConfiguration(
         completion: @escaping ExposureConfigurationCompletionHandler
     ) {
-        log(message: "Fetching exposureConfiguation from: \(configuration.regionalConfigurationURL)")
-        session.GET(configuration.regionalConfigurationURL) { result in
+        log(message: "Fetching exposureConfiguation from: \(configuration.configurationURL)")
+        session.GET(configuration.configurationURL) { result in
             switch result {
             case .success(let response):
                 guard let data = response.body else {
@@ -57,7 +57,7 @@ final class HTTPClient: Client {
         completion: @escaping SubmitKeysCompletionHandler
     ) {
         guard let request = try? URLRequest.submitKeysRequest(
-            backendConfiguration: configuration,
+            configuration: configuration,
             tan: tan,
             keys: keys
             ) else {
@@ -83,10 +83,8 @@ final class HTTPClient: Client {
     func availableDays(
         completion completeWith: @escaping AvailableDaysCompletionHandler
     ) {
-        let url = configuration
-            .regionalDiagnosisKeysURL
-            .appendingPathComponent("date", isDirectory: true)
-        
+        let url = configuration.availableDaysURL
+
         session.GET(url) { result in
             switch result {
             case .success(let response):
@@ -120,11 +118,7 @@ final class HTTPClient: Client {
         day: String,
         completion completeWith: @escaping AvailableHoursCompletionHandler
     ) {
-        let url = configuration
-            .regionalDiagnosisKeysURL
-            .appendingPathComponent("date", isDirectory: true)
-            .appendingPathComponent(day, isDirectory: true)
-            .appendingPathComponent("hour", isDirectory: true)
+        let url = configuration.availableHoursURL(day: day)
 
         session.GET(url) { result in
             switch result {
@@ -160,10 +154,7 @@ final class HTTPClient: Client {
         _ day: String,
         completion completeWith: @escaping DayCompletionHandler
     ) {
-        let url = configuration
-            .regionalDiagnosisKeysURL
-            .appendingPathComponent("date", isDirectory: true)
-            .appendingPathComponent(day, isDirectory: true)
+        let url = configuration.diagnosisKeysURL(day: day)
 
         session.GET(url) { result in
             switch result {
@@ -192,13 +183,7 @@ final class HTTPClient: Client {
         day: String,
         completion completeWith: @escaping HourCompletionHandler
     ) {
-        let url = configuration
-            .regionalDiagnosisKeysURL
-            .appendingPathComponent("date", isDirectory: true)
-            .appendingPathComponent(day, isDirectory: true)
-            .appendingPathComponent("hour", isDirectory: true)
-            .appendingPathComponent(String(hour), isDirectory: true)
-        
+        let url = configuration.diagnosisKeysURL(day: day, hour: hour)
         session.GET(url) { result in
             switch result {
             case .success(let response):
@@ -225,7 +210,7 @@ final class HTTPClient: Client {
 
 private extension URLRequest {
     static func submitKeysRequest(
-        backendConfiguration configuration: BackendConfiguration,
+        configuration: HTTPClient.Configuration,
         tan: String,
         keys: [ENTemporaryExposureKey]
     ) throws -> URLRequest {
@@ -233,13 +218,7 @@ private extension URLRequest {
             $0.keys = keys.compactMap { $0.sapKey }
         }
         let payloadData = try payload.serializedData()
-
-        let url = configuration
-            .endpoints
-            .submission
-            .appendingPathComponent(
-                "/version/\(configuration.apiVersion)/diagnosis-keys"
-        )
+        let url = configuration.submissionURL
 
         var request = URLRequest(url: url)
 
