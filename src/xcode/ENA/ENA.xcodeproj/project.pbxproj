@@ -70,7 +70,7 @@
 		51D420D024586AB300AD70CA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CF24586AB300AD70CA /* Settings.storyboard */; };
 		51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
 		714CD8652472883A00F56450 /* ExposureDetectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8642472883A00F56450 /* ExposureDetectionModel.swift */; };
-		714CD8672472885900F56450 /* ExposureDetectionModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8662472885900F56450 /* ExposureDetectionModelData.swift */; };
+		714CD8672472885900F56450 /* ExposureDetectionModel+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8662472885900F56450 /* ExposureDetectionModel+Data.swift */; };
 		714CD869247297F800F56450 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD868247297F800F56450 /* NibLoadable.swift */; };
 		71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */; };
 		71FD886424725F2000E804D0 /* ExposureDetectionRiskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FD886324725F2000E804D0 /* ExposureDetectionRiskCell.xib */; };
@@ -244,7 +244,7 @@
 		51D420CF24586AB300AD70CA /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		51D420D324586DCA00AD70CA /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		714CD8642472883A00F56450 /* ExposureDetectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionModel.swift; sourceTree = "<group>"; };
-		714CD8662472885900F56450 /* ExposureDetectionModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionModelData.swift; sourceTree = "<group>"; };
+		714CD8662472885900F56450 /* ExposureDetectionModel+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureDetectionModel+Data.swift"; sourceTree = "<group>"; };
 		714CD868247297F800F56450 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		71888C3B246AAF11007AD508 /* DiagnosisKeyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisKeyAPI.swift; sourceTree = "<group>"; };
 		71888C3D246AC0C3007AD508 /* DiagnosisKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisKeyManager.swift; sourceTree = "<group>"; };
@@ -626,7 +626,7 @@
 			isa = PBXGroup;
 			children = (
 				714CD8642472883A00F56450 /* ExposureDetectionModel.swift */,
-				714CD8662472885900F56450 /* ExposureDetectionModelData.swift */,
+				714CD8662472885900F56450 /* ExposureDetectionModel+Data.swift */,
 			);
 			path = ExposureDetection;
 			sourceTree = "<group>";
@@ -1194,7 +1194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				714CD8672472885900F56450 /* ExposureDetectionModelData.swift in Sources */,
+				714CD8672472885900F56450 /* ExposureDetectionModel+Data.swift in Sources */,
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionTransactionDelegate.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
 				01EB1D31246973F100A7908B /* risk_score_parameters.pb.swift in Sources */,
