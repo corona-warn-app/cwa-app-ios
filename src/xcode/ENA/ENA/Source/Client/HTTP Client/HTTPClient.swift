@@ -12,7 +12,7 @@ final class HTTPClient: Client {
    // MARK: Creating
 
    init(
-        configuration: BackendConfiguration = .production,
+        configuration: Configuration = .production,
         session: URLSession = .coronaWarnSession()
     ) {
         self.configuration = configuration
@@ -20,22 +20,14 @@ final class HTTPClient: Client {
     }
 
     // MARK: Properties
-    private let configuration: BackendConfiguration
+    private let configuration: Configuration
     private let session: URLSession
-
-    // Will be needed to format available days when fetching diagnosis keys
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-mm-dd"
-        formatter.timeZone = TimeZone(abbreviation: "UTC")
-        return formatter
-    }()
 
     func exposureConfiguration(
         completion: @escaping ExposureConfigurationCompletionHandler
     ) {
-        log(message: "Fetching exposureConfiguation from: \(configuration.regionalConfigurationURL)")
-        GET(configuration.regionalConfigurationURL) { result in
+        log(message: "Fetching exposureConfiguation from: \(configuration.configurationURL)")
+        session.GET(configuration.configurationURL) { result in
             switch result {
             case .success(let response):
                 guard let data = response.body else {
@@ -65,7 +57,7 @@ final class HTTPClient: Client {
         completion: @escaping SubmitKeysCompletionHandler
     ) {
         guard let request = try? URLRequest.submitKeysRequest(
-            backendConfiguration: configuration,
+            configuration: configuration,
             tan: tan,
             keys: keys
             ) else {
@@ -73,7 +65,7 @@ final class HTTPClient: Client {
                 return
         }
 
-        response(for: request) { result in
+        session.response(for: request) { result in
             switch result {
             case .success(let response):
                 switch response.statusCode {
@@ -91,11 +83,9 @@ final class HTTPClient: Client {
     func availableDays(
         completion completeWith: @escaping AvailableDaysCompletionHandler
     ) {
-        let url = configuration
-            .regionalDiagnosisKeysURL
-            .appendingPathComponent("date", isDirectory: true)
-        
-        GET(url) { result in
+        let url = configuration.availableDaysURL
+
+        session.GET(url) { result in
             switch result {
             case .success(let response):
                 guard let data = response.body else {
@@ -128,13 +118,9 @@ final class HTTPClient: Client {
         day: String,
         completion completeWith: @escaping AvailableHoursCompletionHandler
     ) {
-        let url = configuration
-            .regionalDiagnosisKeysURL
-            .appendingPathComponent("date", isDirectory: true)
-            .appendingPathComponent(day, isDirectory: true)
-            .appendingPathComponent("hour", isDirectory: true)
+        let url = configuration.availableHoursURL(day: day)
 
-        GET(url) { result in
+        session.GET(url) { result in
             switch result {
             case .success(let response):
                 // We accept 404 responses since this can happen in case there
@@ -164,50 +150,41 @@ final class HTTPClient: Client {
         }
     }
 
-      func fetchDay(
-          _ day: String,
-          completion completeWith: @escaping DayCompletionHandler
-      ) {
-          let url = configuration
-              .regionalDiagnosisKeysURL
-              .appendingPathComponent("date", isDirectory: true)
-              .appendingPathComponent(day, isDirectory: true)
+    func fetchDay(
+        _ day: String,
+        completion completeWith: @escaping DayCompletionHandler
+    ) {
+        let url = configuration.diagnosisKeysURL(day: day)
 
-          GET(url) { result in
-              switch result {
-              case .success(let response):
+        session.GET(url) { result in
+            switch result {
+            case .success(let response):
                 guard let dayData = response.body else {
                     completeWith(.failure(.invalidResponse))
                     return
                 }
-                  log(message: "got day: \(dayData.count)")
-                  do {
+                log(message: "got day: \(dayData.count)")
+                do {
                     let bucket = try VerifiedSapFileBucket(serializedSignedPayload: dayData)
                     completeWith(.success(bucket))
-                  } catch let error {
+                } catch let error {
                     print(error)
                     completeWith(.failure(.invalidResponse))
-                  }
-              case .failure(let error):
-                  completeWith(.failure(.httpError(error)))
-                  logError(message: "failed to get day: \(error)")
-              }
-          }
-      }
+                }
+            case .failure(let error):
+                completeWith(.failure(.httpError(error)))
+                logError(message: "failed to get day: \(error)")
+            }
+        }
+    }
 
     func fetchHour(
-          _ hour: Int,
-          day: String,
-          completion completeWith: @escaping HourCompletionHandler
-      ) {
-          let url = configuration
-            .regionalDiagnosisKeysURL
-            .appendingPathComponent("date", isDirectory: true)
-            .appendingPathComponent(day, isDirectory: true)
-            .appendingPathComponent("hour", isDirectory: true)
-            .appendingPathComponent(String(hour), isDirectory: true)
-        
-        GET(url) { result in
+        _ hour: Int,
+        day: String,
+        completion completeWith: @escaping HourCompletionHandler
+    ) {
+        let url = configuration.diagnosisKeysURL(day: day, hour: hour)
+        session.GET(url) { result in
             switch result {
             case .success(let response):
                 guard let hourData = response.body else {
@@ -226,40 +203,6 @@ final class HTTPClient: Client {
                 logError(message: "failed to get day: \(error)")
             }
         }
-      }
-
-   
-    typealias HTTPResult = Result<Response, HTTPError>
-    typealias HTTPCompletion = (HTTPResult) -> Void
-
-    // This method executes HTTP GET requests.
-    private func GET(_ url: URL, completion: @escaping HTTPCompletion) {
-        response(for: URLRequest(url: url), completion: completion)
-    }
-
-    // This method executes HTTP requests.
-    // It does some additional checks - purely for convenience:
-    // - if there is an error it aborts
-    // - if there is either no HTTP body and/or HTTPURLResponse it aborts
-    func response(
-        for request: URLRequest,
-        completion: @escaping HTTPCompletion
-    ) {
-        session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(.httpError(error)))
-                return
-            }
-            guard
-                let data = data,
-                let response = response as? HTTPURLResponse
-                else {
-                    completion(.failure(.noResponse))
-                    return
-            }
-            completion(.success(.init(body: data, statusCode: response.statusCode)))
-        }
-        .resume()
     }
 }
 
@@ -267,7 +210,7 @@ final class HTTPClient: Client {
 
 private extension URLRequest {
     static func submitKeysRequest(
-        backendConfiguration configuration: BackendConfiguration,
+        configuration: HTTPClient.Configuration,
         tan: String,
         keys: [ENTemporaryExposureKey]
     ) throws -> URLRequest {
@@ -275,13 +218,7 @@ private extension URLRequest {
             $0.keys = keys.compactMap { $0.sapKey }
         }
         let payloadData = try payload.serializedData()
-
-        let url = configuration
-            .endpoints
-            .submission
-            .appendingPathComponent(
-                "/version/\(configuration.apiVersion)/diagnosis-keys"
-        )
+        let url = configuration.submissionURL
 
         var request = URLRequest(url: url)
 

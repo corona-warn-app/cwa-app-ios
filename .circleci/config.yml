@@ -5,12 +5,14 @@ jobs:
     macos:
       xcode: 11.5.0
 
+    environment:
+      FASTLANE_LANE: build_and_test
     steps:
       - checkout
-      - run: xcodebuild clean build -project src/xcode/ENA/ENA.xcodeproj -scheme ENA -destination "platform=iOS Simulator,OS=13.5,name=iPhone 11" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-#      - run:
-#        name: test
-#        command: xcodebuild -project src/xcode/ENA/ENA.xcodeproj -scheme ENA -destination "platform=iOS Simulator,OS=13.5,name=iPhone 11" -skip-testing:ENATests/HTTPClientTests clean test | xcpretty
+      - run: cd src/xcode && bundle install
+      - run:
+          name: Fastlane
+          command: cd src/xcode && bundle exec fastlane $FASTLANE_LANE
 
 workflows:
     default:

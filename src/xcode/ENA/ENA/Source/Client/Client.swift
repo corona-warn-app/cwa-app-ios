@@ -11,11 +11,12 @@ import ExposureNotification
 /// Describes how to interfact with the backend.
 protocol Client {
     // MARK: Types
+    typealias Failure = URLSession.Response.Failure
     typealias SubmitKeysCompletionHandler = (SubmissionError?) -> Void
-    typealias AvailableDaysCompletionHandler = (Result<[String], HTTPError>) -> Void
-    typealias AvailableHoursCompletionHandler = (Result<[Int], HTTPError>) -> Void
-    typealias DayCompletionHandler = (Result<VerifiedSapFileBucket, HTTPError>) -> Void
-    typealias HourCompletionHandler = (Result<VerifiedSapFileBucket, HTTPError>) -> Void
+    typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
+    typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
+    typealias DayCompletionHandler = (Result<VerifiedSapFileBucket, Failure>) -> Void
+    typealias HourCompletionHandler = (Result<VerifiedSapFileBucket, Failure>) -> Void
 
     // MARK: Interacting with a Client
     
@@ -64,12 +65,6 @@ protocol Client {
     )
 }
 
-enum HTTPError: Error {
-    case noResponse
-    case httpError(Error)
-    case invalidResponse
-}
-
 enum SubmissionError: Error {
     case other(Error?)
     case invalidPayloadOrHeaders
@@ -77,12 +72,12 @@ enum SubmissionError: Error {
 }
 
 struct DaysResult {
-    let errors: [HTTPError]
+    let errors: [Client.Failure]
     let bucketsByDay: [String: VerifiedSapFileBucket]
 }
 
 struct HoursResult {
-    let errors: [HTTPError]
+    let errors: [Client.Failure]
     let bucketsByHour: [Int: VerifiedSapFileBucket]
     let day: String
 }
@@ -99,7 +94,7 @@ extension Client {
         _ days: [String],
         completion completeWith: @escaping (DaysResult) -> Void
     ) {
-        var errors = [HTTPError]()
+        var errors = [Client.Failure]()
         var buckets =  [String: VerifiedSapFileBucket]()
 
         let group = DispatchGroup()
@@ -132,7 +127,7 @@ extension Client {
         day: String,
         completion completeWith: @escaping FetchHoursCompletionHandler
     ) {
-        var errors = [HTTPError]()
+        var errors = [Client.Failure]()
         var buckets = [Int: VerifiedSapFileBucket]()
         let group = DispatchGroup()
 
