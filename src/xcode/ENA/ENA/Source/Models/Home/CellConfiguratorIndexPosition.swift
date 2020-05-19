@@ -13,4 +13,3 @@ enum CellConfiguratorIndexPosition {
 	case other
 	case last
 }
-
