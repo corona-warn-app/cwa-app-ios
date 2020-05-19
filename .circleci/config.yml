@@ -3,16 +3,18 @@ version: 2.1
 jobs:
   build-and-test:
     macos:
-      xcode: 11.5
+      xcode: 11.5.0  # Change to 11.5 once the GM version is available
 
-    environment:
-      FASTLANE_LANE: build_and_test
     steps:
       - checkout
       - run: cd src/xcode && bundle install
       - run:
-          name: Fastlane
-          command: cd src/xcode && bundle exec fastlane $FASTLANE_LANE
+          name: Build
+          command: cd src/xcode && bundle exec fastlane build
+# Uncomment after xcode upgrade
+#      - run:
+#          name: Tests
+#          command: cd src/xcode && bundle exec fastlane test
 
 workflows:
     default:
