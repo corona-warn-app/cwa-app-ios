@@ -25,12 +25,13 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
         cell.titleLabel.text = title
 		cell.bodyLabel.text = body
+		cell.bodyLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
 		cell.bodyLabel.isHidden = (body == nil)
 
 		cell.clearBorders()
 		configureBorders(for: cell)
-    }
-
+	}
+		
 	func configureBorders(for cell: InfoCollectionViewCell) {
 		switch position {
 		case .first:
