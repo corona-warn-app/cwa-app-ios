@@ -40,6 +40,9 @@ platform :ios do
     )
 
     # UI Tests
-    # Uncomment when ready
-    # run_tests( scheme: "ENAUITests" )
+    run_tests(
+      scheme: "ENAUITests"
+      # tbc..
+    )
+  end
 end
