@@ -79,7 +79,6 @@ final class HomeViewController: UIViewController {
 
     // MARK: Misc
     func showSubmitResult() {
-        // swiftlint:disable:next unowned_variable_capture
         let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { [unowned self] coder in
             let service = ENAExposureSubmissionService(manager: ENAExposureManager(), client: self.client)
             return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: service)
@@ -249,7 +248,6 @@ final class HomeViewController: UIViewController {
     }
 
     private func configureDataSource() {
-        // swiftlint:disable:next unowned_variable_capture
         dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self] collectionView, indexPath, identifier in
             let configurator = self.cellConfigurators[identifier]
             let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)

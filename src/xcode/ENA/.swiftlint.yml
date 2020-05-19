@@ -170,7 +170,7 @@ opt_in_rules:
   #  - unavailable_function                           # Unimplemented functions should be marked as unavailable.
   - unneeded_break_in_switch                          # Avoid using unneeded break statements.
   - unneeded_parentheses_in_closure_argument          # Parentheses are not needed when declaring closure arguments.
-  - unowned_variable_capture                          # Prefer capturing references as weak to avoid potential crashes.
+  #  - unowned_variable_capture                          # Prefer capturing references as weak to avoid potential crashes.
   #  - untyped_error_in_catch                         # Catch statements should not declare error variables without type casting.
   - unused_capture_list                               # Unused reference in a capture list should be removed.
   - unused_closure_parameter                          # Unused parameter in a closure should be replaced with _.

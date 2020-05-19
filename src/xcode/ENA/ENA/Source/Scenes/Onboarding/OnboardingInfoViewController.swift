@@ -190,7 +190,6 @@ final class OnboardingInfoViewController: UIViewController {
 			return
 		}
 		let storyboard = AppStoryboard.onboarding.instance
-		// swiftlint:disable:next unowned_variable_capture
 		let next = storyboard.instantiateInitialViewController { [unowned self] coder in
 			OnboardingInfoViewController(
 				coder: coder,
