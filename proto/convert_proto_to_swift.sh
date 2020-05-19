@@ -16,7 +16,7 @@ if ! hash protoc 2>/dev/null; then
 fi
 
 protoc \
-     --swift_out=../output \
+     --swift_out=../../src/xcode/gen/output \
      ./exposure_notification.proto \
      ./apple_exposure_notification.proto \
      ./risk_score_parameters.proto \
