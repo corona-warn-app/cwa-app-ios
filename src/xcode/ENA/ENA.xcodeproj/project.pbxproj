@@ -25,6 +25,7 @@
 		13410CF424733130002D292B /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13410CF324733130002D292B /* Accessibility.swift */; };
 		13410CF524733137002D292B /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13410CF324733130002D292B /* Accessibility.swift */; };
 		13410CF724733199002D292B /* ENAUITests-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13410CF624733199002D292B /* ENAUITests-Extensions.swift */; };
+		13FD1DF72474051700A7C7AB /* ENAUITestsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FD1DF62474051700A7C7AB /* ENAUITestsHome.swift */; };
 		5111E7632460BB1500ED6498 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5111E7622460BB1500ED6498 /* HomeInteractor.swift */; };
 		514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 514E812F24618E3D00636861 /* ExposureDetection.storyboard */; };
 		514E81342461B97800636861 /* ExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514E81332461B97700636861 /* ExposureManager.swift */; };
@@ -199,6 +200,7 @@
 		13410CF124733029002D292B /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = ../../fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
 		13410CF324733130002D292B /* Accessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
 		13410CF624733199002D292B /* ENAUITests-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Extensions.swift"; sourceTree = "<group>"; };
+		13FD1DF62474051700A7C7AB /* ENAUITestsHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsHome.swift; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		514E812F24618E3D00636861 /* ExposureDetection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ExposureDetection.storyboard; sourceTree = "<group>"; };
 		514E81332461B97700636861 /* ExposureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureManager.swift; sourceTree = "<group>"; };
@@ -375,6 +377,14 @@
 				130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		13FD1DF82474067300A7C7AB /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				13FD1DF62474051700A7C7AB /* ENAUITestsHome.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		5107E3D72459B2D60042FC9B /* Frameworks */ = {
@@ -710,9 +720,10 @@
 		85D7596224570491008175F0 /* ENAUITests */ = {
 			isa = PBXGroup;
 			children = (
-				13410CF624733199002D292B /* ENAUITests-Extensions.swift */,
-				130CB19A246D92F800ADE602 /* Onboarding */,
 				85D7596324570491008175F0 /* ENAUITests.swift */,
+				13FD1DF82474067300A7C7AB /* Home */,
+				130CB19A246D92F800ADE602 /* Onboarding */,
+				13410CF624733199002D292B /* ENAUITests-Extensions.swift */,
 				13410CF124733029002D292B /* SnapshotHelper.swift */,
 				85D7596524570491008175F0 /* Info.plist */,
 			);
@@ -1323,6 +1334,7 @@
 				130CB19E246D932F00ADE602 /* NotificationName.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
 				13410CF524733137002D292B /* Accessibility.swift in Sources */,
+				13FD1DF72474051700A7C7AB /* ENAUITestsHome.swift in Sources */,
 				13410CF724733199002D292B /* ENAUITests-Extensions.swift in Sources */,
 				130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */,
 				13410CF224733029002D292B /* SnapshotHelper.swift in Sources */,

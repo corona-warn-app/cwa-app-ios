@@ -31,6 +31,24 @@ extension XCUIElement {
 		let predicate = NSPredicate(format: "label CONTAINS %@", text)
 		return staticTexts.matching(predicate).firstMatch.exists
 	}
+
+	func scrollToElement(element: XCUIElement) {
+		while !element.visible() {
+			swipeUp()
+		}
+	}
+
+	func visible() -> Bool {
+		guard self.exists && !self.frame.isEmpty else { return false }
+		return XCUIApplication().windows.element(boundBy: 0).frame.contains(self.frame)
+	}
+}
+
+extension XCUIApplication {
+	func setDefaults() {
+		//launchEnvironment["CW_MODE"] = "mock"
+		launchEnvironment["XCUI"] = "true"
+	}
 }
 
 extension XCTestCase {
@@ -112,12 +130,6 @@ extension XCTestCase {
 	func setPreferredContentSizeCategory(in app: XCUIApplication, accessibililty: SizeCategoryAccessibility, size: SizeCategory) {
 		// based on https://stackoverflow.com/questions/38316591/how-to-test-dynamic-type-larger-font-sizes-in-ios-simulator
 		app.launchArguments += [ "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)" ]
-	}
-
-	func setDefaults(for app: XCUIApplication) {
-		//app.launchEnvironment = ["CW_MODE": "mock"]
-		app.launchArguments += ["IsTesting"]
-		app.launchArguments += ["-isOnboarded","NO"]
 	}
 
 }

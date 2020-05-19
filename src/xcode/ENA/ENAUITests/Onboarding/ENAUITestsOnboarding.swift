@@ -12,11 +12,9 @@ class ENAUITestsOnboarding: XCTestCase {
 
 	override func setUp() {
 		continueAfterFailure = false
-		
 		let app = XCUIApplication()
 		setupSnapshot(app)
 		app.launch()
-		
 	}
 	
 	override func tearDownWithError() throws {
@@ -43,62 +41,12 @@ class ENAUITestsOnboarding: XCTestCase {
 		XCTAssertTrue(exposureNotificationAlertExists,"Missing alert")
 		alert.scrollViews.otherElements.buttons[Accessibility.Alert.allowButton].tap()
 	}
-	
-	func testOnboardingFlow_0000_EnablePermissionsAndReject() throws {
+
+	func testOnboardingFlow_0000_DisablePermissions() throws {
 		let app = XCUIApplication()
-		setDefaults(for: app)
-		setPreferredContentSizeCategory(in: app, accessibililty: .normal, size: .XS)
-		app.launch()
+		app.setDefaults()
+		app.launchArguments += ["-isOnboarded","NO"]
 
-		// only run if onboarding screen is present
-		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
-		
-		// tap through the onboarding screens
-		snapshot("ScreenShot_\(#function)_0000")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0001")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0002")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0003")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0004")
-		app.buttons[Accessibility.Button.next].tap()
-
-		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
-		snapshot("ScreenShot_\(#function)_0005")
-	}
-
-	func testOnboardingFlow_0001_EnablePermissionsAndAccept() throws {
-		let app = XCUIApplication()
-		setDefaults(for: app)
-		setPreferredContentSizeCategory(in: app, accessibililty: .normal, size: .M)
-		app.launch()
-
-		// only run if onboarding screen is present
-		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
-
-		// tap through the onboarding screens
-		snapshot("ScreenShot_\(#function)_0000")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0001")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0002")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0003")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0004")
-		app.buttons[Accessibility.Button.next].tap()
-
-		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
-		snapshot("ScreenShot_\(#function)_0005")
-	}
-
-	func testOnboardingFlow_0002_DisablePermissions() throws {
-		let app = XCUIApplication()
-		setDefaults(for: app)
 		setPreferredContentSizeCategory(in: app, accessibililty: .normal, size: .XXXL)
 		app.launch()
 
@@ -116,6 +64,32 @@ class ENAUITestsOnboarding: XCTestCase {
 		app.buttons[Accessibility.Button.next].tap()
 		snapshot("ScreenShot_\(#function)_0004")
 		app.buttons[Accessibility.Button.ignore].tap()
+
+		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
+		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+		snapshot("ScreenShot_\(#function)_0005")
+	}
+
+	func testOnboardingFlow_0001_EnablePermissions() throws {
+		let app = XCUIApplication()
+		app.setDefaults()
+		setPreferredContentSizeCategory(in: app, accessibililty: .normal, size: .XS)
+		app.launch()
+
+		// only run if onboarding screen is present
+		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
+		
+		// tap through the onboarding screens
+		snapshot("ScreenShot_\(#function)_0000")
+		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0001")
+		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0002")
+		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0003")
+		app.buttons[Accessibility.Button.next].tap()
+		snapshot("ScreenShot_\(#function)_0004")
+		app.buttons[Accessibility.Button.next].tap()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
