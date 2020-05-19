@@ -132,6 +132,12 @@ final class OnboardingInfoViewController: UIViewController {
 	
     // MARK: Exposure notifications
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
+
+		if TestEnvironment.shared.isUITesting {
+            completion?()
+            return
+        }
+
 		exposureManager.activate { error in
             if let error = error {
                 switch error {
@@ -161,7 +167,13 @@ final class OnboardingInfoViewController: UIViewController {
     }
 
     private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+
+        if TestEnvironment.shared.isUITesting {
+            completion?()
+            return
+        }
+
+		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
         notificationCenter.requestAuthorization(options: options) { _, error in
             if let error = error {
                 // handle error
