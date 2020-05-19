@@ -154,10 +154,12 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureDetection() {
+		// swiftlint:disable multiline_arguments_brackets
 		let exposureDetectionViewController = AppStoryboard.exposureDetection.initiateInitial(creator: { coder in
 			ExposureDetectionViewController(coder: coder, store: self.store, client: self.client, signedPayloadStore: self.signedPayloadStore)
 		})
-		
+		// swiftlint:enable multiline_arguments_brackets
+
 		if let exposureDetectionViewController = exposureDetectionViewController {
 			present(exposureDetectionViewController, animated: true)
 		}
