@@ -27,12 +27,17 @@ platform :ios do
     # Build
     build_ios_app(
       skip_codesigning: true,
-      skip_archive: true
+      skip_archive: true,
+      destination: "platform=iOS Simulator,OS=13.5,name=iPhone 11",
+      scheme: "ENA"
     )
 
     # Unit Tests
     # Uncomment when Apple resolved the issue to use ENTemporaryExposureKey in simulator
-    # run_tests( scheme: "ENATests" )
+    run_tests(
+      scheme: "ENATests",
+      devices: ["iPhone 11"]
+    )
 
     # UI Tests
     # Uncomment when ready

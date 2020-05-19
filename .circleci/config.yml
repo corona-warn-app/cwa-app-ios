@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-and-test:
     macos:
-      xcode: 11.5.0
+      xcode: 11.5
 
     environment:
       FASTLANE_LANE: build_and_test
