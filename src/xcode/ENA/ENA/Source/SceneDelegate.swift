@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private(set) lazy var client: Client = {
         #if APP_STORE
-            return HTTPClient(configuration: .production)
+        return HTTPClient(configuration: .production)
         #endif
 
         if ClientMode.default == .mock {
@@ -41,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             )
         )
         return HTTPClient(configuration: config)
-       }()
+    }()
 
     // MARK: UISceneDelegate
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -50,26 +50,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         setupRootViewController()
         window.makeKeyAndVisible()
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
     }
 
     // MARK: Helper
     private func setupRootViewController() {
         let manager = ENAExposureManager()
-        var onboardingWasShown = store.isOnboarded
-		
-		if TestEnvironment.shared.isUITesting,
-			TestEnvironment.shared.isOnboarded {
-			onboardingWasShown = TestEnvironment.shared.isOnboarded
-        }
-
+        let onboardingWasShown = store.isOnboarded
         //For a demo, we can set it to true.
         let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)
         let rootViewController: UIViewController
         switch instructor {
         case .home:
-            // swiftlint:disable:next unowned_variable_capture
             let homeViewController = AppStoryboard.home.initiateInitial { [unowned self] coder in
                 HomeViewController(
                     coder: coder,
@@ -82,30 +75,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // swiftlint:disable:next force_unwrapping
             let navigationController = UINavigationController(rootViewController: homeViewController!)
             rootViewController = navigationController
-			navigationController.navigationBar.prefersLargeTitles = true
-			homeViewController?.navigationItem.largeTitleDisplayMode = .never
-			
+            navigationController.navigationBar.prefersLargeTitles = true
+            homeViewController?.navigationItem.largeTitleDisplayMode = .never
+
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
-			// swiftlint:disable:next unowned_variable_capture
             let onboardingViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
-				OnboardingInfoViewController(
-					coder: coder,
-					pageType: .togetherAgainstCoronaPage,
-					exposureManager: manager,
-					store: self.store
-				)
-			}
+                OnboardingInfoViewController(
+                    coder: coder,
+                    pageType: .togetherAgainstCoronaPage,
+                    exposureManager: manager,
+                    store: self.store
+                )
+            }
             // swiftlint:disable:next force_unwrapping
             let navigationController = UINavigationController(rootViewController: onboardingViewController!)
             rootViewController = navigationController
-		}
+        }
 
         window?.rootViewController = rootViewController
     }
 
     @objc
-	func isOnboardedDidChange(_ notification: NSNotification) {
+    func isOnboardedDidChange(_ notification: NSNotification) {
         setupRootViewController()
     }
 
