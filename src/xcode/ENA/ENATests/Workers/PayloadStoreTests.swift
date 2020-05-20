@@ -9,19 +9,19 @@ import XCTest
 import ExposureNotification
 @testable import ENA
 
-final class LocalDatabaseTests: XCTestCase {
-    var db: LocalDatabase!
+final class FMDBWrapperTests: XCTestCase {
+    var db: FMDBWrapper!
 
     override func setUp() {
         super.setUp()
-        db = LocalDatabase(with: URL(staticString: "file::memory:"))
+        db = FMDBWrapper(with: URL(staticString: "file::memory:"))
     }
 
     func testRoundtripSuccess() {
         let data = Data(bytes: [7, 13, 42], count: 3)
         let day = Date()
         let hour: Int? = 6
-        let payload = LocalDatabase.StoredPayload(data: data, day: day, hour: hour)
+        let payload = LocalPayloadStore.StoredPayload(data: data, day: day, hour: hour)
 
         // Insert data
         db.storePayload(payload: payload)
@@ -58,7 +58,7 @@ final class LocalDatabaseTests: XCTestCase {
             let day = Date(timeIntervalSinceNow: interval)
             log(message: day.description(with: nil))
             let hour = 7
-            var payload = LocalDatabase.StoredPayload(data: data, day: day, hour: hour)
+            var payload = LocalPayloadStore.StoredPayload(data: data, day: day, hour: hour)
 
             db.storePayload(payload: payload)
 

@@ -9,7 +9,7 @@ import Foundation
 import FMDB
 import ExposureNotification
 
-protocol DataBaseWrapper {
+protocol LocalPayloadStore {
     typealias StoredPayload = (data: Data, day: Date, hour: Int?)
 
     /// Store three-tuple that's fetched from the remote sever on local database
@@ -23,7 +23,7 @@ protocol DataBaseWrapper {
 
 }
 
-final class LocalDatabase: DataBaseWrapper {
+final class FMDBPayloadStore: LocalPayloadStore {
     private let db: FMDatabase
 
     init(with url: URL) {
@@ -40,15 +40,6 @@ final class LocalDatabase: DataBaseWrapper {
         db.open()
         
         db.executeStatements(sqlStmt)
-    }
-
-    convenience init(dbName: String = "localdb.sqlite") {
-        // swiftlint:disable:next force_try
-        let url = try! FileManager.default
-                .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-                .appendingPathComponent(dbName)
-
-        self.init(with: url)
     }
 
     func storePayload(payload: StoredPayload) {
