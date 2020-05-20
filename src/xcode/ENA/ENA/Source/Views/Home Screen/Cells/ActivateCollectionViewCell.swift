@@ -22,6 +22,7 @@ class ActivateCollectionViewCell: HomeCardCollectionViewCell {
         super.awakeFromNib()
         titleTextView.textContainerInset = .zero
         titleTextView.textContainer.lineFragmentPadding = 0
+        titleTextView.isUserInteractionEnabled = false
         let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
         viewContainer.layoutMargins = containerInsets
     }

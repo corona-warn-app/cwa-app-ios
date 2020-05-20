@@ -3,14 +3,18 @@ version: 2.1
 jobs:
   build-and-test:
     macos:
-      xcode: 11.5.0
+      xcode: 11.5.0  # Change to 11.5 once the GM version is available
 
     steps:
       - checkout
-      - run: xcodebuild clean build -project src/xcode/ENA/ENA.xcodeproj -scheme ENA -destination "platform=iOS Simulator,OS=13.5,name=iPhone 11" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      - run: cd src/xcode && bundle install
+      - run:
+          name: Build
+          command: cd src/xcode && bundle exec fastlane build
+# Uncomment after xcode upgrade
 #      - run:
-#        name: test
-#        command: xcodebuild -project src/xcode/ENA/ENA.xcodeproj -scheme ENA -destination "platform=iOS Simulator,OS=13.5,name=iPhone 11" -skip-testing:ENATests/HTTPClientTests clean test | xcpretty
+#          name: Tests
+#          command: cd src/xcode && bundle exec fastlane test
 
 workflows:
     default:

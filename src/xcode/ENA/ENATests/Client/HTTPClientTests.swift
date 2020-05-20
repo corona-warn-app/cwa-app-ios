@@ -41,11 +41,11 @@ final class HTTPClientTests: XCTestCase {
 
         let session = MockUrlSession(
             data: responseData,
-            response: mockResponse,
+            nextResponse: mockResponse,
             error: nil
         )
 
-        let client = HTTPClient(session: session)
+        let client = HTTPClient(configuration: .fake, session: session)
         let expectation = self.expectation(
             description: "expect successful result"
         )
@@ -80,11 +80,11 @@ final class HTTPClientTests: XCTestCase {
 
         let session = MockUrlSession(
             data: responseData,
-            response: mockResponse,
+            nextResponse: mockResponse,
             error: nil
         )
 
-        let client = HTTPClient(session: session)
+        let client = HTTPClient(configuration: .fake, session: session)
 
         let expectation = self.expectation(
             description: "expect error result"
@@ -117,11 +117,11 @@ final class HTTPClientTests: XCTestCase {
 
         let session = MockUrlSession(
             data: responseData,
-            response: mockResponse,
+            nextResponse: mockResponse,
             error: nil
         )
 
-        let client = HTTPClient(session: session)
+        let client = HTTPClient(configuration: .fake, session: session)
         let expectation = self.expectation(
             description: "expect successful result but empty"
         )
@@ -156,11 +156,11 @@ final class HTTPClientTests: XCTestCase {
 
         let session = MockUrlSession(
             data: responseData,
-            response: mockResponse,
+            nextResponse: mockResponse,
             error: nil
         )
 
-        let client = HTTPClient(session: session)
+        let client = HTTPClient(configuration: .fake, session: session)
         let expectation = self.expectation(
             description: "expect successful result"
         )
@@ -191,11 +191,11 @@ final class HTTPClientTests: XCTestCase {
 
         let session = MockUrlSession(
             data: responseData,
-            response: mockResponse,
+            nextResponse: mockResponse,
             error: nil
         )
 
-        let client = HTTPClient(session: session)
+        let client = HTTPClient(configuration: .fake, session: session)
 
         let failureExpectation = expectation(
             description: "expect error result"
@@ -224,11 +224,11 @@ final class HTTPClientTests: XCTestCase {
 
         let session = MockUrlSession(
             data: responseData,
-            response: mockResponse,
+            nextResponse: mockResponse,
             error: nil
         )
 
-        let client = HTTPClient(session: session)
+        let client = HTTPClient(configuration: .fake, session: session)
 
         let successExpectation = self.expectation(
             description: "expect error result"
@@ -258,11 +258,11 @@ final class HTTPClientTests: XCTestCase {
 
         let session = MockUrlSession(
             data: responseData,
-            response: mockResponse,
+            nextResponse: mockResponse,
             error: nil
         )
 
-        let client = HTTPClient(session: session)
+        let client = HTTPClient(configuration: .fake, session: session)
 
         let successExpectation = self.expectation(
             description: "expect error result"
@@ -286,10 +286,10 @@ final class HTTPClientTests: XCTestCase {
         let mockURLSession = MockUrlSession(
             // cannot be nil since this is not a a completion handler can be in (response + nil body)
             data: Data(),
-            response: mockResponse,
+            nextResponse: mockResponse,
             error: nil
         )
-        let client = HTTPClient(session: mockURLSession)
+        let client = HTTPClient(configuration: .fake, session: mockURLSession)
         let expectation = self.expectation(description: "completion handler is called without an error")
 
         // Act
@@ -303,9 +303,9 @@ final class HTTPClientTests: XCTestCase {
 
     func testSubmit_Error() {
         // Arrange
-        let mockURLSession = MockUrlSession(data: nil, response: nil, error: TestError.error)
+        let mockURLSession = MockUrlSession(data: nil, nextResponse: nil, error: TestError.error)
 
-        let client = HTTPClient(session: mockURLSession)
+        let client = HTTPClient(configuration: .fake, session: mockURLSession)
 
         let expectation = self.expectation(description: "Error")
         var error: SubmissionError?
@@ -324,9 +324,9 @@ final class HTTPClientTests: XCTestCase {
 
     func testSubmit_SpecificError() {
         // Arrange
-        let mockURLSession = MockUrlSession(data: nil, response: nil, error: TestError.error)
+        let mockURLSession = MockUrlSession(data: nil, nextResponse: nil, error: TestError.error)
 
-        let client = HTTPClient(session: mockURLSession)
+        let client = HTTPClient(configuration: .fake, session: mockURLSession)
         let expectation = self.expectation(description: "SpecificError")
 
         // Act
@@ -351,9 +351,9 @@ final class HTTPClientTests: XCTestCase {
 
     func testSubmit_ResponseNil() {
         // Arrange
-        let mockURLSession = MockUrlSession(data: nil, response: nil, error: nil)
+        let mockURLSession = MockUrlSession(data: nil, nextResponse: nil, error: nil)
 
-        let client = HTTPClient(session: mockURLSession)
+        let client = HTTPClient(configuration: .fake, session: mockURLSession)
         let expectation = self.expectation(description: "ResponseNil")
 
         // Act
@@ -380,11 +380,11 @@ final class HTTPClientTests: XCTestCase {
         let mockURLSession = MockUrlSession(
             // Cannot be nil since response is not nil
             data: Data(),
-            response: mockResponse,
+            nextResponse: mockResponse,
             error: nil
         )
 
-        let client = HTTPClient(session: mockURLSession)
+        let client = HTTPClient(configuration: .fake, session: mockURLSession)
 
         let expectation = self.expectation(description: "Response400")
 
@@ -410,11 +410,11 @@ final class HTTPClientTests: XCTestCase {
         let mockURLSession = MockUrlSession(
             // Cannot be nil since response is not nil
             data: Data(),
-            response: mockResponse,
+            nextResponse: mockResponse,
             error: nil
         )
 
-        let client = HTTPClient(session: mockURLSession)
+        let client = HTTPClient(configuration: .fake, session: mockURLSession)
 
         let expectation = self.expectation(description: "Response403")
 
@@ -436,9 +436,9 @@ final class HTTPClientTests: XCTestCase {
 
     func testInvalidEmptyExposureConfigurationResponseData() {
         let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
-        let mockURLSession = MockUrlSession(data: nil, response: response, error: nil)
+        let mockURLSession = MockUrlSession(data: nil, nextResponse: response, error: nil)
 
-        let client = HTTPClient(session: mockURLSession)
+        let client = HTTPClient(configuration: .fake, session: mockURLSession)
         let expectation = self.expectation(description: "HTTPClient should have failed.")
 
         client.exposureConfiguration { config in
@@ -454,9 +454,9 @@ final class HTTPClientTests: XCTestCase {
             .asSignedPayload()
             .serializedData()
         let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
-        let mockURLSession = MockUrlSession(data: validSignedPayloadData, response: response, error: nil)
+        let mockURLSession = MockUrlSession(data: validSignedPayloadData, nextResponse: response, error: nil)
 
-        let client = HTTPClient(session: mockURLSession)
+        let client = HTTPClient(configuration: .fake, session: mockURLSession)
         let expectation = self.expectation(description: "HTTPClient should have succeeded.")
 
         client.exposureConfiguration { config in
@@ -473,9 +473,9 @@ final class HTTPClientTests: XCTestCase {
             .serializedData()
 
         let response = HTTPURLResponse(url: mockUrl, statusCode: 404, httpVersion: "HTTP/2", headerFields: [:])
-        let mockURLSession = MockUrlSession(data: validSignedPayloadData, response: response, error: nil)
+        let mockURLSession = MockUrlSession(data: validSignedPayloadData, nextResponse: response, error: nil)
 
-        let client = HTTPClient(session: mockURLSession)
+        let client = HTTPClient(configuration: .fake, session: mockURLSession) 
 
         let expectation = self.expectation(description: "HTTPClient should have failed.")
 

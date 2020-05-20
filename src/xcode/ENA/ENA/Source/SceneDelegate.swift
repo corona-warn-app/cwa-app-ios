@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return HTTPClient(configuration: .production)
         #endif
 
-        if Mode.from() == .mock {
+        if ClientMode.default == .mock {
             return MockClient()
         }
         
@@ -32,11 +32,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 return HTTPClient(configuration: .production)
         }
 
-
-        let config = BackendConfiguration(
-            endpoints: .init(
-                distribution: distributionURL,
-                submission: submissionURL
+        let config = HTTPClient.Configuration(
+            apiVersion: "v1",
+            country: "DE",
+            endpoints: HTTPClient.Configuration.Endpoints(
+                distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
+                submission: .init(baseURL: submissionURL, requiresTrailingSlash: true)
             )
         )
         return HTTPClient(configuration: config)
@@ -62,7 +63,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootViewController: UIViewController
         switch instructor {
         case .home:
-            // swiftlint:disable:next unowned_variable_capture
             let homeViewController = AppStoryboard.home.initiateInitial { [unowned self] coder in
                 HomeViewController(
                     coder: coder,
@@ -80,7 +80,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         case .onboarding:
             let storyboard = AppStoryboard.onboarding.instance
-            // swiftlint:disable:next unowned_variable_capture
             let onboardingViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
                 OnboardingInfoViewController(
                     coder: coder,
