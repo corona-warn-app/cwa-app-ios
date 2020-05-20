@@ -8,7 +8,11 @@
 
 import UIKit
 
-final class HomeRiskItemViewConfigurator {
+final class HomeRiskItemViewConfigurator: HomeRiskViewConfigurator {
+    
+    func configure(riskView: RiskVVView) {
+        
+    }
     
     var title: String
     var titleColor: UIColor

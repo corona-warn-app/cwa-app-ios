@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class RiskItemView: UIView {
+final class RiskItemView: UIView, RiskVVView {
     
     @IBOutlet var iconImageView: UIImageView!
     @IBOutlet var titleTextView: UITextView!

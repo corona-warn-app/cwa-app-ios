@@ -56,7 +56,7 @@ final class HomeInteractor {
         } else {
             riskLevel = .unknown
         }
-        let riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, lastUpdateDate: date, numberRiskContacts: 2, lastContactDate: Date())
+        let riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, lastUpdateDate: date, numberRiskContacts: 2, lastContactDate: Date(), isLoading: true)
         riskConfigurator.contactAction = { [unowned self] in
             self.homeViewController.showExposureDetection()
         }

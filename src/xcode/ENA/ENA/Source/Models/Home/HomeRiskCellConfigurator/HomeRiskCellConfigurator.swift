@@ -18,6 +18,7 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     private var riskLevel: RiskLevel
     private var numberRiskContacts: Int
     private var lastContactDate: Date
+    private var isLoading: Bool
     
     private static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -26,11 +27,12 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     }()
     
     // MARK: Creating a Home Risk Cell Configurator
-    init(riskLevel: RiskLevel, lastUpdateDate: Date?, numberRiskContacts: Int, lastContactDate: Date) {
-        self.riskLevel = .high //  riskLevel
+    init(riskLevel: RiskLevel, lastUpdateDate: Date?, numberRiskContacts: Int, lastContactDate: Date, isLoading: Bool) {
+        self.riskLevel = .low // riskLevel
         self.lastUpdateDate = lastUpdateDate
         self.numberRiskContacts = numberRiskContacts
         self.lastContactDate = lastContactDate
+        self.isLoading = isLoading
     }
     
     // MARK: Configuration

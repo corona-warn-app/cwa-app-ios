@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol RiskVVView: UIView { }
+
+protocol HomeRiskViewConfigurator {
+    func configure(riskView: RiskVVView)
+}
+
 final class HomeRiskCellPropertyHolder {
     
     let title: String
@@ -17,9 +23,9 @@ final class HomeRiskCellPropertyHolder {
     let chevronImage: UIImage?
     let buttonTitle: String
     let isButtonEnabled: Bool
-    let itemCellConfigurators: [HomeRiskItemViewConfigurator]
+    let cellConfigurators: [HomeRiskViewConfigurator]
     
-    init(title: String, titleColor: UIColor, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, buttonTitle: String, isButtonEnabled: Bool, itemCellConfigurators: [HomeRiskItemViewConfigurator]) {
+    init(title: String, titleColor: UIColor, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, buttonTitle: String, isButtonEnabled: Bool, itemCellConfigurators: [HomeRiskViewConfigurator]) {
         self.title = title
         self.titleColor = titleColor
         self.color = color
@@ -27,7 +33,7 @@ final class HomeRiskCellPropertyHolder {
         self.chevronImage = chevronImage
         self.buttonTitle = buttonTitle
         self.isButtonEnabled = isButtonEnabled
-        self.itemCellConfigurators = itemCellConfigurators
+        self.cellConfigurators = itemCellConfigurators
     }
     
     // swiftlint:disable:next function_body_length

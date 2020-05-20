@@ -81,10 +81,12 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
         
         let nib = UINib(nibName: RiskItemView.stringName(), bundle: .main)
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        for itemConfigurator in propertyHolder.itemCellConfigurators {
+        for itemConfigurator in propertyHolder.cellConfigurators {
             if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
                 stackView.addArrangedSubview(riskView)
-                itemConfigurator.configure(riskItemView: riskView)
+                // swiftlint:disable:next force_cast
+                let vv = riskView as! RiskVVView
+                itemConfigurator.configure(riskView: vv)
             }
         }
         if let riskItemView = stackView.arrangedSubviews.last as? RiskItemView {
