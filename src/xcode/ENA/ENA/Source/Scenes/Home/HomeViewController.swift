@@ -40,6 +40,7 @@ final class HomeViewController: UIViewController {
 
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
+    private var tableView: UITableView!
     private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
@@ -57,6 +58,7 @@ final class HomeViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         configureUI()
+		resizeDataViews()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -204,8 +206,28 @@ final class HomeViewController: UIViewController {
 
     func reloadData() {
         collectionView.reloadData()
+		resizeDataViews()
     }
 
+	var collectionViewHeightAnchorConstraint: NSLayoutConstraint?
+	var tableViewHeightAnchorConstraint: NSLayoutConstraint?
+	
+	private func resizeDataViews() {
+		let collectionHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
+		let tableHeight = tableView.contentSize.height * 2
+
+		let collectionViewHeightConstraint = collectionViewHeightAnchorConstraint ?? collectionView.heightAnchor.constraint(equalToConstant: collectionHeight)
+		let tableViewHeightConstraint = tableViewHeightAnchorConstraint ?? tableView.heightAnchor.constraint(equalToConstant: tableHeight)
+		
+		NSLayoutConstraint.activate(
+            [
+				collectionViewHeightConstraint,
+				tableViewHeightConstraint
+			]
+		)
+		view.setNeedsLayout()
+	}
+	
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self
@@ -213,22 +235,65 @@ final class HomeViewController: UIViewController {
     }
 
     private func configureHierarchy() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        collectionView.delegate = self
         let safeLayoutGuide = view.safeAreaLayoutGuide
+
+		view.backgroundColor = .systemGroupedBackground
+		
+		collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
+		collectionView.isScrollEnabled = false
+		collectionView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+		collectionView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        
+		tableView = UITableView(frame: view.bounds, style: .grouped)
+		tableView.delegate = self
+		tableView.dataSource = self
+		tableView.backgroundColor = .systemGroupedBackground
+		tableView.backgroundView = nil
+		tableView.isScrollEnabled = false
+		tableView.translatesAutoresizingMaskIntoConstraints = false
+		tableView.rowHeight = UITableView.automaticDimension
+		tableView.estimatedRowHeight = 44.0
+
+		let stackView = UIStackView(arrangedSubviews: [collectionView, tableView])
+		stackView.backgroundColor = UIColor.clear
+		stackView.alignment = .fill
+		stackView.axis = .vertical
+		stackView.distribution = .equalSpacing
+		stackView.spacing = 0.0
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+
+		let scrollView = UIScrollView()
+		scrollView.backgroundColor = UIColor.clear
+		scrollView.alwaysBounceVertical = true
+		scrollView.isScrollEnabled = true
+		scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+		scrollView.addSubview(stackView)
+		view.addSubview(scrollView)
+
         NSLayoutConstraint.activate(
             [
-                collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-                collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-                collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ]
+				scrollView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
+				scrollView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
+				scrollView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
+				scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+				stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+				stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+				stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+				stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+				stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+			]
         )
-        collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
+
+		collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
         collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
+
+		let infoNib = UINib(nibName: InfoTableViewCell.stringName(), bundle: nil)
+		tableView.register(infoNib, forCellReuseIdentifier: InfoTableViewCell.stringName())
+		tableView.reloadData()
     }
 
     private func configureDataSource() {
