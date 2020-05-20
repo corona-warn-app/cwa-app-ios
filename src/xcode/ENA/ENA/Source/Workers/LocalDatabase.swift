@@ -10,13 +10,13 @@ import FMDB
 import ExposureNotification
 
 protocol DataBaseWrapper {
-    typealias FetchDBKeysCompletionHandler = (([(Data, String, Int?)]?, Error? ) -> Void)
+    typealias StoredPayload = (data: Data, day: String, hour: Int?)
 
     /// Store three-tuple that's fetched from the remote sever on local database
     func storePayload(payload: Data, day: String, hour: Int?)
 
     /// Get three-tuple that has been previously fetched from the remote sever from local database
-    func fetchPayloads(with completion: @escaping FetchDBKeysCompletionHandler)
+    func fetchPayloads() -> [StoredPayload]?
 
     /// Delete entries that aren't required any longer
     func clean(until date: Date)
@@ -28,19 +28,12 @@ final class LocalDatabase: DataBaseWrapper {
 
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-mm-dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         return formatter
     }()
 
-    init() {
-        // swiftlint:disable:next force_try
-        let url = try! FileManager.default
-                .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-                .appendingPathComponent("localdb.sqlite")
-
-        db = FMDatabase(url: url)
-
+    init(with url: URL) {
         // Create tables
         let sqlStmt = """
             CREATE TABLE IF NOT EXISTS payloadStore (
@@ -49,12 +42,25 @@ final class LocalDatabase: DataBaseWrapper {
                 hour INTEGER
             );
         """
+
+        db = FMDatabase(url: url)
+
+        db.open()
         db.executeStatements(sqlStmt)
+    }
+
+    convenience init(dbName: String = "localdb.sqlite") {
+        // swiftlint:disable:next force_try
+        let url = try! FileManager.default
+                .url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appendingPathComponent(dbName)
+
+        self.init(with: url)
     }
 
     func storePayload(payload: Data, day: String, hour: Int?) {
         let insertStr = """
-            INSERT INTO payloadStore(signedPayload, day, hour)
+            INSERT INTO payloadStore(payload, day, hour)
             VALUES(?, ?, ?);
         """
 
@@ -63,7 +69,10 @@ final class LocalDatabase: DataBaseWrapper {
         }
 
         // Transform day from String to Date to facilitate the clean up function
-        let date = dateFormatter.date(from: day) ?? Date()
+        guard let date = dateFormatter.date(from: day) else {
+            logError(message: "Invalid date string")
+            return
+        }
 
         do {
             try db.executeUpdate(insertStr, values: [payload, date, hour ?? NSNull()])
@@ -72,12 +81,14 @@ final class LocalDatabase: DataBaseWrapper {
         }
     }
 
-    func fetchPayloads(with completion: @escaping FetchDBKeysCompletionHandler) {
-        let query = "SELECT signedPayload, day, hour FROM payloadStore"
-        var payloads = [(Data, String, Int?)]()
+    // swiftlint:disable:next large_tuple
+    func fetchPayloads() -> [StoredPayload]? {
+        let query = "SELECT payload, day, hour FROM payloadStore"
+        var payloads = [StoredPayload]()
         let values = [Any]()
 
-        func extractPayloads(result: FMResultSet) {
+        do {
+            let result = try db.executeQuery(query, values: values)
             while result.next() {
                 // swiftlint:disable:next force_unwrapping
                 let data = result.data(forColumn: "payload")!
@@ -86,14 +97,9 @@ final class LocalDatabase: DataBaseWrapper {
                 let hour = Int(result.int(forColumn: "hour"))
                 payloads.append((data, day, hour))
             }
-            completion(payloads, nil)
-        }
-
-        do {
-            let result = try db.executeQuery(query, values: values)
-            extractPayloads(result: result)
+            return payloads
         } catch {
-            completion(nil, error)
+            return nil
         }
     }
 

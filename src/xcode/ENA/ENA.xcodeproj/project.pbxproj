@@ -38,6 +38,7 @@
 		01A158052470042A008BA581 /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A158042470042A008BA581 /* LocalDatabase.swift */; };
 		01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
+		01FB88C024751F4900A6EB83 /* LocalDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB88BF24751F4900A6EB83 /* LocalDatabaseTests.swift */; };
 		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
 		130CB19D246D931B00ADE602 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
 		130CB19E246D932F00ADE602 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
@@ -214,6 +215,7 @@
 		014D0E312474339A005A92DF /* risk_level.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_level.pb.swift; path = ../../../gen/risk_level.pb.swift; sourceTree = "<group>"; };
 		01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
 		01A158042470042A008BA581 /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
+		01FB88BF24751F4900A6EB83 /* LocalDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseTests.swift; sourceTree = "<group>"; };
 		130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsOnboarding.swift; sourceTree = "<group>"; };
 		13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
@@ -387,6 +389,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01FB88BE24751F2800A6EB83 /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				01FB88BF24751F4900A6EB83 /* LocalDatabaseTests.swift */,
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
 		130CB19A246D92F800ADE602 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -718,6 +728,7 @@
 				CDF27BD1246AD5220044D32B /* Services */,
 				CDF27BD0246AD51A0044D32B /* Client */,
 				85D7595A24570491008175F0 /* Info.plist */,
+				01FB88BE24751F2800A6EB83 /* Workers */,
 			);
 			path = ENATests;
 			sourceTree = "<group>";
@@ -1349,6 +1360,7 @@
 				CD678F6B246C43E200B6A0F8 /* MockExposureManager.swift in Sources */,
 				014D0E422474339A005A92DF /* apple_exposure_notification.pb.swift in Sources */,
 				014D0E392474339A005A92DF /* risk_score_parameters.pb.swift in Sources */,
+				01FB88C024751F4900A6EB83 /* LocalDatabaseTests.swift in Sources */,
 				B18C411F246DB4B400B8D8CB /* Sap_Model.swift in Sources */,
 				014D0E482474339A005A92DF /* risk_level.pb.swift in Sources */,
 				014D0E452474339A005A92DF /* apple_export.pb.swift in Sources */,
@@ -1562,6 +1574,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
@@ -1584,6 +1597,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
@@ -1750,6 +1764,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
