@@ -17,13 +17,14 @@ final class LocalDatabaseTests: XCTestCase {
         db = LocalDatabase(with: URL(staticString: "file::memory:"))
     }
 
-    func testSuccess() {
+    func testRoundtripSuccess() {
         let data = Data(bytes: [7, 13, 42], count: 3)
-        let date = "1994-10-13"
+        let day = Date()
         let hour: Int? = 6
+        let payload = LocalDatabase.StoredPayload(data: data, day: day, hour: hour)
 
         // Insert data
-        db.storePayload(payload: data, day: date, hour: hour)
+        db.storePayload(payload: payload)
 
         // Retrieve
         let result = db.fetchPayloads()
@@ -33,22 +34,40 @@ final class LocalDatabaseTests: XCTestCase {
         XCTAssertNotNil(result?.first, "Result empty")
 
         XCTAssertEqual(result?.first?.data, data)
-        XCTAssertEqual(result?.first?.day, date)
+        XCTAssertEqual(result?.first?.day.timeIntervalSince1970, day.timeIntervalSince1970)
     }
 
-    func testFailure() {
-        let data = Data(bytes: [0, 0, 1], count: 3)
-        let date = "9️⃣.7️⃣.🔟"
-        let hour: Int? = 6
-
-        // Insert data
-        db.storePayload(payload: data, day: date, hour: hour)
-
-        // Retrieve
+    func testRoundtripFailure() {
+        // Retrieve without inserting any data
         let result = db.fetchPayloads()
 
         // Validate
         XCTAssertNil(result?.first, "Result not empty")
+    }
+
+    func testStoredKeysSuccess() {
+        // Add timeintervals for 6 days
+        var timeIntervals = [Double]()
+        for i in 0...5 {
+            timeIntervals.append(Double(i * -86400))
+        }
+
+        // Store a day package + an hour package for each of the 6 days
+        for interval in timeIntervals {
+            let data = Data(bytes: [0, 0, 1], count: 3)
+            let day = Date(timeIntervalSinceNow: interval)
+            log(message: day.description(with: nil))
+            let hour = 7
+            var payload = LocalDatabase.StoredPayload(data: data, day: day, hour: hour)
+
+            db.storePayload(payload: payload)
+
+            payload.hour = nil
+            db.storePayload(payload: payload)
+        }
+
+        let storedDays = db.storedDays()
+        XCTAssertEqual(storedDays.count, 6)
     }
 
 }

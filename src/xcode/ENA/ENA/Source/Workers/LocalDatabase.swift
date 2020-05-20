@@ -10,10 +10,10 @@ import FMDB
 import ExposureNotification
 
 protocol DataBaseWrapper {
-    typealias StoredPayload = (data: Data, day: String, hour: Int?)
+    typealias StoredPayload = (data: Data, day: Date, hour: Int?)
 
     /// Store three-tuple that's fetched from the remote sever on local database
-    func storePayload(payload: Data, day: String, hour: Int?)
+    func storePayload(payload: StoredPayload)
 
     /// Get three-tuple that has been previously fetched from the remote sever from local database
     func fetchPayloads() -> [StoredPayload]?
@@ -26,26 +26,19 @@ protocol DataBaseWrapper {
 final class LocalDatabase: DataBaseWrapper {
     private let db: FMDatabase
 
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = TimeZone(abbreviation: "UTC")
-        return formatter
-    }()
-
     init(with url: URL) {
         // Create tables
         let sqlStmt = """
             CREATE TABLE IF NOT EXISTS payloadStore (
                 payload BLOB NOT NULL,
-                day Date NOT NULL,
+                day DATE NOT NULL,
                 hour INTEGER
             );
         """
 
         db = FMDatabase(url: url)
-
         db.open()
+        
         db.executeStatements(sqlStmt)
     }
 
@@ -58,7 +51,7 @@ final class LocalDatabase: DataBaseWrapper {
         self.init(with: url)
     }
 
-    func storePayload(payload: Data, day: String, hour: Int?) {
+    func storePayload(payload: StoredPayload) {
         let insertStr = """
             INSERT INTO payloadStore(payload, day, hour)
             VALUES(?, ?, ?);
@@ -68,47 +61,56 @@ final class LocalDatabase: DataBaseWrapper {
             db.open()
         }
 
-        // Transform day from String to Date to facilitate the clean up function
-        guard let date = dateFormatter.date(from: day) else {
-            logError(message: "Invalid date string")
-            return
-        }
-
         do {
-            try db.executeUpdate(insertStr, values: [payload, date, hour ?? NSNull()])
+            try db.executeUpdate(insertStr, values: [payload.data, payload.day, payload.hour ?? NSNull()])
         } catch {
             logError(message: "Failed to store keys in local db: \(error.localizedDescription)")
         }
     }
 
-    // swiftlint:disable:next large_tuple
     func fetchPayloads() -> [StoredPayload]? {
         let query = "SELECT payload, day, hour FROM payloadStore"
         var payloads = [StoredPayload]()
-        let values = [Any]()
 
         do {
-            let result = try db.executeQuery(query, values: values)
+            let result = try db.executeQuery(query, values: nil)
             while result.next() {
                 // swiftlint:disable:next force_unwrapping
                 let data = result.data(forColumn: "payload")!
                 // swiftlint:disable:next force_unwrapping
-                let day = dateFormatter.string(from: result.date(forColumn: "day")!)
+                let day = result.date(forColumn: "day")!
                 let hour = Int(result.int(forColumn: "hour"))
                 payloads.append((data, day, hour))
             }
+            result.close()
             return payloads
         } catch {
             return nil
         }
     }
 
-    func clean(until date: Date) {
-        let threshold: Int32 = Int32(date.timeIntervalSince1970)
-        let stmt = "DELETE FROM payloadStore WHERE day < \(threshold);"
+    func storedDays() -> [Date] {
+        let query = "SELECT DISTINCT day FROM payloadStore WHERE hour IS NULL;"
+        var days = [Date]()
 
         do {
-            try db.executeUpdate(stmt, values: [Any]())
+            let result = try db.executeQuery(query, values: nil)
+            while result.next() {
+                // swiftlint:disable:next force_unwrapping
+                days.append(result.date(forColumn: "day")!)
+            }
+            result.close()
+        } catch {
+            logError(message: "Failed to fetch distinct days from db: \(error.localizedDescription)")
+        }
+        return days
+    }
+
+    func clean(until date: Date) {
+        let stmt = "DELETE FROM payloadStore WHERE day < ?;"
+
+        do {
+            try db.executeUpdate(stmt, values: [date.timeIntervalSince1970])
         } catch {
             // Don't notify, only a clean-up function
             logError(message: "Failed to clean-up db: \(error.localizedDescription)")
