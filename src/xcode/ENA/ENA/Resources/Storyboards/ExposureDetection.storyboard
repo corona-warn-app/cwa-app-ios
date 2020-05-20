@@ -382,6 +382,7 @@
                     </view>
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="checkButton" destination="KII-Hi-bC3" id="cFo-Jb-X7w"/>
                         <outlet property="tableView" destination="rBN-KQ-lSk" id="R7t-6B-ZXd"/>
                     </connections>
                 </viewController>

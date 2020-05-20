@@ -12,6 +12,8 @@ import ExposureNotification
 
 
 class ExposureDetectionViewController: UIViewController {
+	@IBOutlet weak var checkButton: UIButton!
+	
 	let store: Store
 	let client: Client
 	let signedPayloadStore: SignedPayloadStore
@@ -54,6 +56,7 @@ class ExposureDetectionViewController: UIViewController {
 	func updateRiskLevel(riskLevel: RiskLevel) {
 		self.riskLevel = riskLevel
 		self.model = .model(for: riskLevel)
+		self.checkButton.titleLabel?.text = model.checkButton
 		
 		self.tableView.reloadData()
 	}
