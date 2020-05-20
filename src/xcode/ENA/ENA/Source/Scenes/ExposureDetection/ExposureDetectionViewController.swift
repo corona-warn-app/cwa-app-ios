@@ -39,11 +39,6 @@ class ExposureDetectionViewController: UIViewController {
 	}
 
 	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-	}
-	
-	
 	@IBAction func tappedClose() {
 		self.dismiss(animated: true)
 	}
