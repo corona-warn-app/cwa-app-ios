@@ -25,7 +25,6 @@ enum SizeCategoryAccessibility: String {
 	}
 }
 
-
 extension XCUIElement {
 	func labelContains(text: String) -> Bool {
 		let predicate = NSPredicate(format: "label CONTAINS %@", text)
@@ -53,6 +52,20 @@ extension XCUIApplication {
 	func setPreferredContentSizeCategory(accessibililty: SizeCategoryAccessibility, size: SizeCategory) {
 		// based on https://stackoverflow.com/questions/38316591/how-to-test-dynamic-type-larger-font-sizes-in-ios-simulator
 		launchArguments += [ "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)" ]
+	}
+
+	func tapDontAllow(for alertIdentifier: String) {
+		let alert = alerts[alertIdentifier]
+		let exposureNotificationAlertExists = alert.waitForExistence(timeout: 5.0)
+		XCTAssertTrue(exposureNotificationAlertExists,"Missing alert")
+		alert.scrollViews.otherElements.buttons[Accessibility.Alert.dontAllowButton].tap()
+	}
+
+	func tapAllow(for alertIdentifier: String) {
+		let alert = alerts[alertIdentifier]
+		let exposureNotificationAlertExists = alert.waitForExistence(timeout: 5.0)
+		XCTAssertTrue(exposureNotificationAlertExists,"Missing alert")
+		alert.scrollViews.otherElements.buttons[Accessibility.Alert.allowButton].tap()
 	}
 }
 
@@ -130,6 +143,12 @@ extension XCTestCase {
 			}
 			return false
 		}
+	}
+	
+	func wait(for seconds: TimeInterval) {
+		let expectation = XCTestExpectation(description: "Pause test")
+		DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { expectation.fulfill()}
+		wait(for: [expectation], timeout: seconds + 1)
 	}
 
 }
