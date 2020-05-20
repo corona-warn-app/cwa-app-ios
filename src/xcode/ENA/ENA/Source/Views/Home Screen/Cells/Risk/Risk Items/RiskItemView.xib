@@ -49,8 +49,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="iconImageView" destination="3I7-DI-BV1" id="ZUe-Wn-we0"/>
-                <outlet property="leadingTextViewLeadingMarginConstraint" destination="vKn-ov-wKA" id="MBo-WQ-3eR"/>
-                <outlet property="leadingTextViewTrailingImageViewConstraint" destination="jTr-vB-ZeC" id="myK-B2-kWC"/>
+                <outlet property="leadingTextViewLeadingMarginConstraint" destination="jTr-vB-ZeC" id="Vq6-TA-rnT"/>
+                <outlet property="leadingTextViewTrailingImageViewConstraint" destination="vKn-ov-wKA" id="f2B-pT-IvK"/>
                 <outlet property="separatorHeightConstraint" destination="2Ko-AP-a7I" id="vCM-XN-7l5"/>
                 <outlet property="separatorView" destination="xqB-br-Yjr" id="U2c-lj-ws8"/>
                 <outlet property="titleTextView" destination="LEZ-Xx-WVk" id="HRj-Jh-90h"/>

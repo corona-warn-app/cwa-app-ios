@@ -10,8 +10,32 @@ import UIKit
 
 protocol RiskVVView: UIView { }
 
-protocol HomeRiskViewConfigurator {
-    func configure(riskView: RiskVVView)
+protocol HomeRiskViewConfiguratorAny {
+    var viewAnyType: UIView.Type { get }
+    
+    func configureAny(riskView: UIView)
+}
+
+protocol HomeRiskViewConfigurator: HomeRiskViewConfiguratorAny {
+    associatedtype ViewType: UIView
+    func configure(riskView: ViewType)
+}
+
+extension HomeRiskViewConfigurator {
+    
+    var viewAnyType: UIView.Type {
+        ViewType.self
+    }
+    
+    func configureAny(riskView: UIView) {
+        if let riskView = riskView as? ViewType {
+            configure(riskView: riskView)
+        } else {
+            let error = "\(riskView) isn't conformed ViewType"
+            logError(message: error)
+            fatalError(error)
+        }
+    }
 }
 
 final class HomeRiskCellPropertyHolder {
@@ -23,9 +47,9 @@ final class HomeRiskCellPropertyHolder {
     let chevronImage: UIImage?
     let buttonTitle: String
     let isButtonEnabled: Bool
-    let cellConfigurators: [HomeRiskViewConfigurator]
+    let cellConfigurators: [HomeRiskViewConfiguratorAny]
     
-    init(title: String, titleColor: UIColor, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, buttonTitle: String, isButtonEnabled: Bool, itemCellConfigurators: [HomeRiskViewConfigurator]) {
+    init(title: String, titleColor: UIColor, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, buttonTitle: String, isButtonEnabled: Bool, itemCellConfigurators: [HomeRiskViewConfiguratorAny]) {
         self.title = title
         self.titleColor = titleColor
         self.color = color
@@ -37,7 +61,7 @@ final class HomeRiskCellPropertyHolder {
     }
     
     // swiftlint:disable:next function_body_length
-    static func propertyHolder(riskLevel: RiskLevel, lastUpdateDateString: String?, numberRiskContacts: String, lastContactDateString: String) -> HomeRiskCellPropertyHolder {
+    static func propertyHolder(riskLevel: RiskLevel, lastUpdateDateString: String?, numberRiskContacts: String, lastContactDateString: String, isLoading: Bool) -> HomeRiskCellPropertyHolder {
         switch riskLevel {
         case .unknown:
             let titleColor = UIColor.white
@@ -75,6 +99,14 @@ final class HomeRiskCellPropertyHolder {
             let item1 = HomeRiskItemViewConfigurator(title: AppStrings.Home.riskCardLowNoContactItemTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
             let dateTitle = String(format: AppStrings.Home.riskCardLowDateItemTitle, lastUpdateDateString ?? "-")
             let item2 = HomeRiskItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
+            var itemCellConfigurator: [HomeRiskViewConfiguratorAny] = []
+            if isLoading {
+                let aaa = HomeRiskLoadingItemViewConfigurator(title: "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.", titleColor: titleColor, isLoading: true, color: color)
+                itemCellConfigurator.append(aaa)
+            } else {
+                itemCellConfigurator.append(item1)
+                itemCellConfigurator.append(item2)
+            }
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardLowTitle,
                 titleColor: titleColor,
@@ -83,7 +115,7 @@ final class HomeRiskCellPropertyHolder {
                 chevronImage: UIImage(systemName: "chevron.right"),
                 buttonTitle: AppStrings.Home.riskCardLowButton,
                 isButtonEnabled: true,
-                itemCellConfigurators: [item1, item2]
+                itemCellConfigurators: itemCellConfigurator
             )
         case .high:
             let titleColor = UIColor.white

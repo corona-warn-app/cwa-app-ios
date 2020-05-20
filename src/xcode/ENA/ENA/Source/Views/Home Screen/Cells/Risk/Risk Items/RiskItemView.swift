@@ -43,11 +43,11 @@ final class RiskItemView: UIView, RiskVVView {
 
     private func configureTextViewLayout() {
         if traitCollection.preferredContentSizeCategory >= .accessibilityMedium {
-            leadingTextViewLeadingMarginConstraint.isActive = false
-            leadingTextViewTrailingImageViewConstraint.isActive = true
-        } else {
             leadingTextViewLeadingMarginConstraint.isActive = true
             leadingTextViewTrailingImageViewConstraint.isActive = false
+        } else {
+            leadingTextViewLeadingMarginConstraint.isActive = false
+            leadingTextViewTrailingImageViewConstraint.isActive = true
         }
     }
     
@@ -59,7 +59,7 @@ final class RiskItemView: UIView, RiskVVView {
         let offset: CGFloat = (lineHeightRounded - iconImageFrame.height ) / 2.0
 
         topImageTopTextViewConstraint.constant = max(offset.rounded(), 0) + titleTopPadding
-        let iconTitleDistance = leadingTextViewLeadingMarginConstraint.constant
+        let iconTitleDistance = leadingTextViewTrailingImageViewConstraint.constant
         iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
         let bezierPath = UIBezierPath(rect: iconImageFrame)
         titleTextView.textContainer.exclusionPaths = [bezierPath]

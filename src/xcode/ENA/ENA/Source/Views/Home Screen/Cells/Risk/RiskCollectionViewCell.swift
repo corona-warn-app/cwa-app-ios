@@ -79,14 +79,13 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
         contactButton.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
         contactButton.isEnabled = propertyHolder.isButtonEnabled
         
-        let nib = UINib(nibName: RiskItemView.stringName(), bundle: .main)
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         for itemConfigurator in propertyHolder.cellConfigurators {
-            if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
+            let nibName = itemConfigurator.viewAnyType.stringName()
+            let nib = UINib(nibName: nibName, bundle: .main)
+            if let riskView = nib.instantiate(withOwner: self, options: nil).first as? UIView {
                 stackView.addArrangedSubview(riskView)
-                // swiftlint:disable:next force_cast
-                let vv = riskView as! RiskVVView
-                itemConfigurator.configure(riskView: vv)
+                itemConfigurator.configureAny(riskView: riskView)
             }
         }
         if let riskItemView = stackView.arrangedSubviews.last as? RiskItemView {

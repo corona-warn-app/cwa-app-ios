@@ -1,30 +1,30 @@
 //
-//  HomeRiskItemViewConfigurator.swift
+//  HomeRiskLoadingItemViewConfigurator.swift
 //  ENA
 //
-//  Created by Tikhonov, Aleksandr on 14.05.20.
+//  Created by Tikhonov, Aleksandr on 20.05.20.
 //  Copyright © 2020 SAP SE. All rights reserved.
 //
 
 import UIKit
 
-final class HomeRiskItemViewConfigurator: HomeRiskViewConfigurator {
+final class HomeRiskLoadingItemViewConfigurator: HomeRiskViewConfigurator {
     
     var title: String
     var titleColor: UIColor
-    var iconImageName: String
+    var isLoading: Bool
     var color: UIColor
     
-    init(title: String, titleColor: UIColor, iconImageName: String, color: UIColor) {
+    init(title: String, titleColor: UIColor, isLoading: Bool, color: UIColor) {
         self.title = title
         self.titleColor = titleColor
-        self.iconImageName = iconImageName
+        self.isLoading = isLoading
         self.color = color
     }
     
-    func configure(riskView: RiskItemView) {
+    func configure(riskView: RiskLoadingItemView) {
         let iconTintColor = titleColor
-        riskView.iconImageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
+        // riskItemView.iconImageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
         riskView.titleTextView?.text = title
         riskView.titleTextView?.textColor = titleColor
         riskView.separatorView?.backgroundColor = UIColor.white.withAlphaComponent(0.15)

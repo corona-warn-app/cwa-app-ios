@@ -53,7 +53,8 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
             riskLevel: riskLevel,
             lastUpdateDateString: dateString,
             numberRiskContacts: numberRiskContactsString,
-            lastContactDateString: lastContactDateString
+            lastContactDateString: lastContactDateString,
+            isLoading: isLoading
         )
         // The delegate will be called back when the cell's primary action is triggered
         cell.configure(with: holder, delegate: self)
