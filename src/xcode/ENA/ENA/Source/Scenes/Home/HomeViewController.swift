@@ -58,6 +58,7 @@ final class HomeViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         configureUI()
+		tableView.reloadData()
 		resizeDataViews()
     }
 
@@ -66,6 +67,12 @@ final class HomeViewController: UIViewController {
         homeInteractor.developerMenuEnableIfAllowed()
     }
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			self.resizeDataViews()
+		}
+	}
+	
     // MARK: Actions
     @objc
     private func infoButtonTapped(_ sender: UIButton) {
@@ -209,22 +216,30 @@ final class HomeViewController: UIViewController {
 		resizeDataViews()
     }
 
-	var collectionViewHeightAnchorConstraint: NSLayoutConstraint?
-	var tableViewHeightAnchorConstraint: NSLayoutConstraint?
-	
+	private var collectionHeightConstraint: NSLayoutConstraint?
+	private var tableHeightConstraint: NSLayoutConstraint?
 	private func resizeDataViews() {
-		let collectionHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
-		let tableHeight = tableView.contentSize.height * 2
+		view.layoutIfNeeded()
 
-		let collectionViewHeightConstraint = collectionViewHeightAnchorConstraint ?? collectionView.heightAnchor.constraint(equalToConstant: collectionHeight)
-		let tableViewHeightConstraint = tableViewHeightAnchorConstraint ?? tableView.heightAnchor.constraint(equalToConstant: tableHeight)
-		
-		NSLayoutConstraint.activate(
-            [
-				collectionViewHeightConstraint,
-				tableViewHeightConstraint
-			]
-		)
+		let collectionHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
+		let tableHeight = tableView.contentSize.height
+
+		let _collectionHeightConstraint = collectionHeightConstraint ?? collectionView.heightAnchor.constraint(equalToConstant: collectionHeight)
+		collectionHeightConstraint = _collectionHeightConstraint
+		let _tableHeightConstraint = tableHeightConstraint ?? tableView.heightAnchor.constraint(greaterThanOrEqualToConstant: tableHeight)
+		tableHeightConstraint = _tableHeightConstraint
+
+		_collectionHeightConstraint.isActive = false
+		_tableHeightConstraint.isActive = false
+
+		_collectionHeightConstraint.constant = collectionHeight
+		_collectionHeightConstraint.priority = UILayoutPriority.defaultHigh
+		_tableHeightConstraint.constant = tableHeight
+		_tableHeightConstraint.priority = UILayoutPriority.defaultHigh
+
+		_collectionHeightConstraint.isActive = true
+		_tableHeightConstraint.isActive = true
+
 		view.setNeedsLayout()
 	}
 	
@@ -245,7 +260,7 @@ final class HomeViewController: UIViewController {
 		collectionView.isScrollEnabled = false
 		collectionView.setContentHuggingPriority(.defaultHigh, for: .vertical)
 		collectionView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-        
+	
 		tableView = UITableView(frame: view.bounds, style: .grouped)
 		tableView.delegate = self
 		tableView.dataSource = self
