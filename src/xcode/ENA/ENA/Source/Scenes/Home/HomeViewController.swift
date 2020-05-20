@@ -48,8 +48,6 @@ final class HomeViewController: UIViewController {
 
     enum Section: Int {
         case actions
-        case infos
-        case settings
     }
 
     // MARK: UIViewController
@@ -195,17 +193,6 @@ final class HomeViewController: UIViewController {
             } else {
                 showSubmitResult()
             }
-        case .infos:
-            if row == 0 {
-                showInviteFriends()
-            } else {
-            }
-        case .settings:
-            if row == 0 {
-                showAppInformation()
-            } else {
-				showSetting()
-            }
         }
     }
 
@@ -266,10 +253,6 @@ final class HomeViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
         snapshot.appendSections([.actions])
         snapshot.appendItems(Array(0...2))
-        snapshot.appendSections([.infos])
-        snapshot.appendItems(Array(3...4))
-		snapshot.appendSections([.settings])
-		snapshot.appendItems(Array(5...6))
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 
