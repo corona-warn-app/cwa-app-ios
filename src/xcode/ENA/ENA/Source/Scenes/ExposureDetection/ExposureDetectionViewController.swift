@@ -187,7 +187,7 @@ extension ExposureDetectionViewController: UITableViewDataSource, UITableViewDel
 		switch Section(rawValue: indexPath.section) {
 		case .riskLevel:
 			let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.risk.rawValue, for: indexPath)
-			let view = cell.subviews[0].subviews[0] as? ExposureDetectionRiskCell
+			let view = (cell as? ExposureDetectionRiskCell)?.riskView
 			view?.configure(
 				for: self.riskLevel,
 				contacts: Int(exposureDetectionSummary?.matchedKeyCount ?? 0),
