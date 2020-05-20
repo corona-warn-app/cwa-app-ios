@@ -15,19 +15,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="511" height="190"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="b6g-Ue-ncr">
+                    <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="950" verticalCompressionResistancePriority="800" distribution="equalCentering" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="b6g-Ue-ncr">
                         <rect key="frame" x="16" y="16" width="479" height="158"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="a1o-80-ZqL">
+                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="950" verticalCompressionResistancePriority="810" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="a1o-80-ZqL">
                                 <rect key="frame" x="0.0" y="0.0" width="470" height="86.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" verticalCompressionResistancePriority="998" text="Title Title Title Title Title Title Title Title Title Title Title Title " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egr-CV-gjG">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="950" verticalCompressionResistancePriority="830" text="Title Title Title Title Title Title Title Title Title Title Title Title " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egr-CV-gjG">
                                         <rect key="frame" x="0.0" y="0.0" width="470" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kss-ab-qGh">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="950" verticalCompressionResistancePriority="820" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kss-ab-qGh">
                                         <rect key="frame" x="0.0" y="28.5" width="470" height="58"/>
                                         <string key="text">Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body </string>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
