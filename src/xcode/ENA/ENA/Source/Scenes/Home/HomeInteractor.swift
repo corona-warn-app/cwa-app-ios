@@ -66,36 +66,10 @@ final class HomeInteractor {
             self.homeViewController.showSubmitResult()
         }
         
-		let info1Configurator = HomeInfoCellConfigurator(
-			title: AppStrings.Home.infoCardShareTitle,
-			body: AppStrings.Home.infoCardShareBody,
-			position: .first
-		)
-		let info2Configurator = HomeInfoCellConfigurator(
-			title: AppStrings.Home.infoCardAboutTitle,
-			body: AppStrings.Home.infoCardAboutBody,
-			position: .last
-		)
-
-		let appInformationConfigurator = HomeInfoCellConfigurator(
-			title: AppStrings.Home.appInformationCardTitle,
-			body: nil,
-			position: .first
-		)
-		let settingsConfigurator = HomeInfoCellConfigurator(
-			title: AppStrings.Home.settingsCardTitle,
-			body: nil,
-			position: .last
-		)
-
 		let configurators: [CollectionViewCellConfiguratorAny] = [
 			activeConfigurator,
 			riskConfigurator,
 			submitConfigurator,
-			info1Configurator,
-			info2Configurator,
-			appInformationConfigurator,
-			settingsConfigurator
 		]
         return configurators
     }
