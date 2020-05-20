@@ -62,11 +62,9 @@ class ExposureDetectionViewController: UIViewController {
 
 extension ExposureDetectionViewController {
 	enum Section: Int, CaseIterable {
-		// swiftlint:disable explicit_enum_raw_value
 		case riskLevel
 		case content
 		case hotline
-		// swiftlint:enable explicit_enum_raw_value
 	}
 }
 
