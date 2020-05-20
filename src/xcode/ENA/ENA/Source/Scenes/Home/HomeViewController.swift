@@ -249,27 +249,35 @@ final class HomeViewController: UIViewController {
         return homeLayout.collectionLayout()
     }
 
-    private func configureHierarchy() {
-        let safeLayoutGuide = view.safeAreaLayoutGuide
-
-		view.backgroundColor = .systemGroupedBackground
-		
+	private func createCollectionView() {
 		collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isScrollEnabled = false
 		collectionView.setContentHuggingPriority(.defaultHigh, for: .vertical)
 		collectionView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+	}
 	
+	private func createTableView() {
 		tableView = UITableView(frame: view.bounds, style: .grouped)
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.backgroundColor = .systemGroupedBackground
 		tableView.backgroundView = nil
 		tableView.isScrollEnabled = false
+		tableView.bounces = false
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 44.0
+	}
+	
+    private func configureHierarchy() {
+        let safeLayoutGuide = view.safeAreaLayoutGuide
+
+		view.backgroundColor = .systemGroupedBackground
+			
+		createCollectionView()
+		createTableView()
 
 		let stackView = UIStackView(arrangedSubviews: [collectionView, tableView])
 		stackView.backgroundColor = UIColor.clear
