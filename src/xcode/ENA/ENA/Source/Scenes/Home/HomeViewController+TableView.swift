@@ -8,13 +8,30 @@
 
 import UIKit
 
+enum TableSection: Int, CaseIterable {
+	case infos
+	case settings
+}
+enum TableInfoRow: Int, CaseIterable {
+	case share
+	case about
+}
+enum TableSettingRow: Int, CaseIterable {
+	case appinfo
+	case settings
+}
+
 extension HomeViewController: UITableViewDataSource {
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 2
+		return TableSection.allCases.count
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 2
+		switch TableSection(rawValue: section) {
+		case .infos: return TableInfoRow.allCases.count
+		case .settings: return TableSettingRow.allCases.count
+		default: return 0
+		}
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,45 +65,47 @@ extension HomeViewController: UITableViewDataSource {
 	private func configure(cell: InfoTableViewCell, at indexPath: IndexPath) {
 		cell.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
 
-		switch indexPath.section {
-		case 0:
-			if indexPath.row == 0 {
-				cell.configure(with: AppStrings.Home.infoCardShareTitle, and: AppStrings.Home.infoCardShareBody)
-            } else {
-				cell.configure(with: AppStrings.Home.infoCardAboutTitle, and: AppStrings.Home.infoCardAboutBody)
-            }
-        case 1:
-			if indexPath.row == 0 {
-				cell.configure(with: AppStrings.Home.appInformationCardTitle)
-            } else {
-				cell.configure(with: AppStrings.Home.settingsCardTitle)
-            }
+		switch TableSection(rawValue: indexPath.section) {
+		case .infos:
+			switch TableInfoRow(rawValue: indexPath.row) {
+			case .share: cell.configure(with: AppStrings.Home.infoCardShareTitle, and: AppStrings.Home.infoCardShareBody)
+			case .about: cell.configure(with: AppStrings.Home.infoCardAboutTitle, and: AppStrings.Home.infoCardAboutBody)
+			default: break
+			}
+		case .settings:
+			switch TableSettingRow(rawValue: indexPath.row) {
+			case .appinfo: cell.configure(with: AppStrings.Home.appInformationCardTitle)
+			case .settings: cell.configure(with: AppStrings.Home.settingsCardTitle)
+			default: break
+			}
 		default:
 			break
-        }
-		//resizeDataViews()
+		}
+
 	}
 	
 }
 
 extension HomeViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		switch indexPath.section {
-		case 0:
-			if indexPath.row == 0 {
-                showInviteFriends()
-            } else {
-				//# TODO: implement ÜBER COVID-19 screen here
-            }
-        case 1:
-			if indexPath.row == 0 {
-				showAppInformation()
-            } else {
-				showSetting()
-            }
+
+		switch TableSection(rawValue: indexPath.section) {
+		case .infos:
+			switch TableInfoRow(rawValue: indexPath.row) {
+			case .share: showInviteFriends()
+			case .about: break //# TODO: implement ÜBER COVID-19 screen here
+			default: break
+			}
+		case .settings:
+			switch TableSettingRow(rawValue: indexPath.row) {
+			case .appinfo: showAppInformation()
+			case .settings: showSetting()
+			default: break
+			}
 		default:
 			break
-        }
+		}
+
 		tableView.deselectRow(at: indexPath, animated: true)
 	}
 	
