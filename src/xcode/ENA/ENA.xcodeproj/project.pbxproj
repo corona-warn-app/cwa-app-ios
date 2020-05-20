@@ -39,6 +39,7 @@
 		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
 		130CB19D246D931B00ADE602 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
 		130CB19E246D932F00ADE602 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
+		134F0DB424754A7300D88934 /* HomeViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0DB324754A7300D88934 /* HomeViewController+TableView.swift */; };
 		13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */; };
 		13FC957B247515AF006A99F8 /* InfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13FC9579247515AE006A99F8 /* InfoTableViewCell.xib */; };
 		13FC957C247515AF006A99F8 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FC957A247515AE006A99F8 /* InfoTableViewCell.swift */; };
@@ -214,6 +215,7 @@
 		014D0E312474339A005A92DF /* risk_level.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_level.pb.swift; path = ../../../gen/risk_level.pb.swift; sourceTree = "<group>"; };
 		01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
 		130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsOnboarding.swift; sourceTree = "<group>"; };
+		134F0DB324754A7300D88934 /* HomeViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+TableView.swift"; sourceTree = "<group>"; };
 		13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
 		13FC9579247515AE006A99F8 /* InfoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoTableViewCell.xib; sourceTree = "<group>"; };
 		13FC957A247515AE006A99F8 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -585,6 +587,7 @@
 				51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */,
 				5111E7622460BB1500ED6498 /* HomeInteractor.swift */,
 				51CE1B5424604DD2002CF42A /* HomeLayout.swift */,
+				134F0DB324754A7300D88934 /* HomeViewController+TableView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1238,6 +1241,7 @@
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionTransactionDelegate.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
 				CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */,
+				134F0DB424754A7300D88934 /* HomeViewController+TableView.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */,
 				01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */,
 				13FC957C247515AF006A99F8 /* InfoTableViewCell.swift in Sources */,
