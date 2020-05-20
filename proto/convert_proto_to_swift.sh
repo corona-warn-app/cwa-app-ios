@@ -15,4 +15,13 @@ if ! hash protoc 2>/dev/null; then
     exit
 fi
 
-protoc  --swift_out=../output ./exposure_notification.proto ./apple_exposure_notification.proto ./risk_score_parameters.proto ./submission_payload.proto ./file_bucket.proto ./risk_level.proto ./signed_payload.proto
+protoc \
+     --swift_out=../../src/xcode/gen/output \
+     ./exposure_notification.proto \
+     ./apple_exposure_notification.proto \
+     ./risk_score_parameters.proto \
+     ./submission_payload.proto \
+     ./file_bucket.proto \
+     ./risk_level.proto \
+     ./signed_payload.proto \
+     ./apple_export.proto

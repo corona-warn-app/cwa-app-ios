@@ -13,5 +13,5 @@ class InfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet var chevronImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
-    
+	
 }
