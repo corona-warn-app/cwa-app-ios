@@ -76,7 +76,7 @@ extension ExposureDetectionViewController {
 		case risk = "riskCell"
 		case headline = "headlineCell"
 		case body = "bodyCell"
-		case bold = "boldCell"
+		case semibold = "semiboldCell"
 		case link = "linkCell"
 		case guide = "guideCell"
 		case phone = "phoneCell"
@@ -92,7 +92,7 @@ private extension ExposureDetectionModel.Content {
 		case .guide:
 			return .guide
 		case .title:
-			return .bold
+			return .semibold
 		case .text:
 			return .body
 		case .more:

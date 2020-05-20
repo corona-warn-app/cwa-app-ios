@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rBN-KQ-lSk">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="726"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="723"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="riskCell" rowHeight="275" translatesAutoresizingMaskIntoConstraints="NO" id="FU8-PR-2F7" customClass="ExposureDetectionRiskCell" customModule="ENA" customModuleProvider="target">
@@ -45,14 +45,14 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="headlineCell" translatesAutoresizingMaskIntoConstraints="NO" id="NHV-uu-FWR">
-                                        <rect key="frame" x="0.0" y="330.5" width="414" height="110.5"/>
+                                        <rect key="frame" x="0.0" y="330.5" width="414" height="104.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NHV-uu-FWR" id="OJN-oW-Hjg">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="110.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="104.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline Cell" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IyL-j2-Wff" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="46" width="374" height="26.5"/>
+                                                    <rect key="frame" x="20" y="46" width="374" height="20.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -78,7 +78,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="bodyCell" translatesAutoresizingMaskIntoConstraints="NO" id="R1x-VS-NdT">
-                                        <rect key="frame" x="0.0" y="441" width="414" height="42.5"/>
+                                        <rect key="frame" x="0.0" y="435" width="414" height="42.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R1x-VS-NdT" id="BSA-AA-Vn7">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="42.5"/>
@@ -108,14 +108,14 @@
                                             <outlet property="textLabel" destination="dEa-ln-dcO" id="BXb-7j-N4P"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="boldCell" translatesAutoresizingMaskIntoConstraints="NO" id="1ob-fR-mo7">
-                                        <rect key="frame" x="0.0" y="483.5" width="414" height="73.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="semiboldCell" translatesAutoresizingMaskIntoConstraints="NO" id="1ob-fR-mo7">
+                                        <rect key="frame" x="0.0" y="477.5" width="414" height="73.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1ob-fR-mo7" id="Z5I-B2-KTE">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="73.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bold Cell" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbg-Ow-kDL" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Semibold Cell" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbg-Ow-kDL" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="42" width="374" height="20.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -124,7 +124,7 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
                                                             <real key="value" value="17"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -142,7 +142,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="linkCell" translatesAutoresizingMaskIntoConstraints="NO" id="90b-jn-JPZ">
-                                        <rect key="frame" x="0.0" y="557" width="414" height="61.5"/>
+                                        <rect key="frame" x="0.0" y="551" width="414" height="61.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="90b-jn-JPZ" id="A4r-3i-0n8">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="61.5"/>
@@ -175,7 +175,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="guideCell" translatesAutoresizingMaskIntoConstraints="NO" id="veu-F4-sFu">
-                                        <rect key="frame" x="0.0" y="618.5" width="414" height="52.5"/>
+                                        <rect key="frame" x="0.0" y="612.5" width="414" height="52.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="veu-F4-sFu" id="mci-8j-Kr1">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="52.5"/>
@@ -190,7 +190,7 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
                                                             <real key="value" value="17"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlD-6b-NEv">
@@ -231,7 +231,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="phoneCell" translatesAutoresizingMaskIntoConstraints="NO" id="X3e-hE-IdQ">
-                                        <rect key="frame" x="0.0" y="671" width="414" height="52.5"/>
+                                        <rect key="frame" x="0.0" y="665" width="414" height="52.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X3e-hE-IdQ" id="qLh-0G-0FK">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="52.5"/>
@@ -260,7 +260,7 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
                                                             <real key="value" value="17"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OoI-YX-p7z">
@@ -319,10 +319,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nTJ-Pg-BFI">
-                                <rect key="frame" x="0.0" y="726" width="414" height="116"/>
+                                <rect key="frame" x="0.0" y="723" width="414" height="119"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KII-Hi-bC3" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="16" width="382" height="50"/>
+                                        <rect key="frame" x="16" y="16" width="382" height="53"/>
                                         <color key="backgroundColor" name="tint"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="16"/>
