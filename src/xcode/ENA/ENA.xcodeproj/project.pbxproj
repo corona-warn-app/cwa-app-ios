@@ -33,7 +33,6 @@
 		014D0E472474339A005A92DF /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E312474339A005A92DF /* risk_level.pb.swift */; };
 		014D0E482474339A005A92DF /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E312474339A005A92DF /* risk_level.pb.swift */; };
 		014D0E492474339A005A92DF /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014D0E312474339A005A92DF /* risk_level.pb.swift */; };
-		0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01581129245B0B28001B38B2 /* ExposureDetectionViewController.swift */; };
 		01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
@@ -1347,7 +1346,6 @@
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
 				51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
-				0158112A245B0B28001B38B2 /* ExposureDetectionViewController.swift in Sources */,
 				514EE9A0246D4DF800DE4884 /* HomeRiskItemViewConfigurator.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
