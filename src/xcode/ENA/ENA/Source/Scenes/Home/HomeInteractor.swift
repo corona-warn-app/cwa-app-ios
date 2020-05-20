@@ -29,7 +29,7 @@ final class HomeInteractor {
     
     private unowned var homeViewController: HomeViewController
     private let store: Store
-    private var detectionSummary: ENExposureDetectionSummary?
+    var detectionSummary: ENExposureDetectionSummary?
     private(set) var exposureManager: ExposureManager
     private let client: Client
 

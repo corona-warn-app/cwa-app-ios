@@ -284,6 +284,9 @@ extension ExposureDetectionViewController: ExposureDetectionTransactionDelegate 
 		self.exposureDetectionSummary = summary
 		
 		self.updateRiskLevel(riskLevel: RiskLevel(riskScore: summary.maximumRiskScore) ?? .unknown)
+		
+		// Temporarily trigger exposure detection summary notification locally until implemented by transaction flow
+		NotificationCenter.default.post(name: .didDetectExposureDetectionSummary, object: nil, userInfo: ["summary": summary])
 	}
 	
 	func exposureDetectionTransactionRequiresFormattedToday(_ transaction: ExposureDetectionTransaction) -> String {

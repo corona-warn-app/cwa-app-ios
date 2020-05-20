@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ExposureNotification
 
 final class HomeViewController: UIViewController {
 
@@ -45,6 +46,8 @@ final class HomeViewController: UIViewController {
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     private let store: Store
     private let client: Client
+	
+	private var summaryNotificationObserver: NSObjectProtocol?
 
     enum Section: Int {
         case actions
@@ -64,7 +67,23 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         homeInteractor.developerMenuEnableIfAllowed()
+		
+		summaryNotificationObserver = NotificationCenter.default.addObserver(forName: .didDetectExposureDetectionSummary, object: nil, queue: nil) { notification in
+			// Temporary handling of exposure detection summary notification until implemented in transaction flow
+			if let userInfo = notification.userInfo as? [String: Any], let summary = userInfo["summary"] as? ENExposureDetectionSummary {
+				log(message: "got summary: \(summary.description)")
+				self.homeInteractor.detectionSummary = summary
+				self.prepareData()
+				self.reloadData()
+			}
+		}
     }
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		NotificationCenter.default.removeObserver(summaryNotificationObserver, name: .didDetectExposureDetectionSummary, object: nil)
+	}
 
     // MARK: Actions
     @objc
