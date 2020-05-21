@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ExposureNotification
 import UserNotifications
 
 enum OnboardingPageType: Int, CaseIterable {
@@ -26,12 +25,13 @@ enum OnboardingPageType: Int, CaseIterable {
 }
 
 final class OnboardingInfoViewController: UIViewController {
-	
-	var pageType: OnboardingPageType
-	var exposureManager: ExposureManager
-	var store: Store
-
-    init?(coder: NSCoder, pageType: OnboardingPageType, exposureManager: ExposureManager, store: Store) {
+    // MARK: Creating a Onboarding View Controller
+    init?(
+        coder: NSCoder,
+        pageType: OnboardingPageType,
+        exposureManager: ExposureManager,
+        store: Store
+    ) {
 		self.pageType = pageType
 		self.exposureManager = exposureManager
         self.store = store
@@ -42,6 +42,10 @@ final class OnboardingInfoViewController: UIViewController {
         fatalError("init(coder:) has intentionally not been implemented")
     }
 
+    // MARK: Properties
+    var pageType: OnboardingPageType
+    var exposureManager: ExposureManager
+    var store: Store
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var boldLabel: UILabel!
@@ -186,7 +190,6 @@ final class OnboardingInfoViewController: UIViewController {
 	func gotoNextScreen() {
 		guard let nextPageType = pageType.next() else {
             store.isOnboarded = true
-			NotificationCenter.default.post(name: Notification.Name.isOnboardedDidChange, object: nil)
 			return
 		}
 		let storyboard = AppStoryboard.onboarding.instance
