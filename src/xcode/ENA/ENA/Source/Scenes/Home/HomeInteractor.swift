@@ -37,7 +37,8 @@ final class HomeInteractor {
         DMDeveloperMenu(
             presentingViewController: homeViewController,
             client: client,
-            store: store
+            store: store,
+            exposureManager: exposureManager
         )
     }()
 
