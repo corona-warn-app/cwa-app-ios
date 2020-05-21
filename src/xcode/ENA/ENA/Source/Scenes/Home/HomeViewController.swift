@@ -193,6 +193,7 @@ final class HomeViewController: UIViewController {
         if let url = URL(string: AppStrings.SafariView.targetURL) {
             let config = SFSafariViewController.Configuration()
             config.entersReaderIfAvailable = true
+            config.barCollapsingEnabled = true
 
             let vc = SFSafariViewController(url: url, configuration: config)
             present(vc, animated: true)
