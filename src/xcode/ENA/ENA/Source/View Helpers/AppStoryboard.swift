@@ -35,7 +35,7 @@ enum AppStoryboard: String {
         return vc
     }
 
-    func initiateInitial<T: UIViewController>(creator: ((NSCoder) -> UIViewController?)? = nil) -> T? {
+    func initiateInitial<T: UIViewController>(creator: ((NSCoder) -> UIViewController?)? = nil) -> T {
         let storyboard = UIStoryboard(name: rawValue, bundle: nil)
         guard let vc = storyboard.instantiateInitialViewController(creator: creator) as? T else {
             let error = "Can't initiate start UIViewController for \(rawValue) storyboard"
