@@ -72,10 +72,14 @@
 		710ABB2B2475392600948792 /* ExposureDetectionRiskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB2A2475392600948792 /* ExposureDetectionRiskCell.swift */; };
 		710ABB2C2475531700948792 /* app-information-assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71CC3E7C246D308000217F2C /* app-information-assets.xcassets */; };
 		710ABB1F2475115500948792 /* UITableViewController+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB1E2475115500948792 /* UITableViewController+Enum.swift */; };
+		710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */; };
 		710ABB25247514BD00948792 /* UIViewController+Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB24247514BD00948792 /* UIViewController+Segue.swift */; };
+		710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB26247533FA00948792 /* DynamicTableViewController.swift */; };
+		710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB282475353900948792 /* DynamicTableViewModel.swift */; };
 		714CD8652472883A00F56450 /* ExposureDetectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8642472883A00F56450 /* ExposureDetectionModel.swift */; };
 		714CD8672472885900F56450 /* ExposureDetectionModel+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8662472885900F56450 /* ExposureDetectionModel+Data.swift */; };
 		714CD869247297F800F56450 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD868247297F800F56450 /* NibLoadable.swift */; };
+		715D758A2475587700984BED /* DynamicTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D75892475587700984BED /* DynamicTableHeaderView.swift */; };
 		71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */; };
 		71FD886424725F2000E804D0 /* ExposureDetectionRiskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FD886324725F2000E804D0 /* ExposureDetectionRiskView.xib */; };
 		71FD886624725F3300E804D0 /* ExposureDetectionRiskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD886524725F3300E804D0 /* ExposureDetectionRiskView.swift */; };
@@ -258,10 +262,14 @@
 		51D420D324586DCA00AD70CA /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		710ABB2A2475392600948792 /* ExposureDetectionRiskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionRiskCell.swift; sourceTree = "<group>"; };
 		710ABB1E2475115500948792 /* UITableViewController+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewController+Enum.swift"; sourceTree = "<group>"; };
+		710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DynamicTypeTableViewCell.swift; path = ../DynamicTypeTableViewCell.swift; sourceTree = "<group>"; };
 		710ABB24247514BD00948792 /* UIViewController+Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Segue.swift"; sourceTree = "<group>"; };
+		710ABB26247533FA00948792 /* DynamicTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewController.swift; sourceTree = "<group>"; };
+		710ABB282475353900948792 /* DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewModel.swift; sourceTree = "<group>"; };
 		714CD8642472883A00F56450 /* ExposureDetectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionModel.swift; sourceTree = "<group>"; };
 		714CD8662472885900F56450 /* ExposureDetectionModel+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureDetectionModel+Data.swift"; sourceTree = "<group>"; };
 		714CD868247297F800F56450 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		715D75892475587700984BED /* DynamicTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DynamicTableHeaderView.swift; path = ../DynamicTableHeaderView.swift; sourceTree = "<group>"; };
 		71888C3B246AAF11007AD508 /* DiagnosisKeyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisKeyAPI.swift; sourceTree = "<group>"; };
 		71888C3D246AC0C3007AD508 /* DiagnosisKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosisKeyManager.swift; sourceTree = "<group>"; };
 		71AFBD922464251000F91006 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -685,6 +693,25 @@
 			path = AppInformation;
 			sourceTree = "<group>";
 		};
+		71F76D0E24767AF100515A01 /* DynamicTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				71F76D0F24767B2500515A01 /* Views */,
+				710ABB26247533FA00948792 /* DynamicTableViewController.swift */,
+				710ABB282475353900948792 /* DynamicTableViewModel.swift */,
+			);
+			path = DynamicTableViewController;
+			sourceTree = "<group>";
+		};
+		71F76D0F24767B2500515A01 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				715D75892475587700984BED /* DynamicTableHeaderView.swift */,
+				710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		853D987824694A1E00490DBA /* BaseElements */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,6 +804,7 @@
 		85D759712457059A008175F0 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
 				EE20EA0824699A3A00770683 /* Help */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				51D420AF2458308400AD70CA /* Onboarding */,
@@ -1293,6 +1321,7 @@
 				51B5B418246E022600DC5D3E /* InsetLabel.swift in Sources */,
 				13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */,
 				B1D7D68D24766D2100E4DA5D /* file_bucket.pb.swift in Sources */,
+				715D758A2475587700984BED /* DynamicTableHeaderView.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
@@ -1320,6 +1349,7 @@
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
+				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
 				714CD869247297F800F56450 /* NibLoadable.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
 				B1BC090F246B1A0C00302424 /* PersistedAndPublished.swift in Sources */,
@@ -1344,6 +1374,7 @@
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				EE20EA0C24699AA100770683 /* RiskLegendTableViewCell.swift in Sources */,
+				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				51CE1B87246078B6002CF42A /* ActivateCollectionViewCell.swift in Sources */,
 				51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */,
 				518A6A1E246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift in Sources */,
@@ -1379,6 +1410,7 @@
 				710ABB25247514BD00948792 /* UIViewController+Segue.swift in Sources */,
 				51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
+				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
 				514EE9A0246D4DF800DE4884 /* HomeRiskItemViewConfigurator.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
