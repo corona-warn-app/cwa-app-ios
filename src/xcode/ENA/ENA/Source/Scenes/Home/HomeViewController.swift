@@ -79,7 +79,7 @@ final class HomeViewController: UIViewController {
 			}
 		}
     }
-	
+    
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
@@ -217,13 +217,19 @@ final class HomeViewController: UIViewController {
     // MARK: Configuration
 
     func prepareData() {
-        cellConfigurators = homeInteractor.cellConfigurators()
+        cellConfigurators = homeInteractor.cellConfigurators
     }
 
     func reloadData() {
         collectionView.reloadData()
     }
 
+    func reloadCell(at index: Int) {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadItems([index])
+        dataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self

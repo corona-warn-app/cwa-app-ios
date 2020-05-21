@@ -26,6 +26,14 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
         return dateFormatter
     }()
     
+    func startLoading() {
+        isLoading = true
+    }
+    
+    func stopLoading() {
+        isLoading = false
+    }
+    
     // MARK: Creating a Home Risk Cell Configurator
     init(riskLevel: RiskLevel, lastUpdateDate: Date?, numberRiskContacts: Int, lastContactDate: Date, isLoading: Bool) {
         self.riskLevel = .low // riskLevel

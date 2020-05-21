@@ -33,6 +33,7 @@ final class RiskLoadingItemView: UIView, RiskVVView {
         activityIndicatorView.startAnimating()
         configureTextViewLayout()
         configureActivityIndicatorView()
+        wrapActivityIndicator()
     }
     
     override func layoutSubviews() {
@@ -82,7 +83,6 @@ final class RiskLoadingItemView: UIView, RiskVVView {
             topActivityIndicatorTopTextViewConstraint.isActive = false
             titleTextView.textContainer.exclusionPaths.removeAll()
         }
-        
     }
     
     func hideSeparator() {

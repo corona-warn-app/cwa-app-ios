@@ -23,16 +23,23 @@ final class HomeInteractor {
         self.exposureManager = exposureManager
         self.client = client
         self.store = store
+        self.cells = initialCellConfigurators()
     }
 
     // MARK: Properties
     
     private unowned var homeViewController: HomeViewController
+    private let exposureManager: ExposureManager
+    private let client: Client
     private let store: Store
     var detectionSummary: ENExposureDetectionSummary?
-    private(set) var exposureManager: ExposureManager
-    private let client: Client
 
+    private var cells: [CollectionViewCellConfiguratorAny] = []
+    
+    var cellConfigurators: [CollectionViewCellConfiguratorAny] {
+        cells
+    }
+    
     private lazy var developerMenu: DMDeveloperMenu = {
         DMDeveloperMenu(
             presentingViewController: homeViewController,
@@ -45,7 +52,32 @@ final class HomeInteractor {
         developerMenu.enableIfAllowed()
     }
 
-    func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
+    private func riskCellTask(completion: (() -> Void)?) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            completion?()
+        }
+    }
+    
+    private func startCheckRisk() {
+        isLoading.toggle()
+        if isLoading {
+            riskConfigurator.startLoading()
+            homeViewController.reloadCell(at: 1)
+        } else {
+            riskConfigurator.stopLoading()
+            homeViewController.reloadCell(at: 1)
+        }
+//        riskCellTask(completion: {
+//            self.riskConfigurator.stopLoading()
+//            self.homeViewController.reloadCell(at: 2)
+//        })
+    }
+    
+    var isLoading = false
+    
+    private var riskConfigurator: HomeRiskCellConfigurator!
+    
+    private func initialCellConfigurators() -> [CollectionViewCellConfiguratorAny] {
 
         let activeConfigurator = HomeActivateCellConfigurator(isActivated: true)
         let date = store.dateLastExposureDetection
@@ -56,9 +88,9 @@ final class HomeInteractor {
         } else {
             riskLevel = .unknown
         }
-        let riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, lastUpdateDate: date, numberRiskContacts: 2, lastContactDate: Date(), isLoading: true)
+        riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, lastUpdateDate: date, numberRiskContacts: 2, lastContactDate: Date(), isLoading: isLoading)
         riskConfigurator.contactAction = { [unowned self] in
-            self.homeViewController.showExposureDetection()
+            self.startCheckRisk()
         }
         let submitConfigurator = HomeSubmitCellConfigurator()
 
@@ -97,6 +129,7 @@ final class HomeInteractor {
 			appInformationConfigurator,
 			settingsConfigurator
 		]
+        
         return configurators
     }
 }
