@@ -76,6 +76,14 @@ final class ExposureDetectionTransaction {
         delegate?.exposureDetectionTransaction(self, didDetectSummary: summary)
     }
 
+    // Get the exposure manager from the delegate
+    private func exposureManager() -> ExposureManager {
+        guard let delegate = delegate else {
+            fatalError("ExposureDetectionTransaction requires a delegate to work.")
+        }
+        return delegate.exposureDetectionTransactionRequiresExposureManager(self)
+    }
+
     // Gets today formatted as required by the backend.
     private func formattedToday() -> String {
         guard let delegate = delegate else {
@@ -100,7 +108,7 @@ final class ExposureDetectionTransaction {
                 }
             }
         }
-     }
+    }
 
     // 2. Step: Determine and fetch what is missing
     private func fetchAndStoreMissingDaysAndHours(
@@ -144,23 +152,6 @@ final class ExposureDetectionTransaction {
         }
     }
 
-    // 4. Get the Manager
-    private func withExposureManager(
-        useManager: @escaping ExposureDetectionTransactionDelegate.ContinueHandler
-    ) {
-        guard let delegate = delegate else {
-            fatalError("A transaction MUST have a delegate.")
-        }
-
-        delegate.exposureDetectionTransaction(
-            self,
-            continueWithExposureManager: { useManager($0) },
-            abort: { _ in
-                self.endPrematurely(reason: .noExposureManager)
-            }
-        )
-    }
-
     // 4. Transform
     private func createAppleFilesWriter() throws -> AppleFilesWriter {
         // 1. Create temp dir
@@ -192,32 +183,32 @@ final class ExposureDetectionTransaction {
         configuration: ENExposureConfiguration,
         completion: @escaping () -> Void
     ) {
-        withExposureManager { manager in
-            _ = manager.detectExposures(
-                configuration: configuration,
-                diagnosisKeyURLs: diagnosisKeyURLs
-            ) { [weak self] summary, error in
-                guard let self = self else {
-                    return
-                }
-                if let error = error {
-                    self.endPrematurely(reason: .noSummary(error))
-                    return
-                }
-
-                guard let summary = summary else {
-                    completion()
-                    self.endPrematurely(reason: .noSummary(nil))
-                    return
-                }
-                print("summary: \(summary)")
-                print("error: \(String(describing: error))")
-
-                self.didDetectSummary(summary)
-                completion()
+        let manager = exposureManager()
+        _ = manager.detectExposures(
+            configuration: configuration,
+            diagnosisKeyURLs: diagnosisKeyURLs
+        ) { [weak self] summary, error in
+            guard let self = self else {
+                return
             }
+            if let error = error {
+                self.endPrematurely(reason: .noSummary(error))
+                return
+            }
+
+            guard let summary = summary else {
+                completion()
+                self.endPrematurely(reason: .noSummary(nil))
+                return
+            }
+            print("summary: \(summary)")
+            print("error: \(String(describing: error))")
+
+            self.didDetectSummary(summary)
+            completion()
         }
     }
+
 }
 
 private extension SignedPayloadStore {
