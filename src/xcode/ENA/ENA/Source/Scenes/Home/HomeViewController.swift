@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ExposureNotification
 
 final class HomeViewController: UIViewController {
 
@@ -51,6 +52,8 @@ final class HomeViewController: UIViewController {
     private let store: Store
     private let client: Client
 
+	private var summaryNotificationObserver: NSObjectProtocol?
+
     enum Section: Int {
         case actions
     }
@@ -68,13 +71,28 @@ final class HomeViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.largeTitleDisplayMode = .never
         homeInteractor.developerMenuEnableIfAllowed()
-		resizeDataViews()
+		
+		summaryNotificationObserver = NotificationCenter.default.addObserver(forName: .didDetectExposureDetectionSummary, object: nil, queue: nil) { notification in
+			// Temporary handling of exposure detection summary notification until implemented in transaction flow
+			if let userInfo = notification.userInfo as? [String: Any], let summary = userInfo["summary"] as? ENExposureDetectionSummary {
+				log(message: "got summary: \(summary.description)")
+				self.homeInteractor.detectionSummary = summary
+				self.prepareData()
+				self.reloadData()
+			}
+		}
     }
 	
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		resizeDataViews()
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		NotificationCenter.default.removeObserver(summaryNotificationObserver, name: .didDetectExposureDetectionSummary, object: nil)
 	}
+	
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        resizeDataViews()
+    }
 	
     // MARK: Actions
     @objc
@@ -150,7 +168,7 @@ final class HomeViewController: UIViewController {
     }
 
     func showDeveloperMenu() {
-        guard let developerMenuController = AppStoryboard.developerMenu.initiateInitial() else { return }
+        let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
         present(developerMenuController, animated: true, completion: nil)
     }
 
@@ -160,38 +178,23 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureDetection() {
-        // IMPORTANT:
-        // In pull request #98 (https://github.com/corona-warn-app/cwa-app-ios/pull/98) we had to remove code
-        // that used the already injected `ExposureManager` and did the following:
-        //
-        // - The manager was activated.
-        // - Some basic error handling was performed – specifically exposureNotificationRequired and
-        //   exposureNotificationAuthorization were handled by just logging a warning.
-        // - The activated manager was injected into `ExposureDetectionViewController` by setting a property on it.
-        //
-        // We had to temporarily remove this code because it caused an error (invalid use of API - detection already running).
-        // This error also happens in Apple's sample code and does not happen if ExposureManager is created on demand for
-        // every exposure detection request. There are other situations where this error does not happen like when the internal
-        // state of `ENManager` is mutated before kicking of an exposure detection. Our current workaround is to simply
-        // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
-
-        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection) { coder in
+        let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
             ExposureDetectionViewController(
                 coder: coder,
-                client: self.client,
                 store: self.store,
+                client: self.client,
                 signedPayloadStore: self.signedPayloadStore
             )
         }
-        exposureDetectionViewController.delegate = homeInteractor
-        present(exposureDetectionViewController, animated: true, completion: nil)
+        present(vc, animated: true)
     }
 
     func showAppInformation() {
-		if let appInformatioViewController = AppStoryboard.appInformation.initiateInitial() {
-			navigationController?.pushViewController(appInformatioViewController, animated: true)
+        navigationController?.pushViewController(
+            AppStoryboard.appInformation.initiateInitial(),
+            animated: true
+        )
 		}
-    }
 
     private func showScreen(at indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
@@ -216,16 +219,10 @@ final class HomeViewController: UIViewController {
 
     func reloadData() {
         collectionView.reloadData()
-		resizeDataViews()
     }
 
     private func resizeDataViews() {
         tableView.invalidateIntrinsicContentSize()
-		resizeDataViews0()
-        view.setNeedsLayout()
-    }
-
-    private func resizeDataViews0() {
         view.layoutIfNeeded()
     
         let collectionHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
