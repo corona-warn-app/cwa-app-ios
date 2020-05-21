@@ -9,12 +9,12 @@ import XCTest
 import ExposureNotification
 @testable import ENA
 
-final class FMDBWrapperTests: XCTestCase {
-    var db: FMDBWrapper!
+final class PayloadStoreTests: XCTestCase {
+    var db: FMDBPayloadStore!
 
     override func setUp() {
         super.setUp()
-        db = FMDBWrapper(with: URL(staticString: "file::memory:"))
+        db = FMDBPayloadStore(with: URL(staticString: "file::memory:"))
     }
 
     func testRoundtripSuccess() {
@@ -30,11 +30,10 @@ final class FMDBWrapperTests: XCTestCase {
         let result = db.fetchPayloads()
 
         // Validate
-        XCTAssertNotNil(result, "Result nil")
-        XCTAssertNotNil(result?.first, "Result empty")
+        XCTAssertNotNil(result.first, "Result empty")
 
-        XCTAssertEqual(result?.first?.data, data)
-        XCTAssertEqual(result?.first?.day.timeIntervalSince1970, day.timeIntervalSince1970)
+        XCTAssertEqual(result.first?.data, data)
+        XCTAssertEqual(result.first?.day.timeIntervalSince1970, day.timeIntervalSince1970)
     }
 
     func testRoundtripFailure() {
@@ -42,7 +41,7 @@ final class FMDBWrapperTests: XCTestCase {
         let result = db.fetchPayloads()
 
         // Validate
-        XCTAssertNil(result?.first, "Result not empty")
+        XCTAssertNil(result.first, "Result not empty")
     }
 
     func testStoredKeysSuccess() {
