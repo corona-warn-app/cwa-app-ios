@@ -34,6 +34,8 @@
 "Settings_MobileData_Description" = "Erklärungstext über das durchschnittliche Datenvolumen für den Abgleich der Daten am Tag";
 "Settings_Reset_Description" = "Alle Ihre Daten werden gelöscht";
 
+"Settings_NavTitle" = "Einstellungen";
+
 // Onboarding
 "Onboarding_Next" = "Nächste";
 "Onboarding_Finish" = "Fertig";

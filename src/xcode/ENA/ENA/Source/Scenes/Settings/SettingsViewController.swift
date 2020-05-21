@@ -10,28 +10,13 @@ import ExposureNotification
 import UIKit
 import MessageUI
 
-final class SettingsViewController: UIViewController {
-    // MARK: Properties
-    @IBOutlet weak var tracingLabel: UILabel!
-    @IBOutlet weak var trackingStatusLabel: UILabel!
-    @IBOutlet weak var tracingTextView: UITextView!
-    @IBOutlet weak var sendLogFileView: UIView!
-    @IBOutlet weak var tracingStackView: UIStackView!
-    @IBOutlet weak var tracingContainerView: UIView!
-    @IBOutlet weak var tracingButton: UIButton!
-    @IBOutlet weak var notificationStatusLabel: UILabel!
-    @IBOutlet weak var notificationsContainerView: UIView!
-    @IBOutlet weak var notificationStackView: UIStackView!
-    @IBOutlet weak var mobileDataSwitch: ENASwitch!
-    @IBOutlet weak var resetButton: UIButton!
-    @IBOutlet weak var resetTextView: UITextView!
-    @IBOutlet weak var notificationLabel: UILabel!
-    @IBOutlet weak var notificationTextView: UITextView!
-    @IBOutlet weak var mobileDataLabel: UILabel!
-    @IBOutlet weak var mobileDataTextView: UITextView!
-
+final class SettingsViewController: UITableViewController {
     let manager: ExposureManager
     let store: Store
+
+    let tracingSegue = "showTracing"
+    let resetSegue = "showReset"
+
     init?(coder: NSCoder, manager: ExposureManager, store: Store) {
         self.manager = manager
         self.store = store
@@ -42,11 +27,20 @@ final class SettingsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    let settingsViewModel = SettingsViewModel.model
+
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
+
+        navigationItem.title = AppStrings.Settings.navigationBarTitle
+        navigationController?.navigationBar.prefersLargeTitles = true
+
         setupView()
     }
 
@@ -56,45 +50,191 @@ final class SettingsViewController: UIViewController {
         checkTracingStatus()
     }
 
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        resetButton.sizeToFit()
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? ResetViewController {
+        if segue.identifier == resetSegue, let vc = segue.destination as? ResetViewController {
             vc.delegate = self
         }
     }
 
-    // MARK: Actions
-    @IBAction func mobileDataValueChanged(_ sender: Any) {
-        if mobileDataSwitch.isOn {
-            store.allowsCellularUse = true
-        } else {
-            store.allowsCellularUse = false
-        }
+    @IBSegueAction
+    func createExposureNotificationSettingViewController(coder: NSCoder) -> ExposureNotificationSettingViewController? {
+        return ExposureNotificationSettingViewController(coder: coder, manager: manager)
     }
 
-    @IBAction func showNotificationSettings(_: Any) {
-        guard
-            let settingsURL = URL(string: UIApplication.openSettingsURLString),
-            UIApplication.shared.canOpenURL(settingsURL) else {
-                return
-        }
-        UIApplication.shared.open(settingsURL)
+    @objc
+    private func willEnterForeground() {
+        checkTracingStatus()
+        notificationSettings()
     }
 
-    @IBAction func showTracingDetails(_: Any) {
-        let storyboard = AppStoryboard.exposureNotificationSetting.instance
-        let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
-            ExposureNotificationSettingViewController(coder: coder, manager: self.manager)
-        }
+    private func setupView() {
+        #if !APP_STORE
+            let tap = UITapGestureRecognizer(target: self, action: #selector(sendLogFile))
+            tap.numberOfTapsRequired = 3
+            view.addGestureRecognizer(tap)
+        #endif
+
+        checkTracingStatus()
+        notificationSettings()
+        checkMobileDataUsagePermission()
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willEnterForeground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: UIApplication.shared
         )
-        navigationController?.pushViewController(vc, animated: true)
     }
 
+    private func checkTracingStatus() {
+        manager.preconditions().contains(.enabled) ? settingsViewModel.notifications.setState(state: true) : settingsViewModel.notifications.setState(state: false)
+        tableView.reloadData()
+    }
 
-    @IBAction func sendLogFile(_: Any) {
+    private func notificationSettings() {
+        let currentCenter = UNUserNotificationCenter.current()
+
+        currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
+            guard let self = self else { return }
+
+            if let error = error {
+                log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
+                self.settingsViewModel.notifications.setState(state: false)
+                return
+            }
+
+            if granted {
+                self.settingsViewModel.notifications.setState(state: true)
+            } else {
+                self.settingsViewModel.notifications.setState(state: false)
+            }
+
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+
+    private func checkMobileDataUsagePermission() {
+        settingsViewModel.mobileData.setState(state: store.allowsCellularUse)
+        tableView.reloadData()
+    }
+}
+
+// MARK: UITableViewDataSource, UITableViewDelegate
+extension SettingsViewController {
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return Sections.allCases.count
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let section = Sections.allCases[section]
+
+        switch section {
+        case .reset:
+            return 40
+        case .tracing, .notifications, .mobileData:
+            return 20
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        let section = Sections.allCases[section]
+
+        switch section {
+        case .tracing:
+            return AppStrings.Settings.tracingDescription
+        case .notifications:
+            return AppStrings.Settings.notificationDescription
+        case .mobileData:
+            return AppStrings.Settings.mobileDataDescription
+        case .reset:
+            return ""
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let section = Sections.allCases[indexPath.section]
+
+        switch section {
+        case .tracing:
+            return configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
+        case .notifications:
+            return configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
+        case .mobileData:
+            return configureMainCell(indexPath: indexPath, model: settingsViewModel.mobileData)
+        case .reset:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? ResetTableViewCell else {
+                fatalError("No cell for reuse identifier.")
+            }
+
+            cell.titleLabel.text = settingsViewModel.reset
+
+            return cell
+        }
+    }
+
+    func configureMainCell(indexPath: IndexPath, model: SettingsViewModel.Main) -> MainSettingsTableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.main.rawValue, for: indexPath) as? MainSettingsTableViewCell else {
+            fatalError("No cell for reuse identifier.")
+        }
+
+        let icon = model.icon
+
+        cell.iconImageView.image = icon.isSystem ? UIImage(systemName: icon.imageName) : UIImage(named: icon.imageName)
+        cell.descriptionLabel.text = model.description
+        cell.stateLabel.text = model.state ?? model.stateInactive
+
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = Sections.allCases[indexPath.section]
+
+        switch section {
+        case .tracing:
+            performSegue(withIdentifier: tracingSegue, sender: nil)
+        case .notifications:
+            guard
+                let settingsURL = URL(string: UIApplication.openSettingsURLString),
+                UIApplication.shared.canOpenURL(settingsURL) else {
+                    return
+            }
+            UIApplication.shared.open(settingsURL)
+        case .mobileData:
+            guard
+                let settingsURL = URL(string: UIApplication.openSettingsURLString),
+                UIApplication.shared.canOpenURL(settingsURL) else {
+                    return
+            }
+            UIApplication.shared.open(settingsURL)
+        case .reset:
+            performSegue(withIdentifier: resetSegue, sender: nil)
+        }
+
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+}
+
+extension SettingsViewController: ResetDelegate {
+    func reset() {
+        store.isOnboarded = false
+        store.dateLastExposureDetection = nil
+        store.allowsCellularUse = true
+    }
+}
+
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    @objc
+    func sendLogFile() {
         let alert = UIAlertController(title: "Send Log", message: "", preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "Please enter email"
@@ -125,121 +265,24 @@ final class SettingsViewController: UIViewController {
         }
 
         alert.addAction(action)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
         present(alert, animated: true, completion: nil)
     }
 
-    @objc
-    private func willEnterForeground() {
-        notificationSettings()
-        checkTracingStatus()
-    }
-
-    // MARK: View Helper
-    private func setupView() {
-        #if !APP_STORE
-            sendLogFileView.isHidden = false
-        #endif
-
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-
-        // receive status of manager
-        checkTracingStatus()
-        checkMobileDataUsagePermission()
-        notificationSettings()
-        setupLocalizedLabels()
-
-        tracingStackView.isUserInteractionEnabled = false
-        notificationStackView.isUserInteractionEnabled = false
-        tracingContainerView.setBorder(
-            at: [.top, .bottom],
-            with: UIColor.preferredColor(for: ColorStyle.separator),
-            thickness: 1
-        )
-        notificationsContainerView.setBorder(at: [.top, .bottom], with: UIColor.preferredColor(for: ColorStyle.separator), thickness: 1)
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(willEnterForeground),
-            name: UIApplication.willEnterForegroundNotification,
-            object: UIApplication.shared
-        )
-    }
-
-    private func setupLocalizedLabels() {
-        tracingLabel.text = AppStrings.Settings.tracingLabel
-        tracingTextView.text = AppStrings.Settings.tracingDescription
-        notificationLabel.text = AppStrings.Settings.notificationLabel
-        notificationTextView.text = AppStrings.Settings.notificationDescription
-        mobileDataLabel.text = AppStrings.Settings.mobileDataLabel
-        mobileDataTextView.text = AppStrings.Settings.mobileDataDescription
-        resetButton.setTitle(AppStrings.Settings.resetLabel, for: .normal)
-        resetButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        resetTextView.text = AppStrings.Settings.resetDescription
-    }
-
-    private func notificationSettings() {
-        let currentCenter = UNUserNotificationCenter.current()
-
-        currentCenter.getNotificationSettings { settings in
-            self.setNotificationStatus(for: settings.authorizationStatus)
-        }
-    }
-
-    private func checkTracingStatus() {
-        manager.preconditions().contains(.enabled) ?
-            setTrackingStatusActive(to: true) :
-            setTrackingStatusActive(to: false)
-    }
-
-    private func checkMobileDataUsagePermission() {
-        self.mobileDataSwitch.setOn(self.store.allowsCellularUse, animated: true)
-    }
-
-    private func setTrackingStatusActive(to active: Bool) {
-        DispatchQueue.main.async {
-            if active {
-                self.trackingStatusLabel.text = AppStrings.Settings.trackingStatusActive
-            } else {
-                self.trackingStatusLabel.text = AppStrings.Settings.trackingStatusInactive
-            }
-        }
-    }
-
-    private func setNotificationStatus(for status: UNAuthorizationStatus) {
-        DispatchQueue.main.async {
-            switch status {
-            case .authorized:
-                self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
-            case .notDetermined:
-                let currentCenter = UNUserNotificationCenter.current()
-                currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { _, error in
-                    DispatchQueue.main.async {
-                        if error != nil {
-                            // Handle the error here.
-                            self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
-                            return
-                        }
-                        self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusActive
-                        // Enable or disable features based on the authorization.
-                    }
-                }
-            default:
-                self.notificationStatusLabel.text = AppStrings.Settings.notificationStatusInactive
-            }
-        }
-    }
-}
-
-extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
 }
 
-extension SettingsViewController: ResetDelegate {
-    func reset() {
-        store.isOnboarded = false
-        store.dateLastExposureDetection = nil
-        store.allowsCellularUse = true
-    }
+enum Sections: CaseIterable {
+    case tracing
+    case notifications
+    case mobileData
+    case reset
+}
+
+enum ReuseIdentifier: String {
+    case main = "mainSettings"
+    case reset = "resetSettings"
 }
