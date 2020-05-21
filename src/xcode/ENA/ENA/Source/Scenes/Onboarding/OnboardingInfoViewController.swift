@@ -53,6 +53,9 @@ final class OnboardingInfoViewController: UIViewController {
     @IBOutlet var nextButton: ENAButton!
 	@IBOutlet var ignoreButton: UIButton!
 	
+	@IBOutlet weak var scrollView: UIScrollView!
+	@IBOutlet weak var footerView: UIView!
+	
 	private var onboardingInfos = OnboardingInfo.testData()
 
     var onboardingInfo: OnboardingInfo?
@@ -67,6 +70,12 @@ final class OnboardingInfoViewController: UIViewController {
         view.layoutMargins = .zero
 		updateUI()
     }
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		let height = footerView.frame.height + 20
+		scrollView.contentInset.bottom = height
+	}
 
     func runActionForPageType(completion: @escaping () -> Void) {
 		switch pageType {
