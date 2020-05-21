@@ -8,36 +8,6 @@
 
 import UIKit
 
-protocol RiskVVView: UIView { }
-
-protocol HomeRiskViewConfiguratorAny {
-    var viewAnyType: UIView.Type { get }
-    
-    func configureAny(riskView: UIView)
-}
-
-protocol HomeRiskViewConfigurator: HomeRiskViewConfiguratorAny {
-    associatedtype ViewType: UIView
-    func configure(riskView: ViewType)
-}
-
-extension HomeRiskViewConfigurator {
-    
-    var viewAnyType: UIView.Type {
-        ViewType.self
-    }
-    
-    func configureAny(riskView: UIView) {
-        if let riskView = riskView as? ViewType {
-            configure(riskView: riskView)
-        } else {
-            let error = "\(riskView) isn't conformed ViewType"
-            logError(message: error)
-            fatalError(error)
-        }
-    }
-}
-
 final class HomeRiskCellPropertyHolder {
     
     let title: String

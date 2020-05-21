@@ -225,9 +225,12 @@ final class HomeViewController: UIViewController {
     }
 
     func reloadCell(at index: Int) {
-        var snapshot = dataSource.snapshot()
-        snapshot.reloadItems([index])
-        dataSource.apply(snapshot, animatingDifferences: false)
+        let snapshot = dataSource.snapshot()
+        cellConfigurators = homeInteractor.cellConfigurators
+
+        let cell = collectionView.cellForItem(at: IndexPath(item: 1, section: 0))!
+        cellConfigurators[1].configureAny(cell: cell)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func createLayout() -> UICollectionViewLayout {

@@ -22,7 +22,7 @@ final class HomeRiskItemViewConfigurator: HomeRiskViewConfigurator {
         self.color = color
     }
     
-    func configure(riskView: RiskItemView) {
+    func configure(riskView: RiskImageItemView) {
         let iconTintColor = titleColor
         riskView.iconImageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
         riskView.titleTextView?.text = title
