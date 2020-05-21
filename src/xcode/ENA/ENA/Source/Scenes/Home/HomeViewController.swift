@@ -78,6 +78,45 @@ final class HomeViewController: UIViewController {
 				self.reloadData()
 			}
 		}
+
+        makeExposureNotificationWorkIfNeeded()
+    }
+
+    // This method makes the exposure manager usable.
+    // It may take a while for the exposure manager to be setup correctly.
+    // Just give the app a few seconds before you do something.
+    // TODO: Improve this
+    private func makeExposureNotificationWorkIfNeeded() {
+        func activate(then completion: @escaping () -> Void) {
+            exposureManager.activate { error in
+                if let error = error {
+                    logError(message: "Failed to activate: \(error)")
+                    return
+                }
+                completion()
+            }
+        }
+        func enable() {
+            exposureManager.enable { error in
+                if let error = error {
+                    logError(message: "Failed to enable: \(error)")
+                    return
+                }
+            }
+        }
+
+        func enableIfNeeded() {
+            guard exposureManager.preconditions().contains(.active) else {
+                enable()
+                return
+            }
+        }
+
+        guard exposureManager.preconditions().contains(.active) else {
+            activate(then: enableIfNeeded)
+            return
+        }
+        enableIfNeeded()
     }
 	
 	override func viewWillDisappear(_ animated: Bool) {
