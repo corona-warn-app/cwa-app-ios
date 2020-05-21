@@ -50,6 +50,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         self.window = window
+        exposureManager.resume(observer: self)
         setupUI()
 
         NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
@@ -124,6 +125,25 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         UserDefaults.standard.synchronize()
+    }
+}
+
+extension SceneDelegate: ENAExposureManagerObserver {
+    func exposureManager(
+        _ manager: ENAExposureManager,
+        didChangeState newState: ExposureManagerState
+    ) {
+        let message = """
+        New status of EN framework:
+        Authorized: \(newState.authorized)
+        enabled: \(newState.enabled)
+        active: \(newState.active)
+        """
+        log(message: message)
+        
+        if newState.isGood {
+            log(message: "Enabled")
+        }
     }
 }
 

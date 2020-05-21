@@ -13,14 +13,11 @@ enum ExposureNotificationError: Error {
     case exposureNotificationAuthorization
 }
 
-struct Preconditions: OptionSet {
-    let rawValue: Int
-
-    static let authorized = Preconditions(rawValue: 1 << 0)
-    static let enabled = Preconditions(rawValue: 1 << 1)
-    static let active = Preconditions(rawValue: 1 << 2)
-
-    static let all: Preconditions = [.authorized, .enabled, .active]
+struct ExposureManagerState {
+    let authorized: Bool
+    let enabled: Bool
+    let active: Bool
+    var isGood: Bool { authorized && enabled && active }
 }
 
 @objc protocol Manager: NSObjectProtocol {
@@ -43,35 +40,56 @@ protocol ExposureManager {
     func activate(completion: @escaping CompletionHandler)
     func enable(completion: @escaping CompletionHandler)
     func disable(completion: @escaping CompletionHandler)
-    func preconditions() -> Preconditions
+    func preconditions() -> ExposureManagerState
     func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
     func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
     func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 }
 
+protocol ENAExposureManagerObserver: AnyObject {
+    func exposureManager(
+        _ manager: ENAExposureManager,
+        didChangeState newState: ExposureManagerState
+    )
+}
+
 /// Wrapper for ENManager to avoid code duplication and to abstract error handling
 final class ENAExposureManager: NSObject, ExposureManager {
     // MARK: Properties
+    private weak var observer: ENAExposureManagerObserver?
+    private var enabledObservation: NSKeyValueObservation?
+    private var statusObservation: NSKeyValueObservation?
     @objc private let manager: Manager
-    private var exposureNotificationEnabledObserver: NSObject?
-    private var exposureNotificationStatus: NSObject?
 
     // MARK: Creating a Manager
 
-    init(manager: Manager = ENManager()) {
+    init(
+        manager: Manager = ENManager()
+    ) {
         self.manager = manager
         super.init()
-        observeENFramework()
     }
 
-    // MARK: Observers
+    func resume(observer: ENAExposureManagerObserver) {
+        precondition(
+            self.observer == nil,
+            "Cannot resume an exposure manager that is already resumed."
+        )
 
-    private func observeENFramework() {
-        exposureNotificationEnabledObserver = observe(\.manager.exposureNotificationEnabled, options: [.new]) {_, _ in
-            _ = self.preconditions()
+        self.observer = observer
+
+        enabledObservation = observe(\.manager.exposureNotificationEnabled, options: .new) { [weak self] _, _ in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                observer.exposureManager(self, didChangeState: self.preconditions())
+            }
         }
-        exposureNotificationStatus = observe(\.manager.exposureNotificationStatus, options: [.new]) {_, _ in
-            _ = self.preconditions()
+
+        statusObservation = observe(\.manager.exposureNotificationStatus, options: .new) {  [weak self] _, _ in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                observer.exposureManager(self, didChangeState: self.preconditions())
+            }
         }
     }
 
@@ -114,36 +132,17 @@ final class ENAExposureManager: NSObject, ExposureManager {
             completion(nil)
         }
     }
-
+    
     /// Returns an instance of the OptionSet `Preconditions`
     /// Only if `Preconditions.all()`
-    func preconditions() -> Preconditions {
-        var preconditions = Preconditions()
-        if type(of: manager).authorizationStatus == ENAuthorizationStatus.authorized {
-            preconditions.insert(.authorized)
-        }
-        if manager.exposureNotificationEnabled {
-            preconditions.insert(.enabled)
-        }
-        if manager.exposureNotificationStatus == .active {
-            preconditions.insert(.active)
-        }
-
-        let message = """
-        New status of EN framework:
-            Authorized: \(ENManager.authorizationStatus.debugDescription)
-            enabled: \(manager.exposureNotificationEnabled)
-            status: \(manager.exposureNotificationStatus.debugDescription)
-        """
-        log(message: message)
-
-        if preconditions == Preconditions.all {
-            log(message: "Enabled")
-        }
-
-        return preconditions
+    func preconditions() -> ExposureManagerState {
+        .init(
+            authorized: type(of: manager).authorizationStatus == .authorized,
+            enabled: manager.exposureNotificationEnabled,
+            active: manager.exposureNotificationStatus == .active
+        )
     }
-
+    
     // MARK: Detect Exposures
 
     /// Wrapper for `ENManager.detectExposures`
