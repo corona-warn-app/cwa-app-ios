@@ -16,7 +16,8 @@ protocol LocalPayloadStore {
     func storePayload(payload: StoredPayload)
 
     /// Get three-tuple that has been previously fetched from the remote sever from local database
-    func fetchPayloads() -> [StoredPayload]?
+    /// If anything goes wrong, an emtpy array will be returned
+    func fetchPayloads() -> [StoredPayload]
 
     /// Delete entries that aren't required any longer
     func clean(until date: Date)
@@ -59,7 +60,7 @@ final class FMDBPayloadStore: LocalPayloadStore {
         }
     }
 
-    func fetchPayloads() -> [StoredPayload]? {
+    func fetchPayloads() -> [StoredPayload] {
         let query = "SELECT payload, day, hour FROM payloadStore"
         var payloads = [StoredPayload]()
 
@@ -74,10 +75,10 @@ final class FMDBPayloadStore: LocalPayloadStore {
                 payloads.append((data, day, hour))
             }
             result.close()
-            return payloads
         } catch {
-            return nil
+            logError(message: "Failed to fetch payloads from db: \(error.localizedDescription)")
         }
+        return payloads  // could also be an empty array
     }
 
     func storedDays() -> [Date] {
