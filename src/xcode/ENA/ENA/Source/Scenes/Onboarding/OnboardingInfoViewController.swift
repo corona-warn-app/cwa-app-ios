@@ -66,6 +66,7 @@ final class OnboardingInfoViewController: UIViewController {
         viewRespectsSystemMinimumLayoutMargins = false
         view.layoutMargins = .zero
 		updateUI()
+		setupAccessibility()
     }
 
     func runActionForPageType(completion: @escaping () -> Void) {
@@ -101,14 +102,26 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 		
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
-		ignoreButton.setTitleColor(UIColor.preferredColor(for: .tintColor), for: .normal)
+        ignoreButton.setTitleColor(UIColor.preferredColor(for: .tintColor), for: .normal)
 		ignoreButton.backgroundColor = UIColor.clear
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
-
+		
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		
+	}
+	
+	func setupAccessibility() {
+		imageView.isAccessibilityElement = false
+		titleLabel.isAccessibilityElement = true
+		boldLabel.isAccessibilityElement = true
+		textLabel.isAccessibilityElement = true
+		nextButton.isAccessibilityElement = true
+		ignoreButton.isAccessibilityElement = true
+
+		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
+		nextButton.accessibilityIdentifier = Accessibility.Button.next
+		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -123,6 +136,12 @@ final class OnboardingInfoViewController: UIViewController {
 	
     // MARK: Exposure notifications
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
+
+		if TestEnvironment.shared.isUITesting {
+            completion?()
+            return
+        }
+
 		exposureManager.activate { error in
             if let error = error {
                 switch error {
@@ -152,7 +171,13 @@ final class OnboardingInfoViewController: UIViewController {
     }
 
     private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+
+        if TestEnvironment.shared.isUITesting {
+            completion?()
+            return
+        }
+
+		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
         notificationCenter.requestAuthorization(options: options) { _, error in
             if let error = error {
                 // handle error

@@ -26,5 +26,10 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
         cell.iconImageView.image = iconImage
         cell.titleTextView.text = AppStrings.Home.activateTitle
         cell.chevronImageView.image = UIImage(systemName: "chevron.right")
+		setupAccessibility(for: cell)
     }
+	
+	func setupAccessibility(for cell: ActivateCollectionViewCell) {
+		cell.titleTextView.accessibilityIdentifier = Accessibility.StaticText.homeActivateTitle
+	}
 }
