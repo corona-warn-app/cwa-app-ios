@@ -66,6 +66,7 @@ final class HomeViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.largeTitleDisplayMode = .never
         homeInteractor.developerMenuEnableIfAllowed()
 		
 		summaryNotificationObserver = NotificationCenter.default.addObserver(forName: .didDetectExposureDetectionSummary, object: nil, queue: nil) { notification in
@@ -159,7 +160,7 @@ final class HomeViewController: UIViewController {
     }
 
     func showDeveloperMenu() {
-        guard let developerMenuController = AppStoryboard.developerMenu.initiateInitial() else { return }
+        let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
         present(developerMenuController, animated: true, completion: nil)
     }
 
@@ -169,21 +170,22 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureDetection() {
-		// swiftlint:disable multiline_arguments_brackets
-		let exposureDetectionViewController = AppStoryboard.exposureDetection.initiateInitial(creator: { coder in
-			ExposureDetectionViewController(coder: coder, store: self.store, client: self.client, signedPayloadStore: self.signedPayloadStore)
-		})
-		// swiftlint:enable multiline_arguments_brackets
-
-		if let exposureDetectionViewController = exposureDetectionViewController {
-			present(exposureDetectionViewController, animated: true)
-		}
+        let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
+            ExposureDetectionViewController(
+                coder: coder,
+                store: self.store,
+                client: self.client,
+                signedPayloadStore: self.signedPayloadStore
+            )
+        }
+        present(vc, animated: true)
     }
 
     func showAppInformation() {
-		if let appInformatioViewController = AppStoryboard.appInformation.initiateInitial() {
-			navigationController?.pushViewController(appInformatioViewController, animated: true)
-		}
+        navigationController?.pushViewController(
+            AppStoryboard.appInformation.initiateInitial(),
+            animated: true
+        )
     }
 
     private func showScreen(at indexPath: IndexPath) {
