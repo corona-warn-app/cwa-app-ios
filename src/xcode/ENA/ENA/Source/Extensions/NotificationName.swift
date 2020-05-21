@@ -19,5 +19,6 @@ extension Notification.Name {
     static let developerSubmissionBaseURLOverrideDidChange = _withPrefix("developerSubmissionBaseURLOverride")
     static let developerDistributionBaseURLOverrideDidChange = _withPrefix("developerDistributionBaseURLOverride")
 
-
+	// Temporary Notification until implemented by actual transaction flow
+	static let didDetectExposureDetectionSummary = _withPrefix("didDetectExposureDetectionSummary")
 }
