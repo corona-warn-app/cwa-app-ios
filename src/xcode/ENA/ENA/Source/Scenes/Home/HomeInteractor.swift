@@ -67,11 +67,11 @@ final class HomeInteractor {
             self.homeViewController.showSubmitResult()
         }
         
-		let configurators: [CollectionViewCellConfiguratorAny] = [
-			activeConfigurator,
-			riskConfigurator,
-			submitConfigurator,
-		]
+        let configurators: [CollectionViewCellConfiguratorAny] = [
+          activeConfigurator,
+          riskConfigurator,
+          submitConfigurator,
+        ]
         return configurators
     }
 }

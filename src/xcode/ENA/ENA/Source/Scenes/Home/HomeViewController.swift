@@ -281,8 +281,10 @@ final class HomeViewController: UIViewController {
 
 	private func createCollectionView() {
 		collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        collectionView.delegate = self
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+		collectionView.isAccessibilityElement = false
+		collectionView.shouldGroupAccessibilityChildren = true
+    collectionView.delegate = self
+    collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isScrollEnabled = false
 		collectionView.setContentHuggingPriority(.defaultHigh, for: .vertical)
 		collectionView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)

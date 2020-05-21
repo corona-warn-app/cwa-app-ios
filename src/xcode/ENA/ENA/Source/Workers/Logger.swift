@@ -11,9 +11,11 @@ import Foundation
 let appLogger = Logger()
 
 func log(message: String, level: LogLevel = .info, file: String = #file, line: UInt = #line, function: String = #function) {
+    NSLog("%@", message)
 }
 
 func logError(message: String, level: LogLevel = .error, file: String = #file, line: UInt = #line, function: String = #function) {
+    NSLog("%@", message)
 }
 
 class Logger {
