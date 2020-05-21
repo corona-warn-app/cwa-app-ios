@@ -24,7 +24,7 @@ final class HomeRiskLoadingItemViewConfigurator: HomeRiskViewConfigurator {
     
     func configure(riskView: RiskLoadingItemView) {
         let iconTintColor = titleColor
-        // riskItemView.iconImageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
+        riskView.activityIndicatorView.color = iconTintColor
         riskView.titleTextView?.text = title
         riskView.titleTextView?.textColor = titleColor
         riskView.separatorView?.backgroundColor = UIColor.white.withAlphaComponent(0.15)

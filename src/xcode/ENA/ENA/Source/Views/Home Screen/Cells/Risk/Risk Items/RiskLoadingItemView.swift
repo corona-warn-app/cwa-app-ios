@@ -32,6 +32,7 @@ final class RiskLoadingItemView: UIView, RiskVVView {
         titleTextView.isUserInteractionEnabled = false
         activityIndicatorView.startAnimating()
         configureTextViewLayout()
+        configureActivityIndicatorView()
     }
     
     override func layoutSubviews() {
