@@ -68,15 +68,13 @@ final class RiskLoadingItemView: UIView, RiskVVView {
             centerYActivityIndicatorCenterYTextViewConstraint.isActive = false
             topActivityIndicatorTopTextViewConstraint.isActive = true
             guard let lineHeight = titleTextView.font?.lineHeight else { return }
-            
-            var iconImageFrame = convert(activityIndicatorView.frame, to: titleTextView)
-            let lineHeightRounded = lineHeight
-            let offset: CGFloat = (lineHeightRounded - iconImageFrame.height ) / 2.0
-            
+        
+            var indicatorFrame = convert(activityIndicatorView.frame, to: titleTextView)
+            let offset: CGFloat = (lineHeight - indicatorFrame.height) / 2.0
             topActivityIndicatorTopTextViewConstraint.constant = max(offset.rounded(), 0) + titleTopPadding
             let iconTitleDistance = leadingTextViewTrailingActivityIndicatorViewConstraint.constant
-            iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
-            let bezierPath = UIBezierPath(rect: iconImageFrame)
+            indicatorFrame.size = CGSize(width: indicatorFrame.width + iconTitleDistance, height: indicatorFrame.height)
+            let bezierPath = UIBezierPath(rect: indicatorFrame)
             titleTextView.textContainer.exclusionPaths = [bezierPath]
         } else {
             centerYActivityIndicatorCenterYTextViewConstraint.isActive = true

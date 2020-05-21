@@ -55,8 +55,7 @@ final class RiskItemView: UIView, RiskVVView {
         guard let lineHeight = titleTextView.font?.lineHeight else { return }
         
         var iconImageFrame = convert(iconImageView.frame, to: titleTextView)
-        let lineHeightRounded = lineHeight
-        let offset: CGFloat = (lineHeightRounded - iconImageFrame.height ) / 2.0
+        let offset: CGFloat = (lineHeight - iconImageFrame.height ) / 2.0
 
         topImageTopTextViewConstraint.constant = max(offset.rounded(), 0) + titleTopPadding
         let iconTitleDistance = leadingTextViewTrailingImageViewConstraint.constant
