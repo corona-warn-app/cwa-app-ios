@@ -8,71 +8,70 @@
 
 import XCTest
 
-extension XCUIElement {
-	func labelContains(text: String) -> Bool {
-		let predicate = NSPredicate(format: "label CONTAINS %@", text)
-		return staticTexts.matching(predicate).firstMatch.exists
-	}
-}
-
 class ENAUITestsOnboarding: XCTestCase {
-	
-	private func handleAlertTaps(alert: XCUIElement) {
-		let okButton = alert.buttons["OK"]
-		if okButton.exists {
-			okButton.tap()
-		}
-		
-		let allowButton = alert.buttons["Allow"]
-		if allowButton.exists {
-			allowButton.tap()
-		}
-	}
-	
+
+    var app: XCUIApplication!
+
 	override func setUp() {
 		continueAfterFailure = false
-		
-		addUIInterruptionMonitor(withDescription: "Local Notifications") {
-			(alert) -> Bool in
-			let notifPermission = "Would Like to Send You Notifications"
-			if alert.labelContains(text: notifPermission) {
-				alert.buttons["Allow"].tap()
-				return true
-			}
-			return false
-		}
-		
-		addUIInterruptionMonitor(withDescription: "Microphone Access") {
-			(alert) -> Bool in
-			let micPermission = "Would Like to Access the Microphone"
-			if alert.labelContains(text: micPermission) {
-				alert.buttons["OK"].tap()
-				return true
-			}
-			return false
-		}
+		app = XCUIApplication()
+		setupSnapshot(app)
+		app.setDefaults()
+        app.launchArguments = ["-isOnboarded NO"]
 	}
 	
 	override func tearDownWithError() throws {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
 	
-	func testExample() throws {
-		let app = XCUIApplication()
-		app.launch()
+//	func test_0000_OnboardingFlow_DisablePermissions() throws {
+//		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XXXL)
+//		app.launch()
+//
+//		// only run if onboarding screen is present
+//		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
+//
+//		// tap through the onboarding screens
+//		snapshot("ScreenShot_\(#function)_0000")
+//		app.buttons[Accessibility.Button.next].tap()
+//		snapshot("ScreenShot_\(#function)_0001")
+//		app.buttons[Accessibility.Button.next].tap()
+//		snapshot("ScreenShot_\(#function)_0002")
+//		app.buttons[Accessibility.Button.ignore].tap()
+//		snapshot("ScreenShot_\(#function)_0003")
+//		app.buttons[Accessibility.Button.next].tap()
+//		snapshot("ScreenShot_\(#function)_0004")
+//		app.buttons[Accessibility.Button.ignore].tap()
+//
+//		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
+//		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+//	}
+//
+//	func test_0001_OnboardingFlow_EnablePermissions() throws {
+//		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XS)
+//		app.launch()
+//
+//		// only run if onboarding screen is present
+//		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
+//		
+//		// tap through the onboarding screens
+//		snapshot("ScreenShot_\(#function)_0000")
+//		app.buttons[Accessibility.Button.next].tap()
+//		snapshot("ScreenShot_\(#function)_0001")
+//		app.buttons[Accessibility.Button.next].tap()
+//		snapshot("ScreenShot_\(#function)_0002")
+//		app.buttons[Accessibility.Button.next].tap()
+//		snapshot("ScreenShot_\(#function)_0003")
+//		app.buttons[Accessibility.Button.next].tap()
+//		snapshot("ScreenShot_\(#function)_0004")
+//		app.buttons[Accessibility.Button.next].tap()
+//
+//		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
+//		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+//	}
 
-		// need to ensure user is not already onboared
-//		PersistenceManager.shared.isOnboarded = false
-		
-		// tap through the onboarding screens
-		app/*@START_MENU_TOKEN@*/.staticTexts["Nächste"]/*[[".buttons[\"Nächste\"].staticTexts[\"Nächste\"]",".staticTexts[\"Nächste\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-		app/*@START_MENU_TOKEN@*/.staticTexts["Nächste"]/*[[".buttons[\"Nächste\"].staticTexts[\"Nächste\"]",".staticTexts[\"Nächste\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-		app/*@START_MENU_TOKEN@*/.staticTexts["Nächste"]/*[[".buttons[\"Nächste\"].staticTexts[\"Nächste\"]",".staticTexts[\"Nächste\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-		app/*@START_MENU_TOKEN@*/.staticTexts["Nächste"]/*[[".buttons[\"Nächste\"].staticTexts[\"Nächste\"]",".staticTexts[\"Nächste\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-		app/*@START_MENU_TOKEN@*/.staticTexts["Fertig"]/*[[".buttons[\"Fertig\"].staticTexts[\"Fertig\"]",".staticTexts[\"Fertig\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-		
-		// check that the homescreen element "/*@START_MENU_TOKEN@*/.staticTexts["Tracing ist aktiv"]/*[[".cells.staticTexts[\"Tracing ist aktiv\"]",".staticTexts[\"Tracing ist aktiv\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/" is visible onscreen
-		XCTAssertNotNil(app.collectionViews/*@START_MENU_TOKEN@*/.staticTexts["Tracing ist aktiv"]/*[[".cells.staticTexts[\"Tracing ist aktiv\"]",".staticTexts[\"Tracing ist aktiv\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/)
-	}
+//	func testOnboardingFlow_Record() throws {
+//	}
 	
 }
+

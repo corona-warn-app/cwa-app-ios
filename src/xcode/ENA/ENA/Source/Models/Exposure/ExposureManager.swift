@@ -61,7 +61,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
     init(manager: Manager = ENManager()) {
         self.manager = manager
         super.init()
-        observeENFramework()
+			observeENFramework()
     }
 
     // MARK: Observers
@@ -130,11 +130,11 @@ final class ENAExposureManager: NSObject, ExposureManager {
         }
 
         let message = """
-        New status of EN framework:
-            Authorized: \(ENManager.authorizationStatus.debugDescription)
-            enabled: \(manager.exposureNotificationEnabled)
-            status: \(manager.exposureNotificationStatus.debugDescription)
-        """
+New status of EN framework:
+	Authorized: \(ENManager.authorizationStatus.debugDescription)
+	enabled: \(manager.exposureNotificationEnabled)
+	status: \(manager.exposureNotificationStatus.debugDescription)
+"""
         log(message: message)
 
         if preconditions == Preconditions.all {
@@ -187,7 +187,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
         } else {
             let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
             logError(message: error)
-            fatalError(error)
+//            fatalError(error)
         }
     }
 
