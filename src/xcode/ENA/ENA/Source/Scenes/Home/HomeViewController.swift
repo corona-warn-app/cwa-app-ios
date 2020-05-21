@@ -41,7 +41,11 @@ final class HomeViewController: UIViewController {
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
     private var tableView: UITableView!
-    private var homeLayout: HomeLayout!
+
+    private var collectionHeightConstraint: NSLayoutConstraint?
+    private var tableHeightConstraint: NSLayoutConstraint?
+
+	private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     private let store: Store
@@ -65,12 +69,11 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         homeInteractor.developerMenuEnableIfAllowed()
+		resizeDataViews()
     }
-
+	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			self.resizeDataViews()
-		}
+		resizeDataViews()
 	}
 	
     // MARK: Actions
@@ -216,33 +219,30 @@ final class HomeViewController: UIViewController {
 		resizeDataViews()
     }
 
-	private var collectionHeightConstraint: NSLayoutConstraint?
-	private var tableHeightConstraint: NSLayoutConstraint?
-	private func resizeDataViews() {
-		view.layoutIfNeeded()
+    private func resizeDataViews() {
+        tableView.invalidateIntrinsicContentSize()
+		resizeDataViews0()
+        view.setNeedsLayout()
+    }
 
-		let collectionHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
-		let tableHeight = tableView.contentSize.height
+    private func resizeDataViews0() {
+        view.layoutIfNeeded()
+    
+        let collectionHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
+        let tableHeight = tableView.contentSize.height
+        
+        collectionHeightConstraint?.isActive = false
+        tableHeightConstraint?.isActive = false
 
-		let _collectionHeightConstraint = collectionHeightConstraint ?? collectionView.heightAnchor.constraint(equalToConstant: collectionHeight)
-		collectionHeightConstraint = _collectionHeightConstraint
-		let _tableHeightConstraint = tableHeightConstraint ?? tableView.heightAnchor.constraint(greaterThanOrEqualToConstant: tableHeight)
-		tableHeightConstraint = _tableHeightConstraint
+        collectionHeightConstraint?.constant = collectionHeight
+        tableHeightConstraint?.constant = tableHeight
 
-		_collectionHeightConstraint.isActive = false
-		_tableHeightConstraint.isActive = false
+        collectionHeightConstraint?.isActive = true
+        tableHeightConstraint?.isActive = true
 
-		_collectionHeightConstraint.constant = collectionHeight
-		_collectionHeightConstraint.priority = UILayoutPriority.defaultHigh
-		_tableHeightConstraint.constant = tableHeight
-		_tableHeightConstraint.priority = UILayoutPriority.defaultHigh
+        view.setNeedsLayout()
+    }
 
-		_collectionHeightConstraint.isActive = true
-		_tableHeightConstraint.isActive = true
-
-		view.setNeedsLayout()
-	}
-	
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self
@@ -268,7 +268,7 @@ final class HomeViewController: UIViewController {
 		tableView.bounces = false
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 44.0
+		tableView.estimatedRowHeight = 88
 	}
 	
     private func configureHierarchy() {
@@ -278,7 +278,14 @@ final class HomeViewController: UIViewController {
 			
 		createCollectionView()
 		createTableView()
-
+				
+		collectionHeightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 88)
+		collectionHeightConstraint?.priority = .defaultHigh
+		collectionHeightConstraint?.isActive = true
+		tableHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: 88)
+		tableHeightConstraint?.priority = .defaultHigh
+		tableHeightConstraint?.isActive = true
+		
 		let stackView = UIStackView(arrangedSubviews: [collectionView, tableView])
 		stackView.backgroundColor = UIColor.clear
 		stackView.alignment = .fill
@@ -363,3 +370,4 @@ extension HomeViewController: UICollectionViewDelegate {
         showScreen(at: indexPath)
     }
 }
+

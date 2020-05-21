@@ -54,14 +54,6 @@ extension HomeViewController: UITableViewDataSource {
 		return view
 	}
 
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return UITableView.automaticDimension
-	}
-
-	func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-		return UITableView.automaticDimension
-	}
-
 	private func configure(cell: InfoTableViewCell, at indexPath: IndexPath) {
 		cell.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
 
