@@ -187,7 +187,7 @@ New status of EN framework:
         } else {
             let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
             logError(message: error)
-            fatalError(error)
+//            fatalError(error)
         }
     }
 

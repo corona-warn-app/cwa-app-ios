@@ -10,10 +10,14 @@ import XCTest
 
 class ENAUITestsHome: XCTestCase {
 
+    var app: XCUIApplication!
+
     override func setUpWithError() throws {
 		continueAfterFailure = false
-		let app = XCUIApplication()
+		app = XCUIApplication()
 		setupSnapshot(app)
+        app.setDefaults()
+        app.launchArguments = ["-isOnboarded YES"]
     }
 
     override func tearDownWithError() throws {
@@ -21,13 +25,8 @@ class ENAUITestsHome: XCTestCase {
     }
 
     func test_0010_HomeFlow_medium() throws {
-		let app = XCUIApplication()
-		app.setDefaults()
-		app.launchEnvironment["isOnboarded"] = "YES"
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .L)
 		app.launch()
-
-		NotificationCenter.default.post(name: Notification.Name.isOnboardedDidChange, object: nil)
 
 		// only run if onboarding screen is present
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
@@ -52,13 +51,8 @@ class ENAUITestsHome: XCTestCase {
     }
 
     func test_0011_HomeFlow_extrasmall() throws {
-		let app = XCUIApplication()
-		app.setDefaults()
-		app.launchEnvironment["isOnboarded"] = "YES"
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .L)
 		app.launch()
-
-		NotificationCenter.default.post(name: Notification.Name.isOnboardedDidChange, object: nil)
 
 		// only run if onboarding screen is present
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
@@ -81,13 +75,8 @@ class ENAUITestsHome: XCTestCase {
     }
 
     func test_0013_HomeFlow_extralarge() throws {
-		let app = XCUIApplication()
-		app.setDefaults()
-		app.launchEnvironment["isOnboarded"] = "YES"
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .L)
 		app.launch()
-
-		NotificationCenter.default.post(name: Notification.Name.isOnboardedDidChange, object: nil)
 
 		// only run if onboarding screen is present
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
