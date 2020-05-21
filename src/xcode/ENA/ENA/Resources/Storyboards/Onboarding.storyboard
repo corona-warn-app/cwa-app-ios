@@ -108,6 +108,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clc-Yy-2ht">
                                                 <rect key="frame" x="0.0" y="58" width="343" height="50"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="WAo-jw-dV0"/>
                                                 </constraints>
@@ -124,6 +125,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Dnb-sh-MSz" secondAttribute="bottom" constant="8" id="RAd-tg-l4K"/>
                                     <constraint firstItem="Dnb-sh-MSz" firstAttribute="top" secondItem="Qvx-Vc-jIj" secondAttribute="top" constant="8" id="bcz-UR-5dW"/>
