@@ -14,9 +14,9 @@ if ! hash protoc 2>/dev/null; then
     echo "$ brew install swift-protobuf"
     exit
 fi
-mkdir -p ../../src/xcode/proto/output
+mkdir -p ../../src/xcode/gen/output
 protoc \
-     --swift_out=../../src/xcode/proto/output \
+     --swift_out=../../src/xcode/gen/output \
      ./exposure_notification.proto \
      ./apple_exposure_notification.proto \
      ./risk_score_parameters.proto \
