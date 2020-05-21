@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "CocoaLumberjack",
-        "repositoryURL": "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
+        "package": "FMDB",
+        "repositoryURL": "https://github.com/ccgus/fmdb",
         "state": {
           "branch": null,
-          "revision": "ca78b3dbbb7fb88ee58943592930dc9e2469ba9e",
-          "version": "3.6.1"
+          "revision": "61e51fde7f7aab6554f30ab061cc588b28a97d04",
+          "version": "2.7.7"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
           "branch": null,
-          "revision": "7790acf0a81d08429cb20375bf42a8c7d279c5fe",
-          "version": "1.8.0"
+          "revision": "7f36441e3372665b1b414f8ac93b5905cc42a405",
+          "version": "1.9.0"
         }
       }
     ]

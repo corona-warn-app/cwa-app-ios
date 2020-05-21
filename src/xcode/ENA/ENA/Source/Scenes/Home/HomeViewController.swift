@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import ExposureNotification
+import SafariServices
 
 final class HomeViewController: UIViewController {
 
     // MARK: Creating a Home View Controller
-    
     init?(
         coder: NSCoder,
         exposureManager: ExposureManager,
@@ -22,6 +23,7 @@ final class HomeViewController: UIViewController {
         self.client = client
         self.store = store
         self.signedPayloadStore = signedPayloadStore
+        self.exposureManager = exposureManager
         super.init(coder: coder)
         homeInteractor = HomeInteractor(
             homeViewController: self,
@@ -37,7 +39,7 @@ final class HomeViewController: UIViewController {
 
     // MARK: Properties
     private let signedPayloadStore: SignedPayloadStore
-
+    private let exposureManager: ExposureManager
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
     private var homeLayout: HomeLayout!
@@ -45,6 +47,8 @@ final class HomeViewController: UIViewController {
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     private let store: Store
     private let client: Client
+	
+	private var summaryNotificationObserver: NSObjectProtocol?
 
     enum Section: Int {
         case actions
@@ -63,8 +67,64 @@ final class HomeViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.largeTitleDisplayMode = .never
         homeInteractor.developerMenuEnableIfAllowed()
+		
+		summaryNotificationObserver = NotificationCenter.default.addObserver(forName: .didDetectExposureDetectionSummary, object: nil, queue: nil) { notification in
+			// Temporary handling of exposure detection summary notification until implemented in transaction flow
+			if let userInfo = notification.userInfo as? [String: Any], let summary = userInfo["summary"] as? ENExposureDetectionSummary {
+				log(message: "got summary: \(summary.description)")
+				self.homeInteractor.detectionSummary = summary
+				self.prepareData()
+				self.reloadData()
+			}
+		}
+
+        makeExposureNotificationWorkIfNeeded()
     }
+
+    // This method makes the exposure manager usable.
+    // It may take a while for the exposure manager to be setup correctly.
+    // Just give the app a few seconds before you do something.
+    // TODO: Improve this
+    private func makeExposureNotificationWorkIfNeeded() {
+        func activate(then completion: @escaping () -> Void) {
+            exposureManager.activate { error in
+                if let error = error {
+                    logError(message: "Failed to activate: \(error)")
+                    return
+                }
+                completion()
+            }
+        }
+        func enable() {
+            exposureManager.enable { error in
+                if let error = error {
+                    logError(message: "Failed to enable: \(error)")
+                    return
+                }
+            }
+        }
+
+        func enableIfNeeded() {
+            guard exposureManager.preconditions().contains(.active) else {
+                enable()
+                return
+            }
+        }
+
+        guard exposureManager.preconditions().contains(.active) else {
+            activate(then: enableIfNeeded)
+            return
+        }
+        enableIfNeeded()
+    }
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		NotificationCenter.default.removeObserver(summaryNotificationObserver, name: .didDetectExposureDetectionSummary, object: nil)
+	}
 
     // MARK: Actions
     @objc
@@ -76,71 +136,48 @@ final class HomeViewController: UIViewController {
 
     // MARK: Misc
     func showSubmitResult() {
-        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { [unowned self] coder in
-            let service = ENAExposureSubmissionService(manager: ENAExposureManager(), client: self.client)
-            return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: service)
+        let controller = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { coder in
+            ExposureSubmissionViewController(
+                coder: coder,
+                exposureSubmissionService: ENAExposureSubmissionService(
+                    manager: self.exposureManager,
+                    client: self.client
+                )
+            )
         }
-        let naviController = UINavigationController(rootViewController: vc)
-        present(naviController, animated: true, completion: nil)
+
+        present(
+            UINavigationController(rootViewController: controller),
+            animated: true,
+            completion: nil
+        )
     }
 
     func showExposureNotificationSetting() {
-
-        let manager = ENAExposureManager()
-        manager.activate { [weak self] error in
-            guard let self = self else { return }
-            if let error = error {
-                switch error {
-                case .exposureNotificationRequired:
-                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-                case .exposureNotificationAuthorization:
-                    log(message: "Encourage the user to authorize this application", level: .warning)
-                }
-            } else if let error = error {
-                logError(message: error.localizedDescription)
-            } else {
-
-                let storyboard = AppStoryboard.exposureNotificationSetting.instance
-                let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
-                    ExposureNotificationSettingViewController(coder: coder, manager: manager)
-                }
-                )
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+        let storyboard = AppStoryboard.exposureNotificationSetting.instance
+        let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
+            ExposureNotificationSettingViewController(
+                coder: coder,
+                manager: self.exposureManager
+            )
         }
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showSetting() {
-        /*let vc = SettingsViewController.initiate(for: .settings)
-        let naviController = UINavigationController(rootViewController: vc)
-        present(naviController, animated: true, completion: nil)*/
-
-        let manager = ENAExposureManager()
-        manager.activate { [weak self] error in
-            guard let self = self else { return }
-            if let error = error {
-                switch error {
-                case .exposureNotificationRequired:
-                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-                case .exposureNotificationAuthorization:
-                    log(message: "Encourage the user to authorize this application", level: .warning)
-                }
-            } else if let error = error {
-                logError(message: error.localizedDescription)
-            } else {
-
-                let storyboard = AppStoryboard.settings.instance
-                let vc = storyboard.instantiateViewController(identifier: "SettingsViewController", creator: { coder in
-                    SettingsViewController(coder: coder, manager: manager, store: self.store)
-                }
-                )
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+        let storyboard = AppStoryboard.settings.instance
+        let vc = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
+            SettingsViewController(
+                coder: coder,
+                manager: self.exposureManager,
+                store: self.store
+            )
         }
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showDeveloperMenu() {
-        guard let developerMenuController = AppStoryboard.developerMenu.initiateInitial() else { return }
+        let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
         present(developerMenuController, animated: true, completion: nil)
     }
 
@@ -150,37 +187,38 @@ final class HomeViewController: UIViewController {
     }
 
     func showExposureDetection() {
-        // IMPORTANT:
-        // In pull request #98 (https://github.com/corona-warn-app/cwa-app-ios/pull/98) we had to remove code
-        // that used the already injected `ExposureManager` and did the following:
-        //
-        // - The manager was activated.
-        // - Some basic error handling was performed – specifically exposureNotificationRequired and
-        //   exposureNotificationAuthorization were handled by just logging a warning.
-        // - The activated manager was injected into `ExposureDetectionViewController` by setting a property on it.
-        //
-        // We had to temporarily remove this code because it caused an error (invalid use of API - detection already running).
-        // This error also happens in Apple's sample code and does not happen if ExposureManager is created on demand for
-        // every exposure detection request. There are other situations where this error does not happen like when the internal
-        // state of `ENManager` is mutated before kicking of an exposure detection. Our current workaround is to simply
-        // create a new instance of `ExposureManager` (and thus of `ENManager`) for each exposure detection request.
-
-        let exposureDetectionViewController = ExposureDetectionViewController.initiate(for: .exposureDetection) { coder in
+        let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
             ExposureDetectionViewController(
                 coder: coder,
-                client: self.client,
                 store: self.store,
-                signedPayloadStore: self.signedPayloadStore
+                client: self.client,
+                signedPayloadStore: self.signedPayloadStore,
+                exposureManager: self.exposureManager
             )
         }
-        exposureDetectionViewController.delegate = homeInteractor
-        present(exposureDetectionViewController, animated: true, completion: nil)
+        present(vc, animated: true)
     }
 
     func showAppInformation() {
-		if let appInformatioViewController = AppStoryboard.appInformation.initiateInitial() {
-			navigationController?.pushViewController(appInformatioViewController, animated: true)
-		}
+        navigationController?.pushViewController(
+            AppStoryboard.appInformation.initiateInitial(),
+            animated: true
+        )
+    }
+
+    func showWebPage() {
+        if let url = URL(string: AppStrings.SafariView.targetURL) {
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+            config.barCollapsingEnabled = true
+
+            let vc = SFSafariViewController(url: url, configuration: config)
+            present(vc, animated: true)
+        } else {
+            let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
+            logError(message: error)
+            fatalError(error)
+        }
     }
 
     private func showScreen(at indexPath: IndexPath) {
@@ -199,6 +237,7 @@ final class HomeViewController: UIViewController {
             if row == 0 {
                 showInviteFriends()
             } else {
+                showWebPage()
             }
         case .settings:
             if row == 0 {

@@ -29,7 +29,7 @@ final class HomeInteractor {
     
     private unowned var homeViewController: HomeViewController
     private let store: Store
-    private var detectionSummary: ENExposureDetectionSummary?
+    var detectionSummary: ENExposureDetectionSummary?
     private(set) var exposureManager: ExposureManager
     private let client: Client
 
@@ -37,7 +37,8 @@ final class HomeInteractor {
         DMDeveloperMenu(
             presentingViewController: homeViewController,
             client: client,
-            store: store
+            store: store,
+            exposureManager: exposureManager
         )
     }()
 
@@ -102,14 +103,5 @@ final class HomeInteractor {
 			settingsConfigurator
 		]
         return configurators
-    }
-}
-
-extension HomeInteractor: ExposureDetectionViewControllerDelegate {
-    func exposureDetectionViewController(_ controller: ExposureDetectionViewController, didReceiveSummary summary: ENExposureDetectionSummary) {
-        log(message: "got summary: \(summary.description)")
-        detectionSummary = summary
-        homeViewController.prepareData()
-        homeViewController.reloadData()
     }
 }
