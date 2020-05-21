@@ -21,17 +21,20 @@ final class DMDeveloperMenu {
     init(
         presentingViewController: UIViewController,
         client: Client,
-        store: Store
+        store: Store,
+        exposureManager: ExposureManager
     ) {
         self.client = client
         self.presentingViewController = presentingViewController
         self.store = store
+        self.exposureManager = exposureManager
     }
 
     // MARK: Properties
     private let presentingViewController: UIViewController
     private let client: Client
     private let store: Store
+    private let exposureManager: ExposureManager
 
     // MARK: Interacting with the developer menu
 
@@ -49,9 +52,13 @@ final class DMDeveloperMenu {
 
     @objc
     func showDeveloperMenu(_ sender: UITapGestureRecognizer) {
-        let devMenuController = DMViewController(client: client, store: store)
+        let vc = DMViewController(
+            client: client,
+            store: store,
+            exposureManager: exposureManager
+        )
         let navigationController = UINavigationController(
-            rootViewController: devMenuController
+            rootViewController: vc
         )
         presentingViewController.present(
             navigationController,
