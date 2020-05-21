@@ -35,10 +35,9 @@ final class HomeInteractor {
     var detectionSummary: ENExposureDetectionSummary?
 
     private var cells: [CollectionViewCellConfiguratorAny] = []
+    var cellConfigurators: [CollectionViewCellConfiguratorAny] { cells }
     
-    var cellConfigurators: [CollectionViewCellConfiguratorAny] {
-        cells
-    }
+    private var riskConfigurator: HomeRiskCellConfigurator?
     
     private lazy var developerMenu: DMDeveloperMenu = {
         DMDeveloperMenu(
@@ -59,23 +58,24 @@ final class HomeInteractor {
     }
     
     private func startCheckRisk() {
-        isLoading.toggle()
-        if isLoading {
-            riskConfigurator.startLoading()
-            homeViewController.reloadCell(at: 1)
-        } else {
-            riskConfigurator.stopLoading()
-            homeViewController.reloadCell(at: 1)
-        }
-//        riskCellTask(completion: {
-//            self.riskConfigurator.stopLoading()
-//            self.homeViewController.reloadCell(at: 2)
-//        })
+        guard let indexPath = indexPathForRiskCell() else { return }
+        riskConfigurator?.startLoading()
+        homeViewController.reloadCell(at: indexPath)
+        riskCellTask(completion: {
+            self.riskConfigurator?.stopLoading()
+            guard let indexPath = self.indexPathForRiskCell() else { return }
+            self.homeViewController.reloadCell(at: indexPath)
+        })
     }
     
-    var isLoading = false
-    
-    private var riskConfigurator: HomeRiskCellConfigurator!
+    private func indexPathForRiskCell() -> IndexPath? {
+        let index = cells.firstIndex { cellConfigurator in
+            cellConfigurator === self.riskConfigurator
+        }
+        guard let item = index else { return nil }
+        let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+        return indexPath
+    }
     
     private func initialCellConfigurators() -> [CollectionViewCellConfiguratorAny] {
 
@@ -88,8 +88,8 @@ final class HomeInteractor {
         } else {
             riskLevel = .unknown
         }
-        riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, lastUpdateDate: date, numberRiskContacts: 2, lastContactDate: Date(), isLoading: isLoading)
-        riskConfigurator.contactAction = { [unowned self] in
+        riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, lastUpdateDate: date, numberRiskContacts: 2, lastContactDate: Date(), isLoading: false)
+        riskConfigurator?.contactAction = { [unowned self] in
             self.startCheckRisk()
         }
         let submitConfigurator = HomeSubmitCellConfigurator()
@@ -101,34 +101,35 @@ final class HomeInteractor {
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
 			body: AppStrings.Home.infoCardShareBody,
-			position: .first
-		)
+			position: .first)
+        
 		let info2Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardAboutTitle,
 			body: AppStrings.Home.infoCardAboutBody,
-			position: .last
-		)
+			position: .last)
 
 		let appInformationConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.appInformationCardTitle,
 			body: nil,
-			position: .first
-		)
+			position: .first)
+        
 		let settingsConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.settingsCardTitle,
 			body: nil,
-			position: .last
-		)
+			position: .last)
 
-		let configurators: [CollectionViewCellConfiguratorAny] = [
-			activeConfigurator,
-			riskConfigurator,
+		var configurators: [CollectionViewCellConfiguratorAny] = [activeConfigurator]
+        if let risk = riskConfigurator {
+            configurators.append(risk)
+        }
+        let others: [CollectionViewCellConfiguratorAny] = [
 			submitConfigurator,
 			info1Configurator,
 			info2Configurator,
 			appInformationConfigurator,
 			settingsConfigurator
 		]
+        configurators.append(contentsOf: others)
         
         return configurators
     }
