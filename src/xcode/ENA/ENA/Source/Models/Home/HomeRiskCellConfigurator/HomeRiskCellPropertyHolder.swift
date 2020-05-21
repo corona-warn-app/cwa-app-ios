@@ -101,19 +101,21 @@ final class HomeRiskCellPropertyHolder {
             let item2 = HomeRiskItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
             var itemCellConfigurator: [HomeRiskViewConfiguratorAny] = []
             if isLoading {
-                let aaa = HomeRiskLoadingItemViewConfigurator(title: "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.", titleColor: titleColor, isLoading: true, color: color)
-                itemCellConfigurator.append(aaa)
+                let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color)
+                itemCellConfigurator.append(isLoadingItem)
             } else {
                 itemCellConfigurator.append(item1)
                 itemCellConfigurator.append(item2)
             }
+            let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardLowTitle
+            let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardLowButton
             return HomeRiskCellPropertyHolder(
-                title: AppStrings.Home.riskCardLowTitle,
+                title: title,
                 titleColor: titleColor,
                 color: color,
                 chevronTintColor: .preferredColor(for: .chevron),
                 chevronImage: UIImage(systemName: "chevron.right"),
-                buttonTitle: AppStrings.Home.riskCardLowButton,
+                buttonTitle: buttonTitle,
                 isButtonEnabled: true,
                 itemCellConfigurators: itemCellConfigurator
             )

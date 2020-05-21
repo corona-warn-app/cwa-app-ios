@@ -81,6 +81,11 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "Home_Risk_High_Date_Item_Title" = "Last test: %@";
 "Home_Risk_High_Button" = "Check risk status";
 
+// Home Status Check
+"Home_Risk_Status_Check_Title" = "In progress..";
+"Home_Risk_Status_Check_Body" = "Current data are downloaded and checked. This can take several minutes.";
+"Home_Risk_Status_Check_Button" = "Check risk status";
+
 "Home_SubmitCard_Title" = "I would be tested";
 "Home_SubmitCard_Body" = "Report your findings anonymously so that contact persons can be informed";
 "Home_SubmitCard_Button" = "Report findings";
