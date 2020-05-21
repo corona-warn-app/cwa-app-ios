@@ -8,6 +8,7 @@
 
 import UIKit
 import ExposureNotification
+import SafariServices
 
 final class HomeViewController: UIViewController {
 
@@ -188,6 +189,20 @@ final class HomeViewController: UIViewController {
         )
     }
 
+    func showWebPage() {
+        if let url = URL(string: AppStrings.SafariView.targetURL) {
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+
+            let vc = SFSafariViewController(url: url, configuration: config)
+            present(vc, animated: true)
+        } else {
+            let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
+            logError(message: error)
+            fatalError(error)
+        }
+    }
+
     private func showScreen(at indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
         let row = indexPath.row
@@ -204,6 +219,7 @@ final class HomeViewController: UIViewController {
             if row == 0 {
                 showInviteFriends()
             } else {
+                showWebPage()
             }
         case .settings:
             if row == 0 {

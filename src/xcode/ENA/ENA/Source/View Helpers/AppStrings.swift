@@ -200,4 +200,8 @@ enum AppStrings {
         static let resetButton = NSLocalizedString("reset_view_reset_button", comment: "")
         static let discardButton = NSLocalizedString("reset_view_discard", comment: "")
     }
+
+    enum SafariView {
+        static let targetURL = NSLocalizedString("safari_corona_website", comment: "")
+    }
 }
