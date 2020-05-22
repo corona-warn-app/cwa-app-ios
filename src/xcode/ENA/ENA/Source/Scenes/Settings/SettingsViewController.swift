@@ -71,7 +71,6 @@ final class SettingsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkTracingStatus()
         updateUI()
     }
 
@@ -83,10 +82,6 @@ final class SettingsViewController: UIViewController {
         if let vc = segue.destination as? ResetViewController {
             vc.delegate = self
         }
-    }
-
-    func updateUI() {
-        notificationSettingsController?.updateUI()
     }
 
     private func setExposureManagerEnabled(
@@ -279,5 +274,12 @@ extension SettingsViewController: ExposureNotificationSettingViewControllerDeleg
         then completion: @escaping (ExposureNotificationError?) -> Void
     ) {
         setExposureManagerEnabled(enabled, then: completion)
+    }
+}
+
+extension SettingsViewController: ViewControllerUpdatable {
+    func updateUI() {
+        setTrackingStatusActive(to: exposureManagerEnabled)
+        notificationSettingsController?.updateUI()
     }
 }

@@ -95,11 +95,6 @@ final class HomeViewController: UIViewController {
         }
     }
 
-    func updateUI() {
-        settingsController?.updateUI()
-        notificationSettingsController?.updateUI()
-    }
-
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
@@ -345,5 +340,12 @@ private extension HomeViewController {
         } else {
             exposureManager.disable(completion: completion)
         }
+    }
+}
+
+extension HomeViewController: ViewControllerUpdatable {
+    func updateUI() {
+        settingsController?.updateUI()
+        notificationSettingsController?.updateUI()
     }
 }

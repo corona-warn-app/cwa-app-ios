@@ -50,19 +50,11 @@ final class ExposureNotificationSettingViewController: UITableViewController {
         setUIText()
         tableView.estimatedRowHeight = 280
         tableView.rowHeight = UITableView.automaticDimension
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateUI()
-    }
-
-    func updateUI() {
-        contactTracingSwitch.setOn(
-            exposureManagerEnabled,
-            animated: true
-        )
     }
 
     private func setExposureManagerEnabled(
@@ -108,5 +100,14 @@ extension ExposureNotificationSettingViewController {
         if let error = error {
             handleEnableError(error)
         }
+    }
+}
+
+extension ExposureNotificationSettingViewController: ViewControllerUpdatable {
+    func updateUI() {
+        contactTracingSwitch.setOn(
+            exposureManagerEnabled,
+            animated: true
+        )
     }
 }
