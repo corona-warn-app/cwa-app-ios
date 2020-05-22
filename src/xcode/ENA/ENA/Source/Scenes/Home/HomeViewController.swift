@@ -263,14 +263,10 @@ final class HomeViewController: UIViewController {
 		view.layoutIfNeeded()
 
 		let collectionHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
-        collectionHeightConstraint?.isActive = false
         collectionHeightConstraint?.constant = collectionHeight
-		collectionHeightConstraint?.isActive = true
         
 		let tableHeight = tableView.contentSize.height
-		tableHeightConstraint?.isActive = false
 		tableHeightConstraint?.constant = tableHeight
-		tableHeightConstraint?.isActive = true
 
         view.setNeedsLayout()
     }
