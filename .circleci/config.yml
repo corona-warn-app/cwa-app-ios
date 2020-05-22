@@ -20,7 +20,6 @@ jobs:
   grab-screenshots:
     macos:
       xcode: 11.5.0
-
     steps:
       - checkout
       - run: cd src/xcode && bundle install
@@ -33,7 +32,11 @@ jobs:
 workflows:
     default:
       jobs:
-        - build-and-test
+        - build-and-test:
+          filters:
+            branches:
+              only:
+                - /.*/
 
     archive-screenshots:
       jobs:
