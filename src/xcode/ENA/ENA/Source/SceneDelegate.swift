@@ -15,6 +15,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let diagnosisKeysStore = SignedPayloadStore()
     private let exposureManager = ENAExposureManager()
     private let navigationController: UINavigationController = .withLargeTitle()
+    private weak var homeController: HomeViewController?
+    var exposureManagerEnabled = false
 
     private(set) lazy var client: Client = {
         #if APP_STORE
@@ -64,18 +66,19 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func showHome(animated: Bool = false) {
+        let vc = AppStoryboard.home.initiateInitial { [unowned self] coder in
+            HomeViewController(
+                coder: coder,
+                exposureManager: self.exposureManager,
+                client: self.client,
+                store: self.store,
+                signedPayloadStore: self.diagnosisKeysStore
+            )
+        } as HomeViewController
+        homeController = vc // strong ref needed
+        vc.exposureManagerEnabled = exposureManager.preconditions().enabled
         navigationController.setViewControllers(
-            [
-                AppStoryboard.home.initiateInitial { [unowned self] coder in
-                    HomeViewController(
-                        coder: coder,
-                        exposureManager: self.exposureManager,
-                        client: self.client,
-                        store: self.store,
-                        signedPayloadStore: self.diagnosisKeysStore
-                    )
-                }
-            ],
+            [vc],
             animated: true
         )
     }
@@ -144,6 +147,9 @@ extension SceneDelegate: ENAExposureManagerObserver {
         if newState.isGood {
             log(message: "Enabled")
         }
+
+        homeController?.exposureManagerEnabled = newState.enabled
+        homeController?.updateUI()
     }
 }
 

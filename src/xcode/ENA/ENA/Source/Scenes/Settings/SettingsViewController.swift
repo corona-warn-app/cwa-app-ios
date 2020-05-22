@@ -10,6 +10,16 @@ import ExposureNotification
 import UIKit
 import MessageUI
 
+protocol SettingsViewControllerDelegate: AnyObject {
+    typealias Completion = (ExposureNotificationError?) -> Void
+
+    func settingsViewController(
+        _ controller: SettingsViewController,
+        setExposureManagerEnabled enabled: Bool,
+        then completion: @escaping Completion
+    )
+}
+
 final class SettingsViewController: UIViewController {
     // MARK: Properties
     @IBOutlet weak var tracingLabel: UILabel!
@@ -30,11 +40,17 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var mobileDataLabel: UILabel!
     @IBOutlet weak var mobileDataTextView: UITextView!
 
+    var exposureManagerEnabled = false
+    private weak var notificationSettingsController: ExposureNotificationSettingViewController?
+
     let manager: ExposureManager
     let store: Store
-    init?(coder: NSCoder, manager: ExposureManager, store: Store) {
+    private weak var delegate: SettingsViewControllerDelegate?
+
+    init?(coder: NSCoder, manager: ExposureManager, store: Store, delegate: SettingsViewControllerDelegate) {
         self.manager = manager
         self.store = store
+        self.delegate = delegate
         super.init(coder: coder)
     }
 
@@ -53,6 +69,7 @@ final class SettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkTracingStatus()
+        updateUI()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -63,6 +80,17 @@ final class SettingsViewController: UIViewController {
         if let vc = segue.destination as? ResetViewController {
             vc.delegate = self
         }
+    }
+
+    func updateUI() {
+        notificationSettingsController?.updateUI()
+    }
+
+    private func setExposureManagerEnabled(
+        _ enabled: Bool,
+        then: @escaping SettingsViewControllerDelegate.Completion
+    ) {
+        delegate?.settingsViewController(self, setExposureManagerEnabled: enabled, then: then)
     }
 
     // MARK: Actions
@@ -86,9 +114,11 @@ final class SettingsViewController: UIViewController {
     @IBAction func showTracingDetails(_: Any) {
         let storyboard = AppStoryboard.exposureNotificationSetting.instance
         let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
-            ExposureNotificationSettingViewController(coder: coder, manager: self.manager)
+            ExposureNotificationSettingViewController(coder: coder, delegate: self)
         }
         )
+        vc.exposureManagerEnabled = exposureManagerEnabled
+        notificationSettingsController = vc
         navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -238,5 +268,15 @@ extension SettingsViewController: ResetDelegate {
         store.isOnboarded = false
         store.dateLastExposureDetection = nil
         store.allowsCellularUse = true
+    }
+}
+
+extension SettingsViewController: ExposureNotificationSettingViewControllerDelegate {
+    func exposureNotificationSettingViewController(
+        _ controller: ExposureNotificationSettingViewController,
+        setExposureManagerEnabled enabled: Bool,
+        then completion: @escaping (ExposureNotificationError?) -> Void
+    ) {
+        setExposureManagerEnabled(enabled, then: completion)
     }
 }
