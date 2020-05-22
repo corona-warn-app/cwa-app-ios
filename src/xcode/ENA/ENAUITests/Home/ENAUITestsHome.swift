@@ -17,7 +17,7 @@ class ENAUITestsHome: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
         app.setDefaults()
-        app.launchArguments = ["-isOnboarded YES"]
+        app.launchArguments = ["-isOnboarded", "YES"]
     }
 
     override func tearDownWithError() throws {
