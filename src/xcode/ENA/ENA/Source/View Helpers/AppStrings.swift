@@ -173,11 +173,11 @@ enum AppStrings {
         static let shareUrl = NSLocalizedString("InviteFriends_ShareUrl", comment: "")
     }
 
-    enum ResetView {
-        static let title = NSLocalizedString("reset_view_title", comment: "")
-        static let header1 = NSLocalizedString("reset_view_header1", comment: "")
-        static let description1 = NSLocalizedString("reset_view_description1", comment: "")
-        static let resetButton = NSLocalizedString("reset_view_reset_button", comment: "")
-        static let discardButton = NSLocalizedString("reset_view_discard", comment: "")
+    enum Reset {
+        static let navigationBarTitle = NSLocalizedString("Reset_NavTitle", comment: "")
+        static let header1 = NSLocalizedString("Reset_Header1", comment: "")
+        static let description1 = NSLocalizedString("Reset_Descrition1", comment: "")
+        static let resetButton = NSLocalizedString("Reset_Button", comment: "")
+        static let discardButton = NSLocalizedString("Reset_Discard", comment: "")
     }
 }

@@ -225,8 +225,8 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_ShareUrl" = "https://apps.apple.com/de";
 
 //Reset View
-"reset_view_title" = "Anwendung zurücksetzen";
-"reset_view_header1" = "Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?";
-"reset_view_description1" = "Hier kommt ein Erklärungstext, der beschreibt was passiert wenn man die Anwendung zurücksetzt";
-"reset_view_reset_button" = "Daten zurücksetzen";
-"reset_view_discard" = "Abbrechen";
+"Reset_NavTitle" = "Anwendung zurücksetzen";
+"Reset_Header1" = "Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?";
+"Reset_Descrition1" = "Hier kommt ein Erklärungstext, der beschreibt was passiert wenn man die Anwendung zurücksetzt";
+"Reset_Button" = "Daten zurücksetzen";
+"Reset_Discard" = "Abbrechen";
