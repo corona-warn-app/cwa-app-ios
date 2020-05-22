@@ -31,9 +31,11 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 
     init?(
         coder: NSCoder,
+        exposureManagerEnabled: Bool,
         delegate: ExposureNotificationSettingViewControllerDelegate
     ) {
         super.init(coder: coder)
+        self.exposureManagerEnabled = exposureManagerEnabled
         self.delegate = delegate
     }
     

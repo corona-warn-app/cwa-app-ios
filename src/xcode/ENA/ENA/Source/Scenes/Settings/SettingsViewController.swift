@@ -40,17 +40,20 @@ final class SettingsViewController: UIViewController {
     @IBOutlet weak var mobileDataLabel: UILabel!
     @IBOutlet weak var mobileDataTextView: UITextView!
 
-    var exposureManagerEnabled = false
+    var exposureManagerEnabled = false {
+        didSet {
+            notificationSettingsController?.exposureManagerEnabled = exposureManagerEnabled
+        }
+    }
     private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 
-    let manager: ExposureManager
     let store: Store
     private weak var delegate: SettingsViewControllerDelegate?
 
-    init?(coder: NSCoder, manager: ExposureManager, store: Store, delegate: SettingsViewControllerDelegate) {
-        self.manager = manager
+    init?(coder: NSCoder, store: Store, exposureManagerEnabled: Bool, delegate: SettingsViewControllerDelegate) {
         self.store = store
         self.delegate = delegate
+        self.exposureManagerEnabled = exposureManagerEnabled
         super.init(coder: coder)
     }
 
@@ -113,11 +116,9 @@ final class SettingsViewController: UIViewController {
 
     @IBAction func showTracingDetails(_: Any) {
         let storyboard = AppStoryboard.exposureNotificationSetting.instance
-        let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
-            ExposureNotificationSettingViewController(coder: coder, delegate: self)
+        let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
+            ExposureNotificationSettingViewController(coder: coder, exposureManagerEnabled: self.exposureManagerEnabled, delegate: self)
         }
-        )
-        vc.exposureManagerEnabled = exposureManagerEnabled
         notificationSettingsController = vc
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -215,7 +216,7 @@ final class SettingsViewController: UIViewController {
     }
 
     private func checkTracingStatus() {
-        setTrackingStatusActive(to: manager.preconditions().enabled)
+        setTrackingStatusActive(to: exposureManagerEnabled)
     }
 
     private func checkMobileDataUsagePermission() {

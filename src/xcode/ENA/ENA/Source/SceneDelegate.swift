@@ -72,7 +72,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 exposureManager: self.exposureManager,
                 client: self.client,
                 store: self.store,
-                signedPayloadStore: self.diagnosisKeysStore
+                signedPayloadStore: self.diagnosisKeysStore,
+                exposureManagerEnabled: self.exposureManagerEnabled
             )
         } as HomeViewController
         homeController = vc // strong ref needed

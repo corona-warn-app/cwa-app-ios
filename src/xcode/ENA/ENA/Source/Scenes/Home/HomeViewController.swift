@@ -18,12 +18,14 @@ final class HomeViewController: UIViewController {
         exposureManager: ExposureManager,
         client: Client,
         store: Store,
-        signedPayloadStore: SignedPayloadStore
+        signedPayloadStore: SignedPayloadStore,
+        exposureManagerEnabled: Bool
     ) {
         self.client = client
         self.store = store
         self.signedPayloadStore = signedPayloadStore
         self.exposureManager = exposureManager
+        self.exposureManagerEnabled = exposureManagerEnabled
         super.init(coder: coder)
         homeInteractor = HomeInteractor(
             homeViewController: self,
@@ -136,12 +138,11 @@ final class HomeViewController: UIViewController {
         let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
             ExposureNotificationSettingViewController(
                 coder: coder,
+                exposureManagerEnabled: self.exposureManagerEnabled,
                 delegate: self
             )
         }
         notificationSettingsController = vc
-        vc.exposureManagerEnabled = exposureManagerEnabled
-        _ = vc.view
         navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -150,13 +151,12 @@ final class HomeViewController: UIViewController {
         let vc = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
             SettingsViewController(
                 coder: coder,
-                manager: self.exposureManager,
                 store: self.store,
+                exposureManagerEnabled: self.exposureManagerEnabled,
                 delegate: self
             )
         }
         settingsController = vc
-        vc.exposureManagerEnabled = exposureManagerEnabled
         navigationController?.pushViewController(vc, animated: true)
     }
 
