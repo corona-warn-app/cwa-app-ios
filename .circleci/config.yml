@@ -32,13 +32,13 @@ jobs:
 
 workflows:
     default:
-        jobs:
-          - build-and-test
+      jobs:
+        - build-and-test
 
     archive-screenshots:
-        jobs:
-          - grab-screenshots:
-            filters:
-              branches:
-                only:
-                  - master
+      jobs:
+        - grab-screenshots:
+          filters:
+            branches:
+              only:
+                - master
