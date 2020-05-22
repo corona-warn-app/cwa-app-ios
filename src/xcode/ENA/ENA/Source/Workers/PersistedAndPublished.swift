@@ -9,17 +9,13 @@
 import Foundation
 
 @propertyWrapper
-class PersistedAndPublished<Value: Codable> {
+class PersistedAndPublished<Value> {
 
     init(key: String, notificationName: Notification.Name, defaultValue: Value) {
         self.key = key
         self.notificationName = notificationName
-        if let data = UserDefaults.standard.data(forKey: key) {
-            do {
-                wrappedValue = try JSONDecoder().decode(Value.self, from: data)
-            } catch {
-                wrappedValue = defaultValue
-            }
+        if let data = UserDefaults.standard.object(forKey: key) as? Value {
+            wrappedValue = data
         } else {
             wrappedValue = defaultValue
         }
@@ -30,10 +26,8 @@ class PersistedAndPublished<Value: Codable> {
 
     var wrappedValue: Value {
         didSet {
-            if let encodedValue = try? JSONEncoder().encode(wrappedValue) {
-                UserDefaults.standard.set(encodedValue, forKey: key)
-                NotificationCenter.default.post(name: notificationName, object: nil)
-            }
+            UserDefaults.standard.set(wrappedValue, forKey: key)
+            NotificationCenter.default.post(name: notificationName, object: nil)
         }
     }
 

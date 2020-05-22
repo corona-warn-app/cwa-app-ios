@@ -93,3 +93,5 @@ iOSInjectionProject/
 # macOS
 *.DS_Store
 
+src/xcode/fastlane/screenshots
+src/xcode/screenshots

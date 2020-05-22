@@ -45,4 +45,19 @@ platform :ios do
       # tbc..
     )
   end
+
+  desc "Generate screenshots from XCUITests"
+  lane :grab_screenshots do
+
+    # # Build
+    # build_ios_app(
+    #   skip_codesigning: true,
+    #   skip_archive: true
+    # )
+
+    # UI Tests
+    # Uncomment when ready
+    run_tests( scheme: "ENAUITests" )
+  end
+
 end
