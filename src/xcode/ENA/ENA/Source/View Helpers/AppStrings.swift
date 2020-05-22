@@ -52,17 +52,13 @@ enum AppStrings {
         static let trackingStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
         static let notificationStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
         static let notificationStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
-        static let mobileDataStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
-        static let mobileDataStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
 
         static let tracingLabel = NSLocalizedString("Settings_Tracing_Label", comment: "")
         static let notificationLabel = NSLocalizedString("Settings_Notification_Label", comment: "")
-        static let mobileDataLabel = NSLocalizedString("Settings_MobileData_Label", comment: "")
         static let resetLabel = NSLocalizedString("Settings_Reset_Label", comment: "")
 
         static let tracingDescription = NSLocalizedString("Settings_Tracing_Description", comment: "")
         static let notificationDescription = NSLocalizedString("Settings_Notification_Description", comment: "")
-        static let mobileDataDescription = NSLocalizedString("Settings_MobileData_Description", comment: "")
         static let resetDescription = NSLocalizedString("Settings_Reset_Description", comment: "")
 
         static let navigationBarTitle = NSLocalizedString("Settings_NavTitle", comment: "")

@@ -11,13 +11,11 @@ import Foundation
 class SettingsViewModel {
     var tracing: Main
     var notifications: Main
-    var mobileData: Main
     var reset: String
 
-    init(tracing: Main, notifications: Main, mobileData: Main, reset: String) {
+    init(tracing: Main, notifications: Main, reset: String) {
         self.tracing = tracing
         self.notifications = notifications
-        self.mobileData = mobileData
         self.reset = reset
     }
 
@@ -33,12 +31,6 @@ class SettingsViewModel {
             description: AppStrings.Settings.notificationLabel,
             stateActive: AppStrings.Settings.notificationStatusActive,
             stateInactive: AppStrings.Settings.notificationStatusInactive
-        ),
-        mobileData: Main(
-            icon: ("antenna.radiowaves.left.and.right", true),
-            description: AppStrings.Settings.mobileDataLabel,
-            stateActive: AppStrings.Settings.mobileDataStatusActive,
-            stateInactive: AppStrings.Settings.mobileDataStatusInactive
         ),
         reset: AppStrings.Settings.resetLabel
     )

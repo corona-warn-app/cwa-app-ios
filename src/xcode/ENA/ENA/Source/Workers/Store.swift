@@ -21,13 +21,6 @@ final class Store {
     var dateLastExposureDetection: Date?
 
     @PersistedAndPublished(
-        key: "allowsCellularUse",
-        notificationName: Notification.Name.permissionCellularUseDidChange,
-        defaultValue: true
-    )
-    var allowsCellularUse: Bool
-
-    @PersistedAndPublished(
         key: "developerSubmissionBaseURLOverride",
         notificationName: Notification.Name.developerSubmissionBaseURLOverrideDidChange,
         defaultValue: nil

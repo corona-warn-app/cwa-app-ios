@@ -26,12 +26,10 @@
 
 "Settings_Tracing_Label" = "Kontaktprotokoll";
 "Settings_Notification_Label" = "Mitteilungen";
-"Settings_MobileData_Label" = "Mobile Datennutzung";
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
 "Settings_Tracing_Description" = "Erlauben Sie Erfassung und Weitergabe von Covid-19-Zufalls-IDs.";
 "Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Covid-19-Risikostatus.";
-"Settings_MobileData_Description" = "Erlauben Sie mobile Datenzugriffe für den Austausch von Covid-19-Zuffals-IDs und -Risikostatus. Der Datenverbrauch is gering.";
 "Settings_Reset_Description" = "Löschen Sie alle Ihre Daten in der App.";
 
 "Settings_NavTitle" = "Einstellungen";

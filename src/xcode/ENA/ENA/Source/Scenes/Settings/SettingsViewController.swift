@@ -76,7 +76,6 @@ final class SettingsViewController: UITableViewController {
 
         checkTracingStatus()
         notificationSettings()
-        checkMobileDataUsagePermission()
 
         NotificationCenter.default.addObserver(
             self,
@@ -114,11 +113,6 @@ final class SettingsViewController: UITableViewController {
             }
         }
     }
-
-    private func checkMobileDataUsagePermission() {
-        settingsViewModel.mobileData.setState(state: store.allowsCellularUse)
-        tableView.reloadData()
-    }
 }
 
 // MARK: UITableViewDataSource, UITableViewDelegate
@@ -137,7 +131,7 @@ extension SettingsViewController {
         switch section {
         case .reset:
             return 40
-        case .tracing, .notifications, .mobileData:
+        case .tracing, .notifications:
             return 20
         }
     }
@@ -154,8 +148,6 @@ extension SettingsViewController {
             return AppStrings.Settings.tracingDescription
         case .notifications:
             return AppStrings.Settings.notificationDescription
-        case .mobileData:
-            return AppStrings.Settings.mobileDataDescription
         case .reset:
             return AppStrings.Settings.resetDescription
         }
@@ -169,7 +161,7 @@ extension SettingsViewController {
         switch section {
         case .reset:
             footerView.textLabel?.textAlignment = .center
-        case .tracing, .notifications, .mobileData:
+        case .tracing, .notifications:
             footerView.textLabel?.textAlignment = .left
         }
     }
@@ -182,8 +174,6 @@ extension SettingsViewController {
             return configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
         case .notifications:
             return configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
-        case .mobileData:
-            return configureMainCell(indexPath: indexPath, model: settingsViewModel.mobileData)
         case .reset:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? ResetTableViewCell else {
                 fatalError("No cell for reuse identifier.")
@@ -222,13 +212,6 @@ extension SettingsViewController {
                     return
             }
             UIApplication.shared.open(settingsURL)
-        case .mobileData:
-            guard
-                let settingsURL = URL(string: UIApplication.openSettingsURLString),
-                UIApplication.shared.canOpenURL(settingsURL) else {
-                    return
-            }
-            UIApplication.shared.open(settingsURL)
         case .reset:
             performSegue(withIdentifier: resetSegue, sender: nil)
         }
@@ -241,7 +224,6 @@ extension SettingsViewController: ResetDelegate {
     func reset() {
         store.isOnboarded = false
         store.dateLastExposureDetection = nil
-        store.allowsCellularUse = true
     }
 }
 
@@ -291,7 +273,6 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
 enum Sections: CaseIterable {
     case tracing
     case notifications
-    case mobileData
     case reset
 }
 
