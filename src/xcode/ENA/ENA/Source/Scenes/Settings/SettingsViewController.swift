@@ -52,7 +52,6 @@ final class SettingsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         checkTracingStatus()
     }
 
@@ -186,9 +185,7 @@ final class SettingsViewController: UIViewController {
     }
 
     private func checkTracingStatus() {
-        manager.preconditions().contains(.enabled) ?
-            setTrackingStatusActive(to: true) :
-            setTrackingStatusActive(to: false)
+        setTrackingStatusActive(to: manager.preconditions().enabled)
     }
 
     private func checkMobileDataUsagePermission() {
