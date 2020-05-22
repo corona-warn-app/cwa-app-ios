@@ -47,10 +47,4 @@ platform :ios do
     )
   end
 
-  desc "Generate screenshots from XCUITests"
-  lane :grab_screenshots do
-    # UI Tests
-    run_tests( scheme: "ENAUITests" )
-  end
-
 end
