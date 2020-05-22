@@ -18,10 +18,6 @@ jobs:
           path: src/xcode/fastlane/test_output
 
   grab-screenshots:
-    branches:
-      only:
-        - master
-
     macos:
       xcode: 11.5.0
 
@@ -41,4 +37,8 @@ workflows:
 
     archive-screenshots:
         jobs:
-          - grab-screenshots
+          - grab-screenshots:
+            filters:
+              branches:
+                ignore:
+                  - master
