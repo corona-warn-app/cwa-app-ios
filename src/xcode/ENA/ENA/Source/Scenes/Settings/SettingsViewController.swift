@@ -157,7 +157,20 @@ extension SettingsViewController {
         case .mobileData:
             return AppStrings.Settings.mobileDataDescription
         case .reset:
-            return ""
+            return AppStrings.Settings.resetDescription
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        guard let footerView = view as? UITableViewHeaderFooterView else { return }
+
+        let section = Sections.allCases[section]
+
+        switch section {
+        case .reset:
+            footerView.textLabel?.textAlignment = .center
+        case .tracing, .notifications, .mobileData:
+            footerView.textLabel?.textAlignment = .left
         }
     }
 
