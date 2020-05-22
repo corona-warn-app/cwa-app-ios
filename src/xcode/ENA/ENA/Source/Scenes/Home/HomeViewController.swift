@@ -135,6 +135,7 @@ final class HomeViewController: UIViewController {
 	}
 	
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
         resizeDataViews()
     }
 	
