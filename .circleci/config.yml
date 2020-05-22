@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-and-test:
     macos:
-      xcode: 11.5.0  # Change to 11.5 once the GM version is available
+      xcode: 11.5.0
 
     steps:
       - checkout
@@ -15,7 +15,7 @@ jobs:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
       - store_artifacts:
-          path: src/xcode/test_output
+          path: src/xcode/screenshots
 
 workflows:
     default:
