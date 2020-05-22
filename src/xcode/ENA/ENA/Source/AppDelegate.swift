@@ -14,6 +14,7 @@ import BackgroundTasks
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
     static let backgroundTaskIdentifier = Bundle.main.bundleIdentifier! + ".exposure-notification"
+	lazy var manager = ENAExposureManager()
 
     func application(_ application: UIApplication,
 					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
@@ -37,9 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
 	func scheduleBackgroundTaskIfNeeded() {
 		guard
-			ENAExposureManager().preconditions().contains(.authorized),
-			ENAExposureManager().preconditions().contains(.enabled),
-			ENAExposureManager().preconditions().contains(.active)
+			manager.preconditions().contains(.all)
 		else {
 			return
 		}
