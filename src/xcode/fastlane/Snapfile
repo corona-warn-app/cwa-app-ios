@@ -3,15 +3,11 @@
 # A list of devices you want to take the screenshots from
 devices([
     "iPhone 8",
-    "iPhone 8 Plus",
-    "iPhone SE (2nd generation)",
-    "iPhone 11",
-    "iPhone 11 Pro",
     "iPhone 11 Pro Max"
 ])
 
 ios_version(
-  "13.4.1"
+  "13.5"
 )
 
 languages([
