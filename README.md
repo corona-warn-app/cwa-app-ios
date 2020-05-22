@@ -24,15 +24,18 @@ _TODO: Add screenshots here._
 
 ### Setup
 
-Open Xcode 11.5 Beta 2 and let the Swift Package Manager handle the rest 🎉
+Open Xcode 11.5 or higher and let the Swift Package Manager handle the rest 🎉
 
 ### Build
 
-Either build directly from Xcode or use fastlane to build and run all unit tests:
+Either build directly from Xcode or use fastlane to build and run all tests:
 
 ```console
-cd src/xcode && fastlane build_and_test
+cd src/xcode && fastlane build
+cd src/xcode && fastlane test
 ```
+
+Find all available lanes: [Fastfile documenation](src/xcode/fastlane/README.md)
 
 ### Run
 
