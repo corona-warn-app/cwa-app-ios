@@ -67,9 +67,13 @@ final class HomeViewController: UIViewController {
         configureDataSource()
         configureUI()
 		tableView.reloadData()
-		resizeDataViews()
     }
 
+	override func viewWillLayoutSubviews() {
+		 super.viewWillLayoutSubviews()
+		 resizeDataViews()
+	  }
+	
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
