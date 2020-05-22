@@ -38,7 +38,7 @@ struct Sap_File {
   /// Clears the value of `header`. Subsequent reads from it will return its default value.
   mutating func clearHeader() {self._header = nil}
 
-  var keys: [Sap_Key] = []
+  var keys: [Sap_TemporaryExposureKey] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 

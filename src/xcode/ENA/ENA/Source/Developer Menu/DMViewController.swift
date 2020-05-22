@@ -24,7 +24,7 @@ final class DMViewController: UITableViewController {
     private let client: Client
     private let store: Store
     private let exposureManager: ExposureManager
-    private var keys = [Sap_Key]() {
+    private var keys = [Sap_TemporaryExposureKey]() {
         didSet {
             keys = self.keys.sorted()
         }
@@ -150,7 +150,7 @@ final class DMViewController: UITableViewController {
 }
 
 extension DMViewController: DMQRCodeScanViewControllerDelegate {
-    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Sap_Key) {
+    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Sap_TemporaryExposureKey) {
         client.submit(
             keys: [diagnosisKey.temporaryExposureKey],
             tan: "not needed"
@@ -171,11 +171,11 @@ private extension DateFormatter {
     }
 }
 
-fileprivate extension Sap_Key {
+fileprivate extension Sap_TemporaryExposureKey {
     private static let dateFormatter: DateFormatter = .rollingPeriodDateFormatter()
 
     var rollingStartNumberDate: Date {
-        Date(timeIntervalSince1970: Double(rollingStartNumber * 600))
+        Date(timeIntervalSince1970: Double(rollingStartIntervalNumber * 600))
     }
 
     var formattedRollingStartNumberDate: String {
@@ -185,15 +185,15 @@ fileprivate extension Sap_Key {
     var temporaryExposureKey: ENTemporaryExposureKey {
         let key = ENTemporaryExposureKey()
         key.keyData = keyData
-        key.rollingStartNumber = rollingStartNumber
+        key.rollingStartNumber = UInt32(rollingStartIntervalNumber)
         key.transmissionRiskLevel = UInt8(transmissionRiskLevel)
         return key
     }
 }
 
-extension Sap_Key: Comparable {
-    static func < (lhs: Sap_Key, rhs: Sap_Key) -> Bool {
-        lhs.rollingStartNumber > rhs.rollingStartNumber
+extension Sap_TemporaryExposureKey: Comparable {
+    static func < (lhs: Sap_TemporaryExposureKey, rhs: Sap_TemporaryExposureKey) -> Bool {
+        lhs.rollingStartIntervalNumber > rhs.rollingStartIntervalNumber
     }
 }
 
@@ -201,7 +201,7 @@ private extension FetchedDaysAndHours {
     var allBuckets: [VerifiedSapFileBucket] {
         Array(days.bucketsByDay.values) + Array(hours.bucketsByHour.values)
     }
-    var allKeys: [Sap_Key] {
+    var allKeys: [Sap_TemporaryExposureKey] {
         Array(allFiles.map { $0.keys }.joined())
     }
     var allFiles: [Sap_File] {
@@ -210,7 +210,7 @@ private extension FetchedDaysAndHours {
 }
 
 private extension Client {
-    typealias FetchCompletion = ([Sap_Key]) -> Void
+    typealias FetchCompletion = ([Sap_TemporaryExposureKey]) -> Void
     func fetch(completion: @escaping FetchCompletion) {
         availableDaysAndHoursUpUntil(.formattedToday()) { result in
             switch result {

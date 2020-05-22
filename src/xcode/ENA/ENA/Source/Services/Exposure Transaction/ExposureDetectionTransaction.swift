@@ -254,12 +254,12 @@ extension Sap_File {
     }
 }
 
-extension Sap_Key {
+extension Sap_TemporaryExposureKey {
     func toAppleKey() -> Apple_Key {
         Apple_Key.with {
             $0.keyData = self.keyData
-            $0.rollingStartNumber = self.rollingStartNumber
-            $0.rollingPeriod = self.rollingPeriod
+            $0.rollingStartNumber = UInt32(self.rollingStartIntervalNumber)
+            $0.rollingPeriod = UInt32(self.rollingPeriod)
             $0.transmissionRiskLevel = self.transmissionRiskLevel
         }
     }

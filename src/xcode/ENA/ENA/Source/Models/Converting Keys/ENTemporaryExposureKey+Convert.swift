@@ -9,11 +9,11 @@
 import ExposureNotification
 
 extension ENTemporaryExposureKey {
-    var sapKey: Sap_Key {
-        Sap_Key.with {
+    var sapKey: Sap_TemporaryExposureKey {
+        Sap_TemporaryExposureKey.with {
             $0.keyData = self.keyData
-            $0.rollingPeriod = self.rollingPeriod
-            $0.rollingStartNumber = self.rollingStartNumber
+            $0.rollingPeriod = Int32(self.rollingPeriod)
+            $0.rollingStartIntervalNumber = Int32(self.rollingStartNumber)
             $0.transmissionRiskLevel = Int32(self.transmissionRiskLevel)
         }
     }
