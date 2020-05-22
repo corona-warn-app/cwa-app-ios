@@ -259,20 +259,18 @@ final class HomeViewController: UIViewController {
     }
 
     private func resizeDataViews() {
-        tableView.invalidateIntrinsicContentSize()
-        view.layoutIfNeeded()
-    
-        let collectionHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
-        let tableHeight = tableView.contentSize.height
-        
+		tableView.invalidateIntrinsicContentSize()
+		view.layoutIfNeeded()
+
+		let collectionHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         collectionHeightConstraint?.isActive = false
-        tableHeightConstraint?.isActive = false
-
         collectionHeightConstraint?.constant = collectionHeight
-        tableHeightConstraint?.constant = tableHeight
-
-        collectionHeightConstraint?.isActive = true
-        tableHeightConstraint?.isActive = true
+		collectionHeightConstraint?.isActive = true
+        
+		let tableHeight = tableView.contentSize.height
+		tableHeightConstraint?.isActive = false
+		tableHeightConstraint?.constant = tableHeight
+		tableHeightConstraint?.isActive = true
 
         view.setNeedsLayout()
     }
