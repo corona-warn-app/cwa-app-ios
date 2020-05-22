@@ -18,6 +18,10 @@ jobs:
           path: src/xcode/fastlane/test_output
 
   grab-screenshots:
+    branches:
+      only:
+        - master
+
     macos:
       xcode: 11.5.0
 
