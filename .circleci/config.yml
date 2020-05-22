@@ -11,10 +11,11 @@ jobs:
       - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build
-# Uncomment after xcode upgrade
-#      - run:
-#          name: Tests
-#          command: cd src/xcode && bundle exec fastlane test
+      - run:
+          name: Tests
+          command: cd src/xcode && bundle exec fastlane test
+      - store_artifacts:
+          path: src/xcode/test_output
 
 workflows:
     default:
