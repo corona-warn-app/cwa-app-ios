@@ -8,9 +8,21 @@
 
 import UIKit
 import CoreData
+import BackgroundTasks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+	
+    static let backgroundTaskIdentifier = Bundle.main.bundleIdentifier! + ".exposure-notification"
+	lazy var manager = ENAExposureManager()
+
+    func application(_ application: UIApplication,
+					 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+		registerBackgroundTask()
+		scheduleBackgroundTaskIfNeeded()
+		return true
+	}
+	
     // MARK: UISceneSession Lifecycle
     func application(
         _ application: UIApplication,
@@ -21,4 +33,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
  
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {}
+}
+
+extension AppDelegate {
+	func scheduleBackgroundTaskIfNeeded() {
+		guard
+			manager.preconditions().contains(.all)
+		else {
+			return
+		}
+		
+		let taskRequest = BGProcessingTaskRequest(identifier: AppDelegate.backgroundTaskIdentifier)
+		taskRequest.requiresNetworkConnectivity = true
+		do {
+			try BGTaskScheduler.shared.submit(taskRequest)
+		} catch {
+			print("Unable to schedule background task: \(error)")
+		}
+	}
+
+	func registerBackgroundTask() {
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: AppDelegate.backgroundTaskIdentifier, using: .main) { task in
+            
+            // #TODO: Perform the exposure detection
+//			let progress = ENAExposureManager().detectExposures(
+//				configuration: config <#T##ENExposureConfiguration#>,
+//				diagnosisKeyURLs: <#T##[URL]#>
+//				) { success in
+//				task.setTaskCompleted(success: success)
+//			}
+
+//            // #TODO: Handle running out of time
+//            task.expirationHandler = {
+//				progress.cancel()
+//				logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
+//            }
+            
+            // Schedule the next background task
+            self.scheduleBackgroundTaskIfNeeded()
+        }
+	}
+	
 }
