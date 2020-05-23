@@ -351,7 +351,7 @@ private extension SAP_RiskScoreParameters.AttenuationRiskParameters {
 extension ENExposureConfiguration {
     class func mock() -> ENExposureConfiguration {
         let config = ENExposureConfiguration()
-        config.minimumRiskScore = 0
+//        config.minimumRiskScore = 0
         config.attenuationWeight = 50
         config.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
         config.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
