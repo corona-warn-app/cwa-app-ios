@@ -79,12 +79,14 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
     func runActionForPageType(completion: @escaping () -> Void) {
-		switch pageType {
-		case .enableLoggingOfContactsPage:
+        switch pageType {
+        case .privacyPage:
+            persistTimestamp(completion: completion)
+        case .enableLoggingOfContactsPage:
 			askExposureNotificationsPermissions(completion: completion)
-		case .alwaysStayInformedPage:
+        case .alwaysStayInformedPage:
 			askLocalNotificationsPermissions(completion: completion)
-		default:
+        default:
 			completion()
 		}
     }
@@ -111,7 +113,7 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 		
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
-    ignoreButton.setTitleColor(UIColor.preferredColor(for: .tintColor), for: .normal)
+        ignoreButton.setTitleColor(UIColor.preferredColor(for: .tintColor), for: .normal)
 		ignoreButton.backgroundColor = UIColor.clear
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
 		
@@ -142,7 +144,17 @@ final class OnboardingInfoViewController: UIViewController {
 			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		}
 	}
-	
+
+    private func persistTimestamp(completion: (() -> Void)?) {
+        if let acceptedDate = store.dateOfAcceptedPrivacyNotice {
+            log(message: "User has already accepted the privacy terms on \(acceptedDate)", level: .warning)
+            completion?()
+            return
+        }
+        store.dateOfAcceptedPrivacyNotice = Date()
+        log(message: "Persist that user acccepted the privacy terms on \(Date())", level: .info)
+        completion?()
+    }
 	
     // MARK: Exposure notifications
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
