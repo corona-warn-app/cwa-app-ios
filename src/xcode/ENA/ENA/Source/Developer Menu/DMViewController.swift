@@ -203,26 +203,6 @@ private extension FetchedDaysAndHours {
     }
 }
 
-private extension Client {
-    typealias FetchCompletion = ([SAPKeyPackage]) -> Void
-    func fetch(completion: @escaping FetchCompletion) {
-        availableDaysAndHoursUpUntil(.formattedToday()) { result in
-            switch result {
-            case .success(let daysAndHours):
-                self.fetchDays(
-                    daysAndHours.days,
-                    hours: daysAndHours.hours,
-                    of: .formattedToday()
-                ) { daysAndHours in
-                    completion(daysAndHours.allBuckets)
-                }
-            case .failure(let error):
-                logError(message: "message: Failed to fetch all keys: \(error)")
-            }
-        }
-    }
-}
-
 private class KeyCell: UITableViewCell {
     static var reuseIdentifier = "KeyCell"
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

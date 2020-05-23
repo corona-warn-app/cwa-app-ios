@@ -85,6 +85,9 @@ struct HoursResult {
 struct FetchedDaysAndHours {
     let hours: HoursResult
     let days: DaysResult
+    var allKeyPackages: [SAPKeyPackage] {
+        Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
+    }
 }
 
 extension Client {
