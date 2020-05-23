@@ -78,7 +78,7 @@ final class DMSubmissionStateViewController: UITableViewController {
         }
 
         group.notify(queue: .main) {
-            var remoteKeys = [Apple2_TemporaryExposureKey]()
+            var remoteKeys = [Apple_TemporaryExposureKey]()
             do {
                 for package in allPackages {
                     remoteKeys.append(contentsOf: try package.keys())
@@ -113,14 +113,14 @@ extension SAPKeyPackage {
         bin.withoutBinHeader
     }
 
-    func keys() throws -> [Apple2_TemporaryExposureKey] {
+    func keys() throws -> [Apple_TemporaryExposureKey] {
         let data = binProtobufData
-        let export = try Apple2_TemporaryExposureKeyExport(serializedData: data)
+        let export = try Apple_TemporaryExposureKeyExport(serializedData: data)
         return export.keys
     }
 }
 
-private extension Array where Element == Apple2_TemporaryExposureKey {
+private extension Array where Element == Apple_TemporaryExposureKey {
     func containsKey(_ key: ENTemporaryExposureKey) -> Bool {
         contains { appleKey in
             appleKey.keyData == key.keyData
