@@ -17,7 +17,6 @@ fi
 mkdir -p ../../src/xcode/gen/output
 protoc \
      --swift_out=../../src/xcode/gen/output \
-     ./apple_exposure_notification.proto \
      ./risk_score_parameters.proto \
      ./submission_payload.proto \
      ./risk_level.proto \
