@@ -42,11 +42,6 @@ final class HomeViewController: UIViewController {
     private let exposureManager: ExposureManager
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
-    private var tableView: UITableView!
-
-    private var collectionHeightConstraint: NSLayoutConstraint?
-    private var tableHeightConstraint: NSLayoutConstraint?
-
 	private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
@@ -57,7 +52,10 @@ final class HomeViewController: UIViewController {
 
     enum Section: Int {
         case actions
-    }
+		case infos
+		case settings
+		
+	}
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -66,14 +64,8 @@ final class HomeViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         configureUI()
-		tableView.reloadData()
     }
 
-	override func viewWillLayoutSubviews() {
-		 super.viewWillLayoutSubviews()
-		 resizeDataViews()
-	  }
-	
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
@@ -134,11 +126,6 @@ final class HomeViewController: UIViewController {
 		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(summaryNotificationObserver, name: .didDetectExposureDetectionSummary, object: nil)
 	}
-	
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-        resizeDataViews()
-    }
 	
     // MARK: Actions
     @objc
@@ -247,6 +234,17 @@ final class HomeViewController: UIViewController {
             } else {
                 showSubmitResult()
             }
+		case .infos:
+			if row == 0 {
+				showInviteFriends()
+			} else {
+			}
+		case .settings:
+			if row == 0 {
+				showAppInformation()
+			} else {
+				showSetting()
+			}
         }
     }
 
@@ -260,102 +258,36 @@ final class HomeViewController: UIViewController {
         collectionView.reloadData()
     }
 
-    private func resizeDataViews() {
-		tableView.invalidateIntrinsicContentSize()
-		view.layoutIfNeeded()
-
-		let collectionHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
-        collectionHeightConstraint?.constant = collectionHeight
-        
-		let tableHeight = tableView.contentSize.height
-		tableHeightConstraint?.constant = tableHeight
-
-        view.setNeedsLayout()
-    }
-
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self
         return homeLayout.collectionLayout()
     }
 
-	private func createCollectionView() {
-		collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-		collectionView.isAccessibilityElement = false
-		collectionView.shouldGroupAccessibilityChildren = true
-    collectionView.delegate = self
-    collectionView.translatesAutoresizingMaskIntoConstraints = false
-		collectionView.isScrollEnabled = false
-		collectionView.setContentHuggingPriority(.defaultHigh, for: .vertical)
-		collectionView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-	}
-	
-	private func createTableView() {
-		tableView = UITableView(frame: view.bounds, style: .grouped)
-		tableView.delegate = self
-		tableView.dataSource = self
-		tableView.backgroundColor = .systemGroupedBackground
-		tableView.backgroundView = nil
-		tableView.isScrollEnabled = false
-		tableView.bounces = false
-		tableView.translatesAutoresizingMaskIntoConstraints = false
-		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 88
-	}
-	
     private func configureHierarchy() {
         let safeLayoutGuide = view.safeAreaLayoutGuide
 
 		view.backgroundColor = .systemGroupedBackground
 			
-		createCollectionView()
-		createTableView()
-				
-		collectionHeightConstraint = collectionView.heightAnchor.constraint(equalToConstant: 88)
-		collectionHeightConstraint?.priority = .defaultHigh
-		collectionHeightConstraint?.isActive = true
-		tableHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: 88)
-		tableHeightConstraint?.priority = .defaultHigh
-		tableHeightConstraint?.isActive = true
-		
-		let stackView = UIStackView(arrangedSubviews: [collectionView, tableView])
-		stackView.backgroundColor = UIColor.clear
-		stackView.alignment = .fill
-		stackView.axis = .vertical
-		stackView.distribution = .equalSpacing
-		stackView.spacing = 0.0
-		stackView.translatesAutoresizingMaskIntoConstraints = false
-
-		let scrollView = UIScrollView()
-		scrollView.backgroundColor = UIColor.clear
-		scrollView.alwaysBounceVertical = true
-		scrollView.isScrollEnabled = true
-		scrollView.translatesAutoresizingMaskIntoConstraints = false
-
-		scrollView.addSubview(stackView)
-		view.addSubview(scrollView)
+		collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+		collectionView.delegate = self
+		collectionView.translatesAutoresizingMaskIntoConstraints = false
+		collectionView.isAccessibilityElement = false
+		collectionView.shouldGroupAccessibilityChildren = true
+		view.addSubview(collectionView)
 
         NSLayoutConstraint.activate(
             [
-				scrollView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-				scrollView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-				scrollView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-				scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-				stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-				stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-				stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-				stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-				stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+				collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
+				collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
+				collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
+				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 			]
         )
 
 		collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
         collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
-
-		let infoNib = UINib(nibName: InfoTableViewCell.stringName(), bundle: nil)
-		tableView.register(infoNib, forCellReuseIdentifier: InfoTableViewCell.stringName())
-		tableView.reloadData()
     }
 
     private func configureDataSource() {
@@ -380,6 +312,10 @@ final class HomeViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
         snapshot.appendSections([.actions])
         snapshot.appendItems(Array(0...2))
+        snapshot.appendSections([.infos])
+        snapshot.appendItems(Array(3...4))
+		snapshot.appendSections([.settings])
+		snapshot.appendItems(Array(5...6))
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 

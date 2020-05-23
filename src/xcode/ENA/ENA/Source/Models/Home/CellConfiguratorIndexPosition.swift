@@ -1,5 +1,5 @@
 //
-//  CellConfiguratorIndexPosition.swift
+//  CellConfiguratorPositionInSection.swift
 //  ENA
 //
 //  Created by Dunne, Liam on 18/05/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum CellConfiguratorIndexPosition {
+enum CellConfiguratorPositionInSection {
 	case first
 	case other
 	case last

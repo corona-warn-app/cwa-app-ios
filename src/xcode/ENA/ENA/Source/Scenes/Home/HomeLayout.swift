@@ -37,6 +37,10 @@ final class HomeLayout {
         switch section {
         case .actions:
             return mainSection()
+		case .infos:
+			return infoSection()
+		case .settings:
+			return settingsSection()
         }
     }
     
