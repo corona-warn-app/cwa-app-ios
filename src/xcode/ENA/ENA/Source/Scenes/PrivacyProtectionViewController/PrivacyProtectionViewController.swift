@@ -30,10 +30,6 @@ class PrivacyProtectionViewController: UIViewController {
                 blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ]
         )
-        blurEffectView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        blurEffectView.layer.masksToBounds = true
-        blurEffectView.layer.cornerRadius = 8.0
-		
 	}
 
 	func show(completion: (() -> Void)? = nil) {
