@@ -55,13 +55,13 @@ final class DMViewController: UITableViewController {
                 barButtonSystemItem: .action,
                 target: self,
                 action: #selector(generateTestKeys)
-            ),
-            UIBarButtonItem(
-                image: UIImage(systemName: "qrcode.viewfinder"),
-                style: .plain,
-                target: self,
-                action: #selector(showScanner)
             )
+//            UIBarButtonItem(
+//                image: UIImage(systemName: "qrcode.viewfinder"),
+//                style: .plain,
+//                target: self,
+//                action: #selector(showScanner)
+//            )
         ]
     }
 
@@ -84,9 +84,12 @@ final class DMViewController: UITableViewController {
     private func resetAndFetchKeys() {
         keys = []
         tableView.reloadData()
-        self.client.fetch { [weak self] keys in
-            guard let self = self else { return }
-            fatalError("Implement")
+        self.exposureManager.accessDiagnosisKeys { keys, _ in
+            guard let keys = keys else {
+                logError(message: "No keys retrieved in developer menu")
+                return
+            }
+            self.keys = keys.map { $0.sapKey }
             self.tableView.reloadData()
         }
     }
@@ -145,7 +148,7 @@ final class DMViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let key = keys[indexPath.row]
-        navigationController?.pushViewController(DMQRCodeViewController(key: key), animated: true)
+//        navigationController?.pushViewController(DMQRCodeViewController(key: key), animated: true)
     }
 }
 
