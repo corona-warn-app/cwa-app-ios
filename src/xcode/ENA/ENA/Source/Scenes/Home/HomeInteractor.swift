@@ -71,27 +71,27 @@ final class HomeInteractor {
 			title: AppStrings.Home.infoCardShareTitle,
 			body: AppStrings.Home.infoCardShareBody,
 			position: .first,
-			accessibilityIdentifier: AppStrings.Home.infoCardShareTitle
+			accessibilityIdentifier: Accessibility.Cell.infoCardShareTitle
 			
 		)
 		let info2Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardAboutTitle,
 			body: AppStrings.Home.infoCardAboutBody,
 			position: .last,
-			accessibilityIdentifier: AppStrings.Home.infoCardAboutTitle
+			accessibilityIdentifier: Accessibility.Cell.infoCardAboutTitle
 		)
 
 		let appInformationConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.appInformationCardTitle,
 			body: nil,
 			position: .first,
-			accessibilityIdentifier: AppStrings.Home.appInformationCardTitle
+			accessibilityIdentifier: Accessibility.Cell.appInformationCardTitle
 		)
 		let settingsConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.settingsCardTitle,
 			body: nil,
 			position: .last,
-			accessibilityIdentifier: AppStrings.Home.settingsCardTitle
+			accessibilityIdentifier: Accessibility.Cell.settingsCardTitle
 		)
 
         let configurators: [CollectionViewCellConfiguratorAny] = [

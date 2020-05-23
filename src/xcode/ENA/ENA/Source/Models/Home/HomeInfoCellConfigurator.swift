@@ -52,10 +52,7 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 	}
 		
 	func setupAccessibility(for cell: InfoCollectionViewCell) {
-		cell.isAccessibilityElement = false
-		cell.chevronImageView.isAccessibilityElement = false
 		cell.titleLabel.isAccessibilityElement = true
-		cell.bodyLabel.isAccessibilityElement = false
 		cell.titleLabel.accessibilityIdentifier = accessibilityIdentifier
 	}
 }
