@@ -11,14 +11,14 @@ import XCTest
 
 final class SignedPayloadStoreTests: XCTestCase {
     func testMissingDays_EmptyStore() {
-        let store = SignedPayloadStore()
+        let store = KeyPackagesStore()
         XCTAssertEqual(store.missingDays(remoteDays: []), [])
         XCTAssertEqual(store.missingDays(remoteDays: ["a"]), ["a"])
         XCTAssertEqual(store.missingDays(remoteDays: ["a", "b"]), ["a", "b"])
     }
 
     func testMissingDays_FilledStore() {
-        let store = SignedPayloadStore()
+        let store = KeyPackagesStore()
         store.add(
             day: "a",
             signedPayload: Data(bytes: [0xa], count: 1)
@@ -43,7 +43,7 @@ final class SignedPayloadStoreTests: XCTestCase {
     }
 
     func testMissingHours_EmptyStore() {
-        let store = SignedPayloadStore()
+        let store = KeyPackagesStore()
         XCTAssertEqual(
             store.missingHours(day: "a", remoteHours: []),
             []
@@ -55,7 +55,7 @@ final class SignedPayloadStoreTests: XCTestCase {
     }
 
     func testMissingHours_StoreWithDaysButNoRemoteHours() {
-        let store = SignedPayloadStore()
+        let store = KeyPackagesStore()
         store.add(
             day: "a",
             signedPayload: Data()
@@ -68,7 +68,7 @@ final class SignedPayloadStoreTests: XCTestCase {
     }
 
     func testMissingHours_StoreWithDaysAndHours() {
-        let store = SignedPayloadStore()
+        let store = KeyPackagesStore()
         store.add(
             day: "a",
             signedPayload: Data()

@@ -12,7 +12,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Properties
     var window: UIWindow?
     private let store = Store()
-    private let diagnosisKeysStore = SignedPayloadStore()
+    private let diagnosisKeysStore = KeyPackagesStore()
     private let exposureManager = ENAExposureManager()
     private let navigationController: UINavigationController = .withLargeTitle()
 

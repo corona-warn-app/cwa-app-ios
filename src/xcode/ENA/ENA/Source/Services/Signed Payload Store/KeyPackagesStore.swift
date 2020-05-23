@@ -1,5 +1,5 @@
 //
-//  SignedPayloadStore.swift
+//  KeyPackagesStore.swift
 //  ENA
 //
 //  Created by Kienle, Christian on 13.05.20.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-final class SignedPayloadStore {
+final class KeyPackagesStore {
     // MARK: Creating
 
     // MARK: Properties
-    private var signedPayloadsByDay = [String: SAPKeyPackage]()
+    private var packagesByDay = [String: SAPKeyPackage]()
 
     // Stores all downloaded hours mapped by day.
     // The data stored here looks like this:
@@ -30,39 +30,39 @@ final class SignedPayloadStore {
     // This means that this store can be used to store the hours of any given day.
     // It is up to the consumer to find the correct day.
     // It is also up to the consumer of this class to clean unwanted hourly data.
-    private var signedPayloadsByHour = [String: [Int: SAPKeyPackage]]()
+    private var packagesByHour = [String: [Int: SAPKeyPackage]]()
 
     // MARK: Working with Days
     func missingDays(remoteDays: Set<String>) -> Set<String> {
-        remoteDays.subtracting(Set(signedPayloadsByDay.keys))
+        remoteDays.subtracting(Set(packagesByDay.keys))
     }
 
     func add(day: String, signedPayload: SAPKeyPackage) {
-        signedPayloadsByDay[day] = signedPayload
+        packagesByDay[day] = signedPayload
     }
 
-    func signedPayload(for day: String) -> SAPKeyPackage? {
-        signedPayloadsByDay[day]
+    func keyPackage(for day: String) -> SAPKeyPackage? {
+        packagesByDay[day]
     }
 
-    func allDailySignedPayloads() -> [SAPKeyPackage] {
-        Array(signedPayloadsByDay.values)
+    func allDailyKeyPackages() -> [SAPKeyPackage] {
+        Array(packagesByDay.values)
     }
 
-    func hourlySignedPayloads(day: String) -> [SAPKeyPackage] {
-        Array(signedPayloadsByHour[day, default: [:]].values)
+    func hourlyPackages(day: String) -> [SAPKeyPackage] {
+        Array(packagesByHour[day, default: [:]].values)
     }
 
     // MARK: Working with Hours
-    func add(hour: Int, day: String, signedPayload: SAPKeyPackage) {
-        var diagnosisKeysByHour = signedPayloadsByHour[day, default: [:]]
-        diagnosisKeysByHour[hour] = signedPayload
-        signedPayloadsByHour[day] = diagnosisKeysByHour
+    func add(hour: Int, day: String, keyPackage: SAPKeyPackage) {
+        var packages = packagesByHour[day, default: [:]]
+        packages[hour] = keyPackage
+        packagesByHour[day] = packages
     }
 
     func missingHours(day: String, remoteHours: Set<Int>) -> Set<Int> {
-        let signedPayloads = signedPayloadsByHour[day, default: [:]]
-        let localHours = Set(signedPayloads.keys)
+        let packages = packagesByHour[day, default: [:]]
+        let localHours = Set(packages.keys)
         return remoteHours.subtracting(localHours)
     }
 }

@@ -38,13 +38,13 @@ final class ExposureDetectionTransaction {
     // MARK: Properties
     private weak var delegate: ExposureDetectionTransactionDelegate?
     private let client: Client
-    private let signedPayloadStore: SignedPayloadStore
+    private let signedPayloadStore: KeyPackagesStore
 
     // MARK: Creating a Transaction
     init(
         delegate: ExposureDetectionTransactionDelegate,
         client: Client,
-        signedPayloadStore: SignedPayloadStore
+        signedPayloadStore: KeyPackagesStore
     ) {
         self.delegate = delegate
         self.client = client
@@ -206,7 +206,7 @@ final class ExposureDetectionTransaction {
 
 }
 
-private extension SignedPayloadStore {
+private extension KeyPackagesStore {
     func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
         let days = daysAndHours.days
         days.bucketsByDay.forEach { day, bucket in
@@ -215,7 +215,7 @@ private extension SignedPayloadStore {
 
         let hours = daysAndHours.hours
         hours.bucketsByHour.forEach { hour, bucket in
-            self.add(hour: hour, day: hours.day, signedPayload: bucket)
+            self.add(hour: hour, day: hours.day, keyPackage: bucket)
         }
     }
 
@@ -229,8 +229,8 @@ private extension SignedPayloadStore {
     }
 
     func allKeys(today: String) -> [SAPKeyPackage] {
-        let days = allDailySignedPayloads()
-        let hours = hourlySignedPayloads(day: today)
+        let days = allDailyKeyPackages()
+        let hours = hourlyPackages(day: today)
         return days + hours
     }
 

@@ -18,7 +18,7 @@ final class HomeViewController: UIViewController {
         exposureManager: ExposureManager,
         client: Client,
         store: Store,
-        signedPayloadStore: SignedPayloadStore
+        signedPayloadStore: KeyPackagesStore
     ) {
         self.client = client
         self.store = store
@@ -38,7 +38,7 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: Properties
-    private let signedPayloadStore: SignedPayloadStore
+    private let signedPayloadStore: KeyPackagesStore
     private let exposureManager: ExposureManager
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
