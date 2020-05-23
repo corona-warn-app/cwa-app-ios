@@ -15,6 +15,7 @@ private func _withPrefix(_ name: String) -> Notification.Name {
 extension Notification.Name {
     static let isOnboardedDidChange = _withPrefix("isOnboardedDidChange")
     static let dateLastExposureDetectionDidChange = _withPrefix("dateLastExposureDetectionDidChange")
+    static let dateOfAcceptedPrivacyNoticeDidChange = _withPrefix("dateOfAcceptedPrivacyNoticeDidChange")
     static let permissionCellularUseDidChange = _withPrefix("allowsCellularUse")
     static let developerSubmissionBaseURLOverrideDidChange = _withPrefix("developerSubmissionBaseURLOverride")
     static let developerDistributionBaseURLOverrideDidChange = _withPrefix("developerDistributionBaseURLOverride")
