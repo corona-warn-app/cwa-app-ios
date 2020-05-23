@@ -49,9 +49,8 @@ final class HTTPClient: Client {
                 do {
                     let package = try archive.extractKeyPackage()
                     log(message: "Retrieved exposureConfiguation from server")
-//                    completion(.mock())
-
-                                        completion(try ENExposureConfiguration(from: package.bin))
+                    
+                    completion(try ENExposureConfiguration(from: package.bin))
                 } catch {
                     logError(message: "Failed to get exposure configuration: \(error.localizedDescription)")
                     completion(nil)

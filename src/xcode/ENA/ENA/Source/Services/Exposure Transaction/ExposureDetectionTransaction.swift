@@ -137,8 +137,8 @@ final class ExposureDetectionTransaction {
                 return
             }
 
-            let fixedConfiguration: ENExposureConfiguration
-            fixedConfiguration = configuration
+
+            let fixedConfiguration = configuration.needsTemporaryFixUntilAppleFixedZeroWeightIssue ? configuration.fixed() : configuration
             continueWith(fixedConfiguration)
         }
     }
@@ -244,4 +244,20 @@ extension SAP_TemporaryExposureKey {
             $0.transmissionRiskLevel = self.transmissionRiskLevel
         }
     }
+}
+
+private extension ENExposureConfiguration {
+    var needsTemporaryFixUntilAppleFixedZeroWeightIssue: Bool {
+        attenuationWeight.isNearZero ||
+            durationWeight.isNearZero ||
+            transmissionRiskWeight.isNearZero ||
+            daysSinceLastExposureWeight.isNearZero
+    }
+    func fixed() -> ENExposureConfiguration {
+        .mock()
+    }
+}
+
+private extension Double {
+    var isNearZero: Bool { magnitude < 0.1 }
 }
