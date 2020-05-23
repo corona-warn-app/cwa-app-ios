@@ -20,7 +20,7 @@ final class SignedPayloadStoreTests: XCTestCase {
     func testMissingDays_FilledStore() {
         let store = KeyPackagesStore()
 
-        store.add(
+        store.set(
             day: "a",
             signedPayload:
             SAPKeyPackage(
@@ -36,7 +36,7 @@ final class SignedPayloadStoreTests: XCTestCase {
         // we are missing "b"
         XCTAssertEqual(store.missingDays(remoteDays: ["a", "b"]), ["b"])
 
-        store.add(
+        store.set(
             day: "b",
             signedPayload:
             SAPKeyPackage(
@@ -66,7 +66,7 @@ final class SignedPayloadStoreTests: XCTestCase {
 
     func testMissingHours_StoreWithDaysButNoRemoteHours() {
         let store = KeyPackagesStore()
-        store.add(
+        store.set(
             day: "a",
             signedPayload: SAPKeyPackage(
                 keysBin: Data(bytes: [0xa], count: 1),
@@ -82,7 +82,7 @@ final class SignedPayloadStoreTests: XCTestCase {
 
     func testMissingHours_StoreWithDaysAndHours() {
         let store = KeyPackagesStore()
-        store.add(
+        store.set(
             day: "a",
             signedPayload: SAPKeyPackage(
                 keysBin: Data(bytes: [0xa], count: 1),
@@ -103,7 +103,7 @@ final class SignedPayloadStoreTests: XCTestCase {
             [1, 2, 3, 4]
         )
 
-        store.add(
+        store.set(
             hour: 1,
             day: "b",
             keyPackage:
@@ -117,7 +117,7 @@ final class SignedPayloadStoreTests: XCTestCase {
             [2, 3, 4]
         )
 
-        store.add(
+        store.set(
             hour: 4,
             day: "b",
             keyPackage: SAPKeyPackage(

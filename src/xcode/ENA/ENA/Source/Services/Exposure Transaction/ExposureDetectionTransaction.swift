@@ -205,12 +205,12 @@ private extension KeyPackagesStore {
     func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
         let days = daysAndHours.days
         days.bucketsByDay.forEach { day, bucket in
-            self.add(day: day, signedPayload: bucket)
+            self.set(day: day, signedPayload: bucket)
         }
 
         let hours = daysAndHours.hours
         hours.bucketsByHour.forEach { hour, bucket in
-            self.add(hour: hour, day: hours.day, keyPackage: bucket)
+            self.set(hour: hour, day: hours.day, keyPackage: bucket)
         }
     }
 

@@ -37,7 +37,7 @@ final class KeyPackagesStore {
         remoteDays.subtracting(Set(packagesByDay.keys))
     }
 
-    func add(day: String, signedPayload: SAPKeyPackage) {
+    func set(day: String, signedPayload: SAPKeyPackage) {
         packagesByDay[day] = signedPayload
     }
 
@@ -54,7 +54,7 @@ final class KeyPackagesStore {
     }
 
     // MARK: Working with Hours
-    func add(hour: Int, day: String, keyPackage: SAPKeyPackage) {
+    func set(hour: Int, day: String, keyPackage: SAPKeyPackage) {
         var packages = packagesByHour[day, default: [:]]
         packages[hour] = keyPackage
         packagesByHour[day] = packages
