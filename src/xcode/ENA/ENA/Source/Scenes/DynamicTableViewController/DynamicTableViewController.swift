@@ -10,15 +10,17 @@ import Foundation
 import UIKit
 
 
-class DynamicTableViewController: UITableViewController {
-	var model: DynamicTableViewModel = DynamicTableViewModel(primaryAction: .none, content: [])
+class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+	var model: DynamicTableViewModel = DynamicTableViewModel([])
+	
+	var tableView: UITableView! { self.view as? UITableView }
 	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		tableView.register(DynamicTableHeaderView.self, forHeaderFooterViewReuseIdentifier: CellReuseIdentifier.header.rawValue)
-		tableView.register(UINib(nibName: String(describing: ExposureSubmissionIconTableViewCell.self), bundle: nil), forCellReuseIdentifier: CellReuseIdentifier.icon.rawValue)
+		tableView.register(DynamicTableHeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderFooterReuseIdentifier.header.rawValue)
+		tableView.register(DynamicTypeTableViewCell.Bold.self, forCellReuseIdentifier: CellReuseIdentifier.bold.rawValue)
 		tableView.register(DynamicTypeTableViewCell.Semibold.self, forCellReuseIdentifier: CellReuseIdentifier.semibold.rawValue)
 		tableView.register(DynamicTypeTableViewCell.Regular.self, forCellReuseIdentifier: CellReuseIdentifier.regular.rawValue)
 	}
@@ -33,9 +35,15 @@ extension DynamicTableViewController {
 
 
 extension DynamicTableViewController {
-	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
+	enum HeaderFooterReuseIdentifier: String, TableViewHeaderFooterReuseIdentifiers {
 		case header = "headerView"
-		case icon = "iconCell"
+	}
+}
+
+
+extension DynamicTableViewController {
+	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
+		case bold = "boldCell"
 		case semibold = "semiboldCell"
 		case regular = "regularCell"
 	}
@@ -45,47 +53,42 @@ extension DynamicTableViewController {
 private extension DynamicTableViewModel.Cell {
 	var cellType: DynamicTableViewController.CellReuseIdentifier {
 		switch self {
+		case .bold:
+			return .bold
 		case .semibold:
 			return .semibold
 		case .regular:
 			return .regular
-		case .icon:
-			return .icon
-		case .phone:
-			return .icon
 		}
 	}
 	
 	func configure(cell: UITableViewCell) {
 		switch self {
+		case let .bold(text):
+			cell.textLabel?.text = text
+			
 		case let .semibold(text):
 			cell.textLabel?.text = text
 			
 		case let .regular(text):
 			cell.textLabel?.text = text
-			
-		case let .icon(_, text, image, backgroundColor, tintColor):
-			(cell as? ExposureSubmissionIconTableViewCell)?.configure(text: text, image: image, backgroundColor: backgroundColor, tintColor: tintColor)
-			
-		case let .phone(_, text):
-			(cell as? ExposureSubmissionIconTableViewCell)?.configure(text: text, image: UIImage(systemName: "phone.fill"), backgroundColor: .preferredColor(for: .brandMagenta), tintColor: .white)
 		}
 	}
 }
 
 
 extension DynamicTableViewController {
-	override func numberOfSections(in tableView: UITableView) -> Int {
+	func numberOfSections(in tableView: UITableView) -> Int {
 		return model.content.count
 	}
 	
 	
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return model.content[section].cells.count
 	}
 	
 	
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		let content = model.content[section]
 		
 		switch content.header {
@@ -97,16 +100,16 @@ extension DynamicTableViewController {
 	}
 	
 	
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let content = model.content[section]
 		
 		switch content.header {
 		case let .view(view):
 			return view
-		case let .image(image):
-			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: CellReuseIdentifier.header.rawValue) as? DynamicTableHeaderView
+		case let .image(image, height):
+			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.header.rawValue) as? DynamicTableHeaderView
 			view?.imageView?.image = image
-			view?.height = 250
+			view?.height = height
 			return view
 		default:
 			return nil
@@ -114,7 +117,7 @@ extension DynamicTableViewController {
 	}
 	
 	
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let section = model.content[indexPath.section]
 		let content = section.cells[indexPath.row]
 		
@@ -137,7 +140,7 @@ extension DynamicTableViewController {
 	}
 	
 	
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		
 		let content = model.content[indexPath.section].cells[indexPath.row]
@@ -149,6 +152,8 @@ extension DynamicTableViewController {
 			if let url = URL(string: "tel://\(number)") { UIApplication.shared.open(url) }
 		case let .perform(segueIdentifier):
 			self.performSegue(withIdentifier: segueIdentifier, sender: nil)
+		case let .execute(block):
+			block(self)
 		default:
 			break
 		}

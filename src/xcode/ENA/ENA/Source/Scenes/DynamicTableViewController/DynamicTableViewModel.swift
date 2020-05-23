@@ -11,16 +11,13 @@ import UIKit
 
 
 struct DynamicTableViewModel {
-	let primaryAction: Action
 	let content: [Section]
 	
 	
-	enum Header {
-		case none
-		case text(_ text: String)
-		case image(_ image: UIImage?)
-		case view(_ view: UIView)
+	init(_ content: [Section]) {
+		self.content = content
 	}
+	
 	
 	struct Section {
 		let header: Header?
@@ -38,18 +35,20 @@ struct DynamicTableViewModel {
 		}
 	}
 	
+	enum Header {
+		case none
+		case text(_ text: String)
+		case image(_ image: UIImage?, height: CGFloat = 250)
+		case view(_ view: UIView)
+	}
+	
 	enum Cell {
+		case bold(text: String)
 		case semibold(text: String)
 		case regular(text: String)
-		case icon(action: Action? = nil, text: String, image: UIImage?, backgroundColor: UIColor, tintColor: UIColor)
-		case phone(action: Action? = nil, text: String)
 		
 		var action: Action? {
 			switch self {
-			case let .icon(action, _, _, _, _):
-				return action
-			case let .phone(action, _):
-				return action
 			default:
 				return nil
 			}
@@ -61,6 +60,6 @@ struct DynamicTableViewModel {
 		case call(number: String)
 		case open(url: URL?)
 		case perform(segue: SegueIdentifiers)
-		case custom((_ viewController: UIViewController) -> Void)
+		case execute(block: (_ viewController: UIViewController) -> Void)
 	}
 }

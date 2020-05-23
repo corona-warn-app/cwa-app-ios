@@ -69,13 +69,13 @@
 		51D420CE245869C800AD70CA /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CD245869C800AD70CA /* Home.storyboard */; };
 		51D420D024586AB300AD70CA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CF24586AB300AD70CA /* Settings.storyboard */; };
 		51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
-		710ABB2B2475392600948792 /* ExposureDetectionRiskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB2A2475392600948792 /* ExposureDetectionRiskCell.swift */; };
-		710ABB2C2475531700948792 /* app-information-assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71CC3E7C246D308000217F2C /* app-information-assets.xcassets */; };
 		710ABB1F2475115500948792 /* UITableViewController+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB1E2475115500948792 /* UITableViewController+Enum.swift */; };
 		710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */; };
 		710ABB25247514BD00948792 /* UIViewController+Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB24247514BD00948792 /* UIViewController+Segue.swift */; };
 		710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB26247533FA00948792 /* DynamicTableViewController.swift */; };
 		710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB282475353900948792 /* DynamicTableViewModel.swift */; };
+		710ABB2B2475392600948792 /* ExposureDetectionRiskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB2A2475392600948792 /* ExposureDetectionRiskCell.swift */; };
+		710ABB2C2475531700948792 /* app-information-assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71CC3E7C246D308000217F2C /* app-information-assets.xcassets */; };
 		714CD8652472883A00F56450 /* ExposureDetectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8642472883A00F56450 /* ExposureDetectionModel.swift */; };
 		714CD8672472885900F56450 /* ExposureDetectionModel+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8662472885900F56450 /* ExposureDetectionModel+Data.swift */; };
 		714CD869247297F800F56450 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD868247297F800F56450 /* NibLoadable.swift */; };
@@ -260,12 +260,12 @@
 		51D420CD245869C800AD70CA /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		51D420CF24586AB300AD70CA /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		51D420D324586DCA00AD70CA /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
-		710ABB2A2475392600948792 /* ExposureDetectionRiskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionRiskCell.swift; sourceTree = "<group>"; };
 		710ABB1E2475115500948792 /* UITableViewController+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewController+Enum.swift"; sourceTree = "<group>"; };
 		710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DynamicTypeTableViewCell.swift; path = ../DynamicTypeTableViewCell.swift; sourceTree = "<group>"; };
 		710ABB24247514BD00948792 /* UIViewController+Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Segue.swift"; sourceTree = "<group>"; };
 		710ABB26247533FA00948792 /* DynamicTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewController.swift; sourceTree = "<group>"; };
 		710ABB282475353900948792 /* DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewModel.swift; sourceTree = "<group>"; };
+		710ABB2A2475392600948792 /* ExposureDetectionRiskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionRiskCell.swift; sourceTree = "<group>"; };
 		714CD8642472883A00F56450 /* ExposureDetectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionModel.swift; sourceTree = "<group>"; };
 		714CD8662472885900F56450 /* ExposureDetectionModel+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureDetectionModel+Data.swift"; sourceTree = "<group>"; };
 		714CD868247297F800F56450 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
@@ -1458,7 +1458,6 @@
 				130CB19E246D932F00ADE602 /* NotificationName.swift in Sources */,
 				134F0F2D2475794900D88934 /* Accessibility.swift in Sources */,
 				134F0DBD247578FF00D88934 /* ENAUITests-Extensions.swift in Sources */,
-				130CB19D246D931B00ADE602 /* Store.swift in Sources */,
 				130CB19E246D932F00ADE602 /* NotificationName.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
 				130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */,

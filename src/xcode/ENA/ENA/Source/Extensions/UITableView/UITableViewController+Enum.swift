@@ -30,7 +30,7 @@ extension TableViewSections {
 }
 
 
-protocol TableViewCellReuseIdentifiers {
+protocol TableViewReuseIdentifiers {
 	var rawValue: String { get }
 	
 	init?(rawValue: String)
@@ -38,16 +38,27 @@ protocol TableViewCellReuseIdentifiers {
 }
 
 
-extension TableViewCellReuseIdentifiers {
+extension TableViewReuseIdentifiers {
 	init?(_ identifier: String) {
 		self.init(rawValue: identifier)
 	}
 }
 
 
+protocol TableViewHeaderFooterReuseIdentifiers: TableViewReuseIdentifiers { }
+
+
+protocol TableViewCellReuseIdentifiers: TableViewReuseIdentifiers { }
+
+
 extension UITableView {
+	typealias HeaderFooterReuseIdentifier = TableViewHeaderFooterReuseIdentifiers
 	typealias CellReuseIdentifier = TableViewCellReuseIdentifiers
-	
+
+	func dequeueReusableHeaderFooterView(withIdentifier identifier: HeaderFooterReuseIdentifier) -> UITableViewHeaderFooterView? {
+		return self.dequeueReusableHeaderFooterView(withIdentifier: identifier.rawValue)
+	}
+
 	func dequeueReusableCell(withIdentifier identifier: CellReuseIdentifier) -> UITableViewCell? {
 		return self.dequeueReusableCell(withIdentifier: identifier.rawValue)
 	}
