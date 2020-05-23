@@ -21,6 +21,13 @@ final class Store {
     var dateLastExposureDetection: Date?
 
     @PersistedAndPublished(
+        key: "dateOfAcceptedPrivacyNotice",
+        notificationName: Notification.Name.dateLastExposureDetectionDidChange,
+        defaultValue: nil
+    )
+    var dateOfAcceptedPrivacyNotice: Date?
+
+    @PersistedAndPublished(
         key: "allowsCellularUse",
         notificationName: Notification.Name.permissionCellularUseDidChange,
         defaultValue: true
