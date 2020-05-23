@@ -193,19 +193,19 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Kontaktprotokoll" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqD-35-9Nl" userLabel="Description Label">
-                                                    <rect key="frame" x="54" y="0.0" width="275.5" height="44.5"/>
+                                                    <rect key="frame" x="54" y="0.0" width="0.0" height="44.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="# An" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WfM-8I-MCB" userLabel="State Label">
-                                                    <rect key="frame" x="339.5" y="0.0" width="35.5" height="44.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" text="# An" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WfM-8I-MCB" userLabel="State Label">
+                                                    <rect key="frame" x="64" y="0.0" width="0.0" height="44.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" name="textPrimary2"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="w7J-xP-FrF" userLabel="Disclosure Indicator">
-                                                    <rect key="frame" x="385" y="14" width="13" height="17"/>
+                                                    <rect key="frame" x="74" y="14" width="324" height="17"/>
                                                     <color key="tintColor" name="textPrimary3"/>
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
@@ -214,8 +214,10 @@
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
+                                                <constraint firstItem="WfM-8I-MCB" firstAttribute="top" secondItem="aqD-35-9Nl" secondAttribute="bottom" priority="900" id="4nW-Td-1sn"/>
                                                 <constraint firstItem="aqD-35-9Nl" firstAttribute="firstBaseline" secondItem="0cG-du-5bi" secondAttribute="centerY" priority="900" id="9Ea-3U-oag" userLabel="Image Container First Baseline Constraint"/>
-                                                <constraint firstItem="aqD-35-9Nl" firstAttribute="leading" secondItem="0cG-du-5bi" secondAttribute="trailing" priority="900" constant="10" id="AzH-AQ-XL4"/>
+                                                <constraint firstItem="WfM-8I-MCB" firstAttribute="leading" secondItem="l0w-jj-e0c" secondAttribute="leading" priority="900" constant="16" id="9Mi-eW-Rlk"/>
+                                                <constraint firstItem="aqD-35-9Nl" firstAttribute="leading" secondItem="0cG-du-5bi" secondAttribute="trailing" constant="10" id="AzH-AQ-XL4"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="GUC-j2-2DJ"/>
                                                 <constraint firstItem="aqD-35-9Nl" firstAttribute="leading" secondItem="l0w-jj-e0c" secondAttribute="leading" priority="900" constant="16" id="MHE-B5-S9i"/>
                                                 <constraint firstItem="w7J-xP-FrF" firstAttribute="leading" secondItem="WfM-8I-MCB" secondAttribute="trailing" constant="10" id="SJ0-Rm-0S4"/>
@@ -223,6 +225,7 @@
                                                 <constraint firstItem="0cG-du-5bi" firstAttribute="leading" secondItem="l0w-jj-e0c" secondAttribute="leading" constant="16" id="TX5-hJ-rwc"/>
                                                 <constraint firstAttribute="trailing" secondItem="w7J-xP-FrF" secondAttribute="trailing" constant="16" id="UVQ-Mk-NWK"/>
                                                 <constraint firstAttribute="bottom" secondItem="WfM-8I-MCB" secondAttribute="bottom" id="WxV-Sj-ur2"/>
+                                                <constraint firstItem="w7J-xP-FrF" firstAttribute="leading" secondItem="aqD-35-9Nl" secondAttribute="trailing" priority="900" constant="16" id="atL-wl-wD0"/>
                                                 <constraint firstItem="w7J-xP-FrF" firstAttribute="centerY" secondItem="l0w-jj-e0c" secondAttribute="centerY" id="bQA-zo-fHt"/>
                                                 <constraint firstItem="aqD-35-9Nl" firstAttribute="top" secondItem="l0w-jj-e0c" secondAttribute="top" id="fkB-0v-WOI"/>
                                                 <constraint firstItem="WfM-8I-MCB" firstAttribute="top" secondItem="l0w-jj-e0c" secondAttribute="top" id="jhy-sb-zaM"/>
@@ -240,13 +243,20 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="aqD-35-9Nl" id="6zz-OW-H1a"/>
+                                    <outlet property="descriptionLabelBottom" destination="vaC-MI-fjm" id="1x3-6Z-lOo"/>
                                     <outlet property="descriptionLabelLeadingConstraint" destination="MHE-B5-S9i" id="YKp-D7-s4y"/>
                                     <outlet property="descriptionLabelTrailingConstraint" destination="AzH-AQ-XL4" id="n5q-lW-x02"/>
+                                    <outlet property="disclosureIndicatorLeading" destination="SJ0-Rm-0S4" id="uu8-Kp-vIw"/>
+                                    <outlet property="disclosureIndicatorLeadingLarge" destination="atL-wl-wD0" id="3pY-U4-GEX"/>
                                     <outlet property="iconImageView" destination="f8b-wp-fbW" id="V6y-nS-E9V"/>
                                     <outlet property="imageContainer" destination="0cG-du-5bi" id="Zpq-JM-SdB"/>
                                     <outlet property="imageContainerCenterConstraint" destination="z7H-YE-gF0" id="gb3-Is-wvr"/>
                                     <outlet property="imageContainerFirstBaselineConstraint" destination="9Ea-3U-oag" id="Ao5-eY-tpM"/>
                                     <outlet property="stateLabel" destination="WfM-8I-MCB" id="TjN-e7-lG8"/>
+                                    <outlet property="stateLabelLeading" destination="Sox-qy-5uP" id="lji-Oa-goF"/>
+                                    <outlet property="stateLabelLeadingLarge" destination="9Mi-eW-Rlk" id="gXt-vg-iVu"/>
+                                    <outlet property="stateLabelTop" destination="jhy-sb-zaM" id="jlp-J6-ULW"/>
+                                    <outlet property="stateLabelTopLarge" destination="4nW-Td-1sn" id="XJl-GO-Ydu"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="resetSettings" id="Xks-ea-U8Y" customClass="ResetTableViewCell" customModule="ENA" customModuleProvider="target">

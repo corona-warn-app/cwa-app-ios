@@ -19,6 +19,14 @@ class MainSettingsTableViewCell: UITableViewCell {
     @IBOutlet weak var imageContainerFirstBaselineConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageContainerCenterConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var stateLabelLeading: NSLayoutConstraint!
+    @IBOutlet weak var stateLabelTop: NSLayoutConstraint!
+    @IBOutlet weak var stateLabelLeadingLarge: NSLayoutConstraint!
+    @IBOutlet weak var stateLabelTopLarge: NSLayoutConstraint!
+    @IBOutlet weak var descriptionLabelBottom: NSLayoutConstraint!
+    @IBOutlet weak var disclosureIndicatorLeading: NSLayoutConstraint!
+    @IBOutlet weak var disclosureIndicatorLeadingLarge: NSLayoutConstraint!
+
     private var regularConstraints: [NSLayoutConstraint] = []
     private var largeTextConstraints: [NSLayoutConstraint] = []
 
@@ -41,12 +49,12 @@ class MainSettingsTableViewCell: UITableViewCell {
     }
 
     private func setLayoutConstraints() {
-        regularConstraints = [ imageContainerCenterConstraint, descriptionLabelTrailingConstraint ]
+        regularConstraints = [ imageContainerCenterConstraint, descriptionLabelTrailingConstraint, descriptionLabelBottom, stateLabelLeading, stateLabelTop, disclosureIndicatorLeading ]
 
         let labelHalfCapHeight = descriptionLabel.font.capHeight / 2
         imageContainerFirstBaselineConstraint.constant = labelHalfCapHeight
 
-        largeTextConstraints = [ descriptionLabelLeadingConstraint, imageContainerFirstBaselineConstraint ]
+        largeTextConstraints = [ descriptionLabelLeadingConstraint, imageContainerFirstBaselineConstraint, stateLabelTopLarge, stateLabelLeadingLarge, disclosureIndicatorLeadingLarge ]
     }
 
     private func updateLayoutConstraints() {
