@@ -190,11 +190,7 @@ extension SettingsViewController {
             fatalError("No cell for reuse identifier.")
         }
 
-        let icon = model.icon
-
-        cell.iconImageView.image = icon.isSystem ? UIImage(systemName: icon.imageName) : UIImage(named: icon.imageName)
-        cell.descriptionLabel.text = model.description
-        cell.stateLabel.text = model.state ?? model.stateInactive
+        cell.configure(model: model)
 
         return cell
     }
