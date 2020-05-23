@@ -116,30 +116,16 @@ final class ExposureDetectionTransaction {
         completion: @escaping () -> Void
     ) {
         let today = formattedToday()
-        let missing = signedPayloadStore.missingDaysAndHours(
-            from: remoteDaysAndHours,
-            today: today
-        )
+//        let missing = signedPayloadStore.missingDaysAndHours(
+//            from: remoteDaysAndHours,
+//            today: today
+//        )
 
         client.fetch { theWholeWorld in
             self.signedPayloadStore.addFetchedDaysAndHours(theWholeWorld)
             completion()
-
-//
-//            theWholeWorld.forEach {
-//                self.signedPayloadStore.add(day: <#T##String#>, signedPayload: <#T##SAPKeyPackage#>)
-            }
         }
-//
-//        client.fetchDays(
-//            missing.days,
-//            hours: missing.hours,
-//            of: formattedToday()
-//        ) { [weak self] daysAndHours in
-//            guard let self = self else { return }
-//            completion()
-//        }
-
+    }
 
     // 3. Fetch the Configuration
     private func remoteExposureConfiguration(

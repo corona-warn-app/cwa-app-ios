@@ -276,7 +276,7 @@ private extension ENExposureConfiguration {
 
         let riskscoreParameters = try Sap_RiskScoreParameters(serializedData: data)
 
-        minimumRiskScore = 0
+//        minimumRiskScore = 0
 
         attenuationWeight = riskscoreParameters.attenuationWeight
         attenuationLevelValues = riskscoreParameters.attenuation.asArray
@@ -346,19 +346,19 @@ private extension Sap_RiskScoreParameters.AttenuationRiskParameters {
         [gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, lt10Dbm].map { $0.asNumber }
     }
 }
-
-extension ENExposureConfiguration {
-    class func mock() -> ENExposureConfiguration {
-        let config = ENExposureConfiguration()
-        config.minimumRiskScore = 0
-        config.attenuationWeight = 50
-        config.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        config.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        config.daysSinceLastExposureWeight = 50
-        config.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        config.durationWeight = 50
-        config.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        config.transmissionRiskWeight = 50
-        return config
-    }
-}
+//
+//extension ENExposureConfiguration {
+//    class func mock() -> ENExposureConfiguration {
+//        let config = ENExposureConfiguration()
+//        config.minimumRiskScore = 0
+//        config.attenuationWeight = 50
+//        config.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+//        config.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+//        config.daysSinceLastExposureWeight = 50
+//        config.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+//        config.durationWeight = 50
+//        config.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+//        config.transmissionRiskWeight = 50
+//        return config
+//    }
+//}
