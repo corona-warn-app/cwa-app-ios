@@ -45,6 +45,85 @@ final class DMSubmissionStateViewController: UITableViewController {
     }
 
     @objc func doIt() {
+        let group = DispatchGroup()
 
+        group.enter()
+        var allPackages = [SAPKeyPackage]()
+        client.fetch { result in
+            allPackages = result.allKeyPackages
+            group.leave()
+        }
+
+
+
+        var localKeys = [ENTemporaryExposureKey]()
+
+        group.enter()
+        delegate?.submissionStateViewController(self) { keys, error in
+            precondition(Thread.isMainThread)
+            defer { group.leave() }
+
+            if let error = error {
+                self.present(
+                    UIAlertController(
+                        title: "Failed to get local diagnosis keys",
+                        message: error.localizedDescription,
+                        preferredStyle: .alert
+                    ),
+                    animated: true
+                )
+                return
+            }
+            localKeys = keys ?? []
+        }
+
+        group.notify(queue: .main) {
+            var remoteKeys = [Apple2_TemporaryExposureKey]()
+            do {
+                for package in allPackages {
+                    remoteKeys.append(contentsOf: try package.keys())
+                }
+            } catch {
+                print(error)
+            }
+            let localKeysFoundRemotly = localKeys.filter { remoteKeys.containsKey($0) }
+            let foundOwnKey = localKeysFoundRemotly.isEmpty == false
+            print("localKeysFoundRemotly: \(localKeysFoundRemotly)")
+            print("foundOwnKey: \(foundOwnKey)")
+        }
+    }
+}
+
+private extension Data {
+    // swiftlint:disable:next force_unwrapping
+    static let binHeader = "EK Export v1    ".data(using: .utf8)!
+
+    var withoutBinHeader: Data {
+        let headerRange = startIndex..<Data.binHeader.count
+
+        guard subdata(in: headerRange) == Data.binHeader else {
+            return self
+        }
+        return subdata(in: headerRange.endIndex..<endIndex)
+    }
+}
+
+extension SAPKeyPackage {
+    var binProtobufData: Data {
+        bin.withoutBinHeader
+    }
+
+    func keys() throws -> [Apple2_TemporaryExposureKey] {
+        let data = binProtobufData
+        let export = try Apple2_TemporaryExposureKeyExport(serializedData: data)
+        return export.keys
+    }
+}
+
+private extension Array where Element == Apple2_TemporaryExposureKey {
+    func containsKey(_ key: ENTemporaryExposureKey) -> Bool {
+        contains { appleKey in
+            appleKey.keyData == key.keyData
+        }
     }
 }
