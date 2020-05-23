@@ -124,7 +124,7 @@ final class HomeViewController: UIViewController {
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		NotificationCenter.default.removeObserver(summaryNotificationObserver, name: .didDetectExposureDetectionSummary, object: nil)
+		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
 	}
 	
     // MARK: Actions
@@ -225,8 +225,8 @@ final class HomeViewController: UIViewController {
     private func showScreen(at indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
         let row = indexPath.row
-        switch section {
-        case .actions:
+		switch section {
+		case .actions:
             if row == 0 {
                 showExposureNotificationSetting()
             } else if row == 1 {
@@ -338,4 +338,3 @@ extension HomeViewController: UICollectionViewDelegate {
         showScreen(at: indexPath)
     }
 }
-

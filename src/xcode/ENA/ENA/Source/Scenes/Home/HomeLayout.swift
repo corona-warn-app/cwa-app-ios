@@ -34,9 +34,9 @@ final class HomeLayout {
     }
     
     private func layoutSection(for section: HomeViewController.Section, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        switch section {
-        case .actions:
-            return mainSection()
+		switch section {
+		case .actions:
+			return mainSection()
 		case .infos:
 			return infoSection()
 		case .settings:

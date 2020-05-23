@@ -34,30 +34,29 @@ extension UIView {
 		view.backgroundColor = color
 
 		switch edge {
-        case .top:
+		case .top:
 			view.topAnchor.constraint(equalTo: topAnchor, constant: inset.top).isActive = true
 			view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset.left).isActive = true
 			view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: inset.right).isActive = true
 			view.heightAnchor.constraint(equalToConstant: thickness).isActive = true
-        case .right:
+		case .right:
 			view.topAnchor.constraint(equalTo: topAnchor, constant: inset.top).isActive = true
 			view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: inset.bottom).isActive = true
 			view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: inset.right).isActive = true
 			view.widthAnchor.constraint(equalToConstant: thickness).isActive = true
-        case .bottom:
+		case .bottom:
 			view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: inset.bottom).isActive = true
 			view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset.left).isActive = true
 			view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: inset.right).isActive = true
 			view.heightAnchor.constraint(equalToConstant: thickness).isActive = true
-        case .left:
+		case .left:
 			view.topAnchor.constraint(equalTo: topAnchor, constant: inset.top).isActive = true
 			view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: inset.bottom).isActive = true
 			view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset.left).isActive = true
 			view.widthAnchor.constraint(equalToConstant: thickness).isActive = true
-        default:
+		default:
             return
         }
-		
     }
 
 }
