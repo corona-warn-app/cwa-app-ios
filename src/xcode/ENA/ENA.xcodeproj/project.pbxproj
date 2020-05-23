@@ -134,13 +134,10 @@
 		B1D431CB246C84A400E728AD /* KeyPackagesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CA246C84A400E728AD /* KeyPackagesStore.swift */; };
 		B1D431CE246C84F200E728AD /* SignedPayloadStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CC246C84ED00E728AD /* SignedPayloadStoreTests.swift */; };
 		B1D7D68C24766D2100E4DA5D /* risk_score_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68424766D2100E4DA5D /* risk_score_parameters.pb.swift */; };
-		B1D7D68D24766D2100E4DA5D /* file_bucket.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68524766D2100E4DA5D /* file_bucket.pb.swift */; };
 		B1D7D68E24766D2100E4DA5D /* submission_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68624766D2100E4DA5D /* submission_payload.pb.swift */; };
 		B1D7D68F24766D2100E4DA5D /* apple_exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68724766D2100E4DA5D /* apple_exposure_notification.pb.swift */; };
-		B1D7D69024766D2100E4DA5D /* exposure_notification.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68824766D2100E4DA5D /* exposure_notification.pb.swift */; };
 		B1D7D69124766D2100E4DA5D /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68924766D2100E4DA5D /* risk_level.pb.swift */; };
 		B1D7D69224766D2100E4DA5D /* apple_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68A24766D2100E4DA5D /* apple_export.pb.swift */; };
-		B1D7D69324766D2100E4DA5D /* signed_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68B24766D2100E4DA5D /* signed_payload.pb.swift */; };
 		B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DDDABB247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift */; };
 		B1DDDABE24713BAD00A07175 /* SAPKeyPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A9E710246D782F0024CC12 /* SAPKeyPackage.swift */; };
 		B1EAEC8B24711884003BE9A2 /* URLSession+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */; };
@@ -333,13 +330,10 @@
 		B1D431CA246C84A400E728AD /* KeyPackagesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPackagesStore.swift; sourceTree = "<group>"; };
 		B1D431CC246C84ED00E728AD /* SignedPayloadStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedPayloadStoreTests.swift; sourceTree = "<group>"; };
 		B1D7D68424766D2100E4DA5D /* risk_score_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_score_parameters.pb.swift; path = ../../../gen/output/risk_score_parameters.pb.swift; sourceTree = "<group>"; };
-		B1D7D68524766D2100E4DA5D /* file_bucket.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = file_bucket.pb.swift; path = ../../../gen/output/file_bucket.pb.swift; sourceTree = "<group>"; };
 		B1D7D68624766D2100E4DA5D /* submission_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = submission_payload.pb.swift; path = ../../../gen/output/submission_payload.pb.swift; sourceTree = "<group>"; };
 		B1D7D68724766D2100E4DA5D /* apple_exposure_notification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apple_exposure_notification.pb.swift; path = ../../../gen/output/apple_exposure_notification.pb.swift; sourceTree = "<group>"; };
-		B1D7D68824766D2100E4DA5D /* exposure_notification.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = exposure_notification.pb.swift; path = ../../../gen/output/exposure_notification.pb.swift; sourceTree = "<group>"; };
 		B1D7D68924766D2100E4DA5D /* risk_level.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_level.pb.swift; path = ../../../gen/output/risk_level.pb.swift; sourceTree = "<group>"; };
 		B1D7D68A24766D2100E4DA5D /* apple_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apple_export.pb.swift; path = ../../../gen/output/apple_export.pb.swift; sourceTree = "<group>"; };
-		B1D7D68B24766D2100E4DA5D /* signed_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = signed_payload.pb.swift; path = ../../../gen/output/signed_payload.pb.swift; sourceTree = "<group>"; };
 		B1DDDABB247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientConfigurationEndpointTests.swift; sourceTree = "<group>"; };
 		B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Convenience.swift"; sourceTree = "<group>"; };
 		B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+ConvenienceTests.swift"; sourceTree = "<group>"; };
@@ -849,11 +843,8 @@
 				0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */,
 				B1D7D68A24766D2100E4DA5D /* apple_export.pb.swift */,
 				B1D7D68724766D2100E4DA5D /* apple_exposure_notification.pb.swift */,
-				B1D7D68824766D2100E4DA5D /* exposure_notification.pb.swift */,
-				B1D7D68524766D2100E4DA5D /* file_bucket.pb.swift */,
 				B1D7D68924766D2100E4DA5D /* risk_level.pb.swift */,
 				B1D7D68424766D2100E4DA5D /* risk_score_parameters.pb.swift */,
-				B1D7D68B24766D2100E4DA5D /* signed_payload.pb.swift */,
 				B1D7D68624766D2100E4DA5D /* submission_payload.pb.swift */,
 				B102BDC22460410600CD55A2 /* README.md */,
 			);
@@ -1299,7 +1290,6 @@
 				01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */,
 				51B5B418246E022600DC5D3E /* InsetLabel.swift in Sources */,
 				13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */,
-				B1D7D68D24766D2100E4DA5D /* file_bucket.pb.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
@@ -1318,7 +1308,6 @@
 				B1EAEC91247128ED003BE9A2 /* ClientMode.swift in Sources */,
 				B1D7D69124766D2100E4DA5D /* risk_level.pb.swift in Sources */,
 				853D98852469DC8100490DBA /* ExposureNotificationSettingViewController.swift in Sources */,
-				B1D7D69324766D2100E4DA5D /* signed_payload.pb.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				0159E6C2247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
@@ -1374,7 +1363,6 @@
 				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
 				134FFA10247466BD00D82D14 /* TestEnvironment.swift in Sources */,
 				B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */,
-				B1D7D69024766D2100E4DA5D /* exposure_notification.pb.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				B10FD5EE246EAADF00E9D7F2 /* AppInformationHelpViewController.swift in Sources */,

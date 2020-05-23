@@ -235,14 +235,6 @@ private extension KeyPackagesStore {
     }
 }
 
-extension Sap_File {
-    func toAppleFile() -> Apple_File {
-        Apple_File.with {
-            $0.key = self.keys.map { $0.toAppleKey() }
-        }
-    }
-}
-
 extension Sap_TemporaryExposureKey {
     func toAppleKey() -> Apple_Key {
         Apple_Key.with {
