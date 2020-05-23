@@ -50,6 +50,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         self.window = window
+        exposureManager.resume(observer: self)
         setupUI()
 
         NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
@@ -63,6 +64,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func showHome(animated: Bool = false) {
+		navigationController.navigationBar.prefersLargeTitles = true
         navigationController.setViewControllers(
             [
                 AppStoryboard.home.initiateInitial { [unowned self] coder in
@@ -80,6 +82,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func showOnboarding() {
+		navigationController.navigationBar.prefersLargeTitles = false
         navigationController.setViewControllers(
             [
                 AppStoryboard.onboarding.initiateInitial { [unowned self] coder in
@@ -127,10 +130,31 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+extension SceneDelegate: ENAExposureManagerObserver {
+    func exposureManager(
+        _ manager: ENAExposureManager,
+        didChangeState newState: ExposureManagerState
+    ) {
+        let message = """
+        New status of EN framework:
+        Authorized: \(newState.authorized)
+        enabled: \(newState.enabled)
+        active: \(newState.active)
+        """
+        log(message: message)
+        
+        if newState.isGood {
+            log(message: "Enabled")
+        }
+    }
+}
+
 private extension UINavigationController {
     class func withLargeTitle() -> UINavigationController {
         let result = UINavigationController()
         result.navigationBar.prefersLargeTitles = true
+		result.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+		result.navigationBar.shadowImage = UIImage()
         return result
     }
 }

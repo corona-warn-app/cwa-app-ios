@@ -53,6 +53,9 @@ final class OnboardingInfoViewController: UIViewController {
     @IBOutlet var nextButton: ENAButton!
 	@IBOutlet var ignoreButton: UIButton!
 	
+	@IBOutlet weak var scrollView: UIScrollView!
+	@IBOutlet weak var footerView: UIView!
+	
 	private var onboardingInfos = OnboardingInfo.testData()
 
     var onboardingInfo: OnboardingInfo?
@@ -68,6 +71,12 @@ final class OnboardingInfoViewController: UIViewController {
 		updateUI()
 		setupAccessibility()
     }
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		let height = footerView.frame.height + 20
+		scrollView.contentInset.bottom = height
+	}
 
     func runActionForPageType(completion: @escaping () -> Void) {
 		switch pageType {
@@ -102,13 +111,14 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 		
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
-        ignoreButton.setTitleColor(UIColor.preferredColor(for: .tintColor), for: .normal)
+    ignoreButton.setTitleColor(UIColor.preferredColor(for: .tintColor), for: .normal)
 		ignoreButton.backgroundColor = UIColor.clear
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
 		
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+		footerView.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
 	}
 	
 	func setupAccessibility() {

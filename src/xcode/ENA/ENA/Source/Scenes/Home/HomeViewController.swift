@@ -116,13 +116,14 @@ final class HomeViewController: UIViewController {
         }
 
         func enableIfNeeded() {
-            guard exposureManager.preconditions().contains(.active) else {
+
+            guard exposureManager.preconditions().enabled else {
                 enable()
                 return
             }
         }
 
-        guard exposureManager.preconditions().contains(.active) else {
+        guard exposureManager.preconditions().active else {
             activate(then: enableIfNeeded)
             return
         }

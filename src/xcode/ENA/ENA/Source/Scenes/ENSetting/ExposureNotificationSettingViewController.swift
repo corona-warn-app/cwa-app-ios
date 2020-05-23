@@ -88,9 +88,10 @@ extension ExposureNotificationSettingViewController {
     }
     
     private func checkNotificationStatus() {
-        manager.preconditions().contains(.enabled) ?
-            contactTracingSwitch.setOn(true, animated: true) :
-            contactTracingSwitch.setOn(false, animated: true)
+        contactTracingSwitch.setOn(
+            manager.preconditions().enabled,
+            animated: true
+        )
     }
     
     private func setupNotificationCenter() {
