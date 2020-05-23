@@ -22,7 +22,7 @@ final class Store {
 
     @PersistedAndPublished(
         key: "dateOfAcceptedPrivacyNotice",
-        notificationName: Notification.Name.dateLastExposureDetectionDidChange,
+        notificationName: Notification.Name.dateOfAcceptedPrivacyNoticeDidChange,
         defaultValue: nil
     )
     var dateOfAcceptedPrivacyNotice: Date?
