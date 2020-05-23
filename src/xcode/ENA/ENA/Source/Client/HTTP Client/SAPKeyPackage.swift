@@ -32,7 +32,6 @@ struct SAPKeyPackage {
     let signature: Data
 }
 
-
 private extension Archive {
     typealias KeyPackage = (bin: Data, sig: Data)
     enum KeyPackageError: Error {
