@@ -12,9 +12,9 @@ extension ENTemporaryExposureKey {
     var sapKey: SAP_TemporaryExposureKey {
         SAP_TemporaryExposureKey.with {
             $0.keyData = self.keyData
-            $0.rollingPeriod = Int32(self.rollingPeriod)
+            $0.rollingPeriod = 144
             $0.rollingStartIntervalNumber = Int32(self.rollingStartNumber)
-            $0.transmissionRiskLevel = Int32(self.transmissionRiskLevel)
+            $0.transmissionRiskLevel = 1
         }
     }
 }
