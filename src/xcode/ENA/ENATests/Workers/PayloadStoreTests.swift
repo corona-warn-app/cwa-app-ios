@@ -18,10 +18,11 @@ final class PayloadStoreTests: XCTestCase {
     }
 
     func testRoundtripSuccess() {
-        let data = Data(bytes: [7, 13, 42], count: 3)
+        let data = Data(bytes: [7, 13, 42, 19, 23], count: 5)
+        let signature = Data(bytes: [1, 2, 3], count: 3)
         let day = Date()
         let hour: Int? = 6
-        let payload = LocalPayloadStore.StoredPayload(data: data, day: day, hour: hour)
+        let payload = LocalPayloadStore.StoredPayload(data: data, signature: signature, day: day, hour: hour)
 
         // Insert data
         db.storePayload(payload: payload)
@@ -53,11 +54,12 @@ final class PayloadStoreTests: XCTestCase {
 
         // Store a day package + an hour package for each of the 6 days
         for interval in timeIntervals {
-            let data = Data(bytes: [0, 0, 1], count: 3)
+            let data = Data(bytes: [0, 0, 1, 0, 0], count: 5)
+            let signature = Data(bytes: [1, 1, 0], count: 3)
             let day = Date(timeIntervalSinceNow: interval)
             log(message: day.description(with: nil))
             let hour = 7
-            var payload = LocalPayloadStore.StoredPayload(data: data, day: day, hour: hour)
+            var payload = LocalPayloadStore.StoredPayload(data: data, signature: signature, day: day, hour: hour)
 
             db.storePayload(payload: payload)
 

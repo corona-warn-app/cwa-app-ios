@@ -10,7 +10,7 @@ import FMDB
 import ExposureNotification
 
 protocol LocalPayloadStore {
-    typealias StoredPayload = (data: Data, day: Date, hour: Int?)
+    typealias StoredPayload = (data: Data, signature: Data, day: Date, hour: Int?)
 
     /// Store three-tuple that's fetched from the remote sever on local database
     func storePayload(payload: StoredPayload)
@@ -30,11 +30,12 @@ final class FMDBPayloadStore: LocalPayloadStore {
     init(with url: URL) {
         // Create tables
         let sqlStmt = """
-            CREATE TABLE IF NOT EXISTS payloadStore (
-                payload BLOB NOT NULL,
-                day DATE NOT NULL,
-                hour INTEGER
-            );
+        CREATE TABLE IF NOT EXISTS payloadStore (
+            payload BLOB NOT NULL,
+            signature BLOB NOT NULL,
+            day DATE NOT NULL,
+            hour INTEGER
+        );
         """
 
         db = FMDatabase(url: url)
@@ -45,8 +46,8 @@ final class FMDBPayloadStore: LocalPayloadStore {
 
     func storePayload(payload: StoredPayload) {
         let insertStr = """
-            INSERT INTO payloadStore(payload, day, hour)
-            VALUES(?, ?, ?);
+        INSERT INTO payloadStore(payload, signature, day, hour)
+        VALUES(?, ?, ?, ?);
         """
 
         if !db.isOpen {
@@ -54,7 +55,7 @@ final class FMDBPayloadStore: LocalPayloadStore {
         }
 
         do {
-            try db.executeUpdate(insertStr, values: [payload.data, payload.day, payload.hour ?? NSNull()])
+            try db.executeUpdate(insertStr, values: [payload.data, payload.signature, payload.day, payload.hour ?? NSNull()])
         } catch {
             logError(message: "Failed to store keys in local db: \(error.localizedDescription)")
         }
@@ -70,9 +71,11 @@ final class FMDBPayloadStore: LocalPayloadStore {
                 // swiftlint:disable:next force_unwrapping
                 let data = result.data(forColumn: "payload")!
                 // swiftlint:disable:next force_unwrapping
+                let signature = result.data(forColumn: "signature")!
+                // swiftlint:disable:next force_unwrapping
                 let day = result.date(forColumn: "day")!
                 let hour = Int(result.int(forColumn: "hour"))
-                payloads.append((data, day, hour))
+                payloads.append((data, signature, day, hour))
             }
             result.close()
         } catch {
