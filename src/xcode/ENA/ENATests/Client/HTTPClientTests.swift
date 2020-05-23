@@ -237,8 +237,9 @@ final class HTTPClientTests: XCTestCase {
 
         client.fetchHour(1, day: "2020-05-01") { result in
             switch result {
-            case .success:
-                // TODO bring back asserts
+            case .success(let sapPackage):
+                XCTAssertEqual(sapPackage.bin.count, 501)
+                XCTAssertEqual(sapPackage.signature.count, 144)                
                 successExpectation.fulfill()
             case .failure(let error):
                 XCTFail("a valid response should never yield and error like: \(error)")
