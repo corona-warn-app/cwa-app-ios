@@ -55,13 +55,19 @@ final class DMViewController: UITableViewController {
                 barButtonSystemItem: .action,
                 target: self,
                 action: #selector(generateTestKeys)
-            )
+            ),
 //            UIBarButtonItem(
 //                image: UIImage(systemName: "qrcode.viewfinder"),
 //                style: .plain,
 //                target: self,
 //                action: #selector(showScanner)
 //            )
+            UIBarButtonItem(
+                            title: "State Check",
+                            style: .plain,
+                            target: self,
+                            action: #selector(showCheckSubmissionState)
+                        )
         ]
     }
 
@@ -92,6 +98,18 @@ final class DMViewController: UITableViewController {
             self.keys = keys.map { $0.sapKey }
             self.tableView.reloadData()
         }
+    }
+
+    // MARK: Checking the State of my Submission
+    @objc
+    private func showCheckSubmissionState() {
+        navigationController?.pushViewController(
+            DMSubmissionStateViewController(
+                client: client,
+                delegate: self
+            ),
+            animated: true
+        )
     }
 
     // MARK: QR Code related
@@ -214,5 +232,14 @@ private class KeyCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension DMViewController: DMSubmissionStateViewControllerDelegate {
+    func submissionStateViewController(
+        _ controller: DMSubmissionStateViewController,
+        getDiagnosisKeys completionHandler: @escaping ENGetDiagnosisKeysHandler
+    ) {
+        exposureManager.getTestDiagnosisKeys(completionHandler: completionHandler)
     }
 }

@@ -12,7 +12,7 @@ import ExposureNotification
 protocol DMSubmissionStateViewControllerDelegate: AnyObject {
     func submissionStateViewController(
         _ controller: DMSubmissionStateViewController,
-        getDiagnosisKeys: ENGetDiagnosisKeysHandler
+        getDiagnosisKeys completionHandler: @escaping ENGetDiagnosisKeysHandler
     )
 }
 
@@ -36,9 +36,12 @@ final class DMSubmissionStateViewController: UITableViewController {
 
     // MARK: UIViewController
     override func viewWillAppear(_ animated: Bool) {
-        navigationItem.rightBarButtonItem = [
-            UIBarButtonItem(title: "Do It", style: .plain, target: self, action: #selector(doIt))
-        ]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Do It",
+            style: .plain,
+            target: self,
+            action: #selector(doIt)
+        )
     }
 
     @objc func doIt() {
