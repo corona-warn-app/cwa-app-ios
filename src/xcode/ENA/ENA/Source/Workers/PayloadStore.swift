@@ -62,7 +62,7 @@ final class FMDBPayloadStore: LocalPayloadStore {
     }
 
     func fetchPayloads() -> [StoredPayload] {
-        let query = "SELECT payload, day, hour FROM payloadStore"
+        let query = "SELECT payload, signature, day, hour FROM payloadStore"
         var payloads = [StoredPayload]()
 
         do {
