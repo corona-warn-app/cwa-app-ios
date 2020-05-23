@@ -45,7 +45,8 @@ final class DMSubmissionStateViewController: UITableViewController {
         )
     }
 
-    @objc func doIt() {
+    @objc
+    func doIt() {
         let group = DispatchGroup()
 
         group.enter()
@@ -54,8 +55,6 @@ final class DMSubmissionStateViewController: UITableViewController {
             allPackages = result.allKeyPackages
             group.leave()
         }
-
-
 
         var localKeys = [ENTemporaryExposureKey]()
 
