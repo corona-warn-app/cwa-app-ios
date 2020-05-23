@@ -64,6 +64,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func showHome(animated: Bool = false) {
+		navigationController.navigationBar.prefersLargeTitles = true
         navigationController.setViewControllers(
             [
                 AppStoryboard.home.initiateInitial { [unowned self] coder in
@@ -81,6 +82,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func showOnboarding() {
+		navigationController.navigationBar.prefersLargeTitles = false
         navigationController.setViewControllers(
             [
                 AppStoryboard.onboarding.initiateInitial { [unowned self] coder in
@@ -151,6 +153,8 @@ private extension UINavigationController {
     class func withLargeTitle() -> UINavigationController {
         let result = UINavigationController()
         result.navigationBar.prefersLargeTitles = true
+		result.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+		result.navigationBar.shadowImage = UIImage()
         return result
     }
 }

@@ -9,7 +9,7 @@ final class Store {
     @PersistedAndPublished(
         key: "isOnboarded",
         notificationName: Notification.Name.isOnboardedDidChange,
-        defaultValue: false
+        defaultValue: ((UserDefaults.standard.object(forKey: "isOnboarded") as? String) == "YES")
     )
     var isOnboarded: Bool
 

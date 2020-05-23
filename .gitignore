@@ -81,7 +81,6 @@ src/xcode/fastlane/report.xml
 src/xcode/fastlane/Preview.html
 src/xcode/fastlane/screenshots/**/*.png
 src/xcode/fastlane/test_output
-src/xcode/fastlane/README.md
 
 # Code Injection
 #
