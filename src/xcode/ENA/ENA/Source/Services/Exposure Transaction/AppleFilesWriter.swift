@@ -76,7 +76,7 @@ private extension SAPKeyPackage {
 
     func writeKeysEntry(toDirectory directory: URL, filename: String) throws -> URL {
         let url = directory.appendingPathComponent(filename).appendingPathExtension("bin")
-        try keysBin.write(to: url)
+        try bin.write(to: url)
         return url
     }
 }

@@ -28,15 +28,11 @@ final class HTTPClient: Client {
         completion: @escaping ExposureConfigurationCompletionHandler
     ) {
         log(message: "Fetching exposureConfiguation from: \(configuration.configurationURL)")
-        completion(.mock())
-        return
+        session.GET(configuration.configurationURL) { result in
 
-        return
-            session.GET(configuration.configurationURL) { result in
-
-                switch result {
-                case .success(let response):
-                    guard let data = response.body else {
+            switch result {
+            case .success(let response):
+                guard let data = response.body else {
                     completion(nil)
                     return
                 }
@@ -44,11 +40,18 @@ final class HTTPClient: Client {
                     completion(nil)
                     return
                 }
+
+                guard let archive = Archive(data: data, accessMode: .read) else {
+                    logError(message: "Failed to download configuration. Unable to create zip archive.")
+                    completion(nil)
+                    return
+                }
                 do {
-                    completion(try ENExposureConfiguration(from: data))
+                    let package = try archive.extractKeyPackage()
+                    completion(try ENExposureConfiguration(from: package.bin))
                     log(message: "Retrieved exposureConfiguation from server")
                 } catch {
-                    logError(message: "Faild to get exposure configuration: \(error.localizedDescription)")
+                    logError(message: "Failed to get exposure configuration: \(error.localizedDescription)")
                     completion(nil)
                 }
             case .failure:
@@ -271,8 +274,7 @@ private extension ENExposureConfiguration {
     convenience init(from data: Data) throws {
         self.init()
 
-        let signedPayload = try Sap_SignedPayload(serializedData: data)
-        let riskscoreParameters = try Sap_RiskScoreParameters(serializedData: signedPayload.payload)
+        let riskscoreParameters = try Sap_RiskScoreParameters(serializedData: data)
 
         minimumRiskScore = 0
 

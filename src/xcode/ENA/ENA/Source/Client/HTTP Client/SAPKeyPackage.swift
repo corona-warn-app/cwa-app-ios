@@ -30,11 +30,11 @@ struct VerifiedPayload {
 struct SAPKeyPackage {
     // MARK: Creating a Key Package
     init(keysBin: Data, signature: Data) {
-        self.keysBin = keysBin
+        self.bin = keysBin
         self.signature = signature
     }
 
     // MARK: Properties
-    let keysBin: Data
+    let bin: Data
     let signature: Data
 }
