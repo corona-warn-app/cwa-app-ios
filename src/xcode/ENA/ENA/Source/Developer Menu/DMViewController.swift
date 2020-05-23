@@ -164,10 +164,7 @@ final class DMViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let key = keys[indexPath.row]
-//        navigationController?.pushViewController(DMQRCodeViewController(key: key), animated: true)
-    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {    }
 }
 
 extension DMViewController: DMQRCodeScanViewControllerDelegate {

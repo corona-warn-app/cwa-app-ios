@@ -191,8 +191,8 @@ final class ExposureDetectionTransaction {
                 self.endPrematurely(reason: .noSummary(nil))
                 return
             }
-            print("summary: \(summary)")
-            print("error: \(String(describing: error))")
+            log(message: "summary: \(summary)")
+            logError(message: "error: \(String(describing: error))")
 
             self.didDetectSummary(summary)
             completion()
@@ -236,11 +236,11 @@ private extension KeyPackagesStore {
 }
 
 extension SAP_TemporaryExposureKey {
-    func toAppleKey() -> Apple_Key {
-        Apple_Key.with {
+    func toAppleKey() -> Apple_TemporaryExposureKey {
+        Apple_TemporaryExposureKey.with {
             $0.keyData = self.keyData
-            $0.rollingStartNumber = UInt32(self.rollingStartIntervalNumber)
-            $0.rollingPeriod = UInt32(self.rollingPeriod)
+            $0.rollingStartIntervalNumber = self.rollingStartIntervalNumber
+            $0.rollingPeriod = self.rollingPeriod
             $0.transmissionRiskLevel = self.transmissionRiskLevel
         }
     }
