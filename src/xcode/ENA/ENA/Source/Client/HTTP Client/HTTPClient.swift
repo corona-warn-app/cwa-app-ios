@@ -122,7 +122,7 @@ final class HTTPClient: Client {
             }
         }
     }
-    
+
     func availableHours(
         day: String,
         completion completeWith: @escaping AvailableHoursCompletionHandler
@@ -236,7 +236,7 @@ private extension URLRequest {
         tan: String,
         keys: [ENTemporaryExposureKey]
     ) throws -> URLRequest {
-        let payload = Sap_SubmissionPayload.with {
+        let payload = SAP_SubmissionPayload.with {
             $0.keys = keys.compactMap { $0.sapKey }
         }
         let payloadData = try payload.serializedData()
@@ -274,7 +274,7 @@ private extension ENExposureConfiguration {
     convenience init(from data: Data) throws {
         self.init()
 
-        let riskscoreParameters = try Sap_RiskScoreParameters(serializedData: data)
+        let riskscoreParameters = try SAP_RiskScoreParameters(serializedData: data)
 
 //        minimumRiskScore = 0
 
@@ -317,31 +317,31 @@ private extension Archive {
     }
 }
 
-private extension Sap_RiskLevel {
+private extension SAP_RiskLevel {
     var asNumber: NSNumber {
         NSNumber(value: rawValue)
     }
 }
 
-private extension Sap_RiskScoreParameters.TransmissionRiskParameters {
+private extension SAP_RiskScoreParameters.TransmissionRiskParameters {
     var asArray: [NSNumber] {
         [appDefined1, appDefined2, appDefined3, appDefined4, appDefined5, appDefined6, appDefined7, appDefined8].map { $0.asNumber }
     }
 }
 
-private extension Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
+private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
     var asArray: [NSNumber] {
         [ge14Days, ge12Lt14Days, ge10Lt12Days, ge8Lt10Days, ge6Lt8Days, ge4Lt6Days, ge2Lt4Days, ge0Lt2Days].map { $0.asNumber }
     }
 }
 
-private extension Sap_RiskScoreParameters.DurationRiskParameters {
+private extension SAP_RiskScoreParameters.DurationRiskParameters {
     var asArray: [NSNumber] {
         [eq0Min, gt0Le5Min, gt5Le10Min, gt10Le15Min, gt15Le20Min, gt20Le25Min, gt25Le30Min, gt30Min].map { $0.asNumber }
     }
 }
 
-private extension Sap_RiskScoreParameters.AttenuationRiskParameters {
+private extension SAP_RiskScoreParameters.AttenuationRiskParameters {
     var asArray: [NSNumber] {
         [gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, lt10Dbm].map { $0.asNumber }
     }

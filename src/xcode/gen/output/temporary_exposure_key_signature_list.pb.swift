@@ -21,26 +21,26 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct Sap_TEKSignatureList {
+struct SAP_TEKSignatureList {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var signatures: [Sap_TEKSignature] = []
+  var signatures: [SAP_TEKSignature] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct Sap_TEKSignature {
+struct SAP_TEKSignature {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// Info about the signing key, version, algorithm, etc
-  var signatureInfo: Sap_SignatureInfo {
-    get {return _signatureInfo ?? Sap_SignatureInfo()}
+  var signatureInfo: SAP_SignatureInfo {
+    get {return _signatureInfo ?? SAP_SignatureInfo()}
     set {_signatureInfo = newValue}
   }
   /// Returns true if `signatureInfo` has been explicitly set.
@@ -82,7 +82,7 @@ struct Sap_TEKSignature {
 
   init() {}
 
-  fileprivate var _signatureInfo: Sap_SignatureInfo? = nil
+  fileprivate var _signatureInfo: SAP_SignatureInfo? = nil
   fileprivate var _batchNum: Int32? = nil
   fileprivate var _batchSize: Int32? = nil
   fileprivate var _signature: Data? = nil
@@ -90,9 +90,9 @@ struct Sap_TEKSignature {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "sap"
+fileprivate let _protobuf_package = "SAP"
 
-extension Sap_TEKSignatureList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_TEKSignatureList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TEKSignatureList"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "signatures"),
@@ -114,14 +114,14 @@ extension Sap_TEKSignatureList: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sap_TEKSignatureList, rhs: Sap_TEKSignatureList) -> Bool {
+  static func ==(lhs: SAP_TEKSignatureList, rhs: SAP_TEKSignatureList) -> Bool {
     if lhs.signatures != rhs.signatures {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Sap_TEKSignature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_TEKSignature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TEKSignature"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "signature_info"),
@@ -158,7 +158,7 @@ extension Sap_TEKSignature: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sap_TEKSignature, rhs: Sap_TEKSignature) -> Bool {
+  static func ==(lhs: SAP_TEKSignature, rhs: SAP_TEKSignature) -> Bool {
     if lhs._signatureInfo != rhs._signatureInfo {return false}
     if lhs._batchNum != rhs._batchNum {return false}
     if lhs._batchSize != rhs._batchSize {return false}

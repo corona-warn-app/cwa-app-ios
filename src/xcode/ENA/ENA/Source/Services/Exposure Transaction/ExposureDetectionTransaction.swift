@@ -235,7 +235,7 @@ private extension KeyPackagesStore {
     }
 }
 
-extension Sap_TemporaryExposureKey {
+extension SAP_TemporaryExposureKey {
     func toAppleKey() -> Apple_Key {
         Apple_Key.with {
             $0.keyData = self.keyData

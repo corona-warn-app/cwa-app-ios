@@ -449,7 +449,7 @@ final class HTTPClientTests: XCTestCase {
     }
 
     func testValidExposureConfigurationResponseData() throws {
-        let validSignedPayloadData = try Sap_RiskScoreParameters
+        let validSignedPayloadData = try SAP_RiskScoreParameters
             .valid()
             .asSignedPayload()
             .serializedData()
@@ -467,7 +467,7 @@ final class HTTPClientTests: XCTestCase {
     }
 
     func testValidExposureConfigurationDataBut404Response() throws {
-        let validSignedPayloadData = try Sap_RiskScoreParameters
+        let validSignedPayloadData = try SAP_RiskScoreParameters
             .valid()
             .asSignedPayload()
             .serializedData()
@@ -475,7 +475,7 @@ final class HTTPClientTests: XCTestCase {
         let response = HTTPURLResponse(url: mockUrl, statusCode: 404, httpVersion: "HTTP/2", headerFields: [:])
         let mockURLSession = MockUrlSession(data: validSignedPayloadData, nextResponse: response, error: nil)
 
-        let client = HTTPClient(configuration: .fake, session: mockURLSession) 
+        let client = HTTPClient(configuration: .fake, session: mockURLSession)
 
         let expectation = self.expectation(description: "HTTPClient should have failed.")
 
@@ -495,9 +495,9 @@ enum TestError: Error {
 
 // MARK: Creating a valid signed payload
 
-private extension Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
+private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
     static func valid() -> Self {
-        Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters.with {
+        SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameters.with {
             $0.ge14Days = .unspecified
             $0.ge12Lt14Days = .unspecified
             $0.ge10Lt12Days = .unspecified
@@ -510,9 +510,9 @@ private extension Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
     }
 }
 
-private extension Sap_RiskScoreParameters.AttenuationRiskParameters {
+private extension SAP_RiskScoreParameters.AttenuationRiskParameters {
     static func valid() -> Self {
-        Sap_RiskScoreParameters.AttenuationRiskParameters.with {
+        SAP_RiskScoreParameters.AttenuationRiskParameters.with {
             $0.gt73Dbm = .unspecified
             $0.gt63Le73Dbm = .unspecified
             $0.gt51Le63Dbm = .unspecified
@@ -525,9 +525,9 @@ private extension Sap_RiskScoreParameters.AttenuationRiskParameters {
     }
 }
 
-private extension Sap_RiskScoreParameters.DurationRiskParameters {
+private extension SAP_RiskScoreParameters.DurationRiskParameters {
     static func valid() -> Self {
-        Sap_RiskScoreParameters.DurationRiskParameters.with {
+        SAP_RiskScoreParameters.DurationRiskParameters.with {
             $0.eq0Min = .unspecified
             $0.gt0Le5Min = .unspecified
             $0.gt5Le10Min = .unspecified
@@ -540,9 +540,9 @@ private extension Sap_RiskScoreParameters.DurationRiskParameters {
     }
 }
 
-private extension Sap_RiskScoreParameters.TransmissionRiskParameters {
+private extension SAP_RiskScoreParameters.TransmissionRiskParameters {
     static func valid() -> Self {
-        Sap_RiskScoreParameters.TransmissionRiskParameters.with {
+        SAP_RiskScoreParameters.TransmissionRiskParameters.with {
             $0.appDefined1 = .unspecified
             $0.appDefined2 = .unspecified
             $0.appDefined3 = .unspecified
@@ -555,9 +555,9 @@ private extension Sap_RiskScoreParameters.TransmissionRiskParameters {
     }
 }
 
-private extension Sap_RiskScoreParameters {
+private extension SAP_RiskScoreParameters {
     static func valid() -> Self {
-        Sap_RiskScoreParameters.with {
+        SAP_RiskScoreParameters.with {
             $0.daysSinceLastExposure = .valid()
 
             $0.attenuation = .valid()
@@ -579,10 +579,10 @@ private extension Sap_RiskScoreParameters {
 }
 
 private extension Sap_SignedPayload {
-    
+
 //    static func valid() -> Self {
 //        Sap_SignedPayload.with {
-//            $0.payload = try! Sap_RiskScoreParameters.valid().serializedData()
+//            $0.payload = try! SAP_RiskScoreParameters.valid().serializedData()
 //        }
 //    }
 }

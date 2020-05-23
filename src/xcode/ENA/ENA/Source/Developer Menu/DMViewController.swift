@@ -24,7 +24,7 @@ final class DMViewController: UITableViewController {
     private let client: Client
     private let store: Store
     private let exposureManager: ExposureManager
-    private var keys = [Sap_TemporaryExposureKey]() {
+    private var keys = [SAP_TemporaryExposureKey]() {
         didSet {
             keys = self.keys.sorted()
         }
@@ -86,7 +86,7 @@ final class DMViewController: UITableViewController {
     private func refreshKeys() {
         resetAndFetchKeys()
     }
-    
+
     private func resetAndFetchKeys() {
         keys = []
         tableView.reloadData()
@@ -171,7 +171,7 @@ final class DMViewController: UITableViewController {
 }
 
 extension DMViewController: DMQRCodeScanViewControllerDelegate {
-    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Sap_TemporaryExposureKey) {
+    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: SAP_TemporaryExposureKey) {
         client.submit(
             keys: [diagnosisKey.temporaryExposureKey],
             tan: "not needed"
@@ -192,7 +192,7 @@ private extension DateFormatter {
     }
 }
 
-fileprivate extension Sap_TemporaryExposureKey {
+fileprivate extension SAP_TemporaryExposureKey {
     private static let dateFormatter: DateFormatter = .rollingPeriodDateFormatter()
 
     var rollingStartNumberDate: Date {
@@ -212,8 +212,8 @@ fileprivate extension Sap_TemporaryExposureKey {
     }
 }
 
-extension Sap_TemporaryExposureKey: Comparable {
-    static func < (lhs: Sap_TemporaryExposureKey, rhs: Sap_TemporaryExposureKey) -> Bool {
+extension SAP_TemporaryExposureKey: Comparable {
+    static func < (lhs: SAP_TemporaryExposureKey, rhs: SAP_TemporaryExposureKey) -> Bool {
         lhs.rollingStartIntervalNumber > rhs.rollingStartIntervalNumber
     }
 }

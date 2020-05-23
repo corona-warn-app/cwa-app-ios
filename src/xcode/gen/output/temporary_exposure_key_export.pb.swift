@@ -21,7 +21,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct Sap_TemporaryExposureKeyExport {
+struct SAP_TemporaryExposureKeyExport {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -75,10 +75,10 @@ struct Sap_TemporaryExposureKeyExport {
   mutating func clearBatchSize() {self._batchSize = nil}
 
   /// Information about associated signatures
-  var signatureInfos: [Sap_SignatureInfo] = []
+  var signatureInfos: [SAP_SignatureInfo] = []
 
   /// The TemporaryExposureKeys themselves
-  var keys: [Sap_TemporaryExposureKey] = []
+  var keys: [SAP_TemporaryExposureKey] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -91,7 +91,7 @@ struct Sap_TemporaryExposureKeyExport {
   fileprivate var _batchSize: Int32? = nil
 }
 
-struct Sap_SignatureInfo {
+struct SAP_SignatureInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -160,7 +160,7 @@ struct Sap_SignatureInfo {
   fileprivate var _signatureAlgorithm: String? = nil
 }
 
-struct Sap_TemporaryExposureKey {
+struct SAP_TemporaryExposureKey {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -217,9 +217,9 @@ struct Sap_TemporaryExposureKey {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "sap"
+fileprivate let _protobuf_package = "SAP"
 
-extension Sap_TemporaryExposureKeyExport: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_TemporaryExposureKeyExport: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TemporaryExposureKeyExport"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "start_timestamp"),
@@ -271,7 +271,7 @@ extension Sap_TemporaryExposureKeyExport: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sap_TemporaryExposureKeyExport, rhs: Sap_TemporaryExposureKeyExport) -> Bool {
+  static func ==(lhs: SAP_TemporaryExposureKeyExport, rhs: SAP_TemporaryExposureKeyExport) -> Bool {
     if lhs._startTimestamp != rhs._startTimestamp {return false}
     if lhs._endTimestamp != rhs._endTimestamp {return false}
     if lhs._region != rhs._region {return false}
@@ -284,7 +284,7 @@ extension Sap_TemporaryExposureKeyExport: SwiftProtobuf.Message, SwiftProtobuf._
   }
 }
 
-extension Sap_SignatureInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_SignatureInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SignatureInfo"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "app_bundle_id"),
@@ -326,7 +326,7 @@ extension Sap_SignatureInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sap_SignatureInfo, rhs: Sap_SignatureInfo) -> Bool {
+  static func ==(lhs: SAP_SignatureInfo, rhs: SAP_SignatureInfo) -> Bool {
     if lhs._appBundleID != rhs._appBundleID {return false}
     if lhs._androidPackage != rhs._androidPackage {return false}
     if lhs._verificationKeyVersion != rhs._verificationKeyVersion {return false}
@@ -337,7 +337,7 @@ extension Sap_SignatureInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
   }
 }
 
-extension Sap_TemporaryExposureKey: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension SAP_TemporaryExposureKey: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TemporaryExposureKey"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "key_data"),
@@ -374,7 +374,7 @@ extension Sap_TemporaryExposureKey: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sap_TemporaryExposureKey, rhs: Sap_TemporaryExposureKey) -> Bool {
+  static func ==(lhs: SAP_TemporaryExposureKey, rhs: SAP_TemporaryExposureKey) -> Bool {
     if lhs._keyData != rhs._keyData {return false}
     if lhs._transmissionRiskLevel != rhs._transmissionRiskLevel {return false}
     if lhs._rollingStartIntervalNumber != rhs._rollingStartIntervalNumber {return false}
