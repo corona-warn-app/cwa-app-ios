@@ -28,7 +28,7 @@ struct VerifiedPayload {
 }
 
 struct SAPKeyPackage {
-
+    // MARK: Creating a Key Package
     init(keysBin: Data, signature: Data) {
         self.keysBin = keysBin
         self.signature = signature
@@ -37,20 +37,4 @@ struct SAPKeyPackage {
     // MARK: Properties
     let keysBin: Data
     let signature: Data
-
-    func persist() {
-        // TODO: Use local DB here later
-
-        let uuid = UUID().uuidString
-        let directory = URL(fileURLWithPath: "local/")  // TODO
-
-        do {
-            try keysBin.write(to: directory.appendingPathComponent("\(uuid).bin"))
-            try signature.write(to: directory.appendingPathComponent("\(uuid).sig"))
-        } catch {
-            logError(message: "Failed to store downloaded files")
-        }
-
-    }
-
 }

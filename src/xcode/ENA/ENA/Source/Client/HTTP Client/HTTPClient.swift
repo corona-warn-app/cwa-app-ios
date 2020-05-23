@@ -28,10 +28,15 @@ final class HTTPClient: Client {
         completion: @escaping ExposureConfigurationCompletionHandler
     ) {
         log(message: "Fetching exposureConfiguation from: \(configuration.configurationURL)")
-        session.GET(configuration.configurationURL) { result in
-            switch result {
-            case .success(let response):
-                guard let data = response.body else {
+        completion(.mock())
+        return
+
+        return
+            session.GET(configuration.configurationURL) { result in
+
+                switch result {
+                case .success(let response):
+                    guard let data = response.body else {
                     completion(nil)
                     return
                 }
@@ -337,5 +342,21 @@ private extension Sap_RiskScoreParameters.DurationRiskParameters {
 private extension Sap_RiskScoreParameters.AttenuationRiskParameters {
     var asArray: [NSNumber] {
         [gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, lt10Dbm].map { $0.asNumber }
+    }
+}
+
+extension ENExposureConfiguration {
+    class func mock() -> ENExposureConfiguration {
+        let config = ENExposureConfiguration()
+        config.minimumRiskScore = 0
+        config.attenuationWeight = 50
+        config.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+        config.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+        config.daysSinceLastExposureWeight = 50
+        config.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+        config.durationWeight = 50
+        config.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+        config.transmissionRiskWeight = 50
+        return config
     }
 }

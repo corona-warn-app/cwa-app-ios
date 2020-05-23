@@ -154,9 +154,8 @@ final class ExposureDetectionTransaction {
         let fm = FileManager()
         let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
         try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-        let buckets = signedPayloadStore.allVerifiedBuckets(today: formattedToday())
-        fatalError("Implement")
-        return AppleFilesWriter(rootDir: rootDir, files: [])
+        let keyPackages = signedPayloadStore.allVerifiedBuckets(today: formattedToday())
+        return AppleFilesWriter(rootDir: rootDir, keyPackages: keyPackages)
     }
 
     // 5. Execute the actual exposure detection
