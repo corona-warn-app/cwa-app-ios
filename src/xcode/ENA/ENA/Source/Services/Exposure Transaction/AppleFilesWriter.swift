@@ -40,8 +40,8 @@ final class AppleFilesWriter {
 
         var needsCleanupInDone = true
 
-        let filename = UUID().uuidString
         for keyPackage in keyPackages {
+            let filename = UUID().uuidString
             do {
                 writtenURLs.append(
                     try keyPackage.writeKeysEntry(toDirectory: rootDir, filename: filename)
