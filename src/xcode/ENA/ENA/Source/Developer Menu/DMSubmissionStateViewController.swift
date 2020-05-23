@@ -23,6 +23,7 @@ final class DMSubmissionStateViewController: UITableViewController {
         delegate: DMSubmissionStateViewControllerDelegate
     ) {
         self.client = client
+        self.delegate = delegate
         super.init(style: .plain)
     }
 
@@ -88,8 +89,10 @@ final class DMSubmissionStateViewController: UITableViewController {
             }
             let localKeysFoundRemotly = localKeys.filter { remoteKeys.containsKey($0) }
             let foundOwnKey = localKeysFoundRemotly.isEmpty == false
+            let allLocalKeysFoundRemotly = localKeys.count == localKeysFoundRemotly.count
             print("localKeysFoundRemotly: \(localKeysFoundRemotly)")
             print("foundOwnKey: \(foundOwnKey)")
+            print("allLocalKeysFoundRemotly: \(allLocalKeysFoundRemotly)")
         }
     }
 }

@@ -137,16 +137,7 @@ final class DMViewController: UITableViewController {
             }
             let _keys = keys ?? []
             log(message: "Got diagnosis keys: \(_keys)", level: .info)
-            self.client.submit(
-                keys: _keys,
-                tan: "TAN 123456"
-            ) { [weak self] submitError in
-                if let submitError = submitError {
-                    logError(message: "Failed to submit test keys due to: \(submitError)")
-                    return
-                }
-                self?.resetAndFetchKeys()
-            }
+            self.resetAndFetchKeys()
         }
     }
 
