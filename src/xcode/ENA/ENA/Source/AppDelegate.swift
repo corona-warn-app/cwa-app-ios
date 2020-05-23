@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
 	func scheduleBackgroundTaskIfNeeded() {
 		guard
-			manager.preconditions().contains(.all)
+			manager.preconditions().isGood
 		else {
 			return
 		}
