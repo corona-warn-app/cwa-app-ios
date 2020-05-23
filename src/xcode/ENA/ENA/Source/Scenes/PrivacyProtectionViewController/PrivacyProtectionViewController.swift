@@ -10,8 +10,6 @@ import UIKit
 
 class PrivacyProtectionViewController: UIViewController {
 
-	var blurEffectView: UIVisualEffectView?
-	
     override func viewDidLoad() {
         super.viewDidLoad()
 		setupUI()
@@ -21,7 +19,6 @@ class PrivacyProtectionViewController: UIViewController {
 	func setupUI() {
         let blurEffect = UIBlurEffect(style: .light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-		self.blurEffectView = blurEffectView
         view.insertSubview(blurEffectView, at: 0)
 
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
