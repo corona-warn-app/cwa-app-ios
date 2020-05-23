@@ -11,6 +11,9 @@ import ExposureNotification
 @testable import ENA
 
 final class HTTPClientTests: XCTestCase {
+    
+    let binFileSize = 501
+    let sigFileSize = 144
     let expectationsTimeout: TimeInterval = 2
     let mockUrl = URL(string: "http://example.com")!
     let tan = "1234"
@@ -212,6 +215,8 @@ final class HTTPClientTests: XCTestCase {
         waitForExpectations(timeout: expectationsTimeout)
     }
 
+
+    
     func testFetchHour_Success() throws {
         let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
         let responseData = try Data(contentsOf: url)
@@ -236,11 +241,10 @@ final class HTTPClientTests: XCTestCase {
         )
 
         client.fetchHour(1, day: "2020-05-01") { result in
+            defer{successExpectation.fulfill()}
             switch result {
             case .success(let sapPackage):
-                XCTAssertEqual(sapPackage.bin.count, 501)
-                XCTAssertEqual(sapPackage.signature.count, 144)                
-                successExpectation.fulfill()
+                self.assertPackageFormat(for: sapPackage)
             case .failure(let error):
                 XCTFail("a valid response should never yield and error like: \(error)")
             }
@@ -248,6 +252,11 @@ final class HTTPClientTests: XCTestCase {
         waitForExpectations(timeout: expectationsTimeout)
     }
 
+    private func assertPackageFormat(for sapPackage: (SAPKeyPackage)) {
+        XCTAssertEqual(sapPackage.bin.count, binFileSize)
+        XCTAssertEqual(sapPackage.signature.count, sigFileSize)
+    }
+    
     func testFetchDay_Success() throws {
         let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
         let responseData = try Data(contentsOf: url)
@@ -272,11 +281,10 @@ final class HTTPClientTests: XCTestCase {
         )
 
         client.fetchDay("2020-05-01") { result in
+            defer{successExpectation.fulfill()}
             switch result {
-            case .success(let bucket):
-                // TODO: Bring back asserts
-//                XCTAssertEqual(bucket.serializedSignedPayload(), responseData)
-                successExpectation.fulfill()
+            case .success(let sapPackage):
+                self.assertPackageFormat(for: sapPackage)
             case .failure(let error):
                 XCTFail("a valid response should never yield and error like: \(error)")
             }
@@ -591,3 +599,4 @@ enum TestError: Error {
 ////        }
 ////    }
 //}
+
