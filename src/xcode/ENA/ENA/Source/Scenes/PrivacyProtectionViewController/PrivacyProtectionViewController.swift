@@ -12,25 +12,9 @@ class PrivacyProtectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		setupUI()
+		view.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
 		view.alpha = 0.0
     }
-    
-	func setupUI() {
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        view.insertSubview(blurEffectView, at: 0)
-
-        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate(
-            [
-                blurEffectView.topAnchor.constraint(equalTo: view.topAnchor),
-                blurEffectView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                blurEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            ]
-        )
-	}
 
 	func show() {
 		UIView.animate(withDuration: 0.2, animations: {
