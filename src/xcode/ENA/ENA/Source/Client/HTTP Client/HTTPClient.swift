@@ -7,6 +7,7 @@
 
 import Foundation
 import ExposureNotification
+import ZIPFoundation
 
 final class HTTPClient: Client {
    // MARK: Creating
@@ -164,9 +165,15 @@ final class HTTPClient: Client {
                     logError(message: "Failed to download day '\(day)': invalid response")
                     return
                 }
+                guard let archive = Archive(data: dayData, accessMode: .read) else {
+                    logError(message: "Failed to download day '\(day)'. Unable to create zip archive.")
+                    completeWith(.failure(.invalidResponse))
+                    return
+                }
                 do {
-                    let bucket = try VerifiedSapFileBucket(serializedSignedPayload: dayData)
-                    completeWith(.success(bucket))
+                    let package = try archive.extractKeyPackage()
+//                    package.persist()
+                    completeWith(.success(package))
                 } catch let error {
                     logError(message: "Failed to download day '\(day)' due to error: \(error).")
                     completeWith(.failure(.invalidResponse))
@@ -192,9 +199,16 @@ final class HTTPClient: Client {
                     return
                 }
                 log(message: "got hour: \(hourData.count)")
+
+                guard let archive = Archive(data: hourData, accessMode: .read) else {
+                    logError(message: "Failed to download hourData '\(hour)'. Unable to create zip archive.")
+                    completeWith(.failure(.invalidResponse))
+                    return
+                }
                 do {
-                    let bucket = try VerifiedSapFileBucket(serializedSignedPayload: hourData)
-                    completeWith(.success(bucket))
+                    let package = try archive.extractKeyPackage()
+//                    package.persist()
+                    completeWith(.success(package))
                 } catch {
                     completeWith(.failure(.invalidResponse))
                 }
@@ -265,6 +279,34 @@ private extension ENExposureConfiguration {
         durationWeight = riskscoreParameters.durationWeight
         transmissionRiskLevelValues = riskscoreParameters.transmission.asArray
         transmissionRiskWeight = riskscoreParameters.transmissionWeight
+    }
+}
+
+private extension Archive {
+    typealias KeyPackage = (bin: Data, sig: Data)
+    enum KeyPackageError: Error {
+        case binNotFound
+        case sigNotFound
+    }
+    func extractData(from entry: Entry) throws -> Data {
+        var data = Data()
+        try _ = extract(entry) { slice in
+            data.append(slice)
+        }
+        return data
+    }
+
+    func extractKeyPackage() throws -> SAPKeyPackage {
+        guard let binEntry = self["export.bin"] else {
+            throw KeyPackageError.binNotFound
+        }
+        guard let sigEntry = self["export.sig"] else {
+            throw KeyPackageError.sigNotFound
+        }
+        return SAPKeyPackage(
+            keysBin: try extractData(from: binEntry),
+            signature: try extractData(from: sigEntry)
+        )
     }
 }
 

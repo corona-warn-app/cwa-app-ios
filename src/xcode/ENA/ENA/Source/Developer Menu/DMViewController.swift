@@ -86,7 +86,7 @@ final class DMViewController: UITableViewController {
         tableView.reloadData()
         self.client.fetch { [weak self] keys in
             guard let self = self else { return }
-            self.keys = keys
+            fatalError("Implement")
             self.tableView.reloadData()
         }
     }
@@ -198,19 +198,13 @@ extension Sap_TemporaryExposureKey: Comparable {
 }
 
 private extension FetchedDaysAndHours {
-    var allBuckets: [VerifiedSapFileBucket] {
+    var allBuckets: [SAPKeyPackage] {
         Array(days.bucketsByDay.values) + Array(hours.bucketsByHour.values)
-    }
-    var allKeys: [Sap_TemporaryExposureKey] {
-        Array(allFiles.map { $0.keys }.joined())
-    }
-    var allFiles: [Sap_File] {
-        Array(allBuckets.map { $0.files }.joined())
     }
 }
 
 private extension Client {
-    typealias FetchCompletion = ([Sap_TemporaryExposureKey]) -> Void
+    typealias FetchCompletion = ([SAPKeyPackage]) -> Void
     func fetch(completion: @escaping FetchCompletion) {
         availableDaysAndHoursUpUntil(.formattedToday()) { result in
             switch result {
@@ -220,7 +214,7 @@ private extension Client {
                     hours: daysAndHours.hours,
                     of: .formattedToday()
                 ) { daysAndHours in
-                    completion(daysAndHours.allKeys)
+                    completion(daysAndHours.allBuckets)
                 }
             case .failure(let error):
                 logError(message: "message: Failed to fetch all keys: \(error)")

@@ -143,11 +143,7 @@ final class ExposureDetectionTransaction {
             }
 
             let fixedConfiguration: ENExposureConfiguration
-            if configuration.needsTemporaryFixUntilAppleFixedZeroWeightIssue {
-                fixedConfiguration = .mock()
-            } else {
-                fixedConfiguration = configuration
-            }
+            fixedConfiguration = configuration
             continueWith(fixedConfiguration)
         }
     }
@@ -159,8 +155,8 @@ final class ExposureDetectionTransaction {
         let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
         try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
         let buckets = signedPayloadStore.allVerifiedBuckets(today: formattedToday())
-        let files = buckets.map { $0.appleFiles }.flatMap { $0 }
-        return AppleFilesWriter(rootDir: rootDir, files: files)
+        fatalError("Implement")
+        return AppleFilesWriter(rootDir: rootDir, files: [])
     }
 
     // 5. Execute the actual exposure detection
@@ -177,7 +173,7 @@ final class ExposureDetectionTransaction {
             )
         }
     }
-    
+
     private func _detectExposures(
         diagnosisKeyURLs: [URL],
         configuration: ENExposureConfiguration,
@@ -233,15 +229,14 @@ private extension SignedPayloadStore {
         return Client.DaysAndHours(days: Array(days), hours: Array(hours))
     }
 
-    func allKeys(today: String) -> [SignedPayloadProviding] {
+    func allKeys(today: String) -> [SAPKeyPackage] {
         let days = allDailySignedPayloads()
         let hours = hourlySignedPayloads(day: today)
         return days + hours
     }
 
-    func allVerifiedBuckets(today: String) -> [VerifiedSapFileBucket] {
+    func allVerifiedBuckets(today: String) -> [SAPKeyPackage] {
         allKeys(today: today)
-            .compactMap { try? VerifiedSapFileBucket(serializedSignedPayload: $0.serializedSignedPayload()) }
             .compactMap { $0 }
     }
 }
@@ -263,24 +258,4 @@ extension Sap_TemporaryExposureKey {
             $0.transmissionRiskLevel = self.transmissionRiskLevel
         }
     }
-}
-
-extension VerifiedSapFileBucket: SignedPayloadProviding {
-    func serializedSignedPayload() -> Data {
-        // swiftlint:disable:next force_try
-        try! self.verifiedPayload.signedPayload.serializedData()
-    }
-}
-
-private extension ENExposureConfiguration {
-    var needsTemporaryFixUntilAppleFixedZeroWeightIssue: Bool {
-        attenuationWeight.isNearZero ||
-            durationWeight.isNearZero ||
-            transmissionRiskWeight.isNearZero ||
-            daysSinceLastExposureWeight.isNearZero
-    }
-}
-
-private extension Double {
-    var isNearZero: Bool { magnitude < 0.1 }
 }

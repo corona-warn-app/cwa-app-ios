@@ -11,9 +11,11 @@
 		013DC102245DAC4E00EE58B0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013DC101245DAC4E00EE58B0 /* Store.swift */; };
 		0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */; };
 		0159E6C2247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */; };
+		0159E6C52478487400894A89 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 0159E6C42478487400894A89 /* ZIPFoundation */; };
 		01790A402475724400311407 /* PayloadStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB88BF24751F4900A6EB83 /* PayloadStoreTests.swift */; };
 		01A15803247000D6008BA581 /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 01A15802247000D6008BA581 /* FMDB */; };
 		01A158052470042A008BA581 /* PayloadStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A158042470042A008BA581 /* PayloadStore.swift */; };
+		01D2670A24790CD0007F4738 /* MockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EDEA2465B1E7001AEBB4 /* MockClient.swift */; };
 		01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
@@ -100,7 +102,6 @@
 		B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3E9C246D5D8000217F2C /* AppInformationDetailModelData.swift */; };
 		B10FD5F2246EAB1600E9D7F2 /* AppInformationDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3E9A246D5D6C00217F2C /* AppInformationDetailModel.swift */; };
 		B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FD5F3246EAC1700E9D7F2 /* AppleFilesWriter.swift */; };
-		B111EDEB2465B1E7001AEBB4 /* MockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EDEA2465B1E7001AEBB4 /* MockClient.swift */; };
 		B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */; };
 		B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1125459246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift */; };
 		B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */; };
@@ -140,7 +141,7 @@
 		B1D7D69224766D2100E4DA5D /* apple_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68A24766D2100E4DA5D /* apple_export.pb.swift */; };
 		B1D7D69324766D2100E4DA5D /* signed_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68B24766D2100E4DA5D /* signed_payload.pb.swift */; };
 		B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DDDABB247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift */; };
-		B1DDDABE24713BAD00A07175 /* VerifiedSapFileBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A9E710246D782F0024CC12 /* VerifiedSapFileBucket.swift */; };
+		B1DDDABE24713BAD00A07175 /* SAPKeyPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A9E710246D782F0024CC12 /* SAPKeyPackage.swift */; };
 		B1EAEC8B24711884003BE9A2 /* URLSession+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */; };
 		B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */; };
 		B1EAEC91247128ED003BE9A2 /* ClientMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAEC90247128ED003BE9A2 /* ClientMode.swift */; };
@@ -321,7 +322,7 @@
 		B18C411E246DB4B400B8D8CB /* Sap_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sap_Model.swift; sourceTree = "<group>"; };
 		B1A76E9E24714AC700EA5208 /* HTTPClient+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+Configuration.swift"; sourceTree = "<group>"; };
 		B1A9E70D246D73180024CC12 /* ExposureDetectionTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionTransaction.swift; sourceTree = "<group>"; };
-		B1A9E710246D782F0024CC12 /* VerifiedSapFileBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifiedSapFileBucket.swift; sourceTree = "<group>"; };
+		B1A9E710246D782F0024CC12 /* SAPKeyPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAPKeyPackage.swift; sourceTree = "<group>"; };
 		B1B9CF1E246ED2E8008F04F5 /* Sap_FilebucketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sap_FilebucketTests.swift; sourceTree = "<group>"; };
 		B1B9CF20246ED2F2008F04F5 /* 2020-04-27-full-day-from-sap-api.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = "2020-04-27-full-day-from-sap-api.proto"; sourceTree = "<group>"; };
 		B1BC090E246B1A0C00302424 /* PersistedAndPublished.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedAndPublished.swift; sourceTree = "<group>"; };
@@ -377,6 +378,7 @@
 				858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */,
 				01A15803247000D6008BA581 /* FMDB in Frameworks */,
 				B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */,
+				0159E6C52478487400894A89 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,7 +878,7 @@
 				011E13AD24680A4000973467 /* HTTPClient.swift */,
 				B12995E8246C344100854AD0 /* HTTPClient+Configuration.swift */,
 				B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */,
-				B1A9E710246D782F0024CC12 /* VerifiedSapFileBucket.swift */,
+				B1A9E710246D782F0024CC12 /* SAPKeyPackage.swift */,
 			);
 			path = "HTTP Client";
 			sourceTree = "<group>";
@@ -1120,6 +1122,7 @@
 			packageProductDependencies = (
 				B10FB02F246036F3004CA11E /* SwiftProtobuf */,
 				01A15802247000D6008BA581 /* FMDB */,
+				0159E6C42478487400894A89 /* ZIPFoundation */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -1197,6 +1200,7 @@
 			packageReferences = (
 				B10FB02E246036F3004CA11E /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				01A15801247000D6008BA581 /* XCRemoteSwiftPackageReference "fmdb" */,
+				0159E6C32478487400894A89 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -1304,7 +1308,7 @@
 				514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */,
 				B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */,
 				B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */,
-				B1DDDABE24713BAD00A07175 /* VerifiedSapFileBucket.swift in Sources */,
+				B1DDDABE24713BAD00A07175 /* SAPKeyPackage.swift in Sources */,
 				EE20EA0E246ABED600770683 /* RiskLegendFactory.swift in Sources */,
 				B10FD5EF246EAB0100E9D7F2 /* AppInformationHelpModel.swift in Sources */,
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
@@ -1345,6 +1349,7 @@
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				EE20EA0C24699AA100770683 /* RiskLegendTableViewCell.swift in Sources */,
+				01D2670A24790CD0007F4738 /* MockClient.swift in Sources */,
 				51CE1B87246078B6002CF42A /* ActivateCollectionViewCell.swift in Sources */,
 				51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */,
 				518A6A1E246A9FCD00444E66 /* HomeRiskCellPropertyHolder.swift in Sources */,
@@ -1358,7 +1363,6 @@
 				0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */,
 				51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */,
 				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
-				B111EDEB2465B1E7001AEBB4 /* MockClient.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				B1D7D68C24766D2100E4DA5D /* risk_score_parameters.pb.swift in Sources */,
 				51B5B416246DF13D00DC5D3E /* RiskItemView.swift in Sources */,
@@ -1899,6 +1903,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0159E6C32478487400894A89 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:weichsel/ZIPFoundation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.11;
+			};
+		};
 		01A15801247000D6008BA581 /* XCRemoteSwiftPackageReference "fmdb" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ccgus/fmdb";
@@ -1918,6 +1930,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0159E6C42478487400894A89 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0159E6C32478487400894A89 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
 		01A15802247000D6008BA581 /* FMDB */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 01A15801247000D6008BA581 /* XCRemoteSwiftPackageReference "fmdb" */;

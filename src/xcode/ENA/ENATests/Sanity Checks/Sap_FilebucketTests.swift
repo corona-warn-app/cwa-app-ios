@@ -20,7 +20,7 @@ final class SapFileBucketTests: XCTestCase {
         )!
 
         let fixtureData = try Data(contentsOf: fixtureUrl)
-        let bucket = try VerifiedSapFileBucket(serializedSignedPayload: fixtureData)
+        let bucket = try SAPKeyPackage(serializedSignedPayload: fixtureData)
 
         let files =  bucket.files
         XCTAssertEqual(files.count, 24)

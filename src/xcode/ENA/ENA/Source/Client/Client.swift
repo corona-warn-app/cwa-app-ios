@@ -15,8 +15,8 @@ protocol Client {
     typealias SubmitKeysCompletionHandler = (SubmissionError?) -> Void
     typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
     typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
-    typealias DayCompletionHandler = (Result<VerifiedSapFileBucket, Failure>) -> Void
-    typealias HourCompletionHandler = (Result<VerifiedSapFileBucket, Failure>) -> Void
+    typealias DayCompletionHandler = (Result<SAPKeyPackage, Failure>) -> Void
+    typealias HourCompletionHandler = (Result<SAPKeyPackage, Failure>) -> Void
 
     // MARK: Interacting with a Client
     
@@ -73,12 +73,12 @@ enum SubmissionError: Error {
 
 struct DaysResult {
     let errors: [Client.Failure]
-    let bucketsByDay: [String: VerifiedSapFileBucket]
+    let bucketsByDay: [String: SAPKeyPackage]
 }
 
 struct HoursResult {
     let errors: [Client.Failure]
-    let bucketsByHour: [Int: VerifiedSapFileBucket]
+    let bucketsByHour: [Int: SAPKeyPackage]
     let day: String
 }
 
@@ -95,7 +95,7 @@ extension Client {
         completion completeWith: @escaping (DaysResult) -> Void
     ) {
         var errors = [Client.Failure]()
-        var buckets =  [String: VerifiedSapFileBucket]()
+        var buckets =  [String: SAPKeyPackage]()
 
         let group = DispatchGroup()
         
@@ -128,7 +128,7 @@ extension Client {
         completion completeWith: @escaping FetchHoursCompletionHandler
     ) {
         var errors = [Client.Failure]()
-        var buckets = [Int: VerifiedSapFileBucket]()
+        var buckets = [Int: SAPKeyPackage]()
         let group = DispatchGroup()
 
         hours.forEach { hour in
