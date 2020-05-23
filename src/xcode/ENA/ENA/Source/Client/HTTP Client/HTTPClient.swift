@@ -351,15 +351,17 @@ private extension SAP_RiskScoreParameters.AttenuationRiskParameters {
 extension ENExposureConfiguration {
     class func mock() -> ENExposureConfiguration {
         let config = ENExposureConfiguration()
+
+        config.metadata = ["attenuationDurationThresholds": [50, 70]]
 //        config.minimumRiskScore = 0
-        config.attenuationWeight = 50
+//        config.attenuationWeight = 50
         config.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
         config.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        config.daysSinceLastExposureWeight = 50
+//        config.daysSinceLastExposureWeight = 50
         config.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        config.durationWeight = 50
+//        config.durationWeight = 50
         config.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-        config.transmissionRiskWeight = 50
+//        config.transmissionRiskWeight = 50
         return config
     }
 }
