@@ -96,10 +96,6 @@ final class OnboardingInfoViewController: UIViewController {
         titleLabel.text = onboardingInfo.title
 
         imageView.image = UIImage(named: onboardingInfo.imageName)
-        if let imageSize = imageView.image?.size {
-            let aspectRatio = imageSize.width / imageSize.height
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: aspectRatio, constant: 0.0).isActive = true
-        }
 
         boldLabel.text = onboardingInfo.boldText
         boldLabel.isHidden = onboardingInfo.boldText.isEmpty
