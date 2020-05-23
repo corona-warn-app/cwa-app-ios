@@ -19,10 +19,16 @@ final class SignedPayloadStoreTests: XCTestCase {
 
     func testMissingDays_FilledStore() {
         let store = KeyPackagesStore()
+
         store.add(
             day: "a",
-            signedPayload: Data(bytes: [0xa], count: 1)
+            signedPayload:
+            SAPKeyPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xa], count: 1)
+            )
         )
+
         XCTAssertEqual(store.missingDays(remoteDays: []), [])
         // we already have "a"
         XCTAssertEqual(store.missingDays(remoteDays: ["a"]), [])
@@ -32,7 +38,11 @@ final class SignedPayloadStoreTests: XCTestCase {
 
         store.add(
             day: "b",
-            signedPayload: Data(bytes: [0xb], count: 1)
+            signedPayload:
+            SAPKeyPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xb], count: 1)
+            )
         )
 
         // we are not missing anything
@@ -58,7 +68,10 @@ final class SignedPayloadStoreTests: XCTestCase {
         let store = KeyPackagesStore()
         store.add(
             day: "a",
-            signedPayload: Data()
+            signedPayload: SAPKeyPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xb], count: 1)
+            )
         )
 
         XCTAssertEqual(
@@ -71,7 +84,10 @@ final class SignedPayloadStoreTests: XCTestCase {
         let store = KeyPackagesStore()
         store.add(
             day: "a",
-            signedPayload: Data()
+            signedPayload: SAPKeyPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xb], count: 1)
+            )
         )
 
         XCTAssertEqual(
@@ -87,16 +103,31 @@ final class SignedPayloadStoreTests: XCTestCase {
             [1, 2, 3, 4]
         )
 
-        store.add(hour: 1, day: "b", signedPayload: Data())
+        store.add(
+            hour: 1,
+            day: "b",
+            keyPackage:
+            SAPKeyPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xb], count: 1)
+            )
+        )
         XCTAssertEqual(
             store.missingHours(day: "b", remoteHours: [1, 2, 3, 4]),
             [2, 3, 4]
         )
-        store.add(hour: 4, day: "b", signedPayload: Data())
+
+        store.add(
+            hour: 4,
+            day: "b",
+            keyPackage: SAPKeyPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xb], count: 1)
+            )
+        )
         XCTAssertEqual(
             store.missingHours(day: "b", remoteHours: [1, 2, 3, 4]),
             [2, 3]
         )
     }
-
 }

@@ -13,16 +13,14 @@ import XCTest
 final class SapFileBucketTests: XCTestCase {
     func testDataFromBackend() throws {
         let bundle = Bundle(for: SapFileBucketTests.self)
-
+        
         let fixtureUrl = bundle.url(
-            forResource: "2020-04-27-full-day-from-sap-api",
-            withExtension: "proto"
-        )!
-
+            forResource: "api-response-day-2020-05-16",
+            withExtension: nil
+            )!
+        
         let fixtureData = try Data(contentsOf: fixtureUrl)
-        let bucket = try SAPKeyPackage(serializedSignedPayload: fixtureData)
-
-        let files =  bucket.files
-        XCTAssertEqual(files.count, 24)
+        let bucket = SAPKeyPackage(compressedData: fixtureData)
+        XCTAssertNotNil(bucket)
     }
 }

@@ -41,18 +41,16 @@ final class HTTPClient: Client {
                     return
                 }
 
-                guard let archive = Archive(data: data, accessMode: .read) else {
-                    logError(message: "Failed to download configuration. Unable to create zip archive.")
+                guard let package = SAPKeyPackage(compressedData: data) else {
+                    logError(message: "Failed to create signed package.")
                     completion(nil)
                     return
                 }
+
                 do {
-                    let package = try archive.extractKeyPackage()
-                    log(message: "Retrieved exposureConfiguation from server")
-                    
                     completion(try ENExposureConfiguration(from: package.bin))
                 } catch {
-                    logError(message: "Failed to get exposure configuration: \(error.localizedDescription)")
+                    logError(message: "Failed to get exposure configuration: \(error)")
                     completion(nil)
                 }
             case .failure:
@@ -174,19 +172,12 @@ final class HTTPClient: Client {
                     logError(message: "Failed to download day '\(day)': invalid response")
                     return
                 }
-                guard let archive = Archive(data: dayData, accessMode: .read) else {
-                    logError(message: "Failed to download day '\(day)'. Unable to create zip archive.")
+                guard let package = SAPKeyPackage(compressedData: dayData) else {
+                    logError(message: "Failed to create signed package.")
                     completeWith(.failure(.invalidResponse))
                     return
                 }
-                do {
-                    let package = try archive.extractKeyPackage()
-//                    package.persist()
-                    completeWith(.success(package))
-                } catch let error {
-                    logError(message: "Failed to download day '\(day)' due to error: \(error).")
-                    completeWith(.failure(.invalidResponse))
-                }
+                completeWith(.success(package))
             case .failure(let error):
                 completeWith(.failure(.httpError(error)))
                 logError(message: "Failed to download day '\(day)' due to error: \(error).")
@@ -208,19 +199,12 @@ final class HTTPClient: Client {
                     return
                 }
                 log(message: "got hour: \(hourData.count)")
-
-                guard let archive = Archive(data: hourData, accessMode: .read) else {
-                    logError(message: "Failed to download hourData '\(hour)'. Unable to create zip archive.")
+                guard let package = SAPKeyPackage(compressedData: hourData) else {
+                    logError(message: "Failed to create signed package.")
                     completeWith(.failure(.invalidResponse))
                     return
                 }
-                do {
-                    let package = try archive.extractKeyPackage()
-//                    package.persist()
-                    completeWith(.success(package))
-                } catch {
-                    completeWith(.failure(.invalidResponse))
-                }
+                completeWith(.success(package))
             case .failure(let error):
                 completeWith(.failure(error))
                 logError(message: "failed to get day: \(error)")
@@ -277,8 +261,9 @@ private extension ENExposureConfiguration {
 
         let riskscoreParameters = try SAP_RiskScoreParameters(serializedData: data)
 
-//        minimumRiskScore = 0
-
+        // We are intentionally not setting minimumRiskScore.
+        // Why again?
+        // Also clarify why we should not set any weights. Is this true?
         attenuationWeight = riskscoreParameters.attenuationWeight
         attenuationLevelValues = riskscoreParameters.attenuation.asArray
         daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
@@ -290,33 +275,6 @@ private extension ENExposureConfiguration {
     }
 }
 
-private extension Archive {
-    typealias KeyPackage = (bin: Data, sig: Data)
-    enum KeyPackageError: Error {
-        case binNotFound
-        case sigNotFound
-    }
-    func extractData(from entry: Entry) throws -> Data {
-        var data = Data()
-        try _ = extract(entry) { slice in
-            data.append(slice)
-        }
-        return data
-    }
-
-    func extractKeyPackage() throws -> SAPKeyPackage {
-        guard let binEntry = self["export.bin"] else {
-            throw KeyPackageError.binNotFound
-        }
-        guard let sigEntry = self["export.sig"] else {
-            throw KeyPackageError.sigNotFound
-        }
-        return SAPKeyPackage(
-            keysBin: try extractData(from: binEntry),
-            signature: try extractData(from: sigEntry)
-        )
-    }
-}
 
 private extension SAP_RiskLevel {
     var asNumber: NSNumber {
