@@ -131,6 +131,41 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         UserDefaults.standard.synchronize()
     }
+
+    // MARK: Privacy Protection
+
+	func sceneDidBecomeActive(_ scene: UIScene) {
+        hidePrivacyProtectionWindow()
+	}
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        showPrivacyProtectionWindow()
+    }
+    
+    private var privacyProtectionWindow: UIWindow?
+
+    private func showPrivacyProtectionWindow() {
+        guard let windowScene = self.window?.windowScene else {
+            return
+        }
+		let privacyProtectionViewController = PrivacyProtectionViewController()
+        privacyProtectionWindow = UIWindow(windowScene: windowScene)
+        privacyProtectionWindow?.rootViewController = privacyProtectionViewController
+        privacyProtectionWindow?.windowLevel = .alert + 1
+        privacyProtectionWindow?.makeKeyAndVisible()
+		privacyProtectionViewController.show()
+    }
+
+    private func hidePrivacyProtectionWindow() {
+		guard let privacyProtectionViewController = privacyProtectionWindow?.rootViewController as? PrivacyProtectionViewController else {
+			return
+		}
+		privacyProtectionViewController.hide {
+			self.privacyProtectionWindow?.isHidden = true
+			self.privacyProtectionWindow = nil
+		}
+    }
+
 }
 
 extension SceneDelegate: ENAExposureManagerObserver {
