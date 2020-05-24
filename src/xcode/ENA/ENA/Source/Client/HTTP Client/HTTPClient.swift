@@ -41,7 +41,7 @@ final class HTTPClient: Client {
                     return
                 }
 
-                guard let package = SAPKeyPackage(compressedData: data) else {
+                guard let package = SAPDownloadedPackage(compressedData: data) else {
                     logError(message: "Failed to create signed package.")
                     completion(nil)
                     return
@@ -172,7 +172,7 @@ final class HTTPClient: Client {
                     logError(message: "Failed to download day '\(day)': invalid response")
                     return
                 }
-                guard let package = SAPKeyPackage(compressedData: dayData) else {
+                guard let package = SAPDownloadedPackage(compressedData: dayData) else {
                     logError(message: "Failed to create signed package.")
                     completeWith(.failure(.invalidResponse))
                     return
@@ -199,7 +199,7 @@ final class HTTPClient: Client {
                     return
                 }
                 log(message: "got hour: \(hourData.count)")
-                guard let package = SAPKeyPackage(compressedData: hourData) else {
+                guard let package = SAPDownloadedPackage(compressedData: hourData) else {
                     logError(message: "Failed to create signed package.")
                     completeWith(.failure(.invalidResponse))
                     return

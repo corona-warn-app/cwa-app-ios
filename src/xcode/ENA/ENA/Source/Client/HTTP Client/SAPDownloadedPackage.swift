@@ -9,7 +9,7 @@
 import Foundation
 import ZIPFoundation
 
-struct SAPKeyPackage {
+struct SAPDownloadedPackage {
     // MARK: Creating a Key Package
     init(keysBin: Data, signature: Data) {
         self.bin = keysBin
@@ -46,14 +46,14 @@ private extension Archive {
         return data
     }
 
-    func extractKeyPackage() throws -> SAPKeyPackage {
+    func extractKeyPackage() throws -> SAPDownloadedPackage {
         guard let binEntry = self["export.bin"] else {
             throw KeyPackageError.binNotFound
         }
         guard let sigEntry = self["export.sig"] else {
             throw KeyPackageError.sigNotFound
         }
-        return SAPKeyPackage(
+        return SAPDownloadedPackage(
             keysBin: try extractData(from: binEntry),
             signature: try extractData(from: sigEntry)
         )

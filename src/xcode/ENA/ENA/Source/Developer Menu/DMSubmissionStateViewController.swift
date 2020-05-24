@@ -50,7 +50,7 @@ final class DMSubmissionStateViewController: UITableViewController {
         let group = DispatchGroup()
 
         group.enter()
-        var allPackages = [SAPKeyPackage]()
+        var allPackages = [SAPDownloadedPackage]()
         client.fetch { result in
             allPackages = result.allKeyPackages
             group.leave()
@@ -110,7 +110,7 @@ private extension Data {
     }
 }
 
-extension SAPKeyPackage {
+extension SAPDownloadedPackage {
     var binProtobufData: Data {
         bin.withoutBinHeader
     }

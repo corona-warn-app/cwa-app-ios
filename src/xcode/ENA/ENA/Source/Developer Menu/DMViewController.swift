@@ -211,7 +211,7 @@ extension SAP_TemporaryExposureKey: Comparable {
 }
 
 private extension FetchedDaysAndHours {
-    var allBuckets: [SAPKeyPackage] {
+    var allBuckets: [SAPDownloadedPackage] {
         Array(days.bucketsByDay.values) + Array(hours.bucketsByHour.values)
     }
 }

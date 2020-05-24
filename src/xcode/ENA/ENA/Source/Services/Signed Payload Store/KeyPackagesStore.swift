@@ -12,7 +12,7 @@ final class KeyPackagesStore {
     // MARK: Creating
 
     // MARK: Properties
-    private var packagesByDay = [String: SAPKeyPackage]()
+    private var packagesByDay = [String: SAPDownloadedPackage]()
 
     // Stores all downloaded hours mapped by day.
     // The data stored here looks like this:
@@ -30,31 +30,31 @@ final class KeyPackagesStore {
     // This means that this store can be used to store the hours of any given day.
     // It is up to the consumer to find the correct day.
     // It is also up to the consumer of this class to clean unwanted hourly data.
-    private var packagesByHour = [String: [Int: SAPKeyPackage]]()
+    private var packagesByHour = [String: [Int: SAPDownloadedPackage]]()
 
     // MARK: Working with Days
     func missingDays(remoteDays: Set<String>) -> Set<String> {
         remoteDays.subtracting(Set(packagesByDay.keys))
     }
 
-    func set(day: String, signedPayload: SAPKeyPackage) {
+    func set(day: String, signedPayload: SAPDownloadedPackage) {
         packagesByDay[day] = signedPayload
     }
 
-    func keyPackage(for day: String) -> SAPKeyPackage? {
+    func keyPackage(for day: String) -> SAPDownloadedPackage? {
         packagesByDay[day]
     }
 
-    func allDailyKeyPackages() -> [SAPKeyPackage] {
+    func allDailyKeyPackages() -> [SAPDownloadedPackage] {
         Array(packagesByDay.values)
     }
 
-    func hourlyPackages(day: String) -> [SAPKeyPackage] {
+    func hourlyPackages(day: String) -> [SAPDownloadedPackage] {
         Array(packagesByHour[day, default: [:]].values)
     }
 
     // MARK: Working with Hours
-    func set(hour: Int, day: String, keyPackage: SAPKeyPackage) {
+    func set(hour: Int, day: String, keyPackage: SAPDownloadedPackage) {
         var packages = packagesByHour[day, default: [:]]
         packages[hour] = keyPackage
         packagesByHour[day] = packages

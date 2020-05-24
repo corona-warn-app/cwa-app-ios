@@ -10,14 +10,14 @@ import Foundation
 
 final class AppleFilesWriter {
     // MARK: Creating a Writer
-    init(rootDir: URL, keyPackages: [SAPKeyPackage]) {
+    init(rootDir: URL, keyPackages: [SAPDownloadedPackage]) {
         self.rootDir = rootDir
         self.keyPackages = keyPackages
     }
     
     // MARK: Properties
     let rootDir: URL
-    let keyPackages: [SAPKeyPackage]
+    let keyPackages: [SAPDownloadedPackage]
     
     // MARK: Interacting with the Writer
     typealias WithDiagnosisKeyURLsHandler = (
@@ -68,7 +68,7 @@ final class AppleFilesWriter {
     }
 }
 
-private extension SAPKeyPackage {
+private extension SAPDownloadedPackage {
     func writeSignatureEntry(toDirectory directory: URL, filename: String) throws -> URL {
         let url = directory.appendingPathComponent(filename).appendingPathExtension("sig")
         try signature.write(to: url)

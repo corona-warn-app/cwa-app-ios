@@ -39,7 +39,6 @@ final class ExposureDetectionTransaction {
     private weak var delegate: ExposureDetectionTransactionDelegate?
     private let client: Client
     private let signedPayloadStore: KeyPackagesStore
-    private var step = Step.ready
 
     // MARK: Creating a Transaction
     init(
@@ -63,10 +62,6 @@ final class ExposureDetectionTransaction {
                 self.endPrematurely(reason: .noDaysAndHours)
             }
         }
-    }
-
-    private func next() {
-    
     }
 
     // MARK: Working with the Delegate
@@ -120,12 +115,7 @@ final class ExposureDetectionTransaction {
         remoteDaysAndHours: Client.DaysAndHours,
         completion: @escaping () -> Void
     ) {
-        let today = formattedToday()
-//        let missing = signedPayloadStore.missingDaysAndHours(
-//            from: remoteDaysAndHours,
-//            today: today
-//        )
-
+        // We download everything to make testing easier - for now.
         client.fetch { theWholeWorld in
             self.signedPayloadStore.addFetchedDaysAndHours(theWholeWorld)
             completion()
@@ -228,13 +218,13 @@ private extension KeyPackagesStore {
         return Client.DaysAndHours(days: Array(days), hours: Array(hours))
     }
 
-    func allKeys(today: String) -> [SAPKeyPackage] {
+    func allKeys(today: String) -> [SAPDownloadedPackage] {
         let days = allDailyKeyPackages()
         let hours = hourlyPackages(day: today)
         return days + hours
     }
 
-    func allVerifiedBuckets(today: String) -> [SAPKeyPackage] {
+    func allVerifiedBuckets(today: String) -> [SAPDownloadedPackage] {
         allKeys(today: today)
             .compactMap { $0 }
     }
