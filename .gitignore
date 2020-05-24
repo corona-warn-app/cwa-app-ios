@@ -81,7 +81,6 @@ src/xcode/fastlane/report.xml
 src/xcode/fastlane/Preview.html
 src/xcode/fastlane/screenshots/**/*.png
 src/xcode/fastlane/test_output
-src/xcode/fastlane/README.md
 
 # Code Injection
 #
@@ -93,3 +92,5 @@ iOSInjectionProject/
 # macOS
 *.DS_Store
 
+src/xcode/fastlane/screenshots
+src/xcode/screenshots

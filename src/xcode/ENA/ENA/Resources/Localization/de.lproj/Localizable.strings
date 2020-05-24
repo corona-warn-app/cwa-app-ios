@@ -258,3 +258,6 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "reset_view_description1" = "Hier kommt ein Erklärungstext, der beschreibt was passiert wenn man die Anwendung zurücksetzt";
 "reset_view_reset_button" = "Daten zurücksetzen";
 "reset_view_discard" = "Abbrechen";
+
+//Safari
+"safari_corona_website" = "https://www.bundesregierung.de/breg-de/themen/coronavirus/";

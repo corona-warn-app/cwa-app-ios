@@ -8,21 +8,24 @@
 
 import UIKit
 import ExposureNotification
+import SafariServices
 
 final class HomeViewController: UIViewController {
 
     // MARK: Creating a Home View Controller
-    
     init?(
         coder: NSCoder,
         exposureManager: ExposureManager,
         client: Client,
         store: Store,
-        signedPayloadStore: SignedPayloadStore
+        signedPayloadStore: SignedPayloadStore,
+        exposureManagerEnabled: Bool
     ) {
         self.client = client
         self.store = store
         self.signedPayloadStore = signedPayloadStore
+        self.exposureManager = exposureManager
+        self.exposureManagerEnabled = exposureManagerEnabled
         super.init(coder: coder)
         homeInteractor = HomeInteractor(
             homeViewController: self,
@@ -38,7 +41,7 @@ final class HomeViewController: UIViewController {
 
     // MARK: Properties
     private let signedPayloadStore: SignedPayloadStore
-
+    private let exposureManager: ExposureManager
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
     private var homeLayout: HomeLayout!
@@ -46,8 +49,16 @@ final class HomeViewController: UIViewController {
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     private let store: Store
     private let client: Client
-	
+    var exposureManagerEnabled = false {
+        didSet {
+            settingsController?.exposureManagerEnabled = exposureManagerEnabled
+            notificationSettingsController?.exposureManagerEnabled = exposureManagerEnabled
+        }
+    }
 	private var summaryNotificationObserver: NSObjectProtocol?
+
+    private weak var settingsController: SettingsViewController?
+    private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 
     enum Section: Int {
         case actions
@@ -78,6 +89,10 @@ final class HomeViewController: UIViewController {
 				self.reloadData()
 			}
 		}
+
+        if exposureManagerEnabled == false {
+            log(message: "WARNING: ExposureManager is not enabled. Our app currently expects the exposure manager to be enabled. Tap on 'Tracing ist aktiv' to enable it.")
+        }
     }
     
 	override func viewWillDisappear(_ animated: Bool) {
@@ -96,67 +111,48 @@ final class HomeViewController: UIViewController {
 
     // MARK: Misc
     func showSubmitResult() {
-        let vc = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { [unowned self] coder in
-            let service = ENAExposureSubmissionService(manager: ENAExposureManager(), client: self.client)
-            return ExposureSubmissionViewController(coder: coder, exposureSubmissionService: service)
+        let controller = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { coder in
+            ExposureSubmissionViewController(
+                coder: coder,
+                exposureSubmissionService: ENAExposureSubmissionService(
+                    manager: self.exposureManager,
+                    client: self.client
+                )
+            )
         }
-        let naviController = UINavigationController(rootViewController: vc)
-        present(naviController, animated: true, completion: nil)
+
+        present(
+            UINavigationController(rootViewController: controller),
+            animated: true,
+            completion: nil
+        )
     }
 
     func showExposureNotificationSetting() {
-
-        let manager = ENAExposureManager()
-        manager.activate { [weak self] error in
-            guard let self = self else { return }
-            if let error = error {
-                switch error {
-                case .exposureNotificationRequired:
-                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-                case .exposureNotificationAuthorization:
-                    log(message: "Encourage the user to authorize this application", level: .warning)
-                }
-            } else if let error = error {
-                logError(message: error.localizedDescription)
-            } else {
-
-                let storyboard = AppStoryboard.exposureNotificationSetting.instance
-                let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController", creator: { coder in
-                    ExposureNotificationSettingViewController(coder: coder, manager: manager)
-                }
-                )
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+        let storyboard = AppStoryboard.exposureNotificationSetting.instance
+        let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
+            ExposureNotificationSettingViewController(
+                coder: coder,
+                exposureManagerEnabled: self.exposureManagerEnabled,
+                delegate: self
+            )
         }
+        notificationSettingsController = vc
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showSetting() {
-        /*let vc = SettingsViewController.initiate(for: .settings)
-        let naviController = UINavigationController(rootViewController: vc)
-        present(naviController, animated: true, completion: nil)*/
-
-        let manager = ENAExposureManager()
-        manager.activate { [weak self] error in
-            guard let self = self else { return }
-            if let error = error {
-                switch error {
-                case .exposureNotificationRequired:
-                    log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-                case .exposureNotificationAuthorization:
-                    log(message: "Encourage the user to authorize this application", level: .warning)
-                }
-            } else if let error = error {
-                logError(message: error.localizedDescription)
-            } else {
-
-                let storyboard = AppStoryboard.settings.instance
-                let vc = storyboard.instantiateViewController(identifier: "SettingsViewController", creator: { coder in
-                    SettingsViewController(coder: coder, manager: manager, store: self.store)
-                }
-                )
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+        let storyboard = AppStoryboard.settings.instance
+        let vc = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
+            SettingsViewController(
+                coder: coder,
+                store: self.store,
+                exposureManagerEnabled: self.exposureManagerEnabled,
+                delegate: self
+            )
         }
+        settingsController = vc
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func showDeveloperMenu() {
@@ -175,7 +171,8 @@ final class HomeViewController: UIViewController {
                 coder: coder,
                 store: self.store,
                 client: self.client,
-                signedPayloadStore: self.signedPayloadStore
+                signedPayloadStore: self.signedPayloadStore,
+                exposureManager: self.exposureManager
             )
         }
         present(vc, animated: true)
@@ -186,6 +183,21 @@ final class HomeViewController: UIViewController {
             AppStoryboard.appInformation.initiateInitial(),
             animated: true
         )
+    }
+
+    func showWebPage() {
+        if let url = URL(string: AppStrings.SafariView.targetURL) {
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+            config.barCollapsingEnabled = true
+
+            let vc = SFSafariViewController(url: url, configuration: config)
+            present(vc, animated: true)
+        } else {
+            let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
+            logError(message: error)
+            fatalError(error)
+        }
     }
 
     private func showScreen(at indexPath: IndexPath) {
@@ -204,6 +216,7 @@ final class HomeViewController: UIViewController {
             if row == 0 {
                 showInviteFriends()
             } else {
+                showWebPage()
             }
         case .settings:
             if row == 0 {
@@ -240,6 +253,8 @@ final class HomeViewController: UIViewController {
 
     private func configureHierarchy() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+		collectionView.isAccessibilityElement = false
+		collectionView.shouldGroupAccessibilityChildren = true
         collectionView.delegate = self
         let safeLayoutGuide = view.safeAreaLayoutGuide
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -303,5 +318,42 @@ extension HomeViewController: HomeLayoutDelegate {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         showScreen(at: indexPath)
+    }
+}
+
+extension HomeViewController: ExposureNotificationSettingViewControllerDelegate {
+    func exposureNotificationSettingViewController(
+        _ controller: ExposureNotificationSettingViewController,
+        setExposureManagerEnabled enabled: Bool,
+        then completion: @escaping (ExposureNotificationError?) -> Void
+    ) {
+        setExposureManagerEnabled(enabled, then: completion)
+    }
+}
+
+extension HomeViewController: SettingsViewControllerDelegate {
+    func settingsViewController(
+        _ controller: SettingsViewController,
+        setExposureManagerEnabled enabled: Bool,
+        then completion: @escaping (ExposureNotificationError?) -> Void
+    ) {
+        setExposureManagerEnabled(enabled, then: completion)
+    }
+}
+
+private extension HomeViewController {
+    func setExposureManagerEnabled(_ enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {
+        if enabled {
+            exposureManager.enable(completion: completion)
+        } else {
+            exposureManager.disable(completion: completion)
+        }
+    }
+}
+
+extension HomeViewController: ViewControllerUpdatable {
+    func updateUI() {
+        settingsController?.updateUI()
+        notificationSettingsController?.updateUI()
     }
 }

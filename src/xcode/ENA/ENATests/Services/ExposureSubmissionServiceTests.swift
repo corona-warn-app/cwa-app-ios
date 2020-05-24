@@ -36,30 +36,6 @@ class ExposureSubmissionServiceTests: XCTestCase {
         XCTAssertNil(error)
     }
 
-    func testSubmitExpousure_ActivationError() {
-        // Arrange
-        let exposureManager = MockExposureManager(exposureNotificationError: .exposureNotificationAuthorization, diagnosisKeysResult: nil)
-        let client = MockTestClient(submissionError: nil)
-
-        let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
-        let expectation = self.expectation(description: "ActivationError")
-
-        // Act
-        service.submitExposure(tan: tan) { error in
-            defer { expectation.fulfill() }
-            guard let error = error else {
-                XCTFail("error expected")
-                return
-            }
-            guard case ExposureSubmissionError.enNotEnabled = error else {
-                XCTFail("We expect error to be of type enNotEnabled")
-                return
-            }
-        }
-
-        waitForExpectations(timeout: expectationsTimeout)
-    }
-
     func testSubmitExpousure_NoKeys() {
         // Arrange
         let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (nil, nil))

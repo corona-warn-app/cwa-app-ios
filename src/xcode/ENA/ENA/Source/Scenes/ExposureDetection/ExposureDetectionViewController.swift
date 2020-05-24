@@ -11,48 +11,54 @@ import UIKit
 import ExposureNotification
 
 
-class ExposureDetectionViewController: UIViewController {
-	@IBOutlet weak var checkButton: UIButton!
-	
-	let store: Store
-	let client: Client
-	let signedPayloadStore: SignedPayloadStore
-	
-	private var model: ExposureDetectionModel = .unknownRisk
-	private var riskLevel: RiskLevel = .unknown
-	
-	private var exposureDetectionTransaction: ExposureDetectionTransaction?
-	private var exposureDetectionSummary: ENExposureDetectionSummary?
+final class ExposureDetectionViewController: UIViewController {
 
-	
-	@IBOutlet weak var tableView: UITableView!
-	
-	
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has intentionally not been implemented")
-	}
-	
-	
-	init?(coder: NSCoder, store: Store, client: Client, signedPayloadStore: SignedPayloadStore) {
-		self.store = store
-		self.client = client
-		self.signedPayloadStore = signedPayloadStore
+    // MARK: Creating an Exposure Detection View Controller
+	init?(
+        coder: NSCoder,
+        store: Store,
+        client: Client,
+        signedPayloadStore: SignedPayloadStore,
+        exposureManager: ExposureManager
+    ) {
+        self.store = store
+        self.client = client
+        self.signedPayloadStore = signedPayloadStore
+        self.exposureManager = exposureManager
 		super.init(coder: coder)
 	}
 
-	
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has intentionally not been implemented")
+    }
+
+    // MARK: Properties
+
+    let store: Store
+    let client: Client
+    let signedPayloadStore: SignedPayloadStore
+    private let exposureManager: ExposureManager
+
+    private var model: ExposureDetectionModel = .unknownRisk
+    private var riskLevel: RiskLevel = .unknown
+
+    private var exposureDetectionTransaction: ExposureDetectionTransaction?
+    private var exposureDetectionSummary: ENExposureDetectionSummary?
+
+    @IBOutlet weak var checkButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
+
+    // MARK: Misc
 	@IBAction func tappedClose() {
 		self.dismiss(animated: true)
 	}
-	
-	
+
 	@IBAction func tappedCheckNow() {
 		log(message: "Starting exposure detection ...")
 		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: self.client, signedPayloadStore: self.signedPayloadStore)
 		self.exposureDetectionTransaction?.resume()
 	}
-	
-	
+
 	func updateRiskLevel(riskLevel: RiskLevel) {
 		self.riskLevel = riskLevel
 		self.model = .model(for: riskLevel)
@@ -255,24 +261,12 @@ extension ExposureDetectionViewController: UITableViewDataSource, UITableViewDel
 
 
 extension ExposureDetectionViewController: ExposureDetectionTransactionDelegate {
-	func exposureDetectionTransaction(_ transaction: ExposureDetectionTransaction, continueWithExposureManager: @escaping ContinueHandler, abort: @escaping AbortHandler) {
-		// Important:
-		// See HomeViewController for more details as to why we create a new manager here.
-		
-		let manager = ENAExposureManager()
-		manager.activate { error in
-			if let error = error {
-				let message = "Unable to detect exposures because exposure manager could not be activated due to: \(error)"
-				logError(message: message)
-				manager.invalidate()
-				abort(error)
-				// TODO: We should defer abort(…) until the invalidation handler has been called.
-				return
-			}
-			continueWithExposureManager(manager)
-		}
-	}
-	
+    func exposureDetectionTransactionRequiresExposureManager(
+        _ transaction: ExposureDetectionTransaction
+    ) -> ExposureManager {
+        exposureManager
+    }
+
 	func exposureDetectionTransaction(_ transaction: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
 		// TODO show error to user
 		logError(message: "Exposure transaction failed: \(reason)")

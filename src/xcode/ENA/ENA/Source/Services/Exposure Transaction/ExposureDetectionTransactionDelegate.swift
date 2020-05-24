@@ -12,14 +12,10 @@ import ExposureNotification
 /// Methods required to move an exposure detection transaction forward and for consuming
 /// the results of a transaction.
 protocol ExposureDetectionTransactionDelegate: AnyObject {
-    typealias ContinueHandler = (ExposureManager) -> Void
-    typealias AbortHandler = (Error?) -> Void
-
-    func exposureDetectionTransaction(
-        _ transaction: ExposureDetectionTransaction,
-        continueWithExposureManager: @escaping ContinueHandler,
-        abort: @escaping AbortHandler
-    )
+    /// Called by the transaction once it needs an exposure manager.
+    func exposureDetectionTransactionRequiresExposureManager(
+        _ transaction: ExposureDetectionTransaction
+    ) -> ExposureManager
 
     func exposureDetectionTransaction(
         _ transaction: ExposureDetectionTransaction,
