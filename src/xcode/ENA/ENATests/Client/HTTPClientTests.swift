@@ -252,9 +252,9 @@ final class HTTPClientTests: XCTestCase {
         waitForExpectations(timeout: expectationsTimeout)
     }
 
-    private func assertPackageFormat(for sapPackage: (SAPKeyPackage)) {
-        XCTAssertEqual(sapPackage.bin.count, binFileSize)
-        XCTAssertEqual(sapPackage.signature.count, sigFileSize)
+    private func assertPackageFormat(for downloadedPackage: (SAPDownloadedPackage)) {
+        XCTAssertEqual(downloadedPackage.bin.count, binFileSize)
+        XCTAssertEqual(downloadedPackage.signature.count, sigFileSize)
     }
     
     func testFetchDay_Success() throws {

@@ -1,5 +1,5 @@
 //
-//  KeyPackagesStoreTests.swift
+//  DownloadedPackagesStoreTests.swift
 //  ENA
 //
 //  Created by Kienle, Christian on 13.05.20.
@@ -9,21 +9,21 @@
 import XCTest
 @testable import ENA
 
-final class KeyPackagesStoreTests: XCTestCase {
+final class DownloadedPackagesStoreTests: XCTestCase {
     func testMissingDays_EmptyStore() {
-        let store = KeyPackagesStore()
+        let store = DownloadedPackagesStore()
         XCTAssertEqual(store.missingDays(remoteDays: []), [])
         XCTAssertEqual(store.missingDays(remoteDays: ["a"]), ["a"])
         XCTAssertEqual(store.missingDays(remoteDays: ["a", "b"]), ["a", "b"])
     }
 
     func testMissingDays_FilledStore() {
-        let store = KeyPackagesStore()
+        let store = DownloadedPackagesStore()
 
         store.set(
             day: "a",
-            signedPayload:
-            SAPKeyPackage(
+            downloadedPackage:
+            SAPDownloadedPackage(
                 keysBin: Data(bytes: [0xa], count: 1),
                 signature: Data(bytes: [0xa], count: 1)
             )
@@ -38,8 +38,8 @@ final class KeyPackagesStoreTests: XCTestCase {
 
         store.set(
             day: "b",
-            signedPayload:
-            SAPKeyPackage(
+            downloadedPackage:
+            SAPDownloadedPackage(
                 keysBin: Data(bytes: [0xa], count: 1),
                 signature: Data(bytes: [0xb], count: 1)
             )
@@ -53,7 +53,7 @@ final class KeyPackagesStoreTests: XCTestCase {
     }
 
     func testMissingHours_EmptyStore() {
-        let store = KeyPackagesStore()
+        let store = DownloadedPackagesStore()
         XCTAssertEqual(
             store.missingHours(day: "a", remoteHours: []),
             []
@@ -65,10 +65,10 @@ final class KeyPackagesStoreTests: XCTestCase {
     }
 
     func testMissingHours_StoreWithDaysButNoRemoteHours() {
-        let store = KeyPackagesStore()
+        let store = DownloadedPackagesStore()
         store.set(
             day: "a",
-            signedPayload: SAPKeyPackage(
+            downloadedPackage: SAPDownloadedPackage(
                 keysBin: Data(bytes: [0xa], count: 1),
                 signature: Data(bytes: [0xb], count: 1)
             )
@@ -81,10 +81,10 @@ final class KeyPackagesStoreTests: XCTestCase {
     }
 
     func testMissingHours_StoreWithDaysAndHours() {
-        let store = KeyPackagesStore()
+        let store = DownloadedPackagesStore()
         store.set(
             day: "a",
-            signedPayload: SAPKeyPackage(
+            downloadedPackage: SAPDownloadedPackage(
                 keysBin: Data(bytes: [0xa], count: 1),
                 signature: Data(bytes: [0xb], count: 1)
             )
@@ -106,8 +106,8 @@ final class KeyPackagesStoreTests: XCTestCase {
         store.set(
             hour: 1,
             day: "b",
-            keyPackage:
-            SAPKeyPackage(
+            downloadedPackage:
+            SAPDownloadedPackage(
                 keysBin: Data(bytes: [0xa], count: 1),
                 signature: Data(bytes: [0xb], count: 1)
             )
@@ -120,7 +120,7 @@ final class KeyPackagesStoreTests: XCTestCase {
         store.set(
             hour: 4,
             day: "b",
-            keyPackage: SAPKeyPackage(
+            downloadedPackage: SAPDownloadedPackage(
                 keysBin: Data(bytes: [0xa], count: 1),
                 signature: Data(bytes: [0xb], count: 1)
             )

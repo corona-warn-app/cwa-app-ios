@@ -1,5 +1,5 @@
 //
-//  KeyPackagesStore.swift
+//  DownloadedPackagesStore.swift
 //  ENA
 //
 //  Created by Kienle, Christian on 13.05.20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class KeyPackagesStore {
+final class DownloadedPackagesStore {
     // MARK: Creating
 
     // MARK: Properties
@@ -37,8 +37,8 @@ final class KeyPackagesStore {
         remoteDays.subtracting(Set(packagesByDay.keys))
     }
 
-    func set(day: String, signedPayload: SAPDownloadedPackage) {
-        packagesByDay[day] = signedPayload
+    func set(day: String, downloadedPackage: SAPDownloadedPackage) {
+        packagesByDay[day] = downloadedPackage
     }
 
     func keyPackage(for day: String) -> SAPDownloadedPackage? {
@@ -54,9 +54,9 @@ final class KeyPackagesStore {
     }
 
     // MARK: Working with Hours
-    func set(hour: Int, day: String, keyPackage: SAPDownloadedPackage) {
+    func set(hour: Int, day: String, downloadedPackage: SAPDownloadedPackage) {
         var packages = packagesByHour[day, default: [:]]
-        packages[hour] = keyPackage
+        packages[hour] = downloadedPackage
         packagesByHour[day] = packages
     }
 

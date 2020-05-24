@@ -38,13 +38,13 @@ final class ExposureDetectionTransaction {
     // MARK: Properties
     private weak var delegate: ExposureDetectionTransactionDelegate?
     private let client: Client
-    private let keyPackagesStore: KeyPackagesStore
+    private let keyPackagesStore: DownloadedPackagesStore
 
     // MARK: Creating a Transaction
     init(
         delegate: ExposureDetectionTransactionDelegate,
         client: Client,
-        keyPackagesStore: KeyPackagesStore
+        keyPackagesStore: DownloadedPackagesStore
     ) {
         self.delegate = delegate
         self.client = client
@@ -196,16 +196,16 @@ final class ExposureDetectionTransaction {
 
 }
 
-private extension KeyPackagesStore {
+private extension DownloadedPackagesStore {
     func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
         let days = daysAndHours.days
         days.bucketsByDay.forEach { day, bucket in
-            self.set(day: day, signedPayload: bucket)
+            self.set(day: day, downloadedPackage: bucket)
         }
 
         let hours = daysAndHours.hours
         hours.bucketsByHour.forEach { hour, bucket in
-            self.set(hour: hour, day: hours.day, keyPackage: bucket)
+            self.set(hour: hour, day: hours.day, downloadedPackage: bucket)
         }
     }
 

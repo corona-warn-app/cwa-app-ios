@@ -18,7 +18,7 @@ final class ExposureDetectionViewController: UIViewController {
         coder: NSCoder,
         store: Store,
         client: Client,
-        keyPackagesStore: KeyPackagesStore,
+        keyPackagesStore: DownloadedPackagesStore,
         exposureManager: ExposureManager
     ) {
         self.store = store
@@ -36,7 +36,7 @@ final class ExposureDetectionViewController: UIViewController {
 
     let store: Store
     let client: Client
-    let keyPackagesStore: KeyPackagesStore
+    let keyPackagesStore: DownloadedPackagesStore
     private let exposureManager: ExposureManager
 
     private var model: ExposureDetectionModel = .unknownRisk
