@@ -12,7 +12,7 @@
 		0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */; };
 		0159E6C2247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */; };
 		01790A402475724400311407 /* PayloadStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB88BF24751F4900A6EB83 /* PayloadStoreTests.swift */; };
-		01A15803247000D6008BA581 /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 01A15802247000D6008BA581 /* FMDB */; };
+		01990E12247A8DAB00096D25 /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 01990E11247A8DAB00096D25 /* FMDB */; };
 		01A158052470042A008BA581 /* PayloadStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A158042470042A008BA581 /* PayloadStore.swift */; };
 		01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
@@ -370,7 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */,
-				01A15803247000D6008BA581 /* FMDB in Frameworks */,
+				01990E12247A8DAB00096D25 /* FMDB in Frameworks */,
 				B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */,
 				B1E8C9A2247A6A3E006DC678 /* ZIPFoundation in Frameworks */,
 			);
@@ -1111,8 +1111,8 @@
 			name = ENA;
 			packageProductDependencies = (
 				B10FB02F246036F3004CA11E /* SwiftProtobuf */,
-				01A15802247000D6008BA581 /* FMDB */,
 				B1E8C9A1247A6A3E006DC678 /* ZIPFoundation */,
+				01990E11247A8DAB00096D25 /* FMDB */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -1189,8 +1189,8 @@
 			mainGroup = 85D759322457048F008175F0;
 			packageReferences = (
 				B10FB02E246036F3004CA11E /* XCRemoteSwiftPackageReference "swift-protobuf" */,
-				01A15801247000D6008BA581 /* XCRemoteSwiftPackageReference "fmdb" */,
 				B1E8C9A0247A6A3E006DC678 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				01990E10247A8DAB00096D25 /* XCRemoteSwiftPackageReference "fmdb" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -1891,9 +1891,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		01A15801247000D6008BA581 /* XCRemoteSwiftPackageReference "fmdb" */ = {
+		01990E10247A8DAB00096D25 /* XCRemoteSwiftPackageReference "fmdb" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ccgus/fmdb";
+			repositoryURL = "https://github.com/ccgus/fmdb.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.7.7;
@@ -1918,9 +1918,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		01A15802247000D6008BA581 /* FMDB */ = {
+		01990E11247A8DAB00096D25 /* FMDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 01A15801247000D6008BA581 /* XCRemoteSwiftPackageReference "fmdb" */;
+			package = 01990E10247A8DAB00096D25 /* XCRemoteSwiftPackageReference "fmdb" */;
 			productName = FMDB;
 		};
 		B10FB02F246036F3004CA11E /* SwiftProtobuf */ = {
