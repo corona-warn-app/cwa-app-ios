@@ -14,4 +14,7 @@ class InfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var bodyLabel: UILabel!
 	
+	@IBOutlet var topDividerView: UIView!
+	@IBOutlet var bottomDividerView: UIView!
+	@IBOutlet weak var bottomDividerLeadingConstraint: NSLayoutConstraint!
 }

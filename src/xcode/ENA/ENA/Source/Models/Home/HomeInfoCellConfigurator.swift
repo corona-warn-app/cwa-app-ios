@@ -12,10 +12,10 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
     
     var title: String
     var body: String?
-	var position: CellConfiguratorIndexPosition
+	var position: CellConfiguratorPositionInSection
 	var accessibilityIdentifier: String?
 	
-	init(title: String, body: String?, position: CellConfiguratorIndexPosition, accessibilityIdentifier: String?) {
+	init(title: String, body: String?, position: CellConfiguratorPositionInSection, accessibilityIdentifier: String?) {
         self.title = title
         self.body = body
         self.position = position
@@ -30,29 +30,29 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 		cell.bodyLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
 		cell.bodyLabel.isHidden = (body == nil)
 
-		cell.clearBorders()
-		configureBorders(for: cell)
+		cell.topDividerView.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(0.3)
+		cell.bottomDividerView.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(0.3)
+
+		configureBorders(in: cell)
 		setupAccessibility(for: cell)
 	}
-		
-	func configureBorders(for cell: InfoCollectionViewCell) {
+	
+	func configureBorders(in cell: InfoCollectionViewCell) {
 		switch position {
 		case .first:
-			cell.setBorder(at: [.top], with: UIColor.systemGray5, thickness: 1.0, and: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-			cell.setBorder(at: [.bottom], with: UIColor.systemGray5, thickness: 1.0, and: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0))
+			cell.topDividerView.isHidden = false
+			cell.bottomDividerLeadingConstraint.constant = 15.0
 		case .other:
-			cell.setBorder(at: [.bottom], with: UIColor.systemGray5, thickness: 1.0, and: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0))
+			cell.topDividerView.isHidden = true
+			cell.bottomDividerLeadingConstraint.constant = 15.0
 		case .last:
-			cell.setBorder(at: [.bottom], with: UIColor.systemGray5, thickness: 1.0)
+			cell.topDividerView.isHidden = true
+			cell.bottomDividerLeadingConstraint.constant = 0.0
 		}
 	}
-
+		
 	func setupAccessibility(for cell: InfoCollectionViewCell) {
-        cell.isAccessibilityElement = false
-		cell.chevronImageView.isAccessibilityElement = false
-        cell.titleLabel.isAccessibilityElement = true
-		cell.bodyLabel.isAccessibilityElement = false
+		cell.titleLabel.isAccessibilityElement = true
 		cell.titleLabel.accessibilityIdentifier = accessibilityIdentifier
 	}
-
 }

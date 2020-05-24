@@ -31,24 +31,13 @@ class ENAUITestsHome: XCTestCase {
 		// only run if onboarding screen is present
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
 
-		snapshot("ScreenShot_\(#function)_0000")
-
+		app.swipeUp()
 		// assert cells
-		let collectionView = app.collectionViews.element(boundBy:0)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.infoCardShareTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardShareTitle].exists)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.infoCardAboutTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardAboutTitle].exists)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.appInformationCardTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.appInformationCardTitle].exists)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.settingsCardTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.settingsCardTitle].exists)
-
-		snapshot("ScreenShot_\(#function)_0001")
+		snapshot("ScreenShot_\(#function)")
 
     }
 
@@ -59,24 +48,13 @@ class ENAUITestsHome: XCTestCase {
 		// only run if onboarding screen is present
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
 
-		snapshot("ScreenShot_\(#function)_0000")
-
+		app.swipeUp()
 		// assert cells
-		let collectionView = app.collectionViews.element(boundBy:0)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.infoCardShareTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardShareTitle].exists)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.infoCardAboutTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardAboutTitle].exists)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.appInformationCardTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.appInformationCardTitle].exists)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.settingsCardTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.settingsCardTitle].exists)
-		
-		snapshot("ScreenShot_\(#function)_0001")
+		snapshot("ScreenShot_\(#function)")
 
     }
 
@@ -87,25 +65,15 @@ class ENAUITestsHome: XCTestCase {
 		// only run if onboarding screen is present
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
 
-		snapshot("ScreenShot_\(#function)_0000")
-
+		app.swipeUp()
+		app.swipeUp()
 		// assert cells
-		let collectionView = app.collectionViews.element(boundBy:0)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.infoCardShareTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardShareTitle].exists)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.infoCardAboutTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardAboutTitle].exists)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.appInformationCardTitle])
+		app.swipeUp()
 		XCTAssert(app.staticTexts[Accessibility.Cell.appInformationCardTitle].exists)
-		
-		collectionView.scrollToElement(element: app.staticTexts[Accessibility.Cell.settingsCardTitle])
 		XCTAssert(app.staticTexts[Accessibility.Cell.settingsCardTitle].exists)
-		
-		snapshot("ScreenShot_\(#function)_0001")
-
+		snapshot("ScreenShot_\(#function)")
     }
 
 }

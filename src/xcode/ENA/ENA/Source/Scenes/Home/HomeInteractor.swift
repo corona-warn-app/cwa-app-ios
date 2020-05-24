@@ -98,12 +98,13 @@ final class HomeInteractor {
         submitConfigurator.submitAction = { [unowned self] in
             self.homeViewController.showSubmitResult()
         }
-        
+   
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
 			body: AppStrings.Home.infoCardShareBody,
 			position: .first,
 			accessibilityIdentifier: Accessibility.Cell.infoCardShareTitle
+			
 		)
 		let info2Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardAboutTitle,
@@ -137,7 +138,6 @@ final class HomeInteractor {
 			settingsConfigurator
 		]
         configurators.append(contentsOf: others)
-        
         return configurators
     }
 }
