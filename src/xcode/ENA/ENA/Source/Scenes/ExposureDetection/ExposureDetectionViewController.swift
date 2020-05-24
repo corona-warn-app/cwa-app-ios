@@ -56,7 +56,7 @@ final class ExposureDetectionViewController: UIViewController {
 	@IBAction func tappedCheckNow() {
 		log(message: "Starting exposure detection ...")
 		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: self.client, signedPayloadStore: self.signedPayloadStore)
-		self.exposureDetectionTransaction?.resume()
+		self.exposureDetectionTransaction?.start()
 	}
 
 	func updateRiskLevel(riskLevel: RiskLevel) {

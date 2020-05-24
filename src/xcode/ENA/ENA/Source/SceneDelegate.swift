@@ -24,7 +24,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         #endif
 
         if ClientMode.default == .mock {
-            return MockClient()
+            fatalError("not implemented")
         }
         
         let store = self.store

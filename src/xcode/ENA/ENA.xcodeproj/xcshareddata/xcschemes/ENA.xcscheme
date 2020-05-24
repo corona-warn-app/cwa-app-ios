@@ -101,12 +101,12 @@
          <EnvironmentVariable
             key = "CWA_CLIENT_MODE"
             value = "mock"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "CWA_CLIENT_MODE"
             value = "https"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>

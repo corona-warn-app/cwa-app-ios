@@ -39,6 +39,7 @@ final class ExposureDetectionTransaction {
     private weak var delegate: ExposureDetectionTransactionDelegate?
     private let client: Client
     private let signedPayloadStore: KeyPackagesStore
+    private var step = Step.ready
 
     // MARK: Creating a Transaction
     init(
@@ -51,8 +52,8 @@ final class ExposureDetectionTransaction {
         self.signedPayloadStore = signedPayloadStore
     }
 
-    // MARK: Resuming the Transaction
-    func resume() {
+    // MARK: Starting the Transaction
+    func start() {
         let today = formattedToday()
         client.availableDaysAndHoursUpUntil(today) { result in
             switch result {
@@ -62,6 +63,10 @@ final class ExposureDetectionTransaction {
                 self.endPrematurely(reason: .noDaysAndHours)
             }
         }
+    }
+
+    private func next() {
+    
     }
 
     // MARK: Working with the Delegate
