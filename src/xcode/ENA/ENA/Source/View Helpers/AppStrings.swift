@@ -47,6 +47,7 @@ enum AppStrings {
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
 		static let numberOfDaysStored = NSLocalizedString("ExposureDetection_NumberOfDaysStored", comment: "")
 		static let refreshed = NSLocalizedString("ExposureDetection_Refreshed", comment: "")
+		static let refreshedNever = NSLocalizedString("ExposureDetection_Refreshed_Never", comment: "")
 		static let refreshingIn = NSLocalizedString("ExposureDetection_RefreshingIn", comment: "")
 		static let lastRiskLevel = NSLocalizedString("ExposureDetection_LastRiskLevel", comment: "")
 		static let unknownText = NSLocalizedString("ExposureDetection_UnknownText", comment: "")

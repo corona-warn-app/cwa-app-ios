@@ -24,6 +24,7 @@
 "ExposureDetection_LastExposure" = ""; // Dict
 "ExposureDetection_NumberOfDaysStored" = "%d von 14 Tagen gespeichert";
 "ExposureDetection_Refreshed" = "Aktualisiert: %@";
+"ExposureDetection_Refreshed_Never" = "Noch nie";
 "ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d Minuten";
 "ExposureDetection_LastRiskLevel" = "Letzte Ermittlung: %@";
 "ExposureDetection_UnknownText" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";

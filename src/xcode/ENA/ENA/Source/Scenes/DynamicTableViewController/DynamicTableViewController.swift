@@ -251,7 +251,6 @@ private extension UITableViewCell {
 	
 	
 	func addSeparator(_ location: SeparatorLocation) {
-		return
 		if location == .clear {
 			contentView.viewWithTag(100001)?.removeFromSuperview()
 			contentView.viewWithTag(100002)?.removeFromSuperview()

@@ -86,8 +86,8 @@ private extension DynamicTableViewModel.Cell {
 		.risk(viewController) { cell, indexPath in
 			let formatter = DateFormatter()
 			formatter.dateStyle = .medium
-			let date = viewController.state.summary?.lastRefreshDate
-			cell.textLabel?.text = String(format: text, nil != date ? formatter.string(from: date!) : "Noch nie")
+			let date: Date! = viewController.state.summary?.lastRefreshDate
+			cell.textLabel?.text = String(format: text, nil != date ? formatter.string(from: date) : AppStrings.ExposureDetection.refreshedNever)
 			cell.imageView?.image = image
 		}
 	}
@@ -105,7 +105,7 @@ private extension DynamicTableViewModel.Cell {
 	static func riskRefresh(text: String, _ viewController: ExposureDetectionViewController) -> DynamicTableViewModel.Cell {
 		.identifier(ReusableCellIdentifer.riskRefresh) { cell, indexPath in
 			cell.backgroundColor = viewController.state.riskTintColor
-			let components = Calendar.current.dateComponents([.minute, .second], from: Date(), to: viewController.state.nextRefresh!)
+			let components = Calendar.current.dateComponents([.minute, .second], from: Date(), to: viewController.state.nextRefresh ?? Date())
 			cell.textLabel?.text = String(format: text, components.minute ?? 0, components.second ?? 0)
 		}
 	}

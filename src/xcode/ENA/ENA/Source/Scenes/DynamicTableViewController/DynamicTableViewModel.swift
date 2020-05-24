@@ -10,40 +10,6 @@ import Foundation
 import UIKit
 
 
-//protocol DynamicTableViewModel {
-//	var content: [Section] { get }
-//
-//	init(_ content: [Section])
-//
-//	associatedtype Section: DynamicTableViewSection
-//}
-//
-//
-//protocol DynamicTableViewSection {
-//	associatedtype Header: DynamicTableViewHeader
-//	associatedtype Cell: DynamicTableViewCell
-//	associatedtype Action: DynamicTableViewAction
-//
-//	var header: Header { get }
-//	var separators: Bool { get }
-//	var cells: [Cell] { get }
-//
-//	static func section(header: Header, separators: Bool, cells: [Cell]) -> Self
-//}
-//
-//
-//protocol DynamicTableViewHeader {
-//}
-//
-//
-//protocol DynamicTableViewCell {
-//}
-//
-//
-//protocol DynamicTableViewAction {
-//}
-
-
 struct DynamicTableViewModel {
 	private let content: [Section]
 	
@@ -76,19 +42,20 @@ struct DynamicTableViewModel {
 		let separators: Bool
 		let cells: [Cell]
 		
-		private init(header: Header, footer: Footer, separators: Bool = true, cells: [Cell]) {
+		private init(header: Header, footer: Footer, separators: Bool, cells: [Cell]) {
 			self.header = header
 			self.footer = footer
 			self.separators = separators
 			self.cells = cells
 		}
 		
-		static func section(header: Header = .none, footer: Footer = .blank, separators: Bool = true, cells: [Cell]) -> Section {
+		static func section(header: Header = .none, footer: Footer = .blank, separators: Bool = false, cells: [Cell]) -> Section {
 			return .init(header: header, footer: footer, separators: separators, cells: cells)
 		}
 	}
 	
 	enum Header {
+		// swiftlint:disable:next nesting
 		typealias HeaderConfigurator = (_ view: UIView, _ section: Int) -> Void
 		
 		case none
@@ -105,6 +72,7 @@ struct DynamicTableViewModel {
 	typealias Footer = Header
 	
 	enum Cell {
+		// swiftlint:disable:next nesting
 		typealias CellConfigurator = (_ cell: UITableViewCell, _ indexPath: IndexPath) -> Void
 		
 		case bold(text: String)
