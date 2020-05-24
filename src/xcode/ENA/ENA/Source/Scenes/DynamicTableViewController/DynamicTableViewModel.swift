@@ -11,7 +11,7 @@ import UIKit
 
 
 struct DynamicTableViewModel {
-	private let content: [Section]
+	private var content: [Section]
 	
 	
 	init(_ content: [Section]) {
@@ -99,5 +99,10 @@ struct DynamicTableViewModel {
 		case open(url: URL?)
 		case perform(segue: SegueIdentifiers)
 		case execute(block: (_ viewController: UIViewController) -> Void)
+	}
+	
+	
+	mutating func add(_ section: Section) {
+		self.content.append(section)
 	}
 }
