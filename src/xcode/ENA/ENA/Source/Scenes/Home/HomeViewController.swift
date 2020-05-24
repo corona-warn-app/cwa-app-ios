@@ -90,9 +90,7 @@ final class HomeViewController: UIViewController {
 			}
 		}
 
-        if exposureManagerEnabled == false {
-            log(message: "WARNING: ExposureManager is not enabled. Our app currently expects the exposure manager to be enabled. Tap on 'Tracing ist aktiv' to enable it.")
-        }
+        enableExposureManagerIfNeeded()
     }
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -110,6 +108,49 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: Misc
+
+    // This method makes the exposure manager usable.
+    private func enableExposureManagerIfNeeded() {
+        func activate(then completion: @escaping () -> Void) {
+            exposureManager.activate { error in
+                if let error = error {
+                    logError(message: "Failed to activate: \(error)")
+                    return
+                }
+                completion()
+            }
+        }
+        func enable() {
+            exposureManager.enable { error in
+                if let error = error {
+                    logError(message: "Failed to enable: \(error)")
+                    return
+                }
+            }
+        }
+
+        func enableIfNeeded() {
+
+            guard exposureManager.preconditions().enabled else {
+                enable()
+                return
+            }
+        }
+
+        let status = exposureManager.preconditions()
+
+        guard status.authorized else {
+            log(message: "User declined authorization")
+            return
+        }
+
+        guard status.active else {
+            activate(then: enableIfNeeded)
+            return
+        }
+        enableIfNeeded()
+    }
+
     func showSubmitResult() {
         let controller = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { coder in
             ExposureSubmissionViewController(
