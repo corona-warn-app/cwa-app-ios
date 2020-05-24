@@ -22,4 +22,11 @@ extension Notification.Name {
 
 	// Temporary Notification until implemented by actual transaction flow
 	static let didDetectExposureDetectionSummary = _withPrefix("didDetectExposureDetectionSummary")
+    static let teleTanDidChange = _withPrefix("teleTanDidChange")
+    static let tanDidChange = _withPrefix("tanDidChange")
+    static let testGUIDDidChange = _withPrefix("testGUIDDidChange")
+    static let devicePairingConsentAcceptDidChange = _withPrefix("devicePairingConsentAcceptDidChange")
+    static let devicePairingConsentAcceptTimestampDidChange = _withPrefix("devicePairingConsentAcceptTimestampDidChange")
+    static let devicePairingSuccessfulTimestampDidChange = _withPrefix("devicePairingSuccessfulTimestampDidChange")
+    static let isAllowedToSubmitDiagnosisKeysDidChange = _withPrefix("isAllowedToSubmitDiagnosisKeysDidChange")
 }
