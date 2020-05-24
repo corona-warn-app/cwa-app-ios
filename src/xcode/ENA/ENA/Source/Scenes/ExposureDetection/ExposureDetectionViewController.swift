@@ -11,14 +11,6 @@ import UIKit
 import ExposureNotification
 
 
-private struct Summary: ExposureDetectionViewControllerSummary {
-	var numberOfContacts: Int = .random(in: 0...30)
-	var daysSinceLastExposure: Int = .random(in: 0...14)
-	var numberOfDaysStored: Int = .random(in: 0...14)
-	var lastRefreshDate: Date = Date()
-}
-
-
 class ExposureDetectionViewController: DynamicTableViewController {
 	@IBOutlet weak var titleView: UIView!
 	@IBOutlet weak var titleLabel: UILabel!
@@ -114,27 +106,13 @@ private extension ExposureDetectionViewController {
 	
 	@IBAction func tappedCheckNow() {
 		log(message: "Starting exposure detection ...")
-		//		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: self.client, signedPayloadStore: self.signedPayloadStore)
-		//		self.exposureDetectionTransaction?.resume()
-		
-		if !state.isTracingEnabled {
-			state.isTracingEnabled = true
-			updateRiskLevel(riskLevel: state.riskLevel)
-			return
-		}
-		
-		switch state.riskLevel {
-		case .unknown: updateRiskLevel(riskLevel: .inactive)
-		case .inactive: updateRiskLevel(riskLevel: .low)
-		case .low: updateRiskLevel(riskLevel: .high)
-		case .high: state.isTracingEnabled = false ; updateRiskLevel(riskLevel: .unknown)
-		}
+		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: self.client, signedPayloadStore: self.signedPayloadStore)
+		self.exposureDetectionTransaction?.resume()
 	}
 	
 	
 	func updateRiskLevel(riskLevel: RiskLevel) {
 		self.state.riskLevel = riskLevel
-		self.state.summary = Summary()
 		
 		self.titleView.backgroundColor = state.riskTintColor
 		self.titleLabel.text = state.riskText

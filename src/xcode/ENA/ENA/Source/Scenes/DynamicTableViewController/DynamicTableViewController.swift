@@ -109,7 +109,7 @@ extension DynamicTableViewController {
 	private func tableView(_ tableView: UITableView, viewForHeaderFooter headerFooter: DynamicTableViewModel.Header, inSection section: Int) -> UIView? {
 		switch headerFooter {
 		case let .separator(color, height, insets):
-			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.header.rawValue) as? DynamicTableViewHeaderSeparatorView
+			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.separator.rawValue) as? DynamicTableViewHeaderSeparatorView
 			view?.color = color
 			view?.height = height
 			view?.layoutMargins = insets

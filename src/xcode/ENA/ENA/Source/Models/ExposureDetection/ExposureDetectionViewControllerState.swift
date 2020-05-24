@@ -17,24 +17,20 @@ class ExposureDetectionViewControllerState {
 	var summary: ExposureDetectionViewControllerSummary?
 	
 	
+	var actualRiskText: String {
+		riskLevel.text
+	}
+	
 	var riskText: String {
-		isTracingEnabled ? riskLevel.text : "Risiko-Ermittlung aus"
+		isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
 	}
 	
 	var riskTintColor: UIColor {
-		if isTracingEnabled {
-			return riskLevel.tintColor
-		} else {
-			return .preferredColor(for: .backgroundBase)
-		}
+		return isTracingEnabled ? riskLevel.tintColor : .preferredColor(for: .backgroundBase)
 	}
 	
 	var riskContrastColor: UIColor {
-		if isTracingEnabled {
-			return riskLevel.contrastColor
-		} else {
-			return .preferredColor(for: .textPrimary1)
-		}
+		return isTracingEnabled ? riskLevel.contrastColor : .preferredColor(for: .textPrimary1)
 	}
 }
 

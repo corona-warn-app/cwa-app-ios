@@ -12,36 +12,72 @@
 "Alert_MessageGeneral" = "Bitte versuche Sie es erneut.";
 "Alert_ActionOk" = "Ok";
 
+
 // Exposure Detection
+"ExposureDetection_Off" = "Risiko-Ermittlung aus";
+"ExposureDetection_Unknown" = "Unbekanntes Risiko";
+"ExposureDetection_Inactive" = "Kein erhöhtes Risiko";
 "ExposureDetection_Low" = "Geringes Risiko";
 "ExposureDetection_High" = "Hohes Risiko";
-"ExposureDetection_Unknown" = "Unbekanntes Risiko";
 
-"ExposureDetection_LastCheck" = "Letzte Prüfung:";
-"ExposureDetection_LastCheck_Never" = "Noch keine Prüfung durchgeführt.";
-"ExposureDetection_UnknownText" = "Das Infektionsrisiko wird berechnet, sobald genügend Daten zur Verfügung stehen.";
+"ExposureDetection_NumberOfContacts" = ""; // => Dict
+"ExposureDetection_LastExposure" = ""; // Dict
+"ExposureDetection_NumberOfDaysStored" = "%d von 14 Tagen gespeichert";
+"ExposureDetection_Refreshed" = "Aktualisiert: %@";
+"ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d Minuten";
+"ExposureDetection_LastRiskLevel" = "Letzte Ermittlung: %@";
+"ExposureDetection_UnknownText" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
+"ExposureDetection_InactiveText" = "Schalten Sie die Risiko-Ermittlung ein, um Ihr Risiko zu aktualisieren.";
+"ExposureDetection_" = "";
 
-"ExposureDetection_Guide1" = "Vermeiden Sie sozialen Kontakt";
-"ExposureDetection_Guide2" = "Waschen Sie Ihre Hände";
-"ExposureDetection_Guide3" = "Tragen Sie eine Schutzmaske";
-"ExposureDetection_Guide4" = "Halten Sie 2 Meter Abstand zu anderen Personen";
-"ExposureDetection_Guide5" = "Husten und Niesen Sie in Ihre Armbeuge";
+"ExposureDetection_Behavior_Title" = "Verhalten";
+"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig";
 
-"ExposureDetection_High_Guide1" = "Bleiben Sie zu hause";
-"ExposureDetection_High_Guide2" = "Kontaktieren Sie ihren Hausarzt oder das Gesundheitsamt";
+"ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig";
+"ExposureDetection_Guide_Mask" = "Tragen Sie einen Mundschutz bei Kontakt mit anderen Personen";
+"ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen";
+"ExposureDetection_Guide_Sneeze" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch";
+"ExposureDetection_Guide_Home" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen";
+"ExposureDetection_Guide_Questions" = "Für Fragen zu auftretenden Symptomen, Testmöglichkeiten und weiteren Absonderungsmaßnahmen wenden Sie sich bitte an eine der folgenden Stellen:
 
-"ExposureDetection_Title" = "Verhalten Sie sich richtig:";
-"ExposureDetection_Detail_Title" = "Wie entsteht die Risikobewertung?";
-"ExposureDetection_Detail_Text_Low" = "Sie haben ein geringes Infektions-Risiko, da Sie infizierten Personen bisher gar nicht oder nur über einen sehr kurzen Zeitraum und mit einer hohen Distanz begegnet sind.\n\nAnhand von Tracing-Daten zum Abstand, der Zeit und dem generellen Kontakt mit infizierten Personen, wird ihr Infektionsrisoko lokal auf ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
-"ExposureDetection_Detail_Text_High" = "Sie haben ein hohes Infektions-Risiko, da Sie Lorem Ipsum…\n\nAnhand von Tracing-Daten zum Abstand, der Zeit und dem generellen Kontakt mit infizierten Personen, wird ihr Infektionsrisoko lokal auf ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
-"ExposureDetection_Detail_Text_Unknown" = "Lorem Ipsum";
-"ExposureDetection_MoreInformation" = "Mehr Informationen";
+Ihren Hausarzt/Ihre Hausärztin
+
+Den Kassenärztlichen Notdienst unter der Telefonnummer: 116117
+
+Ihr Gesundheitsamt";
+
+"ExposureDetection_Explanation_Title" = "Verhalten";
+"ExposureDetection_Explanation_Subtitle" = "So verhalten Sie sich richtig";
+
+"ExposureDetection_Explanation_Text_Off" = "Lorem Ipsum..";
+
+"ExposureDetection_Explanation_Text_Unknown" = "Sie haben ein unbekanntes Infektionsrisiko, da.. Lorem Ipsum..";
+
+"ExposureDetection_Explanation_Text_Inactive" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona positiven Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.
+
+Die Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.
+
+Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+
+"ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona positiven Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.
+
+Die Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.
+
+Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+
+"ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer Corona positiven Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.
+
+Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.
+
+Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitgliedern und Mitbewohnern.";
+
+"ExposureDetection_MoreInformation" = "Mehr Info";
 "ExposureDetection_MoreInformation_URL" = "";
-"ExposureDetection_HealthDepartment" = "Gesundheitsamt anrufen";
-"ExposureDetection_HealthDepartment_Number" = "0123456789";
-"ExposureDetection_Help" = "Hilfe";
-"ExposureDetection_Hotline" = "Hotline anrufen";
+
+"ExposureDetection_Hotline_Title" = "Hilfe";
+"ExposureDetection_Hotline_Text" = "Wir helfen Ihnen gerne auch am Telefon";
 "ExposureDetection_Hotline_Number" = "0123456789";
+
 "ExposureDetection_CheckNow" = "Risikoprüfung starten";
 
 

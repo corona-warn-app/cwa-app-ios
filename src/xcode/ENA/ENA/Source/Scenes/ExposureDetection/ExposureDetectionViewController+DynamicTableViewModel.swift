@@ -52,7 +52,7 @@ private extension DynamicTableViewModel.Cell {
 	
 	static func riskLastRiskLevel(text: String, image: UIImage?, _ viewController: ExposureDetectionViewController) -> DynamicTableViewModel.Cell {
 		.risk(viewController) { cell, indexPath in
-			cell.textLabel?.text = String(format: text, viewController.state.riskText)
+			cell.textLabel?.text = String(format: text, viewController.state.actualRiskText)
 			cell.imageView?.image = image
 		}
 	}
@@ -154,35 +154,33 @@ extension ExposureDetectionViewController {
 				header: .none,
 				footer: .separator(color: .preferredColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)),
 				cells: [
-					.riskText(text: "Schalten Sie die Risiko-Ermittlung ein, um Ihr Risiko zu aktualisieren.", self),
-					.riskLastRiskLevel(text: "Letztes Risiko: %@", image: UIImage(named: "exposure-detection-last-risk-level-contrast"), self),
-					.riskRefreshed(text: "Aktualisiert: %@", image: UIImage(named: "exposure-detection-refresh-contrast"), self)
+					.riskText(text: AppStrings.ExposureDetection.inactiveText, self),
+					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "exposure-detection-last-risk-level-contrast"), self),
+					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "exposure-detection-refresh-contrast"), self)
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.header(title: "Verhalten", subtitle: "So verhalten Sie sich richtig"),
-					.guide(text: "Waschen Sie Ihre Hände regelmäßig", image: UIImage(named: "exposure-detection-hands-unknown")),
-					.guide(text: "Tragen Sie einen Mundschutz bei Kontakt mit anderen Personen", image: UIImage(named: "exposure-detection-mask-unknown")),
-					.guide(text: "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen", image: UIImage(named: "exposure-detection-distance-unknown")),
-					.guide(text: "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch", image: UIImage(named: "exposure-detection-sneeze-unknown"))
+					.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
+					.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "exposure-detection-hands-unknown")),
+					.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "exposure-detection-mask-unknown")),
+					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "exposure-detection-distance-unknown")),
+					.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "exposure-detection-sneeze-unknown"))
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.header(title: "Infektionsrisiko", subtitle: "So wird Ihr Risiko ermittelt"),
-					.regular(text: "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer Corona positiven Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind."),
-					.regular(text: "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft."),
-					.regular(text: "Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitgliedern und Mitbewohnern."),
-					.link(text: "Mehr Info", url: URL(string: "https://www.google.de"))
+					.header(title: AppStrings.ExposureDetection.explanationTitle, subtitle: AppStrings.ExposureDetection.explanationSubtitle),
+					.regular(text: AppStrings.ExposureDetection.explanationTextOff),
+					.link(text: AppStrings.ExposureDetection.moreInformation, url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.hotline(number: "0123456789")
+					.hotline(number: AppStrings.ExposureDetection.hotlineNumber)
 				]
 			)
 		])
@@ -193,31 +191,31 @@ extension ExposureDetectionViewController {
 			.section(
 				header: .none,
 				cells: [
-					.riskText(text: "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.", self)
+					.riskText(text: AppStrings.ExposureDetection.unknownText, self)
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.header(title: "Verhalten", subtitle: "So verhalten Sie sich richtig"),
-					.guide(text: "Waschen Sie Ihre Hände regelmäßig", image: UIImage(named: "exposure-detection-hands-unknown")),
-					.guide(text: "Tragen Sie einen Mundschutz bei Kontakt mit anderen Personen", image: UIImage(named: "exposure-detection-mask-unknown")),
-					.guide(text: "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen", image: UIImage(named: "exposure-detection-distance-unknown")),
-					.guide(text: "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch", image: UIImage(named: "exposure-detection-sneeze-unknown"))
+					.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
+					.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "exposure-detection-hands-unknown")),
+					.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "exposure-detection-mask-unknown")),
+					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "exposure-detection-distance-unknown")),
+					.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "exposure-detection-sneeze-unknown"))
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.header(title: "Infektionsrisiko", subtitle: "So wird Ihr Risiko ermittelt"),
-					.regular(text: "Sie haben ein unbekanntes Infektionsrisiko, da ... Lorem Ipsum ..."),
-					.link(text: "Mehr Info", url: URL(string: "https://www.google.de"))
+					.header(title: AppStrings.ExposureDetection.explanationTitle, subtitle: AppStrings.ExposureDetection.explanationSubtitle),
+					.regular(text: AppStrings.ExposureDetection.explanationTextUnknown),
+					.link(text: AppStrings.ExposureDetection.moreInformation, url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.hotline(number: "0123456789")
+					.hotline(number: AppStrings.ExposureDetection.hotlineNumber)
 				]
 			)
 		])
@@ -228,36 +226,34 @@ extension ExposureDetectionViewController {
 			.section(
 				header: .none,
 				cells: [
-					.riskContacts(text: "Bisher keine Risiko-Begegnung", image: UIImage(named: "exposure-detection-contacts"), self),
-					.riskStored(text: "%d von 14 Tagen gespeichert", image: UIImage(named: "exposure-detection-tracing-circle"), self),
-					.riskRefreshed(text: "Aktualisiert: %@", image: UIImage(named: "exposure-detection-refresh"), self),
-					.riskRefresh(text: "Aktualisierung in %02d:%02d Minuten", self)
+					.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "exposure-detection-contacts"), self),
+					.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, image: UIImage(named: "exposure-detection-tracing-circle"), self),
+					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "exposure-detection-refresh"), self),
+					.riskRefresh(text: AppStrings.ExposureDetection.refreshingIn, self)
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.header(title: "Verhalten", subtitle: "So verhalten Sie sich richtig"),
-					.guide(text: "Waschen Sie Ihre Hände regelmäßig", image: UIImage(named: "exposure-detection-hands-inactive")),
-					.guide(text: "Tragen Sie einen Mundschutz bei Kontakt mit anderen Personen", image: UIImage(named: "exposure-detection-mask-inactive")),
-					.guide(text: "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen", image: UIImage(named: "exposure-detection-distance-inactive")),
-					.guide(text: "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch", image: UIImage(named: "exposure-detection-sneeze-inactive"))
+					.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
+					.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "exposure-detection-hands-inactive")),
+					.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "exposure-detection-mask-inactive")),
+					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "exposure-detection-distance-inactive")),
+					.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "exposure-detection-sneeze-inactive"))
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.header(title: "Infektionsrisiko", subtitle: "So wird Ihr Risiko ermittelt"),
-					.regular(text: "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer Corona positiven Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind."),
-					.regular(text: "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft."),
-					.regular(text: "Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitgliedern und Mitbewohnern."),
-					.link(text: "Mehr Info", url: URL(string: "https://www.google.de"))
+					.header(title: AppStrings.ExposureDetection.explanationTitle, subtitle: AppStrings.ExposureDetection.explanationSubtitle),
+					.regular(text: AppStrings.ExposureDetection.explanationTextInactive),
+					.link(text: AppStrings.ExposureDetection.moreInformation, url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.hotline(number: "0123456789")
+					.hotline(number: AppStrings.ExposureDetection.hotlineNumber)
 				]
 			)
 		])
@@ -268,36 +264,34 @@ extension ExposureDetectionViewController {
 			.section(
 				header: .none,
 				cells: [
-					.riskContacts(text: "Bisher keine Risiko-Begegnung", image: UIImage(named: "exposure-detection-contacts"), self),
-					.riskStored(text: "%d von 14 Tagen gespeichert", image: UIImage(named: "exposure-detection-tracing-circle"), self),
-					.riskRefreshed(text: "Aktualisiert: %@", image: UIImage(named: "exposure-detection-refresh"), self),
-					.riskRefresh(text: "Aktualisierung in %02d:%02d Minuten", self)
+					.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "exposure-detection-contacts"), self),
+					.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, image: UIImage(named: "exposure-detection-tracing-circle"), self),
+					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "exposure-detection-refresh"), self),
+					.riskRefresh(text: AppStrings.ExposureDetection.refreshingIn, self)
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.header(title: "Verhalten", subtitle: "So verhalten Sie sich richtig"),
-					.guide(text: "Waschen Sie Ihre Hände regelmäßig", image: UIImage(named: "exposure-detection-hands-low")),
-					.guide(text: "Tragen Sie einen Mundschutz bei Kontakt mit anderen Personen", image: UIImage(named: "exposure-detection-mask-low")),
-					.guide(text: "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen", image: UIImage(named: "exposure-detection-distance-low")),
-					.guide(text: "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch", image: UIImage(named: "exposure-detection-sneeze-low"))
+					.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
+					.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "exposure-detection-hands-low")),
+					.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "exposure-detection-mask-low")),
+					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "exposure-detection-distance-low")),
+					.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "exposure-detection-sneeze-low"))
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.header(title: "Infektionsrisiko", subtitle: "So wird Ihr Risiko ermittelt"),
-					.regular(text: "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer Corona positiven Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind."),
-					.regular(text: "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft."),
-					.regular(text: "Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitgliedern und Mitbewohnern."),
-					.link(text: "Mehr Info", url: URL(string: "https://www.google.de"))
+					.header(title: AppStrings.ExposureDetection.explanationTitle, subtitle: AppStrings.ExposureDetection.explanationSubtitle),
+					.regular(text: AppStrings.ExposureDetection.explanationTextLow),
+					.link(text: AppStrings.ExposureDetection.moreInformation, url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.hotline(number: "0123456789")
+					.hotline(number: AppStrings.ExposureDetection.hotlineNumber)
 				]
 			)
 		])
@@ -308,36 +302,34 @@ extension ExposureDetectionViewController {
 			.section(
 				header: .none,
 				cells: [
-					.riskContacts(text: "%d Risiko-Begegnungen", image: UIImage(named: "exposure-detection-contacts"), self),
-					.riskLastExposure(text: "%d Tage seit der letzten Begegnung", image: UIImage(named: "exposure-detection-calendar"), self),
-					.riskStored(text: "%d von 14 Tagen gespeichert", image: UIImage(named: "exposure-detection-tracing-circle"), self),
-					.riskRefreshed(text: "Aktualisiert: %@", image: UIImage(named: "exposure-detection-refresh"), self),
-					.riskRefresh(text: "Aktualisierung in %02d:%02d Minuten", self)
+					.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "exposure-detection-contacts"), self),
+					.riskStored(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "exposure-detection-tracing-calendar"), self),
+					.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, image: UIImage(named: "exposure-detection-tracing-circle"), self),
+					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "exposure-detection-refresh"), self),
+					.riskRefresh(text: AppStrings.ExposureDetection.refreshingIn, self)
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.header(title: "Verhalten", subtitle: "So verhalten Sie sich richtig"),
-					.guide(text: "Begeben Sie sich umgehend nach Hause bzw. bleiben Sie zu Hause", image: UIImage(named: "exposure-detection-home-high")),
-					.guide(text: "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen", image: UIImage(named: "exposure-detection-distance-high")),
-					.guide(text: "Für Fragen zu auftretenden Symptomen, Testmöglichkeiten und weiteren Absonderungsmaßnahmen wenden Sie sich bitte an eine der folgenden Stellen:", image: UIImage(named: "exposure-detection-phone-high"))
+					.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
+					.guide(text: AppStrings.ExposureDetection.guideHome, image: UIImage(named: "exposure-detection-home-high")),
+					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "exposure-detection-distance-high")),
+					.guide(text: AppStrings.ExposureDetection.guideQuestions, image: UIImage(named: "exposure-detection-phone-high"))
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.header(title: "Infektionsrisiko", subtitle: "So wird Ihr Risiko ermittelt"),
-					.regular(text: "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer Corona positiven Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind."),
-					.regular(text: "Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft."),
-					.regular(text: "Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitgliedern und Mitbewohnern."),
-					.link(text: "Mehr Info", url: URL(string: "https://www.google.de"))
+					.header(title: AppStrings.ExposureDetection.explanationTitle, subtitle: AppStrings.ExposureDetection.explanationSubtitle),
+					.regular(text: AppStrings.ExposureDetection.explanationTextHigh),
+					.link(text: AppStrings.ExposureDetection.moreInformation, url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
 				]
 			),
 			.section(
 				header: .none,
 				cells: [
-					.hotline(number: "0123456789")
+					.hotline(number: AppStrings.ExposureDetection.hotlineNumber)
 				]
 			)
 		])
