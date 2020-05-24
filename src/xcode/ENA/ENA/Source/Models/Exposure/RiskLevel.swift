@@ -22,10 +22,6 @@ enum RiskLevel {
 
 extension ENRiskScore {
     var riskLevel: RiskLevel {
-        switch self {
-        case 0...100: return .low
-        case 100...UInt8.max: return .high
-        default: return .unknown
-        }
+        self <= 100 ? .low : .high
     }
 }
