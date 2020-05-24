@@ -76,8 +76,8 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 
 // Home High card
 "Home_Risk_High_Title" = "High Risk";
-"Home_Risk_High_Number_Contacts_Item_Title" = "%@ contacts with increased risk";
-"Home_Risk_High_Last_Contact_Item_Title" = "%@ days since last contact";
+// "Home_Risk_High_Number_Contacts_Item_Title" = "%@ contacts with increased risk";
+// "Home_Risk_High_Last_Contact_Item_Title" = "%@ days since last contact";
 "Home_Risk_High_Date_Item_Title" = "Last test: %@";
 "Home_Risk_High_Button" = "Check risk status";
 

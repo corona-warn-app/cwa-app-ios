@@ -31,7 +31,7 @@ final class HomeRiskCellPropertyHolder {
     }
     
     // swiftlint:disable:next function_body_length
-    static func propertyHolder(riskLevel: RiskLevel, lastUpdateDateString: String?, numberRiskContacts: String, lastContactDateString: String, isLoading: Bool) -> HomeRiskCellPropertyHolder {
+    static func propertyHolder(riskLevel: RiskLevel, lastUpdateDateString: String?, numberRiskContacts: Int, numberDaysLastContact: Int, isLoading: Bool) -> HomeRiskCellPropertyHolder {
         switch riskLevel {
         case .unknown:
             let titleColor = UIColor.white
@@ -94,7 +94,7 @@ final class HomeRiskCellPropertyHolder {
             let color = UIColor.preferredColor(for: .negative)
             let numberContactsTitle = String(format: AppStrings.Home.riskCardHighNumberContactsItemTitle, numberRiskContacts)
             let item1 = HomeRiskItemViewConfigurator(title: numberContactsTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
-            let lastContactTitle = String(format: AppStrings.Home.riskCardHighLastContactItemTitle, lastContactDateString)
+            let lastContactTitle = String(format: AppStrings.Home.riskCardHighLastContactItemTitle, numberDaysLastContact)
             let item2 = HomeRiskItemViewConfigurator(title: lastContactTitle, titleColor: titleColor, iconImageName: "Calendar", color: color)
             let dateTitle = String(format: AppStrings.Home.riskCardHighDateItemTitle, lastUpdateDateString ?? "-")
             let item3 = HomeRiskItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
