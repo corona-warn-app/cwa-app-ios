@@ -132,6 +132,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
 		if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
 			// content size has changed
 			titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)

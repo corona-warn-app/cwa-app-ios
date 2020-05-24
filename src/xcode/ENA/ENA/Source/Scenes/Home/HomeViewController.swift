@@ -44,7 +44,7 @@ final class HomeViewController: UIViewController {
     private let exposureManager: ExposureManager
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
-    private var homeLayout: HomeLayout!
+	private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     private let store: Store
@@ -62,9 +62,10 @@ final class HomeViewController: UIViewController {
 
     enum Section: Int {
         case actions
-        case infos
-        case settings
-    }
+		case infos
+		case settings
+		
+	}
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -92,15 +93,14 @@ final class HomeViewController: UIViewController {
 
         if exposureManagerEnabled == false {
             log(message: "WARNING: ExposureManager is not enabled. Our app currently expects the exposure manager to be enabled. Tap on 'Tracing ist aktiv' to enable it.")
-        }
     }
+                }
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		
-		NotificationCenter.default.removeObserver(summaryNotificationObserver, name: .didDetectExposureDetectionSummary, object: nil)
+		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
 	}
-
+	
     // MARK: Actions
     @objc
     private func infoButtonTapped(_ sender: UIButton) {
@@ -183,7 +183,7 @@ final class HomeViewController: UIViewController {
             AppStoryboard.appInformation.initiateInitial(),
             animated: true
         )
-    }
+		}
 
     func showWebPage() {
         if let url = URL(string: AppStrings.SafariView.targetURL) {
@@ -203,8 +203,8 @@ final class HomeViewController: UIViewController {
     private func showScreen(at indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
         let row = indexPath.row
-        switch section {
-        case .actions:
+		switch section {
+		case .actions:
             if row == 0 {
                 showExposureNotificationSetting()
             } else if row == 1 {
@@ -212,18 +212,17 @@ final class HomeViewController: UIViewController {
             } else {
                 showSubmitResult()
             }
-        case .infos:
-            if row == 0 {
-                showInviteFriends()
-            } else {
-                showWebPage()
-            }
-        case .settings:
-            if row == 0 {
-                showAppInformation()
-            } else {
+		case .infos:
+			if row == 0 {
+				showInviteFriends()
+			} else {
+			}
+		case .settings:
+			if row == 0 {
+				showAppInformation()
+			} else {
 				showSetting()
-            }
+			}
         }
     }
 
@@ -244,22 +243,27 @@ final class HomeViewController: UIViewController {
     }
 
     private func configureHierarchy() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        let safeLayoutGuide = view.safeAreaLayoutGuide
+
+		view.backgroundColor = .systemGroupedBackground
+			
+		collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+		collectionView.delegate = self
+		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
-        collectionView.delegate = self
-        let safeLayoutGuide = view.safeAreaLayoutGuide
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
+		view.addSubview(collectionView)
+
         NSLayoutConstraint.activate(
             [
-                collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-                collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-                collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ]
+				collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
+				collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
+				collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
+				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+			]
         )
-        collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
+
+		collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
         collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
     }

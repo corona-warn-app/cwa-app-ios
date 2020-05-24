@@ -66,12 +66,13 @@ final class HomeInteractor {
         submitConfigurator.submitAction = { [unowned self] in
             self.homeViewController.showSubmitResult()
         }
-        
+   
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
 			body: AppStrings.Home.infoCardShareBody,
 			position: .first,
 			accessibilityIdentifier: Accessibility.Cell.infoCardShareTitle
+			
 		)
 		let info2Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardAboutTitle,
@@ -93,7 +94,7 @@ final class HomeInteractor {
 			accessibilityIdentifier: Accessibility.Cell.settingsCardTitle
 		)
 
-		let configurators: [CollectionViewCellConfiguratorAny] = [
+        let configurators: [CollectionViewCellConfiguratorAny] = [
 			activeConfigurator,
 			riskConfigurator,
 			submitConfigurator,
@@ -101,7 +102,7 @@ final class HomeInteractor {
 			info2Configurator,
 			appInformationConfigurator,
 			settingsConfigurator
-		]
+        ]
         return configurators
     }
 }
