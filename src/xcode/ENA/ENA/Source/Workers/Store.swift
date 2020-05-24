@@ -5,7 +5,18 @@
 
 import Foundation
 
-final class Store {
+protocol Store: class {
+    var isOnboarded: Bool { get set }
+    var dateLastExposureDetection: Date? { get set }
+    var dateOfAcceptedPrivacyNotice: Date? { get set }
+    var allowsCellularUse: Bool { get set }
+    var developerSubmissionBaseURLOverride: String? { get set }
+    var developerDistributionBaseURLOverride: String? { get set }
+}
+
+/// The `DevelopmentStore` class implements the `Store` protocol that defines all required storage attributes.
+/// This class needs to be replaced with an implementation that persists all attributes in an encrypted SQLite databse.
+final class DevelopmentStore: Store {
     @PersistedAndPublished(
         key: "isOnboarded",
         notificationName: Notification.Name.isOnboardedDidChange,

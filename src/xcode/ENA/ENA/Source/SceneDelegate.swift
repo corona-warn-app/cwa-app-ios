@@ -11,7 +11,7 @@ import UIKit
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Properties
     var window: UIWindow?
-    private let store = Store()
+    private let store: Store = DevelopmentStore()
     private let diagnosisKeysStore = SignedPayloadStore()
     private let exposureManager = ENAExposureManager()
     private let navigationController: UINavigationController = .withLargeTitle()
