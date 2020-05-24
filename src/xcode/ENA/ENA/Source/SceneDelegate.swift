@@ -31,7 +31,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard
             let distributionURLString = store.developerDistributionBaseURLOverride,
             let submissionURLString = store.developerSubmissionBaseURLOverride,
+            let verificationURLString = store.developerVerificationBaseURLOverride,
             let distributionURL = URL(string: distributionURLString),
+            let verificationURL = URL(string: verificationURLString),
             let submissionURL = URL(string: submissionURLString) else {
                 return HTTPClient(configuration: .production)
         }
@@ -41,7 +43,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             country: "DE",
             endpoints: HTTPClient.Configuration.Endpoints(
                 distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-                submission: .init(baseURL: submissionURL, requiresTrailingSlash: true)
+                submission: .init(baseURL: submissionURL, requiresTrailingSlash: true),
+                verification: .init(baseURL: submissionURL, requiresTrailingSlash: false)
             )
         )
         return HTTPClient(configuration: config)
@@ -127,6 +130,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         if let distributionBaseURL = query.valueFor(queryItem: "distributionBaseURL") {
             store.developerDistributionBaseURLOverride = distributionBaseURL
+        }
+        if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
+            store.developerVerificationBaseURLOverride = verificationBaseURL
         }
 
         UserDefaults.standard.synchronize()

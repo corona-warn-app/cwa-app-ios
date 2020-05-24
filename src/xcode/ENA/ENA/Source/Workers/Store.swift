@@ -47,4 +47,11 @@ final class Store {
         defaultValue: nil
     )
     var developerDistributionBaseURLOverride: String?
+    
+    @PersistedAndPublished(
+        key: "developerVerificationBaseURLOverride",
+        notificationName: Notification.Name.developerVerificationBaseURLOverrideDidChange,
+        defaultValue: nil
+    )
+    var developerVerificationBaseURLOverride: String?
 }
