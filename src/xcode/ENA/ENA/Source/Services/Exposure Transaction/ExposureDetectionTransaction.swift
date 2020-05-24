@@ -38,17 +38,17 @@ final class ExposureDetectionTransaction {
     // MARK: Properties
     private weak var delegate: ExposureDetectionTransactionDelegate?
     private let client: Client
-    private let signedPayloadStore: KeyPackagesStore
+    private let keyPackagesStore: KeyPackagesStore
 
     // MARK: Creating a Transaction
     init(
         delegate: ExposureDetectionTransactionDelegate,
         client: Client,
-        signedPayloadStore: KeyPackagesStore
+        keyPackagesStore: KeyPackagesStore
     ) {
         self.delegate = delegate
         self.client = client
-        self.signedPayloadStore = signedPayloadStore
+        self.keyPackagesStore = keyPackagesStore
     }
 
     // MARK: Starting the Transaction
@@ -117,7 +117,7 @@ final class ExposureDetectionTransaction {
     ) {
         // We download everything to make testing easier - for now.
         client.fetch { theWholeWorld in
-            self.signedPayloadStore.addFetchedDaysAndHours(theWholeWorld)
+            self.keyPackagesStore.addFetchedDaysAndHours(theWholeWorld)
             completion()
         }
     }
@@ -144,7 +144,7 @@ final class ExposureDetectionTransaction {
         let fm = FileManager()
         let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
         try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-        let keyPackages = signedPayloadStore.allVerifiedBuckets(today: formattedToday())
+        let keyPackages = keyPackagesStore.allVerifiedBuckets(today: formattedToday())
         return AppleFilesWriter(rootDir: rootDir, keyPackages: keyPackages)
     }
 

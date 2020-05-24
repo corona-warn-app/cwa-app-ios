@@ -1,5 +1,5 @@
 //
-//  SignedPayloadStoreTests.swift
+//  KeyPackagesStoreTests.swift
 //  ENA
 //
 //  Created by Kienle, Christian on 13.05.20.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import ENA
 
-final class SignedPayloadStoreTests: XCTestCase {
+final class KeyPackagesStoreTests: XCTestCase {
     func testMissingDays_EmptyStore() {
         let store = KeyPackagesStore()
         XCTAssertEqual(store.missingDays(remoteDays: []), [])

@@ -129,7 +129,7 @@
 		B1BC090F246B1A0C00302424 /* PersistedAndPublished.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BC090E246B1A0C00302424 /* PersistedAndPublished.swift */; };
 		B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */; };
 		B1D431CB246C84A400E728AD /* KeyPackagesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CA246C84A400E728AD /* KeyPackagesStore.swift */; };
-		B1D431CE246C84F200E728AD /* SignedPayloadStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CC246C84ED00E728AD /* SignedPayloadStoreTests.swift */; };
+		B1D431CE246C84F200E728AD /* KeyPackagesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CC246C84ED00E728AD /* KeyPackagesStoreTests.swift */; };
 		B1D7D68C24766D2100E4DA5D /* risk_score_parameters.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68424766D2100E4DA5D /* risk_score_parameters.pb.swift */; };
 		B1D7D68E24766D2100E4DA5D /* submission_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68624766D2100E4DA5D /* submission_payload.pb.swift */; };
 		B1D7D69124766D2100E4DA5D /* risk_level.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68924766D2100E4DA5D /* risk_level.pb.swift */; };
@@ -323,7 +323,7 @@
 		B1CF8D0F246C1F4100DBE135 /* ClientModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientModeTests.swift; sourceTree = "<group>"; };
 		B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+ConfigurationTests.swift"; sourceTree = "<group>"; };
 		B1D431CA246C84A400E728AD /* KeyPackagesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPackagesStore.swift; sourceTree = "<group>"; };
-		B1D431CC246C84ED00E728AD /* SignedPayloadStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedPayloadStoreTests.swift; sourceTree = "<group>"; };
+		B1D431CC246C84ED00E728AD /* KeyPackagesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPackagesStoreTests.swift; sourceTree = "<group>"; };
 		B1D7D68424766D2100E4DA5D /* risk_score_parameters.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_score_parameters.pb.swift; path = ../../../gen/output/risk_score_parameters.pb.swift; sourceTree = "<group>"; };
 		B1D7D68624766D2100E4DA5D /* submission_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = submission_payload.pb.swift; path = ../../../gen/output/submission_payload.pb.swift; sourceTree = "<group>"; };
 		B1D7D68924766D2100E4DA5D /* risk_level.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = risk_level.pb.swift; path = ../../../gen/output/risk_level.pb.swift; sourceTree = "<group>"; };
@@ -955,7 +955,7 @@
 			isa = PBXGroup;
 			children = (
 				B1D431CA246C84A400E728AD /* KeyPackagesStore.swift */,
-				B1D431CC246C84ED00E728AD /* SignedPayloadStoreTests.swift */,
+				B1D431CC246C84ED00E728AD /* KeyPackagesStoreTests.swift */,
 			);
 			path = "Signed Payload Store";
 			sourceTree = "<group>";
@@ -1406,7 +1406,7 @@
 				01790A402475724400311407 /* PayloadStoreTests.swift in Sources */,
 				CDF27BD5246ADBF30044D32B /* HTTPClientTests.swift in Sources */,
 				CD678F6D246C43EE00B6A0F8 /* MockTestClient.swift in Sources */,
-				B1D431CE246C84F200E728AD /* SignedPayloadStoreTests.swift in Sources */,
+				B1D431CE246C84F200E728AD /* KeyPackagesStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

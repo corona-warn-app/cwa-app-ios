@@ -26,7 +26,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if ClientMode.default == .mock {
             fatalError("not implemented")
         }
-        
+
         let store = self.store
         guard
             let distributionURLString = store.developerDistributionBaseURLOverride,
@@ -72,7 +72,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 exposureManager: self.exposureManager,
                 client: self.client,
                 store: self.store,
-                signedPayloadStore: self.diagnosisKeysStore,
+                keyPackagesStore: self.diagnosisKeysStore,
                 exposureManagerEnabled: self.exposureManagerEnabled
             )
         } as HomeViewController
@@ -141,7 +141,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillResignActive(_ scene: UIScene) {
         showPrivacyProtectionWindow()
     }
-    
+
     private var privacyProtectionWindow: UIWindow?
 
     private func showPrivacyProtectionWindow() {
@@ -180,7 +180,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
         active: \(newState.active)
         """
         log(message: message)
-        
+
         if newState.isGood {
             log(message: "Enabled")
         }

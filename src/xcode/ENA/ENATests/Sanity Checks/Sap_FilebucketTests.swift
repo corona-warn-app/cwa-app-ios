@@ -20,7 +20,7 @@ final class SapFileBucketTests: XCTestCase {
             )!
         
         let fixtureData = try Data(contentsOf: fixtureUrl)
-        let bucket = SAPKeyPackage(compressedData: fixtureData)
+        let bucket = SAPDownloadedPackage(compressedData: fixtureData)
         XCTAssertNotNil(bucket)
     }
 }
