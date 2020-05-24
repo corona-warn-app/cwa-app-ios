@@ -114,7 +114,6 @@ final class OnboardingInfoViewController: UIViewController {
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		footerView.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
 	}
 	
 	func setupAccessibility() {

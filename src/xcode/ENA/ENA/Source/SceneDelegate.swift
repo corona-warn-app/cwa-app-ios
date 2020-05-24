@@ -153,8 +153,7 @@ private extension UINavigationController {
     class func withLargeTitle() -> UINavigationController {
         let result = UINavigationController()
         result.navigationBar.prefersLargeTitles = true
-		result.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-		result.navigationBar.shadowImage = UIImage()
+        result.navigationBar.isTranslucent = true
         return result
     }
 }
