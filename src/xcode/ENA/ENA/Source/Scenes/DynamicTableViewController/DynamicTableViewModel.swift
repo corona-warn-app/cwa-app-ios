@@ -78,10 +78,13 @@ struct DynamicTableViewModel {
 		case bold(text: String)
 		case semibold(text: String)
 		case regular(text: String)
+		case icon(action: Action = .none, text: String, image: UIImage?, backgroundColor: UIColor, tintColor: UIColor)
 		case identifier(_ identifier: TableViewCellReuseIdentifiers, action: Action = .none, configure: CellConfigurator? = nil)
 		
 		var action: Action {
 			switch self {
+			case let .icon(action, _, _, _, _):
+				return action
 			case let .identifier(_, action, _):
 				return action
 			default:
