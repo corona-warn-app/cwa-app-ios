@@ -15,6 +15,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let diagnosisKeysStore = SignedPayloadStore()
     private let exposureManager = ENAExposureManager()
     private let navigationController: UINavigationController = .withLargeTitle()
+    private weak var homeController: HomeViewController?
+    var exposureManagerEnabled = false
 
     private(set) lazy var client: Client = {
         #if APP_STORE
@@ -64,23 +66,26 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func showHome(animated: Bool = false) {
+        let vc = AppStoryboard.home.initiateInitial { [unowned self] coder in
+            HomeViewController(
+                coder: coder,
+                exposureManager: self.exposureManager,
+                client: self.client,
+                store: self.store,
+                signedPayloadStore: self.diagnosisKeysStore,
+                exposureManagerEnabled: self.exposureManagerEnabled
+            )
+        } as HomeViewController
+        homeController = vc // strong ref needed
+        vc.exposureManagerEnabled = exposureManager.preconditions().enabled
         navigationController.setViewControllers(
-            [
-                AppStoryboard.home.initiateInitial { [unowned self] coder in
-                    HomeViewController(
-                        coder: coder,
-                        exposureManager: self.exposureManager,
-                        client: self.client,
-                        store: self.store,
-                        signedPayloadStore: self.diagnosisKeysStore
-                    )
-                }
-            ],
+            [vc],
             animated: true
         )
     }
 
     private func showOnboarding() {
+		navigationController.navigationBar.prefersLargeTitles = false
         navigationController.setViewControllers(
             [
                 AppStoryboard.onboarding.initiateInitial { [unowned self] coder in
@@ -126,6 +131,41 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         UserDefaults.standard.synchronize()
     }
+
+    // MARK: Privacy Protection
+
+	func sceneDidBecomeActive(_ scene: UIScene) {
+        hidePrivacyProtectionWindow()
+	}
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        showPrivacyProtectionWindow()
+    }
+    
+    private var privacyProtectionWindow: UIWindow?
+
+    private func showPrivacyProtectionWindow() {
+        guard let windowScene = self.window?.windowScene else {
+            return
+        }
+		let privacyProtectionViewController = PrivacyProtectionViewController()
+        privacyProtectionWindow = UIWindow(windowScene: windowScene)
+        privacyProtectionWindow?.rootViewController = privacyProtectionViewController
+        privacyProtectionWindow?.windowLevel = .alert + 1
+        privacyProtectionWindow?.makeKeyAndVisible()
+		privacyProtectionViewController.show()
+    }
+
+    private func hidePrivacyProtectionWindow() {
+		guard let privacyProtectionViewController = privacyProtectionWindow?.rootViewController as? PrivacyProtectionViewController else {
+			return
+		}
+		privacyProtectionViewController.hide {
+			self.privacyProtectionWindow?.isHidden = true
+			self.privacyProtectionWindow = nil
+		}
+    }
+
 }
 
 extension SceneDelegate: ENAExposureManagerObserver {
@@ -144,6 +184,9 @@ extension SceneDelegate: ENAExposureManagerObserver {
         if newState.isGood {
             log(message: "Enabled")
         }
+
+        homeController?.exposureManagerEnabled = newState.enabled
+        homeController?.updateUI()
     }
 }
 
@@ -151,6 +194,8 @@ private extension UINavigationController {
     class func withLargeTitle() -> UINavigationController {
         let result = UINavigationController()
         result.navigationBar.prefersLargeTitles = true
+		result.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+		result.navigationBar.shadowImage = UIImage()
         return result
     }
 }

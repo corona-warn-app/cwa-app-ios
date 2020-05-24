@@ -53,6 +53,9 @@ final class OnboardingInfoViewController: UIViewController {
     @IBOutlet var nextButton: ENAButton!
 	@IBOutlet var ignoreButton: UIButton!
 	
+	@IBOutlet weak var scrollView: UIScrollView!
+	@IBOutlet weak var footerView: UIView!
+	
 	private var onboardingInfos = OnboardingInfo.testData()
 
     var onboardingInfo: OnboardingInfo?
@@ -68,14 +71,22 @@ final class OnboardingInfoViewController: UIViewController {
 		updateUI()
 		setupAccessibility()
     }
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		let height = footerView.frame.height + 20
+		scrollView.contentInset.bottom = height
+	}
 
     func runActionForPageType(completion: @escaping () -> Void) {
-		switch pageType {
-		case .enableLoggingOfContactsPage:
+        switch pageType {
+        case .privacyPage:
+            persistTimestamp(completion: completion)
+        case .enableLoggingOfContactsPage:
 			askExposureNotificationsPermissions(completion: completion)
-		case .alwaysStayInformedPage:
+        case .alwaysStayInformedPage:
 			askLocalNotificationsPermissions(completion: completion)
-		default:
+        default:
 			completion()
 		}
     }
@@ -109,6 +120,7 @@ final class OnboardingInfoViewController: UIViewController {
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+		footerView.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
 	}
 	
 	func setupAccessibility() {
@@ -132,7 +144,17 @@ final class OnboardingInfoViewController: UIViewController {
 			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		}
 	}
-	
+
+    private func persistTimestamp(completion: (() -> Void)?) {
+        if let acceptedDate = store.dateOfAcceptedPrivacyNotice {
+            log(message: "User has already accepted the privacy terms on \(acceptedDate)", level: .warning)
+            completion?()
+            return
+        }
+        store.dateOfAcceptedPrivacyNotice = Date()
+        log(message: "Persist that user acccepted the privacy terms on \(Date())", level: .info)
+        completion?()
+    }
 	
     // MARK: Exposure notifications
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
