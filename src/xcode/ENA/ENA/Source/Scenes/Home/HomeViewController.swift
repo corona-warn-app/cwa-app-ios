@@ -18,12 +18,14 @@ final class HomeViewController: UIViewController {
         exposureManager: ExposureManager,
         client: Client,
         store: Store,
-        signedPayloadStore: SignedPayloadStore
+        signedPayloadStore: SignedPayloadStore,
+        exposureManagerEnabled: Bool
     ) {
         self.client = client
         self.store = store
         self.signedPayloadStore = signedPayloadStore
         self.exposureManager = exposureManager
+        self.exposureManagerEnabled = exposureManagerEnabled
         super.init(coder: coder)
         homeInteractor = HomeInteractor(
             homeViewController: self,
@@ -47,8 +49,16 @@ final class HomeViewController: UIViewController {
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     private let store: Store
     private let client: Client
-
+    var exposureManagerEnabled = false {
+        didSet {
+            settingsController?.exposureManagerEnabled = exposureManagerEnabled
+            notificationSettingsController?.exposureManagerEnabled = exposureManagerEnabled
+        }
+    }
 	private var summaryNotificationObserver: NSObjectProtocol?
+
+    private weak var settingsController: SettingsViewController?
+    private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 
     enum Section: Int {
         case actions
@@ -81,47 +91,11 @@ final class HomeViewController: UIViewController {
 			}
 		}
 
-        makeExposureNotificationWorkIfNeeded()
+        if exposureManagerEnabled == false {
+            log(message: "WARNING: ExposureManager is not enabled. Our app currently expects the exposure manager to be enabled. Tap on 'Tracing ist aktiv' to enable it.")
     }
-
-    // This method makes the exposure manager usable.
-    // It may take a while for the exposure manager to be setup correctly.
-    // Just give the app a few seconds before you do something.
-    // TODO: Improve this
-    private func makeExposureNotificationWorkIfNeeded() {
-        func activate(then completion: @escaping () -> Void) {
-            exposureManager.activate { error in
-                if let error = error {
-                    logError(message: "Failed to activate: \(error)")
-                    return
                 }
-                completion()
-            }
-        }
-        func enable() {
-            exposureManager.enable { error in
-                if let error = error {
-                    logError(message: "Failed to enable: \(error)")
-                    return
-                }
-            }
-        }
 
-        func enableIfNeeded() {
-
-            guard exposureManager.preconditions().enabled else {
-                enable()
-                return
-            }
-        }
-
-        guard exposureManager.preconditions().active else {
-            activate(then: enableIfNeeded)
-            return
-        }
-        enableIfNeeded()
-    }
-	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
@@ -159,9 +133,11 @@ final class HomeViewController: UIViewController {
         let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
             ExposureNotificationSettingViewController(
                 coder: coder,
-                manager: self.exposureManager
+                exposureManagerEnabled: self.exposureManagerEnabled,
+                delegate: self
             )
         }
+        notificationSettingsController = vc
         navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -170,10 +146,12 @@ final class HomeViewController: UIViewController {
         let vc = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
             SettingsViewController(
                 coder: coder,
-                manager: self.exposureManager,
-                store: self.store
+                store: self.store,
+                exposureManagerEnabled: self.exposureManagerEnabled,
+                delegate: self
             )
         }
+        settingsController = vc
         navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -336,5 +314,42 @@ extension HomeViewController: HomeLayoutDelegate {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         showScreen(at: indexPath)
+    }
+}
+
+extension HomeViewController: ExposureNotificationSettingViewControllerDelegate {
+    func exposureNotificationSettingViewController(
+        _ controller: ExposureNotificationSettingViewController,
+        setExposureManagerEnabled enabled: Bool,
+        then completion: @escaping (ExposureNotificationError?) -> Void
+    ) {
+        setExposureManagerEnabled(enabled, then: completion)
+    }
+}
+
+extension HomeViewController: SettingsViewControllerDelegate {
+    func settingsViewController(
+        _ controller: SettingsViewController,
+        setExposureManagerEnabled enabled: Bool,
+        then completion: @escaping (ExposureNotificationError?) -> Void
+    ) {
+        setExposureManagerEnabled(enabled, then: completion)
+    }
+}
+
+private extension HomeViewController {
+    func setExposureManagerEnabled(_ enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {
+        if enabled {
+            exposureManager.enable(completion: completion)
+        } else {
+            exposureManager.disable(completion: completion)
+        }
+    }
+}
+
+extension HomeViewController: ViewControllerUpdatable {
+    func updateUI() {
+        settingsController?.updateUI()
+        notificationSettingsController?.updateUI()
     }
 }

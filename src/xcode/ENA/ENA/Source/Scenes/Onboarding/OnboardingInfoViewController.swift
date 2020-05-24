@@ -79,12 +79,14 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
     func runActionForPageType(completion: @escaping () -> Void) {
-		switch pageType {
-		case .enableLoggingOfContactsPage:
+        switch pageType {
+        case .privacyPage:
+            persistTimestamp(completion: completion)
+        case .enableLoggingOfContactsPage:
 			askExposureNotificationsPermissions(completion: completion)
-		case .alwaysStayInformedPage:
+        case .alwaysStayInformedPage:
 			askLocalNotificationsPermissions(completion: completion)
-		default:
+        default:
 			completion()
 		}
     }
@@ -96,10 +98,6 @@ final class OnboardingInfoViewController: UIViewController {
         titleLabel.text = onboardingInfo.title
 
         imageView.image = UIImage(named: onboardingInfo.imageName)
-        if let imageSize = imageView.image?.size {
-            let aspectRatio = imageSize.width / imageSize.height
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: aspectRatio, constant: 0.0).isActive = true
-        }
 
         boldLabel.text = onboardingInfo.boldText
         boldLabel.isHidden = onboardingInfo.boldText.isEmpty
@@ -111,14 +109,13 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 		
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
-    ignoreButton.setTitleColor(UIColor.preferredColor(for: .tintColor), for: .normal)
+        ignoreButton.setTitleColor(UIColor.preferredColor(for: .tintColor), for: .normal)
 		ignoreButton.backgroundColor = UIColor.clear
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
 		
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		footerView.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
 	}
 	
 	func setupAccessibility() {
@@ -143,7 +140,17 @@ final class OnboardingInfoViewController: UIViewController {
 			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		}
 	}
-	
+
+    private func persistTimestamp(completion: (() -> Void)?) {
+        if let acceptedDate = store.dateOfAcceptedPrivacyNotice {
+            log(message: "User has already accepted the privacy terms on \(acceptedDate)", level: .warning)
+            completion?()
+            return
+        }
+        store.dateOfAcceptedPrivacyNotice = Date()
+        log(message: "Persist that user acccepted the privacy terms on \(Date())", level: .info)
+        completion?()
+    }
 	
     // MARK: Exposure notifications
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
@@ -153,7 +160,7 @@ final class OnboardingInfoViewController: UIViewController {
             return
         }
 
-		exposureManager.activate { error in
+        exposureManager.activate { error in
             if let error = error {
                 switch error {
                 case .exposureNotificationRequired:
@@ -161,10 +168,8 @@ final class OnboardingInfoViewController: UIViewController {
                 case .exposureNotificationAuthorization:
                     log(message: "Encourage the user to authorize this application", level: .warning)
                 }
-
-                completion?()
-            } else if let error = error {
                 self.showError(error, from: self, completion: completion)
+                completion?()
             } else {
 				self.exposureManager.enable { enableError in
 					if let enableError = enableError {
