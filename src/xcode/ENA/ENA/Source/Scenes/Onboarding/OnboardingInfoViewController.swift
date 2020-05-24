@@ -159,7 +159,7 @@ final class OnboardingInfoViewController: UIViewController {
             return
         }
 
-		exposureManager.activate { error in
+        exposureManager.activate { error in
             if let error = error {
                 switch error {
                 case .exposureNotificationRequired:
@@ -167,10 +167,8 @@ final class OnboardingInfoViewController: UIViewController {
                 case .exposureNotificationAuthorization:
                     log(message: "Encourage the user to authorize this application", level: .warning)
                 }
-
-                completion?()
-            } else if let error = error {
                 self.showError(error, from: self, completion: completion)
+                completion?()
             } else {
 				self.exposureManager.enable { enableError in
 					if let enableError = enableError {
