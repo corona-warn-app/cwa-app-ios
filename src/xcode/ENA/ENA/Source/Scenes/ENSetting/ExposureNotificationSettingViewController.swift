@@ -7,19 +7,36 @@
 //
 
 import UIKit
+import ExposureNotification
 
-class ExposureNotificationSettingViewController: UITableViewController {
-    
+protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
+    typealias Completion = (ExposureNotificationError?) -> Void
+
+    func exposureNotificationSettingViewController(
+        _ controller: ExposureNotificationSettingViewController,
+        setExposureManagerEnabled enabled: Bool,
+        then completion: @escaping Completion
+    )
+}
+
+final class ExposureNotificationSettingViewController: UITableViewController {
+
+    private weak var delegate: ExposureNotificationSettingViewControllerDelegate?
     @IBOutlet weak var contactTracingSwitch: ENASwitch!
     @IBOutlet weak var introductionLabel: UILabel!
     @IBOutlet weak var introductionText: UILabel!
     @IBOutlet weak var enableTrackingLabel: UILabel!
-    
-    
-    let manager: ExposureManager
-    init?(coder: NSCoder, manager: ExposureManager) {
-        self.manager = manager
+
+    var exposureManagerEnabled: Bool = false
+
+    init?(
+        coder: NSCoder,
+        exposureManagerEnabled: Bool,
+        delegate: ExposureNotificationSettingViewControllerDelegate
+    ) {
         super.init(coder: coder)
+        self.exposureManagerEnabled = exposureManagerEnabled
+        self.delegate = delegate
     }
     
     required init?(coder: NSCoder) {
@@ -30,29 +47,29 @@ class ExposureNotificationSettingViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .always
-        setupNotificationCenter()
         setUIText()
         tableView.estimatedRowHeight = 280
         tableView.rowHeight = UITableView.automaticDimension
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        checkNotificationStatus()
     }
 
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateUI()
+    }
+
+    private func setExposureManagerEnabled(
+        _ enabled: Bool,
+        then completion: ExposureNotificationSettingViewControllerDelegate.Completion
+    ) {
+        delegate?.exposureNotificationSettingViewController(
+            self,
+            setExposureManagerEnabled: enabled,
+            then: handleErrorIfNeed
+        )
+    }
+
     @IBAction func contactTracingValueChanged(_ sender: Any) {
-        if contactTracingSwitch.isOn {
-            manager.enable {[weak self] error in
-                self?.handleErrorIfNeed(error)
-            }
-        } else {
-            manager.disable {[weak self]  error in
-                self?.handleErrorIfNeed(error)
-            }
-        }
+        setExposureManagerEnabled(contactTracingSwitch.isOn, then: handleErrorIfNeed)
     }
 }
 
@@ -82,25 +99,15 @@ extension ExposureNotificationSettingViewController {
     private func handleErrorIfNeed(_ error: ExposureNotificationError?) {
         if let error = error {
             handleEnableError(error)
-        } else {
-            checkNotificationStatus()
         }
     }
-    
-    private func checkNotificationStatus() {
+}
+
+extension ExposureNotificationSettingViewController: ViewControllerUpdatable {
+    func updateUI() {
         contactTracingSwitch.setOn(
-            manager.preconditions().enabled,
+            exposureManagerEnabled,
             animated: true
         )
     }
-    
-    private func setupNotificationCenter() {
-        _ = NotificationCenter
-            .default
-            .addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
-                log(message: "[viewDidLoad]: willEnterForegroundNotification, checking notifcation status.")
-                self.checkNotificationStatus()
-            }
-    }
-    
 }

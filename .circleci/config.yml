@@ -37,11 +37,3 @@ workflows:
             branches:
               only:
                 - /.*/
-
-    archive-screenshots:
-      jobs:
-        - grab-screenshots:
-          filters:
-            branches:
-              only:
-                - master
