@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class DynamicTableHeaderView: UITableViewHeaderFooterView {
+class DynamicTableViewHeaderImageView: UITableViewHeaderFooterView {
 	private(set) var imageView: UIImageView!
 	private var heightConstraint: NSLayoutConstraint!
 
