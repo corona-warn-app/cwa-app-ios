@@ -24,7 +24,7 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
         iconImage = iconImage?.withTintColor(iconColor)
         
         cell.iconImageView.image = iconImage
-        cell.titleTextView.text = AppStrings.Home.activateTitle
+        cell.titleTextView.text = isActivated ? AppStrings.Home.activateCardOnTitle : AppStrings.Home.activateCardOffTitle
         
         let chevronImage = UIImage(systemName: "chevron.right.circle.fill")
         cell.chevronImageView.image = chevronImage

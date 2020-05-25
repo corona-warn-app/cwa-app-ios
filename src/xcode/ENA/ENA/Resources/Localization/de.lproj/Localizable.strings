@@ -149,7 +149,10 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 
 // Home
 // Home Cards
-"Home_Activate_Title" = "Tracing ist aktiv";
+
+// Home Active card
+"Home_Activate_Card_On_Title" = "Risikoermittlung aktiv";
+"Home_Activate_Card_Off_Title" = "Risikoermittlung gestoppt";
 
 // Home Unknown card
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
