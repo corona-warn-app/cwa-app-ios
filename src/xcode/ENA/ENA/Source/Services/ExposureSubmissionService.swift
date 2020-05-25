@@ -9,14 +9,10 @@
 import Foundation
 import ExposureNotification
 
-enum SubmissionAuthorizationType {
-    case teleTan(String)
-    case guid(String)
-}
 protocol ExposureSubmissionService {
     typealias ExposureSubmissionHandler = (_ error: ExposureSubmissionError?) -> Void
 
-    func submitExposure(with: SubmissionAuthorizationType, completionHandler: @escaping ExposureSubmissionHandler)
+    func submitExposure(with: String, completionHandler: @escaping ExposureSubmissionHandler)
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
@@ -30,19 +26,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         self.store = store
     }
 
-    func submitExposure(with type: SubmissionAuthorizationType, completionHandler: @escaping  ExposureSubmissionHandler) {
+    func submitExposure(with tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
         log(message: "Started exposure submission...")
-        
-        // Store teleTan/ guid until we successfully submitted exposure.
-        var hash = ""
-        switch type {
-        case .guid(let guid):
-            store.testGUID = guid
-            hash = Hasher.sha256(guid)
-        case .teleTan(let teleTan):
-            store.teleTan = teleTan
-            hash = Hasher.sha256(teleTan)
-        }
         
         self.manager.accessDiagnosisKeys { keys, error in
             if let error = error {
@@ -56,22 +41,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
                 return
             }
 
-            self.client.submit(keys: keys, tan: hash) { error in
+            self.client.submit(keys: keys, tan: tan) { error in
                 if let error = error {
                     logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
                     completionHandler(self.parseServerError(error))
                     return
                 }
                 log(message: "Successfully completed exposure sumbission.")
-                
-                // Remove teleTan/ testGUID.
-                switch type {
-                case .guid:
-                    self.store.testGUID = nil
-                case .teleTan:
-                    self.store.teleTan = nil
-                }
-                
                 completionHandler(nil)
             }
         }

@@ -21,6 +21,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
 	private var testResults: [ExposureSubmissionTestResult] = [ExposureSubmissionTestResult(isPositive: true, receivedDate: Date(), transmittedDate: Date())]
 	private var mostRecentTestResult: ExposureSubmissionTestResult? { testResults.last }
     private var exposureSubmissionService: ExposureSubmissionService?
+    private var client: Client?
     
     // MARK: - Initializers.
     
@@ -39,6 +40,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
         // this controller is embedded.)
         if let navC = navigationController as? ExposureSubmissionNavigationController {
             self.exposureSubmissionService = navC.getExposureSubmissionService()
+            self.client = navC.getClient()
         }
 	}
 	
@@ -80,6 +82,8 @@ extension ExposureSubmissionOverviewViewController {
 }
 
 
+
+
 extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerDelegate {
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String) {
         
@@ -88,20 +92,24 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
             return
         }
         
-        self.exposureSubmissionService?.submitExposure(with: .guid(guid), completionHandler: { error in
-            if let error = error {
-                // TODO: Actual error handling.
+        // TODO: Ask for consent.
+        // TODO: Store consent.
+        
+        let hash = Hasher.sha256(guid)
+        self.client?.registerDevice(forTan: guid, withType: "GUID", completion: { result in
+            switch result {
+            case .failure(let error):
+                // TODO: Handle error.
                 print(error.localizedDescription)
-                return
-            }
-            
-            // Dismiss QR scanning when GUID was found.
-            viewController.delegate = nil
-            viewController.dismiss(animated: true) {
-                self.performSegue(withIdentifier: Segue.labResult, sender: guid)
+            case .success(let token):
+                print("Received registration token: \(token)")
+                // Dismiss QR scanning when GUID was found.
+                           viewController.delegate = nil
+                           viewController.dismiss(animated: true) {
+                               self.performSegue(withIdentifier: Segue.labResult, sender: guid)
+                           }
             }
         })
-        
 	}
     
     /// Sanitize the input string and assert that:
