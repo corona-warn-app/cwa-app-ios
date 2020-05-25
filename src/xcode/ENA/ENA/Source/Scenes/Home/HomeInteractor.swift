@@ -33,6 +33,8 @@ final class HomeInteractor {
     private(set) var exposureManager: ExposureManager
     private let client: Client
 
+    private var activeConfigurator: HomeActivateCellConfigurator!
+    
     private lazy var developerMenu: DMDeveloperMenu = {
         DMDeveloperMenu(
             presentingViewController: homeViewController,
@@ -46,9 +48,15 @@ final class HomeInteractor {
         developerMenu.enableIfAllowed()
     }
 
+    func updateAktiveCell() {
+        let exposureManagerEnabled = homeViewController.exposureManagerEnabled
+        activeConfigurator.setActivate(isActivated: exposureManagerEnabled)
+        // homeViewController.reloadCell(at: indexPath)
+    }
+    
     func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
 
-        let activeConfigurator = HomeActivateCellConfigurator(isActivated: true)
+        activeConfigurator = HomeActivateCellConfigurator(isActivated: true)
         let date = store.dateLastExposureDetection
 
         let riskLevel: RiskLevel
