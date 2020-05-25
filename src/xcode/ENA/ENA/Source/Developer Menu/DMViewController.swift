@@ -70,7 +70,8 @@ final class DMViewController: UITableViewController {
     private func showConfiguration() {
         let viewController = DMConfigurationViewController(
             distributionURL: store.developerDistributionBaseURLOverride,
-            submissionURL: store.developerSubmissionBaseURLOverride
+            submissionURL: store.developerSubmissionBaseURLOverride,
+            verificationURL: store.developerVerificationBaseURLOverride
         )
         navigationController?.pushViewController(viewController, animated: true)
     }

@@ -19,6 +19,7 @@ extension Notification.Name {
     static let permissionCellularUseDidChange = _withPrefix("allowsCellularUse")
     static let developerSubmissionBaseURLOverrideDidChange = _withPrefix("developerSubmissionBaseURLOverride")
     static let developerDistributionBaseURLOverrideDidChange = _withPrefix("developerDistributionBaseURLOverride")
+    static let developerVerificationBaseURLOverrideDidChange = _withPrefix("developerVerificationBaseURLOverride")
 
 	// Temporary Notification until implemented by actual transaction flow
 	static let didDetectExposureDetectionSummary = _withPrefix("didDetectExposureDetectionSummary")
