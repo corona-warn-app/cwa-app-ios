@@ -163,6 +163,10 @@ final class HTTPClient: Client {
             session.POST(url, data) {result in
                 switch result {
                 case .success(let response):
+                    guard response.hasAcceptableStatusCode else {
+                        completeWith(.failure(.serverError(response.statusCode)))
+                        return
+                    }
                     guard let testResultResponseData = response.body else {
                         completeWith(.failure(.invalidResponse))
                         logError(message: "Failed to register Device with invalid response")
@@ -205,7 +209,7 @@ final class HTTPClient: Client {
             session.POST(url, data) {result in
                 switch result {
                 case .success(let response):
-                    guard (200...299).contains(response.statusCode) else {
+                    guard response.hasAcceptableStatusCode else {
                         completeWith(.failure(.serverError(response.statusCode)))
                         return
                     }
@@ -225,7 +229,7 @@ final class HTTPClient: Client {
                             completeWith(.failure(.invalidResponse))
                         }
                     } catch _ {
-                        logError(message: "Failed to get TAN because ofinvalid response payload structure")
+                        logError(message: "Failed to get TAN because of invalid response payload structure")
                         completeWith(.failure(.invalidResponse))
                     }
                 case .failure(let error):
@@ -253,6 +257,10 @@ final class HTTPClient: Client {
             session.POST(url, data) {result in
                 switch result {
                 case .success(let response):
+                    guard response.hasAcceptableStatusCode else {
+                        completeWith(.failure(.serverError(response.statusCode)))
+                        return
+                    }
                     guard let registerResponseData = response.body else {
                         completeWith(.failure(.invalidResponse))
                         logError(message: "Failed to register Device with invalid response")
