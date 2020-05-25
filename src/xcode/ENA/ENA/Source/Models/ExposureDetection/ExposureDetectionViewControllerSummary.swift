@@ -21,5 +21,5 @@ protocol ExposureDetectionViewControllerSummary {
 extension ENExposureDetectionSummary: ExposureDetectionViewControllerSummary {
 	var numberOfContacts: Int { Int(self.matchedKeyCount) }
 	var numberOfDaysStored: Int { .random(in: 0...14) } // TODO Retrieve actual value
-	var lastRefreshDate: Date { Date() }
+	var lastRefreshDate: Date { Date() } // TODO Retrieve actual value
 }
