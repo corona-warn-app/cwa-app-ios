@@ -20,9 +20,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var exposureManagerEnabled = false
 
     private(set) lazy var client: Client = {
-        #if APP_STORE
-        return HTTPClient(configuration: .production)
-        #endif
+        // We disable app store checks to make testing easier.
+//        #if APP_STORE
+//        return HTTPClient(configuration: .production)
+//        #endif
 
         if ClientMode.default == .mock {
             return MockClient()
@@ -132,9 +133,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        #if APP_STORE
-        return
-        #endif
+        // We have to allow backend configuration via the url schema for now.
+//        #if APP_STORE
+//        return
+//        #endif
 
         guard let url = URLContexts.first?.url else {
             return

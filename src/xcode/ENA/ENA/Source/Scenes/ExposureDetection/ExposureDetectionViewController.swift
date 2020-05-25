@@ -145,7 +145,10 @@ extension ExposureDetectionViewController: ExposureDetectionTransactionDelegate 
 		self.exposureDetectionTransaction = nil
 	}
 	
-	func exposureDetectionTransaction(_ transaction: ExposureDetectionTransaction, didDetectSummary summary: ENExposureDetectionSummary) {
+	func exposureDetectionTransaction(
+        _ transaction: ExposureDetectionTransaction,
+        didDetectSummary summary: ENExposureDetectionSummary
+    ) {
 		self.exposureDetectionTransaction = nil
 		
 		self.store.dateLastExposureDetection = Date()

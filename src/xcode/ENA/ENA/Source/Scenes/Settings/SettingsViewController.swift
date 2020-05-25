@@ -85,11 +85,12 @@ final class SettingsViewController: UITableViewController {
     }
 
     private func setupView() {
-        #if !APP_STORE
+        // We disable all app store checks to make testing a little bit easier.
+//        #if !APP_STORE
             let tap = UITapGestureRecognizer(target: self, action: #selector(sendLogFile))
             tap.numberOfTapsRequired = 3
             view.addGestureRecognizer(tap)
-        #endif
+//        #endif
 
         checkTracingStatus()
         notificationSettings()
