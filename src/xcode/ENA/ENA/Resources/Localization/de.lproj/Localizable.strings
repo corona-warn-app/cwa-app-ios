@@ -170,10 +170,13 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 
 // Home High card
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
-"Home_Risk_High_Number_Contacts_Item_Title" = "%d Kontakte mit erhöhtem Risiko";
-"Home_Risk_High_Last_Contact_Item_Title" = "%d Tage seit letztem Kontakt";
 "Home_Risk_High_Date_Item_Title" = "Letzte Prüfung: %@";
 "Home_Risk_High_Button" = "Risikostatus prüfen";
+
+// Home Status Check
+"Home_Risk_Status_Check_Title" = "Prüfung läuft..";
+"Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
+"Home_Risk_Status_Check_Button" = "Risikostatus prüfen";
 
 "Home_SubmitCard_Title" = "COVID Test";
 "Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen.";

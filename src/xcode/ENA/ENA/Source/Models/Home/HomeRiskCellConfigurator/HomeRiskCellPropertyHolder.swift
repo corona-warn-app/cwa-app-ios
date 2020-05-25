@@ -17,9 +17,9 @@ final class HomeRiskCellPropertyHolder {
     let chevronImage: UIImage?
     let buttonTitle: String
     let isButtonEnabled: Bool
-    let itemCellConfigurators: [HomeRiskItemViewConfigurator]
+    let cellConfigurators: [HomeRiskViewConfiguratorAny]
     
-    init(title: String, titleColor: UIColor, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, buttonTitle: String, isButtonEnabled: Bool, itemCellConfigurators: [HomeRiskItemViewConfigurator]) {
+    init(title: String, titleColor: UIColor, color: UIColor, chevronTintColor: UIColor, chevronImage: UIImage?, buttonTitle: String, isButtonEnabled: Bool, itemCellConfigurators: [HomeRiskViewConfiguratorAny]) {
         self.title = title
         self.titleColor = titleColor
         self.color = color
@@ -27,11 +27,11 @@ final class HomeRiskCellPropertyHolder {
         self.chevronImage = chevronImage
         self.buttonTitle = buttonTitle
         self.isButtonEnabled = isButtonEnabled
-        self.itemCellConfigurators = itemCellConfigurators
+        self.cellConfigurators = itemCellConfigurators
     }
     
     // swiftlint:disable:next function_body_length
-    static func propertyHolder(for riskLevel: RiskLevel, dateString: String?) -> HomeRiskCellPropertyHolder {
+    static func propertyHolder(riskLevel: RiskLevel, lastUpdateDateString: String?, numberRiskContacts: Int, numberDaysLastContact: Int, isLoading: Bool) -> HomeRiskCellPropertyHolder {
         switch riskLevel {
         case .unknown:
             let titleColor = UIColor.white
@@ -51,7 +51,7 @@ final class HomeRiskCellPropertyHolder {
             let titleColor = UIColor.white
             let color = UIColor.preferredColor(for: .inactive)
             let item1 = HomeRiskItemViewConfigurator(title: AppStrings.Home.riskCardInactiveActivateItemTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
-            let dateTitle = String(format: AppStrings.Home.riskCardInactiveDateItemTitle, dateString ?? "-")
+            let dateTitle = String(format: AppStrings.Home.riskCardInactiveDateItemTitle, lastUpdateDateString ?? "-")
             let item2 = HomeRiskItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardInactiveTitle,
@@ -67,26 +67,36 @@ final class HomeRiskCellPropertyHolder {
             let titleColor = UIColor.white
             let color = UIColor.preferredColor(for: .positive)
             let item1 = HomeRiskItemViewConfigurator(title: AppStrings.Home.riskCardLowNoContactItemTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
-            let dateTitle = String(format: AppStrings.Home.riskCardLowDateItemTitle, dateString ?? "-")
+            let dateTitle = String(format: AppStrings.Home.riskCardLowDateItemTitle, lastUpdateDateString ?? "-")
             let item2 = HomeRiskItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
+            var itemCellConfigurator: [HomeRiskViewConfiguratorAny] = []
+            if isLoading {
+                let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color)
+                itemCellConfigurator.append(isLoadingItem)
+            } else {
+                itemCellConfigurator.append(item1)
+                itemCellConfigurator.append(item2)
+            }
+            let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardLowTitle
+            let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardLowButton
             return HomeRiskCellPropertyHolder(
-                title: AppStrings.Home.riskCardLowTitle,
+                title: title,
                 titleColor: titleColor,
                 color: color,
                 chevronTintColor: .preferredColor(for: .chevron),
                 chevronImage: UIImage(systemName: "chevron.right"),
-                buttonTitle: AppStrings.Home.riskCardLowButton,
+                buttonTitle: buttonTitle,
                 isButtonEnabled: true,
-                itemCellConfigurators: [item1, item2]
+                itemCellConfigurators: itemCellConfigurator
             )
         case .high:
             let titleColor = UIColor.white
             let color = UIColor.preferredColor(for: .negative)
-            let numberContactsTitle = String(format: AppStrings.Home.riskCardHighNumberContactsItemTitle, 8)
+            let numberContactsTitle = String(format: AppStrings.Home.riskCardHighNumberContactsItemTitle, numberRiskContacts)
             let item1 = HomeRiskItemViewConfigurator(title: numberContactsTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", color: color)
-            let lastContactTitle = String(format: AppStrings.Home.riskCardHighLastContactItemTitle, 2)
+            let lastContactTitle = String(format: AppStrings.Home.riskCardHighLastContactItemTitle, numberDaysLastContact)
             let item2 = HomeRiskItemViewConfigurator(title: lastContactTitle, titleColor: titleColor, iconImageName: "Calendar", color: color)
-            let dateTitle = String(format: AppStrings.Home.riskCardHighDateItemTitle, dateString ?? "-")
+            let dateTitle = String(format: AppStrings.Home.riskCardHighDateItemTitle, lastUpdateDateString ?? "-")
             let item3 = HomeRiskItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "LetztePruefung", color: color)
             return HomeRiskCellPropertyHolder(
                 title: AppStrings.Home.riskCardHighTitle,

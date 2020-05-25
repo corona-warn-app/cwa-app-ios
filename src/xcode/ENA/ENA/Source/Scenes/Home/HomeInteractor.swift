@@ -23,17 +23,21 @@ final class HomeInteractor {
         self.exposureManager = exposureManager
         self.client = client
         self.store = store
+        self.cells = initialCellConfigurators()
     }
 
     // MARK: Properties
     
     private unowned var homeViewController: HomeViewController
+    private let exposureManager: ExposureManager
+    private let client: Client
     private let store: Store
     var detectionSummary: ENExposureDetectionSummary?
-    private(set) var exposureManager: ExposureManager
-    private let client: Client
 
     private var activeConfigurator: HomeActivateCellConfigurator!
+    private var cells: [CollectionViewCellConfiguratorAny] = []
+    var cellConfigurators: [CollectionViewCellConfiguratorAny] { cells }
+    private var riskConfigurator: HomeRiskCellConfigurator?
     
     private lazy var developerMenu: DMDeveloperMenu = {
         DMDeveloperMenu(
@@ -54,7 +58,33 @@ final class HomeInteractor {
         // homeViewController.reloadCell(at: indexPath)
     }
     
-    func cellConfigurators() -> [CollectionViewCellConfiguratorAny] {
+    private func riskCellTask(completion: (() -> Void)?) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            completion?()
+        }
+    }
+    
+    private func startCheckRisk() {
+        guard let indexPath = indexPathForRiskCell() else { return }
+        riskConfigurator?.startLoading()
+        homeViewController.reloadCell(at: indexPath)
+        riskCellTask(completion: {
+            self.riskConfigurator?.stopLoading()
+            guard let indexPath = self.indexPathForRiskCell() else { return }
+            self.homeViewController.reloadCell(at: indexPath)
+        })
+    }
+    
+    private func indexPathForRiskCell() -> IndexPath? {
+        let index = cells.firstIndex { cellConfigurator in
+            cellConfigurator === self.riskConfigurator
+        }
+        guard let item = index else { return nil }
+        let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+        return indexPath
+    }
+    
+    private func initialCellConfigurators() -> [CollectionViewCellConfiguratorAny] {
 
         activeConfigurator = HomeActivateCellConfigurator(isActivated: true)
         let date = store.dateLastExposureDetection
@@ -65,9 +95,9 @@ final class HomeInteractor {
         } else {
             riskLevel = .unknown
         }
-        let riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, date: date)
-        riskConfigurator.contactAction = { [unowned self] in
-            self.homeViewController.showExposureDetection()
+        riskConfigurator = HomeRiskCellConfigurator(riskLevel: riskLevel, lastUpdateDate: date, numberRiskContacts: 2, lastContactDate: Date(), isLoading: false)
+        riskConfigurator?.contactAction = { [unowned self] in
+            self.startCheckRisk()
         }
         let submitConfigurator = HomeSubmitCellConfigurator()
 
@@ -102,15 +132,18 @@ final class HomeInteractor {
 			accessibilityIdentifier: Accessibility.Cell.settingsCardTitle
 		)
 
-        let configurators: [CollectionViewCellConfiguratorAny] = [
-			activeConfigurator,
-			riskConfigurator,
+		var configurators: [CollectionViewCellConfiguratorAny] = [activeConfigurator]
+        if let risk = riskConfigurator {
+            configurators.append(risk)
+        }
+        let others: [CollectionViewCellConfiguratorAny] = [
 			submitConfigurator,
 			info1Configurator,
 			info2Configurator,
 			appInformationConfigurator,
 			settingsConfigurator
-        ]
+		]
+        configurators.append(contentsOf: others)
         return configurators
     }
 }
