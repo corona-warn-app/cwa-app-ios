@@ -361,6 +361,7 @@ private extension HomeViewController {
 
 extension HomeViewController: ViewControllerUpdatable {
     func updateUI() {
+        homeInteractor.updateActiveCell()
         settingsController?.updateUI()
         notificationSettingsController?.updateUI()
     }

@@ -25,7 +25,10 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
         
         cell.iconImageView.image = iconImage
         cell.titleTextView.text = AppStrings.Home.activateTitle
-        cell.chevronImageView.image = UIImage(systemName: "chevron.right")
+        
+        let chevronImage = UIImage(systemName: "chevron.right.circle.fill")
+        cell.chevronImageView.image = chevronImage
+
 		setupAccessibility(for: cell)
     }
 	

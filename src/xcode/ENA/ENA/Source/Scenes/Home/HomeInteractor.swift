@@ -52,11 +52,7 @@ final class HomeInteractor {
         developerMenu.enableIfAllowed()
     }
 
-    func updateAktiveCell() {
-        let exposureManagerEnabled = homeViewController.exposureManagerEnabled
-        activeConfigurator.setActivate(isActivated: exposureManagerEnabled)
-        // homeViewController.reloadCell(at: indexPath)
-    }
+
     
     private func riskCellTask(completion: (() -> Void)?) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
@@ -84,9 +80,26 @@ final class HomeInteractor {
         return indexPath
     }
     
+    func updateActiveCell() {
+        guard let indexPath = indexPathForActiveCell() else { return }
+        let exposureManagerEnabled = homeViewController.exposureManagerEnabled
+        activeConfigurator.setActivate(isActivated: exposureManagerEnabled)
+        homeViewController.reloadCell(at: indexPath)
+    }
+    
+    private func indexPathForActiveCell() -> IndexPath? {
+        let index = cells.firstIndex { cellConfigurator in
+            cellConfigurator === self.activeConfigurator
+        }
+        guard let item = index else { return nil }
+        let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+        return indexPath
+    }
+    
     private func initialCellConfigurators() -> [CollectionViewCellConfiguratorAny] {
-
-        activeConfigurator = HomeActivateCellConfigurator(isActivated: true)
+        
+        let exposureManagerEnabled = homeViewController.exposureManagerEnabled
+        activeConfigurator = HomeActivateCellConfigurator(isActivated: exposureManagerEnabled)
         let date = store.dateLastExposureDetection
 
         let riskLevel: RiskLevel
