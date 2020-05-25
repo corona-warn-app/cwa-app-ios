@@ -36,7 +36,7 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
     
     // MARK: Creating a Home Risk Cell Configurator
     init(riskLevel: RiskLevel, lastUpdateDate: Date?, numberRiskContacts: Int, lastContactDate: Date, isLoading: Bool) {
-        self.riskLevel = .high // riskLevel
+        self.riskLevel = riskLevel
         self.lastUpdateDate = lastUpdateDate
         self.numberRiskContacts = numberRiskContacts
         self.lastContactDate = lastContactDate
