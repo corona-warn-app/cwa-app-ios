@@ -76,7 +76,7 @@ final class HomeViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         configureUI()        
-        enableExposureManagerIfNeeded()
+        //enableExposureManagerIfNeeded()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -154,26 +154,19 @@ final class HomeViewController: UIViewController {
         enableIfNeeded()
     }
 
+    
     func showSubmitResult() {
-		// TODO
-		let vc = AppStoryboard.exposureSubmission.initiateInitial()
-		present(vc, animated: true)
 		
-//        let controller = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { coder in
-//            ExposureSubmissionViewController(
-//                coder: coder,
-//                exposureSubmissionService: ENAExposureSubmissionService(
-//                    manager: self.exposureManager,
-//                    client: self.client
-//                )
-//            )
-//        }
-//
-//        present(
-//            UINavigationController(rootViewController: controller),
-//            animated: true,
-//            completion: nil
-//        )
+        let storyBoard = AppStoryboard.exposureSubmission.instance
+        let viewController = storyBoard.instantiateViewController(identifier: "ExpsureSubmissionNavigationController") {[unowned self] coder in
+            let service = ENAExposureSubmissionService(manager: self.exposureManager, client: self.client)
+            return ExpsureSubmissionNavigationController(coder: coder,
+                                                         store: self.store,
+                                                         exposureSubmissionService: service)
+            
+        }
+		present(viewController, animated: true)
+        
     }
 
     func showExposureNotificationSetting() {
