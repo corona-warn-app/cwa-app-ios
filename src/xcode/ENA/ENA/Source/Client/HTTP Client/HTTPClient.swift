@@ -193,12 +193,55 @@ final class HTTPClient: Client {
     }
     
     func getTANForDiagnosis(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
-        // MARK: ToBe Implemented
+        let url = configuration.tanRetrievalURL
+        
+        let bodyValues = ["registrationToken":registrationToken]
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+
+            let data = try encoder.encode(bodyValues)
+            
+            session.POST(url, data) {result in
+                switch result {
+                case .success(let response):
+                    guard (200...299).contains(response.statusCode) else {
+                        completeWith(.failure(.serverError(response.statusCode)))
+                        return
+                    }
+                    guard let tanResponseData = response.body else {
+                        completeWith(.failure(.invalidResponse))
+                        logError(message: "Failed to get TAN")
+                        logError(message: String(response.statusCode))
+                        return
+                    }
+                    do {
+                        let decoder = JSONDecoder()
+                        let responseDictionary: [String:String] = try decoder.decode([String:String].self, from: tanResponseData)
+                        if(responseDictionary["tan"] != nil){
+                            completeWith(.success(responseDictionary["tan"]!))
+                        }else{
+                            logError(message: "Failed to get TAN because of invalid response payload structure")
+                            completeWith(.failure(.invalidResponse))
+                        }
+                    } catch _ {
+                        logError(message: "Failed to get TAN because ofinvalid response payload structure")
+                        completeWith(.failure(.invalidResponse))
+                    }
+                case .failure(let error):
+                    completeWith(.failure(.httpError(error)))
+                    logError(message: "Failed to get TAN due to error: \(error).")
+                }
+            }
+        } catch {
+                   completeWith(.failure(.invalidResponse))
+                   return
+        }
     }
     
     func registerDevice(forTan TAN: String, withType type: String, completion completeWith: @escaping RegistrationHandler) {
         
-        let url = configuration.regisrationURL
+        let url = configuration.registrationURL
         
         let bodyValues = ["key":TAN,"keyType":type]
         do {
