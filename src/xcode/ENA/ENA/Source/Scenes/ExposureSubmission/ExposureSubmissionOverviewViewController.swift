@@ -89,9 +89,17 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
         guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count)) else { return nil }
         let nsRange = match.range(withName: "GUID")
         guard let range = Range(nsRange, in: input) else { return nil }
-        let guid = String(input[range])
-        guard !guid.isEmpty else { return nil }
-        return guid
+        let candidate = String(input[range])
+        guard !candidate.isEmpty else { return nil }
+        guard isGuid(candidate) else { return nil }
+        return candidate
+    }
+    
+    private func isGuid(_ input: String) -> Bool {
+        guard let regex = try? NSRegularExpression(pattern: "[A-Z,a-z, 0-9]{6}-[A-Z,a-z, 0-9]{8}-[A-Z,a-z, 0-9]{4}-[A-Z,a-z, 0-9]{4}-[A-Z,a-z, 0-9]{4}-[A-Z,a-z, 0-9]{12}") else { return false }
+        let match = regex.matches(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
+        return !match.isEmpty
+        
     }
 }
 
