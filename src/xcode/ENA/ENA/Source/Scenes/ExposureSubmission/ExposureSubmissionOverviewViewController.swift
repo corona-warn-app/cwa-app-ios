@@ -65,13 +65,35 @@ extension ExposureSubmissionOverviewViewController {
 
 extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerDelegate {
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String) {
+        
+        guard let guid = sanitizeAndExtractGuid(code) else {
+            // Continue scanning when no valid GUID was extracted.
+            return
+        }
+        
+        // Dismiss QR scanning when GUID was found.
 		viewController.delegate = nil
 		viewController.dismiss(animated: true) {
-			self.performSegue(withIdentifier: Segue.tanInput, sender: code)
+			self.performSegue(withIdentifier: Segue.tanInput, sender: guid)
 		}
 	}
+    
+    /// Sanitize the input string and assert that:
+    /// - length is smaller than 128 characters
+    /// - starts with https://
+    /// - contains only alphanumeric characters
+    /// - is not empty
+    private func sanitizeAndExtractGuid(_ input: String) -> String? {
+        guard input.count < 128 else { return nil }
+        guard let regex = try? NSRegularExpression(pattern: "^https:\\/\\/(?<GUID>[A-Z,a-z, 0-9]*)") else { return nil }
+        guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count)) else { return nil }
+        let nsRange = match.range(withName: "GUID")
+        guard let range = Range(nsRange, in: input) else { return nil }
+        let guid = String(input[range])
+        guard !guid.isEmpty else { return nil }
+        return guid
+    }
 }
-
 
 private extension ExposureSubmissionOverviewViewController {
 	func dynamicTableData() -> DynamicTableViewModel {
