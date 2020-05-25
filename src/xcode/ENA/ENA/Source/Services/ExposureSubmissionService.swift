@@ -16,6 +16,7 @@ protocol ExposureSubmissionService {
     typealias TANHandler = (Result<String, Error>) -> Void
     
     func submitExposure(with: String, completionHandler: @escaping ExposureSubmissionHandler)
+    func getTestResult(_ : Result<Int, Error>)
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
@@ -32,6 +33,22 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
     enum DeviceRegistrationKey {
         case teleTan(String)
         case guid(String)
+    }
+    
+    func getTestResult(_ completeWith: Result<Int, Error>) {
+        guard let registrationToken = store.registrationToken else {
+            completeWith(.failure(.other))
+            return
+        }
+        
+        client.getTestResult(forDevice: registrationToken) { result in
+            switch result {
+            case .failure:
+                completeWith(.failure(.other))
+            case .success(let testResult):
+                completeWith(.success(testResult))
+            }
+        }
     }
 
     /// Stores the provided key, retrieves the registration token and deletes the key.
