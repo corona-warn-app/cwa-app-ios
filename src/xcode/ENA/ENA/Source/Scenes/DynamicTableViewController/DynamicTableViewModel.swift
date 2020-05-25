@@ -11,7 +11,7 @@ import UIKit
 
 
 struct DynamicTableViewModel {
-	private let content: [Section]
+	private var content: [Section]
 	
 	
 	init(_ content: [Section]) {
@@ -78,10 +78,13 @@ struct DynamicTableViewModel {
 		case bold(text: String)
 		case semibold(text: String)
 		case regular(text: String)
+		case icon(action: Action = .none, text: String, image: UIImage?, backgroundColor: UIColor, tintColor: UIColor)
 		case identifier(_ identifier: TableViewCellReuseIdentifiers, action: Action = .none, configure: CellConfigurator? = nil)
 		
 		var action: Action {
 			switch self {
+			case let .icon(action, _, _, _, _):
+				return action
 			case let .identifier(_, action, _):
 				return action
 			default:
@@ -96,5 +99,10 @@ struct DynamicTableViewModel {
 		case open(url: URL?)
 		case perform(segue: SegueIdentifiers)
 		case execute(block: (_ viewController: UIViewController) -> Void)
+	}
+	
+	
+	mutating func add(_ section: Section) {
+		self.content.append(section)
 	}
 }

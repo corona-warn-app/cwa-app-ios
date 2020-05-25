@@ -27,6 +27,7 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.register(DynamicTypeTableViewCell.Bold.self, forCellReuseIdentifier: CellReuseIdentifier.bold.rawValue)
 		tableView.register(DynamicTypeTableViewCell.Semibold.self, forCellReuseIdentifier: CellReuseIdentifier.semibold.rawValue)
 		tableView.register(DynamicTypeTableViewCell.Regular.self, forCellReuseIdentifier: CellReuseIdentifier.regular.rawValue)
+		tableView.register(UINib(nibName: String(describing: DynamicTableViewIconCell.self), bundle: nil), forCellReuseIdentifier: CellReuseIdentifier.icon.rawValue)
 	}
 }
 
@@ -44,6 +45,7 @@ extension DynamicTableViewController {
 		case bold = "boldCell"
 		case semibold = "semiboldCell"
 		case regular = "regularCell"
+		case icon = "iconCell"
 	}
 }
 
@@ -57,6 +59,8 @@ extension DynamicTableViewModel.Cell {
 			return DynamicTableViewController.CellReuseIdentifier.semibold
 		case .regular:
 			return DynamicTableViewController.CellReuseIdentifier.regular
+		case .icon:
+			return DynamicTableViewController.CellReuseIdentifier.icon
 		case let .identifier(identifier, _, _):
 			return identifier
 		}
@@ -73,6 +77,9 @@ extension DynamicTableViewModel.Cell {
 			
 		case let .regular(text):
 			cell.textLabel?.text = text
+			
+		case let .icon(_, text, image, backgroundColor, tintColor):
+			(cell as? DynamicTableViewIconCell)?.configure(text: text, image: image, backgroundColor: backgroundColor, tintColor: tintColor)
 			
 		case let .identifier(_, _, configure):
 			configure?(cell, indexPath)

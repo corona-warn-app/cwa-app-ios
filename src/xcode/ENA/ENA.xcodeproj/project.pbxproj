@@ -90,6 +90,19 @@
 		71FE1C6B247AA3F100851FEB /* ExposureDetectionViewControllerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C6A247AA3F100851FEB /* ExposureDetectionViewControllerState.swift */; };
 		71FE1C6D247AA43400851FEB /* ExposureDetectionViewControllerSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C6C247AA43400851FEB /* ExposureDetectionViewControllerSummary.swift */; };
 		71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C70247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift */; };
+		71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */; };
+		71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */; };
+		71FE1C7C247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C75247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift */; };
+		71FE1C7D247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */; };
+		71FE1C7E247AC2B500851FEB /* ExposureSubmissionPreviousTestResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C77247AC2B500851FEB /* ExposureSubmissionPreviousTestResultsViewController.swift */; };
+		71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */; };
+		71FE1C80247AC2B500851FEB /* ExpsureSubmissionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C79247AC2B500851FEB /* ExpsureSubmissionNavigationController.swift */; };
+		71FE1C82247AC30300851FEB /* ENATanInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C81247AC30300851FEB /* ENATanInput.swift */; };
+		71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */; };
+		71FE1C87247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FE1C85247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib */; };
+		71FE1C89247AC56A00851FEB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C88247AC56A00851FEB /* Array.swift */; };
+		71FE1C8C247AC79D00851FEB /* DynamicTableViewIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */; };
+		71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */; };
 		85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85142500245DA0B3009D2791 /* UIViewController+Alert.swift */; };
 		8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8539874E2467094E00D28B62 /* AppIcon.xcassets */; };
 		853D987A24694A8700490DBA /* ENAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853D987924694A8700490DBA /* ENAButton.swift */; };
@@ -302,6 +315,19 @@
 		71FE1C6A247AA3F100851FEB /* ExposureDetectionViewControllerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewControllerState.swift; sourceTree = "<group>"; };
 		71FE1C6C247AA43400851FEB /* ExposureDetectionViewControllerSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewControllerSummary.swift; sourceTree = "<group>"; };
 		71FE1C70247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeaderImageView.swift; sourceTree = "<group>"; };
+		71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSuccessViewController.swift; sourceTree = "<group>"; };
+		71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewController.swift; sourceTree = "<group>"; };
+		71FE1C75247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionOverviewViewController.swift; sourceTree = "<group>"; };
+		71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTanInputViewController.swift; sourceTree = "<group>"; };
+		71FE1C77247AC2B500851FEB /* ExposureSubmissionPreviousTestResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionPreviousTestResultsViewController.swift; sourceTree = "<group>"; };
+		71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewController.swift; sourceTree = "<group>"; };
+		71FE1C79247AC2B500851FEB /* ExpsureSubmissionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpsureSubmissionNavigationController.swift; sourceTree = "<group>"; };
+		71FE1C81247AC30300851FEB /* ENATanInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENATanInput.swift; sourceTree = "<group>"; };
+		71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultHeaderView.swift; sourceTree = "<group>"; };
+		71FE1C85247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExposureSubmissionTestResultHeaderView.xib; sourceTree = "<group>"; };
+		71FE1C88247AC56A00851FEB /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTableViewIconCell.swift; sourceTree = "<group>"; };
+		71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DynamicTableViewIconCell.xib; sourceTree = "<group>"; };
 		85142500245DA0B3009D2791 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		8539874E2467094E00D28B62 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		853D987924694A8700490DBA /* ENAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAButton.swift; sourceTree = "<group>"; };
@@ -640,6 +666,7 @@
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
 				B18CADAD24782FA4006F53F0 /* UIViewController+UpdatableUI.swift */,
+				71FE1C88247AC56A00851FEB /* Array.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -740,15 +767,37 @@
 				71FE1C70247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift */,
 				714194E9247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift */,
 				710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */,
+				71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */,
+				71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		71FE1C72247AC28300851FEB /* deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */,
+				B1741B592462F4DE006275D9 /* TanEntryViewController.swift */,
+				CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */,
+			);
+			path = deprecated;
+			sourceTree = "<group>";
+		};
+		71FE1C83247AC33D00851FEB /* ExposureSubmission */ = {
+			isa = PBXGroup;
+			children = (
+				71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */,
+				71FE1C85247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib */,
+			);
+			path = ExposureSubmission;
 			sourceTree = "<group>";
 		};
 		853D987824694A1E00490DBA /* BaseElements */ = {
 			isa = PBXGroup;
 			children = (
-				8595BF5E246032D90056EA27 /* ENASwitch.swift */,
 				853D987924694A8700490DBA /* ENAButton.swift */,
+				8595BF5E246032D90056EA27 /* ENASwitch.swift */,
+				71FE1C81247AC30300851FEB /* ENATanInput.swift */,
 			);
 			path = BaseElements;
 			sourceTree = "<group>";
@@ -767,6 +816,7 @@
 				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
 				EEF790092466ED410065EBD5 /* ExposureDetection */,
+				71FE1C83247AC33D00851FEB /* ExposureSubmission */,
 				51CE1B74246078B6002CF42A /* Home Screen */,
 				71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */,
 				713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */,
@@ -1071,9 +1121,14 @@
 		CD99A398245B229F00BF12AF /* ExposureSubmission */ = {
 			isa = PBXGroup;
 			children = (
-				CD99A399245B22B700BF12AF /* ExposureSubmissionViewController.swift */,
-				B1741B592462F4DE006275D9 /* TanEntryViewController.swift */,
-				CD99A3A6245B33D500BF12AF /* ConfirmationViewController.swift */,
+				71FE1C72247AC28300851FEB /* deprecated */,
+				71FE1C79247AC2B500851FEB /* ExpsureSubmissionNavigationController.swift */,
+				71FE1C75247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift */,
+				71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */,
+				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
+				71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */,
+				71FE1C77247AC2B500851FEB /* ExposureSubmissionPreviousTestResultsViewController.swift */,
+				71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */,
 			);
 			path = ExposureSubmission;
 			sourceTree = "<group>";
@@ -1286,7 +1341,9 @@
 				51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */,
+				71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */,
 				51CE1B8D246078B6002CF42A /* SubmitCollectionViewCell.xib in Resources */,
+				71FE1C87247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
@@ -1354,6 +1411,7 @@
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
 				B1D7D69224766D2100E4DA5D /* apple_export.pb.swift in Sources */,
 				CD99A3A7245B33D500BF12AF /* ConfirmationViewController.swift in Sources */,
+				71FE1C89247AC56A00851FEB /* Array.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */,
 				01DC23242462DF78001B727C /* ExposureSubmissionViewController.swift in Sources */,
 				51B5B418246E022600DC5D3E /* InsetLabel.swift in Sources */,
@@ -1371,13 +1429,17 @@
 				B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */,
 				B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */,
 				B1DDDABE24713BAD00A07175 /* VerifiedSapFileBucket.swift in Sources */,
+				71FE1C7C247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift in Sources */,
 				EE20EA0E246ABED600770683 /* RiskLegendFactory.swift in Sources */,
 				B10FD5EF246EAB0100E9D7F2 /* AppInformationHelpModel.swift in Sources */,
+				71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */,
+				71FE1C82247AC30300851FEB /* ENATanInput.swift in Sources */,
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
 				B1EAEC91247128ED003BE9A2 /* ClientMode.swift in Sources */,
 				B1D7D69124766D2100E4DA5D /* risk_level.pb.swift in Sources */,
 				B1D7D69324766D2100E4DA5D /* signed_payload.pb.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
+				71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
 				51D420B724583B7200AD70CA /* NSObject+Identifier.swift in Sources */,
 				51CE1B86246078B6002CF42A /* SubmitCollectionViewCell.swift in Sources */,
@@ -1389,6 +1451,7 @@
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
 				710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */,
+				71FE1C7D247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift in Sources */,
 				714CD869247297F800F56450 /* NibLoadable.swift in Sources */,
 				B18CADAE24782FA4006F53F0 /* UIViewController+UpdatableUI.swift in Sources */,
 				51D420D424586DCA00AD70CA /* NotificationName.swift in Sources */,
@@ -1427,10 +1490,12 @@
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
 				51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */,
+				71FE1C80247AC2B500851FEB /* ExpsureSubmissionNavigationController.swift in Sources */,
 				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
 				B111EDEB2465B1E7001AEBB4 /* MockClient.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				B1D7D68C24766D2100E4DA5D /* risk_score_parameters.pb.swift in Sources */,
+				71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */,
 				51B5B416246DF13D00DC5D3E /* RiskItemView.swift in Sources */,
 				713EA25B247818B000AB7EE8 /* DynamicTypeButton.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
@@ -1438,6 +1503,7 @@
 				134FFA10247466BD00D82D14 /* TestEnvironment.swift in Sources */,
 				B1741B5A2462F4DE006275D9 /* TanEntryViewController.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
+				71FE1C7E247AC2B500851FEB /* ExposureSubmissionPreviousTestResultsViewController.swift in Sources */,
 				B1D7D69024766D2100E4DA5D /* exposure_notification.pb.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
@@ -1446,6 +1512,7 @@
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
+				71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */,
 				1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */,
 				EE46E5D82466AEA50057627F /* UIView.swift in Sources */,
 				51D420BB24583BF400AD70CA /* LaunchInstructor.swift in Sources */,
@@ -1453,6 +1520,7 @@
 				51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */,
 				B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */,
 				EE278B2B245F0B32008B06F9 /* ColorStyle.swift in Sources */,
+				71FE1C8C247AC79D00851FEB /* DynamicTableViewIconCell.swift in Sources */,
 				710ABB25247514BD00948792 /* UIViewController+Segue.swift in Sources */,
 				51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */,
 				51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */,
