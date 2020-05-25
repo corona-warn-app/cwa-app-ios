@@ -142,7 +142,10 @@ enum AppStrings {
     }
 
     enum Home {
-        static let activateTitle = NSLocalizedString("Home_Activate_Title", comment: "")
+        
+        // Activate Card
+        static let activateCardOnTitle = NSLocalizedString("Home_Activate_Card_On_Title", comment: "")
+        static let activateCardOffTitle = NSLocalizedString("Home_Activate_Card_Off_Title", comment: "")
 
         // Risk Card
         static let riskCardUnknownTitle = NSLocalizedString("Home_Risk_Unknown_Title", comment: "")
