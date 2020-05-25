@@ -29,7 +29,7 @@ final class HomeInteractor {
     
     private unowned var homeViewController: HomeViewController
     private let store: Store
-    private var detectionSummary: ENExposureDetectionSummary?
+    var detectionSummary: ENExposureDetectionSummary?
     private(set) var exposureManager: ExposureManager
     private let client: Client
 
@@ -37,7 +37,8 @@ final class HomeInteractor {
         DMDeveloperMenu(
             presentingViewController: homeViewController,
             client: client,
-            store: store
+            store: store,
+            exposureManager: exposureManager
         )
     }()
 
@@ -65,30 +66,35 @@ final class HomeInteractor {
         submitConfigurator.submitAction = { [unowned self] in
             self.homeViewController.showSubmitResult()
         }
-        
+   
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
 			body: AppStrings.Home.infoCardShareBody,
-			position: .first
+			position: .first,
+			accessibilityIdentifier: Accessibility.Cell.infoCardShareTitle
+			
 		)
 		let info2Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardAboutTitle,
 			body: AppStrings.Home.infoCardAboutBody,
-			position: .last
+			position: .last,
+			accessibilityIdentifier: Accessibility.Cell.infoCardAboutTitle
 		)
 
 		let appInformationConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.appInformationCardTitle,
 			body: nil,
-			position: .first
+			position: .first,
+			accessibilityIdentifier: Accessibility.Cell.appInformationCardTitle
 		)
 		let settingsConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.settingsCardTitle,
 			body: nil,
-			position: .last
+			position: .last,
+			accessibilityIdentifier: Accessibility.Cell.settingsCardTitle
 		)
 
-		let configurators: [CollectionViewCellConfiguratorAny] = [
+        let configurators: [CollectionViewCellConfiguratorAny] = [
 			activeConfigurator,
 			riskConfigurator,
 			submitConfigurator,
@@ -96,16 +102,7 @@ final class HomeInteractor {
 			info2Configurator,
 			appInformationConfigurator,
 			settingsConfigurator
-		]
+        ]
         return configurators
-    }
-}
-
-extension HomeInteractor: ExposureDetectionViewControllerDelegate {
-    func exposureDetectionViewController(_ controller: ExposureDetectionViewController, didReceiveSummary summary: ENExposureDetectionSummary) {
-        log(message: "got summary: \(summary.description)")
-        detectionSummary = summary
-        homeViewController.prepareData()
-        homeViewController.reloadData()
     }
 }

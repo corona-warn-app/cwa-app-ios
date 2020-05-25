@@ -6,10 +6,12 @@ final class DMViewController: UITableViewController {
     // MARK: Creating a developer menu view controller
     init(
         client: Client,
-        store: Store
+        store: Store,
+        exposureManager: ExposureManager
     ) {
         self.client = client
         self.store = store
+        self.exposureManager = exposureManager
         super.init(style: .plain)
         title = "Developer Menu"
     }
@@ -21,6 +23,7 @@ final class DMViewController: UITableViewController {
     // MARK: Properties
     private let client: Client
     private let store: Store
+    private let exposureManager: ExposureManager
     private var keys = [Sap_Key]() {
         didSet {
             keys = self.keys.sorted()
@@ -62,20 +65,13 @@ final class DMViewController: UITableViewController {
         ]
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-
-        if keys.isEmpty {
-            resetAndFetchKeys()
-        }
-    }
-
     // MARK: Configuration
     @objc
     private func showConfiguration() {
         let viewController = DMConfigurationViewController(
             distributionURL: store.developerDistributionBaseURLOverride,
-            submissionURL: store.developerSubmissionBaseURLOverride
+            submissionURL: store.developerSubmissionBaseURLOverride,
+            verificationURL: store.developerVerificationBaseURLOverride
         )
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -111,35 +107,25 @@ final class DMViewController: UITableViewController {
     // For now we simply submit automatically.
     @objc
     private func generateTestKeys() {
-        let manager = ENAExposureManager()
-        manager.activate { activationError in
-            if let activationError = activationError {
-                logError(message: "Failed to generate test keys because exposure manager could not be activated due to: \(activationError)")
+        exposureManager.getTestDiagnosisKeys { [weak self] keys, error in
+            guard let self = self else {
                 return
             }
-            manager.enable { enableError in
-                if let enableError = enableError {
-                    logError(message: "Failed to generate test keys because exposure manager could not be enabled due to: \(enableError)")
+            if let error = error {
+                logError(message: "Failed to generate test keys due to: \(error)")
+                return
+            }
+            let _keys = keys ?? []
+            log(message: "Got diagnosis keys: \(_keys)", level: .info)
+            self.client.submit(
+                keys: _keys,
+                tan: "TAN 123456"
+            ) { [weak self] submitError in
+                if let submitError = submitError {
+                    logError(message: "Failed to submit test keys due to: \(submitError)")
                     return
                 }
-                manager.getTestDiagnosisKeys { [weak self] keys, error in
-                    guard let self = self else {
-                        return
-                    }
-                    if let error = error {
-                        logError(message: "Failed to generate test keys due to: \(error)")
-                        return
-                    }
-                    let _keys = keys ?? []
-                    log(message: "Got diagnosis keys: \(_keys)", level: .info)
-                    self.client.submit(keys: keys ?? [], tan: "TAN 123456") { [weak self] submitError in
-                        if let submitError = submitError {
-                            logError(message: "Failed to submit test keys due to: \(submitError)")
-                            return
-                        }
-                        self?.resetAndFetchKeys()
-                    }
-                }
+                self?.resetAndFetchKeys()
             }
         }
     }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ExposureNotification
 import UserNotifications
 
 enum OnboardingPageType: Int, CaseIterable {
@@ -26,12 +25,13 @@ enum OnboardingPageType: Int, CaseIterable {
 }
 
 final class OnboardingInfoViewController: UIViewController {
-	
-	var pageType: OnboardingPageType
-	var exposureManager: ExposureManager
-	var store: Store
-
-    init?(coder: NSCoder, pageType: OnboardingPageType, exposureManager: ExposureManager, store: Store) {
+    // MARK: Creating a Onboarding View Controller
+    init?(
+        coder: NSCoder,
+        pageType: OnboardingPageType,
+        exposureManager: ExposureManager,
+        store: Store
+    ) {
 		self.pageType = pageType
 		self.exposureManager = exposureManager
         self.store = store
@@ -42,12 +42,19 @@ final class OnboardingInfoViewController: UIViewController {
         fatalError("init(coder:) has intentionally not been implemented")
     }
 
+    // MARK: Properties
+    var pageType: OnboardingPageType
+    var exposureManager: ExposureManager
+    var store: Store
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var boldLabel: UILabel!
     @IBOutlet var textLabel: UILabel!
     @IBOutlet var nextButton: ENAButton!
 	@IBOutlet var ignoreButton: UIButton!
+	
+	@IBOutlet weak var scrollView: UIScrollView!
+	@IBOutlet weak var footerView: UIView!
 	
 	private var onboardingInfos = OnboardingInfo.testData()
 
@@ -62,15 +69,24 @@ final class OnboardingInfoViewController: UIViewController {
         viewRespectsSystemMinimumLayoutMargins = false
         view.layoutMargins = .zero
 		updateUI()
+		setupAccessibility()
     }
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		let height = footerView.frame.height + 20
+		scrollView.contentInset.bottom = height
+	}
 
     func runActionForPageType(completion: @escaping () -> Void) {
-		switch pageType {
-		case .enableLoggingOfContactsPage:
+        switch pageType {
+        case .privacyPage:
+            persistTimestamp(completion: completion)
+        case .enableLoggingOfContactsPage:
 			askExposureNotificationsPermissions(completion: completion)
-		case .alwaysStayInformedPage:
+        case .alwaysStayInformedPage:
 			askLocalNotificationsPermissions(completion: completion)
-		default:
+        default:
 			completion()
 		}
     }
@@ -82,10 +98,6 @@ final class OnboardingInfoViewController: UIViewController {
         titleLabel.text = onboardingInfo.title
 
         imageView.image = UIImage(named: onboardingInfo.imageName)
-        if let imageSize = imageView.image?.size {
-            let aspectRatio = imageSize.width / imageSize.height
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: aspectRatio, constant: 0.0).isActive = true
-        }
 
         boldLabel.text = onboardingInfo.boldText
         boldLabel.isHidden = onboardingInfo.boldText.isEmpty
@@ -97,17 +109,30 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 		
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
-		ignoreButton.setTitleColor(UIColor.preferredColor(for: .tintColor), for: .normal)
+        ignoreButton.setTitleColor(UIColor.preferredColor(for: .tintColor), for: .normal)
 		ignoreButton.backgroundColor = UIColor.clear
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
-
+		
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		
+	}
+	
+	func setupAccessibility() {
+		imageView.isAccessibilityElement = false
+		titleLabel.isAccessibilityElement = true
+		boldLabel.isAccessibilityElement = true
+		textLabel.isAccessibilityElement = true
+		nextButton.isAccessibilityElement = true
+		ignoreButton.isAccessibilityElement = true
+
+		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
+		nextButton.accessibilityIdentifier = Accessibility.Button.next
+		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
 		if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
 			// content size has changed
 			titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
@@ -115,11 +140,27 @@ final class OnboardingInfoViewController: UIViewController {
 			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		}
 	}
-	
+
+    private func persistTimestamp(completion: (() -> Void)?) {
+        if let acceptedDate = store.dateOfAcceptedPrivacyNotice {
+            log(message: "User has already accepted the privacy terms on \(acceptedDate)", level: .warning)
+            completion?()
+            return
+        }
+        store.dateOfAcceptedPrivacyNotice = Date()
+        log(message: "Persist that user acccepted the privacy terms on \(Date())", level: .info)
+        completion?()
+    }
 	
     // MARK: Exposure notifications
     private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
-		exposureManager.activate { error in
+
+		if TestEnvironment.shared.isUITesting {
+            completion?()
+            return
+        }
+
+        exposureManager.activate { error in
             if let error = error {
                 switch error {
                 case .exposureNotificationRequired:
@@ -127,10 +168,8 @@ final class OnboardingInfoViewController: UIViewController {
                 case .exposureNotificationAuthorization:
                     log(message: "Encourage the user to authorize this application", level: .warning)
                 }
-
-                completion?()
-            } else if let error = error {
                 self.showError(error, from: self, completion: completion)
+                completion?()
             } else {
 				self.exposureManager.enable { enableError in
 					if let enableError = enableError {
@@ -148,7 +187,13 @@ final class OnboardingInfoViewController: UIViewController {
     }
 
     private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
-        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+
+        if TestEnvironment.shared.isUITesting {
+            completion?()
+            return
+        }
+
+		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
         notificationCenter.requestAuthorization(options: options) { _, error in
             if let error = error {
                 // handle error
@@ -186,7 +231,6 @@ final class OnboardingInfoViewController: UIViewController {
 	func gotoNextScreen() {
 		guard let nextPageType = pageType.next() else {
             store.isOnboarded = true
-			NotificationCenter.default.post(name: Notification.Name.isOnboardedDidChange, object: nil)
 			return
 		}
 		let storyboard = AppStoryboard.onboarding.instance

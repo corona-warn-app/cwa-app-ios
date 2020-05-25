@@ -8,11 +8,15 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Properties
     var window: UIWindow?
-    private let store = Store()
+    private let store: Store = DevelopmentStore()
     private let diagnosisKeysStore = SignedPayloadStore()
+    private let exposureManager = ENAExposureManager()
+    private let navigationController: UINavigationController = .withLargeTitle()
+    private weak var homeController: HomeViewController?
+    var exposureManagerEnabled = false
 
     private(set) lazy var client: Client = {
         #if APP_STORE
@@ -27,7 +31,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard
             let distributionURLString = store.developerDistributionBaseURLOverride,
             let submissionURLString = store.developerSubmissionBaseURLOverride,
+            let verificationURLString = store.developerVerificationBaseURLOverride,
             let distributionURL = URL(string: distributionURLString),
+            let verificationURL = URL(string: verificationURLString),
             let submissionURL = URL(string: submissionURLString) else {
                 return HTTPClient(configuration: .production)
         }
@@ -37,7 +43,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             country: "DE",
             endpoints: HTTPClient.Configuration.Endpoints(
                 distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-                submission: .init(baseURL: submissionURL, requiresTrailingSlash: true)
+                submission: .init(baseURL: submissionURL, requiresTrailingSlash: true),
+                verification: .init(baseURL: submissionURL, requiresTrailingSlash: false)
             )
         )
         return HTTPClient(configuration: config)
@@ -48,57 +55,57 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        setupRootViewController()
-        window.makeKeyAndVisible()
-        
+        exposureManager.resume(observer: self)
+        setupUI()
+
         NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
     }
 
     // MARK: Helper
-    private func setupRootViewController() {
-        let manager = ENAExposureManager()
-        let onboardingWasShown = store.isOnboarded
-        //For a demo, we can set it to true.
-        let instructor = LaunchInstructor.configure(onboardingWasShown: onboardingWasShown)
-        let rootViewController: UIViewController
-        switch instructor {
-        case .home:
-            let homeViewController = AppStoryboard.home.initiateInitial { [unowned self] coder in
-                HomeViewController(
-                    coder: coder,
-                    exposureManager: manager,
-                    client: self.client,
-                    store: self.store,
-                    signedPayloadStore: self.diagnosisKeysStore
-                )
-            }
-            // swiftlint:disable:next force_unwrapping
-            let navigationController = UINavigationController(rootViewController: homeViewController!)
-            rootViewController = navigationController
-            navigationController.navigationBar.prefersLargeTitles = true
-            homeViewController?.navigationItem.largeTitleDisplayMode = .never
+    private func setupUI() {
+        store.isOnboarded ? showHome() : showOnboarding()
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+    }
 
-        case .onboarding:
-            let storyboard = AppStoryboard.onboarding.instance
-            let onboardingViewController = storyboard.instantiateInitialViewController { [unowned self] coder in
-                OnboardingInfoViewController(
-                    coder: coder,
-                    pageType: .togetherAgainstCoronaPage,
-                    exposureManager: manager,
-                    store: self.store
-                )
-            }
-            // swiftlint:disable:next force_unwrapping
-            let navigationController = UINavigationController(rootViewController: onboardingViewController!)
-            rootViewController = navigationController
-        }
+    private func showHome(animated: Bool = false) {
+        let vc = AppStoryboard.home.initiateInitial { [unowned self] coder in
+            HomeViewController(
+                coder: coder,
+                exposureManager: self.exposureManager,
+                client: self.client,
+                store: self.store,
+                signedPayloadStore: self.diagnosisKeysStore,
+                exposureManagerEnabled: self.exposureManagerEnabled
+            )
+        } as HomeViewController
+        homeController = vc // strong ref needed
+        vc.exposureManagerEnabled = exposureManager.preconditions().enabled
+        navigationController.setViewControllers(
+            [vc],
+            animated: true
+        )
+    }
 
-        window?.rootViewController = rootViewController
+    private func showOnboarding() {
+		navigationController.navigationBar.prefersLargeTitles = false
+        navigationController.setViewControllers(
+            [
+                AppStoryboard.onboarding.initiateInitial { [unowned self] coder in
+                    OnboardingInfoViewController(
+                        coder: coder,
+                        pageType: .togetherAgainstCoronaPage,
+                        exposureManager: self.exposureManager,
+                        store: self.store
+                    )
+                }
+            ],
+            animated: false)
     }
 
     @objc
     func isOnboardedDidChange(_ notification: NSNotification) {
-        setupRootViewController()
+        showHome(animated: true)
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -124,8 +131,77 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let distributionBaseURL = query.valueFor(queryItem: "distributionBaseURL") {
             store.developerDistributionBaseURLOverride = distributionBaseURL
         }
+        if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
+            store.developerVerificationBaseURLOverride = verificationBaseURL
+        }
 
         UserDefaults.standard.synchronize()
+    }
+
+    // MARK: Privacy Protection
+
+	func sceneDidBecomeActive(_ scene: UIScene) {
+        hidePrivacyProtectionWindow()
+	}
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        showPrivacyProtectionWindow()
+    }
+    
+    private var privacyProtectionWindow: UIWindow?
+
+    private func showPrivacyProtectionWindow() {
+        guard let windowScene = self.window?.windowScene else {
+            return
+        }
+		let privacyProtectionViewController = PrivacyProtectionViewController()
+        privacyProtectionWindow = UIWindow(windowScene: windowScene)
+        privacyProtectionWindow?.rootViewController = privacyProtectionViewController
+        privacyProtectionWindow?.windowLevel = .alert + 1
+        privacyProtectionWindow?.makeKeyAndVisible()
+		privacyProtectionViewController.show()
+    }
+
+    private func hidePrivacyProtectionWindow() {
+		guard let privacyProtectionViewController = privacyProtectionWindow?.rootViewController as? PrivacyProtectionViewController else {
+			return
+		}
+		privacyProtectionViewController.hide {
+			self.privacyProtectionWindow?.isHidden = true
+			self.privacyProtectionWindow = nil
+		}
+    }
+
+}
+
+extension SceneDelegate: ENAExposureManagerObserver {
+    func exposureManager(
+        _ manager: ENAExposureManager,
+        didChangeState newState: ExposureManagerState
+    ) {
+        let message = """
+        New status of EN framework:
+        Authorized: \(newState.authorized)
+        enabled: \(newState.enabled)
+        active: \(newState.active)
+        """
+        log(message: message)
+        
+        if newState.isGood {
+            log(message: "Enabled")
+        }
+
+        homeController?.exposureManagerEnabled = newState.enabled
+        homeController?.updateUI()
+    }
+}
+
+private extension UINavigationController {
+    class func withLargeTitle() -> UINavigationController {
+        let result = UINavigationController()
+        result.navigationBar.prefersLargeTitles = true
+        result.navigationBar.isTranslucent = true
+        return result
     }
 }
 

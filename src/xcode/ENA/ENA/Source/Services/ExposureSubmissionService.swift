@@ -26,41 +26,26 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
     func submitExposure(tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
         log(message: "Started exposure submission...")
-
-        manager.activate { [weak self] error in
-            guard let self = self else {
-                completionHandler(.other)
-                return
-            }
-
+        self.manager.accessDiagnosisKeys { keys, error in
             if let error = error {
-                log(message: "Exposure notification service not activated.", level: .warning)
-                completionHandler(self.parseExposureManagerError(error))
+                logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
+                completionHandler(self.parseExposureManagerError(error as? ExposureNotificationError))
                 return
             }
 
-            self.manager.accessDiagnosisKeys { keys, error in
+            guard let keys = keys, !keys.isEmpty else {
+                completionHandler(.noKeys)
+                return
+            }
+
+            self.client.submit(keys: keys, tan: tan) { error in
                 if let error = error {
-                    logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
-                    completionHandler(self.parseExposureManagerError(error as? ExposureNotificationError))
+                    logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+                    completionHandler(self.parseServerError(error))
                     return
                 }
-
-                guard let keys = keys, !keys.isEmpty else {
-                    completionHandler(.noKeys)
-                    return
-                }
-
-                self.client.submit(keys: keys, tan: tan) { error in
-                    if let error = error {
-                        logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
-                        completionHandler(self.parseServerError(error))
-                        return
-                    }
-
-                    log(message: "Successfully completed exposure sumbission.")
-                    completionHandler(nil)
-                }
+                log(message: "Successfully completed exposure sumbission.")
+                completionHandler(nil)
             }
         }
     }

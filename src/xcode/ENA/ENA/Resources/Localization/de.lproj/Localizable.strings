@@ -12,13 +12,75 @@
 "Alert_MessageGeneral" = "Bitte versuche Sie es erneut.";
 "Alert_ActionOk" = "Ok";
 
+
 // Exposure Detection
-"ExposureDetection_LastSync" = "Letzte Überprüfung: ";
-"ExposureDetection_LastSyncUnknown" = "Letzte Überprüfung: unbekannt";
-"ExposureDetection_LastContactTitle" = "Kontakt Festgestellt";
-"ExposureDetection_Synchronize" = "Aktualisieren";
-"ExposureDetection_Info" = "Info";
-"ExposureDetection_InfoText" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
+"ExposureDetection_Off" = "Risiko-Ermittlung aus";
+"ExposureDetection_Unknown" = "Unbekanntes Risiko";
+"ExposureDetection_Inactive" = "Kein erhöhtes Risiko";
+"ExposureDetection_Low" = "Geringes Risiko";
+"ExposureDetection_High" = "Hohes Risiko";
+
+"ExposureDetection_NumberOfContacts" = ""; // => Dict
+"ExposureDetection_LastExposure" = ""; // Dict
+"ExposureDetection_NumberOfDaysStored" = "%d von 14 Tagen gespeichert";
+"ExposureDetection_Refreshed" = "Aktualisiert: %@";
+"ExposureDetection_Refreshed_Never" = "Noch nie";
+"ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d Minuten";
+"ExposureDetection_LastRiskLevel" = "Letzte Ermittlung: %@";
+"ExposureDetection_UnknownText" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
+"ExposureDetection_InactiveText" = "Schalten Sie die Risiko-Ermittlung ein, um Ihr Risiko zu aktualisieren.";
+"ExposureDetection_" = "";
+
+"ExposureDetection_Behavior_Title" = "Verhalten";
+"ExposureDetection_Behavior_Subtitle" = "So verhalten Sie sich richtig";
+
+"ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig";
+"ExposureDetection_Guide_Mask" = "Tragen Sie einen Mundschutz bei Kontakt mit anderen Personen";
+"ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen";
+"ExposureDetection_Guide_Sneeze" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch";
+"ExposureDetection_Guide_Home" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen";
+"ExposureDetection_Guide_Questions" = "Für Fragen zu auftretenden Symptomen, Testmöglichkeiten und weiteren Absonderungsmaßnahmen wenden Sie sich bitte an eine der folgenden Stellen:
+
+Ihren Hausarzt/Ihre Hausärztin
+
+Den Kassenärztlichen Notdienst unter der Telefonnummer: 116117
+
+Ihr Gesundheitsamt";
+
+"ExposureDetection_Explanation_Title" = "Verhalten";
+"ExposureDetection_Explanation_Subtitle" = "So verhalten Sie sich richtig";
+
+"ExposureDetection_Explanation_Text_Off" = "Lorem Ipsum..";
+
+"ExposureDetection_Explanation_Text_Unknown" = "Sie haben ein unbekanntes Infektionsrisiko, da.. Lorem Ipsum..";
+
+"ExposureDetection_Explanation_Text_Inactive" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona positiven Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.
+
+Die Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.
+
+Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+
+"ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona positiven Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.
+
+Die Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.
+
+Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+
+"ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer Corona positiven Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.
+
+Die Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.
+
+Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitgliedern und Mitbewohnern.";
+
+"ExposureDetection_MoreInformation" = "Mehr Info";
+"ExposureDetection_MoreInformation_URL" = "";
+
+"ExposureDetection_Hotline_Title" = "Hilfe";
+"ExposureDetection_Hotline_Text" = "Wir helfen Ihnen gerne auch am Telefon";
+"ExposureDetection_Hotline_Number" = "0123456789";
+
+"ExposureDetection_CheckNow" = "Risikoprüfung starten";
+
 
 // Settings
 "Settings_StatusActive" = "An";
@@ -220,7 +282,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_Description" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Downloaden ein!";
 "InviteFriends_Button" = "App teilen";
 "InviteFriends_ShareTitle" = "Zusammen gegen Corona. Ich bin dabei. Du auch?";
-"InviteFriends_ShareUrl" = "https://apps.apple.com/de";
+"InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
 
 //Reset View
 "Reset_NavTitle" = "Anwendung zurücksetzen";
@@ -228,3 +290,6 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "Reset_Descrition1" = "Hier kommt ein Erklärungstext, der beschreibt was passiert wenn man die Anwendung zurücksetzt";
 "Reset_Button" = "Daten zurücksetzen";
 "Reset_Discard" = "Abbrechen";
+
+//Safari
+"safari_corona_website" = "https://www.bundesregierung.de/breg-de/themen/coronavirus/";

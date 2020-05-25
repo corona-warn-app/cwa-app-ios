@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ExposureDetection_LastHours</key>
+	<key>ExposureDetection_NumberOfContacts</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
@@ -13,14 +13,14 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Gerade eben</string>
+			<string>Bisher keine Risikobegegnungen</string>
 			<key>one</key>
-			<string>Vor 1 Stunde</string>
+			<string>%u Risikobegegnung</string>
 			<key>other</key>
-			<string>Vor %u Stunden</string>
+			<string>%u Risikobegegnungen</string>
 		</dict>
 	</dict>
-	<key>ExposureDetection_LastDays</key>
+	<key>ExposureDetection_LastExposure</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@VARIABLE@</string>
@@ -31,31 +31,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Heute</string>
+			<string>Letzter Kontakt: Heute</string>
 			<key>one</key>
-			<string>Gestern</string>
-			<key>two</key>
-			<string>Vor 2 Tagen</string>
+			<string>Letzter Kontakt: Gestern</string>
 			<key>other</key>
-			<string>Vor %u Tagen</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_NextSync</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>Kontakte überprüfen</string>
-			<key>one</key>
-			<string>Nächste Überprüfung in 1 Minute</string>
-			<key>other</key>
-			<string>Nächste Überprüfung in %u Minuten</string>
+			<string>%u Tage seit letztem Begegnung</string>
 		</dict>
 	</dict>
 </dict>

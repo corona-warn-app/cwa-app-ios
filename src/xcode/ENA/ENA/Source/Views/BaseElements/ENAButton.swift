@@ -25,8 +25,11 @@ class ENAButton: UIButton {
     private func customizeButton() {
         setButtonColors()
         setRoundCorner(radius: 8.0)
+		
 		contentEdgeInsets = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+		
+		titleLabel?.adjustsFontForContentSizeCategory = true
     }
     
     

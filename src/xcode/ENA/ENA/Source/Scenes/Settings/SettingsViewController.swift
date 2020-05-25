@@ -10,24 +10,42 @@ import ExposureNotification
 import UIKit
 import MessageUI
 
+protocol SettingsViewControllerDelegate: AnyObject {
+    typealias Completion = (ExposureNotificationError?) -> Void
+
+    func settingsViewController(
+        _ controller: SettingsViewController,
+        setExposureManagerEnabled enabled: Bool,
+        then completion: @escaping Completion
+    )
+}
+
 final class SettingsViewController: UITableViewController {
-    let manager: ExposureManager
+    var exposureManagerEnabled = false {
+        didSet {
+            notificationSettingsController?.exposureManagerEnabled = exposureManagerEnabled
+        }
+    }
+    private weak var notificationSettingsController: ExposureNotificationSettingViewController?
+    private weak var delegate: SettingsViewControllerDelegate?
+
     let store: Store
 
     let tracingSegue = "showTracing"
     let resetSegue = "showReset"
 
-    init?(coder: NSCoder, manager: ExposureManager, store: Store) {
-        self.manager = manager
+    let settingsViewModel = SettingsViewModel.model
+
+    init?(coder: NSCoder, store: Store, exposureManagerEnabled: Bool, delegate: SettingsViewControllerDelegate) {
         self.store = store
+        self.delegate = delegate
+        self.exposureManagerEnabled = exposureManagerEnabled
         super.init(coder: coder)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    let settingsViewModel = SettingsViewModel.model
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -46,8 +64,7 @@ final class SettingsViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        checkTracingStatus()
+        updateUI()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -58,7 +75,7 @@ final class SettingsViewController: UITableViewController {
 
     @IBSegueAction
     func createExposureNotificationSettingViewController(coder: NSCoder) -> ExposureNotificationSettingViewController? {
-        return ExposureNotificationSettingViewController(coder: coder, manager: manager)
+        return ExposureNotificationSettingViewController(coder: coder, exposureManagerEnabled: exposureManagerEnabled, delegate: self)
     }
 
     @objc
@@ -86,8 +103,12 @@ final class SettingsViewController: UITableViewController {
     }
 
     private func checkTracingStatus() {
-        manager.preconditions().contains(.enabled) ? settingsViewModel.notifications.setState(state: true) : settingsViewModel.notifications.setState(state: false)
-        tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
+            self.settingsViewModel.tracing.state = self.exposureManagerEnabled ? self.settingsViewModel.tracing.stateActive : self.settingsViewModel.tracing.stateInactive
+            self.tableView.reloadData()
+        }
     }
 
     private func notificationSettings() {
@@ -112,6 +133,10 @@ final class SettingsViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+    }
+
+    private func setExposureManagerEnabled(_ enabled: Bool, then: @escaping SettingsViewControllerDelegate.Completion) {
+        delegate?.settingsViewController(self, setExposureManagerEnabled: enabled, then: then)
     }
 }
 
@@ -220,6 +245,19 @@ extension SettingsViewController: ResetDelegate {
     func reset() {
         store.isOnboarded = false
         store.dateLastExposureDetection = nil
+    }
+}
+
+extension SettingsViewController: ExposureNotificationSettingViewControllerDelegate {
+    func exposureNotificationSettingViewController(_ controller: ExposureNotificationSettingViewController, setExposureManagerEnabled enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {
+        setExposureManagerEnabled(enabled, then: completion)
+    }
+}
+
+extension SettingsViewController: ViewControllerUpdatable {
+    func updateUI() {
+        checkTracingStatus()
+        notificationSettingsController?.updateUI()
     }
 }
 

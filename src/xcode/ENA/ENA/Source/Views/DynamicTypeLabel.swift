@@ -26,6 +26,7 @@ class DynamicTypeLabel: UILabel {
 	
 	
 	override func awakeFromNib() {
+		super.awakeFromNib()
 		applyDynamicFont()
 	}
 	
@@ -34,6 +35,8 @@ class DynamicTypeLabel: UILabel {
 		if nil == self.rawFont { self.rawFont = self.font }
 		
 		guard let textStyle = self.rawFont.textStyle else { return }
+		
+		self.adjustsFontForContentSizeCategory = true
 		
 		let weight = dynamicTypeWeight.isEmpty ? nil : dynamicTypeWeight
 		let size = dynamicTypeSize > 0 ? dynamicTypeSize : nil

@@ -50,7 +50,7 @@ extension OnboardingInfo {
 		 
 		 let info4 = OnboardingInfo(
 			 title: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title,
-			 imageName: "onboarding_1",
+			 imageName: "onboarding_4",
 			 boldText: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_boldText,
 			 text: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_normalText,
 			 actionText: AppStrings.Onboarding.onboardingContinue,
@@ -59,7 +59,7 @@ extension OnboardingInfo {
 		
 		 let info5 = OnboardingInfo(
 			 title: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_title,
-			 imageName: "onboarding_2",
+			 imageName: "onboarding_5",
 			 boldText: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_boldText,
 			 text: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_normalText,
 			 actionText: AppStrings.Onboarding.onboardingContinue,
