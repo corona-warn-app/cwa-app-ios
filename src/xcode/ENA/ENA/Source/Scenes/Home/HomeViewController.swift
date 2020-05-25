@@ -93,9 +93,9 @@ final class HomeViewController: UIViewController {
 
         if exposureManagerEnabled == false {
             log(message: "WARNING: ExposureManager is not enabled. Our app currently expects the exposure manager to be enabled. Tap on 'Tracing ist aktiv' to enable it.")
+        }
     }
-                }
-
+    
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
@@ -233,13 +233,21 @@ final class HomeViewController: UIViewController {
     // MARK: Configuration
 
     func prepareData() {
-        cellConfigurators = homeInteractor.cellConfigurators()
+        cellConfigurators = homeInteractor.cellConfigurators
     }
 
     func reloadData() {
         collectionView.reloadData()
     }
 
+    func reloadCell(at indexPath: IndexPath) {
+        let snapshot = dataSource.snapshot()
+        cellConfigurators = homeInteractor.cellConfigurators
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        cellConfigurators[indexPath.item].configureAny(cell: cell)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self
