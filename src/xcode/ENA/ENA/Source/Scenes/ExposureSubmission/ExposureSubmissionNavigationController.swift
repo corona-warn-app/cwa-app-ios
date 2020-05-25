@@ -36,17 +36,14 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	private(set) var bottomView: UIView!
 	private var bottomViewTopConstraint: NSLayoutConstraint!
     private var exposureSubmissionService: ExposureSubmissionService?
-    private var client: Client?
     
     // MARK: - Initializers.
     init?(
         coder: NSCoder,
-        exposureSubmissionService: ExposureSubmissionService,
-        client: Client
+        exposureSubmissionService: ExposureSubmissionService
     ) {
         super.init(coder: coder)
         self.exposureSubmissionService = exposureSubmissionService
-        self.client = client
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,10 +68,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
     
     func getExposureSubmissionService() -> ExposureSubmissionService? {
         return exposureSubmissionService
-    }
-	
-    func getClient() -> Client? {
-        return client
     }
 	
 	override func viewWillAppear(_ animated: Bool) {

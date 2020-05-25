@@ -119,8 +119,8 @@ final class HomeViewController: UIViewController {
         let vc = AppStoryboard.exposureSubmission.initiateInitial { coder in
             ExposureSubmissionNavigationController(
                 coder: coder,
-                exposureSubmissionService: exposureSubmissionService,
-                client: self.client)
+                exposureSubmissionService: exposureSubmissionService
+            )
         }
         present(vc, animated: true)
     }

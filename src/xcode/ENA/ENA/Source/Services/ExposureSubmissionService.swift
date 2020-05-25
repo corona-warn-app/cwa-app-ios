@@ -14,10 +14,17 @@ enum DeviceRegistrationKey {
     case guid(String)
 }
 
+enum TestResult: Int {
+    case pending
+    case negative
+    case positive
+    case invalid
+}
+
 protocol ExposureSubmissionService {
     typealias ExposureSubmissionHandler = (_ error: ExposureSubmissionError?) -> Void
     typealias RegistrationHandler = (Result<String, ExposureSubmissionError>) -> Void
-    typealias TestResultHandler = (Result<Int, ExposureSubmissionError>) -> Void
+    typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
     typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
     
     func submitExposure(with: String, completionHandler: @escaping ExposureSubmissionHandler)
@@ -26,6 +33,7 @@ protocol ExposureSubmissionService {
     func getTANForExposureSubmit(hasConsent: Bool,
                                  completion completeWith: @escaping TANHandler)
     func getTestResult(_ completeWith: @escaping TestResultHandler)
+    func hasRegistrationToken() -> Bool
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
@@ -39,6 +47,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         self.store = store
     }
     
+    func hasRegistrationToken() -> Bool {
+        return store.registrationToken != nil
+    }
+    
     func getTestResult(_ completeWith: @escaping TestResultHandler) {
         guard let registrationToken = store.registrationToken else {
             completeWith(.failure(.other))
@@ -50,6 +62,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
             case .failure:
                 completeWith(.failure(.other))
             case .success(let testResult):
+                guard let testResult = TestResult(rawValue: testResult) else {
+                    completeWith(.failure(.other))
+                    return
+                }
+                
                 completeWith(.success(testResult))
             }
         }
@@ -100,9 +117,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
     private func getKeyAndType(for key: DeviceRegistrationKey) -> (String, String) {
         switch key {
         case .guid(let guid):
-            return (guid, "GUID")
+            return (Hasher.sha256(guid), "GUID")
         case .teleTan(let teleTan):
-            return (teleTan, "teleTan")
+            return (Hasher.sha256(teleTan), "teleTan")
         }
     }
 
@@ -116,16 +133,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
     }
 
     private func delete(key: DeviceRegistrationKey) {
+        // TODO: Actually, we want to set the properties to nil.
+        // However, the `DevelopmentStore` does not support that.
         switch key {
         case .guid:
-            self.store.testGUID = nil
+            self.store.testGUID = "" // nil
         case .teleTan:
-            self.store.teleTan = nil
+            self.store.teleTan = "" // nil
         }
-    }
-    
-    func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
-        //get testresult and redirect to lab result screen to show the result
     }
     
     func submitExposure(with tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {

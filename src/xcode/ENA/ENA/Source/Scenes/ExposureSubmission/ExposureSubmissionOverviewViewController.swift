@@ -18,17 +18,27 @@ struct ExposureSubmissionTestResult {
 
 
 class ExposureSubmissionOverviewViewController: DynamicTableViewController {
+    // TODO: Following two lines need to be removed. So far the backend API only gives us 1 int value and no further information.(?)
 	private var testResults: [ExposureSubmissionTestResult] = [ExposureSubmissionTestResult(isPositive: true, receivedDate: Date(), transmittedDate: Date())]
 	private var mostRecentTestResult: ExposureSubmissionTestResult? { testResults.last }
+    
     private var exposureSubmissionService: ExposureSubmissionService?
-    private var client: Client?
     
     // MARK: - Initializers.
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-	
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // TODO: Move this one screen earlier so we do not even load the ExposureSubmissionOverviewViewController.
+        if exposureSubmissionService?.hasRegistrationToken() ?? false {
+            self.performSegue(withIdentifier: Segue.labResult, sender: self)
+        }
+    }
+    	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		dynamicTableViewModel = dynamicTableData()
@@ -40,7 +50,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
         // this controller is embedded.)
         if let navC = navigationController as? ExposureSubmissionNavigationController {
             self.exposureSubmissionService = navC.getExposureSubmissionService()
-            self.client = navC.getClient()
         }
 	}
 	
@@ -56,6 +65,9 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
 		case .qrScanner:
             let destination = segue.destination as? ExposureSubmissionQRScannerNavigationController
             destination?.scannerViewController?.delegate = self
+            destination?.exposureSubmissionService = exposureSubmissionService
+        case .labResult:
+            let destination = segue.destination as? ExposureSubmissionTestResultViewController
             destination?.exposureSubmissionService = exposureSubmissionService
 		default:
 			break
@@ -81,9 +93,6 @@ extension ExposureSubmissionOverviewViewController {
 	}
 }
 
-
-
-
 extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerDelegate {
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String) {
         
@@ -92,21 +101,23 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
             return
         }
         
-        let hash = Hasher.sha256(guid)
-        self.client?.getRegistrationToken(forKey: guid, withType: "GUID", completion: { result in
+        // Found QR Code, deactivate scanning.
+        viewController.delegate = nil
+        
+        self.exposureSubmissionService?.getRegistrationToken(forKey: .guid(guid), completion: { result in
             switch result {
             case .failure(let error):
                 // TODO: Handle error.
                 print(error.localizedDescription)
             case .success(let token):
                 print("Received registration token: \(token)")
-                // Dismiss QR scanning when GUID was found.
-                           viewController.delegate = nil
-                           viewController.dismiss(animated: true) {
-                               self.performSegue(withIdentifier: Segue.labResult, sender: guid)
-                           }
+                
+                // Dismiss QR code view.
+                viewController.dismiss(animated: true)
+                self.performSegue(withIdentifier: Segue.labResult, sender: self)
             }
         })
+
 	}
     
     /// Sanitize the input string and assert that:
@@ -122,18 +133,9 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
         guard let range = Range(nsRange, in: input) else { return nil }
         let candidate = String(input[range])
         guard !candidate.isEmpty else { return nil }
-        guard isGuid(candidate) else { return nil }
         return candidate
     }
     
-    private func isGuid(_ input: String) -> Bool {
-        guard let regex = try? NSRegularExpression(pattern: "[A-Z,a-z,0-9]{6}-[A-Z,a-z,0-9]{8}-[A-Z,a-z,0-9]{4}-[A-Z,a-z,0-9]{4}-[A-Z,a-z,0-9]{4}-[A-Z,a-z,0-9]{12}") else {
-            return false
-        }
-        
-        let match = regex.matches(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
-        return !match.isEmpty
-    }
 }
 
 private extension ExposureSubmissionOverviewViewController {

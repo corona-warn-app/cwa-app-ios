@@ -11,12 +11,40 @@ import UIKit
 
 
 class ExposureSubmissionTestResultViewController: DynamicTableViewController {
+    
+    // MARK: - Attributes.
+    
+    var exposureSubmissionService: ExposureSubmissionService?
+    
+    // MARK: - View Lifecycle methods.
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		dynamicTableViewModel = .data
-		
-		tableView.register(UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil), forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue)
+        setupView()
+        fetchResult()
 	}
+    
+    // MARK: - Helper methods.
+    
+    private func setupView() {
+        self.navigationItem.hidesBackButton = true
+        dynamicTableViewModel = .data
+        tableView.register(UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil), forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue)
+    }
+    
+    private func fetchResult() {
+           exposureSubmissionService?.getTestResult { result in
+               switch result {
+               case .failure:
+                   // TODO: Handle error.
+                   break
+               case .success(let testResult):
+                   // TODO: Stop spinner.
+                   print("Test result: \(testResult)")
+                   break
+               }
+           }
+       }
 }
 
 
