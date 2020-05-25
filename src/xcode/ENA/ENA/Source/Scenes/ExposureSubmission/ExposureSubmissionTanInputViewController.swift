@@ -42,13 +42,13 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 	func didTapBottomButton() {
         
         // Ask user whether generating TAN is fine.
-        showAlertController()
+        showAlertController(with: .teleTan(self.tanInput.text))
 
 	}
     
     // TODO: Can be refactored by moving to a space
     // where both Tan and QR Code can access this code.
-    private func showAlertController() {
+    private func showAlertController(with type: SubmissionAuthorizationType) {
         let alert = UIAlertController(title: AppStrings.Common.alertTitleKeySubmit,
                                       message: AppStrings.Common.alertDescriptionKeySubmit,
                                       preferredStyle: .alert)
@@ -59,8 +59,8 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
                               style: .default,
                               handler: { _ in
                                 self.exposureSubmissionService?
-                                    .submitExposure(tan: self.tanInput.text,
-                                                    completionHandler: { (error) in
+                                    .submitExposure(with: type,
+                                                    completionHandler: { error in
                                                         // TODO: Handle case in which exposure
                                                         // submission failed.
                                                         if error == nil {

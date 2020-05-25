@@ -88,11 +88,20 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
             return
         }
         
-        // Dismiss QR scanning when GUID was found.
-		viewController.delegate = nil
-		viewController.dismiss(animated: true) {
-            self.performSegue(withIdentifier: Segue.labResult, sender: guid)
-		}
+        self.exposureSubmissionService?.submitExposure(with: .guid(guid), completionHandler: { error in
+            if let error = error {
+                // TODO: Actual error handling.
+                print(error.localizedDescription)
+                return
+            }
+            
+            // Dismiss QR scanning when GUID was found.
+            viewController.delegate = nil
+            viewController.dismiss(animated: true) {
+                self.performSegue(withIdentifier: Segue.labResult, sender: guid)
+            }
+        })
+        
 	}
     
     /// Sanitize the input string and assert that:

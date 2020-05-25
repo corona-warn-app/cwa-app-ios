@@ -113,7 +113,8 @@ final class HomeViewController: UIViewController {
     func showSubmitResult() {
         
         let exposureSubmissionService = ENAExposureSubmissionService(manager: exposureManager,
-                                                                     client: client)
+                                                                     client: client,
+                                                                     store: store)
 
         let vc = AppStoryboard.exposureSubmission.initiateInitial { coder in
             ExposureSubmissionNavigationController(
