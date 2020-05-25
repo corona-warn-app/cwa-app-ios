@@ -58,4 +58,22 @@ extension Client {
             completion(.success((days: days, hours: hours)))
         }
     }
+
+    typealias FetchCompletion = (FetchedDaysAndHours) -> Void
+    func fetch(completion: @escaping FetchCompletion) {
+        availableDaysAndHoursUpUntil(.formattedToday()) { result in
+            switch result {
+            case .success(let daysAndHours):
+                self.fetchDays(
+                    daysAndHours.days,
+                    hours: daysAndHours.hours,
+                    of: .formattedToday()
+                ) { daysAndHours in
+                    completion(daysAndHours)
+                }
+            case .failure(let error):
+                logError(message: "message: Failed to fetch all keys: \(error)")
+            }
+        }
+    }
 }

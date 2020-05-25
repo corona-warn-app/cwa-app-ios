@@ -11,6 +11,9 @@ import ExposureNotification
 @testable import ENA
 
 final class HTTPClientTests: XCTestCase {
+    
+    let binFileSize = 501
+    let sigFileSize = 144
     let expectationsTimeout: TimeInterval = 2
     let mockUrl = URL(string: "http://example.com")!
     let tan = "1234"
@@ -212,8 +215,11 @@ final class HTTPClientTests: XCTestCase {
         waitForExpectations(timeout: expectationsTimeout)
     }
 
+
+    
     func testFetchHour_Success() throws {
-        let responseData = try Sap_SignedPayload.empty().serializedData()
+        let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
+        let responseData = try Data(contentsOf: url)
 
         let mockResponse = HTTPURLResponse(
             url: mockUrl,
@@ -235,10 +241,10 @@ final class HTTPClientTests: XCTestCase {
         )
 
         client.fetchHour(1, day: "2020-05-01") { result in
+            defer{successExpectation.fulfill()}
             switch result {
-            case .success(let bucket):
-                XCTAssertEqual(bucket.serializedSignedPayload(), responseData)
-                successExpectation.fulfill()
+            case .success(let sapPackage):
+                self.assertPackageFormat(for: sapPackage)
             case .failure(let error):
                 XCTFail("a valid response should never yield and error like: \(error)")
             }
@@ -246,8 +252,14 @@ final class HTTPClientTests: XCTestCase {
         waitForExpectations(timeout: expectationsTimeout)
     }
 
+    private func assertPackageFormat(for downloadedPackage: (SAPDownloadedPackage)) {
+        XCTAssertEqual(downloadedPackage.bin.count, binFileSize)
+        XCTAssertEqual(downloadedPackage.signature.count, sigFileSize)
+    }
+    
     func testFetchDay_Success() throws {
-        let responseData = try Sap_SignedPayload.empty().serializedData()
+        let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
+        let responseData = try Data(contentsOf: url)
 
         let mockResponse = HTTPURLResponse(
             url: mockUrl,
@@ -269,10 +281,10 @@ final class HTTPClientTests: XCTestCase {
         )
 
         client.fetchDay("2020-05-01") { result in
+            defer{successExpectation.fulfill()}
             switch result {
-            case .success(let bucket):
-                XCTAssertEqual(bucket.serializedSignedPayload(), responseData)
-                successExpectation.fulfill()
+            case .success(let sapPackage):
+                self.assertPackageFormat(for: sapPackage)
             case .failure(let error):
                 XCTFail("a valid response should never yield and error like: \(error)")
             }
@@ -449,12 +461,12 @@ final class HTTPClientTests: XCTestCase {
     }
 
     func testValidExposureConfigurationResponseData() throws {
-        let validSignedPayloadData = try Sap_RiskScoreParameters
-            .valid()
-            .asSignedPayload()
-            .serializedData()
+
+        let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
+        let responseData = try Data(contentsOf: url)
+
         let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
-        let mockURLSession = MockUrlSession(data: validSignedPayloadData, nextResponse: response, error: nil)
+        let mockURLSession = MockUrlSession(data: responseData, nextResponse: response, error: nil)
 
         let client = HTTPClient(configuration: .fake, session: mockURLSession)
         let expectation = self.expectation(description: "HTTPClient should have succeeded.")
@@ -467,15 +479,13 @@ final class HTTPClientTests: XCTestCase {
     }
 
     func testValidExposureConfigurationDataBut404Response() throws {
-        let validSignedPayloadData = try Sap_RiskScoreParameters
-            .valid()
-            .asSignedPayload()
-            .serializedData()
+        let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
+        let responseData = try Data(contentsOf: url)
 
         let response = HTTPURLResponse(url: mockUrl, statusCode: 404, httpVersion: "HTTP/2", headerFields: [:])
-        let mockURLSession = MockUrlSession(data: validSignedPayloadData, nextResponse: response, error: nil)
+        let mockURLSession = MockUrlSession(data: responseData, nextResponse: response, error: nil)
 
-        let client = HTTPClient(configuration: .fake, session: mockURLSession) 
+        let client = HTTPClient(configuration: .fake, session: mockURLSession)
 
         let expectation = self.expectation(description: "HTTPClient should have failed.")
 
@@ -494,95 +504,99 @@ enum TestError: Error {
 }
 
 // MARK: Creating a valid signed payload
-
-private extension Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
-    static func valid() -> Self {
-        Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters.with {
-            $0.ge14Days = .unspecified
-            $0.ge12Lt14Days = .unspecified
-            $0.ge10Lt12Days = .unspecified
-            $0.ge8Lt10Days = .unspecified
-            $0.ge6Lt8Days = .unspecified
-            $0.ge4Lt6Days = .unspecified
-            $0.ge2Lt4Days = .unspecified
-            $0.ge0Lt2Days = .unspecified
-        }
-    }
-}
-
-private extension Sap_RiskScoreParameters.AttenuationRiskParameters {
-    static func valid() -> Self {
-        Sap_RiskScoreParameters.AttenuationRiskParameters.with {
-            $0.gt73Dbm = .unspecified
-            $0.gt63Le73Dbm = .unspecified
-            $0.gt51Le63Dbm = .unspecified
-            $0.gt33Le51Dbm = .unspecified
-            $0.gt27Le33Dbm = .unspecified
-            $0.gt15Le27Dbm = .unspecified
-            $0.gt10Le15Dbm = .unspecified
-            $0.lt10Dbm = .unspecified
-        }
-    }
-}
-
-private extension Sap_RiskScoreParameters.DurationRiskParameters {
-    static func valid() -> Self {
-        Sap_RiskScoreParameters.DurationRiskParameters.with {
-            $0.eq0Min = .unspecified
-            $0.gt0Le5Min = .unspecified
-            $0.gt5Le10Min = .unspecified
-            $0.gt10Le15Min = .unspecified
-            $0.gt15Le20Min = .unspecified
-            $0.gt20Le25Min = .unspecified
-            $0.gt25Le30Min = .unspecified
-            $0.gt30Min = .unspecified
-        }
-    }
-}
-
-private extension Sap_RiskScoreParameters.TransmissionRiskParameters {
-    static func valid() -> Self {
-        Sap_RiskScoreParameters.TransmissionRiskParameters.with {
-            $0.appDefined1 = .unspecified
-            $0.appDefined2 = .unspecified
-            $0.appDefined3 = .unspecified
-            $0.appDefined4 = .unspecified
-            $0.appDefined5 = .unspecified
-            $0.appDefined6 = .unspecified
-            $0.appDefined7 = .unspecified
-            $0.appDefined8 = .unspecified
-        }
-    }
-}
-
-private extension Sap_RiskScoreParameters {
-    static func valid() -> Self {
-        Sap_RiskScoreParameters.with {
-            $0.daysSinceLastExposure = .valid()
-
-            $0.attenuation = .valid()
-            $0.attenuationWeight = 0.5
-
-            $0.duration = .valid()
-            $0.durationWeight = 0.5
-
-            $0.transmission = .valid()
-            $0.transmissionWeight = 0.5
-        }
-    }
-    func asSignedPayload() throws -> Sap_SignedPayload {
-        try Sap_SignedPayload.with {
-            let payload = try serializedData()
-            $0.payload = payload
-        }
-    }
-}
-
-private extension Sap_SignedPayload {
-    
+//
+//private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
 //    static func valid() -> Self {
-//        Sap_SignedPayload.with {
-//            $0.payload = try! Sap_RiskScoreParameters.valid().serializedData()
+//        SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameters.with {
+//            $0.ge14Days = .unspecified
+//            $0.ge12Lt14Days = .unspecified
+//            $0.ge10Lt12Days = .unspecified
+//            $0.ge8Lt10Days = .unspecified
+//            $0.ge6Lt8Days = .unspecified
+//            $0.ge4Lt6Days = .unspecified
+//            $0.ge2Lt4Days = .unspecified
+//            $0.ge0Lt2Days = .unspecified
 //        }
 //    }
-}
+//}
+
+//private extension SAP_RiskScoreParameters.AttenuationRiskParameters {
+//    static func valid() -> Self {
+//        SAP_RiskScoreParameters.AttenuationRiskParameters.with {
+//            $0.gt73Dbm = .unspecified
+//            $0.gt63Le73Dbm = .unspecified
+//            $0.gt51Le63Dbm = .unspecified
+//            $0.gt33Le51Dbm = .unspecified
+//            $0.gt27Le33Dbm = .unspecified
+//            $0.gt15Le27Dbm = .unspecified
+//            $0.gt10Le15Dbm = .unspecified
+//            $0.lt10Dbm = .unspecified
+//        }
+//    }
+//}
+//
+//private extension SAP_RiskScoreParameters.DurationRiskParameters {
+//    static func valid() -> Self {
+//        SAP_RiskScoreParameters.DurationRiskParameters.with {
+//            $0.eq0Min = .unspecified
+//            $0.gt0Le5Min = .unspecified
+//            $0.gt5Le10Min = .unspecified
+//            $0.gt10Le15Min = .unspecified
+//            $0.gt15Le20Min = .unspecified
+//            $0.gt20Le25Min = .unspecified
+//            $0.gt25Le30Min = .unspecified
+//            $0.gt30Min = .unspecified
+//        }
+//    }
+//}
+//
+//private extension SAP_RiskScoreParameters.TransmissionRiskParameters {
+//    static func valid() -> Self {
+//        SAP_RiskScoreParameters.TransmissionRiskParameters.with {
+//            $0.appDefined1 = .unspecified
+//            $0.appDefined2 = .unspecified
+//            $0.appDefined3 = .unspecified
+//            $0.appDefined4 = .unspecified
+//            $0.appDefined5 = .unspecified
+//            $0.appDefined6 = .unspecified
+//            $0.appDefined7 = .unspecified
+//            $0.appDefined8 = .unspecified
+//        }
+//    }
+//}
+//
+//private extension SAP_RiskScoreParameters {
+//    static func valid() -> Self {
+//
+//        SAP_RiskScoreParameters.with {
+//
+//
+//            $0.daysSinceLastExposure = .valid()
+//
+//            $0.attenuation = .valid()
+//            $0.attenuationWeight = 0.5
+//
+//            $0.duration = .valid()
+//            $0.durationWeight = 0.5
+//
+//            $0.transmission = .valid()
+//            $0.transmissionWeight = 0.5
+//        }
+//    }
+//    func asSignedPayload() throws -> Sap_SignedPayload {
+//        try Sap_SignedPayload.with {
+//            let payload = try serializedData()
+//            $0.payload = payload
+//        }
+//    }
+//}
+
+//private extension Sap_SignedPayload {
+//
+////    static func valid() -> Self {
+////        Sap_SignedPayload.with {
+////            $0.payload = try! SAP_RiskScoreParameters.valid().serializedData()
+////        }
+////    }
+//}
+

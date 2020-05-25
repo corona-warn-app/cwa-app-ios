@@ -1,5 +1,5 @@
 //
-//  SignedPayloadStoreTests.swift
+//  DownloadedPackagesStoreTests.swift
 //  ENA
 //
 //  Created by Kienle, Christian on 13.05.20.
@@ -9,20 +9,26 @@
 import XCTest
 @testable import ENA
 
-final class SignedPayloadStoreTests: XCTestCase {
+final class DownloadedPackagesStoreTests: XCTestCase {
     func testMissingDays_EmptyStore() {
-        let store = SignedPayloadStore()
+        let store = DownloadedPackagesStore()
         XCTAssertEqual(store.missingDays(remoteDays: []), [])
         XCTAssertEqual(store.missingDays(remoteDays: ["a"]), ["a"])
         XCTAssertEqual(store.missingDays(remoteDays: ["a", "b"]), ["a", "b"])
     }
 
     func testMissingDays_FilledStore() {
-        let store = SignedPayloadStore()
-        store.add(
+        let store = DownloadedPackagesStore()
+
+        store.set(
             day: "a",
-            signedPayload: Data(bytes: [0xa], count: 1)
+            downloadedPackage:
+            SAPDownloadedPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xa], count: 1)
+            )
         )
+
         XCTAssertEqual(store.missingDays(remoteDays: []), [])
         // we already have "a"
         XCTAssertEqual(store.missingDays(remoteDays: ["a"]), [])
@@ -30,9 +36,13 @@ final class SignedPayloadStoreTests: XCTestCase {
         // we are missing "b"
         XCTAssertEqual(store.missingDays(remoteDays: ["a", "b"]), ["b"])
 
-        store.add(
+        store.set(
             day: "b",
-            signedPayload: Data(bytes: [0xb], count: 1)
+            downloadedPackage:
+            SAPDownloadedPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xb], count: 1)
+            )
         )
 
         // we are not missing anything
@@ -43,7 +53,7 @@ final class SignedPayloadStoreTests: XCTestCase {
     }
 
     func testMissingHours_EmptyStore() {
-        let store = SignedPayloadStore()
+        let store = DownloadedPackagesStore()
         XCTAssertEqual(
             store.missingHours(day: "a", remoteHours: []),
             []
@@ -55,10 +65,13 @@ final class SignedPayloadStoreTests: XCTestCase {
     }
 
     func testMissingHours_StoreWithDaysButNoRemoteHours() {
-        let store = SignedPayloadStore()
-        store.add(
+        let store = DownloadedPackagesStore()
+        store.set(
             day: "a",
-            signedPayload: Data()
+            downloadedPackage: SAPDownloadedPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xb], count: 1)
+            )
         )
 
         XCTAssertEqual(
@@ -68,10 +81,13 @@ final class SignedPayloadStoreTests: XCTestCase {
     }
 
     func testMissingHours_StoreWithDaysAndHours() {
-        let store = SignedPayloadStore()
-        store.add(
+        let store = DownloadedPackagesStore()
+        store.set(
             day: "a",
-            signedPayload: Data()
+            downloadedPackage: SAPDownloadedPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xb], count: 1)
+            )
         )
 
         XCTAssertEqual(
@@ -87,16 +103,31 @@ final class SignedPayloadStoreTests: XCTestCase {
             [1, 2, 3, 4]
         )
 
-        store.add(hour: 1, day: "b", signedPayload: Data())
+        store.set(
+            hour: 1,
+            day: "b",
+            downloadedPackage:
+            SAPDownloadedPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xb], count: 1)
+            )
+        )
         XCTAssertEqual(
             store.missingHours(day: "b", remoteHours: [1, 2, 3, 4]),
             [2, 3, 4]
         )
-        store.add(hour: 4, day: "b", signedPayload: Data())
+
+        store.set(
+            hour: 4,
+            day: "b",
+            downloadedPackage: SAPDownloadedPackage(
+                keysBin: Data(bytes: [0xa], count: 1),
+                signature: Data(bytes: [0xb], count: 1)
+            )
+        )
         XCTAssertEqual(
             store.missingHours(day: "b", remoteHours: [1, 2, 3, 4]),
             [2, 3]
         )
     }
-
 }

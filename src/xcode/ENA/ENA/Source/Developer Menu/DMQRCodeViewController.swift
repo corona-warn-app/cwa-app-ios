@@ -11,7 +11,7 @@ import UIKit
 /// A view controller that displays a `Key` as a QR code.
 final class DMQRCodeViewController: UIViewController {
     // MARK: Creating a Code generating View Controller
-    init(key: Sap_Key) {
+    init(key: SAP_TemporaryExposureKey) {
         self.key = key
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,7 +21,7 @@ final class DMQRCodeViewController: UIViewController {
     }
 
     // MARK: Properties
-    private let key: Sap_Key
+    private let key: SAP_TemporaryExposureKey
     private var base64EncodedKey: Data {
         // This should always work thus we can safely use !
 		// swiftlint:disable:next force_try

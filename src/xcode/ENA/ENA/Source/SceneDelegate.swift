@@ -13,7 +13,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Properties
     var window: UIWindow?
     private let store: Store = DevelopmentStore()
-    private let diagnosisKeysStore = SignedPayloadStore()
+    private let diagnosisKeysStore = DownloadedPackagesStore()
     private let exposureManager = ENAExposureManager()
     private let navigationController: UINavigationController = .withLargeTitle()
     private var homeController: HomeViewController?
@@ -26,9 +26,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        #endif
 
         if ClientMode.default == .mock {
-            return MockClient()
+            fatalError("not implemented")
         }
-        
+
         let store = self.store
         guard
             let distributionURLString = store.developerDistributionBaseURLOverride,
@@ -46,7 +46,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             endpoints: HTTPClient.Configuration.Endpoints(
                 distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
                 submission: .init(baseURL: submissionURL, requiresTrailingSlash: true),
-                verification: .init(baseURL: submissionURL, requiresTrailingSlash: false)
+                verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
             )
         )
         return HTTPClient(configuration: config)
@@ -98,7 +98,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 exposureManager: self.exposureManager,
                 client: self.client,
                 store: self.store,
-                signedPayloadStore: self.diagnosisKeysStore,
+                keyPackagesStore: self.diagnosisKeysStore,
                 exposureManagerEnabled: self.exposureManagerEnabled
             )
             return homeVC
@@ -172,7 +172,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillResignActive(_ scene: UIScene) {
         showPrivacyProtectionWindow()
     }
-    
+
     private var privacyProtectionWindow: UIWindow?
 
     private func showPrivacyProtectionWindow() {
@@ -211,7 +211,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
         active: \(newState.active)
         """
         log(message: message)
-        
+
         if newState.isGood {
             log(message: "Enabled")
         }

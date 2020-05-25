@@ -26,11 +26,6 @@ Build project
 fastlane ios test
 ```
 Run tests
-### ios grab_screenshots
-```
-fastlane ios grab_screenshots
-```
-Generate screenshots from XCUITests
 
 ----
 

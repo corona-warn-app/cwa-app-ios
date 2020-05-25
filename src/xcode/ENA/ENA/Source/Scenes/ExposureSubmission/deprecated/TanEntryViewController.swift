@@ -33,6 +33,7 @@ final class TanEntryViewController: UIViewController {
         titleLabel.text = AppStrings.ExposureSubmissionTanEntry.title
         descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
         submitButton.setTitle(AppStrings.ExposureSubmissionTanEntry.submit, for: .normal)
+        tanTextField.text = "TAN 123456"
     }
 
     // MARK: Actions

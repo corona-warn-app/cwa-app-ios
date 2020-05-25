@@ -18,12 +18,12 @@ final class HomeViewController: UIViewController {
         exposureManager: ExposureManager,
         client: Client,
         store: Store,
-        signedPayloadStore: SignedPayloadStore,
+        keyPackagesStore: DownloadedPackagesStore,
         exposureManagerEnabled: Bool
     ) {
         self.client = client
         self.store = store
-        self.signedPayloadStore = signedPayloadStore
+        self.keyPackagesStore = keyPackagesStore
         self.exposureManager = exposureManager
         self.exposureManagerEnabled = exposureManagerEnabled
         super.init(coder: coder)
@@ -40,7 +40,7 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: Properties
-    private let signedPayloadStore: SignedPayloadStore
+    private let keyPackagesStore: DownloadedPackagesStore
     private let exposureManager: ExposureManager
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
@@ -82,7 +82,7 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
         homeInteractor.developerMenuEnableIfAllowed()
-		
+
 		summaryNotificationObserver = NotificationCenter.default.addObserver(forName: .didDetectExposureDetectionSummary, object: nil, queue: nil) { notification in
 			// Temporary handling of exposure detection summary notification until implemented in transaction flow
 			if let userInfo = notification.userInfo as? [String: Any], let summary = userInfo["summary"] as? ENExposureDetectionSummary {
@@ -93,9 +93,7 @@ final class HomeViewController: UIViewController {
 			}
 		}
 
-        if exposureManagerEnabled == false {
-            log(message: "WARNING: ExposureManager is not enabled. Our app currently expects the exposure manager to be enabled. Tap on 'Tracing ist aktiv' to enable it.")
-        }
+        enableExposureManagerIfNeeded()
     }
     
 	override func viewWillDisappear(_ animated: Bool) {
@@ -112,6 +110,49 @@ final class HomeViewController: UIViewController {
     }
 
     // MARK: Misc
+
+    // This method makes the exposure manager usable.
+    private func enableExposureManagerIfNeeded() {
+        func activate(then completion: @escaping () -> Void) {
+            exposureManager.activate { error in
+                if let error = error {
+                    logError(message: "Failed to activate: \(error)")
+                    return
+                }
+                completion()
+            }
+        }
+        func enable() {
+            exposureManager.enable { error in
+                if let error = error {
+                    logError(message: "Failed to enable: \(error)")
+                    return
+                }
+            }
+        }
+
+        func enableIfNeeded() {
+
+            guard exposureManager.preconditions().enabled else {
+                enable()
+                return
+            }
+        }
+
+        let status = exposureManager.preconditions()
+
+        guard status.authorized else {
+            log(message: "User declined authorization")
+            return
+        }
+
+        guard status.active else {
+            activate(then: enableIfNeeded)
+            return
+        }
+        enableIfNeeded()
+    }
+
     func showSubmitResult() {
 		// TODO
 		let vc = AppStoryboard.exposureSubmission.initiateInitial()
@@ -177,7 +218,7 @@ final class HomeViewController: UIViewController {
                 coder: coder,
                 store: self.store,
                 client: self.client,
-                signedPayloadStore: self.signedPayloadStore,
+                keyPackagesStore: self.keyPackagesStore,
                 exposureManager: self.exposureManager
             )
         }
