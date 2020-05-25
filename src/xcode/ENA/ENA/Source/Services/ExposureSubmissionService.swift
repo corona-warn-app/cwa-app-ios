@@ -25,8 +25,7 @@ protocol ExposureSubmissionService {
                               completion completeWith: @escaping RegistrationHandler)
     func getTANForExposureSubmit(hasConsent: Bool,
                                  completion completeWith: @escaping TANHandler)
-    func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler)
-    
+    func getTestResult(_ completeWith: @escaping TestResultHandler)
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
@@ -38,6 +37,22 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         self.manager = manager
         self.client = client
         self.store = store
+    }
+    
+    func getTestResult(_ completeWith: @escaping TestResultHandler) {
+        guard let registrationToken = store.registrationToken else {
+            completeWith(.failure(.other))
+            return
+        }
+        
+        client.getTestResult(forDevice: registrationToken) { result in
+            switch result {
+            case .failure:
+                completeWith(.failure(.other))
+            case .success(let testResult):
+                completeWith(.success(testResult))
+            }
+        }
     }
 
     /// Stores the provided key, retrieves the registration token and deletes the key.
@@ -80,7 +95,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
                 completeWith(.success(tan))
             }
         }
-        
     }
     
     private func getKeyAndType(for key: DeviceRegistrationKey) -> (String, String) {
