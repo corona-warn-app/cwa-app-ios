@@ -224,6 +224,7 @@ final class HomeViewController: UIViewController {
 			if row == 0 {
 				showInviteFriends()
 			} else {
+                showWebPage()
 			}
 		case .settings:
 			if row == 0 {
