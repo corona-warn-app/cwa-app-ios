@@ -44,6 +44,8 @@ class ExposureSubmissionTestResultView: UIView {
 	
 	
 	override func awakeFromNib() {
+		super.awakeFromNib()
+		
 		clipsToBounds = true
 		layer.cornerRadius = 20
 		layer.borderWidth = 1
