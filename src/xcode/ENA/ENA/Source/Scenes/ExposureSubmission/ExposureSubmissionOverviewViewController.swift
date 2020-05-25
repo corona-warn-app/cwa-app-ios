@@ -66,13 +66,45 @@ extension ExposureSubmissionOverviewViewController {
 
 extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerDelegate {
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String) {
+        
+        guard let guid = sanitizeAndExtractGuid(code) else {
+            // Continue scanning when no valid GUID was extracted.
+            return
+        }
+        
+        // Dismiss QR scanning when GUID was found.
 		viewController.delegate = nil
 		viewController.dismiss(animated: true) {
-			self.performSegue(withIdentifier: Segue.labResult, sender: code)
+            self.performSegue(withIdentifier: Segue.labResult, sender: guid)
 		}
 	}
+    
+    /// Sanitize the input string and assert that:
+    /// - length is smaller than 128 characters
+    /// - starts with https://
+    /// - contains only alphanumeric characters
+    /// - is not empty
+    private func sanitizeAndExtractGuid(_ input: String) -> String? {
+        guard input.count < 128 else { return nil }
+        guard let regex = try? NSRegularExpression(pattern: "^https:\\/\\/.*\\s\\?(?<GUID>[A-Z,a-z,0-9,-]*)") else { return nil }
+        guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count)) else { return nil }
+        let nsRange = match.range(withName: "GUID")
+        guard let range = Range(nsRange, in: input) else { return nil }
+        let candidate = String(input[range])
+        guard !candidate.isEmpty else { return nil }
+        guard isGuid(candidate) else { return nil }
+        return candidate
+    }
+    
+    private func isGuid(_ input: String) -> Bool {
+        guard let regex = try? NSRegularExpression(pattern: "[A-Z,a-z,0-9]{6}-[A-Z,a-z,0-9]{8}-[A-Z,a-z,0-9]{4}-[A-Z,a-z,0-9]{4}-[A-Z,a-z,0-9]{4}-[A-Z,a-z,0-9]{12}") else {
+            return false
+        }
+        
+        let match = regex.matches(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
+        return !match.isEmpty
+    }
 }
-
 
 private extension ExposureSubmissionOverviewViewController {
 	func dynamicTableData() -> DynamicTableViewModel {
