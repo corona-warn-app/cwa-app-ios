@@ -3,7 +3,7 @@
     "pins": [
       {
         "package": "FMDB",
-        "repositoryURL": "https://github.com/ccgus/fmdb",
+        "repositoryURL": "https://github.com/ccgus/fmdb.git",
         "state": {
           "branch": null,
           "revision": "61e51fde7f7aab6554f30ab061cc588b28a97d04",
