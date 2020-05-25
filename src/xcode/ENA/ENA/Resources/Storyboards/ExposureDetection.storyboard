@@ -314,6 +314,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="PZy-AC-BON"/>
                                                             </constraints>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <color key="tintColor" name="tint"/>
                                                             <state key="normal" title="Hotline anrufen"/>
                                                             <userDefinedRuntimeAttributes>
