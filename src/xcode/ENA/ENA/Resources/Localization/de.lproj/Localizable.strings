@@ -245,7 +245,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_Description" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Downloaden ein!";
 "InviteFriends_Button" = "App teilen";
 "InviteFriends_ShareTitle" = "Zusammen gegen Corona. Ich bin dabei. Du auch?";
-"InviteFriends_ShareUrl" = "https://apps.apple.com/de";
+"InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
 
 //Reset View
 "reset_view_title" = "Anwendung zurücksetzen";
