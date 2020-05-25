@@ -244,7 +244,9 @@ extension SettingsViewController {
 extension SettingsViewController: ResetDelegate {
     func reset() {
         store.isOnboarded = false
-        store.dateLastExposureDetection = nil
+        if store.dateLastExposureDetection != nil {
+            store.dateLastExposureDetection = nil
+        }
     }
 }
 
