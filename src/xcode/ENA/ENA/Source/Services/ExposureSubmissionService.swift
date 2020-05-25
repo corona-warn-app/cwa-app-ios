@@ -24,7 +24,6 @@ protocol ExposureSubmissionService {
     func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey,
                               completion completeWith: @escaping RegistrationHandler)
     func getTANForExposureSubmit(hasConsent: Bool,
-                                 forDevice registrationToken: String,
                                  completion completeWith: @escaping TANHandler)
     func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler)
     
@@ -58,8 +57,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
     }
     
     func getTANForExposureSubmit(hasConsent: Bool,
-                                 forDevice registrationToken: String,
-                                 completion completeWith: @escaping TANHandler){
+                                 completion completeWith: @escaping TANHandler) {
         //alert+ store consent+ clientrequest
         store.devicePairingConsentAccept = hasConsent
         
@@ -68,7 +66,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
             return
         }
         
-        client.getTANForExposureSubmit(forDevice: registrationToken) { result in
+        guard let token = store.registrationToken else {
+            completeWith(.failure(.noRegistrationToken))
+            return
+        }
+        
+        client.getTANForExposureSubmit(forDevice: token) { result in
             switch result {
             case .failure(let failure):
                 completeWith(.failure(.other))
@@ -162,7 +165,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 enum ExposureSubmissionError: Error {
     case other
-
+    case noRegistrationToken
     case enNotEnabled
     case noKeys
     case noConsent

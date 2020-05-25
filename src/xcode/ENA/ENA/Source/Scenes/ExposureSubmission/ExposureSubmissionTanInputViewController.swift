@@ -41,14 +41,72 @@ extension ExposureSubmissionTanInputViewController {
 extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
 	func didTapBottomButton() {
         
-        // Ask user whether generating TAN is fine.
-        showAlertController()
+        // If teleTAN is correct, show Alert Controller
+        // to check permissions to request TAN.
+        let teleTan = tanInput.text
+        exposureSubmissionService?
+            .getRegistrationToken(forKey: .teleTan(teleTan),
+                                  completion: { result in
+                                    switch result {
+                                    case .failure(let error):
+                                        self.showErrorAlert(error)
+                                        return
+                                    case .success:
+                                        self.showAlertController(successAction: self.requestTan)
+                                    }
+        })
 
 	}
     
+    /// Show a default error alert.
+    private func showErrorAlert(_ error: ExposureSubmissionError) {
+        let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle,
+                                      message: "\(error.localizedDescription).",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk,
+                                      style: .cancel,
+                                      handler: { _ in
+                                        alert.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    private func requestTan() {
+        exposureSubmissionService?
+            .getTANForExposureSubmit(hasConsent: true,
+                                     completion: { result in
+                                        switch result {
+                                        case .failure(let error):
+                                            self.showErrorAlert(error)
+                                            return
+                                        case .success(let tan):
+                                            self.submitKeys(withTan: tan)
+                                        }
+        })
+    }
+    
+    private func submitKeys(withTan tan: String) {
+        exposureSubmissionService?
+            .submitExposure(with: tan,
+                            completionHandler: { error in
+                                
+                                if error != nil {
+                                    //swiftlint:disable:next force_unwrapping
+                                    self.showErrorAlert(error!)
+                                    return
+                                }
+                                
+                                self.performSegue(withIdentifier: Segue.sentSegue,
+                                                  sender: self)
+        })
+    }
+    
     // TODO: Can be refactored by moving to a space
     // where both Tan and QR Code can access this code.
-    private func showAlertController() {
+    private func showAlertController(successAction: @escaping (() -> Void)) {
+        
+        
         let alert = UIAlertController(title: AppStrings.Common.alertTitleKeySubmit,
                                       message: AppStrings.Common.alertDescriptionKeySubmit,
                                       preferredStyle: .alert)
@@ -58,24 +116,17 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
                 UIAlertAction(title: AppStrings.Common.alertActionOk,
                               style: .default,
                               handler: { _ in
-                                self.exposureSubmissionService?
-                                    .submitExposure(with: self.tanInput.text,
-                                                    completionHandler: { error in
-                                                        // TODO: Handle case in which exposure
-                                                        // submission failed.
-                                                        if error == nil {
-                                                            self.performSegue(withIdentifier: Segue.sentSegue, sender: nil)
-                                                            alert.dismiss(animated: true, completion: nil)
-                                                            return
-                                                        }
-                                        })
+                                successAction()
+                                alert.dismiss(animated: true,
+                                              completion: nil)
                                         
         }))
         
         alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionNo,
                                       style: .cancel,
                                       handler: { _ in
-                                        alert.dismiss(animated: true, completion: nil)
+                                        alert.dismiss(animated: true,
+                                                      completion: nil)
         }))
         
         present(alert, animated: true, completion: nil)
