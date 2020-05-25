@@ -15,21 +15,17 @@ class ExposureSubmissionNavigationItem: UINavigationItem {
 	@IBInspectable var titleColor: UIColor?
 }
 
-
-protocol ExpsureSubmissionNavigationControllerChild: class {
+protocol ExposureSubmissionNavigationControllerChild: class {
 	var bottomView: UIView? { get }
 //	TODO var bottomButtonText: String { get }
-	
 	func didTapBottomButton()
 }
 
-
-extension ExpsureSubmissionNavigationControllerChild where Self: UIViewController {
-	var bottomView: UIView? { (navigationController as? ExpsureSubmissionNavigationController)?.bottomView }
+extension ExposureSubmissionNavigationControllerChild where Self: UIViewController {
+	var bottomView: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.bottomView }
 }
 
-
-class ExpsureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
+class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
 	
@@ -39,8 +35,21 @@ class ExpsureSubmissionNavigationController: UINavigationController, UINavigatio
 	
 	private(set) var bottomView: UIView!
 	private var bottomViewTopConstraint: NSLayoutConstraint!
-	
-	
+    private var exposureSubmissionService: ExposureSubmissionService?
+    
+    // MARK: - Initializers.
+    init?(
+        coder: NSCoder,
+        exposureSubmissionService: ExposureSubmissionService
+    ) {
+        super.init(coder: coder)
+        self.exposureSubmissionService = exposureSubmissionService
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -56,6 +65,10 @@ class ExpsureSubmissionNavigationController: UINavigationController, UINavigatio
 		
 		self.delegate = self
 	}
+    
+    func getExposureSubmissionService() -> ExposureSubmissionService? {
+        return exposureSubmissionService
+    }
 	
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -165,7 +178,7 @@ class ExpsureSubmissionNavigationController: UINavigationController, UINavigatio
 }
 
 
-extension ExpsureSubmissionNavigationController {
+extension ExposureSubmissionNavigationController {
 	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 		applyDefaultRightBarButtonItem(to: viewController)
 		applyNavigationBarItem(of: viewController)
@@ -184,7 +197,7 @@ extension ExpsureSubmissionNavigationController {
 }
 
 
-extension ExpsureSubmissionNavigationController {
+extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
 		let view = UIView()
 		view.backgroundColor = .white
@@ -211,7 +224,7 @@ extension ExpsureSubmissionNavigationController {
 		button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
 		button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: 90).isActive = true
 		button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-
+        
 		bottomView = view
 		button.addTarget(self, action: #selector(didTapButton), for: .primaryActionTriggered)
 		setBottomViewHidden(false, animated: false)
@@ -219,6 +232,6 @@ extension ExpsureSubmissionNavigationController {
 
 	@objc
 	private func didTapButton() {
-		(topViewController as? ExpsureSubmissionNavigationControllerChild)?.didTapBottomButton()
+		(topViewController as? ExposureSubmissionNavigationControllerChild)?.didTapBottomButton()
 	}
 }

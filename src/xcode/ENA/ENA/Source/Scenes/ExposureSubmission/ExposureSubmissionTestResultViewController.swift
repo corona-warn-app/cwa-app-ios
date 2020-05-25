@@ -35,7 +35,7 @@ extension ExposureSubmissionTestResultViewController {
 }
 
 
-extension ExposureSubmissionTestResultViewController: ExpsureSubmissionNavigationControllerChild {
+extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigationControllerChild {
 	func didTapBottomButton() {
 		performSegue(withIdentifier: Segue.sent, sender: nil)
 	}

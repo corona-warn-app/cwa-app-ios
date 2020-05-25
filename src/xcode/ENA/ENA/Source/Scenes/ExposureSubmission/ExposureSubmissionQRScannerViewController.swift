@@ -20,6 +20,8 @@ protocol ExposureSubmissionQRScannerDelegate: class {
 
 
 class ExposureSubmissionQRScannerNavigationController: UINavigationController {
+    var exposureSubmissionService: ExposureSubmissionService?
+    
 	weak var scannerViewController: ExposureSubmissionQRScannerViewController? {
 		return viewControllers.first as? ExposureSubmissionQRScannerViewController
 	}
@@ -36,7 +38,6 @@ class ExposureSubmissionQRScannerNavigationController: UINavigationController {
 class ExposureSubmissionQRScannerViewController: UIViewController {
 	@IBOutlet weak var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet weak var flashButton: UIButton!
-
 	
 	weak var delegate: ExposureSubmissionQRScannerDelegate?
 	
@@ -45,8 +46,7 @@ class ExposureSubmissionQRScannerViewController: UIViewController {
 	private var caputureDeviceInput: AVCaptureDeviceInput?
 	private var metadataOutput: AVCaptureMetadataOutput?
 	private var previewLayer: AVCaptureVideoPreviewLayer?
-	
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		

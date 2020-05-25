@@ -280,10 +280,10 @@
             </objects>
             <point key="canvasLocation" x="935" y="1188"/>
         </scene>
-        <!--Expsure Submission Navigation Controller-->
+        <!--Exposure Submission Navigation Controller-->
         <scene sceneID="woc-yd-Srs">
             <objects>
-                <navigationController id="W8E-ea-7hM" customClass="ExpsureSubmissionNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ExposureSubmissionNavigationController" id="W8E-ea-7hM" customClass="ExposureSubmissionNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="K4W-nS-7Ar">
@@ -391,8 +391,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8L6-d9-Uu8"/>
-        <segue reference="HlT-ix-3R2"/>
+        <segue reference="pIG-Ph-hq5"/>
+        <segue reference="BK6-gp-gvM"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bolt" catalog="system" width="101" height="128"/>

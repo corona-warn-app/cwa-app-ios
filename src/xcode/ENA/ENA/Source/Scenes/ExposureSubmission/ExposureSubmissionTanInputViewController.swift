@@ -15,7 +15,7 @@ class ExposureSubmissionTanInputViewController: UIViewController {
 	
 	
 	var initialTan: String?
-	
+    var exposureSubmissionService: ExposureSubmissionService?
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -38,8 +38,48 @@ extension ExposureSubmissionTanInputViewController {
 }
 
 
-extension ExposureSubmissionTanInputViewController: ExpsureSubmissionNavigationControllerChild {
+extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
 	func didTapBottomButton() {
-		performSegue(withIdentifier: Segue.sentSegue, sender: nil)
+        
+        // Ask user whether generating TAN is fine.
+        showAlertController()
+
 	}
+    
+    // TODO: Can be refactored by moving to a space
+    // where both Tan and QR Code can access this code.
+    private func showAlertController() {
+        let alert = UIAlertController(title: AppStrings.Common.alertTitleKeySubmit,
+                                      message: AppStrings.Common.alertDescriptionKeySubmit,
+                                      preferredStyle: .alert)
+        
+        alert
+            .addAction(
+                UIAlertAction(title: AppStrings.Common.alertActionOk,
+                              style: .default,
+                              handler: { _ in
+                                self.exposureSubmissionService?
+                                    .submitExposure(tan: self.tanInput.text,
+                                                    completionHandler: { (error) in
+                                                        // TODO: Handle case in which exposure
+                                                        // submission failed.
+                                                        if error == nil {
+                                                            self.performSegue(withIdentifier: Segue.sentSegue, sender: nil)
+                                                            alert.dismiss(animated: true, completion: nil)
+                                                            return
+                                                        }
+                                        })
+                                        
+        }))
+        
+        alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionNo,
+                                      style: .cancel,
+                                      handler: { _ in
+                                        alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
 }

@@ -11,6 +11,9 @@
 "Alert_TitleGeneral" = "Ein Fehler ist aufgetreten";
 "Alert_MessageGeneral" = "Bitte versuche Sie es erneut.";
 "Alert_ActionOk" = "Ok";
+"Alert_ActionNo" = "Nein";
+"Alert_TitleKeySubmit" = "Tan Generierung";
+"Alert_DescriptionKeySubmit" = "Sind Sie damit einverstanden, Ihre TAN generieren zu lassen?";
 
 
 // Exposure Detection

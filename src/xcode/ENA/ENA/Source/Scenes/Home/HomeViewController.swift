@@ -111,25 +111,16 @@ final class HomeViewController: UIViewController {
 
     // MARK: Misc
     func showSubmitResult() {
-		// TODO
-		let vc = AppStoryboard.exposureSubmission.initiateInitial()
-		present(vc, animated: true)
-		
-//        let controller = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { coder in
-//            ExposureSubmissionViewController(
-//                coder: coder,
-//                exposureSubmissionService: ENAExposureSubmissionService(
-//                    manager: self.exposureManager,
-//                    client: self.client
-//                )
-//            )
-//        }
-//
-//        present(
-//            UINavigationController(rootViewController: controller),
-//            animated: true,
-//            completion: nil
-//        )
+        
+        let exposureSubmissionService = ENAExposureSubmissionService(manager: exposureManager,
+                                                                     client: client)
+
+        let vc = AppStoryboard.exposureSubmission.initiateInitial { coder in
+            ExposureSubmissionNavigationController(
+                coder: coder,
+                exposureSubmissionService: exposureSubmissionService)
+        }
+        present(vc, animated: true)
     }
 
     func showExposureNotificationSetting() {

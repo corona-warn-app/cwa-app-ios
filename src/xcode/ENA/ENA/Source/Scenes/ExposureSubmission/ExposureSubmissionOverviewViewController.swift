@@ -20,25 +20,41 @@ struct ExposureSubmissionTestResult {
 class ExposureSubmissionOverviewViewController: DynamicTableViewController {
 	private var testResults: [ExposureSubmissionTestResult] = [ExposureSubmissionTestResult(isPositive: true, receivedDate: Date(), transmittedDate: Date())]
 	private var mostRecentTestResult: ExposureSubmissionTestResult? { testResults.last }
-	
+    private var exposureSubmissionService: ExposureSubmissionService?
+    
+    // MARK: - Initializers.
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		dynamicTableViewModel = dynamicTableData()
 		
 		tableView.register(UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil), forHeaderFooterViewReuseIdentifier: "test")
+        
+        // Grab ExposureSubmissionService from the navigation controller
+        // (which is the entry point for the storyboard, and in which
+        // this controller is embedded.)
+        if let navC = navigationController as? ExposureSubmissionNavigationController {
+            self.exposureSubmissionService = navC.getExposureSubmissionService()
+        }
 	}
 	
 	
 	@IBAction func unwindToExposureSubmissionIntro(_ segue: UIStoryboardSegue) { }
 	
-	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch Segue(segue) {
 		case .tanInput:
-			(segue.destination as? ExposureSubmissionTanInputViewController)?.initialTan = sender as? String
+            let destination = segue.destination as? ExposureSubmissionTanInputViewController
+            destination?.initialTan = sender as? String
+            destination?.exposureSubmissionService = exposureSubmissionService
 		case .qrScanner:
-			(segue.destination as? ExposureSubmissionQRScannerNavigationController)?.scannerViewController?.delegate = self
+            let destination = segue.destination as? ExposureSubmissionQRScannerNavigationController
+            destination?.scannerViewController?.delegate = self
+            destination?.exposureSubmissionService = exposureSubmissionService
 		default:
 			break
 		}
