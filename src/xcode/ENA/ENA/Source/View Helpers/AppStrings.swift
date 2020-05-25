@@ -89,13 +89,13 @@ enum AppStrings {
 
         static let tracingLabel = NSLocalizedString("Settings_Tracing_Label", comment: "")
         static let notificationLabel = NSLocalizedString("Settings_Notification_Label", comment: "")
-        static let mobileDataLabel = NSLocalizedString("Settings_MobileData_Label", comment: "")
         static let resetLabel = NSLocalizedString("Settings_Reset_Label", comment: "")
 
         static let tracingDescription = NSLocalizedString("Settings_Tracing_Description", comment: "")
         static let notificationDescription = NSLocalizedString("Settings_Notification_Description", comment: "")
-        static let mobileDataDescription = NSLocalizedString("Settings_MobileData_Description", comment: "")
         static let resetDescription = NSLocalizedString("Settings_Reset_Description", comment: "")
+
+        static let navigationBarTitle = NSLocalizedString("Settings_NavTitle", comment: "")
     }
 
     enum Onboarding {
@@ -209,12 +209,12 @@ enum AppStrings {
         static let shareUrl = NSLocalizedString("InviteFriends_ShareUrl", comment: "")
     }
 
-    enum ResetView {
-        static let title = NSLocalizedString("reset_view_title", comment: "")
-        static let header1 = NSLocalizedString("reset_view_header1", comment: "")
-        static let description1 = NSLocalizedString("reset_view_description1", comment: "")
-        static let resetButton = NSLocalizedString("reset_view_reset_button", comment: "")
-        static let discardButton = NSLocalizedString("reset_view_discard", comment: "")
+    enum Reset {
+        static let navigationBarTitle = NSLocalizedString("Reset_NavTitle", comment: "")
+        static let header1 = NSLocalizedString("Reset_Header1", comment: "")
+        static let description1 = NSLocalizedString("Reset_Descrition1", comment: "")
+        static let resetButton = NSLocalizedString("Reset_Button", comment: "")
+        static let discardButton = NSLocalizedString("Reset_Discard", comment: "")
     }
 
     enum SafariView {

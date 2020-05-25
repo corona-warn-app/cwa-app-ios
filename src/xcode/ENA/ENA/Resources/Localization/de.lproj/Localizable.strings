@@ -86,15 +86,15 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "Settings_StatusActive" = "An";
 "Settings_StatusInactive" = "Aus";
 
-"Settings_Tracing_Label" = "Umfeldaufnahme";
+"Settings_Tracing_Label" = "Kontaktprotokoll";
 "Settings_Notification_Label" = "Mitteilungen";
-"Settings_MobileData_Label" = "Mobile Datennutzung";
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
-"Settings_Tracing_Description" = "Kurzer Erklärungstext zur Umfeldaufnahme und der Option diese zu deaktivieren";
-"Settings_Notification_Description" = "Erklärungstext zu dem Verhalten der Mitteilungen der App und dass diese nur lokal erzeugt werden.";
-"Settings_MobileData_Description" = "Erklärungstext über das durchschnittliche Datenvolumen für den Abgleich der Daten am Tag";
-"Settings_Reset_Description" = "Alle Ihre Daten werden gelöscht";
+"Settings_Tracing_Description" = "Erlauben Sie Erfassung und Weitergabe von Covid-19-Zufalls-IDs.";
+"Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Covid-19-Risikostatus.";
+"Settings_Reset_Description" = "Löschen Sie alle Ihre Daten in der App.";
+
+"Settings_NavTitle" = "Einstellungen";
 
 // Onboarding
 "Onboarding_Next" = "Nächste";
@@ -288,11 +288,11 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
 
 //Reset View
-"reset_view_title" = "Anwendung zurücksetzen";
-"reset_view_header1" = "Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?";
-"reset_view_description1" = "Hier kommt ein Erklärungstext, der beschreibt was passiert wenn man die Anwendung zurücksetzt";
-"reset_view_reset_button" = "Daten zurücksetzen";
-"reset_view_discard" = "Abbrechen";
+"Reset_NavTitle" = "Anwendung zurücksetzen";
+"Reset_Header1" = "Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?";
+"Reset_Descrition1" = "Hier kommt ein Erklärungstext, der beschreibt was passiert wenn man die Anwendung zurücksetzt";
+"Reset_Button" = "Daten zurücksetzen";
+"Reset_Discard" = "Abbrechen";
 
 //Safari
 "safari_corona_website" = "https://www.bundesregierung.de/breg-de/themen/coronavirus/";
