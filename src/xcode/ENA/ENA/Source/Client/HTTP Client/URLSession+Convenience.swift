@@ -86,6 +86,7 @@ extension URLSession.Response {
         /// The session did not receive an error but nor either an `HTTPURLResponse`/HTTP body.
         case noResponse
         case invalidResponse
+        case serverError(Int)
     }
 
     typealias Completion = (Result<URLSession.Response, Failure>) -> Void

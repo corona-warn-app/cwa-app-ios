@@ -127,7 +127,7 @@ extension HTTPClient {
             )
         }
         
-        var regisrationURL : URL {
+        var registrationURL : URL {
             endpoints
                 .verification
                 .appending(
@@ -147,7 +147,7 @@ extension HTTPClient {
             )
         }
         
-        var tanRetreivalURL : URL {
+        var tanRetrievalURL : URL {
             endpoints
                 .verification
                 .appending(
