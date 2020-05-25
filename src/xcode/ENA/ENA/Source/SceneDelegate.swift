@@ -128,7 +128,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     @objc
     func isOnboardedDidChange(_ notification: NSNotification) {
-        showHome(animated: true)
+        store.isOnboarded ? showHome() : showOnboarding()
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
