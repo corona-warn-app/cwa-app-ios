@@ -27,6 +27,21 @@ extension ENExposureConfiguration {
 }
 
 final class MockClient: Client {
+    func registerDevice(forTan TAN: String, withType type: String, completion completeWith: @escaping RegistrationHandler) {
+        let result = "6b875ec9-9c3c-49d1-b4b3-7452635f8beb"
+        completeWith(.success(result))
+    }
+    
+    func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
+        let result = 1
+        completeWith(.success(result))
+    }
+    
+    func getTANForDiagnosis(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
+        let result = "95916f0c-95d4-4a9f-9e12-fde8d201d55d"
+        completeWith(.success(result))
+    }
+    
     func fetchDay(_ day: String, completion completeWith: @escaping DayCompletionHandler) {
         let bucket = Sap_FileBucket.with {
             $0.files = [

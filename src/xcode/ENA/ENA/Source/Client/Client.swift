@@ -17,6 +17,9 @@ protocol Client {
     typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
     typealias DayCompletionHandler = (Result<VerifiedSapFileBucket, Failure>) -> Void
     typealias HourCompletionHandler = (Result<VerifiedSapFileBucket, Failure>) -> Void
+    typealias RegistrationHandler = (Result<String, Failure>) -> Void
+    typealias TestResultHandler = (Result<Int, Failure>) -> Void
+    typealias TANHandler = (Result<String, Failure>) -> Void
 
     // MARK: Interacting with a Client
     
@@ -29,6 +32,24 @@ protocol Client {
     func availableHours(
         day: String,
         completion: @escaping AvailableHoursCompletionHandler
+    )
+    
+    // registersTheDevice
+    func registerDevice(
+        forTan TAN: String,
+        withType type: String, completion completeWith: @escaping RegistrationHandler
+    )
+    
+    // getTestResultForDevice
+    func getTestResult(
+        forDevice registrationToken: String,
+        completion completeWith: @escaping TestResultHandler
+    )
+    
+    // getTANForDevice
+    func getTANForDiagnosis(
+        forDevice registrationToken: String,
+        completion completeWith: @escaping TANHandler
     )
 
     /// Fetches the keys for a given `day`.

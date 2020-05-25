@@ -126,14 +126,36 @@ extension HTTPClient {
                     "diagnosis-keys"
             )
         }
-        var verificationURL: URL {
-              endpoints
-                  .verification
-                  .appending(
-                      "version",
-                      apiVersion
-              )
-          }
+        
+        var regisrationURL : URL {
+            endpoints
+                .verification
+                .appending(
+                    "version",
+                    apiVersion,
+                    "registrationToken"
+            )
+        }
+        
+        var testResultURL : URL {
+            endpoints
+                .verification
+                .appending(
+                    "version",
+                    apiVersion,
+                    "testresult"
+            )
+        }
+        
+        var tanRetreivalURL : URL {
+            endpoints
+                .verification
+                .appending(
+                    "version",
+                    apiVersion,
+                    "tan"
+            )
+        }
     }
 }
 
@@ -172,7 +194,7 @@ extension HTTPClient.Configuration {
     struct Endpoints {
         let distribution: Endpoint
         let submission: Endpoint
-        let verification: Endpoint
+        let verification : Endpoint
     }
 }
 

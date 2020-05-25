@@ -149,6 +149,95 @@ final class HTTPClient: Client {
             }
         }
     }
+    
+    func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
+        let url = configuration.testResultURL
+        
+        let bodyValues = ["registrationToken":registrationToken]
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+
+            let data = try encoder.encode(bodyValues)
+
+            session.POST(url, data) {result in
+                switch result {
+                case .success(let response):
+                    guard let testResultResponseData = response.body else {
+                        completeWith(.failure(.invalidResponse))
+                        logError(message: "Failed to register Device with invalid response")
+                        return
+                        }
+                    do {
+                        let decoder = JSONDecoder()
+                        let responseDictionary: [String:Int] = try decoder.decode([String:Int].self, from: testResultResponseData)
+                        if(responseDictionary["testResult"] != nil){
+                            completeWith(.success(responseDictionary["testResult"]!))
+                        }else{
+                            logError(message: "Failed to register Device with invalid response payload structure")
+                            completeWith(.failure(.invalidResponse))
+                        }
+                    } catch _ {
+                        logError(message: "Failed to register Device with invalid response payload structure")
+                        completeWith(.failure(.invalidResponse))
+                    }
+                case .failure(let error):
+                    completeWith(.failure(.httpError(error)))
+                    logError(message: "Failed to registerDevices due to error: \(error).")
+                }
+            }
+        } catch {
+                   completeWith(.failure(.invalidResponse))
+                   return
+        }
+    }
+    
+    func getTANForDiagnosis(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
+        // MARK: ToBe Implemented
+    }
+    
+    func registerDevice(forTan TAN: String, withType type: String, completion completeWith: @escaping RegistrationHandler) {
+        
+        let url = configuration.regisrationURL
+        
+        let bodyValues = ["key":TAN,"keyType":type]
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+
+            let data = try encoder.encode(bodyValues)
+
+            session.POST(url, data) {result in
+                switch result {
+                case .success(let response):
+                    guard let registerResponseData = response.body else {
+                        completeWith(.failure(.invalidResponse))
+                        logError(message: "Failed to register Device with invalid response")
+                        return
+                        }
+                    do {
+                        let decoder = JSONDecoder()
+                        let responseDictionary: [String:String] = try decoder.decode([String:String].self, from: registerResponseData)
+                        if(responseDictionary["registrationToken"] != nil){
+                            completeWith(.success(responseDictionary["registrationToken"]!))
+                        }else{
+                            logError(message: "Failed to register Device with invalid response payload structure")
+                            completeWith(.failure(.invalidResponse))
+                        }
+                    } catch _ {
+                        logError(message: "Failed to register Device with invalid response payload structure")
+                        completeWith(.failure(.invalidResponse))
+                    }
+                case .failure(let error):
+                    completeWith(.failure(.httpError(error)))
+                    logError(message: "Failed to registerDevices due to error: \(error).")
+                }
+            }
+        } catch {
+                   completeWith(.failure(.invalidResponse))
+                   return
+        }
+    }
 
     func fetchDay(
         _ day: String,
