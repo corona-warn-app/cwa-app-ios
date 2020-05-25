@@ -44,7 +44,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             endpoints: HTTPClient.Configuration.Endpoints(
                 distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
                 submission: .init(baseURL: submissionURL, requiresTrailingSlash: true),
-                verification: .init(baseURL: submissionURL, requiresTrailingSlash: false)
+                verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
             )
         )
         return HTTPClient(configuration: config)
