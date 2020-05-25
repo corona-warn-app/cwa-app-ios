@@ -85,7 +85,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
     /// - is not empty
     private func sanitizeAndExtractGuid(_ input: String) -> String? {
         guard input.count < 128 else { return nil }
-        guard let regex = try? NSRegularExpression(pattern: "^https:\\/\\/bs-sd.de\\/covid-19\\/\\s\\?(?<GUID>[A-Z,a-z, 0-9, -]*)") else { return nil }
+        guard let regex = try? NSRegularExpression(pattern: "^https:\\/\\/.*\\s\\?(?<GUID>[A-Z,a-z,0-9,-]*)") else { return nil }
         guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count)) else { return nil }
         let nsRange = match.range(withName: "GUID")
         guard let range = Range(nsRange, in: input) else { return nil }
@@ -96,10 +96,12 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
     }
     
     private func isGuid(_ input: String) -> Bool {
-        guard let regex = try? NSRegularExpression(pattern: "[A-Z,a-z, 0-9]{6}-[A-Z,a-z, 0-9]{8}-[A-Z,a-z, 0-9]{4}-[A-Z,a-z, 0-9]{4}-[A-Z,a-z, 0-9]{4}-[A-Z,a-z, 0-9]{12}") else { return false }
+        guard let regex = try? NSRegularExpression(pattern: "[A-Z,a-z,0-9]{6}-[A-Z,a-z,0-9]{8}-[A-Z,a-z,0-9]{4}-[A-Z,a-z,0-9]{4}-[A-Z,a-z,0-9]{4}-[A-Z,a-z,0-9]{12}") else {
+            return false
+        }
+        
         let match = regex.matches(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count))
         return !match.isEmpty
-        
     }
 }
 
