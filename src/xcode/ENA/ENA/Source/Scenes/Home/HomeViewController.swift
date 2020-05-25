@@ -51,13 +51,15 @@ final class HomeViewController: UIViewController {
     private let client: Client
     var exposureManagerEnabled = false {
         didSet {
+			exposureDetectionController?.state.isTracingEnabled = exposureManagerEnabled
             settingsController?.exposureManagerEnabled = exposureManagerEnabled
             notificationSettingsController?.exposureManagerEnabled = exposureManagerEnabled
         }
     }
 	private var summaryNotificationObserver: NSObjectProtocol?
 
-    private weak var settingsController: SettingsViewController?
+	private weak var exposureDetectionController: ExposureDetectionViewController?
+	private weak var settingsController: SettingsViewController?
     private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 
     enum Section: Int {
@@ -179,6 +181,8 @@ final class HomeViewController: UIViewController {
                 exposureManager: self.exposureManager
             )
         }
+		exposureDetectionController = vc as? ExposureDetectionViewController
+		exposureDetectionController?.state.isTracingEnabled = exposureManagerEnabled
         present(vc, animated: true)
     }
 
@@ -363,6 +367,7 @@ extension HomeViewController: ViewControllerUpdatable {
     func updateUI() {
         guard isViewLoaded else { return }
         homeInteractor.updateActiveCell()
+		exposureDetectionController?.updateUI()
         settingsController?.updateUI()
         notificationSettingsController?.updateUI()
     }

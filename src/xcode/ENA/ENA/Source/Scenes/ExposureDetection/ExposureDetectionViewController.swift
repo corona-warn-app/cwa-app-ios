@@ -124,6 +124,13 @@ private extension ExposureDetectionViewController {
 	}
 }
 
+
+extension ExposureDetectionViewController: ViewControllerUpdatable {
+	func updateUI() {
+		tableView.reloadData()
+	}
+}
+
 	
 extension ExposureDetectionViewController: ExposureDetectionTransactionDelegate {
 	func exposureDetectionTransactionRequiresExposureManager(
