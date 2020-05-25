@@ -26,8 +26,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         self.store = store
     }
     
+    typealias RegistrationHandler = (Result<String, Error>) -> Void
+    typealias TestResultHandler = (Result<Int, Error>) -> Void
+    typealias TANHandler = (Result<String, Error>) -> Void
+    
     func getRegistrationToken(forKey key: String, withType type: String, completion completeWith: @escaping RegistrationHandler){
-    //save+client request+ delete
+        //save+client request+ delete
         
     }
     func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler){
