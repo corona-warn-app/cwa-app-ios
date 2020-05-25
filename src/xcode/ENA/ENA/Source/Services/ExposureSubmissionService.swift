@@ -9,14 +9,24 @@
 import Foundation
 import ExposureNotification
 
+enum DeviceRegistrationKey {
+    case teleTan(String)
+    case guid(String)
+}
+
 protocol ExposureSubmissionService {
     typealias ExposureSubmissionHandler = (_ error: ExposureSubmissionError?) -> Void
-    typealias RegistrationHandler = (Result<String, Error>) -> Void
-    typealias TestResultHandler = (Result<Int, Error>) -> Void
-    typealias TANHandler = (Result<String, Error>) -> Void
+    typealias RegistrationHandler = (Result<String, ExposureSubmissionError>) -> Void
+    typealias TestResultHandler = (Result<Int, ExposureSubmissionError>) -> Void
+    typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
     
     func submitExposure(with: String, completionHandler: @escaping ExposureSubmissionHandler)
-    func getTestResult(_ : Result<Int, Error>)
+    func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey,
+                              completion completeWith: @escaping RegistrationHandler)
+    func getTANForExposureSubmit(hasConsent: Bool,
+                                 forDevice registrationToken: String,
+                                 completion completeWith: @escaping TANHandler)
+    func getTestResult(_ completeWith: @escaping TestResultHandler)
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
@@ -30,12 +40,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         self.store = store
     }
     
-    enum DeviceRegistrationKey {
-        case teleTan(String)
-        case guid(String)
-    }
-    
-    func getTestResult(_ completeWith: Result<Int, Error>) {
+    func getTestResult(_ completeWith: @escaping TestResultHandler) {
         guard let registrationToken = store.registrationToken else {
             completeWith(.failure(.other))
             return
@@ -58,10 +63,32 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         client.getRegistrationToken(forKey: key, withType: type) { result in
             switch result {
             case .failure(let error):
-                completeWith(.failure(error))
+                completeWith(.failure(.other))
+            case .success(let registrationToken):
+                self.store.registrationToken = registrationToken
+                self.delete(key: deviceRegistrationKey)
+                completeWith(.success(registrationToken))
+            }
+        }
+    }
+    
+    func getTANForExposureSubmit(hasConsent: Bool,
+                                 forDevice registrationToken: String,
+                                 completion completeWith: @escaping TANHandler){
+        //alert+ store consent+ clientrequest
+        store.devicePairingConsentAccept = hasConsent
+        
+        if !store.devicePairingConsentAccept {
+            completeWith(.failure(.noConsent))
+            return
+        }
+        
+        client.getTANForExposureSubmit(forDevice: registrationToken) { result in
+            switch result {
+            case .failure(let failure):
+                completeWith(.failure(.other))
             case .success(let tan):
                 self.store.tan = tan
-                self.delete(key: deviceRegistrationKey)
                 completeWith(.success(tan))
             }
         }
@@ -92,11 +119,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         case .teleTan:
             self.store.teleTan = nil
         }
-    }
-
-    func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler){
-        //alert+ store consent+ clientrequest
-        
     }
     
     func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
@@ -157,6 +179,6 @@ enum ExposureSubmissionError: Error {
 
     case enNotEnabled
     case noKeys
-
+    case noConsent
     case invalidTan
 }

@@ -20,11 +20,22 @@ protocol Store: class {
     var devicePairingConsentAcceptTimestamp: Int64? { get set }
     var devicePairingSuccessfulTimestamp: Int64? { get set }
     var isAllowedToSubmitDiagnosisKeys: Bool { get set }
+    var registrationToken: String? { get set }
 }
 
 /// The `DevelopmentStore` class implements the `Store` protocol that defines all required storage attributes.
 /// This class needs to be replaced with an implementation that persists all attributes in an encrypted SQLite database.
 final class DevelopmentStore: Store {
+    
+    @PersistedAndPublished(
+        key: "registrationToken",
+        notificationName: Notification.Name.teleTanDidChange,
+        defaultValue: ((UserDefaults
+                        .standard
+                        .object(forKey: "registrationToken") as? String))
+    )
+    var registrationToken: String?
+    
     
     @PersistedAndPublished(
         key: "teleTan",
