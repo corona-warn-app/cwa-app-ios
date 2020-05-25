@@ -1,8 +1,8 @@
 //
-//  DynamicTypeLabel.swift
+//  DynamicTypeButton.swift
 //  ENA
 //
-//  Created by Marc-Peter Eisinger on 14.05.20.
+//  Created by Marc-Peter Eisinger on 22.05.20.
 //  Copyright © 2020 SAP SE. All rights reserved.
 //
 
@@ -11,7 +11,8 @@ import UIKit
 
 
 @IBDesignable
-class DynamicTypeLabel: UILabel {
+class DynamicTypeButton: UIButton {
+	@IBInspectable var cornerRadius: CGFloat = 8 { didSet { self.layer.cornerRadius = cornerRadius } }
 	@IBInspectable var dynamicTypeSize: CGFloat = 0 { didSet { applyDynamicFont() } }
 	@IBInspectable var dynamicTypeWeight: String = "" { didSet { applyDynamicFont() } }
 	
@@ -21,22 +22,30 @@ class DynamicTypeLabel: UILabel {
 	
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
-		applyDynamicFont()
+		setup()
 	}
 	
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
+		setup()
+	}
+	
+	
+	private func setup() {
+		self.layer.cornerRadius = cornerRadius
+		
 		applyDynamicFont()
 	}
 	
 	
 	private func applyDynamicFont() {
-		if nil == self.rawFont { self.rawFont = self.font }
+		guard let titleLabel = self.titleLabel else { return }
+		if nil == self.rawFont { self.rawFont = titleLabel.font }
 		
 		guard let textStyle = self.rawFont.textStyle else { return }
 		
-		self.adjustsFontForContentSizeCategory = true
+		titleLabel.adjustsFontForContentSizeCategory = true
 		
 		let weight = dynamicTypeWeight.isEmpty ? nil : dynamicTypeWeight
 		let size = dynamicTypeSize > 0 ? dynamicTypeSize : nil
@@ -48,6 +57,6 @@ class DynamicTypeLabel: UILabel {
 		let systemFont = UIFont.systemFont(ofSize: size ?? description.pointSize, weight: UIFont.Weight(weight))
 		let font = metrics.scaledFont(for: systemFont)
 		
-		self.font = font
+		titleLabel.font = font
 	}
 }
