@@ -33,13 +33,13 @@ class ExposureSubmissionTanInputViewController: UIViewController {
 
 extension ExposureSubmissionTanInputViewController {
 	enum Segue: String, SegueIdentifiers {
-		case testResult = "testResultSegue"
+		case sentSegue = "sentSegue"
 	}
 }
 
 
 extension ExposureSubmissionTanInputViewController: ExpsureSubmissionNavigationControllerChild {
 	func didTapBottomButton() {
-		performSegue(withIdentifier: Segue.testResult, sender: nil)
+		performSegue(withIdentifier: Segue.sentSegue, sender: nil)
 	}
 }

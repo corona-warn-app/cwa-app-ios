@@ -51,7 +51,8 @@ extension ExposureSubmissionOverviewViewController {
 		case tanInput = "tanInputSegue"
 		case qrScanner = "qrScannerSegue"
 		case testDetails = "testDetailsSegue"
-		case previousTestResults = "previousTestResultsSegue"
+        case previousTestResults = "previousTestResultsSegue"
+        case labResult = "labResultSegue"
 	}
 }
 
@@ -67,7 +68,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String) {
 		viewController.delegate = nil
 		viewController.dismiss(animated: true) {
-			self.performSegue(withIdentifier: Segue.tanInput, sender: code)
+			self.performSegue(withIdentifier: Segue.labResult, sender: code)
 		}
 	}
 }
@@ -79,19 +80,8 @@ private extension ExposureSubmissionOverviewViewController {
 		
 		let header: DynamicTableViewModel.Header
 		
-		if let testResult = mostRecentTestResult {
-			header = .identifier(HeaderReuseIdentifier.test, action: .perform(segue: Segue.testDetails), configure: { view, indexPath in
-				guard let view = view as? ExposureSubmissionTestResultHeaderView else { return }
-				view.configure(
-					title: "Ergebnis: " + (testResult.isPositive ? "positiv" : "negativ"),
-					subtitle: "SARS-CoV-2 wurde nachgewiesen",
-					received: "Eingangsdatum: 2. Mai 2020",
-					status: "Befund wurde am 4. Mai 2020 übermittelt"
-				)
-			})
-		} else {
+	
 			header = .image(UIImage(named: "app-information-people"))
-		}
 		
 		data.add(
 			.section(
@@ -108,22 +98,11 @@ private extension ExposureSubmissionOverviewViewController {
 			.section(
 				header: .text("Nächste Schritte"),
 				cells: [
-					.icon(action: .perform(segue: Segue.tanInput), text: "Identifikationsnummer eingeben", image: UIImage(systemName: "doc.text"), backgroundColor: .preferredColor(for: .brandBlue), tintColor: .black),
+					.icon(action: .perform(segue: Segue.tanInput), text: "TeleTan eingeben", image: UIImage(systemName: "doc.text"), backgroundColor: .preferredColor(for: .brandBlue), tintColor: .black),
 					.icon(action: .perform(segue: Segue.qrScanner), text: "QR-Code scannen", image: UIImage(systemName: "doc.text"), backgroundColor: .preferredColor(for: .brandBlue), tintColor: .black)
 				]
 			)
 		)
-		
-		if !testResults.isEmpty {
-			data.add(
-				.section(
-					header: .blank,
-					cells: [
-						.icon(action: .perform(segue: Segue.previousTestResults), text: "Vorherige Testergebnisse", image: UIImage(systemName: "clock"), backgroundColor: .preferredColor(for: .brandBlue), tintColor: .black)
-					]
-				)
-			)
-		}
 		
 		data.add(
 			.section(
@@ -133,7 +112,16 @@ private extension ExposureSubmissionOverviewViewController {
 				]
 			)
 		)
-		
+        if !testResults.isEmpty {
+            data.add(
+                .section(
+                    header: .blank,
+                    cells: [
+                        .icon(action: .perform(segue: Segue.previousTestResults), text: "Vorherige Testergebnisse", image: UIImage(systemName: "clock"), backgroundColor: .preferredColor(for: .brandBlue), tintColor: .black)
+                    ]
+                )
+            )
+        }
 		return data
 	}
 }
