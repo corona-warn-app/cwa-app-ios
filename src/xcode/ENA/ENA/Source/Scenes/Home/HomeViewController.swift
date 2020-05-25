@@ -75,7 +75,8 @@ final class HomeViewController: UIViewController {
         prepareData()
         configureHierarchy()
         configureDataSource()
-        configureUI()
+        configureUI()        
+        enableExposureManagerIfNeeded()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -92,9 +93,9 @@ final class HomeViewController: UIViewController {
 				self.reloadData()
 			}
 		}
-
-        enableExposureManagerIfNeeded()
     }
+    
+
     
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
