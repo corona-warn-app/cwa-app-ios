@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ExposureNotification
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Properties
@@ -15,7 +16,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let diagnosisKeysStore = SignedPayloadStore()
     private let exposureManager = ENAExposureManager()
     private let navigationController: UINavigationController = .withLargeTitle()
-    private weak var homeController: HomeViewController?
+    private var homeController: HomeViewController?
     var exposureManagerEnabled = false
 
     private(set) lazy var client: Client = {
@@ -56,6 +57,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         setupUI()
 
         NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
+        
+        
     }
 
     // MARK: Helper
@@ -65,9 +68,28 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
 
+    
     private func showHome(animated: Bool = false) {
-        let vc = AppStoryboard.home.initiateInitial { [unowned self] coder in
-            HomeViewController(
+        if exposureManager.preconditions().active {
+            presentHomeVC()
+        } else {
+            log(message: "ExposureManager not activate yet.")
+            exposureManager.activate {[weak self]  error in
+                if let error = error {
+                    //TODO: Error handling, if error occurs, what can we do?
+                    logError(message: "Cannot activate the  ENManager. The reason is \(error)")
+                    return
+                }
+                self?.presentHomeVC()
+            }
+        }
+    }
+    
+    
+    private func presentHomeVC() {
+        self.exposureManagerEnabled = self.exposureManager.preconditions().enabled
+        let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) {[unowned self] coder in
+            let homeVC = HomeViewController(
                 coder: coder,
                 exposureManager: self.exposureManager,
                 client: self.client,
@@ -75,9 +97,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 signedPayloadStore: self.diagnosisKeysStore,
                 exposureManagerEnabled: self.exposureManagerEnabled
             )
-        } as HomeViewController
+            return homeVC
+        }
+        
         homeController = vc // strong ref needed
-        vc.exposureManagerEnabled = exposureManager.preconditions().enabled
         navigationController.setViewControllers(
             [vc],
             animated: true
