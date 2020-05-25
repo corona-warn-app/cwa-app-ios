@@ -92,11 +92,8 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
             return
         }
         
-        // TODO: Ask for consent.
-        // TODO: Store consent.
-        
         let hash = Hasher.sha256(guid)
-        self.client?.registerDevice(forTan: guid, withType: "GUID", completion: { result in
+        self.client?.getRegistrationToken(forKey: guid, withType: "GUID", completion: { result in
             switch result {
             case .failure(let error):
                 // TODO: Handle error.

@@ -196,7 +196,7 @@ final class HTTPClient: Client {
         }
     }
     
-    func getTANForDiagnosis(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
+    func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
         let url = configuration.tanRetrievalURL
         
         let bodyValues = ["registrationToken":registrationToken]
@@ -243,11 +243,11 @@ final class HTTPClient: Client {
         }
     }
     
-    func registerDevice(forTan TAN: String, withType type: String, completion completeWith: @escaping RegistrationHandler) {
+    func getRegistrationToken(forKey key: String, withType type: String, completion completeWith: @escaping RegistrationHandler) {
         
         let url = configuration.registrationURL
         
-        let bodyValues = ["key":TAN,"keyType":type]
+        let bodyValues = ["key":key,"keyType":type]
         do {
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted

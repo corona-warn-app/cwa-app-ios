@@ -25,7 +25,20 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         self.client = client
         self.store = store
     }
-
+    
+    func getRegistrationToken(forKey key: String, withType type: String, completion completeWith: @escaping RegistrationHandler){
+    //save+client request+ delete
+        
+    }
+    func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler){
+        //alert+ store consent+ clientrequest
+        
+    }
+    
+    func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
+        //get testresult and redirect to lab result screen to show the result
+    }
+    
     func submitExposure(with tan: String, completionHandler: @escaping  ExposureSubmissionHandler) {
         log(message: "Started exposure submission...")
         

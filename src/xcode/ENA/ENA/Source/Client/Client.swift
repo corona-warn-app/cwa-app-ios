@@ -35,8 +35,8 @@ protocol Client {
     )
     
     // registersTheDevice
-    func registerDevice(
-        forTan TAN: String,
+    func getRegistrationToken(
+        forKey key: String,
         withType type: String, completion completeWith: @escaping RegistrationHandler
     )
     
@@ -47,7 +47,7 @@ protocol Client {
     )
     
     // getTANForDevice
-    func getTANForDiagnosis(
+    func getTANForExposureSubmit(
         forDevice registrationToken: String,
         completion completeWith: @escaping TANHandler
     )
