@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "CocoaLumberjack",
-        "repositoryURL": "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
+        "package": "FMDB",
+        "repositoryURL": "https://github.com/ccgus/fmdb",
         "state": {
           "branch": null,
-          "revision": "ca78b3dbbb7fb88ee58943592930dc9e2469ba9e",
-          "version": "3.6.1"
+          "revision": "61e51fde7f7aab6554f30ab061cc588b28a97d04",
+          "version": "2.7.7"
         }
       },
       {
@@ -17,6 +17,15 @@
           "branch": null,
           "revision": "7790acf0a81d08429cb20375bf42a8c7d279c5fe",
           "version": "1.8.0"
+        }
+      },
+      {
+        "package": "ZIPFoundation",
+        "repositoryURL": "https://github.com/weichsel/ZIPFoundation.git",
+        "state": {
+          "branch": null,
+          "revision": "ec32d62d412578542c0ffb7a6ce34d3e64b43b94",
+          "version": "0.9.11"
         }
       }
     ]

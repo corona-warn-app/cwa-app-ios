@@ -22,6 +22,10 @@ extension HTTPClient {
                 submission: .init(
                     baseURL: URL(staticString: "https://localhost/fixme"),
                     requiresTrailingSlash: true
+                ),
+                verification: .init(
+                    baseURL: URL(staticString: "https://localhost/fixme"),
+                    requiresTrailingSlash: true
                 )
             )
         )
@@ -122,6 +126,14 @@ extension HTTPClient {
                     "diagnosis-keys"
             )
         }
+        var verificationURL: URL {
+              endpoints
+                  .verification
+                  .appending(
+                      "version",
+                      apiVersion
+              )
+          }
     }
 }
 
@@ -160,6 +172,7 @@ extension HTTPClient.Configuration {
     struct Endpoints {
         let distribution: Endpoint
         let submission: Endpoint
+        let verification: Endpoint
     }
 }
 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ExposureDetection_Contacts</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Bisher keine Kontakte</string>
+			<key>one</key>
+			<string>%u Kontakt</string>
+			<key>other</key>
+			<string>%u Kontakte</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_LastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Letzter Kontakt: Heute</string>
+			<key>one</key>
+			<string>Letzter Kontakt: Gestern</string>
+			<key>other</key>
+			<string>%u Tage seit letztem Kontakt</string>
+		</dict>
+	</dict>
+    <key>Home_Risk_High_Number_Contacts_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+            <string>No risk encounter so far</string>
+            <key>one</key>
+            <string>%u risk contact</string>
+            <key>other</key>
+            <string>%u risk contacts</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_High_Last_Contact_Item_Title</key>
+       <dict>
+           <key>NSStringLocalizedFormatKey</key>
+           <string>%#@VARIABLE@</string>
+           <key>VARIABLE</key>
+           <dict>
+               <key>NSStringFormatSpecTypeKey</key>
+               <string>NSStringPluralRuleType</string>
+               <key>NSStringFormatValueTypeKey</key>
+               <string>u</string>
+               <key>zero</key>
+               <string>Less than a day since the last contact</string>
+               <key>one</key>
+               <string>%u day since the last contact</string>
+               <key>other</key>
+               <string>%u days since the last contact</string>
+           </dict>
+       </dict>
+</dict>
+</plist>

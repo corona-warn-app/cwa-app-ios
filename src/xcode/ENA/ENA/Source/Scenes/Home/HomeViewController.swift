@@ -44,27 +44,30 @@ final class HomeViewController: UIViewController {
     private let exposureManager: ExposureManager
     private var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
     private var collectionView: UICollectionView!
-    private var homeLayout: HomeLayout!
+	private var homeLayout: HomeLayout!
     private var homeInteractor: HomeInteractor!
     private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
     private let store: Store
     private let client: Client
     var exposureManagerEnabled = false {
         didSet {
+			exposureDetectionController?.state.isTracingEnabled = exposureManagerEnabled
             settingsController?.exposureManagerEnabled = exposureManagerEnabled
             notificationSettingsController?.exposureManagerEnabled = exposureManagerEnabled
         }
     }
 	private var summaryNotificationObserver: NSObjectProtocol?
 
-    private weak var settingsController: SettingsViewController?
+	private weak var exposureDetectionController: ExposureDetectionViewController?
+	private weak var settingsController: SettingsViewController?
     private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 
     enum Section: Int {
         case actions
-        case infos
-        case settings
-    }
+		case infos
+		case settings
+		
+	}
 
     // MARK: UIViewController
     override func viewDidLoad() {
@@ -92,13 +95,12 @@ final class HomeViewController: UIViewController {
 
         enableExposureManagerIfNeeded()
     }
-
+    
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-
-		NotificationCenter.default.removeObserver(summaryNotificationObserver, name: .didDetectExposureDetectionSummary, object: nil)
+		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
 	}
-
+	
     // MARK: Actions
     @objc
     private func infoButtonTapped(_ sender: UIButton) {
@@ -152,21 +154,25 @@ final class HomeViewController: UIViewController {
     }
 
     func showSubmitResult() {
-        let controller = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { coder in
-            ExposureSubmissionViewController(
-                coder: coder,
-                exposureSubmissionService: ENAExposureSubmissionService(
-                    manager: self.exposureManager,
-                    client: self.client
-                )
-            )
-        }
-
-        present(
-            UINavigationController(rootViewController: controller),
-            animated: true,
-            completion: nil
-        )
+		// TODO
+		let vc = AppStoryboard.exposureSubmission.initiateInitial()
+		present(vc, animated: true)
+		
+//        let controller = ExposureSubmissionViewController.initiate(for: .exposureSubmission) { coder in
+//            ExposureSubmissionViewController(
+//                coder: coder,
+//                exposureSubmissionService: ENAExposureSubmissionService(
+//                    manager: self.exposureManager,
+//                    client: self.client
+//                )
+//            )
+//        }
+//
+//        present(
+//            UINavigationController(rootViewController: controller),
+//            animated: true,
+//            completion: nil
+//        )
     }
 
     func showExposureNotificationSetting() {
@@ -216,6 +222,8 @@ final class HomeViewController: UIViewController {
                 exposureManager: self.exposureManager
             )
         }
+		exposureDetectionController = vc as? ExposureDetectionViewController
+		exposureDetectionController?.state.isTracingEnabled = exposureManagerEnabled
         present(vc, animated: true)
     }
 
@@ -224,7 +232,7 @@ final class HomeViewController: UIViewController {
             AppStoryboard.appInformation.initiateInitial(),
             animated: true
         )
-    }
+		}
 
     func showWebPage() {
         if let url = URL(string: AppStrings.SafariView.targetURL) {
@@ -244,8 +252,8 @@ final class HomeViewController: UIViewController {
     private func showScreen(at indexPath: IndexPath) {
         guard let section = Section(rawValue: indexPath.section) else { return }
         let row = indexPath.row
-        switch section {
-        case .actions:
+		switch section {
+		case .actions:
             if row == 0 {
                 showExposureNotificationSetting()
             } else if row == 1 {
@@ -253,31 +261,39 @@ final class HomeViewController: UIViewController {
             } else {
                 showSubmitResult()
             }
-        case .infos:
-            if row == 0 {
-                showInviteFriends()
-            } else {
+		case .infos:
+			if row == 0 {
+				showInviteFriends()
+			} else {
                 showWebPage()
-            }
-        case .settings:
-            if row == 0 {
-                showAppInformation()
-            } else {
+			}
+		case .settings:
+			if row == 0 {
+				showAppInformation()
+			} else {
 				showSetting()
-            }
+			}
         }
     }
 
     // MARK: Configuration
 
     func prepareData() {
-        cellConfigurators = homeInteractor.cellConfigurators()
+        cellConfigurators = homeInteractor.cellConfigurators
     }
 
     func reloadData() {
         collectionView.reloadData()
     }
 
+    func reloadCell(at indexPath: IndexPath) {
+        let snapshot = dataSource.snapshot()
+        cellConfigurators = homeInteractor.cellConfigurators
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        cellConfigurators[indexPath.item].configureAny(cell: cell)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
     private func createLayout() -> UICollectionViewLayout {
         homeLayout = HomeLayout()
         homeLayout.delegate = self
@@ -285,22 +301,27 @@ final class HomeViewController: UIViewController {
     }
 
     private func configureHierarchy() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        let safeLayoutGuide = view.safeAreaLayoutGuide
+
+		view.backgroundColor = .systemGroupedBackground
+			
+		collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+		collectionView.delegate = self
+		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
-        collectionView.delegate = self
-        let safeLayoutGuide = view.safeAreaLayoutGuide
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
+		view.addSubview(collectionView)
+
         NSLayoutConstraint.activate(
             [
-                collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-                collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-                collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ]
+				collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
+				collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
+				collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
+				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+			]
         )
-        collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
+
+		collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
         let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
         collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
     }
@@ -386,6 +407,9 @@ private extension HomeViewController {
 
 extension HomeViewController: ViewControllerUpdatable {
     func updateUI() {
+        guard isViewLoaded else { return }
+        homeInteractor.updateActiveCell()
+		exposureDetectionController?.updateUI()
         settingsController?.updateUI()
         notificationSettingsController?.updateUI()
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CollectionViewCellConfiguratorAny {
+protocol CollectionViewCellConfiguratorAny: AnyObject {
     var viewAnyType: UICollectionViewCell.Type { get }
     
     func configureAny(cell: UICollectionViewCell)

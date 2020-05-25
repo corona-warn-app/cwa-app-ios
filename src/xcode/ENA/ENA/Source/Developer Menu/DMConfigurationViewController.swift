@@ -10,9 +10,10 @@ import UIKit
 
 final class DMConfigurationViewController: UITableViewController {
     // MARK: Creating a Configuration View Controller
-    init(distributionURL: String?, submissionURL: String?) {
+    init(distributionURL: String?, submissionURL: String?, verificationURL: String?) {
         self.distributionURL = distributionURL
         self.submissionURL = submissionURL
+        self.verificationURL = verificationURL
         super.init(style: .plain)
         title = "Configuration"
     }
@@ -24,7 +25,8 @@ final class DMConfigurationViewController: UITableViewController {
     // MARK: Properties
     private let distributionURL: String?
     private let submissionURL: String?
-    
+    private let verificationURL: String?
+
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +51,9 @@ final class DMConfigurationViewController: UITableViewController {
         case 1:
             title = "Submission URL"
             subtitle = submissionURL ?? "<none>"
+        case 2:
+            title = "Verification URL"
+            subtitle = verificationURL ?? "<none>"
         default:
             title = nil
             subtitle = nil
@@ -60,7 +65,7 @@ final class DMConfigurationViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        3
     }
 }
 

@@ -7,21 +7,23 @@
 //
 
 import UIKit
+import ExposureNotification
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Properties
     var window: UIWindow?
-    private let store = Store()
+    private let store: Store = DevelopmentStore()
     private let diagnosisKeysStore = DownloadedPackagesStore()
     private let exposureManager = ENAExposureManager()
     private let navigationController: UINavigationController = .withLargeTitle()
-    private weak var homeController: HomeViewController?
+    private var homeController: HomeViewController?
     var exposureManagerEnabled = false
 
     private(set) lazy var client: Client = {
-        #if APP_STORE
-        return HTTPClient(configuration: .production)
-        #endif
+        // We disable app store checks to make testing easier.
+//        #if APP_STORE
+//        return HTTPClient(configuration: .production)
+//        #endif
 
         if ClientMode.default == .mock {
             fatalError("not implemented")
@@ -31,7 +33,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard
             let distributionURLString = store.developerDistributionBaseURLOverride,
             let submissionURLString = store.developerSubmissionBaseURLOverride,
+            let verificationURLString = store.developerVerificationBaseURLOverride,
             let distributionURL = URL(string: distributionURLString),
+            let verificationURL = URL(string: verificationURLString),
             let submissionURL = URL(string: submissionURLString) else {
                 return HTTPClient(configuration: .production)
         }
@@ -41,7 +45,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             country: "DE",
             endpoints: HTTPClient.Configuration.Endpoints(
                 distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-                submission: .init(baseURL: submissionURL, requiresTrailingSlash: true)
+                submission: .init(baseURL: submissionURL, requiresTrailingSlash: true),
+                verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
             )
         )
         return HTTPClient(configuration: config)
@@ -56,6 +61,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         setupUI()
 
         NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
+        
+        
     }
 
     // MARK: Helper
@@ -65,9 +72,28 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
 
+    
     private func showHome(animated: Bool = false) {
-        let vc = AppStoryboard.home.initiateInitial { [unowned self] coder in
-            HomeViewController(
+        if exposureManager.preconditions().active {
+            presentHomeVC()
+        } else {
+            log(message: "ExposureManager not activate yet.")
+            exposureManager.activate {[weak self]  error in
+                if let error = error {
+                    //TODO: Error handling, if error occurs, what can we do?
+                    logError(message: "Cannot activate the  ENManager. The reason is \(error)")
+                    return
+                }
+                self?.presentHomeVC()
+            }
+        }
+    }
+    
+    
+    private func presentHomeVC() {
+        self.exposureManagerEnabled = self.exposureManager.preconditions().enabled
+        let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) {[unowned self] coder in
+            let homeVC = HomeViewController(
                 coder: coder,
                 exposureManager: self.exposureManager,
                 client: self.client,
@@ -75,9 +101,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 keyPackagesStore: self.diagnosisKeysStore,
                 exposureManagerEnabled: self.exposureManagerEnabled
             )
-        } as HomeViewController
+            return homeVC
+        }
+        
         homeController = vc // strong ref needed
-        vc.exposureManagerEnabled = exposureManager.preconditions().enabled
         navigationController.setViewControllers(
             [vc],
             animated: true
@@ -102,13 +129,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     @objc
     func isOnboardedDidChange(_ notification: NSNotification) {
-        showHome(animated: true)
+        store.isOnboarded ? showHome() : showOnboarding()
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        #if APP_STORE
-        return
-        #endif
+        // We have to allow backend configuration via the url schema for now.
+//        #if APP_STORE
+//        return
+//        #endif
 
         guard let url = URLContexts.first?.url else {
             return
@@ -127,6 +155,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         if let distributionBaseURL = query.valueFor(queryItem: "distributionBaseURL") {
             store.developerDistributionBaseURLOverride = distributionBaseURL
+        }
+        if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
+            store.developerVerificationBaseURLOverride = verificationBaseURL
         }
 
         UserDefaults.standard.synchronize()
@@ -194,8 +225,7 @@ private extension UINavigationController {
     class func withLargeTitle() -> UINavigationController {
         let result = UINavigationController()
         result.navigationBar.prefersLargeTitles = true
-		result.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-		result.navigationBar.shadowImage = UIImage()
+        result.navigationBar.isTranslucent = true
         return result
     }
 }

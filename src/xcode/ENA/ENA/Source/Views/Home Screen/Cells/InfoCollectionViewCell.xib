@@ -49,12 +49,32 @@
                                     </imageView>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FTz-bb-785">
+                                <rect key="frame" x="0.0" y="0.0" width="511" height="1"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Cw1-60-Y7w"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOU-zh-DXY">
+                                <rect key="frame" x="0.0" y="189" width="511" height="1"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="zQG-IC-duh"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="FTz-bb-785" firstAttribute="leading" secondItem="U6l-FR-h2s" secondAttribute="leading" id="7ql-HA-52f"/>
                             <constraint firstItem="Nid-Qb-FC5" firstAttribute="leading" secondItem="U6l-FR-h2s" secondAttribute="leading" constant="16" id="OIj-wM-rJZ"/>
+                            <constraint firstAttribute="bottom" secondItem="XOU-zh-DXY" secondAttribute="bottom" id="TJA-8X-Uyh"/>
+                            <constraint firstAttribute="trailing" secondItem="XOU-zh-DXY" secondAttribute="trailing" id="Uk3-9P-8Ux"/>
                             <constraint firstAttribute="bottom" secondItem="Nid-Qb-FC5" secondAttribute="bottom" constant="16" id="cff-GO-m3v"/>
+                            <constraint firstItem="FTz-bb-785" firstAttribute="top" secondItem="U6l-FR-h2s" secondAttribute="top" id="j3i-ek-H4X"/>
                             <constraint firstItem="Nid-Qb-FC5" firstAttribute="top" secondItem="U6l-FR-h2s" secondAttribute="top" constant="16" id="jqr-YO-GVf"/>
+                            <constraint firstItem="XOU-zh-DXY" firstAttribute="leading" secondItem="U6l-FR-h2s" secondAttribute="leading" id="qgy-65-I9S"/>
                             <constraint firstAttribute="trailing" secondItem="Nid-Qb-FC5" secondAttribute="trailing" constant="16" id="rz1-RU-3Wz"/>
+                            <constraint firstAttribute="trailing" secondItem="FTz-bb-785" secondAttribute="trailing" id="vCG-4n-Jn5"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -69,8 +89,11 @@
             <size key="customSize" width="511" height="190"/>
             <connections>
                 <outlet property="bodyLabel" destination="agg-fi-lUn" id="9bh-Y8-AxB"/>
+                <outlet property="bottomDividerLeadingConstraint" destination="qgy-65-I9S" id="txj-Oh-d8h"/>
+                <outlet property="bottomDividerView" destination="XOU-zh-DXY" id="Hz6-oy-V0L"/>
                 <outlet property="chevronImageView" destination="jLY-i3-yRh" id="cpN-1d-zDZ"/>
                 <outlet property="titleLabel" destination="xM1-cv-GWJ" id="vXv-7m-xid"/>
+                <outlet property="topDividerView" destination="FTz-bb-785" id="Fog-sZ-TrH"/>
             </connections>
             <point key="canvasLocation" x="29.710144927536234" y="149.33035714285714"/>
         </collectionViewCell>

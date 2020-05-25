@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HomeRiskItemViewConfigurator {
+final class HomeRiskItemViewConfigurator: HomeRiskViewConfigurator {
     
     var title: String
     var titleColor: UIColor
@@ -22,12 +22,12 @@ final class HomeRiskItemViewConfigurator {
         self.color = color
     }
     
-    func configure(riskItemView: RiskItemView) {
+    func configure(riskView: RiskImageItemView) {
         let iconTintColor = titleColor
-        riskItemView.iconImageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
-        riskItemView.titleTextView?.text = title
-        riskItemView.titleTextView?.textColor = titleColor
-        riskItemView.separatorView?.backgroundColor = UIColor.white.withAlphaComponent(0.15)
-        riskItemView.backgroundColor = color
+        riskView.iconImageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
+        riskView.titleTextView?.text = title
+        riskView.titleTextView?.textColor = titleColor
+        riskView.separatorView?.backgroundColor = UIColor.white.withAlphaComponent(0.15)
+        riskView.backgroundColor = color
     }
 }

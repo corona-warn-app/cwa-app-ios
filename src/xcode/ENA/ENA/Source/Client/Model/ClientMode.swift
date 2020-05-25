@@ -21,12 +21,14 @@ enum ClientMode: String {
     case https = "https"
 
     static func from(environment: [String: String]) -> ClientMode {
-        #if APP_STORE
-        return .https
-        #endif
-        let defaultMode = ClientMode.https
-        let value = environment["CWA_CLIENT_MODE"] ?? defaultMode.rawValue
-        return ClientMode(rawValue: value) ?? defaultMode
+        // We disable mocking
+        .https
+//        #if APP_STORE
+//        return .https
+//        #endif
+//        let defaultMode = ClientMode.https
+//        let value = environment["CWA_CLIENT_MODE"] ?? defaultMode.rawValue
+//        return ClientMode(rawValue: value) ?? defaultMode
     }
 
     static func from(processInfo: ProcessInfo) -> ClientMode {

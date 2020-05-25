@@ -14,7 +14,6 @@ class HomeFooterSupplementaryView: UICollectionReusableView {
     @IBOutlet var imageView: UIImageView!
     
     func configure() {
-        // imageView.image =
-        containerView.backgroundColor = .systemGroupedBackground
+        containerView.backgroundColor = .clear
     }
 }

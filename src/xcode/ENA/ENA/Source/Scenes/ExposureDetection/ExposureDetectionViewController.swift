@@ -11,10 +11,15 @@ import UIKit
 import ExposureNotification
 
 
-final class ExposureDetectionViewController: UIViewController {
+class ExposureDetectionViewController: DynamicTableViewController {
+    @IBOutlet weak var titleView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var checkButton: UIButton!
+
 
     // MARK: Creating an Exposure Detection View Controller
-	init?(
+
+    init?(
         coder: NSCoder,
         store: Store,
         client: Client,
@@ -25,238 +30,105 @@ final class ExposureDetectionViewController: UIViewController {
         self.client = client
         self.keyPackagesStore = keyPackagesStore
         self.exposureManager = exposureManager
-		super.init(coder: coder)
-	}
+
+        state = ExposureDetectionViewControllerState()
+
+        super.init(coder: coder)
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has intentionally not been implemented")
     }
+
 
     // MARK: Properties
 
     let store: Store
     let client: Client
     let keyPackagesStore: DownloadedPackagesStore
-    private let exposureManager: ExposureManager
-
-    private var model: ExposureDetectionModel = .unknownRisk
-    private var riskLevel: RiskLevel = .unknown
+    let exposureManager: ExposureManager
 
     private var exposureDetectionTransaction: ExposureDetectionTransaction?
-    private var exposureDetectionSummary: ENExposureDetectionSummary?
 
-    @IBOutlet weak var checkButton: UIButton!
-    @IBOutlet weak var tableView: UITableView!
+    private weak var refreshTimer: Timer?
 
-    // MARK: Misc
-	@IBAction func tappedClose() {
-		self.dismiss(animated: true)
-	}
-
-	@IBAction func tappedCheckNow() {
-		log(message: "Starting exposure detection ...")
-		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: self.client, keyPackagesStore: self.keyPackagesStore)
-		self.exposureDetectionTransaction?.start()
-	}
-
-	func updateRiskLevel(riskLevel: RiskLevel) {
-		self.riskLevel = riskLevel
-		self.model = .model(for: riskLevel)
-		self.checkButton.titleLabel?.text = model.checkButton
-
-		self.tableView.reloadData()
-	}
+    var state: ExposureDetectionViewControllerState
 }
 
 
 extension ExposureDetectionViewController {
-	enum Section: Int, CaseIterable {
-		case riskLevel
-		case content
-		case hotline
-	}
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        checkButton.setTitle(AppStrings.ExposureDetection.checkNow, for: .normal)
+
+        updateRiskLevel(riskLevel: .unknown)
+    }
+
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        refreshTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
+            guard let self = self else { timer.invalidate() ; return }
+
+            let indexPath = IndexPath(row: self.dynamicTableViewModel.numberOfRows(inSection: 0) - 1, section: 0)
+
+            if let cell = self.tableView.cellForRow(at: indexPath) {
+                self.dynamicTableViewModel.cell(at: indexPath).configure(cell: cell, at: indexPath)
+            }
+        }
+    }
+
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        refreshTimer?.invalidate()
+    }
+
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+
+        (cell as? DynamicTypeTableViewCell)?.backgroundColor = .clear
+
+        return cell
+    }
 }
 
 
-extension ExposureDetectionViewController {
-	enum ReusableCellIdentifier: String {
-		case risk = "riskCell"
-		case headline = "headlineCell"
-		case body = "bodyCell"
-		case semibold = "semiboldCell"
-		case link = "linkCell"
-		case guide = "guideCell"
-		case phone = "phoneCell"
-	}
+private extension ExposureDetectionViewController {
+    @IBAction func tappedClose() {
+        self.dismiss(animated: true)
+    }
+
+
+    @IBAction func tappedCheckNow() {
+        log(message: "Starting exposure detection ...")
+        self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: self.client, keyPackagesStore: self.keyPackagesStore)
+        self.exposureDetectionTransaction?.start()
+    }
+
+
+    func updateRiskLevel(riskLevel: RiskLevel) {
+        self.state.riskLevel = riskLevel
+
+        self.titleView.backgroundColor = state.riskTintColor
+        self.titleLabel.text = state.riskText
+        self.titleLabel.textColor = state.riskContrastColor
+
+        self.dynamicTableViewModel = self.dynamicTableViewModel(for: riskLevel, isTracingEnabled: state.isTracingEnabled)
+
+        self.tableView.reloadData()
+    }
 }
 
 
-private extension ExposureDetectionModel.Content {
-	var cellType: ExposureDetectionViewController.ReusableCellIdentifier {
-		switch self {
-		case .headline:
-			return .headline
-		case .guide:
-			return .guide
-		case .title:
-			return .semibold
-		case .text:
-			return .body
-		case .more:
-			return .link
-		case .phone:
-			return .phone
-		}
-	}
-}
-
-
-extension ExposureDetectionViewController: UITableViewDataSource, UITableViewDelegate {
-	func numberOfSections(in tableView: UITableView) -> Int {
-		return Section.allCases.count
-	}
-
-
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		switch Section(rawValue: section) {
-		case .riskLevel:
-			return 1
-		case .content:
-			return model.content.count
-		case .hotline:
-			return 1
-		default:
-			return 0
-		}
-	}
-
-
-	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		switch Section(rawValue: section) {
-		case .riskLevel, .content:
-			return 0
-		default:
-			return UITableView.automaticDimension
-		}
-	}
-
-
-	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		switch Section(rawValue: section) {
-		case .riskLevel, .content:
-			let view = UIView()
-			view.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
-			return view
-		default:
-			return nil
-		}
-	}
-
-
-	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		switch Section(rawValue: section) {
-		case .riskLevel:
-			return 0
-		default:
-			return UITableView.automaticDimension
-		}
-	}
-
-
-	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		switch Section(rawValue: section) {
-		case .riskLevel:
-			let view = UIView()
-			view.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
-			return view
-		default:
-			return nil
-		}
-	}
-
-
-	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		switch Section(rawValue: section) {
-		case .hotline:
-			return model.help
-		default:
-			return nil
-		}
-	}
-
-
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		switch Section(rawValue: indexPath.section) {
-		case .riskLevel:
-			let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.risk.rawValue, for: indexPath)
-			let view = (cell as? ExposureDetectionRiskCell)?.riskView
-			view?.configure(
-				for: self.riskLevel,
-				contacts: Int(exposureDetectionSummary?.matchedKeyCount ?? 0),
-				lastExposure: exposureDetectionSummary?.daysSinceLastExposure,
-				lastCheck: store.dateLastExposureDetection
-			)
-
-			return cell
-
-		case .content:
-			let cellContent = model.content[indexPath.item]
-
-			let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellContent.cellType.rawValue, for: indexPath)
-
-			switch cellContent {
-			case let .headline(text):
-				cell.textLabel?.text = text
-			case let .guide(image, text):
-				cell.imageView?.image = image
-				cell.textLabel?.text = text
-			case let .title(text):
-				cell.textLabel?.text = text
-			case let .text(text):
-				cell.textLabel?.text = text
-			case let .more(text, _):
-				cell.textLabel?.text = text
-			case let .phone(text, _):
-				cell.textLabel?.text = text
-			}
-
-			return cell
-
-		case .hotline:
-			let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.phone.rawValue, for: indexPath)
-			cell.textLabel?.text = model.hotline.text
-			return cell
-
-		default:
-			return UITableViewCell()
-		}
-	}
-
-
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		tableView.deselectRow(at: indexPath, animated: true)
-
-		// TODO handle more information
-
-		switch Section(rawValue: indexPath.section) {
-		case .content:
-			switch model.content[indexPath.item] {
-			case .more(_, let url):
-				if let url = url { UIApplication.shared.open(url) }
-			case .phone(_, let number):
-				if let url = URL(string: "tel://\(number)") { UIApplication.shared.open(url) }
-			default:
-				break
-			}
-
-		case .hotline:
-			if let url = URL(string: "tel://\(model.hotline.number)") {
-				UIApplication.shared.open(url)
-			}
-		default:
-			break
-		}
-	}
+extension ExposureDetectionViewController: ViewControllerUpdatable {
+    func updateUI() {
+        tableView.reloadData()
+    }
 }
 
 
@@ -267,26 +139,29 @@ extension ExposureDetectionViewController: ExposureDetectionTransactionDelegate 
         exposureManager
     }
 
-	func exposureDetectionTransaction(_ transaction: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
-		// TODO show error to user
-		logError(message: "Exposure transaction failed: \(reason)")
-		self.exposureDetectionTransaction = nil
-	}
+    func exposureDetectionTransaction(_ transaction: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
+        // TODO show error to user
+        logError(message: "Exposure transaction failed: \(reason)")
+        self.exposureDetectionTransaction = nil
+    }
 
-	func exposureDetectionTransaction(_ transaction: ExposureDetectionTransaction, didDetectSummary summary: ENExposureDetectionSummary) {
-		self.exposureDetectionTransaction = nil
+    func exposureDetectionTransaction(
+        _ transaction: ExposureDetectionTransaction,
+        didDetectSummary summary: ENExposureDetectionSummary
+    ) {
+        self.exposureDetectionTransaction = nil
 
-		self.store.dateLastExposureDetection = Date()
+        self.store.dateLastExposureDetection = Date()
 
-		self.exposureDetectionSummary = summary
-		let riskLevel = RiskLevel(riskScore: summary.maximumRiskScore)
-		self.updateRiskLevel(riskLevel: riskLevel ?? .unknown)
+        self.state.summary = summary
 
-		// Temporarily trigger exposure detection summary notification locally until implemented by transaction flow
-		NotificationCenter.default.post(name: .didDetectExposureDetectionSummary, object: nil, userInfo: ["summary": summary])
-	}
+        self.updateRiskLevel(riskLevel: RiskLevel(riskScore: summary.maximumRiskScore) ?? .unknown)
 
-	func exposureDetectionTransactionRequiresFormattedToday(_ transaction: ExposureDetectionTransaction) -> String {
-		return .formattedToday()
-	}
+        // Temporarily trigger exposure detection summary notification locally until implemented by transaction flow
+        NotificationCenter.default.post(name: .didDetectExposureDetectionSummary, object: nil, userInfo: ["summary": summary])
+    }
+
+    func exposureDetectionTransactionRequiresFormattedToday(_ transaction: ExposureDetectionTransaction) -> String {
+        return .formattedToday()
+    }
 }
