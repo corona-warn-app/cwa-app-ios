@@ -12,6 +12,7 @@ protocol Store: class {
     var allowsCellularUse: Bool { get set }
     var developerSubmissionBaseURLOverride: String? { get set }
     var developerDistributionBaseURLOverride: String? { get set }
+    var developerVerificationBaseURLOverride: String? { get set }
     var teleTan: String? { get set }
     var tan: String? { get set }
     var testGUID: String? { get set }
