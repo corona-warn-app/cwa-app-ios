@@ -11,12 +11,15 @@ import UIKit
 
 
 class ExposureSubmissionTanInputViewController: UIViewController {
+    
+    // MARK: - Attributes.
+    
 	@IBOutlet weak var tanInput: ENATanInput!
-	
-	
 	var initialTan: String?
     var exposureSubmissionService: ExposureSubmissionService?
 	
+    // MARK: - View lifecycle methods.
+    
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
@@ -37,6 +40,7 @@ extension ExposureSubmissionTanInputViewController {
 	}
 }
 
+// MARK: - ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
 	func didTapBottomButton() {
@@ -49,28 +53,17 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
                                   completion: { result in
                                     switch result {
                                     case .failure(let error):
-                                        self.showErrorAlert(error)
+                                        let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+                                        self.present(alert, animated: true, completion: nil)
                                         return
                                     case .success:
-                                        self.showAlertController(successAction: self.requestTan)
+                                        let confirmationAlert = ExposureSubmissionViewUtils
+                                            .setupConfirmationAlert(successAction: self.requestTan)
+                                        self.present(confirmationAlert, animated: true, completion: nil)
                                     }
         })
 
 	}
-    
-    /// Show a default error alert.
-    private func showErrorAlert(_ error: ExposureSubmissionError) {
-        let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle,
-                                      message: "\(error.localizedDescription)",
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk,
-                                      style: .cancel,
-                                      handler: { _ in
-                                        alert.dismiss(animated: true, completion: nil)
-        }))
-        present(alert, animated: true, completion: nil)
-    }
-    
     
     private func requestTan() {
         exposureSubmissionService?
@@ -78,12 +71,12 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
                                      completion: { result in
                                         switch result {
                                         case .failure(let error):
-                                            self.showErrorAlert(error)
-                                            return
+                                            let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+                                            self.present(alert, animated: true, completion: nil)
                                         case .success(let tan):
                                             self.submitKeys(withTan: tan)
                                         }
-        })
+                                    })
     }
     
     private func submitKeys(withTan tan: String) {
@@ -93,7 +86,8 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
                                 
                                 if error != nil {
                                     //swiftlint:disable:next force_unwrapping
-                                    self.showErrorAlert(error!)
+                                    let alert = ExposureSubmissionViewUtils.setupErrorAlert(error!)
+                                    self.present(alert, animated: true, completion: nil)
                                     return
                                 }
                                 
@@ -101,36 +95,4 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
                                                   sender: self)
         })
     }
-    
-    // TODO: Can be refactored by moving to a space
-    // where both Tan and QR Code can access this code.
-    private func showAlertController(successAction: @escaping (() -> Void)) {
-        
-        
-        let alert = UIAlertController(title: AppStrings.Common.alertTitleKeySubmit,
-                                      message: AppStrings.Common.alertDescriptionKeySubmit,
-                                      preferredStyle: .alert)
-        
-        alert
-            .addAction(
-                UIAlertAction(title: AppStrings.Common.alertActionOk,
-                              style: .default,
-                              handler: { _ in
-                                successAction()
-                                alert.dismiss(animated: true,
-                                              completion: nil)
-                                        
-        }))
-        
-        alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionNo,
-                                      style: .cancel,
-                                      handler: { _ in
-                                        alert.dismiss(animated: true,
-                                                      completion: nil)
-        }))
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    
 }

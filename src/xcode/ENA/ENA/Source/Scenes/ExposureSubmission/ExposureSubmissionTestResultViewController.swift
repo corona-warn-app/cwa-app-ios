@@ -77,26 +77,16 @@ extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigati
             return
         }
         
-        askForConsent() { _ in
-            self.startSubmitProcess()
-        }
+        let consentConfirmation = ExposureSubmissionViewUtils.setupConfirmationAlert(successAction: self.startSubmitProcess)
+        self.present(consentConfirmation, animated: true, completion: nil)
 	}
     
-    private func askForConsent(_ completion: ((Any) -> Void)? = nil) {
-        let alert = UIAlertController(title: "Consent", message: "Do you want to submit your keys?", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let ok = UIAlertAction(title: "Ok", style: .destructive, handler: completion)
-        alert.addAction(cancel)
-        alert.addAction(ok)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     private func startSubmitProcess() {
-        
         exposureSubmissionService?.getTANForExposureSubmit(hasConsent: true, completion: { result in
             switch result {
             case .failure(let error):
-                break
+                let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+                self.present(alert, animated: true, completion: nil)
             case .success(let tan):
                 log(message: "Received tan for submission: \(tan)", level: .info)
                 self.submitKeys(with: tan)
@@ -107,8 +97,9 @@ extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigati
     private func submitKeys(with tan: String) {
         exposureSubmissionService?.submitExposure(with: tan, completionHandler: { error in
             if let error = error {
-                // TODO: Handle error.
                 log(message: "error: \(error.localizedDescription)", level: .error)
+                let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+                self.present(alert, animated: true, completion: nil)
                 return
             }
             

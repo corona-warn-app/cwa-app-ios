@@ -10,10 +10,6 @@ import Foundation
 import UIKit
 import AVFoundation
 
-
-// TODO Draft controller, no error handling !!!
-
-
 protocol ExposureSubmissionQRScannerDelegate: class {
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String)
 }

@@ -18,11 +18,16 @@ struct ExposureSubmissionTestResult {
 
 
 class ExposureSubmissionOverviewViewController: DynamicTableViewController {
+    
+    // MARK: - Attributes.
+    @IBAction func unwindToExposureSubmissionIntro(_ segue: UIStoryboardSegue) { }
+    private var exposureSubmissionService: ExposureSubmissionService?
+    
     // TODO: Following two lines need to be removed. So far the backend API only gives us 1 int value and no further information.(?)
 	private var testResults: [ExposureSubmissionTestResult] = [ExposureSubmissionTestResult(isPositive: true, receivedDate: Date(), transmittedDate: Date())]
 	private var mostRecentTestResult: ExposureSubmissionTestResult? { testResults.last }
     
-    private var exposureSubmissionService: ExposureSubmissionService?
+
     
     // MARK: - Initializers.
     
@@ -30,10 +35,12 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
         super.init(coder: aDecoder)
     }
     
+    // MARK: - View lifecycle methods.
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // TODO: Move this one screen earlier so we do not even load the ExposureSubmissionOverviewViewController.
+        // TODO: Move this to the nav controller so we do not even load the ExposureSubmissionOverviewViewController.
         if exposureSubmissionService?.hasRegistrationToken() ?? false {
             fetchResult()
         }
@@ -52,9 +59,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
             self.exposureSubmissionService = navC.getExposureSubmissionService()
         }
 	}
-	
-	
-	@IBAction func unwindToExposureSubmissionIntro(_ segue: UIStoryboardSegue) { }
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch Segue(segue) {
@@ -75,6 +79,30 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
 		}
 	}
     
+    // MARK: - Helpers.
+    
+    private func fetchResult() {
+        startSpinner()
+        exposureSubmissionService?.getTestResult { result in
+            self.stopSpinner()
+            switch result {
+            case .failure(let error):
+                log(message: "An error occured during result fetching: \(error)", level: .error)
+                let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+                self.present(alert, animated: true, completion: nil)
+            case .success(let testResult):
+                switch testResult {
+                case .pending:
+                    let alert = ExposureSubmissionViewUtils.setupAlert(message: "Test Result is pending.")
+                    self.present(alert, animated: true, completion: nil)
+                default:
+                    self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Loading spinner.
     
     private var spinner: UIActivityIndicatorView?
     private func startSpinner() {
@@ -114,6 +142,8 @@ extension ExposureSubmissionOverviewViewController {
 	}
 }
 
+// MARK: - ExposureSubmissionQRScannerDelegate methods.
+
 extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerDelegate {
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String) {
         
@@ -128,11 +158,12 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
         self.exposureSubmissionService?.getRegistrationToken(forKey: .guid(guid), completion: { result in
             switch result {
             case .failure(let error):
-                // TODO: Handle error.
                 log(message: "Error while getting registration token: \(error)", level: .error)
-                self.showAlert("Could not get registration token. \(error.localizedDescription)") {
-                    viewController.dismiss(animated: true)
+                let alert = ExposureSubmissionViewUtils.setupConfirmationAlert {
+                    viewController.dismiss(animated: true, completion: nil)
                 }
+                
+                self.present(alert, animated: true, completion: nil)
             case .success(let token):
                 print("Received registration token: \(token)")
                 
@@ -143,35 +174,6 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
         })
 
 	}
-        
-    private func showAlert(_ message: String, _ completion: (() -> Void)? = nil) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(.init(title: "ok", style: .default, handler: { action in
-            completion?()
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    private func fetchResult() {
-        startSpinner()
-        exposureSubmissionService?.getTestResult { result in
-            self.stopSpinner()
-            switch result {
-            case .failure(let error):
-                // TODO: Handle error.
-                log(message: "An error occured during result fetching: \(error)", level: .error)
-                self.showAlert("An error occured during result fetching: \(error.localizedDescription)")
-            case .success(let testResult):
-                log(message: "Test Result: \(testResult)", level: .info)
-                switch testResult {
-                case .pending:
-                    self.showAlert("Test Result is pending.")
-                default:
-                    self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
-                }
-            }
-        }
-    }
     
     /// Sanitize the input string and assert that:
     /// - length is smaller than 128 characters
