@@ -1,8 +1,8 @@
 syntax = "proto3";
 option java_multiple_files = true;
-import "exposure_notification.proto";
-package sap;
+import "temporary_exposure_key_export.proto";
+package SAP;
 
 message SubmissionPayload {
-  repeated sap.Key keys = 1;
+  repeated SAP.TemporaryExposureKey keys = 1;
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import ExposureNotification
+import ZIPFoundation
 
 final class HTTPClient: Client {
    // MARK: Creating
@@ -28,6 +29,7 @@ final class HTTPClient: Client {
     ) {
         log(message: "Fetching exposureConfiguation from: \(configuration.configurationURL)")
         session.GET(configuration.configurationURL) { result in
+
             switch result {
             case .success(let response):
                 guard let data = response.body else {
@@ -38,11 +40,17 @@ final class HTTPClient: Client {
                     completion(nil)
                     return
                 }
+
+                guard let package = SAPDownloadedPackage(compressedData: data) else {
+                    logError(message: "Failed to create signed package.")
+                    completion(nil)
+                    return
+                }
+
                 do {
-                    completion(try ENExposureConfiguration(from: data))
-                    log(message: "Retrieved exposureConfiguation from server")
+                    completion(try ENExposureConfiguration(from: package.bin))
                 } catch {
-                    logError(message: "Faild to get exposure configuration: \(error.localizedDescription)")
+                    logError(message: "Failed to get exposure configuration: \(error)")
                     completion(nil)
                 }
             case .failure:
@@ -115,7 +123,7 @@ final class HTTPClient: Client {
             }
         }
     }
-    
+
     func availableHours(
         day: String,
         completion completeWith: @escaping AvailableHoursCompletionHandler
@@ -306,13 +314,12 @@ final class HTTPClient: Client {
                     logError(message: "Failed to download day '\(day)': invalid response")
                     return
                 }
-                do {
-                    let bucket = try VerifiedSapFileBucket(serializedSignedPayload: dayData)
-                    completeWith(.success(bucket))
-                } catch let error {
-                    logError(message: "Failed to download day '\(day)' due to error: \(error).")
+                guard let package = SAPDownloadedPackage(compressedData: dayData) else {
+                    logError(message: "Failed to create signed package.")
                     completeWith(.failure(.invalidResponse))
+                    return
                 }
+                completeWith(.success(package))
             case .failure(let error):
                 completeWith(.failure(.httpError(error)))
                 logError(message: "Failed to download day '\(day)' due to error: \(error).")
@@ -334,12 +341,12 @@ final class HTTPClient: Client {
                     return
                 }
                 log(message: "got hour: \(hourData.count)")
-                do {
-                    let bucket = try VerifiedSapFileBucket(serializedSignedPayload: hourData)
-                    completeWith(.success(bucket))
-                } catch {
+                guard let package = SAPDownloadedPackage(compressedData: hourData) else {
+                    logError(message: "Failed to create signed package.")
                     completeWith(.failure(.invalidResponse))
+                    return
                 }
+                completeWith(.success(package))
             case .failure(let error):
                 completeWith(.failure(error))
                 logError(message: "failed to get day: \(error)")
@@ -356,7 +363,7 @@ private extension URLRequest {
         tan: String,
         keys: [ENTemporaryExposureKey]
     ) throws -> URLRequest {
-        let payload = Sap_SubmissionPayload.with {
+        let payload = SAP_SubmissionPayload.with {
             $0.keys = keys.compactMap { $0.sapKey }
         }
         let payloadData = try payload.serializedData()
@@ -394,11 +401,11 @@ private extension ENExposureConfiguration {
     convenience init(from data: Data) throws {
         self.init()
 
-        let signedPayload = try Sap_SignedPayload(serializedData: data)
-        let riskscoreParameters = try Sap_RiskScoreParameters(serializedData: signedPayload.payload)
+        let riskscoreParameters = try SAP_RiskScoreParameters(serializedData: data)
 
-        minimumRiskScore = 0
-
+        // We are intentionally not setting minimumRiskScore.
+        // Why again?
+        // Also clarify why we should not set any weights. Is this true?
         attenuationWeight = riskscoreParameters.attenuationWeight
         attenuationLevelValues = riskscoreParameters.attenuation.asArray
         daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
@@ -410,32 +417,51 @@ private extension ENExposureConfiguration {
     }
 }
 
-private extension Sap_RiskLevel {
+
+private extension SAP_RiskLevel {
     var asNumber: NSNumber {
         NSNumber(value: rawValue)
     }
 }
 
-private extension Sap_RiskScoreParameters.TransmissionRiskParameters {
+private extension SAP_RiskScoreParameters.TransmissionRiskParameters {
     var asArray: [NSNumber] {
         [appDefined1, appDefined2, appDefined3, appDefined4, appDefined5, appDefined6, appDefined7, appDefined8].map { $0.asNumber }
     }
 }
 
-private extension Sap_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
+private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
     var asArray: [NSNumber] {
         [ge14Days, ge12Lt14Days, ge10Lt12Days, ge8Lt10Days, ge6Lt8Days, ge4Lt6Days, ge2Lt4Days, ge0Lt2Days].map { $0.asNumber }
     }
 }
 
-private extension Sap_RiskScoreParameters.DurationRiskParameters {
+private extension SAP_RiskScoreParameters.DurationRiskParameters {
     var asArray: [NSNumber] {
         [eq0Min, gt0Le5Min, gt5Le10Min, gt10Le15Min, gt15Le20Min, gt20Le25Min, gt25Le30Min, gt30Min].map { $0.asNumber }
     }
 }
 
-private extension Sap_RiskScoreParameters.AttenuationRiskParameters {
+private extension SAP_RiskScoreParameters.AttenuationRiskParameters {
     var asArray: [NSNumber] {
         [gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, lt10Dbm].map { $0.asNumber }
+    }
+}
+//
+extension ENExposureConfiguration {
+    class func mock() -> ENExposureConfiguration {
+        let config = ENExposureConfiguration()
+
+        config.metadata = ["attenuationDurationThresholds": [50, 70]]
+//        config.minimumRiskScore = 0
+//        config.attenuationWeight = 50
+        config.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+        config.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+//        config.daysSinceLastExposureWeight = 50
+        config.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+//        config.durationWeight = 50
+        config.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+//        config.transmissionRiskWeight = 50
+        return config
     }
 }

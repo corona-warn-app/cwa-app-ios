@@ -9,12 +9,12 @@
 import ExposureNotification
 
 extension ENTemporaryExposureKey {
-    var sapKey: Sap_Key {
-        Sap_Key.with {
+    var sapKey: SAP_TemporaryExposureKey {
+        SAP_TemporaryExposureKey.with {
             $0.keyData = self.keyData
-            $0.rollingPeriod = self.rollingPeriod
-            $0.rollingStartNumber = self.rollingStartNumber
-            $0.transmissionRiskLevel = Int32(self.transmissionRiskLevel)
+            $0.rollingPeriod = 144  // Temporarily set to magic number
+            $0.rollingStartIntervalNumber = Int32(self.rollingStartNumber)
+            $0.transmissionRiskLevel = 1  // Temporarily set to magic number (No config provided by RKI, yet)
         }
     }
 }

@@ -38,5 +38,41 @@
 			<string>%u Tage seit letztem Begegnung</string>
 		</dict>
 	</dict>
+    <key>Home_Risk_High_Number_Contacts_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+            <string>Bisher keine Risikobegegnung</string>
+            <key>one</key>
+            <string>%u Risikobegegnung</string>
+            <key>other</key>
+            <string>%u Risikobegegnungen</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_High_Last_Contact_Item_Title</key>
+       <dict>
+           <key>NSStringLocalizedFormatKey</key>
+           <string>%#@VARIABLE@</string>
+           <key>VARIABLE</key>
+           <dict>
+               <key>NSStringFormatSpecTypeKey</key>
+               <string>NSStringPluralRuleType</string>
+               <key>NSStringFormatValueTypeKey</key>
+               <string>u</string>
+               <key>zero</key>
+               <string>Weniger als einen Tag seit der letzten Begegnung</string>
+               <key>one</key>
+               <string>%u Tag seit der letzten Begegnung</string>
+               <key>other</key>
+               <string>%u Tage seit der letzten Begegnung</string>
+           </dict>
+       </dict>
 </dict>
 </plist>

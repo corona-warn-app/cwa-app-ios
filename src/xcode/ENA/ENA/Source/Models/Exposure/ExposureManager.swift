@@ -183,10 +183,6 @@ final class ENAExposureManager: NSObject, ExposureManager {
                 logError(message: error)
                 fatalError(error)
             }
-        } else {
-            let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
-            logError(message: error)
-//            fatalError(error)
         }
     }
 

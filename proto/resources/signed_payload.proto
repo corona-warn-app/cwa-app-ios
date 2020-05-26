@@ -1,9 +1,0 @@
-syntax = "proto3";
-option java_multiple_files = true;
-package sap;
-
-message SignedPayload {
-  bytes payload = 1;             // serialized Payload message
-  bytes certificate_chain = 2;   // X509 certificate chain
-  bytes signature = 3;           // signature of payload
-}

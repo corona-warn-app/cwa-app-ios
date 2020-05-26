@@ -24,7 +24,7 @@ final class DMViewController: UITableViewController {
     private let client: Client
     private let store: Store
     private let exposureManager: ExposureManager
-    private var keys = [Sap_Key]() {
+    private var keys = [SAP_TemporaryExposureKey]() {
         didSet {
             keys = self.keys.sorted()
         }
@@ -56,12 +56,18 @@ final class DMViewController: UITableViewController {
                 target: self,
                 action: #selector(generateTestKeys)
             ),
+//            UIBarButtonItem(
+//                image: UIImage(systemName: "qrcode.viewfinder"),
+//                style: .plain,
+//                target: self,
+//                action: #selector(showScanner)
+//            )
             UIBarButtonItem(
-                image: UIImage(systemName: "qrcode.viewfinder"),
-                style: .plain,
-                target: self,
-                action: #selector(showScanner)
-            )
+                            title: "State Check",
+                            style: .plain,
+                            target: self,
+                            action: #selector(showCheckSubmissionState)
+                        )
         ]
     }
 
@@ -81,15 +87,30 @@ final class DMViewController: UITableViewController {
     private func refreshKeys() {
         resetAndFetchKeys()
     }
-    
+
     private func resetAndFetchKeys() {
         keys = []
         tableView.reloadData()
-        self.client.fetch { [weak self] keys in
-            guard let self = self else { return }
-            self.keys = keys
+        self.exposureManager.accessDiagnosisKeys { keys, _ in
+            guard let keys = keys else {
+                logError(message: "No keys retrieved in developer menu")
+                return
+            }
+            self.keys = keys.map { $0.sapKey }
             self.tableView.reloadData()
         }
+    }
+
+    // MARK: Checking the State of my Submission
+    @objc
+    private func showCheckSubmissionState() {
+        navigationController?.pushViewController(
+            DMSubmissionStateViewController(
+                client: client,
+                delegate: self
+            ),
+            animated: true
+        )
     }
 
     // MARK: QR Code related
@@ -116,17 +137,12 @@ final class DMViewController: UITableViewController {
                 return
             }
             let _keys = keys ?? []
-            log(message: "Got diagnosis keys: \(_keys)", level: .info)
-            self.client.submit(
-                keys: _keys,
-                tan: "TAN 123456"
-            ) { [weak self] submitError in
-                if let submitError = submitError {
-                    logError(message: "Failed to submit test keys due to: \(submitError)")
-                    return
-                }
-                self?.resetAndFetchKeys()
+            self.client.submit(keys: _keys, tan: "TAN 123456") { (submitError) in
+                print(submitError)
+                return
             }
+            log(message: "Got diagnosis keys: \(_keys)", level: .info)
+            self.resetAndFetchKeys()
         }
     }
 
@@ -144,14 +160,11 @@ final class DMViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let key = keys[indexPath.row]
-        navigationController?.pushViewController(DMQRCodeViewController(key: key), animated: true)
-    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {    }
 }
 
 extension DMViewController: DMQRCodeScanViewControllerDelegate {
-    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: Sap_Key) {
+    func debugCodeScanViewController(_ viewController: DMQRCodeScanViewController, didScan diagnosisKey: SAP_TemporaryExposureKey) {
         client.submit(
             keys: [diagnosisKey.temporaryExposureKey],
             tan: "not needed"
@@ -172,11 +185,11 @@ private extension DateFormatter {
     }
 }
 
-fileprivate extension Sap_Key {
+fileprivate extension SAP_TemporaryExposureKey {
     private static let dateFormatter: DateFormatter = .rollingPeriodDateFormatter()
 
     var rollingStartNumberDate: Date {
-        Date(timeIntervalSince1970: Double(rollingStartNumber * 600))
+        Date(timeIntervalSince1970: Double(rollingStartIntervalNumber * 600))
     }
 
     var formattedRollingStartNumberDate: String {
@@ -186,47 +199,21 @@ fileprivate extension Sap_Key {
     var temporaryExposureKey: ENTemporaryExposureKey {
         let key = ENTemporaryExposureKey()
         key.keyData = keyData
-        key.rollingStartNumber = rollingStartNumber
+        key.rollingStartNumber = UInt32(rollingStartIntervalNumber)
         key.transmissionRiskLevel = UInt8(transmissionRiskLevel)
         return key
     }
 }
 
-extension Sap_Key: Comparable {
-    static func < (lhs: Sap_Key, rhs: Sap_Key) -> Bool {
-        lhs.rollingStartNumber > rhs.rollingStartNumber
+extension SAP_TemporaryExposureKey: Comparable {
+    static func < (lhs: SAP_TemporaryExposureKey, rhs: SAP_TemporaryExposureKey) -> Bool {
+        lhs.rollingStartIntervalNumber > rhs.rollingStartIntervalNumber
     }
 }
 
 private extension FetchedDaysAndHours {
-    var allBuckets: [VerifiedSapFileBucket] {
+    var allBuckets: [SAPDownloadedPackage] {
         Array(days.bucketsByDay.values) + Array(hours.bucketsByHour.values)
-    }
-    var allKeys: [Sap_Key] {
-        Array(allFiles.map { $0.keys }.joined())
-    }
-    var allFiles: [Sap_File] {
-        Array(allBuckets.map { $0.files }.joined())
-    }
-}
-
-private extension Client {
-    typealias FetchCompletion = ([Sap_Key]) -> Void
-    func fetch(completion: @escaping FetchCompletion) {
-        availableDaysAndHoursUpUntil(.formattedToday()) { result in
-            switch result {
-            case .success(let daysAndHours):
-                self.fetchDays(
-                    daysAndHours.days,
-                    hours: daysAndHours.hours,
-                    of: .formattedToday()
-                ) { daysAndHours in
-                    completion(daysAndHours.allKeys)
-                }
-            case .failure(let error):
-                logError(message: "message: Failed to fetch all keys: \(error)")
-            }
-        }
     }
 }
 
@@ -238,5 +225,14 @@ private class KeyCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension DMViewController: DMSubmissionStateViewControllerDelegate {
+    func submissionStateViewController(
+        _ controller: DMSubmissionStateViewController,
+        getDiagnosisKeys completionHandler: @escaping ENGetDiagnosisKeysHandler
+    ) {
+        exposureManager.getTestDiagnosisKeys(completionHandler: completionHandler)
     }
 }
