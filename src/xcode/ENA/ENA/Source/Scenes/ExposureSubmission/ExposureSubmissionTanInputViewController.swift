@@ -61,7 +61,7 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
     /// Show a default error alert.
     private func showErrorAlert(_ error: ExposureSubmissionError) {
         let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle,
-                                      message: "\(error.localizedDescription).",
+                                      message: "\(error.localizedDescription)",
                                       preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk,
                                       style: .cancel,

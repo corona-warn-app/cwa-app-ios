@@ -152,7 +152,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         self.manager.accessDiagnosisKeys { keys, error in
             if let error = error {
                 logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
-                completionHandler(self.parseExposureManagerError(error as? ExposureNotificationError))
+                completionHandler(self.parseExposureManagerError(error))
                 return
             }
 
@@ -173,15 +173,29 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         }
     }
 
-    private func parseExposureManagerError(_ error: ExposureNotificationError?) -> ExposureSubmissionError {
-        guard let enError = error else {
-            return .other
+    private func parseExposureManagerError(_ error: Error?) -> ExposureSubmissionError? {
+        
+        guard let error = error else {
+            return nil
         }
-
-        switch enError {
-        case .exposureNotificationRequired, .exposureNotificationAuthorization:
-            return .enNotEnabled
+        
+        if let exposureNotificationError = error as? ExposureNotificationError {
+            switch exposureNotificationError {
+            case .exposureNotificationRequired, .exposureNotificationAuthorization:
+                return .enNotEnabled
+            }
         }
+        
+        if let enError = error as? ENError {
+            switch enError.code {
+            case .apiMisuse:
+                return .enNotEnabled
+            default:
+                // TODO: Add missing cases.
+                return .enNotEnabled
+            }
+        }
+        return .unknown
     }
 
     private func parseServerError(_ error: SubmissionError) -> ExposureSubmissionError {
@@ -191,6 +205,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
             return .other
         case .invalidTan:
             return .invalidTan
+        case .serverError(let code):
+            return .serverError(code)
         }
     }
 }
@@ -202,4 +218,27 @@ enum ExposureSubmissionError: Error {
     case noKeys
     case noConsent
     case invalidTan
+    case serverError(Int)
+    case unknown
+}
+
+extension ExposureSubmissionError: LocalizedError {
+    var localizedDescription: String {
+        switch self {
+        // TODO: localize error descriptions.
+        // TODO: add missing cases.
+        case .serverError(let code):
+            return HTTPURLResponse.localizedString(forStatusCode: code)
+        case .invalidTan:
+            return "Invalid Tan."
+        case .enNotEnabled:
+            return "Exposure Notification disabled."
+        case .noRegistrationToken:
+            return "No registration token."
+        case .unknown:
+            return "An unknown error occured."
+        default:
+            return "Default Exposure Submission Error"
+        }
+    }
 }
