@@ -199,11 +199,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
             }
         }
         
-        if let err = error as? URLSession.Response.Failure,
-            case let .httpError(wrapped) = err {
-            return .httpError(wrapped.localizedDescription)
-        }
-        
         return .unknown
     }
 
