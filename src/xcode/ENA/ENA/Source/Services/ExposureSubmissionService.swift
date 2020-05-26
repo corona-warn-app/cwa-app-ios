@@ -119,7 +119,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         case .guid(let guid):
             return (Hasher.sha256(guid), "GUID")
         case .teleTan(let teleTan):
-            return (Hasher.sha256(teleTan), "teleTan")
+            return (Hasher.sha256(teleTan), "TELETAN")
         }
     }
 
