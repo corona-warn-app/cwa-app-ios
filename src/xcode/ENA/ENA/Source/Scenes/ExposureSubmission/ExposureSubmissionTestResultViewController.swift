@@ -22,15 +22,36 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
         setupView()
-        log(message: "Test Result: \(self.testResult)", level: .info)
 	}
     
     // MARK: - Helper methods.
     
     private func setupView() {
         self.navigationItem.hidesBackButton = true
-        dynamicTableViewModel = .data
+        
+        // TODO: Load the appropriate header view for positive/negative/invalid.
         tableView.register(UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil), forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue)
+        
+        var model: DynamicTableViewModel?
+        guard let testResult = testResult else {
+            log(message: "No test result.", level: .error)
+            return
+        }
+        
+        switch testResult {
+        case .positive:
+            model = .positive
+        case .negative:
+            model = .negative
+        case .invalid:
+            model = .invalid
+        case .pending:
+            log(message: "ExposureSubmissionTestResultVC should never be opened with status pending", level: .error)
+            return
+        }
+        
+        guard let tableViewModel = model else { return }
+        dynamicTableViewModel = tableViewModel
     }
 }
 
@@ -58,9 +79,9 @@ extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigati
 
 
 private extension DynamicTableViewModel {
-	static let data = DynamicTableViewModel([
+	static let positive = DynamicTableViewModel([
 		.section(
-			header: .identifier(ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult, action: .perform(segue: ExposureSubmissionTestResultViewController.Segue.testDetails)),
+			header: .identifier(ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult),
 			separators: false,
 			cells: [
 				.semibold(text: "Melden Sie Ihren positiven Befund"),
@@ -69,4 +90,26 @@ private extension DynamicTableViewModel {
 			]
 		)
 	])
+    
+    static let negative = DynamicTableViewModel([
+        .section(
+            header: .text("negative"),
+            separators: false,
+            cells: [
+                .semibold(text: "Test is negative."),
+                .regular(text: "NEGATIVE")
+            ]
+        )
+    ])
+    
+    static let invalid = DynamicTableViewModel([
+        .section(
+            header: .text("invalid"),
+            separators: false,
+            cells: [
+                .semibold(text: "Test is invalid."),
+                .regular(text: "INVALID")
+            ]
+        )
+    ])
 }
