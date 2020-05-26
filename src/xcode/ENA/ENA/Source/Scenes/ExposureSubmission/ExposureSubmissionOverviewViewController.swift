@@ -35,7 +35,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
         
         // TODO: Move this one screen earlier so we do not even load the ExposureSubmissionOverviewViewController.
         if exposureSubmissionService?.hasRegistrationToken() ?? false {
-            self.performSegue(withIdentifier: Segue.labResult, sender: self)
+            fetchResult()
         }
     }
     	
@@ -130,6 +130,9 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
             case .failure(let error):
                 // TODO: Handle error.
                 log(message: "Error while getting registration token: \(error)", level: .error)
+                self.showAlert("Could not get registration token. \(error.localizedDescription)") {
+                    viewController.dismiss(animated: true)
+                }
             case .success(let token):
                 print("Received registration token: \(token)")
                 
@@ -140,18 +143,32 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
         })
 
 	}
+        
+    private func showAlert(_ message: String, _ completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(.init(title: "ok", style: .default, handler: { action in
+            completion?()
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     private func fetchResult() {
-        // Start spinner.
         startSpinner()
         exposureSubmissionService?.getTestResult { result in
             self.stopSpinner()
             switch result {
             case .failure(let error):
                 // TODO: Handle error.
-                log(message: "An error occured during result fetching: \(error.localizedDescription)", level: .error)
+                log(message: "An error occured during result fetching: \(error)", level: .error)
+                self.showAlert("An error occured during result fetching: \(error.localizedDescription)")
             case .success(let testResult):
-                self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
+                log(message: "Test Result: \(testResult)", level: .info)
+                switch testResult {
+                case .pending:
+                    self.showAlert("Test Result is pending.")
+                default:
+                    self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
+                }
             }
         }
     }
