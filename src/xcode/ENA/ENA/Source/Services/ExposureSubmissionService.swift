@@ -214,7 +214,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
     }
 }
 
-enum ExposureSubmissionError: Error {
+enum ExposureSubmissionError: Error, Equatable {
     case other
     case noRegistrationToken
     case enNotEnabled
