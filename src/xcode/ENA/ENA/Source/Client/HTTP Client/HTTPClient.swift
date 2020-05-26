@@ -196,7 +196,7 @@ final class HTTPClient: Client {
                         completeWith(.failure(.invalidResponse))
                     }
                 case .failure(let error):
-                    completeWith(.failure(.httpError(error)))
+                    completeWith(.failure(error))
                     logError(message: "Failed to registerDevices due to error: \(error).")
                 }
             }
@@ -243,7 +243,7 @@ final class HTTPClient: Client {
                         completeWith(.failure(.invalidResponse))
                     }
                 case .failure(let error):
-                    completeWith(.failure(.httpError(error)))
+                    completeWith(.failure(error))
                     logError(message: "Failed to get TAN due to error: \(error).")
                 }
             }
@@ -290,7 +290,7 @@ final class HTTPClient: Client {
                         completeWith(.failure(.invalidResponse))
                     }
                 case .failure(let error):
-                    completeWith(.failure(.httpError(error)))
+                    completeWith(.failure(error))
                     logError(message: "Failed to registerDevices due to error: \(error).")
                 }
             }
@@ -321,7 +321,7 @@ final class HTTPClient: Client {
                 }
                 completeWith(.success(package))
             case .failure(let error):
-                completeWith(.failure(.httpError(error)))
+                completeWith(.failure(error))
                 logError(message: "Failed to download day '\(day)' due to error: \(error).")
             }
         }

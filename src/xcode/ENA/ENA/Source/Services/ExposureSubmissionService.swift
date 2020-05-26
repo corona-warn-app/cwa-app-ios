@@ -185,19 +185,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
                 return .enNotEnabled
             }
         }
-        if let httpError = error as? URLSession.Response.Failure {
-            return .httpError(httpError.localizedDescription);
+        
+        if let err = error as? URLSession.Response.Failure,
+            case let .httpError(wrapped) = err {
+            return .httpError(wrapped.localizedDescription)
         }
         
-        if let enError = error as? ENError {
-            switch enError.code {
-            case .apiMisuse:
-                return .enNotEnabled
-            default:
-                // TODO: Add missing cases.
-                return .enNotEnabled
-            }
-        }
         return .unknown
     }
 
@@ -227,14 +220,14 @@ enum ExposureSubmissionError: Error {
 }
 
 extension ExposureSubmissionError: LocalizedError {
-    var localizedDescription: String {
+    var errorDescription: String? {
         switch self {
         // TODO: localize error descriptions.
         // TODO: add missing cases.
         case .serverError(let code):
             return HTTPURLResponse.localizedString(forStatusCode: code)
-        case .httpError(let errorString):
-            return errorString
+        case .httpError(let desc):
+            return desc
         case .invalidTan:
             return "Invalid Tan."
         case .enNotEnabled:
