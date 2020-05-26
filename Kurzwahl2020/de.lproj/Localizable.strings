@@ -28,7 +28,7 @@
 "Phone Numbers" = "Telefonnummern";
 
 // AskForAccessToContactsView
-"In case you want to access your contacts to pick phone numbers then please go to Settings to grant access." = "Falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten, dann erlauben sie dieser App den Zugriff auf die Kontakte in den iPhone-Einstellungen.";
+"In case you want to pick phone numbers from your contacts then please go to Settings – Privacy – Contacts and grant access to the contacts." = "Falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten, dann erlauben sie dieser App den Zugriff auf die Kontakte in den iPhone-Einstellungen unter 'Datenschutz – Kontakte'";
 
 // AboutView
 "Back" = "Zurück";
