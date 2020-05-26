@@ -186,6 +186,19 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
             }
         }
         
+        if let urlFailure = error as? URLSession.Response.Failure {
+            switch urlFailure {
+            case .httpError(let wrapped):
+                return .httpError(wrapped.localizedDescription)
+            case .invalidResponse:
+                return .invalidResponse
+            case .noResponse:
+                return .noResponse
+            case .serverError(let code):
+                return .serverError(code)
+            }
+        }
+        
         if let err = error as? URLSession.Response.Failure,
             case let .httpError(wrapped) = err {
             return .httpError(wrapped.localizedDescription)
@@ -214,6 +227,8 @@ enum ExposureSubmissionError: Error, Equatable {
     case noKeys
     case noConsent
     case invalidTan
+    case invalidResponse
+    case noResponse
     case serverError(Int)
     case unknown
     case httpError(String)
@@ -233,10 +248,15 @@ extension ExposureSubmissionError: LocalizedError {
         case .enNotEnabled:
             return "Exposure Notification disabled."
         case .noRegistrationToken:
-            return "No registration token."
+            return "No registration token"
+        case .invalidResponse:
+            return "Invalid response"
+        case .noResponse:
+            return "No response was received"
         case .unknown:
-            return "An unknown error occured."
+            return "An unknown error occured"
         default:
+            log(message: "\(self)")
             return "Default Exposure Submission Error"
         }
     }
