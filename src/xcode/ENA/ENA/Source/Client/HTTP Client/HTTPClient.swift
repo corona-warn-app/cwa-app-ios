@@ -78,11 +78,10 @@ final class HTTPClient: Client {
             case .success(let response):
                 switch response.statusCode {
                 case 200: completion(nil)
+                case 201: completion(nil)
                 case 400: completion(.invalidPayloadOrHeaders)
                 case 403: completion(.invalidTan)
-                case 500: completion(.serverError(response.statusCode))
-                case 503: completion(.serverError(response.statusCode))
-                default: completion(.other(nil))
+                default: completion(.serverError(response.statusCode))
                 }
             case .failure(let error):
                 completion(.other(error))
