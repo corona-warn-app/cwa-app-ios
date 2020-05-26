@@ -15,11 +15,11 @@ protocol Client {
     typealias SubmitKeysCompletionHandler = (SubmissionError?) -> Void
     typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
     typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
-    typealias DayCompletionHandler = (Result<VerifiedSapFileBucket, Failure>) -> Void
-    typealias HourCompletionHandler = (Result<VerifiedSapFileBucket, Failure>) -> Void
     typealias RegistrationHandler = (Result<String, Failure>) -> Void
     typealias TestResultHandler = (Result<Int, Failure>) -> Void
     typealias TANHandler = (Result<String, Failure>) -> Void
+    typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
+    typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 
     // MARK: Interacting with a Client
     
@@ -108,18 +108,21 @@ extension SubmissionError: LocalizedError {
 
 struct DaysResult {
     let errors: [Client.Failure]
-    let bucketsByDay: [String: VerifiedSapFileBucket]
+    let bucketsByDay: [String: SAPDownloadedPackage]
 }
 
 struct HoursResult {
     let errors: [Client.Failure]
-    let bucketsByHour: [Int: VerifiedSapFileBucket]
+    let bucketsByHour: [Int: SAPDownloadedPackage]
     let day: String
 }
 
 struct FetchedDaysAndHours {
     let hours: HoursResult
     let days: DaysResult
+    var allKeyPackages: [SAPDownloadedPackage] {
+        Array(hours.bucketsByHour.values) + Array(days.bucketsByDay.values)
+    }
 }
 
 extension Client {
@@ -130,7 +133,7 @@ extension Client {
         completion completeWith: @escaping (DaysResult) -> Void
     ) {
         var errors = [Client.Failure]()
-        var buckets =  [String: VerifiedSapFileBucket]()
+        var buckets =  [String: SAPDownloadedPackage]()
 
         let group = DispatchGroup()
         
@@ -163,7 +166,7 @@ extension Client {
         completion completeWith: @escaping FetchHoursCompletionHandler
     ) {
         var errors = [Client.Failure]()
-        var buckets = [Int: VerifiedSapFileBucket]()
+        var buckets = [Int: SAPDownloadedPackage]()
         let group = DispatchGroup()
 
         hours.forEach { hour in

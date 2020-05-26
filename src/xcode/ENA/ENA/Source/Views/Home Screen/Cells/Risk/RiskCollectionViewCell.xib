@@ -78,7 +78,7 @@
                                     <constraint firstAttribute="trailingMargin" secondItem="b20-mf-cB4" secondAttribute="trailing" id="2cT-OF-wtY"/>
                                     <constraint firstItem="b20-mf-cB4" firstAttribute="leading" secondItem="pID-Ft-qds" secondAttribute="leadingMargin" id="GUA-4X-xpY"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="b20-mf-cB4" secondAttribute="bottom" id="JEp-DF-KtS"/>
-                                    <constraint firstItem="b20-mf-cB4" firstAttribute="top" secondItem="pID-Ft-qds" secondAttribute="topMargin" id="QW0-FE-lmN"/>
+                                    <constraint firstItem="b20-mf-cB4" firstAttribute="top" secondItem="pID-Ft-qds" secondAttribute="topMargin" priority="250" id="QW0-FE-lmN"/>
                                 </constraints>
                             </view>
                         </subviews>

@@ -38,21 +38,21 @@ final class ExposureDetectionTransaction {
     // MARK: Properties
     private weak var delegate: ExposureDetectionTransactionDelegate?
     private let client: Client
-    private let signedPayloadStore: SignedPayloadStore
+    private let keyPackagesStore: DownloadedPackagesStore
 
     // MARK: Creating a Transaction
     init(
         delegate: ExposureDetectionTransactionDelegate,
         client: Client,
-        signedPayloadStore: SignedPayloadStore
+        keyPackagesStore: DownloadedPackagesStore
     ) {
         self.delegate = delegate
         self.client = client
-        self.signedPayloadStore = signedPayloadStore
+        self.keyPackagesStore = keyPackagesStore
     }
 
-    // MARK: Resuming the Transaction
-    func resume() {
+    // MARK: Starting the Transaction
+    func start() {
         let today = formattedToday()
         client.availableDaysAndHoursUpUntil(today) { result in
             switch result {
@@ -115,19 +115,9 @@ final class ExposureDetectionTransaction {
         remoteDaysAndHours: Client.DaysAndHours,
         completion: @escaping () -> Void
     ) {
-        let today = formattedToday()
-        let missing = signedPayloadStore.missingDaysAndHours(
-            from: remoteDaysAndHours,
-            today: today
-        )
-
-        client.fetchDays(
-            missing.days,
-            hours: missing.hours,
-            of: formattedToday()
-        ) { [weak self] daysAndHours in
-            guard let self = self else { return }
-            self.signedPayloadStore.addFetchedDaysAndHours(daysAndHours)
+        // We download everything to make testing easier - for now.
+        client.fetch { theWholeWorld in
+            self.keyPackagesStore.addFetchedDaysAndHours(theWholeWorld)
             completion()
         }
     }
@@ -142,12 +132,8 @@ final class ExposureDetectionTransaction {
                 return
             }
 
-            let fixedConfiguration: ENExposureConfiguration
-            if configuration.needsTemporaryFixUntilAppleFixedZeroWeightIssue {
-                fixedConfiguration = .mock()
-            } else {
-                fixedConfiguration = configuration
-            }
+
+            let fixedConfiguration = configuration.needsTemporaryFixUntilAppleFixedZeroWeightIssue ? configuration.fixed() : configuration
             continueWith(fixedConfiguration)
         }
     }
@@ -158,9 +144,8 @@ final class ExposureDetectionTransaction {
         let fm = FileManager()
         let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
         try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-        let buckets = signedPayloadStore.allVerifiedBuckets(today: formattedToday())
-        let files = buckets.map { $0.appleFiles }.flatMap { $0 }
-        return AppleFilesWriter(rootDir: rootDir, files: files)
+        let keyPackages = keyPackagesStore.allVerifiedBuckets(today: formattedToday())
+        return AppleFilesWriter(rootDir: rootDir, keyPackages: keyPackages)
     }
 
     // 5. Execute the actual exposure detection
@@ -177,7 +162,7 @@ final class ExposureDetectionTransaction {
             )
         }
     }
-    
+
     private func _detectExposures(
         diagnosisKeyURLs: [URL],
         configuration: ENExposureConfiguration,
@@ -201,8 +186,8 @@ final class ExposureDetectionTransaction {
                 self.endPrematurely(reason: .noSummary(nil))
                 return
             }
-            print("summary: \(summary)")
-            print("error: \(String(describing: error))")
+            log(message: "summary: \(summary)")
+            logError(message: "error: \(String(describing: error))")
 
             self.didDetectSummary(summary)
             completion()
@@ -211,16 +196,16 @@ final class ExposureDetectionTransaction {
 
 }
 
-private extension SignedPayloadStore {
+private extension DownloadedPackagesStore {
     func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
         let days = daysAndHours.days
         days.bucketsByDay.forEach { day, bucket in
-            self.add(day: day, signedPayload: bucket)
+            self.set(day: day, downloadedPackage: bucket)
         }
 
         let hours = daysAndHours.hours
         hours.bucketsByHour.forEach { hour, bucket in
-            self.add(hour: hour, day: hours.day, signedPayload: bucket)
+            self.set(hour: hour, day: hours.day, downloadedPackage: bucket)
         }
     }
 
@@ -233,42 +218,26 @@ private extension SignedPayloadStore {
         return Client.DaysAndHours(days: Array(days), hours: Array(hours))
     }
 
-    func allKeys(today: String) -> [SignedPayloadProviding] {
-        let days = allDailySignedPayloads()
-        let hours = hourlySignedPayloads(day: today)
+    func allKeys(today: String) -> [SAPDownloadedPackage] {
+        let days = allDailyKeyPackages()
+        let hours = hourlyPackages(day: today)
         return days + hours
     }
 
-    func allVerifiedBuckets(today: String) -> [VerifiedSapFileBucket] {
+    func allVerifiedBuckets(today: String) -> [SAPDownloadedPackage] {
         allKeys(today: today)
-            .compactMap { try? VerifiedSapFileBucket(serializedSignedPayload: $0.serializedSignedPayload()) }
             .compactMap { $0 }
     }
 }
 
-extension Sap_File {
-    func toAppleFile() -> Apple_File {
-        Apple_File.with {
-            $0.key = self.keys.map { $0.toAppleKey() }
-        }
-    }
-}
-
-extension Sap_Key {
-    func toAppleKey() -> Apple_Key {
-        Apple_Key.with {
+extension SAP_TemporaryExposureKey {
+    func toAppleKey() -> Apple_TemporaryExposureKey {
+        Apple_TemporaryExposureKey.with {
             $0.keyData = self.keyData
-            $0.rollingStartNumber = self.rollingStartNumber
+            $0.rollingStartIntervalNumber = self.rollingStartIntervalNumber
             $0.rollingPeriod = self.rollingPeriod
             $0.transmissionRiskLevel = self.transmissionRiskLevel
         }
-    }
-}
-
-extension VerifiedSapFileBucket: SignedPayloadProviding {
-    func serializedSignedPayload() -> Data {
-        // swiftlint:disable:next force_try
-        try! self.verifiedPayload.signedPayload.serializedData()
     }
 }
 
@@ -278,6 +247,9 @@ private extension ENExposureConfiguration {
             durationWeight.isNearZero ||
             transmissionRiskWeight.isNearZero ||
             daysSinceLastExposureWeight.isNearZero
+    }
+    func fixed() -> ENExposureConfiguration {
+        .mock()
     }
 }
 

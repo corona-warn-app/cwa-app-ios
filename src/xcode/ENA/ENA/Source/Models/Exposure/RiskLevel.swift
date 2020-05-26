@@ -15,22 +15,13 @@ enum RiskLevel {
     case low
     case high
     
-    private static var lowRange: ClosedRange<ENRiskScore> {
-        1...4
-    }
-    
-    private static var highRange: ClosedRange<ENRiskScore> {
-        5...8
-    }
-    
     init?(riskScore: ENRiskScore) {
-        switch riskScore {
-        case let score where RiskLevel.lowRange ~= score:
-            self = .low
-        case let score where RiskLevel.highRange ~= score:
-            self = .high
-        default:
-            return nil
-        }
+        self = riskScore.riskLevel
+    }
+}
+
+extension ENRiskScore {
+    var riskLevel: RiskLevel {
+        self <= 100 ? .low : .high
     }
 }

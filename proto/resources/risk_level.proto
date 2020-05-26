@@ -1,6 +1,6 @@
 syntax = "proto3";
 option java_multiple_files = true;
-package sap;
+package SAP;
 
 enum RiskLevel {
   RISK_LEVEL_UNSPECIFIED = 0;

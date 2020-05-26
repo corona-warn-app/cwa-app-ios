@@ -44,6 +44,7 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
         middleContainer?.layoutMargins = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
     }
     
+    // Ignore touches on the button when it's disabled
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let buttonPoint = convert(point, to: contactButton)
         let containsPoint = contactButton.bounds.contains(buttonPoint)
@@ -78,12 +79,13 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
         contactButton.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
         contactButton.isEnabled = propertyHolder.isButtonEnabled
         
-        let nib = UINib(nibName: RiskItemView.stringName(), bundle: .main)
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        for itemConfigurator in propertyHolder.itemCellConfigurators {
-            if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
+        for itemConfigurator in propertyHolder.cellConfigurators {
+            let nibName = itemConfigurator.viewAnyType.stringName()
+            let nib = UINib(nibName: nibName, bundle: .main)
+            if let riskView = nib.instantiate(withOwner: self, options: nil).first as? UIView {
                 stackView.addArrangedSubview(riskView)
-                itemConfigurator.configure(riskItemView: riskView)
+                itemConfigurator.configureAny(riskView: riskView)
             }
         }
         if let riskItemView = stackView.arrangedSubviews.last as? RiskItemView {

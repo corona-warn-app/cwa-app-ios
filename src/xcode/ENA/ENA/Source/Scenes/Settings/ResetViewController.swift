@@ -14,8 +14,6 @@ protocol ResetDelegate: class {
 }
 
 final class ResetViewController: UIViewController {
-    
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var header1Label: UILabel!
     @IBOutlet weak var description1TextView: UITextView!
     @IBOutlet weak var resetButton: ENAButton!
@@ -25,10 +23,6 @@ final class ResetViewController: UIViewController {
 
     @IBAction func resetData(_ sender: Any) {
         delegate?.reset()
-    }
-
-    @IBAction func discard(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
@@ -41,15 +35,16 @@ final class ResetViewController: UIViewController {
     }
 
     private func setupView() {
+        navigationItem.title = AppStrings.Reset.navigationBarTitle
+
         description1TextView.contentInset = .zero
         description1TextView.textContainer.lineFragmentPadding = 0
 
-        titleLabel.text = AppStrings.ResetView.title
-        header1Label.text = AppStrings.ResetView.header1
-        description1TextView.text = AppStrings.ResetView.description1
-        resetButton.setTitle(AppStrings.ResetView.resetButton, for: .normal)
+        header1Label.text = AppStrings.Reset.header1
+        description1TextView.text = AppStrings.Reset.description1
+        resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
         resetButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        discardResetButton.setTitle(AppStrings.ResetView.discardButton, for: .normal)
+        discardResetButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
         discardResetButton.titleLabel?.adjustsFontForContentSizeCategory = true
     }
 }
