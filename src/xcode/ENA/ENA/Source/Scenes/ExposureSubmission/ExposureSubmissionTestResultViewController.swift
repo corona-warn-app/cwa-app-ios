@@ -15,13 +15,14 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController {
     // MARK: - Attributes.
     
     var exposureSubmissionService: ExposureSubmissionService?
+    var testResult: TestResult?
     
     // MARK: - View Lifecycle methods.
     
 	override func viewDidLoad() {
 		super.viewDidLoad()
         setupView()
-        fetchResult()
+        log(message: "Test Result: \(self.testResult)", level: .info)
 	}
     
     // MARK: - Helper methods.
@@ -31,20 +32,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController {
         dynamicTableViewModel = .data
         tableView.register(UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil), forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue)
     }
-    
-    private func fetchResult() {
-           exposureSubmissionService?.getTestResult { result in
-               switch result {
-               case .failure:
-                   // TODO: Handle error.
-                   break
-               case .success(let testResult):
-                   // TODO: Stop spinner.
-                   print("Test result: \(testResult)")
-                   break
-               }
-           }
-       }
 }
 
 

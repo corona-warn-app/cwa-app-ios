@@ -69,10 +69,31 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
         case .labResult:
             let destination = segue.destination as? ExposureSubmissionTestResultViewController
             destination?.exposureSubmissionService = exposureSubmissionService
+            destination?.testResult = sender as? TestResult
 		default:
 			break
 		}
 	}
+    
+    
+    private var spinner: UIActivityIndicatorView?
+    private func startSpinner() {
+        stopSpinner()
+        spinner = UIActivityIndicatorView(style: .large)
+        guard let spinner = spinner else { return }
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(spinner)
+        spinner.startAnimating()
+        spinner.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        spinner.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+    }
+    
+    private func stopSpinner() {
+        guard let spinner = spinner else { return }
+        spinner.stopAnimating()
+        spinner.removeFromSuperview()
+        self.spinner = nil
+    }
 }
 
 
@@ -108,17 +129,32 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
             switch result {
             case .failure(let error):
                 // TODO: Handle error.
-                print(error.localizedDescription)
+                log(message: "Error while getting registration token: \(error)", level: .error)
             case .success(let token):
                 print("Received registration token: \(token)")
                 
                 // Dismiss QR code view.
                 viewController.dismiss(animated: true)
-                self.performSegue(withIdentifier: Segue.labResult, sender: self)
+                self.fetchResult()
             }
         })
 
 	}
+    
+    private func fetchResult() {
+        // Start spinner.
+        startSpinner()
+        exposureSubmissionService?.getTestResult { result in
+            self.stopSpinner()
+            switch result {
+            case .failure(let error):
+                // TODO: Handle error.
+                log(message: "An error occured during result fetching: \(error.localizedDescription)", level: .error)
+            case .success(let testResult):
+                self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
+            }
+        }
+    }
     
     /// Sanitize the input string and assert that:
     /// - length is smaller than 128 characters
