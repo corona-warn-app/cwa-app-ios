@@ -15,6 +15,9 @@ protocol Client {
     typealias SubmitKeysCompletionHandler = (SubmissionError?) -> Void
     typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
     typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
+    typealias RegistrationHandler = (Result<String, Failure>) -> Void
+    typealias TestResultHandler = (Result<Int, Failure>) -> Void
+    typealias TANHandler = (Result<String, Failure>) -> Void
     typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
     typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 
@@ -29,6 +32,24 @@ protocol Client {
     func availableHours(
         day: String,
         completion: @escaping AvailableHoursCompletionHandler
+    )
+    
+    // registersTheDevice
+    func getRegistrationToken(
+        forKey key: String,
+        withType type: String, completion completeWith: @escaping RegistrationHandler
+    )
+    
+    // getTestResultForDevice
+    func getTestResult(
+        forDevice registrationToken: String,
+        completion completeWith: @escaping TestResultHandler
+    )
+    
+    // getTANForDevice
+    func getTANForExposureSubmit(
+        forDevice registrationToken: String,
+        completion completeWith: @escaping TANHandler
     )
 
     /// Fetches the keys for a given `day`.
@@ -69,6 +90,20 @@ enum SubmissionError: Error {
     case other(Error?)
     case invalidPayloadOrHeaders
     case invalidTan
+    case serverError(Int)
+}
+
+extension SubmissionError: LocalizedError {
+    var localizedDescription: String {
+        switch self {
+        case .serverError(let code):
+            return HTTPURLResponse.localizedString(forStatusCode: code)
+        default:
+            // TODO: Localize
+            // TODO: handle other error cases.
+            return "Default Submission Error"
+        }
+    }
 }
 
 struct DaysResult {

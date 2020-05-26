@@ -19,13 +19,14 @@ class ExposureSubmissionServiceTests: XCTestCase {
         // Arrange
         let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
         let client = MockTestClient(submissionError: nil)
+        let store = MockTestStore()
 
-        let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
+        let service = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
         let expectation = self.expectation(description: "Success")
         var error: ExposureSubmissionError?
 
         // Act
-        service.submitExposure(tan: tan) {
+        service.submitExposure(with: tan) {
             error = $0
             expectation.fulfill()
         }
@@ -40,12 +41,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
         // Arrange
         let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (nil, nil))
         let client = MockTestClient(submissionError: nil)
+        let store = MockTestStore()
 
-        let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
+        let service = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
         let expectation = self.expectation(description: "NoKeys")
 
         // Act
-        service.submitExposure(tan: tan) { error in
+        service.submitExposure(with: tan) { error in
             defer { expectation.fulfill() }
             guard let error = error else {
                 XCTFail("error expected")
@@ -64,12 +66,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
         // Arrange
         let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (nil, nil))
         let client = MockTestClient(submissionError: nil)
+        let store = MockTestStore()
 
-        let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
+        let service = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
         let expectation = self.expectation(description: "EmptyKeys")
 
         // Act
-        service.submitExposure(tan: tan) {error in
+        service.submitExposure(with: tan) {error in
             defer { expectation.fulfill() }
             guard let error = error else {
                 XCTFail("error expected")
@@ -88,12 +91,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
         // Arrange
         let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
         let client = MockTestClient(submissionError: .invalidPayloadOrHeaders)
+        let store = MockTestStore()
 
-        let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
+        let service = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
         let expectation = self.expectation(description: "OtherError")
 
         // Act
-        service.submitExposure(tan: tan) { error in
+        service.submitExposure(with: tan) { error in
             defer { expectation.fulfill() }
             guard let error = error else {
                 XCTFail("error expected")
@@ -112,12 +116,13 @@ class ExposureSubmissionServiceTests: XCTestCase {
         // Arrange
         let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
         let client = MockTestClient(submissionError: .invalidTan)
+        let store = MockTestStore()
 
-        let service = ENAExposureSubmissionService(manager: exposureManager, client: client)
+        let service = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
         let expectation = self.expectation(description: "InvalidTan")
 
         // Act
-        service.submitExposure(tan: tan) { error in
+        service.submitExposure(with: tan) { error in
             defer {
                 expectation.fulfill()
             }

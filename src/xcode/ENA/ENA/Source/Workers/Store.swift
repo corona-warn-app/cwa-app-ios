@@ -20,11 +20,42 @@ protocol Store: class {
     var devicePairingConsentAcceptTimestamp: Int64? { get set }
     var devicePairingSuccessfulTimestamp: Int64? { get set }
     var isAllowedToSubmitDiagnosisKeys: Bool { get set }
+    var registrationToken: String? { get set }
 }
 
 /// The `DevelopmentStore` class implements the `Store` protocol that defines all required storage attributes.
 /// This class needs to be replaced with an implementation that persists all attributes in an encrypted SQLite database.
 final class DevelopmentStore: Store {
+    
+    /// Manually remove all keys that are saved through the `Store` protocol.
+    /// We do not loop here since this may destroys keys that are not managed through this class.
+    static func flush() {
+        // UserDefaults.standard.removeObject(forKey: "isOnboarded")
+        UserDefaults.standard.removeObject(forKey: "dateLastExposureDetection")
+        UserDefaults.standard.removeObject(forKey: "dateOfAcceptedPrivacyNotice")
+        UserDefaults.standard.removeObject(forKey: "allowsCellularUse")
+        // UserDefaults.standard.removeObject(forKey: "developerSubmissionBaseURLOverride")
+        // UserDefaults.standard.removeObject(forKey: "developerDistributionBaseURLOverride")
+        // UserDefaults.standard.removeObject(forKey: "developerVerificationBaseURLOverride")
+        UserDefaults.standard.removeObject(forKey: "teleTan")
+        UserDefaults.standard.removeObject(forKey: "testGUID")
+        UserDefaults.standard.removeObject(forKey: "devicePairingConsentAccept")
+        UserDefaults.standard.removeObject(forKey: "devicePairingConsentAcceptTimestamp")
+        UserDefaults.standard.removeObject(forKey: "devicePairingSuccessfulTimestamp")
+        UserDefaults.standard.removeObject(forKey: "isAllowedToSubmitDiagnosisKeys")
+        UserDefaults.standard.removeObject(forKey: "registrationToken")
+        log(message: "Flushed DevelopmentStore", level: .info)
+    }
+    
+    @PersistedAndPublished(
+        key: "registrationToken",
+        notificationName: Notification.Name.teleTanDidChange,
+        defaultValue: ((UserDefaults
+                        .standard
+                        .object(forKey: "registrationToken") as? String))
+    )
+    var registrationToken: String?
+    
     
     @PersistedAndPublished(
         key: "teleTan",
