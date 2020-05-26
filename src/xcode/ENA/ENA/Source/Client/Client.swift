@@ -90,6 +90,20 @@ enum SubmissionError: Error {
     case other(Error?)
     case invalidPayloadOrHeaders
     case invalidTan
+    case serverError(Int)
+}
+
+extension SubmissionError: LocalizedError {
+    var localizedDescription: String {
+        switch self {
+        case .serverError(let code):
+            return HTTPURLResponse.localizedString(forStatusCode: code)
+        default:
+            // TODO: Localize
+            // TODO: handle other error cases.
+            return "Default Submission Error"
+        }
+    }
 }
 
 struct DaysResult {
