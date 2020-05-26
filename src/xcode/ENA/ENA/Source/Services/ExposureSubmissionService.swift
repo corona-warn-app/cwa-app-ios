@@ -59,8 +59,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         
         client.getTestResult(forDevice: registrationToken) { result in
             switch result {
-            case .failure:
-                completeWith(.failure(.other))
+            case .failure(let error):
+                completeWith(.failure(self.parseExposureManagerError(error)!))
             case .success(let testResult):
                 guard let testResult = TestResult(rawValue: testResult) else {
                     completeWith(.failure(.other))
@@ -80,7 +80,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         client.getRegistrationToken(forKey: key, withType: type) { result in
             switch result {
             case .failure(let error):
-                completeWith(.failure(.other))
+                completeWith(.failure(self.parseExposureManagerError(error)!))
             case .success(let registrationToken):
                 self.store.registrationToken = registrationToken
                 self.delete(key: deviceRegistrationKey)
@@ -185,6 +185,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
                 return .enNotEnabled
             }
         }
+        if let httpError = error as? URLSession.Response.Failure {
+            return .httpError(httpError.localizedDescription);
+        }
         
         if let enError = error as? ENError {
             switch enError.code {
@@ -220,6 +223,7 @@ enum ExposureSubmissionError: Error {
     case invalidTan
     case serverError(Int)
     case unknown
+    case httpError(String)
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -229,6 +233,8 @@ extension ExposureSubmissionError: LocalizedError {
         // TODO: add missing cases.
         case .serverError(let code):
             return HTTPURLResponse.localizedString(forStatusCode: code)
+        case .httpError(let errorString):
+            return errorString
         case .invalidTan:
             return "Invalid Tan."
         case .enNotEnabled:
