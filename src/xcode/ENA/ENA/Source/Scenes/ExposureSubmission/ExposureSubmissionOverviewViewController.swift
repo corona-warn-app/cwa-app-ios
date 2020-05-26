@@ -28,7 +28,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController {
 	private var mostRecentTestResult: ExposureSubmissionTestResult? { testResults.last }
     
 
-    
     // MARK: - Initializers.
     
     required init?(coder aDecoder: NSCoder) {

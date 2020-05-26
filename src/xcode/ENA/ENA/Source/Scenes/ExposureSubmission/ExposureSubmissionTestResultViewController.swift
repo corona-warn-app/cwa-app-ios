@@ -28,7 +28,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController {
     
     private func setupView() {
         self.navigationItem.hidesBackButton = true
-        
         // TODO: Load the appropriate header view for positive/negative/invalid.
         tableView.register(UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil), forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue)
         
@@ -52,6 +51,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController {
         
         guard let tableViewModel = model else { return }
         dynamicTableViewModel = tableViewModel
+        
+        setButtonTitle(to: AppStrings.ExposureSubmissionConfirmation.submit)
     }
 }
 

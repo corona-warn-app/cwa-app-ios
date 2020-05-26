@@ -22,21 +22,30 @@ class ExposureSubmissionTanInputViewController: UIViewController {
     
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-        
-        setButtonTitle()
-		
-		if let tan = initialTan {
-			tanInput.clear()
-			tanInput.insertText(tan)
-			initialTan = nil
-		} else {
-			tanInput.becomeFirstResponder()
-		}
+        setupView()
 	}
     
-    private func setButtonTitle() {
+    // MARK: - Helper methods.
+    
+    private func setupView() {
+        if let tan = initialTan {
+            tanInput.clear()
+            tanInput.insertText(tan)
+            initialTan = nil
+        } else {
+            tanInput.becomeFirstResponder()
+        }
+        
+        setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
+    }
+}
+
+// TODO: This extension can be moved to another place
+// when the mockups are confirmed.
+extension UIViewController {
+    func setButtonTitle(to title: String) {
         (navigationController as? ExposureSubmissionNavigationController)?
-        .setButtonTitle(title: AppStrings.ExposureSubmissionTanEntry.submit)
+        .setButtonTitle(title: title)
     }
 }
 

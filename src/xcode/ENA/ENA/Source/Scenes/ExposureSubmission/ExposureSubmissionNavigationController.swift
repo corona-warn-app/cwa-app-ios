@@ -220,7 +220,7 @@ extension ExposureSubmissionNavigationController {
 		
         button = ENAButton(type: .system)
 		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
-		button.setTitle("Test Button", for: .normal)
+		button.setTitle("", for: .normal)
 		
 		button.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(button)
