@@ -106,8 +106,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         
         client.getTANForExposureSubmit(forDevice: token) { result in
             switch result {
-            case .failure(let failure):
-                completeWith(.failure(.other))
+            case .failure(let error):
+                completeWith(.failure(self.parseExposureManagerError(error)!))
             case .success(let tan):
                 self.store.tan = tan
                 completeWith(.success(tan))
@@ -207,7 +207,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
     }
 }
 
-enum ExposureSubmissionError: Error {
+enum ExposureSubmissionError: Error, Equatable {
     case other
     case noRegistrationToken
     case enNotEnabled
