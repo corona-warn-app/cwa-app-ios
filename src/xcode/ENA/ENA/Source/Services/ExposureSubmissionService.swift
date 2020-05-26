@@ -73,7 +73,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
     }
 
     /// Stores the provided key, retrieves the registration token and deletes the key.
-    func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey, completion completeWith: @escaping RegistrationHandler) {
+    func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey,
+                              completion completeWith: @escaping RegistrationHandler) {
         store(key: deviceRegistrationKey)
         let (key, type) = getKeyAndType(for: deviceRegistrationKey)
         client.getRegistrationToken(forKey: key, withType: type) { result in
@@ -119,7 +120,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
         case .guid(let guid):
             return (Hasher.sha256(guid), "GUID")
         case .teleTan(let teleTan):
-            return (Hasher.sha256(teleTan), "TELETAN")
+            // teleTAN should NOT be hashed, is for short time
+            // usage only.
+            return (teleTan, "TELETAN")
         }
     }
 
