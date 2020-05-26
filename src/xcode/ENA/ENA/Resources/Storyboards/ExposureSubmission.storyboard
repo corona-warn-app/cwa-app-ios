@@ -182,7 +182,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Positionieren Sie den QR Code in den Rahmen" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="62" y="606" width="290" height="41"/>
+                                <rect key="frame" x="62" y="606" width="290" height="42.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -282,7 +282,7 @@
         <!--Expsure Submission Navigation Controller-->
         <scene sceneID="woc-yd-Srs">
             <objects>
-                <navigationController id="W8E-ea-7hM" customClass="ExpsureSubmissionNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ExpsureSubmissionNavigationController" id="W8E-ea-7hM" customClass="ExpsureSubmissionNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="K4W-nS-7Ar">

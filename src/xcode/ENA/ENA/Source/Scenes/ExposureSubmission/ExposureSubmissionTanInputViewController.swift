@@ -16,6 +16,7 @@ class ExposureSubmissionTanInputViewController: UIViewController {
 	
 	var initialTan: String?
 	
+    var exposureSubmissionService: ExposureSubmissionService?
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -39,7 +40,23 @@ extension ExposureSubmissionTanInputViewController {
 
 
 extension ExposureSubmissionTanInputViewController: ExpsureSubmissionNavigationControllerChild {
+    
 	func didTapBottomButton() {
-		performSegue(withIdentifier: Segue.testResult, sender: nil)
+        
+        guard let exposureSubmissionService = self.exposureSubmissionService else {
+            logError(message: "ExposureSubmissionService is nil. ")
+            return
+        }
+        
+        exposureSubmissionService.submitExposure(tan: "TAN 123456") { error in
+            if let error = error {
+                logError(message: "Fail to submit tan. Error: \(error)")
+            } else {
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: Segue.testResult, sender: nil)
+                }
+            }
+        }
+        
 	}
 }
