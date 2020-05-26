@@ -17,12 +17,12 @@ class ExposureSubmissionNavigationItem: UINavigationItem {
 
 protocol ExposureSubmissionNavigationControllerChild: class {
 	var bottomView: UIView? { get }
-//	TODO var bottomButtonText: String { get }
 	func didTapBottomButton()
 }
 
 extension ExposureSubmissionNavigationControllerChild where Self: UIViewController {
 	var bottomView: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.bottomView }
+    var button: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.button }
 }
 
 class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
@@ -34,6 +34,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	private var keyboardWindowFrame: CGRect?
 	
 	private(set) var bottomView: UIView!
+    private(set) var button: ENAButton!
 	private var bottomViewTopConstraint: NSLayoutConstraint!
     private var exposureSubmissionService: ExposureSubmissionService?
     
@@ -65,6 +66,10 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		
 		self.delegate = self
 	}
+    
+    func setButtonTitle(title: String) {
+        button.setTitle(title, for: .normal)
+    }
     
     func getExposureSubmissionService() -> ExposureSubmissionService? {
         return exposureSubmissionService
@@ -197,6 +202,7 @@ extension ExposureSubmissionNavigationController {
 
 
 extension ExposureSubmissionNavigationController {
+    
 	private func setupBottomView() {
 		let view = UIView()
 		view.backgroundColor = .white
@@ -212,7 +218,7 @@ extension ExposureSubmissionNavigationController {
 		bottomConstraint.priority = .defaultHigh
 		bottomViewTopConstraint = view.topAnchor.constraint(equalTo: self.view.bottomAnchor)
 		
-		let button = ENAButton(type: .system)
+        button = ENAButton(type: .system)
 		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
 		button.setTitle("Test Button", for: .normal)
 		
@@ -232,5 +238,5 @@ extension ExposureSubmissionNavigationController {
 	@objc
 	private func didTapButton() {
 		(topViewController as? ExposureSubmissionNavigationControllerChild)?.didTapBottomButton()
-	}
+    }
 }

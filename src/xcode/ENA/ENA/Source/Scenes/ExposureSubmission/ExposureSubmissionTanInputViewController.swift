@@ -22,6 +22,8 @@ class ExposureSubmissionTanInputViewController: UIViewController {
     
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+        
+        setButtonTitle()
 		
 		if let tan = initialTan {
 			tanInput.clear()
@@ -31,6 +33,11 @@ class ExposureSubmissionTanInputViewController: UIViewController {
 			tanInput.becomeFirstResponder()
 		}
 	}
+    
+    private func setButtonTitle() {
+        (navigationController as? ExposureSubmissionNavigationController)?
+        .setButtonTitle(title: AppStrings.ExposureSubmissionTanEntry.submit)
+    }
 }
 
 
@@ -43,8 +50,8 @@ extension ExposureSubmissionTanInputViewController {
 // MARK: - ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
+    
 	func didTapBottomButton() {
-        
         // If teleTAN is correct, show Alert Controller
         // to check permissions to request TAN.
         let teleTan = tanInput.text

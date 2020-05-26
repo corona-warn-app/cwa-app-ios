@@ -136,7 +136,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "ExposureSubmission_Submit" = "TAN Eingeben";
 "ExposureSubmissionTanEntry_Title" = "Labor TAN";
 "ExposureSubmissionTanEntry_Description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
-"ExposureSubmissionTanEntry_Submit" = "TAN Prüfen";
+"ExposureSubmissionTanEntry_Submit" = "TeleTAN Senden";
 "ExposureSubmission_NavTitle" = "Testergebnis Melden";
 "ExposureSubmissionConfirmation_Title" = "Positive Diagnose";
 "ExposureSubmissionConfirmation_Description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
