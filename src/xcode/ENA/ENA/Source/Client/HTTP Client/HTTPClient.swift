@@ -78,9 +78,10 @@ final class HTTPClient: Client {
             case .success(let response):
                 switch response.statusCode {
                 case 200: completion(nil)
+                case 201: completion(nil)
                 case 400: completion(.invalidPayloadOrHeaders)
                 case 403: completion(.invalidTan)
-                default: completion(.other(nil))
+                default: completion(.serverError(response.statusCode))
                 }
             case .failure(let error):
                 completion(.other(error))
@@ -157,6 +158,146 @@ final class HTTPClient: Client {
             }
         }
     }
+    
+    func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
+        let url = configuration.testResultURL
+        
+        let bodyValues = ["registrationToken":registrationToken]
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+
+            let data = try encoder.encode(bodyValues)
+
+            session.POST(url, data) {result in
+                switch result {
+                case .success(let response):
+                    guard response.hasAcceptableStatusCode else {
+                        completeWith(.failure(.serverError(response.statusCode)))
+                        return
+                    }
+                    guard let testResultResponseData = response.body else {
+                        completeWith(.failure(.invalidResponse))
+                        logError(message: "Failed to register Device with invalid response")
+                        return
+                        }
+                    do {
+                        let decoder = JSONDecoder()
+                        let responseDictionary: [String:Int] = try decoder.decode([String:Int].self, from: testResultResponseData)
+                        if(responseDictionary["testResult"] != nil){
+                            completeWith(.success(responseDictionary["testResult"]!))
+                        }else{
+                            logError(message: "Failed to register Device with invalid response payload structure")
+                            completeWith(.failure(.invalidResponse))
+                        }
+                    } catch _ {
+                        logError(message: "Failed to register Device with invalid response payload structure")
+                        completeWith(.failure(.invalidResponse))
+                    }
+                case .failure(let error):
+                    completeWith(.failure(error))
+                    logError(message: "Failed to registerDevices due to error: \(error).")
+                }
+            }
+        } catch {
+                   completeWith(.failure(.invalidResponse))
+                   return
+        }
+    }
+    
+    func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
+        let url = configuration.tanRetrievalURL
+        
+        let bodyValues = ["registrationToken":registrationToken]
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+
+            let data = try encoder.encode(bodyValues)
+            
+            session.POST(url, data) {result in
+                switch result {
+                case .success(let response):
+                    guard response.hasAcceptableStatusCode else {
+                        completeWith(.failure(.serverError(response.statusCode)))
+                        return
+                    }
+                    guard let tanResponseData = response.body else {
+                        completeWith(.failure(.invalidResponse))
+                        logError(message: "Failed to get TAN")
+                        logError(message: String(response.statusCode))
+                        return
+                    }
+                    do {
+                        let decoder = JSONDecoder()
+                        let responseDictionary: [String:String] = try decoder.decode([String:String].self, from: tanResponseData)
+                        if(responseDictionary["tan"] != nil){
+                            completeWith(.success(responseDictionary["tan"]!))
+                        }else{
+                            logError(message: "Failed to get TAN because of invalid response payload structure")
+                            completeWith(.failure(.invalidResponse))
+                        }
+                    } catch _ {
+                        logError(message: "Failed to get TAN because of invalid response payload structure")
+                        completeWith(.failure(.invalidResponse))
+                    }
+                case .failure(let error):
+                    completeWith(.failure(error))
+                    logError(message: "Failed to get TAN due to error: \(error).")
+                }
+            }
+        } catch {
+                   completeWith(.failure(.invalidResponse))
+                   return
+        }
+    }
+    
+    func getRegistrationToken(forKey key: String, withType type: String, completion completeWith: @escaping RegistrationHandler) {
+        
+        let url = configuration.registrationURL
+        
+        let bodyValues = ["key":key,"keyType":type]
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+
+            let data = try encoder.encode(bodyValues)
+
+            session.POST(url, data) {result in
+                switch result {
+                case .success(let response):
+                    guard response.hasAcceptableStatusCode else {
+                        completeWith(.failure(.serverError(response.statusCode)))
+                        return
+                    }
+                    guard let registerResponseData = response.body else {
+                        completeWith(.failure(.invalidResponse))
+                        logError(message: "Failed to register Device with invalid response")
+                        return
+                        }
+                    do {
+                        let decoder = JSONDecoder()
+                        let responseDictionary: [String:String] = try decoder.decode([String:String].self, from: registerResponseData)
+                        if(responseDictionary["registrationToken"] != nil){
+                            completeWith(.success(responseDictionary["registrationToken"]!))
+                        }else{
+                            logError(message: "Failed to register Device with invalid response payload structure")
+                            completeWith(.failure(.invalidResponse))
+                        }
+                    } catch _ {
+                        logError(message: "Failed to register Device with invalid response payload structure")
+                        completeWith(.failure(.invalidResponse))
+                    }
+                case .failure(let error):
+                    completeWith(.failure(error))
+                    logError(message: "Failed to registerDevices due to error: \(error).")
+                }
+            }
+        } catch {
+                   completeWith(.failure(.invalidResponse))
+                   return
+        }
+    }
 
     func fetchDay(
         _ day: String,
@@ -179,7 +320,7 @@ final class HTTPClient: Client {
                 }
                 completeWith(.success(package))
             case .failure(let error):
-                completeWith(.failure(.httpError(error)))
+                completeWith(.failure(error))
                 logError(message: "Failed to download day '\(day)' due to error: \(error).")
             }
         }
