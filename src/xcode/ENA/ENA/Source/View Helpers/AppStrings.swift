@@ -9,10 +9,13 @@
 import UIKit
 
 enum AppStrings {
-    enum Commom {
+    enum Common {
         static let alertTitleGeneral = NSLocalizedString("Alert_TitleGeneral", comment: "")
         static let alertMessageGeneral = NSLocalizedString("Alert_MessageGeneral", comment: "")
         static let alertActionOk = NSLocalizedString("Alert_ActionOk", comment: "")
+        static let alertActionNo = NSLocalizedString("Alert_ActionNo", comment: "")
+        static let alertTitleKeySubmit = NSLocalizedString("Alert_TitleKeySubmit", comment: "")
+        static let alertDescriptionKeySubmit = NSLocalizedString("Alert_DescriptionKeySubmit", comment: "")
     }
 
     enum ExposureSubmission {
@@ -20,6 +23,7 @@ enum AppStrings {
         static let description = NSLocalizedString("ExposureSubmission_Description", comment: "")
         static let submit = NSLocalizedString("ExposureSubmission_Submit", comment: "")
         static let navigationBarTitle = NSLocalizedString("ExposureSubmission_NavTitle", comment: "")
+        static let generalErrorTitle = NSLocalizedString("ExposureSubmission_GeneralErrorTitle", comment: "")
     }
 
     enum ExposureSubmissionTanEntry {
