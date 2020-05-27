@@ -24,9 +24,12 @@ struct AboutView: View {
                                     self.navigation.unwind()
             })
             VStack{
-                Text("Call by Color 36").font(Font.custom(globalDataModel.font, size: 26))
-                Text("Version 1.0").font(Font.custom(globalDataModel.font, size: 18))
-                Text("Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)").font(Font.custom(globalDataModel.font, size: 18))
+                Text("Call by Color 36")
+                    .font(.title)
+                Text("Version 1.0")
+                    .fontWeight(.medium)
+                Text("Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)")
+                    .fontWeight(.medium)
                 
                 Image("Icon120").resizable().frame(width: 120, height: 120).cornerRadius(20)
                     Spacer()
@@ -34,7 +37,7 @@ struct AboutView: View {
                         .frame(width: 150, height: 150)
                 
                 Spacer()
-                Text("Copyright 2020 Andreas Vogel").multilineTextAlignment(.leading).customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
+                Text("Copyright 2020 Andreas Vogel").fontWeight(.regular).multilineTextAlignment(.leading).padding(.horizontal)
                 
                 
             }
