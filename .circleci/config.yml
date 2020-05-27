@@ -7,8 +7,9 @@ jobs:
 
     steps:
       - checkout
-      - run: brew install swiftlint
-      - run: cd src/xcode && bundle install
+      - run:
+          name: Install dependencies
+          command: brew install swiftlint && cd src/xcode && bundle install
       - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build

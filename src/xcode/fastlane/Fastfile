@@ -36,8 +36,16 @@ platform :ios do
     # Unit Tests
     run_tests(
       scheme: "ENATests",
-      devices: ["iPhone 11"],
-      code_coverage: true
+      devices: ["iPhone 11"]
+    )
+
+    # Gather code coverage
+    xcov(
+      workspace: "ENA.xcworkspace",
+      scheme: "ENATests",
+      html_report: false,
+      markdown_report: true,
+      output_directory: "fastlane/test_output"
     )
 
     # UI Tests
