@@ -15,6 +15,22 @@ extension URLSession {
     func GET(_ url: URL, completion: @escaping Completion) {
         response(for: URLRequest(url: url), completion: completion)
     }
+    
+    // This method executes HTTP POST requests.
+    func POST(_ url: URL, completion: @escaping Completion) {
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        response(for: request, completion: completion)
+    }
+    
+    // This method executes HTTP POST with HTTP BODY requests.
+    func POST(_ url: URL, _ body: Data, completion: @escaping Completion) {
+          var request = URLRequest(url: url)
+          request.httpMethod = "POST"
+          request.httpBody = body
+          request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+          response(for: request, completion: completion)
+      }
 
     // This method executes HTTP requests.
     // It does some additional checks - purely for convenience:
@@ -70,6 +86,7 @@ extension URLSession.Response {
         /// The session did not receive an error but nor either an `HTTPURLResponse`/HTTP body.
         case noResponse
         case invalidResponse
+        case serverError(Int)
     }
 
     typealias Completion = (Result<URLSession.Response, Failure>) -> Void
