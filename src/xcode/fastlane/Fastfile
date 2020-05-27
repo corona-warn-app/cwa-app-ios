@@ -25,7 +25,8 @@ platform :ios do
   lane :build do
     build_ios_app(
       skip_codesigning: true,
-      skip_archive: true,
+      export_method: "ad-hoc",
+      skip_package_ipa: true,
       destination: "platform=iOS Simulator,OS=13.5,name=iPhone 11",
       scheme: "ENA"
     )
@@ -36,8 +37,16 @@ platform :ios do
     # Unit Tests
     run_tests(
       scheme: "ENATests",
-      devices: ["iPhone 11"],
-      code_coverage: true
+      devices: ["iPhone 11"]
+    )
+
+    # Gather code coverage
+    xcov(
+      workspace: "ENA.xcworkspace",
+      scheme: "ENATests",
+      markdown_report: true,
+      html_report: false,
+      output_directory: "fastlane/test_output"
     )
 
     # UI Tests

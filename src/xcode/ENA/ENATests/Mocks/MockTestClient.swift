@@ -10,6 +10,7 @@ import ExposureNotification
 @testable import ENA
 
 class MockTestClient: Client {
+    
     func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
         completion(.success([]))
     }
@@ -37,5 +38,17 @@ class MockTestClient: Client {
 
     func submit(keys: [ENTemporaryExposureKey], tan: String, completion: @escaping SubmitKeysCompletionHandler) {
         completion(submissionError)
+    }
+    
+    func getRegistrationToken(forKey key: String, withType type: String, completion completeWith: @escaping RegistrationHandler) {
+        completeWith(.success("dummyRegistrationToken"))
+    }
+    
+    func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
+        completeWith(.success(2))
+    }
+    
+    func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
+        completeWith(.success("dummyTan"))
     }
 }

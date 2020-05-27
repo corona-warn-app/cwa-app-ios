@@ -30,4 +30,5 @@ extension Notification.Name {
     static let devicePairingConsentAcceptTimestampDidChange = _withPrefix("devicePairingConsentAcceptTimestampDidChange")
     static let devicePairingSuccessfulTimestampDidChange = _withPrefix("devicePairingSuccessfulTimestampDidChange")
     static let isAllowedToSubmitDiagnosisKeysDidChange = _withPrefix("isAllowedToSubmitDiagnosisKeysDidChange")
+    static let registrationTokenDidChange = _withPrefix("registrationTokenDidChange")
 }

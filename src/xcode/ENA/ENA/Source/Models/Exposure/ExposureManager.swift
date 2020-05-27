@@ -17,6 +17,7 @@ struct ExposureManagerState {
     let authorized: Bool
     let enabled: Bool
     let active: Bool
+    let bluetoothOff: Bool
     var isGood: Bool { authorized && enabled && active }
 }
 
@@ -139,7 +140,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
         .init(
             authorized: type(of: manager).authorizationStatus == .authorized,
             enabled: manager.exposureNotificationEnabled,
-            active: manager.exposureNotificationStatus == .active
+            active: manager.exposureNotificationStatus == .active,
+            bluetoothOff: manager.exposureNotificationStatus == .bluetoothOff
         )
     }
     
