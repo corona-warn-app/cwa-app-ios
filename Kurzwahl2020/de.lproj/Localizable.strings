@@ -28,6 +28,13 @@
 "Phone Numbers" = "Telefonnummern";
 
 // AskForAccessToContactsView
+"How to Enter a Number" = "Nummer hinzufügen";
+"Double tap to enter a phone number and name. Alternatively tap and hold a field. Then choose 'Edit' from the menue." = "Zum Eingeben einer Nummer einfach ein Feld doppelt tippen. Tippen und Halten öffnet ein Menü.";
+"Start a Phone Call" = "Anrufen";
+"Tap to start a phone call. Alternatively tap and hold, then choose 'Call number' from the  menue." = "Zum Anrufen tippen Sie enfach auf ein Feld.";
+
+"Access Contacts" = "Kontakte";
+
 "In case you want to pick phone numbers from your contacts then please go to Settings – Privacy – Contacts and grant access to the contacts." = "Falls sie Namen und Telefonnmmern aus ihren Kontakten auswählen möchten, dann erlauben sie dieser App den Zugriff auf die Kontakte in den iPhone-Einstellungen unter 'Datenschutz – Kontakte'";
 
 // AboutView
