@@ -28,10 +28,8 @@ struct ColorSelectView: View {
                                     self.navigation.unwind()
             })
             VStack{
-                Text("Select picture to change the colors")
-                    .multilineTextAlignment(.leading)
-                    .customFont(name: globalDataModel.font, style: .body)
-                    .padding(.horizontal)
+                Text("Color Settings")
+                    .multilineTextAlignment(.leading)                  .padding(.horizontal)
                 HStack{
                     Spacer()
                     VStack{

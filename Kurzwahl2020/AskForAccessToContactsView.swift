@@ -21,18 +21,16 @@ struct AskForAccessToContactsView: View {
             })
             VStack{
                 Text("How to Enter a Number")
-                    .fontWeight(.bold)//.customFont(name: globalDataModel.font, style: .body)
-                Text("Double tap to enter a phone number and name. Alternatively tap and hold a field. Then choose 'Edit' from the menue.").multilineTextAlignment(.leading).padding()//.customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
+                    .fontWeight(.bold)
+                Text("Double tap to enter a phone number and name. Alternatively tap and hold a field. Then choose 'Edit' from the menue.").multilineTextAlignment(.leading).padding()
                 Text("")
                 Text("Start a Phone Call")
-                    .fontWeight(.bold)//.customFont(name: globalDataModel.font, style: .body)
-                
-                Text("Tap to start a phone call. Alternatively tap and hold, then choose 'Call number' from the  menue.").multilineTextAlignment(.leading).padding()//.customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
+                    .fontWeight(.bold)
+                Text("Tap to start a phone call. Alternatively tap and hold, then choose 'Call number' from the  menue.").multilineTextAlignment(.leading).padding()
                 Text("")
                 Text("Access Contacts")
-                    .fontWeight(.bold)//.customFont(name: globalDataModel.font, style: .body)
-                Text("In case you want to pick phone numbers from your contacts then please go to Settings – Privacy – Contacts and grant access to the contacts.").multilineTextAlignment(.leading).padding()//.customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
-                
+                    .fontWeight(.bold)
+                Text("In case you want to pick phone numbers from your contacts then please go to Settings – Privacy – Contacts and grant access to the contacts.").multilineTextAlignment(.leading).padding()                
                 Spacer()
             }
         }

@@ -19,6 +19,7 @@
 "Privacy Statement" = "Datenschutz";
 "Settings" = "Einstellungen";
 "Help" = "Hilfe";
+"Colors" = "Farben";
 
 // ContactView
 "Select Contact" = "Wähle Kontakt";
@@ -59,3 +60,6 @@
 // HomeView
 "Edit" = "Editieren";
 "Call number" = "Anrufen";
+
+//ColorSelectView
+"Color Settings" = "Farben wählen ";

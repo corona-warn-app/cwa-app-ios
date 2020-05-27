@@ -21,8 +21,9 @@ struct PrivacyView: View {
             VStack{
 
                 
-                Text("Privacy Policy").font(Font.custom(globalDataModel.font, size: 26)).frame(height: 50)
-                Text("All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts if asked.").multilineTextAlignment(.leading).customFont(name: globalDataModel.font, style: .body).padding(.horizontal)
+                Text("Privacy Policy")
+                    .font(.title)
+                Text("All information you enter in this app will stay on your iPhone. No personal information is collected by this app. In case you want to copy names and phone numbers from your contact list then please grant access to your contacts if asked.").fontWeight(.regular).multilineTextAlignment(.leading).padding()
                 Spacer()
                 
             }
