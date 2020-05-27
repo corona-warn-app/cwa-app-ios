@@ -22,8 +22,6 @@
 		50AD8B6A23D8EDEB00819FD1 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD8B6923D8EDEB00819FD1 /* ContactView.swift */; };
 		50ADCF822369C135007B248B /* ColorManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF812369C135007B248B /* ColorManagement.swift */; };
 		50ADCF842369C35F007B248B /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF832369C35F007B248B /* Storage.swift */; };
-		50ADCF862369C46D007B248B /* people.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF852369C46D007B248B /* people.json */; };
-		50ADCF882369D87D007B248B /* Colors.json in Resources */ = {isa = PBXBuildFile; fileRef = 50ADCF872369D87D007B248B /* Colors.json */; };
 		50ADF97C240EAA3100850FB6 /* SelectColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADF97B240EAA3100850FB6 /* SelectColorPalette.swift */; };
 		50C3564F2401C4510026ABE5 /* AskForAccessToContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */; };
 		50C8558C23D98EC400AAB7F2 /* ModelContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */; };
@@ -69,8 +67,6 @@
 		50AD8B6923D8EDEB00819FD1 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		50ADCF812369C135007B248B /* ColorManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManagement.swift; sourceTree = "<group>"; };
 		50ADCF832369C35F007B248B /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		50ADCF852369C46D007B248B /* people.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = people.json; sourceTree = "<group>"; };
-		50ADCF872369D87D007B248B /* Colors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Colors.json; sourceTree = "<group>"; };
 		50ADF97B240EAA3100850FB6 /* SelectColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorPalette.swift; sourceTree = "<group>"; };
 		50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForAccessToContactsView.swift; sourceTree = "<group>"; };
 		50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContacts.swift; sourceTree = "<group>"; };
@@ -148,8 +144,6 @@
 				502BF53C236399BD00FDE7BF /* Assets.xcassets */,
 				502BF541236399BD00FDE7BF /* LaunchScreen.storyboard */,
 				502BF544236399BD00FDE7BF /* Info.plist */,
-				50ADCF852369C46D007B248B /* people.json */,
-				50ADCF872369D87D007B248B /* Colors.json */,
 				502BF53E236399BD00FDE7BF /* Preview Content */,
 				5094A7A52365E324004D0932 /* Notizen.rtf */,
 				7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */,
@@ -278,9 +272,7 @@
 			files = (
 				502BF543236399BD00FDE7BF /* LaunchScreen.storyboard in Resources */,
 				502BF540236399BD00FDE7BF /* Preview Assets.xcassets in Resources */,
-				50ADCF882369D87D007B248B /* Colors.json in Resources */,
 				7E40860E2401EE6C00D50EF8 /* Localizable.strings in Resources */,
-				50ADCF862369C46D007B248B /* people.json in Resources */,
 				5094A7A62365E324004D0932 /* Notizen.rtf in Resources */,
 				502BF53D236399BD00FDE7BF /* Assets.xcassets in Resources */,
 			);
