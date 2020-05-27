@@ -63,3 +63,6 @@
 
 //ColorSelectView
 "Color Settings" = "Farben wählen ";
+
+//SelectColorPalette
+"Choose a color palette" = "Farbpalette auswählen";

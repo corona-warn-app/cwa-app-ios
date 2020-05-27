@@ -21,7 +21,7 @@ struct SelectColorPalette: View {
                                     self.navigation.unwind()
             })
             
-            Text("Select a new palette")
+            Text("Choose a color palette")
             List {
                 ForEach(colorManager.getAllPalettes()) { p in
                     thumbnailRow(colorPalette: p, screenIndex: self.screenIndex)
