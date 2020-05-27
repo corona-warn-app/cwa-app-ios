@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
-      - store_artifacts:
+      - store_test_results:
           path: src/xcode/fastlane/test_output
 
   grab-screenshots:
