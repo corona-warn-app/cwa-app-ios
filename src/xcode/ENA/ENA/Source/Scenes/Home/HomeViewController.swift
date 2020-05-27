@@ -19,13 +19,14 @@ final class HomeViewController: UIViewController {
         client: Client,
         store: Store,
         keyPackagesStore: DownloadedPackagesStore,
-        exposureManagerEnabled: Bool
+        exposureManagerState: ExposureManagerState
     ) {
         self.client = client
         self.store = store
         self.keyPackagesStore = keyPackagesStore
         self.exposureManager = exposureManager
-        self.exposureManagerEnabled = exposureManagerEnabled
+        self.exposureManagerEnabled = exposureManagerState.enabled
+        self.exposureManagerState = exposureManagerState
         super.init(coder: coder)
         homeInteractor = HomeInteractor(
             homeViewController: self,
@@ -54,6 +55,13 @@ final class HomeViewController: UIViewController {
 			exposureDetectionController?.state.isTracingEnabled = exposureManagerEnabled
             settingsController?.exposureManagerEnabled = exposureManagerEnabled
             notificationSettingsController?.exposureManagerEnabled = exposureManagerEnabled
+        }
+    }
+    var exposureManagerState: ExposureManagerState! {
+        didSet {
+            exposureManagerEnabled = exposureManagerState.enabled
+            settingsController?.exposureManagerState = exposureManagerState
+            notificationSettingsController?.exposureManagerState = exposureManagerState
         }
     }
 	private var summaryNotificationObserver: NSObjectProtocol?
@@ -176,6 +184,7 @@ final class HomeViewController: UIViewController {
             ExposureNotificationSettingViewController(
                 coder: coder,
                 exposureManagerEnabled: self.exposureManagerEnabled,
+                exposureManageState: self.exposureManagerState,
                 delegate: self
             )
         }
@@ -190,6 +199,7 @@ final class HomeViewController: UIViewController {
                 coder: coder,
                 store: self.store,
                 exposureManagerEnabled: self.exposureManagerEnabled,
+                exposureManagerState: self.exposureManagerState,
                 delegate: self
             )
         }
