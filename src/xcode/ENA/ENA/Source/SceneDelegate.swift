@@ -17,7 +17,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private let exposureManager = ENAExposureManager()
     private let navigationController: UINavigationController = .withLargeTitle()
     private var homeController: HomeViewController?
-    var exposureManagerEnabled = false
+    var exposureManagerState: ExposureManagerState!
 
     private(set) lazy var client: Client = {
         // We disable app store checks to make testing easier.
@@ -91,7 +91,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
     private func presentHomeVC() {
-        self.exposureManagerEnabled = self.exposureManager.preconditions().enabled
+        self.exposureManagerState = self.exposureManager.preconditions()
         let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) {[unowned self] coder in
             let homeVC = HomeViewController(
                 coder: coder,
@@ -99,7 +99,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 client: self.client,
                 store: self.store,
                 keyPackagesStore: self.diagnosisKeysStore,
-                exposureManagerEnabled: self.exposureManagerEnabled
+                exposureManagerState: self.exposureManagerState
             )
             return homeVC
         }

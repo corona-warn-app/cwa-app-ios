@@ -26,6 +26,11 @@ final class SettingsViewController: UITableViewController {
             notificationSettingsController?.exposureManagerEnabled = exposureManagerEnabled
         }
     }
+    var exposureManagerState: ExposureManagerState! {
+        didSet {
+            notificationSettingsController?.exposureManagerState = exposureManagerState
+        }
+    }
     private weak var notificationSettingsController: ExposureNotificationSettingViewController?
     private weak var delegate: SettingsViewControllerDelegate?
 
@@ -36,10 +41,11 @@ final class SettingsViewController: UITableViewController {
 
     let settingsViewModel = SettingsViewModel.model
 
-    init?(coder: NSCoder, store: Store, exposureManagerEnabled: Bool, delegate: SettingsViewControllerDelegate) {
+    init?(coder: NSCoder, store: Store, exposureManagerEnabled: Bool, exposureManagerState: ExposureManagerState, delegate: SettingsViewControllerDelegate) {
         self.store = store
         self.delegate = delegate
         self.exposureManagerEnabled = exposureManagerEnabled
+        self.exposureManagerState = exposureManagerState
         super.init(coder: coder)
     }
 
@@ -75,7 +81,7 @@ final class SettingsViewController: UITableViewController {
 
     @IBSegueAction
     func createExposureNotificationSettingViewController(coder: NSCoder) -> ExposureNotificationSettingViewController? {
-        return ExposureNotificationSettingViewController(coder: coder, exposureManagerEnabled: exposureManagerEnabled, delegate: self)
+        return ExposureNotificationSettingViewController(coder: coder, exposureManagerEnabled: exposureManagerEnabled, exposureManageState: exposureManagerState, delegate: self)
     }
 
     @objc

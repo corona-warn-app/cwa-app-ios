@@ -28,14 +28,17 @@ final class ExposureNotificationSettingViewController: UITableViewController {
     @IBOutlet weak var enableTrackingLabel: UILabel!
 
     var exposureManagerEnabled: Bool = false
+    var exposureManagerState: ExposureManagerState!
 
     init?(
         coder: NSCoder,
         exposureManagerEnabled: Bool,
+        exposureManageState: ExposureManagerState,
         delegate: ExposureNotificationSettingViewControllerDelegate
     ) {
         super.init(coder: coder)
         self.exposureManagerEnabled = exposureManagerEnabled
+        self.exposureManagerState = exposureManageState
         self.delegate = delegate
     }
     
