@@ -83,6 +83,7 @@
 		7E4F6A1F23BB93BA00530294 /* Kurzwahl2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kurzwahl2020.entitlements; sourceTree = "<group>"; };
 		7E5C786323E8AA3200E25902 /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
 		7E8262882413920A008E141C /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
+		7E9EEEA024812B1800990D38 /* iPhone Screen Sizes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "iPhone Screen Sizes.md"; sourceTree = "<group>"; };
 		7EC1B80223C100E8004B7396 /* editView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +148,7 @@
 				502BF53E236399BD00FDE7BF /* Preview Content */,
 				5094A7A52365E324004D0932 /* Notizen.rtf */,
 				7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */,
+				7E9EEEA024812B1800990D38 /* iPhone Screen Sizes.md */,
 			);
 			path = Kurzwahl2020;
 			sourceTree = "<group>";
