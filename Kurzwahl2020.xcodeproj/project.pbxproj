@@ -34,6 +34,7 @@
 		7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */; };
 		7E5C786423E8AA3200E25902 /* ContactDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C786323E8AA3200E25902 /* ContactDetailView.swift */; };
 		7E8262892413920A008E141C /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262882413920A008E141C /* ColorConstants.swift */; };
+		7E9EEEA224812C4B00990D38 /* Launch Screen 2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E9EEEA124812C4B00990D38 /* Launch Screen 2.storyboard */; };
 		7EC1B80323C100E8004B7396 /* editView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1B80223C100E8004B7396 /* editView.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		7E5C786323E8AA3200E25902 /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
 		7E8262882413920A008E141C /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		7E9EEEA024812B1800990D38 /* iPhone Screen Sizes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "iPhone Screen Sizes.md"; sourceTree = "<group>"; };
+		7E9EEEA124812C4B00990D38 /* Launch Screen 2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen 2.storyboard"; sourceTree = "<group>"; };
 		7EC1B80223C100E8004B7396 /* editView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,6 +151,7 @@
 				5094A7A52365E324004D0932 /* Notizen.rtf */,
 				7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */,
 				7E9EEEA024812B1800990D38 /* iPhone Screen Sizes.md */,
+				7E9EEEA124812C4B00990D38 /* Launch Screen 2.storyboard */,
 			);
 			path = Kurzwahl2020;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			files = (
 				502BF543236399BD00FDE7BF /* LaunchScreen.storyboard in Resources */,
 				502BF540236399BD00FDE7BF /* Preview Assets.xcassets in Resources */,
+				7E9EEEA224812C4B00990D38 /* Launch Screen 2.storyboard in Resources */,
 				7E40860E2401EE6C00D50EF8 /* Localizable.strings in Resources */,
 				5094A7A62365E324004D0932 /* Notizen.rtf in Resources */,
 				502BF53D236399BD00FDE7BF /* Assets.xcassets in Resources */,

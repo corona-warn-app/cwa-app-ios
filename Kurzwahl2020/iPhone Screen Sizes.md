@@ -67,3 +67,4 @@ Launch screen test: OK
 
 https://stackoverflow.com/questions/2634898/what-are-the-sizes-used-for-the-ios-application-splash-screen
 https://wiki.starling-framework.org/manual/ios_launch_images
+https://medium.com/flawless-app-stories/change-splash-screen-in-ios-app-for-dummies-the-better-way-e385327219e
