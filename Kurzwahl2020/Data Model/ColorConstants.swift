@@ -15,6 +15,7 @@ let c_darkPink : String = "Dark Pink"
 let c_red : String = "Red"
 let c_green : String = "Green"
 let c_blue : String = "Blue"
+let c_gray : String = "Gray"
 
 // constants: file names for thumbnails in Light & Dark Mode
 let c_tn_summerTime_lm = "Standard Light Mode"
@@ -27,7 +28,8 @@ let c_tn_green_lm = "Green Light Mode"
 let c_tn_green_dm = "Green Dark Mode"
 let c_tn_blue_lm = "Blue Light Mode"
 let c_tn_blue_dm = "Blue Dark Mode"
-
+let c_tn_gray_lm = "Gray Light Mode"
+let c_tn_gray_dm = "Gray Dark Mode"
 
 
 // the color names refer to the items in Asset.xcassets
@@ -72,3 +74,11 @@ let ColorPaletteRed: [String] = [
     "Red730000","Red730000",
     "Red7F0000","Red7F0000",
     "Red8C0000","Red8C0000"]
+
+let ColorPaletteGray: [String] = [
+    "Darkgrey6E6E6E","Darkgrey6E6E6E",
+    "Darkgrey6E6E6E","Darkgrey6E6E6E",
+    "Darkgrey6E6E6E","Darkgrey6E6E6E",
+    "Darkgrey6E6E6E","Darkgrey6E6E6E",
+    "Darkgrey6E6E6E","Darkgrey6E6E6E",
+    "Darkgrey6E6E6E","Darkgrey6E6E6E"]
