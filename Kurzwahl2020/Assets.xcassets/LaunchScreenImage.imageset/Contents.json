@@ -1,10 +1,12 @@
 {
   "images" : [
     {
+      "filename" : "iPhone 11 Pro Max 1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "iPhone 11 Pro Max 2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
