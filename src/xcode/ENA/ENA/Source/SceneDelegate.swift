@@ -100,7 +100,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		exposureManager.resume(observer: self)
 
 		UNUserNotificationCenter.current().delegate = self
-		taskScheduler.scheduleBackgroundTaskRequests()
 
 		setupUI()
 
