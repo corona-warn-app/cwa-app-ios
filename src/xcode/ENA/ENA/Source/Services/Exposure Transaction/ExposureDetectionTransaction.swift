@@ -45,13 +45,13 @@ import Foundation
 /// 8. Wipe everything and inform the delegate.
 final class ExposureDetectionTransaction {
 	// MARK: Properties
-	
+
 	private weak var delegate: ExposureDetectionTransactionDelegate?
 	private let client: Client
 	private let keyPackagesStore: DownloadedPackagesStore
-	
+
 	// MARK: Creating a Transaction
-	
+
 	init(
 		delegate: ExposureDetectionTransactionDelegate,
 		client: Client,
@@ -61,9 +61,9 @@ final class ExposureDetectionTransaction {
 		self.client = client
 		self.keyPackagesStore = keyPackagesStore
 	}
-	
+
 	// MARK: Starting the Transaction
-	
+
 	func start() {
 		let today = formattedToday()
 		client.availableDaysAndHoursUpUntil(today) { result in
@@ -75,19 +75,19 @@ final class ExposureDetectionTransaction {
 			}
 		}
 	}
-	
+
 	// MARK: Working with the Delegate
-	
+
 	// Ends the transaction prematurely with a given reason.
 	private func endPrematurely(reason: DidEndPrematurelyReason) {
 		delegate?.exposureDetectionTransaction(self, didEndPrematurely: reason)
 	}
-	
+
 	// Informs the delegate about a summary.
 	private func didDetectSummary(_ summary: ENExposureDetectionSummary) {
 		delegate?.exposureDetectionTransaction(self, didDetectSummary: summary)
 	}
-	
+
 	// Get the exposure manager from the delegate
 	private func exposureManager() -> ExposureManager {
 		guard let delegate = delegate else {
@@ -95,7 +95,7 @@ final class ExposureDetectionTransaction {
 		}
 		return delegate.exposureDetectionTransactionRequiresExposureManager(self)
 	}
-	
+
 	// Gets today formatted as required by the backend.
 	private func formattedToday() -> String {
 		guard let delegate = delegate else {
@@ -103,9 +103,9 @@ final class ExposureDetectionTransaction {
 		}
 		return delegate.exposureDetectionTransactionRequiresFormattedToday(self)
 	}
-	
+
 	// MARK: Steps of a Transaction
-	
+
 	// 1. Step: Download available Days & Hours
 	private func continueWith(remoteDaysAndHours: Client.DaysAndHours) {
 		fetchAndStoreMissingDaysAndHours(remoteDaysAndHours: remoteDaysAndHours) { [weak self] in
@@ -121,7 +121,7 @@ final class ExposureDetectionTransaction {
 			}
 		}
 	}
-	
+
 	// 2. Step: Determine and fetch what is missing
 	private func fetchAndStoreMissingDaysAndHours(
 		remoteDaysAndHours _: Client.DaysAndHours,
@@ -150,7 +150,7 @@ final class ExposureDetectionTransaction {
 			}
 		}
 	}
-	
+
 	// 3. Fetch the Configuration
 	private func remoteExposureConfiguration(
 		continueWith: @escaping (ENExposureConfiguration) -> Void
@@ -160,23 +160,23 @@ final class ExposureDetectionTransaction {
 				self.endPrematurely(reason: .noExposureConfiguration)
 				return
 			}
-			
+
 			continueWith(configuration)
 		}
 	}
-	
+
 	// 4. Transform
 	private func createAppleFilesWriter() throws -> AppleFilesWriter {
 		// 1. Create temp dir
 		let fm = FileManager()
 		let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-		
+
 		let packages = keyPackagesStore.allPackages(for: .formattedToday())
-		
+
 		return AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
 	}
-	
+
 	// 5. Execute the actual exposure detection
 	private func detectExposures(
 		writer: AppleFilesWriter,
@@ -191,7 +191,7 @@ final class ExposureDetectionTransaction {
 			)
 		}
 	}
-	
+
 	private func _detectExposures(
 		diagnosisKeyURLs: [URL],
 		configuration: ENExposureConfiguration,
@@ -209,7 +209,7 @@ final class ExposureDetectionTransaction {
 				self.endPrematurely(reason: .noSummary(error))
 				return
 			}
-			
+
 			guard let summary = summary else {
 				completion()
 				self.endPrematurely(reason: .noSummary(nil))
@@ -217,7 +217,7 @@ final class ExposureDetectionTransaction {
 			}
 			log(message: "summary: \(summary)")
 			logError(message: "error: \(String(describing: error))")
-			
+
 			self.didDetectSummary(summary)
 			completion()
 		}
@@ -244,13 +244,13 @@ private extension DownloadedPackagesStore {
 		days.bucketsByDay.forEach { day, bucket in
 			self.set(day: day, package: bucket)
 		}
-		
+
 		let hours = daysAndHours.hours
 		hours.bucketsByHour.forEach { hour, bucket in
 			self.set(hour: hour, day: hours.day, package: bucket)
 		}
 	}
-	
+
 	//    func missingDaysAndHours(from remote: Client.DaysAndHours, today: String) -> Client.DaysAndHours {
 	//        let days = missingDays(remoteDays: Set(remote.days))
 	//        let hours = missingHours(
@@ -290,7 +290,7 @@ private extension ENExposureConfiguration {
 			transmissionRiskWeight.isNearZero ||
 			daysSinceLastExposureWeight.isNearZero
 	}
-	
+
 	func fixed() -> ENExposureConfiguration {
 		.mock()
 	}

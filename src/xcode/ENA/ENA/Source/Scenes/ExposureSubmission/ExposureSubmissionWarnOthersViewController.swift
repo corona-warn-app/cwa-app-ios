@@ -20,40 +20,40 @@ import UIKit
 
 class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, SpinnerInjectable {
 	// MARK: - Attributes.
-	
+
 	var exposureSubmissionService: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
-	
+
 	// MARK: - View lifecycle methods.
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
 		fetchService()
 	}
-	
+
 	// MARK: Setup helpers.
-	
+
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
 		setButtonTitle(to: AppStrings.ExposureSubmissionWarnOthers.continueButton)
 		setupTableView()
 	}
-	
+
 	private func setupTableView() {
 		tableView.delegate = self
 		tableView.dataSource = self
 		dynamicTableViewModel = dynamicTableViewModel()
 	}
-	
+
 	private func fetchService() {
 		exposureSubmissionService = exposureSubmissionService ??
 			(navigationController as? ExposureSubmissionNavigationController)?
 			.getExposureSubmissionService()
 	}
-	
+
 	// MARK: - ExposureSubmissionService Helpers.
-	
+
 	private func startSubmitProcess() {
 		startSpinner()
 		exposureSubmissionService?.getTANForExposureSubmit(hasConsent: true, completion: { result in
@@ -68,7 +68,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 			}
       })
 	}
-	
+
 	private func submitKeys(with tan: String) {
 		startSpinner()
 		exposureSubmissionService?.submitExposure(with: tan, completionHandler: { error in
@@ -79,7 +79,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 				self.present(alert, animated: true, completion: nil)
 				return
 			}
-			
+
 			self.performSegue(withIdentifier: Segue.sent, sender: self)
       })
 	}

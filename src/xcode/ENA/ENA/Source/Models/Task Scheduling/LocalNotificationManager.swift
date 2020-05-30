@@ -25,9 +25,9 @@ enum LocalNotificationAction: String {
 
 class LocalNotificationManager {
 	static let shared = LocalNotificationManager()
-	
+
 	let notificationCenter = UNUserNotificationCenter.current()
-	
+
 	func presentNotification(
 		title: String,
 		body: String = "",
@@ -35,22 +35,22 @@ class LocalNotificationManager {
 		in timeInterval: TimeInterval = 1
 	) {
 		let content = UNMutableNotificationContent()
-		
+
 		content.title = title
 		content.body = body
 		content.sound = UNNotificationSound.default
 		content.badge = 1
 		content.categoryIdentifier = identifier
-		
+
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
 		let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-		
+
 		notificationCenter.add(request) { error in
 			if let error = error {
 				logError(message: error.localizedDescription)
 			}
 		}
-		
+
 		// conditionally add actions
 		if let taskId = ENATaskIdentifier(rawValue: identifier) {
 			let openActionIdentifier: LocalNotificationAction
@@ -58,26 +58,26 @@ class LocalNotificationManager {
 			case .exposureNotification: openActionIdentifier = LocalNotificationAction.openExposureDetectionResults
 			case .fetchTestResults: openActionIdentifier = LocalNotificationAction.openTestResults
 			}
-			
+
 			let viewAction = UNNotificationAction(
 				identifier: openActionIdentifier.rawValue,
 				title: openActionIdentifier.rawValue,
 				options: [.authenticationRequired]
 			)
-			
+
 			let deleteAction = UNNotificationAction(
 				identifier: LocalNotificationAction.ignore.rawValue,
 				title: LocalNotificationAction.ignore.rawValue,
 				options: [.destructive]
 			)
-			
+
 			let category = UNNotificationCategory(
 				identifier: identifier,
 				actions: [viewAction, deleteAction],
 				intentIdentifiers: [],
 				options: []
 			)
-			
+
 			notificationCenter.setNotificationCategories([category])
 		}
 	}

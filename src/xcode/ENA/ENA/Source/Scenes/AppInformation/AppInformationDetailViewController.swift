@@ -20,32 +20,32 @@ import UIKit
 
 class AppInformationDetailViewController: UITableViewController {
 	var model: AppInformationDetailModel!
-	
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		
+
 		navigationItem.title = model.title
-		
+
 		if let headerImage = model.headerImage {
 			(tableView.tableHeaderView as? UIImageView)?.image = headerImage
 		} else {
 			tableView.tableHeaderView = nil
 		}
 	}
-	
+
 	override func numberOfSections(in _: UITableView) -> Int {
 		1
 	}
-	
+
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		model.content.count
 	}
-	
+
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cellContent = model.content[indexPath.item]
-		
+
 		let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellContent.cellType.rawValue, for: indexPath)
-		
+
 		switch cellContent {
 		case let .headline(text):
 			cell.textLabel?.text = text
@@ -62,15 +62,15 @@ class AppInformationDetailViewController: UITableViewController {
 		case .seperator:
 			break
 		}
-		
+
 		return cell
 	}
-	
+
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		
+
 		let cellContent = model.content[indexPath.item]
-		
+
 		switch cellContent {
 		case let .phone(_, number):
 			if let url = URL(string: "tel://\(number)") {

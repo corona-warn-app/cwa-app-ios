@@ -19,29 +19,29 @@ import Foundation
 
 final class AppleFilesWriter {
 	// MARK: Creating a Writer
-	
+
 	init(rootDir: URL, keyPackages: [SAPDownloadedPackage]) {
 		self.rootDir = rootDir
 		self.keyPackages = keyPackages
 	}
-	
+
 	// MARK: Properties
-	
+
 	let rootDir: URL
 	let keyPackages: [SAPDownloadedPackage]
-	
+
 	// MARK: Interacting with the Writer
-	
+
 	typealias WithDiagnosisKeyURLsHandler = (
 		_ diagnosisKeyURLs: [URL],
 		_ done: @escaping DoneHandler
 	) -> Void
-	
+
 	typealias DoneHandler = () -> Void
-	
+
 	func with(handler: WithDiagnosisKeyURLsHandler) {
 		var writtenURLs = [URL]()
-		
+
 		func cleanup() {
 			let fileManager = FileManager()
 			for writtenURL in writtenURLs {
@@ -49,12 +49,12 @@ final class AppleFilesWriter {
 			}
 			return
 		}
-		
+
 		var needsCleanupInDone = true
-		
+
 		for keyPackage in keyPackages {
 			let filename = UUID().uuidString
-			
+
 			do {
 				writtenURLs.append(
 					try keyPackage.writeKeysEntry(toDirectory: rootDir, filename: filename)
@@ -68,7 +68,7 @@ final class AppleFilesWriter {
 				needsCleanupInDone = false
 			}
 		}
-		
+
 		handler(writtenURLs) {
 			// This is executed when the app is finished.
 			// needsCleanupInDone will be true if the writer has cleaned up already due to errors.
@@ -86,7 +86,7 @@ private extension SAPDownloadedPackage {
 		try signature.write(to: url)
 		return url
 	}
-	
+
 	func writeKeysEntry(toDirectory directory: URL, filename: String) throws -> URL {
 		let url = directory.appendingPathComponent(filename).appendingPathExtension("bin")
 		try bin.write(to: url)

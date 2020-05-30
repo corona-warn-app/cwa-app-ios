@@ -23,12 +23,12 @@ final class RiskImageItemView: UIView, RiskItemView {
 	@IBOutlet var separatorView: UIView!
 	@IBOutlet var separatorHeightConstraint: NSLayoutConstraint!
 	@IBOutlet var topImageTopTextViewConstraint: NSLayoutConstraint!
-	
+
 	@IBOutlet var leadingTextViewLeadingMarginConstraint: NSLayoutConstraint!
 	@IBOutlet var leadingTextViewTrailingImageViewConstraint: NSLayoutConstraint!
-	
+
 	private let titleTopPadding: CGFloat = 8.0
-	
+
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		separatorHeightConstraint.constant = 1
@@ -38,17 +38,17 @@ final class RiskImageItemView: UIView, RiskItemView {
 		titleTextView.isUserInteractionEnabled = false
 		configureTextViewLayout()
 	}
-	
+
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		wrapImage()
 	}
-	
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		configureTextViewLayout()
 	}
-	
+
 	private func configureTextViewLayout() {
 		if traitCollection.preferredContentSizeCategory >= .accessibilityMedium {
 			leadingTextViewLeadingMarginConstraint.isActive = true
@@ -58,20 +58,20 @@ final class RiskImageItemView: UIView, RiskItemView {
 			leadingTextViewTrailingImageViewConstraint.isActive = true
 		}
 	}
-	
+
 	private func wrapImage() {
 		guard let lineHeight = titleTextView.font?.lineHeight else { return }
-		
+
 		var iconImageFrame = convert(iconImageView.frame, to: titleTextView)
 		let offset: CGFloat = (lineHeight - iconImageFrame.height) / 2.0
-		
+
 		topImageTopTextViewConstraint.constant = max(offset.rounded(), 0) + titleTopPadding
 		let iconTitleDistance = leadingTextViewTrailingImageViewConstraint.constant
 		iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
 		let bezierPath = UIBezierPath(rect: iconImageFrame)
 		titleTextView.textContainer.exclusionPaths = [bezierPath]
 	}
-	
+
 	func hideSeparator() {
 		separatorView.isHidden = true
 	}

@@ -19,17 +19,17 @@ import UIKit
 
 final class HomeUnknownRiskCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Configuration
-	
+
 	override func configure(cell: RiskCollectionViewCell) {
 		cell.delegate = self
-		
+
 		cell.removeAllArrangedSubviews()
-		
+
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
 		let titleColor: UIColor = .white
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
-		
+
 		let color = UIColor.preferredColor(for: .unknownRisk)
 		let separatorColor = UIColor.white.withAlphaComponent(0.15)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
@@ -41,13 +41,13 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskCellConfigurator {
 			itemCellConfigurators.append(item)
 		}
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
-		
+
 		cell.configureBackgroundColor(color: color)
-		
+
 		cell.configureChevron(image: UIImage(systemName: "chevron.right.circle.fill"), tintColor: .preferredColor(for: .chevron))
-		
+
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardUnknownButton
-		
+
 		if let (minutes, seconds) = counterTouple() {
 			let counterLabelText = String(format: AppStrings.Home.riskCardStatusCheckCounterLabel, minutes, seconds)
 			cell.configureCounterLabel(text: counterLabelText, isHidden: isCounterLabelHidden)

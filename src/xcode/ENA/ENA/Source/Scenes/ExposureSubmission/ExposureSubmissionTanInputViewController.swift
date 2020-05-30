@@ -20,29 +20,29 @@ import UIKit
 
 class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjectable, ENATanInputDelegate {
 	// MARK: - Attributes.
-	
+
 	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var infoLabel: UILabel!
 	@IBOutlet var tanInput: ENATanInput!
 	var initialTan: String?
 	var exposureSubmissionService: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
-	
+
 	// MARK: - View lifecycle methods.
-	
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupView()
 		fetchService()
 	}
-	
+
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		setButtonEnabled(enabled: true)
 	}
-	
+
 	// MARK: - Helper methods.
-	
+
 	private func setupView() {
 		tanInput.delegate = self
 		if let tan = initialTan {
@@ -52,12 +52,12 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		} else {
 			tanInput.becomeFirstResponder()
 		}
-		
+
 		setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
 		title = AppStrings.ExposureSubmissionTanEntry.title
 		setButtonEnabled(enabled: tanInput.isValid)
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
-		
+
 		descriptionLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
 		descriptionLabel.adjustsFontForContentSizeCategory = true
 		descriptionLabel.lineBreakMode = .byWordWrapping
@@ -65,7 +65,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		infoLabel.text = AppStrings.ExposureSubmissionTanEntry.info
 		infoLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .regular))
 	}
-	
+
 	private func fetchService() {
 		exposureSubmissionService = exposureSubmissionService ??
 			(navigationController as? ExposureSubmissionNavigationController)?
@@ -88,7 +88,7 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 		// If teleTAN is correct, show Alert Controller
 		// to check permissions to request TAN.
 		let teleTan = tanInput.text
-		
+
 		exposureSubmissionService?
 			.getRegistrationToken(forKey: .teleTan(teleTan), completion: { result in
 				self.stopSpinner()
@@ -105,9 +105,9 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 				}
         })
 	}
-	
+
 	// MARK: - ENATanInputDelegate
-	
+
 	func tanChanged(isValid: Bool) {
 		setButtonEnabled(enabled: isValid)
 	}

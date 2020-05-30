@@ -28,7 +28,7 @@ extension AppInformationDetailModel {
 			.small(text: "App_Information_About_Text".localized)
 		]
 	)
-	
+
 	static let contact = AppInformationDetailModel(
 		title: "App_Information_Contact_Navigation".localized,
 		headerImage: UIImage(named: "app-information-notification"),
@@ -41,7 +41,7 @@ extension AppInformationDetailModel {
 			.tiny(text: "App_Information_Contact_Hotline_Terms".localized)
 		]
 	)
-	
+
 	static let legal = AppInformationDetailModel(
 		title: "App_Information_Legal_Navigation".localized,
 		headerImage: UIImage(named: "app-information-security"),
@@ -56,7 +56,7 @@ extension AppInformationDetailModel {
 			.body(text: "App_Information_Legal_Section4_Text".localized)
 		]
 	)
-	
+
 	static let privacy = AppInformationDetailModel(
 		title: "App_Information_Privacy_Navigation".localized,
 		headerImage: UIImage(named: "app-information-security"),
@@ -67,7 +67,7 @@ extension AppInformationDetailModel {
 			.small(text: "App_Information_Privacy_Text".localized)
 		]
 	)
-	
+
 	static let terms = AppInformationDetailModel(
 		title: "App_Information_Terms_Navigation".localized,
 		headerImage: UIImage(named: "app-information-security"),
@@ -77,7 +77,7 @@ extension AppInformationDetailModel {
 			.body(text: "App_Information_Terms_Text".localized)
 		]
 	)
-	
+
 	static let helpTracing = AppInformationDetailModel(
 		title: "App_Information_Tracing_Navigation".localized,
 		headerImage: nil,

@@ -25,17 +25,17 @@ protocol ExposureDetectionTransactionDelegate: AnyObject {
 	func exposureDetectionTransactionRequiresExposureManager(
 		_ transaction: ExposureDetectionTransaction
 	) -> ExposureManager
-	
+
 	func exposureDetectionTransaction(
 		_ transaction: ExposureDetectionTransaction,
 		didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason
 	)
-	
+
 	func exposureDetectionTransaction(
 		_ transaction: ExposureDetectionTransaction,
 		didDetectSummary summary: ENExposureDetectionSummary
 	)
-	
+
 	func exposureDetectionTransactionRequiresFormattedToday(
 		_ transaction: ExposureDetectionTransaction
 	) -> String

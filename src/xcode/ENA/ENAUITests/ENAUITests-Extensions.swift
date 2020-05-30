@@ -40,13 +40,13 @@ extension XCUIElement {
 		let predicate = NSPredicate(format: "label CONTAINS %@", text)
 		return staticTexts.matching(predicate).firstMatch.exists
 	}
-	
+
 	func scrollToElement(element: XCUIElement) {
 		while !element.visible() {
 			swipeUp()
 		}
 	}
-	
+
 	func visible() -> Bool {
 		guard exists, !frame.isEmpty else { return false }
 		return XCUIApplication().windows.element(boundBy: 0).frame.contains(frame)
@@ -58,19 +58,19 @@ extension XCUIApplication {
 		// launchEnvironment["CW_MODE"] = "mock"
 		launchEnvironment["XCUI"] = "YES"
 	}
-	
+
 	func setPreferredContentSizeCategory(accessibililty: SizeCategoryAccessibility, size: SizeCategory) {
 		// based on https://stackoverflow.com/questions/38316591/how-to-test-dynamic-type-larger-font-sizes-in-ios-simulator
 		launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)"]
 	}
-	
+
 	func tapDontAllow(for alertIdentifier: String) {
 		let alert = alerts[alertIdentifier]
 		let exposureNotificationAlertExists = alert.waitForExistence(timeout: 5.0)
 		XCTAssertTrue(exposureNotificationAlertExists, "Missing alert")
 		alert.scrollViews.otherElements.buttons[Accessibility.Alert.dontAllowButton].tap()
 	}
-	
+
 	func tapAllow(for alertIdentifier: String) {
 		let alert = alerts[alertIdentifier]
 		let exposureNotificationAlertExists = alert.waitForExistence(timeout: 5.0)
@@ -93,7 +93,7 @@ extension XCTestCase {
 		}
 		return (langCode, localeCode)
 	}
-	
+
 	func tapAllowOnAllDialogs() -> NSObjectProtocol {
 		addUIInterruptionMonitor(withDescription: "UIAlert") {
 			(alert) -> Bool in
@@ -110,7 +110,7 @@ extension XCTestCase {
 			return true
 		}
 	}
-	
+
 	func tapDontAllowOnAllDialogs() -> NSObjectProtocol {
 		addUIInterruptionMonitor(withDescription: "UIAlert") {
 			(alert) -> Bool in
@@ -127,7 +127,7 @@ extension XCTestCase {
 			return true
 		}
 	}
-	
+
 	func tapAllowOnLocalNotificationsDialog() {
 		addUIInterruptionMonitor(withDescription: "Local Notifications") {
 			(alert) -> Bool in
@@ -140,7 +140,7 @@ extension XCTestCase {
 			return false
 		}
 	}
-	
+
 	func tapAllowOnCOVID19ExposureNotificationsDialog() {
 		addUIInterruptionMonitor(withDescription: "COVID-19 Exposure Notifications") {
 			(alert) -> Bool in
@@ -153,7 +153,7 @@ extension XCTestCase {
 			return false
 		}
 	}
-	
+
 	func wait(for seconds: TimeInterval) {
 		let expectation = XCTestExpectation(description: "Pause test")
 		DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { expectation.fulfill() }

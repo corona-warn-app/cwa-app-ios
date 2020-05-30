@@ -35,18 +35,18 @@ final class DMSubmissionStateViewController: UITableViewController {
 		self.delegate = delegate
 		super.init(style: .plain)
 	}
-	
+
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
+
 	// MARK: Properties
-	
+
 	private weak var delegate: DMSubmissionStateViewControllerDelegate?
 	private let client: Client
-	
+
 	// MARK: UIViewController
-	
+
 	override func viewWillAppear(_: Bool) {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
 			title: "Check",
@@ -55,25 +55,25 @@ final class DMSubmissionStateViewController: UITableViewController {
 			action: #selector(performCheck)
 		)
 	}
-	
+
 	@objc
 	func performCheck() {
 		let group = DispatchGroup()
-		
+
 		group.enter()
 		var allPackages = [SAPDownloadedPackage]()
 		client.fetch { result in
 			allPackages = result.allKeyPackages
 			group.leave()
 		}
-		
+
 		var localKeys = [ENTemporaryExposureKey]()
-		
+
 		group.enter()
 		delegate?.submissionStateViewController(self) { keys, error in
 			precondition(Thread.isMainThread)
 			defer { group.leave() }
-			
+
 			if let error = error {
 				self.present(
 					UIAlertController(
@@ -87,7 +87,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 			}
 			localKeys = keys ?? []
 		}
-		
+
 		group.notify(queue: .main) {
 			var remoteKeys = [Apple_TemporaryExposureKey]()
 			do {
@@ -100,12 +100,16 @@ final class DMSubmissionStateViewController: UITableViewController {
 			let localKeysFoundRemotly = localKeys.filter { remoteKeys.containsKey($0) }
 			let foundOwnKey = localKeysFoundRemotly.isEmpty == false
 			let allLocalKeysFoundRemotly = localKeys.count == localKeysFoundRemotly.count
-			let resultAlert = UIAlertController(title: "Results", message:
+			let resultAlert = UIAlertController(
+				title: "Results",
+				message:
 				"""
 				# of local keys found remotly: \(localKeysFoundRemotly.count)
 				found at least one key: \(foundOwnKey)
 				found all keys: \(allLocalKeysFoundRemotly)
-				""", preferredStyle: .actionSheet)
+				""",
+				preferredStyle: .actionSheet
+			)
 			self.present(resultAlert, animated: true, completion: nil)
 		}
 	}
@@ -114,10 +118,10 @@ final class DMSubmissionStateViewController: UITableViewController {
 private extension Data {
 	// swiftlint:disable:next force_unwrapping
 	static let binHeader = "EK Export v1    ".data(using: .utf8)!
-	
+
 	var withoutBinHeader: Data {
 		let headerRange = startIndex ..< Data.binHeader.count
-		
+
 		guard subdata(in: headerRange) == Data.binHeader else {
 			return self
 		}
@@ -129,7 +133,7 @@ extension SAPDownloadedPackage {
 	var binProtobufData: Data {
 		bin.withoutBinHeader
 	}
-	
+
 	func keys() throws -> [Apple_TemporaryExposureKey] {
 		let data = binProtobufData
 		let export = try Apple_TemporaryExposureKeyExport(serializedData: data)

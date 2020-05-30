@@ -22,7 +22,7 @@ class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var textView1: UITextView!
 	@IBOutlet var textView2: UITextView!
-	
+
 	func configure(for _: RiskDetectionState) {
 		titleLabel.text = AppStrings.ExposureNotificationSetting.descriptionTitle
 		textView1.text = AppStrings.ExposureNotificationSetting.descriptionText1

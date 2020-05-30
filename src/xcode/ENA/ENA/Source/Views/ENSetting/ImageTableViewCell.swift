@@ -24,11 +24,11 @@ protocol ConfigurableENSettingCell: UITableViewCell {
 
 class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var imageContainerView: UIImageView!
-	
+
 	func configure(for state: RiskDetectionState) {
 		imageContainerView.image = bannerImage(for: state)
 	}
-	
+
 	private func bannerImage(for state: RiskDetectionState) -> UIImage? {
 		switch state {
 		case .enabled:

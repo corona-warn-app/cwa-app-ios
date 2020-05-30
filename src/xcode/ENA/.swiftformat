@@ -2,7 +2,7 @@
 
 --indent tab
 --tabwidth 4
---trimwhitespace nonblank-lines
+--trimwhitespace always
 
 --commas inline
 

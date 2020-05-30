@@ -20,23 +20,23 @@ import UIKit
 
 class ExposureDetectionLongGuideCell: UITableViewCell {
 	@IBOutlet private var stackView: UIStackView!
-	
+
 	func configure(image: UIImage?, text: [String]) {
 		for subview in stackView.arrangedSubviews {
 			stackView.removeArrangedSubview(subview)
 			subview.removeFromSuperview()
 		}
-		
+
 		if let text = text.first {
 			imageView?.image = image
 			textLabel?.text = text
 		}
-		
+
 		for text in text[1...] {
 			let imageView = UIImageView(image: UIImage(named: "exposure-detection-content-dot"))
 			imageView.translatesAutoresizingMaskIntoConstraints = false
 			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
-			
+
 			let label = DynamicTypeLabel()
 			label.translatesAutoresizingMaskIntoConstraints = false
 			label.text = text
@@ -44,7 +44,7 @@ class ExposureDetectionLongGuideCell: UITableViewCell {
 			label.numberOfLines = 0
 			label.adjustsFontForContentSizeCategory = true
 			label.font = textLabel?.font
-			
+
 			let labelView = UIView()
 			labelView.translatesAutoresizingMaskIntoConstraints = false
 			labelView.addSubview(label)
@@ -52,16 +52,16 @@ class ExposureDetectionLongGuideCell: UITableViewCell {
 			labelView.bottomAnchor.constraint(equalTo: label.bottomAnchor).isActive = true
 			labelView.leadingAnchor.constraint(equalTo: label.leadingAnchor).isActive = true
 			labelView.trailingAnchor.constraint(equalTo: label.trailingAnchor).isActive = true
-			
+
 			let stackView = UIStackView(arrangedSubviews: [imageView, labelView])
 			stackView.axis = .horizontal
 			stackView.alignment = .center
 			stackView.spacing = self.stackView.spacing
 			self.stackView.addArrangedSubview(stackView)
-			
+
 			// swiftlint:disable:next force_unwrapping
 			imageView.widthAnchor.constraint(equalTo: self.imageView!.widthAnchor).isActive = true
-			
+
 			stackView.setContentHuggingPriority(.required, for: .vertical)
 			labelView.setContentHuggingPriority(.required, for: .vertical)
 			label.setContentHuggingPriority(.required, for: .vertical)

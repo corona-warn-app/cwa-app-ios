@@ -23,7 +23,7 @@ class NotificationSettingsViewModel {
 	let title: String
 	let description: String
 	let sections: [Section]
-	
+
 	private init(notificationsOn: Bool, image: String, title: String, description: String, sections: [Section]) {
 		self.notificationsOn = notificationsOn
 		self.image = image
@@ -31,7 +31,7 @@ class NotificationSettingsViewModel {
 		self.description = description
 		self.sections = sections
 	}
-	
+
 	static func notificationsOn(_ store: Store) -> NotificationSettingsViewModel {
 		NotificationSettingsViewModel(
 			notificationsOn: true,
@@ -57,7 +57,7 @@ class NotificationSettingsViewModel {
 			]
 		)
 	}
-	
+
 	static func notificationsOff() -> NotificationSettingsViewModel {
 		NotificationSettingsViewModel(
 			notificationsOn: false,
@@ -93,13 +93,13 @@ extension NotificationSettingsViewModel {
 	enum SettingsItems {
 		case riskChanges(SettingsOnItem)
 		case testsStatus(SettingsOnItem)
-		
+
 		case navigateSettings(SettingsOffItem)
 		case pickNotifications(SettingsOffItem)
 		case enableNotifications(SettingsOffItem)
 		case openSettings(identifier: String = "openSettings", title: String)
 	}
-	
+
 	struct SettingsOnItem {
 		let identifier = "notificationsOn"
 		let description: String
@@ -108,10 +108,10 @@ extension NotificationSettingsViewModel {
 				updateState(state)
 			}
 		}
-		
+
 		let updateState: (Bool) -> Void
 	}
-	
+
 	struct SettingsOffItem {
 		let identifier = "notificationsOff"
 		let icon: String

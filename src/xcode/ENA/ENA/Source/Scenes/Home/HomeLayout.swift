@@ -23,7 +23,7 @@ protocol HomeLayoutDelegate: AnyObject {
 
 final class HomeLayout {
 	weak var delegate: HomeLayoutDelegate?
-	
+
 	func collectionLayout() -> UICollectionViewLayout {
 		let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { [unowned self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
 			guard let homeSection = self.delegate?.homeLayout(homeLayout: self, for: sectionIndex) else { return nil }
@@ -37,10 +37,10 @@ final class HomeLayout {
 		config.boundarySupplementaryItems = [header]
 		let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: config)
 		layout.register(SectionSystemBackgroundDecorationView.self, forDecorationViewOfKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
-		
+
 		return layout
 	}
-	
+
 	private func layoutSection(for section: HomeViewController.Section, layoutEnvironment _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
 		switch section {
 		case .actions:
@@ -51,54 +51,54 @@ final class HomeLayout {
 			return settingsSection()
 		}
 	}
-	
+
 	private func mainSection() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
-		
+
 		let itemSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(400.0))
 		let item2 = NSCollectionLayoutItem(layoutSize: itemSize2)
-		
+
 		let itemSize3 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
 		let item3 = NSCollectionLayoutItem(layoutSize: itemSize3)
-		
+
 		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1000.0))
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item, item2, item3])
 		group.interItemSpacing = .fixed(16)
-		
+
 		let section = NSCollectionLayoutSection(group: group)
 		let insets: CGFloat = 16.0
 		section.contentInsets = .init(top: insets, leading: insets, bottom: 0.0, trailing: insets)
-		
+
 		let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
 		section.decorationItems = [sectionBackgroundDecoration]
-		
+
 		return section
 	}
-	
+
 	private func infoSection() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
-		
+
 		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100.0))
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 		let section = NSCollectionLayoutSection(group: group)
 		let insets: CGFloat = 0.0
 		section.contentInsets = .init(top: insets, leading: insets, bottom: 0.0, trailing: insets)
-		
+
 		return section
 	}
-	
+
 	private func settingsSection() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
-		
+
 		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50.0))
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 		let section = NSCollectionLayoutSection(group: group)
 		let insets: CGFloat = 0.0
 		section.contentInsets = .init(top: insets, leading: insets, bottom: 0.0, trailing: insets)
-		
+
 		return section
 	}
 }

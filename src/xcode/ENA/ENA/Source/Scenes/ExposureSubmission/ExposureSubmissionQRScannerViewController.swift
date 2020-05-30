@@ -31,11 +31,11 @@ protocol ExposureSubmissionQRScannerDelegate: AnyObject {
 
 final class ExposureSubmissionQRScannerNavigationController: UINavigationController {
 	var exposureSubmissionService: ExposureSubmissionService?
-	
+
 	weak var scannerViewController: ExposureSubmissionQRScannerViewController? {
 		viewControllers.first as? ExposureSubmissionQRScannerViewController
 	}
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		overrideUserInterfaceStyle = .dark
@@ -45,17 +45,17 @@ final class ExposureSubmissionQRScannerNavigationController: UINavigationControl
 final class ExposureSubmissionQRScannerViewController: UIViewController {
 	@IBOutlet var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet var flashButton: UIButton!
-	
+
 	weak var delegate: ExposureSubmissionQRScannerDelegate?
-	
+
 	private var captureDevice: AVCaptureDevice?
 	private var previewLayer: AVCaptureVideoPreviewLayer?
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareScanning()
 	}
-	
+
 	private func prepareScanning() {
 		switch AVCaptureDevice.authorizationStatus(for: .video) {
 		case .authorized:
@@ -66,61 +66,61 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 					self.delegate?.qrScanner(self, error: .cameraPermissionDenied)
 					return
 				}
-				
+
 				self.startScanning()
 			}
 		default:
 			delegate?.qrScanner(self, error: .cameraPermissionDenied)
 		}
 	}
-	
+
 	// Make sure to get permission to use the camera before using this method.
 	private func startScanning() {
 		let captureSession = AVCaptureSession()
-		
+
 		captureDevice = AVCaptureDevice.default(for: .video)
 		guard let captureDevice = captureDevice else {
 			delegate?.qrScanner(self, error: .other)
 			return
 		}
-		
+
 		guard let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
 			delegate?.qrScanner(self, error: .other)
 			return
 		}
-		
+
 		let metadataOutput = AVCaptureMetadataOutput()
-		
+
 		captureSession.addInput(caputureDeviceInput)
 		captureSession.addOutput(metadataOutput)
-		
+
 		metadataOutput.metadataObjectTypes = [.qr]
 		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
-		
+
 		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
 		guard let previewLayer = previewLayer else { return }
-		
+
 		DispatchQueue.main.async {
 			self.previewLayer?.frame = self.view.bounds
 			self.previewLayer?.videoGravity = .resizeAspectFill
 			self.view.layer.insertSublayer(previewLayer, at: 0)
 		}
-		
+
 		captureSession.startRunning()
 	}
-	
+
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		focusView.startAnimating()
 	}
-	
+
 	@IBAction func toggleFlash() {
 		guard let device = captureDevice else { return }
 		guard device.hasTorch else { return }
-		
+
 		do {
 			try device.lockForConfiguration()
-			
+
 			if device.torchMode == .on {
 				device.torchMode = .off
 				flashButton.isSelected = false
@@ -132,13 +132,13 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 					log(message: error.localizedDescription, level: .error)
 				}
 			}
-			
+
 			device.unlockForConfiguration()
 		} catch {
 			log(message: error.localizedDescription, level: .error)
 		}
 	}
-	
+
 	@IBAction func close() {
 		dismiss(animated: true)
 	}
@@ -162,20 +162,20 @@ extension ExposureSubmissionQRScannerViewController: AVCaptureMetadataOutputObje
 final class ExposureSubmissionQRScannerFocusView: UIView {
 	@IBInspectable var cornerRadius: CGFloat = 0
 	@IBInspectable var borderWidth: CGFloat = 1
-	
+
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
 		awakeFromNib()
 	}
-	
+
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		
+
 		layer.cornerRadius = cornerRadius
 		layer.borderWidth = borderWidth
 		layer.borderColor = tintColor.cgColor
 	}
-	
+
 	func startAnimating() {
 		UIView.animate(
 			withDuration: 0.5,

@@ -27,33 +27,33 @@ final class ResetViewController: UIViewController {
 	@IBOutlet var description1TextView: UITextView!
 	@IBOutlet var resetButton: ENAButton!
 	@IBOutlet var discardResetButton: UIButton!
-	
+
 	weak var delegate: ResetDelegate?
-	
+
 	@IBAction func resetData(_: Any) {
 		delegate?.reset()
 	}
-	
+
 	override func viewDidLoad() {
 		setupView()
 	}
-	
+
 	@IBAction func discard(_: Any) {
 		dismiss(animated: true, completion: nil)
 	}
-	
+
 	override func traitCollectionDidChange(_: UITraitCollection?) {
 		resetButton.sizeToFit()
 		discardResetButton.sizeToFit()
 	}
-	
+
 	private func setupView() {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
 		navigationController?.navigationBar.prefersLargeTitles = true
-		
+
 		description1TextView.contentInset = .zero
 		description1TextView.textContainer.lineFragmentPadding = 0
-		
+
 		header1Label.text = AppStrings.Reset.header1
 		description1TextView.text = AppStrings.Reset.description1
 		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)

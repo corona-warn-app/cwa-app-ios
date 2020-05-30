@@ -44,11 +44,11 @@ enum ExposureSubmissionViewUtils {
 		alert.addAction(ok)
 		return alert
 	}
-	
+
 	static func setupErrorAlert(_ error: ExposureSubmissionError) -> UIAlertController {
 		setupAlert(message: error.localizedDescription)
 	}
-	
+
 	static func setupAlert(message: String, action completion: (() -> Void)? = nil) -> UIAlertController {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmission.generalErrorTitle,

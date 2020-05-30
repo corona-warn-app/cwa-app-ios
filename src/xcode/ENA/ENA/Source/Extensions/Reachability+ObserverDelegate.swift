@@ -33,17 +33,17 @@ protocol ReachabilityObserverDelegate: ReachabilityActionDelegate {
 extension ReachabilityObserverDelegate {
 	func addReachabilityObserver() throws {
 		reachability = try Reachability()
-		
+
 		reachability.whenReachable = { [weak self] _ in
 			self?.reachabilityChanged(true)
 		}
-		
+
 		reachability.whenUnreachable = { [weak self] _ in
 			self?.reachabilityChanged(false)
 		}
 		try reachability.startNotifier()
 	}
-	
+
 	func removeReachabilityObserver() {
 		reachability.stopNotifier()
 		reachability = nil

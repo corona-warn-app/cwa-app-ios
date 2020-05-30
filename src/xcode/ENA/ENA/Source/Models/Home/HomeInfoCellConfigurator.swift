@@ -22,14 +22,14 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 	var body: String?
 	var position: CellConfiguratorPositionInSection
 	var accessibilityIdentifier: String?
-	
+
 	init(title: String, body: String?, position: CellConfiguratorPositionInSection, accessibilityIdentifier: String?) {
 		self.title = title
 		self.body = body
 		self.position = position
 		self.accessibilityIdentifier = accessibilityIdentifier
 	}
-	
+
 	func configure(cell: InfoCollectionViewCell) {
 		cell.backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
 		cell.chevronImageView.image = UIImage(systemName: "chevron.right")
@@ -37,14 +37,14 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 		cell.bodyLabel.text = body
 		cell.bodyLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
 		cell.bodyLabel.isHidden = (body == nil)
-		
+
 		cell.topDividerView.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(0.3)
 		cell.bottomDividerView.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(0.3)
-		
+
 		configureBorders(in: cell)
 		setupAccessibility(for: cell)
 	}
-	
+
 	func configureBorders(in cell: InfoCollectionViewCell) {
 		switch position {
 		case .first:
@@ -58,7 +58,7 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 			cell.bottomDividerLeadingConstraint.constant = 0.0
 		}
 	}
-	
+
 	func setupAccessibility(for cell: InfoCollectionViewCell) {
 		cell.titleLabel.isAccessibilityElement = true
 		cell.titleLabel.accessibilityIdentifier = accessibilityIdentifier

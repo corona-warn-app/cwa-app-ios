@@ -22,14 +22,14 @@ import UIKit
 public enum ENATaskIdentifier: String, CaseIterable {
 	case exposureNotification = "exposure-notification"
 	case fetchTestResults = "fetch-test-results"
-	
+
 	var backgroundTaskScheduleInterval: TimeInterval {
 		switch self {
 		case .exposureNotification: return 15 * 60 // 2 * 60 * 60 // set to trigger every 2 hours
 		case .fetchTestResults: return 5 * 60 // 30 * 60     // set to trigger every 30 min
 		}
 	}
-	
+
 	var backgroundTaskSchedulerIdentifier: String {
 		"\(Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp").\(rawValue)"
 	}
@@ -45,7 +45,7 @@ public class ENATaskScheduler {
 	lazy var manager = ENAExposureManager()
 	lazy var notificationManager = LocalNotificationManager()
 	typealias CompletionHandler = (() -> Void)
-	
+
 	public func registerBackgroundTaskRequests() {
 		log(message: "# TASKSHED # \(#line), \(#function) STARTED")
 		cancelAllBackgroundTaskRequests()
@@ -53,54 +53,54 @@ public class ENATaskScheduler {
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
 		log(message: "# TASKSHED # \(#line), \(#function) COMPLETED")
 	}
-	
+
 	public func scheduleBackgroundTaskRequests() {
 		log(message: "# TASKSHED # \(#line), \(#function)")
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 		scheduleBackgroundTask(for: .exposureNotification)
 		scheduleBackgroundTask(for: .fetchTestResults)
 	}
-	
+
 	public func isBackgroundRefreshEnabled() -> Bool {
 		UIApplication.shared.backgroundRefreshStatus == .available
 	}
-	
+
 	public func arePendingTasksScheduled(completionHandler: @escaping ((Bool) -> Void)) {
 		fetchPendingBackgroundTaskRequests { requests in
 			completionHandler(!requests.isEmpty)
 		}
 	}
-	
+
 	public func fetchPendingBackgroundTaskRequests(completionHandler: @escaping (([BGTaskRequest]) -> Void)) {
 		BGTaskScheduler.shared.getPendingTaskRequests { requests in
 			completionHandler(requests)
 		}
 	}
-	
+
 	public func cancelAllBackgroundTaskRequests() {
 		log(message: "# TASKSHED # \(#line), \(#function)")
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
-	
+
 	private func registerTask(with identifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
 		let identifierString = identifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: nil) { task in
 			taskHander(task)
 		}
 	}
-	
+
 	public func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
 		log(message: "# TASKSHED # \(#line), \(#function) SCHEDULING \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
-		
+
 		if taskIdentifier == .exposureNotification, manager.preconditions().isGood == false || UIApplication.shared.backgroundRefreshStatus != .available {
 			log(message: "# TASKSHED # \(#line), \(#function) UNABLE TO SCHEDULE \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
 			return
 		}
-		
+
 		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
 		log(message: "# TASKSHED # \(#line), \(#function) TIME NOW IS  :\(Date(timeIntervalSinceNow: 0))")
 		log(message: "# TASKSHED # \(#line), \(#function) SCHEDULED at :\(earliestBeginDate)")
-		
+
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
 		taskRequest.requiresExternalPower = false
@@ -111,7 +111,7 @@ public class ENATaskScheduler {
 			log(message: "# TASHSHED # Unable to schedule background task \(taskIdentifier.backgroundTaskSchedulerIdentifier): \(error)")
 		}
 	}
-	
+
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
 		let scheduler: ENATaskScheduler? = self
@@ -124,7 +124,7 @@ public class ENATaskScheduler {
 			task.setTaskCompleted(success: success)
 		}
 	}
-	
+
 	private func executeFetchTestResults(_ task: BGTask) {
 		let scheduler: ENATaskScheduler? = self
 		log(message: "# TASKSHED # \(#line), \(#function) taskScheduler = \(String(describing: scheduler))")

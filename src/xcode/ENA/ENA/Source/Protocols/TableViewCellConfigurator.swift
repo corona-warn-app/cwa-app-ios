@@ -19,7 +19,7 @@ import UIKit
 
 protocol TableViewCellConfiguratorAny {
 	var viewAnyType: UITableViewCell.Type { get }
-	
+
 	func configureAny(cell: UITableViewCell)
 }
 
@@ -32,7 +32,7 @@ extension TableViewCellConfigurator {
 	var viewAnyType: UITableViewCell.Type {
 		CellType.self
 	}
-	
+
 	func configureAny(cell: UITableViewCell) {
 		if let cell = cell as? CellType {
 			configure(cell: cell)

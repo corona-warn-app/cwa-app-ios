@@ -35,23 +35,23 @@ class ENStateHandler {
 			stateDidChange()
 		}
 	}
-	
+
 	private weak var delegate: StateHandlerObserverDelegate?
 	private var internetOff = false
-	
+
 	init(_ initialState: ExposureManagerState, delegate: StateHandlerObserverDelegate) {
 		self.delegate = delegate
 		currentState = determineCurrentState(from: initialState)
 		try? addReachabilityObserver()
 	}
-	
+
 	private func internet(_ isReachable: Bool) {
 		if !isReachable {
 			internetOff = true
 		} else {
 			internetOff = false
 		}
-		
+
 		switch currentState {
 		case .disabled, .bluetoothOff:
 			return
@@ -68,11 +68,11 @@ class ENStateHandler {
 			fatalError("Unexpected state found in ENState Handler")
 		}
 	}
-	
+
 	private func stateDidChange() {
 		delegate?.stateDidChange(to: currentState)
 	}
-	
+
 	private func determineCurrentState(from enManagerState: ExposureManagerState) -> RiskDetectionState {
 		if enManagerState.active == true {
 			guard !internetOff else {
@@ -91,11 +91,11 @@ class ENStateHandler {
 			}
 		}
 	}
-	
+
 	func getState() -> RiskDetectionState {
 		currentState
 	}
-	
+
 	func exposureManagerDidUpdate(to state: ExposureManagerState) {
 		currentState = determineCurrentState(from: state)
 	}

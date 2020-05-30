@@ -21,7 +21,7 @@ class CircularProgressView: UIView {
 	let circleLayer = CAShapeLayer()
 	let progressLayer = CAShapeLayer()
 	let textLayer = CATextLayer()
-	
+
 	var maxValue: CGFloat = 14
 	var minValue: CGFloat = 0
 	var fontSize: CGFloat = 15
@@ -31,15 +31,15 @@ class CircularProgressView: UIView {
 			updateLayers()
 		}
 	}
-	
+
 	var circleColor = UIColor.red {
 		didSet {
 			updateLayers()
 		}
 	}
-	
+
 	var fontColor = UIColor.gray
-	
+
 	var progress: CGFloat = 4.0 {
 		didSet {
 			progressLayer.updateProgress(progressValue: progress, minValue: minValue, maxValue: maxValue)
@@ -47,23 +47,23 @@ class CircularProgressView: UIView {
 			textLayer.updateText(text)
 		}
 	}
-	
+
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addLayers()
 	}
-	
+
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		addLayers()
 	}
-	
+
 	func addLayers() {
 		layer.addSublayer(circleLayer)
 		layer.addSublayer(progressLayer)
 		layer.addSublayer(textLayer)
 	}
-	
+
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		updateLayers()
@@ -81,7 +81,7 @@ extension CircularProgressView {
 		)
 		return circularPath
 	}
-	
+
 	private func updateLayers() {
 		let center = CGPoint(x: bounds.midX, y: bounds.midY)
 		let circularPath = bezierPath(with: center)
@@ -91,7 +91,7 @@ extension CircularProgressView {
 		progressLayer.strokeColor = progressBarColor.cgColor
 		configTextLayer(center)
 	}
-	
+
 	private func configTextLayer(_ center: CGPoint) {
 		textLayer.setScaleForDevice()
 		textLayer.foregroundColor = fontColor.cgColor
@@ -117,7 +117,7 @@ private extension CAShapeLayer {
 		let range = maxValue - minValue
 		strokeEnd = progress / CGFloat(range)
 	}
-	
+
 	func configLayer(with path: UIBezierPath, lineWidth: CGFloat) {
 		setScaleForDevice()
 		self.path = path.cgPath
