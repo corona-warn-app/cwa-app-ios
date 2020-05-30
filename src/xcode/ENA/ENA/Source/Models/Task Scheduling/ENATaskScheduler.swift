@@ -55,7 +55,6 @@ public class ENATaskScheduler {
 
 	public func registerBackgroundTaskRequests() {
 		log(message: "# TASKSHED # \(#line), \(#function) STARTED")
-		cancelAllBackgroundTaskRequests()
 		registerTask(with: .detectExposures, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
 		registerTask(with: .SIMPLETEST, taskHander: executeSIMPLETEST(_:))
