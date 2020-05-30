@@ -70,8 +70,7 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 	private func addConstraints() {
 		contentView.heightAnchor.constraint(equalToConstant: 196).isActive = true
-		UIView.translatesAutoresizingMaskIntoConstraints(for: [contentView,
-															   title,
+		UIView.translatesAutoresizingMaskIntoConstraints(for: [title,
 															   body,
 															   cellImage,
 															   chevron,

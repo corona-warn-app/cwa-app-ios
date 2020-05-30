@@ -45,8 +45,11 @@ class DynamicTableViewStepCell: UITableViewCell {
 		body.text = title
 
 		// MARK: - Cell Icon.
-
-		cellIcon = UIImageView(image: image)
+		var loadedImage = image
+		if iconTintColor != nil {
+			loadedImage = image?.withRenderingMode(.alwaysTemplate)
+		}
+		cellIcon = UIImageView(image: loadedImage)
 		cellIcon.tintColor = iconTintColor
 		cellIcon.backgroundColor = iconBackgroundColor
 
