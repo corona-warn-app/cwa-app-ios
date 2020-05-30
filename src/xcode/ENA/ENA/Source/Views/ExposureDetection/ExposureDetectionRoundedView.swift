@@ -25,17 +25,17 @@ class ExposureDetectionRoundedView: UIView {
 			applyRoundedCorners()
 		}
 	}
-	
+
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
 		applyRoundedCorners()
 	}
-	
+
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		applyRoundedCorners()
 	}
-	
+
 	private func applyRoundedCorners() {
 		layer.cornerRadius = min(bounds.width, bounds.height) / 2
 	}

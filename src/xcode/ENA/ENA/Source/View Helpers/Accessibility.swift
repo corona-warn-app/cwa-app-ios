@@ -18,9 +18,9 @@
 import UIKit
 
 /**
- 
+
  The string values can be simple & generic (eg, in the case of "next"), or highly specific (eg, "Home_Activate_Title", from the Localizble.strings file)
- 
+
  */
 
 enum Accessibility {
@@ -32,18 +32,18 @@ enum Accessibility {
 		static let allowButton = "Allow"
 		static let okButton = "Ok"
 	}
-	
+
 	enum StaticText {
 		static let onboardingTitle = "OnboardingInfo_togetherAgainstCoronaPage_title"
 		static let homeActivateTitle = "Home_Activate_Title"
 	}
-	
+
 	enum Button {
 		static let next = "next"
 		static let ignore = "ignore"
 		static let finish = "finish"
 	}
-	
+
 	enum Cell {
 		static let infoCardShareTitle = "infoCardShareTitle"
 		static let infoCardAboutTitle = "infoCardAboutTitle"

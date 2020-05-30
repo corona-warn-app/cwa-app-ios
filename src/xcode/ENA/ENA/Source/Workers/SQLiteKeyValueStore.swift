@@ -20,7 +20,7 @@ import Foundation
 
 class SQLiteKeyValueStore {
 	private let db: FMDatabase
-	
+
 	/// - parameter url: URL on disk where the FMDB should be initialized
 	init(with url: URL) {
 		let sqlStmt = """
@@ -29,25 +29,25 @@ class SQLiteKeyValueStore {
 		    value BLOB
 		);
 		"""
-		
+
 		db = FMDatabase(url: url)
 		db.open()
 		db.executeStatements(sqlStmt)
 	}
-	
+
 	deinit {
 		db.close()
 	}
-	
+
 	private func openDbIfNeeded() {
 		if !db.isOpen {
 			db.open()
 		}
 	}
-	
+
 	private func getData(for key: String) -> Data? {
 		openDbIfNeeded()
-		
+
 		do {
 			let query = "SELECT value FROM kv WHERE key = ?;"
 			let result = try db.executeQuery(query, values: [key])
@@ -58,22 +58,22 @@ class SQLiteKeyValueStore {
 				}
 				resultData = data
 			}
-			
+
 			result.close()
-			
+
 			return resultData
 		} catch {
 			logError(message: "Failed to retrieve value from K/V SQLite store: \(error.localizedDescription)")
 			return nil
 		}
 	}
-	
+
 	private func setData(_ data: Data?, for key: String) {
 		openDbIfNeeded()
 		guard let data = data else {
 			return
 		}
-		
+
 		/// Insert the key/value pair if it isn't already in the Database, otherwise Update the value
 		let upsertStmt = "INSERT INTO kv(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value = ?"
 		do {
@@ -82,7 +82,7 @@ class SQLiteKeyValueStore {
 			logError(message: "Failed to insert key/V pair into K/V SQLite store: \(error.localizedDescription)")
 		}
 	}
-	
+
 	func clearAll() {
 		openDbIfNeeded()
 		let deleteStmt = "DELETE FROM kv;"
@@ -95,7 +95,7 @@ class SQLiteKeyValueStore {
 		}
 		return
 	}
-	
+
 	func flush() {
 		openDbIfNeeded()
 		let deleteStmt = "DELETE FROM kv WHERE key NOT IN('developerSubmissionBaseURLOverride','developerDistributionBaseURLOverride','developerVerificationBaseURLOverride');"
@@ -108,7 +108,7 @@ class SQLiteKeyValueStore {
 		}
 		return
 	}
-	
+
 	subscript(key: String) -> Data? {
 		get {
 			getData(for: key)
@@ -117,7 +117,7 @@ class SQLiteKeyValueStore {
 			setData(newValue, for: key)
 		}
 	}
-	
+
 	/// - important: Assumes data was encoded with a `JSONEncoder`!
 	subscript<Model: Codable>(key: String) -> Model? {
 		get {

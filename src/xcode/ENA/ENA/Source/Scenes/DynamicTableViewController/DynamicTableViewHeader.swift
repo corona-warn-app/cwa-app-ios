@@ -20,7 +20,7 @@ import UIKit
 
 enum DynamicHeader {
 	typealias HeaderConfigurator = (_ view: UIView, _ section: Int) -> Void
-	
+
 	case none
 	case blank
 	case space(height: CGFloat, color: UIColor? = nil)

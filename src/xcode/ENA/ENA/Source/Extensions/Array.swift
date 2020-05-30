@@ -21,27 +21,27 @@ extension Array {
 	public func count(where test: (Element) -> Bool) -> Int {
 		filter(test).count
 	}
-	
+
 	public func first<T>(ofType _: T.Type) -> T? {
 		first(where: { $0 is T }) as? T
 	}
-	
+
 	public func firstIndex<T>(ofType _: T.Type) -> Int? {
 		firstIndex(where: { $0 is T })
 	}
-	
+
 	public func last<T>(ofType _: T.Type) -> T? {
 		last(where: { $0 is T }) as? T
 	}
-	
+
 	public func lastIndex<T>(ofType _: T.Type) -> Int? {
 		lastIndex(where: { $0 is T })
 	}
-	
+
 	public func filter<T>(ofType _: T.Type) -> [T] {
 		filter { $0 is T } as? [T] ?? []
 	}
-	
+
 	public func contains<T>(type _: T.Type) -> Bool {
 		contains(where: { $0 is T })
 	}

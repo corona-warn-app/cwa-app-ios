@@ -23,7 +23,7 @@ final class HomeRiskLoadingItemViewConfigurator: HomeRiskViewConfigurator {
 	var isLoading: Bool
 	var color: UIColor
 	var separatorColor: UIColor
-	
+
 	init(title: String, titleColor: UIColor, isLoading: Bool, color: UIColor, separatorColor: UIColor) {
 		self.title = title
 		self.titleColor = titleColor
@@ -31,7 +31,7 @@ final class HomeRiskLoadingItemViewConfigurator: HomeRiskViewConfigurator {
 		self.color = color
 		self.separatorColor = separatorColor
 	}
-	
+
 	func configure(riskView: RiskLoadingItemView) {
 		let iconTintColor = titleColor
 		riskView.activityIndicatorView.color = iconTintColor

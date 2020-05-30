@@ -24,11 +24,11 @@ class PersistedAndPublished<Value> {
 		self.notificationName = notificationName
 		self.defaultValue = defaultValue
 	}
-	
+
 	let key: String
 	let notificationName: Notification.Name
 	let defaultValue: Value
-	
+
 	var wrappedValue: Value {
 		get {
 			UserDefaults.standard.object(forKey: key) as? Value ?? defaultValue
@@ -42,7 +42,7 @@ class PersistedAndPublished<Value> {
 			NotificationCenter.default.post(name: notificationName, object: nil)
 		}
 	}
-	
+
 	var projectedValue: PersistedAndPublished<Value> { self }
 }
 

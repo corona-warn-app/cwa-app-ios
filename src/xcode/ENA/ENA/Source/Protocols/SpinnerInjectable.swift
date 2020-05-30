@@ -32,7 +32,7 @@ extension SpinnerInjectable {
 			// Do not add anything if spinner already exists.
 			return
 		}
-		
+
 		let spinner = UIActivityIndicatorView(style: .large)
 		spinner.startAnimating()
 		spinner.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ extension SpinnerInjectable {
 		spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 		self.spinner = spinner
 	}
-	
+
 	func stopSpinner() {
 		if spinner == nil { return }
 		spinner?.removeFromSuperview()

@@ -27,35 +27,35 @@ struct ExposureSubmissionTestResult {
 
 class ExposureSubmissionOverviewViewController: DynamicTableViewController, SpinnerInjectable {
 	// MARK: - Attributes.
-	
+
 	@IBAction func unwindToExposureSubmissionIntro(_: UIStoryboardSegue) {}
 	private var exposureSubmissionService: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
-	
+
 	private var testResults: [ExposureSubmissionTestResult] = [ExposureSubmissionTestResult(isPositive: true, receivedDate: Date(), transmittedDate: Date())]
 	private var mostRecentTestResult: ExposureSubmissionTestResult? { testResults.last }
-	
+
 	// MARK: - Initializers.
-	
+
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
-	
+
 	// MARK: - View lifecycle methods.
-	
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		
+
 		if exposureSubmissionService?.hasRegistrationToken() ?? false {
 			fetchResult()
 		}
 	}
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		dynamicTableViewModel = dynamicTableData()
 		setupView()
-		
+
 		// Grab ExposureSubmissionService from the navigation controller
 		// (which is the entry point for the storyboard, and in which
 		// this controller is embedded.)
@@ -63,7 +63,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			exposureSubmissionService = navC.getExposureSubmissionService()
 		}
 	}
-	
+
 	private func setupView() {
 		tableView.register(
 			UINib(
@@ -75,7 +75,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		tableView.register(DynamicTableViewImageCardCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue)
 		title = AppStrings.ExposureSubmissionDispatch.title
 	}
-	
+
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch Segue(segue) {
 		case .tanInput:
@@ -94,9 +94,9 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			break
 		}
 	}
-	
+
 	// MARK: - Helpers.
-	
+
 	private func fetchResult() {
 		startSpinner()
 		exposureSubmissionService?.getTestResult { result in
@@ -142,7 +142,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			logError(message: "QRScannerError.other occured.", level: .error)
 		}
 	}
-	
+
 	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
 			dismissQRCodeScannerView(vc)
@@ -150,11 +150,11 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			present(alert, animated: true, completion: nil)
 			return
 		}
-		
+
 		// Found QR Code, deactivate scanning.
 		dismissQRCodeScannerView(vc)
 		startSpinner()
-		
+
 		exposureSubmissionService?.getRegistrationToken(forKey: .guid(guid), completion: { result in
 			switch result {
 			case let .failure(error):
@@ -163,7 +163,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				let alert = ExposureSubmissionViewUtils.setupConfirmationAlert {
 					self.dismissQRCodeScannerView(vc)
 				}
-				
+
 				self.present(alert, animated: true, completion: nil)
 			case let .success(token):
 				print("Received registration token: \(token)")
@@ -171,7 +171,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			}
         })
 	}
-	
+
 	/// Sanitize the input string and assert that:
 	/// - length is smaller than 128 characters
 	/// - starts with https://
@@ -187,7 +187,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		guard !candidate.isEmpty else { return nil }
 		return candidate
 	}
-	
+
 	private func dismissQRCodeScannerView(_ vc: ExposureSubmissionQRScannerViewController) {
 		vc.delegate = nil
 		vc.dismiss(animated: true, completion: nil)
@@ -205,7 +205,7 @@ extension DynamicTableViewModel {
 			)
 		)
 	}
-	
+
 	mutating func addNextStepsSection() {
 		add(
 			.section(
@@ -234,10 +234,10 @@ extension DynamicTableViewModel {
 			)
 		)
 	}
-	
+
 	mutating func addWhatIfSection() {
 		let header = DynamicHeader.image(UIImage(named: "app-information-people"))
-		
+
 		add(
 			.section(
 				header: header,
@@ -254,9 +254,9 @@ extension DynamicTableViewModel {
 private extension ExposureSubmissionOverviewViewController {
 	func dynamicTableData() -> DynamicTableViewModel {
 		var data = DynamicTableViewModel([])
-		
+
 		let header = DynamicHeader.blank
-		
+
 		data.add(
 			.section(
 				header: header,
@@ -266,7 +266,7 @@ private extension ExposureSubmissionOverviewViewController {
 				]
 			)
 		)
-		
+
 		data.add(DynamicSection.section(cells: [
 			.identifier(
 				CustomCellReuseIdentifiers.imageCard,
@@ -305,10 +305,10 @@ private extension ExposureSubmissionOverviewViewController {
 				}
 			)
 		]))
-		
+
 		return data
 	}
-	
+
 	private func transitionToQRScanner(_: UIViewController) {
 		// Make sure we are allowed to use the camera.
 		switch AVCaptureDevice.authorizationStatus(for: .video) {

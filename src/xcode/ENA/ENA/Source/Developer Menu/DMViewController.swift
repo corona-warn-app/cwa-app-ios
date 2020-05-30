@@ -21,7 +21,7 @@ import UIKit
 /// The root view controller of the developer menu.
 final class DMViewController: UITableViewController {
 	// MARK: Creating a developer menu view controller
-	
+
 	init(
 		client: Client,
 		store: Store,
@@ -33,13 +33,13 @@ final class DMViewController: UITableViewController {
 		super.init(style: .plain)
 		title = "Developer Menu"
 	}
-	
+
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
+
 	// MARK: Properties
-	
+
 	private let client: Client
 	private let store: Store
 	private let exposureManager: ExposureManager
@@ -48,14 +48,14 @@ final class DMViewController: UITableViewController {
 			keys = self.keys.sorted()
 		}
 	}
-	
+
 	// MARK: UIViewController
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		tableView.register(KeyCell.self, forCellReuseIdentifier: KeyCell.reuseIdentifier)
-		
+
 		navigationItem.leftBarButtonItems = [
 			UIBarButtonItem(
 				barButtonSystemItem: .refresh,
@@ -69,7 +69,7 @@ final class DMViewController: UITableViewController {
 				action: #selector(showConfiguration)
 			)
 		]
-		
+
 		navigationItem.rightBarButtonItems = [
 			UIBarButtonItem(
 				barButtonSystemItem: .action,
@@ -84,9 +84,9 @@ final class DMViewController: UITableViewController {
 			)
 		]
 	}
-	
+
 	// MARK: Configuration
-	
+
 	@objc
 	private func showConfiguration() {
 		let viewController = DMConfigurationViewController(
@@ -96,14 +96,14 @@ final class DMViewController: UITableViewController {
 		)
 		navigationController?.pushViewController(viewController, animated: true)
 	}
-	
+
 	// MARK: Fetching Keys
-	
+
 	@objc
 	private func refreshKeys() {
 		resetAndFetchKeys()
 	}
-	
+
 	private func resetAndFetchKeys() {
 		keys = []
 		tableView.reloadData()
@@ -116,9 +116,9 @@ final class DMViewController: UITableViewController {
 			self.tableView.reloadData()
 		}
 	}
-	
+
 	// MARK: Checking the State of my Submission
-	
+
 	@objc
 	private func showCheckSubmissionState() {
 		navigationController?.pushViewController(
@@ -129,16 +129,16 @@ final class DMViewController: UITableViewController {
 			animated: true
 		)
 	}
-	
+
 	// MARK: QR Code related
-	
+
 	@objc
 	private func showScanner() {
 		present(DMQRCodeScanViewController(delegate: self), animated: true)
 	}
-	
+
 	// MARK: Test Keys
-	
+
 	// This method generates test keys and submits them to the backend.
 	// Later we may split that up in two different actions:
 	// 1. generate the keys
@@ -168,22 +168,22 @@ final class DMViewController: UITableViewController {
 			self.resetAndFetchKeys()
 		}
 	}
-	
+
 	// MARK: UITableView
-	
+
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		keys.count
 	}
-	
+
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "KeyCell", for: indexPath)
 		let key = keys[indexPath.row]
-		
+
 		cell.textLabel?.text = key.keyData.base64EncodedString()
 		cell.detailTextLabel?.text = "Rolling Start Date: \(key.formattedRollingStartNumberDate)"
 		return cell
 	}
-	
+
 	override func tableView(_: UITableView, didSelectRowAt _: IndexPath) {}
 }
 
@@ -211,15 +211,15 @@ private extension DateFormatter {
 
 private extension SAP_TemporaryExposureKey {
 	private static let dateFormatter: DateFormatter = .rollingPeriodDateFormatter()
-	
+
 	var rollingStartNumberDate: Date {
 		Date(timeIntervalSince1970: Double(rollingStartIntervalNumber * 600))
 	}
-	
+
 	var formattedRollingStartNumberDate: String {
 		type(of: self).dateFormatter.string(from: rollingStartNumberDate)
 	}
-	
+
 	var temporaryExposureKey: ENTemporaryExposureKey {
 		let key = ENTemporaryExposureKey()
 		key.keyData = keyData
@@ -246,7 +246,7 @@ private class KeyCell: UITableViewCell {
 	override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 	}
-	
+
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}

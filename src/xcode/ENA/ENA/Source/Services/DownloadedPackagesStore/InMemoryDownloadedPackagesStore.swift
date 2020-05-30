@@ -27,11 +27,11 @@ protocol DownloadedPackagesStore: AnyObject {
 
 final class DownloadedPackagesInMemoryStore {
 	// MARK: Creating
-	
+
 	// MARK: Properties
-	
+
 	private var packagesByDay = [String: SAPDownloadedPackage]()
-	
+
 	// Stores all downloaded hours mapped by day.
 	// The data stored here looks like this:
 	// 2020-05-01
@@ -49,27 +49,27 @@ final class DownloadedPackagesInMemoryStore {
 	// It is up to the consumer to find the correct day.
 	// It is also up to the consumer of this class to clean unwanted hourly data.
 	private var packagesByHour = [String: [Int: SAPDownloadedPackage]]()
-	
+
 	// MARK: Working with Days
-	
+
 	func missingDays(remoteDays: Set<String>) -> Set<String> {
 		remoteDays.subtracting(Set(packagesByDay.keys))
 	}
-	
+
 	func package(for day: String) -> SAPDownloadedPackage? {
 		packagesByDay[day]
 	}
-	
+
 	func allDailyKeyPackages() -> [SAPDownloadedPackage] {
 		Array(packagesByDay.values)
 	}
-	
+
 	func hourlyPackages(day: String) -> [SAPDownloadedPackage] {
 		Array(packagesByHour[day, default: [:]].values)
 	}
-	
+
 	// MARK: Working with Hours
-	
+
 	func missingHours(day: String, remoteHours: Set<Int>) -> Set<Int> {
 		let packages = packagesByHour[day, default: [:]]
 		let localHours = Set(packages.keys)
@@ -81,7 +81,7 @@ extension DownloadedPackagesInMemoryStore: DownloadedPackagesStore {
 	func set(day: String, downloadedPackage: SAPDownloadedPackage) {
 		packagesByDay[day] = downloadedPackage
 	}
-	
+
 	func set(hour: Int, day: String, downloadedPackage: SAPDownloadedPackage) {
 		var packages = packagesByHour[day, default: [:]]
 		packages[hour] = downloadedPackage

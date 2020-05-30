@@ -23,7 +23,7 @@ extension ExposureDetectionViewController {
 		if !isTracingEnabled {
 			return offModel
 		}
-		
+
 		switch riskLevel {
 		case .unknown: return unknownRiskModel
 		case .inactive: return unknownRiskModel // TODO: remove
@@ -39,7 +39,7 @@ private extension DynamicHeader {
 	static func backgroundSpace(height: CGFloat) -> DynamicHeader {
 		.space(height: height, color: .preferredColor(for: .backgroundPrimary))
 	}
-	
+
 	static func riskTint(height _: CGFloat) -> DynamicHeader {
 		.custom { viewController in
 			let view = UIView()
@@ -66,11 +66,11 @@ private extension DynamicCell {
 		case link = "linkCell"
 		case hotline = "hotlineCell"
 	}
-	
+
 	private static func exposureDetectionCell(_ identifier: TableViewCellReuseIdentifiers, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: GenericCellConfigurator<ExposureDetectionViewController>? = nil) -> DynamicCell {
 		.custom(withIdentifier: identifier, action: action, accessoryAction: accessoryAction, configure: configure)
 	}
-	
+
 	static func risk(configure: @escaping GenericCellConfigurator<ExposureDetectionViewController>) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.risk) { viewController, cell, indexPath in
 			let state = viewController.state
@@ -81,7 +81,7 @@ private extension DynamicCell {
 			configure(viewController, cell, indexPath)
 		}
 	}
-	
+
 	static func riskLastRiskLevel(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
@@ -89,7 +89,7 @@ private extension DynamicCell {
 			cell.imageView?.image = image
 		}
 	}
-	
+
 	static func riskContacts(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
@@ -97,7 +97,7 @@ private extension DynamicCell {
 			cell.imageView?.image = image
 		}
 	}
-	
+
 	static func riskLastExposure(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
@@ -105,7 +105,7 @@ private extension DynamicCell {
 			cell.imageView?.image = image
 		}
 	}
-	
+
 	static func riskStored(text: String, imageName: String) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
@@ -114,7 +114,7 @@ private extension DynamicCell {
 			cell.imageView?.image = UIImage(named: String(format: imageName, numberOfDaysStored))
 		}
 	}
-	
+
 	static func riskRefreshed(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
@@ -122,22 +122,22 @@ private extension DynamicCell {
 			if let date: Date = state.summary?.lastRefreshDate {
 				let dateFormatter = DateFormatter(); dateFormatter.dateStyle = .short
 				let timeFormatter = DateFormatter(); timeFormatter.timeStyle = .short
-				
+
 				let dateValue = dateFormatter.string(from: date)
 				let timeValue = timeFormatter.string(from: date)
-				
+
 				let days = Calendar.current.dateComponents([.day], from: date, to: Date()).day ?? 100
 				valueText = String.localizedStringWithFormat(AppStrings.ExposureDetection.refreshedFormat, days)
 				valueText = String(format: valueText, timeValue, dateValue)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever
 			}
-			
+
 			cell.textLabel?.text = String(format: text, valueText)
 			cell.imageView?.image = image
 		}
 	}
-	
+
 	static func riskText(text: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskText) { viewController, cell, _ in
 			let state = viewController.state
@@ -146,7 +146,7 @@ private extension DynamicCell {
 			cell.textLabel?.text = text
 		}
 	}
-	
+
 	static func riskRefresh(text: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskRefresh) { viewController, cell, _ in
 			let state = viewController.state
@@ -155,7 +155,7 @@ private extension DynamicCell {
 			cell.textLabel?.text = String(format: text, components.minute ?? 0, components.second ?? 0)
 		}
 	}
-	
+
 	static func riskLoading(text: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskLoading) { viewController, cell, _ in
 			let state = viewController.state
@@ -163,7 +163,7 @@ private extension DynamicCell {
 			cell.textLabel?.text = text
 		}
 	}
-	
+
 	static func header(title: String, subtitle: String, action: DynamicAction? = nil) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.header, accessoryAction: action ?? .none) { _, cell, _ in
 			let cell = cell as? ExposureDetectionHeaderCell
@@ -172,7 +172,7 @@ private extension DynamicCell {
 			cell?.accessoryType = action != nil ? .detailButton : .none
 		}
 	}
-	
+
 	static func guide(text: String, image: UIImage?) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.guide) { viewController, cell, _ in
 			let state = viewController.state
@@ -181,7 +181,7 @@ private extension DynamicCell {
 			cell.imageView?.image = image
 		}
 	}
-	
+
 	static func guide(image: UIImage?, text: [String]) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.longGuide) { viewController, cell, _ in
 			let state = viewController.state
@@ -189,13 +189,13 @@ private extension DynamicCell {
 			(cell as? ExposureDetectionLongGuideCell)?.configure(image: image, text: text)
 		}
 	}
-	
+
 	static func link(text: String, url: URL?) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.link, action: .open(url: url)) { _, cell, _ in
 			cell.textLabel?.text = text
 		}
 	}
-	
+
 	static func hotline(number: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.hotline) { _, cell, _ in
 			(cell as? InsetTableViewCell)?.insetContentView.primaryAction = {
@@ -216,14 +216,14 @@ extension ExposureDetectionViewController {
 			cells: cells
 		)
 	}
-	
+
 	private func riskDataSection(cells: [DynamicCell]) -> DynamicSection {
 		riskSection(
 			isHidden: { (($0 as? Self)?.state.isLoading ?? false) },
 			cells: cells
 		)
 	}
-	
+
 	private var riskRefreshSection: DynamicSection {
 		riskSection(
 			isHidden: { viewController in
@@ -237,7 +237,7 @@ extension ExposureDetectionViewController {
 			]
 		)
 	}
-	
+
 	private var riskLoadingSection: DynamicSection {
 		.section(
 			header: .none,
@@ -248,7 +248,7 @@ extension ExposureDetectionViewController {
 			]
 		)
 	}
-	
+
 	private var standardGuideSection: DynamicSection {
 		.section(
 			header: .backgroundSpace(height: 16),
@@ -261,7 +261,7 @@ extension ExposureDetectionViewController {
 			]
 		)
 	}
-	
+
 	private func explanationSection(text: String) -> DynamicSection {
 		.section(
 			header: .backgroundSpace(height: 8),
@@ -276,7 +276,7 @@ extension ExposureDetectionViewController {
 			]
 		)
 	}
-	
+
 	private var offModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
@@ -293,7 +293,7 @@ extension ExposureDetectionViewController {
 			explanationSection(text: AppStrings.ExposureDetection.explanationTextOff)
 		])
 	}
-	
+
 	private var unknownRiskModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			riskDataSection(cells: [
@@ -305,7 +305,7 @@ extension ExposureDetectionViewController {
 			explanationSection(text: AppStrings.ExposureDetection.explanationTextUnknown)
 		])
 	}
-	
+
 	private var lowRiskModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			riskDataSection(cells: [
@@ -319,7 +319,7 @@ extension ExposureDetectionViewController {
 			explanationSection(text: AppStrings.ExposureDetection.explanationTextLow)
 		])
 	}
-	
+
 	private var highRiskModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			riskDataSection(cells: [

@@ -21,17 +21,17 @@ import XCTest
 
 final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 	private var store: DownloadedPackagesSQLLiteStore = .inMemory()
-	
+
 	override func setUp() {
 		super.setUp()
 		store.close()
 	}
-	
+
 	func testEmptyEmptyDb() throws {
 		store.open()
 		XCTAssertNil(store.package(for: "2020-06-13"))
 	}
-	
+
 	// Add a package, try to get it, assert that it matches what we put inside
 	func testSettingDays() throws {
 		store.open()
@@ -39,7 +39,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		let keysBin = "keys".data(using: .utf8)!
 		// swiftlint:disable:next force_unwrapping
 		let signature = "sig".data(using: .utf8)!
-		
+
 		let package = SAPDownloadedPackage(
 			keysBin: keysBin,
 			signature: signature
@@ -50,17 +50,17 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(packageOut?.signature, signature)
 		XCTAssertEqual(packageOut?.bin, keysBin)
 	}
-	
+
 	// Add a package for a given hour on a given day, try to get it and asssert that it matches whatever we put inside
 	func testSettingHoursForDay() throws {
 		store.open()
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12").isEmpty)
-		
+
 		// swiftlint:disable:next force_unwrapping
 		let keysBin = "keys".data(using: .utf8)!
 		// swiftlint:disable:next force_unwrapping
 		let signature = "sig".data(using: .utf8)!
-		
+
 		let package = SAPDownloadedPackage(
 			keysBin: keysBin,
 			signature: signature
@@ -69,33 +69,33 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		let hourlyPackages = store.hourlyPackages(for: "2020-06-12")
 		XCTAssertFalse(hourlyPackages.isEmpty)
 	}
-	
+
 	// Add a package for a given hour on a given day, try to get it and asssert that it matches whatever we put inside
 	func testHoursAreDeletedIfDayIsAdded() throws {
 		store.open()
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12").isEmpty)
-		
+
 		// swiftlint:disable:next force_unwrapping
 		let keysBin = "keys".data(using: .utf8)!
 		// swiftlint:disable:next force_unwrapping
 		let signature = "sig".data(using: .utf8)!
-		
+
 		let package = SAPDownloadedPackage(
 			keysBin: keysBin,
 			signature: signature
 		)
-		
+
 		// Add hours
 		store.set(hour: 1, day: "2020-06-12", package: package)
 		store.set(hour: 2, day: "2020-06-12", package: package)
 		store.set(hour: 3, day: "2020-06-12", package: package)
 		store.set(hour: 4, day: "2020-06-12", package: package)
-		
+
 		// Assert that hours exist
-		
+
 		let hourlyPackages = store.hourlyPackages(for: "2020-06-12")
 		XCTAssertEqual(hourlyPackages.count, 4)
-		
+
 		// Now add a full day
 		store.set(day: "2020-06-12", package: package)
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12").isEmpty)

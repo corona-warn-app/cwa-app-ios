@@ -20,16 +20,16 @@ import UIKit
 class NotificationSettingsOnTableViewCell: UITableViewCell {
 	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var toggleSwitch: UISwitch!
-	
+
 	var viewModel: NotificationSettingsViewModel.SettingsOnItem?
-	
+
 	@IBAction func switchToggled(_: Any) {
 		viewModel?.state = toggleSwitch.isOn
 	}
-	
+
 	func configure() {
 		guard let viewModel = viewModel else { return }
-		
+
 		descriptionLabel.text = viewModel.description
 		toggleSwitch.isOn = viewModel.state
 	}

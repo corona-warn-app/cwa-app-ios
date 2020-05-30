@@ -28,10 +28,10 @@ extension Notification.Name {
 	static let developerSubmissionBaseURLOverrideDidChange = _withPrefix("developerSubmissionBaseURLOverride")
 	static let developerDistributionBaseURLOverrideDidChange = _withPrefix("developerDistributionBaseURLOverride")
 	static let developerVerificationBaseURLOverrideDidChange = _withPrefix("developerVerificationBaseURLOverride")
-	
+
 	static let allowRiskChangesNotificationDidChange = _withPrefix("allowRiskChangesNotificationDidChange")
 	static let allowTestsStatusNotificationDidChange = _withPrefix("allowTestsStatusNotificationDidChange")
-	
+
 	// Temporary Notification until implemented by actual transaction flow
 	static let didDetectExposureDetectionSummary = _withPrefix("didDetectExposureDetectionSummary")
 	static let teleTanDidChange = _withPrefix("teleTanDidChange")

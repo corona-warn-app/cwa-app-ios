@@ -21,12 +21,12 @@ import UIKit
 class AppInformationViewController: UITableViewController {
 	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
 		let destination = segue.destination
-		
+
 		guard
 			let segueIdentifier = segue.identifier,
 			let segue = SegueIdentifier(rawValue: segueIdentifier)
 		else { return }
-		
+
 		switch segue {
 		case .about:
 			(destination as? AppInformationDetailViewController)?.model = .about

@@ -29,7 +29,7 @@ func logError(message: String, level _: LogLevel = .error, file _: String = #fil
 
 class Logger {
 	func log(message _: String, level _: LogLevel = .info, file _: String, line _: UInt, function _: String) {}
-	
+
 	func getLoggedData() -> Data? {
 		Data()
 	}

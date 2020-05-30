@@ -27,9 +27,9 @@ struct DeltaCalculationResult {
 		missingDays = remoteDays.subtracting(localDays)
 		missingHours = remoteHours.subtracting(localHours)
 	}
-	
+
 	// MARK: Properties
-	
+
 	let missingDays: Set<String>
 	let missingHours: Set<Int>
 }

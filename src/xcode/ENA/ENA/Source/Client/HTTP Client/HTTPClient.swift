@@ -21,7 +21,7 @@ import ZIPFoundation
 
 final class HTTPClient: Client {
 	// MARK: Creating
-	
+
 	init(
 		configuration: Configuration = .production,
 		session: URLSession = .coronaWarnSession()
@@ -29,18 +29,18 @@ final class HTTPClient: Client {
 		self.configuration = configuration
 		self.session = session
 	}
-	
+
 	// MARK: Properties
-	
+
 	private let configuration: Configuration
 	private let session: URLSession
-	
+
 	func exposureConfiguration(
 		completion: @escaping ExposureConfigurationCompletionHandler
 	) {
 		log(message: "Fetching exposureConfiguation from: \(configuration.configurationURL)")
 		session.GET(configuration.configurationURL) { result in
-			
+
 			switch result {
 			case let .success(response):
 				guard let data = response.body else {
@@ -51,13 +51,13 @@ final class HTTPClient: Client {
 					completion(nil)
 					return
 				}
-				
+
 				guard let package = SAPDownloadedPackage(compressedData: data) else {
 					logError(message: "Failed to create signed package.")
 					completion(nil)
 					return
 				}
-				
+
 				do {
 					completion(try ENExposureConfiguration(from: package.bin))
 				} catch {
@@ -69,7 +69,7 @@ final class HTTPClient: Client {
 			}
 		}
 	}
-	
+
 	func submit(
 		keys: [ENTemporaryExposureKey],
 		tan: String,
@@ -83,7 +83,7 @@ final class HTTPClient: Client {
 			completion(.requestCouldNotBeBuilt)
 			return
 		}
-		
+
 		session.response(for: request) { result in
 			switch result {
 			case let .success(response):
@@ -99,12 +99,12 @@ final class HTTPClient: Client {
 			}
 		}
 	}
-	
+
 	func availableDays(
 		completion completeWith: @escaping AvailableDaysCompletionHandler
 	) {
 		let url = configuration.availableDaysURL
-		
+
 		session.GET(url) { result in
 			switch result {
 			case let .success(response):
@@ -133,13 +133,13 @@ final class HTTPClient: Client {
 			}
 		}
 	}
-	
+
 	func availableHours(
 		day: String,
 		completion completeWith: @escaping AvailableHoursCompletionHandler
 	) {
 		let url = configuration.availableHoursURL(day: day)
-		
+
 		session.GET(url) { result in
 			switch result {
 			case let .success(response):
@@ -150,12 +150,12 @@ final class HTTPClient: Client {
 					completeWith(.success([]))
 					return
 				}
-				
+
 				guard let data = response.body else {
 					completeWith(.failure(.invalidResponse))
 					return
 				}
-				
+
 				do {
 					let decoder = JSONDecoder()
 					let hours = try decoder.decode([Int].self, from: data)
@@ -169,17 +169,17 @@ final class HTTPClient: Client {
 			}
 		}
 	}
-	
+
 	func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
 		let url = configuration.testResultURL
-		
+
 		let bodyValues = ["registrationToken": registrationToken]
 		do {
 			let encoder = JSONEncoder()
 			encoder.outputFormatting = .prettyPrinted
-			
+
 			let data = try encoder.encode(bodyValues)
-			
+
 			session.POST(url, data) { result in
 				switch result {
 				case let .success(response):
@@ -218,17 +218,17 @@ final class HTTPClient: Client {
 			return
 		}
 	}
-	
+
 	func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
 		let url = configuration.tanRetrievalURL
-		
+
 		let bodyValues = ["registrationToken": registrationToken]
 		do {
 			let encoder = JSONEncoder()
 			encoder.outputFormatting = .prettyPrinted
-			
+
 			let data = try encoder.encode(bodyValues)
-			
+
 			session.POST(url, data) { result in
 				switch result {
 				case let .success(response):
@@ -268,17 +268,17 @@ final class HTTPClient: Client {
 			return
 		}
 	}
-	
+
 	func getRegistrationToken(forKey key: String, withType type: String, completion completeWith: @escaping RegistrationHandler) {
 		let url = configuration.registrationURL
-		
+
 		let bodyValues = ["key": key, "keyType": type]
 		do {
 			let encoder = JSONEncoder()
 			encoder.outputFormatting = .prettyPrinted
-			
+
 			let data = try encoder.encode(bodyValues)
-			
+
 			session.POST(url, data) { result in
 				switch result {
 				case let .success(response):
@@ -317,13 +317,13 @@ final class HTTPClient: Client {
 			return
 		}
 	}
-	
+
 	func fetchDay(
 		_ day: String,
 		completion completeWith: @escaping DayCompletionHandler
 	) {
 		let url = configuration.diagnosisKeysURL(day: day)
-		
+
 		session.GET(url) { result in
 			switch result {
 			case let .success(response):
@@ -344,7 +344,7 @@ final class HTTPClient: Client {
 			}
 		}
 	}
-	
+
 	func fetchHour(
 		_ hour: Int,
 		day: String,
@@ -386,15 +386,15 @@ private extension URLRequest {
 		}
 		let payloadData = try payload.serializedData()
 		let url = configuration.submissionURL
-		
+
 		var request = URLRequest(url: url)
-		
+
 		request.setValue(
 			tan,
 			// TAN code associated with this diagnosis key submission.
 			forHTTPHeaderField: "cwa-authorization"
 		)
-		
+
 		request.setValue(
 			"0",
 			// Requests with a value of "0" will be fully processed.
@@ -402,15 +402,15 @@ private extension URLRequest {
 			// handled as a fake request." ,
 			forHTTPHeaderField: "cwa-fake"
 		)
-		
+
 		request.setValue(
 			"application/x-protobuf",
 			forHTTPHeaderField: "Content-Type"
 		)
-		
+
 		request.httpMethod = "POST"
 		request.httpBody = payloadData
-		
+
 		return request
 	}
 }
@@ -418,9 +418,9 @@ private extension URLRequest {
 private extension ENExposureConfiguration {
 	convenience init(from data: Data) throws {
 		self.init()
-		
+
 		let riskscoreParameters = try SAP_RiskScoreParameters(serializedData: data)
-		
+
 		// We are intentionally not setting minimumRiskScore.
 		attenuationLevelValues = riskscoreParameters.attenuation.asArray
 		daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray

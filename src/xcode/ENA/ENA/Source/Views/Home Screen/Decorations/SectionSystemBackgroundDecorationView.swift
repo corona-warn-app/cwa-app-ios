@@ -22,11 +22,11 @@ class SectionSystemBackgroundDecorationView: UICollectionReusableView {
 		super.init(frame: frame)
 		configure(with: .systemGroupedBackground)
 	}
-	
+
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
+
 	private func configure(with color: UIColor?) {
 		backgroundColor = color
 	}

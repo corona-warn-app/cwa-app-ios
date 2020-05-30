@@ -22,7 +22,7 @@ import UIKit
 /// If enabled, the developer can be revealed by tripple-tapping anywhere within the `presentingViewController`.
 final class DMDeveloperMenu {
 	// MARK: Creating a developer menu
-	
+
 	/// Parameters:
 	/// - presentingViewController: The instance of `UIViewController` which should receive a developer menu.
 	/// - client: The `Client` to use.
@@ -38,16 +38,16 @@ final class DMDeveloperMenu {
 		self.store = store
 		self.exposureManager = exposureManager
 	}
-	
+
 	// MARK: Properties
-	
+
 	private let presentingViewController: UIViewController
 	private let client: Client
 	private let store: Store
 	private let exposureManager: ExposureManager
-	
+
 	// MARK: Interacting with the developer menu
-	
+
 	/// Enables the developer menu if it is currently allowed to do so.
 	///
 	/// Whether or not the developer menu is allowed is determined at build time by looking at the active build configuration. It is only allowed for `RELEASE` and `DEBUG` builds. Builds that target the app store (configuration `APP_STORE`) are built without support for a developer menu.
@@ -59,7 +59,7 @@ final class DMDeveloperMenu {
 		showDeveloperMenuGesture.numberOfTapsRequired = 3
 		presentingViewController.view.addGestureRecognizer(showDeveloperMenuGesture)
 	}
-	
+
 	@objc
 	func showDeveloperMenu(_: UITapGestureRecognizer) {
 		let vc = DMViewController(
@@ -76,7 +76,7 @@ final class DMDeveloperMenu {
 			completion: nil
 		)
 	}
-	
+
 	private func isAllowed() -> Bool {
 		true
 		// We have to allow the developer menu to be installed to make testing in APP_STORE mode possible.

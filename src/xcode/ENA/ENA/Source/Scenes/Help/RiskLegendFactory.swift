@@ -26,13 +26,13 @@ class RiskLegendFactory {
 		var title: String
 		var description: String
 	}
-	
+
 	private static var sharedRiskLegendFactory = RiskLegendFactory()
-	
+
 	class func getSharedRiskLegendFactory() -> RiskLegendFactory {
 		sharedRiskLegendFactory
 	}
-	
+
 	func getRiskLegend() -> [RiskLegendEntry] {
 		[
 			RiskLegendEntry(

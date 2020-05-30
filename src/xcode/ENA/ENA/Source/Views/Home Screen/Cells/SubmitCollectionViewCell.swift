@@ -26,9 +26,9 @@ class SubmitCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var bodyLabel: UILabel!
 	@IBOutlet var contactButton: UIButton!
-	
+
 	weak var delegate: SubmitCollectionViewCellDelegate?
-	
+
 	@IBAction func submitButtonTapped(_: UIButton) {
 		delegate?.submitButtonTapped(cell: self)
 	}

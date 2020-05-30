@@ -30,22 +30,22 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 	@IBOutlet var actionTitleLabel: UILabel!
 	@IBOutlet var actionSwitch: ENASwitch!
 	@IBOutlet var detailLabel: UILabel!
-	
+
 	weak var delegate: ActionTableViewCellDelegate?
-	
+
 	@IBAction func switchValueDidChange(_: Any) {
 		delegate?.performAction(enable: actionSwitch.isOn)
 	}
-	
+
 	func turnSwitch(to on: Bool) {
 		actionSwitch.setOn(on, animated: true)
 	}
-	
+
 	func configure(for state: RiskDetectionState) {
 		actionTitleLabel.text = AppStrings.ExposureNotificationSetting.enableTracing
 		detailLabel.text = AppStrings.ExposureNotificationSetting.limitedTracing
 		turnSwitch(to: state == .enabled)
-		
+
 		switch state {
 		case .enabled, .disabled:
 			detailLabel.isHidden = true
@@ -55,7 +55,7 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 			actionSwitch.isHidden = true
 		}
 	}
-	
+
 	func configure(
 		for state: RiskDetectionState,
 		delegate: ActionTableViewCellDelegate

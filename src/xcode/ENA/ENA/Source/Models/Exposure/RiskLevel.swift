@@ -23,7 +23,7 @@ enum RiskLevel {
 	case inactive
 	case low
 	case high
-	
+
 	init(riskScore: ENRiskScore?) {
 		guard let riskScore = riskScore else {
 			self = .unknown

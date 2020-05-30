@@ -23,15 +23,15 @@ extension UIFont {
 		guard let string = fontDescriptor.fontAttributes[.textStyle] as? String else { return nil }
 		return UIFont.TextStyle(rawValue: string)
 	}
-	
+
 	func scaledFont(size: CGFloat? = nil, weight: Weight? = .regular) -> UIFont {
 		guard let textStyle = self.textStyle else { return self }
-		
+
 		let metrics = UIFontMetrics(forTextStyle: textStyle)
 		let description = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle)
 		let systemFont = UIFont.systemFont(ofSize: size ?? description.pointSize, weight: weight ?? .regular)
 		let font = metrics.scaledFont(for: systemFont)
-		
+
 		return font
 	}
 }

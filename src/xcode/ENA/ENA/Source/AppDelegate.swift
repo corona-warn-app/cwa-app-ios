@@ -41,24 +41,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let storeURL = documentDir
 			.appendingPathComponent("packages")
 			.appendingPathExtension("sqlite3")
-		
+
 		let db = FMDatabase(url: storeURL)
 		let store = DownloadedPackagesSQLLiteStore(database: db)
 		store.open()
 		return store
 	}()
-	
+
 	let store: Store = SecureStore()
 	lazy var client: Client = {
 		// We disable app store checks to make testing easier.
 		//        #if APP_STORE
 		//        return HTTPClient(configuration: .production)
 		//        #endif
-		
+
 		if ClientMode.default == .mock {
 			fatalError("not implemented")
 		}
-		
+
 		let store = self.store
 		guard
 			let distributionURLString = store.developerDistributionBaseURLOverride,
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			let submissionURL = URL(string: submissionURLString) else {
 			return HTTPClient(configuration: .production)
 		}
-		
+
 		let config = HTTPClient.Configuration(
 			apiVersion: "v1",
 			country: "DE",
@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		)
 		return HTTPClient(configuration: config)
 	}()
-	
+
 	func application(
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
@@ -90,9 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		taskScheduler.registerBackgroundTaskRequests()
 		return true
 	}
-	
+
 	// MARK: UISceneSession Lifecycle
-	
+
 	func application(
 		_: UIApplication,
 		configurationForConnecting connectingSceneSession: UISceneSession,
@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	) -> UISceneConfiguration {
 		UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
 	}
-	
+
 	func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
 }
 
@@ -110,28 +110,28 @@ extension AppDelegate: ExposureDetectionTransactionDelegate {
 	) -> ExposureManager {
 		exposureManager
 	}
-	
+
 	func exposureDetectionTransaction(_: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
 		// TODO: show error to user
 		logError(message: "Exposure transaction failed: \(reason)")
 		exposureDetectionTransaction = nil
 	}
-	
+
 	func exposureDetectionTransaction(
 		_: ExposureDetectionTransaction,
 		didDetectSummary summary: ENExposureDetectionSummary
 	) {
 		exposureDetectionTransaction = nil
-		
+
 		store.dateLastExposureDetection = Date()
-		
+
 		NotificationCenter.default.post(
 			name: .didDetectExposureDetectionSummary,
 			object: nil,
 			userInfo: ["summary": summary]
 		)
 	}
-	
+
 	func exposureDetectionTransactionRequiresFormattedToday(_: ExposureDetectionTransaction) -> String {
 		.formattedToday()
 	}

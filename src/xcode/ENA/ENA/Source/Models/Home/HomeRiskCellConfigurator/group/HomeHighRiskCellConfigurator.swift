@@ -20,27 +20,27 @@ import UIKit
 final class HomeHighRiskCellConfigurator: HomeRiskCellConfigurator {
 	private var numberRiskContacts: Int
 	private var daysSinceLastExposure: Int?
-	
+
 	// MARK: Creating a Home Risk Cell Configurator
-	
+
 	init(isLoading: Bool, isButtonEnabled: Bool, isButtonHidden: Bool, isCounterLabelHidden: Bool, startDate: Date?, releaseDate: Date?, numberRiskContacts: Int, daysSinceLastExposure: Int?, lastUpdateDate: Date?) {
 		self.numberRiskContacts = numberRiskContacts
 		self.daysSinceLastExposure = daysSinceLastExposure
 		super.init(isLoading: isLoading, isButtonEnabled: isButtonEnabled, isButtonHidden: isButtonHidden, isCounterLabelHidden: isCounterLabelHidden, startDate: startDate, releaseDate: releaseDate, lastUpdateDate: lastUpdateDate)
 	}
-	
+
 	// MARK: Configuration
-	
+
 	override func configure(cell: RiskCollectionViewCell) {
 		cell.delegate = self
-		
+
 		cell.removeAllArrangedSubviews()
-		
+
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardHighTitle
 		let titleColor: UIColor = .white
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
-		
+
 		let color = UIColor.preferredColor(for: .negativeRisk)
 		let separatorColor = UIColor.white.withAlphaComponent(0.15)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
@@ -59,11 +59,11 @@ final class HomeHighRiskCellConfigurator: HomeRiskCellConfigurator {
 		}
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
-		
+
 		cell.configureChevron(image: UIImage(systemName: "chevron.right.circle.fill"), tintColor: .preferredColor(for: .chevron))
-		
+
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardHighButton
-		
+
 		if let (minutes, seconds) = counterTouple() {
 			let counterLabelText = String(format: AppStrings.Home.riskCardStatusCheckCounterLabel, minutes, seconds)
 			cell.configureCounterLabel(text: counterLabelText, isHidden: isCounterLabelHidden)

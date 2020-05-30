@@ -21,25 +21,25 @@ import UIKit
 public enum ColorStyle: String {
 	case backgroundPrimary = "background"
 	case backgroundSecondary = "backgroundGroup"
-	
+
 	case brandRed
 	case brandBlue
 	case brandMagenta
-	
+
 	case separator
 	case hairline
 	case hairlineContrast
 	case tint
-	
+
 	case textPrimary1
 	case textPrimary2
 	case textPrimary3
-	
+
 	case positiveRisk = "positive"
 	case negativeRisk = "negative"
 	case inactiveRisk = "medium"
 	case unknownRisk = "unknown"
-	
+
 	// TODO: Colors not defined by design
 	case chevron
 	case shadow
@@ -53,7 +53,7 @@ extension UIColor {
 			self.init(named: style.rawValue, in: nil, compatibleWith: UITraitCollection(userInterfaceStyle: interface))
 		}
 	}
-	
+
 	static func preferredColor(for style: ColorStyle, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
 		if let color = UIColor(style: style, interface: interface) {
 			return color

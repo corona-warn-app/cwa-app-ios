@@ -19,43 +19,43 @@ import UIKit
 
 class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 	// MARK: - View lifecycle methods.
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setUpView()
 	}
-	
+
 	override func viewWillAppear(_: Bool) {
 		setupButtons()
 	}
-	
+
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		setSecondaryButtonTitle(to: "")
 		hideSecondaryButton()
 	}
-	
+
 	// MARK: - View setup.
-	
+
 	private func setUpView() {
 		title = AppStrings.ExposureSubmissionHotline.title
 		setupButtons()
 		setupTableView()
 	}
-	
+
 	private func setupButtons() {
 		setButtonTitle(to: AppStrings.ExposureSubmissionHotline.callButtonTitle)
 		setSecondaryButtonTitle(to: AppStrings.ExposureSubmissionHotline.tanInputButtonTitle)
 		showSecondaryButton()
 	}
-	
+
 	// MARK: - Data setup.
-	
+
 	private func setupTableView() {
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
-		
+
 		dynamicTableViewModel = DynamicTableViewModel(
 			[
 				.section(
@@ -109,11 +109,11 @@ extension ExposureSubmissionHotlineViewController: ExposureSubmissionNavigationC
 	func didTapBottomButton() {
 		callHotline()
 	}
-	
+
 	func didTapSecondButton() {
 		performSegue(withIdentifier: Segue.tanInput, sender: self)
 	}
-	
+
 	private func callHotline() {
 		if let url = URL(string: "telprompt:\(AppStrings.ExposureDetection.hotlineNumber)") {
 			if UIApplication.shared.canOpenURL(url) {
