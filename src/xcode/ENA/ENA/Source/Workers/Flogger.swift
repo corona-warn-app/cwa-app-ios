@@ -24,6 +24,7 @@ public class Flogger {
 	init(isOn: Bool) {
 		self.isOn = isOn
 		queue.maxConcurrentOperationCount = 1
+		reset()
 	}
 
 	private lazy var url: URL = {

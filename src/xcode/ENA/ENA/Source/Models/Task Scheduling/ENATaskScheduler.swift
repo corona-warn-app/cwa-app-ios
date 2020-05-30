@@ -90,8 +90,9 @@ public class ENATaskScheduler {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
 
-	private func registerTask(with identifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
-		let identifierString = identifier.backgroundTaskSchedulerIdentifier
+	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
+		log(message: "# TASKSHED # \(#line), \(#function) REGISTERING \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
+		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: nil) { task in
 			taskHander(task)
 		}
@@ -106,17 +107,15 @@ public class ENATaskScheduler {
 		}
 
 		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
-		log(message: "# TASKSHED # \(#line), \(#function) TIME NOW IS  :\(Date(timeIntervalSinceNow: 0))")
-		log(message: "# TASKSHED # \(#line), \(#function) SCHEDULED at :\(earliestBeginDate)")
-
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
 		taskRequest.requiresExternalPower = false
 		taskRequest.earliestBeginDate = earliestBeginDate
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
+			log(message: "# TASKSHED # \(#line), \(#function) SCHEDULED \(taskIdentifier.backgroundTaskSchedulerIdentifier) at \(earliestBeginDate)")
 		} catch {
-			log(message: "# TASHSHED # Unable to schedule background task \(taskIdentifier.backgroundTaskSchedulerIdentifier): \(error)")
+			log(message: "# TASKSHED # FAILED TO SCHEDULE \(taskIdentifier.backgroundTaskSchedulerIdentifier): \(error)")
 		}
 	}
 

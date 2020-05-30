@@ -29,7 +29,6 @@ protocol CoronaWarnAppDelegate: AnyObject {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	// swiftlint:disable:next force_unwrapping
 	let taskScheduler = ENATaskScheduler()
 	private var exposureManager: ExposureManager = ENAExposureManager()
 	private var exposureDetectionTransaction: ExposureDetectionTransaction?
@@ -84,6 +83,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_: UIApplication,
 					 didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+
+		log(message: "# TASKSHED #")
+		log(message: "# TASKSHED # \(#line) \(#function)")
+		log(message: "# TASKSHED #")
+		
 		taskScheduler.taskDelegate = self
 		taskScheduler.registerBackgroundTaskRequests()
 		return true
