@@ -33,7 +33,7 @@ class ENAButton: UIButton {
 	override var isEnabled: Bool {
 		didSet {
 			if isEnabled {
-				backgroundColor = UIColor.preferredColor(for: .tintColor)
+				backgroundColor = UIColor.preferredColor(for: .tint)
 			} else {
 				backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
 			}
@@ -51,7 +51,7 @@ class ENAButton: UIButton {
 	}
 
 	private func setButtonColors() {
-		backgroundColor = UIColor.preferredColor(for: .tintColor)
+		backgroundColor = UIColor.preferredColor(for: .tint)
 		setTitleColor(UIColor.white, for: .normal)
 		setTitleColor(UIColor.systemGray, for: .disabled)
 	}

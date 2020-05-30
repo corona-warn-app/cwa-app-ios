@@ -38,7 +38,7 @@ class DynamicTypeTableViewCell: UITableViewCell {
 			textLabel?.numberOfLines = 0
 		}
 
-		backgroundColor = .preferredColor(for: .backgroundBase)
+		backgroundColor = .preferredColor(for: .backgroundPrimary)
 	}
 
 	override func awakeFromNib() {

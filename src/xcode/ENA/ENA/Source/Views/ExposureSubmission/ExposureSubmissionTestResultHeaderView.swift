@@ -39,9 +39,9 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 	// swiftlint:disable:next function_body_length
 	private func setupView(_ result: TestResult) {
 		heightAnchor.constraint(equalToConstant: 158).isActive = true
-		backgroundColor = UIColor.preferredColor(for: .backgroundContrast)
+		backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
 
-		baseView.backgroundColor = UIColor.preferredColor(for: .backgroundContrast)
+		baseView.backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
 		baseView.layer.cornerRadius = 14
 		baseView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(baseView)
@@ -121,9 +121,9 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 	private func color(for testResult: TestResult) -> UIColor {
 		switch testResult {
 		case .positive:
-			return UIColor.preferredColor(for: .positive)
+			return UIColor.preferredColor(for: .positiveRisk)
 		case .negative:
-			return UIColor.preferredColor(for: .negative)
+			return UIColor.preferredColor(for: .negativeRisk)
 		case .invalid:
 			return UIColor.preferredColor(for: .chevron)
 		default:

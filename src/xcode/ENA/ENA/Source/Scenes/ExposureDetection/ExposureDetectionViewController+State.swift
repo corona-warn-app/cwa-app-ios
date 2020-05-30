@@ -46,7 +46,7 @@ extension ExposureDetectionViewController {
 		}
 
 		var riskTintColor: UIColor {
-			isTracingEnabled ? riskLevel.tintColor : .preferredColor(for: .backgroundBase)
+			isTracingEnabled ? riskLevel.tintColor : .preferredColor(for: .backgroundPrimary)
 		}
 
 		var riskContrastColor: UIColor {
@@ -68,9 +68,9 @@ private extension RiskLevel {
 	var tintColor: UIColor {
 		switch self {
 		case .unknown: return .preferredColor(for: .unknownRisk)
-		case .inactive: return .preferredColor(for: .inactive)
-		case .low: return .preferredColor(for: .positive)
-		case .high: return .preferredColor(for: .negative)
+		case .inactive: return .preferredColor(for: .inactiveRisk)
+		case .low: return .preferredColor(for: .positiveRisk)
+		case .high: return .preferredColor(for: .negativeRisk)
 		}
 	}
 
