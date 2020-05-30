@@ -113,8 +113,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		case .invalid:
 			return AppStrings.ExposureSubmissionResult.card_invalid
 		case .pending:
-			log(message: "Invalid state.", level: .error)
-			return ""
+			return AppStrings.ExposureSubmissionResult.card_pending
 		}
 	}
 
@@ -126,9 +125,8 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 			return UIColor.preferredColor(for: .negative)
 		case .invalid:
 			return UIColor.preferredColor(for: .chevron)
-		default:
-			// Should never occur.
-			return UIColor.black
+		case .pending:
+			return UIColor.preferredColor(for: .shadow)
 		}
 	}
 
@@ -140,8 +138,8 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 			return UIImage(named: "Illu_Submission_NegativesTestErgebnis")
 		case .invalid:
 			return UIImage(named: "Illu_Submission_FehlerhaftesTestErgebnis")
-		default:
-			return nil
+		case .pending:
+			return UIImage(named: "Illu_Submission_PendingTestErgebnis")
 		}
 	}
 }

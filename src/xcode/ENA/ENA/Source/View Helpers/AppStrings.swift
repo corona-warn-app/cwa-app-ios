@@ -17,6 +17,7 @@
 
 import UIKit
 
+// swiftlint:disable:next type_body_length
 enum AppStrings {
 	enum Common {
 		static let alertTitleGeneral = NSLocalizedString("Alert_TitleGeneral", comment: "")
@@ -56,6 +57,7 @@ enum AppStrings {
 		static let card_positive = NSLocalizedString("ExposureSubmissionResult_CardPositive", comment: "")
 		static let card_negative = NSLocalizedString("ExposureSubmissionResult_CardNegative", comment: "")
 		static let card_invalid = NSLocalizedString("ExposureSubmissionResult_CardInvalid", comment: "")
+		static let card_pending = NSLocalizedString("ExposureSubmissionResult_CardPending", comment: "")
 		static let procedure = NSLocalizedString("ExposureSubmissionResult_Procedure", comment: "")
 		static let testAdded = NSLocalizedString("ExposureSubmissionResult_testAdded", comment: "")
 		static let warnOthers = NSLocalizedString("ExposureSubmissionResult_warnOthers", comment: "")
@@ -66,9 +68,12 @@ enum AppStrings {
 		static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_testNegativeDesc", comment: "")
 		static let testInvalid = NSLocalizedString("ExposureSubmissionResult_TestInvalid", comment: "")
 		static let testInvalidDesc = NSLocalizedString("ExposureSubmissionResult_TestInvalidDesc", comment: "")
+		static let testPending = NSLocalizedString("ExposureSubmissionResult_TestPending", comment: "")
+		static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_TestPendingDesc", comment: "")
 		static let warnOthersDesc = NSLocalizedString("ExposureSubmissionResult_warnOthersDesc", comment: "")
 		static let continueButton = NSLocalizedString("ExposureSubmissionResult_continueButton", comment: "")
 		static let deleteButton = NSLocalizedString("ExposureSubmissionResult_deleteButton", comment: "")
+		static let refreshButton = NSLocalizedString("ExposureSubmissionResult_refreshButton", comment: "")
 	}
 
 	enum ExposureSubmissionDispatch {

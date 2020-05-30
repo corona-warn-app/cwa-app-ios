@@ -62,8 +62,12 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 		switch result {
 		case .positive:
 			setButtonTitle(to: AppStrings.ExposureSubmissionResult.continueButton)
-		case .negative, .invalid, .pending:
+		case .negative, .invalid:
 			setButtonTitle(to: AppStrings.ExposureSubmissionResult.deleteButton)
+		case .pending:
+			setButtonTitle(to: AppStrings.ExposureSubmissionResult.refreshButton)
+			setSecondaryButtonTitle(to: AppStrings.ExposureSubmissionResult.deleteButton)
+			showSecondaryButton()
 		}
 	}
 
@@ -126,6 +130,18 @@ extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigati
 			break
 		}
 	}
+	
+	func didTapSecondButton() {
+		guard let result = testResult else { return }
+		switch result {
+		case .pending:
+			deleteTest()
+		default:
+			// Secondary button is only active for pending result state.
+			break
+		}
+
+	}
 }
 
 // MARK: - DynamicTableViewModel convenience setup methods.
@@ -147,8 +163,8 @@ private extension ExposureSubmissionTestResultViewController {
 			return negativeTestResultSection()
 		case .invalid:
 			return invalidTestResultSection()
-		default:
-			return .section(cells: [])
+		case .pending:
+			return pendingTestResultSection()
 		}
 	}
 
@@ -166,7 +182,7 @@ private extension ExposureSubmissionTestResultViewController {
 				.semibold(text: AppStrings.ExposureSubmissionResult.testPositive),
 				.regular(text: AppStrings.ExposureSubmissionResult.testPositiveDesc),
 				.semibold(text: AppStrings.ExposureSubmissionResult.warnOthers),
-				.regular(text: AppStrings.ExposureSubmissionResult.warnOthersDesc),
+				.regular(text: AppStrings.ExposureSubmissionResult.warnOthersDesc)
 			]
 		)
 	}
@@ -183,7 +199,7 @@ private extension ExposureSubmissionTestResultViewController {
 				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
 				.regular(text: AppStrings.ExposureSubmissionResult.testAddedDesc),
 				.semibold(text: AppStrings.ExposureSubmissionResult.testNegative),
-				.regular(text: AppStrings.ExposureSubmissionResult.testNegativeDesc),
+				.regular(text: AppStrings.ExposureSubmissionResult.testNegativeDesc)
 			]
 		)
 	}
@@ -200,7 +216,23 @@ private extension ExposureSubmissionTestResultViewController {
 				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
 				.regular(text: AppStrings.ExposureSubmissionResult.testAddedDesc),
 				.semibold(text: AppStrings.ExposureSubmissionResult.testInvalid),
-				.regular(text: AppStrings.ExposureSubmissionResult.testInvalidDesc),
+				.regular(text: AppStrings.ExposureSubmissionResult.testInvalidDesc)
+			]
+		)
+	}
+	
+	private func pendingTestResultSection() -> DynamicSection {
+		.section(
+			header: .identifier(ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+								configure: { view, _ in
+									(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending)
+								}),
+			cells: [
+				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
+				.regular(text: AppStrings.ExposureSubmissionResult.testAddedDesc),
+				.semibold(text: AppStrings.ExposureSubmissionResult.testPending),
+				.regular(text: AppStrings.ExposureSubmissionResult.testPendingDesc)
 			]
 		)
 	}
