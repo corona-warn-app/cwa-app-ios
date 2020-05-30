@@ -20,12 +20,17 @@ import ExposureNotification
 import UIKit
 
 public enum ENATaskIdentifier: String, CaseIterable {
-	case exposureNotification = "exposure-notification"
-	case fetchTestResults = "fetch-test-results"
-	case SIMPLETEST = "SIMPLETEST"
+	case detectExposures = "detect-exposures.exposure-notification"
+	case fetchTestResults = "fetch-test-results.exposure-notification"
+	case SIMPLETEST = "SIMPLETEST.exposure-notification"
 
 	var backgroundTaskScheduleInterval: TimeInterval {
 		switch self {
+		// set to trigger every 2 hours
+		case .detectExposures: return 2 * 60 * 60
+		// set to trigger every 30 min
+		case .fetchTestResults: return 30 * 60
+		// set to trigger every 15 min
 		case .SIMPLETEST: return 15 * 60
 		}
 	}
@@ -50,7 +55,7 @@ public class ENATaskScheduler {
 	public func registerBackgroundTaskRequests() {
 		log(message: "# TASKSHED # \(#line), \(#function) STARTED")
 		cancelAllBackgroundTaskRequests()
-		registerTask(with: .exposureNotification, taskHander: executeExposureDetectionRequest(_:))
+		registerTask(with: .detectExposures, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
 		registerTask(with: .SIMPLETEST, taskHander: executeSIMPLETEST(_:))
 		log(message: "# TASKSHED # \(#line), \(#function) COMPLETED")
@@ -59,7 +64,7 @@ public class ENATaskScheduler {
 	public func scheduleBackgroundTaskRequests() {
 		log(message: "# TASKSHED # \(#line), \(#function)")
 		BGTaskScheduler.shared.cancelAllTaskRequests()
-		scheduleBackgroundTask(for: .exposureNotification)
+		scheduleBackgroundTask(for: .detectExposures)
 		scheduleBackgroundTask(for: .fetchTestResults)
 		scheduleBackgroundTask(for: .SIMPLETEST)
 	}
@@ -95,7 +100,7 @@ public class ENATaskScheduler {
 	public func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
 		log(message: "# TASKSHED # \(#line), \(#function) SCHEDULING \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
 
-		if taskIdentifier == .exposureNotification, manager.preconditions().isGood == false || UIApplication.shared.backgroundRefreshStatus != .available {
+		if taskIdentifier == .detectExposures, manager.preconditions().isGood == false || UIApplication.shared.backgroundRefreshStatus != .available {
 			log(message: "# TASKSHED # \(#line), \(#function) UNABLE TO SCHEDULE \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
 			return
 		}
@@ -134,7 +139,7 @@ public class ENATaskScheduler {
 			return
 		}
 		taskDelegate.executeFetchTestResults(task: task)
-		}
+	}
 
 	private func executeSIMPLETEST(_ task: BGTask) {
 		let scheduler: ENATaskScheduler? = self

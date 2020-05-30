@@ -167,7 +167,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 			// reschedule background task again
 			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
-            self.taskScheduler.scheduleBackgroundTask(for: .exposureNotification)
+			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
         }
         
         task.expirationHandler = {
@@ -180,7 +180,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 			// reschedule background task again
 			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
-			self.taskScheduler.scheduleBackgroundTask(for: .exposureNotification)
+			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
         }
     }
 
@@ -249,6 +249,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
             self.taskScheduler.scheduleBackgroundTask(for: .SIMPLETEST)
 		}
+		
         task.expirationHandler = {
 			// handle background task expiration
             log(message: "# TASKSHED # \(#line) \(#function) EXPIRED \(task.identifier)")
