@@ -24,16 +24,16 @@ final class ENASwitch: UISwitch {
 		super.init(frame: frame)
 		customizeSwitch()
 	}
-
+	
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		customizeSwitch()
 	}
-
+	
 	private func customizeSwitch() {
 		onTintColor = UIColor.preferredColor(for: .tint)
 	}
-
+	
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
 		customizeSwitch()

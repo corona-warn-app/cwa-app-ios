@@ -24,17 +24,17 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var actionTitleLabel: UILabel!
 	@IBOutlet var descriptionTextView: UITextView!
 	@IBOutlet var actionButton: ENAButton!
-
+	
 	@IBAction func actionButtonTapped(_: Any) {
 		guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
 			return
 		}
-
+		
 		if UIApplication.shared.canOpenURL(settingsUrl) {
 			UIApplication.shared.open(settingsUrl, completionHandler: nil)
 		}
 	}
-
+	
 	override func awakeFromNib() {
 		actionButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
 		actionButton.titleLabel?.adjustsFontForContentSizeCategory = true
@@ -42,12 +42,12 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		actionButton.layer.masksToBounds = true
 		actionButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
 	}
-
+	
 	func configure(for state: RiskDetectionState) {
 		iconImageView1.image = images(for: state).0
 		iconImageView2.image = images(for: state).1
 		actionButton.setTitle(AppStrings.ExposureNotificationSetting.detailActionButtonTitle, for: .normal)
-
+		
 		switch state {
 		case .enabled, .disabled:
 			return
@@ -61,7 +61,7 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 			iconImageView2.isHidden = false
 		}
 	}
-
+	
 	private func images(for state: RiskDetectionState) -> (UIImage?, UIImage?) {
 		switch state {
 		case .enabled, .disabled:

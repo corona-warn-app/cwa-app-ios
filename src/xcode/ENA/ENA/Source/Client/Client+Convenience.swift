@@ -25,19 +25,19 @@ extension Client {
 	typealias DaysAndHours = (days: [String], hours: [Int])
 	typealias DaysAndHoursResult = Result<DaysAndHours, DaysAndHoursError>
 	typealias DaysAndHoursCompletion = (DaysAndHoursResult) -> Void
-
+	
 	func availableDaysAndHoursUpUntil(
 		_ today: String,
 		completion: @escaping DaysAndHoursCompletion
 	) {
 		let group = DispatchGroup()
-
+		
 		group.enter()
-
+		
 		var days = [String]()
 		var hours = [Int]()
 		var errors = [Error]()
-
+		
 		availableDays { result in
 			switch result {
 			case let .success(remoteDays):
@@ -47,7 +47,7 @@ extension Client {
 			}
 			group.leave()
 		}
-
+		
 		group.enter()
 		availableHours(day: today) { result in
 			switch result {
@@ -58,7 +58,7 @@ extension Client {
 			}
 			group.leave()
 		}
-
+		
 		group.notify(queue: .main) {
 			guard errors.isEmpty else {
 				completion(.failure(DaysAndHoursError(errors: errors)))
@@ -67,7 +67,7 @@ extension Client {
 			completion(.success((days: days, hours: hours)))
 		}
 	}
-
+	
 	typealias FetchCompletion = (FetchedDaysAndHours) -> Void
 	func fetch(completion: @escaping FetchCompletion) {
 		availableDaysAndHoursUpUntil(.formattedToday()) { result in

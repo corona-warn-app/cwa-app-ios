@@ -37,7 +37,7 @@ extension OnboardingInfo {
 			actionText: AppStrings.Onboarding.onboardingLetsGo,
 			ignoreText: ""
 		)
-
+		
 		let info2 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_privacyPage_title,
 			imageName: "onboarding_2",
@@ -46,7 +46,7 @@ extension OnboardingInfo {
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: ""
 		)
-
+		
 		let info3 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_title,
 			imageName: "onboarding_3",
@@ -55,7 +55,7 @@ extension OnboardingInfo {
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate
 		)
-
+		
 		let info4 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title,
 			imageName: "onboarding_4",
@@ -64,7 +64,7 @@ extension OnboardingInfo {
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: ""
 		)
-
+		
 		let info5 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_title,
 			imageName: "onboarding_5",
@@ -73,7 +73,7 @@ extension OnboardingInfo {
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate
 		)
-
+		
 		return [info1, info2, info3, info4, info5]
 	}
 }

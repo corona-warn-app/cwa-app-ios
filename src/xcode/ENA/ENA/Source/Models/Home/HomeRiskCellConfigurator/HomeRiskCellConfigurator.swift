@@ -20,31 +20,31 @@ import UIKit
 
 final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
 	// MARK: Properties
-
+	
 	var contactAction: (() -> Void)?
-
+	
 	private var lastUpdateDate: Date?
 	var riskLevel: RiskLevel
 	private var numberRiskContacts: Int
 	private var daysSinceLastExposure: Int?
 	private var isLoading: Bool
-
+	
 	private static let dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .medium
 		return dateFormatter
 	}()
-
+	
 	func startLoading() {
 		isLoading = true
 	}
-
+	
 	func stopLoading() {
 		isLoading = false
 	}
-
+	
 	// MARK: Creating a Home Risk Cell Configurator
-
+	
 	init(
 		riskLevel: RiskLevel,
 		lastUpdateDate: Date?,
@@ -58,15 +58,15 @@ final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
 		self.daysSinceLastExposure = daysSinceLastExposure
 		self.isLoading = isLoading
 	}
-
+	
 	// MARK: Configuration
-
+	
 	func configure(cell: RiskCollectionViewCell) {
 		var dateString: String?
 		if let date = lastUpdateDate {
 			dateString = HomeRiskCellConfigurator.dateFormatter.string(from: date)
 		}
-
+		
 		let holder = HomeRiskCellPropertyHolder.propertyHolder(
 			riskLevel: riskLevel,
 			lastUpdateDateString: dateString,

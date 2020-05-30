@@ -19,49 +19,49 @@ import UIKit
 
 class ExposureSubmissionIntroViewController: DynamicTableViewController, ExposureSubmissionNavigationControllerChild {
 	// MARK: - View lifecycle methods.
-
+	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
+		
 		DispatchQueue.main.async { [weak self] in
 			self?.navigationController?.navigationBar.sizeToFit()
 		}
-
+		
 		// The button is shared among multiple controllers,
 		// make sure to reset it whenever the view appears.
 		setButtonTitle(to: "Weiter")
 	}
-
+	
 	override func viewWillDisappear(_: Bool) {
 		setButtonTitle(to: "")
 	}
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
 	}
-
+	
 	// MARK: - Setup helpers.
-
+	
 	private func setupView() {
 		setupTitle()
 		setupTableView()
 	}
-
+	
 	private func setupTitle() {
 		title = AppStrings.ExposureSubmissionIntroduction.title
 		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
-
+	
 	private func setupTableView() {
 		tableView.dataSource = self
 		tableView.delegate = self
 		dynamicTableViewModel = .intro
 	}
-
+	
 	// MARK: - ExposureSubmissionNavigationControllerChild methods.
-
+	
 	func didTapBottomButton() {
 		performSegue(withIdentifier: Segue.overview, sender: self)
 	}
@@ -74,16 +74,16 @@ private extension DynamicTableViewModel {
 			separators: false,
 			cells: [
 				.bold(text: AppStrings.ExposureSubmissionIntroduction.usage01),
-				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage02),
+				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage02)
 			]
 		),
 		.section(
 			header: .image(UIImage(named: "Illu_Submission_Funktion2"), height: 180),
 			separators: false,
 			cells: [
-				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage03),
+				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage03)
 			]
-		),
+		)
 	])
 }
 

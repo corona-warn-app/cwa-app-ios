@@ -20,17 +20,17 @@ import UIKit
 
 class DynamicTableViewHeaderFooterView: UITableViewHeaderFooterView {
 	private let tapGestureRecognizer = DynamicTableHeaderFooterViewTapGestureRecognizer()
-
+	
 	var block: (() -> Void)? {
 		set { tapGestureRecognizer.block = newValue }
 		get { tapGestureRecognizer.block }
 	}
-
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		gestureRecognizers = [tapGestureRecognizer]
 	}
-
+	
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		tapGestureRecognizer.block = nil
@@ -39,12 +39,12 @@ class DynamicTableViewHeaderFooterView: UITableViewHeaderFooterView {
 
 private class DynamicTableHeaderFooterViewTapGestureRecognizer: UITapGestureRecognizer {
 	var block: (() -> Void)?
-
+	
 	init() {
 		super.init(target: nil, action: nil)
 		addTarget(self, action: #selector(didTap))
 	}
-
+	
 	@objc
 	private func didTap() {
 		block?()

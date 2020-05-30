@@ -19,17 +19,17 @@ import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 	private var state: RiskDetectionState
-
+	
 	init(state: RiskDetectionState) {
 		self.state = state
 	}
-
+	
 	// MARK: Configuring a Cell
-
+	
 	func configure(cell: ActivateCollectionViewCell) {
 		var iconImage: UIImage?
 		cell.iconImageView.image?.withRenderingMode(.alwaysTemplate)
-
+		
 		switch state {
 		case .enabled:
 			iconImage = UIImage(named: "Icons_Risikoermittlung")
@@ -48,19 +48,19 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negativeRisk)
 			cell.titleTextView.text = AppStrings.Home.activateCardInternetOffTitle
 		}
-
+		
 		cell.iconImageView.image = iconImage
-
+		
 		let chevronImage = UIImage(systemName: "chevron.right.circle.fill")
 		cell.chevronImageView.image = chevronImage
-
+		
 		setupAccessibility(for: cell)
 	}
-
+	
 	func set(newState: RiskDetectionState) {
 		state = newState
 	}
-
+	
 	func setupAccessibility(for cell: ActivateCollectionViewCell) {
 		cell.isAccessibilityElement = true
 		cell.accessibilityIdentifier = Accessibility.StaticText.homeActivateTitle

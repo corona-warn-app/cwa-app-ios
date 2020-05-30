@@ -20,29 +20,29 @@ import UIKit
 
 final class ExposureSubmissionSuccessViewController: DynamicTableViewController {
 	// MARK: UIViewController
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTitle()
 		setUpView()
 		setButtonTitle(to: AppStrings.ExposureSubmissionSuccess.button)
 	}
-
+	
 	private func setUpView() {
 		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 		dynamicTableViewModel = .data
 	}
-
+	
 	private func setupTitle() {
 		title = AppStrings.ExposureSubmissionSuccess.title
 		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
-
+	
 	func didTapBottomButton() {
 		dismiss(animated: true, completion: nil)
 	}
-
+	
 	@IBAction func unwindToExposureSubmissionIntro(_: UIStoryboardSegue) {}
 }
 
@@ -83,9 +83,9 @@ private extension DynamicTableViewModel {
 							iconTintColor: .preferredColor(for: .positiveRisk)
 						)
 					}
-				),
+				)
 			]
-		),
+		)
 	])
 }
 

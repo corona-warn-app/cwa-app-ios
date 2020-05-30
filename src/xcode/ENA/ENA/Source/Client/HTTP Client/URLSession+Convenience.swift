@@ -19,19 +19,19 @@ import Foundation
 
 extension URLSession {
 	typealias Completion = Response.Completion
-
+	
 	// This method executes HTTP GET requests.
 	func GET(_ url: URL, completion: @escaping Completion) {
 		response(for: URLRequest(url: url), completion: completion)
 	}
-
+	
 	// This method executes HTTP POST requests.
 	func POST(_ url: URL, completion: @escaping Completion) {
 		var request = URLRequest(url: url)
 		request.httpMethod = "POST"
 		response(for: request, completion: completion)
 	}
-
+	
 	// This method executes HTTP POST with HTTP BODY requests.
 	func POST(_ url: URL, _ body: Data, completion: @escaping Completion) {
 		var request = URLRequest(url: url)
@@ -40,7 +40,7 @@ extension URLSession {
 		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 		response(for: request, completion: completion)
 	}
-
+	
 	// This method executes HTTP requests.
 	// It does some additional checks - purely for convenience:
 	// - if there is an error it aborts
@@ -75,16 +75,16 @@ extension URLSession {
 	/// Represents a response produced by the convenience extensions on `URLSession`.
 	struct Response {
 		// MARK: Properties
-
+		
 		let body: Data?
 		let statusCode: Int
-
+		
 		// MARK: Working with a Response
-
+		
 		var hasAcceptableStatusCode: Bool {
 			type(of: self).acceptableStatusCodes.contains(statusCode)
 		}
-
+		
 		private static let acceptableStatusCodes = (200 ... 299)
 	}
 }
@@ -99,6 +99,6 @@ extension URLSession.Response {
 		case invalidResponse
 		case serverError(Int)
 	}
-
+	
 	typealias Completion = (Result<URLSession.Response, Failure>) -> Void
 }

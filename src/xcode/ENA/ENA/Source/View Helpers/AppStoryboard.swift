@@ -28,11 +28,11 @@ enum AppStoryboard: String {
 	case exposureDetection = "ExposureDetection"
 	case appInformation = "AppInformation"
 	case riskLegend = "RiskLegend"
-
+	
 	var instance: UIStoryboard {
 		UIStoryboard(name: rawValue, bundle: nil)
 	}
-
+	
 	func initiate<T: UIViewController>(viewControllerType: T.Type, creator: ((NSCoder) -> UIViewController?)? = nil) -> T {
 		let storyboard = UIStoryboard(name: rawValue, bundle: nil)
 		let viewControllerIdentifier = viewControllerType.stringName()
@@ -43,7 +43,7 @@ enum AppStoryboard: String {
 		}
 		return vc
 	}
-
+	
 	func initiateInitial<T: UIViewController>(creator: ((NSCoder) -> UIViewController?)? = nil) -> T {
 		let storyboard = UIStoryboard(name: rawValue, bundle: nil)
 		guard let vc = storyboard.instantiateInitialViewController(creator: creator) as? T else {

@@ -24,17 +24,19 @@ extension UIView {
 			view.translatesAutoresizingMaskIntoConstraints = false
 		}
 	}
-
+	
 	/// Adds the specified subviews to self.
 	func addSubviews(_ views: [UIView]) {
 		views.forEach { subView in
 			self.addSubview(subView)
 		}
 	}
-
+	
 	/// Convenience constraint setting for width and height layout constraints.
-	func setConstraint(for anchor: NSLayoutDimension,
-					   equalTo constant: CGFloat) {
+	func setConstraint(
+		for anchor: NSLayoutDimension,
+		equalTo constant: CGFloat
+	) {
 		anchor.constraint(equalToConstant: constant).isActive = true
 	}
 }

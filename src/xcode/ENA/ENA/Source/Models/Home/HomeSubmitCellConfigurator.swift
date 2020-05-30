@@ -19,7 +19,7 @@ import UIKit
 
 class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
 	var submitAction: (() -> Void)?
-
+	
 	func configure(cell: SubmitCollectionViewCell) {
 		cell.delegate = self
 		cell.iconImageView.image = UIImage(named: "Hand_with_phone")

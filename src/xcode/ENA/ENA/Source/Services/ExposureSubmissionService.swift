@@ -35,12 +35,16 @@ protocol ExposureSubmissionService {
 	typealias RegistrationHandler = (Result<String, ExposureSubmissionError>) -> Void
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
-
+	
 	func submitExposure(with: String, completionHandler: @escaping ExposureSubmissionHandler)
-	func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey,
-							  completion completeWith: @escaping RegistrationHandler)
-	func getTANForExposureSubmit(hasConsent: Bool,
-								 completion completeWith: @escaping TANHandler)
+	func getRegistrationToken(
+		forKey deviceRegistrationKey: DeviceRegistrationKey,
+		completion completeWith: @escaping RegistrationHandler
+	)
+	func getTANForExposureSubmit(
+		hasConsent: Bool,
+		completion completeWith: @escaping TANHandler
+	)
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
 	func hasRegistrationToken() -> Bool
 	func deleteTest()
@@ -50,30 +54,30 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	let manager: ExposureManager
 	let client: Client
 	let store: Store
-
+	
 	init(manager: ExposureManager, client: Client, store: Store) {
 		self.manager = manager
 		self.client = client
 		self.store = store
 	}
-
+	
 	func hasRegistrationToken() -> Bool {
 		guard let token = store.registrationToken, !token.isEmpty else {
 			return false
 		}
 		return true
 	}
-
+	
 	func deleteTest() {
 		store.registrationToken = nil
 	}
-
+	
 	func getTestResult(_ completeWith: @escaping TestResultHandler) {
 		guard let registrationToken = store.registrationToken else {
 			completeWith(.failure(.noRegistrationToken))
 			return
 		}
-
+		
 		client.getTestResult(forDevice: registrationToken) { result in
 			switch result {
 			case let .failure(error):
@@ -83,15 +87,17 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					completeWith(.failure(.other("Failed to parse TestResult")))
 					return
 				}
-
+				
 				completeWith(.success(testResult))
 			}
 		}
 	}
-
+	
 	/// Stores the provided key, retrieves the registration token and deletes the key.
-	func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey,
-							  completion completeWith: @escaping RegistrationHandler) {
+	func getRegistrationToken(
+		forKey deviceRegistrationKey: DeviceRegistrationKey,
+		completion completeWith: @escaping RegistrationHandler
+	) {
 		store(key: deviceRegistrationKey)
 		let (key, type) = getKeyAndType(for: deviceRegistrationKey)
 		client.getRegistrationToken(forKey: key, withType: type) { result in
@@ -105,22 +111,24 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 		}
 	}
-
-	func getTANForExposureSubmit(hasConsent: Bool,
-								 completion completeWith: @escaping TANHandler) {
+	
+	func getTANForExposureSubmit(
+		hasConsent: Bool,
+		completion completeWith: @escaping TANHandler
+	) {
 		// alert+ store consent+ clientrequest
 		store.devicePairingConsentAccept = hasConsent
-
+		
 		if !store.devicePairingConsentAccept {
 			completeWith(.failure(.noConsent))
 			return
 		}
-
+		
 		guard let token = store.registrationToken else {
 			completeWith(.failure(.noRegistrationToken))
 			return
 		}
-
+		
 		client.getTANForExposureSubmit(forDevice: token) { result in
 			switch result {
 			case let .failure(error):
@@ -131,7 +139,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 		}
 	}
-
+	
 	private func getKeyAndType(for key: DeviceRegistrationKey) -> (String, String) {
 		switch key {
 		case let .guid(guid):
@@ -142,7 +150,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			return (teleTan, "TELETAN")
 		}
 	}
-
+	
 	private func store(key: DeviceRegistrationKey) {
 		switch key {
 		case let .guid(testGUID):
@@ -151,7 +159,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			store.teleTan = teleTan
 		}
 	}
-
+	
 	private func delete(key: DeviceRegistrationKey) {
 		switch key {
 		case .guid:
@@ -160,22 +168,22 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			store.teleTan = nil
 		}
 	}
-
+	
 	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
 		log(message: "Started exposure submission...")
-
+		
 		manager.accessDiagnosisKeys { keys, error in
 			if let error = error {
 				logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
 				completionHandler(self.parseError(error))
 				return
 			}
-
+			
 			guard let keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
 				return
 			}
-
+			
 			self.client.submit(keys: keys, tan: tan) { error in
 				if let error = error {
 					logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
@@ -188,7 +196,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 		}
 	}
-
+	
 	// This method removes all left over persisted objects part of the
 	// `submitExposure` flow. Removes the guid, registrationToken,
 	// and isAllowedToSubmitDiagnosisKeys.
@@ -200,7 +208,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 	}
-
+	
 	/// This method attempts to parse all different types of incoming errors, regardless
 	/// whether internal or external, and transform them to an `ExposureSubmissionError`
 	/// used for interpretation in the frontend.
@@ -212,14 +220,14 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .enNotEnabled
 			}
 		}
-
+		
 		if let exposureNotificationError = error as? ExposureNotificationError {
 			switch exposureNotificationError {
 			case .exposureNotificationRequired, .exposureNotificationAuthorization, .exposureNotificationUnavailable:
 				return .enNotEnabled
 			}
 		}
-
+		
 		if let submissionError = error as? SubmissionError {
 			switch submissionError {
 			case .invalidTan:
@@ -230,7 +238,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .other(submissionError.localizedDescription)
 			}
 		}
-
+		
 		if let urlFailure = error as? URLSession.Response.Failure {
 			switch urlFailure {
 			case let .httpError(wrapped):
@@ -243,7 +251,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .serverError(code)
 			}
 		}
-
+		
 		return .unknown
 	}
 }

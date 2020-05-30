@@ -19,16 +19,15 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
-	
 	// MARK: Attributes.
 	
 	private var titleLabel: UILabel!
 	private var subTitleLabel: UILabel!
 	private var timeLabel: UILabel!
-
+	
 	private var imageView: UIImageView!
 	private var barView: UIView!
-
+	
 	private var column = UIView()
 	private var baseView = UIView()
 	
@@ -41,7 +40,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 	}
 	
 	// MARK: - DynamicTableViewHeaderFooterView methods.
-
+	
 	func configure(testResult: TestResult) {
 		setupView(testResult)
 		subTitleLabel.text = AppStrings.ExposureSubmissionResult.card_subtitle
@@ -50,22 +49,22 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 	}
 	
 	// MARK: Configuration helpers.
-
+	
 	// swiftlint:disable:next function_body_length
 	private func setupView(_ result: TestResult) {
 		heightAnchor.constraint(equalToConstant: 158).isActive = true
 		backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
-
+		
 		baseView.backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
 		baseView.layer.cornerRadius = 14
 		baseView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(baseView)
-
+		
 		baseView.widthAnchor.constraint(equalTo: widthAnchor, constant: -32).isActive = true
 		baseView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
 		baseView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 		baseView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-
+		
 		barView = UIView()
 		barView.layer.cornerRadius = 2
 		barView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +73,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		barView.heightAnchor.constraint(equalToConstant: 120).isActive = true
 		barView.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
 		barView.leftAnchor.constraint(equalTo: baseView.leftAnchor, constant: 14).isActive = true
-
+		
 		column = UIView()
 		column.translatesAutoresizingMaskIntoConstraints = false
 		baseView.addSubview(column)
@@ -82,7 +81,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		column.widthAnchor.constraint(equalToConstant: 160).isActive = true
 		column.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
 		column.leftAnchor.constraint(equalTo: barView.rightAnchor, constant: 25).isActive = true
-
+		
 		subTitleLabel = UILabel()
 		subTitleLabel.text = "subTitle"
 		subTitleLabel.font = UIFont.systemFont(ofSize: 13)
@@ -90,7 +89,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		column.addSubview(subTitleLabel)
 		subTitleLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
 		subTitleLabel.topAnchor.constraint(equalTo: barView.topAnchor).isActive = true
-
+		
 		titleLabel = UILabel()
 		titleLabel.text = "title"
 		titleLabel.numberOfLines = 0
@@ -100,7 +99,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		titleLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
 		titleLabel.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 5).isActive = true
 		titleLabel.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
-
+		
 		timeLabel = UILabel()
 		timeLabel.text = "Registriert am xx.xx.2020"
 		timeLabel.font = UIFont.systemFont(ofSize: 13)
@@ -108,7 +107,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		column.addSubview(timeLabel)
 		timeLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
 		timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
-
+		
 		imageView = UIImageView(image: image(for: result))
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		baseView.addSubview(imageView)
@@ -118,7 +117,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		imageView.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
 		imageView.rightAnchor.constraint(equalTo: baseView.rightAnchor, constant: -20).isActive = true
 	}
-
+	
 	private func localizedString(for testResult: TestResult) -> String {
 		switch testResult {
 		case .positive:
@@ -131,7 +130,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 			return AppStrings.ExposureSubmissionResult.card_pending
 		}
 	}
-
+	
 	private func color(for testResult: TestResult) -> UIColor {
 		switch testResult {
 		case .positive:
@@ -144,7 +143,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 			return UIColor.preferredColor(for: .shadow)
 		}
 	}
-
+	
 	private func image(for result: TestResult) -> UIImage? {
 		switch result {
 		case .positive:
