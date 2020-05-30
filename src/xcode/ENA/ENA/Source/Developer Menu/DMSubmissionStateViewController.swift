@@ -104,7 +104,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 				"""
 				# of local keys found remotly: \(localKeysFoundRemotly.count)
 				found at least one key: \(foundOwnKey)
-				foudn all keys: \(allLocalKeysFoundRemotly)
+				found all keys: \(allLocalKeysFoundRemotly)
 				""", preferredStyle: .actionSheet)
 			self.present(resultAlert, animated: true, completion: nil)
 		}
