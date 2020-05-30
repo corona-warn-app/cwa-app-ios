@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="#development">Development</a> •
-  <a href="#architecture--documentation">Documenation</a> •
+  <a href="#architecture--documentation">Documentation</a> •
   <a href="#how-to-contribute">Contribute</a> •
   <a href="#support--feedback">Support</a> •
   <a href="https://github.com/corona-warn-app/cwa-app-ios/releases">Changelog</a> •
@@ -37,7 +37,7 @@ cd src/xcode && fastlane build
 cd src/xcode && fastlane test
 ```
 
-Find all available lanes: [Fastfile documenation](src/xcode/fastlane/README.md)
+Find all available lanes: [Fastfile documentation](src/xcode/fastlane/README.md)
 
 ### Run
 
