@@ -47,7 +47,7 @@ class LocalNotificationManager {
 
 		notificationCenter.add(request) { error in
 			if let error = error {
-				logError(message: error.localizedDescription)
+				appLogger.error(message: error.localizedDescription)
 			}
 		}
 

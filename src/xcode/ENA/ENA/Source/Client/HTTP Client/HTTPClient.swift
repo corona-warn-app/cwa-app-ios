@@ -38,7 +38,7 @@ final class HTTPClient: Client {
 	func exposureConfiguration(
 		completion: @escaping ExposureConfigurationCompletionHandler
 	) {
-		log(message: "Fetching exposureConfiguation from: \(configuration.configurationURL)")
+		appLogger.info(message: "Fetching exposureConfiguation from: \(configuration.configurationURL)")
 		session.GET(configuration.configurationURL) { result in
 
 			switch result {
@@ -53,7 +53,7 @@ final class HTTPClient: Client {
 				}
 
 				guard let package = SAPDownloadedPackage(compressedData: data) else {
-					logError(message: "Failed to create signed package.")
+					appLogger.error(message: "Failed to create signed package.")
 					completion(nil)
 					return
 				}
@@ -61,7 +61,7 @@ final class HTTPClient: Client {
 				do {
 					completion(try ENExposureConfiguration(from: package.bin))
 				} catch {
-					logError(message: "Failed to get exposure configuration: \(error)")
+					appLogger.error(message: "Failed to get exposure configuration: \(error)")
 					completion(nil)
 				}
 			case .failure:
@@ -189,7 +189,7 @@ final class HTTPClient: Client {
 					}
 					guard let testResultResponseData = response.body else {
 						completeWith(.failure(.invalidResponse))
-						logError(message: "Failed to register Device with invalid response")
+						appLogger.error(message: "Failed to register Device with invalid response")
 						return
 					}
 					do {
@@ -199,18 +199,18 @@ final class HTTPClient: Client {
 							from: testResultResponseData
 						)
 						guard let testResult = responseDictionary["testResult"] else {
-							logError(message: "Failed to register Device with invalid response payload structure")
+							appLogger.error(message: "Failed to register Device with invalid response payload structure")
 							completeWith(.failure(.invalidResponse))
 							return
 						}
 						completeWith(.success(testResult))
 					} catch {
-						logError(message: "Failed to register Device with invalid response payload structure")
+						appLogger.error(message: "Failed to register Device with invalid response payload structure")
 						completeWith(.failure(.invalidResponse))
 					}
 				case let .failure(error):
 					completeWith(.failure(error))
-					logError(message: "Failed to registerDevices due to error: \(error).")
+					appLogger.error(message: "Failed to registerDevices due to error: \(error).")
 				}
 			}
 		} catch {
@@ -238,8 +238,8 @@ final class HTTPClient: Client {
 					}
 					guard let tanResponseData = response.body else {
 						completeWith(.failure(.invalidResponse))
-						logError(message: "Failed to get TAN")
-						logError(message: String(response.statusCode))
+						appLogger.error(message: "Failed to get TAN")
+						appLogger.error(message: String(response.statusCode))
 						return
 					}
 					do {
@@ -249,18 +249,18 @@ final class HTTPClient: Client {
 							from: tanResponseData
 						)
 						guard let tan = responseDictionary["tan"] else {
-							logError(message: "Failed to get TAN because of invalid response payload structure")
+							appLogger.error(message: "Failed to get TAN because of invalid response payload structure")
 							completeWith(.failure(.invalidResponse))
 							return
 						}
 						completeWith(.success(tan))
 					} catch _ {
-						logError(message: "Failed to get TAN because of invalid response payload structure")
+						appLogger.error(message: "Failed to get TAN because of invalid response payload structure")
 						completeWith(.failure(.invalidResponse))
 					}
 				case let .failure(error):
 					completeWith(.failure(error))
-					logError(message: "Failed to get TAN due to error: \(error).")
+					appLogger.error(message: "Failed to get TAN due to error: \(error).")
 				}
 			}
 		} catch {
@@ -288,7 +288,7 @@ final class HTTPClient: Client {
 					}
 					guard let registerResponseData = response.body else {
 						completeWith(.failure(.invalidResponse))
-						logError(message: "Failed to register Device with invalid response")
+						appLogger.error(message: "Failed to register Device with invalid response")
 						return
 					}
 					do {
@@ -298,18 +298,18 @@ final class HTTPClient: Client {
 							from: registerResponseData
 						)
 						guard let registrationToken = responseDictionary["registrationToken"] else {
-							logError(message: "Failed to register Device with invalid response payload structure")
+							appLogger.error(message: "Failed to register Device with invalid response payload structure")
 							completeWith(.failure(.invalidResponse))
 							return
 						}
 						completeWith(.success(registrationToken))
 					} catch _ {
-						logError(message: "Failed to register Device with invalid response payload structure")
+						appLogger.error(message: "Failed to register Device with invalid response payload structure")
 						completeWith(.failure(.invalidResponse))
 					}
 				case let .failure(error):
 					completeWith(.failure(error))
-					logError(message: "Failed to registerDevices due to error: \(error).")
+					appLogger.error(message: "Failed to registerDevices due to error: \(error).")
 				}
 			}
 		} catch {
@@ -329,18 +329,18 @@ final class HTTPClient: Client {
 			case let .success(response):
 				guard let dayData = response.body else {
 					completeWith(.failure(.invalidResponse))
-					logError(message: "Failed to download day '\(day)': invalid response")
+					appLogger.error(message: "Failed to download day '\(day)': invalid response")
 					return
 				}
 				guard let package = SAPDownloadedPackage(compressedData: dayData) else {
-					logError(message: "Failed to create signed package.")
+					appLogger.error(message: "Failed to create signed package.")
 					completeWith(.failure(.invalidResponse))
 					return
 				}
 				completeWith(.success(package))
 			case let .failure(error):
 				completeWith(.failure(error))
-				logError(message: "Failed to download day '\(day)' due to error: \(error).")
+				appLogger.error(message: "Failed to download day '\(day)' due to error: \(error).")
 			}
 		}
 	}
@@ -358,16 +358,16 @@ final class HTTPClient: Client {
 					completeWith(.failure(.invalidResponse))
 					return
 				}
-				log(message: "got hour: \(hourData.count)")
+				appLogger.info(message: "got hour: \(hourData.count)")
 				guard let package = SAPDownloadedPackage(compressedData: hourData) else {
-					logError(message: "Failed to create signed package.")
+					appLogger.error(message: "Failed to create signed package.")
 					completeWith(.failure(.invalidResponse))
 					return
 				}
 				completeWith(.success(package))
 			case let .failure(error):
 				completeWith(.failure(error))
-				logError(message: "failed to get day: \(error)")
+				appLogger.error(message: "failed to get day: \(error)")
 			}
 		}
 	}

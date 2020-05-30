@@ -113,7 +113,7 @@ extension AppDelegate: ExposureDetectionTransactionDelegate {
 
 	func exposureDetectionTransaction(_: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
 		// TODO: show error to user
-		logError(message: "Exposure transaction failed: \(reason)")
+		appLogger.error(message: "Exposure transaction failed: \(reason)")
 		exposureDetectionTransaction = nil
 	}
 

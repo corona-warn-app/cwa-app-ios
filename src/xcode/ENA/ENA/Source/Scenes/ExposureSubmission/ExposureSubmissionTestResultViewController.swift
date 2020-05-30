@@ -79,7 +79,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	private func setupDynamicTableView() {
 		guard let result = testResult else {
-			logError(message: "No test result.", level: .error)
+			appLogger.error(message: "No test result.")
 			return
 		}
 

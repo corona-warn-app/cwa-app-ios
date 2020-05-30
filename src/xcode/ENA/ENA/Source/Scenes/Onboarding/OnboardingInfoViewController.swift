@@ -158,12 +158,12 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func persistTimestamp(completion: (() -> Void)?) {
 		if let acceptedDate = store.dateOfAcceptedPrivacyNotice {
-			log(message: "User has already accepted the privacy terms on \(acceptedDate)", level: .warning)
+			appLogger.warning(message: "User has already accepted the privacy terms on \(acceptedDate)")
 			completion?()
 			return
 		}
 		store.dateOfAcceptedPrivacyNotice = Date()
-		log(message: "Persist that user acccepted the privacy terms on \(Date())", level: .info)
+		appLogger.info(message: "Persist that user acccepted the privacy terms on \(Date())")
 		completion?()
 	}
 
@@ -179,11 +179,11 @@ final class OnboardingInfoViewController: UIViewController {
 			if let error = error {
 				switch error {
 				case .exposureNotificationRequired:
-					log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+					appLogger.warning(message: "Encourage the user to consider enabling Exposure Notifications.")
 				case .exposureNotificationAuthorization:
-					log(message: "Encourage the user to authorize this application", level: .warning)
+					appLogger.warning(message: "Encourage the user to authorize this application")
 				case .exposureNotificationUnavailable:
-					log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+					appLogger.warning(message: "Tell the user that Exposure Notifications is currently not available.")
 				}
 				self.showError(error, from: self, completion: completion)
 				completion?()
@@ -192,11 +192,11 @@ final class OnboardingInfoViewController: UIViewController {
 					if let enableError = enableError {
 						switch enableError {
 						case .exposureNotificationRequired:
-							log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+							appLogger.warning(message: "Encourage the user to consider enabling Exposure Notifications.")
 						case .exposureNotificationAuthorization:
-							log(message: "Encourage the user to authorize this application", level: .warning)
+							appLogger.warning(message: "Encourage the user to authorize this application")
 						case .exposureNotificationUnavailable:
-							log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+							appLogger.warning(message: "Tell the user that Exposure Notifications is currently not available.")
 						}
 					}
 					self.taskScheduler.scheduleBackgroundTaskRequests()
@@ -216,7 +216,7 @@ final class OnboardingInfoViewController: UIViewController {
 		notificationCenter.requestAuthorization(options: options) { _, error in
 			if let error = error {
 				// handle error
-				log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
+				appLogger.error(message: "Notification authorization request error: \(error.localizedDescription)")
 			}
 			DispatchQueue.main.async {
 				completion?()

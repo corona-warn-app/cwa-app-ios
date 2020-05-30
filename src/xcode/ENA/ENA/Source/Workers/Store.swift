@@ -79,7 +79,7 @@ final class DevelopmentStore: Store {
 		UserDefaults.standard.removeObject(forKey: "devicePairingSuccessfulTimestamp")
 		UserDefaults.standard.removeObject(forKey: "isAllowedToSubmitDiagnosisKeys")
 		UserDefaults.standard.removeObject(forKey: "registrationToken")
-		log(message: "Flushed DevelopmentStore", level: .info)
+		appLogger.info(message: "Flushed DevelopmentStore")
 	}
 
 	/// Manually remove all keys that are saved through the `Store` protocol.
@@ -99,7 +99,7 @@ final class DevelopmentStore: Store {
 		UserDefaults.standard.removeObject(forKey: "devicePairingSuccessfulTimestamp")
 		UserDefaults.standard.removeObject(forKey: "isAllowedToSubmitDiagnosisKeys")
 		UserDefaults.standard.removeObject(forKey: "registrationToken")
-		log(message: "Flushed DevelopmentStore", level: .info)
+		appLogger.info(message: "Flushed DevelopmentStore")
 	}
 
 	// TODO: Implement handlers for these.

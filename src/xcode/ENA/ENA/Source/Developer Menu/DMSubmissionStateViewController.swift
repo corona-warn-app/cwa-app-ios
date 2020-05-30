@@ -95,7 +95,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 					remoteKeys.append(contentsOf: try package.keys())
 				}
 			} catch {
-				logError(message: "Failed to get keys from package due to: \(error)")
+				appLogger.error(message: "Failed to get keys from package due to: \(error)")
 			}
 			let localKeysFoundRemotly = localKeys.filter { remoteKeys.containsKey($0) }
 			let foundOwnKey = localKeysFoundRemotly.isEmpty == false

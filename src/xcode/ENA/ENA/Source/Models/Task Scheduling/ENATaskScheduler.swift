@@ -47,15 +47,15 @@ public class ENATaskScheduler {
 	typealias CompletionHandler = (() -> Void)
 
 	public func registerBackgroundTaskRequests() {
-		log(message: "# TASKSHED # \(#line), \(#function) STARTED")
+		appLogger.info(message: "# TASKSHED # \(#line), \(#function) STARTED")
 		cancelAllBackgroundTaskRequests()
 		registerTask(with: .exposureNotification, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
-		log(message: "# TASKSHED # \(#line), \(#function) COMPLETED")
+		appLogger.info(message: "# TASKSHED # \(#line), \(#function) COMPLETED")
 	}
 
 	public func scheduleBackgroundTaskRequests() {
-		log(message: "# TASKSHED # \(#line), \(#function)")
+		appLogger.info(message: "# TASKSHED # \(#line), \(#function)")
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 		scheduleBackgroundTask(for: .exposureNotification)
 		scheduleBackgroundTask(for: .fetchTestResults)
@@ -78,7 +78,7 @@ public class ENATaskScheduler {
 	}
 
 	public func cancelAllBackgroundTaskRequests() {
-		log(message: "# TASKSHED # \(#line), \(#function)")
+		appLogger.info(message: "# TASKSHED # \(#line), \(#function)")
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
 
@@ -90,16 +90,16 @@ public class ENATaskScheduler {
 	}
 
 	public func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
-		log(message: "# TASKSHED # \(#line), \(#function) SCHEDULING \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
+		appLogger.info(message: "# TASKSHED # \(#line), \(#function) SCHEDULING \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
 
 		if taskIdentifier == .exposureNotification, manager.preconditions().isGood == false || UIApplication.shared.backgroundRefreshStatus != .available {
-			log(message: "# TASKSHED # \(#line), \(#function) UNABLE TO SCHEDULE \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
+			appLogger.info(message: "# TASKSHED # \(#line), \(#function) UNABLE TO SCHEDULE \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
 			return
 		}
 
 		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
-		log(message: "# TASKSHED # \(#line), \(#function) TIME NOW IS  :\(Date(timeIntervalSinceNow: 0))")
-		log(message: "# TASKSHED # \(#line), \(#function) SCHEDULED at :\(earliestBeginDate)")
+		appLogger.info(message: "# TASKSHED # \(#line), \(#function) TIME NOW IS  :\(Date(timeIntervalSinceNow: 0))")
+		appLogger.info(message: "# TASKSHED # \(#line), \(#function) SCHEDULED at :\(earliestBeginDate)")
 
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
@@ -108,16 +108,16 @@ public class ENATaskScheduler {
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {
-			log(message: "# TASHSHED # Unable to schedule background task \(taskIdentifier.backgroundTaskSchedulerIdentifier): \(error)")
+			appLogger.info(message: "# TASHSHED # Unable to schedule background task \(taskIdentifier.backgroundTaskSchedulerIdentifier): \(error)")
 		}
 	}
 
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
 		let scheduler: ENATaskScheduler? = self
-		log(message: "# TASKSHED # \(#line), \(#function) taskScheduler = \(String(describing: scheduler))")
+		appLogger.info(message: "# TASKSHED # \(#line), \(#function) taskScheduler = \(String(describing: scheduler))")
 		guard let taskDelegate = taskDelegate else {
-			log(message: "# TASKSHED # \(#line), \(#function) taskDelegate = nil")
+			appLogger.info(message: "# TASKSHED # \(#line), \(#function) taskDelegate = nil")
 			return
 		}
 		taskDelegate.executeExposureDetectionRequest(task: task) { success in
@@ -127,9 +127,9 @@ public class ENATaskScheduler {
 
 	private func executeFetchTestResults(_ task: BGTask) {
 		let scheduler: ENATaskScheduler? = self
-		log(message: "# TASKSHED # \(#line), \(#function) taskScheduler = \(String(describing: scheduler))")
+		appLogger.info(message: "# TASKSHED # \(#line), \(#function) taskScheduler = \(String(describing: scheduler))")
 		guard let taskDelegate = taskDelegate else {
-			log(message: "# TASKSHED # \(#line), \(#function) taskDelegate = nil")
+			appLogger.info(message: "# TASKSHED # \(#line), \(#function) taskDelegate = nil")
 			return
 		}
 		taskDelegate.executeFetchTestResults(task: task) { success in

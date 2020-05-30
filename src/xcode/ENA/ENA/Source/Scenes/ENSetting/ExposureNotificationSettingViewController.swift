@@ -91,13 +91,13 @@ extension ExposureNotificationSettingViewController {
 	private func handleEnableError(_ error: ExposureNotificationError) {
 		switch error {
 		case .exposureNotificationAuthorization:
-			logError(message: "Failed to enable exposureNotificationAuthorization")
+			appLogger.error(message: "Failed to enable exposureNotificationAuthorization")
 			alertError(message: "Failed to enable: exposureNotificationAuthorization", title: "Error")
 		case .exposureNotificationRequired:
-			logError(message: "Failed to enable")
+			appLogger.error(message: "Failed to enable")
 			alertError(message: "exposureNotificationAuthorization", title: "Error")
 		case .exposureNotificationUnavailable:
-			logError(message: "Failed to enable")
+			appLogger.error(message: "Failed to enable")
 			alertError(message: "ExposureNotification is not availabe due to the sytem policy", title: "Error")
 		}
 		tableView.reloadData()

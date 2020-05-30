@@ -103,7 +103,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			self.stopSpinner()
 			switch result {
 			case let .failure(error):
-				logError(message: "An error occured during result fetching: \(error)", level: .error)
+				appLogger.error(message: "An error occured during result fetching: \(error)")
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
 			case let .success(testResult):
@@ -139,7 +139,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			let alert = ExposureSubmissionViewUtils.setupAlert(message: "You need to allow camera access.")
 			present(alert, animated: true, completion: nil)
 		default:
-			logError(message: "QRScannerError.other occured.", level: .error)
+			appLogger.error(message: "QRScannerError.other occured.")
 		}
 	}
 
@@ -159,7 +159,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			switch result {
 			case let .failure(error):
 				self.stopSpinner()
-				logError(message: "Error while getting registration token: \(error)", level: .error)
+				appLogger.error(message: "Error while getting registration token: \(error)")
 				let alert = ExposureSubmissionViewUtils.setupConfirmationAlert {
 					self.dismissQRCodeScannerView(vc)
 				}
@@ -322,7 +322,7 @@ private extension ExposureSubmissionOverviewViewController {
 			present(alert, animated: true, completion: nil)
         // swiftlint:disable:next switch_case_alignment
         @unknown default:
-			log(message: "Unhandled  AVCaptureDevice state.")
+			appLogger.error(message: "Unhandled  AVCaptureDevice state.")
 		}
 	}
 }

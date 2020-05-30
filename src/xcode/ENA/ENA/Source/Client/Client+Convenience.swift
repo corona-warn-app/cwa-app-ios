@@ -81,7 +81,7 @@ extension Client {
 					completion(daysAndHours)
 				}
 			case let .failure(error):
-				logError(message: "message: Failed to fetch all keys: \(error)")
+				appLogger.error(message: "message: Failed to fetch all keys: \(error)")
 			}
 		}
 	}

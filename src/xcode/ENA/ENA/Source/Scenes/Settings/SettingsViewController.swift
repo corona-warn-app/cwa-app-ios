@@ -144,7 +144,7 @@ final class SettingsViewController: UITableViewController {
 			guard let self = self else { return }
 
 			if let error = error {
-				log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
+				appLogger.error(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
 				self.settingsViewModel.notifications.setState(state: false)
 				return
 			}

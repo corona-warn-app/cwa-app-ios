@@ -155,7 +155,7 @@ final class HomeViewController: UIViewController {
 		func activate(then completion: @escaping () -> Void) {
 			exposureManager.activate { error in
 				if let error = error {
-					logError(message: "Failed to activate: \(error)")
+					appLogger.error(message: "Failed to activate: \(error)")
 					return
 				}
 				completion()
@@ -164,7 +164,7 @@ final class HomeViewController: UIViewController {
 		func enable() {
 			exposureManager.enable { error in
 				if let error = error {
-					logError(message: "Failed to enable: \(error)")
+					appLogger.error(message: "Failed to enable: \(error)")
 					return
 				}
 			}
@@ -180,7 +180,7 @@ final class HomeViewController: UIViewController {
 		let status = exposureManager.preconditions()
 
 		guard status.authorized else {
-			log(message: "User declined authorization")
+			appLogger.info(message: "User declined authorization")
 			return
 		}
 
@@ -255,7 +255,7 @@ final class HomeViewController: UIViewController {
 			present(vc, animated: true)
 		} else {
 			let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
-			logError(message: error)
+			appLogger.error(message: error)
 			fatalError(error)
 		}
 	}

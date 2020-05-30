@@ -129,7 +129,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	func activate(completion: @escaping CompletionHandler) {
 		manager.activate { activationError in
 			if let activationError = activationError {
-				logError(message: "Failed to activate ENManager: \(activationError.localizedDescription)")
+				appLogger.error(message: "Failed to activate ENManager: \(activationError.localizedDescription)")
 				self.handleENError(error: activationError, completion: completion)
 				return
 			}
@@ -154,7 +154,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
-				logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
+				appLogger.error(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
 				self.handleENError(error: error, completion: completion)
 				return
 			}
@@ -192,7 +192,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		if !manager.exposureNotificationEnabled {
 			let error = ENError(.notEnabled)
-			logError(message: error.localizedDescription)
+			appLogger.error(message: error.localizedDescription)
 			completionHandler(nil, error)
 			return
 		}
@@ -213,7 +213,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				completion(ExposureNotificationError.exposureNotificationUnavailable)
 			default:
 				let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
-				logError(message: error)
+				appLogger.error(message: error)
 				// fatalError(error)
 			}
 		}
