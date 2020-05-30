@@ -101,11 +101,16 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		head.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
 		head.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
-		head.centerYAnchor.constraint(equalTo: cellIcon.centerYAnchor).isActive = true
+
+		if head.text != nil {
+			head.centerYAnchor.constraint(equalTo: cellIcon.centerYAnchor).isActive = true
+			body.topAnchor.constraint(equalTo: head.bottomAnchor, constant: 8).isActive = true
+		} else {
+			body.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+		}
 
 		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
 		body.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
-		body.topAnchor.constraint(equalTo: head.bottomAnchor, constant: 8).isActive = true
 
 		cellIcon.layer.cornerRadius = 16
 		cellIcon.clipsToBounds = true
