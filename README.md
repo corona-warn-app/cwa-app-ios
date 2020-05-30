@@ -19,7 +19,7 @@
 
 The goal of this project is to develop the official Corona-Warn-App for Germany based on the exposure notification API from [Apple](https://www.apple.com/covid19/contacttracing/) and [Google](https://www.google.com/covid19/exposurenotifications/). The apps (for both iOS and Android) use Bluetooth technology to exchange anonymous encrypted data with other mobile phones (on which the app is also installed) in the vicinity of an app user's phone. The data is stored locally on each user's device, preventing authorities or other parties from accessing or controlling the data. This repository contains the **native iOS implementation** of the Corona-Warn-App. This implementation is still a **work in progress**, and the code it contains is currently alpha-quality code.
 
-_TODO: Add screenshots here._
+![Figure 1: UI Screens for Apple iOS](https://github.com/corona-warn-app/cwa-documentation/blob/master/images/ui_screens/ui_screens_ios.png "Figure 1: UI Screens for Apple iOS")
 
 ## Development
 
@@ -60,7 +60,7 @@ The following channels are available for discussions, feedback, and support requ
 
 ## How to Contribute
 
-Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](./CONTRIBUTING.md). By participating in this project, you agree to abide by its [Code of Conduct](./CODE_OF_CONDUCT.md) at all times. If you are ready to open a pull request, please follow the [guideline](https://github.com/corona-warn-app/cwa-app-ios/wiki/Pull-Request-Process).
+Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](./CONTRIBUTING.md). By participating in this project, you agree to abide by its [Code of Conduct](./CODE_OF_CONDUCT.md) at all times.
 
 #### SwiftLint
 
