@@ -48,25 +48,25 @@ final class ExposureDetectionTransaction {
 
 	private weak var delegate: ExposureDetectionTransactionDelegate?
 	private let client: Client
-	private let keyPackagesStore: DownloadedPackagesStore
+	private let downloadedPackagesStore: DownloadedPackagesStore
 
 	// MARK: Creating a Transaction
 
 	init(
 		delegate: ExposureDetectionTransactionDelegate,
 		client: Client,
-		keyPackagesStore: DownloadedPackagesStore
+		downloadedPackagesStore: DownloadedPackagesStore
 	) {
 		self.delegate = delegate
 		self.client = client
-		self.keyPackagesStore = keyPackagesStore
+		self.downloadedPackagesStore = downloadedPackagesStore
 	}
 
 	// MARK: Starting the Transaction
 
 	func start() {
-		let today = formattedToday()
-		client.availableDaysAndHoursUpUntil(today) { result in
+		client.availableDaysAndHoursUpUntil(formattedToday()) { [weak self] result in
+			guard let self = self else { return }
 			switch result {
 			case let .success(daysAndHours):
 				self.continueWith(remoteDaysAndHours: daysAndHours)
@@ -134,15 +134,15 @@ final class ExposureDetectionTransaction {
 				let delta = DeltaCalculationResult(
 					remoteDays: Set(remoteDays),
 					remoteHours: Set(remoteHours),
-					localDays: Set(self.keyPackagesStore.allDays()),
-					localHours: Set(self.keyPackagesStore.hours(for: .formattedToday()))
+					localDays: Set(self.downloadedPackagesStore.allDays()),
+					localHours: Set(self.downloadedPackagesStore.hours(for: .formattedToday()))
 				)
 				self.client.fetchDays(
 					Array(delta.missingDays),
 					hours: Array(delta.missingHours),
 					of: .formattedToday()
 				) { fetchedDaysAndHours in
-					self.keyPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
+					self.downloadedPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
 					completion()
 				}
 			case .failure:
@@ -172,7 +172,7 @@ final class ExposureDetectionTransaction {
 		let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
 
-		let packages = keyPackagesStore.allPackages(for: .formattedToday())
+		let packages = downloadedPackagesStore.allPackages(for: .formattedToday())
 
 		return AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
 	}
@@ -215,9 +215,6 @@ final class ExposureDetectionTransaction {
 				self.endPrematurely(reason: .noSummary(nil))
 				return
 			}
-			log(message: "summary: \(summary)")
-			logError(message: "error: \(String(describing: error))")
-
 			self.didDetectSummary(summary)
 			completion()
 		}
