@@ -28,6 +28,7 @@ public enum ColorStyle: String {
 	
 	case separator
 	case hairline
+	case hairlineContrast
 	case tint
 	
 	case textPrimary1
