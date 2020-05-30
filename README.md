@@ -60,7 +60,7 @@ The following channels are available for discussions, feedback, and support requ
 
 ## How to Contribute
 
-Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](./CONTRIBUTING.md). By participating in this project, you agree to abide by its [Code of Conduct](./CODE_OF_CONDUCT.md) at all times. If you are ready to open a pull request, please follow the [guideline](https://github.com/corona-warn-app/cwa-app-ios/wiki/Pull-Request-Process).
+Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](./CONTRIBUTING.md). By participating in this project, you agree to abide by its [Code of Conduct](./CODE_OF_CONDUCT.md) at all times.
 
 #### SwiftLint
 

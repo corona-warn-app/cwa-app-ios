@@ -38,12 +38,12 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		// MARK: - General cell setup.
 
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundBase)
+		backgroundColor = .preferredColor(for: .backgroundPrimary)
 
 		// MARK: - Add inset view
 
 		insetView = UIView(frame: .zero)
-		insetView.backgroundColor = .preferredColor(for: .backgroundContrast)
+		insetView.backgroundColor = .preferredColor(for: .backgroundSecondary)
 		insetView.layer.cornerRadius = 16.0
 
 		// MARK: - Title adjustment.

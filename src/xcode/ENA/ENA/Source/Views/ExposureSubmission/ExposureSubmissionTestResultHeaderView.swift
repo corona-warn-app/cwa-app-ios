@@ -19,15 +19,28 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
-	var titleLabel: UILabel!
-	var subTitleLabel: UILabel!
-	var timeLabel: UILabel!
+	
+	// MARK: Attributes.
+	
+	private var titleLabel: UILabel!
+	private var subTitleLabel: UILabel!
+	private var timeLabel: UILabel!
 
-	var imageView: UIImageView!
-	var barView: UIView!
+	private var imageView: UIImageView!
+	private var barView: UIView!
 
-	var column = UIView()
-	var baseView = UIView()
+	private var column = UIView()
+	private var baseView = UIView()
+	
+	// MARK: - UITableViewCell methods.
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		baseView.subviews.forEach { $0.removeFromSuperview() }
+		baseView.removeFromSuperview()
+	}
+	
+	// MARK: - DynamicTableViewHeaderFooterView methods.
 
 	func configure(testResult: TestResult) {
 		setupView(testResult)
@@ -35,13 +48,15 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		titleLabel.text = localizedString(for: testResult)
 		barView.layer.backgroundColor = color(for: testResult).cgColor
 	}
+	
+	// MARK: Configuration helpers.
 
 	// swiftlint:disable:next function_body_length
 	private func setupView(_ result: TestResult) {
 		heightAnchor.constraint(equalToConstant: 158).isActive = true
-		backgroundColor = UIColor.preferredColor(for: .backgroundContrast)
+		backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
 
-		baseView.backgroundColor = UIColor.preferredColor(for: .backgroundContrast)
+		baseView.backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
 		baseView.layer.cornerRadius = 14
 		baseView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(baseView)
@@ -113,22 +128,20 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		case .invalid:
 			return AppStrings.ExposureSubmissionResult.card_invalid
 		case .pending:
-			log(message: "Invalid state.", level: .error)
-			return ""
+			return AppStrings.ExposureSubmissionResult.card_pending
 		}
 	}
 
 	private func color(for testResult: TestResult) -> UIColor {
 		switch testResult {
 		case .positive:
-			return UIColor.preferredColor(for: .positive)
+			return UIColor.preferredColor(for: .positiveRisk)
 		case .negative:
-			return UIColor.preferredColor(for: .negative)
+			return UIColor.preferredColor(for: .negativeRisk)
 		case .invalid:
 			return UIColor.preferredColor(for: .chevron)
-		default:
-			// Should never occur.
-			return UIColor.black
+		case .pending:
+			return UIColor.preferredColor(for: .shadow)
 		}
 	}
 
@@ -140,8 +153,8 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 			return UIImage(named: "Illu_Submission_NegativesTestErgebnis")
 		case .invalid:
 			return UIImage(named: "Illu_Submission_FehlerhaftesTestErgebnis")
-		default:
-			return nil
+		case .pending:
+			return UIImage(named: "Illu_Submission_PendingTestErgebnis")
 		}
 	}
 }

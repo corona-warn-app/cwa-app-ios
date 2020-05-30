@@ -35,7 +35,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 		// MARK: - Cell related changes.
 
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundBase)
+		backgroundColor = .preferredColor(for: .backgroundPrimary)
 
 		// MARK: - Body.
 

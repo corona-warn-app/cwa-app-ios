@@ -20,7 +20,7 @@ import UIKit
 class PrivacyProtectionViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
+		view.backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
 		view.alpha = 0.0
 	}
 

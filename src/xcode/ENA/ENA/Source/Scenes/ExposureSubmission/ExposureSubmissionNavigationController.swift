@@ -257,7 +257,7 @@ extension ExposureSubmissionNavigationController {
 extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
 		let view = UIView()
-		view.backgroundColor = .preferredColor(for: .backgroundBase)
+		view.backgroundColor = .preferredColor(for: .backgroundPrimary)
 		view.insetsLayoutMarginsFromSafeArea = true
 		view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
@@ -287,7 +287,7 @@ extension ExposureSubmissionNavigationController {
 		secondaryButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .bold)
 		secondaryButton.setTitle("", for: .normal)
 		secondaryButton.backgroundColor = .clear
-		secondaryButton.setTitleColor(.preferredColor(for: .inactive), for: .normal)
+		secondaryButton.setTitleColor(.preferredColor(for: .inactiveRisk), for: .normal)
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
 		secondaryButton.isHidden = true
 		view.addSubview(secondaryButton)

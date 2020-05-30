@@ -31,7 +31,7 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 	}
 
 	func configure(cell: InfoCollectionViewCell) {
-		cell.backgroundColor = UIColor.preferredColor(for: .backgroundBase)
+		cell.backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
 		cell.chevronImageView.image = UIImage(systemName: "chevron.right")
 		cell.titleLabel.text = title
 		cell.bodyLabel.text = body

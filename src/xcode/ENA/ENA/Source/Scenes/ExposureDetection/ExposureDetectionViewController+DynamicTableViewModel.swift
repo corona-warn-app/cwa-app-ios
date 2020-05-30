@@ -37,7 +37,7 @@ extension ExposureDetectionViewController {
 
 private extension DynamicHeader {
 	static func backgroundSpace(height: CGFloat) -> DynamicHeader {
-		.space(height: height, color: .preferredColor(for: .backgroundBase))
+		.space(height: height, color: .preferredColor(for: .backgroundPrimary))
 	}
 
 	static func riskTint(height _: CGFloat) -> DynamicHeader {

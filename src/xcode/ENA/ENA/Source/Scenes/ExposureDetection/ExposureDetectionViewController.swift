@@ -90,7 +90,7 @@ extension ExposureDetectionViewController {
 		}
 
 		if cell.backgroundColor == nil || cell.backgroundColor == .clear {
-			cell.backgroundView?.backgroundColor = .preferredColor(for: .backgroundBase)
+			cell.backgroundView?.backgroundColor = .preferredColor(for: .backgroundPrimary)
 		}
 
 		return cell
@@ -187,7 +187,7 @@ extension ExposureDetectionViewController {
 			checkButton.isEnabled = true
 			checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
 			checkButton.setTitleColor(.white, for: .normal)
-			checkButton.backgroundColor = .preferredColor(for: .tintColor)
+			checkButton.backgroundColor = .preferredColor(for: .tint)
 		}
 
 		switch state.mode {

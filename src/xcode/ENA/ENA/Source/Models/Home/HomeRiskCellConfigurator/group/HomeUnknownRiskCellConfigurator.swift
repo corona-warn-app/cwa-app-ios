@@ -56,7 +56,7 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskCellConfigurator {
 			cell.configureUpdateButton(
 				title: updateButtonText,
 				color: .preferredColor(for: .textPrimary1),
-				backgroundColor: .preferredColor(for: .backgroundBase),
+				backgroundColor: .preferredColor(for: .backgroundPrimary),
 				isEnabled: isButtonEnabled,
 				isHidden: isButtonHidden
 			)
@@ -65,7 +65,7 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskCellConfigurator {
 			cell.configureUpdateButton(
 				title: buttonTitle,
 				color: .preferredColor(for: .textPrimary1),
-				backgroundColor: .preferredColor(for: .backgroundBase),
+				backgroundColor: .preferredColor(for: .backgroundPrimary),
 				isEnabled: isButtonEnabled,
 				isHidden: isButtonHidden
 			)
