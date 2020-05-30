@@ -40,6 +40,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 		// MARK: - Body.
 
 		body = UILabel(frame: .zero)
+		body.font = .preferredFont(forTextStyle: .body)
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
 		body.text = title

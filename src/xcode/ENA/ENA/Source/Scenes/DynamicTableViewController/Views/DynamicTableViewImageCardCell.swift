@@ -49,12 +49,12 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		// MARK: - Title adjustment.
 
 		title = UILabel(frame: .zero)
-		title.font = UIFont.boldSystemFont(ofSize: 22)
+		title.font = .preferredFont(forTextStyle: .title3)
 
 		// MARK: - Body adjustment.
 
 		body = UILabel(frame: .zero)
-		body.font = body.font.withSize(15)
+		body.font = .preferredFont(forTextStyle: .body)
 		body.lineBreakMode = .byWordWrapping
 		body.numberOfLines = 0
 
