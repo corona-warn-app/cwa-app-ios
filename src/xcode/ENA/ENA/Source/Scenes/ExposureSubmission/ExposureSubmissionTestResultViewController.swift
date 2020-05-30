@@ -83,15 +83,34 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			return
 		}
 
-		tableView.register(ExposureSubmissionTestResultHeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue)
+		tableView.register(ExposureSubmissionTestResultHeaderView.self,
+						   forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue)
 		dynamicTableViewModel = dynamicTableViewModel(for: result)
 	}
 
 	// MARK: - Convenience methods for buttons.
 
 	private func deleteTest() {
-		exposureSubmissionService?.deleteTest()
-		navigationController?.dismiss(animated: true, completion: nil)
+		let alert = UIAlertController(title: "Test entfernen?",
+									  message: "Der Test wird endgültig aus der Corona-Warn-App entfernt. Dieser Vorgang kann nicht widerrufen werden.",
+									  preferredStyle: .alert)
+
+		let cancel = UIAlertAction(title: "Abbrechen",
+								   style: .cancel,
+								   handler: { _ in alert.dismiss(animated: true, completion: nil) }
+		)
+		
+		let delete = UIAlertAction(title: "Entfernen",
+								   style: .destructive,
+								   handler: { _ in
+										self.exposureSubmissionService?.deleteTest()
+										self.navigationController?.dismiss(animated: true, completion: nil) }
+		)
+		
+		alert.addAction(delete)
+		alert.addAction(cancel)
+		
+		present(alert, animated: true, completion: nil)
 	}
 
 	private func showWarnOthers() {
