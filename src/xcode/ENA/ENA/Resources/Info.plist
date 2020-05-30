@@ -4,9 +4,9 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER).exposure-notification</string>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER).fetch-test-results</string>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER).SIMPLETEST</string>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER).detect-exposures.exposure-notification</string>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER).fetch-test-results.exposure-notification</string>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER).SIMPLETEST.exposure-notification</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
