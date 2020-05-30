@@ -30,7 +30,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	// swiftlint:disable:next force_unwrapping
-	static let backgroundTaskIdentifier = Bundle.main.bundleIdentifier! + ".exposure-notification"
+	let taskScheduler = ENATaskScheduler()
 	private var exposureManager: ExposureManager = ENAExposureManager()
 	private var exposureDetectionTransaction: ExposureDetectionTransaction?
 	let downloadedPackagesStore: DownloadedPackagesStore = {
@@ -84,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_: UIApplication,
 					 didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-		let taskScheduler = ENATaskScheduler()
+		taskScheduler.taskDelegate = self
 		taskScheduler.registerBackgroundTaskRequests()
 		return true
 	}
@@ -148,4 +148,119 @@ extension AppDelegate: CoronaWarnAppDelegate {
 		)
 		exposureDetectionTransaction?.start()
 	}
+}
+
+extension AppDelegate: ENATaskExecutionDelegate {
+    
+	func executeExposureDetectionRequest(task: BGTask) {
+        // start background task execution
+		log(message: "# TASKSHED # \(#line) \(#function) STARTED \(task.identifier)")
+        
+        let exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: client, keyPackagesStore: downloadedPackagesStore)
+        exposureDetectionTransaction.start {
+            // handle completed background task
+			log(message: "# TASKSHED # \(#line) \(#function) RETURN \(task.identifier)")
+
+			// mark background task as completed
+            log(message: "# TASKSHED # \(#line) \(#function) COMPLETE \(task.identifier)")
+            task.setTaskCompleted(success: true)
+
+			// reschedule background task again
+			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
+            self.taskScheduler.scheduleBackgroundTask(for: .exposureNotification)
+        }
+        
+        task.expirationHandler = {
+			// handle background task expiration
+            log(message: "# TASKSHED # \(#line) \(#function) EXPIRED \(task.identifier)")
+			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
+			
+            // mark background task as completed
+            task.setTaskCompleted(success: false)
+
+			// reschedule background task again
+			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
+			self.taskScheduler.scheduleBackgroundTask(for: .exposureNotification)
+        }
+    }
+
+    func executeFetchTestResults(task: BGTask) {
+        // start background task execution
+		log(message: "# TASKSHED # \(#line) \(#function) STARTED \(task.identifier)")
+
+        let exposureSubmissionService = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
+        exposureSubmissionService.getTestResult { result in
+            // handle completed background task
+			log(message: "# TASKSHED # \(#line) \(#function) RETURN \(task.identifier)")
+
+            switch result {
+            case .failure(let error):
+                log(message: "# TASKSHED # \(#line) \(#function) ERROR \(task.identifier) \(error)")
+                logError(message: error.localizedDescription)
+
+            case .success(let testResult):
+                log(message: "# TASKSHED # \(#line) \(#function) TESTRESULT \(task.identifier)\(testResult)")
+
+                if testResult != .pending {
+                    self.taskScheduler.notificationManager.presentNotification(
+                        title: AppStrings.LocalNotifications.testResultsTitle,
+                        body: AppStrings.LocalNotifications.testResultsBody,
+                        identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+                }
+
+				// mark background task as completed
+                log(message: "# TASKSHED # \(#line) \(#function) COMPLETE \(task.identifier)")
+                task.setTaskCompleted(success: true)
+
+				// reschedule background task again
+				log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
+                self.taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
+            }
+        }
+    
+        task.expirationHandler = {
+			// handle background task expiration
+            log(message: "# TASKSHED # \(#line) \(#function) EXPIRED \(task.identifier)")
+			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
+			
+            // mark background task as completed
+            task.setTaskCompleted(success: false)
+
+			// reschedule background task again
+			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
+			self.taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
+        }
+
+    }
+
+	func executeSIMPLETEST(task: BGTask) {
+        // start background task execution
+		log(message: "# TASKSHED # \(#line) \(#function) STARTED \(task.identifier)")
+
+		DispatchQueue.global().asyncAfter(deadline: .now() + 10) {
+            // handle completed background task
+			log(message: "# TASKSHED # \(#line) \(#function) RETURN \(task.identifier)")
+
+			// mark background task as completed
+            log(message: "# TASKSHED # \(#line) \(#function) COMPLETE \(task.identifier)")
+            task.setTaskCompleted(success: true)
+
+			// reschedule background task again
+			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
+            self.taskScheduler.scheduleBackgroundTask(for: .SIMPLETEST)
+		}
+        task.expirationHandler = {
+			// handle background task expiration
+            log(message: "# TASKSHED # \(#line) \(#function) EXPIRED \(task.identifier)")
+			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
+			
+            // mark background task as completed
+            task.setTaskCompleted(success: false)
+
+			// reschedule background task again
+			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
+			self.taskScheduler.scheduleBackgroundTask(for: .SIMPLETEST)
+        }
+	}
+
 }
