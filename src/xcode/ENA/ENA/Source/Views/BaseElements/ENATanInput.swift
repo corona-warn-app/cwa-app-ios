@@ -28,7 +28,7 @@ class ENATanInput: UIControl, UIKeyInput {
 	@IBInspectable var boxColor: UIColor = UIColor.preferredColor(for: .backgroundSecondary)
 
 	@IBInspectable var fontSize: CGFloat = 30
-	@IBInspectable var digits = 7
+	@IBInspectable var digits: Int = 7
 
 	@IBInspectable var spacing: CGFloat = 8
 	@IBInspectable var cornerRadius: CGFloat = 4
