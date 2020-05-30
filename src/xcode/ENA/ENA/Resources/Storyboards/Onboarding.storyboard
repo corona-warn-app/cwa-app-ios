@@ -25,7 +25,7 @@
                                 <blurEffect style="systemThinMaterial"/>
                             </visualEffectView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1HX-Yf-LyV">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="2eY-pe-EqA">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="415.33333333333331"/>
@@ -117,13 +117,13 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="Aox-ZG-U3J"/>
                             </scrollView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0oH-fF-RI6">
-                                <rect key="frame" x="0.0" y="722" width="414" height="140"/>
+                                <rect key="frame" x="0.0" y="722" width="414" height="174"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5H2-LC-1rB">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="174"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qvx-Vc-jIj" userLabel="Container Button View">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="174"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Dnb-sh-MSz">
                                                     <rect key="frame" x="16" y="16" width="382" height="108"/>
@@ -158,11 +158,12 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="Dnb-sh-MSz" secondAttribute="bottom" constant="16" id="RAd-tg-l4K"/>
-                                                <constraint firstItem="Dnb-sh-MSz" firstAttribute="top" secondItem="Qvx-Vc-jIj" secondAttribute="top" constant="16" id="bcz-UR-5dW"/>
-                                                <constraint firstAttribute="trailing" secondItem="Dnb-sh-MSz" secondAttribute="trailing" constant="16" id="tJC-eA-GSK"/>
-                                                <constraint firstItem="Dnb-sh-MSz" firstAttribute="leading" secondItem="Qvx-Vc-jIj" secondAttribute="leading" constant="16" id="ugt-uG-2W7"/>
+                                                <constraint firstItem="Dnb-sh-MSz" firstAttribute="leading" secondItem="Qvx-Vc-jIj" secondAttribute="leadingMargin" id="JKw-vf-zui"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Dnb-sh-MSz" secondAttribute="bottom" id="JQ4-dJ-a1U"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Dnb-sh-MSz" secondAttribute="trailing" id="Ncl-sB-Y3U"/>
+                                                <constraint firstItem="Dnb-sh-MSz" firstAttribute="top" secondItem="Qvx-Vc-jIj" secondAttribute="topMargin" id="rF3-DZ-WKv"/>
                                             </constraints>
+                                            <directionalEdgeInsets key="directionalLayoutMargins" top="16" leading="16" bottom="16" trailing="16"/>
                                         </view>
                                     </subviews>
                                     <constraints>
@@ -188,7 +189,7 @@
                             <constraint firstAttribute="trailing" secondItem="1HX-Yf-LyV" secondAttribute="trailing" id="bmh-Gj-j5o"/>
                             <constraint firstItem="1HX-Yf-LyV" firstAttribute="leading" secondItem="Z4y-Yc-scw" secondAttribute="leading" id="loM-r6-d9p"/>
                             <constraint firstAttribute="bottom" secondItem="eie-8Q-Eea" secondAttribute="bottom" id="mug-dO-sXt"/>
-                            <constraint firstItem="1HX-Yf-LyV" firstAttribute="bottom" secondItem="CRv-wa-5iJ" secondAttribute="bottom" id="sfl-H0-hDt"/>
+                            <constraint firstItem="1HX-Yf-LyV" firstAttribute="bottom" secondItem="Z4y-Yc-scw" secondAttribute="bottom" id="sfl-H0-hDt"/>
                             <constraint firstItem="eie-8Q-Eea" firstAttribute="leading" secondItem="Z4y-Yc-scw" secondAttribute="leading" id="zVu-0f-Xen"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CRv-wa-5iJ"/>
