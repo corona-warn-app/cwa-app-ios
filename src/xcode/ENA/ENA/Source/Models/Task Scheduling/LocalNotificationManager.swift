@@ -57,6 +57,7 @@ class LocalNotificationManager {
 			switch taskId {
 			case .exposureNotification: openActionIdentifier = LocalNotificationAction.openExposureDetectionResults
 			case .fetchTestResults: openActionIdentifier = LocalNotificationAction.openTestResults
+			default: openActionIdentifier = LocalNotificationAction.ignore
 			}
 
 			let viewAction = UNNotificationAction(
