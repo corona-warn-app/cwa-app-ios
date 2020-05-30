@@ -103,13 +103,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
 			case let .success(testResult):
-				switch testResult {
-				case .pending:
-					let alert = ExposureSubmissionViewUtils.setupAlert(message: "Test Result is pending.")
-					self.present(alert, animated: true, completion: nil)
-				default:
-					self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
-				}
+				self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
 			}
 		}
 	}
