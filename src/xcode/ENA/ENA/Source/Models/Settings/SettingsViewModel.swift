@@ -18,44 +18,44 @@
 import Foundation
 
 class SettingsViewModel {
-    var tracing: Main
-    var notifications: Main
-    var reset: String
+	var tracing: Main
+	var notifications: Main
+	var reset: String
 
-    init(tracing: Main, notifications: Main, reset: String) {
-        self.tracing = tracing
-        self.notifications = notifications
-        self.reset = reset
-    }
+	init(tracing: Main, notifications: Main, reset: String) {
+		self.tracing = tracing
+		self.notifications = notifications
+		self.reset = reset
+	}
 
-    static let model = SettingsViewModel(
-        tracing: Main(
-            icon: "Icons_Settings_Risikoermittlung",
-            description: AppStrings.Settings.tracingLabel,
-            stateActive: AppStrings.Settings.trackingStatusActive,
-            stateInactive: AppStrings.Settings.trackingStatusInactive
-        ),
-        notifications: Main(
-            icon: "Icons_Settings_Mitteilungen",
-            description: AppStrings.Settings.notificationLabel,
-            stateActive: AppStrings.Settings.notificationStatusActive,
-            stateInactive: AppStrings.Settings.notificationStatusInactive
-        ),
-        reset: AppStrings.Settings.resetLabel
-    )
+	static let model = SettingsViewModel(
+		tracing: Main(
+			icon: "Icons_Settings_Risikoermittlung",
+			description: AppStrings.Settings.tracingLabel,
+			stateActive: AppStrings.Settings.trackingStatusActive,
+			stateInactive: AppStrings.Settings.trackingStatusInactive
+		),
+		notifications: Main(
+			icon: "Icons_Settings_Mitteilungen",
+			description: AppStrings.Settings.notificationLabel,
+			stateActive: AppStrings.Settings.notificationStatusActive,
+			stateInactive: AppStrings.Settings.notificationStatusInactive
+		),
+		reset: AppStrings.Settings.resetLabel
+	)
 }
 
 extension SettingsViewModel {
-    struct Main {
-        let icon: String
-        let description: String
-        var state: String?
+	struct Main {
+		let icon: String
+		let description: String
+		var state: String?
 
-        let stateActive: String
-        let stateInactive: String
+		let stateActive: String
+		let stateInactive: String
 
-        mutating func setState(state: Bool) {
-            self.state = state ? stateActive : stateInactive
-        }
-    }
+		mutating func setState(state: Bool) {
+			self.state = state ? stateActive : stateInactive
+		}
+	}
 }

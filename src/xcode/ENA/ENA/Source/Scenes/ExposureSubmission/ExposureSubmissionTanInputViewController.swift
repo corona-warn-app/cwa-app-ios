@@ -19,94 +19,94 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjectable, ENATanInputDelegate {
-    // MARK: - Attributes.
+	// MARK: - Attributes.
 
-    @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var infoLabel: UILabel!
-    @IBOutlet var tanInput: ENATanInput!
-    var initialTan: String?
-    var exposureSubmissionService: ExposureSubmissionService?
-    var spinner: UIActivityIndicatorView?
+	@IBOutlet var descriptionLabel: UILabel!
+	@IBOutlet var infoLabel: UILabel!
+	@IBOutlet var tanInput: ENATanInput!
+	var initialTan: String?
+	var exposureSubmissionService: ExposureSubmissionService?
+	var spinner: UIActivityIndicatorView?
 
-    // MARK: - View lifecycle methods.
+	// MARK: - View lifecycle methods.
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupView()
-        fetchService()
-    }
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		setupView()
+		fetchService()
+	}
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        setButtonEnabled(enabled: true)
-    }
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		setButtonEnabled(enabled: true)
+	}
 
-    // MARK: - Helper methods.
+	// MARK: - Helper methods.
 
-    private func setupView() {
-        tanInput.delegate = self
-        if let tan = initialTan {
-            tanInput.clear()
-            tanInput.insertText(tan)
-            initialTan = nil
-        } else {
-            tanInput.becomeFirstResponder()
-        }
+	private func setupView() {
+		tanInput.delegate = self
+		if let tan = initialTan {
+			tanInput.clear()
+			tanInput.insertText(tan)
+			initialTan = nil
+		} else {
+			tanInput.becomeFirstResponder()
+		}
 
-        setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
-        title = AppStrings.ExposureSubmissionTanEntry.title
-        setButtonEnabled(enabled: tanInput.isValid)
-        descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
+		setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
+		title = AppStrings.ExposureSubmissionTanEntry.title
+		setButtonEnabled(enabled: tanInput.isValid)
+		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
 
-        descriptionLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
-        descriptionLabel.adjustsFontForContentSizeCategory = true
-        descriptionLabel.lineBreakMode = .byWordWrapping
-        descriptionLabel.numberOfLines = 0
-        infoLabel.text = AppStrings.ExposureSubmissionTanEntry.info
-        infoLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .regular))
-    }
+		descriptionLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
+		descriptionLabel.adjustsFontForContentSizeCategory = true
+		descriptionLabel.lineBreakMode = .byWordWrapping
+		descriptionLabel.numberOfLines = 0
+		infoLabel.text = AppStrings.ExposureSubmissionTanEntry.info
+		infoLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .regular))
+	}
 
-    private func fetchService() {
-        exposureSubmissionService = exposureSubmissionService ??
-            (navigationController as? ExposureSubmissionNavigationController)?
-            .getExposureSubmissionService()
-    }
+	private func fetchService() {
+		exposureSubmissionService = exposureSubmissionService ??
+			(navigationController as? ExposureSubmissionNavigationController)?
+			.getExposureSubmissionService()
+	}
 }
 
 extension ExposureSubmissionTanInputViewController {
-    enum Segue: String, SegueIdentifiers {
-        case sentSegue
-        case warnOthers = "warnOthersSegue"
-    }
+	enum Segue: String, SegueIdentifiers {
+		case sentSegue
+		case warnOthers = "warnOthersSegue"
+	}
 }
 
 // MARK: - ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
-    func didTapBottomButton() {
-        startSpinner()
-        // If teleTAN is correct, show Alert Controller
-        // to check permissions to request TAN.
-        let teleTan = tanInput.text
+	func didTapBottomButton() {
+		startSpinner()
+		// If teleTAN is correct, show Alert Controller
+		// to check permissions to request TAN.
+		let teleTan = tanInput.text
 
-        exposureSubmissionService?
-            .getRegistrationToken(forKey: .teleTan(teleTan), completion: { result in
-                self.stopSpinner()
-                switch result {
-                case let .failure(error):
-                    let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-                    self.present(alert, animated: true, completion: nil)
-                    return
-                case .success:
-                    self.performSegue(withIdentifier: Segue.warnOthers,
-                                      sender: self)
-                }
+		exposureSubmissionService?
+			.getRegistrationToken(forKey: .teleTan(teleTan), completion: { result in
+				self.stopSpinner()
+				switch result {
+				case let .failure(error):
+					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+					self.present(alert, animated: true, completion: nil)
+					return
+				case .success:
+					self.performSegue(withIdentifier: Segue.warnOthers,
+									  sender: self)
+				}
         })
-    }
+	}
 
-    // MARK: - ENATanInputDelegate
+	// MARK: - ENATanInputDelegate
 
-    func tanChanged(isValid: Bool) {
-        setButtonEnabled(enabled: isValid)
-    }
+	func tanChanged(isValid: Bool) {
+		setButtonEnabled(enabled: isValid)
+	}
 }

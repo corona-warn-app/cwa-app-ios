@@ -18,91 +18,91 @@
 import Foundation
 
 enum RiskDetectionState {
-    case enabled
-    case disabled
-    case bluetoothOff
-    case internetOff
+	case enabled
+	case disabled
+	case bluetoothOff
+	case internetOff
 }
 
 protocol StateHandlerObserverDelegate: AnyObject {
-    func stateDidChange(to state: RiskDetectionState)
-    func getLatestExposureManagerState() -> ExposureManagerState
+	func stateDidChange(to state: RiskDetectionState)
+	func getLatestExposureManagerState() -> ExposureManagerState
 }
 
 class ENStateHandler {
-    private var currentState: RiskDetectionState! {
-        didSet {
-            stateDidChange()
-        }
-    }
+	private var currentState: RiskDetectionState! {
+		didSet {
+			stateDidChange()
+		}
+	}
 
-    private weak var delegate: StateHandlerObserverDelegate?
-    private var internetOff = false
+	private weak var delegate: StateHandlerObserverDelegate?
+	private var internetOff = false
 
-    init(_ initialState: ExposureManagerState, delegate: StateHandlerObserverDelegate) {
-        self.delegate = delegate
-        currentState = determineCurrentState(from: initialState)
-        try? addReachabilityObserver()
-    }
+	init(_ initialState: ExposureManagerState, delegate: StateHandlerObserverDelegate) {
+		self.delegate = delegate
+		currentState = determineCurrentState(from: initialState)
+		try? addReachabilityObserver()
+	}
 
-    private func internet(_ isReachable: Bool) {
-        if !isReachable {
-            internetOff = true
-        } else {
-            internetOff = false
-        }
+	private func internet(_ isReachable: Bool) {
+		if !isReachable {
+			internetOff = true
+		} else {
+			internetOff = false
+		}
 
-        switch currentState {
-        case .disabled, .bluetoothOff:
-            return
-        case .enabled:
-            if !isReachable {
-                currentState = .internetOff
-            }
-        case .internetOff:
-            guard let latestState = delegate?.getLatestExposureManagerState() else {
-                return
-            }
-            currentState = determineCurrentState(from: latestState)
-        case .none:
-            fatalError("Unexpected state found in ENState Handler")
-        }
-    }
+		switch currentState {
+		case .disabled, .bluetoothOff:
+			return
+		case .enabled:
+			if !isReachable {
+				currentState = .internetOff
+			}
+		case .internetOff:
+			guard let latestState = delegate?.getLatestExposureManagerState() else {
+				return
+			}
+			currentState = determineCurrentState(from: latestState)
+		case .none:
+			fatalError("Unexpected state found in ENState Handler")
+		}
+	}
 
-    private func stateDidChange() {
-        delegate?.stateDidChange(to: currentState)
-    }
+	private func stateDidChange() {
+		delegate?.stateDidChange(to: currentState)
+	}
 
-    private func determineCurrentState(from enManagerState: ExposureManagerState) -> RiskDetectionState {
-        if enManagerState.active == true {
-            guard !internetOff else {
-                return .internetOff
-            }
-            return .enabled
-        } else {
-            if enManagerState.enabled == true {
-                if enManagerState.bluetoothOff == true {
-                    return .bluetoothOff
-                } else {
-                    return .disabled
-                }
-            } else {
-                return .disabled
-            }
-        }
-    }
+	private func determineCurrentState(from enManagerState: ExposureManagerState) -> RiskDetectionState {
+		if enManagerState.active == true {
+			guard !internetOff else {
+				return .internetOff
+			}
+			return .enabled
+		} else {
+			if enManagerState.enabled == true {
+				if enManagerState.bluetoothOff == true {
+					return .bluetoothOff
+				} else {
+					return .disabled
+				}
+			} else {
+				return .disabled
+			}
+		}
+	}
 
-    func getState() -> RiskDetectionState {
-        currentState
-    }
+	func getState() -> RiskDetectionState {
+		currentState
+	}
 
-    func exposureManagerDidUpdate(to state: ExposureManagerState) {
-        currentState = determineCurrentState(from: state)
-    }
+	func exposureManagerDidUpdate(to state: ExposureManagerState) {
+		currentState = determineCurrentState(from: state)
+	}
 }
 
 extension ENStateHandler: ReachabilityObserverDelegate {
-    func reachabilityChanged(_ isReachable: Bool) {
-        internet(isReachable)
-    }
+	func reachabilityChanged(_ isReachable: Bool) {
+		internet(isReachable)
+	}
 }

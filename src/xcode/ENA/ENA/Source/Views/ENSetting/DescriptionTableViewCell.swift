@@ -19,13 +19,13 @@ import Foundation
 import UIKit
 
 class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var textView1: UITextView!
-    @IBOutlet var textView2: UITextView!
+	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var textView1: UITextView!
+	@IBOutlet var textView2: UITextView!
 
-    func configure(for _: RiskDetectionState) {
-        titleLabel.text = AppStrings.ExposureNotificationSetting.descriptionTitle
-        textView1.text = AppStrings.ExposureNotificationSetting.descriptionText1
-        textView2.text = AppStrings.ExposureNotificationSetting.descriptionText2
-    }
+	func configure(for _: RiskDetectionState) {
+		titleLabel.text = AppStrings.ExposureNotificationSetting.descriptionTitle
+		textView1.text = AppStrings.ExposureNotificationSetting.descriptionText1
+		textView2.text = AppStrings.ExposureNotificationSetting.descriptionText2
+	}
 }

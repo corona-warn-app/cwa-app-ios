@@ -19,26 +19,26 @@ import Foundation
 import UIKit
 
 protocol ConfigurableENSettingCell: UITableViewCell {
-    func configure(for state: RiskDetectionState)
+	func configure(for state: RiskDetectionState)
 }
 
 class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
-    @IBOutlet var imageContainerView: UIImageView!
+	@IBOutlet var imageContainerView: UIImageView!
 
-    func configure(for state: RiskDetectionState) {
-        imageContainerView.image = bannerImage(for: state)
-    }
+	func configure(for state: RiskDetectionState) {
+		imageContainerView.image = bannerImage(for: state)
+	}
 
-    private func bannerImage(for state: RiskDetectionState) -> UIImage? {
-        switch state {
-        case .enabled:
-            return UIImage(named: "Illu_Risikoermittlung_On")
-        case .disabled:
-            return UIImage(named: "Illu_Risikoermittlung_Off")
-        case .bluetoothOff:
-            return UIImage(named: "Illu_Bluetooth_Off")
-        case .internetOff:
-            return UIImage(named: "Illu_Internet_Off")
-        }
-    }
+	private func bannerImage(for state: RiskDetectionState) -> UIImage? {
+		switch state {
+		case .enabled:
+			return UIImage(named: "Illu_Risikoermittlung_On")
+		case .disabled:
+			return UIImage(named: "Illu_Risikoermittlung_Off")
+		case .bluetoothOff:
+			return UIImage(named: "Illu_Bluetooth_Off")
+		case .internetOff:
+			return UIImage(named: "Illu_Internet_Off")
+		}
+	}
 }

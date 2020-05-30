@@ -19,11 +19,11 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionPreviousTestResultsViewController: UITableViewController {
-    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        5
-    }
+	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+		5
+	}
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.dequeueReusableCell(withIdentifier: "basic", for: indexPath)
-    }
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		tableView.dequeueReusableCell(withIdentifier: "basic", for: indexPath)
+	}
 }

@@ -18,24 +18,24 @@
 import UIKit
 
 class HomeCardCollectionViewCell: UICollectionViewCell {
-    private let cornerRadius: CGFloat = 14.0
+	private let cornerRadius: CGFloat = 14.0
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        contentView.layer.cornerRadius = cornerRadius
-        contentView.layer.masksToBounds = true
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		contentView.layer.cornerRadius = cornerRadius
+		contentView.layer.masksToBounds = true
 
-        layer.shadowColor = UIColor.preferredColor(for: .shadow).cgColor
-        layer.shadowOffset = .init(width: 0.0, height: 10.0)
-        layer.shadowRadius = 10.0
-        layer.shadowOpacity = 0.15
-        layer.cornerRadius = cornerRadius
-        layer.masksToBounds = false
-    }
+		layer.shadowColor = UIColor.preferredColor(for: .shadow).cgColor
+		layer.shadowOffset = .init(width: 0.0, height: 10.0)
+		layer.shadowRadius = 10.0
+		layer.shadowOpacity = 0.15
+		layer.cornerRadius = cornerRadius
+		layer.masksToBounds = false
+	}
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-        layer.shadowPath = path
-    }
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		let path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+		layer.shadowPath = path
+	}
 }

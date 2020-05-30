@@ -20,99 +20,99 @@ import ExposureNotification
 import XCTest
 
 final class ENStateTests: XCTestCase {
-    var mockDelegate: MockStateHandlerObserverDelegate!
-    var exposureManagerState: ExposureManagerState!
+	var mockDelegate: MockStateHandlerObserverDelegate!
+	var exposureManagerState: ExposureManagerState!
 
-    // setup stateHandler to be in enabled state
-    override func setUp() {
-        super.setUp()
-        exposureManagerState = ExposureManagerState(authorized: true, enabled: true, active: true, bluetoothOff: false)
-        mockDelegate = MockStateHandlerObserverDelegate(exposureManagerState: exposureManagerState)
-    }
+	// setup stateHandler to be in enabled state
+	override func setUp() {
+		super.setUp()
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, active: true, bluetoothOff: false)
+		mockDelegate = MockStateHandlerObserverDelegate(exposureManagerState: exposureManagerState)
+	}
 
-    override func tearDown() {
-        super.tearDown()
-    }
+	override func tearDown() {
+		super.tearDown()
+	}
 
-    // MARK: Enable/Disable State Tests
+	// MARK: Enable/Disable State Tests
 
-    // statehandler should reflect enabled state after setup
-    func testInitialState() {
-        assert(mockDelegate.getCurrentState() == .enabled)
-    }
+	// statehandler should reflect enabled state after setup
+	func testInitialState() {
+		assert(mockDelegate.getCurrentState() == .enabled)
+	}
 
-    // statehandler should reflect disabled state
-    func testDisableTracing() {
-        assert(mockDelegate.getCurrentState() == .enabled)
-        exposureManagerState = ExposureManagerState(authorized: true, enabled: false, active: false, bluetoothOff: false)
-        mockDelegate.exposureManagerState = exposureManagerState
-        assert(mockDelegate.getCurrentState() == .disabled)
-    }
+	// statehandler should reflect disabled state
+	func testDisableTracing() {
+		assert(mockDelegate.getCurrentState() == .enabled)
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, active: false, bluetoothOff: false)
+		mockDelegate.exposureManagerState = exposureManagerState
+		assert(mockDelegate.getCurrentState() == .disabled)
+	}
 
-    // MARK: Bluetooth State Tests
+	// MARK: Bluetooth State Tests
 
-    // when statehandler is enabled bluetooth is turnedOff statehandler should be bluetooth off
-    func testTurnOffBluetooth() {
-        assert(mockDelegate.getCurrentState() == .enabled)
-        exposureManagerState = ExposureManagerState(authorized: true, enabled: true, active: false, bluetoothOff: true)
-        mockDelegate.exposureManagerState = exposureManagerState
-        assert(mockDelegate.getCurrentState() == .bluetoothOff)
-    }
+	// when statehandler is enabled bluetooth is turnedOff statehandler should be bluetooth off
+	func testTurnOffBluetooth() {
+		assert(mockDelegate.getCurrentState() == .enabled)
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, active: false, bluetoothOff: true)
+		mockDelegate.exposureManagerState = exposureManagerState
+		assert(mockDelegate.getCurrentState() == .bluetoothOff)
+	}
 
-    // MARK: Internet State Tests
+	// MARK: Internet State Tests
 
-    // when internet is turned off and turned on again
-    func testTurnOffTurnOnInternet() {
-        exposureManagerState = ExposureManagerState(authorized: true, enabled: true, active: true, bluetoothOff: false)
-        mockDelegate.exposureManagerState = exposureManagerState
-        assert(mockDelegate.getCurrentState() == .enabled)
-        mockDelegate.reachabilityChanged(false)
-        assert(mockDelegate.getCurrentState() == .internetOff)
-        mockDelegate.reachabilityChanged(true)
-        assert(mockDelegate.getCurrentState() == .enabled)
-    }
+	// when internet is turned off and turned on again
+	func testTurnOffTurnOnInternet() {
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, active: true, bluetoothOff: false)
+		mockDelegate.exposureManagerState = exposureManagerState
+		assert(mockDelegate.getCurrentState() == .enabled)
+		mockDelegate.reachabilityChanged(false)
+		assert(mockDelegate.getCurrentState() == .internetOff)
+		mockDelegate.reachabilityChanged(true)
+		assert(mockDelegate.getCurrentState() == .enabled)
+	}
 
-    // MARK: Tests with combined state changes
+	// MARK: Tests with combined state changes
 
-    func testDisableTracingAndBluetoothOff() {
-        assert(mockDelegate.getCurrentState() == .enabled)
-        exposureManagerState = ExposureManagerState(authorized: true, enabled: false, active: false, bluetoothOff: true)
-        mockDelegate.exposureManagerState = exposureManagerState
-        assert(mockDelegate.getCurrentState() == .disabled)
-    }
+	func testDisableTracingAndBluetoothOff() {
+		assert(mockDelegate.getCurrentState() == .enabled)
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, active: false, bluetoothOff: true)
+		mockDelegate.exposureManagerState = exposureManagerState
+		assert(mockDelegate.getCurrentState() == .disabled)
+	}
 
-    func testDisableTracingAndBluetoothOffAndInternetOff() {
-        assert(mockDelegate.getCurrentState() == .enabled)
-        mockDelegate.reachabilityChanged(false)
-        assert(mockDelegate.getCurrentState() == .internetOff)
-        exposureManagerState = ExposureManagerState(authorized: true, enabled: false, active: false, bluetoothOff: false)
-        mockDelegate.exposureManagerState = exposureManagerState
-        assert(mockDelegate.getCurrentState() == .disabled)
-    }
+	func testDisableTracingAndBluetoothOffAndInternetOff() {
+		assert(mockDelegate.getCurrentState() == .enabled)
+		mockDelegate.reachabilityChanged(false)
+		assert(mockDelegate.getCurrentState() == .internetOff)
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, active: false, bluetoothOff: false)
+		mockDelegate.exposureManagerState = exposureManagerState
+		assert(mockDelegate.getCurrentState() == .disabled)
+	}
 
-    func testDisableTracingAndBluetoothOffAndInternetOn() {
-        assert(mockDelegate.getCurrentState() == .enabled)
-        exposureManagerState = ExposureManagerState(authorized: true, enabled: false, active: false, bluetoothOff: false)
-        mockDelegate.exposureManagerState = exposureManagerState
-        mockDelegate.reachabilityChanged(false)
-        assert(mockDelegate.getCurrentState() == .disabled)
-        mockDelegate.reachabilityChanged(true)
-        assert(mockDelegate.getCurrentState() == .disabled)
-    }
+	func testDisableTracingAndBluetoothOffAndInternetOn() {
+		assert(mockDelegate.getCurrentState() == .enabled)
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, active: false, bluetoothOff: false)
+		mockDelegate.exposureManagerState = exposureManagerState
+		mockDelegate.reachabilityChanged(false)
+		assert(mockDelegate.getCurrentState() == .disabled)
+		mockDelegate.reachabilityChanged(true)
+		assert(mockDelegate.getCurrentState() == .disabled)
+	}
 
-    func testEnableTracingAndBluetoothOffAndInternetOff() {
-        assert(mockDelegate.getCurrentState() == .enabled)
-        exposureManagerState = ExposureManagerState(authorized: true, enabled: false, active: false, bluetoothOff: true)
-        mockDelegate.exposureManagerState = exposureManagerState
-        mockDelegate.reachabilityChanged(false)
-        assert(mockDelegate.getCurrentState() == .disabled)
-        exposureManagerState = ExposureManagerState(authorized: true, enabled: true, active: false, bluetoothOff: true)
-        mockDelegate.exposureManagerState = exposureManagerState
-        assert(mockDelegate.getCurrentState() == .bluetoothOff)
-        exposureManagerState = ExposureManagerState(authorized: true, enabled: true, active: true, bluetoothOff: false)
-        mockDelegate.exposureManagerState = exposureManagerState
-        assert(mockDelegate.getCurrentState() == .internetOff)
-        mockDelegate.reachabilityChanged(true)
-        assert(mockDelegate.getCurrentState() == .enabled)
-    }
+	func testEnableTracingAndBluetoothOffAndInternetOff() {
+		assert(mockDelegate.getCurrentState() == .enabled)
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, active: false, bluetoothOff: true)
+		mockDelegate.exposureManagerState = exposureManagerState
+		mockDelegate.reachabilityChanged(false)
+		assert(mockDelegate.getCurrentState() == .disabled)
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, active: false, bluetoothOff: true)
+		mockDelegate.exposureManagerState = exposureManagerState
+		assert(mockDelegate.getCurrentState() == .bluetoothOff)
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, active: true, bluetoothOff: false)
+		mockDelegate.exposureManagerState = exposureManagerState
+		assert(mockDelegate.getCurrentState() == .internetOff)
+		mockDelegate.reachabilityChanged(true)
+		assert(mockDelegate.getCurrentState() == .enabled)
+	}
 }

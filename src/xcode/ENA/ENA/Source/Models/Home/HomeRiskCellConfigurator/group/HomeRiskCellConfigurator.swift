@@ -19,96 +19,96 @@ import ExposureNotification
 import UIKit
 
 class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
-    // MARK: Properties
+	// MARK: Properties
 
-    var buttonAction: (() -> Void)?
+	var buttonAction: (() -> Void)?
 
-    private(set) var isLoading: Bool
-    private(set) var isButtonEnabled: Bool
-    private(set) var isButtonHidden: Bool
-    private(set) var isCounterLabelHidden: Bool
+	private(set) var isLoading: Bool
+	private(set) var isButtonEnabled: Bool
+	private(set) var isButtonHidden: Bool
+	private(set) var isCounterLabelHidden: Bool
 
-    private(set) var startDate: Date?
-    private(set) var releaseDate: Date?
+	private(set) var startDate: Date?
+	private(set) var releaseDate: Date?
 
-    private var lastUpdateDate: Date?
+	private var lastUpdateDate: Date?
 
-    private let calendar = Calendar.current
+	private let calendar = Calendar.current
 
-    private static let lastUpdateDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.doesRelativeDateFormatting = true
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
-        return dateFormatter
-    }()
+	private static let lastUpdateDateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.doesRelativeDateFormatting = true
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .short
+		return dateFormatter
+	}()
 
-    var lastUpdateDateString: String {
-        if let lastUpdateDate = lastUpdateDate {
-            return Self.lastUpdateDateFormatter.string(from: lastUpdateDate)
-        } else {
-            return " - "
-        }
-    }
+	var lastUpdateDateString: String {
+		if let lastUpdateDate = lastUpdateDate {
+			return Self.lastUpdateDateFormatter.string(from: lastUpdateDate)
+		} else {
+			return " - "
+		}
+	}
 
-    // MARK: Creating a Home Risk Cell Configurator
+	// MARK: Creating a Home Risk Cell Configurator
 
-    init(isLoading: Bool, isButtonEnabled: Bool, isButtonHidden: Bool, isCounterLabelHidden: Bool, startDate: Date?, releaseDate: Date?, lastUpdateDate: Date?) {
-        self.isLoading = isLoading
-        self.isButtonEnabled = isButtonEnabled
-        self.isButtonHidden = isButtonHidden
-        self.isCounterLabelHidden = isCounterLabelHidden
-        self.startDate = startDate
-        self.releaseDate = releaseDate
-        self.lastUpdateDate = lastUpdateDate
-    }
+	init(isLoading: Bool, isButtonEnabled: Bool, isButtonHidden: Bool, isCounterLabelHidden: Bool, startDate: Date?, releaseDate: Date?, lastUpdateDate: Date?) {
+		self.isLoading = isLoading
+		self.isButtonEnabled = isButtonEnabled
+		self.isButtonHidden = isButtonHidden
+		self.isCounterLabelHidden = isCounterLabelHidden
+		self.startDate = startDate
+		self.releaseDate = releaseDate
+		self.lastUpdateDate = lastUpdateDate
+	}
 
-    // MARK: Loading
+	// MARK: Loading
 
-    func startLoading() {
-        isLoading = true
-    }
+	func startLoading() {
+		isLoading = true
+	}
 
-    func stopLoading() {
-        isLoading = false
-    }
+	func stopLoading() {
+		isLoading = false
+	}
 
-    // MARK: Counter
+	// MARK: Counter
 
-    func updateCounter(startDate: Date, releaseDate: Date) {
-        self.startDate = startDate
-        self.releaseDate = releaseDate
-    }
+	func updateCounter(startDate: Date, releaseDate: Date) {
+		self.startDate = startDate
+		self.releaseDate = releaseDate
+	}
 
-    func removeCounter() {
-        startDate = nil
-        releaseDate = nil
-    }
+	func removeCounter() {
+		startDate = nil
+		releaseDate = nil
+	}
 
-    // MARK: Button
+	// MARK: Button
 
-    func updateButtonEnabled(_ enabled: Bool) {
-        isButtonEnabled = enabled
-    }
+	func updateButtonEnabled(_ enabled: Bool) {
+		isButtonEnabled = enabled
+	}
 
-    func counterTouple() -> (minutes: Int, seconds: Int)? {
-        guard let startDate = startDate else { return nil }
-        guard let releaseDate = releaseDate else { return nil }
-        let dateComponents = calendar.dateComponents([.minute, .second], from: startDate, to: releaseDate)
-        guard let minutes = dateComponents.minute else { return nil }
-        guard let seconds = dateComponents.second else { return nil }
-        return (minutes: minutes, seconds: seconds)
-    }
+	func counterTouple() -> (minutes: Int, seconds: Int)? {
+		guard let startDate = startDate else { return nil }
+		guard let releaseDate = releaseDate else { return nil }
+		let dateComponents = calendar.dateComponents([.minute, .second], from: startDate, to: releaseDate)
+		guard let minutes = dateComponents.minute else { return nil }
+		guard let seconds = dateComponents.second else { return nil }
+		return (minutes: minutes, seconds: seconds)
+	}
 
-    // MARK: Configuration
+	// MARK: Configuration
 
-    func configure(cell _: RiskCollectionViewCell) {
-        fatalError("implement this method in children")
-    }
+	func configure(cell _: RiskCollectionViewCell) {
+		fatalError("implement this method in children")
+	}
 }
 
 extension HomeRiskCellConfigurator: RiskCollectionViewCellDelegate {
-    func updateButtonTapped(cell _: RiskCollectionViewCell) {
-        buttonAction?()
-    }
+	func updateButtonTapped(cell _: RiskCollectionViewCell) {
+		buttonAction?()
+	}
 }

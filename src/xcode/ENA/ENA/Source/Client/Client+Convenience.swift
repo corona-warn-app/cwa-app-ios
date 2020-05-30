@@ -18,71 +18,71 @@
 import Foundation
 
 struct DaysAndHoursError: Error {
-    let errors: [Error]
+	let errors: [Error]
 }
 
 extension Client {
-    typealias DaysAndHours = (days: [String], hours: [Int])
-    typealias DaysAndHoursResult = Result<DaysAndHours, DaysAndHoursError>
-    typealias DaysAndHoursCompletion = (DaysAndHoursResult) -> Void
+	typealias DaysAndHours = (days: [String], hours: [Int])
+	typealias DaysAndHoursResult = Result<DaysAndHours, DaysAndHoursError>
+	typealias DaysAndHoursCompletion = (DaysAndHoursResult) -> Void
 
-    func availableDaysAndHoursUpUntil(
-        _ today: String,
-        completion: @escaping DaysAndHoursCompletion
-    ) {
-        let group = DispatchGroup()
+	func availableDaysAndHoursUpUntil(
+		_ today: String,
+		completion: @escaping DaysAndHoursCompletion
+	) {
+		let group = DispatchGroup()
 
-        group.enter()
+		group.enter()
 
-        var days = [String]()
-        var hours = [Int]()
-        var errors = [Error]()
+		var days = [String]()
+		var hours = [Int]()
+		var errors = [Error]()
 
-        availableDays { result in
-            switch result {
-            case let .success(remoteDays):
-                days = remoteDays
-            case let .failure(error):
-                errors.append(error)
-            }
-            group.leave()
-        }
+		availableDays { result in
+			switch result {
+			case let .success(remoteDays):
+				days = remoteDays
+			case let .failure(error):
+				errors.append(error)
+			}
+			group.leave()
+		}
 
-        group.enter()
-        availableHours(day: today) { result in
-            switch result {
-            case let .success(remoteHours):
-                hours = remoteHours
-            case let .failure(error):
-                errors.append(error)
-            }
-            group.leave()
-        }
+		group.enter()
+		availableHours(day: today) { result in
+			switch result {
+			case let .success(remoteHours):
+				hours = remoteHours
+			case let .failure(error):
+				errors.append(error)
+			}
+			group.leave()
+		}
 
-        group.notify(queue: .main) {
-            guard errors.isEmpty else {
-                completion(.failure(DaysAndHoursError(errors: errors)))
-                return
-            }
-            completion(.success((days: days, hours: hours)))
-        }
-    }
+		group.notify(queue: .main) {
+			guard errors.isEmpty else {
+				completion(.failure(DaysAndHoursError(errors: errors)))
+				return
+			}
+			completion(.success((days: days, hours: hours)))
+		}
+	}
 
-    typealias FetchCompletion = (FetchedDaysAndHours) -> Void
-    func fetch(completion: @escaping FetchCompletion) {
-        availableDaysAndHoursUpUntil(.formattedToday()) { result in
-            switch result {
-            case let .success(daysAndHours):
-                self.fetchDays(
-                    daysAndHours.days,
-                    hours: daysAndHours.hours,
-                    of: .formattedToday()
-                ) { daysAndHours in
-                    completion(daysAndHours)
-                }
-            case let .failure(error):
-                logError(message: "message: Failed to fetch all keys: \(error)")
-            }
-        }
-    }
+	typealias FetchCompletion = (FetchedDaysAndHours) -> Void
+	func fetch(completion: @escaping FetchCompletion) {
+		availableDaysAndHoursUpUntil(.formattedToday()) { result in
+			switch result {
+			case let .success(daysAndHours):
+				self.fetchDays(
+					daysAndHours.days,
+					hours: daysAndHours.hours,
+					of: .formattedToday()
+				) { daysAndHours in
+					completion(daysAndHours)
+				}
+			case let .failure(error):
+				logError(message: "message: Failed to fetch all keys: \(error)")
+			}
+		}
+	}
 }

@@ -18,51 +18,51 @@
 import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
-    private var state: RiskDetectionState
+	private var state: RiskDetectionState
 
-    init(state: RiskDetectionState) {
-        self.state = state
-    }
+	init(state: RiskDetectionState) {
+		self.state = state
+	}
 
-    // MARK: Configuring a Cell
+	// MARK: Configuring a Cell
 
-    func configure(cell: ActivateCollectionViewCell) {
-        var iconImage: UIImage?
-        cell.iconImageView.image?.withRenderingMode(.alwaysTemplate)
+	func configure(cell: ActivateCollectionViewCell) {
+		var iconImage: UIImage?
+		cell.iconImageView.image?.withRenderingMode(.alwaysTemplate)
 
-        switch state {
-        case .enabled:
-            iconImage = UIImage(named: "Icons_Risikoermittlung")
-            cell.titleTextView.text = AppStrings.Home.activateCardOnTitle
-            cell.iconImageView.tintColor = UIColor.preferredColor(for: .tintColor)
-        case .disabled:
-            iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
-            cell.iconImageView.tintColor = UIColor.preferredColor(for: .negative)
-            cell.titleTextView.text = AppStrings.Home.activateCardOffTitle
-        case .bluetoothOff:
-            iconImage = UIImage(named: "Icons_Bluetooth_aus")
-            cell.iconImageView.tintColor = UIColor.preferredColor(for: .negative)
-            cell.titleTextView.text = AppStrings.Home.activateCardBluetoothOffTitle
-        case .internetOff:
-            iconImage = UIImage(systemName: "wifi.slash")
-            cell.iconImageView.tintColor = UIColor.preferredColor(for: .negative)
-            cell.titleTextView.text = AppStrings.Home.activateCardInternetOffTitle
-        }
+		switch state {
+		case .enabled:
+			iconImage = UIImage(named: "Icons_Risikoermittlung")
+			cell.titleTextView.text = AppStrings.Home.activateCardOnTitle
+			cell.iconImageView.tintColor = UIColor.preferredColor(for: .tintColor)
+		case .disabled:
+			iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
+			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negative)
+			cell.titleTextView.text = AppStrings.Home.activateCardOffTitle
+		case .bluetoothOff:
+			iconImage = UIImage(named: "Icons_Bluetooth_aus")
+			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negative)
+			cell.titleTextView.text = AppStrings.Home.activateCardBluetoothOffTitle
+		case .internetOff:
+			iconImage = UIImage(systemName: "wifi.slash")
+			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negative)
+			cell.titleTextView.text = AppStrings.Home.activateCardInternetOffTitle
+		}
 
-        cell.iconImageView.image = iconImage
+		cell.iconImageView.image = iconImage
 
-        let chevronImage = UIImage(systemName: "chevron.right.circle.fill")
-        cell.chevronImageView.image = chevronImage
+		let chevronImage = UIImage(systemName: "chevron.right.circle.fill")
+		cell.chevronImageView.image = chevronImage
 
-        setupAccessibility(for: cell)
-    }
+		setupAccessibility(for: cell)
+	}
 
-    func set(newState: RiskDetectionState) {
-        state = newState
-    }
+	func set(newState: RiskDetectionState) {
+		state = newState
+	}
 
-    func setupAccessibility(for cell: ActivateCollectionViewCell) {
-        cell.isAccessibilityElement = true
-        cell.accessibilityIdentifier = Accessibility.StaticText.homeActivateTitle
-    }
+	func setupAccessibility(for cell: ActivateCollectionViewCell) {
+		cell.isAccessibilityElement = true
+		cell.accessibilityIdentifier = Accessibility.StaticText.homeActivateTitle
+	}
 }

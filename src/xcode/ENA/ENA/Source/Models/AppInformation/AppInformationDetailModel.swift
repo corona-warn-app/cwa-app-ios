@@ -19,19 +19,19 @@ import Foundation
 import UIKit
 
 struct AppInformationDetailModel {
-    let title: String
-    let headerImage: UIImage?
-    let content: [Content]
+	let title: String
+	let headerImage: UIImage?
+	let content: [Content]
 }
 
 extension AppInformationDetailModel {
-    enum Content {
-        case headline(text: String)
-        case body(text: String)
-        case bold(text: String)
-        case small(text: String)
-        case tiny(text: String)
-        case phone(text: String, number: String)
-        case seperator
-    }
+	enum Content {
+		case headline(text: String)
+		case body(text: String)
+		case bold(text: String)
+		case small(text: String)
+		case tiny(text: String)
+		case phone(text: String, number: String)
+		case seperator
+	}
 }

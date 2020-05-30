@@ -19,57 +19,57 @@ import Foundation
 import UIKit
 
 class AppInformationHelpViewController: UITableViewController {
-    var model: AppInformationHelpModel!
+	var model: AppInformationHelpModel!
 
-    override func numberOfSections(in _: UITableView) -> Int {
-        model.numberOfSections
-    }
+	override func numberOfSections(in _: UITableView) -> Int {
+		model.numberOfSections
+	}
 
-    override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
-        model.title(for: section)
-    }
+	override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
+		model.title(for: section)
+	}
 
-    override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
-        model.questions(in: section).count
-    }
+	override func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+		model.questions(in: section).count
+	}
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let question = model.question(indexPath.row, in: indexPath.section)
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let question = model.question(indexPath.row, in: indexPath.section)
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.question.rawValue, for: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.question.rawValue, for: indexPath)
 
-        cell.textLabel?.text = question.title
+		cell.textLabel?.text = question.title
 
-        return cell
-    }
+		return cell
+	}
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+	}
 
-    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-        let destination = segue.destination
+	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
+		let destination = segue.destination
 
-        guard
-            let segueIdentifier = segue.identifier,
-            let segue = SegueIdentifier(rawValue: segueIdentifier)
-        else { return }
+		guard
+			let segueIdentifier = segue.identifier,
+			let segue = SegueIdentifier(rawValue: segueIdentifier)
+		else { return }
 
-        switch segue {
-        case .detail:
-            (destination as? AppInformationDetailViewController)?.model = .helpTracing
-        }
-    }
+		switch segue {
+		case .detail:
+			(destination as? AppInformationDetailViewController)?.model = .helpTracing
+		}
+	}
 }
 
 extension AppInformationHelpViewController {
-    enum SegueIdentifier: String {
-        case detail = "detailSegue"
-    }
+	enum SegueIdentifier: String {
+		case detail = "detailSegue"
+	}
 }
 
 extension AppInformationHelpViewController {
-    fileprivate enum ReusableCellIdentifier: String {
-        case question = "questionCell"
-    }
+	fileprivate enum ReusableCellIdentifier: String {
+		case question = "questionCell"
+	}
 }

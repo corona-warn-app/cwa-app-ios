@@ -18,13 +18,13 @@
 import Foundation
 
 protocol DownloadedPackagesStore: AnyObject {
-    func open()
-    func close()
-    func set(day: String, package: SAPDownloadedPackage)
-    func set(hour: Int, day: String, package: SAPDownloadedPackage)
-    func package(for day: String) -> SAPDownloadedPackage?
-    func hourlyPackages(for day: String) -> [SAPDownloadedPackage]
-    func allDays() -> [String]
-    func hours(for day: String) -> [Int]
-    func reset()
+	func open()
+	func close()
+	func set(day: String, package: SAPDownloadedPackage)
+	func set(hour: Int, day: String, package: SAPDownloadedPackage)
+	func package(for day: String) -> SAPDownloadedPackage?
+	func hourlyPackages(for day: String) -> [SAPDownloadedPackage]
+	func allDays() -> [String]
+	func hours(for day: String) -> [Int]
+	func reset()
 }

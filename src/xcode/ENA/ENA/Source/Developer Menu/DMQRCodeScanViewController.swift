@@ -20,108 +20,108 @@ import ExposureNotification
 import UIKit
 
 protocol DMQRCodeScanViewControllerDelegate: AnyObject {
-    func debugCodeScanViewController(
-        _ viewController: DMQRCodeScanViewController,
-        didScan diagnosisKey: SAP_TemporaryExposureKey
-    )
+	func debugCodeScanViewController(
+		_ viewController: DMQRCodeScanViewController,
+		didScan diagnosisKey: SAP_TemporaryExposureKey
+	)
 }
 
 final class DMQRCodeScanViewController: UIViewController {
-    // MARK: Creating a Debug Code Scan View Controller
+	// MARK: Creating a Debug Code Scan View Controller
 
-    init(delegate: DMQRCodeScanViewControllerDelegate) {
-        self.delegate = delegate
-        super.init(nibName: nil, bundle: nil)
-    }
+	init(delegate: DMQRCodeScanViewControllerDelegate) {
+		self.delegate = delegate
+		super.init(nibName: nil, bundle: nil)
+	}
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	required init?(coder _: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
-    // MARK: Properties
+	// MARK: Properties
 
-    private let scanView = DMQRCodeScanView()
-    private weak var delegate: DMQRCodeScanViewControllerDelegate?
+	private let scanView = DMQRCodeScanView()
+	private weak var delegate: DMQRCodeScanViewControllerDelegate?
 
-    // MARK: UIViewController
+	// MARK: UIViewController
 
-    override func loadView() {
-        view = scanView
-    }
+	override func loadView() {
+		view = scanView
+	}
 
-    override func viewDidLoad() {
-        scanView.dataHandler = { data in
-            do {
-                let diagnosisKey = try SAP_TemporaryExposureKey(serializedData: data)
-                self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
-                self.dismiss(animated: true, completion: nil)
-            } catch {
-                logError(message: "Failed to deserialize qr to key: \(error.localizedDescription)")
-            }
-        }
-    }
+	override func viewDidLoad() {
+		scanView.dataHandler = { data in
+			do {
+				let diagnosisKey = try SAP_TemporaryExposureKey(serializedData: data)
+				self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
+				self.dismiss(animated: true, completion: nil)
+			} catch {
+				logError(message: "Failed to deserialize qr to key: \(error.localizedDescription)")
+			}
+		}
+	}
 
-    override var prefersStatusBarHidden: Bool {
-        true
-    }
+	override var prefersStatusBarHidden: Bool {
+		true
+	}
 }
 
 private final class DMQRCodeScanView: UIView {
-    // MARK: Types
+	// MARK: Types
 
-    typealias DataHandler = (Data) -> Void
+	typealias DataHandler = (Data) -> Void
 
-    // MARK: UIView
+	// MARK: UIView
 
-    override class var layerClass: AnyClass {
-        AVCaptureVideoPreviewLayer.self
-    }
+	override class var layerClass: AnyClass {
+		AVCaptureVideoPreviewLayer.self
+	}
 
-    // MARK: Properties
+	// MARK: Properties
 
-    fileprivate var dataHandler: DataHandler = { _ in }
-    fileprivate var captureSession: AVCaptureSession
+	fileprivate var dataHandler: DataHandler = { _ in }
+	fileprivate var captureSession: AVCaptureSession
 
-    // MARK: Creating a code scan view
+	// MARK: Creating a code scan view
 
-    init() {
-        captureSession = AVCaptureSession()
+	init() {
+		captureSession = AVCaptureSession()
 
-        super.init(frame: .zero)
+		super.init(frame: .zero)
 
-        // swiftlint:disable:next force_unwrapping
-        let captureDevice = AVCaptureDevice.default(for: .video)! // forcing is okay - developer feature only
-        guard let captureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return }
+		// swiftlint:disable:next force_unwrapping
+		let captureDevice = AVCaptureDevice.default(for: .video)! // forcing is okay - developer feature only
+		guard let captureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return }
 
-        captureSession.addInput(captureDeviceInput)
+		captureSession.addInput(captureDeviceInput)
 
-        let captureMetadataOutput = AVCaptureMetadataOutput()
-        captureSession.addOutput(captureMetadataOutput)
-        captureMetadataOutput.metadataObjectTypes = [.qr]
-        captureMetadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+		let captureMetadataOutput = AVCaptureMetadataOutput()
+		captureSession.addOutput(captureMetadataOutput)
+		captureMetadataOutput.metadataObjectTypes = [.qr]
+		captureMetadataOutput.setMetadataObjectsDelegate(self, queue: .main)
 
-        captureSession.startRunning()
+		captureSession.startRunning()
 
-        guard let videoPreviewLayer = layer as? AVCaptureVideoPreviewLayer else { return }
-        videoPreviewLayer.videoGravity = .resizeAspectFill
-        videoPreviewLayer.session = captureSession
-    }
+		guard let videoPreviewLayer = layer as? AVCaptureVideoPreviewLayer else { return }
+		videoPreviewLayer.videoGravity = .resizeAspectFill
+		videoPreviewLayer.session = captureSession
+	}
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+	required init?(coder _: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 }
 
 extension DMQRCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
-    func metadataOutput(_: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from _: AVCaptureConnection) {
-        if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue {
-            captureSession.stopRunning()
-            // swiftlint:disable:next force_unwrapping
-            let data = Data(base64Encoded: string.trimmingCharacters(in: .whitespacesAndNewlines))! // using force is okay - developer feature only
-            log(message: "\(data)")
-            dataHandler(data)
-        } else {
-            logError(message: "Nope")
-        }
-    }
+	func metadataOutput(_: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from _: AVCaptureConnection) {
+		if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject, let string = metadataObject.stringValue {
+			captureSession.stopRunning()
+			// swiftlint:disable:next force_unwrapping
+			let data = Data(base64Encoded: string.trimmingCharacters(in: .whitespacesAndNewlines))! // using force is okay - developer feature only
+			log(message: "\(data)")
+			dataHandler(data)
+		} else {
+			logError(message: "Nope")
+		}
+	}
 }

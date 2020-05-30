@@ -19,47 +19,47 @@ import Foundation
 import UIKit
 
 protocol ResetDelegate: AnyObject {
-    func reset()
+	func reset()
 }
 
 final class ResetViewController: UIViewController {
-    @IBOutlet var header1Label: DynamicTypeLabel!
-    @IBOutlet var description1TextView: UITextView!
-    @IBOutlet var resetButton: ENAButton!
-    @IBOutlet var discardResetButton: UIButton!
+	@IBOutlet var header1Label: DynamicTypeLabel!
+	@IBOutlet var description1TextView: UITextView!
+	@IBOutlet var resetButton: ENAButton!
+	@IBOutlet var discardResetButton: UIButton!
 
-    weak var delegate: ResetDelegate?
+	weak var delegate: ResetDelegate?
 
-    @IBAction func resetData(_: Any) {
-        delegate?.reset()
-    }
+	@IBAction func resetData(_: Any) {
+		delegate?.reset()
+	}
 
-    override func viewDidLoad() {
-        setupView()
-    }
+	override func viewDidLoad() {
+		setupView()
+	}
 
-    @IBAction func discard(_: Any) {
-        dismiss(animated: true, completion: nil)
-    }
+	@IBAction func discard(_: Any) {
+		dismiss(animated: true, completion: nil)
+	}
 
-    override func traitCollectionDidChange(_: UITraitCollection?) {
-        resetButton.sizeToFit()
-        discardResetButton.sizeToFit()
-    }
+	override func traitCollectionDidChange(_: UITraitCollection?) {
+		resetButton.sizeToFit()
+		discardResetButton.sizeToFit()
+	}
 
-    private func setupView() {
-        navigationItem.title = AppStrings.Reset.navigationBarTitle
-        navigationController?.navigationBar.prefersLargeTitles = true
+	private func setupView() {
+		navigationItem.title = AppStrings.Reset.navigationBarTitle
+		navigationController?.navigationBar.prefersLargeTitles = true
 
-        description1TextView.contentInset = .zero
-        description1TextView.textContainer.lineFragmentPadding = 0
+		description1TextView.contentInset = .zero
+		description1TextView.textContainer.lineFragmentPadding = 0
 
-        header1Label.text = AppStrings.Reset.header1
-        description1TextView.text = AppStrings.Reset.description1
-        resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
-        resetButton.titleLabel?.adjustsFontForContentSizeCategory = true
-        resetButton.backgroundColor = UIColor.preferredColor(for: .brandRed)
-        discardResetButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
-        discardResetButton.titleLabel?.adjustsFontForContentSizeCategory = true
-    }
+		header1Label.text = AppStrings.Reset.header1
+		description1TextView.text = AppStrings.Reset.description1
+		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
+		resetButton.titleLabel?.adjustsFontForContentSizeCategory = true
+		resetButton.backgroundColor = UIColor.preferredColor(for: .brandRed)
+		discardResetButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
+		discardResetButton.titleLabel?.adjustsFontForContentSizeCategory = true
+	}
 }

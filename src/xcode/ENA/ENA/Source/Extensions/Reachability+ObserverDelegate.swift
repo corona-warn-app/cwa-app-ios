@@ -22,30 +22,30 @@ import Reachability
 private var reachability: Reachability!
 
 protocol ReachabilityActionDelegate: AnyObject {
-    func reachabilityChanged(_ isReachable: Bool)
+	func reachabilityChanged(_ isReachable: Bool)
 }
 
 protocol ReachabilityObserverDelegate: ReachabilityActionDelegate {
-    func addReachabilityObserver() throws
-    func removeReachabilityObserver()
+	func addReachabilityObserver() throws
+	func removeReachabilityObserver()
 }
 
 extension ReachabilityObserverDelegate {
-    func addReachabilityObserver() throws {
-        reachability = try Reachability()
+	func addReachabilityObserver() throws {
+		reachability = try Reachability()
 
-        reachability.whenReachable = { [weak self] _ in
-            self?.reachabilityChanged(true)
-        }
+		reachability.whenReachable = { [weak self] _ in
+			self?.reachabilityChanged(true)
+		}
 
-        reachability.whenUnreachable = { [weak self] _ in
-            self?.reachabilityChanged(false)
-        }
-        try reachability.startNotifier()
-    }
+		reachability.whenUnreachable = { [weak self] _ in
+			self?.reachabilityChanged(false)
+		}
+		try reachability.startNotifier()
+	}
 
-    func removeReachabilityObserver() {
-        reachability.stopNotifier()
-        reachability = nil
-    }
+	func removeReachabilityObserver() {
+		reachability.stopNotifier()
+		reachability = nil
+	}
 }

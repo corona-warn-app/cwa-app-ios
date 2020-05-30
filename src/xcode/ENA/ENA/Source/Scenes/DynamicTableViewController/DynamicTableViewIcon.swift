@@ -19,8 +19,8 @@ import Foundation
 import UIKit
 
 struct DynamicIcon {
-    let text: String
-    let image: UIImage?
-    let backgroundColor: UIColor
-    let tintColor: UIColor
+	let text: String
+	let image: UIImage?
+	let backgroundColor: UIColor
+	let tintColor: UIColor
 }

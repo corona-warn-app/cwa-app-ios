@@ -19,46 +19,46 @@ import Foundation
 import UIKit
 
 protocol ActionCell: ConfigurableENSettingCell {
-    func configure(for state: RiskDetectionState, delegate: ActionTableViewCellDelegate)
+	func configure(for state: RiskDetectionState, delegate: ActionTableViewCellDelegate)
 }
 
 protocol ActionTableViewCellDelegate: AnyObject {
-    func performAction(enable: Bool)
+	func performAction(enable: Bool)
 }
 
 class ActionTableViewCell: UITableViewCell, ActionCell {
-    @IBOutlet var actionTitleLabel: UILabel!
-    @IBOutlet var actionSwitch: ENASwitch!
-    @IBOutlet var detailLabel: UILabel!
+	@IBOutlet var actionTitleLabel: UILabel!
+	@IBOutlet var actionSwitch: ENASwitch!
+	@IBOutlet var detailLabel: UILabel!
 
-    weak var delegate: ActionTableViewCellDelegate?
+	weak var delegate: ActionTableViewCellDelegate?
 
-    @IBAction func switchValueDidChange(_: Any) {
-        delegate?.performAction(enable: actionSwitch.isOn)
-    }
+	@IBAction func switchValueDidChange(_: Any) {
+		delegate?.performAction(enable: actionSwitch.isOn)
+	}
 
-    func turnSwitch(to on: Bool) {
-        actionSwitch.setOn(on, animated: true)
-    }
+	func turnSwitch(to on: Bool) {
+		actionSwitch.setOn(on, animated: true)
+	}
 
-    func configure(for state: RiskDetectionState) {
-        actionTitleLabel.text = AppStrings.ExposureNotificationSetting.enableTracing
-        detailLabel.text = AppStrings.ExposureNotificationSetting.limitedTracing
-        turnSwitch(to: state == .enabled)
+	func configure(for state: RiskDetectionState) {
+		actionTitleLabel.text = AppStrings.ExposureNotificationSetting.enableTracing
+		detailLabel.text = AppStrings.ExposureNotificationSetting.limitedTracing
+		turnSwitch(to: state == .enabled)
 
-        switch state {
-        case .enabled, .disabled:
-            detailLabel.isHidden = true
-            actionSwitch.isHidden = false
-        case .bluetoothOff, .internetOff:
-            detailLabel.isHidden = false
-            actionSwitch.isHidden = true
-        }
-    }
+		switch state {
+		case .enabled, .disabled:
+			detailLabel.isHidden = true
+			actionSwitch.isHidden = false
+		case .bluetoothOff, .internetOff:
+			detailLabel.isHidden = false
+			actionSwitch.isHidden = true
+		}
+	}
 
-    func configure(for state: RiskDetectionState,
-                   delegate: ActionTableViewCellDelegate) {
-        self.delegate = delegate
-        configure(for: state)
-    }
+	func configure(for state: RiskDetectionState,
+				   delegate: ActionTableViewCellDelegate) {
+		self.delegate = delegate
+		configure(for: state)
+	}
 }

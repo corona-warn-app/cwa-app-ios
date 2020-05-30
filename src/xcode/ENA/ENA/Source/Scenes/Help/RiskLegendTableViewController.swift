@@ -19,32 +19,32 @@ import Foundation
 import UIKit
 
 class RiskLegendTableViewController: UITableViewController {
-    private let tableViewCellHeight: CGFloat = 200
+	private let tableViewCellHeight: CGFloat = 200
 
-    let riskLegend = RiskLegendFactory.getSharedRiskLegendFactory().getRiskLegend()
+	let riskLegend = RiskLegendFactory.getSharedRiskLegendFactory().getRiskLegend()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.allowsSelection = false
-        tableView.estimatedRowHeight = tableViewCellHeight
-        tableView.rowHeight = UITableView.automaticDimension
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		tableView.allowsSelection = false
+		tableView.estimatedRowHeight = tableViewCellHeight
+		tableView.rowHeight = UITableView.automaticDimension
+	}
 
-    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        riskLegend.count
-    }
+	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+		riskLegend.count
+	}
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RiskLegendTableViewCell.identifier) as? RiskLegendTableViewCell else {
-            return UITableViewCell()
-        }
-        cell.titleLabel.text = riskLegend[indexPath.row].title
-        cell.detailTextView.text = riskLegend[indexPath.row].description
-        cell.detailTextView.contentInset = .zero
-        cell.detailTextView.textContainer.lineFragmentPadding = 0
-        cell.iconImageView.image = UIImage(systemName: riskLegend[indexPath.row].imageName)
-        cell.iconBackgroundView.backgroundColor = riskLegend[indexPath.row].backgroundColor
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: RiskLegendTableViewCell.identifier) as? RiskLegendTableViewCell else {
+			return UITableViewCell()
+		}
+		cell.titleLabel.text = riskLegend[indexPath.row].title
+		cell.detailTextView.text = riskLegend[indexPath.row].description
+		cell.detailTextView.contentInset = .zero
+		cell.detailTextView.textContainer.lineFragmentPadding = 0
+		cell.iconImageView.image = UIImage(systemName: riskLegend[indexPath.row].imageName)
+		cell.iconBackgroundView.backgroundColor = riskLegend[indexPath.row].backgroundColor
 
-        return cell
-    }
+		return cell
+	}
 }

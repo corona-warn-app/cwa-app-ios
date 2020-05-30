@@ -19,39 +19,39 @@
 import ExposureNotification
 
 class MockTestClient: Client {
-    func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
-        completion(.success([]))
-    }
+	func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
+		completion(.success([]))
+	}
 
-    func availableHours(day _: String, completion: @escaping AvailableHoursCompletionHandler) {
-        completion(.success([]))
-    }
+	func availableHours(day _: String, completion: @escaping AvailableHoursCompletionHandler) {
+		completion(.success([]))
+	}
 
-    func fetchDay(_: String, completion _: @escaping DayCompletionHandler) {}
+	func fetchDay(_: String, completion _: @escaping DayCompletionHandler) {}
 
-    func fetchHour(_: Int, day _: String, completion _: @escaping HourCompletionHandler) {}
+	func fetchHour(_: Int, day _: String, completion _: @escaping HourCompletionHandler) {}
 
-    let submissionError: SubmissionError?
+	let submissionError: SubmissionError?
 
-    init(submissionError: SubmissionError?) {
-        self.submissionError = submissionError
-    }
+	init(submissionError: SubmissionError?) {
+		self.submissionError = submissionError
+	}
 
-    func exposureConfiguration(completion _: @escaping ExposureConfigurationCompletionHandler) {}
+	func exposureConfiguration(completion _: @escaping ExposureConfigurationCompletionHandler) {}
 
-    func submit(keys _: [ENTemporaryExposureKey], tan _: String, completion: @escaping SubmitKeysCompletionHandler) {
-        completion(submissionError)
-    }
+	func submit(keys _: [ENTemporaryExposureKey], tan _: String, completion: @escaping SubmitKeysCompletionHandler) {
+		completion(submissionError)
+	}
 
-    func getRegistrationToken(forKey _: String, withType _: String, completion completeWith: @escaping RegistrationHandler) {
-        completeWith(.success("dummyRegistrationToken"))
-    }
+	func getRegistrationToken(forKey _: String, withType _: String, completion completeWith: @escaping RegistrationHandler) {
+		completeWith(.success("dummyRegistrationToken"))
+	}
 
-    func getTestResult(forDevice _: String, completion completeWith: @escaping TestResultHandler) {
-        completeWith(.success(2))
-    }
+	func getTestResult(forDevice _: String, completion completeWith: @escaping TestResultHandler) {
+		completeWith(.success(2))
+	}
 
-    func getTANForExposureSubmit(forDevice _: String, completion completeWith: @escaping TANHandler) {
-        completeWith(.success("dummyTan"))
-    }
+	func getTANForExposureSubmit(forDevice _: String, completion completeWith: @escaping TANHandler) {
+		completeWith(.success("dummyTan"))
+	}
 }

@@ -26,23 +26,23 @@ import Foundation
 ///
 /// As a developer you can override the client mode by setting the environment variable `CWA_CLIENT_MODE` either to `mock` or `https`. In `APP_STORE` builds this feature is disabled.
 enum ClientMode: String {
-    case mock
-    case https
+	case mock
+	case https
 
-    static func from(environment _: [String: String]) -> ClientMode {
-        // We disable mocking
-        .https
-        //        #if APP_STORE
-        //        return .https
-        //        #endif
-        //        let defaultMode = ClientMode.https
-        //        let value = environment["CWA_CLIENT_MODE"] ?? defaultMode.rawValue
-        //        return ClientMode(rawValue: value) ?? defaultMode
-    }
+	static func from(environment _: [String: String]) -> ClientMode {
+		// We disable mocking
+		.https
+		//        #if APP_STORE
+		//        return .https
+		//        #endif
+		//        let defaultMode = ClientMode.https
+		//        let value = environment["CWA_CLIENT_MODE"] ?? defaultMode.rawValue
+		//        return ClientMode(rawValue: value) ?? defaultMode
+	}
 
-    static func from(processInfo: ProcessInfo) -> ClientMode {
-        from(environment: processInfo.environment)
-    }
+	static func from(processInfo: ProcessInfo) -> ClientMode {
+		from(environment: processInfo.environment)
+	}
 
-    static let `default` = ClientMode.from(processInfo: .processInfo)
+	static let `default` = ClientMode.from(processInfo: .processInfo)
 }

@@ -19,103 +19,103 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, SpinnerInjectable {
-    // MARK: - Attributes.
+	// MARK: - Attributes.
 
-    var exposureSubmissionService: ExposureSubmissionService?
-    var spinner: UIActivityIndicatorView?
+	var exposureSubmissionService: ExposureSubmissionService?
+	var spinner: UIActivityIndicatorView?
 
-    // MARK: - View lifecycle methods.
+	// MARK: - View lifecycle methods.
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupView()
-        fetchService()
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		setupView()
+		fetchService()
+	}
 
-    // MARK: Setup helpers.
+	// MARK: Setup helpers.
 
-    private func setupView() {
-        navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
-        setButtonTitle(to: AppStrings.ExposureSubmissionWarnOthers.continueButton)
-        setupTableView()
-    }
+	private func setupView() {
+		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
+		setButtonTitle(to: AppStrings.ExposureSubmissionWarnOthers.continueButton)
+		setupTableView()
+	}
 
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        dynamicTableViewModel = dynamicTableViewModel()
-    }
+	private func setupTableView() {
+		tableView.delegate = self
+		tableView.dataSource = self
+		dynamicTableViewModel = dynamicTableViewModel()
+	}
 
-    private func fetchService() {
-        exposureSubmissionService = exposureSubmissionService ??
-            (navigationController as? ExposureSubmissionNavigationController)?
-            .getExposureSubmissionService()
-    }
+	private func fetchService() {
+		exposureSubmissionService = exposureSubmissionService ??
+			(navigationController as? ExposureSubmissionNavigationController)?
+			.getExposureSubmissionService()
+	}
 
-    // MARK: - ExposureSubmissionService Helpers.
+	// MARK: - ExposureSubmissionService Helpers.
 
-    private func startSubmitProcess() {
-        startSpinner()
-        exposureSubmissionService?.getTANForExposureSubmit(hasConsent: true, completion: { result in
-            switch result {
-            case let .failure(error):
-                self.stopSpinner()
-                let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-                self.present(alert, animated: true, completion: nil)
-            case let .success(tan):
-                log(message: "Received tan for submission: \(tan)", level: .info)
-                self.submitKeys(with: tan)
-            }
+	private func startSubmitProcess() {
+		startSpinner()
+		exposureSubmissionService?.getTANForExposureSubmit(hasConsent: true, completion: { result in
+			switch result {
+			case let .failure(error):
+				self.stopSpinner()
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				self.present(alert, animated: true, completion: nil)
+			case let .success(tan):
+				log(message: "Received tan for submission: \(tan)", level: .info)
+				self.submitKeys(with: tan)
+			}
       })
-    }
+	}
 
-    private func submitKeys(with tan: String) {
-        startSpinner()
-        exposureSubmissionService?.submitExposure(with: tan, completionHandler: { error in
-            self.stopSpinner()
-            if let error = error {
-                logError(message: "error: \(error.localizedDescription)", level: .error)
-                let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
+	private func submitKeys(with tan: String) {
+		startSpinner()
+		exposureSubmissionService?.submitExposure(with: tan, completionHandler: { error in
+			self.stopSpinner()
+			if let error = error {
+				logError(message: "error: \(error.localizedDescription)", level: .error)
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				self.present(alert, animated: true, completion: nil)
+				return
+			}
 
-            self.performSegue(withIdentifier: Segue.sent, sender: self)
+			self.performSegue(withIdentifier: Segue.sent, sender: self)
       })
-    }
+	}
 }
 
 // MARK: ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionWarnOthersViewController: ExposureSubmissionNavigationControllerChild {
-    func didTapBottomButton() {
-        startSubmitProcess()
-    }
+	func didTapBottomButton() {
+		startSubmitProcess()
+	}
 }
 
 // MARK: - Custom Segues.
 
 extension ExposureSubmissionWarnOthersViewController {
-    enum Segue: String, SegueIdentifier {
-        case sent = "sentSegue"
-    }
+	enum Segue: String, SegueIdentifier {
+		case sent = "sentSegue"
+	}
 }
 
 // MARK: - DynamicTableViewModel convenience setup methods.
 
 private extension ExposureSubmissionWarnOthersViewController {
-    private func dynamicTableViewModel() -> DynamicTableViewModel {
-        DynamicTableViewModel.with {
-            $0.add(
-                .section(
-                    header: .image(UIImage(named: "Illu_Submission_AndereWarnen"), height: 250),
-                    cells: [
-                        .bigBold(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle),
-                        .regular(text: AppStrings.ExposureSubmissionWarnOthers.description),
-                        .regular(text: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription)
-                    ]
-                )
-            )
-        }
-    }
+	private func dynamicTableViewModel() -> DynamicTableViewModel {
+		DynamicTableViewModel.with {
+			$0.add(
+				.section(
+					header: .image(UIImage(named: "Illu_Submission_AndereWarnen"), height: 250),
+					cells: [
+						.bigBold(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle),
+						.regular(text: AppStrings.ExposureSubmissionWarnOthers.description),
+						.regular(text: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription)
+					]
+				)
+			)
+		}
+	}
 }

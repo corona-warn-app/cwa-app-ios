@@ -20,23 +20,23 @@ import Foundation
 let appLogger = Logger()
 
 func log(message: String, level _: LogLevel = .info, file _: String = #file, line _: UInt = #line, function _: String = #function) {
-    NSLog("%@", message)
+	NSLog("%@", message)
 }
 
 func logError(message: String, level _: LogLevel = .error, file _: String = #file, line _: UInt = #line, function _: String = #function) {
-    NSLog("%@", message)
+	NSLog("%@", message)
 }
 
 class Logger {
-    func log(message _: String, level _: LogLevel = .info, file _: String, line _: UInt, function _: String) {}
+	func log(message _: String, level _: LogLevel = .info, file _: String, line _: UInt, function _: String) {}
 
-    func getLoggedData() -> Data? {
-        Data()
-    }
+	func getLoggedData() -> Data? {
+		Data()
+	}
 }
 
 enum LogLevel {
-    case info
-    case warning
-    case error
+	case info
+	case warning
+	case error
 }

@@ -24,30 +24,30 @@ import UIKit
  */
 
 enum Accessibility {
-    enum Alert {
-        static let exposureNotifications = "Enable COVID-19 Exposure Notifications From “Corona-Warn”?"
-        static let localNotifications = "“Corona-Warn” Would Like to Send You Notifications"
-        static let dontAllowButton = "Don’t Allow"
-        static let cancelButton = "Cancel"
-        static let allowButton = "Allow"
-        static let okButton = "Ok"
-    }
+	enum Alert {
+		static let exposureNotifications = "Enable COVID-19 Exposure Notifications From “Corona-Warn”?"
+		static let localNotifications = "“Corona-Warn” Would Like to Send You Notifications"
+		static let dontAllowButton = "Don’t Allow"
+		static let cancelButton = "Cancel"
+		static let allowButton = "Allow"
+		static let okButton = "Ok"
+	}
 
-    enum StaticText {
-        static let onboardingTitle = "OnboardingInfo_togetherAgainstCoronaPage_title"
-        static let homeActivateTitle = "Home_Activate_Title"
-    }
+	enum StaticText {
+		static let onboardingTitle = "OnboardingInfo_togetherAgainstCoronaPage_title"
+		static let homeActivateTitle = "Home_Activate_Title"
+	}
 
-    enum Button {
-        static let next = "next"
-        static let ignore = "ignore"
-        static let finish = "finish"
-    }
+	enum Button {
+		static let next = "next"
+		static let ignore = "ignore"
+		static let finish = "finish"
+	}
 
-    enum Cell {
-        static let infoCardShareTitle = "infoCardShareTitle"
-        static let infoCardAboutTitle = "infoCardAboutTitle"
-        static let appInformationCardTitle = "appInformationCardTitle"
-        static let settingsCardTitle = "settingsCardTitle"
-    }
+	enum Cell {
+		static let infoCardShareTitle = "infoCardShareTitle"
+		static let infoCardAboutTitle = "infoCardAboutTitle"
+		static let appInformationCardTitle = "appInformationCardTitle"
+		static let settingsCardTitle = "settingsCardTitle"
+	}
 }

@@ -19,43 +19,43 @@ import Foundation
 
 @propertyWrapper
 class PersistedAndPublished<Value> {
-    init(key: String, notificationName: Notification.Name, defaultValue: Value) {
-        self.key = key
-        self.notificationName = notificationName
-        self.defaultValue = defaultValue
-    }
+	init(key: String, notificationName: Notification.Name, defaultValue: Value) {
+		self.key = key
+		self.notificationName = notificationName
+		self.defaultValue = defaultValue
+	}
 
-    let key: String
-    let notificationName: Notification.Name
-    let defaultValue: Value
+	let key: String
+	let notificationName: Notification.Name
+	let defaultValue: Value
 
-    var wrappedValue: Value {
-        get {
-            UserDefaults.standard.object(forKey: key) as? Value ?? defaultValue
-        }
-        set {
-            if let optional = newValue as? AnyOptional, optional.isNil {
-                UserDefaults.standard.removeObject(forKey: key)
-            } else {
-                UserDefaults.standard.set(newValue, forKey: key)
-            }
-            NotificationCenter.default.post(name: notificationName, object: nil)
-        }
-    }
+	var wrappedValue: Value {
+		get {
+			UserDefaults.standard.object(forKey: key) as? Value ?? defaultValue
+		}
+		set {
+			if let optional = newValue as? AnyOptional, optional.isNil {
+				UserDefaults.standard.removeObject(forKey: key)
+			} else {
+				UserDefaults.standard.set(newValue, forKey: key)
+			}
+			NotificationCenter.default.post(name: notificationName, object: nil)
+		}
+	}
 
-    var projectedValue: PersistedAndPublished<Value> { self }
+	var projectedValue: PersistedAndPublished<Value> { self }
 }
 
 extension PersistedAndPublished where Value: ExpressibleByNilLiteral {
-    convenience init(key: String, notificationName: Notification.Name) {
-        self.init(key: key, notificationName: notificationName, defaultValue: nil)
-    }
+	convenience init(key: String, notificationName: Notification.Name) {
+		self.init(key: key, notificationName: notificationName, defaultValue: nil)
+	}
 }
 
 private protocol AnyOptional {
-    var isNil: Bool { get }
+	var isNil: Bool { get }
 }
 
 extension Optional: AnyOptional {
-    var isNil: Bool { self == nil }
+	var isNil: Bool { self == nil }
 }

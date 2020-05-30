@@ -18,26 +18,26 @@
 import UIKit
 
 final class HomeRiskLoadingItemViewConfigurator: HomeRiskViewConfigurator {
-    var title: String
-    var titleColor: UIColor
-    var isLoading: Bool
-    var color: UIColor
-    var separatorColor: UIColor
+	var title: String
+	var titleColor: UIColor
+	var isLoading: Bool
+	var color: UIColor
+	var separatorColor: UIColor
 
-    init(title: String, titleColor: UIColor, isLoading: Bool, color: UIColor, separatorColor: UIColor) {
-        self.title = title
-        self.titleColor = titleColor
-        self.isLoading = isLoading
-        self.color = color
-        self.separatorColor = separatorColor
-    }
+	init(title: String, titleColor: UIColor, isLoading: Bool, color: UIColor, separatorColor: UIColor) {
+		self.title = title
+		self.titleColor = titleColor
+		self.isLoading = isLoading
+		self.color = color
+		self.separatorColor = separatorColor
+	}
 
-    func configure(riskView: RiskLoadingItemView) {
-        let iconTintColor = titleColor
-        riskView.activityIndicatorView.color = iconTintColor
-        riskView.titleTextView?.text = title
-        riskView.titleTextView?.textColor = titleColor
-        riskView.separatorView?.backgroundColor = separatorColor
-        riskView.backgroundColor = color
-    }
+	func configure(riskView: RiskLoadingItemView) {
+		let iconTintColor = titleColor
+		riskView.activityIndicatorView.color = iconTintColor
+		riskView.titleTextView?.text = title
+		riskView.titleTextView?.textColor = titleColor
+		riskView.separatorView?.backgroundColor = separatorColor
+		riskView.backgroundColor = color
+	}
 }

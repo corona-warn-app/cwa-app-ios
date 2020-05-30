@@ -19,68 +19,68 @@ import ExposureNotification
 import UIKit
 
 final class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
-    // MARK: Properties
+	// MARK: Properties
 
-    var contactAction: (() -> Void)?
+	var contactAction: (() -> Void)?
 
-    private var lastUpdateDate: Date?
-    var riskLevel: RiskLevel
-    private var numberRiskContacts: Int
-    private var daysSinceLastExposure: Int?
-    private var isLoading: Bool
+	private var lastUpdateDate: Date?
+	var riskLevel: RiskLevel
+	private var numberRiskContacts: Int
+	private var daysSinceLastExposure: Int?
+	private var isLoading: Bool
 
-    private static let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        return dateFormatter
-    }()
+	private static let dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+		return dateFormatter
+	}()
 
-    func startLoading() {
-        isLoading = true
-    }
+	func startLoading() {
+		isLoading = true
+	}
 
-    func stopLoading() {
-        isLoading = false
-    }
+	func stopLoading() {
+		isLoading = false
+	}
 
-    // MARK: Creating a Home Risk Cell Configurator
+	// MARK: Creating a Home Risk Cell Configurator
 
-    init(
-        riskLevel: RiskLevel,
-        lastUpdateDate: Date?,
-        numberRiskContacts: Int,
-        daysSinceLastExposure: Int?,
-        isLoading: Bool
-    ) {
-        self.riskLevel = riskLevel
-        self.lastUpdateDate = lastUpdateDate
-        self.numberRiskContacts = numberRiskContacts
-        self.daysSinceLastExposure = daysSinceLastExposure
-        self.isLoading = isLoading
-    }
+	init(
+		riskLevel: RiskLevel,
+		lastUpdateDate: Date?,
+		numberRiskContacts: Int,
+		daysSinceLastExposure: Int?,
+		isLoading: Bool
+	) {
+		self.riskLevel = riskLevel
+		self.lastUpdateDate = lastUpdateDate
+		self.numberRiskContacts = numberRiskContacts
+		self.daysSinceLastExposure = daysSinceLastExposure
+		self.isLoading = isLoading
+	}
 
-    // MARK: Configuration
+	// MARK: Configuration
 
-    func configure(cell: RiskCollectionViewCell) {
-        var dateString: String?
-        if let date = lastUpdateDate {
-            dateString = HomeRiskCellConfigurator.dateFormatter.string(from: date)
-        }
+	func configure(cell: RiskCollectionViewCell) {
+		var dateString: String?
+		if let date = lastUpdateDate {
+			dateString = HomeRiskCellConfigurator.dateFormatter.string(from: date)
+		}
 
-        let holder = HomeRiskCellPropertyHolder.propertyHolder(
-            riskLevel: riskLevel,
-            lastUpdateDateString: dateString,
-            numberRiskContacts: numberRiskContacts,
-            numberDaysLastContact: daysSinceLastExposure ?? 0,
-            isLoading: isLoading
-        )
-        // The delegate will be called back when the cell's primary action is triggered
-        cell.configure(with: holder, delegate: self)
-    }
+		let holder = HomeRiskCellPropertyHolder.propertyHolder(
+			riskLevel: riskLevel,
+			lastUpdateDateString: dateString,
+			numberRiskContacts: numberRiskContacts,
+			numberDaysLastContact: daysSinceLastExposure ?? 0,
+			isLoading: isLoading
+		)
+		// The delegate will be called back when the cell's primary action is triggered
+		cell.configure(with: holder, delegate: self)
+	}
 }
 
 extension HomeRiskCellConfigurator: RiskCollectionViewCellDelegate {
-    func contactButtonTapped(cell _: RiskCollectionViewCell) {
-        contactAction?()
-    }
+	func contactButtonTapped(cell _: RiskCollectionViewCell) {
+		contactAction?()
+	}
 }

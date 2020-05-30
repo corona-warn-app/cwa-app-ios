@@ -18,7 +18,7 @@
 import UIKit
 
 extension UICollectionViewCell {
-    static var cellIdentifier: String {
-        stringName()
-    }
+	static var cellIdentifier: String {
+		stringName()
+	}
 }
