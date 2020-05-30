@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ExposureDetection_Refreshed_Format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Heute, %%1$@</string>
+			<key>one</key>
+			<string>Gestern, %%1$@</string>
+			<key>other</key>
+			<string>%%2$@, %%1$@ </string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_NumberOfContacts</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Bisher keine Risikobegegnungen</string>
+			<key>one</key>
+			<string>%u Risikobegegnung</string>
+			<key>other</key>
+			<string>%u Risikobegegnungen</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_LastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Letzter Kontakt: Heute</string>
+			<key>one</key>
+			<string>Letzter Kontakt: Gestern</string>
+			<key>other</key>
+			<string>%u Tage seit letztem Begegnung</string>
+		</dict>
+	</dict>
+    <key>Home_Risk_High_Number_Contacts_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+            <string>Bisher keine Risikobegegnung</string>
+            <key>one</key>
+            <string>%u Risikobegegnung</string>
+            <key>other</key>
+            <string>%u Risikobegegnungen</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_High_Last_Contact_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+            <string>Weniger als einen Tag seit der letzten Begegnung</string>
+            <key>one</key>
+            <string>%u Tag seit der letzten Begegnung</string>
+            <key>other</key>
+            <string>%u Tage seit der letzten Begegnung</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_Status_Counter_Label</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@minutes@%#</string>
+        <key>minutes</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+            <string>Aktualisierung in %02u:%2$#@seconds@ Sekunden</string>
+            <key>one</key>
+            <string>Aktualisierung in %02u:%2$#@seconds@ Minute</string>
+            <key>other</key>
+            <string>Aktualisierung in %02u:%2$#@seconds@ Minuten</string>
+        </dict>
+        <key>seconds</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>other</key>
+            <string>%02u</string>
+        </dict>
+    </dict>
+	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Bisher keine Risikobegegnung</string>
+			<key>one</key>
+			<string>%u Risikobegegnung</string>
+			<key>other</key>
+			<string>%u Risikobegegnungen</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_High_Last_Contact_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Weniger als einen Tag seit der letzten Begegnung</string>
+			<key>one</key>
+			<string>%u Tag seit der letzten Begegnung</string>
+			<key>other</key>
+			<string>%u Tage seit der letzten Begegnung</string>
+		</dict>
+	</dict>
+	<key>ENSetting_Tracing_History</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Risikoermittlung ist seit weniger als 1 Tag aktiv.
+Eine verlässliche Risikoüberprüfung …
+Lorem ipsum dolor sit amet, consectetur </string>
+			<key>one</key>
+			<string>Risikoermittlung ist seit %u Tag aktiv.
+Eine verlässliche Risikoüberprüfung …
+Lorem ipsum dolor sit amet, consectetur </string>
+			<key>other</key>
+			<string>Risikoermittlung ist seit %u Tagen aktiv.
+Eine verlässliche Risikoüberprüfung …
+Lorem ipsum dolor sit amet, consectetur </string>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,88 @@
+syntax = "proto2";
+package apple;
+
+// This file contains the Protocol Buffer schema for the latest format specified by Apple.
+// It describes what the app has to export/write to disk in order to hand over keys to
+// `ENManager` (Exposure Notification framework).
+// To find out more information about this format you may go to:
+// https://developer.apple.com/documentation/exposurenotification/enmanager/3586331-detectexposures?changes=latest_beta
+//
+// The package is set to `apple2` in order to make it clear that this schema describes the new format
+// as opposed to the old format. Since the package name is the prefix for all generated Swift classes
+// it makes it easy to distinguis old from new by just looking at the prefix.
+
+message TemporaryExposureKeyExport {
+    // Time window of keys in the file, based on arrival
+    // at the server, in UTC seconds.
+    optional fixed64 start_timestamp = 1;
+    optional fixed64 end_timestamp = 2;
+
+    // Region from which these keys came (for example, MCC).
+    optional string region = 3;
+
+    // Reserved for future use. Both batch_num and batch_size
+    // must be set to a value of 1.
+    optional int32 batch_num = 4;
+    optional int32 batch_size = 5;
+
+    // Information about associated signatures.
+    repeated SignatureInfo signature_infos = 6;
+
+    // The temporary exposure keys themselves.
+    repeated TemporaryExposureKey keys = 7;
+}
+
+message SignatureInfo {
+    // App Store app bundle ID.
+    optional string app_bundle_id = 1;
+
+    // Android app package name.
+    optional string android_package = 2;
+
+    // Key version in case the EN server signing key is rotated.
+    optional string verification_key_version = 3;
+
+    // Additional information to uniquely identify the public
+    // key associated with the EN server's signing key
+    // (for example, the EN server might serve the app
+    // from different countries with different keys).
+    optional string verification_key_id = 4;
+
+    // All keys must be signed using the SHA-256 with ECDSA algorithm.
+    // This field must contain the string "ecdsa-with-SHA256".
+    optional string signature_algorithm = 5;
+}
+
+message TemporaryExposureKey {
+    // Temporary exposure key.
+    optional bytes key_data = 1;
+
+    // Varying risk associated with a key depending on the diagnosis method.
+    optional int32 transmission_risk_level = 2;
+
+    // Number representing the beginning interval for temporary exposure
+    // key validity (ENIntervalNumber).
+    optional int32 rolling_start_interval_number = 3;
+
+    // Number of intervals in a period.
+    optional int32 rolling_period = 4 [default = 144];
+}
+
+message TEKSignatureList {
+    // Information about associated signatures.
+    repeated TEKSignature signatures = 1;
+}
+
+message TEKSignature {
+    // Information to uniquely identify the public key associated
+    // with the EN server's signing key.
+    optional SignatureInfo signature_info = 1;
+
+    // Reserved for future use. Both batch_num and batch_size
+    // must be set to a value of 1.
+    optional int32 batch_num = 2;
+    optional int32 batch_size = 3;
+
+    // Signature in X9.62 format (ASN.1 SEQUENCE of two INTEGER fields).
+    optional bytes signature = 4;
+}

@@ -1,0 +1,43 @@
+version: 2.1
+
+jobs:
+  build-and-test:
+    macos:
+      xcode: 11.5.0
+
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: brew install swiftlint && cd src/xcode && bundle install
+      - run:
+          name: Build
+          command: cd src/xcode && bundle exec fastlane build
+      - run:
+          name: Tests
+          command: cd src/xcode && bundle exec fastlane test
+      - store_test_results:
+          path: src/xcode/fastlane/test_output
+      - store_artifacts:
+          path: src/xcode/fastlane/test_output
+
+  grab-screenshots:
+    macos:
+      xcode: 11.5.0
+    steps:
+      - checkout
+      - run: cd src/xcode && bundle install
+      - run:
+          name: Snapshots
+          command: cd src/xcode && bundle exec fastlane snapshot
+      - store_artifacts:
+          path: src/xcode/screenshots
+
+workflows:
+    default:
+      jobs:
+        - build-and-test:
+          filters:
+            branches:
+              only:
+                - /.*/

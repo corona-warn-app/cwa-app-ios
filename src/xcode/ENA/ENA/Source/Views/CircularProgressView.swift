@@ -1,0 +1,134 @@
+// Corona-Warn-App
+//
+// SAP SE and all other contributors
+// copyright owners license this file to you under the Apache
+// License, Version 2.0 (the "License"); you may not use this
+// file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+import UIKit
+
+class CircularProgressView: UIView {
+	let circleLayer = CAShapeLayer()
+	let progressLayer = CAShapeLayer()
+	let textLayer = CATextLayer()
+
+	var maxValue: CGFloat = 14
+	var minValue: CGFloat = 0
+	var fontSize: CGFloat = 15
+	var lineWidth: CGFloat = 10
+	var progressBarColor = UIColor.green {
+		didSet {
+			updateLayers()
+		}
+	}
+
+	var circleColor = UIColor.red {
+		didSet {
+			updateLayers()
+		}
+	}
+
+	var fontColor = UIColor.gray
+
+	var progress: CGFloat = 4.0 {
+		didSet {
+			progressLayer.updateProgress(progressValue: progress, minValue: minValue, maxValue: maxValue)
+			let text = "\(Int(progress))/\(Int(maxValue))"
+			textLayer.updateText(text)
+		}
+	}
+
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		addLayers()
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		addLayers()
+	}
+
+	func addLayers() {
+		layer.addSublayer(circleLayer)
+		layer.addSublayer(progressLayer)
+		layer.addSublayer(textLayer)
+	}
+
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		updateLayers()
+	}
+}
+
+extension CircularProgressView {
+	private func bezierPath(with center: CGPoint) -> UIBezierPath {
+		let circularPath = UIBezierPath(arcCenter: center,
+										radius: frame.width / 2,
+										startAngle: -.pi / 2,
+										endAngle: 3 * .pi / 2,
+										clockwise: true)
+		return circularPath
+	}
+
+	private func updateLayers() {
+		let center = CGPoint(x: bounds.midX, y: bounds.midY)
+		let circularPath = bezierPath(with: center)
+		circleLayer.configLayer(with: circularPath, lineWidth: lineWidth)
+		circleLayer.strokeColor = circleColor.cgColor
+		progressLayer.configLayer(with: circularPath, lineWidth: lineWidth)
+		progressLayer.strokeColor = progressBarColor.cgColor
+		configTextLayer(center)
+	}
+
+	private func configTextLayer(_ center: CGPoint) {
+		textLayer.setScaleForDevice()
+		textLayer.foregroundColor = fontColor.cgColor
+		textLayer.fontSize = fontSize
+		let sizeOfTextBox = textLayer.preferredFrameSize()
+		let newX = center.x - sizeOfTextBox.width / 2
+		let newY = center.y - sizeOfTextBox.height / 2
+		textLayer.frame = CGRect(origin: CGPoint(x: newX, y: newY), size: sizeOfTextBox)
+	}
+}
+
+private extension CALayer {
+	func setScaleForDevice() {
+		contentsScale = UIScreen.main.scale
+		shouldRasterize = true
+		rasterizationScale = UIScreen.main.scale
+	}
+}
+
+private extension CAShapeLayer {
+	func updateProgress(progressValue: CGFloat, minValue: CGFloat, maxValue: CGFloat) {
+		let progress = max(minValue, min(maxValue, progressValue))
+		let range = maxValue - minValue
+		strokeEnd = progress / CGFloat(range)
+	}
+
+	func configLayer(with path: UIBezierPath, lineWidth: CGFloat) {
+		setScaleForDevice()
+		self.path = path.cgPath
+		fillColor = UIColor.clear.cgColor
+		lineCap = .round
+		self.lineWidth = lineWidth
+	}
+}
+
+private extension CATextLayer {
+	func updateText(_ text: String) {
+		string = text
+		let size = preferredFrameSize()
+		bounds = CGRect(origin: CGPoint.zero, size: size)
+	}
+}

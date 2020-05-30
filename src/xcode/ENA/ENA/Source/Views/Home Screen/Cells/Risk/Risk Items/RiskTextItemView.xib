@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="s5u-Ve-wDE" customClass="RiskTextItemView" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="528" height="244"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wga-O0-nFp">
+                    <rect key="frame" x="20" y="44" width="488" height="166"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnj-K1-GQZ">
+                    <rect key="frame" x="0.0" y="209" width="528" height="1"/>
+                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="gmn-H2-y7y"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Wga-O0-nFp" firstAttribute="bottom" secondItem="s5u-Ve-wDE" secondAttribute="bottomMargin" id="1JI-5k-mXB"/>
+                <constraint firstItem="Wga-O0-nFp" firstAttribute="top" secondItem="s5u-Ve-wDE" secondAttribute="topMargin" id="5E4-mn-I3f"/>
+                <constraint firstItem="Wga-O0-nFp" firstAttribute="leading" secondItem="s5u-Ve-wDE" secondAttribute="leadingMargin" id="7I9-BZ-Wwr"/>
+                <constraint firstItem="sXK-Ug-hSJ" firstAttribute="bottom" secondItem="bnj-K1-GQZ" secondAttribute="bottom" id="Fop-VU-UOe"/>
+                <constraint firstAttribute="trailingMargin" secondItem="Wga-O0-nFp" secondAttribute="trailing" id="NVG-6s-IQw"/>
+                <constraint firstItem="sXK-Ug-hSJ" firstAttribute="trailing" secondItem="bnj-K1-GQZ" secondAttribute="trailing" id="adS-H7-B1Y"/>
+                <constraint firstItem="bnj-K1-GQZ" firstAttribute="leading" secondItem="sXK-Ug-hSJ" secondAttribute="leading" id="zAN-Qx-jRa"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="sXK-Ug-hSJ"/>
+            <connections>
+                <outlet property="separatorHeightConstraint" destination="gmn-H2-y7y" id="jdx-bN-hfc"/>
+                <outlet property="separatorView" destination="bnj-K1-GQZ" id="TTs-zs-3y1"/>
+                <outlet property="titleLabel" destination="Wga-O0-nFp" id="nlv-Gg-Daw"/>
+            </connections>
+            <point key="canvasLocation" x="100.00000000000001" y="81.696428571428569"/>
+        </view>
+    </objects>
+</document>

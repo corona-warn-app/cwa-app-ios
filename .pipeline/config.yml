@@ -1,0 +1,34 @@
+# There are default configuration in place defined by Piper.
+# These can be found here: https://github.wdf.sap.corp/ContinuousDelivery/piper-library/blob/master/resources/piper-defaults.yml
+ 
+general:
+  xMakeCredentialsId: xmakeMobileDevToken
+  #-----------------------
+  # General configuration
+  # Github configurations
+  organization: corona-warn-app-internal-mirror
+  repository: cwa-app-ios-internal
+  gitSshUrl: git@github.wdf.sap.corp:corona-warn-app-internal-mirror/cwa-app-ios-internal.git
+  gitSshKeyCredentialsId: UX_MobileCoE_WDF_Github_User_SSH
+  # used influxDB to store pipeline results/runtimes for monitoring via Grafana. DB name ist configured in Jenkins global config.
+  influxDBServer: jenkins
+ 
+  #-----------------------
+  # sendEMailNotification
+  # required for sendEMailNotification in Pipeline. Empty String send email to culprits only.
+  notificationRecipients: ''
+
+steps:
+  # Configuration for Checkmarx Scan 
+  executeCheckmarxScan: 
+    checkmarxProject: 'CoronaWarn_iOS'
+    checkmarxGroupId: '03777038-dd6e-40a5-a849-c1b43239d2f3'
+    preset: '100008'
+    filterPattern: '**/*.swift, !**/fastlane/**'
+    vulnerabilityThresholdLow: '0'
+  # Configuration for Black Duck Scan
+  executeProtecodeScan:
+    protecodeCredentialsId: 'blackDuckCredentials'
+    protecodeServerUrl: 'https://protecode.c.eu-de-2.cloud.sap'
+    protecodeGroup: 1071
+    protecodeTimeoutMinutes: 80
