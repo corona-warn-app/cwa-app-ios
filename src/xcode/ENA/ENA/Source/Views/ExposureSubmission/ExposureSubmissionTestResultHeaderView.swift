@@ -19,15 +19,28 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
-	var titleLabel: UILabel!
-	var subTitleLabel: UILabel!
-	var timeLabel: UILabel!
+	
+	// MARK: Attributes.
+	
+	private var titleLabel: UILabel!
+	private var subTitleLabel: UILabel!
+	private var timeLabel: UILabel!
 
-	var imageView: UIImageView!
-	var barView: UIView!
+	private var imageView: UIImageView!
+	private var barView: UIView!
 
-	var column = UIView()
-	var baseView = UIView()
+	private var column = UIView()
+	private var baseView = UIView()
+	
+	// MARK: - UITableViewCell methods.
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		baseView.subviews.forEach { $0.removeFromSuperview() }
+		baseView.removeFromSuperview()
+	}
+	
+	// MARK: - DynamicTableViewHeaderFooterView methods.
 
 	func configure(testResult: TestResult) {
 		setupView(testResult)
@@ -35,6 +48,8 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		titleLabel.text = localizedString(for: testResult)
 		barView.layer.backgroundColor = color(for: testResult).cgColor
 	}
+	
+	// MARK: Configuration helpers.
 
 	// swiftlint:disable:next function_body_length
 	private func setupView(_ result: TestResult) {

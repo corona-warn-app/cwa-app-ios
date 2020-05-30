@@ -155,9 +155,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func delete(key: DeviceRegistrationKey) {
 		switch key {
 		case .guid:
-			store.testGUID = "" // nil
+			store.testGUID = nil
 		case .teleTan:
-			store.teleTan = "" // nil
+			store.teleTan = nil
 		}
 	}
 
@@ -196,7 +196,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		// View comment in `delete(key: DeviceRegistrationKey)`
 		// why this method is needed explicitly like this.
 		delete(key: .guid(""))
-		store.registrationToken = ""
+		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 	}

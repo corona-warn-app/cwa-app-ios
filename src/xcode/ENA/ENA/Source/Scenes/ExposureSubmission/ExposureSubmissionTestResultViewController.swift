@@ -83,34 +83,57 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			return
 		}
 
-		tableView.register(ExposureSubmissionTestResultHeaderView.self,
-						   forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue)
+		tableView.register(
+			ExposureSubmissionTestResultHeaderView.self,
+			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue
+		)
 		dynamicTableViewModel = dynamicTableViewModel(for: result)
 	}
 
 	// MARK: - Convenience methods for buttons.
 
 	private func deleteTest() {
-		let alert = UIAlertController(title: "Test entfernen?",
-									  message: "Der Test wird endgültig aus der Corona-Warn-App entfernt. Dieser Vorgang kann nicht widerrufen werden.",
-									  preferredStyle: .alert)
+		let alert = UIAlertController(
+			title: "Test entfernen?",
+			message: "Der Test wird endgültig aus der Corona-Warn-App entfernt. Dieser Vorgang kann nicht widerrufen werden.",
+			preferredStyle: .alert
+		)
 
-		let cancel = UIAlertAction(title: "Abbrechen",
-								   style: .cancel,
-								   handler: { _ in alert.dismiss(animated: true, completion: nil) }
+		let cancel = UIAlertAction(
+			title: "Abbrechen",
+			style: .cancel,
+			handler: { _ in alert.dismiss(animated: true, completion: nil) }
 		)
 		
-		let delete = UIAlertAction(title: "Entfernen",
-								   style: .destructive,
-								   handler: { _ in
-										self.exposureSubmissionService?.deleteTest()
-										self.navigationController?.dismiss(animated: true, completion: nil) }
+		let delete = UIAlertAction(
+			title: "Entfernen",
+			style: .destructive,
+			handler: { _ in
+						self.exposureSubmissionService?.deleteTest()
+						self.navigationController?.dismiss(animated: true, completion: nil)
+			}
 		)
 		
 		alert.addAction(delete)
 		alert.addAction(cancel)
 		
 		present(alert, animated: true, completion: nil)
+	}
+	
+	private func refreshTest() {
+		startSpinner()
+		self.exposureSubmissionService?
+			.getTestResult { result in
+				self.stopSpinner()
+				switch result {
+				case .failure(let error):
+					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+					self.present(alert, animated: true, completion: nil)
+				case .success(let testResult):
+					self.dynamicTableViewModel = self.dynamicTableViewModel(for: testResult)
+					self.tableView.reloadData()
+				}
+			}
 	}
 
 	private func showWarnOthers() {
@@ -145,8 +168,8 @@ extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigati
 			showWarnOthers()
 		case .negative, .invalid:
 			deleteTest()
-		default:
-			break
+		case .pending:
+			refreshTest()
 		}
 	}
 	
