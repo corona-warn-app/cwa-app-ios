@@ -109,11 +109,6 @@ public class ENATaskScheduler {
 	public func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
 		log(message: "# TASKSHED # \(#line), \(#function) SCHEDULING \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
 
-		if taskIdentifier == .detectExposures, manager.preconditions().isGood == false || UIApplication.shared.backgroundRefreshStatus != .available {
-			log(message: "# TASKSHED # \(#line), \(#function) UNABLE TO SCHEDULE \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
-			return
-		}
-
 		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
@@ -129,6 +124,10 @@ public class ENATaskScheduler {
 
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
+//		if taskIdentifier == .detectExposures, manager.preconditions().isGood == false || UIApplication.shared.backgroundRefreshStatus != .available {
+//			log(message: "# TASKSHED # \(#line), \(#function) UNABLE TO SCHEDULE \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
+//			return
+//		}
 		let scheduler: ENATaskScheduler? = self
 		log(message: "# TASKSHED # \(#line), \(#function) taskScheduler = \(String(describing: scheduler))")
 		guard let taskDelegate = taskDelegate else {
