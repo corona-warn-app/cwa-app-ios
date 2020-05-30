@@ -316,6 +316,7 @@ private extension ExposureSubmissionOverviewViewController {
 		case .restricted:
 			let alert = ExposureSubmissionViewUtils.setupAlert(message: "Your camera usage is restricted.")
 			present(alert, animated: true, completion: nil)
+		// swiftlint:disable:next switch_case_alignment
         @unknown default:
 			log(message: "Unhandled  AVCaptureDevice state.")
 		}
