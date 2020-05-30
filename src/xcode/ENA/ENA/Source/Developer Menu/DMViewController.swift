@@ -76,12 +76,6 @@ final class DMViewController: UITableViewController {
 				target: self,
 				action: #selector(generateTestKeys)
 			),
-			//            UIBarButtonItem(
-			//                image: UIImage(systemName: "qrcode.viewfinder"),
-			//                style: .plain,
-			//                target: self,
-			//                action: #selector(showScanner)
-			//            )
 			UIBarButtonItem(
 				title: "State Check",
 				style: .plain,
