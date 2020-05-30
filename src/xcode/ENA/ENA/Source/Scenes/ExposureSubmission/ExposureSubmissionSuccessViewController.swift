@@ -57,7 +57,7 @@ private extension DynamicTableViewModel {
 				.bigBold(text: AppStrings.ExposureSubmissionSuccess.subTitle),
 				.regular(text: AppStrings.ExposureSubmissionSuccess.description),
 				.bigBold(text: AppStrings.ExposureSubmissionSuccess.listTitle),
-				DynamicCell.identifier(
+				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
 					configure: { _, cell, _ in
@@ -67,11 +67,11 @@ private extension DynamicTableViewModel {
 							image: UIImage(named: "Icons - Ansteckend"),
 							hasSeparators: false,
 							isCircle: true,
-							iconTintColor: .preferredColor(for: .positiveRisk)
+							iconTintColor: .preferredColor(for: .negativeRisk)
 						)
 					}
 				),
-				DynamicCell.identifier(
+				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
 					configure: { _, cell, _ in
@@ -80,7 +80,7 @@ private extension DynamicTableViewModel {
 							title: AppStrings.ExposureSubmissionSuccess.listItem2,
 							image: UIImage(named: "Icons - Home"),
 							isCircle: true,
-							iconTintColor: .preferredColor(for: .positiveRisk)
+							iconTintColor: .preferredColor(for: .negativeRisk)
 						)
 					}
 				),

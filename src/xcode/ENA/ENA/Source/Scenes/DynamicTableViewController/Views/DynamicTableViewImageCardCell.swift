@@ -18,11 +18,11 @@
 import UIKit
 
 class DynamicTableViewImageCardCell: UITableViewCell {
-	var title: UILabel!
-	var body: UILabel!
-	var cellImage: UIImageView!
-	var chevron: UIImageView!
-	var insetView: UIView!
+	lazy var title = UILabel(frame: .zero)
+	lazy var body = UILabel(frame: .zero)
+	lazy var cellImage = UIImageView(frame: .zero)
+	lazy var chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
+	lazy var insetView = UIView(frame: .zero)
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
@@ -42,19 +42,16 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 		// MARK: - Add inset view
 
-		insetView = UIView(frame: .zero)
 		insetView.backgroundColor = .preferredColor(for: .backgroundSecondary)
 		insetView.layer.cornerRadius = 16.0
 
 		// MARK: - Title adjustment.
 
-		title = UILabel(frame: .zero)
-		title.font = UIFont.boldSystemFont(ofSize: 22)
+		title.font = .preferredFont(forTextStyle: .title3)
 
 		// MARK: - Body adjustment.
-
-		body = UILabel(frame: .zero)
-		body.font = body.font.withSize(15)
+		
+		body.font = .preferredFont(forTextStyle: .body)
 		body.lineBreakMode = .byWordWrapping
 		body.numberOfLines = 0
 
@@ -62,16 +59,11 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 		chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
 		chevron.tintColor = UIColor.preferredColor(for: .textPrimary2)
-
-		// MARK: - image adjustment.
-
-		cellImage = UIImageView(image: UIImage(named: "Hand_with_phone"))
 	}
 
 	private func addConstraints() {
 		contentView.heightAnchor.constraint(equalToConstant: 196).isActive = true
-		UIView.translatesAutoresizingMaskIntoConstraints(for: [contentView,
-															   title,
+		UIView.translatesAutoresizingMaskIntoConstraints(for: [title,
 															   body,
 															   cellImage,
 															   chevron,
