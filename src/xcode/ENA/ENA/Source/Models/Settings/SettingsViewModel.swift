@@ -21,13 +21,13 @@ class SettingsViewModel {
 	var tracing: Main
 	var notifications: Main
 	var reset: String
-
+	
 	init(tracing: Main, notifications: Main, reset: String) {
 		self.tracing = tracing
 		self.notifications = notifications
 		self.reset = reset
 	}
-
+	
 	static let model = SettingsViewModel(
 		tracing: Main(
 			icon: "Icons_Settings_Risikoermittlung",
@@ -50,10 +50,10 @@ extension SettingsViewModel {
 		let icon: String
 		let description: String
 		var state: String?
-
+		
 		let stateActive: String
 		let stateInactive: String
-
+		
 		mutating func setState(state: Bool) {
 			self.state = state ? stateActive : stateInactive
 		}

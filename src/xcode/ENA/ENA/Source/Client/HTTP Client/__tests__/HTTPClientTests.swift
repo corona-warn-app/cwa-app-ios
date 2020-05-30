@@ -25,37 +25,37 @@ final class HTTPClientTests: XCTestCase {
 	let expectationsTimeout: TimeInterval = 2
 	let mockUrl = URL(string: "http://example.com")!
 	let tan = "1234"
-
+	
 	private var keys: [ENTemporaryExposureKey] {
 		let key = ENTemporaryExposureKey()
 		key.keyData = Data(bytes: [1, 2, 3], count: 3)
 		key.rollingPeriod = 1337
 		key.rollingStartNumber = 42
 		key.transmissionRiskLevel = 8
-
+		
 		return [key]
 	}
-
+	
 	func testAvailableDays_Success() {
 		let responseString =
 			"""
 			["2020-05-01", "2020-05-02"]
 			"""
 		let responseData = responseString.data(using: .utf8)
-
+		
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
 			statusCode: 200,
 			httpVersion: nil,
 			headerFields: nil
 		)
-
+		
 		let session = MockUrlSession(
 			data: responseData,
 			nextResponse: mockResponse,
 			error: nil
 		)
-
+		
 		let client = HTTPClient(configuration: .fake, session: session)
 		let expectation = self.expectation(
 			description: "expect successful result"
@@ -74,29 +74,29 @@ final class HTTPClientTests: XCTestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testAvailableDays_StatusCodeNotAccepted() {
 		let responseString =
 			"""
 			["2020-05-01", "2020-05-02"]
 			"""
 		let responseData = responseString.data(using: .utf8)
-
+		
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
 			statusCode: 500,
 			httpVersion: nil,
 			headerFields: nil
 		)
-
+		
 		let session = MockUrlSession(
 			data: responseData,
 			nextResponse: mockResponse,
 			error: nil
 		)
-
+		
 		let client = HTTPClient(configuration: .fake, session: session)
-
+		
 		let expectation = self.expectation(
 			description: "expect error result"
 		)
@@ -110,7 +110,7 @@ final class HTTPClientTests: XCTestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	// The hours of a given day can be missing
 	func testAvailableHours_NotFound() {
 		let responseString =
@@ -118,20 +118,20 @@ final class HTTPClientTests: XCTestCase {
 			[1,2,3,4,5]
 			"""
 		let responseData = responseString.data(using: .utf8)
-
+		
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
 			statusCode: 404,
 			httpVersion: nil,
 			headerFields: nil
 		)
-
+		
 		let session = MockUrlSession(
 			data: responseData,
 			nextResponse: mockResponse,
 			error: nil
 		)
-
+		
 		let client = HTTPClient(configuration: .fake, session: session)
 		let expectation = self.expectation(
 			description: "expect successful result but empty"
@@ -150,27 +150,27 @@ final class HTTPClientTests: XCTestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testAvailableHours_Success() {
 		let responseString =
 			"""
 			[1,2,3,4,5]
 			"""
 		let responseData = responseString.data(using: .utf8)
-
+		
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
 			statusCode: 200,
 			httpVersion: nil,
 			headerFields: nil
 		)
-
+		
 		let session = MockUrlSession(
 			data: responseData,
 			nextResponse: mockResponse,
 			error: nil
 		)
-
+		
 		let client = HTTPClient(configuration: .fake, session: session)
 		let expectation = self.expectation(
 			description: "expect successful result"
@@ -189,29 +189,29 @@ final class HTTPClientTests: XCTestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testFetchHour_InvalidPayload() throws {
 		let responseData = "hello world".data(using: .utf8)
-
+		
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
 			statusCode: 200,
 			httpVersion: nil,
 			headerFields: nil
 		)
-
+		
 		let session = MockUrlSession(
 			data: responseData,
 			nextResponse: mockResponse,
 			error: nil
 		)
-
+		
 		let client = HTTPClient(configuration: .fake, session: session)
-
+		
 		let failureExpectation = expectation(
 			description: "expect error result"
 		)
-
+		
 		client.fetchHour(1, day: "2020-05-01") { result in
 			switch result {
 			case .success:
@@ -222,30 +222,30 @@ final class HTTPClientTests: XCTestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testFetchHour_Success() throws {
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
-
+		
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
 			statusCode: 200,
 			httpVersion: nil,
 			headerFields: nil
 		)
-
+		
 		let session = MockUrlSession(
 			data: responseData,
 			nextResponse: mockResponse,
 			error: nil
 		)
-
+		
 		let client = HTTPClient(configuration: .fake, session: session)
-
+		
 		let successExpectation = expectation(
 			description: "expect error result"
 		)
-
+		
 		client.fetchHour(1, day: "2020-05-01") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
@@ -257,35 +257,35 @@ final class HTTPClientTests: XCTestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	private func assertPackageFormat(for downloadedPackage: SAPDownloadedPackage) {
 		XCTAssertEqual(downloadedPackage.bin.count, binFileSize)
 		XCTAssertEqual(downloadedPackage.signature.count, sigFileSize)
 	}
-
+	
 	func testFetchDay_Success() throws {
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
-
+		
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
 			statusCode: 200,
 			httpVersion: nil,
 			headerFields: nil
 		)
-
+		
 		let session = MockUrlSession(
 			data: responseData,
 			nextResponse: mockResponse,
 			error: nil
 		)
-
+		
 		let client = HTTPClient(configuration: .fake, session: session)
-
+		
 		let successExpectation = expectation(
 			description: "expect error result"
 		)
-
+		
 		client.fetchDay("2020-05-01") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
@@ -297,7 +297,7 @@ final class HTTPClientTests: XCTestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testSubmit_Success() {
 		// Arrange
 		let mockResponse = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: nil, headerFields: nil)
@@ -309,44 +309,44 @@ final class HTTPClientTests: XCTestCase {
 		)
 		let client = HTTPClient(configuration: .fake, session: mockURLSession)
 		let expectation = self.expectation(description: "completion handler is called without an error")
-
+		
 		// Act
 		client.submit(keys: keys, tan: tan) { error in
 			defer { expectation.fulfill() }
 			XCTAssertTrue(error == nil)
 		}
-
+		
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testSubmit_Error() {
 		// Arrange
 		let mockURLSession = MockUrlSession(data: nil, nextResponse: nil, error: TestError.error)
-
+		
 		let client = HTTPClient(configuration: .fake, session: mockURLSession)
-
+		
 		let expectation = self.expectation(description: "Error")
 		var error: SubmissionError?
-
+		
 		// Act
 		client.submit(keys: keys, tan: tan) {
 			error = $0
 			expectation.fulfill()
 		}
-
+		
 		waitForExpectations(timeout: expectationsTimeout)
-
+		
 		// Assert
 		XCTAssertNotNil(error)
 	}
-
+	
 	func testSubmit_SpecificError() {
 		// Arrange
 		let mockURLSession = MockUrlSession(data: nil, nextResponse: nil, error: TestError.error)
-
+		
 		let client = HTTPClient(configuration: .fake, session: mockURLSession)
 		let expectation = self.expectation(description: "SpecificError")
-
+		
 		// Act
 		client.submit(keys: keys, tan: tan) { error in
 			defer {
@@ -356,24 +356,24 @@ final class HTTPClientTests: XCTestCase {
 				XCTFail("expected there to be an error")
 				return
 			}
-
+			
 			if case let SubmissionError.other(otherError) = error {
 				XCTAssertNotNil(otherError)
 			} else {
 				XCTFail("error mismatch")
 			}
 		}
-
+		
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testSubmit_ResponseNil() {
 		// Arrange
 		let mockURLSession = MockUrlSession(data: nil, nextResponse: nil, error: nil)
-
+		
 		let client = HTTPClient(configuration: .fake, session: mockURLSession)
 		let expectation = self.expectation(description: "ResponseNil")
-
+		
 		// Act
 		client.submit(keys: keys, tan: tan) { error in
 			defer {
@@ -388,10 +388,10 @@ final class HTTPClientTests: XCTestCase {
 				return
 			}
 		}
-
+		
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testSubmit_Response400() {
 		// Arrange
 		let mockResponse = HTTPURLResponse(url: mockUrl, statusCode: 400, httpVersion: nil, headerFields: nil)
@@ -401,11 +401,11 @@ final class HTTPClientTests: XCTestCase {
 			nextResponse: mockResponse,
 			error: nil
 		)
-
+		
 		let client = HTTPClient(configuration: .fake, session: mockURLSession)
-
+		
 		let expectation = self.expectation(description: "Response400")
-
+		
 		// Act
 		client.submit(keys: keys, tan: tan) { error in
 			defer { expectation.fulfill() }
@@ -418,10 +418,10 @@ final class HTTPClientTests: XCTestCase {
 				return
 			}
 		}
-
+		
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testSubmit_Response403() {
 		// Arrange
 		let mockResponse = HTTPURLResponse(url: mockUrl, statusCode: 403, httpVersion: nil, headerFields: nil)
@@ -431,11 +431,11 @@ final class HTTPClientTests: XCTestCase {
 			nextResponse: mockResponse,
 			error: nil
 		)
-
+		
 		let client = HTTPClient(configuration: .fake, session: mockURLSession)
-
+		
 		let expectation = self.expectation(description: "Response403")
-
+		
 		// Act
 		client.submit(keys: keys, tan: tan) { error in
 			defer { expectation.fulfill() }
@@ -448,52 +448,52 @@ final class HTTPClientTests: XCTestCase {
 				return
 			}
 		}
-
+		
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testInvalidEmptyExposureConfigurationResponseData() {
 		let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
 		let mockURLSession = MockUrlSession(data: nil, nextResponse: response, error: nil)
-
+		
 		let client = HTTPClient(configuration: .fake, session: mockURLSession)
 		let expectation = self.expectation(description: "HTTPClient should have failed.")
-
+		
 		client.exposureConfiguration { config in
 			XCTAssertNil(config, "configuration should be nil when data is invalid")
 			expectation.fulfill()
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testValidExposureConfigurationResponseData() throws {
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
-
+		
 		let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
 		let mockURLSession = MockUrlSession(data: responseData, nextResponse: response, error: nil)
-
+		
 		let client = HTTPClient(configuration: .fake, session: mockURLSession)
 		let expectation = self.expectation(description: "HTTPClient should have succeeded.")
-
+		
 		client.exposureConfiguration { config in
 			XCTAssertNotNil(config, "configuration should not be nil for valid responses")
 			expectation.fulfill()
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-
+	
 	func testValidExposureConfigurationDataBut404Response() throws {
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
-
+		
 		let response = HTTPURLResponse(url: mockUrl, statusCode: 404, httpVersion: "HTTP/2", headerFields: [:])
 		let mockURLSession = MockUrlSession(data: responseData, nextResponse: response, error: nil)
-
+		
 		let client = HTTPClient(configuration: .fake, session: mockURLSession)
-
+		
 		let expectation = self.expectation(description: "HTTPClient should have failed.")
-
+		
 		client.exposureConfiguration { configuration in
 			XCTAssertNil(
 				configuration, "a 404 configuration response should yield an error - not a success"

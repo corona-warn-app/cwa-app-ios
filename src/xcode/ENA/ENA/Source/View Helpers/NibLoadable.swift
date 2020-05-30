@@ -22,20 +22,20 @@ protocol NibLoadable: UIView {
 	var nibView: UIView! { get }
 	var nibName: String { get }
 	var nib: UINib { get }
-
+	
 	func setupFromNib()
 }
 
 extension NibLoadable {
 	var nibView: UIView! { subviews.first }
-
+	
 	var nibName: String { String(describing: type(of: self)) }
-
+	
 	var nib: UINib {
 		let bundle = Bundle(for: type(of: self))
 		return UINib(nibName: nibName, bundle: bundle)
 	}
-
+	
 	func setupFromNib() {
 		guard let view = nib.instantiate(
 			withOwner: self,

@@ -29,7 +29,7 @@ extension UICollectionView {
 		}
 		return cell
 	}
-
+	
 	/// Dequeue reusable view for the UICollectionView.
 	/// - Parameters:
 	///   - reusableViewType: Concreate reusable view type.
@@ -54,7 +54,7 @@ extension UICollectionView {
 			register(nib, forCellWithReuseIdentifier: identifier)
 		}
 	}
-
+	
 	/// Registers reusable view's nibs for the UICollectionView, nib file name must be the same as reusable view type.
 	/// - Parameters:
 	///   - reusableViews: Concreate reusable view types.

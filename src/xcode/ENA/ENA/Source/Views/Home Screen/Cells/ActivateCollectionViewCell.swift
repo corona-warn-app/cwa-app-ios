@@ -23,9 +23,9 @@ class ActivateCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var constraint: NSLayoutConstraint!
-
+	
 	private let iconTitleDistance: CGFloat = 10.0
-
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		titleTextView.textContainerInset = .zero
@@ -35,21 +35,21 @@ class ActivateCollectionViewCell: HomeCardCollectionViewCell {
 		viewContainer.layoutMargins = containerInsets
 		wrapImage()
 	}
-
+	
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		wrapImage()
 	}
-
+	
 	private func wrapImage() {
 		guard let lineHeight = titleTextView.font?.lineHeight else { return }
-
+		
 		var iconImageFrame = convert(iconImageView.frame, to: titleTextView)
 		let lineHeightRounded = lineHeight
 		let offset: CGFloat = (lineHeightRounded - iconImageFrame.height) / 2.0
-
+		
 		constraint.constant = max(offset.rounded(), 0)
-
+		
 		iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
 		let bezierPath = UIBezierPath(rect: iconImageFrame)
 		titleTextView.textContainer.exclusionPaths = [bezierPath]

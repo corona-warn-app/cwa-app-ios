@@ -28,7 +28,7 @@ class KeyTests: XCTestCase {
 		kIn.rollingPeriod = 1337
 		kIn.rollingStartIntervalNumber = 42
 		kIn.transmissionRiskLevel = 8
-
+		
 		let dataIn = try kIn.serializedData()
 		let kOut = try Apple_TemporaryExposureKey(serializedData: dataIn)
 		XCTAssertEqual(kOut.keyData, Data(bytes: [1, 2, 3], count: 3))

@@ -19,7 +19,7 @@ import UIKit
 
 protocol HomeRiskViewConfiguratorAny {
 	var viewAnyType: UIView.Type { get }
-
+	
 	func configureAny(riskView: UIView)
 }
 
@@ -32,7 +32,7 @@ extension HomeRiskViewConfigurator {
 	var viewAnyType: UIView.Type {
 		ViewType.self
 	}
-
+	
 	func configureAny(riskView: UIView) {
 		if let riskView = riskView as? ViewType {
 			configure(riskView: riskView)

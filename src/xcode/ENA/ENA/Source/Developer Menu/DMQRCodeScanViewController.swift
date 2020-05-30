@@ -28,27 +28,27 @@ protocol DMQRCodeScanViewControllerDelegate: AnyObject {
 
 final class DMQRCodeScanViewController: UIViewController {
 	// MARK: Creating a Debug Code Scan View Controller
-
+	
 	init(delegate: DMQRCodeScanViewControllerDelegate) {
 		self.delegate = delegate
 		super.init(nibName: nil, bundle: nil)
 	}
-
+	
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
+	
 	// MARK: Properties
-
+	
 	private let scanView = DMQRCodeScanView()
 	private weak var delegate: DMQRCodeScanViewControllerDelegate?
-
+	
 	// MARK: UIViewController
-
+	
 	override func loadView() {
 		view = scanView
 	}
-
+	
 	override func viewDidLoad() {
 		scanView.dataHandler = { data in
 			do {
@@ -60,7 +60,7 @@ final class DMQRCodeScanViewController: UIViewController {
 			}
 		}
 	}
-
+	
 	override var prefersStatusBarHidden: Bool {
 		true
 	}
@@ -68,45 +68,45 @@ final class DMQRCodeScanViewController: UIViewController {
 
 private final class DMQRCodeScanView: UIView {
 	// MARK: Types
-
+	
 	typealias DataHandler = (Data) -> Void
-
+	
 	// MARK: UIView
-
+	
 	override class var layerClass: AnyClass {
 		AVCaptureVideoPreviewLayer.self
 	}
-
+	
 	// MARK: Properties
-
+	
 	fileprivate var dataHandler: DataHandler = { _ in }
 	fileprivate var captureSession: AVCaptureSession
-
+	
 	// MARK: Creating a code scan view
-
+	
 	init() {
 		captureSession = AVCaptureSession()
-
+		
 		super.init(frame: .zero)
-
+		
 		// swiftlint:disable:next force_unwrapping
 		let captureDevice = AVCaptureDevice.default(for: .video)! // forcing is okay - developer feature only
 		guard let captureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return }
-
+		
 		captureSession.addInput(captureDeviceInput)
-
+		
 		let captureMetadataOutput = AVCaptureMetadataOutput()
 		captureSession.addOutput(captureMetadataOutput)
 		captureMetadataOutput.metadataObjectTypes = [.qr]
 		captureMetadataOutput.setMetadataObjectsDelegate(self, queue: .main)
-
+		
 		captureSession.startRunning()
-
+		
 		guard let videoPreviewLayer = layer as? AVCaptureVideoPreviewLayer else { return }
 		videoPreviewLayer.videoGravity = .resizeAspectFill
 		videoPreviewLayer.session = captureSession
 	}
-
+	
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}

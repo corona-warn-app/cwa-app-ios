@@ -33,14 +33,14 @@ extension UIView {
 			}
 		}
 	}
-
+	
 	// Use additional view in order to set constraints for border layer
 	private func addBorder(at edge: UIRectEdge, with color: UIColor, thickness: CGFloat, and inset: UIEdgeInsets) {
 		let view = UIView()
 		insertSubview(view, at: 0)
 		view.translatesAutoresizingMaskIntoConstraints = false
 		view.backgroundColor = color
-
+		
 		switch edge {
 		case .top:
 			view.topAnchor.constraint(equalTo: topAnchor, constant: inset.top).isActive = true

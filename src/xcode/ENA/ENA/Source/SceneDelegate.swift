@@ -21,16 +21,16 @@ import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: Properties
-
+	
 	var window: UIWindow?
 	var store: Store {
 		UIApplication.coronaWarnDelegate().store
 	}
-
+	
 	private var diagnosisKeysStore: DownloadedPackagesStore {
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore
 	}
-
+	
 	private let exposureManager = ENAExposureManager()
 	private let taskScheduler = ENATaskScheduler()
 	private let navigationController: UINavigationController = .withLargeTitle()
@@ -44,9 +44,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			)
 		}
 	}
-
+	
 	private var developerMenu: DMDeveloperMenu?
-
+	
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
@@ -56,17 +56,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		)
 		developerMenu?.enableIfAllowed()
 	}
-
+	
 	private(set) lazy var client: Client = {
 		// We disable app store checks to make testing easier.
 		//        #if APP_STORE
 		//        return HTTPClient(configuration: .production)
 		//        #endif
-
+		
 		if ClientMode.default == .mock {
 			fatalError("not implemented")
 		}
-
+		
 		let store = self.store
 		guard
 			let distributionURLString = store.developerDistributionBaseURLOverride,
@@ -77,7 +77,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			let submissionURL = URL(string: submissionURLString) else {
 			return HTTPClient(configuration: .production)
 		}
-
+		
 		let config = HTTPClient.Configuration(
 			apiVersion: "v1",
 			country: "DE",
@@ -89,23 +89,23 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		)
 		return HTTPClient(configuration: config)
 	}()
-
+	
 	// MARK: UISceneDelegate
-
+	
 	func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
-
+		
 		exposureManager.resume(observer: self)
-
+		
 		UNUserNotificationCenter.current().delegate = self
 		taskScheduler.scheduleBackgroundTaskRequests()
-
+		
 		setupUI()
-
+		
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
-
+		
 		NotificationCenter
 			.default
 			.addObserver(
@@ -115,15 +115,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				object: nil
 			)
 	}
-
+	
 	// MARK: Helper
-
+	
 	private func setupUI() {
 		store.isOnboarded ? showHome() : showOnboarding()
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 	}
-
+	
 	private func showHome(animated _: Bool = false) {
 		if exposureManager.preconditions().active {
 			presentHomeVC()
@@ -139,7 +139,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			}
 		}
 	}
-
+	
 	private func presentHomeVC() {
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			let homeVC = HomeViewController(
@@ -152,7 +152,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			)
 			return homeVC
 		}
-
+		
 		homeController = vc // strong ref needed
 		homeController?.homeInteractor.state.exposureManager = state.exposureManager
 		navigationController.setViewControllers(
@@ -161,7 +161,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		)
 		enableDeveloperMenuIfAllowed(in: vc)
 	}
-
+	
 	private func showOnboarding() {
 		navigationController.navigationBar.prefersLargeTitles = false
 		navigationController.setViewControllers(
@@ -174,17 +174,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 						taskScheduler: self.taskScheduler,
 						store: self.store
 					)
-				},
+				}
 			],
 			animated: false
 		)
 	}
-
+	
 	@objc
 	func isOnboardedDidChange(_: NSNotification) {
 		store.isOnboarded ? showHome() : showOnboarding()
 	}
-
+	
 	@objc
 	func exposureSummaryDidChange(_ notification: NSNotification) {
 		guard let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary else {
@@ -193,17 +193,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		state.summary = summary
 		updateState(state.exposureManager)
 	}
-
+	
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
 		// We have to allow backend configuration via the url schema for now.
 		//        #if APP_STORE
 		//        return
 		//        #endif
-
+		
 		guard let url = URLContexts.first?.url else {
 			return
 		}
-
+		
 		guard let components = NSURLComponents(
 			url: url,
 			resolvingAgainstBaseURL: true
@@ -211,7 +211,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			let query = components.queryItems else {
 			return
 		}
-
+		
 		if let submissionBaseURL = query.valueFor(queryItem: "submissionBaseURL") {
 			store.developerSubmissionBaseURLOverride = submissionBaseURL
 		}
@@ -221,23 +221,23 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
 			store.developerVerificationBaseURLOverride = verificationBaseURL
 		}
-
+		
 		UserDefaults.standard.synchronize()
 	}
-
+	
 	// MARK: Privacy Protection
-
+	
 	func sceneDidBecomeActive(_: UIScene) {
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
 	}
-
+	
 	func sceneWillResignActive(_: UIScene) {
 		showPrivacyProtectionWindow()
 	}
-
+	
 	private var privacyProtectionWindow: UIWindow?
-
+	
 	private func showPrivacyProtectionWindow() {
 		guard
 			let windowScene = window?.windowScene,
@@ -252,7 +252,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		privacyProtectionWindow?.makeKeyAndVisible()
 		privacyProtectionViewController.show()
 	}
-
+	
 	private func hidePrivacyProtectionWindow() {
 		guard let privacyProtectionViewController = privacyProtectionWindow?.rootViewController as? PrivacyProtectionViewController else {
 			return
@@ -276,11 +276,11 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		active: \(newState.active)
 		"""
 		log(message: message)
-
+		
 		if newState.isGood {
 			log(message: "Enabled")
 		}
-
+		
 		state.exposureManager = newState
 		updateState(newState)
 	}
@@ -292,7 +292,7 @@ extension SceneDelegate: HomeViewControllerDelegate {
 		store.dateLastExposureDetection = nil
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 	}
-
+	
 	func homeViewControllerStartExposureTransaction(_: HomeViewController) {
 		UIApplication.coronaWarnDelegate().appStartExposureDetectionTransaction()
 	}
@@ -302,12 +302,12 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 	func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 		completionHandler([.alert, .badge, .sound])
 	}
-
+	
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.notification.request.identifier {
 		case ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier:
 			log(message: "Handling notification for \(response.notification.request.identifier)")
-
+			
 			switch response.actionIdentifier {
 			case LocalNotificationAction.openExposureDetectionResults.rawValue: showHome(animated: true)
 			case LocalNotificationAction.openTestResults.rawValue: showHome(animated: true)
@@ -316,11 +316,11 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 			case UNNotificationDismissActionIdentifier: break
 			default: break
 			}
-
+			
 		default:
 			log(message: "Handling notification for \(response.notification.request.identifier)")
 		}
-
+		
 		completionHandler()
 	}
 }

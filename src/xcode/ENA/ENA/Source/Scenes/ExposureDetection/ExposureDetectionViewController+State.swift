@@ -24,31 +24,31 @@ extension ExposureDetectionViewController {
 		case automatic
 		case manual
 	}
-
+	
 	struct State {
 		var exposureManagerState: ExposureManagerState = .init()
-
+		
 		var mode: RefreshMode = .manual
-
+		
 		var isTracingEnabled: Bool { exposureManagerState.enabled }
 		var isLoading: Bool = false
-
+		
 		var riskLevel: RiskLevel = .unknown
 		var nextRefresh: Date?
 		var summary: ExposureDetectionViewController.Summary?
-
+		
 		var actualRiskText: String {
 			riskLevel.text
 		}
-
+		
 		var riskText: String {
 			isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
 		}
-
+		
 		var riskTintColor: UIColor {
 			isTracingEnabled ? riskLevel.tintColor : .preferredColor(for: .backgroundPrimary)
 		}
-
+		
 		var riskContrastColor: UIColor {
 			isTracingEnabled ? riskLevel.contrastColor : .preferredColor(for: .textPrimary1)
 		}
@@ -64,7 +64,7 @@ private extension RiskLevel {
 		case .high: return AppStrings.ExposureDetection.high
 		}
 	}
-
+	
 	var tintColor: UIColor {
 		switch self {
 		case .unknown: return .preferredColor(for: .unknownRisk)
@@ -73,7 +73,7 @@ private extension RiskLevel {
 		case .high: return .preferredColor(for: .negativeRisk)
 		}
 	}
-
+	
 	var contrastColor: UIColor {
 		switch self {
 		case .unknown: return .white

@@ -21,7 +21,7 @@ import UIKit
 
 protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
 	typealias Completion = (ExposureNotificationError?) -> Void
-
+	
 	func exposureNotificationSettingViewController(
 		_ controller: ExposureNotificationSettingViewController,
 		setExposureManagerEnabled enabled: Bool,
@@ -31,20 +31,20 @@ protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
 
 final class ExposureNotificationSettingViewController: UITableViewController {
 	private weak var delegate: ExposureNotificationSettingViewControllerDelegate?
-
+	
 	var currentState: RiskDetectionState {
 		stateHandler.getState()
 	}
-
+	
 	var stateHandler: ENStateHandler {
 		didSet {
 			tableView.reloadData()
 		}
 	}
-
+	
 	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
 	let numberRiskContacts = 10
-
+	
 	init?(
 		coder: NSCoder,
 		stateHandler: ENStateHandler,
@@ -54,23 +54,23 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		self.delegate = delegate
 		super.init(coder: coder)
 	}
-
+	
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		navigationItem.largeTitleDisplayMode = .always
 		setUIText()
 		tableView.sectionFooterHeight = 0.0
 	}
-
+	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		tableView.reloadData()
 	}
-
+	
 	private func setExposureManagerEnabled(
 		_ enabled: Bool,
 		then _: ExposureNotificationSettingViewControllerDelegate.Completion
@@ -87,7 +87,7 @@ extension ExposureNotificationSettingViewController {
 	private func setUIText() {
 		title = AppStrings.ExposureNotificationSetting.title
 	}
-
+	
 	private func handleEnableError(_ error: ExposureNotificationError) {
 		switch error {
 		case .exposureNotificationAuthorization:
@@ -102,7 +102,7 @@ extension ExposureNotificationSettingViewController {
 		}
 		tableView.reloadData()
 	}
-
+	
 	private func handleErrorIfNeed(_ error: ExposureNotificationError?) {
 		if let error = error {
 			handleEnableError(error)
@@ -122,11 +122,11 @@ extension ExposureNotificationSettingViewController {
 	override func numberOfSections(in _: UITableView) -> Int {
 		model.content.count
 	}
-
+	
 	override func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
 		0
 	}
-
+	
 	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		switch model.content[section] {
 		case .actionCell:
@@ -135,7 +135,7 @@ extension ExposureNotificationSettingViewController {
 			return 0
 		}
 	}
-
+	
 	override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch model.content[section] {
 		case .actionCell:
@@ -144,16 +144,16 @@ extension ExposureNotificationSettingViewController {
 			return nil
 		}
 	}
-
+	
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		1
 	}
-
+	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let section = indexPath.section
-
+		
 		let content = model.content[section]
-
+		
 		if let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell {
 			switch content {
 			case .banner:
@@ -170,9 +170,11 @@ extension ExposureNotificationSettingViewController {
 						let colorConfig: (UIColor, UIColor) = (currentState == .enabled) ?
 							(UIColor.preferredColor(for: .tint), UIColor.preferredColor(for: .textPrimary3)) :
 							(UIColor.preferredColor(for: .textPrimary2), UIColor.preferredColor(for: .textPrimary3))
-						tracingCell.configure(progress: CGFloat(numberRiskContacts),
-											  text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberRiskContacts),
-											  colorConfigurationTuple: colorConfig)
+						tracingCell.configure(
+							progress: CGFloat(numberRiskContacts),
+							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberRiskContacts),
+							colorConfigurationTuple: colorConfig
+						)
 						return tracingCell
 					}
 				case .bluetoothOff, .internetOff:
