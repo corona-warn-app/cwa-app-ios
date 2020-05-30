@@ -46,7 +46,7 @@
 		514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE998246D4C2E00DE4884 /* UITableViewCell+Identifier.swift */; };
 		514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
 		514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */; };
-		51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* UIColor.swift */; };
+		51895EDC245E16CD0085DA38 /* UIColor+ColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* UIColor+ColorStyle.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
 		51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51B5B413246DF07300DC5D3E /* RiskImageItemView.xib */; };
 		51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */; };
@@ -314,7 +314,7 @@
 		514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Dequeue.swift"; sourceTree = "<group>"; };
 		514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellConfigurator.swift; sourceTree = "<group>"; };
 		514EE99F246D4DF800DE4884 /* HomeRiskImageItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskImageItemViewConfigurator.swift; sourceTree = "<group>"; };
-		51895EDB245E16CD0085DA38 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		51895EDB245E16CD0085DA38 /* UIColor+ColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorStyle.swift"; sourceTree = "<group>"; };
 		518A69FA24687D5800444E66 /* RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevel.swift; sourceTree = "<group>"; };
 		51B5B413246DF07300DC5D3E /* RiskImageItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskImageItemView.xib; sourceTree = "<group>"; };
 		51B5B415246DF13D00DC5D3E /* RiskImageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskImageItemView.swift; sourceTree = "<group>"; };
@@ -785,7 +785,7 @@
 				51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */,
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
 				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
-				51895EDB245E16CD0085DA38 /* UIColor.swift */,
+				51895EDB245E16CD0085DA38 /* UIColor+ColorStyle.swift */,
 				EE46E5D72466AEA50057627F /* UIView.swift */,
 				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
 				71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */,
@@ -1632,7 +1632,7 @@
 				A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */,
 				71330E3F248109F000EB10F6 /* DynamicTableViewIcon.swift in Sources */,
 				71FE1C89247AC56A00851FEB /* Array.swift in Sources */,
-				51895EDC245E16CD0085DA38 /* UIColor.swift in Sources */,
+				51895EDC245E16CD0085DA38 /* UIColor+ColorStyle.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
 				13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */,

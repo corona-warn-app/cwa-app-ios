@@ -19,29 +19,29 @@ import Foundation
 import UIKit
 
 public enum ColorStyle: String {
-	case textPrimary1
-	case textPrimary2
-	case textPrimary3
-	
-	case tintColor = "tint"
-	
-	case separator
-	case hairline
-	
-	case backgroundBase = "background"
-	case backgroundContrast = "backgroundGroup"
-	
-	case positive
-	case negative
-	case inactive = "medium"
-	case unknownRisk = "unknown"
+	case backgroundPrimary = "background"
+	case backgroundSecondary = "backgroundGroup"
 	
 	case brandRed
 	case brandBlue
 	case brandMagenta
 	
-	case chevron // TODO not defined by design
-	case shadow // TODO not defined by design
+	case separator
+	case hairline
+	case tint
+	
+	case textPrimary1
+	case textPrimary2
+	case textPrimary3
+	
+	case positiveRisk = "positive"
+	case negativeRisk = "negative"
+	case inactiveRisk = "medium"
+	case unknownRisk = "unknown"
+	
+	 // TODO Colors not defined by design
+	case chevron
+	case shadow
 }
 
 extension UIColor {
