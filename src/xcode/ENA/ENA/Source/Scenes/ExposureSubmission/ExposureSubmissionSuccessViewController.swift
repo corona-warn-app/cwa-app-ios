@@ -29,6 +29,7 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController 
 	}
 
 	private func setUpView() {
+		navigationItem.hidesBackButton = true
 		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 		dynamicTableViewModel = .data
 	}
