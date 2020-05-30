@@ -18,59 +18,46 @@
 import Foundation
 import UIKit
 
+public enum ColorStyle: String {
+	case textPrimary1
+	case textPrimary2
+	case textPrimary3
+	
+	case tintColor = "tint"
+	
+	case separator
+	case hairline
+	
+	case backgroundBase = "background"
+	case backgroundContrast = "backgroundGroup"
+	
+	case positive
+	case negative
+	case inactive = "medium"
+	case unknownRisk = "unknown"
+	
+	case brandRed
+	case brandBlue
+	case brandMagenta
+	
+	case chevron // TODO not defined by design
+	case shadow // TODO not defined by design
+}
+
 extension UIColor {
-	public class func preferredColor(for style: ColorStyle, variant _: UIUserInterfaceStyle = .light) -> UIColor {
-		if let color = preferredColorVariant(for: style) {
+	convenience init?(style: ColorStyle, interface: UIUserInterfaceStyle = .unspecified) {
+		if interface == .unspecified {
+			self.init(named: style.rawValue)
+		} else {
+			self.init(named: style.rawValue, in: nil, compatibleWith: UITraitCollection(userInterfaceStyle: interface))
+		}
+	}
+	
+	static func preferredColor(for style: ColorStyle, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
+		if let color = UIColor(style: style, interface: interface) {
 			return color
 		} else {
-			fatalError("Requested color is not available.")
-		}
-	}
-
-	// swiftlint:disable:next cyclomatic_complexity
-	private class func preferredColorVariant(for style: ColorStyle) -> UIColor? {
-		switch style {
-		case .textPrimary1:
-			return UIColor(named: "textPrimary1")
-		case .textPrimary2:
-			return UIColor(named: "textPrimary2")
-		case .textPrimary3:
-			return UIColor(named: "textPrimary3")
-		case .tintColor:
-			return UIColor(red: 0.00, green: 0.53, blue: 0.70, alpha: 1.00)
-		case .separator:
-			return UIColor(named: "separator")
-		case .hairline:
-			return UIColor(named: "hairline")
-		case .backgroundBase:
-			return UIColor(named: "background")
-		case .backgroundContrast:
-			return UIColor(named: "backgroundGroup")
-		case .chevron:
-			return UIColor(named: "chevron")
-		case .positive:
-			return UIColor(named: "positive")
-		case .negative:
-			return UIColor(named: "negative")
-		case .inactive:
-			return UIColor(named: "medium")
-		case .unknownRisk:
-			return UIColor(named: "unknown")
-		case .brandRed:
-			return UIColor(named: "brandRed")
-		case .brandBlue:
-			return UIColor(named: "brandBlue")
-		case .brandMagenta:
-			return UIColor(named: "brandMagenta")
-		case .shadow:
-			return UIColor(named: "shadow")
-		}
-	}
-
-	func renderImage(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
-		UIGraphicsImageRenderer(size: size).image { rendererContext in
-			setFill()
-			rendererContext.fill(CGRect(origin: .zero, size: size))
+			fatalError("Requested color is not available: " + style.rawValue)
 		}
 	}
 }
