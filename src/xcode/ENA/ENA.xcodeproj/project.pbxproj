@@ -122,7 +122,6 @@
 		71FE1C82247AC30300851FEB /* ENATanInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C81247AC30300851FEB /* ENATanInput.swift */; };
 		71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */; };
 		71FE1C87247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FE1C85247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib */; };
-		71FE1C89247AC56A00851FEB /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C88247AC56A00851FEB /* Array.swift */; };
 		71FE1C8C247AC79D00851FEB /* DynamicTableViewIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */; };
 		71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */; };
 		85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85142500245DA0B3009D2791 /* UIViewController+Alert.swift */; };
@@ -405,7 +404,6 @@
 		71FE1C81247AC30300851FEB /* ENATanInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENATanInput.swift; sourceTree = "<group>"; };
 		71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultHeaderView.swift; sourceTree = "<group>"; };
 		71FE1C85247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExposureSubmissionTestResultHeaderView.xib; sourceTree = "<group>"; };
-		71FE1C88247AC56A00851FEB /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTableViewIconCell.swift; sourceTree = "<group>"; };
 		71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DynamicTableViewIconCell.xib; sourceTree = "<group>"; };
 		85142500245DA0B3009D2791 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -796,7 +794,6 @@
 				B14D0CDA246E968C00D5BEBC /* String+Today.swift */,
 				B153096924706F1000A4A1BD /* URLSession+Default.swift */,
 				B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */,
-				71FE1C88247AC56A00851FEB /* Array.swift */,
 				B1D6B003247DA4920079DDD3 /* UIApplication+CoronaWarn.swift */,
 				EE22DB92247FB4BB001B0A71 /* Reachability+ObserverDelegate.swift */,
 				2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */,
@@ -1638,7 +1635,6 @@
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */,
 				71330E3F248109F000EB10F6 /* DynamicTableViewIcon.swift in Sources */,
-				71FE1C89247AC56A00851FEB /* Array.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* UIColor+ColorStyle.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
