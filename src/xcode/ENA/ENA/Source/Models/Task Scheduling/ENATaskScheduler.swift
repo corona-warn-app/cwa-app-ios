@@ -20,9 +20,10 @@ import ExposureNotification
 import UIKit
 
 public enum ENATaskIdentifier: String, CaseIterable {
+	// only one task identifier is allowed have the .exposure-notification suffix
 	case detectExposures = "detect-exposures.exposure-notification"
-	case fetchTestResults = "fetch-test-results.exposure-notification"
-	case SIMPLETEST = "SIMPLETEST.exposure-notification"
+	case fetchTestResults = "fetch-test-results"
+	case SIMPLETEST = "SIMPLETEST"
 
 	var backgroundTaskScheduleInterval: TimeInterval {
 		switch self {
