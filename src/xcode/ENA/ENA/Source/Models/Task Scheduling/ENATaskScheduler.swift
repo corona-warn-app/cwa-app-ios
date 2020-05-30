@@ -85,6 +85,14 @@ public class ENATaskScheduler {
 		}
 	}
 
+	public func listPendingTasks() {
+		self.fetchPendingBackgroundTaskRequests { requests in
+			requests.forEach { request in
+				log(message: "# TASKSHED # \(#line) \(#function) PENDING REQUEST \(request.identifier) at \(request.earliestBeginDate?.description(with: .current) ?? "<unknown>")")
+			}
+		}
+	}
+
 	public func cancelAllBackgroundTaskRequests() {
 		log(message: "# TASKSHED # \(#line), \(#function)")
 		BGTaskScheduler.shared.cancelAllTaskRequests()
@@ -113,7 +121,7 @@ public class ENATaskScheduler {
 		taskRequest.earliestBeginDate = earliestBeginDate
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
-			log(message: "# TASKSHED # \(#line), \(#function) SCHEDULED \(taskIdentifier.backgroundTaskSchedulerIdentifier) at \(earliestBeginDate)")
+			log(message: "# TASKSHED # \(#line), \(#function) SCHEDULED \(taskIdentifier.backgroundTaskSchedulerIdentifier) at \(earliestBeginDate.description(with: .current))")
 		} catch {
 			log(message: "# TASKSHED # FAILED TO SCHEDULE \(taskIdentifier.backgroundTaskSchedulerIdentifier): \(error)")
 		}

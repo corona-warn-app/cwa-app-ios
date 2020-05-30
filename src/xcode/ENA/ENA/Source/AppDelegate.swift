@@ -82,10 +82,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 
 	func application(_: UIApplication,
-					 didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+					 didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 
 		log(message: "# TASKSHED #")
-		log(message: "# TASKSHED # \(#line) \(#function)")
+		log(message: "# TASKSHED # \(#line) \(#function), options = \(options)")
 		log(message: "# TASKSHED #")
 		
 		taskScheduler.taskDelegate = self

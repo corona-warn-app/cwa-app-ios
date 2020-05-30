@@ -229,11 +229,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	func sceneDidBecomeActive(_: UIScene) {
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
+		taskScheduler.listPendingTasks()
 	}
 
 	func sceneWillResignActive(_: UIScene) {
 		showPrivacyProtectionWindow()
 		taskScheduler.scheduleBackgroundTaskRequests()
+		taskScheduler.listPendingTasks()
 	}
 
 	private var privacyProtectionWindow: UIWindow?
