@@ -56,7 +56,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 		// MARK: - Separator.
 
 		separator = UIView(frame: .zero)
-		separator.backgroundColor = .preferredColor(for: .chevron)
+		separator.backgroundColor = .preferredColor(for: .textPrimary2)
 		separator.isHidden = !hasSeparators
 	}
 
@@ -68,35 +68,26 @@ class DynamicTableViewStepCell: UITableViewCell {
 															   separator], to: false)
 
 		addSubviews([separator, cellIcon, body])
-
-		// TODO: Set the width programmatically, then calculate the
-		// multiline label break afterwards.
-		body.frame.size.width = 300
+		
 		body.sizeToFit()
-		let height = body.frame.height
-		let width = body.frame.width
-
-		setConstraint(for: body.widthAnchor, equalTo: width)
-		setConstraint(for: body.heightAnchor, equalTo: height)
-		setConstraint(for: heightAnchor, equalTo: height + 50)
+		
 		setConstraint(for: cellIcon.widthAnchor, equalTo: 32)
 		setConstraint(for: cellIcon.heightAnchor, equalTo: 32)
 		setConstraint(for: separator.widthAnchor, equalTo: 1)
-
-		cellIcon.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-		cellIcon.rightAnchor.constraint(equalTo: body.leftAnchor, constant: -10).isActive = true
-		cellIcon.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
-		// TODO: Set this programmatically.
+		cellIcon.topAnchor.constraint(equalTo: topAnchor).isActive = true
+		cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+		
+		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
+		body.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+		body.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+		heightAnchor.constraint(equalTo: body.heightAnchor, constant: 50).isActive = true
+		
 		cellIcon.layer.cornerRadius = 16
 		cellIcon.clipsToBounds = true
-
-		let inset = cellIcon.frame.height * 0.35
-		body.topAnchor.constraint(equalTo: cellIcon.topAnchor, constant: inset).isActive = true
-		body.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-
+		
 		separator.topAnchor.constraint(equalTo: cellIcon.bottomAnchor).isActive = true
-		separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
 		separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+		separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
 	}
 
 	func configure(title: String,
