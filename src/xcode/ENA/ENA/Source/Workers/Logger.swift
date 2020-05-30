@@ -20,6 +20,7 @@ import Foundation
 let appLogger = Logger()
 
 func log(message: String, level _: LogLevel = .info, file _: String = #file, line _: UInt = #line, function _: String = #function) {
+	Flogger.write(message)
 	NSLog("%@", message)
 }
 
