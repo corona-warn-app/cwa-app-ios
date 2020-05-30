@@ -64,14 +64,18 @@ final class ExposureDetectionTransaction {
 
 	// MARK: Starting the Transaction
 
-	func start() {
+	func start(taskCompletion: (() -> Void)? = nil) {
 		let today = formattedToday()
 		client.availableDaysAndHoursUpUntil(today) { result in
 			switch result {
 			case let .success(daysAndHours):
-				self.continueWith(remoteDaysAndHours: daysAndHours)
+				self.continueWith(remoteDaysAndHours: daysAndHours) {
+					taskCompletion?()
+				}
 			case .failure:
 				self.endPrematurely(reason: .noDaysAndHours)
+				taskCompletion?()
+
 			}
 		}
 	}
@@ -107,16 +111,22 @@ final class ExposureDetectionTransaction {
 	// MARK: Steps of a Transaction
 
 	// 1. Step: Download available Days & Hours
-	private func continueWith(remoteDaysAndHours: Client.DaysAndHours) {
+    private func continueWith(remoteDaysAndHours: Client.DaysAndHours, taskCompletion: (() -> Void)? = nil) {
 		fetchAndStoreMissingDaysAndHours(remoteDaysAndHours: remoteDaysAndHours) { [weak self] in
-			guard let self = self else { return }
+            guard let self = self else {
+				taskCompletion?()
+				return
+			}
 			self.remoteExposureConfiguration { [weak self] configuration in
 				guard let self = self else { return }
 				do {
 					let writer = try self.createAppleFilesWriter()
-					self.detectExposures(writer: writer, configuration: configuration)
+					self.detectExposures(writer: writer, configuration: configuration) {
+						taskCompletion?()
+					}
 				} catch {
 					self.endPrematurely(reason: .unableToDiagnosisKeys)
+					taskCompletion?()
 				}
 			}
 		}
@@ -180,14 +190,16 @@ final class ExposureDetectionTransaction {
 	// 5. Execute the actual exposure detection
 	private func detectExposures(
 		writer: AppleFilesWriter,
-		configuration: ENExposureConfiguration
+		configuration: ENExposureConfiguration,
+		taskCompletion: (() -> Void)? = nil
 	) {
 		writer.with { [weak self] diagnosisURLs, done in
 			guard let self = self else { return }
 			self._detectExposures(
 				diagnosisKeyURLs: diagnosisURLs,
 				configuration: configuration,
-				completion: done
+				completion: done,
+				taskCompletion: taskCompletion
 			)
 		}
 	}
@@ -195,7 +207,8 @@ final class ExposureDetectionTransaction {
 	private func _detectExposures(
 		diagnosisKeyURLs: [URL],
 		configuration: ENExposureConfiguration,
-		completion: @escaping () -> Void
+		completion: @escaping () -> Void,
+		taskCompletion: (() -> Void)? = nil
 	) {
 		let manager = exposureManager()
 		_ = manager.detectExposures(
@@ -203,16 +216,19 @@ final class ExposureDetectionTransaction {
 			diagnosisKeyURLs: diagnosisKeyURLs
 		) { [weak self] summary, error in
 			guard let self = self else {
+				taskCompletion?()
 				return
 			}
 			if let error = error {
 				self.endPrematurely(reason: .noSummary(error))
+				taskCompletion?()
 				return
 			}
 
 			guard let summary = summary else {
 				completion()
 				self.endPrematurely(reason: .noSummary(nil))
+				taskCompletion?()
 				return
 			}
 			log(message: "summary: \(summary)")
@@ -220,6 +236,7 @@ final class ExposureDetectionTransaction {
 
 			self.didDetectSummary(summary)
 			completion()
+			taskCompletion?()
 		}
 	}
 }
