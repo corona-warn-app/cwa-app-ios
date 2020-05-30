@@ -24,12 +24,12 @@ class ENAButton: UIButton {
 		super.init(frame: frame)
 		customizeButton()
 	}
-
+	
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		customizeButton()
 	}
-
+	
 	override var isEnabled: Bool {
 		didSet {
 			if isEnabled {
@@ -39,29 +39,29 @@ class ENAButton: UIButton {
 			}
 		}
 	}
-
+	
 	private func customizeButton() {
 		setButtonColors()
 		setRoundCorner(radius: 8.0)
-
+		
 		contentEdgeInsets = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
-
+		
 		titleLabel?.adjustsFontForContentSizeCategory = true
 	}
-
+	
 	private func setButtonColors() {
 		backgroundColor = UIColor.preferredColor(for: .tint)
 		setTitleColor(UIColor.white, for: .normal)
 		setTitleColor(UIColor.systemGray, for: .disabled)
 	}
-
+	
 	private func setRoundCorner(radius: CGFloat) {
 		layer.cornerRadius = radius
 		layer.cornerCurve = .continuous
 		clipsToBounds = true
 	}
-
+	
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
 		customizeButton()

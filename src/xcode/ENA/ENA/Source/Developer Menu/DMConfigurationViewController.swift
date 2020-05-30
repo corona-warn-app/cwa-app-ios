@@ -19,7 +19,7 @@ import UIKit
 
 final class DMConfigurationViewController: UITableViewController {
 	// MARK: Creating a Configuration View Controller
-
+	
 	init(distributionURL: String?, submissionURL: String?, verificationURL: String?) {
 		self.distributionURL = distributionURL
 		self.submissionURL = submissionURL
@@ -27,19 +27,19 @@ final class DMConfigurationViewController: UITableViewController {
 		super.init(style: .plain)
 		title = "Configuration"
 	}
-
+	
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
+	
 	// MARK: Properties
-
+	
 	private let distributionURL: String?
 	private let submissionURL: String?
 	private let verificationURL: String?
-
+	
 	// MARK: UIViewController
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.register(
@@ -47,9 +47,9 @@ final class DMConfigurationViewController: UITableViewController {
 			forCellReuseIdentifier: DMConfigurationCell.reuseIdentifier
 		)
 	}
-
+	
 	// MARK: UITableViewController
-
+	
 	override func tableView(
 		_ tableView: UITableView,
 		cellForRowAt indexPath: IndexPath
@@ -76,7 +76,7 @@ final class DMConfigurationViewController: UITableViewController {
 		cell.detailTextLabel?.numberOfLines = 0
 		return cell
 	}
-
+	
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		3
 	}
@@ -87,7 +87,7 @@ private class DMConfigurationCell: UITableViewCell {
 	override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 	}
-
+	
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}

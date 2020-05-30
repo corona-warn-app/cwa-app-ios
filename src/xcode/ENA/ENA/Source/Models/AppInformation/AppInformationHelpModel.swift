@@ -20,23 +20,23 @@ import Foundation
 struct AppInformationHelpModel {
 	typealias Question = (title: String, details: AppInformationDetailModel)
 	typealias Section = (sectionTitle: String, questions: [Question])
-
+	
 	private let sections: [Section]
-
+	
 	init(questions: [Section]) {
 		sections = questions
 	}
-
+	
 	var numberOfSections: Int { sections.count }
-
+	
 	func title(for section: Int) -> String {
 		sections[section].sectionTitle
 	}
-
+	
 	func questions(in section: Int) -> [Question] {
 		sections[section].questions
 	}
-
+	
 	func question(_ index: Int, in section: Int) -> Question {
 		sections[section].questions[index]
 	}

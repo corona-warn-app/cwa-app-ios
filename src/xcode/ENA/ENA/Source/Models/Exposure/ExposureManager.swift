@@ -26,7 +26,7 @@ enum ExposureNotificationError: Error {
 
 struct ExposureManagerState {
 	// MARK: Creating a State
-
+	
 	init(
 		authorized: Bool = false,
 		enabled: Bool = false,
@@ -38,9 +38,9 @@ struct ExposureManagerState {
 		self.active = active
 		self.bluetoothOff = bluetoothOff
 	}
-
+	
 	// MARK: Properties
-
+	
 	let authorized: Bool
 	let enabled: Bool
 	let active: Bool
@@ -84,36 +84,36 @@ protocol ENAExposureManagerObserver: AnyObject {
 /// Wrapper for ENManager to avoid code duplication and to abstract error handling
 final class ENAExposureManager: NSObject, ExposureManager {
 	// MARK: Properties
-
+	
 	private weak var observer: ENAExposureManagerObserver?
 	private var enabledObservation: NSKeyValueObservation?
 	private var statusObservation: NSKeyValueObservation?
 	@objc private let manager: Manager
-
+	
 	// MARK: Creating a Manager
-
+	
 	init(
 		manager: Manager = ENManager()
 	) {
 		self.manager = manager
 		super.init()
 	}
-
+	
 	func resume(observer: ENAExposureManagerObserver) {
 		precondition(
 			self.observer == nil,
 			"Cannot resume an exposure manager that is already resumed."
 		)
-
+		
 		self.observer = observer
-
+		
 		enabledObservation = observe(\.manager.exposureNotificationEnabled, options: .new) { [weak self] _, _ in
 			guard let self = self else { return }
 			DispatchQueue.main.async {
 				observer.exposureManager(self, didChangeState: self.preconditions())
 			}
 		}
-
+		
 		statusObservation = observe(\.manager.exposureNotificationStatus, options: .new) { [weak self] _, _ in
 			guard let self = self else { return }
 			DispatchQueue.main.async {
@@ -121,9 +121,9 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			}
 		}
 	}
-
+	
 	// MARK: Activation
-
+	
 	/// Activates `ENManager`
 	/// Needs to be called before `ExposureManager.enable()`
 	func activate(completion: @escaping CompletionHandler) {
@@ -136,21 +136,21 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			completion(nil)
 		}
 	}
-
+	
 	// MARK: Enable
-
+	
 	/// Asks user for permission to enable ExposureNotification and enables it, if the user grants permission
 	/// Expects the callee to invoke `ExposureManager.activate` prior to this function call
 	func enable(completion: @escaping CompletionHandler) {
 		changeEnabled(to: true, completion: completion)
 	}
-
+	
 	/// Disables the ExposureNotification framework
 	/// Expects the callee to invoke `ExposureManager.activate` prior to this function call
 	func disable(completion: @escaping CompletionHandler) {
 		changeEnabled(to: false, completion: completion)
 	}
-
+	
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
@@ -161,7 +161,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			completion(nil)
 		}
 	}
-
+	
 	/// Returns an instance of the OptionSet `Preconditions`
 	/// Only if `Preconditions.all()`
 	func preconditions() -> ExposureManagerState {
@@ -172,21 +172,21 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			bluetoothOff: manager.exposureNotificationStatus == .bluetoothOff
 		)
 	}
-
+	
 	// MARK: Detect Exposures
-
+	
 	/// Wrapper for `ENManager.detectExposures`
 	/// `ExposureManager` needs to be activated and enabled
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
 		manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs, completionHandler: completionHandler)
 	}
-
+	
 	// MARK: Diagnosis Keys
-
+	
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		manager.getTestDiagnosisKeys(completionHandler: completionHandler)
 	}
-
+	
 	/// Wrapper for `ENManager.getDiagnosisKeys`
 	/// `ExposureManager` needs to be activated and enabled
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
@@ -199,9 +199,9 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		// see: https://github.com/corona-warn-app/cwa-app-ios/issues/169
 		manager.getDiagnosisKeys(completionHandler: completionHandler)
 	}
-
+	
 	// MARK: Error Handling
-
+	
 	private func handleENError(error: Error, completion: @escaping CompletionHandler) {
 		if let error = error as? ENError {
 			switch error.code {
@@ -218,15 +218,15 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			}
 		}
 	}
-
+	
 	// MARK: Invalidate
-
+	
 	func invalidate() {
 		manager.invalidate()
 	}
-
+	
 	// MARK: Memory
-
+	
 	deinit {
 		manager.invalidate()
 	}

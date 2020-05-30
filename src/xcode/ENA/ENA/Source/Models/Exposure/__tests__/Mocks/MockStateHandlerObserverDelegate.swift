@@ -26,26 +26,26 @@ class MockStateHandlerObserverDelegate: StateHandlerObserverDelegate, Reachabili
 			stateHandler.exposureManagerDidUpdate(to: exposureManagerState)
 		}
 	}
-
+	
 	var currentState: RiskDetectionState {
 		stateHandler.getState()
 	}
-
+	
 	init(exposureManagerState: ExposureManagerState) {
 		self.exposureManagerState = exposureManagerState
 		stateHandler = ENStateHandler(exposureManagerState, delegate: self)
 	}
-
+	
 	func stateDidChange(to _: RiskDetectionState) {}
-
+	
 	func getLatestExposureManagerState() -> ExposureManagerState {
 		exposureManagerState
 	}
-
+	
 	func getCurrentState() -> RiskDetectionState {
 		currentState
 	}
-
+	
 	func reachabilityChanged(_ isReachable: Bool) {
 		stateHandler.reachabilityChanged(isReachable)
 	}

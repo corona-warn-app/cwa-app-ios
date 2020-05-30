@@ -40,7 +40,7 @@ public enum ColorStyle: String {
 	case inactiveRisk = "medium"
 	case unknownRisk = "unknown"
 	
-	 // TODO Colors not defined by design
+	// TODO: Colors not defined by design
 	case chevron
 	case shadow
 }

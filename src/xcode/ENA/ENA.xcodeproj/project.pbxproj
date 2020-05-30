@@ -106,6 +106,7 @@
 		7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7154EB49247D21E200A467FF /* ExposureDetectionLongGuideCell.swift */; };
 		7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7154EB4B247E862100A467FF /* ExposureDetectionLoadingCell.swift */; };
 		7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E4824810A5A00EB10F6 /* DynamicTableViewAction.swift */; };
+		71B8044524828A6C00D53506 /* .swiftformat in Resources */ = {isa = PBXBuildFile; fileRef = 71B8044424828A6C00D53506 /* .swiftformat */; };
 		71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */; };
 		71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C68247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift */; };
 		71FE1C6B247AA3F100851FEB /* ExposureDetectionViewController+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C6A247AA3F100851FEB /* ExposureDetectionViewController+State.swift */; };
@@ -377,6 +378,7 @@
 		7154EB49247D21E200A467FF /* ExposureDetectionLongGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionLongGuideCell.swift; sourceTree = "<group>"; };
 		7154EB4B247E862100A467FF /* ExposureDetectionLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionLoadingCell.swift; sourceTree = "<group>"; };
 		71AFBD922464251000F91006 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		71B8044424828A6C00D53506 /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		71CC3E7C246D308000217F2C /* app-information-assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "app-information-assets.xcassets"; sourceTree = "<group>"; };
 		71CC3E97246D358E00217F2C /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
 		71CC3E9A246D5D6C00217F2C /* AppInformationDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDetailModel.swift; sourceTree = "<group>"; };
@@ -953,6 +955,7 @@
 		85D759322457048F008175F0 = {
 			isa = PBXGroup;
 			children = (
+				71B8044424828A6C00D53506 /* .swiftformat */,
 				71AFBD922464251000F91006 /* .swiftlint.yml */,
 				85D7593D2457048F008175F0 /* ENA */,
 				85D7595724570491008175F0 /* ENATests */,
@@ -1545,6 +1548,7 @@
 				13FD1DE62473EE6C00A7C7AB /* AppInformation.storyboard in Resources */,
 				514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */,
 				710ABB2C2475531700948792 /* app-information-assets.xcassets in Resources */,
+				71B8044524828A6C00D53506 /* .swiftformat in Resources */,
 				51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				713FD5672482811A00C1F6DD /* colors.xcassets in Resources */,

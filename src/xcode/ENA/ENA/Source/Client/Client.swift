@@ -21,7 +21,7 @@ import Foundation
 /// Describes how to interfact with the backend.
 protocol Client {
 	// MARK: Types
-
+	
 	typealias Failure = URLSession.Response.Failure
 	typealias SubmitKeysCompletionHandler = (SubmissionError?) -> Void
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
@@ -31,62 +31,62 @@ protocol Client {
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
-
+	
 	// MARK: Interacting with a Client
-
+	
 	/// Determines days that can be downloaded.
 	func availableDays(
 		completion: @escaping AvailableDaysCompletionHandler
 	)
-
+	
 	/// Determines hours that can be downloaded for a given day.
 	func availableHours(
 		day: String,
 		completion: @escaping AvailableHoursCompletionHandler
 	)
-
+	
 	// registersTheDevice
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String, completion completeWith: @escaping RegistrationHandler
 	)
-
+	
 	// getTestResultForDevice
 	func getTestResult(
 		forDevice registrationToken: String,
 		completion completeWith: @escaping TestResultHandler
 	)
-
+	
 	// getTANForDevice
 	func getTANForExposureSubmit(
 		forDevice registrationToken: String,
 		completion completeWith: @escaping TANHandler
 	)
-
+	
 	/// Fetches the keys for a given `day`.
 	func fetchDay(
 		_ day: String,
 		completion: @escaping DayCompletionHandler
 	)
-
+	
 	/// Fetches the keys for a given `hour` of a specific `day`.
 	func fetchHour(
 		_ hour: Int,
 		day: String,
 		completion: @escaping HourCompletionHandler
 	)
-
+	
 	// MARK: Getting the Configuration
-
+	
 	typealias ExposureConfigurationCompletionHandler = (ENExposureConfiguration?) -> Void
-
+	
 	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
 	/// Parameters:
 	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
 	func exposureConfiguration(
 		completion: @escaping ExposureConfigurationCompletionHandler
 	)
-
+	
 	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
 	/// Parameters:
 	/// - keys: An array of `ENTemporaryExposureKey`s  to submit to the backend.
@@ -144,16 +144,16 @@ struct FetchedDaysAndHours {
 
 extension Client {
 	typealias FetchHoursCompletionHandler = (HoursResult) -> Void
-
+	
 	func fetchDays(
 		_ days: [String],
 		completion completeWith: @escaping (DaysResult) -> Void
 	) {
 		var errors = [Client.Failure]()
 		var buckets = [String: SAPDownloadedPackage]()
-
+		
 		let group = DispatchGroup()
-
+		
 		for day in days {
 			group.enter()
 			fetchDay(day) { result in
@@ -166,7 +166,7 @@ extension Client {
 				group.leave()
 			}
 		}
-
+		
 		group.notify(queue: .main) {
 			completeWith(
 				DaysResult(
@@ -176,7 +176,7 @@ extension Client {
 			)
 		}
 	}
-
+	
 	func fetchHours(
 		_ hours: [Int],
 		day: String,
@@ -185,7 +185,7 @@ extension Client {
 		var errors = [Client.Failure]()
 		var buckets = [Int: SAPDownloadedPackage]()
 		let group = DispatchGroup()
-
+		
 		hours.forEach { hour in
 			group.enter()
 			self.fetchHour(hour, day: day) { result in
@@ -198,16 +198,16 @@ extension Client {
 				group.leave()
 			}
 		}
-
+		
 		group.notify(queue: .main) {
 			completeWith(
 				HoursResult(errors: errors, bucketsByHour: buckets, day: day)
 			)
 		}
 	}
-
+	
 	typealias DaysAndHoursCompletionHandler = (FetchedDaysAndHours) -> Void
-
+	
 	func fetchDays(
 		_ days: [String],
 		hours: [Int],
@@ -217,13 +217,13 @@ extension Client {
 		let group = DispatchGroup()
 		var hoursResult = HoursResult(errors: [], bucketsByHour: [:], day: day)
 		var daysResult = DaysResult(errors: [], bucketsByDay: [:])
-
+		
 		group.enter()
 		fetchDays(days) { result in
 			daysResult = result
 			group.leave()
 		}
-
+		
 		group.enter()
 		fetchHours(hours, day: day) { result in
 			hoursResult = result

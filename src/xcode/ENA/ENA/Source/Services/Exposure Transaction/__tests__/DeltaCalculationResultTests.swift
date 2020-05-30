@@ -28,7 +28,7 @@ final class DeltaCalculationResultTests: XCTestCase {
 		)
 		XCTAssertEqual(emptyDelta.missingDays, [])
 		XCTAssertEqual(emptyDelta.missingHours, [])
-
+		
 		let singleRemoteDay = DeltaCalculationResult(
 			remoteDays: ["a"],
 			remoteHours: [],
@@ -37,7 +37,7 @@ final class DeltaCalculationResultTests: XCTestCase {
 		)
 		XCTAssertEqual(singleRemoteDay.missingDays, ["a"])
 		XCTAssertEqual(singleRemoteDay.missingHours, [])
-
+		
 		let multipleRemoteDays = DeltaCalculationResult(
 			remoteDays: ["a", "b"],
 			remoteHours: [],
@@ -47,7 +47,7 @@ final class DeltaCalculationResultTests: XCTestCase {
 		XCTAssertEqual(multipleRemoteDays.missingDays, ["a", "b"])
 		XCTAssertEqual(multipleRemoteDays.missingHours, [])
 	}
-
+	
 	func testMissingDays() {
 		let delta = DeltaCalculationResult(
 			remoteDays: ["a", "b"],
@@ -55,11 +55,11 @@ final class DeltaCalculationResultTests: XCTestCase {
 			localDays: ["b"],
 			localHours: []
 		)
-
+		
 		XCTAssertEqual(delta.missingDays, ["a"])
 		XCTAssertEqual(delta.missingHours, [])
 	}
-
+	
 	func testMissingHours() {
 		let delta = DeltaCalculationResult(
 			remoteDays: [],
@@ -67,7 +67,7 @@ final class DeltaCalculationResultTests: XCTestCase {
 			localDays: [],
 			localHours: [2]
 		)
-
+		
 		XCTAssertEqual(delta.missingDays, [])
 		XCTAssertEqual(delta.missingHours, [1, 3, 4])
 	}

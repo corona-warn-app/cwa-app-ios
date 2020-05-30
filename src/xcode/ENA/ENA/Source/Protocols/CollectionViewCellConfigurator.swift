@@ -19,7 +19,7 @@ import UIKit
 
 protocol CollectionViewCellConfiguratorAny: AnyObject {
 	var viewAnyType: UICollectionViewCell.Type { get }
-
+	
 	func configureAny(cell: UICollectionViewCell)
 }
 
@@ -32,7 +32,7 @@ extension CollectionViewCellConfigurator {
 	var viewAnyType: UICollectionViewCell.Type {
 		CellType.self
 	}
-
+	
 	func configureAny(cell: UICollectionViewCell) {
 		if let cell = cell as? CellType {
 			configure(cell: cell)

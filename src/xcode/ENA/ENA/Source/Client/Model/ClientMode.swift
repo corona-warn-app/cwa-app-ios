@@ -28,7 +28,7 @@ import Foundation
 enum ClientMode: String {
 	case mock
 	case https
-
+	
 	static func from(environment _: [String: String]) -> ClientMode {
 		// We disable mocking
 		.https
@@ -39,10 +39,10 @@ enum ClientMode: String {
 		//        let value = environment["CWA_CLIENT_MODE"] ?? defaultMode.rawValue
 		//        return ClientMode(rawValue: value) ?? defaultMode
 	}
-
+	
 	static func from(processInfo: ProcessInfo) -> ClientMode {
 		from(environment: processInfo.environment)
 	}
-
+	
 	static let `default` = ClientMode.from(processInfo: .processInfo)
 }

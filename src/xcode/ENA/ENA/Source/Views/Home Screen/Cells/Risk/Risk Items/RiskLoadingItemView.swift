@@ -22,15 +22,15 @@ final class RiskLoadingItemView: UIView, RiskItemView {
 	@IBOutlet var titleTextView: UITextView!
 	@IBOutlet var separatorView: UIView!
 	@IBOutlet var separatorHeightConstraint: NSLayoutConstraint!
-
+	
 	@IBOutlet var topActivityIndicatorTopTextViewConstraint: NSLayoutConstraint!
 	@IBOutlet var centerYActivityIndicatorCenterYTextViewConstraint: NSLayoutConstraint!
-
+	
 	@IBOutlet var leadingTextViewLeadingMarginConstraint: NSLayoutConstraint!
 	@IBOutlet var leadingTextViewTrailingActivityIndicatorViewConstraint: NSLayoutConstraint!
-
+	
 	private let titleTopPadding: CGFloat = 8.0
-
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		separatorHeightConstraint.constant = 1
@@ -43,18 +43,18 @@ final class RiskLoadingItemView: UIView, RiskItemView {
 		configureActivityIndicatorView()
 		wrapActivityIndicator()
 	}
-
+	
 	override func layoutSubviews() {
 		super.layoutSubviews()
 		wrapActivityIndicator()
 	}
-
+	
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		configureTextViewLayout()
 		configureActivityIndicatorView()
 	}
-
+	
 	private func configureTextViewLayout() {
 		let greaterThanAccessibilityMedium = traitCollection.preferredContentSizeCategory >= .accessibilityMedium
 		if greaterThanAccessibilityMedium {
@@ -65,18 +65,18 @@ final class RiskLoadingItemView: UIView, RiskItemView {
 			leadingTextViewTrailingActivityIndicatorViewConstraint.isActive = true
 		}
 	}
-
+	
 	private func configureActivityIndicatorView() {
 		let greaterThanAccessibilityMedium = traitCollection.preferredContentSizeCategory >= .accessibilityMedium
 		activityIndicatorView.style = greaterThanAccessibilityMedium ? .large : .medium
 	}
-
+	
 	private func wrapActivityIndicator() {
 		if traitCollection.preferredContentSizeCategory >= .accessibilityMedium {
 			centerYActivityIndicatorCenterYTextViewConstraint.isActive = false
 			topActivityIndicatorTopTextViewConstraint.isActive = true
 			guard let lineHeight = titleTextView.font?.lineHeight else { return }
-
+			
 			var indicatorFrame = convert(activityIndicatorView.frame, to: titleTextView)
 			let offset: CGFloat = (lineHeight - indicatorFrame.height) / 2.0
 			topActivityIndicatorTopTextViewConstraint.constant = max(offset.rounded(), 0) + titleTopPadding
@@ -90,7 +90,7 @@ final class RiskLoadingItemView: UIView, RiskItemView {
 			titleTextView.textContainer.exclusionPaths.removeAll()
 		}
 	}
-
+	
 	func hideSeparator() {
 		separatorView.isHidden = true
 	}

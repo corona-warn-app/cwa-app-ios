@@ -20,21 +20,21 @@ import Foundation
 
 final class DownloadedPackagesSQLLiteStore {
 	// MARK: Creating a Store
-
+	
 	init(database: FMDatabase) {
 		self.database = database
 	}
-
+	
 	private func beginTransaction() {
 		database.beginExclusiveTransaction()
 	}
-
+	
 	private func commit() {
 		database.commit()
 	}
-
+	
 	// MARK: Properties
-
+	
 	private let database: FMDatabase
 }
 
@@ -46,7 +46,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			    PRAGMA locking_mode=EXCLUSIVE;
 			    PRAGMA auto_vacuum=2;
 			    PRAGMA journal_mode=WAL;
-
+			
 			    CREATE TABLE IF NOT EXISTS
 			        Z_DOWNLOADED_PACKAGE (
 			        Z_BIN BLOB NOT NULL,
@@ -61,11 +61,11 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			"""
 		)
 	}
-
+	
 	func close() {
 		database.close()
 	}
-
+	
 	// swiftlint:disable:next function_body_length
 	func set(
 		day: String,
@@ -111,13 +111,13 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 				withParameterDictionary: [
 					"bin": package.bin,
 					"signature": package.signature,
-					"day": day,
+					"day": day
 				]
 			)
 		}
-
+		
 		beginTransaction()
-
+		
 		guard deleteHours() else {
 			database.rollback()
 			return
@@ -126,10 +126,10 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			database.rollback()
 			return
 		}
-
+		
 		database.commit()
 	}
-
+	
 	func set(hour: Int, day: String, package: SAPDownloadedPackage) {
 		let sql = """
 		    INSERT INTO Z_DOWNLOADED_PACKAGE(
@@ -157,11 +157,11 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			"bin": package.bin,
 			"signature": package.signature,
 			"day": day,
-			"hour": hour,
+			"hour": hour
 		]
 		database.executeUpdate(sql, withParameterDictionary: parameters)
 	}
-
+	
 	func package(for day: String) -> SAPDownloadedPackage? {
 		let sql = """
 		    SELECT
@@ -176,14 +176,14 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 		guard let result = database.execute(query: sql, parameters: ["day": day]) else {
 			return nil
 		}
-
+		
 		defer { result.close() }
 		return result
 			.map { $0.downloadedPackage() }
 			.compactMap { $0 }
 			.first
 	}
-
+	
 	func hourlyPackages(for day: String) -> [SAPDownloadedPackage] {
 		let sql = "SELECT Z_BIN, Z_SIGNATURE FROM Z_DOWNLOADED_PACKAGE WHERE Z_DAY = :day AND Z_HOUR IS NOT NULL;"
 		guard let result = database.execute(query: sql, parameters: ["day": day]) else {
@@ -194,7 +194,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			.map { $0.downloadedPackage() }
 			.compactMap { $0 }
 	}
-
+	
 	func allDays() -> [String] {
 		let sql = "SELECT Z_DAY FROM Z_DOWNLOADED_PACKAGE WHERE Z_HOUR IS NULL;"
 		guard let result = database.execute(query: sql) else {
@@ -205,7 +205,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			.map { $0.string(forColumn: "Z_DAY") }
 			.compactMap { $0 }
 	}
-
+	
 	func hours(for day: String) -> [Int] {
 		let sql =
 			"""
@@ -223,7 +223,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 		defer { result.close() }
 		return result.map { Int($0.int(forColumn: "Z_HOUR")) }
 	}
-
+	
 	func reset() {
 		database.executeStatements(
 			"""
@@ -252,7 +252,7 @@ private extension FMResultSet {
 		}
 		return mapped
 	}
-
+	
 	func downloadedPackage() -> SAPDownloadedPackage? {
 		guard
 			let bin = data(forColumn: "Z_BIN"),

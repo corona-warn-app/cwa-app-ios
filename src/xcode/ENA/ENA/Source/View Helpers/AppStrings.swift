@@ -27,29 +27,29 @@ enum AppStrings {
 		static let alertTitleKeySubmit = NSLocalizedString("Alert_TitleKeySubmit", comment: "")
 		static let alertDescriptionKeySubmit = NSLocalizedString("Alert_DescriptionKeySubmit", comment: "")
 	}
-
+	
 	enum ExposureSubmission {
 		static let generalErrorTitle = NSLocalizedString("ExposureSubmission_GeneralErrorTitle", comment: "")
 	}
-
+	
 	enum ExposureSubmissionTanEntry {
 		static let title = NSLocalizedString("ExposureSubmissionTanEntry_Title", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionTanEntry_Description", comment: "")
 		static let info = NSLocalizedString("ExposureSubmissionTanEntry_Info", comment: "")
 		static let submit = NSLocalizedString("ExposureSubmissionTanEntry_Submit", comment: "")
 	}
-
+	
 	enum ExposureSubmissionConfirmation {
 		static let submit = NSLocalizedString("ExposureSubmissionConfirmation_Submit", comment: "")
 	}
-
+	
 	enum ExposureSubmissionIntroduction {
 		static let title = NSLocalizedString("ExposureSubmissionIntroduction_Title", comment: "")
 		static let usage01 = NSLocalizedString("ExposureSubmissionIntroduction_Usage01", comment: "")
 		static let usage02 = NSLocalizedString("ExposureSubmissionIntroduction_Usage02", comment: "")
 		static let usage03 = NSLocalizedString("ExposureSubmissionIntroduction_Usage03", comment: "")
 	}
-
+	
 	enum ExposureSubmissionResult {
 		static let title = NSLocalizedString("ExposureSubmissionResult_Title", comment: "")
 		static let card_title = NSLocalizedString("ExposureSubmissionResult_CardTitle", comment: "")
@@ -75,7 +75,7 @@ enum AppStrings {
 		static let deleteButton = NSLocalizedString("ExposureSubmissionResult_deleteButton", comment: "")
 		static let refreshButton = NSLocalizedString("ExposureSubmissionResult_refreshButton", comment: "")
 	}
-
+	
 	enum ExposureSubmissionDispatch {
 		static let title = NSLocalizedString("ExposureSubmission_DispatchTitle", comment: "")
 		static let description = NSLocalizedString("ExposureSubmission_DispatchDescription", comment: "")
@@ -86,7 +86,7 @@ enum AppStrings {
 		static let hotlineButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonTitle", comment: "")
 		static let hotlineButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonDescription", comment: "")
 	}
-
+	
 	enum ExposureSubmissionHotline {
 		static let title = NSLocalizedString("ExposureSubmissionHotline_Title", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionHotline_Description", comment: "")
@@ -96,7 +96,7 @@ enum AppStrings {
 		static let callButtonTitle = NSLocalizedString("ExposureSubmission_CallButtonTitle", comment: "")
 		static let tanInputButtonTitle = NSLocalizedString("ExposureSubmission_TANInputButtonTitle", comment: "")
 	}
-
+	
 	enum ExposureSubmissionWarnOthers {
 		static let title = NSLocalizedString("ExposureSubmissionWarnOthers_title", comment: "")
 		static let continueButton = NSLocalizedString("ExposureSubmissionWarnOthers_continueButton", comment: "")
@@ -104,7 +104,7 @@ enum AppStrings {
 		static let description = NSLocalizedString("ExposureSubmissionWarnOthers_description", comment: "")
 		static let dataPrivacyDescription = NSLocalizedString("ExposureSubmissionWarnOthers_dataPrivacyDescription", comment: "")
 	}
-
+	
 	enum ExposureSubmissionSuccess {
 		static let title = NSLocalizedString("ExposureSubmissionSuccess_Title", comment: "")
 		static let button = NSLocalizedString("ExposureSubmissionSuccess_Button", comment: "")
@@ -114,7 +114,7 @@ enum AppStrings {
 		static let listItem1 = NSLocalizedString("ExposureSubmissionSuccess_listItem1", comment: "")
 		static let listItem2 = NSLocalizedString("ExposureSubmissionSuccess_listItem2", comment: "")
 	}
-
+	
 	enum ExposureDetection {
 		static let off = NSLocalizedString("ExposureDetection_Off", comment: "")
 		static let unknown = NSLocalizedString("ExposureDetection_Unknown", comment: "")
@@ -122,7 +122,7 @@ enum AppStrings {
 		static let low = NSLocalizedString("ExposureDetection_Low", comment: "")
 		static let high = NSLocalizedString("ExposureDetection_High", comment: "")
 		static let loading = NSLocalizedString("ExposureDetection_Loading", comment: "")
-
+		
 		static let numberOfContacts = NSLocalizedString("ExposureDetection_NumberOfContacts", comment: "")
 		static let lastExposure = NSLocalizedString("ExposureDetection_LastExposure", comment: "")
 		static let numberOfDaysStored = NSLocalizedString("ExposureDetection_NumberOfDaysStored", comment: "")
@@ -134,10 +134,10 @@ enum AppStrings {
 		static let unknownText = NSLocalizedString("ExposureDetection_UnknownText", comment: "")
 		static let inactiveText = NSLocalizedString("ExposureDetection_InactiveText", comment: "")
 		static let loadingText = NSLocalizedString("ExposureDetection_LoadingText", comment: "")
-
+		
 		static let behaviorTitle = NSLocalizedString("ExposureDetection_Behavior_Title", comment: "")
 		static let behaviorSubtitle = NSLocalizedString("ExposureDetection_Behavior_Subtitle", comment: "")
-
+		
 		static let guideHands = NSLocalizedString("ExposureDetection_Guide_Hands", comment: "")
 		static let guideMask = NSLocalizedString("ExposureDetection_Guide_Mask", comment: "")
 		static let guideDistance = NSLocalizedString("ExposureDetection_Guide_Distance", comment: "")
@@ -147,7 +147,7 @@ enum AppStrings {
 		static let guideHotline2 = NSLocalizedString("ExposureDetection_Guide_Hotline2", comment: "")
 		static let guideHotline3 = NSLocalizedString("ExposureDetection_Guide_Hotline3", comment: "")
 		static let guideHotline4 = NSLocalizedString("ExposureDetection_Guide_Hotline4", comment: "")
-
+		
 		static let explanationTitle = NSLocalizedString("ExposureDetection_Explanation_Title", comment: "")
 		static let explanationSubtitle = NSLocalizedString("ExposureDetection_Explanation_Subtitle", comment: "")
 		static let explanationTextOff = NSLocalizedString("ExposureDetection_Explanation_Text_Off", comment: "")
@@ -155,59 +155,59 @@ enum AppStrings {
 		static let explanationTextInactive = NSLocalizedString("ExposureDetection_Explanation_Text_Inactive", comment: "")
 		static let explanationTextLow = NSLocalizedString("ExposureDetection_Explanation_Text_Low", comment: "")
 		static let explanationTextHigh = NSLocalizedString("ExposureDetection_Explanation_Text_High", comment: "")
-
+		
 		static let moreInformation = NSLocalizedString("ExposureDetection_MoreInformation", comment: "")
 		static let moreInformationUrl = NSLocalizedString("ExposureDetection_MoreInformation_URL", comment: "")
-
+		
 		static let hotlineNumber = NSLocalizedString("ExposureDetection_Hotline_Number", comment: "")
-
+		
 		static let buttonEnable = NSLocalizedString("ExposureDetection_Button_Enable", comment: "")
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
 		static let buttonRefreshingIn = NSLocalizedString("ExposureDetection_Button_RefreshingIn", comment: "")
 	}
-
+	
 	enum Settings {
 		static let trackingStatusActive = NSLocalizedString("Settings_KontaktProtokollStatusActive", comment: "")
 		static let trackingStatusInactive = NSLocalizedString("Settings_KontaktProtokollStatusInactive", comment: "")
 		static let notificationStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
 		static let notificationStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
-
+		
 		static let tracingLabel = NSLocalizedString("Settings_Tracing_Label", comment: "")
 		static let notificationLabel = NSLocalizedString("Settings_Notification_Label", comment: "")
 		static let resetLabel = NSLocalizedString("Settings_Reset_Label", comment: "")
-
+		
 		static let tracingDescription = NSLocalizedString("Settings_Tracing_Description", comment: "")
 		static let notificationDescription = NSLocalizedString("Settings_Notification_Description", comment: "")
 		static let resetDescription = NSLocalizedString("Settings_Reset_Description", comment: "")
-
+		
 		static let navigationBarTitle = NSLocalizedString("Settings_NavTitle", comment: "")
 	}
-
+	
 	enum NotificationSettings {
 		static let onTitle = NSLocalizedString("NotificationSettings_On_Title", comment: "")
 		static let onDescription = NSLocalizedString("NotificationSettings_On_Description", comment: "")
 		static let onSectionTitle = NSLocalizedString("NotificationSettings_On_SectionTitle", comment: "")
 		static let riskChanges = NSLocalizedString("NotificationSettings_On_RiskChanges", comment: "")
 		static let testsStatus = NSLocalizedString("NotificationSettings_On_TestsStatus", comment: "")
-
+		
 		static let offTitle = NSLocalizedString("NotificationSettings_Off_Title", comment: "")
 		static let offDescription = NSLocalizedString("NotificationSettings_Off_Description", comment: "")
 		static let navigateSettings = NSLocalizedString("NotificationSettings_Off_NavigateSettings", comment: "")
 		static let pickNotifications = NSLocalizedString("NotificationSettings_Off_PickNotifications", comment: "")
 		static let enableNotifications = NSLocalizedString("NotificationSettings_Off_EnableNotifications", comment: "")
 		static let openSettings = NSLocalizedString("NotificationSettings_Off_OpenSettings", comment: "")
-
+		
 		static let navigationBarTitle = NSLocalizedString("NotificationSettings_NavTitle", comment: "")
 	}
-
+	
 	enum Onboarding {
 		static let onboardingFinish = NSLocalizedString("Onboarding_Finish", comment: "")
 		static let onboardingNext = NSLocalizedString("Onboarding_Next", comment: "")
-
+		
 		static let onboardingLetsGo = NSLocalizedString("Onboarding_LetsGo_actionText", comment: "")
 		static let onboardingContinue = NSLocalizedString("Onboarding_Continue_actionText", comment: "")
 		static let onboardingDoNotActivate = NSLocalizedString("Onboarding_DoNotActivate_actionText", comment: "")
-
+		
 		static let onboardingInfo_togetherAgainstCoronaPage_title = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_title", comment: "")
 		static let onboardingInfo_togetherAgainstCoronaPage_boldText = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_boldText", comment: "")
 		static let onboardingInfo_togetherAgainstCoronaPage_normalText = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_normalText", comment: "")
@@ -224,7 +224,7 @@ enum AppStrings {
 		static let onboardingInfo_alwaysStayInformedPage_boldText = NSLocalizedString("OnboardingInfo_alwaysStayInformedPage_boldText", comment: "")
 		static let onboardingInfo_alwaysStayInformedPage_normalText = NSLocalizedString("OnboardingInfo_alwaysStayInformedPage_normalText", comment: "")
 	}
-
+	
 	enum ExposureNotificationSetting {
 		static let title = NSLocalizedString("ExposureNotificationSetting_TracingSettingTitle", comment: "The title of the view")
 		static let enableTracing = NSLocalizedString("ExposureNotificationSetting_EnableTracing", comment: "The enable tracing")
@@ -240,73 +240,73 @@ enum AppStrings {
 		static let detailActionButtonTitle = NSLocalizedString("ExposureNotificationSetting_Detail_Action_Button", comment: "")
 		static let tracingHistoryDescription = NSLocalizedString("ENSetting_Tracing_History", comment: "")
 	}
-
+	
 	enum Home {
 		// Activate Card
 		static let activateCardOnTitle = NSLocalizedString("Home_Activate_Card_On_Title", comment: "")
 		static let activateCardOffTitle = NSLocalizedString("Home_Activate_Card_Off_Title", comment: "")
 		static let activateCardBluetoothOffTitle = NSLocalizedString("Home_Activate_Card_Bluetooth_Off_Title", comment: "")
 		static let activateCardInternetOffTitle = NSLocalizedString("Home_Activate_Card_Internet_Off_Title", comment: "")
-
+		
 		// Risk Card
 		static let riskCardUnknownTitle = NSLocalizedString("Home_Risk_Unknown_Title", comment: "")
 		static let riskCardUnknownItemTitle = NSLocalizedString("Home_RiskCard_Unknown_Item_Title", comment: "")
 		static let riskCardUnknownButton = NSLocalizedString("Home_RiskCard_Unknown_Button", comment: "")
-
+		
 		static let riskCardInactiveTitle = NSLocalizedString("Home_Risk_Inactive_Title", comment: "")
 		static let riskCardInactiveBody = NSLocalizedString("Home_Risk_Inactive_Body", comment: "")
 		static let riskCardInactiveActivateItemTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Title", comment: "")
 		static let riskCardInactiveDateItemTitle = NSLocalizedString("Home_Risk_Inactive_Date_Item_Title", comment: "")
 		static let riskCardInactiveButton = NSLocalizedString("Home_Risk_Inactive_Button", comment: "")
-
+		
 		static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
 		static let riskCardLowNoContactItemTitle = NSLocalizedString("Home_Risk_Low_NoContact_Item_Title", comment: "")
 		static let riskCardLowSaveDaysItemTitle = NSLocalizedString("Home_Risk_Low_SaveDays_Item_Title", comment: "")
 		static let riskCardLowDateItemTitle = NSLocalizedString("Home_Risk_Low_Date_Item_Title", comment: "")
 		static let riskCardLowButton = NSLocalizedString("Home_Risk_Low_Button", comment: "")
-
+		
 		static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
 		static let riskCardHighNumberContactsItemTitle = NSLocalizedString("Home_Risk_High_Number_Contacts_Item_Title", comment: "")
 		static let riskCardHighLastContactItemTitle = NSLocalizedString("Home_Risk_High_Last_Contact_Item_Title", comment: "")
 		static let riskCardHighDateItemTitle = NSLocalizedString("Home_Risk_High_Date_Item_Title", comment: "")
 		static let riskCardHighButton = NSLocalizedString("Home_Risk_High_Button", comment: "")
-
+		
 		static let riskCardStatusCheckTitle = NSLocalizedString("Home_Risk_Status_Check_Title", comment: "")
 		static let riskCardStatusCheckBody = NSLocalizedString("Home_Risk_Status_Check_Body", comment: "")
 		static let riskCardStatusCheckButton = NSLocalizedString("Home_Risk_Status_Check_Button", comment: "")
 		static let riskCardStatusCheckCounterLabel = NSLocalizedString("Home_Risk_Status_Counter_Label", comment: "")
-
+		
 		// Submit Card
 		static let submitCardTitle = NSLocalizedString("Home_SubmitCard_Title", comment: "")
 		static let submitCardBody = NSLocalizedString("Home_SubmitCard_Body", comment: "")
 		static let submitCardButton = NSLocalizedString("Home_SubmitCard_Button", comment: "")
-
+		
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
 		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
-
+		
 		static let infoCardShareTitle = NSLocalizedString("Home_InfoCard_ShareTitle", comment: "")
 		static let infoCardShareBody = NSLocalizedString("Home_InfoCard_ShareBody", comment: "")
 		static let infoCardAboutTitle = NSLocalizedString("Home_InfoCard_AboutTitle", comment: "")
 		static let infoCardAboutBody = NSLocalizedString("Home_InfoCard_AboutBody", comment: "")
 	}
-
+	
 	enum RiskView {
 		static let unknownRisk = NSLocalizedString("unknown_risk", comment: "")
 		static let inactiveRisk = NSLocalizedString("inactive_risk", comment: "")
 		static let lowRisk = NSLocalizedString("low_risk", comment: "")
 		static let highRisk = NSLocalizedString("high_risk", comment: "")
-
+		
 		static let unknownRiskDetail = NSLocalizedString("unknown_risk_detail", comment: "")
 		static let inactiveRiskDetail = NSLocalizedString("inactive_risk_detail", comment: "")
 		static let lowRiskDetail = NSLocalizedString("low_risk_detail", comment: "")
 		static let highRiskDetail = NSLocalizedString("high_risk_detail", comment: "")
-
+		
 		static let unknownRiskDetailHelp = NSLocalizedString("unknown_risk_detail_help", comment: "")
 		static let inactiveRiskDetailHelp = NSLocalizedString("inactive_risk_detail_help", comment: "")
 		static let lowRiskDetailHelp = NSLocalizedString("low_risk_detail_help", comment: "")
 		static let highRiskDetailHelp = NSLocalizedString("high_risk_detail_help", comment: "")
 	}
-
+	
 	enum InviteFriends {
 		static let title = NSLocalizedString("InviteFriends_Title", comment: "")
 		static let description = NSLocalizedString("InviteFriends_Description", comment: "")
@@ -315,7 +315,7 @@ enum AppStrings {
 		static let shareTitle = NSLocalizedString("InviteFriends_ShareTitle", comment: "")
 		static let shareUrl = NSLocalizedString("InviteFriends_ShareUrl", comment: "")
 	}
-
+	
 	enum Reset {
 		static let navigationBarTitle = NSLocalizedString("Reset_NavTitle", comment: "")
 		static let header1 = NSLocalizedString("Reset_Header1", comment: "")
@@ -323,11 +323,11 @@ enum AppStrings {
 		static let resetButton = NSLocalizedString("Reset_Button", comment: "")
 		static let discardButton = NSLocalizedString("Reset_Discard", comment: "")
 	}
-
+	
 	enum SafariView {
 		static let targetURL = NSLocalizedString("safari_corona_website", comment: "")
 	}
-
+	
 	enum LocalNotifications {
 		static let viewResults = NSLocalizedString("local_notifications_viewResults", comment: "")
 		static let ignore = NSLocalizedString("local_notifications_ignore", comment: "")

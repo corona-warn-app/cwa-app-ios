@@ -20,7 +20,7 @@ import Foundation
 extension HTTPClient {
 	struct Configuration {
 		// MARK: Default Instances
-
+		
 		static let production = Configuration(
 			apiVersion: "v1",
 			country: "DE",
@@ -39,13 +39,13 @@ extension HTTPClient {
 				)
 			)
 		)
-
+		
 		// MARK: Properties
-
+		
 		let apiVersion: String
 		let country: String
 		let endpoints: Endpoints
-
+		
 		var diagnosisKeysURL: URL {
 			endpoints
 				.distribution
@@ -57,7 +57,7 @@ extension HTTPClient {
 					country
 				)
 		}
-
+		
 		var availableDaysURL: URL {
 			endpoints
 				.distribution
@@ -70,7 +70,7 @@ extension HTTPClient {
 					"date"
 				)
 		}
-
+		
 		func availableHoursURL(day: String) -> URL {
 			endpoints
 				.distribution
@@ -85,7 +85,7 @@ extension HTTPClient {
 					"hour"
 				)
 		}
-
+		
 		func diagnosisKeysURL(day: String, hour: Int) -> URL {
 			endpoints
 				.distribution
@@ -101,7 +101,7 @@ extension HTTPClient {
 					String(hour)
 				)
 		}
-
+		
 		func diagnosisKeysURL(day: String) -> URL {
 			endpoints
 				.distribution
@@ -115,7 +115,7 @@ extension HTTPClient {
 					day
 				)
 		}
-
+		
 		var configurationURL: URL {
 			endpoints
 				.distribution
@@ -127,7 +127,7 @@ extension HTTPClient {
 					country
 				)
 		}
-
+		
 		var submissionURL: URL {
 			endpoints
 				.submission
@@ -137,7 +137,7 @@ extension HTTPClient {
 					"diagnosis-keys"
 				)
 		}
-
+		
 		var registrationURL: URL {
 			endpoints
 				.verification
@@ -147,7 +147,7 @@ extension HTTPClient {
 					"registrationToken"
 				)
 		}
-
+		
 		var testResultURL: URL {
 			endpoints
 				.verification
@@ -157,7 +157,7 @@ extension HTTPClient {
 					"testresult"
 				)
 		}
-
+		
 		var tanRetrievalURL: URL {
 			endpoints
 				.verification
@@ -173,7 +173,7 @@ extension HTTPClient {
 extension HTTPClient.Configuration {
 	struct Endpoint {
 		// MARK: Creating an Endpoint
-
+		
 		init(
 			baseURL: URL,
 			requiresTrailingSlash: Bool,
@@ -183,15 +183,15 @@ extension HTTPClient.Configuration {
 			self.requiresTrailingSlash = requiresTrailingSlash
 			requiresTrailingIndex = false
 		}
-
+		
 		// MARK: Properties
-
+		
 		let baseURL: URL
 		let requiresTrailingSlash: Bool
 		let requiresTrailingIndex: Bool
-
+		
 		// MARK: Working with an Endpoint
-
+		
 		func appending(_ components: String...) -> URL {
 			let url = components.reduce(baseURL) { result, component in
 				result.appendingPathComponent(component, isDirectory: self.requiresTrailingSlash)

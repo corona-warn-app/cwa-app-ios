@@ -21,7 +21,7 @@ import XCTest
 final class URLSessionConvenienceTests: XCTestCase {
 	func testExecuteRequest_Success() {
 		let url = URL(staticString: "https://localhost:8080")
-
+		
 		let data = "hello".data(using: .utf8)
 		let session = MockUrlSession(
 			data: data,
@@ -33,9 +33,9 @@ final class URLSessionConvenienceTests: XCTestCase {
 			),
 			error: nil
 		)
-
+		
 		let request = URLRequest(url: url)
-
+		
 		let expectation = self.expectation(description: "Success")
 		session.response(for: request) { result in
 			switch result {
@@ -48,13 +48,13 @@ final class URLSessionConvenienceTests: XCTestCase {
 				XCTFail("should not fail but did with: \(error)")
 			}
 		}
-
+		
 		waitForExpectations(timeout: 1.0)
 	}
-
+	
 	func testExecuteRequest_SuccessAcceptsNotFound() {
 		let url = URL(staticString: "https://localhost:8080")
-
+		
 		let data = "hello".data(using: .utf8)
 		let session = MockUrlSession(
 			data: data,
@@ -67,7 +67,7 @@ final class URLSessionConvenienceTests: XCTestCase {
 			error: nil
 		)
 		let request = URLRequest(url: url)
-
+		
 		let expectation = self.expectation(description: "Success")
 		session.response(for: request) { result in
 			switch result {
@@ -79,10 +79,10 @@ final class URLSessionConvenienceTests: XCTestCase {
 				XCTFail("should not fail but did with: \(error)")
 			}
 		}
-
+		
 		waitForExpectations(timeout: 1.0)
 	}
-
+	
 	func testExecuteRequest_FailureWithError() {
 		let url = URL(staticString: "https://localhost:8080")
 		let notConnectedError = NSError(
@@ -102,7 +102,7 @@ final class URLSessionConvenienceTests: XCTestCase {
 			error: notConnectedError
 		)
 		let request = URLRequest(url: url)
-
+		
 		let expectation = self.expectation(description: "Fails")
 		session.response(for: request) { result in
 			switch result {
@@ -112,7 +112,7 @@ final class URLSessionConvenienceTests: XCTestCase {
 				expectation.fulfill()
 			}
 		}
-
+		
 		waitForExpectations(timeout: 1.0)
 	}
 }

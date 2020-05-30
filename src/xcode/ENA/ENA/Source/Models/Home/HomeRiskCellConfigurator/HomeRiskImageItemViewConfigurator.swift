@@ -24,7 +24,7 @@ final class HomeRiskImageItemViewConfigurator: HomeRiskViewConfigurator {
 	var iconTintColor: UIColor
 	var color: UIColor
 	var separatorColor: UIColor
-
+	
 	init(title: String, titleColor: UIColor, iconImageName: String, iconTintColor: UIColor, color: UIColor, separatorColor: UIColor) {
 		self.title = title
 		self.titleColor = titleColor
@@ -33,7 +33,7 @@ final class HomeRiskImageItemViewConfigurator: HomeRiskViewConfigurator {
 		self.color = color
 		self.separatorColor = separatorColor
 	}
-
+	
 	func configure(riskView: RiskImageItemView) {
 		riskView.iconImageView?.image = UIImage(named: iconImageName)?.withTintColor(iconTintColor)
 		riskView.titleTextView?.text = title

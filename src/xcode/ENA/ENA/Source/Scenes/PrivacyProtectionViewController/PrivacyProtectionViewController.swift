@@ -23,13 +23,13 @@ class PrivacyProtectionViewController: UIViewController {
 		view.backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
 		view.alpha = 0.0
 	}
-
+	
 	func show() {
 		UIView.animate(withDuration: 0.2, animations: {
 			self.view.alpha = 1.0
 		})
 	}
-
+	
 	func hide(completion: (() -> Void)? = nil) {
 		UIView.animate(withDuration: 0.1, animations: {
 			self.view.alpha = 0.0

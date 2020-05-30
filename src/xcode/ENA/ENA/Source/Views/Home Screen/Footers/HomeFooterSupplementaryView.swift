@@ -20,7 +20,7 @@ import UIKit
 class HomeFooterSupplementaryView: UICollectionReusableView {
 	@IBOutlet var containerView: UIView!
 	@IBOutlet var imageView: UIImageView!
-
+	
 	func configure() {
 		containerView.backgroundColor = .clear
 	}

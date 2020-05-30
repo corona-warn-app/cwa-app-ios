@@ -21,30 +21,33 @@ class DynamicTableViewStepCell: UITableViewCell {
 	lazy var body = UILabel(frame: .zero)
 	lazy var cellIcon = UIImageView(frame: .zero)
 	lazy var separator = UIView(frame: .zero)
-
+	
 	override func awakeFromNib() {
 		super.awakeFromNib()
 	}
-
-	private func setUpView(_ title: String,
-						   _ image: UIImage?,
-						   _ hasSeparators: Bool = false,
-						   _: Bool = false,
-						   _ iconTintColor: UIColor? = nil,
-						   _ iconBackgroundColor: UIColor? = nil) {
+	
+	private func setUpView(
+		_ title: String,
+		_ image: UIImage?,
+		_ hasSeparators: Bool = false,
+		_: Bool = false,
+		_ iconTintColor: UIColor? = nil,
+		_ iconBackgroundColor: UIColor? = nil
+	) {
 		// MARK: - Cell related changes.
-
+		
 		selectionStyle = .none
 		backgroundColor = .preferredColor(for: .backgroundPrimary)
-
+		
 		// MARK: - Body.
-
+		
 		body.font = .preferredFont(forTextStyle: .body)
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
 		body.text = title
-
+		
 		// MARK: - Cell Icon.
+		
 		var loadedImage = image
 		if iconTintColor != nil {
 			loadedImage = image?.withRenderingMode(.alwaysTemplate)
@@ -52,20 +55,22 @@ class DynamicTableViewStepCell: UITableViewCell {
 		cellIcon = UIImageView(image: loadedImage)
 		cellIcon.tintColor = iconTintColor
 		cellIcon.backgroundColor = iconBackgroundColor
-
+		
 		// MARK: - Separator.
-
+		
 		separator.backgroundColor = .preferredColor(for: .textPrimary2)
 		separator.isHidden = !hasSeparators
 	}
-
+	
 	private func setConstraints() {
 		// MARK: - Constraint handling.
-
-		UIView.translatesAutoresizingMaskIntoConstraints(for: [body,
-															   cellIcon,
-															   separator], to: false)
-
+		
+		UIView.translatesAutoresizingMaskIntoConstraints(for: [
+			body,
+			cellIcon,
+			separator
+		], to: false)
+		
 		addSubviews([separator, cellIcon, body])
 		
 		body.sizeToFit()
@@ -88,13 +93,15 @@ class DynamicTableViewStepCell: UITableViewCell {
 		separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
 	}
-
-	func configure(title: String,
-				   image: UIImage?,
-				   hasSeparators: Bool = false,
-				   isCircle: Bool = false,
-				   iconTintColor: UIColor? = nil,
-				   iconBackgroundColor: UIColor? = nil) {
+	
+	func configure(
+		title: String,
+		image: UIImage?,
+		hasSeparators: Bool = false,
+		isCircle: Bool = false,
+		iconTintColor: UIColor? = nil,
+		iconBackgroundColor: UIColor? = nil
+	) {
 		setUpView(title, image, hasSeparators, isCircle, iconTintColor, iconBackgroundColor)
 		setConstraints()
 	}

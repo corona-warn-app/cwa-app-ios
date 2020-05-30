@@ -20,25 +20,25 @@ import UIKit
 
 class ExposureSubmissionTestResultViewController: DynamicTableViewController, SpinnerInjectable {
 	// MARK: - Attributes.
-
+	
 	var exposureSubmissionService: ExposureSubmissionService?
 	var testResult: TestResult?
 	var spinner: UIActivityIndicatorView?
-
+	
 	// MARK: - View Lifecycle methods.
-
+	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		DispatchQueue.main.async { [weak self] in
 			self?.navigationController?.navigationBar.sizeToFit()
 		}
 	}
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
 	}
-
+	
 	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
 		switch Segue(segue) {
 		case .warnOthers:
@@ -48,15 +48,15 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			return
 		}
 	}
-
+	
 	// MARK: - View Setup Helper methods.
-
+	
 	private func setupView() {
 		setupDynamicTableView()
 		setupNavigationBar()
 		setupButton()
 	}
-
+	
 	private func setupButton() {
 		guard let result = testResult else { return }
 		switch result {
@@ -70,35 +70,35 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			showSecondaryButton()
 		}
 	}
-
+	
 	private func setupNavigationBar() {
 		navigationItem.hidesBackButton = true
 		navigationController?.navigationItem.largeTitleDisplayMode = .always
 		navigationItem.title = AppStrings.ExposureSubmissionResult.title
 	}
-
+	
 	private func setupDynamicTableView() {
 		guard let result = testResult else {
 			logError(message: "No test result.", level: .error)
 			return
 		}
-
+		
 		tableView.register(
 			ExposureSubmissionTestResultHeaderView.self,
 			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue
 		)
 		dynamicTableViewModel = dynamicTableViewModel(for: result)
 	}
-
+	
 	// MARK: - Convenience methods for buttons.
-
+	
 	private func deleteTest() {
 		let alert = UIAlertController(
 			title: "Test entfernen?",
 			message: "Der Test wird endgültig aus der Corona-Warn-App entfernt. Dieser Vorgang kann nicht widerrufen werden.",
 			preferredStyle: .alert
 		)
-
+		
 		let cancel = UIAlertAction(
 			title: "Abbrechen",
 			style: .cancel,
@@ -122,20 +122,20 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	
 	private func refreshTest() {
 		startSpinner()
-		self.exposureSubmissionService?
+		exposureSubmissionService?
 			.getTestResult { result in
 				self.stopSpinner()
 				switch result {
-				case .failure(let error):
+				case let .failure(error):
 					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 					self.present(alert, animated: true, completion: nil)
-				case .success(let testResult):
+				case let .success(testResult):
 					self.dynamicTableViewModel = self.dynamicTableViewModel(for: testResult)
 					self.tableView.reloadData()
 				}
 			}
 	}
-
+	
 	private func showWarnOthers() {
 		performSegue(withIdentifier: Segue.warnOthers, sender: self)
 	}
@@ -162,7 +162,7 @@ extension ExposureSubmissionTestResultViewController {
 extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigationControllerChild {
 	func didTapBottomButton() {
 		guard let result = testResult else { return }
-
+		
 		switch result {
 		case .positive:
 			showWarnOthers()
@@ -182,7 +182,6 @@ extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigati
 			// Secondary button is only active for pending result state.
 			break
 		}
-
 	}
 }
 
@@ -196,7 +195,7 @@ private extension ExposureSubmissionTestResultViewController {
 			)
 		}
 	}
-
+	
 	private func testResultSection(for result: TestResult) -> DynamicSection {
 		switch result {
 		case .positive:
@@ -209,13 +208,15 @@ private extension ExposureSubmissionTestResultViewController {
 			return pendingTestResultSection()
 		}
 	}
-
+	
 	private func positiveTestResultSection() -> DynamicSection {
 		.section(
-			header: .identifier(ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-								configure: { view, _ in
-									(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive)
-								}),
+			header: .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive)
+				}
+			),
 			separators: false,
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
@@ -228,13 +229,15 @@ private extension ExposureSubmissionTestResultViewController {
 			]
 		)
 	}
-
+	
 	private func negativeTestResultSection() -> DynamicSection {
 		.section(
-			header: .identifier(ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-								configure: { view, _ in
-									(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative)
-								}),
+			header: .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative)
+				}
+			),
 			separators: false,
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
@@ -245,13 +248,15 @@ private extension ExposureSubmissionTestResultViewController {
 			]
 		)
 	}
-
+	
 	private func invalidTestResultSection() -> DynamicSection {
 		.section(
-			header: .identifier(ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-								configure: { view, _ in
-									(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid)
-								}),
+			header: .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid)
+				}
+			),
 			separators: false,
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
@@ -269,7 +274,8 @@ private extension ExposureSubmissionTestResultViewController {
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
 					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending)
-				}),
+				}
+			),
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
 				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
