@@ -63,7 +63,7 @@ private extension DynamicTableViewModel {
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
 						cell.configure(
-							title: AppStrings.ExposureSubmissionSuccess.listItem1,
+							text: AppStrings.ExposureSubmissionSuccess.listItem1,
 							image: UIImage(named: "Icons - Ansteckend"),
 							hasSeparators: false,
 							isCircle: true,
@@ -77,7 +77,7 @@ private extension DynamicTableViewModel {
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
 						cell.configure(
-							title: AppStrings.ExposureSubmissionSuccess.listItem2,
+							text: AppStrings.ExposureSubmissionSuccess.listItem2,
 							image: UIImage(named: "Icons - Home"),
 							isCircle: true,
 							iconTintColor: .preferredColor(for: .negativeRisk)
