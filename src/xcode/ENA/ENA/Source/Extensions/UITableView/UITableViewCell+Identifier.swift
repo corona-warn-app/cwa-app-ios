@@ -18,7 +18,7 @@
 import UIKit
 
 extension UITableViewCell {
-	static var cellIdentifier: String {
-		stringName()
-	}
+    static var cellIdentifier: String {
+        stringName()
+    }
 }

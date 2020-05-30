@@ -18,18 +18,18 @@
 import UIKit
 
 protocol SubmitCollectionViewCellDelegate: AnyObject {
-	func submitButtonTapped(cell: SubmitCollectionViewCell)
+    func submitButtonTapped(cell: SubmitCollectionViewCell)
 }
 
 class SubmitCollectionViewCell: HomeCardCollectionViewCell {
-	@IBOutlet var iconImageView: UIImageView!
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var bodyLabel: UILabel!
-	@IBOutlet var contactButton: UIButton!
+    @IBOutlet var iconImageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var bodyLabel: UILabel!
+    @IBOutlet var contactButton: UIButton!
 
-	weak var delegate: SubmitCollectionViewCellDelegate?
+    weak var delegate: SubmitCollectionViewCellDelegate?
 
-	@IBAction func submitButtonTapped(_: UIButton) {
-		delegate?.submitButtonTapped(cell: self)
-	}
+    @IBAction func submitButtonTapped(_: UIButton) {
+        delegate?.submitButtonTapped(cell: self)
+    }
 }

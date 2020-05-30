@@ -19,34 +19,34 @@ import Foundation
 import UIKit
 
 class DynamicTableViewHeaderFooterView: UITableViewHeaderFooterView {
-	private let tapGestureRecognizer = DynamicTableHeaderFooterViewTapGestureRecognizer()
+    private let tapGestureRecognizer = DynamicTableHeaderFooterViewTapGestureRecognizer()
 
-	var block: (() -> Void)? {
-		set { tapGestureRecognizer.block = newValue }
-		get { tapGestureRecognizer.block }
-	}
+    var block: (() -> Void)? {
+        set { tapGestureRecognizer.block = newValue }
+        get { tapGestureRecognizer.block }
+    }
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		gestureRecognizers = [tapGestureRecognizer]
-	}
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        gestureRecognizers = [tapGestureRecognizer]
+    }
 
-	override func prepareForReuse() {
-		super.prepareForReuse()
-		tapGestureRecognizer.block = nil
-	}
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        tapGestureRecognizer.block = nil
+    }
 }
 
 private class DynamicTableHeaderFooterViewTapGestureRecognizer: UITapGestureRecognizer {
-	var block: (() -> Void)?
+    var block: (() -> Void)?
 
-	init() {
-		super.init(target: nil, action: nil)
-		addTarget(self, action: #selector(didTap))
-	}
+    init() {
+        super.init(target: nil, action: nil)
+        addTarget(self, action: #selector(didTap))
+    }
 
-	@objc
-	private func didTap() {
-		block?()
-	}
+    @objc
+    private func didTap() {
+        block?()
+    }
 }

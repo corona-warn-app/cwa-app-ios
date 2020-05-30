@@ -19,10 +19,10 @@ import Foundation
 import UIKit
 
 class RiskLegendTableViewCell: UITableViewCell {
-	static var identifier = "RiskLegendCell"
+    static var identifier = "RiskLegendCell"
 
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var detailTextView: UITextView!
-	@IBOutlet var iconImageView: UIImageView!
-	@IBOutlet var iconBackgroundView: UIView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var detailTextView: UITextView!
+    @IBOutlet var iconImageView: UIImageView!
+    @IBOutlet var iconBackgroundView: UIView!
 }

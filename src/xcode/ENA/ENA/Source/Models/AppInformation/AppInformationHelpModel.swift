@@ -18,26 +18,26 @@
 import Foundation
 
 struct AppInformationHelpModel {
-	typealias Question = (title: String, details: AppInformationDetailModel)
-	typealias Section = (sectionTitle: String, questions: [Question])
+    typealias Question = (title: String, details: AppInformationDetailModel)
+    typealias Section = (sectionTitle: String, questions: [Question])
 
-	private let sections: [Section]
+    private let sections: [Section]
 
-	init(questions: [Section]) {
-		sections = questions
-	}
+    init(questions: [Section]) {
+        sections = questions
+    }
 
-	var numberOfSections: Int { sections.count }
+    var numberOfSections: Int { sections.count }
 
-	func title(for section: Int) -> String {
-		sections[section].sectionTitle
-	}
+    func title(for section: Int) -> String {
+        sections[section].sectionTitle
+    }
 
-	func questions(in section: Int) -> [Question] {
-		sections[section].questions
-	}
+    func questions(in section: Int) -> [Question] {
+        sections[section].questions
+    }
 
-	func question(_ index: Int, in section: Int) -> Question {
-		sections[section].questions[index]
-	}
+    func question(_ index: Int, in section: Int) -> Question {
+        sections[section].questions[index]
+    }
 }

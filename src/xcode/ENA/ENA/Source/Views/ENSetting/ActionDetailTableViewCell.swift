@@ -19,57 +19,57 @@ import Foundation
 import UIKit
 
 class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
-	@IBOutlet var iconImageView1: UIImageView!
-	@IBOutlet var iconImageView2: UIImageView!
-	@IBOutlet var actionTitleLabel: UILabel!
-	@IBOutlet var descriptionTextView: UITextView!
-	@IBOutlet var actionButton: ENAButton!
+    @IBOutlet var iconImageView1: UIImageView!
+    @IBOutlet var iconImageView2: UIImageView!
+    @IBOutlet var actionTitleLabel: UILabel!
+    @IBOutlet var descriptionTextView: UITextView!
+    @IBOutlet var actionButton: ENAButton!
 
-	@IBAction func actionButtonTapped(_: Any) {
-		guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-			return
-		}
+    @IBAction func actionButtonTapped(_: Any) {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
 
-		if UIApplication.shared.canOpenURL(settingsUrl) {
-			UIApplication.shared.open(settingsUrl, completionHandler: nil)
-		}
-	}
+        if UIApplication.shared.canOpenURL(settingsUrl) {
+            UIApplication.shared.open(settingsUrl, completionHandler: nil)
+        }
+    }
 
-	override func awakeFromNib() {
-		actionButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
-		actionButton.titleLabel?.adjustsFontForContentSizeCategory = true
-		actionButton.titleLabel?.lineBreakMode = .byWordWrapping
-		actionButton.layer.masksToBounds = true
-		actionButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
-	}
+    override func awakeFromNib() {
+        actionButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
+        actionButton.titleLabel?.adjustsFontForContentSizeCategory = true
+        actionButton.titleLabel?.lineBreakMode = .byWordWrapping
+        actionButton.layer.masksToBounds = true
+        actionButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
+    }
 
-	func configure(for state: RiskDetectionState) {
-		iconImageView1.image = images(for: state).0
-		iconImageView2.image = images(for: state).1
-		actionButton.setTitle(AppStrings.ExposureNotificationSetting.detailActionButtonTitle, for: .normal)
+    func configure(for state: RiskDetectionState) {
+        iconImageView1.image = images(for: state).0
+        iconImageView2.image = images(for: state).1
+        actionButton.setTitle(AppStrings.ExposureNotificationSetting.detailActionButtonTitle, for: .normal)
 
-		switch state {
-		case .enabled, .disabled:
-			return
-		case .bluetoothOff:
-			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateBluetooth
-			descriptionTextView.text = AppStrings.ExposureNotificationSetting.bluetoothDescription
-			iconImageView2.isHidden = true
-		case .internetOff:
-			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateInternet
-			descriptionTextView.text = AppStrings.ExposureNotificationSetting.internetDescription
-			iconImageView2.isHidden = false
-		}
-	}
+        switch state {
+        case .enabled, .disabled:
+            return
+        case .bluetoothOff:
+            actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateBluetooth
+            descriptionTextView.text = AppStrings.ExposureNotificationSetting.bluetoothDescription
+            iconImageView2.isHidden = true
+        case .internetOff:
+            actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateInternet
+            descriptionTextView.text = AppStrings.ExposureNotificationSetting.internetDescription
+            iconImageView2.isHidden = false
+        }
+    }
 
-	private func images(for state: RiskDetectionState) -> (UIImage?, UIImage?) {
-		switch state {
-		case .enabled, .disabled:
-			return (nil, nil)
-		case .bluetoothOff:
-			return (UIImage(named: "Icons_Bluetooth"), nil)
-		case .internetOff:
-			return (UIImage(named: "Icons_MobileDaten"), UIImage(named: "Icons_iOS_Wifi"))
-		}
-	}
+    private func images(for state: RiskDetectionState) -> (UIImage?, UIImage?) {
+        switch state {
+        case .enabled, .disabled:
+            return (nil, nil)
+        case .bluetoothOff:
+            return (UIImage(named: "Icons_Bluetooth"), nil)
+        case .internetOff:
+            return (UIImage(named: "Icons_MobileDaten"), UIImage(named: "Icons_iOS_Wifi"))
+        }
+    }
 }

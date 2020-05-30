@@ -19,80 +19,80 @@ import Foundation
 import UIKit
 
 final class ExposureSubmissionSuccessViewController: DynamicTableViewController {
-	// MARK: UIViewController
+    // MARK: UIViewController
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		setupTitle()
-		setUpView()
-		setButtonTitle(to: AppStrings.ExposureSubmissionSuccess.button)
-	}
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupTitle()
+        setUpView()
+        setButtonTitle(to: AppStrings.ExposureSubmissionSuccess.button)
+    }
 
-	private func setUpView() {
-		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
-		dynamicTableViewModel = .data
-	}
+    private func setUpView() {
+        tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+        dynamicTableViewModel = .data
+    }
 
-	private func setupTitle() {
-		title = AppStrings.ExposureSubmissionSuccess.title
-		navigationItem.largeTitleDisplayMode = .always
-		navigationController?.navigationBar.prefersLargeTitles = true
-	}
+    private func setupTitle() {
+        title = AppStrings.ExposureSubmissionSuccess.title
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 
-	func didTapBottomButton() {
-		dismiss(animated: true, completion: nil)
-	}
+    func didTapBottomButton() {
+        dismiss(animated: true, completion: nil)
+    }
 
-	@IBAction func unwindToExposureSubmissionIntro(_: UIStoryboardSegue) {}
+    @IBAction func unwindToExposureSubmissionIntro(_: UIStoryboardSegue) {}
 }
 
 extension ExposureSubmissionSuccessViewController: ExposureSubmissionNavigationControllerChild {}
 
 private extension DynamicTableViewModel {
-	static let data = DynamicTableViewModel([
-		DynamicSection.section(
-			header: .image(UIImage(named: "Illu_Submission_VielenDank")),
-			separators: false,
-			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionSuccess.subTitle),
-				.regular(text: AppStrings.ExposureSubmissionSuccess.description),
-				.bigBold(text: AppStrings.ExposureSubmissionSuccess.listTitle),
-				DynamicCell.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							title: AppStrings.ExposureSubmissionSuccess.listItem1,
-							image: UIImage(named: "Icons - Ansteckend"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .positive)
-						)
-					}
-				),
-				DynamicCell.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							title: AppStrings.ExposureSubmissionSuccess.listItem2,
-							image: UIImage(named: "Icons - Home"),
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .positive)
-						)
-					}
-				),
-			]
-		),
-	])
+    static let data = DynamicTableViewModel([
+        DynamicSection.section(
+            header: .image(UIImage(named: "Illu_Submission_VielenDank")),
+            separators: false,
+            cells: [
+                .bigBold(text: AppStrings.ExposureSubmissionSuccess.subTitle),
+                .regular(text: AppStrings.ExposureSubmissionSuccess.description),
+                .bigBold(text: AppStrings.ExposureSubmissionSuccess.listTitle),
+                DynamicCell.identifier(
+                    ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
+                    action: .none,
+                    configure: { _, cell, _ in
+                        guard let cell = cell as? DynamicTableViewStepCell else { return }
+                        cell.configure(
+                            title: AppStrings.ExposureSubmissionSuccess.listItem1,
+                            image: UIImage(named: "Icons - Ansteckend"),
+                            hasSeparators: false,
+                            isCircle: true,
+                            iconTintColor: .preferredColor(for: .positive)
+                        )
+                    }
+                ),
+                DynamicCell.identifier(
+                    ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
+                    action: .none,
+                    configure: { _, cell, _ in
+                        guard let cell = cell as? DynamicTableViewStepCell else { return }
+                        cell.configure(
+                            title: AppStrings.ExposureSubmissionSuccess.listItem2,
+                            image: UIImage(named: "Icons - Home"),
+                            isCircle: true,
+                            iconTintColor: .preferredColor(for: .positive)
+                        )
+                    }
+                )
+            ]
+        )
+    ])
 }
 
 // MARK: - Cell reuse identifiers.
 
 extension ExposureSubmissionSuccessViewController {
-	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case stepCell
-	}
+    enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+        case stepCell
+    }
 }

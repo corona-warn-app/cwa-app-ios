@@ -18,105 +18,105 @@
 import UIKit
 
 class ExposureSubmissionHotlineViewController: DynamicTableViewController {
-	// MARK: - View lifecycle methods.
+    // MARK: - View lifecycle methods.
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		setUpView()
-	}
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpView()
+    }
 
-	override func viewWillAppear(_: Bool) {
-		setupButtons()
-	}
+    override func viewWillAppear(_: Bool) {
+        setupButtons()
+    }
 
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		setSecondaryButtonTitle(to: "")
-		hideSecondaryButton()
-	}
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        setSecondaryButtonTitle(to: "")
+        hideSecondaryButton()
+    }
 
-	// MARK: - View setup.
+    // MARK: - View setup.
 
-	private func setUpView() {
-		title = AppStrings.ExposureSubmissionHotline.title
-		setupButtons()
-		setupTableView()
-	}
+    private func setUpView() {
+        title = AppStrings.ExposureSubmissionHotline.title
+        setupButtons()
+        setupTableView()
+    }
 
-	private func setupButtons() {
-		setButtonTitle(to: AppStrings.ExposureSubmissionHotline.callButtonTitle)
-		setSecondaryButtonTitle(to: AppStrings.ExposureSubmissionHotline.tanInputButtonTitle)
-		showSecondaryButton()
-	}
+    private func setupButtons() {
+        setButtonTitle(to: AppStrings.ExposureSubmissionHotline.callButtonTitle)
+        setSecondaryButtonTitle(to: AppStrings.ExposureSubmissionHotline.tanInputButtonTitle)
+        showSecondaryButton()
+    }
 
-	// MARK: - Data setup.
+    // MARK: - Data setup.
 
-	private func setupTableView() {
-		tableView.delegate = self
-		tableView.dataSource = self
-		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 
-		dynamicTableViewModel = DynamicTableViewModel(
-			[.section(
-				header: .image(UIImage(named: "Illu_Submission_Kontakt")),
-				cells: [
-					.regular(text: AppStrings.ExposureSubmissionHotline.description),
-				]
-			),
-			 DynamicSection.section(
-				cells: [
-					.bigBold(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
-					DynamicCell.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
-									   image: .checkmark,
-									   isCircle: true,
-									   iconTintColor: .preferredColor(for: .chevron))
+        dynamicTableViewModel = DynamicTableViewModel(
+            [.section(
+                header: .image(UIImage(named: "Illu_Submission_Kontakt")),
+                cells: [
+                    .regular(text: AppStrings.ExposureSubmissionHotline.description)
+                ]
+            ),
+             DynamicSection.section(
+                cells: [
+                    .bigBold(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
+                    DynamicCell.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
+                        guard let cell = cell as? DynamicTableViewStepCell else { return }
+                        cell.configure(title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
+                                       image: .checkmark,
+                                       isCircle: true,
+                                       iconTintColor: .preferredColor(for: .chevron))
                         }),
-					.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
-									   image: .checkmark,
-									   isCircle: true,
-									   iconTintColor: .preferredColor(for: .chevron))
-                            }),
-				])]
-		)
-	}
+                    .identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
+                        guard let cell = cell as? DynamicTableViewStepCell else { return }
+                        cell.configure(title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
+                                       image: .checkmark,
+                                       isCircle: true,
+                                       iconTintColor: .preferredColor(for: .chevron))
+                            })
+                ])]
+        )
+    }
 }
 
 // MARK: - Segue identifiers.
 
 extension ExposureSubmissionHotlineViewController {
-	enum Segue: String, SegueIdentifiers {
-		case tanInput = "tanInputSegue"
-	}
+    enum Segue: String, SegueIdentifiers {
+        case tanInput = "tanInputSegue"
+    }
 }
 
 // MARK: - Cell reuse identifiers.
 
 extension ExposureSubmissionHotlineViewController {
-	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
-		case stepCell
-	}
+    enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+        case stepCell
+    }
 }
 
 // MARK: - ExposureSubmissionNavigationControllerChild Extension.
 
 extension ExposureSubmissionHotlineViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
-		callHotline()
-	}
+    func didTapBottomButton() {
+        callHotline()
+    }
 
-	func didTapSecondButton() {
-		performSegue(withIdentifier: Segue.tanInput, sender: self)
-	}
+    func didTapSecondButton() {
+        performSegue(withIdentifier: Segue.tanInput, sender: self)
+    }
 
-	private func callHotline() {
-		if let url = URL(string: "telprompt:\(AppStrings.ExposureDetection.hotlineNumber)") {
-			if UIApplication.shared.canOpenURL(url) {
-				UIApplication.shared.open(url, options: [:], completionHandler: nil)
-			}
-		}
-	}
+    private func callHotline() {
+        if let url = URL(string: "telprompt:\(AppStrings.ExposureDetection.hotlineNumber)") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+    }
 }

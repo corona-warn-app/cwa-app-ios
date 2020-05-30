@@ -19,18 +19,18 @@ import ExposureNotification
 import Foundation
 
 protocol ExposureDetectionViewControllerSummary {
-	var numberOfContacts: Int { get }
-	var daysSinceLastExposure: Int { get }
-	var numberOfDaysStored: Int { get }
-	var lastRefreshDate: Date { get }
+    var numberOfContacts: Int { get }
+    var daysSinceLastExposure: Int { get }
+    var numberOfDaysStored: Int { get }
+    var lastRefreshDate: Date { get }
 }
 
 extension ExposureDetectionViewController {
-	typealias Summary = ExposureDetectionViewControllerSummary
+    typealias Summary = ExposureDetectionViewControllerSummary
 }
 
 extension ENExposureDetectionSummary: ExposureDetectionViewControllerSummary {
-	var numberOfContacts: Int { Int(matchedKeyCount) }
-	var numberOfDaysStored: Int { .random(in: 0 ... 14) } // TODO: Retrieve actual value
-	var lastRefreshDate: Date { Date() } // TODO: Retrieve actual value
+    var numberOfContacts: Int { Int(matchedKeyCount) }
+    var numberOfDaysStored: Int { .random(in: 0 ... 14) } // TODO: Retrieve actual value
+    var lastRefreshDate: Date { Date() } // TODO: Retrieve actual value
 }

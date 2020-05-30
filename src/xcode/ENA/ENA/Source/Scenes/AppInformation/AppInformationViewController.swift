@@ -19,38 +19,38 @@ import Foundation
 import UIKit
 
 class AppInformationViewController: UITableViewController {
-	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-		let destination = segue.destination
+    override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
+        let destination = segue.destination
 
-		guard
-			let segueIdentifier = segue.identifier,
-			let segue = SegueIdentifier(rawValue: segueIdentifier)
-		else { return }
+        guard
+            let segueIdentifier = segue.identifier,
+            let segue = SegueIdentifier(rawValue: segueIdentifier)
+        else { return }
 
-		switch segue {
-		case .about:
-			(destination as? AppInformationDetailViewController)?.model = .about
-		case .contact:
-			(destination as? AppInformationDetailViewController)?.model = .contact
-		case .help:
-			(destination as? AppInformationHelpViewController)?.model = .questions
-		case .legal:
-			(destination as? AppInformationDetailViewController)?.model = .legal
-		case .privacy:
-			(destination as? AppInformationDetailViewController)?.model = .privacy
-		case .terms:
-			(destination as? AppInformationDetailViewController)?.model = .terms
-		}
-	}
+        switch segue {
+        case .about:
+            (destination as? AppInformationDetailViewController)?.model = .about
+        case .contact:
+            (destination as? AppInformationDetailViewController)?.model = .contact
+        case .help:
+            (destination as? AppInformationHelpViewController)?.model = .questions
+        case .legal:
+            (destination as? AppInformationDetailViewController)?.model = .legal
+        case .privacy:
+            (destination as? AppInformationDetailViewController)?.model = .privacy
+        case .terms:
+            (destination as? AppInformationDetailViewController)?.model = .terms
+        }
+    }
 }
 
 extension AppInformationViewController {
-	private enum SegueIdentifier: String {
-		case about = "aboutSegue"
-		case contact = "contactSegue"
-		case legal = "legalSegue"
-		case privacy = "privacySegue"
-		case terms = "termsSegue"
-		case help = "helpSegue"
-	}
+    private enum SegueIdentifier: String {
+        case about = "aboutSegue"
+        case contact = "contactSegue"
+        case legal = "legalSegue"
+        case privacy = "privacySegue"
+        case terms = "termsSegue"
+        case help = "helpSegue"
+    }
 }

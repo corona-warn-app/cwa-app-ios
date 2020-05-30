@@ -20,66 +20,66 @@ import Foundation
 import UIKit
 
 extension ExposureDetectionViewController {
-	enum RefreshMode {
-		case automatic
-		case manual
-	}
+    enum RefreshMode {
+        case automatic
+        case manual
+    }
 
-	struct State {
-		var exposureManagerState: ExposureManagerState = .init()
+    struct State {
+        var exposureManagerState: ExposureManagerState = .init()
 
-		var mode: RefreshMode = .manual
+        var mode: RefreshMode = .manual
 
-		var isTracingEnabled: Bool { exposureManagerState.enabled }
-		var isLoading: Bool = false
+        var isTracingEnabled: Bool { exposureManagerState.enabled }
+        var isLoading: Bool = false
 
-		var riskLevel: RiskLevel = .unknown
-		var nextRefresh: Date?
-		var summary: ExposureDetectionViewController.Summary?
+        var riskLevel: RiskLevel = .unknown
+        var nextRefresh: Date?
+        var summary: ExposureDetectionViewController.Summary?
 
-		var actualRiskText: String {
-			riskLevel.text
-		}
+        var actualRiskText: String {
+            riskLevel.text
+        }
 
-		var riskText: String {
-			isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
-		}
+        var riskText: String {
+            isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off
+        }
 
-		var riskTintColor: UIColor {
-			isTracingEnabled ? riskLevel.tintColor : .preferredColor(for: .backgroundBase)
-		}
+        var riskTintColor: UIColor {
+            isTracingEnabled ? riskLevel.tintColor : .preferredColor(for: .backgroundBase)
+        }
 
-		var riskContrastColor: UIColor {
-			isTracingEnabled ? riskLevel.contrastColor : .preferredColor(for: .textPrimary1)
-		}
-	}
+        var riskContrastColor: UIColor {
+            isTracingEnabled ? riskLevel.contrastColor : .preferredColor(for: .textPrimary1)
+        }
+    }
 }
 
 private extension RiskLevel {
-	var text: String {
-		switch self {
-		case .unknown: return AppStrings.ExposureDetection.unknown
-		case .inactive: return AppStrings.ExposureDetection.inactive
-		case .low: return AppStrings.ExposureDetection.low
-		case .high: return AppStrings.ExposureDetection.high
-		}
-	}
+    var text: String {
+        switch self {
+        case .unknown: return AppStrings.ExposureDetection.unknown
+        case .inactive: return AppStrings.ExposureDetection.inactive
+        case .low: return AppStrings.ExposureDetection.low
+        case .high: return AppStrings.ExposureDetection.high
+        }
+    }
 
-	var tintColor: UIColor {
-		switch self {
-		case .unknown: return .preferredColor(for: .unknownRisk)
-		case .inactive: return .preferredColor(for: .inactive)
-		case .low: return .preferredColor(for: .positive)
-		case .high: return .preferredColor(for: .negative)
-		}
-	}
+    var tintColor: UIColor {
+        switch self {
+        case .unknown: return .preferredColor(for: .unknownRisk)
+        case .inactive: return .preferredColor(for: .inactive)
+        case .low: return .preferredColor(for: .positive)
+        case .high: return .preferredColor(for: .negative)
+        }
+    }
 
-	var contrastColor: UIColor {
-		switch self {
-		case .unknown: return .white
-		case .inactive: return .white
-		case .low: return .white
-		case .high: return .white
-		}
-	}
+    var contrastColor: UIColor {
+        switch self {
+        case .unknown: return .white
+        case .inactive: return .white
+        case .low: return .white
+        case .high: return .white
+        }
+    }
 }

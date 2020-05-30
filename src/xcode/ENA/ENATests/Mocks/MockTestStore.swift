@@ -19,51 +19,51 @@
 import Foundation
 
 class MockTestStore: Store {
-	func clearAll() {}
+    func clearAll() {}
 
-	var hasSeenSubmissionExposureTutorial: Bool = false
+    var hasSeenSubmissionExposureTutorial: Bool = false
 
-	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
+    var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
 
-	var numberOfSuccesfulSubmissions: Int64?
+    var numberOfSuccesfulSubmissions: Int64?
 
-	var initialSubmitCompleted: Bool = false
+    var initialSubmitCompleted: Bool = false
 
-	var submitConsentAcceptTimestamp: Int64?
+    var submitConsentAcceptTimestamp: Int64?
 
-	var submitConsentAccept: Bool = false
+    var submitConsentAccept: Bool = false
 
-	var isOnboarded: Bool = false
+    var isOnboarded: Bool = false
 
-	var dateLastExposureDetection: Date?
+    var dateLastExposureDetection: Date?
 
-	var dateOfAcceptedPrivacyNotice: Date?
+    var dateOfAcceptedPrivacyNotice: Date?
 
-	var allowsCellularUse: Bool = false
+    var allowsCellularUse: Bool = false
 
-	var developerSubmissionBaseURLOverride: String?
+    var developerSubmissionBaseURLOverride: String?
 
-	var developerDistributionBaseURLOverride: String?
+    var developerDistributionBaseURLOverride: String?
 
-	var developerVerificationBaseURLOverride: String?
+    var developerVerificationBaseURLOverride: String?
 
-	var teleTan: String?
+    var teleTan: String?
 
-	var tan: String?
+    var tan: String?
 
-	var testGUID: String?
+    var testGUID: String?
 
-	var devicePairingConsentAccept: Bool = false
+    var devicePairingConsentAccept: Bool = false
 
-	var devicePairingConsentAcceptTimestamp: Int64?
+    var devicePairingConsentAcceptTimestamp: Int64?
 
-	var devicePairingSuccessfulTimestamp: Int64?
+    var devicePairingSuccessfulTimestamp: Int64?
 
-	var isAllowedToSubmitDiagnosisKeys: Bool = false
+    var isAllowedToSubmitDiagnosisKeys: Bool = false
 
-	var registrationToken: String?
+    var registrationToken: String?
 
-	var allowRiskChangesNotification: Bool = true
+    var allowRiskChangesNotification: Bool = true
 
-	var allowTestsStatusNotification: Bool = true
+    var allowTestsStatusNotification: Bool = true
 }

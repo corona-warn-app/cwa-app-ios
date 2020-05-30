@@ -18,11 +18,11 @@
 import Foundation
 
 extension URLSession {
-	class func coronaWarnSession() -> URLSession {
-		URLSession(
-			configuration: .coronaWarnSessionConfiguration(),
-			delegate: nil,
-			delegateQueue: .main
-		)
-	}
+    class func coronaWarnSession() -> URLSession {
+        URLSession(
+            configuration: .coronaWarnSessionConfiguration(),
+            delegate: nil,
+            delegateQueue: .main
+        )
+    }
 }

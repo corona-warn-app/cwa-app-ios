@@ -24,21 +24,21 @@ import UIKit
  */
 
 enum Accessibility {
-	enum StaticText {
-		static let onboardingTitle = "OnboardingInfo_togetherAgainstCoronaPage_title"
-		static let homeActivateTitle = "Home_Activate_Title"
-	}
+    enum StaticText {
+        static let onboardingTitle = "OnboardingInfo_togetherAgainstCoronaPage_title"
+        static let homeActivateTitle = "Home_Activate_Title"
+    }
 
-	enum Button {
-		static let next = "next"
-		static let ignore = "ignore"
-		static let finish = "finish"
-	}
+    enum Button {
+        static let next = "next"
+        static let ignore = "ignore"
+        static let finish = "finish"
+    }
 
-	enum Cell {
-		static let infoCardShareTitle = "infoCardShareTitle"
-		static let infoCardAboutTitle = "infoCardAboutTitle"
-		static let appInformationCardTitle = "appInformationCardTitle"
-		static let settingsCardTitle = "settingsCardTitle"
-	}
+    enum Cell {
+        static let infoCardShareTitle = "infoCardShareTitle"
+        static let infoCardAboutTitle = "infoCardAboutTitle"
+        static let appInformationCardTitle = "appInformationCardTitle"
+        static let settingsCardTitle = "settingsCardTitle"
+    }
 }

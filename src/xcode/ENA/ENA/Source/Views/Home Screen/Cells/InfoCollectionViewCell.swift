@@ -18,11 +18,11 @@
 import UIKit
 
 class InfoCollectionViewCell: UICollectionViewCell {
-	@IBOutlet var chevronImageView: UIImageView!
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var bodyLabel: UILabel!
+    @IBOutlet var chevronImageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var bodyLabel: UILabel!
 
-	@IBOutlet var topDividerView: UIView!
-	@IBOutlet var bottomDividerView: UIView!
-	@IBOutlet var bottomDividerLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var topDividerView: UIView!
+    @IBOutlet var bottomDividerView: UIView!
+    @IBOutlet var bottomDividerLeadingConstraint: NSLayoutConstraint!
 }

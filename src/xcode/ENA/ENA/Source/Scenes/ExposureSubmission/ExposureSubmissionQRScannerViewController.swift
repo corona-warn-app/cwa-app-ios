@@ -20,170 +20,170 @@ import Foundation
 import UIKit
 
 enum QRScannerError: Error {
-	case cameraPermissionDenied
-	case other
+    case cameraPermissionDenied
+    case other
 }
 
 protocol ExposureSubmissionQRScannerDelegate: AnyObject {
-	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String)
-	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError)
+    func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String)
+    func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError)
 }
 
 final class ExposureSubmissionQRScannerNavigationController: UINavigationController {
-	var exposureSubmissionService: ExposureSubmissionService?
+    var exposureSubmissionService: ExposureSubmissionService?
 
-	weak var scannerViewController: ExposureSubmissionQRScannerViewController? {
-		viewControllers.first as? ExposureSubmissionQRScannerViewController
-	}
+    weak var scannerViewController: ExposureSubmissionQRScannerViewController? {
+        viewControllers.first as? ExposureSubmissionQRScannerViewController
+    }
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		overrideUserInterfaceStyle = .dark
-	}
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        overrideUserInterfaceStyle = .dark
+    }
 }
 
 final class ExposureSubmissionQRScannerViewController: UIViewController {
-	@IBOutlet var focusView: ExposureSubmissionQRScannerFocusView!
-	@IBOutlet var flashButton: UIButton!
+    @IBOutlet var focusView: ExposureSubmissionQRScannerFocusView!
+    @IBOutlet var flashButton: UIButton!
 
-	weak var delegate: ExposureSubmissionQRScannerDelegate?
+    weak var delegate: ExposureSubmissionQRScannerDelegate?
 
-	private var captureDevice: AVCaptureDevice?
-	private var previewLayer: AVCaptureVideoPreviewLayer?
+    private var captureDevice: AVCaptureDevice?
+    private var previewLayer: AVCaptureVideoPreviewLayer?
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareScanning()
-	}
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        prepareScanning()
+    }
 
-	private func prepareScanning() {
-		switch AVCaptureDevice.authorizationStatus(for: .video) {
-		case .authorized:
-			startScanning()
-		case .notDetermined:
-			AVCaptureDevice.requestAccess(for: .video) { isAllowed in
-				guard isAllowed else {
-					self.delegate?.qrScanner(self, error: .cameraPermissionDenied)
-					return
-				}
+    private func prepareScanning() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            startScanning()
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { isAllowed in
+                guard isAllowed else {
+                    self.delegate?.qrScanner(self, error: .cameraPermissionDenied)
+                    return
+                }
 
-				self.startScanning()
-			}
-		default:
-			delegate?.qrScanner(self, error: .cameraPermissionDenied)
-		}
-	}
+                self.startScanning()
+            }
+        default:
+            delegate?.qrScanner(self, error: .cameraPermissionDenied)
+        }
+    }
 
-	// Make sure to get permission to use the camera before using this method.
-	private func startScanning() {
-		let captureSession = AVCaptureSession()
+    // Make sure to get permission to use the camera before using this method.
+    private func startScanning() {
+        let captureSession = AVCaptureSession()
 
-		captureDevice = AVCaptureDevice.default(for: .video)
-		guard let captureDevice = captureDevice else {
-			delegate?.qrScanner(self, error: .other)
-			return
-		}
+        captureDevice = AVCaptureDevice.default(for: .video)
+        guard let captureDevice = captureDevice else {
+            delegate?.qrScanner(self, error: .other)
+            return
+        }
 
-		guard let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
-			delegate?.qrScanner(self, error: .other)
-			return
-		}
+        guard let caputureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
+            delegate?.qrScanner(self, error: .other)
+            return
+        }
 
-		let metadataOutput = AVCaptureMetadataOutput()
+        let metadataOutput = AVCaptureMetadataOutput()
 
-		captureSession.addInput(caputureDeviceInput)
-		captureSession.addOutput(metadataOutput)
+        captureSession.addInput(caputureDeviceInput)
+        captureSession.addOutput(metadataOutput)
 
-		metadataOutput.metadataObjectTypes = [.qr]
-		metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+        metadataOutput.metadataObjectTypes = [.qr]
+        metadataOutput.setMetadataObjectsDelegate(self, queue: .main)
 
-		previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-		guard let previewLayer = previewLayer else { return }
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        guard let previewLayer = previewLayer else { return }
 
-		DispatchQueue.main.async {
-			self.previewLayer?.frame = self.view.bounds
-			self.previewLayer?.videoGravity = .resizeAspectFill
-			self.view.layer.insertSublayer(previewLayer, at: 0)
-		}
+        DispatchQueue.main.async {
+            self.previewLayer?.frame = self.view.bounds
+            self.previewLayer?.videoGravity = .resizeAspectFill
+            self.view.layer.insertSublayer(previewLayer, at: 0)
+        }
 
-		captureSession.startRunning()
-	}
+        captureSession.startRunning()
+    }
 
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		focusView.startAnimating()
-	}
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        focusView.startAnimating()
+    }
 
-	@IBAction func toggleFlash() {
-		guard let device = captureDevice else { return }
-		guard device.hasTorch else { return }
+    @IBAction func toggleFlash() {
+        guard let device = captureDevice else { return }
+        guard device.hasTorch else { return }
 
-		do {
-			try device.lockForConfiguration()
+        do {
+            try device.lockForConfiguration()
 
-			if device.torchMode == .on {
-				device.torchMode = .off
-				flashButton.isSelected = false
-			} else {
-				do {
-					try device.setTorchModeOn(level: 1.0)
-					flashButton.isSelected = true
-				} catch {
-					log(message: error.localizedDescription, level: .error)
-				}
-			}
+            if device.torchMode == .on {
+                device.torchMode = .off
+                flashButton.isSelected = false
+            } else {
+                do {
+                    try device.setTorchModeOn(level: 1.0)
+                    flashButton.isSelected = true
+                } catch {
+                    log(message: error.localizedDescription, level: .error)
+                }
+            }
 
-			device.unlockForConfiguration()
-		} catch {
-			log(message: error.localizedDescription, level: .error)
-		}
-	}
+            device.unlockForConfiguration()
+        } catch {
+            log(message: error.localizedDescription, level: .error)
+        }
+    }
 
-	@IBAction func close() {
-		dismiss(animated: true)
-	}
+    @IBAction func close() {
+        dismiss(animated: true)
+    }
 }
 
 extension ExposureSubmissionQRScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
-	func metadataOutput(
-		_: AVCaptureMetadataOutput,
-		didOutput metadataObjects: [AVMetadataObject],
-		from _: AVCaptureConnection
-	) {
-		if
-			let code = metadataObjects.first(ofType: AVMetadataMachineReadableCodeObject.self),
-			let stringValue = code.stringValue {
-			delegate?.qrScanner(self, didScan: stringValue)
-		}
-	}
+    func metadataOutput(
+        _: AVCaptureMetadataOutput,
+        didOutput metadataObjects: [AVMetadataObject],
+        from _: AVCaptureConnection
+    ) {
+        if
+            let code = metadataObjects.first(ofType: AVMetadataMachineReadableCodeObject.self),
+            let stringValue = code.stringValue {
+            delegate?.qrScanner(self, didScan: stringValue)
+        }
+    }
 }
 
 @IBDesignable
 final class ExposureSubmissionQRScannerFocusView: UIView {
-	@IBInspectable var cornerRadius: CGFloat = 0
-	@IBInspectable var borderWidth: CGFloat = 1
+    @IBInspectable var cornerRadius: CGFloat = 0
+    @IBInspectable var borderWidth: CGFloat = 1
 
-	override func prepareForInterfaceBuilder() {
-		super.prepareForInterfaceBuilder()
-		awakeFromNib()
-	}
+    override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        awakeFromNib()
+    }
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
-		layer.cornerRadius = cornerRadius
-		layer.borderWidth = borderWidth
-		layer.borderColor = tintColor.cgColor
-	}
+        layer.cornerRadius = cornerRadius
+        layer.borderWidth = borderWidth
+        layer.borderColor = tintColor.cgColor
+    }
 
-	func startAnimating() {
-		UIView.animate(
-			withDuration: 0.5,
-			delay: 0,
-			options: [.repeat, .autoreverse],
-			animations: {
-				self.transform = .init(scaleX: 0.9, y: 0.9)
-			}
-		)
-	}
+    func startAnimating() {
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            options: [.repeat, .autoreverse],
+            animations: {
+                self.transform = .init(scaleX: 0.9, y: 0.9)
+            }
+        )
+    }
 }

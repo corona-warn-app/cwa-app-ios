@@ -19,16 +19,16 @@ import Foundation
 import UIKit
 
 enum DynamicHeader {
-	typealias HeaderConfigurator = (_ view: UIView, _ section: Int) -> Void
+    typealias HeaderConfigurator = (_ view: UIView, _ section: Int) -> Void
 
-	case none
-	case blank
-	case space(height: CGFloat, color: UIColor? = nil)
-	case text(_ text: String)
-	case separator(color: UIColor, height: CGFloat = 1, insets: UIEdgeInsets = .zero)
-	case image(_ image: UIImage?, height: CGFloat = 250)
-	case view(_ view: UIView)
-	case identifier(_ identifier: TableViewHeaderFooterReuseIdentifiers, action: DynamicAction = .none, configure: HeaderConfigurator? = nil)
-	case cell(withIdentifier: TableViewCellReuseIdentifiers, configure: HeaderConfigurator? = nil)
-	case custom(_ block: (DynamicTableViewController) -> UIView?)
+    case none
+    case blank
+    case space(height: CGFloat, color: UIColor? = nil)
+    case text(_ text: String)
+    case separator(color: UIColor, height: CGFloat = 1, insets: UIEdgeInsets = .zero)
+    case image(_ image: UIImage?, height: CGFloat = 250)
+    case view(_ view: UIView)
+    case identifier(_ identifier: TableViewHeaderFooterReuseIdentifiers, action: DynamicAction = .none, configure: HeaderConfigurator? = nil)
+    case cell(withIdentifier: TableViewCellReuseIdentifiers, configure: HeaderConfigurator? = nil)
+    case custom(_ block: (DynamicTableViewController) -> UIView?)
 }

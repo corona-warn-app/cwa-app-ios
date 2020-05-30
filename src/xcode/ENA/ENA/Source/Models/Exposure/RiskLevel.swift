@@ -19,22 +19,22 @@ import ExposureNotification
 import Foundation
 
 enum RiskLevel {
-	case unknown
-	case inactive
-	case low
-	case high
+    case unknown
+    case inactive
+    case low
+    case high
 
-	init(riskScore: ENRiskScore?) {
-		guard let riskScore = riskScore else {
-			self = .unknown
-			return
-		}
-		self = riskScore.riskLevel
-	}
+    init(riskScore: ENRiskScore?) {
+        guard let riskScore = riskScore else {
+            self = .unknown
+            return
+        }
+        self = riskScore.riskLevel
+    }
 }
 
 extension ENRiskScore {
-	var riskLevel: RiskLevel {
-		self <= 100 ? .low : .high
-	}
+    var riskLevel: RiskLevel {
+        self <= 100 ? .low : .high
+    }
 }

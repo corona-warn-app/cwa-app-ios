@@ -19,8 +19,8 @@ import ExposureNotification
 import Foundation
 
 extension HomeViewController {
-	struct State {
-		var exposureManager: ExposureManagerState
-		var summary: ENExposureDetectionSummary?
-	}
+    struct State {
+        var exposureManager: ExposureManagerState
+        var summary: ENExposureDetectionSummary?
+    }
 }

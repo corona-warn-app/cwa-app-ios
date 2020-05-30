@@ -18,203 +18,203 @@
 import Foundation
 
 extension HTTPClient {
-	struct Configuration {
-		// MARK: Default Instances
+    struct Configuration {
+        // MARK: Default Instances
 
-		static let production = Configuration(
-			apiVersion: "v1",
-			country: "DE",
-			endpoints: Configuration.Endpoints(
-				distribution: .init(
-					baseURL: URL(staticString: "https://localhost/fixme"),
-					requiresTrailingSlash: true
-				),
-				submission: .init(
-					baseURL: URL(staticString: "https://localhost/fixme"),
-					requiresTrailingSlash: true
-				),
-				verification: .init(
-					baseURL: URL(staticString: "https://localhost/fixme"),
-					requiresTrailingSlash: true
-				)
-			)
-		)
+        static let production = Configuration(
+            apiVersion: "v1",
+            country: "DE",
+            endpoints: Configuration.Endpoints(
+                distribution: .init(
+                    baseURL: URL(staticString: "https://localhost/fixme"),
+                    requiresTrailingSlash: true
+                ),
+                submission: .init(
+                    baseURL: URL(staticString: "https://localhost/fixme"),
+                    requiresTrailingSlash: true
+                ),
+                verification: .init(
+                    baseURL: URL(staticString: "https://localhost/fixme"),
+                    requiresTrailingSlash: true
+                )
+            )
+        )
 
-		// MARK: Properties
+        // MARK: Properties
 
-		let apiVersion: String
-		let country: String
-		let endpoints: Endpoints
+        let apiVersion: String
+        let country: String
+        let endpoints: Endpoints
 
-		var diagnosisKeysURL: URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country
-				)
-		}
+        var diagnosisKeysURL: URL {
+            endpoints
+                .distribution
+                .appending(
+                    "version",
+                    apiVersion,
+                    "diagnosis-keys",
+                    "country",
+                    country
+                )
+        }
 
-		var availableDaysURL: URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date"
-				)
-		}
+        var availableDaysURL: URL {
+            endpoints
+                .distribution
+                .appending(
+                    "version",
+                    apiVersion,
+                    "diagnosis-keys",
+                    "country",
+                    country,
+                    "date"
+                )
+        }
 
-		func availableHoursURL(day: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day,
-					"hour"
-				)
-		}
+        func availableHoursURL(day: String) -> URL {
+            endpoints
+                .distribution
+                .appending(
+                    "version",
+                    apiVersion,
+                    "diagnosis-keys",
+                    "country",
+                    country,
+                    "date",
+                    day,
+                    "hour"
+                )
+        }
 
-		func diagnosisKeysURL(day: String, hour: Int) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day,
-					"hour",
-					String(hour)
-				)
-		}
+        func diagnosisKeysURL(day: String, hour: Int) -> URL {
+            endpoints
+                .distribution
+                .appending(
+                    "version",
+                    apiVersion,
+                    "diagnosis-keys",
+                    "country",
+                    country,
+                    "date",
+                    day,
+                    "hour",
+                    String(hour)
+                )
+        }
 
-		func diagnosisKeysURL(day: String) -> URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country,
-					"date",
-					day
-				)
-		}
+        func diagnosisKeysURL(day: String) -> URL {
+            endpoints
+                .distribution
+                .appending(
+                    "version",
+                    apiVersion,
+                    "diagnosis-keys",
+                    "country",
+                    country,
+                    "date",
+                    day
+                )
+        }
 
-		var configurationURL: URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"parameters",
-					"country",
-					country
-				)
-		}
+        var configurationURL: URL {
+            endpoints
+                .distribution
+                .appending(
+                    "version",
+                    apiVersion,
+                    "parameters",
+                    "country",
+                    country
+                )
+        }
 
-		var submissionURL: URL {
-			endpoints
-				.submission
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys"
-				)
-		}
+        var submissionURL: URL {
+            endpoints
+                .submission
+                .appending(
+                    "version",
+                    apiVersion,
+                    "diagnosis-keys"
+                )
+        }
 
-		var registrationURL: URL {
-			endpoints
-				.verification
-				.appending(
-					"version",
-					apiVersion,
-					"registrationToken"
-				)
-		}
+        var registrationURL: URL {
+            endpoints
+                .verification
+                .appending(
+                    "version",
+                    apiVersion,
+                    "registrationToken"
+                )
+        }
 
-		var testResultURL: URL {
-			endpoints
-				.verification
-				.appending(
-					"version",
-					apiVersion,
-					"testresult"
-				)
-		}
+        var testResultURL: URL {
+            endpoints
+                .verification
+                .appending(
+                    "version",
+                    apiVersion,
+                    "testresult"
+                )
+        }
 
-		var tanRetrievalURL: URL {
-			endpoints
-				.verification
-				.appending(
-					"version",
-					apiVersion,
-					"tan"
-				)
-		}
-	}
+        var tanRetrievalURL: URL {
+            endpoints
+                .verification
+                .appending(
+                    "version",
+                    apiVersion,
+                    "tan"
+                )
+        }
+    }
 }
 
 extension HTTPClient.Configuration {
-	struct Endpoint {
-		// MARK: Creating an Endpoint
+    struct Endpoint {
+        // MARK: Creating an Endpoint
 
-		init(
-			baseURL: URL,
-			requiresTrailingSlash: Bool,
-			requiresTrailingIndex _: Bool = true
-		) {
-			self.baseURL = baseURL
-			self.requiresTrailingSlash = requiresTrailingSlash
-			requiresTrailingIndex = false
-		}
+        init(
+            baseURL: URL,
+            requiresTrailingSlash: Bool,
+            requiresTrailingIndex _: Bool = true
+        ) {
+            self.baseURL = baseURL
+            self.requiresTrailingSlash = requiresTrailingSlash
+            requiresTrailingIndex = false
+        }
 
-		// MARK: Properties
+        // MARK: Properties
 
-		let baseURL: URL
-		let requiresTrailingSlash: Bool
-		let requiresTrailingIndex: Bool
+        let baseURL: URL
+        let requiresTrailingSlash: Bool
+        let requiresTrailingIndex: Bool
 
-		// MARK: Working with an Endpoint
+        // MARK: Working with an Endpoint
 
-		func appending(_ components: String...) -> URL {
-			let url = components.reduce(baseURL) { result, component in
-				result.appendingPathComponent(component, isDirectory: self.requiresTrailingSlash)
-			}
-			if requiresTrailingIndex {
-				return url.appendingPathComponent("index", isDirectory: false)
-			}
-			return url
-		}
-	}
+        func appending(_ components: String...) -> URL {
+            let url = components.reduce(baseURL) { result, component in
+                result.appendingPathComponent(component, isDirectory: self.requiresTrailingSlash)
+            }
+            if requiresTrailingIndex {
+                return url.appendingPathComponent("index", isDirectory: false)
+            }
+            return url
+        }
+    }
 }
 
 extension HTTPClient.Configuration {
-	struct Endpoints {
-		let distribution: Endpoint
-		let submission: Endpoint
-		let verification: Endpoint
-	}
+    struct Endpoints {
+        let distribution: Endpoint
+        let submission: Endpoint
+        let verification: Endpoint
+    }
 }
 
 private extension URL {
-	init(staticString: StaticString) {
-		// swiftlint:disable:next force_unwrapping
-		self.init(string: "\(staticString)")!
-	}
+    init(staticString: StaticString) {
+        // swiftlint:disable:next force_unwrapping
+        self.init(string: "\(staticString)")!
+    }
 }

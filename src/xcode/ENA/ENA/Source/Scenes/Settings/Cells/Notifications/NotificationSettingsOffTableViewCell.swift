@@ -18,62 +18,62 @@
 import UIKit
 
 class NotificationSettingsOffTableViewCell: UITableViewCell {
-	@IBOutlet var iconImageView: UIImageView!
-	@IBOutlet var descriptionLabel: DynamicTypeLabel!
+    @IBOutlet var iconImageView: UIImageView!
+    @IBOutlet var descriptionLabel: DynamicTypeLabel!
 
-	@IBOutlet var descriptionLabelTrailingConstraint: NSLayoutConstraint!
-	@IBOutlet var descriptionLabelLeadingConstraint: NSLayoutConstraint!
-	@IBOutlet var imageViewCenterYConstraint: NSLayoutConstraint!
-	@IBOutlet var imageViewFirstBaselineConstraint: NSLayoutConstraint!
+    @IBOutlet var descriptionLabelTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var descriptionLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var imageViewCenterYConstraint: NSLayoutConstraint!
+    @IBOutlet var imageViewFirstBaselineConstraint: NSLayoutConstraint!
 
-	let labelPadding: CGFloat = 10
+    let labelPadding: CGFloat = 10
 
-	private var regularConstraints: [NSLayoutConstraint] = []
-	private var largeTextConstraints: [NSLayoutConstraint] = []
+    private var regularConstraints: [NSLayoutConstraint] = []
+    private var largeTextConstraints: [NSLayoutConstraint] = []
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
-		setLayoutConstraints()
-	}
+        setLayoutConstraints()
+    }
 
-	func configure(viewModel: NotificationSettingsViewModel.SettingsOffItem) {
-		iconImageView.image = UIImage(named: viewModel.icon)
+    func configure(viewModel: NotificationSettingsViewModel.SettingsOffItem) {
+        iconImageView.image = UIImage(named: viewModel.icon)
 
-		updateDescriptionLabel(viewModel.description)
-		updateLayoutConstraints()
-	}
+        updateDescriptionLabel(viewModel.description)
+        updateLayoutConstraints()
+    }
 
-	private func setLayoutConstraints() {
-		regularConstraints = [descriptionLabelTrailingConstraint, imageViewCenterYConstraint]
+    private func setLayoutConstraints() {
+        regularConstraints = [descriptionLabelTrailingConstraint, imageViewCenterYConstraint]
 
-		let labelHalfCapHeight = descriptionLabel.font.capHeight / 2
-		imageViewFirstBaselineConstraint.constant = labelHalfCapHeight
+        let labelHalfCapHeight = descriptionLabel.font.capHeight / 2
+        imageViewFirstBaselineConstraint.constant = labelHalfCapHeight
 
-		largeTextConstraints = [descriptionLabelLeadingConstraint, imageViewFirstBaselineConstraint]
-	}
+        largeTextConstraints = [descriptionLabelLeadingConstraint, imageViewFirstBaselineConstraint]
+    }
 
-	private func updateLayoutConstraints() {
-		if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-			NSLayoutConstraint.deactivate(regularConstraints)
-			NSLayoutConstraint.activate(largeTextConstraints)
-		} else {
-			NSLayoutConstraint.deactivate(largeTextConstraints)
-			NSLayoutConstraint.activate(regularConstraints)
-		}
-	}
+    private func updateLayoutConstraints() {
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            NSLayoutConstraint.deactivate(regularConstraints)
+            NSLayoutConstraint.activate(largeTextConstraints)
+        } else {
+            NSLayoutConstraint.deactivate(largeTextConstraints)
+            NSLayoutConstraint.activate(regularConstraints)
+        }
+    }
 
-	private func updateDescriptionLabel(_ value: String) {
-		let paragraphStyle = NSMutableParagraphStyle()
-		paragraphStyle.setParagraphStyle(NSParagraphStyle.default)
+    private func updateDescriptionLabel(_ value: String) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.setParagraphStyle(NSParagraphStyle.default)
 
-		if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-			paragraphStyle.firstLineHeadIndent = iconImageView.frame.size.width + labelPadding
-		}
+        if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+            paragraphStyle.firstLineHeadIndent = iconImageView.frame.size.width + labelPadding
+        }
 
-		let attributedString = NSAttributedString(string: value,
-												  attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle,
-															   NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body)])
-		descriptionLabel.attributedText = attributedString
-	}
+        let attributedString = NSAttributedString(string: value,
+                                                  attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                                                               NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body)])
+        descriptionLabel.attributedText = attributedString
+    }
 }

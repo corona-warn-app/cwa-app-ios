@@ -19,61 +19,61 @@ import Foundation
 import UIKit
 
 class DynamicTypeTableViewCell: UITableViewCell {
-	var textStyle: UIFont.TextStyle? { nil }
-	var fontSize: CGFloat? { nil }
-	var fontWeight: UIFont.Weight? { nil }
+    var textStyle: UIFont.TextStyle? { nil }
+    var fontSize: CGFloat? { nil }
+    var fontWeight: UIFont.Weight? { nil }
 
-	required init?(coder _: NSCoder) {
-		fatalError("Not implemented!")
-	}
+    required init?(coder _: NSCoder) {
+        fatalError("Not implemented!")
+    }
 
-	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-		selectionStyle = .none
+        selectionStyle = .none
 
-		if let textStyle = self.textStyle {
-			textLabel?.font = UIFont.preferredFont(forTextStyle: textStyle).scaledFont(size: fontSize, weight: fontWeight)
-			textLabel?.adjustsFontForContentSizeCategory = true
-			textLabel?.numberOfLines = 0
-		}
+        if let textStyle = self.textStyle {
+            textLabel?.font = UIFont.preferredFont(forTextStyle: textStyle).scaledFont(size: fontSize, weight: fontWeight)
+            textLabel?.adjustsFontForContentSizeCategory = true
+            textLabel?.numberOfLines = 0
+        }
 
-		backgroundColor = .preferredColor(for: .backgroundBase)
-	}
+        backgroundColor = .preferredColor(for: .backgroundBase)
+    }
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
-		if let textStyle = self.textStyle {
-			textLabel?.font = UIFont.preferredFont(forTextStyle: textStyle).scaledFont(size: fontSize, weight: fontWeight)
-			textLabel?.adjustsFontForContentSizeCategory = true
-			textLabel?.numberOfLines = 0
-		}
-	}
+        if let textStyle = self.textStyle {
+            textLabel?.font = UIFont.preferredFont(forTextStyle: textStyle).scaledFont(size: fontSize, weight: fontWeight)
+            textLabel?.adjustsFontForContentSizeCategory = true
+            textLabel?.numberOfLines = 0
+        }
+    }
 }
 
 extension DynamicTypeTableViewCell {
-	class Regular: DynamicTypeTableViewCell {
-		override var textStyle: UIFont.TextStyle? { .body }
-		override var fontSize: CGFloat? { 17 }
-		override var fontWeight: UIFont.Weight? { .regular }
-	}
+    class Regular: DynamicTypeTableViewCell {
+        override var textStyle: UIFont.TextStyle? { .body }
+        override var fontSize: CGFloat? { 17 }
+        override var fontWeight: UIFont.Weight? { .regular }
+    }
 
-	class Semibold: DynamicTypeTableViewCell {
-		override var textStyle: UIFont.TextStyle? { .body }
-		override var fontSize: CGFloat? { 17 }
-		override var fontWeight: UIFont.Weight? { .semibold }
-	}
+    class Semibold: DynamicTypeTableViewCell {
+        override var textStyle: UIFont.TextStyle? { .body }
+        override var fontSize: CGFloat? { 17 }
+        override var fontWeight: UIFont.Weight? { .semibold }
+    }
 
-	class Bold: DynamicTypeTableViewCell {
-		override var textStyle: UIFont.TextStyle? { .body }
-		override var fontSize: CGFloat? { 17 }
-		override var fontWeight: UIFont.Weight? { .bold }
-	}
+    class Bold: DynamicTypeTableViewCell {
+        override var textStyle: UIFont.TextStyle? { .body }
+        override var fontSize: CGFloat? { 17 }
+        override var fontWeight: UIFont.Weight? { .bold }
+    }
 
-	class BigBold: DynamicTypeTableViewCell {
-		override var textStyle: UIFont.TextStyle? { .headline }
-		override var fontSize: CGFloat? { 22 }
-		override var fontWeight: UIFont.Weight? { .bold }
-	}
+    class BigBold: DynamicTypeTableViewCell {
+        override var textStyle: UIFont.TextStyle? { .headline }
+        override var fontSize: CGFloat? { 22 }
+        override var fontWeight: UIFont.Weight? { .bold }
+    }
 }

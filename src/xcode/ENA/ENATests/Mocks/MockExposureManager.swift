@@ -19,52 +19,52 @@
 import ExposureNotification
 
 final class MockExposureManager {
-	typealias MockDiagnosisKeysResult = ([ENTemporaryExposureKey]?, Error?)
+    typealias MockDiagnosisKeysResult = ([ENTemporaryExposureKey]?, Error?)
 
-	// MARK: Properties
+    // MARK: Properties
 
-	let exposureNotificationError: ExposureNotificationError?
-	let diagnosisKeysResult: MockDiagnosisKeysResult?
+    let exposureNotificationError: ExposureNotificationError?
+    let diagnosisKeysResult: MockDiagnosisKeysResult?
 
-	// MARK: Creating a Mocked Manager
+    // MARK: Creating a Mocked Manager
 
-	init(
-		exposureNotificationError: ExposureNotificationError?,
-		diagnosisKeysResult: MockDiagnosisKeysResult?
-	) {
-		self.exposureNotificationError = exposureNotificationError
-		self.diagnosisKeysResult = diagnosisKeysResult
-	}
+    init(
+        exposureNotificationError: ExposureNotificationError?,
+        diagnosisKeysResult: MockDiagnosisKeysResult?
+    ) {
+        self.exposureNotificationError = exposureNotificationError
+        self.diagnosisKeysResult = diagnosisKeysResult
+    }
 }
 
 extension MockExposureManager: ExposureManager {
-	func invalidate() {}
+    func invalidate() {}
 
-	func activate(completion: @escaping CompletionHandler) {
-		completion(exposureNotificationError)
-	}
+    func activate(completion: @escaping CompletionHandler) {
+        completion(exposureNotificationError)
+    }
 
-	func enable(completion: @escaping CompletionHandler) {
-		completion(exposureNotificationError)
-	}
+    func enable(completion: @escaping CompletionHandler) {
+        completion(exposureNotificationError)
+    }
 
-	func disable(completion: @escaping CompletionHandler) {
-		completion(exposureNotificationError)
-	}
+    func disable(completion: @escaping CompletionHandler) {
+        completion(exposureNotificationError)
+    }
 
-	func preconditions() -> ExposureManagerState {
-		ExposureManagerState(authorized: true, enabled: true, active: true, bluetoothOff: false)
-	}
+    func preconditions() -> ExposureManagerState {
+        ExposureManagerState(authorized: true, enabled: true, active: true, bluetoothOff: false)
+    }
 
-	func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler _: @escaping ENDetectExposuresHandler) -> Progress {
-		Progress()
-	}
+    func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler _: @escaping ENDetectExposuresHandler) -> Progress {
+        Progress()
+    }
 
-	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
-	}
+    func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+        completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
+    }
 
-	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
-	}
+    func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+        completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
+    }
 }

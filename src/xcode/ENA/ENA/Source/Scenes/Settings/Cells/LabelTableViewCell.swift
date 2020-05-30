@@ -18,5 +18,5 @@
 import UIKit
 
 class LabelTableViewCell: UITableViewCell {
-	@IBOutlet var titleLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
 }

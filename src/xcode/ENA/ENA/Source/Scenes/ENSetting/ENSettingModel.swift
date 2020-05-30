@@ -19,15 +19,15 @@ import Foundation
 import UIKit
 
 struct ENSettingModel {
-	let content: [Content]
+    let content: [Content]
 }
 
 extension ENSettingModel {
-	enum Content {
-		case banner
-		case actionCell
-		case tracingCell
-		case actionDetailCell
-		case descriptionCell
-	}
+    enum Content {
+        case banner
+        case actionCell
+        case tracingCell
+        case actionDetailCell
+        case descriptionCell
+    }
 }

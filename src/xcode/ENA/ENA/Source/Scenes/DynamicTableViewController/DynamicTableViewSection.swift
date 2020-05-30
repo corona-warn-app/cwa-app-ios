@@ -19,25 +19,25 @@ import Foundation
 import UIKit
 
 struct DynamicSection {
-	let header: DynamicHeader
-	let footer: DynamicFooter
-	let separators: Bool
-	private let isHidden: ((DynamicTableViewController) -> Bool)?
-	let cells: [DynamicCell]
+    let header: DynamicHeader
+    let footer: DynamicFooter
+    let separators: Bool
+    private let isHidden: ((DynamicTableViewController) -> Bool)?
+    let cells: [DynamicCell]
 
-	func isHidden(for viewController: DynamicTableViewController) -> Bool {
-		isHidden?(viewController) ?? false
-	}
+    func isHidden(for viewController: DynamicTableViewController) -> Bool {
+        isHidden?(viewController) ?? false
+    }
 
-	private init(header: DynamicHeader, footer: DynamicFooter, separators: Bool, isHidden: ((DynamicTableViewController) -> Bool)?, cells: [DynamicCell]) {
-		self.header = header
-		self.footer = footer
-		self.separators = separators
-		self.isHidden = isHidden
-		self.cells = cells
-	}
+    private init(header: DynamicHeader, footer: DynamicFooter, separators: Bool, isHidden: ((DynamicTableViewController) -> Bool)?, cells: [DynamicCell]) {
+        self.header = header
+        self.footer = footer
+        self.separators = separators
+        self.isHidden = isHidden
+        self.cells = cells
+    }
 
-	static func section(header: DynamicHeader = .none, footer: DynamicFooter = .none, separators: Bool = false, isHidden: ((DynamicTableViewController) -> Bool)? = nil, cells: [DynamicCell]) -> Self {
-		.init(header: header, footer: footer, separators: separators, isHidden: isHidden, cells: cells)
-	}
+    static func section(header: DynamicHeader = .none, footer: DynamicFooter = .none, separators: Bool = false, isHidden: ((DynamicTableViewController) -> Bool)? = nil, cells: [DynamicCell]) -> Self {
+        .init(header: header, footer: footer, separators: separators, isHidden: isHidden, cells: cells)
+    }
 }

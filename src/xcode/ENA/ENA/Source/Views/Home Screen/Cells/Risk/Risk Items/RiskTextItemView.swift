@@ -18,19 +18,19 @@
 import UIKit
 
 final class RiskTextItemView: UIView, RiskItemView {
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var separatorView: UIView!
-	@IBOutlet var separatorHeightConstraint: NSLayoutConstraint!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var separatorView: UIView!
+    @IBOutlet var separatorHeightConstraint: NSLayoutConstraint!
 
-	private let titleTopPadding: CGFloat = 8.0
+    private let titleTopPadding: CGFloat = 8.0
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		separatorHeightConstraint.constant = 1
-		layoutMargins = .init(top: titleTopPadding, left: 0, bottom: titleTopPadding, right: 0)
-	}
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        separatorHeightConstraint.constant = 1
+        layoutMargins = .init(top: titleTopPadding, left: 0, bottom: titleTopPadding, right: 0)
+    }
 
-	func hideSeparator() {
-		separatorView.isHidden = true
-	}
+    func hideSeparator() {
+        separatorView.isHidden = true
+    }
 }

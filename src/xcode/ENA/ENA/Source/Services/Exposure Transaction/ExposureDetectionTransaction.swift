@@ -44,258 +44,258 @@ import Foundation
 /// 7. Provide everything to the Exposure Notification framework.
 /// 8. Wipe everything and inform the delegate.
 final class ExposureDetectionTransaction {
-	// MARK: Properties
+    // MARK: Properties
 
-	private weak var delegate: ExposureDetectionTransactionDelegate?
-	private let client: Client
-	private let keyPackagesStore: DownloadedPackagesStore
+    private weak var delegate: ExposureDetectionTransactionDelegate?
+    private let client: Client
+    private let keyPackagesStore: DownloadedPackagesStore
 
-	// MARK: Creating a Transaction
+    // MARK: Creating a Transaction
 
-	init(
-		delegate: ExposureDetectionTransactionDelegate,
-		client: Client,
-		keyPackagesStore: DownloadedPackagesStore
-	) {
-		self.delegate = delegate
-		self.client = client
-		self.keyPackagesStore = keyPackagesStore
-	}
+    init(
+        delegate: ExposureDetectionTransactionDelegate,
+        client: Client,
+        keyPackagesStore: DownloadedPackagesStore
+    ) {
+        self.delegate = delegate
+        self.client = client
+        self.keyPackagesStore = keyPackagesStore
+    }
 
-	// MARK: Starting the Transaction
+    // MARK: Starting the Transaction
 
-	func start() {
-		let today = formattedToday()
-		client.availableDaysAndHoursUpUntil(today) { result in
-			switch result {
-			case let .success(daysAndHours):
-				self.continueWith(remoteDaysAndHours: daysAndHours)
-			case .failure:
-				self.endPrematurely(reason: .noDaysAndHours)
-			}
-		}
-	}
+    func start() {
+        let today = formattedToday()
+        client.availableDaysAndHoursUpUntil(today) { result in
+            switch result {
+            case let .success(daysAndHours):
+                self.continueWith(remoteDaysAndHours: daysAndHours)
+            case .failure:
+                self.endPrematurely(reason: .noDaysAndHours)
+            }
+        }
+    }
 
-	// MARK: Working with the Delegate
+    // MARK: Working with the Delegate
 
-	// Ends the transaction prematurely with a given reason.
-	private func endPrematurely(reason: DidEndPrematurelyReason) {
-		delegate?.exposureDetectionTransaction(self, didEndPrematurely: reason)
-	}
+    // Ends the transaction prematurely with a given reason.
+    private func endPrematurely(reason: DidEndPrematurelyReason) {
+        delegate?.exposureDetectionTransaction(self, didEndPrematurely: reason)
+    }
 
-	// Informs the delegate about a summary.
-	private func didDetectSummary(_ summary: ENExposureDetectionSummary) {
-		delegate?.exposureDetectionTransaction(self, didDetectSummary: summary)
-	}
+    // Informs the delegate about a summary.
+    private func didDetectSummary(_ summary: ENExposureDetectionSummary) {
+        delegate?.exposureDetectionTransaction(self, didDetectSummary: summary)
+    }
 
-	// Get the exposure manager from the delegate
-	private func exposureManager() -> ExposureManager {
-		guard let delegate = delegate else {
-			fatalError("ExposureDetectionTransaction requires a delegate to work.")
-		}
-		return delegate.exposureDetectionTransactionRequiresExposureManager(self)
-	}
+    // Get the exposure manager from the delegate
+    private func exposureManager() -> ExposureManager {
+        guard let delegate = delegate else {
+            fatalError("ExposureDetectionTransaction requires a delegate to work.")
+        }
+        return delegate.exposureDetectionTransactionRequiresExposureManager(self)
+    }
 
-	// Gets today formatted as required by the backend.
-	private func formattedToday() -> String {
-		guard let delegate = delegate else {
-			fatalError("ExposureDetectionTransaction requires a delegate to work.")
-		}
-		return delegate.exposureDetectionTransactionRequiresFormattedToday(self)
-	}
+    // Gets today formatted as required by the backend.
+    private func formattedToday() -> String {
+        guard let delegate = delegate else {
+            fatalError("ExposureDetectionTransaction requires a delegate to work.")
+        }
+        return delegate.exposureDetectionTransactionRequiresFormattedToday(self)
+    }
 
-	// MARK: Steps of a Transaction
+    // MARK: Steps of a Transaction
 
-	// 1. Step: Download available Days & Hours
-	private func continueWith(remoteDaysAndHours: Client.DaysAndHours) {
-		fetchAndStoreMissingDaysAndHours(remoteDaysAndHours: remoteDaysAndHours) { [weak self] in
-			guard let self = self else { return }
-			self.remoteExposureConfiguration { [weak self] configuration in
-				guard let self = self else { return }
-				do {
-					let writer = try self.createAppleFilesWriter()
-					self.detectExposures(writer: writer, configuration: configuration)
-				} catch {
-					self.endPrematurely(reason: .unableToDiagnosisKeys)
-				}
-			}
-		}
-	}
+    // 1. Step: Download available Days & Hours
+    private func continueWith(remoteDaysAndHours: Client.DaysAndHours) {
+        fetchAndStoreMissingDaysAndHours(remoteDaysAndHours: remoteDaysAndHours) { [weak self] in
+            guard let self = self else { return }
+            self.remoteExposureConfiguration { [weak self] configuration in
+                guard let self = self else { return }
+                do {
+                    let writer = try self.createAppleFilesWriter()
+                    self.detectExposures(writer: writer, configuration: configuration)
+                } catch {
+                    self.endPrematurely(reason: .unableToDiagnosisKeys)
+                }
+            }
+        }
+    }
 
-	// 2. Step: Determine and fetch what is missing
-	private func fetchAndStoreMissingDaysAndHours(
-		remoteDaysAndHours _: Client.DaysAndHours,
-		completion: @escaping () -> Void
-	) {
-		client.availableDaysAndHoursUpUntil(.formattedToday()) { [weak self] result in
-			guard let self = self else { return }
-			switch result {
-			case .success(let (remoteDays, remoteHours)):
-				let delta = DeltaCalculationResult(
-					remoteDays: Set(remoteDays),
-					remoteHours: Set(remoteHours),
-					localDays: Set(self.keyPackagesStore.allDays()),
-					localHours: Set(self.keyPackagesStore.hours(for: .formattedToday()))
-				)
-				self.client.fetchDays(
-					Array(delta.missingDays),
-					hours: Array(delta.missingHours),
-					of: .formattedToday()
-				) { fetchedDaysAndHours in
-					self.keyPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
-					completion()
-				}
-			case .failure:
-				self.endPrematurely(reason: .noDaysAndHours)
-			}
-		}
-	}
+    // 2. Step: Determine and fetch what is missing
+    private func fetchAndStoreMissingDaysAndHours(
+        remoteDaysAndHours _: Client.DaysAndHours,
+        completion: @escaping () -> Void
+    ) {
+        client.availableDaysAndHoursUpUntil(.formattedToday()) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let (remoteDays, remoteHours)):
+                let delta = DeltaCalculationResult(
+                    remoteDays: Set(remoteDays),
+                    remoteHours: Set(remoteHours),
+                    localDays: Set(self.keyPackagesStore.allDays()),
+                    localHours: Set(self.keyPackagesStore.hours(for: .formattedToday()))
+                )
+                self.client.fetchDays(
+                    Array(delta.missingDays),
+                    hours: Array(delta.missingHours),
+                    of: .formattedToday()
+                ) { fetchedDaysAndHours in
+                    self.keyPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
+                    completion()
+                }
+            case .failure:
+                self.endPrematurely(reason: .noDaysAndHours)
+            }
+        }
+    }
 
-	// 3. Fetch the Configuration
-	private func remoteExposureConfiguration(
-		continueWith: @escaping (ENExposureConfiguration) -> Void
-	) {
-		client.exposureConfiguration { configuration in
-			guard let configuration = configuration else {
-				self.endPrematurely(reason: .noExposureConfiguration)
-				return
-			}
+    // 3. Fetch the Configuration
+    private func remoteExposureConfiguration(
+        continueWith: @escaping (ENExposureConfiguration) -> Void
+    ) {
+        client.exposureConfiguration { configuration in
+            guard let configuration = configuration else {
+                self.endPrematurely(reason: .noExposureConfiguration)
+                return
+            }
 
-			continueWith(configuration)
-		}
-	}
+            continueWith(configuration)
+        }
+    }
 
-	// 4. Transform
-	private func createAppleFilesWriter() throws -> AppleFilesWriter {
-		// 1. Create temp dir
-		let fm = FileManager()
-		let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
+    // 4. Transform
+    private func createAppleFilesWriter() throws -> AppleFilesWriter {
+        // 1. Create temp dir
+        let fm = FileManager()
+        let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+        try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
 
-		let packages = keyPackagesStore.allPackages(for: .formattedToday())
+        let packages = keyPackagesStore.allPackages(for: .formattedToday())
 
-		return AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
-	}
+        return AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
+    }
 
-	// 5. Execute the actual exposure detection
-	private func detectExposures(
-		writer: AppleFilesWriter,
-		configuration: ENExposureConfiguration
-	) {
-		writer.with { [weak self] diagnosisURLs, done in
-			guard let self = self else { return }
-			self._detectExposures(
-				diagnosisKeyURLs: diagnosisURLs,
-				configuration: configuration,
-				completion: done
-			)
-		}
-	}
+    // 5. Execute the actual exposure detection
+    private func detectExposures(
+        writer: AppleFilesWriter,
+        configuration: ENExposureConfiguration
+    ) {
+        writer.with { [weak self] diagnosisURLs, done in
+            guard let self = self else { return }
+            self._detectExposures(
+                diagnosisKeyURLs: diagnosisURLs,
+                configuration: configuration,
+                completion: done
+            )
+        }
+    }
 
-	private func _detectExposures(
-		diagnosisKeyURLs: [URL],
-		configuration: ENExposureConfiguration,
-		completion: @escaping () -> Void
-	) {
-		let manager = exposureManager()
-		_ = manager.detectExposures(
-			configuration: configuration,
-			diagnosisKeyURLs: diagnosisKeyURLs
-		) { [weak self] summary, error in
-			guard let self = self else {
-				return
-			}
-			if let error = error {
-				self.endPrematurely(reason: .noSummary(error))
-				return
-			}
+    private func _detectExposures(
+        diagnosisKeyURLs: [URL],
+        configuration: ENExposureConfiguration,
+        completion: @escaping () -> Void
+    ) {
+        let manager = exposureManager()
+        _ = manager.detectExposures(
+            configuration: configuration,
+            diagnosisKeyURLs: diagnosisKeyURLs
+        ) { [weak self] summary, error in
+            guard let self = self else {
+                return
+            }
+            if let error = error {
+                self.endPrematurely(reason: .noSummary(error))
+                return
+            }
 
-			guard let summary = summary else {
-				completion()
-				self.endPrematurely(reason: .noSummary(nil))
-				return
-			}
-			log(message: "summary: \(summary)")
-			logError(message: "error: \(String(describing: error))")
+            guard let summary = summary else {
+                completion()
+                self.endPrematurely(reason: .noSummary(nil))
+                return
+            }
+            log(message: "summary: \(summary)")
+            logError(message: "error: \(String(describing: error))")
 
-			self.didDetectSummary(summary)
-			completion()
-		}
-	}
+            self.didDetectSummary(summary)
+            completion()
+        }
+    }
 }
 
 private extension DownloadedPackagesStore {
-	func allPackages(for day: String) -> [SAPDownloadedPackage] {
-		let fullDays = allDays()
-		var packages = [SAPDownloadedPackage]()
-		packages.append(
-			contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
-		)
-		packages.append(
-			contentsOf: hourlyPackages(for: day)
-		)
-		return packages
-	}
+    func allPackages(for day: String) -> [SAPDownloadedPackage] {
+        let fullDays = allDays()
+        var packages = [SAPDownloadedPackage]()
+        packages.append(
+            contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
+        )
+        packages.append(
+            contentsOf: hourlyPackages(for: day)
+        )
+        return packages
+    }
 }
 
 private extension DownloadedPackagesStore {
-	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
-		let days = daysAndHours.days
-		days.bucketsByDay.forEach { day, bucket in
-			self.set(day: day, package: bucket)
-		}
+    func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
+        let days = daysAndHours.days
+        days.bucketsByDay.forEach { day, bucket in
+            self.set(day: day, package: bucket)
+        }
 
-		let hours = daysAndHours.hours
-		hours.bucketsByHour.forEach { hour, bucket in
-			self.set(hour: hour, day: hours.day, package: bucket)
-		}
-	}
+        let hours = daysAndHours.hours
+        hours.bucketsByHour.forEach { hour, bucket in
+            self.set(hour: hour, day: hours.day, package: bucket)
+        }
+    }
 
-	//    func missingDaysAndHours(from remote: Client.DaysAndHours, today: String) -> Client.DaysAndHours {
-	//        let days = missingDays(remoteDays: Set(remote.days))
-	//        let hours = missingHours(
-	//            day: today,
-	//            remoteHours: Set(remote.hours)
-	//        )
-	//        return Client.DaysAndHours(days: Array(days), hours: Array(hours))
-	//    }
-	//
-	//    func allKeys(today: String) -> [SAPDownloadedPackage] {
-	//        let days = allDailyKeyPackages()
-	//        let hours = hourlyPackages(for: today)
-	//        return days + hours
-	//    }
-	//
-	//    func allVerifiedBuckets(today: String) -> [SAPDownloadedPackage] {
-	//        allKeys(today: today)
-	//            .compactMap { $0 }
-	//    }
+    //    func missingDaysAndHours(from remote: Client.DaysAndHours, today: String) -> Client.DaysAndHours {
+    //        let days = missingDays(remoteDays: Set(remote.days))
+    //        let hours = missingHours(
+    //            day: today,
+    //            remoteHours: Set(remote.hours)
+    //        )
+    //        return Client.DaysAndHours(days: Array(days), hours: Array(hours))
+    //    }
+    //
+    //    func allKeys(today: String) -> [SAPDownloadedPackage] {
+    //        let days = allDailyKeyPackages()
+    //        let hours = hourlyPackages(for: today)
+    //        return days + hours
+    //    }
+    //
+    //    func allVerifiedBuckets(today: String) -> [SAPDownloadedPackage] {
+    //        allKeys(today: today)
+    //            .compactMap { $0 }
+    //    }
 }
 
 extension SAP_TemporaryExposureKey {
-	func toAppleKey() -> Apple_TemporaryExposureKey {
-		Apple_TemporaryExposureKey.with {
-			$0.keyData = self.keyData
-			$0.rollingStartIntervalNumber = self.rollingStartIntervalNumber
-			$0.rollingPeriod = self.rollingPeriod
-			$0.transmissionRiskLevel = self.transmissionRiskLevel
-		}
-	}
+    func toAppleKey() -> Apple_TemporaryExposureKey {
+        Apple_TemporaryExposureKey.with {
+            $0.keyData = self.keyData
+            $0.rollingStartIntervalNumber = self.rollingStartIntervalNumber
+            $0.rollingPeriod = self.rollingPeriod
+            $0.transmissionRiskLevel = self.transmissionRiskLevel
+        }
+    }
 }
 
 private extension ENExposureConfiguration {
-	var needsTemporaryFixUntilAppleFixedZeroWeightIssue: Bool {
-		attenuationWeight.isNearZero ||
-			durationWeight.isNearZero ||
-			transmissionRiskWeight.isNearZero ||
-			daysSinceLastExposureWeight.isNearZero
-	}
+    var needsTemporaryFixUntilAppleFixedZeroWeightIssue: Bool {
+        attenuationWeight.isNearZero ||
+            durationWeight.isNearZero ||
+            transmissionRiskWeight.isNearZero ||
+            daysSinceLastExposureWeight.isNearZero
+    }
 
-	func fixed() -> ENExposureConfiguration {
-		.mock()
-	}
+    func fixed() -> ENExposureConfiguration {
+        .mock()
+    }
 }
 
 private extension Double {
-	var isNearZero: Bool { magnitude < 0.1 }
+    var isNearZero: Bool { magnitude < 0.1 }
 }

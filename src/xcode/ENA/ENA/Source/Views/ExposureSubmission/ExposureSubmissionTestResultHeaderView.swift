@@ -19,129 +19,129 @@ import Foundation
 import UIKit
 
 class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
-	var titleLabel: UILabel!
-	var subTitleLabel: UILabel!
-	var timeLabel: UILabel!
+    var titleLabel: UILabel!
+    var subTitleLabel: UILabel!
+    var timeLabel: UILabel!
 
-	var imageView: UIImageView!
-	var barView: UIView!
+    var imageView: UIImageView!
+    var barView: UIView!
 
-	var column = UIView()
-	var baseView = UIView()
+    var column = UIView()
+    var baseView = UIView()
 
-	func configure(testResult: TestResult) {
-		setupView(testResult)
-		subTitleLabel.text = AppStrings.ExposureSubmissionResult.card_subtitle
-		titleLabel.text = localizedString(for: testResult)
-		barView.layer.backgroundColor = color(for: testResult).cgColor
-	}
+    func configure(testResult: TestResult) {
+        setupView(testResult)
+        subTitleLabel.text = AppStrings.ExposureSubmissionResult.card_subtitle
+        titleLabel.text = localizedString(for: testResult)
+        barView.layer.backgroundColor = color(for: testResult).cgColor
+    }
 
-	// swiftlint:disable:next function_body_length
-	private func setupView(_ result: TestResult) {
-		heightAnchor.constraint(equalToConstant: 158).isActive = true
-		backgroundColor = UIColor.preferredColor(for: .backgroundContrast)
+    // swiftlint:disable:next function_body_length
+    private func setupView(_ result: TestResult) {
+        heightAnchor.constraint(equalToConstant: 158).isActive = true
+        backgroundColor = UIColor.preferredColor(for: .backgroundContrast)
 
-		baseView.backgroundColor = UIColor.preferredColor(for: .backgroundContrast)
-		baseView.layer.cornerRadius = 14
-		baseView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(baseView)
+        baseView.backgroundColor = UIColor.preferredColor(for: .backgroundContrast)
+        baseView.layer.cornerRadius = 14
+        baseView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(baseView)
 
-		baseView.widthAnchor.constraint(equalTo: widthAnchor, constant: -32).isActive = true
-		baseView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-		baseView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-		baseView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        baseView.widthAnchor.constraint(equalTo: widthAnchor, constant: -32).isActive = true
+        baseView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        baseView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        baseView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 
-		barView = UIView()
-		barView.layer.cornerRadius = 2
-		barView.translatesAutoresizingMaskIntoConstraints = false
-		baseView.addSubview(barView)
-		barView.widthAnchor.constraint(equalToConstant: 4).isActive = true
-		barView.heightAnchor.constraint(equalToConstant: 120).isActive = true
-		barView.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
-		barView.leftAnchor.constraint(equalTo: baseView.leftAnchor, constant: 14).isActive = true
+        barView = UIView()
+        barView.layer.cornerRadius = 2
+        barView.translatesAutoresizingMaskIntoConstraints = false
+        baseView.addSubview(barView)
+        barView.widthAnchor.constraint(equalToConstant: 4).isActive = true
+        barView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        barView.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
+        barView.leftAnchor.constraint(equalTo: baseView.leftAnchor, constant: 14).isActive = true
 
-		column = UIView()
-		column.translatesAutoresizingMaskIntoConstraints = false
-		baseView.addSubview(column)
-		column.heightAnchor.constraint(equalTo: baseView.heightAnchor).isActive = true
-		column.widthAnchor.constraint(equalToConstant: 160).isActive = true
-		column.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
-		column.leftAnchor.constraint(equalTo: barView.rightAnchor, constant: 25).isActive = true
+        column = UIView()
+        column.translatesAutoresizingMaskIntoConstraints = false
+        baseView.addSubview(column)
+        column.heightAnchor.constraint(equalTo: baseView.heightAnchor).isActive = true
+        column.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        column.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
+        column.leftAnchor.constraint(equalTo: barView.rightAnchor, constant: 25).isActive = true
 
-		subTitleLabel = UILabel()
-		subTitleLabel.text = "subTitle"
-		subTitleLabel.font = UIFont.systemFont(ofSize: 13)
-		subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-		column.addSubview(subTitleLabel)
-		subTitleLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
-		subTitleLabel.topAnchor.constraint(equalTo: barView.topAnchor).isActive = true
+        subTitleLabel = UILabel()
+        subTitleLabel.text = "subTitle"
+        subTitleLabel.font = UIFont.systemFont(ofSize: 13)
+        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        column.addSubview(subTitleLabel)
+        subTitleLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
+        subTitleLabel.topAnchor.constraint(equalTo: barView.topAnchor).isActive = true
 
-		titleLabel = UILabel()
-		titleLabel.text = "title"
-		titleLabel.numberOfLines = 0
-		titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		column.addSubview(titleLabel)
-		titleLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
-		titleLabel.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 5).isActive = true
-		titleLabel.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
+        titleLabel = UILabel()
+        titleLabel.text = "title"
+        titleLabel.numberOfLines = 0
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        column.addSubview(titleLabel)
+        titleLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 5).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
 
-		timeLabel = UILabel()
-		timeLabel.text = "Registriert am xx.xx.2020"
-		timeLabel.font = UIFont.systemFont(ofSize: 13)
-		timeLabel.translatesAutoresizingMaskIntoConstraints = false
-		column.addSubview(timeLabel)
-		timeLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
-		timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
+        timeLabel = UILabel()
+        timeLabel.text = "Registriert am xx.xx.2020"
+        timeLabel.font = UIFont.systemFont(ofSize: 13)
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        column.addSubview(timeLabel)
+        timeLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
+        timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
 
-		imageView = UIImageView(image: image(for: result))
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		baseView.addSubview(imageView)
-		imageView.contentMode = .scaleAspectFit
-		imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-		imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-		imageView.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
-		imageView.rightAnchor.constraint(equalTo: baseView.rightAnchor, constant: -20).isActive = true
-	}
+        imageView = UIImageView(image: image(for: result))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        baseView.addSubview(imageView)
+        imageView.contentMode = .scaleAspectFit
+        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
+        imageView.rightAnchor.constraint(equalTo: baseView.rightAnchor, constant: -20).isActive = true
+    }
 
-	private func localizedString(for testResult: TestResult) -> String {
-		switch testResult {
-		case .positive:
-			return "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.card_positive)"
-		case .negative:
-			return "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.card_negative)"
-		case .invalid:
-			return AppStrings.ExposureSubmissionResult.card_invalid
-		case .pending:
-			log(message: "Invalid state.", level: .error)
-			return ""
-		}
-	}
+    private func localizedString(for testResult: TestResult) -> String {
+        switch testResult {
+        case .positive:
+            return "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.card_positive)"
+        case .negative:
+            return "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.card_negative)"
+        case .invalid:
+            return AppStrings.ExposureSubmissionResult.card_invalid
+        case .pending:
+            log(message: "Invalid state.", level: .error)
+            return ""
+        }
+    }
 
-	private func color(for testResult: TestResult) -> UIColor {
-		switch testResult {
-		case .positive:
-			return UIColor.preferredColor(for: .positive)
-		case .negative:
-			return UIColor.preferredColor(for: .negative)
-		case .invalid:
-			return UIColor.preferredColor(for: .chevron)
-		default:
-			// Should never occur.
-			return UIColor.black
-		}
-	}
+    private func color(for testResult: TestResult) -> UIColor {
+        switch testResult {
+        case .positive:
+            return UIColor.preferredColor(for: .positive)
+        case .negative:
+            return UIColor.preferredColor(for: .negative)
+        case .invalid:
+            return UIColor.preferredColor(for: .chevron)
+        default:
+            // Should never occur.
+            return UIColor.black
+        }
+    }
 
-	private func image(for result: TestResult) -> UIImage? {
-		switch result {
-		case .positive:
-			return UIImage(named: "Illu_Submission_PositivTestErgebnis")
-		case .negative:
-			return UIImage(named: "Illu_Submission_NegativesTestErgebnis")
-		case .invalid:
-			return UIImage(named: "Illu_Submission_FehlerhaftesTestErgebnis")
-		default:
-			return nil
-		}
-	}
+    private func image(for result: TestResult) -> UIImage? {
+        switch result {
+        case .positive:
+            return UIImage(named: "Illu_Submission_PositivTestErgebnis")
+        case .negative:
+            return UIImage(named: "Illu_Submission_NegativesTestErgebnis")
+        case .invalid:
+            return UIImage(named: "Illu_Submission_FehlerhaftesTestErgebnis")
+        default:
+            return nil
+        }
+    }
 }
