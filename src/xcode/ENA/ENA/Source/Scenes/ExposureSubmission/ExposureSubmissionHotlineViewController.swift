@@ -70,14 +70,14 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
 							guard let cell = cell as? DynamicTableViewStepCell else { return }
 							cell.configure(
-								title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
+								text: AppStrings.ExposureSubmissionHotline.sectionDescription1,
 								image: UIImage(named: "Icons_Grey_1")
 							)
                         }),
 						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
 							guard let cell = cell as? DynamicTableViewStepCell else { return }
 							cell.configure(
-								title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
+								text: AppStrings.ExposureSubmissionHotline.sectionDescription2,
 								image: UIImage(named: "Icons_Grey_2")
 							)
                             })

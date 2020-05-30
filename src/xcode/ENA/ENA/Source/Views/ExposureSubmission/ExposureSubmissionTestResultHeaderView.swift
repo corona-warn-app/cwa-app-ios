@@ -134,13 +134,13 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 	private func color(for testResult: TestResult) -> UIColor {
 		switch testResult {
 		case .positive:
-			return UIColor.preferredColor(for: .positiveRisk)
-		case .negative:
 			return UIColor.preferredColor(for: .negativeRisk)
+		case .negative:
+			return UIColor.preferredColor(for: .positiveRisk)
 		case .invalid:
 			return UIColor.preferredColor(for: .chevron)
 		case .pending:
-			return UIColor.preferredColor(for: .shadow)
+			return UIColor.preferredColor(for: .chevron)
 		}
 	}
 

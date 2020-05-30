@@ -18,6 +18,9 @@
 import UIKit
 
 class DynamicTableViewStepCell: UITableViewCell {
+
+	// MARK: - Attributes.
+	lazy var head = UILabel(frame: .zero)
 	lazy var body = UILabel(frame: .zero)
 	lazy var cellIcon = UIImageView(frame: .zero)
 	lazy var separator = UIView(frame: .zero)
@@ -27,7 +30,8 @@ class DynamicTableViewStepCell: UITableViewCell {
 	}
 
 	private func setUpView(
-		_ title: String,
+		_ title: String?,
+		_ text: String,
 		_ image: UIImage?,
 		_ hasSeparators: Bool = false,
 		_: Bool = false,
@@ -39,12 +43,21 @@ class DynamicTableViewStepCell: UITableViewCell {
 		selectionStyle = .none
 		backgroundColor = .preferredColor(for: .backgroundPrimary)
 
+		// MARK: - Head.
+
+		if let title = title {
+			head.font = .preferredFont(forTextStyle: .headline)
+			head.numberOfLines = 0
+			head.lineBreakMode = .byWordWrapping
+			head.text = title
+		}
+
 		// MARK: - Body.
 
 		body.font = .preferredFont(forTextStyle: .body)
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
-		body.text = title
+		body.text = text
 
 		// MARK: - Cell Icon.
 
@@ -68,12 +81,17 @@ class DynamicTableViewStepCell: UITableViewCell {
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [
 			body,
 			cellIcon,
-			separator
+			separator,
+			head
 		], to: false)
 
-		addSubviews([separator, cellIcon, body])
+		addSubviews([separator, cellIcon, body, head])
 
+		head.sizeToFit()
 		body.sizeToFit()
+
+		let height = head.frame.height + body.frame.height + 50
+		setConstraint(for: heightAnchor, equalTo: height.rounded())
 
 		setConstraint(for: cellIcon.widthAnchor, equalTo: 32)
 		setConstraint(for: cellIcon.heightAnchor, equalTo: 32)
@@ -81,10 +99,18 @@ class DynamicTableViewStepCell: UITableViewCell {
 		cellIcon.topAnchor.constraint(equalTo: topAnchor).isActive = true
 		cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
 
+		head.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
+		head.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+
+		if head.text != nil {
+			head.centerYAnchor.constraint(equalTo: cellIcon.centerYAnchor).isActive = true
+			body.topAnchor.constraint(equalTo: head.bottomAnchor, constant: 8).isActive = true
+		} else {
+			body.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+		}
+
 		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
 		body.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
-		body.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-		heightAnchor.constraint(equalTo: body.heightAnchor, constant: 50).isActive = true
 
 		cellIcon.layer.cornerRadius = 16
 		cellIcon.clipsToBounds = true
@@ -95,14 +121,28 @@ class DynamicTableViewStepCell: UITableViewCell {
 	}
 
 	func configure(
-		title: String,
+		title: String? = nil,
+		text: String,
 		image: UIImage?,
 		hasSeparators: Bool = false,
 		isCircle: Bool = false,
 		iconTintColor: UIColor? = nil,
 		iconBackgroundColor: UIColor? = nil
 	) {
-		setUpView(title, image, hasSeparators, isCircle, iconTintColor, iconBackgroundColor)
+		setUpView(title, text, image, hasSeparators, isCircle, iconTintColor, iconBackgroundColor)
 		setConstraints()
+	}
+
+}
+
+// MARK: - TableViewReuseIdentifiers.
+
+extension DynamicTableViewStepCell {
+	enum ReuseIdentifier: String, TableViewCellReuseIdentifiers {
+		case cell = "dynamicTableViewStepCell"
+	}
+
+	static var tableViewCellReuseIdentifier: TableViewCellReuseIdentifiers {
+		return ReuseIdentifier.cell
 	}
 }

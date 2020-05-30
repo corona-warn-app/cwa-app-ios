@@ -87,6 +87,11 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			ExposureSubmissionTestResultHeaderView.self,
 			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue
 		)
+		tableView.register(
+			DynamicTableViewStepCell.self,
+			forCellReuseIdentifier: DynamicTableViewStepCell.tableViewCellReuseIdentifier.rawValue
+		)
+
 		dynamicTableViewModel = dynamicTableViewModel(for: result)
 	}
 
@@ -220,12 +225,22 @@ private extension ExposureSubmissionTestResultViewController {
 			separators: false,
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
-				.regular(text: AppStrings.ExposureSubmissionResult.testAddedDesc),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testPositive),
-				.regular(text: AppStrings.ExposureSubmissionResult.testPositiveDesc),
-				.semibold(text: AppStrings.ExposureSubmissionResult.warnOthers),
-				.regular(text: AppStrings.ExposureSubmissionResult.warnOthersDesc)
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testAdded,
+					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					image: UIImage(named: "Icons_Grey_Check")
+				),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testPositive,
+					text: AppStrings.ExposureSubmissionResult.testPositiveDesc,
+					image: UIImage(named: "Icons_Grey_Check")
+				),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.warnOthers,
+					text: AppStrings.ExposureSubmissionResult.warnOthersDesc,
+					image: UIImage(named: "Icons_Grey_Warnen"),
+					hasSeparators: false
+				)
 			]
 		)
 	}
@@ -241,10 +256,17 @@ private extension ExposureSubmissionTestResultViewController {
 			separators: false,
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
-				.regular(text: AppStrings.ExposureSubmissionResult.testAddedDesc),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testNegative),
-				.regular(text: AppStrings.ExposureSubmissionResult.testNegativeDesc)
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testAdded,
+					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					image: UIImage(named: "Icons_Grey_Check")
+				),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testNegative,
+					text: AppStrings.ExposureSubmissionResult.testNegativeDesc,
+					image: UIImage(named: "Icons_Grey_Check"),
+					hasSeparators: false
+				)
 			]
 		)
 	}
@@ -260,10 +282,17 @@ private extension ExposureSubmissionTestResultViewController {
 			separators: false,
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
-				.regular(text: AppStrings.ExposureSubmissionResult.testAddedDesc),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testInvalid),
-				.regular(text: AppStrings.ExposureSubmissionResult.testInvalidDesc)
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testAdded,
+					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					image: UIImage(named: "Icons_Grey_Check")
+				),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testInvalid,
+					text: AppStrings.ExposureSubmissionResult.testInvalidDesc,
+					image: UIImage(named: "Icons_Grey_Error"),
+					hasSeparators: false
+				)
 			]
 		)
 	}
@@ -278,11 +307,36 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
-				.regular(text: AppStrings.ExposureSubmissionResult.testAddedDesc),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testPending),
-				.regular(text: AppStrings.ExposureSubmissionResult.testPendingDesc)
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testAdded,
+					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					image: UIImage(named: "Icons_Grey_Check")
+				),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testPending,
+					text: AppStrings.ExposureSubmissionResult.testPendingDesc,
+					image: UIImage(named: "Icons_Grey_Wait"),
+					hasSeparators: false
+				)
 			]
+		)
+	}
+}
+
+private extension DynamicCell {
+	static func stepCellWith(title: String, text: String, image: UIImage? = nil, hasSeparators: Bool = true) -> DynamicCell {
+		return .identifier(
+			DynamicTableViewStepCell.tableViewCellReuseIdentifier,
+			configure: { _, cell, _ in
+				guard let cell = cell as? DynamicTableViewStepCell else { return }
+				cell.configure(
+					title: title,
+					text: text,
+					image: image,
+					hasSeparators: hasSeparators,
+					isCircle: true
+				)
+			}
 		)
 	}
 }

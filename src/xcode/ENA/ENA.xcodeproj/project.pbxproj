@@ -116,7 +116,6 @@
 		71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */; };
 		71FE1C7C247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C75247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift */; };
 		71FE1C7D247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */; };
-		71FE1C7E247AC2B500851FEB /* ExposureSubmissionPreviousTestResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C77247AC2B500851FEB /* ExposureSubmissionPreviousTestResultsViewController.swift */; };
 		71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */; };
 		71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C79247AC2B500851FEB /* ExposureSubmissionNavigationController.swift */; };
 		71FE1C82247AC30300851FEB /* ENATanInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C81247AC30300851FEB /* ENATanInput.swift */; };
@@ -399,7 +398,6 @@
 		71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewController.swift; sourceTree = "<group>"; };
 		71FE1C75247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionOverviewViewController.swift; sourceTree = "<group>"; };
 		71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTanInputViewController.swift; sourceTree = "<group>"; };
-		71FE1C77247AC2B500851FEB /* ExposureSubmissionPreviousTestResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionPreviousTestResultsViewController.swift; sourceTree = "<group>"; };
 		71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewController.swift; sourceTree = "<group>"; };
 		71FE1C79247AC2B500851FEB /* ExposureSubmissionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionNavigationController.swift; sourceTree = "<group>"; };
 		71FE1C81247AC30300851FEB /* ENATanInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENATanInput.swift; sourceTree = "<group>"; };
@@ -1327,7 +1325,6 @@
 				71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */,
 				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
 				71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */,
-				71FE1C77247AC2B500851FEB /* ExposureSubmissionPreviousTestResultsViewController.swift */,
 				71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */,
 				A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */,
 				2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */,
@@ -1759,7 +1756,6 @@
 				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
 				134FFA10247466BD00D82D14 /* TestEnvironment.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
-				71FE1C7E247AC2B500851FEB /* ExposureSubmissionPreviousTestResultsViewController.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,

@@ -71,16 +71,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="background"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="testresultcell" id="HSI-1K-Uwx">
-                                <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HSI-1K-Uwx" id="tDl-tR-cHg">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="efh-V6-b47" id="hBs-QM-9cu"/>
                             <outlet property="delegate" destination="efh-V6-b47" id="Vg9-3e-Kw3"/>
@@ -88,7 +78,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Testergebnis" id="ZER-NQ-eAY"/>
                     <connections>
-                        <segue destination="TOP-e8-yDC" kind="show" identifier="testDetailsSegue" id="pIG-Ph-hq5"/>
                         <segue destination="IeT-ta-YWf" kind="show" identifier="warnOthersSegue" id="7vS-vS-v87"/>
                     </connections>
                 </tableViewController>
@@ -115,7 +104,6 @@
                     <connections>
                         <segue destination="aFo-WD-gEN" kind="show" identifier="tanInputSegue" id="zPx-Mo-iVD"/>
                         <segue destination="BYY-Kq-aHb" kind="show" identifier="qrScannerSegue" id="57u-UG-VMo"/>
-                        <segue destination="TOP-e8-yDC" kind="show" identifier="testDetailsSegue" id="8L6-d9-Uu8"/>
                         <segue destination="efh-V6-b47" kind="show" identifier="labResultSegue" id="4QH-h7-ntj"/>
                         <segue destination="JDx-c2-PAb" kind="show" identifier="hotlineSegue" id="hxl-5U-J6A"/>
                     </connections>
@@ -172,7 +160,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="62" y="145.5" width="290" height="42.5"/>
+                                <rect key="frame" x="62" y="147" width="290" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -286,72 +274,6 @@
             </objects>
             <point key="canvasLocation" x="4312" y="828"/>
         </scene>
-        <!--Ergebnis: positiv-->
-        <scene sceneID="fxJ-4q-KSy">
-            <objects>
-                <viewController id="TOP-e8-yDC" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0fh-4l-el8">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wca-MN-z8m">
-                                <rect key="frame" x="74.5" y="354" width="265" height="134.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SARS-CoV-2 wurde nachgewiesen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rnr-Nh-yGb">
-                                        <rect key="frame" x="0.0" y="0.0" width="265" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" name="textPrimary1"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Eingangsdatum: 2. Mai 2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAD-rv-xB6">
-                                        <rect key="frame" x="0.0" y="28.5" width="265" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" name="textPrimary1"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labor: Uniklinik Heidelberg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vI-e1-Lvc">
-                                        <rect key="frame" x="0.0" y="57" width="265" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" name="textPrimary1"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arzt: Dr. Thilo Berndt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qes-h9-F5O">
-                                        <rect key="frame" x="0.0" y="85.5" width="265" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" name="textPrimary1"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test Termin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOV-d3-7xK">
-                                        <rect key="frame" x="0.0" y="114" width="265" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <color key="textColor" name="textPrimary1"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="wca-MN-z8m" firstAttribute="centerX" secondItem="0fh-4l-el8" secondAttribute="centerX" id="ADo-4x-oau"/>
-                            <constraint firstItem="wca-MN-z8m" firstAttribute="centerY" secondItem="0fh-4l-el8" secondAttribute="centerY" id="ehY-4l-bs8"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="u6P-Yu-LWw"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Ergebnis: positiv" id="qin-fu-Eyl" customClass="ExposureSubmissionNavigationItem" customModule="ENA" customModuleProvider="target">
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
-                                <color key="value" name="negative"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </navigationItem>
-                    <connections>
-                        <segue destination="JPa-EJ-yrk" kind="show" identifier="sentSegue" id="EKN-PZ-3xw"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FxY-k1-uI9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1807" y="1308"/>
-        </scene>
         <!--Exposure Submission Intro View Controller-->
         <scene sceneID="GE3-8g-sYu">
             <objects>
@@ -391,22 +313,15 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="8L6-d9-Uu8"/>
         <segue reference="5YR-5A-F8h"/>
         <segue reference="7vS-vS-v87"/>
-        <segue reference="zPx-Mo-iVD"/>
+        <segue reference="TMI-YH-9ne"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bolt" catalog="system" width="101" height="128"/>
         <image name="bolt.fill" catalog="system" width="101" height="128"/>
         <namedColor name="background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="negative">
-            <color red="0.75300002098083496" green="0.059000000357627869" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="textPrimary1">
-            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
