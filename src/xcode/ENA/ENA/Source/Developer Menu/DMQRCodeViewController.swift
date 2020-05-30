@@ -66,7 +66,7 @@ private extension CIFilter {
 		// swiftlint:disable:next force_unwrapping
 		let filter = CIFilter(name: "CIQRCodeGenerator")!
 		filter.setDefaults()
-		log(message: "\(data)")
+		appLogger.info(message: "\(data)")
 		filter.setValue(data, forKey: "inputMessage")
 		return filter
 	}

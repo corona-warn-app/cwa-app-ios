@@ -115,7 +115,7 @@ private extension ExposureDetectionViewController {
 	}
 
 	@IBAction private func tappedBottomButton() {
-		log(message: "Starting exposure detection ...")
+		appLogger.info(message: "Starting exposure detection ...")
 
 		if state.isTracingEnabled {
 			delegate?.exposureDetectionViewControllerStartTransaction(self)

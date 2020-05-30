@@ -56,7 +56,7 @@ final class DMQRCodeScanViewController: UIViewController {
 				self.delegate?.debugCodeScanViewController(self, didScan: diagnosisKey)
 				self.dismiss(animated: true, completion: nil)
 			} catch {
-				logError(message: "Failed to deserialize qr to key: \(error.localizedDescription)")
+				appLogger.error(message: "Failed to deserialize qr to key: \(error.localizedDescription)")
 			}
 		}
 	}
@@ -118,10 +118,10 @@ extension DMQRCodeScanView: AVCaptureMetadataOutputObjectsDelegate {
 			captureSession.stopRunning()
 			// swiftlint:disable:next force_unwrapping
 			let data = Data(base64Encoded: string.trimmingCharacters(in: .whitespacesAndNewlines))! // using force is okay - developer feature only
-			log(message: "\(data)")
+			appLogger.info(message: "\(data)")
 			dataHandler(data)
 		} else {
-			logError(message: "Nope")
+			appLogger.error(message: "Nope")
 		}
 	}
 }

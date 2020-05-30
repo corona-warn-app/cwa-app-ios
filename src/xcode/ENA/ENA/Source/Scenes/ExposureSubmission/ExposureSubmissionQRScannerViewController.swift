@@ -129,13 +129,13 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 					try device.setTorchModeOn(level: 1.0)
 					flashButton.isSelected = true
 				} catch {
-					log(message: error.localizedDescription, level: .error)
+					appLogger.error(message: error.localizedDescription)
 				}
 			}
 
 			device.unlockForConfiguration()
 		} catch {
-			log(message: error.localizedDescription, level: .error)
+			appLogger.error(message: error.localizedDescription)
 		}
 	}
 

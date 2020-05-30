@@ -63,7 +63,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
 			case let .success(tan):
-				log(message: "Received tan for submission: \(tan)", level: .info)
+				appLogger.info(message: "Received tan for submission: \(tan)")
 				self.submitKeys(with: tan)
 			}
       })
@@ -74,7 +74,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 		exposureSubmissionService?.submitExposure(with: tan, completionHandler: { error in
 			self.stopSpinner()
 			if let error = error {
-				logError(message: "error: \(error.localizedDescription)", level: .error)
+				appLogger.error(message: "error: \(error.localizedDescription)")
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
 				return

@@ -170,11 +170,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
-		log(message: "Started exposure submission...")
+		appLogger.info(message: "Started exposure submission...")
 
 		manager.accessDiagnosisKeys { keys, error in
 			if let error = error {
-				logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
+				appLogger.error(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
 				completionHandler(self.parseError(error))
 				return
 			}
@@ -186,11 +186,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 			self.client.submit(keys: keys, tan: tan) { error in
 				if let error = error {
-					logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+					appLogger.error(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
 					completionHandler(self.parseError(error))
 					return
 				}
-				log(message: "Successfully completed exposure sumbission.")
+				appLogger.info(message: "Successfully completed exposure sumbission.")
 				self.submitExposureCleanup()
 				completionHandler(nil)
 			}
@@ -292,7 +292,7 @@ extension ExposureSubmissionError: LocalizedError {
 		case .unknown:
 			return "An unknown error occured"
 		default:
-			logError(message: "\(self)")
+			appLogger.error(message: "\(self)")
 			return "Default Exposure Submission Error"
 		}
 	}

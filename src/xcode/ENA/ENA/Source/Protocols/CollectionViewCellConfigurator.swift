@@ -38,7 +38,7 @@ extension CollectionViewCellConfigurator {
 			configure(cell: cell)
 		} else {
 			let error = "\(cell) isn't conformed CellType"
-			logError(message: error)
+			appLogger.error(message: error)
 			fatalError(error)
 		}
 	}

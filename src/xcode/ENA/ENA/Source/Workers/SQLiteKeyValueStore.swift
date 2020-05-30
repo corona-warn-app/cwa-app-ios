@@ -63,7 +63,7 @@ class SQLiteKeyValueStore {
 
 			return resultData
 		} catch {
-			logError(message: "Failed to retrieve value from K/V SQLite store: \(error.localizedDescription)")
+			appLogger.error(message: "Failed to retrieve value from K/V SQLite store: \(error.localizedDescription)")
 			return nil
 		}
 	}
@@ -79,7 +79,7 @@ class SQLiteKeyValueStore {
 		do {
 			try db.executeUpdate(upsertStmt, values: [key, data, data])
 		} catch {
-			logError(message: "Failed to insert key/V pair into K/V SQLite store: \(error.localizedDescription)")
+			appLogger.error(message: "Failed to insert key/V pair into K/V SQLite store: \(error.localizedDescription)")
 		}
 	}
 
@@ -89,9 +89,9 @@ class SQLiteKeyValueStore {
 		do {
 			try db.executeUpdate(deleteStmt, values: [])
 			try db.executeUpdate("VACUUM", values: [])
-			log(message: "Cleared SecureStore", level: .info)
+			appLogger.info(message: "Cleared SecureStore")
 		} catch {
-			logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+			appLogger.error(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
 		}
 		return
 	}
@@ -102,9 +102,9 @@ class SQLiteKeyValueStore {
 		do {
 			try db.executeUpdate(deleteStmt, values: [])
 			try db.executeUpdate("VACUUM", values: [])
-			log(message: "Flushed SecureStore", level: .info)
+			appLogger.info(message: "Flushed SecureStore")
 		} catch {
-			logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+			appLogger.error(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
 		}
 		return
 	}
@@ -132,7 +132,7 @@ class SQLiteKeyValueStore {
 				let encoded = try JSONEncoder().encode(newValue)
 				setData(encoded, for: key)
 			} catch {
-				logError(message: "Error when encoding value for inserting into K/V SQLite store: \(error.localizedDescription)")
+				appLogger.error(message: "Error when encoding value for inserting into K/V SQLite store: \(error.localizedDescription)")
 			}
 		}
 	}

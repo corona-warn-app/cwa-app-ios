@@ -109,7 +109,7 @@ final class DMViewController: UITableViewController {
 		tableView.reloadData()
 		exposureManager.accessDiagnosisKeys { keys, _ in
 			guard let keys = keys else {
-				logError(message: "No keys retrieved in developer menu")
+				appLogger.error(message: "No keys retrieved in developer menu")
 				return
 			}
 			self.keys = keys.map { $0.sapKey }
@@ -151,7 +151,7 @@ final class DMViewController: UITableViewController {
 				return
 			}
 			if let error = error {
-				logError(message: "Failed to generate test keys due to: \(error)")
+				appLogger.error(message: "Failed to generate test keys due to: \(error)")
 				return
 			}
 			let _keys = keys ?? []
@@ -164,7 +164,7 @@ final class DMViewController: UITableViewController {
 				print("submitError: \(submitError?.localizedDescription ?? "")")
 				return
 			}
-			log(message: "Got diagnosis keys: \(_keys)", level: .info)
+			appLogger.info(message: "Got diagnosis keys: \(_keys)")
 			self.resetAndFetchKeys()
 		}
 	}

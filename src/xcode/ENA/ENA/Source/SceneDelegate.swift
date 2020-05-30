@@ -128,11 +128,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		if exposureManager.preconditions().active {
 			presentHomeVC()
 		} else {
-			log(message: "ExposureManager not activate yet.")
+			appLogger.info(message: "ExposureManager not activate yet.")
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					// TODO: Error handling, if error occurs, what can we do?
-					logError(message: "Cannot activate the  ENManager. The reason is \(error)")
+					appLogger.error(message: "Cannot activate the  ENManager. The reason is \(error)")
 					return
 				}
 				self?.presentHomeVC()
@@ -275,10 +275,10 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		enabled: \(newState.enabled)
 		active: \(newState.active)
 		"""
-		log(message: message)
+		appLogger.info(message: message)
 
 		if newState.isGood {
-			log(message: "Enabled")
+			appLogger.info(message: "Enabled")
 		}
 
 		state.exposureManager = newState
@@ -306,7 +306,7 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.notification.request.identifier {
 		case ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier:
-			log(message: "Handling notification for \(response.notification.request.identifier)")
+			appLogger.info(message: "Handling notification for \(response.notification.request.identifier)")
 
 			switch response.actionIdentifier {
 			case LocalNotificationAction.openExposureDetectionResults.rawValue: showHome(animated: true)
@@ -318,7 +318,7 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 			}
 
 		default:
-			log(message: "Handling notification for \(response.notification.request.identifier)")
+			appLogger.info(message: "Handling notification for \(response.notification.request.identifier)")
 		}
 
 		completionHandler()

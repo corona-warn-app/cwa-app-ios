@@ -208,6 +208,7 @@
 		B1F82DF224718C7300E2E56A /* DMConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F82DF124718C7300E2E56A /* DMConfigurationViewController.swift */; };
 		B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */ = {isa = PBXBuildFile; fileRef = B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */; };
 		B1F8AE4C2479C1C20093A588 /* de-config in Resources */ = {isa = PBXBuildFile; fileRef = B1F8AE4B2479C1C20093A588 /* de-config */; };
+		C992650524831F0B007EE075 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = C992650424831F0B007EE075 /* SwiftyBeaver */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6B246C43E200B6A0F8 /* MockExposureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */; };
 		CD678F6D246C43EE00B6A0F8 /* MockTestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6C246C43EE00B6A0F8 /* MockTestClient.swift */; };
@@ -529,6 +530,7 @@
 			files = (
 				B180E609247C1F6100240CED /* FMDB in Frameworks */,
 				EE2A20EA247E3D1800E6079C /* Reachability in Frameworks */,
+				C992650524831F0B007EE075 /* SwiftyBeaver in Frameworks */,
 				858F6F6E245A103C009FFD33 /* ExposureNotification.framework in Frameworks */,
 				01990E12247A8DAB00096D25 /* FMDB in Frameworks */,
 				B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */,
@@ -1449,6 +1451,7 @@
 				B1E8C9A4247AB869006DC678 /* ZIPFoundation */,
 				B180E608247C1F6100240CED /* FMDB */,
 				EE2A20E9247E3D1800E6079C /* Reachability */,
+				C992650424831F0B007EE075 /* SwiftyBeaver */,
 			);
 			productName = ENA;
 			productReference = 85D7593B2457048F008175F0 /* ENA.app */;
@@ -1528,6 +1531,7 @@
 				B1E8C9A3247AB869006DC678 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				B180E607247C1F6100240CED /* XCRemoteSwiftPackageReference "fmdb" */,
 				EE2A20E8247E3D1800E6079C /* XCRemoteSwiftPackageReference "Reachability" */,
+				C992650324831F0B007EE075 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 			);
 			productRefGroup = 85D7593C2457048F008175F0 /* Products */;
 			projectDirPath = "";
@@ -2337,6 +2341,14 @@
 				minimumVersion = 0.9.11;
 			};
 		};
+		C992650324831F0B007EE075 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyBeaver/SwiftyBeaver";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.1;
+			};
+		};
 		EE2A20E8247E3D1800E6079C /* XCRemoteSwiftPackageReference "Reachability" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
@@ -2367,6 +2379,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B1E8C9A3247AB869006DC678 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		C992650424831F0B007EE075 /* SwiftyBeaver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C992650324831F0B007EE075 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */;
+			productName = SwiftyBeaver;
 		};
 		EE2A20E9247E3D1800E6079C /* Reachability */ = {
 			isa = XCSwiftPackageProductDependency;
