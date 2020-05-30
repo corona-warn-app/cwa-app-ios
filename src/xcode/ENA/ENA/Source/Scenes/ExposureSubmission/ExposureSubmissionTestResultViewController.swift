@@ -109,8 +109,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			title: "Entfernen",
 			style: .destructive,
 			handler: { _ in
-						self.exposureSubmissionService?.deleteTest()
-						self.navigationController?.dismiss(animated: true, completion: nil)
+				self.exposureSubmissionService?.deleteTest()
+				self.navigationController?.dismiss(animated: true, completion: nil)
 			}
 		)
 		
@@ -265,10 +265,11 @@ private extension ExposureSubmissionTestResultViewController {
 	
 	private func pendingTestResultSection() -> DynamicSection {
 		.section(
-			header: .identifier(ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-								configure: { view, _ in
-									(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending)
-								}),
+			header: .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending)
+				}),
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
 				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
