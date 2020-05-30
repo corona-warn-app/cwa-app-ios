@@ -19,8 +19,8 @@ import UIKit
 
 class DynamicTableViewStepCell: UITableViewCell {
 	lazy var body = UILabel(frame: .zero)
-	var cellIcon: UIImageView!
-	var separator: UIView!
+	lazy var cellIcon = UIImageView(frame: .zero)
+	lazy var separator = UIView(frame: .zero)
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -39,7 +39,6 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Body.
 
-		body = UILabel(frame: .zero)
 		body.font = .preferredFont(forTextStyle: .body)
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
@@ -56,7 +55,6 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Separator.
 
-		separator = UIView(frame: .zero)
 		separator.backgroundColor = .preferredColor(for: .textPrimary2)
 		separator.isHidden = !hasSeparators
 	}
