@@ -22,11 +22,11 @@ import UIKit
 public enum ENATaskIdentifier: String, CaseIterable {
 	case exposureNotification = "exposure-notification"
 	case fetchTestResults = "fetch-test-results"
+	case SIMPLETEST = "SIMPLETEST"
 
 	var backgroundTaskScheduleInterval: TimeInterval {
 		switch self {
-		case .exposureNotification: return 15 * 60 // 2 * 60 * 60 // set to trigger every 2 hours
-		case .fetchTestResults: return 5 * 60 // 30 * 60     // set to trigger every 30 min
+		case .SIMPLETEST: return 15 * 60
 		}
 	}
 
@@ -36,8 +36,9 @@ public enum ENATaskIdentifier: String, CaseIterable {
 }
 
 protocol ENATaskExecutionDelegate: AnyObject {
-	func executeExposureDetectionRequest(task: BGTask, completionHandler: (Bool) -> Void)
-	func executeFetchTestResults(task: BGTask, completionHandler: (Bool) -> Void)
+	func executeExposureDetectionRequest(task: BGTask)
+	func executeFetchTestResults(task: BGTask)
+	func executeSIMPLETEST(task: BGTask)
 }
 
 public class ENATaskScheduler {
@@ -51,6 +52,7 @@ public class ENATaskScheduler {
 		cancelAllBackgroundTaskRequests()
 		registerTask(with: .exposureNotification, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
+		registerTask(with: .SIMPLETEST, taskHander: executeSIMPLETEST(_:))
 		log(message: "# TASKSHED # \(#line), \(#function) COMPLETED")
 	}
 
@@ -59,6 +61,7 @@ public class ENATaskScheduler {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 		scheduleBackgroundTask(for: .exposureNotification)
 		scheduleBackgroundTask(for: .fetchTestResults)
+		scheduleBackgroundTask(for: .SIMPLETEST)
 	}
 
 	public func isBackgroundRefreshEnabled() -> Bool {
@@ -120,9 +123,7 @@ public class ENATaskScheduler {
 			log(message: "# TASKSHED # \(#line), \(#function) taskDelegate = nil")
 			return
 		}
-		taskDelegate.executeExposureDetectionRequest(task: task) { success in
-			task.setTaskCompleted(success: success)
-		}
+		taskDelegate.executeExposureDetectionRequest(task: task)
 	}
 
 	private func executeFetchTestResults(_ task: BGTask) {
@@ -132,8 +133,16 @@ public class ENATaskScheduler {
 			log(message: "# TASKSHED # \(#line), \(#function) taskDelegate = nil")
 			return
 		}
-		taskDelegate.executeFetchTestResults(task: task) { success in
-			task.setTaskCompleted(success: success)
+		taskDelegate.executeFetchTestResults(task: task)
 		}
+
+	private func executeSIMPLETEST(_ task: BGTask) {
+		let scheduler: ENATaskScheduler? = self
+		log(message: "# TASKSHED # \(#line), \(#function) taskScheduler = \(String(describing: scheduler))")
+		guard let taskDelegate = taskDelegate else {
+			log(message: "# TASKSHED # \(#line), \(#function) taskDelegate = nil")
+			return
+		}
+		taskDelegate.executeSIMPLETEST(task: task)
 	}
 }
