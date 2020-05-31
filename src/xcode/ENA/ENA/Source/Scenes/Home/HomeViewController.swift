@@ -367,11 +367,11 @@ final class HomeViewController: UIViewController {
 		}
 		var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
 		snapshot.appendSections([.actions])
-		snapshot.appendItems(Array(0 ... 2))
+		snapshot.appendItems(Array(0 ... 3))
 		snapshot.appendSections([.infos])
-		snapshot.appendItems(Array(3 ... 4))
+		snapshot.appendItems(Array(4 ... 5))
 		snapshot.appendSections([.settings])
-		snapshot.appendItems(Array(5 ... 6))
+		snapshot.appendItems(Array(6 ... 7))
 		dataSource?.apply(snapshot, animatingDifferences: false)
 	}
 

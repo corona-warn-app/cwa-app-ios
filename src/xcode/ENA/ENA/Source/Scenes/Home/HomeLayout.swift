@@ -62,8 +62,11 @@ final class HomeLayout {
 		let itemSize3 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
 		let item3 = NSCollectionLayoutItem(layoutSize: itemSize3)
 
-		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1000.0))
-		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item, item2, item3])
+		let itemSize4 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(650.0))
+		let item4 = NSCollectionLayoutItem(layoutSize: itemSize4)
+
+		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1650.0))
+		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item, item2, item3, item4])
 		group.interItemSpacing = .fixed(16)
 
 		let section = NSCollectionLayoutSection(group: group)
