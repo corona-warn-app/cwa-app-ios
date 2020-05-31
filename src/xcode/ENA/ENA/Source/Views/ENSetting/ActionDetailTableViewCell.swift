@@ -59,6 +59,10 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateInternet
 			descriptionTextView.text = AppStrings.ExposureNotificationSetting.internetDescription
 			iconImageView2.isHidden = false
+		case .restricted:
+			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
+			descriptionTextView.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
+			iconImageView2.isHidden = true
 		}
 	}
 
@@ -70,6 +74,8 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 			return (UIImage(named: "Icons_Bluetooth"), nil)
 		case .internetOff:
 			return (UIImage(named: "Icons_MobileDaten"), UIImage(named: "Icons_iOS_Wifi"))
+		case .restricted:
+			return (UIImage(named: "Icons_iOS_Settings"), nil)
 		}
 	}
 }

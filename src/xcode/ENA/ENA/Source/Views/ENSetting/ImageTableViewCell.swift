@@ -35,6 +35,8 @@ class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 			return UIImage(named: "Illu_Risikoermittlung_On")
 		case .disabled:
 			return UIImage(named: "Illu_Risikoermittlung_Off")
+		case .restricted:
+			return UIImage(named: "Illu_Risikoermittlung_Off")
 		case .bluetoothOff:
 			return UIImage(named: "Illu_Bluetooth_Off")
 		case .internetOff:
