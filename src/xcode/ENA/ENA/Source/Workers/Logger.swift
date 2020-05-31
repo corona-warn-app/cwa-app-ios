@@ -28,7 +28,7 @@ class Logger {
 	private let consoleDest = ConsoleDestination()
 
 	private var logDirectory: URL? {
-		return try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+		return try? FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 			.appendingPathComponent("logs", isDirectory: true)
 	}
 	
