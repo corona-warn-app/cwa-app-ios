@@ -2313,32 +2313,32 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.8.0;
+				kind = exactVersion;
+				version = 1.9.0;
 			};
 		};
 		B180E607247C1F6100240CED /* XCRemoteSwiftPackageReference "fmdb" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ccgus/fmdb.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.7;
+				kind = exactVersion;
+				version = 2.7.7;
 			};
 		};
 		B1E8C9A3247AB869006DC678 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.11;
+				kind = exactVersion;
+				version = 0.9.11;
 			};
 		};
 		EE2A20E8247E3D1800E6079C /* XCRemoteSwiftPackageReference "Reachability" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				kind = exactVersion;
+				version = 5.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
