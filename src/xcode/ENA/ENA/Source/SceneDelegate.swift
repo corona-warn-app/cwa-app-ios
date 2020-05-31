@@ -197,7 +197,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			fatalError("received invalid summary notification. this is a programmer error")
 		}
 		state.summary = summary
-		updateState(state.exposureManager)
+		updateExposureState(state.exposureManager)
 	}
 
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -288,7 +288,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		}
 
 		state.exposureManager = newState
-		updateState(newState)
+		updateExposureState(newState)
 	}
 }
 
@@ -354,7 +354,8 @@ extension SceneDelegate {
 }
 
 extension SceneDelegate: ExposureStateUpdating {
-	func updateState(_ state: ExposureManagerState) {
-		homeController?.updateState(state)
+	func updateExposureState(_ state: ExposureManagerState) {
+		homeController?.homeInteractor.state.summary = self.state.summary
+		homeController?.updateExposureState(state)
 	}
 }

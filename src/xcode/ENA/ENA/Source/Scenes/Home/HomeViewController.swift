@@ -84,13 +84,11 @@ final class HomeViewController: UIViewController {
 		configureHierarchy()
 		configureDataSource()
 		configureUI()
-
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		// Why shall we update UI?
-		// updateUI()
+		updateOwnUI()
 		navigationItem.largeTitleDisplayMode = .never
 		homeInteractor.developerMenuEnableIfAllowed()
 	}
@@ -295,6 +293,7 @@ final class HomeViewController: UIViewController {
 	}
 
 	func reloadData() {
+		guard isViewLoaded else { return }
 		collectionView.reloadData()
 	}
 
@@ -447,12 +446,12 @@ private extension HomeViewController {
 }
 
 extension HomeViewController: ExposureStateUpdating {
-	func updateState(_ state: ExposureManagerState) {
+	func updateExposureState(_ state: ExposureManagerState) {
 		updateOwnUI()
-		homeInteractor.updateState(state)
+		homeInteractor.updateExposureState(state)
 		exposureDetectionController?.updateUI()
-		settingsController?.updateState(state)
-		notificationSettingsController?.updateState(state)
+		settingsController?.updateExposureState(state)
+		notificationSettingsController?.updateExposureState(state)
 	}
 
 	private func updateOwnUI() {
