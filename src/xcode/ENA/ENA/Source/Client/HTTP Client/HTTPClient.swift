@@ -173,7 +173,7 @@ final class HTTPClient: Client {
 	func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
 		let url = configuration.testResultURL
 
-		let bodyValues = ["token": registrationToken]
+		let bodyValues = ["registrationToken": registrationToken]
 		do {
 			let encoder = JSONEncoder()
 			encoder.outputFormatting = .prettyPrinted
@@ -222,7 +222,7 @@ final class HTTPClient: Client {
 	func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
 		let url = configuration.tanRetrievalURL
 
-		let bodyValues = ["token": registrationToken]
+		let bodyValues = ["registrationToken": registrationToken]
 		do {
 			let encoder = JSONEncoder()
 			encoder.outputFormatting = .prettyPrinted
@@ -253,7 +253,7 @@ final class HTTPClient: Client {
 							[String: String].self,
 							from: tanResponseData
 						)
-						guard let tan = responseDictionary["value"] else {
+						guard let tan = responseDictionary["tan"] else {
 							logError(message: "Failed to get TAN because of invalid response payload structure")
 							completeWith(.failure(.invalidResponse))
 							return
@@ -307,7 +307,7 @@ final class HTTPClient: Client {
 							[String: String].self,
 							from: registerResponseData
 						)
-						guard let registrationToken = responseDictionary["token"] else {
+						guard let registrationToken = responseDictionary["registrationToken"] else {
 							logError(message: "Failed to register Device with invalid response payload structure")
 							completeWith(.failure(.invalidResponse))
 							return
