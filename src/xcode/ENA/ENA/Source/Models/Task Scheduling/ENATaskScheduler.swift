@@ -63,30 +63,6 @@ public class ENATaskScheduler {
 		scheduleBackgroundTask(for: .fetchTestResults)
 	}
 
-	public func isBackgroundRefreshEnabled() -> Bool {
-		UIApplication.shared.backgroundRefreshStatus == .available
-	}
-
-	public func arePendingTasksScheduled(completionHandler: @escaping ((Bool) -> Void)) {
-		fetchPendingBackgroundTaskRequests { requests in
-			completionHandler(!requests.isEmpty)
-		}
-	}
-
-	public func fetchPendingBackgroundTaskRequests(completionHandler: @escaping (([BGTaskRequest]) -> Void)) {
-		BGTaskScheduler.shared.getPendingTaskRequests { requests in
-			completionHandler(requests)
-		}
-	}
-
-	public func listPendingTasks() {
-		self.fetchPendingBackgroundTaskRequests { requests in
-			requests.forEach { request in
-				log(message: "# TASKSHED # \(#line) \(#function) PENDING REQUEST \(request.identifier) at \(request.earliestBeginDate?.description(with: .current) ?? "<unknown>")")
-			}
-		}
-	}
-
 	public func cancelAllBackgroundTaskRequests() {
 		log(message: "# TASKSHED # \(#line), \(#function)")
 		BGTaskScheduler.shared.cancelAllTaskRequests()
