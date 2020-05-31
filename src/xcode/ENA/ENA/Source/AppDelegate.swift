@@ -84,8 +84,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_: UIApplication,
 					 didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 
+		UIDevice.current.isBatteryMonitoringEnabled = true
 		log(message: "# TASKSHED #")
-		log(message: "# TASKSHED # \(#line) \(#function), options = \(options)")
+		log(message: "# TASKSHED # RUNNING ON DEVICE \(UIDevice().name)")
+		log(message: "# TASKSHED # \(#line) \(#function) options = \(options)")
 		log(message: "# TASKSHED #")
 		
 		taskScheduler.taskDelegate = self

@@ -18,6 +18,7 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
+import Reachability
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: Properties
@@ -233,6 +234,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	func sceneWillResignActive(_: UIScene) {
+		log(message: "# TASKSHED # \(#line) \(#function) ExternalPower == \(UIDevice.current.batteryState != .unplugged) (UIDevice.current.batteryState == \(UIDevice.current.batteryState.rawValue), .unplugged==1)")
+		do {
+			let reach = try Reachability()
+			log(message: "# TASKSHED # \(#line) \(#function) NetworkConnectivity == \(reach.connection != .unavailable) (Reachability().connection == \(reach.connection))")
+		} catch {
+			log(message: "# TASKSHED # \(#line) \(#function) NetworkConnectivity == <unknown>")
+		}
+
 		showPrivacyProtectionWindow()
 		taskScheduler.scheduleBackgroundTaskRequests()
 		taskScheduler.listPendingTasks()
