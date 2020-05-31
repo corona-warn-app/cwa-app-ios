@@ -52,8 +52,16 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// swiftlint:disable:next function_body_length
 	private func setupView(_ result: TestResult) {
-		heightAnchor.constraint(equalToConstant: 158).isActive = true
-		backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
+
+		let heightConstraint = heightAnchor.constraint(equalToConstant: 158)
+		heightConstraint.priority = UILayoutPriority(999)
+		heightConstraint.isActive = true
+
+		self.backgroundView = {
+			let view = UIView()
+			view.tintColor = UIColor.preferredColor(for: .backgroundSecondary)
+			return view
+		}()
 
 		baseView.backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
 		baseView.layer.cornerRadius = 14

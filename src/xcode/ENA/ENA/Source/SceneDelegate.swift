@@ -31,7 +31,16 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore
 	}
 
+	#if targetEnvironment(simulator) || COMMUNITY
+	// Enable third party contributors that do not have the required
+	// entitlements to also use the app
+	private let exposureManager: ExposureManager = {
+		let keys = [ENTemporaryExposureKey()]
+		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+	}()
+	#else
 	private let exposureManager = ENAExposureManager()
+	#endif
 	private let taskScheduler = ENATaskScheduler()
 	private let navigationController: UINavigationController = .withLargeTitle()
 	private var homeController: HomeViewController?
@@ -125,12 +134,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	private func showHome(animated _: Bool = false) {
-		#if targetEnvironment(simulator)
-		// Enable third party contributors that do not have the required
-		// entitlements to skip the exposure setup step in the iOS Simulator
-		presentHomeVC()
-		#else
-		if exposureManager.preconditions().active {
+		if exposureManager.preconditions().status == .active {
 			presentHomeVC()
 		} else {
 			log(message: "ExposureManager not activate yet.")
@@ -143,7 +147,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				self?.presentHomeVC()
 			}
 		}
-		#endif
 	}
 
 	private func presentHomeVC() {
@@ -197,7 +200,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			fatalError("received invalid summary notification. this is a programmer error")
 		}
 		state.summary = summary
-		updateState(state.exposureManager)
+		updateExposureState(state.exposureManager)
 	}
 
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -279,7 +282,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		New status of EN framework:
 		Authorized: \(newState.authorized)
 		enabled: \(newState.enabled)
-		active: \(newState.active)
+		status: \(newState.status)
 		"""
 		log(message: message)
 
@@ -288,7 +291,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		}
 
 		state.exposureManager = newState
-		updateState(newState)
+		updateExposureState(newState)
 	}
 }
 
@@ -354,7 +357,8 @@ extension SceneDelegate {
 }
 
 extension SceneDelegate: ExposureStateUpdating {
-	func updateState(_ state: ExposureManagerState) {
-		homeController?.updateState(state)
+	func updateExposureState(_ state: ExposureManagerState) {
+		homeController?.homeInteractor.state.summary = self.state.summary
+		homeController?.updateExposureState(state)
 	}
 }
