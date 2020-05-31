@@ -1,0 +1,21 @@
+ib:
+  inputs:
+    - ENA/Resources/Storyboards
+    - ENA/Source # For storyboards hidden in __tests__ folders
+  outputs:
+    output: ENA/Resources/Storyboards/Storyboards.swift
+    templateName: scenes-swift4
+strings:
+  inputs:
+    - ENA/Resources/Localization/de.lproj/Localizable.strings
+  outputs:
+    output: ENA/Resources/Localization/Strings.swift
+    templateName: structured-swift4
+xcassets:
+  inputs:
+    - ENA/Resources/Assets/Assets.xcassets
+    - ENA/Resources/Assets/ena-colors.xcassets
+  outputs:
+    output: ENA/Resources/Assets/Assets.swift
+    templatePath: SwiftGen-xcassets.stencil
+

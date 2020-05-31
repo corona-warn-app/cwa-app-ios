@@ -209,7 +209,7 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
 # Rules use by 'swiftlint analyze' (experimental)
 analyzer_rules:
 
-# Reporter tyoe (xcode, json, csv, checkstyle, junit, html, emoji, sonarqube, markdown)
+# Reporter type (xcode, json, csv, checkstyle, junit, html, emoji, sonarqube, markdown)
 reporter: "xcode"
 
 
@@ -226,3 +226,31 @@ trailing_whitespace:
 
 vertical_whitespace:
   max_empty_lines: 2
+
+# Custom Rules
+
+custom_rules:
+# These rules should be enabled as soon as (and while) existing usage is migrated to SwiftGen
+#  dynamic_color_reference:
+#    included: ".*.swift"
+#    regex: 'UIColor\(\s*named:\s*\"'
+#    name: "Dynamic Color Reference"
+#    message: "Don't use dynamic color references – use SwiftGen & Color instead."
+#  dynamic_image_reference:
+#    included: ".*.swift"
+#    regex: 'UIImage\(\s*named:\s*\"'
+#    name: "Dynamic Image Reference"
+#    message: "Don't use dynamic image references – use SwiftGen instead."
+#    severity: warning
+#  dynamic_storyboard_reference:
+#    included: ".*.swift"
+#    regex: 'UIStoryboard\(\s*name:\s*\"'
+#    name: "Dynamic Storyboard Reference"
+#    message: "Don't use dynamic storyboard references – use SwiftGen & StoryboardScene instead."
+#    severity: warning
+#  dynamic_string_reference:
+#    included: ".*.swift"
+#    regex: 'NSLocalizedString\s*\('
+#    name: "Dynamic String Reference"
+#    message: "Don't use dynamic localization string references via code strings – use SwiftGen & L10n instead."
+#    severity: warning

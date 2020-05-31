@@ -109,6 +109,10 @@
 		51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE277A2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift */; };
 		51FE277D247535C400BB8144 /* RiskLoadingItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51FE277C247535C400BB8144 /* RiskLoadingItemView.xib */; };
 		51FE277F247535E300BB8144 /* RiskLoadingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE277E247535E300BB8144 /* RiskLoadingItemView.swift */; };
+		5637BF22248565A1004604B9 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5637BF21248565A1004604B9 /* Storyboards.swift */; };
+		5637BF25248645BC004604B9 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5637BF24248645BC004604B9 /* Strings.swift */; };
+		5642FDF82483E17D00B87C29 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5642FDF72483E17D00B87C29 /* Assets.swift */; };
+		5642FDFF2483E45100B87C29 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5642FDFE2483E45100B87C29 /* swiftgen.yml */; };
 		710021DC248E44A6001F0B63 /* ENAFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710021DB248E44A6001F0B63 /* ENAFont.swift */; };
 		710021DE248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710021DD248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib */; };
 		710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710021DF248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift */; };
@@ -474,6 +478,11 @@
 		51FE277A2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLoadingItemViewConfigurator.swift; sourceTree = "<group>"; };
 		51FE277C247535C400BB8144 /* RiskLoadingItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskLoadingItemView.xib; sourceTree = "<group>"; };
 		51FE277E247535E300BB8144 /* RiskLoadingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLoadingItemView.swift; sourceTree = "<group>"; };
+		5637BF1F24855E34004604B9 /* SwiftGen-xcassets.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = "SwiftGen-xcassets.stencil"; sourceTree = "<group>"; };
+		5637BF21248565A1004604B9 /* Storyboards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
+		5637BF24248645BC004604B9 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		5642FDF72483E17D00B87C29 /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		5642FDFE2483E45100B87C29 /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		710021DB248E44A6001F0B63 /* ENAFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFont.swift; sourceTree = "<group>"; };
 		710021DD248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureSubmissionImageCardCell.xib; sourceTree = "<group>"; };
 		710021DF248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionImageCardCell.swift; sourceTree = "<group>"; };
@@ -1211,6 +1220,8 @@
 				0DFCC2712484DC8400E2811D /* sqlite3.h */,
 				71B8044424828A6C00D53506 /* .swiftformat */,
 				71AFBD922464251000F91006 /* .swiftlint.yml */,
+				5642FDFE2483E45100B87C29 /* swiftgen.yml */,
+				5637BF1F24855E34004604B9 /* SwiftGen-xcassets.stencil */,
 				85D7593D2457048F008175F0 /* ENA */,
 				85D7595724570491008175F0 /* ENATests */,
 				85D7596224570491008175F0 /* ENAUITests */,
@@ -1305,6 +1316,7 @@
 		85D75975245706B0008175F0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				5637BF21248565A1004604B9 /* Storyboards.swift */,
 				CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */,
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420B02458397300AD70CA /* Onboarding.storyboard */,
@@ -1321,6 +1333,7 @@
 		85D75976245706BD008175F0 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				5642FDF72483E17D00B87C29 /* Assets.swift */,
 				8539874E2467094E00D28B62 /* AppIcon.xcassets */,
 				85D7594A24570491008175F0 /* Assets.xcassets */,
 				71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */,
@@ -1837,6 +1850,7 @@
 		EE70C239245B09E900AC9B2F /* Localization */ = {
 			isa = PBXGroup;
 			children = (
+				5637BF24248645BC004604B9 /* Strings.swift */,
 				13156CFF248C19D000AFC472 /* usage.html */,
 				71F5418A248BEDBE006DB793 /* privacy-policy.html */,
 				EE70C23A245B09E900AC9B2F /* Localizable.strings */,
@@ -1902,6 +1916,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 85D7596824570491008175F0 /* Build configuration list for PBXNativeTarget "ENA" */;
 			buildPhases = (
+				5642FDFD2483E2C200B87C29 /* SwiftGen */,
 				71AFBD9324642AF500F91006 /* SwiftLint */,
 				85D759372457048F008175F0 /* Sources */,
 				85D759382457048F008175F0 /* Frameworks */,
@@ -2030,6 +2045,7 @@
 				A189E461248C35BF001D0996 /* PublicKeys.plist in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
 				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
+				5642FDFF2483E45100B87C29 /* swiftgen.yml in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
@@ -2076,6 +2092,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5642FDFD2483E2C200B87C29 /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftgen > /dev/null; then\n    swiftgen\nelse\n    echo \"warning: SwiftGen is not available.\"\n    echo \"Use 'brew install swiftgen' to install SwiftGen or download it manually from https://github.com/SwiftGen/SwiftGen.\"\nfi\n";
+		};
 		71AFBD9324642AF500F91006 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2124,6 +2158,7 @@
 				514C0A0D247AFB0200F235F6 /* RiskTextItemView.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */,
+				5642FDF82483E17D00B87C29 /* Assets.swift in Sources */,
 				51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */,
 				B1EDFD8D248E74D000E7EAFF /* URL+StaticString.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
@@ -2205,6 +2240,7 @@
 				B11E619C246EE4E9004A056A /* UIFont+DynamicType.swift in Sources */,
 				71330E4524810A0500EB10F6 /* DynamicTableViewHeader.swift in Sources */,
 				0DF6BBB5248C04CF007E8B0C /* app_config_attenuation_duration.pb.swift in Sources */,
+				5637BF25248645BC004604B9 /* Strings.swift in Sources */,
 				B1EAEC8B24711884003BE9A2 /* URLSession+Convenience.swift in Sources */,
 				7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */,
 				A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */,
@@ -2242,6 +2278,7 @@
 				B1FE13FB24896E6700D012E5 /* AppConfigurationProviding.swift in Sources */,
 				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
 				13722044247AEEAD00152764 /* UNNotificationCenter+Extension.swift in Sources */,
+				5637BF22248565A1004604B9 /* Storyboards.swift in Sources */,
 				B10FD5ED246EAADC00E9D7F2 /* AppInformationDetailViewController.swift in Sources */,
 				CDCE11D9247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift in Sources */,
 				0DF6BB97248AD616007E8B0C /* AppUpdateCheckHelper.swift in Sources */,
