@@ -184,7 +184,7 @@ final class HomeViewController: UIViewController {
 			return
 		}
 
-		guard status.active else {
+		guard status.status == .active else {
 			activate(then: enableIfNeeded)
 			return
 		}

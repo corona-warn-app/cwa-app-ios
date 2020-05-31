@@ -53,7 +53,7 @@ extension MockExposureManager: ExposureManager {
 	}
 
 	func preconditions() -> ExposureManagerState {
-		ExposureManagerState(authorized: true, enabled: true, active: true, bluetoothOff: false)
+		ExposureManagerState(authorized: true, enabled: true, status: .active)
 	}
 
 	func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler _: @escaping ENDetectExposuresHandler) -> Progress {
