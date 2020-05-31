@@ -191,7 +191,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				}
 				let startIndex = 0
 				for i in startIndex...keys.count - 1 {
-					keys[i].transmissionRiskLevel = self.getTransmissionRiskLevelFromIndex(i, configuration: configuration)
+					keys[i].transmissionRiskLevel = configuration.getTransmissionRiskLevelFromIndex(i)
 				}
 
 				self.client.submit(keys: keys, tan: tan) { error in
@@ -210,20 +210,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	// Returns the riskLevel from index
-	private func getTransmissionRiskLevelFromIndex(_ index: Int, configuration: ENExposureConfiguration) -> UInt8 {
-		if index > (configuration.transmissionRiskDefaultVector.count - 1) {
-			return UInt8(1)
-		}
-		let transmissionRiskDefaultValue = configuration.transmissionRiskDefaultVector[index]
 
-		if transmissionRiskDefaultValue == 0 || (transmissionRiskDefaultValue > (configuration.transmissionRiskLevelValues.count - 1)) {
-			return UInt8(1)
-		}
-		let transmissionRiskLevel = configuration.transmissionRiskLevelValues[transmissionRiskDefaultValue - 1]
-
-		return UInt8(truncating: transmissionRiskLevel)
-	}
 
 
 	// This method removes all left over persisted objects part of the
@@ -333,5 +320,19 @@ extension ExposureSubmissionError: LocalizedError {
 private extension ENExposureConfiguration {
 	var transmissionRiskDefaultVector: [Int] {
 		[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
+	}
+	// Returns the riskLevel from index
+	func getTransmissionRiskLevelFromIndex(_ index: Int) -> UInt8 {
+		if index > (transmissionRiskDefaultVector.count - 1) {
+			return UInt8(1)
+		}
+		let transmissionRiskDefaultValue = transmissionRiskDefaultVector[index]
+
+		if transmissionRiskDefaultValue == 0 || (transmissionRiskDefaultValue > (transmissionRiskLevelValues.count - 1)) {
+			return UInt8(1)
+		}
+		let transmissionRiskLevel = transmissionRiskLevelValues[transmissionRiskDefaultValue - 1]
+
+		return UInt8(truncating: transmissionRiskLevel)
 	}
 }
