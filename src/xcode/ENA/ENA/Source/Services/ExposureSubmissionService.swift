@@ -184,18 +184,47 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return
 			}
 
-			self.client.submit(keys: keys, tan: tan) { error in
-				if let error = error {
-					logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
-					completionHandler(self.parseError(error))
+			self.client.exposureConfiguration { configuration in
+				guard let configuration = configuration else {
+					completionHandler(.noExposureConfiguration)
 					return
 				}
-				log(message: "Successfully completed exposure sumbission.")
-				self.submitExposureCleanup()
-				completionHandler(nil)
+				let startIndex = 0
+				for i in startIndex...keys.count - 1 {
+					keys[i].transmissionRiskLevel = self.getTransmissionRiskLevelFromIndex(i, configuration: configuration)
+				}
+
+				self.client.submit(keys: keys, tan: tan) { error in
+					if let error = error {
+						logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+						completionHandler(self.parseError(error))
+						return
+					}
+					log(message: "Successfully completed exposure sumbission.")
+					self.submitExposureCleanup()
+					completionHandler(nil)
+				}
 			}
+			
+
 		}
 	}
+
+	// Returns the riskLevel from index
+	private func getTransmissionRiskLevelFromIndex(_ index: Int, configuration: ENExposureConfiguration) -> UInt8 {
+		if index > (configuration.transmissionRiskDefaultVector.count - 1) {
+			return UInt8(1)
+		}
+		let transmissionRiskDefaultValue = configuration.transmissionRiskDefaultVector[index]
+
+		if transmissionRiskDefaultValue == 0 || (transmissionRiskDefaultValue > (configuration.transmissionRiskLevelValues.count - 1)) {
+			return UInt8(1)
+		}
+		let transmissionRiskLevel = configuration.transmissionRiskLevelValues[transmissionRiskDefaultValue - 1]
+
+		return UInt8(truncating: transmissionRiskLevel)
+	}
+
 
 	// This method removes all left over persisted objects part of the
 	// `submitExposure` flow. Removes the guid, registrationToken,
@@ -262,6 +291,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case enNotEnabled
 	case noKeys
 	case noConsent
+	case noExposureConfiguration
 	case invalidTan
 	case invalidResponse
 	case noResponse
@@ -287,6 +317,8 @@ extension ExposureSubmissionError: LocalizedError {
 			return "Invalid response"
 		case .noResponse:
 			return "No response was received"
+		case .noExposureConfiguration:
+			return "No Exposure Configuration available"
 		case let .other(desc):
 			return "Other Error: \(desc)"
 		case .unknown:
@@ -295,5 +327,11 @@ extension ExposureSubmissionError: LocalizedError {
 			logError(message: "\(self)")
 			return "Default Exposure Submission Error"
 		}
+	}
+}
+
+private extension ENExposureConfiguration {
+	var transmissionRiskDefaultVector: [Int] {
+		[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
 	}
 }
