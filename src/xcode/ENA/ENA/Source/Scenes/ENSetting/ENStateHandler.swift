@@ -74,21 +74,26 @@ class ENStateHandler {
 	}
 
 	private func determineCurrentState(from enManagerState: ExposureManagerState) -> RiskDetectionState {
-		if enManagerState.active == true {
+
+		switch enManagerState.status {
+		case .active:
 			guard !internetOff else {
 				return .internetOff
 			}
 			return .enabled
-		} else {
-			if enManagerState.enabled == true {
-				if enManagerState.bluetoothOff == true {
-					return .bluetoothOff
-				} else {
-					return .disabled
-				}
-			} else {
+		case .bluetoothOff:
+			guard !enManagerState.enabled == false else {
 				return .disabled
 			}
+			return .bluetoothOff
+		case .disabled:
+			return .disabled
+		case .restricted:
+			return .disabled
+		case .unknown:
+			return .disabled
+		@unknown default:
+			fatalError("New state was added that is not being covered by ENStateHandler")
 		}
 	}
 

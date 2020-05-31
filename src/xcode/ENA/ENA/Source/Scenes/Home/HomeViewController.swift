@@ -84,6 +84,7 @@ final class HomeViewController: UIViewController {
 		configureHierarchy()
 		configureDataSource()
 		configureUI()
+
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -184,7 +185,7 @@ final class HomeViewController: UIViewController {
 			return
 		}
 
-		guard status.active else {
+		guard status.status == .active else {
 			activate(then: enableIfNeeded)
 			return
 		}
@@ -371,10 +372,15 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func configureUI() {
-		title = "Corona-Warn-App"
+
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
+		
+		let image = UIImage(named: "navi_bar_icon")?.withRenderingMode(.alwaysOriginal)
+		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
+		leftItem.isEnabled = false
+		self.navigationItem.leftBarButtonItem = leftItem
 	}
 }
 

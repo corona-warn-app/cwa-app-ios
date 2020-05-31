@@ -134,7 +134,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	private func showHome(animated _: Bool = false) {
-		if exposureManager.preconditions().active {
+		if exposureManager.preconditions().status == .active {
 			presentHomeVC()
 		} else {
 			log(message: "ExposureManager not activate yet.")
@@ -282,7 +282,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		New status of EN framework:
 		Authorized: \(newState.authorized)
 		enabled: \(newState.enabled)
-		active: \(newState.active)
+		status: \(newState.status)
 		"""
 		log(message: message)
 

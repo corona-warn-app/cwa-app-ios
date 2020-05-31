@@ -30,22 +30,19 @@ struct ExposureManagerState {
 	init(
 		authorized: Bool = false,
 		enabled: Bool = false,
-		active: Bool = false,
-		bluetoothOff: Bool = false
+		status: ENStatus = .unknown
 	) {
 		self.authorized = authorized
 		self.enabled = enabled
-		self.active = active
-		self.bluetoothOff = bluetoothOff
+		self.status = status
 	}
 
 	// MARK: Properties
 
 	let authorized: Bool
 	let enabled: Bool
-	let active: Bool
-	let bluetoothOff: Bool
-	var isGood: Bool { authorized && enabled && active }
+	let status: ENStatus
+	var isGood: Bool { authorized && enabled && status == .active }
 }
 
 @objc protocol Manager: NSObjectProtocol {
@@ -169,8 +166,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		.init(
 			authorized: type(of: manager).authorizationStatus == .authorized,
 			enabled: manager.exposureNotificationEnabled,
-			active: manager.exposureNotificationStatus == .active,
-			bluetoothOff: manager.exposureNotificationStatus == .bluetoothOff
+			status: manager.exposureNotificationStatus
 		)
 	}
 
