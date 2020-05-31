@@ -29,10 +29,11 @@ protocol CoronaWarnAppDelegate: AnyObject {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
 	// swiftlint:disable:next force_unwrapping
 	static let backgroundTaskIdentifier = Bundle.main.bundleIdentifier! + ".exposure-notification"
 	private var exposureManager: ExposureManager = ENAExposureManager()
-	private var exposureDetectionTransaction: ExposureDetectionTransaction?
+	private var exposureDetection: ExposureDetection?
 	let downloadedPackagesStore: DownloadedPackagesStore = {
 		let fileManager = FileManager()
 		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
@@ -67,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
 			let submissionURL = URL(string: submissionURLString) else {
-			return HTTPClient(configuration: .production)
+				return HTTPClient(configuration: .production)
 		}
 
 		let config = HTTPClient.Configuration(
@@ -104,94 +105,184 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
 }
 
-extension AppDelegate: ExposureDetectionTransactionDelegate {
-	func exposureDetectionTransactionRequiresExposureManager(
-		_: ExposureDetectionTransaction
-	) -> ExposureManager {
-		exposureManager
+extension AppDelegate: ExposureDetectionDelegate {
+	func exposureDetection(_ detection: ExposureDetection, determineAvailableData completion: @escaping (DaysAndHours?) -> Void) {
+		client.availableDaysAndHoursUpUntil(.formattedToday()) { result in
+			let mappedResult = result.map { DaysAndHours(days: $0.days, hours: $0.hours) }
+			switch mappedResult {
+			case .success(let daysAndHours):
+				completion(daysAndHours)
+			case .failure:
+				completion(nil)
+			}
+		}
 	}
 
-	func exposureDetectionTransaction(_: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
-		logError(message: "Exposure transaction failed: \(reason)")
-
-		let message: String
-		switch reason {
-		case .noExposureManager:
-			message = "No ExposureManager"
-		case .noSummary:
-			// not really accurate but very likely this is the case.
-			message = "Max file per day limit set by Apple reached (15)"
-		case .noDaysAndHours:
-			message = "No available files. Did you configure the backend URL?"
-		case .noExposureConfiguration:
-			message = "Didn't get a configuration"
-		case .unableToDiagnosisKeys:
-			message = "No keys"
-		}
-
-		// We have to remove this after the test has been concluded.
-		let alert = UIAlertController(
-			title: "Exposure Detection Failed",
-			message: message,
-			preferredStyle: .alert
+	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
+		let delta = DeltaCalculationResult(
+			remoteDays: Set(remote.days),
+			remoteHours: Set(remote.hours),
+			localDays: Set(downloadedPackagesStore.allDays()),
+			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
 		)
+		return .init(
+			days: Array(delta.missingDays),
+			hours: Array(delta.missingHours)
+		)
+	}
 
-		alert.addAction(
-			UIAlertAction(
-				title: "OK",
-				style: .cancel
+	func exposureDetection(_ detection: ExposureDetection, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
+		func storeDaysAndHours(_ fetchedDaysAndHours: FetchedDaysAndHours) {
+			downloadedPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
+			completion(nil)
+		}
+		client.fetchDays(
+			delta.days,
+			hours: delta.hours,
+			of: .formattedToday(),
+			completion: storeDaysAndHours
+		)
+	}
+
+	func exposureDetection(_ detection: ExposureDetection, downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void) {
+		client.exposureConfiguration(completion: completion)
+	}
+
+	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages? {
+		let fileManager = FileManager()
+		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		do {
+			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
+			let packages = downloadedPackagesStore.allPackages(for: .formattedToday())
+			let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
+			return writer.writeAllPackages()
+		} catch {
+			return nil
+		}
+	}
+
+	func exposureDetection(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) {
+		func withResultFrom(
+			summary: ENExposureDetectionSummary?,
+			error: Error?
+		) -> Result<ENExposureDetectionSummary, Error> {
+			if let error = error {
+				return .failure(error)
+			}
+			if let summary = summary {
+				return .success(summary)
+			}
+			fatalError("invalid state")
+		}
+		_ = exposureManager.detectExposures(
+			configuration: configuration,
+			diagnosisKeyURLs: writtenPackages.urls
+		) { summary, error in
+			completion(
+				withResultFrom(summary: summary, error: error)
 			)
-		)
-
-		exposureDetectionTransaction = nil
-
-		guard let scene = UIApplication.shared.connectedScenes.first else { return }
-		guard let delegate = scene.delegate as? SceneDelegate else { return }
-		guard let rootController = delegate.window?.rootViewController else {
-			return
 		}
-		func showError() {
-			rootController.present(alert, animated: true, completion: nil)
-		}
-
-		if rootController.presentedViewController != nil {
-			rootController.dismiss(animated: true, completion: showError)
-		} else {
-			showError()
-		}
-	}
-
-	func exposureDetectionTransaction(
-		_: ExposureDetectionTransaction,
-		didDetectSummary summary: ENExposureDetectionSummary
-	) {
-		exposureDetectionTransaction = nil
-
-		store.dateLastExposureDetection = Date()
-
-		NotificationCenter.default.post(
-			name: .didDetectExposureDetectionSummary,
-			object: nil,
-			userInfo: ["summary": summary]
-		)
-	}
-
-	func exposureDetectionTransactionRequiresFormattedToday(_: ExposureDetectionTransaction) -> String {
-		.formattedToday()
 	}
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
+	private func useSummaryDetectionResult(
+		_ result: Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>
+	) {
+		exposureDetection = nil
+		switch result {
+		case .success(let summary):
+			store.dateLastExposureDetection = Date()
+			NotificationCenter.default.post(
+				name: .didDetectExposureDetectionSummary,
+				object: nil,
+				userInfo: ["summary": summary]
+			)
+		case .failure(let reason):
+			logError(message: "Exposure transaction failed: \(reason)")
+
+			let message: String
+			switch reason {
+			case .noExposureManager:
+				message = "No ExposureManager"
+			case .noSummary:
+				// not really accurate but very likely this is the case.
+				message = "Max file per day limit set by Apple reached (15)"
+			case .noDaysAndHours:
+				message = "No available files. Did you configure the backend URL?"
+			case .noExposureConfiguration:
+				message = "Didn't get a configuration"
+			case .unableToWriteDiagnosisKeys:
+				message = "No keys"
+			}
+
+			// We have to remove this after the test has been concluded.
+			let alert = UIAlertController(
+				title: "Exposure Detection Failed",
+				message: message,
+				preferredStyle: .alert
+			)
+
+			alert.addAction(
+				UIAlertAction(
+					title: "OK",
+					style: .cancel
+				)
+			)
+
+			exposureDetection = nil
+
+			guard let scene = UIApplication.shared.connectedScenes.first else { return }
+			guard let delegate = scene.delegate as? SceneDelegate else { return }
+			guard let rootController = delegate.window?.rootViewController else {
+				return
+			}
+			func showError() {
+				rootController.present(alert, animated: true, completion: nil)
+			}
+
+			if rootController.presentedViewController != nil {
+				rootController.dismiss(animated: true, completion: showError)
+			} else {
+				showError()
+			}
+		}
+
+	}
 	func appStartExposureDetectionTransaction() {
 		precondition(
-			exposureDetectionTransaction == nil,
+			exposureDetection == nil,
 			"An Exposure Transaction is currently already running. This should never happen."
 		)
-		exposureDetectionTransaction = ExposureDetectionTransaction(
-			delegate: self,
-			client: client,
-			downloadedPackagesStore: downloadedPackagesStore
+		exposureDetection = ExposureDetection(
+			delegate: self
 		)
-		exposureDetectionTransaction?.start()
+		exposureDetection?.start(completion: useSummaryDetectionResult)
+
+	}
+}
+
+extension DownloadedPackagesStore {
+	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
+		let days = daysAndHours.days
+		days.bucketsByDay.forEach { day, bucket in
+			self.set(day: day, package: bucket)
+		}
+
+		let hours = daysAndHours.hours
+		hours.bucketsByHour.forEach { hour, bucket in
+			self.set(hour: hour, day: hours.day, package: bucket)
+		}
+	}
+}
+
+private extension DownloadedPackagesStore {
+	func allPackages(for day: String) -> [SAPDownloadedPackage] {
+		let fullDays = allDays()
+		var packages = [SAPDownloadedPackage]()
+		packages.append(
+			contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
+		)
+		return packages
 	}
 }
