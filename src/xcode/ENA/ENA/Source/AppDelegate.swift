@@ -157,7 +157,6 @@ extension AppDelegate: CoronaWarnAppDelegate {
 }
 
 extension AppDelegate: ENATaskExecutionDelegate {
-    
 	func executeExposureDetectionRequest(task: BGTask) {
         // start background task execution
 		log(message: "# TASKSHED # \(#line) \(#function) STARTED \(task.identifier)")
@@ -208,10 +207,11 @@ extension AppDelegate: ENATaskExecutionDelegate {
                 log(message: "# TASKSHED # \(#line) \(#function) TESTRESULT \(task.identifier)\(testResult)")
 
                 if testResult != .pending {
-                    self.taskScheduler.notificationManager.presentNotification(
-                        title: AppStrings.LocalNotifications.testResultsTitle,
-                        body: AppStrings.LocalNotifications.testResultsBody,
-                        identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+						self.taskScheduler.notificationManager.presentNotification(
+							title: AppStrings.LocalNotifications.testResultsTitle,
+							body: AppStrings.LocalNotifications.testResultsBody,
+							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+					}
                 }
 
 				// mark background task as completed
@@ -238,36 +238,4 @@ extension AppDelegate: ENATaskExecutionDelegate {
         }
 
     }
-
-	func executeSIMPLETEST(task: BGTask) {
-        // start background task execution
-		log(message: "# TASKSHED # \(#line) \(#function) STARTED \(task.identifier)")
-
-		DispatchQueue.global().asyncAfter(deadline: .now() + 10) {
-            // handle completed background task
-			log(message: "# TASKSHED # \(#line) \(#function) RETURN \(task.identifier)")
-
-			// mark background task as completed
-            log(message: "# TASKSHED # \(#line) \(#function) COMPLETE \(task.identifier)")
-            task.setTaskCompleted(success: true)
-
-			// reschedule background task again
-			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
-            self.taskScheduler.scheduleBackgroundTask(for: .SIMPLETEST)
-		}
-		
-        task.expirationHandler = {
-			// handle background task expiration
-            log(message: "# TASKSHED # \(#line) \(#function) EXPIRED \(task.identifier)")
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			
-            // mark background task as completed
-            task.setTaskCompleted(success: false)
-
-			// reschedule background task again
-			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
-			self.taskScheduler.scheduleBackgroundTask(for: .SIMPLETEST)
-        }
-	}
-
 }

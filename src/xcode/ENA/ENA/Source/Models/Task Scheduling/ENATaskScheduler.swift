@@ -23,7 +23,6 @@ public enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
 	case detectExposures = "detect-exposures.exposure-notification"
 	case fetchTestResults = "fetch-test-results"
-	case SIMPLETEST = "SIMPLETEST"
 
 	var backgroundTaskScheduleInterval: TimeInterval {
 		switch self {
@@ -31,8 +30,6 @@ public enum ENATaskIdentifier: String, CaseIterable {
 		case .detectExposures: return 2 * 60 * 60
 		// set to trigger every 30 min
 		case .fetchTestResults: return 2 * 60 * 60
-		// set to trigger every 15 min
-		case .SIMPLETEST: return 15 * 60
 		}
 	}
 
@@ -44,7 +41,6 @@ public enum ENATaskIdentifier: String, CaseIterable {
 protocol ENATaskExecutionDelegate: AnyObject {
 	func executeExposureDetectionRequest(task: BGTask)
 	func executeFetchTestResults(task: BGTask)
-	func executeSIMPLETEST(task: BGTask)
 }
 
 public class ENATaskScheduler {
@@ -57,7 +53,6 @@ public class ENATaskScheduler {
 		log(message: "# TASKSHED # \(#line), \(#function) STARTED")
 		registerTask(with: .detectExposures, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
-		registerTask(with: .SIMPLETEST, taskHander: executeSIMPLETEST(_:))
 		log(message: "# TASKSHED # \(#line), \(#function) COMPLETED")
 	}
 
@@ -66,7 +61,6 @@ public class ENATaskScheduler {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 		scheduleBackgroundTask(for: .detectExposures)
 		scheduleBackgroundTask(for: .fetchTestResults)
-		scheduleBackgroundTask(for: .SIMPLETEST)
 	}
 
 	public func isBackgroundRefreshEnabled() -> Bool {
@@ -147,13 +141,4 @@ public class ENATaskScheduler {
 		taskDelegate.executeFetchTestResults(task: task)
 	}
 
-	private func executeSIMPLETEST(_ task: BGTask) {
-		let scheduler: ENATaskScheduler? = self
-		log(message: "# TASKSHED # \(#line), \(#function) taskScheduler = \(String(describing: scheduler))")
-		guard let taskDelegate = taskDelegate else {
-			log(message: "# TASKSHED # \(#line), \(#function) taskDelegate = nil")
-			return
-		}
-		taskDelegate.executeSIMPLETEST(task: task)
-	}
 }
