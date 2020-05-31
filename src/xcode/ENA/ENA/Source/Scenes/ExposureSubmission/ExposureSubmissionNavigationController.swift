@@ -72,6 +72,7 @@ extension ExposureSubmissionNavigationControllerChild where Self: UIViewControll
 class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
+	private var keyboardWillChangeFrameObserver: NSObjectProtocol?
 
 	private(set) var isBottomViewHidden: Bool = true
 	private var isKeyboardHidden: Bool = true
@@ -157,7 +158,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			self.updateBottomSafeAreaInset(animated: true)
 		}
 
-		keyboardWillHideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: nil) { notification in
+		keyboardWillChangeFrameObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: nil) { notification in
 			self.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
 			self.updateBottomSafeAreaInset(animated: true)
 		}
@@ -168,6 +169,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 		NotificationCenter.default.removeObserver(keyboardWillHideObserver as Any, name: UIResponder.keyboardWillShowNotification, object: nil)
 		NotificationCenter.default.removeObserver(keyboardWillHideObserver as Any, name: UIResponder.keyboardWillHideNotification, object: nil)
+		NotificationCenter.default.removeObserver(keyboardWillChangeFrameObserver as Any, name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
 
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
