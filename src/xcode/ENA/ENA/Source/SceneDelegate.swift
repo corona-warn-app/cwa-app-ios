@@ -125,6 +125,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	private func showHome(animated _: Bool = false) {
+		#if targetEnvironment(simulator)
+		// Enable third party contributors that do not have the required
+		// entitlements to skip the exposure setup step in the iOS Simulator
+		presentHomeVC()
+		#else
 		if exposureManager.preconditions().active {
 			presentHomeVC()
 		} else {
@@ -138,6 +143,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				self?.presentHomeVC()
 			}
 		}
+		#endif
 	}
 
 	private func presentHomeVC() {
