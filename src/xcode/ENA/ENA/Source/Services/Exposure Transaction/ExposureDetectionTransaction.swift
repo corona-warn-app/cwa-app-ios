@@ -112,7 +112,7 @@ final class ExposureDetectionTransaction {
 			guard let self = self else { return }
 			self.remoteExposureConfiguration { [weak self] configuration in
 				guard let self = self else {
-					logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+					appLogger.error(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 					return
 				}
 				do {
@@ -132,7 +132,7 @@ final class ExposureDetectionTransaction {
 	) {
 		client.availableDaysAndHoursUpUntil(.formattedToday()) { [weak self] result in
 			guard let self = self else {
-				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+				appLogger.error(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
 			switch result {
@@ -190,7 +190,7 @@ final class ExposureDetectionTransaction {
 	) {
 		writer.with { [weak self] diagnosisURLs, done in
 			guard let self = self else {
-				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+				appLogger.error(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
 			self._detectExposures(
@@ -212,7 +212,7 @@ final class ExposureDetectionTransaction {
 			diagnosisKeyURLs: diagnosisKeyURLs
 		) { [weak self] summary, error in
 			guard let self = self else {
-				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+				appLogger.error(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
 			if let error = error {
