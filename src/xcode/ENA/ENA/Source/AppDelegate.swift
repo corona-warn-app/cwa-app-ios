@@ -149,7 +149,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 		exposureDetectionTransaction = ExposureDetectionTransaction(
 			delegate: self,
 			client: client,
-			downloadedPackagesStore: downloadedPackagesStore
+			keyPackagesStore: downloadedPackagesStore
 		)
 		exposureDetectionTransaction?.start()
 	}
