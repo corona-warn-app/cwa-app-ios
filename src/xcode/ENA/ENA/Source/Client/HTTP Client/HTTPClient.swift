@@ -173,7 +173,7 @@ final class HTTPClient: Client {
 	func getTestResult(forDevice registrationToken: String, completion completeWith: @escaping TestResultHandler) {
 		let url = configuration.testResultURL
 
-		let bodyValues = ["registrationToken": registrationToken]
+		let bodyValues = ["token": registrationToken]
 		do {
 			let encoder = JSONEncoder()
 			encoder.outputFormatting = .prettyPrinted
@@ -222,7 +222,7 @@ final class HTTPClient: Client {
 	func getTANForExposureSubmit(forDevice registrationToken: String, completion completeWith: @escaping TANHandler) {
 		let url = configuration.tanRetrievalURL
 
-		let bodyValues = ["registrationToken": registrationToken]
+		let bodyValues = ["token": registrationToken]
 		do {
 			let encoder = JSONEncoder()
 			encoder.outputFormatting = .prettyPrinted
