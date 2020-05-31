@@ -90,9 +90,9 @@ final class ENStateTests: XCTestCase {
 		assert(mockDelegate.getCurrentState() == .disabled)
 	}
 
-	func testDisableTracingAndBluetoothOffAndInternetOn() {
+	func testDisableTracingAndBluetoothOnAndInternetOn() {
 		assert(mockDelegate.getCurrentState() == .enabled)
-		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
+		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .disabled)
 		mockDelegate.exposureManagerState = exposureManagerState
 		mockDelegate.reachabilityChanged(false)
 		assert(mockDelegate.getCurrentState() == .disabled)
@@ -100,7 +100,7 @@ final class ENStateTests: XCTestCase {
 		assert(mockDelegate.getCurrentState() == .disabled)
 	}
 
-	func testEnableTracingAndBluetoothOffAndInternetOff() {
+	func testEnableTracingStepByStep() {
 		assert(mockDelegate.getCurrentState() == .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
 		mockDelegate.exposureManagerState = exposureManagerState
@@ -114,5 +114,19 @@ final class ENStateTests: XCTestCase {
 		assert(mockDelegate.getCurrentState() == .internetOff)
 		mockDelegate.reachabilityChanged(true)
 		assert(mockDelegate.getCurrentState() == .enabled)
+	}
+
+	// MARK: Tests different ENStatus states
+
+	func testRestrictedState() {
+		exposureManagerState = ExposureManagerState(authorized: false, enabled: false, status: .restricted)
+		mockDelegate.exposureManagerState = exposureManagerState
+		assert(mockDelegate.getCurrentState() == .disabled)
+	}
+
+	func testUnknownState() {
+		exposureManagerState = ExposureManagerState(authorized: false, enabled: false, status: .unknown)
+		mockDelegate.exposureManagerState = exposureManagerState
+		assert(mockDelegate.getCurrentState() == .disabled)
 	}
 }
