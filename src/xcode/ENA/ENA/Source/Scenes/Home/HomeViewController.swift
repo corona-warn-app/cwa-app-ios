@@ -24,6 +24,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func homeViewControllerUserDidRequestReset(_ controller: HomeViewController)
 }
 
+// swiftlint:disable:next type_body_length
 final class HomeViewController: UIViewController {
 	// MARK: Creating a Home View Controller
 
@@ -47,6 +48,12 @@ final class HomeViewController: UIViewController {
 			store: store,
 			state: .init(isLoading: false, summary: nil, exposureManager: .init())
 		)
+
+		exposureSubmissionService = ENAExposureSubmissionService(
+			manager: self.exposureManager,
+			client: self.client,
+			store: self.store
+		)
 	}
 
 	required init?(coder _: NSCoder) {
@@ -69,6 +76,7 @@ final class HomeViewController: UIViewController {
 	private weak var settingsController: SettingsViewController?
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
+	private var exposureSubmissionService: ExposureSubmissionService?
 
 	enum Section: Int {
 		case actions
@@ -125,15 +133,12 @@ final class HomeViewController: UIViewController {
 	}
 
 	func showSubmitResult() {
+		guard let exposureSubmissionService = exposureSubmissionService else { return }
 		present(
 			AppStoryboard.exposureSubmission.initiateInitial { coder in
 				ExposureSubmissionNavigationController(
 					coder: coder,
-					exposureSubmissionService: ENAExposureSubmissionService(
-						manager: self.exposureManager,
-						client: self.client,
-						store: self.store
-					)
+					exposureSubmissionService: exposureSubmissionService
 				)
 			},
 			animated: true

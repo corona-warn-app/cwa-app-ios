@@ -39,3 +39,27 @@ extension HomeSubmitCellConfigurator: SubmitCollectionViewCellDelegate {
 		submitAction?()
 	}
 }
+
+// ATTENTION: WORK IN PROGRESS!
+// TODO: Move these classes to appropriate files and check if they can be integrated into the HomeSubmitCell flow.
+
+class ExposureSubmissionCell: HomeCardCollectionViewCell {
+
+}
+
+class HomeExposureSubmissionStateCellConfigurator: CollectionViewCellConfigurator {
+
+	var store: Store?
+
+	func configure(cell: ExposureSubmissionCell) {
+		// Instantiate embedded view.
+		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
+		vc.testResult = .positive
+		cell.addSubview(vc.view)
+
+		let heightConstraint = cell.heightAnchor.constraint(equalToConstant: 600)
+		heightConstraint.priority = UILayoutPriority(rawValue: 999)
+		heightConstraint.isActive = true
+		cell.setNeedsLayout()
+	}
+}

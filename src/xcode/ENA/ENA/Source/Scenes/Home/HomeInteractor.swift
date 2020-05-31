@@ -18,6 +18,7 @@
 import ExposureNotification
 import Foundation
 
+// swiftlint:disable:next type_body_length
 final class HomeInteractor {
 	enum UserLoadingMode {
 		case automatic
@@ -224,11 +225,15 @@ final class HomeInteractor {
 			}
 		}
 
-		let submitConfigurator = HomeSubmitCellConfigurator()
+		// MARK: Configure exposure submission view.
 
+		let submitConfigurator = HomeSubmitCellConfigurator()
 		submitConfigurator.submitAction = { [unowned self] in
 			self.homeViewController.showSubmitResult()
 		}
+
+		let exposureSubmissionStateConfigurator = HomeExposureSubmissionStateCellConfigurator()
+		exposureSubmissionStateConfigurator.store = store
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
@@ -264,6 +269,7 @@ final class HomeInteractor {
 		}
 		let others: [CollectionViewCellConfiguratorAny] = [
 			submitConfigurator,
+			exposureSubmissionStateConfigurator,
 			info1Configurator,
 			info2Configurator,
 			appInformationConfigurator,
