@@ -89,10 +89,15 @@ public class ENATaskScheduler {
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
 		if task.identifier == ENATaskIdentifier.detectExposures.backgroundTaskSchedulerIdentifier,
-			(manager.preconditions().isGood == false || UIApplication.shared.backgroundRefreshStatus != .available) {
+			(manager.preconditions().authorized == false || UIApplication.shared.backgroundRefreshStatus != .available) {
+			logError(message: "Conditions for background task execution not met")
+			task.setTaskCompleted(success: false)
+			scheduleBackgroundTask(for: .detectExposures)
 			return
 		}
 		guard let taskDelegate = taskDelegate else {
+			task.setTaskCompleted(success: false)
+			scheduleBackgroundTask(for: .detectExposures)
 			return
 		}
 		taskDelegate.executeExposureDetectionRequest(task: task)
@@ -100,6 +105,8 @@ public class ENATaskScheduler {
 
 	private func executeFetchTestResults(_ task: BGTask) {
 		guard let taskDelegate = taskDelegate else {
+			task.setTaskCompleted(success: false)
+			scheduleBackgroundTask(for: .fetchTestResults)
 			return
 		}
 		taskDelegate.executeFetchTestResults(task: task)

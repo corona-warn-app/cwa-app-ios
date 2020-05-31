@@ -67,15 +67,18 @@ final class ExposureDetectionTransaction {
 	func start(taskCompletion: (() -> Void)? = nil) {
 		let today = formattedToday()
 		client.availableDaysAndHoursUpUntil(today) { [weak self] result in
+			guard let self = self else {
+				taskCompletion?()
+				return
+			}
 			switch result {
 			case let .success(daysAndHours):
-				self?.continueWith(remoteDaysAndHours: daysAndHours) {
+				self.continueWith(remoteDaysAndHours: daysAndHours) {
 					taskCompletion?()
 				}
 			case .failure:
-				self?.endPrematurely(reason: .noDaysAndHours)
+				self.endPrematurely(reason: .noDaysAndHours)
 				taskCompletion?()
-
 			}
 		} 
 	}
@@ -118,7 +121,10 @@ final class ExposureDetectionTransaction {
 				return
 			}
 			self.remoteExposureConfiguration { [weak self] configuration in
-				guard let self = self else { return }
+				guard let self = self else {
+					taskCompletion?()
+					return
+				}
 				do {
 					let writer = try self.createAppleFilesWriter()
 					self.detectExposures(writer: writer, configuration: configuration) {
@@ -194,7 +200,10 @@ final class ExposureDetectionTransaction {
 		taskCompletion: (() -> Void)? = nil
 	) {
 		writer.with { [weak self] diagnosisURLs, done in
-			guard let self = self else { return }
+			guard let self = self else {
+				taskCompletion?()
+				return
+			}
 			self._detectExposures(
 				diagnosisKeyURLs: diagnosisURLs,
 				configuration: configuration,
