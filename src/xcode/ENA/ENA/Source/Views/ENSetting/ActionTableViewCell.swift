@@ -50,7 +50,7 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		case .enabled, .disabled:
 			detailLabel.isHidden = true
 			actionSwitch.isHidden = false
-		case .bluetoothOff, .internetOff:
+		case .bluetoothOff, .internetOff, .restricted:
 			detailLabel.isHidden = false
 			actionSwitch.isHidden = true
 		}
