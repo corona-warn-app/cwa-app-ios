@@ -34,8 +34,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
-	private let keys = [ENTemporaryExposureKey()]
-	private let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: nil)
+	private let exposureManager: ExposureManager = {
+		let keys = [ENTemporaryExposureKey()]
+		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+	}()
 	#else
 	private let exposureManager = ENAExposureManager()
 	#endif
