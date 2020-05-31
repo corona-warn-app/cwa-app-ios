@@ -111,7 +111,10 @@ final class ExposureDetectionTransaction {
 		fetchAndStoreMissingDaysAndHours(remoteDaysAndHours: remoteDaysAndHours) { [weak self] in
 			guard let self = self else { return }
 			self.remoteExposureConfiguration { [weak self] configuration in
-				guard let self = self else { return }
+				guard let self = self else {
+					logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+					return
+				}
 				do {
 					let writer = try self.createAppleFilesWriter()
 					self.detectExposures(writer: writer, configuration: configuration)
@@ -128,7 +131,10 @@ final class ExposureDetectionTransaction {
 		completion: @escaping () -> Void
 	) {
 		client.availableDaysAndHoursUpUntil(.formattedToday()) { [weak self] result in
-			guard let self = self else { return }
+			guard let self = self else {
+				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+				return
+			}
 			switch result {
 			case .success(let (remoteDays, remoteHours)):
 				let delta = DeltaCalculationResult(
@@ -183,7 +189,10 @@ final class ExposureDetectionTransaction {
 		configuration: ENExposureConfiguration
 	) {
 		writer.with { [weak self] diagnosisURLs, done in
-			guard let self = self else { return }
+			guard let self = self else {
+				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+				return
+			}
 			self._detectExposures(
 				diagnosisKeyURLs: diagnosisURLs,
 				configuration: configuration,
@@ -203,6 +212,7 @@ final class ExposureDetectionTransaction {
 			diagnosisKeyURLs: diagnosisKeyURLs
 		) { [weak self] summary, error in
 			guard let self = self else {
+				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
 			if let error = error {
@@ -225,12 +235,16 @@ private extension DownloadedPackagesStore {
 	func allPackages(for day: String) -> [SAPDownloadedPackage] {
 		let fullDays = allDays()
 		var packages = [SAPDownloadedPackage]()
+
 		packages.append(
 			contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
 		)
-		packages.append(
-			contentsOf: hourlyPackages(for: day)
-		)
+
+//		TODO
+//		Currently disabled because Apple only allows 15 files per day to be fed into the framework
+//		packages.append(
+//			contentsOf: hourlyPackages(for: day)
+//		)
 		return packages
 	}
 }
