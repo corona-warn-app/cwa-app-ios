@@ -24,7 +24,6 @@ final class MockExposureManager {
 
 	let exposureNotificationError: ExposureNotificationError?
 	let diagnosisKeysResult: MockDiagnosisKeysResult?
-	private weak var observer: ENAExposureManagerObserver?
 
 	// MARK: Creating a Mocked Manager
 
