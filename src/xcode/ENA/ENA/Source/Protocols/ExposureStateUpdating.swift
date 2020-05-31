@@ -16,5 +16,5 @@
 // under the License.
 
 protocol ExposureStateUpdating {
-	func updateState(_ state: ExposureManagerState)
+	func updateExposureState(_ state: ExposureManagerState)
 }

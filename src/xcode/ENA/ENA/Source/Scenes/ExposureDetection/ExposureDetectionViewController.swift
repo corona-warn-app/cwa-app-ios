@@ -129,7 +129,7 @@ private extension ExposureDetectionViewController {
 }
 
 extension ExposureDetectionViewController: ExposureStateUpdating {
-	func updateState(_ emState: ExposureManagerState) {
+	func updateExposureState(_ emState: ExposureManagerState) {
 		state.exposureManagerState = emState
 		updateUI()
 	}

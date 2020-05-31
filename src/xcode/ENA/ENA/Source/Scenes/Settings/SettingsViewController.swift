@@ -289,9 +289,9 @@ extension SettingsViewController: ExposureNotificationSettingViewControllerDeleg
 }
 
 extension SettingsViewController: ExposureStateUpdating {
-	func updateState(_ state: ExposureManagerState) {
+	func updateExposureState(_ state: ExposureManagerState) {
 		checkTracingStatus()
-		notificationSettingsController?.updateState(state)
+		notificationSettingsController?.updateExposureState(state)
 	}
 }
 

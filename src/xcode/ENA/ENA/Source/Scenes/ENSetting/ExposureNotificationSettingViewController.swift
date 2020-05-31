@@ -113,7 +113,7 @@ extension ExposureNotificationSettingViewController {
 }
 
 extension ExposureNotificationSettingViewController: ExposureStateUpdating {
-	func updateState(_: ExposureManagerState) {
+	func updateExposureState(_: ExposureManagerState) {
 		tableView.reloadData()
 	}
 }

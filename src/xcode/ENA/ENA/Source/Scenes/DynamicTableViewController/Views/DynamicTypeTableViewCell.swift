@@ -32,11 +32,7 @@ class DynamicTypeTableViewCell: UITableViewCell {
 
 		selectionStyle = .none
 
-		if let textStyle = self.textStyle {
-			textLabel?.font = UIFont.preferredFont(forTextStyle: textStyle).scaledFont(size: fontSize, weight: fontWeight)
-			textLabel?.adjustsFontForContentSizeCategory = true
-			textLabel?.numberOfLines = 0
-		}
+		setupTextLabel()
 
 		backgroundColor = .preferredColor(for: .backgroundPrimary)
 	}
@@ -44,6 +40,10 @@ class DynamicTypeTableViewCell: UITableViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
+		setupTextLabel()
+	}
+	
+	private func setupTextLabel() {
 		if let textStyle = self.textStyle {
 			textLabel?.font = UIFont.preferredFont(forTextStyle: textStyle).scaledFont(size: fontSize, weight: fontWeight)
 			textLabel?.adjustsFontForContentSizeCategory = true
