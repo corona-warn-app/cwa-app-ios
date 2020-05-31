@@ -66,18 +66,18 @@ final class ExposureDetectionTransaction {
 
 	func start(taskCompletion: (() -> Void)? = nil) {
 		let today = formattedToday()
-		client.availableDaysAndHoursUpUntil(today) { result in
+		client.availableDaysAndHoursUpUntil(today) { [weak self] result in
 			switch result {
 			case let .success(daysAndHours):
-				self.continueWith(remoteDaysAndHours: daysAndHours) {
+				self?.continueWith(remoteDaysAndHours: daysAndHours) {
 					taskCompletion?()
 				}
 			case .failure:
-				self.endPrematurely(reason: .noDaysAndHours)
+				self?.endPrematurely(reason: .noDaysAndHours)
 				taskCompletion?()
 
 			}
-		}
+		} 
 	}
 
 	// MARK: Working with the Delegate
