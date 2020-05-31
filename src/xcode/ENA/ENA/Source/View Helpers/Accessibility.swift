@@ -32,7 +32,7 @@ enum Accessibility {
 		static let allowButton = "Allow"
 		static let okButton = "Ok"
 	}
-	
+
 	enum StaticText {
 		static let onboardingTitle = "OnboardingInfo_togetherAgainstCoronaPage_title"
 		static let homeActivateTitle = "Home_Activate_Title"

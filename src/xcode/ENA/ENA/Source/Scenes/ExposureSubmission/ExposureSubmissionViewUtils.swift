@@ -20,20 +20,26 @@ import UIKit
 
 enum ExposureSubmissionViewUtils {
 	static func setupConfirmationAlert(successAction: @escaping (() -> Void)) -> UIAlertController {
-		let alert = UIAlertController(title: AppStrings.Common.alertTitleKeySubmit,
-									  message: AppStrings.Common.alertDescriptionKeySubmit,
-									  preferredStyle: .alert)
-		let ok = UIAlertAction(title: AppStrings.Common.alertActionOk,
-							   style: .default,
-							   handler: { _ in
-							   	successAction()
-							   	alert.dismiss(animated: true, completion: nil)
-                                })
-		let cancel = UIAlertAction(title: AppStrings.Common.alertActionNo,
-								   style: .cancel,
-								   handler: { _ in
-								   	alert.dismiss(animated: true, completion: nil)
-                                    })
+		let alert = UIAlertController(
+			title: AppStrings.Common.alertTitleKeySubmit,
+			message: AppStrings.Common.alertDescriptionKeySubmit,
+			preferredStyle: .alert
+		)
+		let ok = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .default,
+			handler: { _ in
+				successAction()
+				alert.dismiss(animated: true, completion: nil)
+			}
+		)
+		let cancel = UIAlertAction(
+			title: AppStrings.Common.alertActionNo,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true, completion: nil)
+			}
+		)
 		alert.addAction(cancel)
 		alert.addAction(ok)
 		return alert
@@ -44,14 +50,18 @@ enum ExposureSubmissionViewUtils {
 	}
 
 	static func setupAlert(message: String, action completion: (() -> Void)? = nil) -> UIAlertController {
-		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle,
-									  message: message,
-									  preferredStyle: .alert)
-		let ok = UIAlertAction(title: AppStrings.Common.alertActionOk,
-							   style: .cancel,
-							   handler: { _ in
-							   	alert.dismiss(animated: true, completion: completion)
-                               })
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.generalErrorTitle,
+			message: message,
+			preferredStyle: .alert
+		)
+		let ok = UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true, completion: completion)
+			}
+		)
 		alert.addAction(ok)
 		return alert
 	}

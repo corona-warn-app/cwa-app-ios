@@ -29,6 +29,7 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController 
 	}
 
 	private func setUpView() {
+		navigationItem.hidesBackButton = true
 		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 		dynamicTableViewModel = .data
 	}
@@ -57,35 +58,35 @@ private extension DynamicTableViewModel {
 				.bigBold(text: AppStrings.ExposureSubmissionSuccess.subTitle),
 				.regular(text: AppStrings.ExposureSubmissionSuccess.description),
 				.bigBold(text: AppStrings.ExposureSubmissionSuccess.listTitle),
-				DynamicCell.identifier(
+				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
 						cell.configure(
-							title: AppStrings.ExposureSubmissionSuccess.listItem1,
+							text: AppStrings.ExposureSubmissionSuccess.listItem1,
 							image: UIImage(named: "Icons - Ansteckend"),
 							hasSeparators: false,
 							isCircle: true,
-							iconTintColor: .preferredColor(for: .positive)
+							iconTintColor: .preferredColor(for: .negativeRisk)
 						)
 					}
 				),
-				DynamicCell.identifier(
+				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
 						cell.configure(
-							title: AppStrings.ExposureSubmissionSuccess.listItem2,
+							text: AppStrings.ExposureSubmissionSuccess.listItem2,
 							image: UIImage(named: "Icons - Home"),
 							isCircle: true,
-							iconTintColor: .preferredColor(for: .positive)
+							iconTintColor: .preferredColor(for: .negativeRisk)
 						)
 					}
-				),
+				)
 			]
-		),
+		)
 	])
 }
 

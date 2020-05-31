@@ -3,14 +3,15 @@
 </h1>
 
 <p align="center">
-    <a href="https://github.com/corona-warn-app/cwa-app-ios/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios"></a>
+    <a href="https://github.com/corona-warn-app/cwa-app-ios/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/corona-warn-app/cwa-app-ios?style=flat"></a>
+    <a href="https://github.com/corona-warn-app/cwa-app-ios/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios?style=flat"></a>
     <a href="https://circleci.com/gh/corona-warn-app/cwa-app-ios" title="Build Status"><img src="https://circleci.com/gh/corona-warn-app/cwa-app-ios.png?circle-token=656940b0df758209128b0d782c5f8885ddceb7a8&style=shield"></a>
     <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg"></a>
 </p>
 
 <p align="center">
   <a href="#development">Development</a> •
-  <a href="#architecture--documentation">Documenation</a> •
+  <a href="#architecture--documentation">Documentation</a> •
   <a href="#how-to-contribute">Contribute</a> •
   <a href="#support--feedback">Support</a> •
   <a href="https://github.com/corona-warn-app/cwa-app-ios/releases">Changelog</a> •
@@ -36,11 +37,21 @@ cd src/xcode && fastlane build
 cd src/xcode && fastlane test
 ```
 
-Find all available lanes: [Fastfile documenation](src/xcode/fastlane/README.md)
+Find all available lanes: [Fastfile documentation](src/xcode/fastlane/README.md)
 
 ### Run
 
-_TODO: Steps/commmands needed to run the project in development mode._
+1. Select the right app scheme.
+
+   We added the schema `ENACommunity` to our project which should enable third party developers to run and test the code. This schema uses a mocked implementation of `ExposureManager` in `SceneDelegate` and injects it into the application.
+
+2. Run the Server locally
+
+   If you have docker installed locally, the overall cwa-server setup can be easily build and run (incl. dependencies) by 'docker-compose up'. More information at: https://github.com/corona-warn-app/cwa-server
+3. Configure the URL scheme
+  * On your device, store a deep link that has the following structure:
+    `corona-warn-app://configure?distributionBaseURL=https://fix.me/&submissionBaseURL=https://fix.me&verificationBaseURL=https://fix.me`
+  * Tap on the link and then relaunch the app because the changes will only be effective in a new session. You can validate the configuration in the developer menu (Triple-tap somewhere in the homescreen and click on the settings icon in the toolbar).
 
 ## Architecture & Documentation
 

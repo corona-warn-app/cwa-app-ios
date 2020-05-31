@@ -6,7 +6,7 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
-///https://static.googleusercontent.com/media/www.google.com/en//covid19/exposurenotifications/pdfs/Exposure-Key-File-Format-and-Verification.pdf
+/// https://static.googleusercontent.com/media/www.google.com/en//covid19/exposurenotifications/pdfs/Exposure-Key-File-Format-and-Verification.pdf
 
 import Foundation
 import SwiftProtobuf
@@ -16,373 +16,387 @@ import SwiftProtobuf
 // incompatible with the version of SwiftProtobuf to which you are linking.
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
-fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
-  typealias Version = _2
+private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
+    struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
+    typealias Version = _2
 }
 
 struct SAP_TemporaryExposureKeyExport {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
-  /// Time window of keys in the file, based on arrival
-  /// at the server, in UTC seconds.
-  var startTimestamp: UInt64 {
-    get {return _startTimestamp ?? 0}
-    set {_startTimestamp = newValue}
-  }
-  /// Returns true if `startTimestamp` has been explicitly set.
-  var hasStartTimestamp: Bool {return self._startTimestamp != nil}
-  /// Clears the value of `startTimestamp`. Subsequent reads from it will return its default value.
-  mutating func clearStartTimestamp() {self._startTimestamp = nil}
+    /// Time window of keys in the file, based on arrival
+    /// at the server, in UTC seconds.
+    var startTimestamp: UInt64 {
+        get { return _startTimestamp ?? 0 }
+        set { _startTimestamp = newValue }
+    }
 
-  var endTimestamp: UInt64 {
-    get {return _endTimestamp ?? 0}
-    set {_endTimestamp = newValue}
-  }
-  /// Returns true if `endTimestamp` has been explicitly set.
-  var hasEndTimestamp: Bool {return self._endTimestamp != nil}
-  /// Clears the value of `endTimestamp`. Subsequent reads from it will return its default value.
-  mutating func clearEndTimestamp() {self._endTimestamp = nil}
+    /// Returns true if `startTimestamp` has been explicitly set.
+    var hasStartTimestamp: Bool { return self._startTimestamp != nil }
+    /// Clears the value of `startTimestamp`. Subsequent reads from it will return its default value.
+    mutating func clearStartTimestamp() { _startTimestamp = nil }
 
-  /// Region from which these keys came (for example, MCC).
-  var region: String {
-    get {return _region ?? String()}
-    set {_region = newValue}
-  }
-  /// Returns true if `region` has been explicitly set.
-  var hasRegion: Bool {return self._region != nil}
-  /// Clears the value of `region`. Subsequent reads from it will return its default value.
-  mutating func clearRegion() {self._region = nil}
+    var endTimestamp: UInt64 {
+        get { return _endTimestamp ?? 0 }
+        set { _endTimestamp = newValue }
+    }
 
-  /// Reserved for future use. Both batch_num and batch_size
-  /// must be set to a value of 1.
-  var batchNum: Int32 {
-    get {return _batchNum ?? 0}
-    set {_batchNum = newValue}
-  }
-  /// Returns true if `batchNum` has been explicitly set.
-  var hasBatchNum: Bool {return self._batchNum != nil}
-  /// Clears the value of `batchNum`. Subsequent reads from it will return its default value.
-  mutating func clearBatchNum() {self._batchNum = nil}
+    /// Returns true if `endTimestamp` has been explicitly set.
+    var hasEndTimestamp: Bool { return self._endTimestamp != nil }
+    /// Clears the value of `endTimestamp`. Subsequent reads from it will return its default value.
+    mutating func clearEndTimestamp() { _endTimestamp = nil }
 
-  var batchSize: Int32 {
-    get {return _batchSize ?? 0}
-    set {_batchSize = newValue}
-  }
-  /// Returns true if `batchSize` has been explicitly set.
-  var hasBatchSize: Bool {return self._batchSize != nil}
-  /// Clears the value of `batchSize`. Subsequent reads from it will return its default value.
-  mutating func clearBatchSize() {self._batchSize = nil}
+    /// Region from which these keys came (for example, MCC).
+    var region: String {
+        get { return _region ?? String() }
+        set { _region = newValue }
+    }
 
-  /// Information about associated signatures.
-  var signatureInfos: [SAP_SignatureInfo] = []
+    /// Returns true if `region` has been explicitly set.
+    var hasRegion: Bool { return self._region != nil }
+    /// Clears the value of `region`. Subsequent reads from it will return its default value.
+    mutating func clearRegion() { _region = nil }
 
-  /// The temporary exposure keys themselves.
-  var keys: [SAP_TemporaryExposureKey] = []
+    /// Reserved for future use. Both batch_num and batch_size
+    /// must be set to a value of 1.
+    var batchNum: Int32 {
+        get { return _batchNum ?? 0 }
+        set { _batchNum = newValue }
+    }
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+    /// Returns true if `batchNum` has been explicitly set.
+    var hasBatchNum: Bool { return self._batchNum != nil }
+    /// Clears the value of `batchNum`. Subsequent reads from it will return its default value.
+    mutating func clearBatchNum() { _batchNum = nil }
 
-  init() {}
+    var batchSize: Int32 {
+        get { return _batchSize ?? 0 }
+        set { _batchSize = newValue }
+    }
 
-  fileprivate var _startTimestamp: UInt64? = nil
-  fileprivate var _endTimestamp: UInt64? = nil
-  fileprivate var _region: String? = nil
-  fileprivate var _batchNum: Int32? = nil
-  fileprivate var _batchSize: Int32? = nil
+    /// Returns true if `batchSize` has been explicitly set.
+    var hasBatchSize: Bool { return self._batchSize != nil }
+    /// Clears the value of `batchSize`. Subsequent reads from it will return its default value.
+    mutating func clearBatchSize() { _batchSize = nil }
+
+    /// Information about associated signatures.
+    var signatureInfos: [SAP_SignatureInfo] = []
+
+    /// The temporary exposure keys themselves.
+    var keys: [SAP_TemporaryExposureKey] = []
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    init() {}
+
+    fileprivate var _startTimestamp: UInt64?
+    fileprivate var _endTimestamp: UInt64?
+    fileprivate var _region: String?
+    fileprivate var _batchNum: Int32?
+    fileprivate var _batchSize: Int32?
 }
 
 struct SAP_SignatureInfo {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
-  /// App Store app bundle ID.
-  var appBundleID: String {
-    get {return _appBundleID ?? String()}
-    set {_appBundleID = newValue}
-  }
-  /// Returns true if `appBundleID` has been explicitly set.
-  var hasAppBundleID: Bool {return self._appBundleID != nil}
-  /// Clears the value of `appBundleID`. Subsequent reads from it will return its default value.
-  mutating func clearAppBundleID() {self._appBundleID = nil}
+    /// App Store app bundle ID.
+    var appBundleID: String {
+        get { return _appBundleID ?? String() }
+        set { _appBundleID = newValue }
+    }
 
-  /// Android app package name.
-  var androidPackage: String {
-    get {return _androidPackage ?? String()}
-    set {_androidPackage = newValue}
-  }
-  /// Returns true if `androidPackage` has been explicitly set.
-  var hasAndroidPackage: Bool {return self._androidPackage != nil}
-  /// Clears the value of `androidPackage`. Subsequent reads from it will return its default value.
-  mutating func clearAndroidPackage() {self._androidPackage = nil}
+    /// Returns true if `appBundleID` has been explicitly set.
+    var hasAppBundleID: Bool { return self._appBundleID != nil }
+    /// Clears the value of `appBundleID`. Subsequent reads from it will return its default value.
+    mutating func clearAppBundleID() { _appBundleID = nil }
 
-  /// Key version in case the EN server signing key is rotated.
-  var verificationKeyVersion: String {
-    get {return _verificationKeyVersion ?? String()}
-    set {_verificationKeyVersion = newValue}
-  }
-  /// Returns true if `verificationKeyVersion` has been explicitly set.
-  var hasVerificationKeyVersion: Bool {return self._verificationKeyVersion != nil}
-  /// Clears the value of `verificationKeyVersion`. Subsequent reads from it will return its default value.
-  mutating func clearVerificationKeyVersion() {self._verificationKeyVersion = nil}
+    /// Android app package name.
+    var androidPackage: String {
+        get { return _androidPackage ?? String() }
+        set { _androidPackage = newValue }
+    }
 
-  /// Three-digit mobile country code (MCC) for validating the key file.
-  /// If a region has more than one MCC, the server can choose
-  /// which MCC to use. This value does not have to match the client's MCC,
-  /// but must correspond to one of the supported MCCs for its region.
-  var verificationKeyID: String {
-    get {return _verificationKeyID ?? String()}
-    set {_verificationKeyID = newValue}
-  }
-  /// Returns true if `verificationKeyID` has been explicitly set.
-  var hasVerificationKeyID: Bool {return self._verificationKeyID != nil}
-  /// Clears the value of `verificationKeyID`. Subsequent reads from it will return its default value.
-  mutating func clearVerificationKeyID() {self._verificationKeyID = nil}
+    /// Returns true if `androidPackage` has been explicitly set.
+    var hasAndroidPackage: Bool { return self._androidPackage != nil }
+    /// Clears the value of `androidPackage`. Subsequent reads from it will return its default value.
+    mutating func clearAndroidPackage() { _androidPackage = nil }
 
-  /// All keys must be signed using the SHA-256 with ECDSA algorithm.
-  /// This field must contain the string "1.2.840.10045.4.3.2".
-  var signatureAlgorithm: String {
-    get {return _signatureAlgorithm ?? String()}
-    set {_signatureAlgorithm = newValue}
-  }
-  /// Returns true if `signatureAlgorithm` has been explicitly set.
-  var hasSignatureAlgorithm: Bool {return self._signatureAlgorithm != nil}
-  /// Clears the value of `signatureAlgorithm`. Subsequent reads from it will return its default value.
-  mutating func clearSignatureAlgorithm() {self._signatureAlgorithm = nil}
+    /// Key version in case the EN server signing key is rotated.
+    var verificationKeyVersion: String {
+        get { return _verificationKeyVersion ?? String() }
+        set { _verificationKeyVersion = newValue }
+    }
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+    /// Returns true if `verificationKeyVersion` has been explicitly set.
+    var hasVerificationKeyVersion: Bool { return self._verificationKeyVersion != nil }
+    /// Clears the value of `verificationKeyVersion`. Subsequent reads from it will return its default value.
+    mutating func clearVerificationKeyVersion() { _verificationKeyVersion = nil }
 
-  init() {}
+    /// Three-digit mobile country code (MCC) for validating the key file.
+    /// If a region has more than one MCC, the server can choose
+    /// which MCC to use. This value does not have to match the client's MCC,
+    /// but must correspond to one of the supported MCCs for its region.
+    var verificationKeyID: String {
+        get { return _verificationKeyID ?? String() }
+        set { _verificationKeyID = newValue }
+    }
 
-  fileprivate var _appBundleID: String? = nil
-  fileprivate var _androidPackage: String? = nil
-  fileprivate var _verificationKeyVersion: String? = nil
-  fileprivate var _verificationKeyID: String? = nil
-  fileprivate var _signatureAlgorithm: String? = nil
+    /// Returns true if `verificationKeyID` has been explicitly set.
+    var hasVerificationKeyID: Bool { return self._verificationKeyID != nil }
+    /// Clears the value of `verificationKeyID`. Subsequent reads from it will return its default value.
+    mutating func clearVerificationKeyID() { _verificationKeyID = nil }
+
+    /// All keys must be signed using the SHA-256 with ECDSA algorithm.
+    /// This field must contain the string "1.2.840.10045.4.3.2".
+    var signatureAlgorithm: String {
+        get { return _signatureAlgorithm ?? String() }
+        set { _signatureAlgorithm = newValue }
+    }
+
+    /// Returns true if `signatureAlgorithm` has been explicitly set.
+    var hasSignatureAlgorithm: Bool { return self._signatureAlgorithm != nil }
+    /// Clears the value of `signatureAlgorithm`. Subsequent reads from it will return its default value.
+    mutating func clearSignatureAlgorithm() { _signatureAlgorithm = nil }
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    init() {}
+
+    fileprivate var _appBundleID: String?
+    fileprivate var _androidPackage: String?
+    fileprivate var _verificationKeyVersion: String?
+    fileprivate var _verificationKeyID: String?
+    fileprivate var _signatureAlgorithm: String?
 }
 
 struct SAP_TemporaryExposureKey {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
-  /// Key of infected user
-  var keyData: Data {
-    get {return _keyData ?? SwiftProtobuf.Internal.emptyData}
-    set {_keyData = newValue}
-  }
-  /// Returns true if `keyData` has been explicitly set.
-  var hasKeyData: Bool {return self._keyData != nil}
-  /// Clears the value of `keyData`. Subsequent reads from it will return its default value.
-  mutating func clearKeyData() {self._keyData = nil}
+    /// Key of infected user
+    var keyData: Data {
+        get { return _keyData ?? SwiftProtobuf.Internal.emptyData }
+        set { _keyData = newValue }
+    }
 
-  /// Varying risk associated with a key depending on diagnosis method
-  var transmissionRiskLevel: Int32 {
-    get {return _transmissionRiskLevel ?? 0}
-    set {_transmissionRiskLevel = newValue}
-  }
-  /// Returns true if `transmissionRiskLevel` has been explicitly set.
-  var hasTransmissionRiskLevel: Bool {return self._transmissionRiskLevel != nil}
-  /// Clears the value of `transmissionRiskLevel`. Subsequent reads from it will return its default value.
-  mutating func clearTransmissionRiskLevel() {self._transmissionRiskLevel = nil}
+    /// Returns true if `keyData` has been explicitly set.
+    var hasKeyData: Bool { return self._keyData != nil }
+    /// Clears the value of `keyData`. Subsequent reads from it will return its default value.
+    mutating func clearKeyData() { _keyData = nil }
 
-  /// The interval number since epoch for which a key starts
-  var rollingStartIntervalNumber: Int32 {
-    get {return _rollingStartIntervalNumber ?? 0}
-    set {_rollingStartIntervalNumber = newValue}
-  }
-  /// Returns true if `rollingStartIntervalNumber` has been explicitly set.
-  var hasRollingStartIntervalNumber: Bool {return self._rollingStartIntervalNumber != nil}
-  /// Clears the value of `rollingStartIntervalNumber`. Subsequent reads from it will return its default value.
-  mutating func clearRollingStartIntervalNumber() {self._rollingStartIntervalNumber = nil}
+    /// Varying risk associated with a key depending on diagnosis method
+    var transmissionRiskLevel: Int32 {
+        get { return _transmissionRiskLevel ?? 0 }
+        set { _transmissionRiskLevel = newValue }
+    }
 
-  /// Increments of 10 minutes describing how long a key is valid
-  var rollingPeriod: Int32 {
-    get {return _rollingPeriod ?? 144}
-    set {_rollingPeriod = newValue}
-  }
-  /// Returns true if `rollingPeriod` has been explicitly set.
-  var hasRollingPeriod: Bool {return self._rollingPeriod != nil}
-  /// Clears the value of `rollingPeriod`. Subsequent reads from it will return its default value.
-  mutating func clearRollingPeriod() {self._rollingPeriod = nil}
+    /// Returns true if `transmissionRiskLevel` has been explicitly set.
+    var hasTransmissionRiskLevel: Bool { return self._transmissionRiskLevel != nil }
+    /// Clears the value of `transmissionRiskLevel`. Subsequent reads from it will return its default value.
+    mutating func clearTransmissionRiskLevel() { _transmissionRiskLevel = nil }
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+    /// The interval number since epoch for which a key starts
+    var rollingStartIntervalNumber: Int32 {
+        get { return _rollingStartIntervalNumber ?? 0 }
+        set { _rollingStartIntervalNumber = newValue }
+    }
 
-  init() {}
+    /// Returns true if `rollingStartIntervalNumber` has been explicitly set.
+    var hasRollingStartIntervalNumber: Bool { return self._rollingStartIntervalNumber != nil }
+    /// Clears the value of `rollingStartIntervalNumber`. Subsequent reads from it will return its default value.
+    mutating func clearRollingStartIntervalNumber() { _rollingStartIntervalNumber = nil }
 
-  fileprivate var _keyData: Data? = nil
-  fileprivate var _transmissionRiskLevel: Int32? = nil
-  fileprivate var _rollingStartIntervalNumber: Int32? = nil
-  fileprivate var _rollingPeriod: Int32? = nil
+    /// Increments of 10 minutes describing how long a key is valid
+    var rollingPeriod: Int32 {
+        get { return _rollingPeriod ?? 144 }
+        set { _rollingPeriod = newValue }
+    }
+
+    /// Returns true if `rollingPeriod` has been explicitly set.
+    var hasRollingPeriod: Bool { return self._rollingPeriod != nil }
+    /// Clears the value of `rollingPeriod`. Subsequent reads from it will return its default value.
+    mutating func clearRollingPeriod() { _rollingPeriod = nil }
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    init() {}
+
+    fileprivate var _keyData: Data?
+    fileprivate var _transmissionRiskLevel: Int32?
+    fileprivate var _rollingStartIntervalNumber: Int32?
+    fileprivate var _rollingPeriod: Int32?
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "SAP"
+private let _protobuf_package = "SAP"
 
 extension SAP_TemporaryExposureKeyExport: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".TemporaryExposureKeyExport"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "start_timestamp"),
-    2: .standard(proto: "end_timestamp"),
-    3: .same(proto: "region"),
-    4: .standard(proto: "batch_num"),
-    5: .standard(proto: "batch_size"),
-    6: .standard(proto: "signature_infos"),
-    7: .same(proto: "keys"),
-  ]
+    static let protoMessageName: String = _protobuf_package + ".TemporaryExposureKeyExport"
+    static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "start_timestamp"),
+        2: .standard(proto: "end_timestamp"),
+        3: .same(proto: "region"),
+        4: .standard(proto: "batch_num"),
+        5: .standard(proto: "batch_size"),
+        6: .standard(proto: "signature_infos"),
+        7: .same(proto: "keys"),
+    ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularFixed64Field(value: &self._startTimestamp)
-      case 2: try decoder.decodeSingularFixed64Field(value: &self._endTimestamp)
-      case 3: try decoder.decodeSingularStringField(value: &self._region)
-      case 4: try decoder.decodeSingularInt32Field(value: &self._batchNum)
-      case 5: try decoder.decodeSingularInt32Field(value: &self._batchSize)
-      case 6: try decoder.decodeRepeatedMessageField(value: &self.signatureInfos)
-      case 7: try decoder.decodeRepeatedMessageField(value: &self.keys)
-      default: break
-      }
+    mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            switch fieldNumber {
+            case 1: try decoder.decodeSingularFixed64Field(value: &_startTimestamp)
+            case 2: try decoder.decodeSingularFixed64Field(value: &_endTimestamp)
+            case 3: try decoder.decodeSingularStringField(value: &_region)
+            case 4: try decoder.decodeSingularInt32Field(value: &_batchNum)
+            case 5: try decoder.decodeSingularInt32Field(value: &_batchSize)
+            case 6: try decoder.decodeRepeatedMessageField(value: &signatureInfos)
+            case 7: try decoder.decodeRepeatedMessageField(value: &keys)
+            default: break
+            }
+        }
     }
-  }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._startTimestamp {
-      try visitor.visitSingularFixed64Field(value: v, fieldNumber: 1)
+    func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if let v = _startTimestamp {
+            try visitor.visitSingularFixed64Field(value: v, fieldNumber: 1)
+        }
+        if let v = _endTimestamp {
+            try visitor.visitSingularFixed64Field(value: v, fieldNumber: 2)
+        }
+        if let v = _region {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+        }
+        if let v = _batchNum {
+            try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
+        }
+        if let v = _batchSize {
+            try visitor.visitSingularInt32Field(value: v, fieldNumber: 5)
+        }
+        if !signatureInfos.isEmpty {
+            try visitor.visitRepeatedMessageField(value: signatureInfos, fieldNumber: 6)
+        }
+        if !keys.isEmpty {
+            try visitor.visitRepeatedMessageField(value: keys, fieldNumber: 7)
+        }
+        try unknownFields.traverse(visitor: &visitor)
     }
-    if let v = self._endTimestamp {
-      try visitor.visitSingularFixed64Field(value: v, fieldNumber: 2)
-    }
-    if let v = self._region {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
-    }
-    if let v = self._batchNum {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
-    }
-    if let v = self._batchSize {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 5)
-    }
-    if !self.signatureInfos.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.signatureInfos, fieldNumber: 6)
-    }
-    if !self.keys.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.keys, fieldNumber: 7)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
-  static func ==(lhs: SAP_TemporaryExposureKeyExport, rhs: SAP_TemporaryExposureKeyExport) -> Bool {
-    if lhs._startTimestamp != rhs._startTimestamp {return false}
-    if lhs._endTimestamp != rhs._endTimestamp {return false}
-    if lhs._region != rhs._region {return false}
-    if lhs._batchNum != rhs._batchNum {return false}
-    if lhs._batchSize != rhs._batchSize {return false}
-    if lhs.signatureInfos != rhs.signatureInfos {return false}
-    if lhs.keys != rhs.keys {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
+    static func == (lhs: SAP_TemporaryExposureKeyExport, rhs: SAP_TemporaryExposureKeyExport) -> Bool {
+        if lhs._startTimestamp != rhs._startTimestamp { return false }
+        if lhs._endTimestamp != rhs._endTimestamp { return false }
+        if lhs._region != rhs._region { return false }
+        if lhs._batchNum != rhs._batchNum { return false }
+        if lhs._batchSize != rhs._batchSize { return false }
+        if lhs.signatureInfos != rhs.signatureInfos { return false }
+        if lhs.keys != rhs.keys { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
 }
 
 extension SAP_SignatureInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SignatureInfo"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "app_bundle_id"),
-    2: .standard(proto: "android_package"),
-    3: .standard(proto: "verification_key_version"),
-    4: .standard(proto: "verification_key_id"),
-    5: .standard(proto: "signature_algorithm"),
-  ]
+    static let protoMessageName: String = _protobuf_package + ".SignatureInfo"
+    static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "app_bundle_id"),
+        2: .standard(proto: "android_package"),
+        3: .standard(proto: "verification_key_version"),
+        4: .standard(proto: "verification_key_id"),
+        5: .standard(proto: "signature_algorithm"),
+    ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self._appBundleID)
-      case 2: try decoder.decodeSingularStringField(value: &self._androidPackage)
-      case 3: try decoder.decodeSingularStringField(value: &self._verificationKeyVersion)
-      case 4: try decoder.decodeSingularStringField(value: &self._verificationKeyID)
-      case 5: try decoder.decodeSingularStringField(value: &self._signatureAlgorithm)
-      default: break
-      }
+    mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            switch fieldNumber {
+            case 1: try decoder.decodeSingularStringField(value: &_appBundleID)
+            case 2: try decoder.decodeSingularStringField(value: &_androidPackage)
+            case 3: try decoder.decodeSingularStringField(value: &_verificationKeyVersion)
+            case 4: try decoder.decodeSingularStringField(value: &_verificationKeyID)
+            case 5: try decoder.decodeSingularStringField(value: &_signatureAlgorithm)
+            default: break
+            }
+        }
     }
-  }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._appBundleID {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+    func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if let v = _appBundleID {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+        }
+        if let v = _androidPackage {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+        }
+        if let v = _verificationKeyVersion {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+        }
+        if let v = _verificationKeyID {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 4)
+        }
+        if let v = _signatureAlgorithm {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 5)
+        }
+        try unknownFields.traverse(visitor: &visitor)
     }
-    if let v = self._androidPackage {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    }
-    if let v = self._verificationKeyVersion {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
-    }
-    if let v = self._verificationKeyID {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 4)
-    }
-    if let v = self._signatureAlgorithm {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 5)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
-  static func ==(lhs: SAP_SignatureInfo, rhs: SAP_SignatureInfo) -> Bool {
-    if lhs._appBundleID != rhs._appBundleID {return false}
-    if lhs._androidPackage != rhs._androidPackage {return false}
-    if lhs._verificationKeyVersion != rhs._verificationKeyVersion {return false}
-    if lhs._verificationKeyID != rhs._verificationKeyID {return false}
-    if lhs._signatureAlgorithm != rhs._signatureAlgorithm {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
+    static func == (lhs: SAP_SignatureInfo, rhs: SAP_SignatureInfo) -> Bool {
+        if lhs._appBundleID != rhs._appBundleID { return false }
+        if lhs._androidPackage != rhs._androidPackage { return false }
+        if lhs._verificationKeyVersion != rhs._verificationKeyVersion { return false }
+        if lhs._verificationKeyID != rhs._verificationKeyID { return false }
+        if lhs._signatureAlgorithm != rhs._signatureAlgorithm { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
 }
 
 extension SAP_TemporaryExposureKey: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".TemporaryExposureKey"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "key_data"),
-    2: .standard(proto: "transmission_risk_level"),
-    3: .standard(proto: "rolling_start_interval_number"),
-    4: .standard(proto: "rolling_period"),
-  ]
+    static let protoMessageName: String = _protobuf_package + ".TemporaryExposureKey"
+    static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "key_data"),
+        2: .standard(proto: "transmission_risk_level"),
+        3: .standard(proto: "rolling_start_interval_number"),
+        4: .standard(proto: "rolling_period"),
+    ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularBytesField(value: &self._keyData)
-      case 2: try decoder.decodeSingularInt32Field(value: &self._transmissionRiskLevel)
-      case 3: try decoder.decodeSingularInt32Field(value: &self._rollingStartIntervalNumber)
-      case 4: try decoder.decodeSingularInt32Field(value: &self._rollingPeriod)
-      default: break
-      }
+    mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            switch fieldNumber {
+            case 1: try decoder.decodeSingularBytesField(value: &_keyData)
+            case 2: try decoder.decodeSingularInt32Field(value: &_transmissionRiskLevel)
+            case 3: try decoder.decodeSingularInt32Field(value: &_rollingStartIntervalNumber)
+            case 4: try decoder.decodeSingularInt32Field(value: &_rollingPeriod)
+            default: break
+            }
+        }
     }
-  }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._keyData {
-      try visitor.visitSingularBytesField(value: v, fieldNumber: 1)
+    func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if let v = _keyData {
+            try visitor.visitSingularBytesField(value: v, fieldNumber: 1)
+        }
+        if let v = _transmissionRiskLevel {
+            try visitor.visitSingularInt32Field(value: v, fieldNumber: 2)
+        }
+        if let v = _rollingStartIntervalNumber {
+            try visitor.visitSingularInt32Field(value: v, fieldNumber: 3)
+        }
+        if let v = _rollingPeriod {
+            try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
+        }
+        try unknownFields.traverse(visitor: &visitor)
     }
-    if let v = self._transmissionRiskLevel {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 2)
-    }
-    if let v = self._rollingStartIntervalNumber {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 3)
-    }
-    if let v = self._rollingPeriod {
-      try visitor.visitSingularInt32Field(value: v, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
-  static func ==(lhs: SAP_TemporaryExposureKey, rhs: SAP_TemporaryExposureKey) -> Bool {
-    if lhs._keyData != rhs._keyData {return false}
-    if lhs._transmissionRiskLevel != rhs._transmissionRiskLevel {return false}
-    if lhs._rollingStartIntervalNumber != rhs._rollingStartIntervalNumber {return false}
-    if lhs._rollingPeriod != rhs._rollingPeriod {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
+    static func == (lhs: SAP_TemporaryExposureKey, rhs: SAP_TemporaryExposureKey) -> Bool {
+        if lhs._keyData != rhs._keyData { return false }
+        if lhs._transmissionRiskLevel != rhs._transmissionRiskLevel { return false }
+        if lhs._rollingStartIntervalNumber != rhs._rollingStartIntervalNumber { return false }
+        if lhs._rollingPeriod != rhs._rollingPeriod { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
 }

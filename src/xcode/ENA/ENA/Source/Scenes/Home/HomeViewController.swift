@@ -88,8 +88,7 @@ final class HomeViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		// Why shall we update UI?
-		// updateUI()
+		updateOwnUI()
 		navigationItem.largeTitleDisplayMode = .never
 		homeInteractor.developerMenuEnableIfAllowed()
 	}
@@ -184,7 +183,7 @@ final class HomeViewController: UIViewController {
 			return
 		}
 
-		guard status.active else {
+		guard status.status == .active else {
 			activate(then: enableIfNeeded)
 			return
 		}
@@ -294,6 +293,7 @@ final class HomeViewController: UIViewController {
 	}
 
 	func reloadData() {
+		guard isViewLoaded else { return }
 		collectionView.reloadData()
 	}
 
@@ -332,7 +332,7 @@ final class HomeViewController: UIViewController {
 				collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
 				collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
 				collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 			]
 		)
 
@@ -371,10 +371,15 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func configureUI() {
-		title = "Corona-Warn-App"
+
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
+		
+		let image = UIImage(named: "navi_bar_icon")?.withRenderingMode(.alwaysOriginal)
+		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
+		leftItem.isEnabled = false
+		self.navigationItem.leftBarButtonItem = leftItem
 	}
 }
 
@@ -441,12 +446,12 @@ private extension HomeViewController {
 }
 
 extension HomeViewController: ExposureStateUpdating {
-	func updateState(_ state: ExposureManagerState) {
+	func updateExposureState(_ state: ExposureManagerState) {
 		updateOwnUI()
-		homeInteractor.updateState(state)
+		homeInteractor.updateExposureState(state)
 		exposureDetectionController?.updateUI()
-		settingsController?.updateState(state)
-		notificationSettingsController?.updateState(state)
+		settingsController?.updateExposureState(state)
+		notificationSettingsController?.updateExposureState(state)
 	}
 
 	private func updateOwnUI() {

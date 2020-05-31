@@ -1,0 +1,11 @@
+--swiftversion 5.2
+
+--indent tab
+--tabwidth 4
+--trimwhitespace always
+
+--commas inline
+
+--wrapcollections before-first
+--wraparguments before-first
+--wrapparameters before-first

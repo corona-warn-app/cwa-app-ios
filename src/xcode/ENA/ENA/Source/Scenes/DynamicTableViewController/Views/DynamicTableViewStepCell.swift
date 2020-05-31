@@ -18,91 +18,129 @@
 import UIKit
 
 class DynamicTableViewStepCell: UITableViewCell {
+
+	// MARK: - Attributes.
+	lazy var head = UILabel(frame: .zero)
 	lazy var body = UILabel(frame: .zero)
-	var cellIcon: UIImageView!
-	var separator: UIView!
+	lazy var cellIcon = UIImageView(frame: .zero)
+	lazy var separator = UIView(frame: .zero)
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
 	}
 
-	private func setUpView(_ title: String,
-						   _ image: UIImage?,
-						   _ hasSeparators: Bool = false,
-						   _: Bool = false,
-						   _ iconTintColor: UIColor? = nil,
-						   _ iconBackgroundColor: UIColor? = nil) {
+	private func setUpView(
+		_ title: String?,
+		_ text: String,
+		_ image: UIImage?,
+		_ hasSeparators: Bool = false,
+		_: Bool = false,
+		_ iconTintColor: UIColor? = nil,
+		_ iconBackgroundColor: UIColor? = nil
+	) {
 		// MARK: - Cell related changes.
 
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundBase)
+		backgroundColor = .preferredColor(for: .backgroundPrimary)
+
+		// MARK: - Head.
+
+		if let title = title {
+			head.font = .preferredFont(forTextStyle: .headline)
+			head.numberOfLines = 0
+			head.lineBreakMode = .byWordWrapping
+			head.text = title
+		}
 
 		// MARK: - Body.
 
-		body = UILabel(frame: .zero)
+		body.font = .preferredFont(forTextStyle: .body)
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
-		body.text = title
+		body.text = text
 
 		// MARK: - Cell Icon.
 
-		cellIcon = UIImageView(image: image)
+		var loadedImage = image
+		if iconTintColor != nil {
+			loadedImage = image?.withRenderingMode(.alwaysTemplate)
+		}
+		cellIcon = UIImageView(image: loadedImage)
 		cellIcon.tintColor = iconTintColor
 		cellIcon.backgroundColor = iconBackgroundColor
 
 		// MARK: - Separator.
 
-		separator = UIView(frame: .zero)
-		separator.backgroundColor = .preferredColor(for: .chevron)
+		separator.backgroundColor = .preferredColor(for: .textPrimary2)
 		separator.isHidden = !hasSeparators
 	}
 
+	// MARK: - Constraint handling.
+
+	var heightConstraint: NSLayoutConstraint?
 	private func setConstraints() {
-		// MARK: - Constraint handling.
 
-		UIView.translatesAutoresizingMaskIntoConstraints(for: [body,
-															   cellIcon,
-															   separator], to: false)
+		UIView.translatesAutoresizingMaskIntoConstraints(for: [
+			body,
+			cellIcon,
+			separator,
+			head
+		], to: false)
 
-		addSubviews([separator, cellIcon, body])
+		addSubviews([separator, cellIcon, body, head])
 
-		// TODO: Set the width programmatically, then calculate the
-		// multiline label break afterwards.
-		body.frame.size.width = 300
-		body.sizeToFit()
-		let height = body.frame.height
-		let width = body.frame.width
-
-		setConstraint(for: body.widthAnchor, equalTo: width)
-		setConstraint(for: body.heightAnchor, equalTo: height)
-		setConstraint(for: heightAnchor, equalTo: height + 50)
 		setConstraint(for: cellIcon.widthAnchor, equalTo: 32)
 		setConstraint(for: cellIcon.heightAnchor, equalTo: 32)
 		setConstraint(for: separator.widthAnchor, equalTo: 1)
+		cellIcon.topAnchor.constraint(equalTo: topAnchor).isActive = true
+		cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
 
-		cellIcon.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-		cellIcon.rightAnchor.constraint(equalTo: body.leftAnchor, constant: -10).isActive = true
-		cellIcon.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
-		// TODO: Set this programmatically.
+		head.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
+		head.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+
+		if head.text != nil {
+			head.topAnchor.constraint(equalTo: topAnchor).isActive = true
+			body.topAnchor.constraint(equalTo: head.bottomAnchor, constant: 8).isActive = true
+		} else {
+			body.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+		}
+
+		bottomAnchor.constraint(equalTo: body.bottomAnchor, constant: 8).isActive = true
+
+		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
+		body.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+
 		cellIcon.layer.cornerRadius = 16
 		cellIcon.clipsToBounds = true
 
-		let inset = cellIcon.frame.height * 0.35
-		body.topAnchor.constraint(equalTo: cellIcon.topAnchor, constant: inset).isActive = true
-		body.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-
 		separator.topAnchor.constraint(equalTo: cellIcon.bottomAnchor).isActive = true
-		separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
 		separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+		separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
 	}
 
-	func configure(title: String,
-				   image: UIImage?,
-				   hasSeparators: Bool = false,
-				   isCircle: Bool = false,
-				   iconTintColor: UIColor? = nil,
-				   iconBackgroundColor: UIColor? = nil) {
-		setUpView(title, image, hasSeparators, isCircle, iconTintColor, iconBackgroundColor)
+	func configure(
+		title: String? = nil,
+		text: String,
+		image: UIImage?,
+		hasSeparators: Bool = false,
+		isCircle: Bool = false,
+		iconTintColor: UIColor? = nil,
+		iconBackgroundColor: UIColor? = nil
+	) {
+		setUpView(title, text, image, hasSeparators, isCircle, iconTintColor, iconBackgroundColor)
 		setConstraints()
+	}
+
+}
+
+// MARK: - TableViewReuseIdentifiers.
+
+extension DynamicTableViewStepCell {
+	enum ReuseIdentifier: String, TableViewCellReuseIdentifiers {
+		case cell = "dynamicTableViewStepCell"
+	}
+
+	static var tableViewCellReuseIdentifier: TableViewCellReuseIdentifiers {
+		return ReuseIdentifier.cell
 	}
 }

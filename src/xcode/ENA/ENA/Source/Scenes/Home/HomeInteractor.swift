@@ -53,11 +53,10 @@ final class HomeInteractor {
 					summary: state.summary
 				), stateHandler: stateHandler
 			)
+			reloadRiskCell()
+			cells = initialCellConfigurators()
+			homeViewController.reloadData()
 		}
-	}
-
-	var currentState: RiskDetectionState {
-		stateHandler.getState()
 	}
 
 	private unowned var homeViewController: HomeViewController
@@ -128,6 +127,7 @@ final class HomeInteractor {
 
 	func updateActiveCell() {
 		guard let indexPath = indexPathForActiveCell() else { return }
+		let currentState = stateHandler.getState()
 		activeConfigurator.set(newState: currentState)
 		homeViewController.reloadCell(at: indexPath)
 	}
@@ -162,6 +162,7 @@ final class HomeInteractor {
 	}
 
 	private func initialCellConfigurators() -> [CollectionViewCellConfiguratorAny] {
+		let currentState = stateHandler.getState()
 		activeConfigurator = HomeActivateCellConfigurator(state: currentState)
 		let dateLastExposureDetection = store.dateLastExposureDetection
 
@@ -267,7 +268,7 @@ final class HomeInteractor {
 			info1Configurator,
 			info2Configurator,
 			appInformationConfigurator,
-			settingsConfigurator,
+			settingsConfigurator
 		]
 		configurators.append(contentsOf: others)
 		return configurators
@@ -366,7 +367,7 @@ extension HomeInteractor: StateHandlerObserverDelegate {
 }
 
 extension HomeInteractor: ExposureStateUpdating {
-	func updateState(_ state: ExposureManagerState) {
+	func updateExposureState(_ state: ExposureManagerState) {
 		stateHandler.exposureManagerDidUpdate(to: state)
 	}
 }

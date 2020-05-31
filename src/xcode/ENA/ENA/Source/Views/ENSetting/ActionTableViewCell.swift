@@ -56,8 +56,10 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		}
 	}
 
-	func configure(for state: RiskDetectionState,
-				   delegate: ActionTableViewCellDelegate) {
+	func configure(
+		for state: RiskDetectionState,
+		delegate: ActionTableViewCellDelegate
+	) {
 		self.delegate = delegate
 		configure(for: state)
 	}

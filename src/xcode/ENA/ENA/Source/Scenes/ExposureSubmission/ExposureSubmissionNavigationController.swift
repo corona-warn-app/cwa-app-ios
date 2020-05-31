@@ -72,6 +72,7 @@ extension ExposureSubmissionNavigationControllerChild where Self: UIViewControll
 class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
+	private var keyboardWillChangeFrameObserver: NSObjectProtocol?
 
 	private(set) var isBottomViewHidden: Bool = true
 	private var isKeyboardHidden: Bool = true
@@ -108,8 +109,10 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"), style: .done, target: self, action: #selector(close))
-		barButtonItem.tintColor = UIColor.preferredColor(for: .separator)
+		let barButtonItem = UIBarButtonItem(
+			image: UIImage(named: "Icons - Close - Light"),
+			style: .done, target: self, action: #selector(close)
+		)
 		navigationItem.rightBarButtonItem = barButtonItem
 
 		setupBottomView()
@@ -155,7 +158,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			self.updateBottomSafeAreaInset(animated: true)
 		}
 
-		keyboardWillHideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: nil) { notification in
+		keyboardWillChangeFrameObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: nil) { notification in
 			self.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
 			self.updateBottomSafeAreaInset(animated: true)
 		}
@@ -166,6 +169,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 		NotificationCenter.default.removeObserver(keyboardWillHideObserver as Any, name: UIResponder.keyboardWillShowNotification, object: nil)
 		NotificationCenter.default.removeObserver(keyboardWillHideObserver as Any, name: UIResponder.keyboardWillHideNotification, object: nil)
+		NotificationCenter.default.removeObserver(keyboardWillChangeFrameObserver as Any, name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
 
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
@@ -257,7 +261,7 @@ extension ExposureSubmissionNavigationController {
 extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
 		let view = UIView()
-		view.backgroundColor = .preferredColor(for: .backgroundBase)
+		view.backgroundColor = .preferredColor(for: .backgroundPrimary)
 		view.insetsLayoutMarginsFromSafeArea = true
 		view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
@@ -287,7 +291,7 @@ extension ExposureSubmissionNavigationController {
 		secondaryButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .bold)
 		secondaryButton.setTitle("", for: .normal)
 		secondaryButton.backgroundColor = .clear
-		secondaryButton.setTitleColor(.preferredColor(for: .inactive), for: .normal)
+		secondaryButton.setTitleColor(.preferredColor(for: .inactiveRisk), for: .normal)
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
 		secondaryButton.isHidden = true
 		view.addSubview(secondaryButton)

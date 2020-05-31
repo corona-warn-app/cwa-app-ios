@@ -82,8 +82,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return HTTPClient(configuration: config)
 	}()
 
-	func application(_: UIApplication,
-					 didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+	func application(
+		_: UIApplication,
+		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
+	) -> Bool {
 		let taskScheduler = ENATaskScheduler()
 		taskScheduler.registerBackgroundTaskRequests()
 		return true
@@ -110,9 +112,53 @@ extension AppDelegate: ExposureDetectionTransactionDelegate {
 	}
 
 	func exposureDetectionTransaction(_: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
-		// TODO: show error to user
 		logError(message: "Exposure transaction failed: \(reason)")
+
+		let message: String
+		switch reason {
+		case .noExposureManager:
+			message = "No ExposureManager"
+		case .noSummary:
+			// not really accurate but very likely this is the case.
+			message = "Max file per day limit set by Apple reached (15)"
+		case .noDaysAndHours:
+			message = "No available files. Did you configure the backend URL?"
+		case .noExposureConfiguration:
+			message = "Didn't get a configuration"
+		case .unableToDiagnosisKeys:
+			message = "No keys"
+		}
+
+		// We have to remove this after the test has been concluded.
+		let alert = UIAlertController(
+			title: "Exposure Detection Failed",
+			message: message,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(
+			UIAlertAction(
+				title: "OK",
+				style: .cancel
+			)
+		)
+
 		exposureDetectionTransaction = nil
+
+		guard let scene = UIApplication.shared.connectedScenes.first else { return }
+		guard let delegate = scene.delegate as? SceneDelegate else { return }
+		guard let rootController = delegate.window?.rootViewController else {
+			return
+		}
+		func showError() {
+			rootController.present(alert, animated: true, completion: nil)
+		}
+
+		if rootController.presentedViewController != nil {
+			rootController.dismiss(animated: true, completion: showError)
+		} else {
+			showError()
+		}
 	}
 
 	func exposureDetectionTransaction(
@@ -144,7 +190,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 		exposureDetectionTransaction = ExposureDetectionTransaction(
 			delegate: self,
 			client: client,
-			keyPackagesStore: downloadedPackagesStore
+			downloadedPackagesStore: downloadedPackagesStore
 		)
 		exposureDetectionTransaction?.start()
 	}

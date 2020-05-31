@@ -48,25 +48,25 @@ final class ExposureDetectionTransaction {
 
 	private weak var delegate: ExposureDetectionTransactionDelegate?
 	private let client: Client
-	private let keyPackagesStore: DownloadedPackagesStore
+	private let downloadedPackagesStore: DownloadedPackagesStore
 
 	// MARK: Creating a Transaction
 
 	init(
 		delegate: ExposureDetectionTransactionDelegate,
 		client: Client,
-		keyPackagesStore: DownloadedPackagesStore
+		downloadedPackagesStore: DownloadedPackagesStore
 	) {
 		self.delegate = delegate
 		self.client = client
-		self.keyPackagesStore = keyPackagesStore
+		self.downloadedPackagesStore = downloadedPackagesStore
 	}
 
 	// MARK: Starting the Transaction
 
 	func start() {
-		let today = formattedToday()
-		client.availableDaysAndHoursUpUntil(today) { result in
+		client.availableDaysAndHoursUpUntil(formattedToday()) { [weak self] result in
+			guard let self = self else { return }
 			switch result {
 			case let .success(daysAndHours):
 				self.continueWith(remoteDaysAndHours: daysAndHours)
@@ -111,7 +111,10 @@ final class ExposureDetectionTransaction {
 		fetchAndStoreMissingDaysAndHours(remoteDaysAndHours: remoteDaysAndHours) { [weak self] in
 			guard let self = self else { return }
 			self.remoteExposureConfiguration { [weak self] configuration in
-				guard let self = self else { return }
+				guard let self = self else {
+					logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+					return
+				}
 				do {
 					let writer = try self.createAppleFilesWriter()
 					self.detectExposures(writer: writer, configuration: configuration)
@@ -128,21 +131,24 @@ final class ExposureDetectionTransaction {
 		completion: @escaping () -> Void
 	) {
 		client.availableDaysAndHoursUpUntil(.formattedToday()) { [weak self] result in
-			guard let self = self else { return }
+			guard let self = self else {
+				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+				return
+			}
 			switch result {
 			case .success(let (remoteDays, remoteHours)):
 				let delta = DeltaCalculationResult(
 					remoteDays: Set(remoteDays),
 					remoteHours: Set(remoteHours),
-					localDays: Set(self.keyPackagesStore.allDays()),
-					localHours: Set(self.keyPackagesStore.hours(for: .formattedToday()))
+					localDays: Set(self.downloadedPackagesStore.allDays()),
+					localHours: Set(self.downloadedPackagesStore.hours(for: .formattedToday()))
 				)
 				self.client.fetchDays(
 					Array(delta.missingDays),
 					hours: Array(delta.missingHours),
 					of: .formattedToday()
 				) { fetchedDaysAndHours in
-					self.keyPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
+					self.downloadedPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
 					completion()
 				}
 			case .failure:
@@ -172,7 +178,7 @@ final class ExposureDetectionTransaction {
 		let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
 
-		let packages = keyPackagesStore.allPackages(for: .formattedToday())
+		let packages = downloadedPackagesStore.allPackages(for: .formattedToday())
 
 		return AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
 	}
@@ -183,7 +189,10 @@ final class ExposureDetectionTransaction {
 		configuration: ENExposureConfiguration
 	) {
 		writer.with { [weak self] diagnosisURLs, done in
-			guard let self = self else { return }
+			guard let self = self else {
+				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+				return
+			}
 			self._detectExposures(
 				diagnosisKeyURLs: diagnosisURLs,
 				configuration: configuration,
@@ -203,6 +212,7 @@ final class ExposureDetectionTransaction {
 			diagnosisKeyURLs: diagnosisKeyURLs
 		) { [weak self] summary, error in
 			guard let self = self else {
+				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
 			if let error = error {
@@ -215,9 +225,6 @@ final class ExposureDetectionTransaction {
 				self.endPrematurely(reason: .noSummary(nil))
 				return
 			}
-			log(message: "summary: \(summary)")
-			logError(message: "error: \(String(describing: error))")
-
 			self.didDetectSummary(summary)
 			completion()
 		}
@@ -228,12 +235,16 @@ private extension DownloadedPackagesStore {
 	func allPackages(for day: String) -> [SAPDownloadedPackage] {
 		let fullDays = allDays()
 		var packages = [SAPDownloadedPackage]()
+
 		packages.append(
 			contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
 		)
-		packages.append(
-			contentsOf: hourlyPackages(for: day)
-		)
+
+//		TODO
+//		Currently disabled because Apple only allows 15 files per day to be fed into the framework
+//		packages.append(
+//			contentsOf: hourlyPackages(for: day)
+//		)
 		return packages
 	}
 }

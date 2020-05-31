@@ -41,7 +41,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
 
-		let color = UIColor.preferredColor(for: .negative)
+		let color = UIColor.preferredColor(for: .negativeRisk)
 		let separatorColor = UIColor.white.withAlphaComponent(0.15)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 		if isLoading {
@@ -72,7 +72,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskCellConfigurator {
 			cell.configureUpdateButton(
 				title: updateButtonText,
 				color: .preferredColor(for: .textPrimary1),
-				backgroundColor: .preferredColor(for: .backgroundBase),
+				backgroundColor: .preferredColor(for: .backgroundPrimary),
 				isEnabled: isButtonEnabled,
 				isHidden: isButtonHidden
 			)
@@ -81,7 +81,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskCellConfigurator {
 			cell.configureUpdateButton(
 				title: buttonTitle,
 				color: .preferredColor(for: .textPrimary1),
-				backgroundColor: .preferredColor(for: .backgroundBase),
+				backgroundColor: .preferredColor(for: .backgroundPrimary),
 				isEnabled: isButtonEnabled,
 				isHidden: isButtonHidden
 			)

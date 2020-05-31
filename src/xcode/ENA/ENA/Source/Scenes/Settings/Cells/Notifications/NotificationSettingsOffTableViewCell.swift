@@ -71,9 +71,13 @@ class NotificationSettingsOffTableViewCell: UITableViewCell {
 			paragraphStyle.firstLineHeadIndent = iconImageView.frame.size.width + labelPadding
 		}
 
-		let attributedString = NSAttributedString(string: value,
-												  attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle,
-															   NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body)])
+		let attributedString = NSAttributedString(
+			string: value,
+			attributes: [
+				NSAttributedString.Key.paragraphStyle: paragraphStyle,
+				NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body)
+			]
+		)
 		descriptionLabel.attributedText = attributedString
 	}
 }
