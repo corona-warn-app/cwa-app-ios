@@ -156,6 +156,8 @@ extension AppDelegate: ExposureDetectionTransactionDelegate {
 
 		if rootController.presentedViewController != nil {
 			rootController.dismiss(animated: true, completion: showError)
+		} else {
+			showError()
 		}
 	}
 
