@@ -104,7 +104,7 @@ enum SubmissionError: Error {
 	case invalidTan
 	case serverError(Int)
 	case requestCouldNotBeBuilt
-	case simpleErrror(String)
+	case simpleError(String)
 }
 
 extension SubmissionError: LocalizedError {
@@ -118,7 +118,7 @@ extension SubmissionError: LocalizedError {
 			return "Received invalid TAN"
 		case .requestCouldNotBeBuilt:
 			return "The Submission Request could not be built correctly."
-		case let .simpleErrror(errorString):
+		case let .simpleError(errorString):
 			return errorString
 		case let .other(error):
 			return error.localizedDescription
