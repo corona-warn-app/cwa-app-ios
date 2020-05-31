@@ -68,7 +68,7 @@ class Logger {
 	}
 	
 	private func log(level: SwiftyBeaver.Level, message: String, file: String, line: Int, function: String) {
-		#if DEBUG
+		#if !APP_STORE
 		_ = consoleDest.send(level, msg: message, thread: Thread.current.name ?? "NA", file: file, function: function, line: line)
 		#endif
 		
