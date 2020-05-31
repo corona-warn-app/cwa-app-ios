@@ -45,7 +45,6 @@ protocol ENATaskExecutionDelegate: AnyObject {
 
 public class ENATaskScheduler {
 	weak var taskDelegate: ENATaskExecutionDelegate?
-	lazy var manager = ENAExposureManager()
 	lazy var notificationManager = LocalNotificationManager()
 	typealias CompletionHandler = (() -> Void)
 
@@ -88,13 +87,6 @@ public class ENATaskScheduler {
 
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
-		if task.identifier == ENATaskIdentifier.detectExposures.backgroundTaskSchedulerIdentifier,
-			(manager.preconditions().authorized == false || UIApplication.shared.backgroundRefreshStatus != .available) {
-			logError(message: "Conditions for background task execution not met")
-			task.setTaskCompleted(success: false)
-			scheduleBackgroundTask(for: .detectExposures)
-			return
-		}
 		guard let taskDelegate = taskDelegate else {
 			task.setTaskCompleted(success: false)
 			scheduleBackgroundTask(for: .detectExposures)

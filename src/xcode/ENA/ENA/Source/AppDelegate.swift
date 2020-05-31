@@ -156,26 +156,38 @@ extension AppDelegate: CoronaWarnAppDelegate {
 
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask) {
-		guard self.exposureDetectionTransaction == nil else {
-			task.setTaskCompleted(success: true)
-			 return
+		func complete(success: Bool) {
+			task.setTaskCompleted(success: success)
+			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+		}
+
+		guard
+			self.exposureDetectionTransaction == nil,
+			exposureManager.preconditions().authorized,
+			UIApplication.shared.backgroundRefreshStatus == .available
+			else {
+			complete(success: false)
+			return
 		}
 
 		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: client, keyPackagesStore: downloadedPackagesStore)
 
 		self.exposureDetectionTransaction?.start {
-			task.setTaskCompleted(success: true)
-			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+			complete(success: true)
 		}
 
 		task.expirationHandler = {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			task.setTaskCompleted(success: false)
-			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+			complete(success: false)
 		}
 	}
 
 	func executeFetchTestResults(task: BGTask) {
+		func complete(success: Bool) {
+			task.setTaskCompleted(success: success)
+			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+		}
+
 		self.exposureSubmissionService = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
 
 		self.exposureSubmissionService?.getTestResult { result in
@@ -193,14 +205,12 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				}
 			}
 
-			task.setTaskCompleted(success: true)
-			self.taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
+			complete(success: true)
 		}
 
 		task.expirationHandler = {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			task.setTaskCompleted(success: false)
-			self.taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
+			complete(success: false)
 		}
 
 	}
