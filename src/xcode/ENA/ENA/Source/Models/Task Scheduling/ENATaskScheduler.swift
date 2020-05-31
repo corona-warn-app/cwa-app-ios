@@ -66,7 +66,7 @@ public class ENATaskScheduler {
 
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
-		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: nil) { task in
+		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
 			taskHander(task)
 		}
 	}
