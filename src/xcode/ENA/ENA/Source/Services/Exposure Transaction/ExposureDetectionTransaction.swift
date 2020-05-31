@@ -123,6 +123,7 @@ final class ExposureDetectionTransaction {
 			self.remoteExposureConfiguration { [weak self] configuration in
 				guard let self = self else {
 					taskCompletion?()
+					logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 					return
 				}
 				do {
@@ -144,7 +145,10 @@ final class ExposureDetectionTransaction {
 		completion: @escaping () -> Void
 	) {
 		client.availableDaysAndHoursUpUntil(.formattedToday()) { [weak self] result in
-			guard let self = self else { return }
+			guard let self = self else {
+				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
+				return
+			}
 			switch result {
 			case .success(let (remoteDays, remoteHours)):
 				let delta = DeltaCalculationResult(
@@ -202,6 +206,7 @@ final class ExposureDetectionTransaction {
 		writer.with { [weak self] diagnosisURLs, done in
 			guard let self = self else {
 				taskCompletion?()
+				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
 			self._detectExposures(
@@ -226,6 +231,7 @@ final class ExposureDetectionTransaction {
 		) { [weak self] summary, error in
 			guard let self = self else {
 				taskCompletion?()
+				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
 			if let error = error {
@@ -251,12 +257,16 @@ private extension DownloadedPackagesStore {
 	func allPackages(for day: String) -> [SAPDownloadedPackage] {
 		let fullDays = allDays()
 		var packages = [SAPDownloadedPackage]()
+
 		packages.append(
 			contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
 		)
-		packages.append(
-			contentsOf: hourlyPackages(for: day)
-		)
+
+//		TODO
+//		Currently disabled because Apple only allows 15 files per day to be fed into the framework
+//		packages.append(
+//			contentsOf: hourlyPackages(for: day)
+//		)
 		return packages
 	}
 }
