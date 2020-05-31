@@ -22,12 +22,23 @@ class RiskLegendTableViewController: UITableViewController {
 	private let tableViewCellHeight: CGFloat = 200
 
 	let riskLegend = RiskLegendFactory.getSharedRiskLegendFactory().getRiskLegend()
+	
+	@objc
+		func onClose() {
+			self.dismiss(animated: true, completion: nil)
+		}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.allowsSelection = false
 		tableView.estimatedRowHeight = tableViewCellHeight
 		tableView.rowHeight = UITableView.automaticDimension
+		let barButtonItem = UIBarButtonItem(
+			image: UIImage(named: "Icons - Close - Light"),
+			style: .done, target: self, action: #selector(onClose)
+		)
+		
+		navigationItem.rightBarButtonItem = barButtonItem
 	}
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
