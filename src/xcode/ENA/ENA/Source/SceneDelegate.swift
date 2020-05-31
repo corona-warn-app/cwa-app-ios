@@ -234,6 +234,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	func sceneWillResignActive(_: UIScene) {
 		showPrivacyProtectionWindow()
+	}
+
+	func sceneDidEnterBackground(_ scene: UIScene) {
 		taskScheduler.scheduleBackgroundTaskRequests()
 	}
 
