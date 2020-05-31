@@ -111,6 +111,33 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			}
 		}
 	}
+
+	/// Shows the data privacy disclaimer and only lets the
+	/// user scan a QR code after accepting.
+	func showDisclaimer() {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.dataPrivacyTitle,
+			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
+			preferredStyle: .alert
+		)
+
+		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
+							  style: .default,
+							  handler: { _ in
+								self.performSegue(
+									withIdentifier: Segue.qrScanner,
+									sender: self
+								)
+		}))
+
+		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,
+							  style: .cancel,
+							  handler: { _ in
+								alert.dismiss(animated: true, completion: nil) }
+			))
+
+		present(alert, animated: true, completion: nil)
+	}
 }
 
 extension ExposureSubmissionOverviewViewController {
@@ -194,63 +221,6 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	}
 }
 
-extension DynamicTableViewModel {
-	mutating func addHelpSection() {
-		add(
-			.section(
-				header: .text("Hilfe"),
-				cells: [
-					.phone(text: "Hotline anrufen", number: "0123456789")
-				]
-			)
-		)
-	}
-
-	mutating func addNextStepsSection() {
-		add(
-			.section(
-				header: .text("Nächste Schritte"),
-				cells:
-				[
-					.icon(
-						action: .perform(segue: ExposureSubmissionOverviewViewController.Segue.tanInput),
-						DynamicIcon(
-							text: "TeleTan eingeben",
-							image: UIImage(systemName: "doc.text"),
-							backgroundColor: .preferredColor(for: .brandBlue),
-							tintColor: .black
-						)
-					),
-					.icon(
-						action: .perform(segue: ExposureSubmissionOverviewViewController.Segue.qrScanner),
-						DynamicIcon(
-							text: "QR-Code scannen",
-							image: UIImage(systemName: "doc.text"),
-							backgroundColor: .preferredColor(for: .brandBlue),
-							tintColor: .black
-						)
-					)
-				]
-			)
-		)
-	}
-
-	mutating func addWhatIfSection() {
-		let header = DynamicHeader.image(UIImage(named: "app-information-people"))
-
-		add(
-			.section(
-				header: header,
-				separators: false,
-				cells: [
-					.semibold(text: "Wenn Sie einen Covid-19 Test gemacht haben, können Sie sich hier das Testergebnis anzeigen lassen."),
-					.regular(text: "Sollte das Testergebnis positiv sein, haben Sie zusätzlich die Möglichkeit Ihren Befund anonym zu melden, damit Kontaktpersonen informiert werden können.")
-				]
-			)
-		)
-	}
-}
-
 private extension ExposureSubmissionOverviewViewController {
 	func dynamicTableData() -> DynamicTableViewModel {
 		var data = DynamicTableViewModel([])
@@ -270,7 +240,9 @@ private extension ExposureSubmissionOverviewViewController {
 		data.add(DynamicSection.section(cells: [
 			.identifier(
 				CustomCellReuseIdentifiers.imageCard,
-				action: .perform(segue: Segue.qrScanner),
+				action: .execute(block: { _ in
+					self.showDisclaimer()
+				}),
 				configure: { _, cell, _ in
 					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
 					cell.configure(

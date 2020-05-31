@@ -108,8 +108,10 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"), style: .done, target: self, action: #selector(close))
-		barButtonItem.tintColor = UIColor.preferredColor(for: .separator)
+		let barButtonItem = UIBarButtonItem(
+			image: UIImage(named: "Icons - Close - Light"),
+			style: .done, target: self, action: #selector(close)
+		)
 		navigationItem.rightBarButtonItem = barButtonItem
 
 		setupBottomView()
