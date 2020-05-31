@@ -1,0 +1,21 @@
+{
+  "collections": [
+    {
+      "collectionName": "cwa-app-ios",
+      "folders": [
+        {
+          "startingFolderPath": "src/xcode/ENA/ENA/Resources/Localization/**",
+          "sourceFilters": [
+            "Localizable.strings"
+          ],
+           "targetFolderPath":"../translated/[langCode].lproj/"
+        }
+      ]
+    }
+  ],
+  "defaultConfiguration": {
+    "pseudoLocFolderPath": "../values-2Q",
+    "oneQFolderPath": "../values-1Q",
+    "targetFileNamingConvention": "[filename].[extension]"
+  }
+}
