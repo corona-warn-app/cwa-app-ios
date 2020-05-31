@@ -54,6 +54,7 @@ final class ConnectivityReachabilityService {
 		self.connectivity = connectivity
 		self.connectivityStatus = connectivityStatus
 		self.observers = observers
+		self.setup()
 	}
 	
 }
