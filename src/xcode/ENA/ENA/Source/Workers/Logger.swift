@@ -46,6 +46,9 @@ class Logger {
 	
 	private func setup() {
 		fileDest.logFileURL = logFileURL
+		
+		sb.addDestination(consoleDest)
+		sb.addDestination(fileDest)
 	}
 	
 	func verbose(message: String, _ file: String = #file, _ line: Int = #line, _ function: String = #function) {
