@@ -18,6 +18,8 @@
 import ExposureNotification
 import Foundation
 
+typealias DaysAndHours = Client.DaysAndHours
+
 /// Methods required to move an exposure detection transaction forward and for consuming
 /// the results of a transaction.
 protocol ExposureDetectionDelegate: AnyObject {

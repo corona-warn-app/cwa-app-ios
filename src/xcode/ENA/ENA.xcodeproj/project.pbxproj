@@ -163,7 +163,6 @@
 		B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */; };
 		B15382E5248273F30010F007 /* MockTestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382E3248273DC0010F007 /* MockTestStore.swift */; };
 		B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382E6248290BB0010F007 /* AppleFilesWriterTests.swift */; };
-		B15382FC248416C90010F007 /* Steps.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382FB248416C90010F007 /* Steps.swift */; };
 		B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382FD248424F00010F007 /* ExposureDetectionTests.swift */; };
 		B154F59B246DD5CF003E891E /* Client+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B154F59A246DD5CF003E891E /* Client+Convenience.swift */; };
 		B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16177E724802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift */; };
@@ -444,7 +443,6 @@
 		B153096B24706F2400A4A1BD /* URLSessionConfiguration+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionConfiguration+Default.swift"; sourceTree = "<group>"; };
 		B15382E3248273DC0010F007 /* MockTestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTestStore.swift; sourceTree = "<group>"; };
 		B15382E6248290BB0010F007 /* AppleFilesWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleFilesWriterTests.swift; sourceTree = "<group>"; };
-		B15382FB248416C90010F007 /* Steps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Steps.swift; path = ../../../../../../../../../Documents/Steps.swift; sourceTree = "<group>"; };
 		B15382FD248424F00010F007 /* ExposureDetectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionTests.swift; sourceTree = "<group>"; };
 		B154F59A246DD5CF003E891E /* Client+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+Convenience.swift"; sourceTree = "<group>"; };
 		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
@@ -1144,7 +1142,6 @@
 		B14D0CD8246E939600D5BEBC /* Exposure Transaction */ = {
 			isa = PBXGroup;
 			children = (
-				B15382FA248416AC0010F007 /* Steps */,
 				B161782B248062A0006E435A /* __tests__ */,
 				B161782924805784006E435A /* DeltaCalculationResult.swift */,
 				B1A9E70D246D73180024CC12 /* ExposureDetection.swift */,
@@ -1215,14 +1212,6 @@
 				B15382E3248273DC0010F007 /* MockTestStore.swift */,
 			);
 			path = Mocks;
-			sourceTree = "<group>";
-		};
-		B15382FA248416AC0010F007 /* Steps */ = {
-			isa = PBXGroup;
-			children = (
-				B15382FB248416C90010F007 /* Steps.swift */,
-			);
-			path = Steps;
 			sourceTree = "<group>";
 		};
 		B1569DD5245D6C790079FCD7 /* Developer Menu */ = {
@@ -1656,7 +1645,6 @@
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
 				51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
-				B15382FC248416C90010F007 /* Steps.swift in Sources */,
 				A3E5E71A247D4FFB00237116 /* ExposureSubmissionViewUtils.swift in Sources */,
 				134FFA11247466BD00D82D14 /* Accessibility.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,

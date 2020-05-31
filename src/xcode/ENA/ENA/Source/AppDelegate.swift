@@ -125,7 +125,7 @@ extension AppDelegate: ExposureDetectionDelegate {
 			localDays: Set(downloadedPackagesStore.allDays()),
 			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
 		)
-		return .init(
+		return (
 			days: Array(delta.missingDays),
 			hours: Array(delta.missingHours)
 		)
