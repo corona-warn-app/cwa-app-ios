@@ -75,8 +75,10 @@ class DynamicTableViewStepCell: UITableViewCell {
 		separator.isHidden = !hasSeparators
 	}
 
+	// MARK: - Constraint handling.
+
+	var heightConstraint: NSLayoutConstraint?
 	private func setConstraints() {
-		// MARK: - Constraint handling.
 
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [
 			body,
@@ -86,12 +88,6 @@ class DynamicTableViewStepCell: UITableViewCell {
 		], to: false)
 
 		addSubviews([separator, cellIcon, body, head])
-
-		head.sizeToFit()
-		body.sizeToFit()
-
-		let height = head.frame.height + body.frame.height + 50
-		setConstraint(for: heightAnchor, equalTo: height.rounded())
 
 		setConstraint(for: cellIcon.widthAnchor, equalTo: 32)
 		setConstraint(for: cellIcon.heightAnchor, equalTo: 32)
@@ -103,11 +99,13 @@ class DynamicTableViewStepCell: UITableViewCell {
 		head.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
 
 		if head.text != nil {
-			head.centerYAnchor.constraint(equalTo: cellIcon.centerYAnchor).isActive = true
+			head.topAnchor.constraint(equalTo: topAnchor).isActive = true
 			body.topAnchor.constraint(equalTo: head.bottomAnchor, constant: 8).isActive = true
 		} else {
 			body.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
 		}
+
+		bottomAnchor.constraint(equalTo: body.bottomAnchor, constant: 8).isActive = true
 
 		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
 		body.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
