@@ -85,10 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 					 didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 
 		UIDevice.current.isBatteryMonitoringEnabled = true
-		log(message: "# TASKSHED #")
-		log(message: "# TASKSHED # RUNNING ON DEVICE \(UIDevice().name)")
-		log(message: "# TASKSHED # \(#line) \(#function) options = \(options)")
-		log(message: "# TASKSHED #")
 
 		taskScheduler.taskDelegate = self
 		taskScheduler.registerBackgroundTaskRequests()
@@ -159,52 +155,40 @@ extension AppDelegate: CoronaWarnAppDelegate {
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask) {
 		// start background task execution
-		log(message: "# TASKSHED # \(#line) \(#function) STARTED \(task.identifier)")
 
 		let exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: client, keyPackagesStore: downloadedPackagesStore)
 		exposureDetectionTransaction.start {
-			// handle completed background task
-			log(message: "# TASKSHED # \(#line) \(#function) RETURN \(task.identifier)")
-
 			// mark background task as completed
-			log(message: "# TASKSHED # \(#line) \(#function) COMPLETE \(task.identifier)")
 			task.setTaskCompleted(success: true)
 
 			// reschedule background task again
-			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
 			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
 		task.expirationHandler = {
 			// handle background task expiration
-			log(message: "# TASKSHED # \(#line) \(#function) EXPIRED \(task.identifier)")
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
 
 			// mark background task as completed
 			task.setTaskCompleted(success: false)
 
 			// reschedule background task again
-			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
 			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 	}
 
 	func executeFetchTestResults(task: BGTask) {
 		// start background task execution
-		log(message: "# TASKSHED # \(#line) \(#function) STARTED \(task.identifier)")
 
 		let exposureSubmissionService = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
 		exposureSubmissionService.getTestResult { result in
 			// handle completed background task
-			log(message: "# TASKSHED # \(#line) \(#function) RETURN \(task.identifier)")
 
 			switch result {
 			case .failure(let error):
-				log(message: "# TASKSHED # \(#line) \(#function) ERROR \(task.identifier) \(error)")
 				logError(message: error.localizedDescription)
 
 			case .success(let testResult):
-				log(message: "# TASKSHED # \(#line) \(#function) TESTRESULT \(task.identifier)\(testResult)")
 
 				if testResult != .pending {
 					self.taskScheduler.notificationManager.presentNotification(
@@ -215,24 +199,20 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			}
 
 			// mark background task as completed
-			log(message: "# TASKSHED # \(#line) \(#function) COMPLETE \(task.identifier)")
 			task.setTaskCompleted(success: true)
 
 			// reschedule background task again
-			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
 			self.taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
 		}
 
 		task.expirationHandler = {
 			// handle background task expiration
-			log(message: "# TASKSHED # \(#line) \(#function) EXPIRED \(task.identifier)")
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
 
 			// mark background task as completed
 			task.setTaskCompleted(success: false)
 
 			// reschedule background task again
-			log(message: "# TASKSHED # \(#line) \(#function) RESCHEDULING TASK \(task.identifier)")
 			self.taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
 		}
 
