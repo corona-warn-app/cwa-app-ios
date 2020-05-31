@@ -253,7 +253,7 @@ final class HTTPClient: Client {
 							[String: String].self,
 							from: tanResponseData
 						)
-						guard let tan = responseDictionary["tan"] else {
+						guard let tan = responseDictionary["value"] else {
 							logError(message: "Failed to get TAN because of invalid response payload structure")
 							completeWith(.failure(.invalidResponse))
 							return
