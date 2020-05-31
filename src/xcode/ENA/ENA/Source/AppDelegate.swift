@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let taskScheduler = ENATaskScheduler()
 	private var exposureManager: ExposureManager = ENAExposureManager()
 	private var exposureDetectionTransaction: ExposureDetectionTransaction?
+	private var exposureSubmissionService: ENAExposureSubmissionService?
+
 	let downloadedPackagesStore: DownloadedPackagesStore = {
 		let fileManager = FileManager()
 		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
@@ -154,42 +156,35 @@ extension AppDelegate: CoronaWarnAppDelegate {
 
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask) {
-		// start background task execution
-
-		let exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: client, keyPackagesStore: downloadedPackagesStore)
-		exposureDetectionTransaction.start {
-			// mark background task as completed
+		guard self.exposureDetectionTransaction == nil else {
 			task.setTaskCompleted(success: true)
+			 return
+		}
 
-			// reschedule background task again
+		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: client, keyPackagesStore: downloadedPackagesStore)
+
+		self.exposureDetectionTransaction?.start {
+			task.setTaskCompleted(success: true)
 			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
 		task.expirationHandler = {
-			// handle background task expiration
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-
-			// mark background task as completed
 			task.setTaskCompleted(success: false)
-
-			// reschedule background task again
 			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 	}
 
 	func executeFetchTestResults(task: BGTask) {
-		// start background task execution
+		self.exposureSubmissionService = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
 
-		let exposureSubmissionService = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
-		exposureSubmissionService.getTestResult { result in
-			// handle completed background task
+		self.exposureSubmissionService?.getTestResult { result in
 
 			switch result {
 			case .failure(let error):
 				logError(message: error.localizedDescription)
 
 			case .success(let testResult):
-
 				if testResult != .pending {
 					self.taskScheduler.notificationManager.presentNotification(
 						title: AppStrings.LocalNotifications.testResultsTitle,
@@ -198,21 +193,13 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				}
 			}
 
-			// mark background task as completed
 			task.setTaskCompleted(success: true)
-
-			// reschedule background task again
 			self.taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
 		}
 
 		task.expirationHandler = {
-			// handle background task expiration
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-
-			// mark background task as completed
 			task.setTaskCompleted(success: false)
-
-			// reschedule background task again
 			self.taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
 		}
 
