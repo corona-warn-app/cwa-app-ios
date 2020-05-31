@@ -74,16 +74,16 @@ private extension DynamicTableViewModel {
 			separators: false,
 			cells: [
 				.bold(text: AppStrings.ExposureSubmissionIntroduction.usage01),
-				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage02),
+				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage02)
 			]
 		),
 		.section(
 			header: .image(UIImage(named: "Illu_Submission_Funktion2"), height: 180),
 			separators: false,
 			cells: [
-				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage03),
+				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage03)
 			]
-		),
+		)
 	])
 }
 

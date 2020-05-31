@@ -44,25 +44,25 @@ class RiskLegendFactory {
 			),
 			RiskLegendEntry(
 				riskLevel: .inactive,
-				backgroundColor: .preferredColor(for: .inactive),
+				backgroundColor: .preferredColor(for: .inactiveRisk),
 				imageName: "cloud.rain",
 				title: AppStrings.RiskView.inactiveRisk,
 				description: AppStrings.RiskView.inactiveRiskDetailHelp
 			),
 			RiskLegendEntry(
 				riskLevel: .low,
-				backgroundColor: .preferredColor(for: .positive),
+				backgroundColor: .preferredColor(for: .positiveRisk),
 				imageName: "sun.dust",
 				title: AppStrings.RiskView.lowRisk,
 				description: AppStrings.RiskView.lowRiskDetailHelp
 			),
 			RiskLegendEntry(
 				riskLevel: .high,
-				backgroundColor: .preferredColor(for: .negative),
+				backgroundColor: .preferredColor(for: .negativeRisk),
 				imageName: "cloud.bolt",
 				title: AppStrings.RiskView.highRisk,
 				description: AppStrings.RiskView.highRiskDetailHelp
-			),
+			)
 		]
 	}
 }

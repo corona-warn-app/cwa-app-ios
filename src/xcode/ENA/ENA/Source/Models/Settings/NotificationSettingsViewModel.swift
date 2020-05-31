@@ -42,14 +42,18 @@ class NotificationSettingsViewModel {
 				.settingsOn(
 					title: AppStrings.NotificationSettings.onSectionTitle,
 					cells: [
-						.riskChanges(.init(description: AppStrings.NotificationSettings.riskChanges,
-										   state: store.allowRiskChangesNotification,
-										   updateState: { store.allowRiskChangesNotification = $0 })),
-						.testsStatus(.init(description: AppStrings.NotificationSettings.testsStatus,
-										   state: store.allowTestsStatusNotification,
-										   updateState: { store.allowTestsStatusNotification = $0 })),
+						.riskChanges(.init(
+							description: AppStrings.NotificationSettings.riskChanges,
+							state: store.allowRiskChangesNotification,
+							updateState: { store.allowRiskChangesNotification = $0 }
+						)),
+						.testsStatus(.init(
+							description: AppStrings.NotificationSettings.testsStatus,
+							state: store.allowTestsStatusNotification,
+							updateState: { store.allowTestsStatusNotification = $0 }
+						))
 					]
-				),
+				)
 			]
 		)
 	}
@@ -63,17 +67,23 @@ class NotificationSettingsViewModel {
 			sections: [
 				.settingsOff(
 					cells: [
-						.navigateSettings(.init(icon: "Icons_iOS_Settings",
-												description: AppStrings.NotificationSettings.navigateSettings)),
-						.pickNotifications(.init(icon: "Icons_iOS_Mitteilungen",
-												 description: AppStrings.NotificationSettings.pickNotifications)),
-						.enableNotifications(.init(icon: "Icons_iOS_Mitteilungen",
-												   description: AppStrings.NotificationSettings.enableNotifications)),
+						.navigateSettings(.init(
+							icon: "Icons_iOS_Settings",
+							description: AppStrings.NotificationSettings.navigateSettings
+						)),
+						.pickNotifications(.init(
+							icon: "Icons_iOS_Mitteilungen",
+							description: AppStrings.NotificationSettings.pickNotifications
+						)),
+						.enableNotifications(.init(
+							icon: "Icons_iOS_Mitteilungen",
+							description: AppStrings.NotificationSettings.enableNotifications
+						))
 					]
 				),
 				.openSettings(
 					cell: .openSettings(title: AppStrings.NotificationSettings.openSettings)
-				),
+				)
 			]
 		)
 	}

@@ -37,10 +37,14 @@ protocol ExposureSubmissionService {
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
 
 	func submitExposure(with: String, completionHandler: @escaping ExposureSubmissionHandler)
-	func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey,
-							  completion completeWith: @escaping RegistrationHandler)
-	func getTANForExposureSubmit(hasConsent: Bool,
-								 completion completeWith: @escaping TANHandler)
+	func getRegistrationToken(
+		forKey deviceRegistrationKey: DeviceRegistrationKey,
+		completion completeWith: @escaping RegistrationHandler
+	)
+	func getTANForExposureSubmit(
+		hasConsent: Bool,
+		completion completeWith: @escaping TANHandler
+	)
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
 	func hasRegistrationToken() -> Bool
 	func deleteTest()
@@ -90,8 +94,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	/// Stores the provided key, retrieves the registration token and deletes the key.
-	func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey,
-							  completion completeWith: @escaping RegistrationHandler) {
+	func getRegistrationToken(
+		forKey deviceRegistrationKey: DeviceRegistrationKey,
+		completion completeWith: @escaping RegistrationHandler
+	) {
 		store(key: deviceRegistrationKey)
 		let (key, type) = getKeyAndType(for: deviceRegistrationKey)
 		client.getRegistrationToken(forKey: key, withType: type) { result in
@@ -106,8 +112,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	func getTANForExposureSubmit(hasConsent: Bool,
-								 completion completeWith: @escaping TANHandler) {
+	func getTANForExposureSubmit(
+		hasConsent: Bool,
+		completion completeWith: @escaping TANHandler
+	) {
 		// alert+ store consent+ clientrequest
 		store.devicePairingConsentAccept = hasConsent
 
@@ -155,9 +163,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func delete(key: DeviceRegistrationKey) {
 		switch key {
 		case .guid:
-			store.testGUID = "" // nil
+			store.testGUID = nil
 		case .teleTan:
-			store.teleTan = "" // nil
+			store.teleTan = nil
 		}
 	}
 
@@ -196,7 +204,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		// View comment in `delete(key: DeviceRegistrationKey)`
 		// why this method is needed explicitly like this.
 		delete(key: .guid(""))
-		store.registrationToken = ""
+		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
 	}

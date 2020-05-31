@@ -83,9 +83,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return HTTPClient(configuration: config)
 	}()
 
-	func application(_: UIApplication,
-					 didFinishLaunchingWithOptions options: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-
+	func application(
+		_: UIApplication,
+		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
+	) -> Bool {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.taskDelegate = self
@@ -148,7 +149,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 		exposureDetectionTransaction = ExposureDetectionTransaction(
 			delegate: self,
 			client: client,
-			keyPackagesStore: downloadedPackagesStore
+			downloadedPackagesStore: downloadedPackagesStore
 		)
 		exposureDetectionTransaction?.start()
 	}

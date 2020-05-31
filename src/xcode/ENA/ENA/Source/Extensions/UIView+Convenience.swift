@@ -33,8 +33,10 @@ extension UIView {
 	}
 
 	/// Convenience constraint setting for width and height layout constraints.
-	func setConstraint(for anchor: NSLayoutDimension,
-					   equalTo constant: CGFloat) {
+	func setConstraint(
+		for anchor: NSLayoutDimension,
+		equalTo constant: CGFloat
+	) {
 		anchor.constraint(equalToConstant: constant).isActive = true
 	}
 }

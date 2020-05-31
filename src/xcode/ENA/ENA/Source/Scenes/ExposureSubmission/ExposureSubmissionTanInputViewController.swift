@@ -76,7 +76,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 extension ExposureSubmissionTanInputViewController {
 	enum Segue: String, SegueIdentifiers {
 		case sentSegue
-		case warnOthers = "warnOthersSegue"
+		case labResultsSegue
 	}
 }
 
@@ -98,8 +98,10 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 					self.present(alert, animated: true, completion: nil)
 					return
 				case .success:
-					self.performSegue(withIdentifier: Segue.warnOthers,
-									  sender: self)
+					self.performSegue(
+						withIdentifier: Segue.labResultsSegue,
+						sender: self
+					)
 				}
         })
 	}
@@ -108,5 +110,13 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 
 	func tanChanged(isValid: Bool) {
 		setButtonEnabled(enabled: isValid)
+	}
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == Segue.labResultsSegue.rawValue,
+			let vc = segue.destination as? ExposureSubmissionTestResultViewController {
+			vc.exposureSubmissionService = exposureSubmissionService
+			vc.testResult = .positive
+		}
 	}
 }

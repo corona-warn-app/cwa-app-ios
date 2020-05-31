@@ -57,30 +57,32 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 
 		dynamicTableViewModel = DynamicTableViewModel(
-			[.section(
-				header: .image(UIImage(named: "Illu_Submission_Kontakt")),
-				cells: [
-					.regular(text: AppStrings.ExposureSubmissionHotline.description),
-				]
-			),
-			 DynamicSection.section(
-				cells: [
-					.bigBold(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
-					DynamicCell.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
-									   image: .checkmark,
-									   isCircle: true,
-									   iconTintColor: .preferredColor(for: .chevron))
+			[
+				.section(
+					header: .image(UIImage(named: "Illu_Submission_Kontakt")),
+					cells: [
+						.regular(text: AppStrings.ExposureSubmissionHotline.description)
+					]
+				),
+				DynamicSection.section(
+					cells: [
+						.bigBold(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
+						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
+							guard let cell = cell as? DynamicTableViewStepCell else { return }
+							cell.configure(
+								text: AppStrings.ExposureSubmissionHotline.sectionDescription1,
+								image: UIImage(named: "Icons_Grey_1")
+							)
                         }),
-					.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
-									   image: .checkmark,
-									   isCircle: true,
-									   iconTintColor: .preferredColor(for: .chevron))
-                            }),
-				])]
+						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
+							guard let cell = cell as? DynamicTableViewStepCell else { return }
+							cell.configure(
+								text: AppStrings.ExposureSubmissionHotline.sectionDescription2,
+								image: UIImage(named: "Icons_Grey_2")
+							)
+                            })
+					])
+			]
 		)
 	}
 }

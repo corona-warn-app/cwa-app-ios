@@ -62,8 +62,12 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 		switch result {
 		case .positive:
 			setButtonTitle(to: AppStrings.ExposureSubmissionResult.continueButton)
-		case .negative, .invalid, .pending:
+		case .negative, .invalid:
 			setButtonTitle(to: AppStrings.ExposureSubmissionResult.deleteButton)
+		case .pending:
+			setButtonTitle(to: AppStrings.ExposureSubmissionResult.refreshButton)
+			setSecondaryButtonTitle(to: AppStrings.ExposureSubmissionResult.deleteButton)
+			showSecondaryButton()
 		}
 	}
 
@@ -79,15 +83,62 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			return
 		}
 
-		tableView.register(ExposureSubmissionTestResultHeaderView.self, forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue)
+		tableView.register(
+			ExposureSubmissionTestResultHeaderView.self,
+			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue
+		)
+		tableView.register(
+			DynamicTableViewStepCell.self,
+			forCellReuseIdentifier: DynamicTableViewStepCell.tableViewCellReuseIdentifier.rawValue
+		)
+
 		dynamicTableViewModel = dynamicTableViewModel(for: result)
 	}
 
 	// MARK: - Convenience methods for buttons.
 
 	private func deleteTest() {
-		exposureSubmissionService?.deleteTest()
-		navigationController?.dismiss(animated: true, completion: nil)
+		let alert = UIAlertController(
+			title: "Test entfernen?",
+			message: "Der Test wird endgültig aus der Corona-Warn-App entfernt. Dieser Vorgang kann nicht widerrufen werden.",
+			preferredStyle: .alert
+		)
+
+		let cancel = UIAlertAction(
+			title: "Abbrechen",
+			style: .cancel,
+			handler: { _ in alert.dismiss(animated: true, completion: nil) }
+		)
+
+		let delete = UIAlertAction(
+			title: "Entfernen",
+			style: .destructive,
+			handler: { _ in
+				self.exposureSubmissionService?.deleteTest()
+				self.navigationController?.dismiss(animated: true, completion: nil)
+			}
+		)
+
+		alert.addAction(delete)
+		alert.addAction(cancel)
+
+		present(alert, animated: true, completion: nil)
+	}
+
+	private func refreshTest() {
+		startSpinner()
+		exposureSubmissionService?
+			.getTestResult { result in
+				self.stopSpinner()
+				switch result {
+				case let .failure(error):
+					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+					self.present(alert, animated: true, completion: nil)
+				case let .success(testResult):
+					self.dynamicTableViewModel = self.dynamicTableViewModel(for: testResult)
+					self.tableView.reloadData()
+				}
+			}
 	}
 
 	private func showWarnOthers() {
@@ -122,7 +173,18 @@ extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigati
 			showWarnOthers()
 		case .negative, .invalid:
 			deleteTest()
+		case .pending:
+			refreshTest()
+		}
+	}
+
+	func didTapSecondButton() {
+		guard let result = testResult else { return }
+		switch result {
+		case .pending:
+			deleteTest()
 		default:
+			// Secondary button is only active for pending result state.
 			break
 		}
 	}
@@ -147,61 +209,134 @@ private extension ExposureSubmissionTestResultViewController {
 			return negativeTestResultSection()
 		case .invalid:
 			return invalidTestResultSection()
-		default:
-			return .section(cells: [])
+		case .pending:
+			return pendingTestResultSection()
 		}
 	}
 
 	private func positiveTestResultSection() -> DynamicSection {
 		.section(
-			header: .identifier(ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-								configure: { view, _ in
-									(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive)
-								}),
+			header: .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive)
+				}
+			),
 			separators: false,
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
-				.regular(text: AppStrings.ExposureSubmissionResult.testAddedDesc),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testPositive),
-				.regular(text: AppStrings.ExposureSubmissionResult.testPositiveDesc),
-				.semibold(text: AppStrings.ExposureSubmissionResult.warnOthers),
-				.regular(text: AppStrings.ExposureSubmissionResult.warnOthersDesc),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testAdded,
+					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					image: UIImage(named: "Icons_Grey_Check")
+				),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testPositive,
+					text: AppStrings.ExposureSubmissionResult.testPositiveDesc,
+					image: UIImage(named: "Icons_Grey_Check")
+				),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.warnOthers,
+					text: AppStrings.ExposureSubmissionResult.warnOthersDesc,
+					image: UIImage(named: "Icons_Grey_Warnen"),
+					hasSeparators: false
+				)
 			]
 		)
 	}
 
 	private func negativeTestResultSection() -> DynamicSection {
 		.section(
-			header: .identifier(ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-								configure: { view, _ in
-									(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative)
-								}),
+			header: .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative)
+				}
+			),
 			separators: false,
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
-				.regular(text: AppStrings.ExposureSubmissionResult.testAddedDesc),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testNegative),
-				.regular(text: AppStrings.ExposureSubmissionResult.testNegativeDesc),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testAdded,
+					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					image: UIImage(named: "Icons_Grey_Check")
+				),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testNegative,
+					text: AppStrings.ExposureSubmissionResult.testNegativeDesc,
+					image: UIImage(named: "Icons_Grey_Check"),
+					hasSeparators: false
+				)
 			]
 		)
 	}
 
 	private func invalidTestResultSection() -> DynamicSection {
 		.section(
-			header: .identifier(ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
-								configure: { view, _ in
-									(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid)
-								}),
+			header: .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid)
+				}
+			),
 			separators: false,
 			cells: [
 				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testAdded),
-				.regular(text: AppStrings.ExposureSubmissionResult.testAddedDesc),
-				.semibold(text: AppStrings.ExposureSubmissionResult.testInvalid),
-				.regular(text: AppStrings.ExposureSubmissionResult.testInvalidDesc),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testAdded,
+					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					image: UIImage(named: "Icons_Grey_Check")
+				),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testInvalid,
+					text: AppStrings.ExposureSubmissionResult.testInvalidDesc,
+					image: UIImage(named: "Icons_Grey_Error"),
+					hasSeparators: false
+				)
 			]
+		)
+	}
+
+	private func pendingTestResultSection() -> DynamicSection {
+		.section(
+			header: .identifier(
+				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
+				configure: { view, _ in
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending)
+				}
+			),
+			cells: [
+				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testAdded,
+					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					image: UIImage(named: "Icons_Grey_Check")
+				),
+				.stepCellWith(
+					title: AppStrings.ExposureSubmissionResult.testPending,
+					text: AppStrings.ExposureSubmissionResult.testPendingDesc,
+					image: UIImage(named: "Icons_Grey_Wait"),
+					hasSeparators: false
+				)
+			]
+		)
+	}
+}
+
+private extension DynamicCell {
+	static func stepCellWith(title: String, text: String, image: UIImage? = nil, hasSeparators: Bool = true) -> DynamicCell {
+		return .identifier(
+			DynamicTableViewStepCell.tableViewCellReuseIdentifier,
+			configure: { _, cell, _ in
+				guard let cell = cell as? DynamicTableViewStepCell else { return }
+				cell.configure(
+					title: title,
+					text: text,
+					image: image,
+					hasSeparators: hasSeparators,
+					isCircle: true
+				)
+			}
 		)
 	}
 }

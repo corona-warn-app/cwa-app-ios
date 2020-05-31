@@ -240,9 +240,6 @@ final class ExposureDetectionTransaction {
 				taskCompletion?()
 				return
 			}
-			log(message: "summary: \(summary)")
-			logError(message: "error: \(String(describing: error))")
-
 			self.didDetectSummary(summary)
 			completion()
 			taskCompletion?()

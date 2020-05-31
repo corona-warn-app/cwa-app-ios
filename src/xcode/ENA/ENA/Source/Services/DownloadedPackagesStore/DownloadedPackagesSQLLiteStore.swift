@@ -111,7 +111,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 				withParameterDictionary: [
 					"bin": package.bin,
 					"signature": package.signature,
-					"day": day,
+					"day": day
 				]
 			)
 		}
@@ -157,7 +157,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			"bin": package.bin,
 			"signature": package.signature,
 			"day": day,
-			"hour": hour,
+			"hour": hour
 		]
 		database.executeUpdate(sql, withParameterDictionary: parameters)
 	}

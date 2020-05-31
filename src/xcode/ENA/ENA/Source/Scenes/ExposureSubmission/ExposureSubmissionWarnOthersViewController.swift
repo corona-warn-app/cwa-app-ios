@@ -112,7 +112,7 @@ private extension ExposureSubmissionWarnOthersViewController {
 					cells: [
 						.bigBold(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle),
 						.regular(text: AppStrings.ExposureSubmissionWarnOthers.description),
-						.regular(text: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription),
+						.regular(text: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription)
 					]
 				)
 			)

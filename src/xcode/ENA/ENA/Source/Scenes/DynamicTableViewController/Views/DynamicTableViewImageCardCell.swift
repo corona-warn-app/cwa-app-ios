@@ -18,11 +18,18 @@
 import UIKit
 
 class DynamicTableViewImageCardCell: UITableViewCell {
-	var title: UILabel!
-	var body: UILabel!
-	var cellImage: UIImageView!
-	var chevron: UIImageView!
-	var insetView: UIView!
+
+	// MARK: - View elements.
+
+	lazy var title = UILabel(frame: .zero)
+	lazy var body = UILabel(frame: .zero)
+	lazy var cellImage = UIImageView(frame: .zero)
+	lazy var chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
+	lazy var insetView = UIView(frame: .zero)
+
+	// MARK: - Constraints for resizing.
+	var heightConstraint: NSLayoutConstraint?
+	var insetViewHeightConstraint: NSLayoutConstraint?
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
@@ -30,31 +37,32 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-		setup()
-		addConstraints()
+	}
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		self.autoresizingMask = .flexibleHeight
 	}
 
 	private func setup() {
 		// MARK: - General cell setup.
-
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundBase)
+		backgroundColor = .preferredColor(for: .backgroundPrimary)
 
 		// MARK: - Add inset view
 
-		insetView = UIView(frame: .zero)
-		insetView.backgroundColor = .preferredColor(for: .backgroundContrast)
+		insetView.backgroundColor = .preferredColor(for: .backgroundSecondary)
 		insetView.layer.cornerRadius = 16.0
 
 		// MARK: - Title adjustment.
 
-		title = UILabel(frame: .zero)
-		title.font = UIFont.boldSystemFont(ofSize: 22)
+		title.font = .preferredFont(forTextStyle: .headline)
+		title.lineBreakMode = .byWordWrapping
+		title.numberOfLines = 0
 
 		// MARK: - Body adjustment.
 
-		body = UILabel(frame: .zero)
-		body.font = body.font.withSize(15)
+		body.font = .preferredFont(forTextStyle: .body)
 		body.lineBreakMode = .byWordWrapping
 		body.numberOfLines = 0
 
@@ -62,60 +70,74 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 		chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
 		chevron.tintColor = UIColor.preferredColor(for: .textPrimary2)
-
-		// MARK: - image adjustment.
-
-		cellImage = UIImageView(image: UIImage(named: "Hand_with_phone"))
 	}
 
-	private func addConstraints() {
-		contentView.heightAnchor.constraint(equalToConstant: 196).isActive = true
-		UIView.translatesAutoresizingMaskIntoConstraints(for: [contentView,
-															   title,
-															   body,
-															   cellImage,
-															   chevron,
-															   insetView], to: false)
+	override func updateConstraints() {
+		layoutIfNeeded()
+		heightConstraint?.constant = calculateHeight()
+		insetViewHeightConstraint?.constant = calculateHeight() - 32
+		super.updateConstraints()
+		layoutIfNeeded()
+	}
+
+	/// This method calculates the height for the entire cell, depending on its content.
+	private func calculateHeight() -> CGFloat {
+		body.sizeToFit()
+		title.sizeToFit()
+		return max((64 + 21 + body.frame.height + title.frame.height), 196)
+	}
+
+	private func setupConstraints() {
+		UIView.translatesAutoresizingMaskIntoConstraints(for: [
+			title,
+			body,
+			cellImage,
+			chevron,
+			insetView
+		], to: false)
 
 		contentView.addSubview(insetView)
-		insetView.addSubviews([title,
-							   body,
-							   cellImage,
-							   chevron])
+		insetView.addSubviews([
+			title,
+			body,
+			cellImage,
+			chevron
+		])
 
-		// TODO: Refactor rest to use setConstraint.
-		setConstraint(for: insetView.widthAnchor, equalTo: 343)
-		insetView.heightAnchor.constraint(equalToConstant: 172).isActive = true
+		heightConstraint = contentView.heightAnchor.constraint(equalToConstant: calculateHeight())
+		heightConstraint?.isActive = true
 
-		title.widthAnchor.constraint(equalToConstant: 301).isActive = true
-		title.heightAnchor.constraint(equalToConstant: 28).isActive = true
-
-		body.widthAnchor.constraint(equalToConstant: 156).isActive = true
-		body.heightAnchor.constraint(equalToConstant: 80).isActive = true
-
-		cellImage.widthAnchor.constraint(equalToConstant: 128).isActive = true
-		cellImage.heightAnchor.constraint(equalToConstant: 120).isActive = true
+		insetViewHeightConstraint = insetView.heightAnchor.constraint(equalToConstant: calculateHeight() - 32)
+		insetViewHeightConstraint?.isActive = true
 
 		chevron.widthAnchor.constraint(equalToConstant: 15).isActive = true
 		chevron.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
-		insetView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-		insetView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+		insetView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+		insetView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
 
+		title.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
 		title.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 16).isActive = true
-		title.leftAnchor.constraint(equalTo: insetView.leftAnchor, constant: 15).isActive = true
 
-		body.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 23).isActive = true
-		body.leftAnchor.constraint(equalTo: insetView.leftAnchor, constant: 15).isActive = true
-
-		chevron.leftAnchor.constraint(equalTo: title.rightAnchor, constant: -2).isActive = true
+		chevron.leadingAnchor.constraint(equalTo: title.trailingAnchor).isActive = true
+		chevron.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
 		chevron.centerYAnchor.constraint(equalTo: title.centerYAnchor).isActive = true
 
-		cellImage.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10).isActive = true
-		cellImage.leftAnchor.constraint(equalTo: body.rightAnchor, constant: 10).isActive = true
+		body.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
+		body.trailingAnchor.constraint(equalTo: cellImage.leadingAnchor, constant: -16).isActive = true
+		body.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 21).isActive = true
+		body.bottomAnchor.constraint(equalTo: insetView.bottomAnchor, constant: -16).isActive = true
+
+		cellImage.trailingAnchor.constraint(equalTo: insetView.trailingAnchor).isActive = true
+		cellImage.bottomAnchor.constraint(equalTo: insetView.bottomAnchor).isActive = true
+		cellImage.widthAnchor.constraint(equalToConstant: 150).isActive = true
+		cellImage.heightAnchor.constraint(equalToConstant: 130).isActive = true
+		insetView.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
 	}
 
 	func configure(title: String, image: UIImage?, body: String) {
+		setup()
+		setupConstraints()
 		self.title.text = title
 		self.body.text = body
 		if let image = image {

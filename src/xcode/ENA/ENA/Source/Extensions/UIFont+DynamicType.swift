@@ -47,7 +47,7 @@ extension UIFont.Weight {
 			"semibold": .semibold,
 			"bold": .bold,
 			"heavy": .heavy,
-			"black": .black,
+			"black": .black
 		]
 		self.init(rawValue: weights[string ?? "regular"]?.rawValue ?? UIFont.Weight.regular.rawValue)
 	}
