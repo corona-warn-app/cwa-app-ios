@@ -34,7 +34,11 @@ final class HomeInteractor {
 		self.homeViewController = homeViewController
 		self.store = store
 		self.state = state
-		stateHandler = ENStateHandler(self.state.exposureManager, delegate: self)
+		stateHandler = ENStateHandler(
+			self.state.exposureManager,
+			reachabilityService: ConnectivityReachabilityService(),
+			delegate: self
+		)
 		cells = initialCellConfigurators()
 	}
 
