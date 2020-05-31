@@ -164,16 +164,25 @@ GEM
       claide (>= 1.0.2, < 2.0)
       colored2 (~> 3.1)
       nanaimo (~> 0.2.6)
+    xcov (1.7.3)
+      fastlane (>= 2.141.0, < 3.0.0)
+      multipart-post
+      slack-notifier
+      terminal-table
+      xcodeproj
+      xcresult (~> 0.2.0)
     xcpretty (0.3.0)
       rouge (~> 2.0.7)
     xcpretty-travis-formatter (1.0.0)
       xcpretty (~> 0.2, >= 0.0.7)
+    xcresult (0.2.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   fastlane
+  xcov
 
 BUNDLED WITH
    1.17.2

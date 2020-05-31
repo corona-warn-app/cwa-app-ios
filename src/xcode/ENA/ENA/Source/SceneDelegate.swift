@@ -31,7 +31,16 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore
 	}
 
+	#if targetEnvironment(simulator) || COMMUNITY
+	// Enable third party contributors that do not have the required
+	// entitlements to also use the app
+	private let exposureManager: ExposureManager = {
+		let keys = [ENTemporaryExposureKey()]
+		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+	}()
+	#else
 	private let exposureManager = ENAExposureManager()
+	#endif
 	private let taskScheduler = ENATaskScheduler()
 	private let navigationController: UINavigationController = .withLargeTitle()
 	private var homeController: HomeViewController?
@@ -125,11 +134,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	private func showHome(animated _: Bool = false) {
-		#if targetEnvironment(simulator)
-		// Enable third party contributors that do not have the required
-		// entitlements to skip the exposure setup step in the iOS Simulator
-		presentHomeVC()
-		#else
 		if exposureManager.preconditions().status == .active {
 			presentHomeVC()
 		} else {
@@ -143,7 +147,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				self?.presentHomeVC()
 			}
 		}
-		#endif
 	}
 
 	private func presentHomeVC() {

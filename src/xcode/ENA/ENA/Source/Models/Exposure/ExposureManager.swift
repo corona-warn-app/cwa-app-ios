@@ -69,6 +69,7 @@ protocol ExposureManager {
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+	func resume(observer: ENAExposureManagerObserver)
 }
 
 protocol ENAExposureManagerObserver: AnyObject {

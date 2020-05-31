@@ -15,7 +15,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-@testable import ENA
 import ExposureNotification
 
 final class MockExposureManager {
@@ -67,4 +66,6 @@ extension MockExposureManager: ExposureManager {
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
 	}
+
+	func resume(observer: ENAExposureManagerObserver) {	}
 }
