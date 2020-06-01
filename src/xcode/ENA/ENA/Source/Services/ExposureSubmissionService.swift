@@ -183,9 +183,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completionHandler(.noKeys)
 				return
 			}
-			
+
 			var transmissionRiskDefaultVector: [Int] {
 				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
+			}
+
+			if keys.count > 14 {
+				keys = Array(keys[0 ..< 14])
 			}
 			
 			let startIndex = 0
@@ -195,9 +199,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				} else {
 					keys[i].transmissionRiskLevel = UInt8(1)
 				}
-			}
-			if keys.count > 14 {
-				keys = Array(keys[0 ..< 14])
 			}
 
 			self.client.submit(keys: keys, tan: tan) { error in
