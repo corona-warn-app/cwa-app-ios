@@ -127,6 +127,8 @@ private extension DynamicCell {
 
 	static func iconTitle(number: UInt8, text: String) -> Self {
 		.identifier(RiskLegendViewController.CellReuseIdentifier.numberedTitle) { _, cell, _ in
+			guard let cell = cell as? RiskLegendNumberedTitleCell else { return }
+			cell.numberLabel.text = "\(number)"
 			cell.textLabel?.text = text
 		}
 	}
