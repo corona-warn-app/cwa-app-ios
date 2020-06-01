@@ -57,6 +57,7 @@
                         <outlet property="tanInput" destination="pJo-7q-izL" id="L25-fC-HNa"/>
                         <segue destination="JPa-EJ-yrk" kind="show" identifier="sentSegue" id="HlT-ix-3R2"/>
                         <segue destination="IeT-ta-YWf" kind="show" identifier="warnOthersSegue" id="aeq-iH-Hkk"/>
+                        <segue destination="efh-V6-b47" kind="show" identifier="labResultsSegue" id="n8Y-d3-Pny"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cv3-qo-bBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -160,7 +161,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="62" y="147" width="290" height="41"/>
+                                <rect key="frame" x="62" y="145.5" width="290" height="42.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -313,8 +314,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="5YR-5A-F8h"/>
-        <segue reference="7vS-vS-v87"/>
+        <segue reference="HlT-ix-3R2"/>
+        <segue reference="aeq-iH-Hkk"/>
+        <segue reference="n8Y-d3-Pny"/>
         <segue reference="TMI-YH-9ne"/>
     </inferredMetricsTieBreakers>
     <resources>

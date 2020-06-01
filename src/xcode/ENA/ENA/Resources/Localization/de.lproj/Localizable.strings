@@ -158,6 +158,12 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "ExposureSubmission_Description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
+"ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
+"ExposureSubmission_DataPrivacyDescription" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
+"ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
+"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nicht Erlauben";
+
+
 "ExposureSubmission_Submit" = "TAN Eingeben";
 "ExposureSubmissionTanEntry_Title" = "TAN Eingabe";
 "ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die TAN Nummer ihres Befundes ein:";
@@ -236,6 +242,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt ihre Identität un
 "ExposureNotificationSetting_TracingSettingTitle" = "Risikoermittlung";
 "ExposureNotificationSetting_EnableTracing" = "Risikoermittlung";
 "ExposureNotificationSetting_Tracing_Limited" = "Eingeschränkt";
+"ExposureNotificationSetting_Tracing_Deactivated" = "Deaktiviert";
 "ExposureNotificationSetting_ActionCell_Header" = "Einstellung";
 "ExposureNotificationSetting_DescriptionTitle" = "Aktivieren Sie die Aufzeichnung Ihrer Begegnungen";
 "ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risikoermittlung aktivieren. Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer User empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.";
@@ -245,6 +252,8 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt ihre Identität un
 "ExposureNotificationSetting_Activate_Internet" = "Internetverbindung herstellen";
 "ExposureNotificationSetting_Internet_Description" = "Die Risikoermittlung benötigt eine Internetverbindung um Risikobegegnungen berechnen zu können. Bitte aktivieren Sie WLAN oder Mobile Daten in Ihren Einstellungen.";
 "ExposureNotificationSetting_Detail_Action_Button" = "Einstellungen App öffnen";
+"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19-Kontaktmitteilungen aktivieren";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risikoermittlung benötigt aktivierte COVID-19-Kontaktmitteilungen in den Systemeinstellungen um Begegnungen zu protokollieren. Bitte aktivieren Sie COVID-19-Kontaktmitteilungen in Ihren Systemeinstellungen.";
 
 // Home
 // Home Cards
