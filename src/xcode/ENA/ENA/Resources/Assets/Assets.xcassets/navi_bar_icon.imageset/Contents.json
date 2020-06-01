@@ -3,6 +3,16 @@
     {
       "filename" : "navi_bar_icon.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "navi_bar_icon_dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
@@ -10,6 +20,7 @@
     "version" : 1
   },
   "properties" : {
+    "template-rendering-intent" : "original",
     "preserves-vector-representation" : true
   }
 }
