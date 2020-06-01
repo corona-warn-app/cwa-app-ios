@@ -30,7 +30,9 @@ class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		} else {
 			titleLabel.text = AppStrings.ExposureNotificationSetting.descriptionTitle
 		}
+		titleLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.boldSystemFont(ofSize: 22))
 		textView1.text = AppStrings.ExposureNotificationSetting.descriptionText1
+		textView1.font = UIFontMetrics.default.scaledFont(for: UIFont.boldSystemFont(ofSize: 17))
 		textView2.text = AppStrings.ExposureNotificationSetting.descriptionText2
 		textView3.text = AppStrings.ExposureNotificationSetting.descriptionText3
 	}
