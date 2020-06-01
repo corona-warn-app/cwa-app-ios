@@ -1503,6 +1503,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 85D7596824570491008175F0 /* Build configuration list for PBXNativeTarget "ENA" */;
 			buildPhases = (
+				2E059EEB248572E9008F912E /* SwiftFormat */,
 				71AFBD9324642AF500F91006 /* SwiftLint */,
 				85D759372457048F008175F0 /* Sources */,
 				85D759382457048F008175F0 /* Frameworks */,
@@ -1672,6 +1673,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2E059EEB248572E9008F912E /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat\nelse\n  echo \"warning: SwiftFormat is not available.\"\n  echo \"Use 'brew install swiftformat' to install SwiftFormat or download it manually from https://github.com/nicklockwood/SwiftFormat.\"\nfi\n\n";
+		};
 		71AFBD9324642AF500F91006 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
