@@ -343,4 +343,30 @@ enum AppStrings {
 		static let testResultsTitle = NSLocalizedString("local_notifications_testresults_title", comment: "")
 		static let testResultsBody = NSLocalizedString("local_notifications_testresults_body", comment: "")
 	}
+
+	enum RiskLegend {
+		static let title = NSLocalizedString("RiskLegend_Title", comment: "")
+		static let subtitle = NSLocalizedString("RiskLegend_Subtitle", comment: "")
+		static let legend1Title = NSLocalizedString("RiskLegend_Legend1_Title", comment: "")
+		static let legend1Text = NSLocalizedString("RiskLegend_Legend1_Text", comment: "")
+		static let legend2Title = NSLocalizedString("RiskLegend_Legend2_Title", comment: "")
+		static let legend2Text = NSLocalizedString("RiskLegend_Legend2_Text", comment: "")
+		static let legend2RiskLevels = NSLocalizedString("RiskLegend_Legend2_RiskLevels", comment: "")
+		static let legend2High = NSLocalizedString("RiskLegend_Legend2_High", comment: "")
+		static let legend2Low = NSLocalizedString("RiskLegend_Legend2_Low", comment: "")
+		static let legend2Unknown = NSLocalizedString("RiskLegend_Legend2_Unknown", comment: "")
+		static let legend3Title = NSLocalizedString("RiskLegend_Legend3_Title", comment: "")
+		static let legend3Text = NSLocalizedString("RiskLegend_Legend3_Text", comment: "")
+		static let definitionsTitle = NSLocalizedString("RiskLegend_Definitions_Title", comment: "")
+		static let storeTitle = NSLocalizedString("RiskLegend_Store_Title", comment: "")
+		static let storeText = NSLocalizedString("RiskLegend_Store_Text", comment: "")
+		static let checkTitle = NSLocalizedString("RiskLegend_Check_Title", comment: "")
+		static let checkText = NSLocalizedString("RiskLegend_Check_Text", comment: "")
+		static let contactTitle = NSLocalizedString("RiskLegend_Contact_Title", comment: "")
+		static let contactText = NSLocalizedString("RiskLegend_Contact_Text", comment: "")
+		static let notificationTitle = NSLocalizedString("RiskLegend_Notification_Title", comment: "")
+		static let notificationText = NSLocalizedString("RiskLegend_Notification_Text", comment: "")
+		static let randomTitle = NSLocalizedString("RiskLegend_Random_Title", comment: "")
+		static let randomText = NSLocalizedString("RiskLegend_Random_Text", comment: "")
+	}
 }
