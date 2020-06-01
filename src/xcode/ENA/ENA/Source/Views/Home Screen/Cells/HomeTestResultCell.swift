@@ -44,22 +44,22 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 	var buttonAction: (() -> Void)?
 
 	func configure(cell: HomeTestResultCell) {
-		// cell.delegate = self
-		configureTestResultNegative(cell: cell)
+		cell.delegate = self
+		configureTestResultPending(cell: cell)
 	}
 
 	private func configureTestResultNegative(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Hand_with_phone") // TODO: Get right asset.
+		cell.image.image = UIImage(named: "Illu_Hand_with_phone-negativ")
 		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
 		cell.result.text = AppStrings.Home.resultCardNegativeTitle
 		cell.result.textColor = .preferredColor(for: .positiveRisk)
 		cell.body.text = AppStrings.Home.resultCardNegativeDesc
-		let buttonTitle = AppStrings.Home.resultCardShowResultButton
 		configureResultsButton(for: cell)
 	}
 
+	// TODO: This is handled a bit different!
 	private func configureTestResultPositive(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Hand_with_phone") // TODO: Get right asset.
+		cell.image.image = UIImage(named: "Hand_with_phone")
 		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
 		cell.result.text = AppStrings.Home.resultCardPositiveTitle
 		cell.result.textColor = .preferredColor(for: .negativeRisk)
@@ -68,7 +68,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 	}
 
 	private func configureTestResultInvalid(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Hand_with_phone") // TODO: Get right asset.
+		cell.image.image = UIImage(named: "Illu_Hand_with_phone-error")
 		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
 		cell.result.text = AppStrings.Home.resultCardInvalidTitle
 		cell.result.textColor = .preferredColor(for: .separator)
@@ -77,7 +77,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 	}
 
 	private func configureTestResultPending(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Hand_with_phone") // TODO: Get right asset.
+		cell.image.image = UIImage(named: "Illu_Hand_with_phone-pending")
 		cell.title.text = AppStrings.Home.resultCardResultUnvailableTitle
 		cell.result.text = ""
 		cell.body.text = AppStrings.Home.resultCardPendingDesc
@@ -92,10 +92,6 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		buttonLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
 		buttonLabel.adjustsFontForContentSizeCategory = true
 		buttonLabel.lineBreakMode = .byWordWrapping
-	}
-
-	private func configureForDefault(cell: SubmitCollectionViewCell) {
-
 	}
 }
 
