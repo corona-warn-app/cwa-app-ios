@@ -336,7 +336,7 @@ enum AppStrings {
 		static let viewResults = NSLocalizedString("local_notifications_viewResults", comment: "")
 		static let ignore = NSLocalizedString("local_notifications_ignore", comment: "")
 		static let detectExposureTitle = NSLocalizedString("local_notifications_detectexposure_title", comment: "")
-		static let detectExposureBody = NSLocalizedString("local_notificationsdetectexposure_body", comment: "")
+		static let detectExposureBody = NSLocalizedString("local_notifications_detectexposure_body", comment: "")
 		static let testResultsTitle = NSLocalizedString("local_notifications_testresults_title", comment: "")
 		static let testResultsBody = NSLocalizedString("local_notifications_testresults_body", comment: "")
 	}

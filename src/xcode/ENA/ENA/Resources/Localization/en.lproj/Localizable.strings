@@ -114,10 +114,10 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 //Local Notifications
 "local_notifications_viewResults" = "View Results";
 "local_notifications_ignore" = "Ignore";
-"local_notifications_detectexposure_title" = "Exposure Detection complete!";
-"local_notificationsdetectexposure__body" = "Tap to view your results in the application.";
-"local_notifications_testresults_title" = "<local_notifications_testresults_title>";
-"local_notifications_testresults_body" = "<local_notifications_testresults_body>";
+"local_notifications_detectexposure_title" = "Corona-Warn-App";
+"local_notifications_detectexposure_body" = "There are news in the Corona-Warn-App.";
+"local_notifications_testresults_title" = "Corona-Warn-App";
+"local_notifications_testresults_body" = "There are news in the Corona-Warn-App.";
 
 //Safari
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
