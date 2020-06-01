@@ -34,8 +34,10 @@ class AppInformationViewController: UITableViewController {
 			(destination as? AppInformationDetailViewController)?.model = .contact
 		case .help:
 			(destination as? AppInformationHelpViewController)?.model = .questions
+		case .imprint:
+			(destination as? AppInformationDetailViewController)?.model = .imprint
 		case .legal:
-			(destination as? AppInformationDetailViewController)?.model = .legal
+			(destination as? AppInformationLegalViewController)?.model = .legalEntries
 		case .privacy:
 			(destination as? AppInformationDetailViewController)?.model = .privacy
 		case .terms:
@@ -48,6 +50,7 @@ extension AppInformationViewController {
 	private enum SegueIdentifier: String {
 		case about = "aboutSegue"
 		case contact = "contactSegue"
+		case imprint = "imprintSegue"
 		case legal = "legalSegue"
 		case privacy = "privacySegue"
 		case terms = "termsSegue"

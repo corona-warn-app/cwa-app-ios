@@ -33,6 +33,11 @@
 		2F80CFD9247ED988000F06AF /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */; };
 		2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */; };
 		2F80CFDD247EEB88000F06AF /* DynamicTableViewImageCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFDC247EEB88000F06AF /* DynamicTableViewImageCardCell.swift */; };
+		4026C2D824851DFD00926FB4 /* AppInformationLegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2D724851DFD00926FB4 /* AppInformationLegalViewController.swift */; };
+		4026C2DA2485249D00926FB4 /* AppInformationLegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2D92485249D00926FB4 /* AppInformationLegalModel.swift */; };
+		4026C2DC24852B7600926FB4 /* AppInformationLegalModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationLegalModelData.swift */; };
+		4026C2E2248540FF00926FB4 /* AppInformationLegalEntryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4026C2E1248540FF00926FB4 /* AppInformationLegalEntryViewCell.xib */; };
+		4026C2E424854C8D00926FB4 /* AppInformationLegalEntryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalEntryViewCell.swift */; };
 		514C0A0624772F3400F235F6 /* HomeRiskViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C0A0524772F3400F235F6 /* HomeRiskViewConfigurator.swift */; };
 		514C0A0824772F5E00F235F6 /* RiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C0A0724772F5E00F235F6 /* RiskItemView.swift */; };
 		514C0A0B247AF9F700F235F6 /* RiskTextItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 514C0A0A247AF9F700F235F6 /* RiskTextItemView.xib */; };
@@ -299,6 +304,11 @@
 		2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
 		2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionHotlineViewController.swift; sourceTree = "<group>"; };
 		2F80CFDC247EEB88000F06AF /* DynamicTableViewImageCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewImageCardCell.swift; sourceTree = "<group>"; };
+		4026C2D724851DFD00926FB4 /* AppInformationLegalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalViewController.swift; sourceTree = "<group>"; };
+		4026C2D92485249D00926FB4 /* AppInformationLegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalModel.swift; sourceTree = "<group>"; };
+		4026C2DB24852B7600926FB4 /* AppInformationLegalModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalModelData.swift; sourceTree = "<group>"; };
+		4026C2E1248540FF00926FB4 /* AppInformationLegalEntryViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppInformationLegalEntryViewCell.xib; sourceTree = "<group>"; };
+		4026C2E324854C8D00926FB4 /* AppInformationLegalEntryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalEntryViewCell.swift; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		514C0A0524772F3400F235F6 /* HomeRiskViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskViewConfigurator.swift; sourceTree = "<group>"; };
 		514C0A0724772F5E00F235F6 /* RiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskItemView.swift; sourceTree = "<group>"; };
@@ -874,6 +884,8 @@
 				71CC3E9C246D5D8000217F2C /* AppInformationDetailModelData.swift */,
 				71FD885D246D7E1500E804D0 /* AppInformationHelpModel.swift */,
 				71FD885F246D7E3100E804D0 /* AppInformationHelpModelData.swift */,
+				4026C2D92485249D00926FB4 /* AppInformationLegalModel.swift */,
+				4026C2DB24852B7600926FB4 /* AppInformationLegalModelData.swift */,
 			);
 			path = AppInformation;
 			sourceTree = "<group>";
@@ -1420,6 +1432,9 @@
 				71CC3E97246D358E00217F2C /* AppInformationViewController.swift */,
 				71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */,
 				71CC3EA4246D74E800217F2C /* AppInformationHelpViewController.swift */,
+				4026C2D724851DFD00926FB4 /* AppInformationLegalViewController.swift */,
+				4026C2E1248540FF00926FB4 /* AppInformationLegalEntryViewCell.xib */,
+				4026C2E324854C8D00926FB4 /* AppInformationLegalEntryViewCell.swift */,
 			);
 			path = AppInformation;
 			sourceTree = "<group>";
@@ -1573,6 +1588,7 @@
 				7132F2822477F9C700628648 /* exposure-detection.xcassets in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
+				4026C2E2248540FF00926FB4 /* AppInformationLegalEntryViewCell.xib in Resources */,
 				514C0A0B247AF9F700F235F6 /* RiskTextItemView.xib in Resources */,
 				51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
@@ -1710,6 +1726,8 @@
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */,
 				B10FD5EC246EAAD900E9D7F2 /* AppInformationViewController.swift in Sources */,
+				4026C2E424854C8D00926FB4 /* AppInformationLegalEntryViewCell.swift in Sources */,
+				4026C2DA2485249D00926FB4 /* AppInformationLegalModel.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController+AppStoryboard.swift in Sources */,
@@ -1731,6 +1749,7 @@
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
 				B1A89F372481814E00DA1CEC /* PersistedAndPublished.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
+				4026C2DC24852B7600926FB4 /* AppInformationLegalModelData.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				EE20EA0C24699AA100770683 /* RiskLegendTableViewCell.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
@@ -1789,6 +1808,7 @@
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
 				A3E5E71E247E6F7A00237116 /* SpinnerInjectable.swift in Sources */,
+				4026C2D824851DFD00926FB4 /* AppInformationLegalViewController.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				EE22DB93247FB4BB001B0A71 /* Reachability+ObserverDelegate.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,

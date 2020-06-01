@@ -111,6 +111,9 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "Home_SettingsCard_Title" = "Settings";
 "Home_AppInformationCard_Title" = "App Information";
 
+// App Information - Legal
+"App_Information_Imprint_Navigation" = "Legal Notice";
+
 //Local Notifications
 "local_notifications_viewResults" = "View Results";
 "local_notifications_ignore" = "Ignore";
