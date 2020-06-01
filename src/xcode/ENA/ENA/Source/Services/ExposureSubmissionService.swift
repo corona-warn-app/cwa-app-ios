@@ -183,15 +183,15 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completionHandler(.noKeys)
 				return
 			}
-
+			
 			var transmissionRiskDefaultVector: [Int] {
 				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
 			}
-
+			
 			let startIndex = 0
 			for i in startIndex...keys.count - 1 {
 				if i + 1 <= transmissionRiskDefaultVector.count - 1 {
-				keys[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
+					keys[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
 				} else {
 					keys[i].transmissionRiskLevel = UInt8(1)
 				}
