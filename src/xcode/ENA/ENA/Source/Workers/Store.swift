@@ -290,7 +290,7 @@ final class DevelopmentStore: Store {
 
 	@PersistedAndPublished(
 		key: "previousSummary",
-		notificationName: Notification.Name.exposureDetectionSummaryDidChange,
+		notificationName: Notification.Name.didDetectExposureDetectionSummary,
 		defaultValue: nil
 	)
 	var previousSummary: ENExposureDetectionSummaryContainer?
@@ -492,7 +492,7 @@ final class SecureStore: Store {
 		}
 		set {
 			kvStore["previousSummary"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.exposureDetectionSummaryDidChange, object: nil)
+			NotificationCenter.default.post(name: Notification.Name.didDetectExposureDetectionSummary, object: nil)
 		}
 	}
 
