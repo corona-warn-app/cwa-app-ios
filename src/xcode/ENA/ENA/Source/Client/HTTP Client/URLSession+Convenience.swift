@@ -96,6 +96,8 @@ extension URLSession.Response {
 		case httpError(Error)
 		/// The session did not receive an error but nor either an `HTTPURLResponse`/HTTP body.
 		case noResponse
+		case qRTeleTanAlreadyUsed
+		case regTokenNotExist
 		case invalidResponse
 		case serverError(Int)
 	}

@@ -232,6 +232,11 @@ final class HTTPClient: Client {
 			session.POST(url, data) { result in
 				switch result {
 				case let .success(response):
+
+					if (response.statusCode == 400) {
+						completeWith(.failure(.regTokenNotExist))
+						return
+					}
 					guard response.hasAcceptableStatusCode else {
 						completeWith(.failure(.serverError(response.statusCode)))
 						return
@@ -282,6 +287,10 @@ final class HTTPClient: Client {
 			session.POST(url, data) { result in
 				switch result {
 				case let .success(response):
+					if (response.statusCode == 400) {
+						completeWith(.failure(.qRTeleTanAlreadyUsed))
+						return
+					}
 					guard response.hasAcceptableStatusCode else {
 						completeWith(.failure(.serverError(response.statusCode)))
 						return
@@ -291,6 +300,7 @@ final class HTTPClient: Client {
 						logError(message: "Failed to register Device with invalid response")
 						return
 					}
+	
 					do {
 						let decoder = JSONDecoder()
 						let responseDictionary = try decoder.decode(
