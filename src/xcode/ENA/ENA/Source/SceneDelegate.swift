@@ -33,14 +33,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	#if targetEnvironment(simulator) || COMMUNITY
-	// Enable third party contributors that do not have the required
-	// entitlements to also use the app
-	private let exposureManager: ExposureManager = {
-		let keys = [ENTemporaryExposureKey()]
-		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
-	}()
+		// Enable third party contributors that do not have the required
+		// entitlements to also use the app
+		private let exposureManager: ExposureManager = {
+			let keys = [ENTemporaryExposureKey()]
+			return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+		}()
 	#else
-	private let exposureManager = ENAExposureManager()
+		private let exposureManager = ENAExposureManager()
 	#endif
 	private let taskScheduler = ENATaskScheduler()
 	private let navCtrl: UINavigationController = .withLargeTitle()
@@ -204,9 +204,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	@objc
 	func exposureSummaryDidChange(_ notification: NSNotification) {
-		guard let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary else {
-			fatalError("received invalid summary notification. this is a programmer error")
-		}
+		guard let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary else { fatalError("received invalid summary notification. this is a programmer error") }
 
 		state.summary = summary
 		updateExposureState(state.exposureManager)
@@ -237,7 +235,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
 			store.developerVerificationBaseURLOverride = verificationBaseURL
 		}
-		
 	}
 
 	// MARK: Privacy Protection

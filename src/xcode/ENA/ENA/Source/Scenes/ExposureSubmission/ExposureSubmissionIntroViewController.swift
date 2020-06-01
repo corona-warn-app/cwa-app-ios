@@ -75,9 +75,8 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
-		
+
 		dynamicTableViewModel = .intro
-		
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -116,7 +115,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
-
 		DynamicSection.section(
 			header: .image(UIImage(named: "Illu_Submission_Funktion1"), height: 200),
 			separators: false,
@@ -134,7 +132,7 @@ private extension DynamicTableViewModel {
 							hasSeparators: false,
 							isCircle: false
 						)
-				}
+					}
 				),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
@@ -148,7 +146,7 @@ private extension DynamicTableViewModel {
 							isCircle: true,
 							iconTintColor: .preferredColor(for: .textPrimary1)
 						)
-				}
+					}
 				),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
@@ -162,7 +160,7 @@ private extension DynamicTableViewModel {
 							isCircle: true,
 							iconTintColor: .preferredColor(for: .textPrimary1)
 						)
-				}
+					}
 				),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
@@ -176,9 +174,8 @@ private extension DynamicTableViewModel {
 							isCircle: true,
 							iconTintColor: .preferredColor(for: .textPrimary1)
 						)
-				}
+					}
 				)
-
 			]
 		)
 	])
@@ -189,6 +186,7 @@ private extension ExposureSubmissionIntroViewController {
 		case overview = "overviewSegue"
 		case labResult = "labResultSegue"
 	}
+
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell
 	}

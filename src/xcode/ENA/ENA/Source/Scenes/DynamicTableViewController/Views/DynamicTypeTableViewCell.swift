@@ -42,7 +42,7 @@ class DynamicTypeTableViewCell: UITableViewCell {
 
 		setupTextLabel()
 	}
-	
+
 	private func setupTextLabel() {
 		if let textStyle = self.textStyle {
 			textLabel?.font = UIFont.preferredFont(forTextStyle: textStyle).scaledFont(size: fontSize, weight: fontWeight)

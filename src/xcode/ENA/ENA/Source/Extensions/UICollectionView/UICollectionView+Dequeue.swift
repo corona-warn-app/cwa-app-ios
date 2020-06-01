@@ -42,10 +42,10 @@ extension UICollectionView {
 	) -> ReusableView {
 		let identifier = reusableViewType.reusableViewIdentifier
 		guard let view = dequeueReusableSupplementaryView(
-				ofKind: kind,
-				withReuseIdentifier: identifier,
-				for: indexPath
-			) as? ReusableView
+			ofKind: kind,
+			withReuseIdentifier: identifier,
+			for: indexPath
+		) as? ReusableView
 		else { fatalError("\(identifier) isn't registered") }
 		return view
 	}

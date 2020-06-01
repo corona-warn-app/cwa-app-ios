@@ -18,8 +18,8 @@
 import UIKit
 
 class DynamicTableViewStepCell: UITableViewCell {
-
 	// MARK: - Attributes.
+
 	lazy var head = UILabel(frame: .zero)
 	lazy var body = UILabel(frame: .zero)
 	lazy var cellIcon = UIImageView(frame: .zero)
@@ -79,7 +79,6 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 	var heightConstraint: NSLayoutConstraint?
 	private func setConstraints() {
-
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [
 			body,
 			cellIcon,
@@ -130,7 +129,6 @@ class DynamicTableViewStepCell: UITableViewCell {
 		setUpView(title, text, image, hasSeparators, isCircle, iconTintColor, iconBackgroundColor)
 		setConstraints()
 	}
-
 }
 
 // MARK: - TableViewReuseIdentifiers.
@@ -141,6 +139,6 @@ extension DynamicTableViewStepCell {
 	}
 
 	static var tableViewCellReuseIdentifier: TableViewCellReuseIdentifiers {
-		return ReuseIdentifier.cell
+		ReuseIdentifier.cell
 	}
 }

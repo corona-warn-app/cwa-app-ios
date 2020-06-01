@@ -18,7 +18,6 @@
 import UIKit
 
 class DynamicTableViewImageCardCell: UITableViewCell {
-
 	// MARK: - View elements.
 
 	lazy var title = UILabel(frame: .zero)
@@ -28,6 +27,7 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 	lazy var insetView = UIView(frame: .zero)
 
 	// MARK: - Constraints for resizing.
+
 	var heightConstraint: NSLayoutConstraint?
 	var insetViewHeightConstraint: NSLayoutConstraint?
 
@@ -41,11 +41,12 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		self.autoresizingMask = .flexibleHeight
+		autoresizingMask = .flexibleHeight
 	}
 
 	private func setup() {
 		// MARK: - General cell setup.
+
 		selectionStyle = .none
 		backgroundColor = .preferredColor(for: .backgroundPrimary)
 
@@ -84,7 +85,7 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 	private func calculateHeight() -> CGFloat {
 		body.sizeToFit()
 		title.sizeToFit()
-		return max((64 + 21 + body.frame.height + title.frame.height), 196)
+		return max(64 + 21 + body.frame.height + title.frame.height, 196)
 	}
 
 	private func setupConstraints() {

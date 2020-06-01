@@ -73,7 +73,6 @@ class ENStateHandler {
 	}
 
 	private func determineCurrentState(from enManagerState: ExposureManagerState) -> RiskDetectionState {
-
 		switch enManagerState.status {
 		case .active:
 			guard !internetOff else { return .internetOff }

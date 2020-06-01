@@ -17,11 +17,10 @@
 // under the License.
 //
 
-import XCTest
 @testable import ENA
+import XCTest
 
 final class AppleFilesWriterTests: XCTestCase {
-
 	private class func createRootDir() throws -> URL {
 		let fileManager = FileManager()
 		let tempDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
@@ -45,7 +44,7 @@ final class AppleFilesWriterTests: XCTestCase {
 	}
 
 	override func tearDownWithError() throws {
-		try FileManager().removeItem(at: self.rootDir)
+		try FileManager().removeItem(at: rootDir)
 	}
 
 	func testWriterWithoutPackagesDoesNothing() throws {
@@ -100,7 +99,7 @@ final class AppleFilesWriterTests: XCTestCase {
 				options: .skipsHiddenFiles
 			)
 
-			XCTAssertTrue(((filesAfterCleanup?.isEmpty) != nil))
+			XCTAssertTrue((filesAfterCleanup?.isEmpty) != nil)
 		}
 		waitForExpectations(timeout: 1.0)
 	}

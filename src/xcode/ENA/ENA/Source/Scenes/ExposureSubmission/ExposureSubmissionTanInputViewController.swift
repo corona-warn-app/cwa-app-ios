@@ -112,7 +112,7 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 		setButtonEnabled(enabled: isValid)
 	}
 
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
 		if segue.identifier == Segue.labResultsSegue.rawValue,
 			let viewCtrl = segue.destination as? ExposureSubmissionTestResultViewController {
 			viewCtrl.exposureSubmissionService = exposureSubmissionService

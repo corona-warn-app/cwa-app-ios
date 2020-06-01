@@ -300,7 +300,7 @@ final class HTTPClient: Client {
 						logError(message: "Failed to register Device with invalid response")
 						return
 					}
-	
+
 					do {
 						let decoder = JSONDecoder()
 						let responseDictionary = try decoder.decode(

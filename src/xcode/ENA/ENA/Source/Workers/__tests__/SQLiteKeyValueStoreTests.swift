@@ -22,7 +22,6 @@ import FMDB
 import XCTest
 
 final class SQLiteKeyValueStoreTests: XCTestCase {
-
 	private var kvStore: SQLiteKeyValueStore!
 
 	let rawMockData: [(key: String, data: Data)] = [

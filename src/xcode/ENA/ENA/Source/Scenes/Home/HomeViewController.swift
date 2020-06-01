@@ -390,7 +390,6 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func configureUI() {
-
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
@@ -398,7 +397,7 @@ final class HomeViewController: UIViewController {
 		let image = UIImage(named: "navi_bar_icon")
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
-		self.navigationItem.leftBarButtonItem = leftItem
+		navigationItem.leftBarButtonItem = leftItem
 	}
 }
 

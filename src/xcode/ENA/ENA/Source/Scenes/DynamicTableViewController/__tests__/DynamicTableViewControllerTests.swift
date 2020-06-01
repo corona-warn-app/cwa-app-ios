@@ -17,13 +17,12 @@
 // under the License.
 //
 
-import XCTest
 @testable import ENA
+import XCTest
 
 class DynamicTableViewControllerTests: XCTestCase {
-	
 	var sut: DynamicTableViewController!
-	
+
 	override func setUpWithError() throws {
 		// The fake storyboard is needed here to instantiate an instance of
 		// DynamicTableViewController like it will be done in the real app.
@@ -41,63 +40,63 @@ class DynamicTableViewControllerTests: XCTestCase {
 		// trigger viewDidLoad
 		sut.loadViewIfNeeded()
 	}
-	
+
 	override func tearDownWithError() throws {
 		sut = nil
 	}
 }
 
 // MARK: - Register Cells
+
 extension DynamicTableViewControllerTests {
-	
 	func testViewDidLoad_registersBoldCell() {
 		// setup view model
 		let sections = [DynamicSection.section(cells: [.bold(text: "Foo")])]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
-		
+
 		// dequeue cell
 		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.bold.rawValue
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: IndexPath(row: 0, section: 0))
 		// assert type
 		XCTAssertTrue(cell is DynamicTypeTableViewCell.Bold)
 	}
-	
+
 	func testViewDidLoad_registersSemiboldCell() {
 		// setup view model
 		let sections = [DynamicSection.section(cells: [.semibold(text: "Foo")])]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
-		
+
 		// dequeue cell
 		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.semibold.rawValue
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: IndexPath(row: 0, section: 0))
 		// assert type
 		XCTAssertTrue(cell is DynamicTypeTableViewCell.Semibold)
 	}
-	
+
 	func testViewDidLoad_registersRegularCell() {
 		// setup view model
 		let sections = [DynamicSection.section(cells: [.regular(text: "Foo")])]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
-		
+
 		// dequeue cell
 		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.regular.rawValue
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: IndexPath(row: 0, section: 0))
 		// assert type
 		XCTAssertTrue(cell is DynamicTypeTableViewCell.Regular)
 	}
-	
+
 	func testViewDidLoad_registersBigBoldCell() {
 		// setup view model
 		let sections = [DynamicSection.section(cells: [.bigBold(text: "Foo")])]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
-		
+
 		// dequeue cell
 		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.bigBold.rawValue
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: IndexPath(row: 0, section: 0))
 		// assert type
 		XCTAssertTrue(cell is DynamicTypeTableViewCell.BigBold)
 	}
-	
+
 	func testViewDidLoad_registersIconCell() {
 		let dynamicCell = DynamicCell.icon(action: .none, .init(text: "Foo", image: nil, backgroundColor: .red, tintColor: .green))
 		let sections = [DynamicSection.section(cells: [dynamicCell])]
@@ -112,6 +111,7 @@ extension DynamicTableViewControllerTests {
 }
 
 // MARK: - Number of rows and sections
+
 extension DynamicTableViewControllerTests {
 	func testNumberOfSections_returnsValueFromViewModel_withOneSection() {
 		// setup view model
@@ -119,13 +119,13 @@ extension DynamicTableViewControllerTests {
 			DynamicSection.section(cells: [.bold(text: "Foo")])
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
-		
+
 		let numberOfSections = sut.tableView.dataSource?.numberOfSections?(in: sut.tableView)
-		
+
 		// assert
 		XCTAssertEqual(numberOfSections, sections.count)
 	}
-	
+
 	func testNumberOfSections_returnsValueFromViewModel_withThreeSections() {
 		// setup view model
 		let sections: [DynamicSection] = [
@@ -134,13 +134,13 @@ extension DynamicTableViewControllerTests {
 			.section(cells: [.bold(text: "Baz")])
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
-		
+
 		let numberOfSections = sut.tableView.dataSource?.numberOfSections?(in: sut.tableView)
-		
+
 		// assert
 		XCTAssertEqual(numberOfSections, sections.count)
 	}
-	
+
 	func testNumberOfRows_returnsValueFromViewModel_withOneCell() {
 		// setup view model
 		let cells = [
@@ -149,11 +149,11 @@ extension DynamicTableViewControllerTests {
 		sut.dynamicTableViewModel = DynamicTableViewModel([.section(cells: cells)])
 		
 		let numberOfCells = sut.tableView.dataSource?.tableView(sut.tableView, numberOfRowsInSection: 0)
-		
+
 		// assert
 		XCTAssertEqual(numberOfCells, cells.count)
 	}
-	
+
 	func testNumberOfRows_returnsValueFromViewModel_withThreeCells() {
 		// setup view model
 		let cells: [DynamicCell] = [

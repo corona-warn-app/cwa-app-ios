@@ -255,7 +255,7 @@ final class ExposureDetectionTransaction {
 }
 
 private extension DownloadedPackagesStore {
-	func allPackages(for day: String) -> [SAPDownloadedPackage] {
+	func allPackages(for _: String) -> [SAPDownloadedPackage] {
 		let fullDays = allDays()
 		var packages = [SAPDownloadedPackage]()
 
@@ -263,7 +263,7 @@ private extension DownloadedPackagesStore {
 			contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
 		)
 
-//		TODO
+//		TODO:
 //		Currently disabled because Apple only allows 15 files per day to be fed into the framework
 //		packages.append(
 //			contentsOf: hourlyPackages(for: day)

@@ -115,20 +115,24 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			preferredStyle: .alert
 		)
 
-		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
-							  style: .default,
-							  handler: { _ in
-								self.performSegue(
-									withIdentifier: Segue.qrScanner,
-									sender: self
-								)
-		}))
+		alert.addAction(.init(
+			title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
+			style: .default,
+			handler: { _ in
+				self.performSegue(
+					withIdentifier: Segue.qrScanner,
+					sender: self
+				)
+			}
+		))
 
-		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,
-							  style: .cancel,
-							  handler: { _ in
-								alert.dismiss(animated: true, completion: nil) }
-			))
+		alert.addAction(.init(
+			title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true, completion: nil)
+			}
+		))
 
 		present(alert, animated: true, completion: nil)
 	}
