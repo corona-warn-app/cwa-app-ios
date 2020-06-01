@@ -223,7 +223,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		if let exposureNotificationError = error as? ExposureNotificationError {
 			switch exposureNotificationError {
-			case .exposureNotificationRequired, .exposureNotificationAuthorization, .exposureNotificationUnavailable:
+			case .exposureNotificationRequired, .exposureNotificationAuthorization, .exposureNotificationUnavailable, .bluetoothOff:
 				return .enNotEnabled
 			}
 		}

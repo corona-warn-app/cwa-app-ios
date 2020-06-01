@@ -22,6 +22,7 @@ enum ExposureNotificationError: Error {
 	case exposureNotificationRequired
 	case exposureNotificationAuthorization
 	case exposureNotificationUnavailable
+	case bluetoothOff
 }
 
 struct ExposureManagerState {

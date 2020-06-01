@@ -184,6 +184,8 @@ final class OnboardingInfoViewController: UIViewController {
 					log(message: "Encourage the user to authorize this application", level: .warning)
 				case .exposureNotificationUnavailable:
 					log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+				case .bluetoothOff:
+					log(message: "Tell the user that Bluetooth is turned off but required for EN to work.", level: .warning)
 				}
 				self.showError(error, from: self, completion: completion)
 				completion?()
@@ -197,6 +199,8 @@ final class OnboardingInfoViewController: UIViewController {
 							log(message: "Encourage the user to authorize this application", level: .warning)
 						case .exposureNotificationUnavailable:
 							log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+						case .bluetoothOff:
+							log(message: "Tell the user that Bluetooth is turned off but required for EN to work.", level: .warning)
 						}
 					}
 					self.taskScheduler.scheduleBackgroundTaskRequests()
