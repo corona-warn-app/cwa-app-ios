@@ -18,6 +18,7 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
+import Reachability
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: Properties
@@ -109,7 +110,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		exposureManager.resume(observer: self)
 
 		UNUserNotificationCenter.current().delegate = self
-		taskScheduler.scheduleBackgroundTaskRequests()
 
 		setupUI()
 
@@ -200,7 +200,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			fatalError("received invalid summary notification. this is a programmer error")
 		}
 		state.summary = summary
-		updateState(state.exposureManager)
+		updateExposureState(state.exposureManager)
 	}
 
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -230,8 +230,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
 			store.developerVerificationBaseURLOverride = verificationBaseURL
 		}
-
-		UserDefaults.standard.synchronize()
+		
 	}
 
 	// MARK: Privacy Protection
@@ -243,6 +242,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	func sceneWillResignActive(_: UIScene) {
 		showPrivacyProtectionWindow()
+	}
+
+	func sceneDidEnterBackground(_ scene: UIScene) {
+		taskScheduler.scheduleBackgroundTaskRequests()
 	}
 
 	private var privacyProtectionWindow: UIWindow?
@@ -291,7 +294,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		}
 
 		state.exposureManager = newState
-		updateState(newState)
+		updateExposureState(newState)
 	}
 }
 
@@ -314,7 +317,7 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.notification.request.identifier {
-		case ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier:
+		case ENATaskIdentifier.detectExposures.backgroundTaskSchedulerIdentifier:
 			log(message: "Handling notification for \(response.notification.request.identifier)")
 
 			switch response.actionIdentifier {
@@ -357,7 +360,8 @@ extension SceneDelegate {
 }
 
 extension SceneDelegate: ExposureStateUpdating {
-	func updateState(_ state: ExposureManagerState) {
-		homeController?.updateState(state)
+	func updateExposureState(_ state: ExposureManagerState) {
+		homeController?.homeInteractor.state.summary = self.state.summary
+		homeController?.updateExposureState(state)
 	}
 }

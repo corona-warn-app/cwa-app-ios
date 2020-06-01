@@ -71,7 +71,7 @@ extension OnboardingInfo {
 			boldText: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
-			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate
+			ignoreText: AppStrings.Onboarding.onboardingDoNotAllow
 		)
 
 		return [info1, info2, info3, info4, info5]

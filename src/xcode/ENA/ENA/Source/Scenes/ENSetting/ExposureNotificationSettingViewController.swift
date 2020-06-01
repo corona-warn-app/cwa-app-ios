@@ -113,7 +113,7 @@ extension ExposureNotificationSettingViewController {
 }
 
 extension ExposureNotificationSettingViewController: ExposureStateUpdating {
-	func updateState(_: ExposureManagerState) {
+	func updateExposureState(_: ExposureManagerState) {
 		tableView.reloadData()
 	}
 }
@@ -177,7 +177,7 @@ extension ExposureNotificationSettingViewController {
 						)
 						return tracingCell
 					}
-				case .bluetoothOff, .internetOff:
+				case .bluetoothOff, .internetOff, .restricted:
 					cell.configure(for: currentState)
 				}
 			case .descriptionCell:

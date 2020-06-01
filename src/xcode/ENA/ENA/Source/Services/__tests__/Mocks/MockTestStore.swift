@@ -19,6 +19,8 @@
 import Foundation
 
 class MockTestStore: Store {
+	var testResultReceivedTimeStamp: Int64?
+	
 	func clearAll() {}
 
 	var hasSeenSubmissionExposureTutorial: Bool = false

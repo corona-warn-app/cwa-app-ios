@@ -72,6 +72,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.registrationToken = nil
 	}
 
+	/// This method gets the test result based on the registrationToken that was previously
+	/// received, either from the TAN or QR Code flow. After successful completion,
+	/// the timestamp of the last received test is updated.
 	func getTestResult(_ completeWith: @escaping TestResultHandler) {
 		guard let registrationToken = store.registrationToken else {
 			completeWith(.failure(.noRegistrationToken))
@@ -89,6 +92,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				}
 
 				completeWith(.success(testResult))
+				self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
 			}
 		}
 	}
@@ -169,6 +173,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	/// This method submits the exposure keys. Additionally, after successful completion,
+	/// the timestamp of the key submission is updated.
 	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
 		log(message: "Started exposure submission...")
 
@@ -245,6 +251,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .httpError(wrapped.localizedDescription)
 			case .invalidResponse:
 				return .invalidResponse
+			case .qRTeleTanAlreadyUsed:
+				return .qRTeleTanAlreadyUsed
+			case .regTokenNotExist:
+				return .regTokenNotExist
 			case .noResponse:
 				return .noResponse
 			case let .serverError(code):
@@ -265,6 +275,8 @@ enum ExposureSubmissionError: Error, Equatable {
 	case invalidTan
 	case invalidResponse
 	case noResponse
+	case qRTeleTanAlreadyUsed
+	case regTokenNotExist
 	case serverError(Int)
 	case unknown
 	case httpError(String)
@@ -287,6 +299,12 @@ extension ExposureSubmissionError: LocalizedError {
 			return "Invalid response"
 		case .noResponse:
 			return "No response was received"
+		case .qRTeleTanAlreadyUsed:
+			return "QR Code or TeleTAN already used."
+		case .regTokenNotExist:
+			return "Reg Token does not exist."
+		case .noKeys:
+			return "No diagnoses keys available. Please try tomorrow again."
 		case let .other(desc):
 			return "Other Error: \(desc)"
 		case .unknown:
