@@ -295,7 +295,7 @@ final class SecureStore: Store {
 				.appendingPathComponent("secureStore.sqlite")
 		} catch {
 			// swiftlint:disable:next force_unwrapping
-			fileURL = URL(string: "file::memory:")!
+			fileURL = URL(string: ":memory:")!
 		}
 		kvStore = SQLiteKeyValueStore(with: fileURL)
 	}
