@@ -105,6 +105,15 @@ final class OnboardingInfoViewController: UIViewController {
 			completion()
 		}
 	}
+	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
+		switch pageType {
+		case .enableLoggingOfContactsPage:
+			warnUserAboutDisablingExposureManager(completion: completion)
+		default:
+			completion()
+		}
+	}
+
 
 	private func updateUI() {
 		guard isViewLoaded else { return }
@@ -206,6 +215,18 @@ final class OnboardingInfoViewController: UIViewController {
 		}
 	}
 
+	private func warnUserAboutDisablingExposureManager(completion: (() -> Void)?) {
+		let alert = UIAlertController(
+			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_alertTitle,
+			message: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_alertMessage,
+			preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default) { _ in
+			completion?()
+		})
+		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel))
+		present(alert, animated: true)
+	}
+
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
 		if TestEnvironment.shared.isUITesting {
 			completion?()
@@ -244,7 +265,11 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	@IBAction func didTapIgnoreButton(_: Any) {
-		gotoNextScreen()
+		runIgnoreActionForPageType(
+			completion: {
+				self.gotoNextScreen()
+			}
+		)
 	}
 
 	func gotoNextScreen() {
