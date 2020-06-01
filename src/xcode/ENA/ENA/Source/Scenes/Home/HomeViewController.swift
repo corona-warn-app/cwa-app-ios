@@ -97,6 +97,13 @@ final class HomeViewController: UIViewController {
 		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
 	}
+	
+	override func viewDidLayoutSubviews() {
+		let image = UIImage(named: "navi_bar_icon")
+		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
+		leftItem.isEnabled = false
+		self.navigationItem.leftBarButtonItem = leftItem
+	}
 
 	// MARK: Actions
 
@@ -375,11 +382,6 @@ final class HomeViewController: UIViewController {
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
-		
-		let image = UIImage(named: "navi_bar_icon")?.withRenderingMode(.alwaysOriginal)
-		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
-		leftItem.isEnabled = false
-		self.navigationItem.leftBarButtonItem = leftItem
 	}
 }
 
