@@ -1035,7 +1035,7 @@
 			isa = PBXGroup;
 			children = (
 				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
-				EE20EA0824699A3A00770683 /* Help */,
+				EE20EA0824699A3A00770683 /* RiskLegend */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				51D420AF2458308400AD70CA /* Onboarding */,
 				51D420C124583D3100AD70CA /* Home */,
@@ -1396,13 +1396,13 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		EE20EA0824699A3A00770683 /* Help */ = {
+		EE20EA0824699A3A00770683 /* RiskLegend */ = {
 			isa = PBXGroup;
 			children = (
 				71B804482484D37300D53506 /* RiskLegendViewController.swift */,
 				71B8044C248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift */,
 			);
-			path = Help;
+			path = RiskLegend;
 			sourceTree = "<group>";
 		};
 		EE22DB83247FB43A001B0A71 /* ENSetting */ = {
