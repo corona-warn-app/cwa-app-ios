@@ -261,6 +261,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .httpError(wrapped.localizedDescription)
 			case .invalidResponse:
 				return .invalidResponse
+			case .qRTeleTanAlreadyUsed:
+				return .qRTeleTanAlreadyUsed
+			case .regTokenNotExist:
+				return .regTokenNotExist
 			case .noResponse:
 				return .noResponse
 			case let .serverError(code):
@@ -282,6 +286,8 @@ enum ExposureSubmissionError: Error, Equatable {
 	case invalidTan
 	case invalidResponse
 	case noResponse
+	case qRTeleTanAlreadyUsed
+	case regTokenNotExist
 	case serverError(Int)
 	case unknown
 	case httpError(String)
@@ -306,6 +312,12 @@ extension ExposureSubmissionError: LocalizedError {
 			return "No response was received"
 		case .noExposureConfiguration:
 			return "No Exposure Configuration available"
+		case .qRTeleTanAlreadyUsed:
+			return "QR Code or TeleTAN already used."
+		case .regTokenNotExist:
+			return "Reg Token does not exist."
+		case .noKeys:
+			return "No diagnoses keys available. Please try tomorrow again."
 		case let .other(desc):
 			return "Other Error: \(desc)"
 		case .unknown:
