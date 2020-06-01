@@ -18,6 +18,7 @@
 import FMDB
 import Foundation
 
+/// Basic SQLite Key/Value store with Keys as `TEXT` and Values stored as `BLOB`
 class SQLiteKeyValueStore {
 	private let db: FMDatabase
 
@@ -45,15 +46,18 @@ class SQLiteKeyValueStore {
 		}
 	}
 
+	/// - returns: `Data` if the key/value pair in the DB, `nil` otherwise
 	private func getData(for key: String) -> Data? {
 		openDbIfNeeded()
 
 		do {
 			let query = "SELECT value FROM kv WHERE key = ?;"
 			let result = try db.executeQuery(query, values: [key])
-			var resultData = Data()
+			var resultData: Data?
 			while result.next() {
-				guard let data = result.data(forColumn: "value") else {
+				// We use dataNoCopy() as data() returns nil even though there is empty Data
+				// This is unexpected, as empty Data of course does not mean nil
+				guard let data = result.dataNoCopy(forColumn: "value") else {
 					return nil
 				}
 				resultData = data
@@ -68,9 +72,18 @@ class SQLiteKeyValueStore {
 		}
 	}
 
+	/// Sets or overwrites the value for a given key
+	/// - attention: Passing `nil` to the data param causes the key/value pair to be deleted from the DB
 	private func setData(_ data: Data?, for key: String) {
 		openDbIfNeeded()
 		guard let data = data else {
+			let deleteStmt = "DELETE FROM kv WHERE key = ?;"
+			do {
+				try db.executeUpdate(deleteStmt, values: [key])
+				try db.executeUpdate("VACUUM", values: [])
+			} catch {
+				logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+			}
 			return
 		}
 
@@ -83,6 +96,7 @@ class SQLiteKeyValueStore {
 		}
 	}
 
+	/// Removes all key/value pairs from the Store
 	func clearAll() {
 		openDbIfNeeded()
 		let deleteStmt = "DELETE FROM kv;"
@@ -96,6 +110,12 @@ class SQLiteKeyValueStore {
 		return
 	}
 
+	/// Removes most key/value pairs.
+	///
+	/// Keys whose values are not removed:
+	/// - `developerSubmissionBaseURLOverride`
+	/// - `developerDistributionBaseURLOverride`
+	/// - `developerVerificationBaseURLOverride`
 	func flush() {
 		openDbIfNeeded()
 		let deleteStmt = "DELETE FROM kv WHERE key NOT IN('developerSubmissionBaseURLOverride','developerDistributionBaseURLOverride','developerVerificationBaseURLOverride');"
@@ -109,6 +129,8 @@ class SQLiteKeyValueStore {
 		return
 	}
 
+	/// - parameter key: key index to look in the DB for
+	/// - returns: `Data` if the key/value pair is found (even if the value BLOB is empty), or nil if no value exists for the given key.
 	subscript(key: String) -> Data? {
 		get {
 			getData(for: key)
@@ -118,7 +140,11 @@ class SQLiteKeyValueStore {
 		}
 	}
 
-	/// - important: Assumes data was encoded with a `JSONEncoder`!
+	/// Convenience subscript to use with `Codable` types, uses JSON encoder/decoder with no additional configuration.
+	/// - returns: Model decoded with a `JSONDecoder`, or `nil` if decoding fails.
+	///
+	/// - attention: Errors encountered during encoding with `JSONEncoder` silently fail (but are logged)!
+	///	If encoding fails, fetching the value for that key will result in empty `Data`
 	subscript<Model: Codable>(key: String) -> Model? {
 		get {
 			guard let data = getData(for: key) else {

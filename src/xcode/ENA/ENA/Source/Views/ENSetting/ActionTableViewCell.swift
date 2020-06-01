@@ -53,6 +53,10 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		case .bluetoothOff, .internetOff:
 			detailLabel.isHidden = false
 			actionSwitch.isHidden = true
+		case .restricted:
+			detailLabel.isHidden = false
+			actionSwitch.isHidden = true
+			detailLabel.text = AppStrings.ExposureNotificationSetting.deactivatedTracing
 		}
 	}
 
