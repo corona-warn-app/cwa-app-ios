@@ -273,6 +273,31 @@ private extension ExposureSubmissionTestResultViewController {
 					text: AppStrings.ExposureSubmissionResult.testNegativeDesc,
 					image: UIImage(named: "Icons_Grey_Check"),
 					hasSeparators: false
+				),
+				.bigBold(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1,
+					image: UIImage(named: "Icons_Grey_1"),
+					hasSeparators: false
+				),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2,
+					image: UIImage(named: "Icons_Grey_2"),
+					hasSeparators: false
+				),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3,
+					image: UIImage(named: "Icons_Grey_Error"),
+					hasSeparators: false
+				),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
+					image: UIImage(named: "Icons_Grey_Error"),
+					hasSeparators: false
 				)
 			]
 		)
@@ -331,7 +356,7 @@ private extension ExposureSubmissionTestResultViewController {
 }
 
 private extension DynamicCell {
-	static func stepCellWith(title: String, text: String, image: UIImage? = nil, hasSeparators: Bool = true) -> DynamicCell {
+	static func stepCellWith(title: String?, text: String, image: UIImage? = nil, hasSeparators: Bool = true) -> DynamicCell {
 		return .identifier(
 			DynamicTableViewStepCell.tableViewCellReuseIdentifier,
 			configure: { _, cell, _ in
