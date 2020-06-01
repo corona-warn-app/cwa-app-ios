@@ -20,7 +20,7 @@ import ExposureNotification
 import XCTest
 
 final class ENStateTests: XCTestCase {
-	var mockDelegate: MockStateHandlerObserverDelegate!
+	weak var mockDelegate: MockStateHandlerObserverDelegate!
 	var exposureManagerState: ExposureManagerState!
 
 	// setup stateHandler to be in enabled state
