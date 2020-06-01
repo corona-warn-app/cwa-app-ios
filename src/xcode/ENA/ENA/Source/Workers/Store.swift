@@ -289,7 +289,7 @@ final class DevelopmentStore: Store {
 
 	@PersistedAndPublished(
 		key: "previousRiskScore",
-		notificationName: Notification.Name.exposureDetectionSummaryDidChange,
+		notificationName: Notification.Name.exposureDetectionRiskScoreDidChange,
 		defaultValue: 0
 	)
 	var previousRiskScore: UInt8
