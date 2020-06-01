@@ -32,6 +32,7 @@ class DynamicTableViewControllerTests: XCTestCase {
 		let storyboardFake = UIStoryboard(name: "DynamicTableViewControllerFake", bundle: testBundle)
 		// The force unwrap it used here because when the type doesn't match, a
 		// crash immedeately informs about a problem in the test.
+		// swiftlint:disable:next force_cast
 		sut = (storyboardFake.instantiateViewController(identifier: "DynamicTableViewController") as! DynamicTableViewController)
 		// trigger viewDidLoad
 		sut.loadViewIfNeeded()
