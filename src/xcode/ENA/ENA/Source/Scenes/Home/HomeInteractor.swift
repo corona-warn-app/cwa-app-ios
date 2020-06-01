@@ -227,6 +227,10 @@ final class HomeInteractor {
 			}
 		}
 
+		// test
+		let thankYouConfigurator = HomeThankYouRiskCellConfigurator()
+		configurators.append(thankYouConfigurator)
+		//
 		let submitConfigurator = HomeSubmitCellConfigurator()
 
 		submitConfigurator.submitAction = { [unowned self] in

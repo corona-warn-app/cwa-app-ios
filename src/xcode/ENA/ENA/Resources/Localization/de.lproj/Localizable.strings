@@ -294,7 +294,6 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt ihre Identität un
 "Home_Risk_Status_Check_Button" = "Aktualisieren";
 
 // Home Thank you card
-
 "Home_Thank_You_Card_Title" = "Vielen Dank!";
 "Home_Thank_You_Card_Body" = "Dank Ihrer Mithilfe können andere gewarnt werden und entsprechend reagieren.";
 "Home_Thank_You_Card_Note_Title" = "Bitte beachten Sie:";
@@ -307,7 +306,6 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt ihre Identität un
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend sein.";
 
 // Home Submit card
-
 "Home_SubmitCard_Title" = "COVID Test";
 "Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen.";
 "Home_SubmitCard_Button" = "Test registrieren";

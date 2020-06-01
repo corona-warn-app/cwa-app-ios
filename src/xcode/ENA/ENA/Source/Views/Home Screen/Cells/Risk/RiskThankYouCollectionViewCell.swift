@@ -22,7 +22,14 @@ import UIKit
 final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 
 	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var imageView: UIImageView!
 	@IBOutlet var bodyLabel: UILabel!
+
+	@IBOutlet var noteLabel: UILabel!
+	//
+
+	@IBOutlet var furtherInfoLabel: UILabel!
+	//
 
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var stackView: UIStackView!
@@ -45,7 +52,13 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 	func configureTitle(title: String, titleColor: UIColor) {
 		titleLabel.text = title
 		titleLabel.textColor = titleColor
-		stackView.addArrangedSubview(stackView)
+		stackView.addArrangedSubview(titleLabel)
+	}
+
+	func configureImage(imageName: String) {
+		let image = UIImage(named: imageName)
+		imageView.image = image
+		stackView.addArrangedSubview(imageView)
 	}
 
 	func configureBody(text: String, bodyColor: UIColor) {
@@ -54,21 +67,30 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 		stackView.addArrangedSubview(bodyLabel)
 	}
 
+	func configureNoteLabel(title: String) {
+		noteLabel.text = title
+		stackView.addArrangedSubview(noteLabel)
+	}
+
+	func configureFurtherInfoLabel(title: String) {
+		furtherInfoLabel.text = title
+		stackView.addArrangedSubview(furtherInfoLabel)
+	}
+
 	func configureBackgroundColor(color: UIColor) {
 		viewContainer.backgroundColor = color
 	}
 
-	func configureRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
-		for itemConfigurator in cellConfigurators {
+	func configureNoteRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
+		guard let noteIndex = stackView.arrangedSubviews.firstIndex(of: noteLabel) else { return }
+		for itemConfigurator in cellConfigurators.reversed() {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
-			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? UIView {
-				stackView.addArrangedSubview(riskView)
+			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
+				riskView.hideSeparator()
+				stackView.insertArrangedSubview(riskView, at: noteIndex + 1)
 				itemConfigurator.configureAny(riskView: riskView)
 			}
-		}
-		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemView {
-			riskItemView.hideSeparator()
 		}
 	}
 }

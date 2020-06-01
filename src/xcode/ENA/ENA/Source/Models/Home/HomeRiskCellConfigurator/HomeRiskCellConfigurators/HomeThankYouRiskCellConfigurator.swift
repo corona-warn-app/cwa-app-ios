@@ -23,32 +23,38 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: Configuration
 
-	func configure(cell: RiskLevelCollectionViewCell) {
+	func configure(cell: RiskThankYouCollectionViewCell) {
 
 		cell.removeAllArrangedSubviews()
 
-		let title: String = "da" // isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
-		let titleColor: UIColor = .white
+		let title = AppStrings.Home.thankYouCardTitle
+		let titleColor: UIColor = UIColor.black
 		cell.configureTitle(title: title, titleColor: titleColor)
-		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
 
-		let color = UIColor.preferredColor(for: .unknownRisk)
-		let separatorColor = UIColor.white.withAlphaComponent(0.15)
-		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
-//		if isLoading {
-//			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
-//			itemCellConfigurators.append(isLoadingItem)
-//		} else {
-//			let item = HomeRiskTextItemViewConfigurator(title: AppStrings.Home.riskCardUnknownItemTitle, titleColor: titleColor, color: color, separatorColor: separatorColor)
-//			itemCellConfigurators.append(item)
-//		}
-		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
+		let imageName = "settings_mitteilungen_an"
+		cell.configureImage(imageName: imageName)
 
-		cell.configureBackgroundColor(color: color)
+		let body = AppStrings.Home.thankYouCardBody
+		cell.configureBody(text: body, bodyColor: titleColor)
 
-		cell.configureChevron(image: UIImage(systemName: "chevron.right.circle.fill"), tintColor: .preferredColor(for: .chevron))
+		let noteTitle = AppStrings.Home.thankYouCardNoteTitle
+		cell.configureNoteLabel(title: noteTitle)
 
-		let buttonTitle: String = "dad" // isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardUnknownButton
+		let phoneTitle = AppStrings.Home.thankYouCardPhoneItemTitle
+		let phoneItem = HomeRiskImageItemViewConfigurator(title: phoneTitle, titleColor: titleColor, iconImageName: "Phone", iconTintColor: .red, color: .clear, separatorColor: .clear)
+		let homeTitle = AppStrings.Home.thankYouCardHomeItemTitle
+		let homeItem = HomeRiskImageItemViewConfigurator(title: homeTitle, titleColor: titleColor, iconImageName: "Home", iconTintColor: .red, color: .clear, separatorColor: .clear)
+		cell.configureNoteRiskViews(cellConfigurators: [phoneItem, homeItem])
 
+
+		let furtherInfoTitle = AppStrings.Home.thankYouCardFurtherInfoItemTitle
+		cell.configureFurtherInfoLabel(title: furtherInfoTitle)
+		// add items
+
+		// var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
+		// cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
+
+		let backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
+		cell.configureBackgroundColor(color: backgroundColor)
 	}
 }
