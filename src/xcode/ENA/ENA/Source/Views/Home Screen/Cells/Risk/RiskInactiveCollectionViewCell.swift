@@ -1,6 +1,7 @@
+//
 // Corona-Warn-App
 //
-// SAP SE and all other contributors
+// SAP SE and all other contributors /
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -14,27 +15,26 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import UIKit
 
-protocol RiskLevelCollectionViewCellDelegate: AnyObject {
-	func updateButtonTapped(cell: RiskLevelCollectionViewCell)
+protocol RiskInactiveCollectionViewCellDelegate: AnyObject {
+	func activeButtonTapped(cell: RiskInactiveCollectionViewCell)
 }
 
 /// A cell that visualizes the current risk and allows the user to calculate he/his current risk.
-final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
+final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 	// MARK: Properties
 
-	weak var delegate: RiskLevelCollectionViewCellDelegate?
+	weak var delegate: RiskInactiveCollectionViewCellDelegate?
 
 	// MARK: Outlets
 
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: UILabel!
-	@IBOutlet var updateButton: UIButton!
-	@IBOutlet var counterLabel: UILabel!
-	@IBOutlet var counterLabelContainer: UIView!
+	@IBOutlet var activeButton: UIButton!
 
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var topContainer: UIView!
@@ -45,8 +45,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		constructStackView()
-		constructUpdateButton()
-		constructCounterLabelContainer()
+		constructActiveButton()
 		topContainer.layoutMargins = .zero
 	}
 
@@ -56,41 +55,23 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		stackView.isLayoutMarginsRelativeArrangement = true
 	}
 
-	private func constructUpdateButton() {
-		updateButton.titleLabel?.adjustsFontForContentSizeCategory = true
-		updateButton.titleLabel?.lineBreakMode = .byWordWrapping
-		updateButton.layer.cornerRadius = 10.0
-		updateButton.layer.masksToBounds = true
-		updateButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
-	}
-
-	private func constructCounterLabelContainer() {
-		counterLabelContainer.layer.cornerRadius = 18.0
-		counterLabelContainer.layer.masksToBounds = true
-		counterLabelContainer.layoutMargins = .init(top: 9.0, left: 16.0, bottom: 9.0, right: 16.0)
-		counterLabelContainer.backgroundColor = UIColor.black.withAlphaComponent(0.12)
-		counterLabel.textColor = .systemGray6
+	private func constructActiveButton() {
+		activeButton.titleLabel?.adjustsFontForContentSizeCategory = true
+		activeButton.titleLabel?.lineBreakMode = .byWordWrapping
+		activeButton.layer.cornerRadius = 10.0
+		activeButton.layer.masksToBounds = true
+		activeButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
-		updateButton.titleLabel?.lineBreakMode = traitCollection.preferredContentSizeCategory >= .accessibilityExtraExtraLarge ? .byTruncatingMiddle : .byWordWrapping
-	}
-
-	// Ignore touches on the button when it's disabled
-	override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-		let buttonPoint = convert(point, to: updateButton)
-		let containsPoint = updateButton.bounds.contains(buttonPoint)
-		if containsPoint, !updateButton.isEnabled {
-			return nil
-		}
-		return super.hitTest(point, with: event)
+		activeButton.titleLabel?.lineBreakMode = traitCollection.preferredContentSizeCategory >= .accessibilityExtraExtraLarge ? .byTruncatingMiddle : .byWordWrapping
 	}
 
 	// MARK: Actions
 
-	@IBAction func updateButtonTapped(_: UIButton) {
-		delegate?.updateButtonTapped(cell: self)
+	@IBAction func activeButtonTapped(_: UIButton) {
+		delegate?.activeButtonTapped(cell: self)
 	}
 
 	// MARK: Configuring the UI
@@ -105,10 +86,9 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		stackView.addArrangedSubview(topContainer)
 	}
 
-	func configureBody(text: String, bodyColor: UIColor, isHidden: Bool) {
+	func configureBody(text: String, bodyColor: UIColor) {
 		bodyLabel.text = text
 		bodyLabel.textColor = bodyColor
-		bodyLabel.isHidden = isHidden
 		stackView.addArrangedSubview(bodyLabel)
 	}
 
@@ -121,24 +101,15 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		chevronImageView.tintColor = tintColor
 	}
 
-	func configureUpdateButton(title: String, color: UIColor, backgroundColor: UIColor, isEnabled: Bool, isHidden: Bool) {
+	func configureActiveButton(title: String, color: UIColor, backgroundColor: UIColor) {
 		UIView.performWithoutAnimation {
-			updateButton.setTitle(title, for: .normal)
-			updateButton.layoutIfNeeded()
+			activeButton.setTitle(title, for: .normal)
+			activeButton.layoutIfNeeded()
 		}
-		updateButton.setTitleColor(color, for: .normal)
-		updateButton.setTitleColor(color.withAlphaComponent(0.3), for: .disabled)
-		updateButton.backgroundColor = backgroundColor
-		updateButton.isEnabled = isEnabled
-		updateButton.isHidden = isHidden
-		stackView.addArrangedSubview(updateButton)
-	}
-
-	func configureCounterLabel(text: String, isHidden: Bool) {
-		counterLabel.text = text
-		counterLabel.isHidden = isHidden
-		counterLabelContainer.isHidden = isHidden
-		stackView.addArrangedSubview(counterLabelContainer)
+		activeButton.setTitleColor(color, for: .normal)
+		activeButton.setTitleColor(color.withAlphaComponent(0.3), for: .disabled)
+		activeButton.backgroundColor = backgroundColor
+		stackView.addArrangedSubview(activeButton)
 	}
 
 	func configureRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {

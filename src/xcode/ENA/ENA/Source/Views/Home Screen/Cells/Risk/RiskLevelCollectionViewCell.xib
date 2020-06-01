@@ -60,7 +60,7 @@
                                         <color key="tintColor" name="separator"/>
                                         <state key="normal" title="Button Button Button Button Button Button Button Button Button Button Button Button Button Button Button Button Button "/>
                                         <connections>
-                                            <action selector="contactButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="4jG-3D-nyf"/>
+                                            <action selector="updateButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="WC5-CV-Zky"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="Body Body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sq-Fu-7Ci">

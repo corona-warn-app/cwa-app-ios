@@ -34,6 +34,8 @@
 		2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */; };
 		2F80CFDD247EEB88000F06AF /* DynamicTableViewImageCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFDC247EEB88000F06AF /* DynamicTableViewImageCardCell.swift */; };
 		51486D9F2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51486D9E2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift */; };
+		51486DA22485101500FCE216 /* RiskInactiveCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */; };
+		51486DA32485101500FCE216 /* RiskInactiveCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51486DA12485101500FCE216 /* RiskInactiveCollectionViewCell.xib */; };
 		514C0A0624772F3400F235F6 /* HomeRiskViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C0A0524772F3400F235F6 /* HomeRiskViewConfigurator.swift */; };
 		514C0A0824772F5E00F235F6 /* RiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C0A0724772F5E00F235F6 /* RiskItemView.swift */; };
 		514C0A0B247AF9F700F235F6 /* RiskTextItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 514C0A0A247AF9F700F235F6 /* RiskTextItemView.xib */; };
@@ -303,6 +305,8 @@
 		2F80CFDC247EEB88000F06AF /* DynamicTableViewImageCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewImageCardCell.swift; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		51486D9E2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLevelCellConfigurator.swift; sourceTree = "<group>"; };
+		51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskInactiveCollectionViewCell.swift; sourceTree = "<group>"; };
+		51486DA12485101500FCE216 /* RiskInactiveCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskInactiveCollectionViewCell.xib; sourceTree = "<group>"; };
 		514C0A0524772F3400F235F6 /* HomeRiskViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskViewConfigurator.swift; sourceTree = "<group>"; };
 		514C0A0724772F5E00F235F6 /* RiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskItemView.swift; sourceTree = "<group>"; };
 		514C0A09247AEEE200F235F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -696,6 +700,8 @@
 			children = (
 				51CE1B7A246078B6002CF42A /* RiskLevelCollectionViewCell.swift */,
 				51CE1B79246078B6002CF42A /* RiskLevelCollectionViewCell.xib */,
+				51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */,
+				51486DA12485101500FCE216 /* RiskInactiveCollectionViewCell.xib */,
 				514EE991246D4A1600DE4884 /* Risk Items */,
 			);
 			path = Risk;
@@ -1573,6 +1579,7 @@
 				514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */,
 				710ABB2C2475531700948792 /* app-information-assets.xcassets in Resources */,
 				71B8044524828A6C00D53506 /* .swiftformat in Resources */,
+				51486DA32485101500FCE216 /* RiskInactiveCollectionViewCell.xib in Resources */,
 				51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				713FD5672482811A00C1F6DD /* colors.xcassets in Resources */,
@@ -1696,6 +1703,7 @@
 				B1D7D69124766D2100E4DA5D /* risk_level.pb.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */,
+				51486DA22485101500FCE216 /* RiskInactiveCollectionViewCell.swift in Sources */,
 				EE22DB8B247FB43A001B0A71 /* ActionDetailTableViewCell.swift in Sources */,
 				71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */,
 				0159E6C2247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift in Sources */,

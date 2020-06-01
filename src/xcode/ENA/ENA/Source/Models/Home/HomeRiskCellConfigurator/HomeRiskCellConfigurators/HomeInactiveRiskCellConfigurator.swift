@@ -49,7 +49,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: Configuration
 
-	func configure(cell: RiskLevelCollectionViewCell) {
+	func configure(cell: RiskInactiveCollectionViewCell) {
 		cell.delegate = self
 
 		cell.removeAllArrangedSubviews()
@@ -59,7 +59,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.configureTitle(title: title, titleColor: titleColor)
 
 		let bodyText = AppStrings.Home.riskCardInactiveBody
-		cell.configureBody(text: bodyText, bodyColor: titleColor, isHidden: false)
+		cell.configureBody(text: bodyText, bodyColor: titleColor)
 
 		let color = UIColor.white
 		let separatorColor = UIColor.systemGray5
@@ -80,18 +80,16 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		let buttonTitle = AppStrings.Home.riskCardInactiveButton
 
-		cell.configureUpdateButton(
+		cell.configureActiveButton(
 			title: buttonTitle,
 			color: .preferredColor(for: .tint),
-			backgroundColor: .systemGray5,
-			isEnabled: true,
-			isHidden: false
+			backgroundColor: .systemGray5
 		)
 	}
 }
 
-extension HomeInactiveRiskCellConfigurator: RiskLevelCollectionViewCellDelegate {
-	func updateButtonTapped(cell: RiskLevelCollectionViewCell) {
+extension HomeInactiveRiskCellConfigurator: RiskInactiveCollectionViewCellDelegate {
+	func activeButtonTapped(cell: RiskInactiveCollectionViewCell) {
 		activeAction?()
 	}
 }
