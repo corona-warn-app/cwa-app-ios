@@ -34,6 +34,7 @@ extension Notification.Name {
 
 	// Temporary Notification until implemented by actual transaction flow
 	static let didDetectExposureDetectionSummary = _withPrefix("didDetectExposureDetectionSummary")
+	static let exposureDetectionRiskScoreDidChange = _withPrefix("exposureDetectionRiskScoreDidChange")
 	static let teleTanDidChange = _withPrefix("teleTanDidChange")
 	static let tanDidChange = _withPrefix("tanDidChange")
 	static let testGUIDDidChange = _withPrefix("testGUIDDidChange")

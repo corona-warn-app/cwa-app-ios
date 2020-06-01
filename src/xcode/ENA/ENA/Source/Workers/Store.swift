@@ -37,6 +37,8 @@ protocol Store: AnyObject {
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
+	var previousRiskScore: UInt8 { get set }
+
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
@@ -64,6 +66,9 @@ protocol Store: AnyObject {
 // The `DevelopmentStore` class implements the `Store` protocol that defines all required storage attributes.
 /// This class needs to be replaced with an implementation that persists all attributes in an encrypted SQLite database.
 final class DevelopmentStore: Store {
+
+
+
 	func clearAll() {
 		// UserDefaults.standard.removeObject(forKey: "isOnboarded")
 		UserDefaults.standard.removeObject(forKey: "dateLastExposureDetection")
@@ -79,6 +84,7 @@ final class DevelopmentStore: Store {
 		UserDefaults.standard.removeObject(forKey: "devicePairingSuccessfulTimestamp")
 		UserDefaults.standard.removeObject(forKey: "isAllowedToSubmitDiagnosisKeys")
 		UserDefaults.standard.removeObject(forKey: "registrationToken")
+		UserDefaults.standard.removeObject(forKey: "previousRiskScore")
 		log(message: "Flushed DevelopmentStore", level: .info)
 	}
 
@@ -280,6 +286,13 @@ final class DevelopmentStore: Store {
 		defaultValue: true
 	)
 	var allowTestsStatusNotification: Bool
+
+	@PersistedAndPublished(
+		key: "previousRiskScore",
+		notificationName: Notification.Name.exposureDetectionSummaryDidChange,
+		defaultValue: 0
+	)
+	var previousRiskScore: UInt8
 }
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
@@ -470,4 +483,15 @@ final class SecureStore: Store {
 			NotificationCenter.default.post(name: Notification.Name.allowTestsStatusNotificationDidChange, object: nil)
 		}
 	}
+
+	var previousRiskScore: UInt8 {
+		get {
+			kvStore["previousRiskScore"] as UInt8? ?? 0
+		}
+		set {
+			kvStore["previousRiskScore"] = newValue
+			NotificationCenter.default.post(name: Notification.Name.exposureDetectionRiskScoreDidChange, object: nil)
+		}
+	}
+
 }
