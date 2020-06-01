@@ -51,12 +51,12 @@ protocol ExposureSubmissionService {
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
-	let manager: ExposureManager
+	let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
 	let client: Client
 	let store: Store
 
-	init(manager: ExposureManager, client: Client, store: Store) {
-		self.manager = manager
+	init(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) {
+		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
 		self.client = client
 		self.store = store
 	}
@@ -172,7 +172,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
 		log(message: "Started exposure submission...")
 
-		manager.accessDiagnosisKeys { keys, error in
+		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
 			if let error = error {
 				logError(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
 				completionHandler(self.parseError(error))

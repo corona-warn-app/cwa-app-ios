@@ -131,7 +131,7 @@ final class HomeViewController: UIViewController {
 				ExposureSubmissionNavigationController(
 					coder: coder,
 					exposureSubmissionService: ENAExposureSubmissionService(
-						manager: self.exposureManager,
+						diagnosiskeyRetrieval: self.exposureManager,
 						client: self.client,
 						store: self.store
 					)
