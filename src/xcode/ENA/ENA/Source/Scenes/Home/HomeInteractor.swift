@@ -273,7 +273,7 @@ final class HomeInteractor {
 	}
 
 	private func selectConfiguratorForExposureSubmissionCell() -> CollectionViewCellConfiguratorAny? {
-
+		/* Enable this once the home view refreshing is done.
 		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
 			return HomeExposureSubmissionStateCellConfigurator()
@@ -289,7 +289,7 @@ final class HomeInteractor {
 			}
 
 			return testResulCellConfigurator
-		}
+		}*/
 
 		// This is the default view that is shown when no test results are available.
 		let submitCellConfigurator = HomeSubmitCellConfigurator()

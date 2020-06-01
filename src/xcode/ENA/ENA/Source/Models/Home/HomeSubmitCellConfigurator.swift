@@ -40,39 +40,3 @@ extension HomeSubmitCellConfigurator: SubmitCollectionViewCellDelegate {
 		submitAction?()
 	}
 }
-
-// ATTENTION: WORK IN PROGRESS!
-// TODO: Move these classes to appropriate files and check if they can be integrated into the HomeSubmitCell flow.
-
-class ExposureSubmissionCell: HomeCardCollectionViewCell {}
-
-class HomeExposureSubmissionStateCellConfigurator: CollectionViewCellConfigurator {
-
-	// MARK: - Controllers from which we grab the screens for reuse.
-
-	let sVC = AppStoryboard
-		.exposureSubmission
-		.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self)
-
-
-	func configure(cell: ExposureSubmissionCell) {
-		// Instantiate embedded view.
-		// This needs to be called in order for us to be able
-		// to reuse the already existing tableview / screens.
-		// Otherwise the tableview will always be nil.
-		sVC.viewDidLoad()
-
-		if let table = sVC.tableView {
-			table.removeFromSuperview()
-			cell.contentView.addSubview(table)
-			table.isScrollEnabled = false
-
-			// MARK: - Constraint setting.
-			table.translatesAutoresizingMaskIntoConstraints = false
-			table.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
-			table.trailingAnchor.constraint(equalTo: cell.trailingAnchor).isActive = true
-			table.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
-			table.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
-		}
-	}
-}
