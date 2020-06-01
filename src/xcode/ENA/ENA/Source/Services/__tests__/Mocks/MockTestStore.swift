@@ -19,6 +19,8 @@
 import Foundation
 
 class MockTestStore: Store {
+	var tracingStatusHistory: TracingStatusHistory = []
+
 	var testResultReceivedTimeStamp: Int64?
 	
 	func clearAll() {}
