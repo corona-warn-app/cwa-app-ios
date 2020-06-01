@@ -28,7 +28,7 @@ public enum ENATaskIdentifier: String, CaseIterable {
 		switch self {
 		// set to trigger every 2 hours
 		case .detectExposures: return 2 * 60 * 60
-		// set to trigger every 30 min
+		// set to trigger every 2 hours
 		case .fetchTestResults: return 2 * 60 * 60
 		}
 	}
