@@ -72,6 +72,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.registrationToken = nil
 	}
 
+	/// This method gets the test result based on the registrationToken that was previously
+	/// received, either from the TAN or QR Code flow. After successful completion,
+	/// the timestamp of the last received test is updated.
 	func getTestResult(_ completeWith: @escaping TestResultHandler) {
 		guard let registrationToken = store.registrationToken else {
 			completeWith(.failure(.noRegistrationToken))
@@ -89,6 +92,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				}
 
 				completeWith(.success(testResult))
+				self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
 			}
 		}
 	}
@@ -169,6 +173,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
+	/// This method submits the exposure keys. Additionally, after successful completion,
+	/// the timestamp of the key submission is updated.
 	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
 		log(message: "Started exposure submission...")
 

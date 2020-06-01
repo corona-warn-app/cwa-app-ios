@@ -48,4 +48,5 @@ extension Notification.Name {
 	static let initialSubmitCompletedDidChange = _withPrefix("initialSubmitCompletedDidChange")
 	static let submitConsentAcceptTimestampDidChange = _withPrefix("submitConsentAcceptTimestampDidChange")
 	static let submitConsentAcceptDidChange = _withPrefix("submitConsentAcceptDidChange")
+	static let testResultReceivedTimeStampDidChange = _withPrefix("testResultReceivedTimeStampDidChange")
 }

@@ -40,6 +40,10 @@ protocol Store: AnyObject {
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
+	// Timestamp that represents the date at which
+	// the user has received a test reult.
+	var testResultReceivedTimeStamp: Int64? { get set }
+
 	// Timestamp representing the last successful diagnosis keys submission.
 	// This is needed to allow in the future delta submissions of diagnosis keys since the last submission.
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? { get set }
@@ -103,6 +107,15 @@ final class DevelopmentStore: Store {
 	}
 
 	// TODO: Implement handlers for these.
+
+	@PersistedAndPublished(
+		key: "testResultReceivedTimeStamp",
+		notificationName: Notification.Name.testResultReceivedTimeStampDidChange,
+		defaultValue: UserDefaults
+			.standard
+			.object(forKey: "testResultReceivedTimeStamp") as? Int64
+	)
+	var testResultReceivedTimeStamp: Int64?
 
 	@PersistedAndPublished(
 		key: "lastSuccessfulSubmitDiagnosisKeyTimestamp",
@@ -306,6 +319,13 @@ final class SecureStore: Store {
 
 	func clearAll() {
 		kvStore.clearAll()
+	}
+
+	var testResultReceivedTimeStamp: Int64? {
+		get { kvStore["testResultReceivedTimeStamp"] as Int64? ?? 0 }
+		set { kvStore["testResultReceivedTimeStamp"] = newValue
+			NotificationCenter.default.post(name: Notification.Name.testResultReceivedTimeStampDidChange, object: nil)
+		}
 	}
 
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
