@@ -71,6 +71,7 @@ extension ExposureSubmissionNavigationControllerChild where Self: UIViewControll
 
 class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
 
+	private weak var homeViewController: HomeViewController?
 	private var testResult: TestResult?
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
@@ -91,10 +92,12 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	init?(
 		coder: NSCoder,
 		exposureSubmissionService: ExposureSubmissionService,
+		homeViewController: HomeViewController? = nil,
 		testResult: TestResult? = nil
 	) {
 		super.init(coder: coder)
 		self.exposureSubmissionService = exposureSubmissionService
+		self.homeViewController = homeViewController
 		self.testResult = testResult
 
 		let rootVC = getRootViewController()
@@ -178,6 +181,10 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			self.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
 			self.updateBottomSafeAreaInset(animated: true)
 		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {

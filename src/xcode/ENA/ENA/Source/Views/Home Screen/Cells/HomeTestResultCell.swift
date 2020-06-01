@@ -47,6 +47,11 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 
 	func configure(cell: HomeTestResultCell) {
 		cell.delegate = self
+		updateState(cell)
+		didConfigureCell?(self, cell)
+	}
+
+	func updateState(_ cell: HomeTestResultCell) {
 		switch testResult {
 		case .invalid:
 			configureTestResultInvalid(cell: cell)
@@ -57,7 +62,6 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		case .positive:
 			configureTestResultPositive(cell: cell)
 		}
-		self.didConfigureCell?(self, cell)
 	}
 
 	private func configureTestResultNegative(cell: HomeTestResultCell) {
