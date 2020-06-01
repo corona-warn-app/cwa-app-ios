@@ -70,5 +70,5 @@ extension MockExposureManager: ExposureManager {
 
 	func resume(observer: ENAExposureManagerObserver) {	}
 
-	func showBluetoothOffUserNotificationIfNeeded() -> UIAlertController? { return nil }
+	func alertForBluetoothOff() -> UIAlertController? { return nil }
 }

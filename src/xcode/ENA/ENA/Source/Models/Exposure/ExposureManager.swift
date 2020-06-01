@@ -72,7 +72,7 @@ protocol ExposureManager {
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func resume(observer: ENAExposureManagerObserver)
-	func showBluetoothOffUserNotificationIfNeeded() -> UIAlertController?
+	func alertForBluetoothOff() -> UIAlertController?
 }
 
 protocol ENAExposureManagerObserver: AnyObject {
@@ -272,7 +272,7 @@ extension ENAuthorizationStatus: CustomDebugStringConvertible {
 
 extension ENAExposureManager {
 
-	func showBluetoothOffUserNotificationIfNeeded() -> UIAlertController? {
+	func alertForBluetoothOff() -> UIAlertController? {
 		print(self.manager.exposureNotificationStatus)
 		if ENManager.authorizationStatus == .authorized && self.manager.exposureNotificationStatus == .bluetoothOff {
 			let alert = UIAlertController(title: "Bluetooth is turned off",
