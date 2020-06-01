@@ -171,11 +171,11 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "ExposureSubmission_DispatchTitle" = "Auswahl";
 "ExposureSubmission_DispatchDescription" = "Was liegt Ihnen vor?";
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Dokument mit QR-Code";
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code ihres Test-Dokuments scannen";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code ihres Test-Dokuments scannen.";
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Code";
 "ExposureSubmissionDispatch_TANButtonDescription" = "Registrieren Sie Ihren Test per manueller TAN Eingabe.";
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Noch keine TAN?";
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bitte rufen Sie uns an, falls Sie Positiv getestet wurden";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bitte rufen Sie uns an, falls Sie Positiv getestet wurden.";
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 "ExposureSubmissionHotline_Description" = "Wir teilen Ihnen Ihren TAN-Code gerne per Telefon mit.";
@@ -197,7 +197,7 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "ExposureSubmissionSuccess_listItem2" = "Isolieren Sie sich von anderen Personen";
 
 // Exposure Submission Introduction
-"ExposureSubmissionIntroduction_Title" = "Corona-Warn-System";
+"ExposureSubmissionIntroduction_Title" = "Info";
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
 "ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt  wie folgt vorgehen:";
 "ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen  in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";

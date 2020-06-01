@@ -271,25 +271,25 @@ private extension ExposureSubmissionTestResultViewController {
 				.stepCellWith(
 					title: nil,
 					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1,
-					image: UIImage(named: "Icons_Grey_1"),
+					image: UIImage(named: "Icons_Dark_Dot"),
 					hasSeparators: false
 				),
 				.stepCellWith(
 					title: nil,
 					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2,
-					image: UIImage(named: "Icons_Grey_2"),
+					image: UIImage(named: "Icons_Dark_Dot"),
 					hasSeparators: false
 				),
 				.stepCellWith(
 					title: nil,
 					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3,
-					image: UIImage(named: "Icons_Grey_Error"),
+					image: UIImage(named: "Icons_Dark_Dot"),
 					hasSeparators: false
 				),
 				.stepCellWith(
 					title: nil,
 					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
-					image: UIImage(named: "Icons_Grey_Error"),
+					image: UIImage(named: "Icons_Dark_Dot"),
 					hasSeparators: false
 				)
 			]

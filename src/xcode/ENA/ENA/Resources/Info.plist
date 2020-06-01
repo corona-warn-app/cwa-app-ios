@@ -56,7 +56,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Read Diagnosis Keys for debugging purposes</string>
+	<string>Erlaube der App QR-Codes mit Hilfe der Kamera zu scannen</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
