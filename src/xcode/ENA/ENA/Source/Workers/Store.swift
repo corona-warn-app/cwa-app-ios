@@ -322,14 +322,14 @@ final class SecureStore: Store {
 	}
 
 	var testResultReceivedTimeStamp: Int64? {
-		get { kvStore["testResultReceivedTimeStamp"] as Int64? ?? 0 }
+		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
 		set { kvStore["testResultReceivedTimeStamp"] = newValue
 			NotificationCenter.default.post(name: Notification.Name.testResultReceivedTimeStampDidChange, object: nil)
 		}
 	}
 
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
-		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? ?? 0 }
+		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? }
 		set { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] = newValue
 			NotificationCenter.default.post(name: Notification.Name.lastSuccessfulSubmitDiagnosisKeyTimestampDidChange, object: nil)
 		}
@@ -364,7 +364,7 @@ final class SecureStore: Store {
 	}
 
 	var registrationToken: String? {
-		get { kvStore["registrationToken"] as String? ?? "" }
+		get { kvStore["registrationToken"] as String? }
 		set { kvStore["registrationToken"] = newValue
 			NotificationCenter.default.post(name: Notification.Name.registrationTokenDidChange, object: nil)
 		}

@@ -77,6 +77,7 @@ final class HomeViewController: UIViewController {
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
 	private var exposureSubmissionService: ExposureSubmissionService?
+	private var testResult: TestResult?
 
 	enum Section: Int {
 		case actions
@@ -131,13 +132,14 @@ final class HomeViewController: UIViewController {
 		exposureDetectionController?.state = state
 	}
 
-	func showSubmitResult() {
+	func showExposureSubmission(with result: TestResult? = nil) {
 		guard let exposureSubmissionService = exposureSubmissionService else { return }
 		present(
 			AppStoryboard.exposureSubmission.initiateInitial { coder in
 				ExposureSubmissionNavigationController(
 					coder: coder,
-					exposureSubmissionService: exposureSubmissionService
+					exposureSubmissionService: exposureSubmissionService,
+					testResult: result
 				)
 			},
 			animated: true
@@ -273,8 +275,6 @@ final class HomeViewController: UIViewController {
 				showExposureNotificationSetting()
 			} else if row == 1 {
 				showExposureDetection()
-			} else {
-				showSubmitResult()
 			}
 		case .infos:
 			if row == 0 {
@@ -394,19 +394,18 @@ extension HomeViewController {
 
 	func updateTestResultFor(_ cell: HomeTestResultCell, with configurator: HomeTestResultCellConfigurator) {
 		self.exposureSubmissionService?.getTestResult { result in
-			// TODO: Remove test code.
-			DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
-				configurator.testResult = .negative
-				configurator.configure(cell: cell)
-			}
 			switch result {
 			case .failure(let error):
 				appLogger.log(message: "Could not update test state: \(error)", file: #file, line: #line, function: #function)
 			case .success(let result):
-				print(result)
-
+				self.testResult = result
+				configurator.configure(cell: cell)
 			}
 		}
+	}
+
+	func showTestResult() {
+		showExposureSubmission(with: testResult)
 	}
 }
 

@@ -70,6 +70,8 @@ extension ExposureSubmissionNavigationControllerChild where Self: UIViewControll
 }
 
 class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
+
+	private var testResult: TestResult?
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
 	private var keyboardWillChangeFrameObserver: NSObjectProtocol?
@@ -88,10 +90,12 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	init?(
 		coder: NSCoder,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		testResult: TestResult? = nil
 	) {
 		super.init(coder: coder)
 		self.exposureSubmissionService = exposureSubmissionService
+		self.testResult = testResult
 
 		let rootVC = getRootViewController()
 		viewControllers = [rootVC]
@@ -104,26 +108,16 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	/// Returns the root view controller, depending on whether we have a
 	/// registration token or not.
 	private func getRootViewController() -> UIViewController {
-		if let service = exposureSubmissionService, service.hasRegistrationToken() {
+
+		// We got a test result and can jump straight into the test result view controller.
+		if let service = exposureSubmissionService, testResult != nil {
 			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
-			// TODO: Until further notice, we will load this here. The polling
-			// of the test result is planned to be handled from the HomeViewController.
-			service.getTestResult { result in
-				switch result {
-				case .failure:
-					appLogger.log(
-						message: "Unable to load test result.",
-						file: #file,
-						line: #line,
-						function: #function)
-				case .success(let testResult):
-					vc.testResult = testResult
-					vc.reloadView()
-				}
-			}
+			vc.exposureSubmissionService = service
+			vc.testResult = testResult
 			return vc
 		}
 
+		// By default, we show the intro view.
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self)
 		return vc
 	}

@@ -227,34 +227,7 @@ final class HomeInteractor {
 		}
 
 		// MARK: Configure exposure submission view.
-
-
-		var submitCellConfigurator: HomeSubmitCellConfigurator?
-		var testResulCellConfigurator: HomeTestResultCellConfigurator?
-		var exposureSubmissionStateConfigurator: HomeExposureSubmissionStateCellConfigurator?
-		if store.registrationToken == nil {
-			// This is the default view that is shown when no test results are available.
-			submitCellConfigurator = HomeSubmitCellConfigurator()
-			submitCellConfigurator?.submitAction = { [unowned self] in
-				self.homeViewController.showSubmitResult()
-			}
-		}
-		// TODO: Add this!
-		// } else if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
-		// 	// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
-		// 	exposureSubmissionStateConfigurator = HomeExposureSubmissionStateCellConfigurator()
-		// }
-		else {
-			// This is shown when we registered a test.
-			testResulCellConfigurator = HomeTestResultCellConfigurator()
-			testResulCellConfigurator?.buttonAction = { [weak self] in
-				self?.homeViewController.showSubmitResult()
-			}
-			testResulCellConfigurator?.didConfigureCell = { configurator, cell in
-				self.homeViewController.updateTestResultFor(cell, with: configurator)
-			}
-		}
-
+		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
@@ -289,9 +262,7 @@ final class HomeInteractor {
 			configurators.append(risk)
 		}
 		let others: [CollectionViewCellConfiguratorAny?] = [
-			submitCellConfigurator,
-			testResulCellConfigurator,
-			exposureSubmissionStateConfigurator,
+			exposureSubmissionConfigurator,
 			info1Configurator,
 			info2Configurator,
 			appInformationConfigurator,
@@ -299,6 +270,34 @@ final class HomeInteractor {
 		]
 		configurators.append(contentsOf: others.compactMap { $0 })
 		return configurators
+	}
+
+	private func selectConfiguratorForExposureSubmissionCell() -> CollectionViewCellConfiguratorAny? {
+
+		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
+			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
+			return HomeExposureSubmissionStateCellConfigurator()
+		} else if store.registrationToken != nil {
+
+			// This is shown when we registered a test.
+			let testResulCellConfigurator = HomeTestResultCellConfigurator()
+			testResulCellConfigurator.buttonAction = { [weak self] in
+				self?.homeViewController.showTestResult()
+			}
+			testResulCellConfigurator.didConfigureCell = { configurator, cell in
+				self.homeViewController.updateTestResultFor(cell, with: configurator)
+			}
+
+			return testResulCellConfigurator
+		}
+
+		// This is the default view that is shown when no test results are available.
+		let submitCellConfigurator = HomeSubmitCellConfigurator()
+		submitCellConfigurator.submitAction = { [unowned self] in
+			self.homeViewController.showExposureSubmission()
+		}
+
+		return submitCellConfigurator
 	}
 
 	private func indexPathForActiveCell() -> IndexPath? {

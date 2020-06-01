@@ -94,21 +94,30 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		cell.result.text = ""
 		cell.body.text = AppStrings.Home.resultCardPendingDesc
 		configureResultsButton(for: cell)
-		cell.button.isUserInteractionEnabled = false
 	}
 
 	private func configureResultsButton(for cell: HomeTestResultCell) {
 		let title = AppStrings.Home.resultCardShowResultButton
+		cell.button.isEnabled = isButtonActive()
 		cell.button.setTitle(title, for: .normal)
 		guard let buttonLabel = cell.button.titleLabel else { return }
 		buttonLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
 		buttonLabel.adjustsFontForContentSizeCategory = true
 		buttonLabel.lineBreakMode = .byWordWrapping
 	}
+
+	private func isButtonActive() -> Bool {
+		switch self.testResult {
+		case .pending:
+			return false
+		default:
+			return true
+		}
+	}
 }
 
 extension HomeTestResultCellConfigurator: TestResultCollectionViewCellDelegate {
-	func showTestButtonTapped(cell _: HomeTestResultCell) {
+	func showTestButtonTapped(cell: HomeTestResultCell) {
 		buttonAction?()
 	}
 }
