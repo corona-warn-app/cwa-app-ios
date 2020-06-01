@@ -1,6 +1,7 @@
+//
 // Corona-Warn-App
 //
-// SAP SE and all other contributors
+// SAP SE and all other contributors /
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -14,16 +15,9 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 
-private func _withPrefix(_ name: String) -> Notification.Name {
-	Notification.Name("com.sap.ena.\(name)")
-}
-
-extension Notification.Name {
-	static let isOnboardedDidChange = _withPrefix("isOnboardedDidChange")
-
-	// Temporary Notification until implemented by actual transaction flow
-	static let didDetectExposureDetectionSummary = _withPrefix("didDetectExposureDetectionSummary")
-}
+// Dummy cell that allows nib loading. Only used to be filled by the Configurator.
+class ExposureSubmissionCell: HomeCardCollectionViewCell {}

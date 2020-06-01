@@ -22,9 +22,9 @@ import Foundation
 /// the results of a transaction.
 protocol ExposureDetectionTransactionDelegate: AnyObject {
 	/// Called by the transaction once it needs an exposure manager.
-	func exposureDetectionTransactionRequiresExposureManager(
+	func exposureDetectionTransactionRequiresExposureDetector(
 		_ transaction: ExposureDetectionTransaction
-	) -> ExposureManager
+	) -> ExposureDetector
 
 	func exposureDetectionTransaction(
 		_ transaction: ExposureDetectionTransaction,

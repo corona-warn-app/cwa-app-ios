@@ -15,29 +15,27 @@
 // specific language governing permissions and limitations
 // under the License.
 
+
 import Foundation
-import UIKit
+import ExposureNotification
 
-enum ExposureSubmissionViewUtils {
+final class MockDiagnosisKeysRetrieval {
 
-	static func setupErrorAlert(_ error: ExposureSubmissionError) -> UIAlertController {
-		setupAlert(message: error.localizedDescription)
+	typealias MockDiagnosisKeysResult = ([ENTemporaryExposureKey]?, Error?)
+	let diagnosisKeysResult: MockDiagnosisKeysResult
+
+	init(diagnosisKeysResult: MockDiagnosisKeysResult) {
+		self.diagnosisKeysResult = diagnosisKeysResult
+	}
+}
+
+extension MockDiagnosisKeysRetrieval: DiagnosisKeysRetrieval {
+
+	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+		completionHandler(diagnosisKeysResult.0, diagnosisKeysResult.1)
 	}
 
-	static func setupAlert(message: String, action completion: (() -> Void)? = nil) -> UIAlertController {
-		let alert = UIAlertController(
-			title: AppStrings.ExposureSubmission.generalErrorTitle,
-			message: message,
-			preferredStyle: .alert
-		)
-		let ok = UIAlertAction(
-			title: AppStrings.Common.alertActionOk,
-			style: .cancel,
-			handler: { _ in
-				alert.dismiss(animated: true, completion: completion)
-			}
-		)
-		alert.addAction(ok)
-		return alert
+	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+		completionHandler(diagnosisKeysResult.0, diagnosisKeysResult.1)
 	}
 }

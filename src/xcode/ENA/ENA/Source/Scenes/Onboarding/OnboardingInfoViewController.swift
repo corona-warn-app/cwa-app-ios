@@ -87,6 +87,18 @@ final class OnboardingInfoViewController: UIViewController {
 		setupAccessibility()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		if pageType == .togetherAgainstCoronaPage {
+			navigationController?.setNavigationBarHidden(true, animated: true)
+		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		navigationController?.setNavigationBarHidden(false, animated: true)
+	}
+
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		let height = footerView.frame.height + 20
@@ -104,6 +116,27 @@ final class OnboardingInfoViewController: UIViewController {
 		default:
 			completion()
 		}
+	}
+	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
+		switch pageType {
+		case .enableLoggingOfContactsPage:
+			warnUserAboutDisablingExposureManager(completion: completion)
+		default:
+			completion()
+		}
+	}
+
+
+	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
+		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
+			completion()
+			return
+		}
+
+		let alert = OnboardingInfoViewControllerUtils.setupExposureConfirmationAlert {
+			completion()
+		}
+		present(alert, animated: true, completion: nil)
 	}
 
 	private func updateUI() {
@@ -186,6 +219,10 @@ final class OnboardingInfoViewController: UIViewController {
 					log(message: "Encourage the user to authorize this application", level: .warning)
 				case .exposureNotificationUnavailable:
 					log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+				case .apiMisuse:
+					// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
+					completion?()
+					return
 				}
 				self.showError(error, from: self, completion: completion)
 				completion?()
@@ -199,6 +236,10 @@ final class OnboardingInfoViewController: UIViewController {
 							log(message: "Encourage the user to authorize this application", level: .warning)
 						case .exposureNotificationUnavailable:
 							log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+						case .apiMisuse:
+							// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed.
+							// The error condition here should not really happen as we are inside the `enable()` completion block
+							completion?()
 						}
 					}
 					self.taskScheduler.scheduleBackgroundTaskRequests()
@@ -206,6 +247,18 @@ final class OnboardingInfoViewController: UIViewController {
 				}
 			}
 		}
+	}
+
+	private func warnUserAboutDisablingExposureManager(completion: (() -> Void)?) {
+		let alert = UIAlertController(
+			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_alertTitle,
+			message: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_alertMessage,
+			preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default) { _ in
+			completion?()
+		})
+		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel))
+		present(alert, animated: true)
 	}
 
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
@@ -246,7 +299,11 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	@IBAction func didTapIgnoreButton(_: Any) {
-		gotoNextScreen()
+		runIgnoreActionForPageType(
+			completion: {
+				self.gotoNextScreen()
+			}
+		)
 	}
 
 	func gotoNextScreen() {

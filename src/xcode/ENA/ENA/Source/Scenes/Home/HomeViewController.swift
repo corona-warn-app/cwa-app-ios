@@ -24,6 +24,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func homeViewControllerUserDidRequestReset(_ controller: HomeViewController)
 }
 
+// swiftlint:disable:next type_body_length
 final class HomeViewController: UIViewController {
 	// MARK: Creating a Home View Controller
 
@@ -46,6 +47,12 @@ final class HomeViewController: UIViewController {
 			homeViewController: self,
 			store: store,
 			state: .init(isLoading: false, summary: nil, exposureManager: .init())
+		)
+
+		exposureSubmissionService = ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: self.exposureManager,
+			client: self.client,
+			store: self.store
 		)
 	}
 
@@ -70,6 +77,8 @@ final class HomeViewController: UIViewController {
 	private weak var settingsController: SettingsViewController?
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
+	private var exposureSubmissionService: ExposureSubmissionService?
+	private var testResult: TestResult?
 
 	enum Section: Int {
 		case actions
@@ -135,16 +144,14 @@ final class HomeViewController: UIViewController {
 		exposureDetectionController?.state = state
 	}
 
-	func showSubmitResult() {
+	func showExposureSubmission(with result: TestResult? = nil) {
+		guard let exposureSubmissionService = exposureSubmissionService else { return }
 		present(
 			AppStoryboard.exposureSubmission.initiateInitial { coder in
 				ExposureSubmissionNavigationController(
 					coder: coder,
-					exposureSubmissionService: ENAExposureSubmissionService(
-						manager: self.exposureManager,
-						client: self.client,
-						store: self.store
-					)
+					exposureSubmissionService: exposureSubmissionService,
+					testResult: result
 				)
 			},
 			animated: true
@@ -280,8 +287,6 @@ final class HomeViewController: UIViewController {
 				showExposureNotificationSetting()
 			} else if row == 1 {
 				showExposureDetection()
-			} else {
-				showSubmitResult()
 			}
 		case .infos:
 			if row == 0 {
@@ -391,6 +396,27 @@ final class HomeViewController: UIViewController {
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
 		self.navigationItem.leftBarButtonItem = leftItem
+	}
+}
+
+// MARK: - Update test state.
+
+extension HomeViewController {
+
+	func updateTestResultFor(_ cell: HomeTestResultCell, with configurator: HomeTestResultCellConfigurator) {
+		self.exposureSubmissionService?.getTestResult { result in
+			switch result {
+			case .failure(let error):
+				appLogger.log(message: "Could not update test state: \(error)", file: #file, line: #line, function: #function)
+			case .success(let result):
+				self.testResult = result
+				configurator.configure(cell: cell)
+			}
+		}
+	}
+
+	func showTestResult() {
+		showExposureSubmission(with: testResult)
 	}
 }
 
