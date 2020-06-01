@@ -41,7 +41,7 @@
                                 </preferredSymbolConfiguration>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="2Cb-Bg-07B" secondAttribute="trailing" id="EYh-RK-ZNd"/>
                             <constraint firstItem="E8I-Ui-O6H" firstAttribute="leading" secondItem="9Ad-Mo-axK" secondAttribute="leading" id="NSe-p5-SkN"/>
@@ -75,9 +75,6 @@
     </objects>
     <resources>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <namedColor name="background">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="textPrimary1">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
