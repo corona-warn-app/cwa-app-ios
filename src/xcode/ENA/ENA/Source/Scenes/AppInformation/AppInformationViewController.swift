@@ -52,15 +52,8 @@ class AppInformationViewController: UITableViewController {
 	}
 	
 	func updateVersionLabel() {
-		guard let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] else {
-			print("CFBundleShortVersionString not found in bundle")
-			return
-		}
-		
-		guard let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] else {
-			print("CFBundleVersion not found in bundle")
-			return
-		}
+		guard let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] else { return }
+		guard let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] else { return }
 		
 		self.labelVersion.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
 	}
