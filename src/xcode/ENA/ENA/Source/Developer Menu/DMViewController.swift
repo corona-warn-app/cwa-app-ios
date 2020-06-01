@@ -106,7 +106,7 @@ final class DMViewController: UITableViewController {
 	@objc
 	private func clearRegToken() {
 		store.registrationToken = nil
-		let alert = UIAlertController(title: "Reg Token", message: String("Reg Token deleted"), preferredStyle: .alert)
+		let alert = UIAlertController(title: "Reg Token", message: "Reg Token deleted", preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .cancel))
 		self.present(alert, animated: true, completion: nil)
 	}
