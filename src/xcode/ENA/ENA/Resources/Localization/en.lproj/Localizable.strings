@@ -33,6 +33,7 @@
 "Onboarding_LetsGo_actionText" = "Let's go";
 "Onboarding_Continue_actionText" = "Continue";
 "Onboarding_DoNotActivate_actionText" = "Do not activate";
+"Onboarding_doNotAllow_actionText" = "Do not allow";
 "Onboarding_Back_actionText" = "Back";
 "Onboarding_DeactivateExposureConfirmation_title" = "Without your permission Corona-Warn-App cannot send or receive COVID-19 risk status notifications.";
 "Onboarding_DeactivateExposureConfirmation_message" = "You turn off this function at any time.";
