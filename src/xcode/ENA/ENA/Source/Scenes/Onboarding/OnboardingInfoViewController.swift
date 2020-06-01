@@ -118,6 +118,18 @@ final class OnboardingInfoViewController: UIViewController {
 		}
 	}
 
+	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
+		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
+			completion()
+			return
+		}
+
+		let alert = OnboardingInfoViewControllerUtils.setupExposureConfirmationAlert {
+			completion()
+		}
+		present(alert, animated: true, completion: nil)
+	}
+
 	private func updateUI() {
 		guard isViewLoaded else { return }
 		guard let onboardingInfo = onboardingInfo else { return }
@@ -258,7 +270,11 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	@IBAction func didTapIgnoreButton(_: Any) {
-		gotoNextScreen()
+		runIgnoreActionForPageType(
+			completion: {
+				self.gotoNextScreen()
+			}
+		)
 	}
 
 	func gotoNextScreen() {
