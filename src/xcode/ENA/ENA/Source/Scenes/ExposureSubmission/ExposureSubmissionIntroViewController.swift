@@ -57,7 +57,10 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	private func setupTableView() {
 		tableView.dataSource = self
 		tableView.delegate = self
+		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+		
 		dynamicTableViewModel = .intro
+		
 	}
 
 	// MARK: - ExposureSubmissionNavigationControllerChild methods.
@@ -69,19 +72,70 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
-		.section(
+
+		DynamicSection.section(
 			header: .image(UIImage(named: "Illu_Submission_Funktion1"), height: 200),
 			separators: false,
 			cells: [
 				.bold(text: AppStrings.ExposureSubmissionIntroduction.usage01),
-				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage02)
-			]
-		),
-		.section(
-			header: .image(UIImage(named: "Illu_Submission_Funktion2"), height: 180),
-			separators: false,
-			cells: [
-				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage03)
+				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage02),
+				.identifier(
+					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
+					action: .none,
+					configure: { _, cell, _ in
+						guard let cell = cell as? DynamicTableViewStepCell else { return }
+						cell.configure(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem1,
+							image: UIImage(named: "Icons - Empty"),
+							hasSeparators: false,
+							isCircle: true,
+							iconTintColor: .preferredColor(for: .textPrimary1)
+						)
+				}
+				),
+				.identifier(
+					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
+					action: .none,
+					configure: { _, cell, _ in
+						guard let cell = cell as? DynamicTableViewStepCell else { return }
+						cell.configure(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem2,
+							image: UIImage(named: "Icons - Empty"),
+							hasSeparators: false,
+							isCircle: true,
+							iconTintColor: .preferredColor(for: .textPrimary1)
+						)
+				}
+				),
+				.identifier(
+					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
+					action: .none,
+					configure: { _, cell, _ in
+						guard let cell = cell as? DynamicTableViewStepCell else { return }
+						cell.configure(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem3,
+							image: UIImage(named: "Icons - Empty"),
+							hasSeparators: false,
+							isCircle: true,
+							iconTintColor: .preferredColor(for: .textPrimary1)
+						)
+				}
+				),
+				.identifier(
+					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
+					action: .none,
+					configure: { _, cell, _ in
+						guard let cell = cell as? DynamicTableViewStepCell else { return }
+						cell.configure(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem4,
+							image: UIImage(named: "Icons - Empty"),
+							hasSeparators: false,
+							isCircle: true,
+							iconTintColor: .preferredColor(for: .textPrimary1)
+						)
+				}
+				),
+
 			]
 		)
 	])
@@ -90,5 +144,8 @@ private extension DynamicTableViewModel {
 private extension ExposureSubmissionIntroViewController {
 	enum Segue: String, SegueIdentifiers {
 		case overview = "overviewSegue"
+	}
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case stepCell
 	}
 }
