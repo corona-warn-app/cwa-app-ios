@@ -42,10 +42,22 @@ class HomeTestResultCell: HomeCardCollectionViewCell {
 class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 	
 	var buttonAction: (() -> Void)?
+	var didConfigureCell: ((HomeTestResultCellConfigurator, HomeTestResultCell) -> Void)?
+	var testResult = TestResult.pending
 
 	func configure(cell: HomeTestResultCell) {
 		cell.delegate = self
-		configureTestResultPending(cell: cell)
+		switch testResult {
+		case .invalid:
+			configureTestResultInvalid(cell: cell)
+		case .pending:
+			configureTestResultPending(cell: cell)
+		case .negative:
+			configureTestResultNegative(cell: cell)
+		case .positive:
+			configureTestResultPositive(cell: cell)
+		}
+		self.didConfigureCell?(self, cell)
 	}
 
 	private func configureTestResultNegative(cell: HomeTestResultCell) {

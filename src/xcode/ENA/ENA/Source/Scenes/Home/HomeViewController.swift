@@ -367,11 +367,11 @@ final class HomeViewController: UIViewController {
 		}
 		var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
 		snapshot.appendSections([.actions])
-		snapshot.appendItems(Array(0 ... 3))
+		snapshot.appendItems(Array(0 ... 2))
 		snapshot.appendSections([.infos])
-		snapshot.appendItems(Array(4 ... 5))
+		snapshot.appendItems(Array(3 ... 4))
 		snapshot.appendSections([.settings])
-		snapshot.appendItems(Array(6 ... 7))
+		snapshot.appendItems(Array(5 ... 6))
 		dataSource?.apply(snapshot, animatingDifferences: false)
 	}
 
@@ -385,6 +385,28 @@ final class HomeViewController: UIViewController {
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
 		self.navigationItem.leftBarButtonItem = leftItem
+	}
+}
+
+// MARK: - Update test state.
+
+extension HomeViewController {
+
+	func updateTestResultFor(_ cell: HomeTestResultCell, with configurator: HomeTestResultCellConfigurator) {
+		self.exposureSubmissionService?.getTestResult { result in
+			// TODO: Remove test code.
+			DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+				configurator.testResult = .negative
+				configurator.configure(cell: cell)
+			}
+			switch result {
+			case .failure(let error):
+				appLogger.log(message: "Could not update test state: \(error)", file: #file, line: #line, function: #function)
+			case .success(let result):
+				print(result)
+
+			}
+		}
 	}
 }
 

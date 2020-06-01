@@ -228,17 +228,33 @@ final class HomeInteractor {
 
 		// MARK: Configure exposure submission view.
 
-		let submitConfigurator = HomeSubmitCellConfigurator()
-		submitConfigurator.submitAction = { [unowned self] in
-			self.homeViewController.showSubmitResult()
+
+		var submitCellConfigurator: HomeSubmitCellConfigurator?
+		var testResulCellConfigurator: HomeTestResultCellConfigurator?
+		var exposureSubmissionStateConfigurator: HomeExposureSubmissionStateCellConfigurator?
+		if store.registrationToken == nil {
+			// This is the default view that is shown when no test results are available.
+			submitCellConfigurator = HomeSubmitCellConfigurator()
+			submitCellConfigurator?.submitAction = { [unowned self] in
+				self.homeViewController.showSubmitResult()
+			}
+		}
+		// TODO: Add this!
+		// } else if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
+		// 	// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
+		// 	exposureSubmissionStateConfigurator = HomeExposureSubmissionStateCellConfigurator()
+		// }
+		else {
+			// This is shown when we registered a test.
+			testResulCellConfigurator = HomeTestResultCellConfigurator()
+			testResulCellConfigurator?.buttonAction = { [weak self] in
+				self?.homeViewController.showSubmitResult()
+			}
+			testResulCellConfigurator?.didConfigureCell = { configurator, cell in
+				self.homeViewController.updateTestResultFor(cell, with: configurator)
+			}
 		}
 
-		let homeTestResult = HomeTestResultCellConfigurator()
-		homeTestResult.buttonAction = { [weak self] in
-			self?.homeViewController.showSubmitResult()
-		}
-
-		let exposureSubmissionStateConfigurator = HomeExposureSubmissionStateCellConfigurator()
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
@@ -272,16 +288,16 @@ final class HomeInteractor {
 		if let risk = riskConfigurator {
 			configurators.append(risk)
 		}
-		let others: [CollectionViewCellConfiguratorAny] = [
-			submitConfigurator,
-			homeTestResult,
+		let others: [CollectionViewCellConfiguratorAny?] = [
+			submitCellConfigurator,
+			testResulCellConfigurator,
 			exposureSubmissionStateConfigurator,
 			info1Configurator,
 			info2Configurator,
 			appInformationConfigurator,
 			settingsConfigurator
 		]
-		configurators.append(contentsOf: others)
+		configurators.append(contentsOf: others.compactMap { $0 })
 		return configurators
 	}
 
