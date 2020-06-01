@@ -82,7 +82,7 @@ class SQLiteKeyValueStore {
 				try db.executeUpdate(deleteStmt, values: [key])
 				try db.executeUpdate("VACUUM", values: [])
 			} catch {
-				logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+				appLogger.error(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
 			}
 			return
 		}
