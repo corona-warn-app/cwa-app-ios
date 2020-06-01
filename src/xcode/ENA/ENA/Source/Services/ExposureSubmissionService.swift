@@ -179,39 +179,39 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return
 			}
 
-			guard let keys = keys, !keys.isEmpty else {
+			guard var keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
 				return
 			}
 
-			self.client.exposureConfiguration { configuration in
-				guard let configuration = configuration else {
-					completionHandler(.noExposureConfiguration)
-					return
-				}
-				let startIndex = 0
-				for i in startIndex...keys.count - 1 {
-					keys[i].transmissionRiskLevel = configuration.getTransmissionRiskLevelFromIndex(i)
-				}
+			var transmissionRiskDefaultVector: [Int] {
+				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
+			}
 
-				self.client.submit(keys: keys, tan: tan) { error in
-					if let error = error {
-						logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
-						completionHandler(self.parseError(error))
-						return
-					}
-					log(message: "Successfully completed exposure sumbission.")
-					self.submitExposureCleanup()
-					completionHandler(nil)
+			let startIndex = 0
+			for i in startIndex...keys.count - 1 {
+				if i + 1 <= transmissionRiskDefaultVector.count - 1 {
+				keys[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
+				} else {
+					keys[i].transmissionRiskLevel = UInt8(1)
 				}
 			}
-			
+			if keys.count > 14 {
+				keys = Array(keys[0 ..< 14])
+			}
 
+			self.client.submit(keys: keys, tan: tan) { error in
+				if let error = error {
+					logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+					completionHandler(self.parseError(error))
+					return
+				}
+				log(message: "Successfully completed exposure sumbission.")
+				self.submitExposureCleanup()
+				completionHandler(nil)
+			}
 		}
 	}
-
-
-
 
 	// This method removes all left over persisted objects part of the
 	// `submitExposure` flow. Removes the guid, registrationToken,
@@ -326,25 +326,5 @@ extension ExposureSubmissionError: LocalizedError {
 			logError(message: "\(self)")
 			return "Default Exposure Submission Error"
 		}
-	}
-}
-
-private extension ENExposureConfiguration {
-	var transmissionRiskDefaultVector: [Int] {
-		[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
-	}
-	// Returns the riskLevel from index
-	func getTransmissionRiskLevelFromIndex(_ index: Int) -> UInt8 {
-		if index > (transmissionRiskDefaultVector.count - 1) {
-			return UInt8(1)
-		}
-		let transmissionRiskDefaultValue = transmissionRiskDefaultVector[index]
-
-		if transmissionRiskDefaultValue == 0 || (transmissionRiskDefaultValue > (transmissionRiskLevelValues.count - 1)) {
-			return UInt8(1)
-		}
-		let transmissionRiskLevel = transmissionRiskLevelValues[transmissionRiskDefaultValue - 1]
-
-		return UInt8(truncating: transmissionRiskLevel)
 	}
 }
