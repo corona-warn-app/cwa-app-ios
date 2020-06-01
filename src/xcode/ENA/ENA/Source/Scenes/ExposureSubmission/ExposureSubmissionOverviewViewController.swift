@@ -32,9 +32,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 	private var exposureSubmissionService: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
 
-	private var testResults: [ExposureSubmissionTestResult] = [ExposureSubmissionTestResult(isPositive: true, receivedDate: Date(), transmittedDate: Date())]
-	private var mostRecentTestResult: ExposureSubmissionTestResult? { testResults.last }
-
 	// MARK: - Initializers.
 
 	required init?(coder aDecoder: NSCoder) {
@@ -46,9 +43,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		if exposureSubmissionService?.hasRegistrationToken() ?? false {
-			fetchResult()
-		}
 	}
 
 	override func viewDidLoad() {
@@ -234,7 +228,7 @@ private extension ExposureSubmissionOverviewViewController {
 				header: header,
 				separators: false,
 				cells: [
-					.semibold(text: AppStrings.ExposureSubmissionDispatch.description)
+					.regular(text: AppStrings.ExposureSubmissionDispatch.description)
 				]
 			)
 		)
