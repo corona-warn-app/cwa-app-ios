@@ -87,6 +87,18 @@ final class OnboardingInfoViewController: UIViewController {
 		setupAccessibility()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		if pageType == .togetherAgainstCoronaPage {
+			navigationController?.setNavigationBarHidden(true, animated: true)
+		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		navigationController?.setNavigationBarHidden(false, animated: true)
+	}
+
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		let height = footerView.frame.height + 20

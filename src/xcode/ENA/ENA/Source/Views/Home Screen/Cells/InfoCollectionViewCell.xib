@@ -64,6 +64,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FTz-bb-785" firstAttribute="leading" secondItem="U6l-FR-h2s" secondAttribute="leading" id="7ql-HA-52f"/>
                             <constraint firstItem="Nid-Qb-FC5" firstAttribute="leading" secondItem="U6l-FR-h2s" secondAttribute="leading" constant="16" id="OIj-wM-rJZ"/>
