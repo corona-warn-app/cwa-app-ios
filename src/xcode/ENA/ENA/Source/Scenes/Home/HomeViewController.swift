@@ -59,7 +59,7 @@ final class HomeViewController: UIViewController {
 
 	private let keyPackagesStore: DownloadedPackagesStore
 	private let exposureManager: ExposureManager
-	private var dataSource: UICollectionViewDiffableDataSource<Section, Int>?
+	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
 	private var homeLayout: HomeLayout!
 	var homeInteractor: HomeInteractor!
@@ -341,14 +341,14 @@ final class HomeViewController: UIViewController {
 			]
 		)
 
-		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskCollectionViewCell.self, SubmitCollectionViewCell.self, InfoCollectionViewCell.self]
+		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskCollectionViewCell.self, SubmitCollectionViewCell.self, InfoCollectionViewCell.self, SampleCollectionViewCell.self]
 		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
 		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
 	}
 
 	private func configureDataSource() {
-		dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
+		dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
 			let configurator = self.sections[indexPath.section].cellConfigurators[indexPath.row]
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			configurator.configureAny(cell: cell)
@@ -368,16 +368,13 @@ final class HomeViewController: UIViewController {
 		}
 	}
 
-	private func applySnapshotFromSections() {
-		var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
-		var offset = 0
+	func applySnapshotFromSections(animatingDifferences: Bool = false) {
+		var snapshot = NSDiffableDataSourceSnapshot<Section, UUID>()
 		for section in sections {
 			snapshot.appendSections([section.section])
-			let count = section.cellConfigurators.count
-			snapshot.appendItems(Array( offset ... ( offset + count - 1 ) ))
-			offset += count
+			snapshot.appendItems( section.cellConfigurators.map { $0.identifier })
 		}
-		dataSource?.apply(snapshot, animatingDifferences: false)
+		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
 	}
 
 	func updateSections() {

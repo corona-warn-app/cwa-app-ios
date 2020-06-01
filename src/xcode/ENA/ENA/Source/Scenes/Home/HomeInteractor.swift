@@ -226,7 +226,8 @@ final class HomeInteractor {
 			if self.riskLevel == .inactive {
 				// go to settings?
 			} else {
-				self.startCountdownAndUpdateRisk()
+//				self.startCountdownAndUpdateRisk()
+				self.showPinkCell()
 			}
 		}
 
@@ -309,6 +310,21 @@ final class HomeInteractor {
 			return indexPath
 		}
 		return nil
+	}
+
+	func showPinkCell() {
+		var actionsConfigurators: [CollectionViewCellConfiguratorAny] = []
+		actionsConfigurators.append(activeConfigurator)
+
+		let pinkCellConfigurator = HomeSampleCellConfigurator()
+		actionsConfigurators.append(pinkCellConfigurator)
+
+		let actionsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
+			= (.actions, actionsConfigurators)
+		sections[0] = actionsSection
+
+		homeViewController.updateSections()
+		homeViewController.applySnapshotFromSections(animatingDifferences: true)
 	}
 
 	// MARK: Timer
