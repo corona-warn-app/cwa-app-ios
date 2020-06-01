@@ -17,21 +17,19 @@
 
 import UIKit
 
-final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
-	private var lastUpdateDate: Date?
+final class HomeInactiveRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private var lastInvestigation: String
 
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(isLoading: Bool, isButtonEnabled: Bool, lastInvestigation: String, lastUpdateDate: Date?) {
-		self.lastUpdateDate = lastUpdateDate
 		self.lastInvestigation = lastInvestigation
 		super.init(isLoading: isLoading, isButtonEnabled: isButtonEnabled, isButtonHidden: false, isCounterLabelHidden: true, startDate: nil, releaseDate: nil, lastUpdateDate: lastUpdateDate)
 	}
 
 	// MARK: Configuration
 
-	override func configure(cell: RiskCollectionViewCell) {
+	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
 
 		cell.removeAllArrangedSubviews()

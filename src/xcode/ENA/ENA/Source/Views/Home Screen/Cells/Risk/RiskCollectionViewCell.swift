@@ -17,15 +17,15 @@
 
 import UIKit
 
-protocol RiskCollectionViewCellDelegate: AnyObject {
-	func updateButtonTapped(cell: RiskCollectionViewCell)
+protocol RiskLevelCollectionViewCellDelegate: AnyObject {
+	func updateButtonTapped(cell: RiskLevelCollectionViewCell)
 }
 
 /// A cell that visualizes the current risk and allows the user to calculate he/his current risk.
-final class RiskCollectionViewCell: HomeCardCollectionViewCell {
+final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	// MARK: Properties
 
-	weak var delegate: RiskCollectionViewCellDelegate?
+	weak var delegate: RiskLevelCollectionViewCellDelegate?
 
 	// MARK: Outlets
 

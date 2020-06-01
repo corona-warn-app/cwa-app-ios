@@ -17,10 +17,10 @@
 
 import UIKit
 
-final class HomeUnknownRiskCellConfigurator: HomeRiskCellConfigurator {
+final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Configuration
 
-	override func configure(cell: RiskCollectionViewCell) {
+	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
 
 		cell.removeAllArrangedSubviews()

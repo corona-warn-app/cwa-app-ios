@@ -17,7 +17,7 @@
 
 import UIKit
 
-final class HomeLowRiskCellConfigurator: HomeRiskCellConfigurator {
+final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private var numberDays: Int
 	private var totalDays: Int
 
@@ -31,7 +31,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: Configuration
 
-	override func configure(cell: RiskCollectionViewCell) {
+	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
 
 		cell.removeAllArrangedSubviews()

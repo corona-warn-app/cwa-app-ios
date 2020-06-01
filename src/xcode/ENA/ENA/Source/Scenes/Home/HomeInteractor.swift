@@ -70,7 +70,7 @@ final class HomeInteractor {
 	private var activeConfigurator: HomeActivateCellConfigurator!
 	private var cells: [CollectionViewCellConfiguratorAny] = []
 	var cellConfigurators: [CollectionViewCellConfiguratorAny] { cells }
-	private var riskConfigurator: HomeRiskCellConfigurator?
+	private var riskConfigurator: HomeRiskLevelCellConfigurator?
 
 	func developerMenuEnableIfAllowed() {}
 
