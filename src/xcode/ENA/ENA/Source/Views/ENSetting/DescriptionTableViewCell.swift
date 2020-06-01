@@ -22,10 +22,16 @@ class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var textView1: UITextView!
 	@IBOutlet var textView2: UITextView!
+	@IBOutlet weak var textView3: UITextView!
 
-	func configure(for _: RiskDetectionState) {
-		titleLabel.text = AppStrings.ExposureNotificationSetting.descriptionTitle
+	func configure(for riskDetectionState: RiskDetectionState) {
+		if riskDetectionState == .disabled {
+			titleLabel.text = AppStrings.ExposureNotificationSetting.descriptionTitleInactive
+		} else {
+			titleLabel.text = AppStrings.ExposureNotificationSetting.descriptionTitle
+		}
 		textView1.text = AppStrings.ExposureNotificationSetting.descriptionText1
 		textView2.text = AppStrings.ExposureNotificationSetting.descriptionText2
+		textView3.text = AppStrings.ExposureNotificationSetting.descriptionText3
 	}
 }
