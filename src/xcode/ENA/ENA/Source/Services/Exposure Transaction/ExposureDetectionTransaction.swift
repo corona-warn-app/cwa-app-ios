@@ -64,21 +64,21 @@ final class ExposureDetectionTransaction {
 
 	// MARK: Starting the Transaction
 
-	func start(taskCompletion: (() -> Void)? = nil) {
+	func start(taskCompletion: ((ENExposureDetectionSummary?) -> Void)? = nil) {
 		let today = formattedToday()
 		client.availableDaysAndHoursUpUntil(today) { [weak self] result in
 			guard let self = self else {
-				taskCompletion?()
+				taskCompletion?(nil)
 				return
 			}
 			switch result {
 			case let .success(daysAndHours):
-				self.continueWith(remoteDaysAndHours: daysAndHours) {
-					taskCompletion?()
+				self.continueWith(remoteDaysAndHours: daysAndHours) { summary in
+					taskCompletion?(summary)
 				}
 			case .failure:
 				self.endPrematurely(reason: .noDaysAndHours)
-				taskCompletion?()
+				taskCompletion?(nil)
 			}
 		} 
 	}
@@ -114,26 +114,26 @@ final class ExposureDetectionTransaction {
 	// MARK: Steps of a Transaction
 
 	// 1. Step: Download available Days & Hours
-    private func continueWith(remoteDaysAndHours: Client.DaysAndHours, taskCompletion: (() -> Void)? = nil) {
+    private func continueWith(remoteDaysAndHours: Client.DaysAndHours, taskCompletion: ((ENExposureDetectionSummary?) -> Void)? = nil) {
 		fetchAndStoreMissingDaysAndHours(remoteDaysAndHours: remoteDaysAndHours) { [weak self] in
             guard let self = self else {
-				taskCompletion?()
+				taskCompletion?(nil)
 				return
 			}
 			self.remoteExposureConfiguration { [weak self] configuration in
 				guard let self = self else {
-					taskCompletion?()
+					taskCompletion?(nil)
 					logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 					return
 				}
 				do {
 					let writer = try self.createAppleFilesWriter()
-					self.detectExposures(writer: writer, configuration: configuration) {
-						taskCompletion?()
+					self.detectExposures(writer: writer, configuration: configuration) { summary in
+						taskCompletion?(summary)
 					}
 				} catch {
 					self.endPrematurely(reason: .unableToDiagnosisKeys)
-					taskCompletion?()
+					taskCompletion?(nil)
 				}
 			}
 		}
@@ -201,11 +201,11 @@ final class ExposureDetectionTransaction {
 	private func detectExposures(
 		writer: AppleFilesWriter,
 		configuration: ENExposureConfiguration,
-		taskCompletion: (() -> Void)? = nil
+		taskCompletion: ((ENExposureDetectionSummary?) -> Void)? = nil
 	) {
 		writer.with { [weak self] diagnosisURLs, done in
 			guard let self = self else {
-				taskCompletion?()
+				taskCompletion?(nil)
 				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
@@ -222,7 +222,7 @@ final class ExposureDetectionTransaction {
 		diagnosisKeyURLs: [URL],
 		configuration: ENExposureConfiguration,
 		completion: @escaping () -> Void,
-		taskCompletion: (() -> Void)? = nil
+		taskCompletion: ((ENExposureDetectionSummary?) -> Void)? = nil
 	) {
 		let manager = exposureManager()
 		_ = manager.detectExposures(
@@ -230,25 +230,25 @@ final class ExposureDetectionTransaction {
 			diagnosisKeyURLs: diagnosisKeyURLs
 		) { [weak self] summary, error in
 			guard let self = self else {
-				taskCompletion?()
+				taskCompletion?(nil)
 				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
 			if let error = error {
 				self.endPrematurely(reason: .noSummary(error))
-				taskCompletion?()
+				taskCompletion?(nil)
 				return
 			}
 
 			guard let summary = summary else {
 				completion()
 				self.endPrematurely(reason: .noSummary(nil))
-				taskCompletion?()
+				taskCompletion?(nil)
 				return
 			}
 			self.didDetectSummary(summary)
 			completion()
-			taskCompletion?()
+			taskCompletion?(summary)
 		}
 	}
 }

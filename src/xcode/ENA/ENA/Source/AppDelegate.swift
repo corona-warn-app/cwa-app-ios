@@ -217,7 +217,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: client, keyPackagesStore: downloadedPackagesStore)
 
-		self.exposureDetectionTransaction?.start {
+		self.exposureDetectionTransaction?.start { newSummary in
 			complete(success: true)
 		}
 
