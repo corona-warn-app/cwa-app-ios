@@ -19,6 +19,7 @@ import ExposureNotification
 import Foundation
 
 final class HomeInteractor {
+
 	enum UserLoadingMode {
 		case automatic
 		case manual
@@ -35,7 +36,7 @@ final class HomeInteractor {
 		self.store = store
 		self.state = state
 		stateHandler = ENStateHandler(self.state.exposureManager, delegate: self)
-		cells = initialCellConfigurators()
+		sections = initialCellConfigurators()
 	}
 
 	// MARK: Properties
@@ -54,7 +55,7 @@ final class HomeInteractor {
 				), stateHandler: stateHandler
 			)
 			reloadRiskCell()
-			cells = initialCellConfigurators()
+			sections = initialCellConfigurators()
 			homeViewController.reloadData()
 		}
 	}
@@ -67,9 +68,9 @@ final class HomeInteractor {
 		RiskLevel(riskScore: state.summary?.maximumRiskScore)
 	}
 
+	private(set) var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+
 	private var activeConfigurator: HomeActivateCellConfigurator!
-	private var cells: [CollectionViewCellConfiguratorAny] = []
-	var cellConfigurators: [CollectionViewCellConfiguratorAny] { cells }
 	private var riskConfigurator: HomeRiskCellConfigurator?
 
 	func developerMenuEnableIfAllowed() {}
@@ -99,6 +100,7 @@ final class HomeInteractor {
 
 		guard let indexPath = indexPathForRiskCell() else { return }
 		riskConfigurator?.startLoading()
+		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 
 		taskScheduler.cancelAllBackgroundTaskRequests()
@@ -106,6 +108,7 @@ final class HomeInteractor {
 		riskCellTask(completion: {
 			self.riskConfigurator?.stopLoading()
 			guard let indexPath = self.indexPathForRiskCell() else { return }
+			self.homeViewController.updateSections()
 			self.homeViewController.reloadCell(at: indexPath)
 
 			taskScheduler.scheduleBackgroundTaskRequests()
@@ -129,6 +132,7 @@ final class HomeInteractor {
 		guard let indexPath = indexPathForActiveCell() else { return }
 		let currentState = stateHandler.getState()
 		activeConfigurator.set(newState: currentState)
+		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 	}
 
@@ -158,10 +162,11 @@ final class HomeInteractor {
 		updateRiskLoading()
 		updateRiskButton()
 		updateRiskCounter()
+		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	private func initialCellConfigurators() -> [CollectionViewCellConfiguratorAny] {
+	private func initialCellConfigurators() -> [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] {
 		let currentState = stateHandler.getState()
 		activeConfigurator = HomeActivateCellConfigurator(state: currentState)
 		let dateLastExposureDetection = store.dateLastExposureDetection
@@ -259,37 +264,51 @@ final class HomeInteractor {
 			accessibilityIdentifier: Accessibility.Cell.settingsCardTitle
 		)
 
-		var configurators: [CollectionViewCellConfiguratorAny] = [activeConfigurator]
+		var actionsConfigurators: [CollectionViewCellConfiguratorAny] = []
+		actionsConfigurators.append(activeConfigurator)
 		if let risk = riskConfigurator {
-			configurators.append(risk)
+			actionsConfigurators.append(risk)
 		}
-		let others: [CollectionViewCellConfiguratorAny] = [
-			submitConfigurator,
-			info1Configurator,
-			info2Configurator,
-			appInformationConfigurator,
-			settingsConfigurator
-		]
-		configurators.append(contentsOf: others)
-		return configurators
+		actionsConfigurators.append(submitConfigurator)
+
+		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
+		let settingsConfigurators: [CollectionViewCellConfiguratorAny] = [appInformationConfigurator, settingsConfigurator]
+
+		let actionsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
+			= (.actions, actionsConfigurators)
+		let infoSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
+			= (.infos, infosConfigurators)
+		let settingsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
+			= (.settings, settingsConfigurators)
+
+		var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+		sections.append(contentsOf: [actionsSection, infoSection, settingsSection])
+
+		return sections
 	}
 
 	private func indexPathForActiveCell() -> IndexPath? {
-		let index = cells.firstIndex { cellConfigurator in
-			cellConfigurator === self.activeConfigurator
+		for section in sections {
+			let index = section.cellConfigurators.firstIndex { cellConfigurator in
+				cellConfigurator === self.activeConfigurator
+			}
+			guard let item = index else { return nil }
+			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+			return indexPath
 		}
-		guard let item = index else { return nil }
-		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-		return indexPath
+		return nil
 	}
 
 	private func indexPathForRiskCell() -> IndexPath? {
-		let index = cells.firstIndex { cellConfigurator in
-			cellConfigurator === self.riskConfigurator
+		for section in sections {
+			let index = section.cellConfigurators.firstIndex { cellConfigurator in
+				cellConfigurator === self.riskConfigurator
+			}
+			guard let item = index else { return nil }
+			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+			return indexPath
 		}
-		guard let item = index else { return nil }
-		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-		return indexPath
+		return nil
 	}
 
 	// MARK: Timer
