@@ -226,8 +226,8 @@ final class HomeInteractor {
 			if self.riskLevel == .inactive {
 				// go to settings?
 			} else {
-//				self.startCountdownAndUpdateRisk()
-				self.showPinkCell()
+				self.startCountdownAndUpdateRisk()
+				// self.showPinkCell()
 			}
 		}
 
