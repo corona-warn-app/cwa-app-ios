@@ -12,7 +12,7 @@ echo "###########################"
 echo "  2. Running SwiftLint ..."
 echo "###########################"
 if which swiftlint >/dev/null; then
-  swiftlint -q
+  swiftlint --quiet
 else
   echo "warning: SwiftLint is not available."
   echo "Use 'brew install swiftlint' to install SwiftLint or download it manually from https://github.com/realm/SwiftLint."

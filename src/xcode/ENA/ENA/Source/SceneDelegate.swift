@@ -204,7 +204,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	@objc
 	func exposureSummaryDidChange(_ notification: NSNotification) {
-		guard let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary else { fatalError("received invalid summary notification. this is a programmer error") }
+		guard
+			let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary
+		else {
+			fatalError("received invalid summary notification. this is a programmer error")
+		}
 
 		state.summary = summary
 		updateExposureState(state.exposureManager)
