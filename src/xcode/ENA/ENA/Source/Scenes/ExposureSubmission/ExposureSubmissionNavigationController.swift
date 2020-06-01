@@ -100,7 +100,29 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	/// Returns the root view controller, depending on whether we have a
+	/// registration token or not.
 	private func getRootViewController() -> UIViewController {
+		if let service = exposureSubmissionService, service.hasRegistrationToken() {
+			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
+			// TODO: Until further notice, we will load this here. The polling
+			// of the test result is planned to be handled from the HomeViewController.
+			service.getTestResult { result in
+				switch result {
+				case .failure:
+					appLogger.log(
+						message: "Unable to load test result.",
+						file: #file,
+						line: #line,
+						function: #function)
+				case .success(let testResult):
+					vc.testResult = testResult
+					vc.reloadView()
+				}
+			}
+			return vc
+		}
+
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self)
 		return vc
 	}

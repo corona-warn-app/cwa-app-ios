@@ -233,7 +233,7 @@ final class HomeInteractor {
 		}
 
 		let exposureSubmissionStateConfigurator = HomeExposureSubmissionStateCellConfigurator()
-		exposureSubmissionStateConfigurator.store = store
+
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
