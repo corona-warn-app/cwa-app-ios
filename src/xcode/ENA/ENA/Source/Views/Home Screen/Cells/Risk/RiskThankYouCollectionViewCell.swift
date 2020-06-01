@@ -19,51 +19,23 @@
 
 import UIKit
 
-protocol RiskInactiveCollectionViewCellDelegate: AnyObject {
-	func activeButtonTapped(cell: RiskInactiveCollectionViewCell)
-}
-
-final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
-
-	weak var delegate: RiskInactiveCollectionViewCellDelegate?
+final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 
 	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: UILabel!
-	@IBOutlet var activeButton: UIButton!
 
 	@IBOutlet var viewContainer: UIView!
-	@IBOutlet var topContainer: UIView!
 	@IBOutlet var stackView: UIStackView!
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		constructStackView()
-		constructActiveButton()
-		topContainer.layoutMargins = .zero
 	}
 
 	private func constructStackView() {
 		let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
 		stackView.layoutMargins = containerInsets
 		stackView.isLayoutMarginsRelativeArrangement = true
-	}
-
-	private func constructActiveButton() {
-		activeButton.titleLabel?.adjustsFontForContentSizeCategory = true
-		activeButton.titleLabel?.lineBreakMode = .byWordWrapping
-		activeButton.layer.cornerRadius = 10.0
-		activeButton.layer.masksToBounds = true
-		activeButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		activeButton.titleLabel?.lineBreakMode = traitCollection.preferredContentSizeCategory >= .accessibilityMedium ? .byTruncatingMiddle : .byWordWrapping
-	}
-
-	@IBAction func activeButtonTapped(_: UIButton) {
-		delegate?.activeButtonTapped(cell: self)
 	}
 
 	func removeAllArrangedSubviews() {
@@ -73,7 +45,7 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 	func configureTitle(title: String, titleColor: UIColor) {
 		titleLabel.text = title
 		titleLabel.textColor = titleColor
-		stackView.addArrangedSubview(topContainer)
+		stackView.addArrangedSubview(stackView)
 	}
 
 	func configureBody(text: String, bodyColor: UIColor) {
@@ -84,22 +56,6 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 
 	func configureBackgroundColor(color: UIColor) {
 		viewContainer.backgroundColor = color
-	}
-
-	func configureChevron(image: UIImage?, tintColor: UIColor) {
-		chevronImageView.image = image
-		chevronImageView.tintColor = tintColor
-	}
-
-	func configureActiveButton(title: String, color: UIColor, backgroundColor: UIColor) {
-		UIView.performWithoutAnimation {
-			activeButton.setTitle(title, for: .normal)
-			activeButton.layoutIfNeeded()
-		}
-		activeButton.setTitleColor(color, for: .normal)
-		activeButton.setTitleColor(color.withAlphaComponent(0.3), for: .disabled)
-		activeButton.backgroundColor = backgroundColor
-		stackView.addArrangedSubview(activeButton)
 	}
 
 	func configureRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
