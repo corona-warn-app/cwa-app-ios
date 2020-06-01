@@ -11,10 +11,9 @@
         <scene sceneID="HeS-Mu-zWP">
             <objects>
                 <tableViewController storyboardIdentifier="ExposureNotificationSettingViewController" id="IOf-gd-WHN" customClass="ExposureNotificationSettingViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="eOO-1b-gIw">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="eOO-1b-gIw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="background"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="banner" rowHeight="237" id="LI9-YJ-AcE" customClass="ImageTableViewCell" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="237"/>
@@ -28,8 +27,8 @@
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="onr-QD-Bec" firstAttribute="top" secondItem="8X1-Gk-KTS" secondAttribute="top" id="DnB-Ca-GkN"/>
-                                        <constraint firstAttribute="bottom" secondItem="onr-QD-Bec" secondAttribute="bottom" id="EAg-uC-iB1"/>
+                                        <constraint firstItem="onr-QD-Bec" firstAttribute="top" secondItem="8X1-Gk-KTS" secondAttribute="top" constant="10" id="DnB-Ca-GkN"/>
+                                        <constraint firstAttribute="bottom" secondItem="onr-QD-Bec" secondAttribute="bottom" constant="10" id="EAg-uC-iB1"/>
                                         <constraint firstAttribute="trailing" secondItem="onr-QD-Bec" secondAttribute="trailing" id="Hbg-Td-4Gb"/>
                                         <constraint firstItem="onr-QD-Bec" firstAttribute="leading" secondItem="8X1-Gk-KTS" secondAttribute="leading" id="Wk5-WV-HjX"/>
                                     </constraints>
@@ -295,8 +294,8 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="6bP-P7-YgE" firstAttribute="leading" secondItem="cDL-9j-OWe" secondAttribute="leading" constant="16" id="lOl-ZW-rQ5"/>
-                                        <constraint firstItem="6bP-P7-YgE" firstAttribute="top" secondItem="cDL-9j-OWe" secondAttribute="top" id="pGP-Vf-PJ3"/>
-                                        <constraint firstAttribute="bottom" secondItem="6bP-P7-YgE" secondAttribute="bottom" id="whF-jb-m3W"/>
+                                        <constraint firstItem="6bP-P7-YgE" firstAttribute="top" secondItem="cDL-9j-OWe" secondAttribute="top" constant="15" id="pGP-Vf-PJ3"/>
+                                        <constraint firstAttribute="bottom" secondItem="6bP-P7-YgE" secondAttribute="bottom" constant="15" id="whF-jb-m3W"/>
                                         <constraint firstAttribute="trailing" secondItem="6bP-P7-YgE" secondAttribute="trailing" constant="16" id="xe4-Vg-4dR"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -322,9 +321,6 @@
     </scenes>
     <resources>
         <image name="tracing_banner" width="562" height="311"/>
-        <namedColor name="background">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="separator">
             <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
