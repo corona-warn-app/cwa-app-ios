@@ -46,6 +46,9 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To be able to analyze Covid 19 risks, you must allow the acquisition of random IDs and their transfer to other smartphones via Bluetooth. The function can be deactivated again at any time.";
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "";
 
+"OnboardingInfo_warningIfNoLoggingOfContactsPage_title" = "As a result, the Corona Warning app cannot send and receive notifications about COVID-19 risk status";
+"OnboardingInfo_warningIfNoLoggingOfContactsPage_normalText" = "You can switch the function on at any time";
+
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Have you been tested positive?";
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Then please report it via the COVID warning app. Voluntarily and safely. For everyone's health.";
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your message is reliably encrypted and processed via a secure server. As a result, your contacts can be warned, isolated or tested.";

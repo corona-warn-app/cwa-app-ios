@@ -21,6 +21,7 @@
 "Alert_TitleGeneral" = "Ein Fehler ist aufgetreten";
 "Alert_MessageGeneral" = "Bitte versuche Sie es erneut.";
 "Alert_ActionOk" = "Ok";
+"Alert_ActionCancel" = "Abbrechen";
 "Alert_ActionNo" = "Nein";
 "Alert_TitleKeySubmit" = "Tan Generierung";
 "Alert_DescriptionKeySubmit" = "Sind Sie damit einverstanden, Ihre TAN generieren zu lassen?";
@@ -143,6 +144,9 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risikoerkennung ermöglichen";
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Damit sich Covid-19-Risiken analysieren lassen, müssen Sie die Erfassung von Zufalls-IDs und deren Weitergabe an andere Smartphones per Bluetooth erlauben. Die Funktion lässt sich jederzeit wieder deaktivieren.";
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "";
+
+"OnboardingInfo_warningIfNoLoggingOfContactsPage_title" = "Corona-Warn-App kann dadurch keine Benachrichtigungen zu COVID-19-Risikostatus versenden und empfangen";
+"OnboardingInfo_warningIfNoLoggingOfContactsPage_normalText" = "Sie können die Funktion jederzeit einschalten";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Sie sind positiv getestet? ";
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Dann melden Sie es bitte über die COVID Warn-App. Freiwillig und sicher. Für die Gesundheit aller.";
