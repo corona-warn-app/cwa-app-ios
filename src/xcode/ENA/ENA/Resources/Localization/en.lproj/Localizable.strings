@@ -99,6 +99,19 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 "Home_Risk_Status_Check_Body" = "Current data are downloaded and checked. This can take several minutes.";
 "Home_Risk_Status_Check_Button" = "To update";
 
+// Home Thank you card
+"Home_Thank_You_Card_Title" = "Thank you so much!";
+"Home_Thank_You_Card_Body" = "Thanks to your help, others can be warned and react accordingly.";
+"Home_Thank_You_Card_Note_Title" = "Please note:";
+"Home_Thank_You_Card_Phone_Item_Title" = "The health department will contact you by phone or in writing in the next few days.";
+"Home_Thank_You_Card_Home_Item_Title" = "You are contagious. Isolate yourself from other people.";
+"Home_Thank_You_Card_Further_Info_Item_Title" = "Further information:";
+"Home_Thank_You_Card_14Days_Item_Title" = "Your quarantine time is usually 14 days. Watch and understand exactly how their symptoms develop.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "Your health department will ask you to compile a list of your contacts. This should include all persons with whom you had close contact (less than 2 meters, direct conversation) over a total of 15 minutes in the two days before the onset of the disease.";
+"Home_Thank_You_Card_App_Item_Title" = "Please also pay special attention to people who are not automatically informed by the app because they do not have a smartphone or the app.";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Even if you have no more symptoms and feel healthy again, you could still be contagious.";
+
+// Home Submit card
 "Home_SubmitCard_Title" = "I would be tested";
 "Home_SubmitCard_Body" = "Report your findings anonymously so that contact persons can be informed";
 "Home_SubmitCard_Button" = "Report findings";
