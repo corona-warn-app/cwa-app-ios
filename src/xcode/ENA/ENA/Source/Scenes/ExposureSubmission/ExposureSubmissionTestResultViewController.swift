@@ -57,13 +57,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 		setupButton()
 	}
 
-	// TODO: This method can be removed when the fetching of the test result is done in the
-	// HomeViewController.
-	public func reloadView() {
-		setupView()
-		tableView.reloadData()
-	}
-
 	private func setupButton() {
 		guard let result = testResult else { return }
 		switch result {
