@@ -230,8 +230,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
 			store.developerVerificationBaseURLOverride = verificationBaseURL
 		}
-
-		UserDefaults.standard.synchronize()
+		
 	}
 
 	// MARK: Privacy Protection
