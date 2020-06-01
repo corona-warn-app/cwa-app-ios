@@ -53,8 +53,8 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		// Grab ExposureSubmissionService from the navigation controller
 		// (which is the entry point for the storyboard, and in which
 		// this controller is embedded.)
-		if let navC = navigationController as? ExposureSubmissionNavigationController {
-			exposureSubmissionService = navC.getExposureSubmissionService()
+		if let navCtrl = navigationController as? ExposureSubmissionNavigationController {
+			exposureSubmissionService = navCtrl.getExposureSubmissionService()
 		}
 	}
 

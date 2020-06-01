@@ -248,9 +248,9 @@ private extension FMResultSet {
 	func downloadedPackage() -> SAPDownloadedPackage? {
 		guard
 			let bin = data(forColumn: "Z_BIN"),
-			let signature = data(forColumn: "Z_SIGNATURE") else {
-			return nil
-		}
+			let signature = data(forColumn: "Z_SIGNATURE")
+		else { return nil }
+
 		return SAPDownloadedPackage(keysBin: bin, signature: signature)
 	}
 }

@@ -235,10 +235,10 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 
 		switch section {
 		case .openSettings:
-			guard let settingsURL = URL(string: UIApplication.openSettingsURLString),
-				UIApplication.shared.canOpenURL(settingsURL) else {
-				return
-			}
+			guard
+				let settingsURL = URL(string: UIApplication.openSettingsURLString),
+				UIApplication.shared.canOpenURL(settingsURL)
+			else { return }
 			UIApplication.shared.open(settingsURL)
 		case .settingsOn, .settingsOff:
 			return

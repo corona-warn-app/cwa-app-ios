@@ -151,7 +151,7 @@ final class ExposureDetectionTransaction {
 				return
 			}
 			switch result {
-			case .success(let (remoteDays, remoteHours)):
+			case let .success((remoteDays, remoteHours)):
 				let delta = DeltaCalculationResult(
 					remoteDays: Set(remoteDays),
 					remoteHours: Set(remoteHours),

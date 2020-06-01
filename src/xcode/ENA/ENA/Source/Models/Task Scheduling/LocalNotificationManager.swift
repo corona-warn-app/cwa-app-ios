@@ -23,7 +23,7 @@ enum LocalNotificationAction: String {
 	case ignore = "Ignore"
 }
 
-class LocalNotificationManager {
+final class LocalNotificationManager {
 	static let shared = LocalNotificationManager()
 
 	let notificationCenter = UNUserNotificationCenter.current()

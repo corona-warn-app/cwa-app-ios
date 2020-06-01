@@ -208,14 +208,14 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	}
 
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
-		if let viewController = viewController, viewController.navigationItem.rightBarButtonItem == nil {
-			viewController.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem
+		if let viewCtrl = viewController, viewCtrl.navigationItem.rightBarButtonItem == nil {
+			viewCtrl.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem
 		}
 	}
 
 	private func applyNavigationBarItem(of viewController: UIViewController?) {
-		if let viewController = viewController,
-			let navigationItem = viewController.navigationItem as? ExposureSubmissionNavigationItem,
+		if let viewCtrl = viewController,
+			let navigationItem = viewCtrl.navigationItem as? ExposureSubmissionNavigationItem,
 			let titleColor = navigationItem.titleColor {
 			navigationBar.largeTitleTextAttributes = [:]
 			navigationBar.largeTitleTextAttributes?[NSAttributedString.Key.foregroundColor] = titleColor

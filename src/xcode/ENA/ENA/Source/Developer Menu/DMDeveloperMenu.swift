@@ -62,19 +62,9 @@ final class DMDeveloperMenu {
 
 	@objc
 	func showDeveloperMenu(_: UITapGestureRecognizer) {
-		let viewCtrl = DMViewController(
-			client: client,
-			store: store,
-			exposureManager: exposureManager
-		)
-		let navigationController = UINavigationController(
-			rootViewController: viewCtrl
-		)
-		presentingViewController.present(
-			navigationController,
-			animated: true,
-			completion: nil
-		)
+		let viewCtrl = DMViewController(client: client, store: store, exposureManager: exposureManager)
+		let navCtrl = UINavigationController(rootViewController: viewCtrl)
+		presentingViewController.present(navCtrl, animated: true, completion: nil)
 	}
 
 	private func isAllowed() -> Bool {

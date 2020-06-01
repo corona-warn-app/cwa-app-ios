@@ -43,7 +43,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	private let exposureManager = ENAExposureManager()
 	#endif
 	private let taskScheduler = ENATaskScheduler()
-	private let navigationController: UINavigationController = .withLargeTitle()
+	private let navCtrl: UINavigationController = .withLargeTitle()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {
 		didSet {
@@ -84,7 +84,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			let verificationURLString = store.developerVerificationBaseURLOverride,
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) else {
+			let submissionURL = URL(string: submissionURLString)
+		else {
 			return HTTPClient(configuration: .production)
 		}
 
@@ -171,7 +172,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 		homeController = viewCtrl // strong ref needed
 		homeController?.homeInteractor.state.exposureManager = state.exposureManager
-		navigationController.setViewControllers(
+		navCtrl.setViewControllers(
 			[viewCtrl],
 			animated: true
 		)
@@ -179,8 +180,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	private func showOnboarding() {
-		navigationController.navigationBar.prefersLargeTitles = false
-		navigationController.setViewControllers(
+		navCtrl.navigationBar.prefersLargeTitles = false
+		navCtrl.setViewControllers(
 			[
 				AppStoryboard.onboarding.initiateInitial { [unowned self] coder in
 					OnboardingInfoViewController(

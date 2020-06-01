@@ -309,6 +309,7 @@
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
 		13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
 		26374AF3248138EF00C10110 /* exposure-submission.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "exposure-submission.xcassets"; sourceTree = "<group>"; };
+		2E059EEA24855E85008F912E /* lint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lint.swift; sourceTree = "<group>"; };
 		2F3218CD24800F6500A7AC0A /* DynamicTableViewStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewStepCell.swift; sourceTree = "<group>"; };
 		2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
 		2F78574E248506BD00323A9C /* ExposureSubmissionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExposureSubmissionCell.xib; sourceTree = "<group>"; };
@@ -1007,6 +1008,7 @@
 			children = (
 				71B8044424828A6C00D53506 /* .swiftformat */,
 				71AFBD922464251000F91006 /* .swiftlint.yml */,
+				2E059EEA24855E85008F912E /* lint.swift */,
 				85D7593D2457048F008175F0 /* ENA */,
 				85D7595724570491008175F0 /* ENATests */,
 				85D7596224570491008175F0 /* ENAUITests */,

@@ -19,6 +19,8 @@ import Foundation
 import UIKit
 
 class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
+	typealias IconImages = (first: UIImage?, second: UIImage?)
+
 	@IBOutlet var iconImageView1: UIImageView!
 	@IBOutlet var iconImageView2: UIImageView!
 	@IBOutlet weak var actionTitleLabel: ENALabel!
@@ -42,8 +44,8 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	}
 
 	func configure(for state: RiskDetectionState) {
-		iconImageView1.image = images(for: state).0
-		iconImageView2.image = images(for: state).1
+		iconImageView1.image = images(for: state).first
+		iconImageView2.image = images(for: state).second
 		actionButton.setTitle(AppStrings.ExposureNotificationSetting.detailActionButtonTitle, for: .normal)
 
 		actionTitleLabel.style = .title2
@@ -65,7 +67,7 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		}
 	}
 
-	private func images(for state: RiskDetectionState) -> (UIImage?, UIImage?) {
+	private func images(for state: RiskDetectionState) -> IconImages {
 		switch state {
 		case .enabled, .disabled:
 			return (nil, nil)

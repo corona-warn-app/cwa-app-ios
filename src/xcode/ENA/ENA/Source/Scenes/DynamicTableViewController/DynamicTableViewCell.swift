@@ -41,8 +41,8 @@ enum DynamicCell {
 		configure: GenericCellConfigurator<T>? = nil
 	) -> Self {
 		.identifier(identifier, action: action, accessoryAction: accessoryAction) { viewController, cell, indexPath in
-			if let viewController = viewController as? T {
-				configure?(viewController, cell, indexPath)
+			if let viewCtrl = viewController as? T {
+				configure?(viewCtrl, cell, indexPath)
 			} else {
 				fatalError("This cell type may not be used on view controller of type: " + String(describing: T.self))
 			}

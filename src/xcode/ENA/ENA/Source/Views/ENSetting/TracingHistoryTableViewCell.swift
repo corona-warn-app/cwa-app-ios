@@ -19,15 +19,17 @@ import Foundation
 import UIKit
 
 class TracingHistoryTableViewCell: UITableViewCell {
+	typealias ColorConfiguration = (progressBarColor: UIColor, circleColor: UIColor)
+
 	@IBOutlet var circleView: CircularProgressView!
 	@IBOutlet var historyTextView: UITextView!
 
-	func configure(progress: CGFloat, text: String, colorConfigurationTuple: (UIColor, UIColor)) {
-		if circleView.progressBarColor != colorConfigurationTuple.0 {
-			circleView.progressBarColor = colorConfigurationTuple.0
+	func configure(progress: CGFloat, text: String, colorConfigurationTuple: ColorConfiguration) {
+		if circleView.progressBarColor != colorConfigurationTuple.progressBarColor {
+			circleView.progressBarColor = colorConfigurationTuple.progressBarColor
 		}
-		if circleView.circleColor != colorConfigurationTuple.1 {
-			circleView.circleColor = colorConfigurationTuple.1
+		if circleView.circleColor != colorConfigurationTuple.circleColor {
+			circleView.circleColor = colorConfigurationTuple.circleColor
 		}
 		historyTextView.text = text
 		circleView.progress = progress

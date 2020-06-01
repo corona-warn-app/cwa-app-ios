@@ -19,7 +19,7 @@ import ExposureNotification
 import UIKit
 
 final class MockExposureManager {
-	typealias MockDiagnosisKeysResult = ([ENTemporaryExposureKey]?, Error?)
+	typealias MockDiagnosisKeysResult = (keys: [ENTemporaryExposureKey]?, error: Error?)
 
 	// MARK: Properties
 
@@ -65,11 +65,11 @@ extension MockExposureManager: ExposureManager {
 	}
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
+		completionHandler(diagnosisKeysResult!.keys, diagnosisKeysResult!.error)
 	}
 
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
-		completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
+		completionHandler(diagnosisKeysResult!.keys, diagnosisKeysResult!.error)
 	}
 
 	func resume(observer: ENAExposureManagerObserver) {	}
