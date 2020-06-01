@@ -105,11 +105,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: ExposureDetectionTransactionDelegate {
-	func exposureDetectionTransactionRequiresExposureManager(
-		_: ExposureDetectionTransaction
-	) -> ExposureManager {
+	func exposureDetectionTransactionRequiresExposureDetector(_ transaction: ExposureDetectionTransaction) -> ExposureDetector {
 		exposureManager
 	}
+
+
 
 	func exposureDetectionTransaction(_: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
 		// TODO: show error to user

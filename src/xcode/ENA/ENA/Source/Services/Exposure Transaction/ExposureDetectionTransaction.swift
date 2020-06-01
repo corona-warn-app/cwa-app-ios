@@ -89,11 +89,13 @@ final class ExposureDetectionTransaction {
 	}
 
 	// Get the exposure manager from the delegate
-	private func exposureManager() -> ExposureManager {
+	private func exposureDetector() -> ExposureDetector {
 		guard let delegate = delegate else {
 			fatalError("ExposureDetectionTransaction requires a delegate to work.")
 		}
-		return delegate.exposureDetectionTransactionRequiresExposureManager(self)
+
+
+		return delegate.exposureDetectionTransactionRequiresExposureDetector(self)
 	}
 
 	// Gets today formatted as required by the backend.
@@ -197,7 +199,7 @@ final class ExposureDetectionTransaction {
 		configuration: ENExposureConfiguration,
 		completion: @escaping () -> Void
 	) {
-		let manager = exposureManager()
+		let manager = exposureDetector()
 		_ = manager.detectExposures(
 			configuration: configuration,
 			diagnosisKeyURLs: diagnosisKeyURLs
