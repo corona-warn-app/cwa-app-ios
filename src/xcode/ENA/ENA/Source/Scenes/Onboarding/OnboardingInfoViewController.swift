@@ -219,6 +219,10 @@ final class OnboardingInfoViewController: UIViewController {
 					log(message: "Encourage the user to authorize this application", level: .warning)
 				case .exposureNotificationUnavailable:
 					log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+				case .apiMisuse:
+					// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
+					completion?()
+					return
 				}
 				self.showError(error, from: self, completion: completion)
 				completion?()
@@ -232,6 +236,10 @@ final class OnboardingInfoViewController: UIViewController {
 							log(message: "Encourage the user to authorize this application", level: .warning)
 						case .exposureNotificationUnavailable:
 							log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+						case .apiMisuse:
+							// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed.
+							// The error condition here should not really happen as we are inside the `enable()` completion block
+							completion?()
 						}
 					}
 					self.taskScheduler.scheduleBackgroundTaskRequests()

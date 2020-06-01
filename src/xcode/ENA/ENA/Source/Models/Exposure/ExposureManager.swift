@@ -22,6 +22,8 @@ enum ExposureNotificationError: Error {
 	case exposureNotificationRequired
 	case exposureNotificationAuthorization
 	case exposureNotificationUnavailable
+	/// Typically occurs when `activate()` is called more than once.
+	case apiMisuse
 }
 
 struct ExposureManagerState {
@@ -226,6 +228,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				completion(ExposureNotificationError.exposureNotificationRequired)
 			case .restricted:
 				completion(ExposureNotificationError.exposureNotificationUnavailable)
+			case .apiMisuse:
+				completion(ExposureNotificationError.apiMisuse)
 			default:
 				let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
 				logError(message: error)
