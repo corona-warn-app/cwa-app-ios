@@ -128,8 +128,11 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "Onboarding_Finish" = "Fertig";
 "Onboarding_LetsGo_actionText" = "Los geht’s";
 "Onboarding_Continue_actionText" = "Weiter";
-"Onboarding_DoNotActivate_actionText" = "Nicht Aktivieren";
 "Onboarding_doNotAllow_actionText" = "Nicht erlauben";
+"Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
+"Onboarding_Back_actionText" = "Zurück";
+"Onboarding_DeactivateExposureConfirmation_title" = "Corona-Warn-App kann dadurch keine Benachrichtigungen zum COVID-19-Risikostatus versenden und empfangen.";
+"Onboarding_DeactivateExposureConfirmation_message" = "Sie können die Funktion jederzeit ausschalten.";
 
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Zusammen gegen Corona";
@@ -141,8 +144,8 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risikoerkennung ermöglichen";
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Damit sich Covid-19-Risiken analysieren lassen, müssen Sie die Erfassung von Zufalls-IDs und deren Weitergabe an andere Smartphones per Bluetooth erlauben. Die Funktion lässt sich jederzeit wieder deaktivieren.";
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.\n\nDie verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Sie sind positiv getestet? ";
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Dann melden Sie es bitte über die COVID Warn-App. Freiwillig und sicher. Für die Gesundheit aller.";

@@ -33,6 +33,9 @@
 "Onboarding_LetsGo_actionText" = "Let's go";
 "Onboarding_Continue_actionText" = "Continue";
 "Onboarding_DoNotActivate_actionText" = "Do not activate";
+"Onboarding_Back_actionText" = "Back";
+"Onboarding_DeactivateExposureConfirmation_title" = "Without your permission Corona-Warn-App cannot send or receive COVID-19 risk status notifications.";
+"Onboarding_DeactivateExposureConfirmation_message" = "You turn off this function at any time.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Together against Corona";
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and all of us. With the COVID warning app, we break infection chains significantly faster.";
@@ -43,8 +46,8 @@
 "OnboardingInfo_privacyPage_normalText" = "You will remain undetected.\nYour data will be completely encrypted and transmitted under a pseudonym.\n\nResponsible body within the meaning of Art. 4 Para. 7 GDPR:\n\nRobert Koch Institute\nNordufer 20\n13353 Berlin\nPlease read our data protection regulations.\n\nPrivacy information:";
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "How to enable risk detection";
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To be able to analyze Covid 19 risks, you must allow the acquisition of random IDs and their transfer to other smartphones via Bluetooth. The function can be deactivated again at any time.";
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To be able to analyze your Covid 19 risk, you must enable Exposure Notifications.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "When enabled, your phone will receive encrypted and randomized tokens broadcasted from other users around you, and broadcast your own encrypted and randomized tokens. This functionality can be turned off at any time.\n\nThese encrypted tokens only contain information of the date, duration, and your proximity calculated based on signal strength to persons around you. Personal data like name, address, or location are never collected. It is not possible to trace a token back to the user.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Have you been tested positive?";
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Then please report it via the COVID warning app. Voluntarily and safely. For everyone's health.";
