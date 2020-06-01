@@ -160,7 +160,7 @@ extension ExposureSubmissionOverviewViewController {
 
 extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerDelegate {
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError) {
-		dismissQRCodeScannerView(viewController)
+		dismissQRCodeScannerView(viewController, completion: nil)
 		switch error {
 		case .cameraPermissionDenied:
 			let alert = ExposureSubmissionViewUtils.setupAlert(message: "You need to allow camera access.")
@@ -172,26 +172,28 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
-			dismissQRCodeScannerView(vc)
+			dismissQRCodeScannerView(vc, completion: nil)
 			let alert = ExposureSubmissionViewUtils.setupAlert(message: "The provided QR code was invalid.")
 			present(alert, animated: true, completion: nil)
 			return
 		}
 
 		// Found QR Code, deactivate scanning.
-		dismissQRCodeScannerView(vc)
-		startSpinner()
+		dismissQRCodeScannerView(vc, completion: {
+			self.startSpinner()
+			self.getRegistrationToken(forKey: .guid(guid))
+		})
+	}
 
-		exposureSubmissionService?.getRegistrationToken(forKey: .guid(guid), completion: { result in
+	private func getRegistrationToken(forKey: DeviceRegistrationKey) {
+		exposureSubmissionService?.getRegistrationToken(forKey: forKey, completion: { result in
+			self.stopSpinner()
 			switch result {
 			case let .failure(error):
-				self.stopSpinner()
 				logError(message: "Error while getting registration token: \(error)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupConfirmationAlert {
-					self.dismissQRCodeScannerView(vc)
-				}
-
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
+
 			case let .success(token):
 				print("Received registration token: \(token)")
 				self.fetchResult()
@@ -215,9 +217,9 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		return candidate
 	}
 
-	private func dismissQRCodeScannerView(_ vc: ExposureSubmissionQRScannerViewController) {
+	private func dismissQRCodeScannerView(_ vc: ExposureSubmissionQRScannerViewController, completion: (() -> Void)?) {
 		vc.delegate = nil
-		vc.dismiss(animated: true, completion: nil)
+		vc.dismiss(animated: true, completion: completion)
 	}
 }
 
