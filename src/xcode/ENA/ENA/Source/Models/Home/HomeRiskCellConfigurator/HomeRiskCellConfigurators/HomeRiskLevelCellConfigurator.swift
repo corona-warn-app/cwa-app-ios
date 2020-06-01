@@ -19,7 +19,7 @@
 
 import UIKit
 
-class HomeRiskLevelCellConfigurator: CollectionViewCellConfigurator {
+class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	// MARK: Properties
 
 	var buttonAction: (() -> Void)?

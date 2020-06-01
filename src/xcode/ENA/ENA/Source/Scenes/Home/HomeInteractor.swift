@@ -185,12 +185,13 @@ final class HomeInteractor {
 				lastUpdateDate: nil
 			)
 		case .inactive:
-			riskConfigurator = HomeInactiveRiskCellConfigurator(
-				isLoading: false,
-				isButtonEnabled: true,
-				lastInvestigation: "Geringes Risiko",
-				lastUpdateDate: dateLastExposureDetection
-			)
+//			riskConfigurator = HomeInactiveRiskCellConfigurator(
+//				isLoading: false,
+//				isButtonEnabled: true,
+//				lastInvestigation: "Geringes Risiko",
+//				lastUpdateDate: dateLastExposureDetection
+//			)
+			break
 		case .low:
 			riskConfigurator = HomeLowRiskCellConfigurator(
 				isLoading: false,
