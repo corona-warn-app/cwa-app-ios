@@ -219,6 +219,13 @@ struct ENExposureDetectionSummaryContainer: Codable {
 	let daysSinceLastExposure: Int
 	let matchedKeyCount: UInt64
 	let maximumRiskScore: ENRiskScore
+
+	init(daysSinceLastExposure: Int, matchedKeyCount: UInt64, maximumRiskScore: ENRiskScore) {
+		self.daysSinceLastExposure = daysSinceLastExposure
+		self.matchedKeyCount = matchedKeyCount
+		self.maximumRiskScore = maximumRiskScore
+	}
+
 	init(with summary: ENExposureDetectionSummary) {
 		self.daysSinceLastExposure = summary.daysSinceLastExposure
 		self.matchedKeyCount = summary.matchedKeyCount
