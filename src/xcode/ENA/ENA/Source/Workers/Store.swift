@@ -17,6 +17,27 @@
 
 import Foundation
 
+struct TracingStatusEntry: Codable {
+	let on: Bool
+	let date: Date
+}
+
+typealias TracingStatusHistory = [TracingStatusEntry]
+
+extension Array where Element == TracingStatusEntry {
+	static func from(data: Data) throws -> TracingStatusHistory {
+		let decoder = JSONDecoder()
+		decoder.dateDecodingStrategy = .secondsSince1970
+		return try decoder.decode(self, from: data)
+	}
+
+		func JSONData() throws -> Data {
+		let encoder = JSONEncoder()
+		encoder.dateEncodingStrategy = .secondsSince1970
+		return try encoder.encode(self)
+	}
+}
+
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
 	var dateLastExposureDetection: Date? { get set }
@@ -61,6 +82,8 @@ protocol Store: AnyObject {
 	// A boolean storing if the user has confirmed to submit
 	// his diagnosiskeys to the CWA submission service.
 	var submitConsentAccept: Bool { get set }
+
+	var tracingStatusHistory: TracingStatusHistory { get set }
 
 	func clearAll()
 }
@@ -204,5 +227,17 @@ final class SecureStore: Store {
 	var allowTestsStatusNotification: Bool {
 		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }
 		set { kvStore["allowTestsStatusNotification"] = newValue }
+	}
+	
+	var tracingStatusHistory: TracingStatusHistory {
+		get {
+			guard let historyData = kvStore["tracingStatusHistory"] else {
+				return []
+			}
+			return (try? TracingStatusHistory.from(data: historyData)) ?? []
+		}
+		set {
+			kvStore["tracingStatusHistory"] = try? newValue.JSONData()
+		}
 	}
 }
