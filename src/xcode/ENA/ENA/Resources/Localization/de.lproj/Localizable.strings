@@ -411,3 +411,30 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "local_notificationsdetectexposure_body" = "Tippen Sie auf, um Ihre Ergebnisse in der Anwendung anzuzeigen.";
 "local_notifications_testresults_title" = "<local_notifications_testresults_title>";
 "local_notifications_testresults_body" = "<local_notifications_testresults_body>";
+
+
+// Risk Legend
+"RiskLegend_Title" = "Überblick";
+"RiskLegend_Subtitle" = "Die wichtigsten Funktionen und Begriffe";
+"RiskLegend_Legend1_Title" = "Risiko-Ermittlung";
+"RiskLegend_Legend1_Text" = "Die Risiko-Ermittlung ist eine der drei zentralen Funktionen der App. Ist sie aktiv, werden Begegnungen aufgezeichnet. Sie brauchen sich um nichts mehr zu kümmern.";
+"RiskLegend_Legend2_Title" = "Infektionsrisiko";
+"RiskLegend_Legend2_Text" = "Sind Sie innerhalb der letzten 14 Tage einer Corona-positiven Person begegnet, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand eine Begegnung stattfand.";
+"RiskLegend_Legend2_RiskLevels" = "Folgende Risikostufen können angezeigt werden:";
+"RiskLegend_Legend2_High" = "Erhöhtes Risiko";
+"RiskLegend_Legend2_Low" = "Niedriges Risiko";
+"RiskLegend_Legend2_Unknown" = "Unbekanntes Risiko";
+"RiskLegend_Legend3_Title" = "Benachrichtigung Anderer";
+"RiskLegend_Legend3_Text" = "Eine weitere zentrale Funktion. Hier können Sie Ihren Test registrieren und seinen Status abfragen. Bei einem positiven Test können Sie andere warnen und damit Infektionsketten unterbrechen.";
+"RiskLegend_Definitions_Title" = "Wichtige Begriffe:";
+"RiskLegend_Store_Title" = "Begegnungs-Aufzeichnung";
+"RiskLegend_Store_Text" = "Liste der empfangenen und vorübergehend im Betriebssystemspeicher abgelegten kurzlebigen Zufallscodes. Diese Liste wird bei der Risiko-Überprüfung gelesen. Alle Zufallscodes werden nach 14 Tagen automatisch gelöscht.";
+"RiskLegend_Check_Title" = "Risiko-Überprüfung";
+"RiskLegend_Check_Text" = "Abfrage der Begegnungs-Aufzeichnung und Abgleich mit den gemeldeten Infektionen anderer Nutzerinnen und Nutzer. Die Risiko-Überprüfung erfolgt automatisch ungefähr alle zwei Stunden.";
+"RiskLegend_Contact_Title" = "Risiko-Begegnungen";
+"RiskLegend_Contact_Text" = "Jene Begegnungen mit einer Corona-positiv getesteten Person, die über einen längeren Zeitraum und in geringer Distanz stattfanden.";
+"RiskLegend_Notification_Title" = "Risiko-Benachrichtigung";
+"RiskLegend_Notification_Text" = "Die Anzeige von Risiko-Begegnungen in der Corona-Warn-App.";
+"RiskLegend_Random_Title" = "Zufallscode";
+"RiskLegend_Random_Text" = "Die Zufallscodes sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufallskennungen lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufallscodes der letzten bis zu 14 Tage freiwillig mit anderen CWA-Nutzern teilen.";
+
