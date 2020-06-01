@@ -33,11 +33,11 @@ class SQLiteKeyValueStore {
 
 		db = nil
 		var key: String
-		if let keyData = loadFromKeychain(key: "dbKey") {
+		if let keyData = loadFromKeychain(key: "secureStoreDatabaseKey") {
 			key = String(decoding: keyData, as: UTF8.self)
 		} else {
-			key = UUID().uuidString
-			if savetoKeychain(key: "dbKey", data: Data(key.utf8)) == noErr {
+			key = generateDatabaseKey()
+			if savetoKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) == noErr {
 				logError(message: "Unable to open save Key to Keychain")
 			}
 		}
@@ -147,5 +147,16 @@ extension SQLiteKeyValueStore {
 		} else {
 			return nil
 		}
+	}
+
+	func generateDatabaseKey() -> String {
+		var bytes = [UInt8](repeating: 0, count: 64)
+		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+
+		guard result == errSecSuccess else {
+			logError(message: "Error creating random bytes, reverting to UUID")
+			return UUID().uuidString
+		}
+		return Data(bytes).base64EncodedString()
 	}
 }
