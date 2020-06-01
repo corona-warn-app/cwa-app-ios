@@ -25,19 +25,19 @@ enum ExposureSubmissionViewUtils {
 	}
 
 	static func setupAlert(message: String, action completion: (() -> Void)? = nil) -> UIAlertController {
-		let alert = UIAlertController(
+		let alertCtrl = UIAlertController(
 			title: AppStrings.ExposureSubmission.generalErrorTitle,
 			message: message,
 			preferredStyle: .alert
 		)
-		let ok = UIAlertAction(
+		let okAction = UIAlertAction(
 			title: AppStrings.Common.alertActionOk,
 			style: .cancel,
 			handler: { _ in
-				alert.dismiss(animated: true, completion: completion)
+				alertCtrl.dismiss(animated: true, completion: completion)
 			}
 		)
-		alert.addAction(ok)
-		return alert
+		alertCtrl.addAction(okAction)
+		return alertCtrl
 	}
 }

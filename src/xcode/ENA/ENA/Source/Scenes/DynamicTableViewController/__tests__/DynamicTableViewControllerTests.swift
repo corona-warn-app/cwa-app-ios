@@ -57,8 +57,7 @@ extension DynamicTableViewControllerTests {
 		
 		// dequeue cell
 		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.bold.rawValue
-		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
-																								 for: IndexPath(row: 0, section: 0))
+		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: IndexPath(row: 0, section: 0))
 		// assert type
 		XCTAssertTrue(cell is DynamicTypeTableViewCell.Bold)
 	}
@@ -70,8 +69,7 @@ extension DynamicTableViewControllerTests {
 		
 		// dequeue cell
 		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.semibold.rawValue
-		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
-																								 for: IndexPath(row: 0, section: 0))
+		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: IndexPath(row: 0, section: 0))
 		// assert type
 		XCTAssertTrue(cell is DynamicTypeTableViewCell.Semibold)
 	}
@@ -83,8 +81,7 @@ extension DynamicTableViewControllerTests {
 		
 		// dequeue cell
 		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.regular.rawValue
-		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
-																								 for: IndexPath(row: 0, section: 0))
+		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: IndexPath(row: 0, section: 0))
 		// assert type
 		XCTAssertTrue(cell is DynamicTypeTableViewCell.Regular)
 	}
@@ -96,8 +93,7 @@ extension DynamicTableViewControllerTests {
 		
 		// dequeue cell
 		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.bigBold.rawValue
-		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
-																								 for: IndexPath(row: 0, section: 0))
+		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: IndexPath(row: 0, section: 0))
 		// assert type
 		XCTAssertTrue(cell is DynamicTypeTableViewCell.BigBold)
 	}
@@ -109,8 +105,7 @@ extension DynamicTableViewControllerTests {
 
 		// dequeue cell
 		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.icon.rawValue
-		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
-																								 for: IndexPath(row: 0, section: 0))
+		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: IndexPath(row: 0, section: 0))
 		// assert type
 		XCTAssertTrue(cell is DynamicTableViewIconCell)
 	}

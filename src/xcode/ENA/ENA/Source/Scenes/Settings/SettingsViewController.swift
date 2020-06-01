@@ -85,16 +85,16 @@ final class SettingsViewController: UITableViewController {
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-		if segue.identifier == resetSegue, let vc = segue.destination as? ResetViewController {
-			vc.delegate = self
+		if segue.identifier == resetSegue, let viewCtrl = segue.destination as? ResetViewController {
+			viewCtrl.delegate = self
 		}
 	}
 
 	@IBSegueAction
 	func createExposureNotificationSettingViewController(coder: NSCoder) -> ExposureNotificationSettingViewController? {
-		let vc = ExposureNotificationSettingViewController(coder: coder, stateHandler: stateHandler, delegate: self)
-		notificationSettingsController = vc
-		return vc
+		let viewCtrl = ExposureNotificationSettingViewController(coder: coder, stateHandler: stateHandler, delegate: self)
+		notificationSettingsController = viewCtrl
+		return viewCtrl
 	}
 
 	@IBSegueAction
@@ -131,7 +131,9 @@ final class SettingsViewController: UITableViewController {
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else { return }
 
-			self.settingsViewModel.tracing.state = self.stateHandler.getState() == .enabled ? self.settingsViewModel.tracing.stateActive : self.settingsViewModel.tracing.stateInactive
+			self.settingsViewModel.tracing.state = self.stateHandler.getState() == .enabled
+				? self.settingsViewModel.tracing.stateActive
+				: self.settingsViewModel.tracing.stateInactive
 
 			self.tableView.reloadData()
 		}
@@ -283,7 +285,11 @@ extension SettingsViewController: ResetDelegate {
 }
 
 extension SettingsViewController: ExposureNotificationSettingViewControllerDelegate {
-	func exposureNotificationSettingViewController(_: ExposureNotificationSettingViewController, setExposureManagerEnabled enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {
+	func exposureNotificationSettingViewController(
+		_: ExposureNotificationSettingViewController,
+		setExposureManagerEnabled enabled: Bool,
+		then completion: @escaping (ExposureNotificationError?) -> Void
+	) {
 		setExposureManagerEnabled(enabled, then: completion)
 	}
 }
@@ -306,9 +312,7 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
 		let action = UIAlertAction(title: "Send Log File", style: .default) { [weak self] _ in
 			guard let strongSelf = self else { return }
 
-			guard let emailText = alert.textFields?[0].text else {
-				return
-			}
+			guard let emailText = alert.textFields?[0].text else { return }
 
 			if !MFMailComposeViewController.canSendMail() {
 				return
@@ -319,9 +323,7 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
 			composeVC.setToRecipients([emailText])
 			composeVC.setSubject("Log File")
 
-			guard let logFile = appLogger.getLoggedData() else {
-				return
-			}
+			guard let logFile = appLogger.getLoggedData() else { return }
 			composeVC.addAttachmentData(logFile, mimeType: "txt", fileName: "Log")
 
 			self?.present(composeVC, animated: true, completion: nil)

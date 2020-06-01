@@ -27,9 +27,7 @@ struct SAPDownloadedPackage {
 	}
 
 	init?(compressedData: Data) {
-		guard let archive = Archive(data: compressedData, accessMode: .read) else {
-			return nil
-		}
+		guard let archive = Archive(data: compressedData, accessMode: .read) else { return nil }
 		do {
 			self = try archive.extractKeyPackage()
 		} catch {

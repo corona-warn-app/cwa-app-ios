@@ -165,19 +165,31 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		applyDefaultRightBarButtonItem(to: topViewController)
 		applyNavigationBarItem(of: topViewController)
 
-		keyboardWillShowObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { notification in
+		keyboardWillShowObserver = NotificationCenter.default.addObserver(
+			forName: UIResponder.keyboardWillShowNotification,
+			object: nil,
+			queue: nil
+		) { notification in
 			self.isKeyboardHidden = false
 			self.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
 			self.updateBottomSafeAreaInset(animated: true)
 		}
 
-		keyboardWillHideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { notification in
+		keyboardWillHideObserver = NotificationCenter.default.addObserver(
+			forName: UIResponder.keyboardWillHideNotification,
+			object: nil,
+			queue: nil
+		) { notification in
 			self.isKeyboardHidden = true
 			self.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
 			self.updateBottomSafeAreaInset(animated: true)
 		}
 
-		keyboardWillChangeFrameObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: nil) { notification in
+		keyboardWillChangeFrameObserver = NotificationCenter.default.addObserver(
+			forName: UIResponder.keyboardWillChangeFrameNotification,
+			object: nil,
+			queue: nil
+		) { notification in
 			self.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
 			self.updateBottomSafeAreaInset(animated: true)
 		}

@@ -122,8 +122,8 @@ class ENATanInput: UIControl, UIKeyInput {
 	}
 
 	func clear() {
-		for i in 0 ..< text.count {
-			(stackView.arrangedSubviews[i] as? UILabel)?.text = ""
+		for index in 0 ..< text.count {
+			(stackView.arrangedSubviews[index] as? UILabel)?.text = ""
 		}
 		text = ""
 	}

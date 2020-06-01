@@ -57,9 +57,7 @@ class SQLiteKeyValueStore {
 			while result.next() {
 				// We use dataNoCopy() as data() returns nil even though there is empty Data
 				// This is unexpected, as empty Data of course does not mean nil
-				guard let data = result.dataNoCopy(forColumn: "value") else {
-					return nil
-				}
+				guard let data = result.dataNoCopy(forColumn: "value") else { return nil }
 				resultData = data
 			}
 
@@ -118,6 +116,7 @@ class SQLiteKeyValueStore {
 	/// - `developerVerificationBaseURLOverride`
 	func flush() {
 		openDbIfNeeded()
+		// swiftlint:disable:next line_length
 		let deleteStmt = "DELETE FROM kv WHERE key NOT IN('developerSubmissionBaseURLOverride','developerDistributionBaseURLOverride','developerVerificationBaseURLOverride');"
 		do {
 			try db.executeUpdate(deleteStmt, values: [])
@@ -147,9 +146,7 @@ class SQLiteKeyValueStore {
 	///	If encoding fails, fetching the value for that key will result in empty `Data`
 	subscript<Model: Codable>(key: String) -> Model? {
 		get {
-			guard let data = getData(for: key) else {
-				return nil
-			}
+			guard let data = getData(for: key) else { return nil }
 			// TODO: Error handling
 			return try? JSONDecoder().decode(Model.self, from: data)
 		}

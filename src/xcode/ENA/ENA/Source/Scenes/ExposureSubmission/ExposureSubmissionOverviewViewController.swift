@@ -164,7 +164,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		}
 	}
 
-	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
+	func qrScanner(_ viewCtrl: ExposureSubmissionQRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
 			dismissQRCodeScannerView(vc, completion: nil)
 			let alert = ExposureSubmissionViewUtils.setupAlert(message: "The provided QR code was invalid.")

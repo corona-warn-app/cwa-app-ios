@@ -26,7 +26,8 @@ import Foundation
 ///
 /// - **Provide Information:** Some methods simply provide information/objects that are required by the transaction to do the actual work.
 /// - **Consume Results:** At some point the transaction generates results. The delegate is informed about them so that it can consume them.
-/// - **React to Errors:** A transaction has several preconditions. If not all of them are met the transaction ends prematurely. In that case the delegate is notified along with a reason that specify details about why the transaction did end prematurely.
+/// - **React to Errors:** A transaction has several preconditions. If not all of them are met the transaction ends prematurely.
+///     In that case the delegate is notified along with a reason that specify details about why the transaction did end prematurely.
 ///
 /// Under the hood the transaction execute the following steps:
 ///
@@ -107,9 +108,7 @@ final class ExposureDetectionTransaction {
 
 	// Gets today formatted as required by the backend.
 	private func formattedToday() -> String {
-		guard let delegate = delegate else {
-			fatalError("ExposureDetectionTransaction requires a delegate to work.")
-		}
+		guard let delegate = delegate else { fatalError("ExposureDetectionTransaction requires a delegate to work.") }
 		return delegate.exposureDetectionTransactionRequiresFormattedToday(self)
 	}
 
@@ -190,9 +189,9 @@ final class ExposureDetectionTransaction {
 	// 4. Transform
 	private func createAppleFilesWriter() throws -> AppleFilesWriter {
 		// 1. Create temp dir
-		let fm = FileManager()
-		let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
+		let fileManager = FileManager()
+		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
 
 		let packages = keyPackagesStore.allPackages(for: .formattedToday())
 

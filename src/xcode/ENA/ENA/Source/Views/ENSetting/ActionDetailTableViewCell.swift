@@ -26,9 +26,7 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var actionButton: ENAButton!
 
 	@IBAction func actionButtonTapped(_: Any) {
-		guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-			return
-		}
+		guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
 
 		if UIApplication.shared.canOpenURL(settingsUrl) {
 			UIApplication.shared.open(settingsUrl, completionHandler: nil)

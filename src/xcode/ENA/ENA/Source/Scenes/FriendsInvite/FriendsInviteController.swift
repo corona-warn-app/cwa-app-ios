@@ -48,7 +48,17 @@ final class FriendsInviteController: UIViewController, UIActivityItemSource {
 		titleLabel.lineBreakMode = .byWordWrapping
 
 		guard let inviteButton = inviteButton else { return }
-		inviteButton.addConstraint(NSLayoutConstraint(item: inviteButton, attribute: .height, relatedBy: .equal, toItem: inviteButton.titleLabel, attribute: .height, multiplier: 1, constant: 0))
+		inviteButton.addConstraint(
+			NSLayoutConstraint(
+				item: inviteButton,
+				attribute: .height,
+				relatedBy: .equal,
+				toItem: inviteButton.titleLabel,
+				attribute: .height,
+				multiplier: 1,
+				constant: 0
+			)
+		)
 	}
 
 	@IBAction func inviteAction(_: UIButton) {

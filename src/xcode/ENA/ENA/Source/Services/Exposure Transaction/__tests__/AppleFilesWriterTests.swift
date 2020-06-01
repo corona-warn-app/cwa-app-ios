@@ -23,10 +23,10 @@ import XCTest
 final class AppleFilesWriterTests: XCTestCase {
 
 	private class func createRootDir() throws -> URL {
-		let fm = FileManager()
-		let tempDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		let fileManager = FileManager()
+		let tempDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 
-		try fm.createDirectory(
+		try fileManager.createDirectory(
 			atPath: tempDir.path,
 			withIntermediateDirectories: true,
 			attributes: nil
@@ -81,8 +81,8 @@ final class AppleFilesWriterTests: XCTestCase {
 			let hasBin = url0.pathExtension == "bin" || url1.pathExtension == "bin"
 			XCTAssertTrue(hasBin)
 
-			let fm = FileManager()
-			let writtenFiles = try? fm.contentsOfDirectory(
+			let fileManager = FileManager()
+			let writtenFiles = try? fileManager.contentsOfDirectory(
 				at: rootDir,
 				includingPropertiesForKeys: nil,
 				options: .skipsHiddenFiles
@@ -94,7 +94,7 @@ final class AppleFilesWriterTests: XCTestCase {
 			done()
 
 			// and assert everything has been cleaned up
-			let filesAfterCleanup = try? fm.contentsOfDirectory(
+			let filesAfterCleanup = try? fileManager.contentsOfDirectory(
 				at: rootDir,
 				includingPropertiesForKeys: nil,
 				options: .skipsHiddenFiles

@@ -61,9 +61,7 @@ class ENStateHandler {
 				currentState = .internetOff
 			}
 		case .internetOff:
-			guard let latestState = delegate?.getLatestExposureManagerState() else {
-				return
-			}
+			guard let latestState = delegate?.getLatestExposureManagerState() else { return }
 			currentState = determineCurrentState(from: latestState)
 		case .none:
 			fatalError("Unexpected state found in ENState Handler")
@@ -78,14 +76,10 @@ class ENStateHandler {
 
 		switch enManagerState.status {
 		case .active:
-			guard !internetOff else {
-				return .internetOff
-			}
+			guard !internetOff else { return .internetOff }
 			return .enabled
 		case .bluetoothOff:
-			guard !enManagerState.enabled == false else {
-				return .disabled
-			}
+			guard !enManagerState.enabled == false else { return .disabled }
 			return .bluetoothOff
 		case .disabled:
 			return .disabled

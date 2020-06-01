@@ -122,9 +122,7 @@ private extension Data {
 	var withoutBinHeader: Data {
 		let headerRange = startIndex ..< Data.binHeader.count
 
-		guard subdata(in: headerRange) == Data.binHeader else {
-			return self
-		}
+		guard subdata(in: headerRange) == Data.binHeader else { return self }
 		return subdata(in: headerRange.endIndex ..< endIndex)
 	}
 }

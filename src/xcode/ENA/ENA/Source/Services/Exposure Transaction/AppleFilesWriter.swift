@@ -72,9 +72,7 @@ final class AppleFilesWriter {
 		handler(writtenURLs) {
 			// This is executed when the app is finished.
 			// needsCleanupInDone will be true if the writer has cleaned up already due to errors.
-			guard needsCleanupInDone else {
-				return
-			}
+			guard needsCleanupInDone else { return }
 			cleanup()
 		}
 	}

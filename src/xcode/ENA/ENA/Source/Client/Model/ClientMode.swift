@@ -24,7 +24,8 @@ import Foundation
 /// 1. `mock`: In this mode the app talks to a 100% mocked backend that does not even require an HTTP connection.
 /// 2. `https`: In this mode the app us using an `URLSession` to talk to the backend.
 ///
-/// As a developer you can override the client mode by setting the environment variable `CWA_CLIENT_MODE` either to `mock` or `https`. In `APP_STORE` builds this feature is disabled.
+/// As a developer you can override the client mode by setting the environment variable `CWA_CLIENT_MODE` either to `mock` or `https`.
+/// In `APP_STORE` builds this feature is disabled.
 enum ClientMode: String {
 	case mock
 	case https

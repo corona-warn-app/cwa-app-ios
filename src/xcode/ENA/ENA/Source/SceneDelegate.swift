@@ -157,7 +157,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	private func presentHomeVC() {
-		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
+		let viewCtrl = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			let homeVC = HomeViewController(
 				coder: coder,
 				exposureManager: self.exposureManager,
@@ -169,13 +169,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			return homeVC
 		}
 
-		homeController = vc // strong ref needed
+		homeController = viewCtrl // strong ref needed
 		homeController?.homeInteractor.state.exposureManager = state.exposureManager
 		navigationController.setViewControllers(
-			[vc],
+			[viewCtrl],
 			animated: true
 		)
-		enableDeveloperMenuIfAllowed(in: vc)
+		enableDeveloperMenuIfAllowed(in: viewCtrl)
 	}
 
 	private func showOnboarding() {
@@ -206,6 +206,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		guard let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary else {
 			fatalError("received invalid summary notification. this is a programmer error")
 		}
+
 		state.summary = summary
 		updateExposureState(state.exposureManager)
 	}
@@ -216,9 +217,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		//        return
 		//        #endif
 
-		guard let url = URLContexts.first?.url else {
-			return
-		}
+		guard let url = URLContexts.first?.url else { return }
 
 		guard let components = NSURLComponents(
 			url: url,
@@ -258,12 +257,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	private var privacyProtectionWindow: UIWindow?
 
 	private func showPrivacyProtectionWindow() {
-		guard
-			let windowScene = window?.windowScene,
-			store.isOnboarded == true
-		else {
-			return
-		}
+		guard let windowScene = window?.windowScene, store.isOnboarded == true else { return }
+
 		let privacyProtectionViewController = PrivacyProtectionViewController()
 		privacyProtectionWindow = UIWindow(windowScene: windowScene)
 		privacyProtectionWindow?.rootViewController = privacyProtectionViewController
@@ -318,11 +313,19 @@ extension SceneDelegate: HomeViewControllerDelegate {
 }
 
 extension SceneDelegate: UNUserNotificationCenterDelegate {
-	func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+	func userNotificationCenter(
+		_: UNUserNotificationCenter,
+		willPresent _: UNNotification,
+		withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+	) {
 		completionHandler([.alert, .badge, .sound])
 	}
 
-	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+	func userNotificationCenter(
+		_: UNUserNotificationCenter,
+		didReceive response: UNNotificationResponse,
+		withCompletionHandler completionHandler: @escaping () -> Void
+	) {
 		switch response.notification.request.identifier {
 		case ENATaskIdentifier.detectExposures.backgroundTaskSchedulerIdentifier:
 			log(message: "Handling notification for \(response.notification.request.identifier)")

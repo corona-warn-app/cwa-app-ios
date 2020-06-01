@@ -27,9 +27,19 @@ enum DynamicCell {
 	case semibold(text: String)
 	case regular(text: String)
 	case icon(action: DynamicAction = .none, DynamicIcon)
-	case identifier(_ identifier: TableViewCellReuseIdentifiers, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: CellConfigurator? = nil)
+	case identifier(
+		_ identifier: TableViewCellReuseIdentifiers,
+		action: DynamicAction = .none,
+		accessoryAction: DynamicAction = .none,
+		configure: CellConfigurator? = nil
+	)
 
-	static func custom<T: DynamicTableViewController>(withIdentifier identifier: TableViewCellReuseIdentifiers, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: GenericCellConfigurator<T>? = nil) -> Self {
+	static func custom<T: DynamicTableViewController>(
+		withIdentifier identifier: TableViewCellReuseIdentifiers,
+		action: DynamicAction = .none,
+		accessoryAction: DynamicAction = .none,
+		configure: GenericCellConfigurator<T>? = nil
+	) -> Self {
 		.identifier(identifier, action: action, accessoryAction: accessoryAction) { viewController, cell, indexPath in
 			if let viewController = viewController as? T {
 				configure?(viewController, cell, indexPath)

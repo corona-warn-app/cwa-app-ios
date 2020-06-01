@@ -62,9 +62,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	func hasRegistrationToken() -> Bool {
-		guard let token = store.registrationToken, !token.isEmpty else {
-			return false
-		}
+		guard let token = store.registrationToken, !token.isEmpty else { return false }
 		return true
 	}
 

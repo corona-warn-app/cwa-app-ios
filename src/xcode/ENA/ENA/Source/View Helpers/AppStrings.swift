@@ -17,6 +17,7 @@
 
 import UIKit
 
+// swiftlint:disable identifier_name
 // swiftlint:disable:next type_body_length
 enum AppStrings {
 	enum Common {

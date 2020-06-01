@@ -163,8 +163,8 @@ final class HomeViewController: UIViewController {
 	}
 
 	func showInviteFriends() {
-		let vc = FriendsInviteController.initiate(for: .inviteFriends)
-		navigationController?.pushViewController(vc, animated: true)
+		let viewCtrl = FriendsInviteController.initiate(for: .inviteFriends)
+		navigationController?.pushViewController(viewCtrl, animated: true)
 	}
 
 	// This method makes the exposure manager usable.
@@ -210,20 +210,20 @@ final class HomeViewController: UIViewController {
 
 	func showExposureNotificationSetting() {
 		let storyboard = AppStoryboard.exposureNotificationSetting.instance
-		let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
+		let viewCtrl = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
 			ExposureNotificationSettingViewController(
 				coder: coder,
 				stateHandler: self.homeInteractor.stateHandler,
 				delegate: self
 			)
 		}
-		notificationSettingsController = vc
-		navigationController?.pushViewController(vc, animated: true)
+		notificationSettingsController = viewCtrl
+		navigationController?.pushViewController(viewCtrl, animated: true)
 	}
 
 	func showSetting() {
 		let storyboard = AppStoryboard.settings.instance
-		let vc = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
+		let viewCtrl = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
 			SettingsViewController(
 				coder: coder,
 				store: self.store,
@@ -231,8 +231,8 @@ final class HomeViewController: UIViewController {
 				delegate: self
 			)
 		}
-		settingsController = vc
-		navigationController?.pushViewController(vc, animated: true)
+		settingsController = viewCtrl
+		navigationController?.pushViewController(viewCtrl, animated: true)
 	}
 
 	func showExposureDetection() {
@@ -244,15 +244,15 @@ final class HomeViewController: UIViewController {
 			summary: homeInteractor.state.summary
 		)
 
-		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
+		let viewCtrl = AppStoryboard.exposureDetection.initiateInitial { coder in
 			ExposureDetectionViewController(
 				coder: coder,
 				state: state,
 				delegate: self
 			)
 		}
-		exposureDetectionController = vc as? ExposureDetectionViewController
-		present(vc, animated: true)
+		exposureDetectionController = viewCtrl as? ExposureDetectionViewController
+		present(viewCtrl, animated: true)
 	}
 
 	func showAppInformation() {
@@ -268,8 +268,8 @@ final class HomeViewController: UIViewController {
 			config.entersReaderIfAvailable = true
 			config.barCollapsingEnabled = true
 
-			let vc = SFSafariViewController(url: url, configuration: config)
-			present(vc, animated: true)
+			let viewCtrl = SFSafariViewController(url: url, configuration: config)
+			present(viewCtrl, animated: true)
 		} else {
 			let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
 			logError(message: error)
@@ -348,7 +348,11 @@ final class HomeViewController: UIViewController {
 		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskCollectionViewCell.self, SubmitCollectionViewCell.self, InfoCollectionViewCell.self]
 		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
-		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
+		collectionView.register(
+			nib6,
+			forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+			withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier
+		)
 	}
 
 	private func configureDataSource() {

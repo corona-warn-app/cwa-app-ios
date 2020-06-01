@@ -150,9 +150,7 @@ extension AppDelegate: ExposureDetectionTransactionDelegate {
 
 		guard let scene = UIApplication.shared.connectedScenes.first else { return }
 		guard let delegate = scene.delegate as? SceneDelegate else { return }
-		guard let rootController = delegate.window?.rootViewController else {
-			return
-		}
+		guard let rootController = delegate.window?.rootViewController else { return }
 		func showError() {
 			rootController.present(alert, animated: true, completion: nil)
 		}

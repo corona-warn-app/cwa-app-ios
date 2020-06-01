@@ -56,7 +56,11 @@ extension MockExposureManager: ExposureManager {
 		ExposureManagerState(authorized: true, enabled: true, status: .active)
 	}
 
-	func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler _: @escaping ENDetectExposuresHandler) -> Progress {
+	func detectExposures(
+		configuration _: ENExposureConfiguration,
+		diagnosisKeyURLs _: [URL],
+		completionHandler _: @escaping ENDetectExposuresHandler
+	) -> Progress {
 		Progress()
 	}
 

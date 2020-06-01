@@ -173,9 +173,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 		        Z_HOUR IS NULL
 		    ;
 		"""
-		guard let result = database.execute(query: sql, parameters: ["day": day]) else {
-			return nil
-		}
+		guard let result = database.execute(query: sql, parameters: ["day": day]) else { return nil }
 
 		defer { result.close() }
 		return result
@@ -186,9 +184,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 
 	func hourlyPackages(for day: String) -> [SAPDownloadedPackage] {
 		let sql = "SELECT Z_BIN, Z_SIGNATURE FROM Z_DOWNLOADED_PACKAGE WHERE Z_DAY = :day AND Z_HOUR IS NOT NULL;"
-		guard let result = database.execute(query: sql, parameters: ["day": day]) else {
-			return []
-		}
+		guard let result = database.execute(query: sql, parameters: ["day": day]) else { return [] }
 		defer { result.close() }
 		return result
 			.map { $0.downloadedPackage() }
@@ -197,9 +193,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 
 	func allDays() -> [String] {
 		let sql = "SELECT Z_DAY FROM Z_DOWNLOADED_PACKAGE WHERE Z_HOUR IS NULL;"
-		guard let result = database.execute(query: sql) else {
-			return []
-		}
+		guard let result = database.execute(query: sql) else { return [] }
 		defer { result.close() }
 		return result
 			.map { $0.string(forColumn: "Z_DAY") }
@@ -217,9 +211,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			        Z_HOUR IS NOT NULL AND Z_DAY = :day
 			    ;
 			"""
-		guard let result = database.execute(query: sql, parameters: ["day": day]) else {
-			return []
-		}
+		guard let result = database.execute(query: sql, parameters: ["day": day]) else { return [] }
 		defer { result.close() }
 		return result.map { Int($0.int(forColumn: "Z_HOUR")) }
 	}

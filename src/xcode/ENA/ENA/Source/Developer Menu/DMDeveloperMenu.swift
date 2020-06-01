@@ -50,11 +50,11 @@ final class DMDeveloperMenu {
 
 	/// Enables the developer menu if it is currently allowed to do so.
 	///
-	/// Whether or not the developer menu is allowed is determined at build time by looking at the active build configuration. It is only allowed for `RELEASE` and `DEBUG` builds. Builds that target the app store (configuration `APP_STORE`) are built without support for a developer menu.
+	/// Whether or not the developer menu is allowed is determined at build time by looking at the active build configuration.
+	/// It is only allowed for `RELEASE` and `DEBUG` builds.
+	/// Builds that target the app store (configuration `APP_STORE`) are built without support for a developer menu.
 	func enableIfAllowed() {
-		guard isAllowed() else {
-			return
-		}
+		guard isAllowed() else { return }
 		let showDeveloperMenuGesture = UITapGestureRecognizer(target: self, action: #selector(showDeveloperMenu(_:)))
 		showDeveloperMenuGesture.numberOfTapsRequired = 3
 		presentingViewController.view.addGestureRecognizer(showDeveloperMenuGesture)
@@ -62,13 +62,13 @@ final class DMDeveloperMenu {
 
 	@objc
 	func showDeveloperMenu(_: UITapGestureRecognizer) {
-		let vc = DMViewController(
+		let viewCtrl = DMViewController(
 			client: client,
 			store: store,
 			exposureManager: exposureManager
 		)
 		let navigationController = UINavigationController(
-			rootViewController: vc
+			rootViewController: viewCtrl
 		)
 		presentingViewController.present(
 			navigationController,

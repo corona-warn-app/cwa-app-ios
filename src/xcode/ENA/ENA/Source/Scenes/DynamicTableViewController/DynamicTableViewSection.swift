@@ -37,7 +37,13 @@ struct DynamicSection {
 		self.cells = cells
 	}
 
-	static func section(header: DynamicHeader = .none, footer: DynamicFooter = .none, separators: Bool = false, isHidden: ((DynamicTableViewController) -> Bool)? = nil, cells: [DynamicCell]) -> Self {
+	static func section(
+		header: DynamicHeader = .none,
+		footer: DynamicFooter = .none,
+		separators: Bool = false,
+		isHidden: ((DynamicTableViewController) -> Bool)? = nil,
+		cells: [DynamicCell]
+	) -> Self {
 		.init(header: header, footer: footer, separators: separators, isHidden: isHidden, cells: cells)
 	}
 }
