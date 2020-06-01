@@ -595,7 +595,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		514C0A12247C15F000F235F6 /* group */ = {
+		514C0A12247C15F000F235F6 /* HomeRiskCellConfigurators */ = {
 			isa = PBXGroup;
 			children = (
 				51CE1BBE2460B222002CF42A /* HomeRiskCellConfigurator.swift */,
@@ -604,7 +604,7 @@
 				514C0A13247C163800F235F6 /* HomeLowRiskCellConfigurator.swift */,
 				514C0A15247C164700F235F6 /* HomeHighRiskCellConfigurator.swift */,
 			);
-			path = group;
+			path = HomeRiskCellConfigurators;
 			sourceTree = "<group>";
 		};
 		514E81312461946E00636861 /* ExposureDetection */ = {
@@ -665,14 +665,22 @@
 			path = UITableView;
 			sourceTree = "<group>";
 		};
-		518A6A1C246A9F6600444E66 /* HomeRiskCellConfigurator */ = {
+		515BBDE92484F77300CDB674 /* HomeRiskViewConfigurators */ = {
 			isa = PBXGroup;
 			children = (
-				514C0A12247C15F000F235F6 /* group */,
 				514C0A0524772F3400F235F6 /* HomeRiskViewConfigurator.swift */,
 				514EE99F246D4DF800DE4884 /* HomeRiskImageItemViewConfigurator.swift */,
 				514C0A0E247AFEC500F235F6 /* HomeRiskTextItemViewConfigurator.swift */,
 				51FE277A2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift */,
+			);
+			path = HomeRiskViewConfigurators;
+			sourceTree = "<group>";
+		};
+		518A6A1C246A9F6600444E66 /* HomeRiskCellConfigurator */ = {
+			isa = PBXGroup;
+			children = (
+				515BBDE92484F77300CDB674 /* HomeRiskViewConfigurators */,
+				514C0A12247C15F000F235F6 /* HomeRiskCellConfigurators */,
 			);
 			path = HomeRiskCellConfigurator;
 			sourceTree = "<group>";
