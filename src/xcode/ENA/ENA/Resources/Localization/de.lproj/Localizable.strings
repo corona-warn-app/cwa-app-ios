@@ -161,7 +161,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar era
 "ExposureSubmission_Submit" = "TAN Eingeben";
 "ExposureSubmissionTanEntry_Title" = "TAN Eingabe";
 "ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die TAN Nummer ihres Befundes ein:";
-"ExposureSubmissionTanEntry_Description" = "Die TAN ist 7-stellig und Groß- und Kleinschreibung muss nicht beachtet werden.";
+"ExposureSubmissionTanEntry_Description" = "Die TAN ist 7-stellig und Groß- und Kleinschreibung muss beachtet werden.";
 "ExposureSubmissionTanEntry_Submit" = "Weiter";
 "ExposureSubmission_NavTitle" = "Diagnoseschlüssel Senden";
 "ExposureSubmissionConfirmation_Title" = "Positive Diagnose";
