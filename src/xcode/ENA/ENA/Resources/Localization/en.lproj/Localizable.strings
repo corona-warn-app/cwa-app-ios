@@ -51,8 +51,8 @@
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your message is reliably encrypted and processed via a secure server. As a result, your contacts can be warned, isolated or tested.";
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Receive warnings, know the risks";
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can automatically inform you about your risk status and warn you when contacts are newly infected. Activate the messages for this now.";
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "In this way, you can have yourself tested at any time if necessary, or go into isolation to protect your fellow human beings.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can automatically inform you about your risk status and warn you about newly infected persons you were in proximity to. Activate the messages for this now.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "This way, if necessary, you can have yourself tested or go into isolation to protect your fellow human beings.";
 
 // Exposure Submission
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
