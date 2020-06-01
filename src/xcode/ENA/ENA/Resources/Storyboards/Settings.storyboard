@@ -22,11 +22,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cEi-3Y-TMb">
                                         <rect key="frame" x="0.0" y="20" width="414" height="501.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zurucksetzen" translatesAutoresizingMaskIntoConstraints="NO" id="53g-kI-NE1">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_AppZuruecksetzen" translatesAutoresizingMaskIntoConstraints="NO" id="53g-kI-NE1">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="167"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="167" id="WVh-vS-EIw"/>
-                                                </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-2J-2gh">
                                                 <rect key="frame" x="0.0" y="177" width="414" height="324.5"/>
@@ -71,7 +68,7 @@
                                     <constraint firstItem="cEi-3Y-TMb" firstAttribute="width" secondItem="te1-Qd-nmE" secondAttribute="width" id="DTT-qz-nI8"/>
                                     <constraint firstAttribute="bottom" secondItem="cEi-3Y-TMb" secondAttribute="bottom" id="FVn-5V-5qd"/>
                                     <constraint firstAttribute="trailing" secondItem="cEi-3Y-TMb" secondAttribute="trailing" id="Frx-Jp-vNb"/>
-                                    <constraint firstItem="cEi-3Y-TMb" firstAttribute="top" secondItem="te1-Qd-nmE" secondAttribute="top" constant="20" id="Yue-TG-03X"/>
+                                    <constraint firstItem="cEi-3Y-TMb" firstAttribute="top" secondItem="te1-Qd-nmE" secondAttribute="top" id="Yue-TG-03X"/>
                                     <constraint firstItem="cEi-3Y-TMb" firstAttribute="leading" secondItem="te1-Qd-nmE" secondAttribute="leading" id="xLp-if-6ul"/>
                                 </constraints>
                             </scrollView>
@@ -330,13 +327,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYJ-sA-5Ds">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="545.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="562.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings_mitteilungen_an" translatesAutoresizingMaskIntoConstraints="NO" id="KfZ-KB-oS0" userLabel="Image View">
-                                                <rect key="frame" x="0.0" y="10" width="414" height="187"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_Mitteilungen_On" translatesAutoresizingMaskIntoConstraints="NO" id="KfZ-KB-oS0" userLabel="Image View">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="229"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="# Mitteilungen sind ausgestellt" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAD-sw-a8D" userLabel="Title Label" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="212" width="382" height="20.5"/>
+                                                <rect key="frame" x="16" y="229" width="382" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -348,7 +345,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Um Mitteilungen zu aktiviren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Telefoneinstellungen zulassen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxB-b8-GKr" userLabel="Description Label">
-                                                <rect key="frame" x="16" y="257.5" width="382" height="58"/>
+                                                <rect key="frame" x="16" y="274.5" width="382" height="58"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -359,7 +356,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Evt-7N-RCk">
-                                                <rect key="frame" x="0.0" y="325.5" width="414" height="200"/>
+                                                <rect key="frame" x="0.0" y="342.5" width="414" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="yF9-6Y-8mc"/>
@@ -519,8 +516,8 @@
                                             <constraint firstItem="xxB-b8-GKr" firstAttribute="top" secondItem="ZAD-sw-a8D" secondAttribute="bottom" constant="25" id="bAf-R5-MCg"/>
                                             <constraint firstItem="xxB-b8-GKr" firstAttribute="leading" secondItem="HYJ-sA-5Ds" secondAttribute="leading" constant="16" id="djr-XN-XC0"/>
                                             <constraint firstItem="ZAD-sw-a8D" firstAttribute="leading" secondItem="HYJ-sA-5Ds" secondAttribute="leading" constant="16" id="fdz-mV-eLI"/>
-                                            <constraint firstItem="KfZ-KB-oS0" firstAttribute="top" secondItem="HYJ-sA-5Ds" secondAttribute="top" constant="10" id="gBi-4R-rYv"/>
-                                            <constraint firstItem="ZAD-sw-a8D" firstAttribute="top" secondItem="KfZ-KB-oS0" secondAttribute="bottom" constant="15" id="gp0-TX-pDA"/>
+                                            <constraint firstItem="KfZ-KB-oS0" firstAttribute="top" secondItem="HYJ-sA-5Ds" secondAttribute="top" id="gBi-4R-rYv"/>
+                                            <constraint firstItem="ZAD-sw-a8D" firstAttribute="top" secondItem="KfZ-KB-oS0" secondAttribute="bottom" id="gp0-TX-pDA"/>
                                             <constraint firstItem="Evt-7N-RCk" firstAttribute="leading" secondItem="HYJ-sA-5Ds" secondAttribute="leading" id="rkG-cd-M0Q"/>
                                             <constraint firstAttribute="trailing" secondItem="Evt-7N-RCk" secondAttribute="trailing" id="zOb-HB-L82"/>
                                         </constraints>
@@ -579,9 +576,9 @@
     <resources>
         <image name="Icons_Settings_Risikoermittlung" width="28" height="28"/>
         <image name="Icons_iOS_Settings" width="28" height="28"/>
+        <image name="Illu_AppZuruecksetzen" width="375" height="229"/>
+        <image name="Illu_Mitteilungen_On" width="375" height="229"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <image name="settings_mitteilungen_an" width="376" height="187"/>
-        <image name="zurucksetzen" width="219" height="212"/>
         <namedColor name="background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
