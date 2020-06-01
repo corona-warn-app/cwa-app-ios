@@ -16,6 +16,7 @@
 // under the License.
 
 import Foundation
+import ExposureNotification
 
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
@@ -37,7 +38,7 @@ protocol Store: AnyObject {
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
-	var previousRiskScore: UInt8 { get set }
+	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
@@ -84,7 +85,7 @@ final class DevelopmentStore: Store {
 		UserDefaults.standard.removeObject(forKey: "devicePairingSuccessfulTimestamp")
 		UserDefaults.standard.removeObject(forKey: "isAllowedToSubmitDiagnosisKeys")
 		UserDefaults.standard.removeObject(forKey: "registrationToken")
-		UserDefaults.standard.removeObject(forKey: "previousRiskScore")
+		UserDefaults.standard.removeObject(forKey: "previousSummary")
 		log(message: "Flushed DevelopmentStore", level: .info)
 	}
 
@@ -288,11 +289,12 @@ final class DevelopmentStore: Store {
 	var allowTestsStatusNotification: Bool
 
 	@PersistedAndPublished(
-		key: "previousRiskScore",
-		notificationName: Notification.Name.exposureDetectionRiskScoreDidChange,
-		defaultValue: 0
+		key: "previousSummary",
+		notificationName: Notification.Name.exposureDetectionSummaryDidChange,
+		defaultValue: nil
 	)
-	var previousRiskScore: UInt8
+	var previousSummary: ENExposureDetectionSummaryContainer?
+
 }
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
@@ -484,14 +486,25 @@ final class SecureStore: Store {
 		}
 	}
 
-	var previousRiskScore: UInt8 {
+	var previousSummary: ENExposureDetectionSummaryContainer? {
 		get {
-			kvStore["previousRiskScore"] as UInt8? ?? 0
+			kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil
 		}
 		set {
-			kvStore["previousRiskScore"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.exposureDetectionRiskScoreDidChange, object: nil)
+			kvStore["previousSummary"] = newValue
+			NotificationCenter.default.post(name: Notification.Name.exposureDetectionSummaryDidChange, object: nil)
 		}
 	}
 
+}
+
+struct ENExposureDetectionSummaryContainer: Codable {
+	let daysSinceLastExposure: Int
+	let matchedKeyCount: UInt64
+	let maximumRiskScore: ENRiskScore
+	init(with summary: ENExposureDetectionSummary) {
+		self.daysSinceLastExposure = summary.daysSinceLastExposure
+		self.matchedKeyCount = summary.matchedKeyCount
+		self.maximumRiskScore = summary.maximumRiskScore
+	}
 }
