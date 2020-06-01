@@ -226,7 +226,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			// get the previous risk score from the store
 			// check if the risk score has escalated since the last summary
 			if let previousRiskScore = self.store.previousSummary?.maximumRiskScore,
-				newSummary.maximumRiskScore > previousRiskScore {
+				RiskLevel(riskScore: newSummary.maximumRiskScore) > RiskLevel(riskScore: previousRiskScore) {
 				// present a notification if the risk score has increased
 				self.taskScheduler.notificationManager.presentNotification(
 					title: AppStrings.LocalNotifications.testResultsTitle,

@@ -18,8 +18,8 @@
 import ExposureNotification
 import Foundation
 
-enum RiskLevel {
-	case unknown
+enum RiskLevel: Int, Comparable {
+	case unknown = 0
 	case inactive
 	case low
 	case high
@@ -30,6 +30,10 @@ enum RiskLevel {
 			return
 		}
 		self = riskScore.riskLevel
+	}
+
+	static func < (lhs: RiskLevel, rhs: RiskLevel) -> Bool {
+		return lhs.rawValue < rhs.rawValue
 	}
 }
 
