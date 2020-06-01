@@ -59,18 +59,36 @@ struct ExposureManagerState {
 
 extension ENManager: Manager {}
 
-protocol ExposureManager {
+
+protocol ExposureManagerLifeCycle {
 	typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
 	func invalidate()
 	func activate(completion: @escaping CompletionHandler)
 	func enable(completion: @escaping CompletionHandler)
 	func disable(completion: @escaping CompletionHandler)
 	func preconditions() -> ExposureManagerState
-	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+}
+
+
+protocol DiagnosisKeysRetrieval {
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+}
+
+
+protocol ExposureDetector {
+	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+}
+
+protocol ExposureManagerObserving {
 	func resume(observer: ENAExposureManagerObserver)
 }
+
+
+typealias ExposureManager = ExposureManagerLifeCycle &
+	DiagnosisKeysRetrieval &
+	ExposureDetector & ExposureManagerObserving
+
 
 protocol ENAExposureManagerObserver: AnyObject {
 	func exposureManager(

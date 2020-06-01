@@ -108,11 +108,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: ExposureDetectionTransactionDelegate {
-	func exposureDetectionTransactionRequiresExposureManager(
-		_: ExposureDetectionTransaction
-	) -> ExposureManager {
+	func exposureDetectionTransactionRequiresExposureDetector(_ transaction: ExposureDetectionTransaction) -> ExposureDetector {
 		exposureManager
 	}
+
+
 
 	func exposureDetectionTransaction(_: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
 		logError(message: "Exposure transaction failed: \(reason)")
@@ -252,7 +252,8 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
-		self.exposureSubmissionService = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
+		
+		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		self.exposureSubmissionService?.getTestResult { result in
 

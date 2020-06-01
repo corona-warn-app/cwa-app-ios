@@ -18,6 +18,7 @@
 import ExposureNotification
 import Foundation
 
+// swiftlint:disable:next type_body_length
 final class HomeInteractor {
 	enum UserLoadingMode {
 		case automatic
@@ -219,11 +220,8 @@ final class HomeInteractor {
 			}
 		}
 
-		let submitConfigurator = HomeSubmitCellConfigurator()
-
-		submitConfigurator.submitAction = { [unowned self] in
-			self.homeViewController.showSubmitResult()
-		}
+		// MARK: Configure exposure submission view.
+		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
@@ -257,15 +255,43 @@ final class HomeInteractor {
 		if let risk = riskConfigurator {
 			configurators.append(risk)
 		}
-		let others: [CollectionViewCellConfiguratorAny] = [
-			submitConfigurator,
+		let others: [CollectionViewCellConfiguratorAny?] = [
+			exposureSubmissionConfigurator,
 			info1Configurator,
 			info2Configurator,
 			appInformationConfigurator,
 			settingsConfigurator
 		]
-		configurators.append(contentsOf: others)
+		configurators.append(contentsOf: others.compactMap { $0 })
 		return configurators
+	}
+
+	private func selectConfiguratorForExposureSubmissionCell() -> CollectionViewCellConfiguratorAny? {
+		/* Enable this once the home view refreshing is done.
+		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
+			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
+			return HomeExposureSubmissionStateCellConfigurator()
+		} else if store.registrationToken != nil {
+
+			// This is shown when we registered a test.
+			let testResulCellConfigurator = HomeTestResultCellConfigurator()
+			testResulCellConfigurator.buttonAction = { [weak self] in
+				self?.homeViewController.showTestResult()
+			}
+			testResulCellConfigurator.didConfigureCell = { configurator, cell in
+				self.homeViewController.updateTestResultFor(cell, with: configurator)
+			}
+
+			return testResulCellConfigurator
+		}*/
+
+		// This is the default view that is shown when no test results are available.
+		let submitCellConfigurator = HomeSubmitCellConfigurator()
+		submitCellConfigurator.submitAction = { [unowned self] in
+			self.homeViewController.showExposureSubmission()
+		}
+
+		return submitCellConfigurator
 	}
 
 	private func indexPathForActiveCell() -> IndexPath? {
