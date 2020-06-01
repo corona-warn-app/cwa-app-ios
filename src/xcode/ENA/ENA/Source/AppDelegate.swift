@@ -233,7 +233,8 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
-		self.exposureSubmissionService = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
+		
+		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		self.exposureSubmissionService?.getTestResult { result in
 
