@@ -57,6 +57,10 @@ enum AppStrings {
 		static let usage01 = NSLocalizedString("ExposureSubmissionIntroduction_Usage01", comment: "")
 		static let usage02 = NSLocalizedString("ExposureSubmissionIntroduction_Usage02", comment: "")
 		static let usage03 = NSLocalizedString("ExposureSubmissionIntroduction_Usage03", comment: "")
+		static let listItem1 = NSLocalizedString("ExposureSubmissionIntroduction_ListItem1", comment: "")
+		static let listItem2 = NSLocalizedString("ExposureSubmissionIntroduction_ListItem2", comment: "")
+		static let listItem3 = NSLocalizedString("ExposureSubmissionIntroduction_ListItem3", comment: "")
+		static let listItem4 = NSLocalizedString("ExposureSubmissionIntroduction_ListItem4", comment: "")
 	}
 
 	enum ExposureSubmissionResult {
@@ -216,6 +220,7 @@ enum AppStrings {
 		static let onboardingLetsGo = NSLocalizedString("Onboarding_LetsGo_actionText", comment: "")
 		static let onboardingContinue = NSLocalizedString("Onboarding_Continue_actionText", comment: "")
 		static let onboardingDoNotActivate = NSLocalizedString("Onboarding_DoNotActivate_actionText", comment: "")
+		static let onboardingDoNotAllow = NSLocalizedString("Onboarding_doNotAllow_actionText", comment: "")
 
 		static let onboardingInfo_togetherAgainstCoronaPage_title = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_title", comment: "")
 		static let onboardingInfo_togetherAgainstCoronaPage_boldText = NSLocalizedString("OnboardingInfo_togetherAgainstCoronaPage_boldText", comment: "")
@@ -295,6 +300,7 @@ enum AppStrings {
 
 		static let settingsCardTitle = NSLocalizedString("Home_SettingsCard_Title", comment: "")
 		static let appInformationCardTitle = NSLocalizedString("Home_AppInformationCard_Title", comment: "")
+		static let appInformationVersion = NSLocalizedString("Home_AppInformationCard_Version", comment: "")
 
 		static let infoCardShareTitle = NSLocalizedString("Home_InfoCard_ShareTitle", comment: "")
 		static let infoCardShareBody = NSLocalizedString("Home_InfoCard_ShareBody", comment: "")
