@@ -40,6 +40,10 @@ protocol Store: AnyObject {
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
+	// Timestamp that represents the date at which
+	// the user has received a test reult.
+	var testResultReceivedTimeStamp: Int64? { get set }
+
 	// Timestamp representing the last successful diagnosis keys submission.
 	// This is needed to allow in the future delta submissions of diagnosis keys since the last submission.
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? { get set }
@@ -87,8 +91,13 @@ final class SecureStore: Store {
 		kvStore.clearAll()
 	}
 
+	var testResultReceivedTimeStamp: Int64? {
+		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
+		set { kvStore["testResultReceivedTimeStamp"] = newValue }
+	}
+
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
-		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? ?? 0 }
+		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? }
 		set { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] = newValue }
 	}
 
@@ -113,7 +122,7 @@ final class SecureStore: Store {
 	}
 
 	var registrationToken: String? {
-		get { kvStore["registrationToken"] as String? ?? "" }
+		get { kvStore["registrationToken"] as String? }
 		set { kvStore["registrationToken"] = newValue }
 	}
 
