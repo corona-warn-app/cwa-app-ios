@@ -19,6 +19,7 @@ import UIKit
 
 class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
 	var submitAction: (() -> Void)?
+	var store: Store?
 
 	func configure(cell: SubmitCollectionViewCell) {
 		cell.delegate = self
@@ -52,6 +53,7 @@ class HomeExposureSubmissionStateCellConfigurator: CollectionViewCellConfigurato
 	let sVC = AppStoryboard
 		.exposureSubmission
 		.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self)
+
 
 	func configure(cell: ExposureSubmissionCell) {
 		// Instantiate embedded view.

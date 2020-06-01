@@ -296,6 +296,19 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt ihre Identität un
 "Home_SettingsCard_Title" = "Einstellungen";
 "Home_AppInformationCard_Title" = "App Informationen";
 
+// Home Result Card
+"Home_resultCard_ResultAvailableTitle" = "Ihr Ergebnis liegt vor";
+"Home_resultCard_ResultUnvailableTitle" = "Ergebnis liegt noch nicht vor";
+"Home_resultCard_ShowResultButton" = "Test anzeigen";
+"Home_resultCard_NegativeTitle" = "Befund Negativ";
+"Home_resultCard_NegativeDesc" = "Sie wurden Negativ auf SARS-CoV-2 getestet.";
+"Home_resultCard_PositiveTitle" = "Befund Positiv";
+"Home_resultCard_PositiveDesc" = "Sie wurden Positiv auf SARS-CoV-2 getestet.";
+"Home_resultCard_PendingTitle" = "Ergebnis liegt noch nicht vor";
+"Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tage.";
+"Home_resultCard_InvalidTitle" = "Befund ungültig";
+"Home_resultCard_InvalidDesc" = "Das Ergebnis ist ungültig.";
+
 // App Information - About
 "App_Information_About_Navigation" = "Über die App";
 "App_Information_About_Title" = "Zusammen gegen Corona";

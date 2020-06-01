@@ -232,8 +232,12 @@ final class HomeInteractor {
 			self.homeViewController.showSubmitResult()
 		}
 
-		let exposureSubmissionStateConfigurator = HomeExposureSubmissionStateCellConfigurator()
+		let homeTestResult = HomeTestResultCellConfigurator()
+		homeTestResult.buttonAction = { [weak self] in
+			self?.homeViewController.showSubmitResult()
+		}
 
+		let exposureSubmissionStateConfigurator = HomeExposureSubmissionStateCellConfigurator()
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
@@ -269,6 +273,7 @@ final class HomeInteractor {
 		}
 		let others: [CollectionViewCellConfiguratorAny] = [
 			submitConfigurator,
+			homeTestResult,
 			exposureSubmissionStateConfigurator,
 			info1Configurator,
 			info2Configurator,
