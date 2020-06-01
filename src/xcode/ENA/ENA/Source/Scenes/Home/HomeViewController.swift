@@ -50,7 +50,7 @@ final class HomeViewController: UIViewController {
 		)
 
 		exposureSubmissionService = ENAExposureSubmissionService(
-			manager: self.exposureManager,
+			diagnosiskeyRetrieval: self.exposureManager,
 			client: self.client,
 			store: self.store
 		)
