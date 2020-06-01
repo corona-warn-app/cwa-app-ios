@@ -129,6 +129,7 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "Onboarding_LetsGo_actionText" = "Los geht’s";
 "Onboarding_Continue_actionText" = "Weiter";
 "Onboarding_DoNotActivate_actionText" = "Nicht Aktivieren";
+"Onboarding_doNotAllow_actionText" = "Nicht erlauben";
 
 
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Zusammen gegen Corona";
@@ -148,8 +149,8 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Meldung wird zuverlässig verschlüsselt über einen sicheren Server verarbeitet. In der Folge können Ihre Kontakte gewarnt werden, in Isolation gehen oder sich testen lassen.";
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken kennen";
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und  bei Neuinfizierungen von Kontakten warnen. Aktivieren Sie dafür jetzt die Mitteilungen.";
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich bei Bedarf jederzeit testen lassen oder zum Schutz Ihrer Mitmenschen in Isolation begeben.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Isolation begeben und nach entsprechender Abklärung testen lassen.";
 
 
 // Exposure Submission
@@ -309,6 +310,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 
 "Home_SettingsCard_Title" = "Einstellungen";
 "Home_AppInformationCard_Title" = "App Informationen";
+"Home_AppInformationCard_Version" = "Version";
 
 // App Information - About
 "App_Information_About_Navigation" = "Über die App";
