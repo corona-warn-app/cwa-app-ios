@@ -99,30 +99,6 @@ extension ExposureNotificationSettingViewController {
 		case .exposureNotificationUnavailable:
 			logError(message: "Failed to enable")
 			alertError(message: "ExposureNotification is not availabe due to the sytem policy", title: "Error")
-		case .bluetoothOff:
-			logError(message: "Failed to enable")
-			let alert = UIAlertController(title: "Bluetooth is turned off",
-										  message: "It's required to turn on bluetooth for exposure detection to work properly. Please enable bluetooth in the system settings.",
-										  preferredStyle: .alert)
-			let completion: (UIAlertAction) -> Void = { action in
-				switch action.style {
-				case .default:
-					guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-						return
-					}
-					if UIApplication.shared.canOpenURL(settingsUrl) {
-						UIApplication.shared.open(settingsUrl, completionHandler: nil)
-					}
-				case .cancel, .destructive:
-					return
-				@unknown default:
-					fatalError("Not all cases of actions covered when handling the error: \(error)")
-				}
-			}
-			alert.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: completion))
-			alert.addAction(UIAlertAction(title: "Later", style: .cancel, handler: completion))
-
-			self.present(alert, animated: true)
 		}
 		tableView.reloadData()
 	}

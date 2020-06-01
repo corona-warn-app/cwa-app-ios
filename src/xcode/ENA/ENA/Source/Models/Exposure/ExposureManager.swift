@@ -17,12 +17,13 @@
 
 import ExposureNotification
 import Foundation
+import UserNotifications
+import UIKit
 
 enum ExposureNotificationError: Error {
 	case exposureNotificationRequired
 	case exposureNotificationAuthorization
 	case exposureNotificationUnavailable
-	case bluetoothOff
 }
 
 struct ExposureManagerState {
@@ -71,6 +72,7 @@ protocol ExposureManager {
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func resume(observer: ENAExposureManagerObserver)
+	func showBluetoothOffUserNotificationIfNeeded() -> UIAlertController?
 }
 
 protocol ENAExposureManagerObserver: AnyObject {
@@ -265,5 +267,36 @@ extension ENAuthorizationStatus: CustomDebugStringConvertible {
 		default:
 			return "not handled"
 		}
+	}
+}
+
+extension ENAExposureManager {
+
+	func showBluetoothOffUserNotificationIfNeeded() -> UIAlertController? {
+		print(self.manager.exposureNotificationStatus)
+		if ENManager.authorizationStatus == .authorized && self.manager.exposureNotificationStatus == .bluetoothOff {
+			let alert = UIAlertController(title: "Bluetooth is turned off",
+										  message: "It's required to turn on bluetooth for exposure detection to work properly. Please enable bluetooth in the system settings.",
+										  preferredStyle: .alert)
+			let completion: (UIAlertAction) -> Void = { action in
+				switch action.style {
+				case .default:
+					guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+						return
+					}
+					if UIApplication.shared.canOpenURL(settingsUrl) {
+						UIApplication.shared.open(settingsUrl, completionHandler: nil)
+					}
+				case .cancel, .destructive:
+					return
+				@unknown default:
+					fatalError("Not all cases of actions covered when handling the bluetooth")
+				}
+			}
+			alert.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: completion))
+			alert.addAction(UIAlertAction(title: "Later", style: .cancel, handler: completion))
+			return alert
+		}
+		return nil
 	}
 }

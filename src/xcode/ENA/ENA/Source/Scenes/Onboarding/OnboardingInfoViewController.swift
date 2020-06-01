@@ -98,7 +98,18 @@ final class OnboardingInfoViewController: UIViewController {
 		case .privacyPage:
 			persistTimestamp(completion: completion)
 		case .enableLoggingOfContactsPage:
-			askExposureNotificationsPermissions(completion: completion)
+			func handleBluetooth(completion: @escaping () -> Void) {
+				if let alertController = self.exposureManager.showBluetoothOffUserNotificationIfNeeded() {
+					self.present(alertController, animated: true)
+				}
+				completion()
+			}
+			askExposureNotificationsPermissions(completion: {
+				handleBluetooth {
+					completion()
+				}
+			})
+
 		case .alwaysStayInformedPage:
 			askLocalNotificationsPermissions(completion: completion)
 		default:
@@ -184,8 +195,6 @@ final class OnboardingInfoViewController: UIViewController {
 					log(message: "Encourage the user to authorize this application", level: .warning)
 				case .exposureNotificationUnavailable:
 					log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
-				case .bluetoothOff:
-					log(message: "Tell the user that Bluetooth is turned off but required for EN to work.", level: .warning)
 				}
 				self.showError(error, from: self, completion: completion)
 				completion?()
@@ -199,8 +208,6 @@ final class OnboardingInfoViewController: UIViewController {
 							log(message: "Encourage the user to authorize this application", level: .warning)
 						case .exposureNotificationUnavailable:
 							log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
-						case .bluetoothOff:
-							log(message: "Tell the user that Bluetooth is turned off but required for EN to work.", level: .warning)
 						}
 					}
 					self.taskScheduler.scheduleBackgroundTaskRequests()
