@@ -414,7 +414,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 //Local Notifications
 "local_notifications_viewResults" = "Ergebnisse anzeigen";
 "local_notifications_ignore" = "Ignorieren";
-"local_notifications_detectexposure_title" = "Kontakterkennung abgeschlossen!";
-"local_notificationsdetectexposure_body" = "Tippen Sie auf, um Ihre Ergebnisse in der Anwendung anzuzeigen.";
-"local_notifications_testresults_title" = "<local_notifications_testresults_title>";
-"local_notifications_testresults_body" = "<local_notifications_testresults_body>";
+"local_notifications_detectexposure_title" = "Corona-Warn-App";
+"local_notifications_detectexposure_body" = "Es gibt Neuigkeiten in der Corona-Warn-App";
+"local_notifications_testresults_title" = "Corona-Warn-App";
+"local_notifications_testresults_body" = "Es gibt Neuigkeiten in der Corona-Warn-App";

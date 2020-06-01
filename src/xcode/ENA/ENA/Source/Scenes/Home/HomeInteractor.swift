@@ -91,12 +91,6 @@ final class HomeInteractor {
 
 		// TODO: handle state of pending scheduled tasks to determin active state for manual refresh button
 		// TODO: disable manual trigger button
-		taskScheduler.arePendingTasksScheduled { tasksAreSecheduled in
-			if tasksAreSecheduled {
-				// TODO: enable manual trigger button
-			}
-		}
-
 		guard let indexPath = indexPathForRiskCell() else { return }
 		riskConfigurator?.startLoading()
 		homeViewController.reloadCell(at: indexPath)
