@@ -273,10 +273,9 @@ extension ENAuthorizationStatus: CustomDebugStringConvertible {
 extension ENAExposureManager {
 
 	func alertForBluetoothOff() -> UIAlertController? {
-		print(self.manager.exposureNotificationStatus)
 		if ENManager.authorizationStatus == .authorized && self.manager.exposureNotificationStatus == .bluetoothOff {
-			let alert = UIAlertController(title: "Bluetooth is turned off",
-										  message: "It's required to turn on bluetooth for exposure detection to work properly. Please enable bluetooth in the system settings.",
+			let alert = UIAlertController(title: AppStrings.Common.alertTitleBluetoothOff,
+										  message: AppStrings.Common.alertDescriptionBluetoothOff,
 										  preferredStyle: .alert)
 			let completion: (UIAlertAction) -> Void = { action in
 				switch action.style {
@@ -293,8 +292,8 @@ extension ENAExposureManager {
 					fatalError("Not all cases of actions covered when handling the bluetooth")
 				}
 			}
-			alert.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: completion))
-			alert.addAction(UIAlertAction(title: "Later", style: .cancel, handler: completion))
+			alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: completion))
+			alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionLater, style: .cancel, handler: completion))
 			return alert
 		}
 		return nil
