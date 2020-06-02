@@ -144,4 +144,38 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 			cellImage.image = image
 		}
 	}
+
+	/// TODO: Comment me!
+	func configure(title: String, image: UIImage?, body: String, attributedStrings: [NSAttributedString]) {
+		setup()
+		setupConstraints()
+		self.title.text = title
+		self.body.attributedText = NSMutableAttributedString.generateAttributedString(
+			normalText: body,
+			attributedText: attributedStrings
+		)
+		if let image = image {
+			cellImage.image = image
+		}
+	}
+}
+
+// TODO: Move me!
+extension NSMutableAttributedString {
+
+	// TODO: Comment!!
+	static func generateAttributedString(normalText: String, attributedText: [NSAttributedString]) -> NSMutableAttributedString {
+
+		let components = normalText.components(separatedBy: "%@")
+		let adjusted: NSMutableAttributedString = NSMutableAttributedString(string: "")
+
+		for (index, element) in components.enumerated() {
+			adjusted.append(NSAttributedString(string: element))
+			if index < attributedText.count {
+				adjusted.append(attributedText[index])
+			}
+		}
+
+		return adjusted
+	}
 }

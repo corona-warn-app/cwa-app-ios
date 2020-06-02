@@ -269,19 +269,30 @@ private extension ExposureSubmissionOverviewViewController {
 			),
 			.identifier(
 				CustomCellReuseIdentifiers.imageCard,
+				// TODO: Add number.
 				action: .perform(segue: Segue.hotline),
 				configure: { _, cell, _ in
 					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
 					cell.configure(
 						title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
 						image: UIImage(named: "Illu_Submission_Anruf"),
-						body: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription
+						body: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
+						attributedStrings: self.getAttributedStrings()
 					)
 				}
 			)
 		]))
 
 		return data
+	}
+
+	/// Comment me.
+	private func getAttributedStrings() -> [NSAttributedString] {
+		let font: UIFont = .preferredFont(forTextStyle: .body)
+		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
+		let attr: [NSAttributedString.Key: Any] = [.font: boldFont]
+		let word = NSAttributedString(string: AppStrings.ExposureSubmissionDispatch.positiveWord, attributes: attr)
+		return [word]
 	}
 
 	private func transitionToQRScanner(_: UIViewController) {
