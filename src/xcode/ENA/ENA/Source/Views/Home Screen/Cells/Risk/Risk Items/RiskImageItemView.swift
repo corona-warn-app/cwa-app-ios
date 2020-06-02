@@ -42,10 +42,10 @@ final class RiskImageItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
 	}
 
 	private func configureStackView() {
-		if traitCollection.preferredContentSizeCategory >= .accessibilityMedium {
-
+		if traitCollection.preferredContentSizeCategory >= .accessibilityLarge {
+			iconImageView.isHidden = true
 		} else {
-			
+			iconImageView.isHidden = false
 		}
 	}
 

@@ -33,7 +33,7 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 		let titleColor: UIColor = UIColor.black
 		cell.configureTitle(title: title, titleColor: titleColor)
 
-		let imageName = "settings_mitteilungen_an"
+		let imageName = "Illu_Submission_VielenDank"
 		cell.configureImage(imageName: imageName)
 
 		let body = AppStrings.Home.thankYouCardBody
