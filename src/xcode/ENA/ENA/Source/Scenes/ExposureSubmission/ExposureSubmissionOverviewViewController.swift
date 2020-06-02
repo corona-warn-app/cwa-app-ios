@@ -118,6 +118,9 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
 							  style: .default,
 							  handler: { _ in
+
+								self.exposureSubmissionService?.devicePairingConsentAccept = true
+								self.exposureSubmissionService?.devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
 								self.performSegue(
 									withIdentifier: Segue.qrScanner,
 									sender: self

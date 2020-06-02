@@ -23,6 +23,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	var exposureSubmissionService: ExposureSubmissionService?
 	var testResult: TestResult?
+	var timeStamp: Int64?
 	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View Lifecycle methods.
@@ -56,6 +57,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	private func setupView() {
 		setupDynamicTableView()
 		setupNavigationBar()
+		timeStamp = exposureSubmissionService?.devicePairingConsentAcceptTimestamp
 	}
 
 	private func setupButton() {
@@ -220,7 +222,7 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
@@ -251,7 +253,7 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
@@ -270,7 +272,7 @@ private extension ExposureSubmissionTestResultViewController {
 				),
 				.stepCellWith(
 					title: nil,
-					text: AppStrings.ExposureSubmissionResult.removeNote,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
 					image: nil,
 					hasSeparators: false
 				),
@@ -308,7 +310,7 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
@@ -334,7 +336,7 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending, timeStamp: self.timeStamp)
 				}
 			),
 			cells: [

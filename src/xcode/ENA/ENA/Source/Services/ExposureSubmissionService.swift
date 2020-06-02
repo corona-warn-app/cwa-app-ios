@@ -48,12 +48,26 @@ protocol ExposureSubmissionService {
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
 	func hasRegistrationToken() -> Bool
 	func deleteTest()
+	var devicePairingConsentAccept: Bool { get set }
+	var devicePairingConsentAcceptTimestamp: Int64? { get set }
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
+
+
 	let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
 	let client: Client
 	let store: Store
+	
+	var devicePairingConsentAccept: Bool {
+		get { self.store.devicePairingConsentAccept }
+		set { self.store.devicePairingConsentAccept = newValue }
+	}
+
+	var devicePairingConsentAcceptTimestamp: Int64? {
+		get { self.store.devicePairingConsentAcceptTimestamp }
+		set { self.store.devicePairingConsentAcceptTimestamp = newValue }
+	}
 
 	init(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) {
 		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
@@ -70,7 +84,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	func deleteTest() {
 		store.registrationToken = nil
+		store.testResultReceivedTimeStamp = nil
 	}
+
 
 	/// This method gets the test result based on the registrationToken that was previously
 	/// received, either from the TAN or QR Code flow. After successful completion,
@@ -92,7 +108,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				}
 
 				completeWith(.success(testResult))
-				self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
+				if testResult != .pending {
+					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
+				}
 			}
 		}
 	}
@@ -110,6 +128,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completeWith(.failure(self.parseError(error)))
 			case let .success(registrationToken):
 				self.store.registrationToken = registrationToken
+				self.store.testResultReceivedTimeStamp = nil
+				self.store.devicePairingSuccessfulTimestamp = Int64(Date().timeIntervalSince1970)
+				self.store.devicePairingConsentAccept = true
 				self.delete(key: deviceRegistrationKey)
 				completeWith(.success(registrationToken))
 			}
