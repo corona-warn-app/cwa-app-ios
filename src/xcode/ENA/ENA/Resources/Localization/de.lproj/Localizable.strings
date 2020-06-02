@@ -195,10 +195,15 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "ExposureSubmissionSuccess_Title" = "Vielen Dank";
 "ExposureSubmissionSuccess_Button" = "Fertig";
 "ExposureSubmissionSuccess_Description" = "Dank Ihrer Mithilfe können Andere gewarnt werden und entsprechend reagieren.";
-"ExposureSubmissionSuccess_subTitle" = "Sie haben einen wichtigen Beitrag geleistet!";
+"ExposureSubmissionSuccess_subTitle" = "Weitere Infos:";
 "ExposureSubmissionSuccess_listTitle" = "Bitte beachten Sie:";
-"ExposureSubmissionSuccess_listItem1" = "Sie sind ansteckend";
-"ExposureSubmissionSuccess_listItem2" = "Isolieren Sie sich von anderen Personen";
+"ExposureSubmissionSuccess_listItem1" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
+"ExposureSubmissionSuccess_listItem2_1" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich ihre Krankheitszeichen entwickeln.";
+"ExposureSubmissionSuccess_listItem2_2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten.";
+"ExposureSubmissionSuccess_listItem2_3" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone oder die App haben.";
+"ExposureSubmissionSuccess_listItem2_4" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend sein. ";
+
 
 // Exposure Submission Introduction
 "ExposureSubmissionIntroduction_Title" = "Info";

@@ -89,7 +89,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.devicePairingSuccessfulTimestamp = nil
 		store.devicePairingConsentAcceptTimestamp = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
-
 	}
 
 
