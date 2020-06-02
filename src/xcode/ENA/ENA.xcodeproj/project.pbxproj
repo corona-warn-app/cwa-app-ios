@@ -21,7 +21,6 @@
 		134F0DBD247578FF00D88934 /* ENAUITests-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */; };
 		134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0F2B2475793400D88934 /* SnapshotHelper.swift */; };
 		134F0F2D2475794900D88934 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0F247466BD00D82D14 /* Accessibility.swift */; };
-		134FFA10247466BD00D82D14 /* TestEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0E247466BD00D82D14 /* TestEnvironment.swift */; };
 		134FFA11247466BD00D82D14 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0F247466BD00D82D14 /* Accessibility.swift */; };
 		13722044247AEEAD00152764 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13722043247AEEAD00152764 /* LocalNotificationManager.swift */; };
 		138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138910C4247A909000D739F6 /* ENATaskScheduler.swift */; };
@@ -301,7 +300,6 @@
 		134F0DB9247578FF00D88934 /* ENAUITestsHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsHome.swift; sourceTree = "<group>"; };
 		134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Extensions.swift"; sourceTree = "<group>"; };
 		134F0F2B2475793400D88934 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = ../../fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
-		134FFA0E247466BD00D82D14 /* TestEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestEnvironment.swift; sourceTree = "<group>"; };
 		134FFA0F247466BD00D82D14 /* Accessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
 		13722043247AEEAD00152764 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
@@ -1381,7 +1379,6 @@
 				51D420B324583ABB00AD70CA /* AppStoryboard.swift */,
 				CD99A3C92461A47C00BF12AF /* AppStrings.swift */,
 				134FFA0F247466BD00D82D14 /* Accessibility.swift */,
-				134FFA0E247466BD00D82D14 /* TestEnvironment.swift */,
 				714CD868247297F800F56450 /* NibLoadable.swift */,
 			);
 			path = "View Helpers";
@@ -1816,7 +1813,6 @@
 				2F80CFDD247EEB88000F06AF /* DynamicTableViewImageCardCell.swift in Sources */,
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
-				134FFA10247466BD00D82D14 /* TestEnvironment.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
