@@ -261,10 +261,10 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
-		#if targetEnvironment(simulator) || COMMUNITY
-		completion?()
-		return
-		#endif
+		if exposureManager is MockExposureManager {
+			completion?()
+			return
+		}
 
 		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
 		notificationCenter.requestAuthorization(options: options) { _, error in
