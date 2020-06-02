@@ -54,11 +54,11 @@ class DynamicTableViewModelTests: XCTestCase {
 		let section = sut.section(1)
 		
 		XCTAssertEqual(section.cells.count, 1)
-//		if let cell = section.cells.first {
-//			XCTAssertEqual(cell.textLabel?.text, "Baz")
-//		} else {
-//			XCTFail()
-//		}
+		if let cell = section.cells.first {
+			XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
+		} else {
+			XCTFail()
+		}
 	}
 	
 	func testSectionAt_returnsInitializedSection() {
