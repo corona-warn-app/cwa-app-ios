@@ -27,6 +27,9 @@ final class ResetViewController: UIViewController {
 	@IBOutlet var description1TextView: UITextView!
 	@IBOutlet var resetButton: ENAButton!
 	@IBOutlet var discardResetButton: UIButton!
+	@IBOutlet var infoTitleLabel: DynamicTypeLabel!
+	@IBOutlet var infoDescriptionLabel: UILabel!
+	@IBOutlet var infoView: UIView!
 
 	weak var delegate: ResetDelegate?
 
@@ -61,5 +64,9 @@ final class ResetViewController: UIViewController {
 		resetButton.backgroundColor = UIColor.preferredColor(for: .brandRed)
 		discardResetButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
 		discardResetButton.titleLabel?.adjustsFontForContentSizeCategory = true
+
+		infoView.layer.cornerRadius = 14
+		infoTitleLabel.text = AppStrings.Reset.infoTitle
+		infoDescriptionLabel.text = AppStrings.Reset.infoDescription
 	}
 }

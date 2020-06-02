@@ -329,6 +329,8 @@ enum AppStrings {
 		static let description1 = NSLocalizedString("Reset_Descrition1", comment: "")
 		static let resetButton = NSLocalizedString("Reset_Button", comment: "")
 		static let discardButton = NSLocalizedString("Reset_Discard", comment: "")
+		static let infoTitle = NSLocalizedString("Reset_InfoTitle", comment: "")
+		static let infoDescription = NSLocalizedString("Reset_InfoDescription", comment: "")
 	}
 
 	enum SafariView {

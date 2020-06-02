@@ -45,7 +45,7 @@ public enum ColorStyle: String {
 	case shadow
 }
 
-extension UIColor {
+public extension UIColor {
 	convenience init?(style: ColorStyle, interface: UIUserInterfaceStyle = .unspecified) {
 		if interface == .unspecified {
 			self.init(named: style.rawValue)
