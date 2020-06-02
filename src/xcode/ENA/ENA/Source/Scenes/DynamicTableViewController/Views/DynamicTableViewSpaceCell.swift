@@ -40,6 +40,7 @@ class DynamicTableViewSpaceCell: UITableViewCell {
 	}
 
 	override func prepareForReuse() {
+		super.prepareForReuse()
 		height = UITableView.automaticDimension
 		backgroundColor = nil
 	}
