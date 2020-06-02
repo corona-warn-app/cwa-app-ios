@@ -21,7 +21,7 @@ import UIKit
 class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var iconImageView1: UIImageView!
 	@IBOutlet var iconImageView2: UIImageView!
-	@IBOutlet var actionTitleLabel: UILabel!
+	@IBOutlet weak var actionTitleLabel: ENALabel!
 	@IBOutlet var descriptionTextView: UITextView!
 	@IBOutlet var actionButton: ENAButton!
 
@@ -48,7 +48,7 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		iconImageView2.image = images(for: state).1
 		actionButton.setTitle(AppStrings.ExposureNotificationSetting.detailActionButtonTitle, for: .normal)
 
-		actionTitleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+		actionTitleLabel.style = .title2
 		switch state {
 		case .enabled, .disabled:
 			return

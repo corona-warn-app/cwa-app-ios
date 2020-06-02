@@ -262,7 +262,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktivieren Sie die Aufzeichnung Ihrer Begegnungen";
 "ExposureNotificationSetting_DescriptionTitle" = "So funktioniert die Aufzeichnung Ihrer Begegnungen";
 "ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
-"ExposureNotificationSetting_DescriptionText2" = "Die Risiko- Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.";
+"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.";
 "ExposureNotificationSetting_DescriptionText3" = "Die verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
 "ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth aktivieren";
 "ExposureNotificationSetting_Bluetooth_Description" = "Die Risikoermittlung benötigt aktiviertes Bluetooth um Begegnungen zu protokollieren. Bitte aktivieren Sie Bluetooth in Ihren Einstellungen.";

@@ -129,7 +129,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yp9-fh-bpb">
                                                             <rect key="frame" x="0.0" y="0.0" width="350" height="128"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEQ-Jd-cnW">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEQ-Jd-cnW" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="287" height="128"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                                     <color key="textColor" name="textPrimary1"/>
@@ -216,7 +216,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="actionButton" destination="hv1-5a-n0n" id="owI-gG-7RM"/>
-                                    <outlet property="actionTitleLabel" destination="jEQ-Jd-cnW" id="utO-dZ-fw8"/>
+                                    <outlet property="actionTitleLabel" destination="jEQ-Jd-cnW" id="aZl-Md-cRn"/>
                                     <outlet property="descriptionTextView" destination="y4H-Pa-wkH" id="zPN-6T-Oku"/>
                                     <outlet property="iconImageView1" destination="pOD-cP-drw" id="14Y-1s-AAH"/>
                                     <outlet property="iconImageView2" destination="F0p-QZ-aDD" id="STv-lw-oW3"/>
@@ -270,7 +270,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6bP-P7-YgE">
                                             <rect key="frame" x="16" y="0.0" width="382" height="838.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmd-OM-eEY">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmd-OM-eEY" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="26.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <color key="textColor" name="textPrimary1"/>
@@ -311,7 +311,7 @@
                                     <outlet property="textView1" destination="13X-VL-dxy" id="Izz-dN-CoL"/>
                                     <outlet property="textView2" destination="f8X-gB-tQa" id="pTd-X1-7W8"/>
                                     <outlet property="textView3" destination="6fy-Bp-cqe" id="XPu-0I-DHH"/>
-                                    <outlet property="titleLabel" destination="pmd-OM-eEY" id="pfe-ls-rLg"/>
+                                    <outlet property="titleLabel" destination="pmd-OM-eEY" id="MEw-F2-h4z"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
