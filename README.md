@@ -26,22 +26,54 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
 
 ### Setup
 
-Open Xcode 11.5 or higher and let the Swift Package Manager handle the rest 🎉
+1. Install Xcode 11.5 or higher
+2. Select the right app scheme.
+
+   We added the schema `ENACommunity` to our project which should enable third party developers to run and test the code. This schema uses a mocked implementation of `ExposureManager` in `SceneDelegate` and injects it into the application.
+
+3. Set the user-defined variable to your development team
+
+   In [project.pbxproj](./src/xcode/ENA/ENA.xcodeproj/project.pbxproj), set IPHONE_APP_DEV_TEAM to your development team
+4. Install SwiftLint
+
+   ```console
+   brew install swiftlint
+   ```
+
+5. (Optional) Set up fastlane:
+   Make sure you have the latest version of the Xcode command line tools installed:
+
+   ```console
+   xcode-select --install
+   ```
+   Install _fastlane_ using
+   ```console
+   [sudo] gem install fastlane -NV
+   [sudo] gem install xcov
+   ```
+   or alternatively using `brew cask install fastlane`
+
 
 ### Build
 
-Either build directly from Xcode or use fastlane to build and run all tests:
+After setting up your environment as stated in [Setup](#Setup), you should be able to build the app using the scheme `ENACommunity`.
+
+If you want to use fastlane instead, you can do so by running the following commands:
 
 ```console
-cd src/xcode && fastlane build
+cd src/xcode && fastlane build_community
 cd src/xcode && fastlane test
 ```
 
-Find all available lanes: [Fastfile documentation](src/xcode/fastlane/README.md)
-
 ### Run
 
-_TODO: Steps/commmands needed to run the project in development mode._
+1. Run the server locally
+
+   If you have Docker installed locally, the overall cwa-server setup can be easily built and run (incl. dependencies) by 'docker-compose up'. More information at: https://github.com/corona-warn-app/cwa-server
+2. Configure the URL scheme
+  * On your device, store a deep link that has the following structure:
+    `corona-warn-app://configure?distributionBaseURL=https://fix.me/&submissionBaseURL=https://fix.me&verificationBaseURL=https://fix.me`
+  * Tap on the link and then relaunch the app because the changes will only be effective in a new session. You can validate the configuration in the developer menu (triple-tap somewhere in the homescreen and click on the settings icon in the toolbar).
 
 ## Architecture & Documentation
 

@@ -18,7 +18,9 @@
 import ExposureNotification
 import Foundation
 
+// swiftlint:disable:next type_body_length
 final class HomeInteractor {
+
 	enum UserLoadingMode {
 		case automatic
 		case manual
@@ -35,7 +37,7 @@ final class HomeInteractor {
 		self.store = store
 		self.state = state
 		stateHandler = ENStateHandler(self.state.exposureManager, delegate: self)
-		cells = initialCellConfigurators()
+		sections = initialCellConfigurators()
 	}
 
 	// MARK: Properties
@@ -53,11 +55,10 @@ final class HomeInteractor {
 					summary: state.summary
 				), stateHandler: stateHandler
 			)
+			reloadRiskCell()
+			sections = initialCellConfigurators()
+			homeViewController.reloadData()
 		}
-	}
-
-	var currentState: RiskDetectionState {
-		stateHandler.getState()
 	}
 
 	private unowned var homeViewController: HomeViewController
@@ -68,9 +69,9 @@ final class HomeInteractor {
 		RiskLevel(riskScore: state.summary?.maximumRiskScore)
 	}
 
+	private(set) var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+
 	private var activeConfigurator: HomeActivateCellConfigurator!
-	private var cells: [CollectionViewCellConfiguratorAny] = []
-	var cellConfigurators: [CollectionViewCellConfiguratorAny] { cells }
 	private var riskConfigurator: HomeRiskCellConfigurator?
 
 	func developerMenuEnableIfAllowed() {}
@@ -92,14 +93,9 @@ final class HomeInteractor {
 
 		// TODO: handle state of pending scheduled tasks to determin active state for manual refresh button
 		// TODO: disable manual trigger button
-		taskScheduler.arePendingTasksScheduled { tasksAreSecheduled in
-			if tasksAreSecheduled {
-				// TODO: enable manual trigger button
-			}
-		}
-
 		guard let indexPath = indexPathForRiskCell() else { return }
 		riskConfigurator?.startLoading()
+		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 
 		taskScheduler.cancelAllBackgroundTaskRequests()
@@ -107,6 +103,7 @@ final class HomeInteractor {
 		riskCellTask(completion: {
 			self.riskConfigurator?.stopLoading()
 			guard let indexPath = self.indexPathForRiskCell() else { return }
+			self.homeViewController.updateSections()
 			self.homeViewController.reloadCell(at: indexPath)
 
 			taskScheduler.scheduleBackgroundTaskRequests()
@@ -128,7 +125,9 @@ final class HomeInteractor {
 
 	func updateActiveCell() {
 		guard let indexPath = indexPathForActiveCell() else { return }
+		let currentState = stateHandler.getState()
 		activeConfigurator.set(newState: currentState)
+		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 	}
 
@@ -158,10 +157,12 @@ final class HomeInteractor {
 		updateRiskLoading()
 		updateRiskButton()
 		updateRiskCounter()
+		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	private func initialCellConfigurators() -> [CollectionViewCellConfiguratorAny] {
+	private func initialCellConfigurators() -> [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] {
+		let currentState = stateHandler.getState()
 		activeConfigurator = HomeActivateCellConfigurator(state: currentState)
 		let dateLastExposureDetection = store.dateLastExposureDetection
 
@@ -224,11 +225,8 @@ final class HomeInteractor {
 			}
 		}
 
-		let submitConfigurator = HomeSubmitCellConfigurator()
-
-		submitConfigurator.submitAction = { [unowned self] in
-			self.homeViewController.showSubmitResult()
-		}
+		// MARK: Configure exposure submission view.
+		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
@@ -258,37 +256,82 @@ final class HomeInteractor {
 			accessibilityIdentifier: Accessibility.Cell.settingsCardTitle
 		)
 
-		var configurators: [CollectionViewCellConfiguratorAny] = [activeConfigurator]
+		var actionsConfigurators: [CollectionViewCellConfiguratorAny] = []
+		actionsConfigurators.append(activeConfigurator)
 		if let risk = riskConfigurator {
-			configurators.append(risk)
+			actionsConfigurators.append(risk)
 		}
-		let others: [CollectionViewCellConfiguratorAny] = [
-			submitConfigurator,
-			info1Configurator,
-			info2Configurator,
-			appInformationConfigurator,
-			settingsConfigurator
-		]
-		configurators.append(contentsOf: others)
-		return configurators
+
+		if let exposureSubmission = exposureSubmissionConfigurator {
+			actionsConfigurators.append(exposureSubmission)
+		}
+
+		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
+		let settingsConfigurators: [CollectionViewCellConfiguratorAny] = [appInformationConfigurator, settingsConfigurator]
+
+		let actionsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
+			= (.actions, actionsConfigurators)
+		let infoSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
+			= (.infos, infosConfigurators)
+		let settingsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
+			= (.settings, settingsConfigurators)
+
+		var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+		sections.append(contentsOf: [actionsSection, infoSection, settingsSection])
+
+		return sections
+	}
+
+	private func selectConfiguratorForExposureSubmissionCell() -> CollectionViewCellConfiguratorAny? {
+		/* Enable this once the home view refreshing is done.
+		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
+			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
+			return HomeExposureSubmissionStateCellConfigurator()
+		} else if store.registrationToken != nil {
+
+			// This is shown when we registered a test.
+			let testResulCellConfigurator = HomeTestResultCellConfigurator()
+			testResulCellConfigurator.buttonAction = { [weak self] in
+				self?.homeViewController.showTestResult()
+			}
+			testResulCellConfigurator.didConfigureCell = { configurator, cell in
+				self.homeViewController.updateTestResultFor(cell, with: configurator)
+			}
+
+			return testResulCellConfigurator
+		}*/
+
+		// This is the default view that is shown when no test results are available.
+		let submitCellConfigurator = HomeSubmitCellConfigurator()
+		submitCellConfigurator.submitAction = { [unowned self] in
+			self.homeViewController.showExposureSubmission()
+		}
+
+		return submitCellConfigurator
 	}
 
 	private func indexPathForActiveCell() -> IndexPath? {
-		let index = cells.firstIndex { cellConfigurator in
-			cellConfigurator === self.activeConfigurator
+		for section in sections {
+			let index = section.cellConfigurators.firstIndex { cellConfigurator in
+				cellConfigurator === self.activeConfigurator
+			}
+			guard let item = index else { return nil }
+			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+			return indexPath
 		}
-		guard let item = index else { return nil }
-		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-		return indexPath
+		return nil
 	}
 
 	private func indexPathForRiskCell() -> IndexPath? {
-		let index = cells.firstIndex { cellConfigurator in
-			cellConfigurator === self.riskConfigurator
+		for section in sections {
+			let index = section.cellConfigurators.firstIndex { cellConfigurator in
+				cellConfigurator === self.riskConfigurator
+			}
+			guard let item = index else { return nil }
+			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+			return indexPath
 		}
-		guard let item = index else { return nil }
-		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-		return indexPath
+		return nil
 	}
 
 	// MARK: Timer
@@ -366,7 +409,7 @@ extension HomeInteractor: StateHandlerObserverDelegate {
 }
 
 extension HomeInteractor: ExposureStateUpdating {
-	func updateState(_ state: ExposureManagerState) {
+	func updateExposureState(_ state: ExposureManagerState) {
 		stateHandler.exposureManagerDidUpdate(to: state)
 	}
 }

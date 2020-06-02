@@ -19,6 +19,14 @@ import Foundation
 import UIKit
 
 class AppInformationViewController: UITableViewController {
+	
+	@IBOutlet weak var labelVersion: UILabel!
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		updateVersionLabel()
+	}
+	
 	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
 		let destination = segue.destination
 
@@ -41,6 +49,13 @@ class AppInformationViewController: UITableViewController {
 		case .terms:
 			(destination as? AppInformationDetailViewController)?.model = .terms
 		}
+	}
+	
+	func updateVersionLabel() {
+		guard let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] else { return }
+		guard let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] else { return }
+		
+		self.labelVersion.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
 	}
 }
 

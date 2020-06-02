@@ -18,6 +18,7 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
+import Reachability
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: Properties
@@ -31,7 +32,16 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore
 	}
 
+	#if targetEnvironment(simulator) || COMMUNITY
+	// Enable third party contributors that do not have the required
+	// entitlements to also use the app
+	private let exposureManager: ExposureManager = {
+		let keys = [ENTemporaryExposureKey()]
+		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+	}()
+	#else
 	private let exposureManager = ENAExposureManager()
+	#endif
 	private let taskScheduler = ENATaskScheduler()
 	private let navigationController: UINavigationController = .withLargeTitle()
 	private var homeController: HomeViewController?
@@ -100,7 +110,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		exposureManager.resume(observer: self)
 
 		UNUserNotificationCenter.current().delegate = self
-		taskScheduler.scheduleBackgroundTaskRequests()
 
 		setupUI()
 
@@ -119,17 +128,19 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: Helper
 
 	private func setupUI() {
-		store.isOnboarded ? showHome() : showOnboarding()
+		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
+			showOnboarding()
+		} else if !store.isOnboarded {
+			showOnboarding()
+		} else {
+			showHome()
+		}
+		UINavigationBar.appearance().tintColor = UIColor.preferredColor(for: .tint)
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 	}
 
 	private func showHome(animated _: Bool = false) {
-		#if targetEnvironment(simulator)
-		// Enable third party contributors that do not have the required
-		// entitlements to skip the exposure setup step in the iOS Simulator
-		presentHomeVC()
-		#else
 		if exposureManager.preconditions().status == .active {
 			presentHomeVC()
 		} else {
@@ -143,7 +154,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				self?.presentHomeVC()
 			}
 		}
-		#endif
 	}
 
 	private func presentHomeVC() {
@@ -197,7 +207,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			fatalError("received invalid summary notification. this is a programmer error")
 		}
 		state.summary = summary
-		updateState(state.exposureManager)
+		updateExposureState(state.exposureManager)
 	}
 
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -227,8 +237,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
 			store.developerVerificationBaseURLOverride = verificationBaseURL
 		}
-
-		UserDefaults.standard.synchronize()
+		
 	}
 
 	// MARK: Privacy Protection
@@ -240,6 +249,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	func sceneWillResignActive(_: UIScene) {
 		showPrivacyProtectionWindow()
+	}
+
+	func sceneDidEnterBackground(_ scene: UIScene) {
+		taskScheduler.scheduleBackgroundTaskRequests()
 	}
 
 	private var privacyProtectionWindow: UIWindow?
@@ -288,7 +301,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		}
 
 		state.exposureManager = newState
-		updateState(newState)
+		updateExposureState(newState)
 	}
 }
 
@@ -311,7 +324,7 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.notification.request.identifier {
-		case ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier:
+		case ENATaskIdentifier.detectExposures.backgroundTaskSchedulerIdentifier:
 			log(message: "Handling notification for \(response.notification.request.identifier)")
 
 			switch response.actionIdentifier {
@@ -354,7 +367,8 @@ extension SceneDelegate {
 }
 
 extension SceneDelegate: ExposureStateUpdating {
-	func updateState(_ state: ExposureManagerState) {
-		homeController?.updateState(state)
+	func updateExposureState(_ state: ExposureManagerState) {
+		homeController?.homeInteractor.state.summary = self.state.summary
+		homeController?.updateExposureState(state)
 	}
 }
