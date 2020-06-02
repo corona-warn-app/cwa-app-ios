@@ -76,8 +76,6 @@ final class OnboardingInfoViewController: UIViewController {
 
 	var onboardingInfo: OnboardingInfo?
 
-	private let notificationCenter = UNUserNotificationCenter.current()
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		onboardingInfo = onboardingInfos[pageType.rawValue]
@@ -210,7 +208,12 @@ final class OnboardingInfoViewController: UIViewController {
 	// MARK: Exposure notifications
 
 	private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
-		guard !TestEnvironment.shared.isUITesting && !exposureManagerActivated else {
+		if exposureManager is MockExposureManager {
+			completion?()
+			return
+		}
+
+		guard !exposureManagerActivated else {
 			completion?()
 			return
 		}
@@ -256,20 +259,9 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
-		if TestEnvironment.shared.isUITesting {
+		exposureManager.requestUserNotificationsPermissions() {
 			completion?()
 			return
-		}
-
-		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-		notificationCenter.requestAuthorization(options: options) { _, error in
-			if let error = error {
-				// handle error
-				log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
-			}
-			DispatchQueue.main.async {
-				completion?()
-			}
 		}
 	}
 

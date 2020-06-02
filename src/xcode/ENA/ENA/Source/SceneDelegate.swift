@@ -128,7 +128,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: Helper
 
 	private func setupUI() {
-		store.isOnboarded ? showHome() : showOnboarding()
+		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
+			showOnboarding()
+		} else if !store.isOnboarded {
+			showOnboarding()
+		} else {
+			showHome()
+		}
 		UINavigationBar.appearance().tintColor = UIColor.preferredColor(for: .tint)
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
