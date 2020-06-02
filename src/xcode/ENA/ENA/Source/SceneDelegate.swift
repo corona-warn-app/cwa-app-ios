@@ -20,17 +20,10 @@ import ExposureNotification
 import UIKit
 import Reachability
 
-final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
 
 	var window: UIWindow?
-	var store: Store {
-		UIApplication.coronaWarnDelegate().store
-	}
-
-	private var diagnosisKeysStore: DownloadedPackagesStore {
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore
-	}
 
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
@@ -42,7 +35,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	#else
 	private let exposureManager = ENAExposureManager()
 	#endif
-	private lazy var taskScheduler = ENATaskScheduler()
 	private let navigationController: UINavigationController = .withLargeTitle()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {
@@ -161,9 +153,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			HomeViewController(
 				coder: coder,
 				exposureManager: self.exposureManager,
-				client: UIApplication.coronaWarnDelegate().client,
+				client: self.client,
 				store: self.store,
-				keyPackagesStore: self.diagnosisKeysStore,
+				keyPackagesStore: self.downloadedPackagesStore,
 				delegate: self,
 				taskScheduler: self.taskScheduler
 			)

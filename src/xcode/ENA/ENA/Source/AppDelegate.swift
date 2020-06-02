@@ -28,6 +28,20 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var taskScheduler: ENATaskScheduler { get }
 }
 
+protocol RequiresAppDependencies {
+	var client: Client { get }
+	var downloadedPackagesStore: DownloadedPackagesStore { get }
+	var store: Store { get }
+	var taskScheduler: ENATaskScheduler { get }
+}
+
+extension RequiresAppDependencies {
+	var client: Client { UIApplication.coronaWarnDelegate().client }
+	var downloadedPackagesStore: DownloadedPackagesStore { UIApplication.coronaWarnDelegate().downloadedPackagesStore }
+	var store: Store { UIApplication.coronaWarnDelegate().store }
+	var taskScheduler: ENATaskScheduler { UIApplication.coronaWarnDelegate().taskScheduler }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	let taskScheduler = ENATaskScheduler()
