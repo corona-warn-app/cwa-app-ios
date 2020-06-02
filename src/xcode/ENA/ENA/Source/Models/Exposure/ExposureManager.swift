@@ -24,6 +24,8 @@ enum ExposureNotificationError: Error {
 	case exposureNotificationRequired
 	case exposureNotificationAuthorization
 	case exposureNotificationUnavailable
+	/// Typically occurs when `activate()` is called more than once.
+	case apiMisuse
 }
 
 struct ExposureManagerState {
@@ -61,19 +63,37 @@ struct ExposureManagerState {
 
 extension ENManager: Manager {}
 
-protocol ExposureManager {
+
+protocol ExposureManagerLifeCycle {
 	typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
 	func invalidate()
 	func activate(completion: @escaping CompletionHandler)
 	func enable(completion: @escaping CompletionHandler)
 	func disable(completion: @escaping CompletionHandler)
 	func preconditions() -> ExposureManagerState
-	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+}
+
+
+protocol DiagnosisKeysRetrieval {
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+}
+
+
+protocol ExposureDetector {
+	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+}
+
+protocol ExposureManagerObserving {
 	func resume(observer: ENAExposureManagerObserver)
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController?
 }
+
+
+typealias ExposureManager = ExposureManagerLifeCycle &
+	DiagnosisKeysRetrieval &
+	ExposureDetector & ExposureManagerObserving
+
 
 protocol ENAExposureManagerObserver: AnyObject {
 	func exposureManager(
@@ -211,6 +231,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				completion(ExposureNotificationError.exposureNotificationRequired)
 			case .restricted:
 				completion(ExposureNotificationError.exposureNotificationUnavailable)
+			case .apiMisuse:
+				completion(ExposureNotificationError.apiMisuse)
 			default:
 				let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
 				logError(message: error)

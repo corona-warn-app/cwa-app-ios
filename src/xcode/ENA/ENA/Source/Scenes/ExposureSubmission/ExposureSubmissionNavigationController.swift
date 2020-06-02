@@ -70,6 +70,9 @@ extension ExposureSubmissionNavigationControllerChild where Self: UIViewControll
 }
 
 class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
+
+	private weak var homeViewController: HomeViewController?
+	private var testResult: TestResult?
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
 	private var keyboardWillChangeFrameObserver: NSObjectProtocol?
@@ -88,10 +91,14 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	init?(
 		coder: NSCoder,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		homeViewController: HomeViewController? = nil,
+		testResult: TestResult? = nil
 	) {
 		super.init(coder: coder)
 		self.exposureSubmissionService = exposureSubmissionService
+		self.homeViewController = homeViewController
+		self.testResult = testResult
 
 		let rootVC = getRootViewController()
 		viewControllers = [rootVC]
@@ -101,7 +108,19 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	/// Returns the root view controller, depending on whether we have a
+	/// registration token or not.
 	private func getRootViewController() -> UIViewController {
+
+		// We got a test result and can jump straight into the test result view controller.
+		if let service = exposureSubmissionService, testResult != nil {
+			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
+			vc.exposureSubmissionService = service
+			vc.testResult = testResult
+			return vc
+		}
+
+		// By default, we show the intro view.
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self)
 		return vc
 	}
@@ -162,6 +181,10 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			self.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
 			self.updateBottomSafeAreaInset(animated: true)
 		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
