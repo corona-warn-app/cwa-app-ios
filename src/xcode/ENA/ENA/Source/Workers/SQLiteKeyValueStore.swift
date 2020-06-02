@@ -23,6 +23,7 @@ class SQLiteKeyValueStore {
 	private let db: FMDatabase
 
 	/// - parameter url: URL on disk where the FMDB should be initialized
+	/// If any part of the init fails no Datbase will be created
 	init(with url: URL) {
 		let sqlStmt = """
 		CREATE TABLE IF NOT EXISTS kv (
@@ -41,19 +42,20 @@ class SQLiteKeyValueStore {
 			key = String(decoding: keyData, as: UTF8.self)
 		} else {
 			guard let generatedKey = generateDatabaseKey() else {
+				db.close()
 				return
 			}
 			key = generatedKey
 			if savetoKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) == noErr {
 				logError(message: "Unable to save Key to Keychain")
+				db.close()
 				return
 			}
 		}
-
 		let dbhandle = OpaquePointer(db.sqliteHandle)
-
 		guard sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
 			logError(message: "Unable to set Key")
+			db.close()
 			return
 		}
 		db.executeStatements(sqlStmt)
@@ -63,9 +65,39 @@ class SQLiteKeyValueStore {
 		db.close()
 	}
 
+	///Open Database Connection, set the Key and check if the Key/Value Table already exits.
+	/// This retries the init steps, in case there was an issue
 	private func openDbIfNeeded() {
 		if !db.isOpen {
 			db.open()
+			var key: String
+			if let keyData = loadFromKeychain(key: "secureStoreDatabaseKey") {
+				key = String(decoding: keyData, as: UTF8.self)
+			} else {
+				guard let generatedKey = generateDatabaseKey() else {
+					db.close()
+					return
+				}
+				key = generatedKey
+				if savetoKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) == noErr {
+					logError(message: "Unable to save Key to Keychain")
+					db.close()
+					return
+				}
+			}
+			let dbhandle = OpaquePointer(db.sqliteHandle)
+			guard sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
+				logError(message: "Unable to set Key")
+				db.close()
+				return
+			}
+			let sqlStmt = """
+			CREATE TABLE IF NOT EXISTS kv (
+				key TEXT UNIQUE,
+				value BLOB
+			);
+			"""
+			db.executeStatements(sqlStmt)
 		}
 	}
 
