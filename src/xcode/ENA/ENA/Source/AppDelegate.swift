@@ -30,21 +30,32 @@ protocol CoronaWarnAppDelegate: AnyObject {
 
 protocol RequiresAppDependencies {
 	var client: Client { get }
-	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
+	var downloadedPackagesStore: DownloadedPackagesStore { get }
 }
 
 extension RequiresAppDependencies {
-	var client: Client { UIApplication.coronaWarnDelegate().client }
-	var downloadedPackagesStore: DownloadedPackagesStore { UIApplication.coronaWarnDelegate().downloadedPackagesStore }
-	var store: Store { UIApplication.coronaWarnDelegate().store }
-	var taskScheduler: ENATaskScheduler { UIApplication.coronaWarnDelegate().taskScheduler }
+	var client: Client {
+		UIApplication.coronaWarnDelegate().client
+	}
+
+	var downloadedPackagesStore: DownloadedPackagesStore {
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore
+	}
+
+	var store: Store {
+		UIApplication.coronaWarnDelegate().store
+	}
+
+	var taskScheduler: ENATaskScheduler {
+		UIApplication.coronaWarnDelegate().taskScheduler
+	}
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	let taskScheduler = ENATaskScheduler()
+	let taskScheduler = ENATaskScheduler.shared
 	private var exposureManager: ExposureManager = ENAExposureManager()
 	private var exposureDetectionTransaction: ExposureDetectionTransaction?
 	private var exposureSubmissionService: ENAExposureSubmissionService?

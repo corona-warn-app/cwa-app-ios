@@ -44,7 +44,8 @@ protocol ENATaskExecutionDelegate: AnyObject {
 }
 
 final class ENATaskScheduler {
-	init() {
+	static let shared = ENATaskScheduler()
+	private init() {
 		registerBackgroundTaskRequests()
 	}
 
