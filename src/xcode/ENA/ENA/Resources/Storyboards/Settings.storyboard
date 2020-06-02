@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="te1-Qd-nmE">
-                                <rect key="frame" x="0.0" y="56" width="414" height="610"/>
+                                <rect key="frame" x="0.0" y="56" width="414" height="627"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Anwendung Zurücksetzen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kt0-9j-kBQ" userLabel="Subtltle Label">
                                         <rect key="frame" x="16" y="0.0" width="382" height="18"/>
@@ -38,7 +38,7 @@
                                                         <rect key="frame" x="16" y="0.0" width="382" height="324.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDb-RN-MMz" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="42.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                 <color key="textColor" name="textPrimary1"/>
                                                                 <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vY8-lF-Iik">
-                                                                <rect key="frame" x="0.0" y="57.5" width="382" height="267"/>
+                                                                <rect key="frame" x="0.0" y="56" width="382" height="268.5"/>
                                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </string>
                                                                 <color key="textColor" name="textPrimary1"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -141,53 +141,30 @@
                                 </constraints>
                             </scrollView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="N0Q-lm-1nh">
-                                <rect key="frame" x="0.0" y="682" width="414" height="110"/>
+                                <rect key="frame" x="16" y="699" width="382" height="93"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Am-Bb-FCM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="0.0" width="382" height="50"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Daten zurücksetzen"/>
-                                                <connections>
-                                                    <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="wkA-Dj-yfV" secondAttribute="bottom" id="Kbp-1i-BzR"/>
-                                            <constraint firstItem="wkA-Dj-yfV" firstAttribute="top" secondItem="4Am-Bb-FCM" secondAttribute="top" id="O7n-gR-Q6A"/>
-                                            <constraint firstItem="wkA-Dj-yfV" firstAttribute="leading" secondItem="4Am-Bb-FCM" secondAttribute="leading" constant="16" id="V5e-oQ-gF7"/>
-                                            <constraint firstAttribute="height" constant="50" id="etf-J1-Hrs"/>
-                                            <constraint firstAttribute="trailing" secondItem="wkA-Dj-yfV" secondAttribute="trailing" constant="16" id="lRI-iJ-5Z7"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="JOC-sR-dWr"/>
                                         </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G99-lg-oFb">
-                                        <rect key="frame" x="0.0" y="60" width="414" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBM-os-0fd">
-                                                <rect key="frame" x="16" y="0.0" width="382" height="50"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <color key="tintColor" name="tint"/>
-                                                <state key="normal" title="Abbrechen"/>
-                                                <connections>
-                                                    <action selector="discard:" destination="uYn-mg-qmD" eventType="touchUpInside" id="nvG-Tj-vV4"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="IBM-os-0fd" secondAttribute="bottom" id="Eh3-vp-jqM"/>
-                                            <constraint firstAttribute="trailing" secondItem="IBM-os-0fd" secondAttribute="trailing" constant="16" id="hWu-az-aWg"/>
-                                            <constraint firstItem="IBM-os-0fd" firstAttribute="leading" secondItem="G99-lg-oFb" secondAttribute="leading" constant="16" id="ltm-pd-AZ7"/>
-                                            <constraint firstItem="IBM-os-0fd" firstAttribute="top" secondItem="G99-lg-oFb" secondAttribute="top" id="tXw-sA-rbu"/>
-                                        </constraints>
-                                    </view>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Daten zurücksetzen"/>
+                                        <connections>
+                                            <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBM-os-0fd">
+                                        <rect key="frame" x="0.0" y="60" width="382" height="33"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <color key="tintColor" name="tint"/>
+                                        <state key="normal" title="Abbrechen"/>
+                                        <connections>
+                                            <action selector="discard:" destination="uYn-mg-qmD" eventType="touchUpInside" id="nvG-Tj-vV4"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="G99-lg-oFb" firstAttribute="height" secondItem="4Am-Bb-FCM" secondAttribute="height" id="y5L-v5-toa"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="background"/>
@@ -196,9 +173,9 @@
                             <constraint firstItem="te1-Qd-nmE" firstAttribute="leading" secondItem="DEG-xR-O81" secondAttribute="leading" id="Iug-Iw-1TV"/>
                             <constraint firstItem="te1-Qd-nmE" firstAttribute="top" secondItem="DEG-xR-O81" secondAttribute="top" id="OmK-4M-tAf"/>
                             <constraint firstItem="DEG-xR-O81" firstAttribute="bottom" secondItem="N0Q-lm-1nh" secondAttribute="bottom" constant="16" id="TOs-1t-DXK"/>
-                            <constraint firstItem="N0Q-lm-1nh" firstAttribute="leading" secondItem="DEG-xR-O81" secondAttribute="leading" id="a0l-7R-R1M"/>
+                            <constraint firstItem="N0Q-lm-1nh" firstAttribute="leading" secondItem="DEG-xR-O81" secondAttribute="leading" constant="16" id="a0l-7R-R1M"/>
                             <constraint firstItem="N0Q-lm-1nh" firstAttribute="top" secondItem="te1-Qd-nmE" secondAttribute="bottom" constant="16" id="kVW-Uq-KP2"/>
-                            <constraint firstItem="N0Q-lm-1nh" firstAttribute="trailing" secondItem="DEG-xR-O81" secondAttribute="trailing" id="nzl-qb-yZo"/>
+                            <constraint firstItem="DEG-xR-O81" firstAttribute="trailing" secondItem="N0Q-lm-1nh" secondAttribute="trailing" constant="16" id="nzl-qb-yZo"/>
                             <constraint firstItem="te1-Qd-nmE" firstAttribute="width" secondItem="jQp-ED-SYd" secondAttribute="width" id="v34-UV-sIf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DEG-xR-O81"/>
