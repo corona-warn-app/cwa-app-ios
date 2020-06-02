@@ -36,7 +36,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		fetchService()
 	}
 
-	override func viewDidDisappear(_ animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		setButtonEnabled(enabled: true)
 	}
