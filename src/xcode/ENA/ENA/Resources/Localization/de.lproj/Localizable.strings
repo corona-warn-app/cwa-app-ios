@@ -24,7 +24,10 @@
 "Alert_ActionNo" = "Nein";
 "Alert_TitleKeySubmit" = "Tan Generierung";
 "Alert_DescriptionKeySubmit" = "Sind Sie damit einverstanden, Ihre TAN generieren zu lassen?";
-
+"Alert_BluetoothOff_Title" = "Bluetooth einschalten";
+"Alert_BluetoothOff_Description" = "Bluetooth muss in den Systemeinstellungen aktiviert werden, sodass diese App funktioniert.";
+"Alert_CancelAction_Later" = "Später";
+"Alert_DefaultAction_OpenSettings" = "Einstellungen öffnen";
 
 // Exposure Detection
 "ExposureDetection_Off" = "Risikoermittlung gestoppt";

@@ -16,6 +16,7 @@
 // under the License.
 
 import ExposureNotification
+import UIKit
 
 final class MockExposureManager {
 	typealias MockDiagnosisKeysResult = ([ENTemporaryExposureKey]?, Error?)
@@ -68,4 +69,6 @@ extension MockExposureManager: ExposureManager {
 	}
 
 	func resume(observer: ENAExposureManagerObserver) {	}
+
+	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? { return nil }
 }
