@@ -48,7 +48,7 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		iconImageView2.image = images(for: state).1
 		actionButton.setTitle(AppStrings.ExposureNotificationSetting.detailActionButtonTitle, for: .normal)
 
-		actionTitleLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.boldSystemFont(ofSize: 22))
+		actionTitleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
 		switch state {
 		case .enabled, .disabled:
 			return
