@@ -290,6 +290,8 @@ final class HomeViewController: UIViewController {
 			} else if row == 1 {
 				showExposureDetection()
 			} else {
+				// Do not allow to open a pending test.
+				guard let result = homeInteractor.testResult, result != .pending else { return }
 				showExposureSubmission(with: homeInteractor.testResult)
 			}
 		case .infos:
