@@ -214,12 +214,25 @@ extension SQLiteKeyValueStore {
 	}
 
 	func generateDatabaseKey() -> String? {
-		var bytes = [UInt8](repeating: 0, count: 64)
+		var bytes = [UInt8](repeating: 0, count: 32)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
 		guard result == errSecSuccess else {
 			logError(message: "Error creating random bytes.")
 			return nil
 		}
-		return Data(bytes).base64EncodedString()
+		return "x'"+Data(bytes).hexEncodedString()+"'"
+	}
+}
+
+/// Extensions for Hexencoding when generating key
+extension Data {
+	struct HexEncodingOptions: OptionSet {
+		let rawValue: Int
+		static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+	}
+
+	func hexEncodedString(options: HexEncodingOptions = []) -> String {
+		let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
+		return map { String(format: format, $0) }.joined()
 	}
 }
