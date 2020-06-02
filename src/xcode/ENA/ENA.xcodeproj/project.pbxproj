@@ -85,6 +85,7 @@
 		51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE277A2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift */; };
 		51FE277D247535C400BB8144 /* RiskLoadingItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51FE277C247535C400BB8144 /* RiskLoadingItemView.xib */; };
 		51FE277F247535E300BB8144 /* RiskLoadingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE277E247535E300BB8144 /* RiskLoadingItemView.swift */; };
+		5BAB5B632487066E00935F43 /* HairlineConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAB5B622487066E00935F43 /* HairlineConstraint.swift */; };
 		710ABB1F2475115500948792 /* UITableViewController+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB1E2475115500948792 /* UITableViewController+Enum.swift */; };
 		710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */; };
 		710ABB25247514BD00948792 /* UIViewController+Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB24247514BD00948792 /* UIViewController+Segue.swift */; };
@@ -373,6 +374,7 @@
 		51FE277A2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLoadingItemViewConfigurator.swift; sourceTree = "<group>"; };
 		51FE277C247535C400BB8144 /* RiskLoadingItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskLoadingItemView.xib; sourceTree = "<group>"; };
 		51FE277E247535E300BB8144 /* RiskLoadingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLoadingItemView.swift; sourceTree = "<group>"; };
+		5BAB5B622487066E00935F43 /* HairlineConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HairlineConstraint.swift; sourceTree = "<group>"; };
 		710ABB1E2475115500948792 /* UITableViewController+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewController+Enum.swift"; sourceTree = "<group>"; };
 		710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeTableViewCell.swift; sourceTree = "<group>"; };
 		710ABB24247514BD00948792 /* UIViewController+Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Segue.swift"; sourceTree = "<group>"; };
@@ -998,6 +1000,7 @@
 				71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */,
 				713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */,
 				85E33443247EB357006E74EC /* CircularProgressView.swift */,
+				5BAB5B622487066E00935F43 /* HairlineConstraint.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1806,6 +1809,7 @@
 				51CE1B87246078B6002CF42A /* ActivateCollectionViewCell.swift in Sources */,
 				B1C6ED00247F23730066138F /* NotificationName.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
+				5BAB5B632487066E00935F43 /* HairlineConstraint.swift in Sources */,
 				51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */,
 				CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
