@@ -57,31 +57,52 @@ extension RiskLegendViewController {
 					.title2(text: AppStrings.RiskLegend.definitionsTitle)
 				]
 			),
-			.section(cells: [
-				.headline(text: AppStrings.RiskLegend.storeTitle),
-				.body(text: AppStrings.RiskLegend.storeText)
-			]),
-			.section(cells: [
-				.headline(text: AppStrings.RiskLegend.checkTitle),
-				.body(text: AppStrings.RiskLegend.checkText)
-			]),
-			.section(cells: [
-				.headline(text: AppStrings.RiskLegend.contactTitle),
-				.body(text: AppStrings.RiskLegend.contactText)
-			]),
-			.section(cells: [
-				.headline(text: AppStrings.RiskLegend.notificationTitle),
-				.body(text: AppStrings.RiskLegend.notificationText)
-			]),
-			.section(cells: [
-				.headline(text: AppStrings.RiskLegend.randomTitle),
-				.body(text: AppStrings.RiskLegend.randomText)
-			])
+			.section(
+				cells: [
+					.headlineWithoutBottomInset(text: AppStrings.RiskLegend.storeTitle),
+					.body(text: AppStrings.RiskLegend.storeText)
+				]
+			),
+			.section(
+				header: .space(height: 16),
+				cells: [
+					.headlineWithoutBottomInset(text: AppStrings.RiskLegend.checkTitle),
+					.body(text: AppStrings.RiskLegend.checkText)
+				]
+			),
+			.section(
+				header: .space(height: 16),
+				cells: [
+					.headlineWithoutBottomInset(text: AppStrings.RiskLegend.contactTitle),
+					.body(text: AppStrings.RiskLegend.contactText)
+				]
+			),
+			.section(
+				header: .space(height: 16),
+				cells: [
+					.headlineWithoutBottomInset(text: AppStrings.RiskLegend.notificationTitle),
+					.body(text: AppStrings.RiskLegend.notificationText)
+				]
+			),
+			.section(
+				header: .space(height: 16),
+				cells: [
+					.headlineWithoutBottomInset(text: AppStrings.RiskLegend.randomTitle),
+					.body(text: AppStrings.RiskLegend.randomText)
+				]
+			)
 		])
 	}
 }
 
 private extension DynamicCell {
+	static func headlineWithoutBottomInset(text: String) -> Self {
+		.headline(text: text) { _, cell, _ in
+			cell.contentView.preservesSuperviewLayoutMargins = false
+			cell.contentView.layoutMargins.bottom = 0
+		}
+	}
+	
 	static func iconTitle(number: UInt8, text: String) -> Self {
 		.identifier(RiskLegendViewController.CellReuseIdentifier.numberedTitle) { _, cell, _ in
 			guard let cell = cell as? RiskLegendNumberedTitleCell else { return }
@@ -89,7 +110,7 @@ private extension DynamicCell {
 			cell.textLabel?.text = text
 		}
 	}
-
+	
 	static func dotBodyCell(color: UIColor, text: String) -> Self {
 		.identifier(RiskLegendViewController.CellReuseIdentifier.dotBody) { _, cell, _ in
 			guard let cell = cell as? RiskLegendDotBodyCell else { return }
