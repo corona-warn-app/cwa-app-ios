@@ -271,10 +271,10 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 // Home Cards
 
 // Home Active card
-"Home_Activate_Card_On_Title" = "Risikoermittlung aktiv";
-"Home_Activate_Card_Off_Title" = "Risikoermittlung gestoppt";
+"Home_Activate_Card_On_Title" = "Risiko-Ermittlung aktiv";
+"Home_Activate_Card_Off_Title" = "Risiko-Ermittlung gestoppt";
 "Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth deaktiviert";
-"Home_Activate_Card_Internet_Off_Title" = "Internet deaktiviert";
+"Home_Activate_Card_Internet_Off_Title" = "Keine Internetverbindung";
 
 // Home Unknown card
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
