@@ -26,11 +26,11 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 	func testSubmitExpousure_Success() {
 		// Arrange
-		let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = MockTestClient(submissionError: nil)
 		let store = MockTestStore()
 
-		let service = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		let expectation = self.expectation(description: "Success")
 		var error: ExposureSubmissionError?
 
@@ -48,11 +48,11 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 	func testSubmitExpousure_NoKeys() {
 		// Arrange
-		let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (nil, nil))
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = MockTestClient(submissionError: nil)
 		let store = MockTestStore()
 
-		let service = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		let expectation = self.expectation(description: "NoKeys")
 
 		// Act
@@ -73,11 +73,11 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 	func testSubmitExpousure_EmptyKeys() {
 		// Arrange
-		let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (nil, nil))
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
 		let client = MockTestClient(submissionError: nil)
 		let store = MockTestStore()
 
-		let service = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		let expectation = self.expectation(description: "EmptyKeys")
 
 		// Act
@@ -98,11 +98,11 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 	func testSubmitExpousure_OtherError() {
 		// Arrange
-		let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = MockTestClient(submissionError: .invalidPayloadOrHeaders)
 		let store = MockTestStore()
 
-		let service = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		let expectation = self.expectation(description: "OtherError")
 
 		// Act
@@ -123,11 +123,12 @@ class ExposureSubmissionServiceTests: XCTestCase {
 
 	func testSubmitExpousure_InvalidTan() {
 		// Arrange
-		let exposureManager = MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+
+		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
 		let client = MockTestClient(submissionError: .invalidTan)
 		let store = MockTestStore()
 
-		let service = ENAExposureSubmissionService(manager: exposureManager, client: client, store: store)
+		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
 		let expectation = self.expectation(description: "InvalidTan")
 
 		// Act

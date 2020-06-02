@@ -29,11 +29,11 @@ protocol CoronaWarnAppDelegate: AnyObject {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-	// swiftlint:disable:next force_unwrapping
-	static let backgroundTaskIdentifier = Bundle.main.bundleIdentifier! + ".exposure-notification"
+	let taskScheduler = ENATaskScheduler()
 	private var exposureManager: ExposureManager = ENAExposureManager()
-	private var exposureDetection: ExposureDetection?
+private var exposureDetection: ExposureDetection?
+	private var exposureSubmissionService: ENAExposureSubmissionService?
+
 	let downloadedPackagesStore: DownloadedPackagesStore = {
 		let fileManager = FileManager()
 		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
@@ -87,7 +87,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
-		let taskScheduler = ENATaskScheduler()
+		UIDevice.current.isBatteryMonitoringEnabled = true
+
+		taskScheduler.taskDelegate = self
 		taskScheduler.registerBackgroundTaskRequests()
 		return true
 	}
@@ -284,5 +286,68 @@ private extension DownloadedPackagesStore {
 			contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
 		)
 		return packages
+	}
+}
+
+extension AppDelegate: ENATaskExecutionDelegate {
+	func executeExposureDetectionRequest(task: BGTask) {
+		func complete(success: Bool) {
+			task.setTaskCompleted(success: success)
+			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+		}
+
+		guard
+			self.exposureDetection == nil,
+			exposureManager.preconditions().authorized,
+			UIApplication.shared.backgroundRefreshStatus == .available
+			else {
+			complete(success: false)
+			return
+		}
+
+		exposureDetection = ExposureDetection(delegate: self)
+
+		exposureDetection?.start { _ in 
+			complete(success: true)
+		}
+
+		task.expirationHandler = {
+			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
+			complete(success: false)
+		}
+	}
+
+	func executeFetchTestResults(task: BGTask) {
+		func complete(success: Bool) {
+			task.setTaskCompleted(success: success)
+			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+		}
+
+		
+		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
+
+		self.exposureSubmissionService?.getTestResult { result in
+
+			switch result {
+			case .failure(let error):
+				logError(message: error.localizedDescription)
+
+			case .success(let testResult):
+				if testResult != .pending {
+					self.taskScheduler.notificationManager.presentNotification(
+						title: AppStrings.LocalNotifications.testResultsTitle,
+						body: AppStrings.LocalNotifications.testResultsBody,
+						identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+				}
+			}
+
+			complete(success: true)
+		}
+
+		task.expirationHandler = {
+			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
+			complete(success: false)
+		}
+
 	}
 }

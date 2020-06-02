@@ -1,21 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "Onboarding_1_Group_in_a_Park_1.pdf",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "Illu_Onboarding_GemeinsamCoronabekaempfen.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }

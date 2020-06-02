@@ -40,6 +40,10 @@ protocol Store: AnyObject {
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
+	// Timestamp that represents the date at which
+	// the user has received a test reult.
+	var testResultReceivedTimeStamp: Int64? { get set }
+
 	// Timestamp representing the last successful diagnosis keys submission.
 	// This is needed to allow in the future delta submissions of diagnosis keys since the last submission.
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? { get set }
@@ -59,227 +63,6 @@ protocol Store: AnyObject {
 	var submitConsentAccept: Bool { get set }
 
 	func clearAll()
-}
-
-// The `DevelopmentStore` class implements the `Store` protocol that defines all required storage attributes.
-/// This class needs to be replaced with an implementation that persists all attributes in an encrypted SQLite database.
-final class DevelopmentStore: Store {
-	func clearAll() {
-		// UserDefaults.standard.removeObject(forKey: "isOnboarded")
-		UserDefaults.standard.removeObject(forKey: "dateLastExposureDetection")
-		UserDefaults.standard.removeObject(forKey: "dateOfAcceptedPrivacyNotice")
-		UserDefaults.standard.removeObject(forKey: "allowsCellularUse")
-		UserDefaults.standard.removeObject(forKey: "developerSubmissionBaseURLOverride")
-		UserDefaults.standard.removeObject(forKey: "developerDistributionBaseURLOverride")
-		UserDefaults.standard.removeObject(forKey: "developerVerificationBaseURLOverride")
-		UserDefaults.standard.removeObject(forKey: "teleTan")
-		UserDefaults.standard.removeObject(forKey: "testGUID")
-		UserDefaults.standard.removeObject(forKey: "devicePairingConsentAccept")
-		UserDefaults.standard.removeObject(forKey: "devicePairingConsentAcceptTimestamp")
-		UserDefaults.standard.removeObject(forKey: "devicePairingSuccessfulTimestamp")
-		UserDefaults.standard.removeObject(forKey: "isAllowedToSubmitDiagnosisKeys")
-		UserDefaults.standard.removeObject(forKey: "registrationToken")
-		log(message: "Flushed DevelopmentStore", level: .info)
-	}
-
-	/// Manually remove all keys that are saved through the `Store` protocol.
-	/// We do not loop here since this may destroys keys that are not managed through this class.
-	static func flush() {
-		// UserDefaults.standard.removeObject(forKey: "isOnboarded")
-		UserDefaults.standard.removeObject(forKey: "dateLastExposureDetection")
-		UserDefaults.standard.removeObject(forKey: "dateOfAcceptedPrivacyNotice")
-		UserDefaults.standard.removeObject(forKey: "allowsCellularUse")
-		// UserDefaults.standard.removeObject(forKey: "developerSubmissionBaseURLOverride")
-		// UserDefaults.standard.removeObject(forKey: "developerDistributionBaseURLOverride")
-		// UserDefaults.standard.removeObject(forKey: "developerVerificationBaseURLOverride")
-		UserDefaults.standard.removeObject(forKey: "teleTan")
-		UserDefaults.standard.removeObject(forKey: "testGUID")
-		UserDefaults.standard.removeObject(forKey: "devicePairingConsentAccept")
-		UserDefaults.standard.removeObject(forKey: "devicePairingConsentAcceptTimestamp")
-		UserDefaults.standard.removeObject(forKey: "devicePairingSuccessfulTimestamp")
-		UserDefaults.standard.removeObject(forKey: "isAllowedToSubmitDiagnosisKeys")
-		UserDefaults.standard.removeObject(forKey: "registrationToken")
-		log(message: "Flushed DevelopmentStore", level: .info)
-	}
-
-	// TODO: Implement handlers for these.
-
-	@PersistedAndPublished(
-		key: "lastSuccessfulSubmitDiagnosisKeyTimestamp",
-		notificationName: Notification.Name.lastSuccessfulSubmitDiagnosisKeyTimestampDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "lastSuccessfulSubmitDiagnosisKeyTimestamp") as? Int64
-	)
-	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
-
-	@PersistedAndPublished(
-		key: "numberOfSuccesfulSubmissions",
-		notificationName: Notification.Name.numberOfSuccesfulSubmissionsDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "numberOfSuccesfulSubmissions") as? Int64
-	)
-	var numberOfSuccesfulSubmissions: Int64?
-
-	@PersistedAndPublished(
-		key: "initialSubmitCompleted",
-		notificationName: Notification.Name.initialSubmitCompletedDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "initialSubmitCompleted") as? Bool ?? false
-	)
-	var initialSubmitCompleted: Bool
-
-	@PersistedAndPublished(
-		key: "submitConsentAcceptTimestamp",
-		notificationName: Notification.Name.submitConsentAcceptTimestampDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "submitConsentAcceptTimestamp") as? Int64
-	)
-	var submitConsentAcceptTimestamp: Int64?
-
-	@PersistedAndPublished(
-		key: "submitConsentAccept",
-		notificationName: Notification.Name.submitConsentAcceptDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "submitConsentAccept") as? Bool ?? false
-	)
-	var submitConsentAccept: Bool
-
-	@PersistedAndPublished(
-		key: "registrationToken",
-		notificationName: Notification.Name.registrationTokenDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "registrationToken") as? String
-	)
-	var registrationToken: String?
-
-	@PersistedAndPublished(
-		key: "hasSeenSubmissionExposureTutorial",
-		notificationName: Notification.Name.hasSeenSubmissionExposureTutorialDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "hasSeenSubmissionExposureTutorial") as? Bool ?? false
-	)
-	var hasSeenSubmissionExposureTutorial: Bool
-
-	@PersistedAndPublished(
-		key: "teleTan",
-		notificationName: Notification.Name.teleTanDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "teleTan") as? String
-	)
-	var teleTan: String?
-
-	@PersistedAndPublished(
-		key: "tan",
-		notificationName: Notification.Name.tanDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "tan") as? String
-	)
-	var tan: String?
-
-	@PersistedAndPublished(
-		key: "testGUID",
-		notificationName: Notification.Name.testGUIDDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "testGUID") as? String
-	)
-	var testGUID: String?
-
-	@PersistedAndPublished(
-		key: "devicePairingConsentAccept",
-		notificationName: Notification.Name.devicePairingConsentAcceptDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "devicePairingConsentAccept") as? Bool ?? false
-	)
-	var devicePairingConsentAccept: Bool
-
-	@PersistedAndPublished(
-		key: "devicePairingConsentAcceptTimestamp",
-		notificationName: Notification.Name.devicePairingConsentAcceptTimestampDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "devicePairingConsentAcceptTimestamp") as? Int64
-	)
-	var devicePairingConsentAcceptTimestamp: Int64?
-
-	@PersistedAndPublished(
-		key: "devicePairingSuccessfulTimestamp",
-		notificationName: Notification.Name.devicePairingSuccessfulTimestampDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "devicePairingSuccessfulTimestamp") as? Int64
-	)
-	var devicePairingSuccessfulTimestamp: Int64?
-
-	@PersistedAndPublished(
-		key: "isAllowedToSubmitDiagnosisKeys",
-		notificationName: Notification.Name.isAllowedToSubmitDiagnosisKeysDidChange,
-		defaultValue: UserDefaults
-			.standard
-			.object(forKey: "isAllowedToSubmitDiagnosisKeys") as? Bool ?? false
-	)
-	var isAllowedToSubmitDiagnosisKeys: Bool
-
-	@PersistedAndPublished(
-		key: "isOnboarded",
-		notificationName: Notification.Name.isOnboardedDidChange,
-		defaultValue: (UserDefaults.standard.object(forKey: "isOnboarded") as? String) == "YES"
-	)
-	var isOnboarded: Bool
-
-	@PersistedAndPublished(
-		key: "dateLastExposureDetection",
-		notificationName: Notification.Name.dateLastExposureDetectionDidChange
-	)
-	var dateLastExposureDetection: Date?
-
-	@PersistedAndPublished(
-		key: "dateOfAcceptedPrivacyNotice",
-		notificationName: Notification.Name.dateOfAcceptedPrivacyNoticeDidChange
-	)
-	var dateOfAcceptedPrivacyNotice: Date?
-
-	@PersistedAndPublished(
-		key: "developerSubmissionBaseURLOverride",
-		notificationName: Notification.Name.developerSubmissionBaseURLOverrideDidChange
-	)
-	var developerSubmissionBaseURLOverride: String?
-
-	@PersistedAndPublished(
-		key: "developerDistributionBaseURLOverride",
-		notificationName: Notification.Name.developerDistributionBaseURLOverrideDidChange
-	)
-	var developerDistributionBaseURLOverride: String?
-
-	@PersistedAndPublished(
-		key: "developerVerificationBaseURLOverride",
-		notificationName: Notification.Name.developerVerificationBaseURLOverrideDidChange
-	)
-	var developerVerificationBaseURLOverride: String?
-
-	@PersistedAndPublished(
-		key: "allowRiskChangesNotification",
-		notificationName: Notification.Name.allowRiskChangesNotificationDidChange,
-		defaultValue: true
-	)
-	var allowRiskChangesNotification: Bool
-
-	@PersistedAndPublished(
-		key: "allowTestsStatusNotification",
-		notificationName: Notification.Name.allowTestsStatusNotificationDidChange,
-		defaultValue: true
-	)
-	var allowTestsStatusNotification: Bool
 }
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
@@ -308,166 +91,118 @@ final class SecureStore: Store {
 		kvStore.clearAll()
 	}
 
+	var testResultReceivedTimeStamp: Int64? {
+		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
+		set { kvStore["testResultReceivedTimeStamp"] = newValue }
+	}
+
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
-		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? ?? 0 }
-		set { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.lastSuccessfulSubmitDiagnosisKeyTimestampDidChange, object: nil)
-		}
+		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? }
+		set { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] = newValue }
 	}
 
 	var numberOfSuccesfulSubmissions: Int64? {
 		get { kvStore["numberOfSuccesfulSubmissions"] as Int64? ?? 0 }
-		set { kvStore["numberOfSuccesfulSubmissions"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.numberOfSuccesfulSubmissionsDidChange, object: nil)
-		}
+		set { kvStore["numberOfSuccesfulSubmissions"] = newValue }
 	}
 
 	var initialSubmitCompleted: Bool {
 		get { kvStore["initialSubmitCompleted"] as Bool? ?? false }
-		set { kvStore["initialSubmitCompleted"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.initialSubmitCompletedDidChange, object: nil)
-		}
+		set { kvStore["initialSubmitCompleted"] = newValue }
 	}
 
 	var submitConsentAcceptTimestamp: Int64? {
 		get { kvStore["submitConsentAcceptTimestamp"] as Int64? ?? 0 }
-		set { kvStore["submitConsentAcceptTimestamp"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.lastSuccessfulSubmitDiagnosisKeyTimestampDidChange, object: nil)
-		}
+		set { kvStore["submitConsentAcceptTimestamp"] = newValue }
 	}
 
 	var submitConsentAccept: Bool {
 		get { kvStore["submitConsentAccept"] as Bool? ?? false }
-		set { kvStore["submitConsentAccept"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.submitConsentAcceptDidChange, object: nil)
-		}
+		set { kvStore["submitConsentAccept"] = newValue }
 	}
 
 	var registrationToken: String? {
-		get { kvStore["registrationToken"] as String? ?? "" }
-		set { kvStore["registrationToken"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.registrationTokenDidChange, object: nil)
-		}
+		get { kvStore["registrationToken"] as String? }
+		set { kvStore["registrationToken"] = newValue }
 	}
 
 	var teleTan: String? {
 		get { kvStore["teleTan"] as String? ?? "" }
-		set { kvStore["teleTan"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.teleTanDidChange, object: nil)
-		}
+		set { kvStore["teleTan"] = newValue }
 	}
 
 	var tan: String? {
 		get { kvStore["tan"] as String? ?? "" }
-		set { kvStore["tan"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.tanDidChange, object: nil)
-		}
+		set { kvStore["tan"] = newValue }
 	}
 
 	var testGUID: String? {
 		get { kvStore["testGUID"] as String? ?? "" }
-		set { kvStore["testGUID"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.testGUIDDidChange, object: nil)
-		}
+		set { kvStore["testGUID"] = newValue }
 	}
 
 	var devicePairingConsentAccept: Bool {
 		get { kvStore["devicePairingConsentAccept"] as Bool? ?? false }
-		set { kvStore["devicePairingConsentAccept"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.devicePairingConsentAcceptDidChange, object: nil)
-		}
+		set { kvStore["devicePairingConsentAccept"] = newValue }
 	}
 
 	var devicePairingConsentAcceptTimestamp: Int64? {
 		get { kvStore["devicePairingConsentAcceptTimestamp"] as Int64? ?? 0 }
-		set { kvStore["devicePairingConsentAcceptTimestamp"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.devicePairingConsentAcceptTimestampDidChange, object: nil)
-		}
+		set { kvStore["devicePairingConsentAcceptTimestamp"] = newValue }
 	}
 
 	var devicePairingSuccessfulTimestamp: Int64? {
 		get { kvStore["devicePairingSuccessfulTimestamp"] as Int64? ?? 0 }
-		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.devicePairingSuccessfulTimestampDidChange, object: nil)
-		}
+		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue }
 	}
 
 	var isAllowedToSubmitDiagnosisKeys: Bool {
 		get { kvStore["isAllowedToSubmitDiagnosisKeys"] as Bool? ?? false }
-		set { kvStore["isAllowedToSubmitDiagnosisKeys"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.isAllowedToSubmitDiagnosisKeysDidChange, object: nil)
-		}
+		set { kvStore["isAllowedToSubmitDiagnosisKeys"] = newValue }
 	}
 
 	var isOnboarded: Bool {
-		get {
-			kvStore["isOnboarded"] as Bool? ?? false
-		}
-		set {
-			kvStore["isOnboarded"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.isOnboardedDidChange, object: nil)
-		}
+		get { kvStore["isOnboarded"] as Bool? ?? false }
+		set { kvStore["isOnboarded"] = newValue }
 	}
 
 	var dateLastExposureDetection: Date? {
 		get { kvStore["dateLastExposureDetection"] as Date? ?? nil }
-		set { kvStore["dateLastExposureDetection"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.dateLastExposureDetectionDidChange, object: nil)
-		}
+		set { kvStore["dateLastExposureDetection"] = newValue }
 	}
 
 	var dateOfAcceptedPrivacyNotice: Date? {
 		get { kvStore["dateOfAcceptedPrivacyNotice"] as Date? ?? nil }
-		set { kvStore["dateOfAcceptedPrivacyNotice"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.dateOfAcceptedPrivacyNoticeDidChange, object: nil)
-		}
+		set { kvStore["dateOfAcceptedPrivacyNotice"] = newValue }
 	}
 
 	var hasSeenSubmissionExposureTutorial: Bool {
 		get { kvStore["hasSeenSubmissionExposureTutorial"] as Bool? ?? false }
-		set { kvStore["hasSeenSubmissionExposureTutorial"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.hasSeenSubmissionExposureTutorialDidChange, object: nil)
-		}
+		set { kvStore["hasSeenSubmissionExposureTutorial"] = newValue }
 	}
 
 	var developerSubmissionBaseURLOverride: String? {
 		get { kvStore["developerSubmissionBaseURLOverride"] as String? ?? nil }
-		set { kvStore["developerSubmissionBaseURLOverride"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.developerSubmissionBaseURLOverrideDidChange, object: nil)
-		}
+		set { kvStore["developerSubmissionBaseURLOverride"] = newValue }
 	}
 
 	var developerDistributionBaseURLOverride: String? {
 		get { kvStore["developerDistributionBaseURLOverride"] as String? ?? nil }
-		set { kvStore["developerDistributionBaseURLOverride"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.developerDistributionBaseURLOverrideDidChange, object: nil)
-		}
+		set { kvStore["developerDistributionBaseURLOverride"] = newValue }
 	}
 
 	var developerVerificationBaseURLOverride: String? {
 		get { kvStore["developerVerificationBaseURLOverride"] as String? ?? nil }
-		set { kvStore["developerVerificationBaseURLOverride"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.developerVerificationBaseURLOverrideDidChange, object: nil)
-		}
+		set { kvStore["developerVerificationBaseURLOverride"] = newValue }
 	}
 
 	var allowRiskChangesNotification: Bool {
-		get {
-			kvStore["allowRiskChangesNotification"] as Bool? ?? true
-		}
-		set {
-			kvStore["allowRiskChangesNotification"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.allowRiskChangesNotificationDidChange, object: nil)
-		}
+		get { kvStore["allowRiskChangesNotification"] as Bool? ?? true }
+		set { kvStore["allowRiskChangesNotification"] = newValue }
 	}
 
 	var allowTestsStatusNotification: Bool {
-		get {
-			kvStore["allowTestsStatusNotification"] as Bool? ?? true
-		}
-		set {
-			kvStore["allowTestsStatusNotification"] = newValue
-			NotificationCenter.default.post(name: Notification.Name.allowTestsStatusNotificationDidChange, object: nil)
-		}
+		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }
+		set { kvStore["allowTestsStatusNotification"] = newValue }
 	}
 }
