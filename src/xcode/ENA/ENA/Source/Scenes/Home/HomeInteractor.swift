@@ -174,7 +174,7 @@ final class HomeInteractor {
 		}
 
 		switch riskLevel {
-		case .unknown:
+		case .unknownInitial, .unknownOutdated:
 			riskConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
 				isButtonEnabled: true,
@@ -203,7 +203,7 @@ final class HomeInteractor {
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection
 			)
-		case .high:
+		case .increased:
 			riskConfigurator = HomeHighRiskCellConfigurator(
 				isLoading: false,
 				isButtonEnabled: true,
