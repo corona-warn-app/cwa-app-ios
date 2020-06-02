@@ -85,6 +85,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	func deleteTest() {
 		store.registrationToken = nil
 		store.testResultReceivedTimeStamp = nil
+		store.devicePairingConsentAccept = false
+		store.devicePairingSuccessfulTimestamp = nil
+		store.devicePairingConsentAcceptTimestamp = nil
+		store.isAllowedToSubmitDiagnosisKeys = false
+
 	}
 
 
