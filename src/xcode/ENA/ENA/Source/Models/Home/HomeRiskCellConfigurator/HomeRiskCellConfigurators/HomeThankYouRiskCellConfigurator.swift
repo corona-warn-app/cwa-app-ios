@@ -45,7 +45,7 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 		let phoneTitle = AppStrings.Home.thankYouCardPhoneItemTitle
 		let phoneItem = HomeRiskImageItemViewConfigurator(title: phoneTitle, titleColor: titleColor, iconImageName: "Phone", iconTintColor: .red, color: .clear, separatorColor: .clear)
 		let homeTitle = AppStrings.Home.thankYouCardHomeItemTitle
-		let homeItem = HomeRiskImageItemViewConfigurator(title: homeTitle, titleColor: titleColor, iconImageName: "Home", iconTintColor: .red, color: .clear, separatorColor: .clear)
+		let homeItem = HomeRiskImageItemViewConfigurator(title: homeTitle, titleColor: titleColor, iconImageName: "Icons - Home", iconTintColor: .red, color: .clear, separatorColor: .clear)
 		cell.configureNoteRiskViews(cellConfigurators: [phoneItem, homeItem])
 
 

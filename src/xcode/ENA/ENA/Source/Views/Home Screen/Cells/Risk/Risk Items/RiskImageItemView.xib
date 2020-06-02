@@ -19,7 +19,7 @@
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="255" verticalHuggingPriority="251" image="Calendar" translatesAutoresizingMaskIntoConstraints="NO" id="3I7-DI-BV1">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="255" verticalHuggingPriority="251" image="Icons_Calendar-Dark" translatesAutoresizingMaskIntoConstraints="NO" id="3I7-DI-BV1">
                     <rect key="frame" x="20" y="44" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="ZAx-AX-tFL"/>
@@ -60,7 +60,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Calendar" width="16" height="16"/>
+        <image name="Icons_Calendar-Dark" width="18" height="17"/>
         <namedColor name="textPrimary1">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

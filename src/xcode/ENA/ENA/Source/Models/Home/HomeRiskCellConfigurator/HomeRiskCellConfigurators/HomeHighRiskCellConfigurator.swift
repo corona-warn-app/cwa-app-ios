@@ -52,7 +52,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			let numberContactsTitle = String(format: AppStrings.Home.riskCardHighNumberContactsItemTitle, numberRiskContacts)
 			let item1 = HomeRiskImageItemViewConfigurator(title: numberContactsTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
 			let lastContactTitle = String(format: AppStrings.Home.riskCardHighLastContactItemTitle, daysSinceLastExposure)
-			let item2 = HomeRiskImageItemViewConfigurator(title: lastContactTitle, titleColor: titleColor, iconImageName: "Calendar", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
+			let item2 = HomeRiskImageItemViewConfigurator(title: lastContactTitle, titleColor: titleColor, iconImageName: "Icons_Calendar-Dark", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
 			let dateTitle = String(format: AppStrings.Home.riskCardHighDateItemTitle, lastUpdateDateString)
 			let item3 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "LetztePruefung", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
 			itemCellConfigurators.append(contentsOf: [item1, item2, item3])

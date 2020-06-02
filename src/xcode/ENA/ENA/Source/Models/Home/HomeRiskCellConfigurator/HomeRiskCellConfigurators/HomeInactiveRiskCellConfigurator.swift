@@ -72,7 +72,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		let item1 = HomeRiskImageItemViewConfigurator(title: lastInvestigationTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
 
 		let dateTitle = String(format: AppStrings.Home.riskCardInactiveDateItemTitle, lastUpdateDateString)
-		let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Calendar", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
+		let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Calendar-Dark", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
 		itemCellConfigurators.append(contentsOf: [item1, item2])
 
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
