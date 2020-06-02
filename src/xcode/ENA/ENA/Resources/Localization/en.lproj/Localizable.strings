@@ -49,9 +49,6 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To be able to analyze your Covid 19 risk, you must enable Exposure Notifications.";
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "When enabled, your phone will receive encrypted and randomized tokens broadcasted from other users around you, and broadcast your own encrypted and randomized tokens. This functionality can be turned off at any time.\n\nThese encrypted tokens only contain information of the date, duration, and your proximity calculated based on signal strength to persons around you. Personal data like name, address, or location are never collected. It is not possible to trace a token back to the user.";
 
-"OnboardingInfo_warningIfNoLoggingOfContactsPage_title" = "As a result, the Corona Warning app cannot send and receive notifications about COVID-19 risk status";
-"OnboardingInfo_warningIfNoLoggingOfContactsPage_normalText" = "You can switch the function on at any time";
-
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Have you been tested positive?";
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Then please report it via the COVID warning app. Voluntarily and safely. For everyone's health.";
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your message is reliably encrypted and processed via a secure server. As a result, your contacts can be warned, isolated or tested.";
