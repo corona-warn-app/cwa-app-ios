@@ -39,6 +39,7 @@ extension RiskLegendViewController {
 					.body(text: AppStrings.RiskLegend.legend2Text),
 					.space(height: 8),
 					.headline(text: AppStrings.RiskLegend.legend2RiskLevels),
+					.space(height: 8),
 					.dotBodyCell(color: .preferredColor(for: .negativeRisk), text: AppStrings.RiskLegend.legend2High),
 					.dotBodyCell(color: .preferredColor(for: .positiveRisk), text: AppStrings.RiskLegend.legend2Low),
 					.dotBodyCell(color: .preferredColor(for: .unknownRisk), text: AppStrings.RiskLegend.legend2Unknown)
@@ -102,7 +103,7 @@ private extension DynamicCell {
 			cell.contentView.layoutMargins.bottom = 0
 		}
 	}
-	
+
 	static func iconTitle(number: UInt8, text: String) -> Self {
 		.identifier(RiskLegendViewController.CellReuseIdentifier.numberedTitle) { _, cell, _ in
 			guard let cell = cell as? RiskLegendNumberedTitleCell else { return }
@@ -110,7 +111,7 @@ private extension DynamicCell {
 			cell.textLabel?.text = text
 		}
 	}
-	
+
 	static func dotBodyCell(color: UIColor, text: String) -> Self {
 		.identifier(RiskLegendViewController.CellReuseIdentifier.dotBody) { _, cell, _ in
 			guard let cell = cell as? RiskLegendDotBodyCell else { return }
