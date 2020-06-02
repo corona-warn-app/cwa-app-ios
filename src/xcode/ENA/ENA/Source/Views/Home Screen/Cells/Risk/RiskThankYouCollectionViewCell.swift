@@ -26,10 +26,8 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var bodyLabel: UILabel!
 
 	@IBOutlet var noteLabel: UILabel!
-	//
 
 	@IBOutlet var furtherInfoLabel: UILabel!
-	//
 
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var stackView: UIStackView!
@@ -40,7 +38,7 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 	}
 
 	private func constructStackView() {
-		let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+		let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 32.0, right: 16.0)
 		stackView.layoutMargins = containerInsets
 		stackView.isLayoutMarginsRelativeArrangement = true
 	}
