@@ -217,7 +217,15 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: client, keyPackagesStore: downloadedPackagesStore)
 
-		self.exposureDetectionTransaction?.start {
+		self.exposureDetectionTransaction?.start { newSummary in
+			guard let newSummary = newSummary else {
+				complete(success: true)
+				return
+			}
+
+			// persist the previous risk score to the store
+			self.store.previousSummary = ENExposureDetectionSummaryContainer(with: newSummary)
+
 			complete(success: true)
 		}
 

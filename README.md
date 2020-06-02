@@ -41,11 +41,17 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
    ```
 
 5. (Optional) Set up fastlane:
+   Make sure you have the latest version of the Xcode command line tools installed:
 
+   ```console
+   xcode-select --install
+   ```
+   Install _fastlane_ using
    ```console
    [sudo] gem install fastlane -NV
    [sudo] gem install xcov
    ```
+   or alternatively using `brew cask install fastlane`
 
 
 ### Build
@@ -58,8 +64,6 @@ If you want to use fastlane instead, you can do so by running the following comm
 cd src/xcode && fastlane build_community
 cd src/xcode && fastlane test
 ```
-
-Find all available lanes: [Fastfile documentation](src/xcode/fastlane/README.md)
 
 ### Run
 

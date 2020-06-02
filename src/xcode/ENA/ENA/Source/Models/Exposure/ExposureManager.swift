@@ -63,7 +63,6 @@ struct ExposureManagerState {
 
 extension ENManager: Manager {}
 
-
 protocol ExposureManagerLifeCycle {
 	typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
 	func invalidate()
@@ -71,6 +70,7 @@ protocol ExposureManagerLifeCycle {
 	func enable(completion: @escaping CompletionHandler)
 	func disable(completion: @escaping CompletionHandler)
 	func preconditions() -> ExposureManagerState
+	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void))
 }
 
 
@@ -252,6 +252,23 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	deinit {
 		manager.invalidate()
 	}
+
+	// MARK: User Notifications
+
+	public func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
+		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+		let notificationCenter = UNUserNotificationCenter.current()
+		notificationCenter.requestAuthorization(options: options) { _, error in
+			if let error = error {
+				// handle error
+				log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
+			}
+			DispatchQueue.main.async {
+				completionHandler()
+			}
+		}
+	}
+
 }
 
 // MARK: Pretty print (Only for debugging)
