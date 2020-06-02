@@ -23,7 +23,7 @@ final class ENStateTests: XCTestCase {
 	var mockDelegate: MockStateHandlerObserverDelegate!
 	var exposureManagerState: ExposureManagerState!
 	lazy var mockReachabilityService = MockReachabilityService()
-
+	
 	// setup stateHandler to be in enabled state
 	override func setUp() {
 		super.setUp()
@@ -42,25 +42,25 @@ final class ENStateTests: XCTestCase {
 
 	// statehandler should reflect enabled state after setup
 	func testInitialState() {
-		assert(mockDelegate.getCurrentState() == .enabled)
+		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 	}
 
 	// statehandler should reflect disabled state
 	func testDisableTracing() {
-		assert(mockDelegate.getCurrentState() == .enabled)
+		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .disabled)
 		mockDelegate.exposureManagerState = exposureManagerState
-		assert(mockDelegate.getCurrentState() == .disabled)
+		XCTAssert(mockDelegate.getCurrentState() == .disabled)
 	}
 
 	// MARK: Bluetooth State Tests
 
 	// when statehandler is enabled bluetooth is turnedOff statehandler should be bluetooth off
 	func testTurnOffBluetooth() {
-		assert(mockDelegate.getCurrentState() == .enabled)
+		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .bluetoothOff)
 		mockDelegate.exposureManagerState = exposureManagerState
-		assert(mockDelegate.getCurrentState() == .bluetoothOff)
+		XCTAssert(mockDelegate.getCurrentState() == .bluetoothOff)
 	}
 
 	// MARK: Internet State Tests
@@ -69,55 +69,55 @@ final class ENStateTests: XCTestCase {
 	func testTurnOffTurnOnInternet() {
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 		mockDelegate.exposureManagerState = exposureManagerState
-		assert(mockDelegate.getCurrentState() == .enabled)
+		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 		self.mockReachabilityService.reachabilityState = .disconnected
-		assert(mockDelegate.getCurrentState() == .internetOff)
+		XCTAssert(mockDelegate.getCurrentState() == .internetOff)
 		self.mockReachabilityService.reachabilityState = .connected
-		assert(mockDelegate.getCurrentState() == .enabled)
+		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 	}
 
 	// MARK: Tests with combined state changes
 
 	func testDisableTracingAndBluetoothOff() {
-		assert(mockDelegate.getCurrentState() == .enabled)
+		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
 		mockDelegate.exposureManagerState = exposureManagerState
-		assert(mockDelegate.getCurrentState() == .disabled)
+		XCTAssert(mockDelegate.getCurrentState() == .disabled)
 	}
 
 	func testDisableTracingAndBluetoothOffAndInternetOff() {
-		assert(mockDelegate.getCurrentState() == .enabled)
+		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 		self.mockReachabilityService.reachabilityState = .disconnected
-		assert(mockDelegate.getCurrentState() == .internetOff)
+		XCTAssert(mockDelegate.getCurrentState() == .internetOff)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
 		mockDelegate.exposureManagerState = exposureManagerState
-		assert(mockDelegate.getCurrentState() == .disabled)
+		XCTAssert(mockDelegate.getCurrentState() == .disabled)
 	}
 
 	func testDisableTracingAndBluetoothOnAndInternetOn() {
-		assert(mockDelegate.getCurrentState() == .enabled)
+		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .disabled)
 		mockDelegate.exposureManagerState = exposureManagerState
 		self.mockReachabilityService.reachabilityState = .disconnected
-		assert(mockDelegate.getCurrentState() == .disabled)
+		XCTAssert(mockDelegate.getCurrentState() == .disabled)
 		self.mockReachabilityService.reachabilityState = .connected
-		assert(mockDelegate.getCurrentState() == .disabled)
+		XCTAssert(mockDelegate.getCurrentState() == .disabled)
 	}
 
 	func testEnableTracingStepByStep() {
-		assert(mockDelegate.getCurrentState() == .enabled)
+		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
 		mockDelegate.exposureManagerState = exposureManagerState
 		self.mockReachabilityService.reachabilityState = .disconnected
-		assert(mockDelegate.getCurrentState() == .disabled)
+		XCTAssert(mockDelegate.getCurrentState() == .disabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .bluetoothOff)
 		mockDelegate.exposureManagerState = exposureManagerState
-		assert(mockDelegate.getCurrentState() == .bluetoothOff)
+		XCTAssert(mockDelegate.getCurrentState() == .bluetoothOff)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 		mockDelegate.exposureManagerState = exposureManagerState
-		assert(mockDelegate.getCurrentState() == .internetOff)
+		XCTAssert(mockDelegate.getCurrentState() == .internetOff)
 		self.mockReachabilityService.reachabilityState = .connected
-		assert(mockDelegate.getCurrentState() == .enabled)
+		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 	}
 
 	// MARK: Tests different ENStatus states
@@ -125,12 +125,12 @@ final class ENStateTests: XCTestCase {
 	func testRestrictedState() {
 		exposureManagerState = ExposureManagerState(authorized: false, enabled: false, status: .restricted)
 		mockDelegate.exposureManagerState = exposureManagerState
-		assert(mockDelegate.getCurrentState() == .disabled)
+		XCTAssert(mockDelegate.getCurrentState() == .restricted)
 	}
 
 	func testUnknownState() {
 		exposureManagerState = ExposureManagerState(authorized: false, enabled: false, status: .unknown)
 		mockDelegate.exposureManagerState = exposureManagerState
-		assert(mockDelegate.getCurrentState() == .disabled)
+		XCTAssert(mockDelegate.getCurrentState() == .disabled)
 	}
 }

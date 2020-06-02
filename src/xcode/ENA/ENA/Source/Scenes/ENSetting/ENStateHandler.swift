@@ -22,6 +22,7 @@ enum RiskDetectionState {
 	case disabled
 	case bluetoothOff
 	case internetOff
+	case restricted
 }
 
 protocol StateHandlerObserverDelegate: AnyObject {
@@ -61,7 +62,7 @@ class ENStateHandler {
 		}
 
 		switch currentState {
-		case .disabled, .bluetoothOff:
+		case .disabled, .bluetoothOff, .restricted:
 			return
 		case .enabled:
 			if !isReachable {
@@ -97,7 +98,7 @@ class ENStateHandler {
 		case .disabled:
 			return .disabled
 		case .restricted:
-			return .disabled
+			return .restricted
 		case .unknown:
 			return .disabled
 		@unknown default:
