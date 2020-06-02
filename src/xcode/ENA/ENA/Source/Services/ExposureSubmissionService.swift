@@ -124,7 +124,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
 		completion completeWith: @escaping RegistrationHandler
 	) {
-		store(key: deviceRegistrationKey)
 		let (key, type) = getKeyAndType(for: deviceRegistrationKey)
 		client.getRegistrationToken(forKey: key, withType: type) { result in
 			switch result {
@@ -135,7 +134,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				self.store.testResultReceivedTimeStamp = nil
 				self.store.devicePairingSuccessfulTimestamp = Int64(Date().timeIntervalSince1970)
 				self.store.devicePairingConsentAccept = true
-				self.delete(key: deviceRegistrationKey)
 				completeWith(.success(registrationToken))
 			}
 		}
@@ -180,24 +178,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	private func store(key: DeviceRegistrationKey) {
-		switch key {
-		case let .guid(testGUID):
-			store.testGUID = testGUID
-		case let .teleTan(teleTan):
-			store.teleTan = teleTan
-		}
-	}
-
-	private func delete(key: DeviceRegistrationKey) {
-		switch key {
-		case .guid:
-			store.testGUID = nil
-		case .teleTan:
-			store.teleTan = nil
-		}
-	}
-
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
@@ -229,12 +209,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	// This method removes all left over persisted objects part of the
-	// `submitExposure` flow. Removes the guid, registrationToken,
+	// `submitExposure` flow. Removes the registrationToken,
 	// and isAllowedToSubmitDiagnosisKeys.
 	private func submitExposureCleanup() {
-		// View comment in `delete(key: DeviceRegistrationKey)`
-		// why this method is needed explicitly like this.
-		delete(key: .guid(""))
 		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
