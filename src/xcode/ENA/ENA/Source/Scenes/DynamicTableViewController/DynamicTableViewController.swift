@@ -33,7 +33,7 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 
 		tableView.register(DynamicTypeTableViewCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeText.rawValue)
 		tableView.register(DynamicTableViewSpaceCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.space.rawValue)
-		tableView.register(UINib(nibName: String(describing: DynamicTableViewIconCell.self), bundle: nil), forCellReuseIdentifier: CellReuseIdentifier.icon.rawValue)
+		tableView.register(UINib(nibName: String(describing: DynamicTableViewIconCell.self), bundle: nil), forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.icon.rawValue)
 	}
 }
 
@@ -41,16 +41,6 @@ extension DynamicTableViewController {
 	enum HeaderFooterReuseIdentifier: String, TableViewHeaderFooterReuseIdentifiers {
 		case header = "headerView"
 		case separator = "separatorView"
-	}
-}
-
-extension DynamicTableViewController {
-	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
-		case bigBold = "bigBoldCell"
-		case bold = "boldCell"
-		case semibold = "semiboldCell"
-		case regular = "regularCell"
-		case icon = "iconCell"
 	}
 }
 
