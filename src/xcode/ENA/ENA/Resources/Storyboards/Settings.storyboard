@@ -258,7 +258,6 @@
                                                     </preferredSymbolConfiguration>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstItem="WfM-8I-MCB" firstAttribute="top" secondItem="aqD-35-9Nl" secondAttribute="bottom" priority="900" id="4nW-Td-1sn"/>
                                                 <constraint firstItem="aqD-35-9Nl" firstAttribute="firstBaseline" secondItem="0cG-du-5bi" secondAttribute="centerY" priority="900" id="9Ea-3U-oag" userLabel="Image Container First Baseline Constraint"/>
@@ -287,6 +286,7 @@
                                         <constraint firstItem="l0w-jj-e0c" firstAttribute="leading" secondItem="8DI-eM-3tB" secondAttribute="leading" id="l4W-sb-DqW"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="aqD-35-9Nl" id="6zz-OW-H1a"/>
                                     <outlet property="descriptionLabelBottom" destination="vaC-MI-fjm" id="1x3-6Z-lOo"/>
@@ -326,6 +326,7 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="aDQ-2p-x9f" secondAttribute="trailing" id="lrV-1S-S64"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <connections>
                                     <outlet property="titleLabel" destination="aDQ-2p-x9f" id="sT1-o7-mhn"/>
                                 </connections>
@@ -428,7 +429,6 @@
                                                                             </connections>
                                                                         </switch>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                     <constraints>
                                                                         <constraint firstItem="QX1-ds-eaG" firstAttribute="leading" secondItem="WqZ-4D-HD7" secondAttribute="leading" constant="16" id="06L-ve-duW"/>
                                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="3Qn-S9-hVW"/>
@@ -447,6 +447,7 @@
                                                                 <constraint firstAttribute="trailing" secondItem="WqZ-4D-HD7" secondAttribute="trailing" id="klk-yG-0a8"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <connections>
                                                             <outlet property="descriptionLabel" destination="QX1-ds-eaG" id="VkW-CJ-nEC"/>
@@ -483,7 +484,6 @@
                                                                             </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                     </subviews>
-                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                                     <constraints>
                                                                         <constraint firstItem="5Uv-Gy-0BR" firstAttribute="firstBaseline" secondItem="rT3-Wt-umJ" secondAttribute="centerY" priority="900" id="0f7-WG-8Tg"/>
                                                                         <constraint firstAttribute="trailing" secondItem="5Uv-Gy-0BR" secondAttribute="trailing" constant="16" id="17F-0d-Y5h"/>
@@ -504,6 +504,7 @@
                                                                 <constraint firstItem="nK5-m8-2xW" firstAttribute="top" secondItem="1u1-AH-Dhq" secondAttribute="top" constant="10" id="eey-Pa-mul"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                         <connections>
                                                             <outlet property="descriptionLabel" destination="5Uv-Gy-0BR" id="Lf9-MX-bhX"/>
                                                             <outlet property="descriptionLabelLeadingConstraint" destination="sw6-ph-G1h" id="GIx-JH-zcY"/>
@@ -534,6 +535,7 @@
                                                                 <constraint firstItem="Z61-EG-Qd0" firstAttribute="top" secondItem="6lP-Df-vNL" secondAttribute="topMargin" id="ueG-Y4-sUq"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                         <connections>
                                                             <outlet property="titleLabel" destination="Z61-EG-Qd0" id="eh6-Wq-erX"/>
                                                         </connections>
