@@ -314,8 +314,8 @@ extension ENAExposureManager {
 					fatalError("Not all cases of actions covered when handling the bluetooth")
 				}
 			}
-			alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: {action in completionHandler(action, completion)}))
-			alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionLater, style: .cancel, handler: {action in completionHandler(action, completion)}))
+			alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { action in completionHandler(action, completion) }))
+			alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionLater, style: .cancel, handler: { action in completionHandler(action, completion) }))
 			return alert
 		}
 		return nil
