@@ -236,21 +236,24 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
-		self.exposureSubmissionService?.getTestResult { result in
+		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
+			self.exposureSubmissionService?.getTestResult { result in
+				switch result {
+				case .failure(let error):
+					logError(message: error.localizedDescription)
 
-			switch result {
-			case .failure(let error):
-				logError(message: error.localizedDescription)
-
-			case .success(let testResult):
-				if testResult != .pending {
-					self.taskScheduler.notificationManager.presentNotification(
-						title: AppStrings.LocalNotifications.testResultsTitle,
-						body: AppStrings.LocalNotifications.testResultsBody,
-						identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+				case .success(let testResult):
+					if testResult != .pending {
+						self.taskScheduler.notificationManager.presentNotification(
+							title: AppStrings.LocalNotifications.testResultsTitle,
+							body: AppStrings.LocalNotifications.testResultsBody,
+							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+					}
 				}
-			}
 
+				complete(success: true)
+			}
+		} else {
 			complete(success: true)
 		}
 
