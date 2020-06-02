@@ -169,9 +169,9 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
-			dismissQRCodeScannerView(vc, completion: nil)
 			let alert = ExposureSubmissionViewUtils.setupAlert(message: "The provided QR code was invalid.")
-			present(alert, animated: true, completion: nil)
+			dismissQRCodeScannerView(vc, completion: nil)
+			vc.present(alert, animated: true, completion: nil)
 			return
 		}
 
@@ -188,7 +188,10 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			switch result {
 			case let .failure(error):
 				logError(message: "Error while getting registration token: \(error)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, retry: true, retryActionHandler: {
+					self.startSpinner()
+					self.getRegistrationToken(forKey: forKey)
+				})
 				self.present(alert, animated: true, completion: nil)
 
 			case let .success(token):
