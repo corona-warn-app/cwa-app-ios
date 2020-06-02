@@ -64,7 +64,7 @@ private extension DynamicTableViewModel {
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
 						cell.configure(
 							text: AppStrings.ExposureSubmissionSuccess.listItem1,
-							image: UIImage(named: "Icons - Home"),
+							image: UIImage(named: "Icons - Hotline"),
 							hasSeparators: false,
 							isCircle: true,
 							iconTintColor: .preferredColor(for: .negativeRisk)
