@@ -42,7 +42,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	#else
 	private let exposureManager = ENAExposureManager()
 	#endif
-	private let taskScheduler = ENATaskScheduler.shared
+	private lazy var taskScheduler = ENATaskScheduler()
 	private let navigationController: UINavigationController = .withLargeTitle()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {
@@ -158,15 +158,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	private func presentHomeVC() {
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
-			let homeVC = HomeViewController(
+			HomeViewController(
 				coder: coder,
 				exposureManager: self.exposureManager,
 				client: UIApplication.coronaWarnDelegate().client,
 				store: self.store,
 				keyPackagesStore: self.diagnosisKeysStore,
-				delegate: self
+				delegate: self,
+				taskScheduler: self.taskScheduler
 			)
-			return homeVC
 		}
 
 		homeController = vc // strong ref needed

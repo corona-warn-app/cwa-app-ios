@@ -31,12 +31,14 @@ final class HomeInteractor {
 	init(
 		homeViewController: HomeViewController,
 		store: Store,
-		state: State
+		state: State,
+		taskScheduler: ENATaskScheduler
 	) {
 		self.homeViewController = homeViewController
 		self.store = store
 		self.state = state
-		stateHandler = ENStateHandler(self.state.exposureManager, delegate: self)
+		self.taskScheduler = taskScheduler
+		stateHandler = ENStateHandler(state.exposureManager, delegate: self)
 		sections = initialCellConfigurators()
 	}
 
@@ -64,7 +66,7 @@ final class HomeInteractor {
 	private unowned var homeViewController: HomeViewController
 	private let store: Store
 	var stateHandler: ENStateHandler!
-
+	private let taskScheduler: ENATaskScheduler
 	private var riskLevel: RiskLevel {
 		RiskLevel(riskScore: state.summary?.maximumRiskScore)
 	}
@@ -89,8 +91,6 @@ final class HomeInteractor {
 	}
 
 	private func startCheckRisk() {
-		let taskScheduler = ENATaskScheduler.shared
-
 		// TODO: handle state of pending scheduled tasks to determin active state for manual refresh button
 		// TODO: disable manual trigger button
 		guard let indexPath = indexPathForRiskCell() else { return }
@@ -100,14 +100,13 @@ final class HomeInteractor {
 
 		taskScheduler.cancelAllBackgroundTaskRequests()
 
-		riskCellTask(completion: {
+		riskCellTask {
 			self.riskConfigurator?.stopLoading()
 			guard let indexPath = self.indexPathForRiskCell() else { return }
 			self.homeViewController.updateSections()
 			self.homeViewController.reloadCell(at: indexPath)
-
-			taskScheduler.scheduleBackgroundTaskRequests()
-		})
+			self.taskScheduler.scheduleBackgroundTaskRequests()
+		}
 	}
 
 	private func fetchUpdateRisk() {
