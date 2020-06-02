@@ -20,7 +20,8 @@ import ExposureNotification
 import XCTest
 
 final class ENStateTests: XCTestCase {
-	weak var mockDelegate: MockStateHandlerObserverDelegate!
+	// swiftlint:disable:next weak_delegate
+	var mockDelegate: MockStateHandlerObserverDelegate!
 	var exposureManagerState: ExposureManagerState!
 
 	// setup stateHandler to be in enabled state
