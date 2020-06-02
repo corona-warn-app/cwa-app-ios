@@ -21,6 +21,8 @@ protocol CollectionViewCellConfiguratorAny: AnyObject {
 	var viewAnyType: UICollectionViewCell.Type { get }
 
 	func configureAny(cell: UICollectionViewCell)
+
+	var identifier: UUID { get }
 }
 
 protocol CollectionViewCellConfigurator: CollectionViewCellConfiguratorAny {

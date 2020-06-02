@@ -19,6 +19,8 @@ import UIKit
 
 final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
+	let identifier = UUID()
+
 	private var lastInvestigation: String
 	private var lastUpdateDate: Date?
 

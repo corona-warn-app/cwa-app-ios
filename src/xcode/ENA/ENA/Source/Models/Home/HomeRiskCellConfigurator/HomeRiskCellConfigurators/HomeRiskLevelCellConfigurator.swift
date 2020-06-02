@@ -20,6 +20,9 @@
 import UIKit
 
 class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
+
+	let identifier = UUID()
+
 	// MARK: Properties
 
 	var buttonAction: (() -> Void)?

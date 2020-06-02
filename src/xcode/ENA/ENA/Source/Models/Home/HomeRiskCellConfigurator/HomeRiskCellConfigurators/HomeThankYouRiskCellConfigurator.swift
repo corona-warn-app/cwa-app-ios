@@ -21,6 +21,8 @@ import UIKit
 
 final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 
+	let identifier = UUID()
+	
 	// MARK: Configuration
 
 	func configure(cell: RiskThankYouCollectionViewCell) {

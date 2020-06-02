@@ -62,13 +62,14 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Properties
 
+	private var sections: [(section: Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+
 	private let keyPackagesStore: DownloadedPackagesStore
 	private let exposureManager: ExposureManager
-	private var dataSource: UICollectionViewDiffableDataSource<Section, Int>?
+	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
 	private var homeLayout: HomeLayout!
 	var homeInteractor: HomeInteractor!
-	private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
 	private let store: Store
 	private let client: Client
 	private var summaryNotificationObserver: NSObjectProtocol?
@@ -89,9 +90,10 @@ final class HomeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		prepareData()
 		configureHierarchy()
 		configureDataSource()
+		updateSections()
+		applySnapshotFromSections()
 		configureUI()
 	}
 
@@ -303,10 +305,6 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Configuration
 
-	func prepareData() {
-		cellConfigurators = homeInteractor.cellConfigurators
-	}
-
 	func reloadData() {
 		guard isViewLoaded else { return }
 		collectionView.reloadData()
@@ -315,12 +313,9 @@ final class HomeViewController: UIViewController {
 	func reloadCell(at indexPath: IndexPath) {
 		settingsController?.stateHandler = homeInteractor.stateHandler
 		notificationSettingsController?.stateHandler = homeInteractor.stateHandler
-		guard let snapshot = dataSource?.snapshot() else {
-			return
-		}
-		cellConfigurators = homeInteractor.cellConfigurators
+		guard let snapshot = dataSource?.snapshot() else { return }
 		guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-		cellConfigurators[indexPath.item].configureAny(cell: cell)
+		sections[indexPath.section].cellConfigurators[indexPath.item].configureAny(cell: cell)
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 
@@ -351,14 +346,15 @@ final class HomeViewController: UIViewController {
 			]
 		)
 
-		collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
+		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskLevelCollectionViewCell.self, SubmitCollectionViewCell.self, InfoCollectionViewCell.self]
+		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
 		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
 	}
 
 	private func configureDataSource() {
-		dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self] collectionView, indexPath, identifier in
-			let configurator = self.cellConfigurators[identifier]
+		dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
+			let configurator = self.sections[indexPath.section].cellConfigurators[indexPath.row]
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			configurator.configureAny(cell: cell)
 			return cell
@@ -375,14 +371,19 @@ final class HomeViewController: UIViewController {
 			supplementaryView.configure()
 			return supplementaryView
 		}
-		var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
-		snapshot.appendSections([.actions])
-		snapshot.appendItems(Array(0 ... 3))
-		snapshot.appendSections([.infos])
-		snapshot.appendItems(Array(4 ... 5))
-		snapshot.appendSections([.settings])
-		snapshot.appendItems(Array(5 ... 6))
-		dataSource?.apply(snapshot, animatingDifferences: false)
+	}
+
+	func applySnapshotFromSections(animatingDifferences: Bool = false) {
+		var snapshot = NSDiffableDataSourceSnapshot<Section, UUID>()
+		for section in sections {
+			snapshot.appendSections([section.section])
+			snapshot.appendItems( section.cellConfigurators.map { $0.identifier })
+		}
+		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
+	}
+
+	func updateSections() {
+		sections = homeInteractor.sections
 	}
 
 	private func configureUI() {
