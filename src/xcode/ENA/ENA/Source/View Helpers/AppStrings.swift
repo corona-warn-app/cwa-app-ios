@@ -353,6 +353,7 @@ enum AppStrings {
 		static let navigationBarTitle = NSLocalizedString("InviteFriends_NavTitle", comment: "")
 		static let shareTitle = NSLocalizedString("InviteFriends_ShareTitle", comment: "")
 		static let shareUrl = NSLocalizedString("InviteFriends_ShareUrl", comment: "")
+		static let subtitle = NSLocalizedString("InviteFriends_Subtitle", comment: "")
 	}
 
 	enum Reset {

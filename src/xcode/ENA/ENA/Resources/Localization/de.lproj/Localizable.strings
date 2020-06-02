@@ -417,11 +417,12 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
 // Invite Friends
-"InviteFriends_NavTitle" = "Covid WARN-App Teilen";
-"InviteFriends_Title" = "Zusammen gegen Corona.";
-"InviteFriends_Description" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Downloaden ein!";
-"InviteFriends_Button" = "App teilen";
-"InviteFriends_ShareTitle" = "Zusammen gegen Corona. Ich bin dabei. Du auch?";
+"InviteFriends_NavTitle" = "Teilen";
+"InviteFriends_Subtitle" = "Teilen Sie die Corona-Warn-App";
+"InviteFriends_Title" = "Gemeinsam Corona bekämpfen";
+"InviteFriends_Description" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Laden Sie Familie, Freunde und Bekannte ein!";
+"InviteFriends_Button" = "Download-Link versenden";
+"InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 "InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
 
 //Reset View
