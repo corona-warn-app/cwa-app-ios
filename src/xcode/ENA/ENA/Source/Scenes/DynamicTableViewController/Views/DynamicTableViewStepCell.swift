@@ -75,6 +75,42 @@ class DynamicTableViewStepCell: UITableViewCell {
 		separator.isHidden = !hasSeparators
 	}
 
+	private func setUpView(
+		_ attributedText: NSMutableAttributedString,
+		_ image: UIImage?,
+		_ hasSeparators: Bool = false,
+		_: Bool = false,
+		_ iconTintColor: UIColor? = nil,
+		_ iconBackgroundColor: UIColor? = nil
+	) {
+		// MARK: - Cell related changes.
+
+		selectionStyle = .none
+		backgroundColor = .preferredColor(for: .backgroundPrimary)
+
+		// MARK: - Body.
+
+		body.font = .preferredFont(forTextStyle: .body)
+		body.numberOfLines = 0
+		body.lineBreakMode = .byWordWrapping
+		body.attributedText = attributedText
+
+		// MARK: - Cell Icon.
+
+		var loadedImage = image
+		if iconTintColor != nil {
+			loadedImage = image?.withRenderingMode(.alwaysTemplate)
+		}
+		cellIcon = UIImageView(image: loadedImage)
+		cellIcon.tintColor = iconTintColor
+		cellIcon.backgroundColor = iconBackgroundColor
+
+		// MARK: - Separator.
+
+		separator.backgroundColor = .preferredColor(for: .textPrimary2)
+		separator.isHidden = !hasSeparators
+	}
+
 	// MARK: - Constraint handling.
 
 	var heightConstraint: NSLayoutConstraint?
@@ -128,6 +164,29 @@ class DynamicTableViewStepCell: UITableViewCell {
 		iconBackgroundColor: UIColor? = nil
 	) {
 		setUpView(title, text, image, hasSeparators, isCircle, iconTintColor, iconBackgroundColor)
+		setConstraints()
+	}
+
+	func configure(
+		text: String,
+		attributedText: [NSAttributedString],
+		image: UIImage?,
+		hasSeparators: Bool = false,
+		isCircle: Bool = false,
+		iconTintColor: UIColor? = nil,
+		iconBackgroundColor: UIColor? = nil
+	) {
+
+		setUpView(NSMutableAttributedString.generateAttributedString(
+					  normalText: text,
+					  attributedText: attributedText
+				  ),
+				  image,
+				  hasSeparators,
+				  isCircle,
+				  iconTintColor
+		)
+		
 		setConstraints()
 	}
 

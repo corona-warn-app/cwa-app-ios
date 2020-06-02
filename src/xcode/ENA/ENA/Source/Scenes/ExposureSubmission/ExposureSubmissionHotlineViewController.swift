@@ -67,12 +67,15 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 				DynamicSection.section(
 					cells: [
 						.bigBold(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
-						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
-							guard let cell = cell as? DynamicTableViewStepCell else { return }
-							cell.configure(
-								text: AppStrings.ExposureSubmissionHotline.sectionDescription1,
-								image: UIImage(named: "Icons_Grey_1")
-							)
+						.identifier(CustomCellReuseIdentifiers.stepCell,
+									action: .execute { _ in self.callHotline() },
+									configure: { _, cell, _ in
+										guard let cell = cell as? DynamicTableViewStepCell else { return }
+										cell.configure(
+											text: AppStrings.ExposureSubmissionHotline.sectionDescription1,
+											attributedText: self.getAttributedStrings(),
+											image: UIImage(named: "Icons_Grey_1")
+										)
                         }),
 						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
 							guard let cell = cell as? DynamicTableViewStepCell else { return }
@@ -84,6 +87,16 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 					])
 			]
 		)
+	}
+
+	/// Comment me.
+	private func getAttributedStrings() -> [NSAttributedString] {
+		let font: UIFont = .preferredFont(forTextStyle: .body)
+		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
+		let color: UIColor = .preferredColor(for: .tint)
+		let attr: [NSAttributedString.Key: Any] = [.font: boldFont, .foregroundColor: color]
+		let word = NSAttributedString(string: AppStrings.ExposureSubmissionHotline.phoneNumber, attributes: attr)
+		return [word]
 	}
 }
 
