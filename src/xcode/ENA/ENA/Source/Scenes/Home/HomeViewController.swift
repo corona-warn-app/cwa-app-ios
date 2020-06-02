@@ -62,7 +62,7 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Properties
 
-	private var sections: [(section: Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+	private var sections: HomeInteractor.SectionConfiguration = []
 
 	private let keyPackagesStore: DownloadedPackagesStore
 	private let exposureManager: ExposureManager

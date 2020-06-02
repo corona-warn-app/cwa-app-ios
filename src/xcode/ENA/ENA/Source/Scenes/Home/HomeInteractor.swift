@@ -20,7 +20,9 @@ import Foundation
 
 final class HomeInteractor {
 
-	typealias SectionConfiguration = [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])]
+	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
+	typealias SectionConfiguration = [SectionDefinition]
+
 
 	enum UserLoadingMode {
 		case automatic
@@ -164,7 +166,7 @@ final class HomeInteractor {
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	private func initialCellConfigurators() -> [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] {
+	private func initialCellConfigurators() -> SectionConfiguration {
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
@@ -197,12 +199,9 @@ final class HomeInteractor {
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
 		let settingsConfigurators: [CollectionViewCellConfiguratorAny] = [appInformationConfigurator, settingsConfigurator]
 
-		let actionsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
-			= setupActionConfigurators()
-		let infoSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
-			= (.infos, infosConfigurators)
-		let settingsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
-			= (.settings, settingsConfigurators)
+		let actionsSection: SectionDefinition = setupActionConfigurators()
+		let infoSection: SectionDefinition = (.infos, infosConfigurators)
+		let settingsSection: SectionDefinition = (.settings, settingsConfigurators)
 
 		var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
 		sections.append(contentsOf: [actionsSection, infoSection, settingsSection])
@@ -443,7 +442,7 @@ extension HomeInteractor {
 		return actionsConfigurators
 	}
 
-	func setupActionConfigurators() -> (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny]) {
+	func setupActionConfigurators() -> SectionDefinition {
 		return (.actions, setupActionConfigurators())
 	}
 }
