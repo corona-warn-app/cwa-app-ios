@@ -129,6 +129,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	private func setupUI() {
 		store.isOnboarded ? showHome() : showOnboarding()
+		UINavigationBar.appearance().tintColor = UIColor.preferredColor(for: .tint)
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 	}

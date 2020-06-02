@@ -21,6 +21,8 @@ import Foundation
 
 class HomeExposureSubmissionStateCellConfigurator: CollectionViewCellConfigurator {
 
+	let identifier = UUID()
+
 	// MARK: - Controllers from which we grab the screens for reuse.
 
 	let sVC = AppStoryboard

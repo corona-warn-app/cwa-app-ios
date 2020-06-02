@@ -19,12 +19,15 @@
 
 // General
 "Alert_TitleGeneral" = "Ein Fehler ist aufgetreten";
-"Alert_MessageGeneral" = "Bitte versuche Sie es erneut.";
+"Alert_MessageGeneral" = "Bitte versuchen Sie es erneut.";
 "Alert_ActionOk" = "Ok";
 "Alert_ActionNo" = "Nein";
 "Alert_TitleKeySubmit" = "Tan Generierung";
 "Alert_DescriptionKeySubmit" = "Sind Sie damit einverstanden, Ihre TAN generieren zu lassen?";
-
+"Alert_BluetoothOff_Title" = "Bluetooth einschalten";
+"Alert_BluetoothOff_Description" = "Bluetooth muss in den Systemeinstellungen aktiviert werden, sodass diese App funktioniert.";
+"Alert_CancelAction_Later" = "Später";
+"Alert_DefaultAction_OpenSettings" = "Einstellungen öffnen";
 
 // Exposure Detection
 "ExposureDetection_Off" = "Risikoermittlung gestoppt";
@@ -132,24 +135,28 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
 "Onboarding_Back_actionText" = "Zurück";
 "Onboarding_DeactivateExposureConfirmation_title" = "Corona-Warn-App kann dadurch keine Benachrichtigungen zum COVID-19-Risikostatus versenden und empfangen.";
-"Onboarding_DeactivateExposureConfirmation_message" = "Sie können die Funktion jederzeit ausschalten.";
+"Onboarding_DeactivateExposureConfirmation_message" = "Sie können die Funktion jederzeit ausschalten.";
 
 
-"OnboardingInfo_togetherAgainstCoronaPage_title" = "Zusammen gegen Corona";
-"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der COVID Warn-App durchbrechen wir Infektionsketten entscheidend schneller.";
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Die App merkt sich Begegnungen zwischen Menschen anhand der Smartphones - einfach und sicher über verschlüsselte Zufalls-IDs, ohne einen Zugriff auf persönliche Daten. Ihr Smartphone wird zum Corona-Frühwarnsystem: Sie überblicken Ihren Risikostatus und werden bei Neuinfektionen im Kontaktumfeld benachrichtigt. ";
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Gemeinsam Corona bekämpfen";
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen infizierte Personen in ihrer Nähe waren.
+
+Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufallscodes austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
 
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
 "OnboardingInfo_privacyPage_boldText" = "";
 "OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risikoerkennung ermöglichen";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risiko-Ermittlung ermöglichen";
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.\n\nDie verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren. Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Sie sind positiv getestet? ";
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Dann melden Sie es bitte über die COVID Warn-App. Freiwillig und sicher. Für die Gesundheit aller.";
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Meldung wird zuverlässig verschlüsselt über einen sicheren Server verarbeitet. In der Folge können Ihre Kontakte gewarnt werden, in Isolation gehen oder sich testen lassen.";
+Die verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie positiv getestet werden ...";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "... teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufallscodes Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.";
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken kennen";
 "OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
@@ -268,10 +275,10 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 // Home Cards
 
 // Home Active card
-"Home_Activate_Card_On_Title" = "Risikoermittlung aktiv";
-"Home_Activate_Card_Off_Title" = "Risikoermittlung gestoppt";
+"Home_Activate_Card_On_Title" = "Risiko-Ermittlung aktiv";
+"Home_Activate_Card_Off_Title" = "Risiko-Ermittlung gestoppt";
 "Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth deaktiviert";
-"Home_Activate_Card_Internet_Off_Title" = "Internet deaktiviert";
+"Home_Activate_Card_Internet_Off_Title" = "Keine Internetverbindung";
 
 // Home Unknown card
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";

@@ -26,19 +26,34 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
 
 ### Setup
 
-Open Xcode 11.5 or higher and let the Swift Package Manager handle the rest 🎉
-
-### Build
-
-1. Select the right app scheme.
+1. Install Xcode 11.5 or higher
+2. Select the right app scheme.
 
    We added the schema `ENACommunity` to our project which should enable third party developers to run and test the code. This schema uses a mocked implementation of `ExposureManager` in `SceneDelegate` and injects it into the application.
 
-2. Set the user-defined variable to your development team
+3. Set the user-defined variable to your development team
 
    In [project.pbxproj](./src/xcode/ENA/ENA.xcodeproj/project.pbxproj), set IPHONE_APP_DEV_TEAM to your development team
+4. Install SwiftLint
 
-#### Build using fastlane
+   ```console
+   brew install swiftlint
+   ```
+
+5. (Optional) Set up fastlane:
+
+   ```console
+   [sudo] gem install fastlane -NV
+   [sudo] gem install xcov
+   ```
+
+
+### Build
+
+After setting up your environment as stated in [Setup](#Setup), you should be able to build the app using the scheme `ENACommunity`.
+
+If you want to use fastlane instead, you can do so by running the following commands:
+
 ```console
 cd src/xcode && fastlane build_community
 cd src/xcode && fastlane test

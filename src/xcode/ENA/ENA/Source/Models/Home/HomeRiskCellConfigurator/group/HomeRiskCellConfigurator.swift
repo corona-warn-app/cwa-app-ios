@@ -19,6 +19,9 @@ import ExposureNotification
 import UIKit
 
 class HomeRiskCellConfigurator: CollectionViewCellConfigurator {
+
+	let identifier = UUID()
+
 	// MARK: Properties
 
 	var buttonAction: (() -> Void)?

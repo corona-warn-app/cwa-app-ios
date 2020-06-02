@@ -72,6 +72,7 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var footerView: UIView!
 
 	private var onboardingInfos = OnboardingInfo.testData()
+	private var exposureManagerActivated = false
 
 	var onboardingInfo: OnboardingInfo?
 
@@ -110,7 +111,18 @@ final class OnboardingInfoViewController: UIViewController {
 		case .privacyPage:
 			persistTimestamp(completion: completion)
 		case .enableLoggingOfContactsPage:
-			askExposureNotificationsPermissions(completion: completion)
+			func handleBluetooth(completion: @escaping () -> Void) {
+				if let alertController = self.exposureManager.alertForBluetoothOff(completion: { completion() }) {
+					self.present(alertController, animated: true)
+				}
+				completion()
+			}
+			askExposureNotificationsPermissions(completion: {
+				handleBluetooth {
+					completion()
+				}
+			})
+
 		case .alwaysStayInformedPage:
 			askLocalNotificationsPermissions(completion: completion)
 		default:
@@ -198,7 +210,7 @@ final class OnboardingInfoViewController: UIViewController {
 	// MARK: Exposure notifications
 
 	private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
-		if TestEnvironment.shared.isUITesting {
+		guard !TestEnvironment.shared.isUITesting && !exposureManagerActivated else {
 			completion?()
 			return
 		}
@@ -220,6 +232,7 @@ final class OnboardingInfoViewController: UIViewController {
 				self.showError(error, from: self, completion: completion)
 				completion?()
 			} else {
+				self.exposureManagerActivated = true
 				self.exposureManager.enable { enableError in
 					if let enableError = enableError {
 						switch enableError {
@@ -288,10 +301,12 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	func gotoNextScreen() {
+
 		guard let nextPageType = pageType.next() else {
-			store.isOnboarded = true
+			finishOnBoarding()
 			return
 		}
+
 		let storyboard = AppStoryboard.onboarding.instance
 		let next = storyboard.instantiateInitialViewController { [unowned self] coder in
 			OnboardingInfoViewController(
@@ -305,4 +320,11 @@ final class OnboardingInfoViewController: UIViewController {
 		// swiftlint:disable:next force_unwrapping
 		navigationController?.pushViewController(next!, animated: true)
 	}
+
+
+	private func finishOnBoarding() {
+		store.isOnboarded = true
+		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
+	}
+
 }
