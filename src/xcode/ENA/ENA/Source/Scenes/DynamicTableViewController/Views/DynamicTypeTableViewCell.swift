@@ -19,61 +19,53 @@ import Foundation
 import UIKit
 
 class DynamicTypeTableViewCell: UITableViewCell {
-	var textStyle: UIFont.TextStyle? { nil }
-	var fontSize: CGFloat? { nil }
-	var fontWeight: UIFont.Weight? { nil }
-
-	required init?(coder _: NSCoder) {
-		fatalError("Not implemented!")
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
 	}
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-		selectionStyle = .none
-
-		setupTextLabel()
-
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		setup()
 	}
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-
-		setupTextLabel()
+		setup()
 	}
-	
-	private func setupTextLabel() {
-		if let textStyle = self.textStyle {
-			textLabel?.font = UIFont.preferredFont(forTextStyle: textStyle).scaledFont(size: fontSize, weight: fontWeight)
-			textLabel?.adjustsFontForContentSizeCategory = true
-			textLabel?.numberOfLines = 0
+
+	private func setup() {
+		selectionStyle = .none
+
+		backgroundColor = .preferredColor(for: .backgroundPrimary)
+
+		contentView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+
+		if let label = textLabel {
+			label.translatesAutoresizingMaskIntoConstraints = false
+			label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
+			label.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
+			label.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+			label.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
 		}
-	}
-}
 
-extension DynamicTypeTableViewCell {
-	class Regular: DynamicTypeTableViewCell {
-		override var textStyle: UIFont.TextStyle? { .body }
-		override var fontSize: CGFloat? { 17 }
-		override var fontWeight: UIFont.Weight? { .regular }
+		configureDynamicType()
+		configure(text: "", color: .preferredColor(for: .textPrimary1))
 	}
 
-	class Semibold: DynamicTypeTableViewCell {
-		override var textStyle: UIFont.TextStyle? { .body }
-		override var fontSize: CGFloat? { 17 }
-		override var fontWeight: UIFont.Weight? { .semibold }
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		configureDynamicType()
+		configure(text: "", color: .preferredColor(for: .textPrimary1))
 	}
 
-	class Bold: DynamicTypeTableViewCell {
-		override var textStyle: UIFont.TextStyle? { .body }
-		override var fontSize: CGFloat? { 17 }
-		override var fontWeight: UIFont.Weight? { .bold }
+	func configureDynamicType(size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body) {
+		textLabel?.font = UIFont.preferredFont(forTextStyle: style).scaledFont(size: size, weight: weight)
+		textLabel?.adjustsFontForContentSizeCategory = true
+		textLabel?.numberOfLines = 0
 	}
 
-	class BigBold: DynamicTypeTableViewCell {
-		override var textStyle: UIFont.TextStyle? { .headline }
-		override var fontSize: CGFloat? { 22 }
-		override var fontWeight: UIFont.Weight? { .bold }
+	func configure(text: String, color: UIColor? = nil) {
+		textLabel?.text = text
+		textLabel?.textColor = color ?? .preferredColor(for: .textPrimary1)
 	}
 }

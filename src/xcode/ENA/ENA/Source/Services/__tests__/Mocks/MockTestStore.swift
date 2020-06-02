@@ -68,4 +68,6 @@ class MockTestStore: Store {
 	var allowRiskChangesNotification: Bool = true
 
 	var allowTestsStatusNotification: Bool = true
+
+	var previousSummary: ENExposureDetectionSummaryContainer? = ENExposureDetectionSummaryContainer(daysSinceLastExposure: 0, matchedKeyCount: 0, maximumRiskScore: 0)
 }

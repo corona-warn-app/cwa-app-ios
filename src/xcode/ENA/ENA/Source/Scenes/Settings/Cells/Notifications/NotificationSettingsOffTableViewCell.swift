@@ -75,7 +75,7 @@ class NotificationSettingsOffTableViewCell: UITableViewCell {
 			string: value,
 			attributes: [
 				NSAttributedString.Key.paragraphStyle: paragraphStyle,
-				NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body)
+				NSAttributedString.Key.font: UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
 			]
 		)
 		descriptionLabel.attributedText = attributedString

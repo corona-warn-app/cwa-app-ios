@@ -1,6 +1,7 @@
+//
 // Corona-Warn-App
 //
-// SAP SE and all other contributors
+// SAP SE and all other contributors /
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -14,15 +15,31 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 import UIKit
 
-class RiskLegendTableViewCell: UITableViewCell {
-	static var identifier = "RiskLegendCell"
+class RiskLegendViewController: DynamicTableViewController {
+	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var subtitleLabel: UILabel!
 
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var detailTextView: UITextView!
-	@IBOutlet var iconImageView: UIImageView!
-	@IBOutlet var iconBackgroundView: UIView!
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		titleLabel.text = AppStrings.RiskLegend.title
+
+		dynamicTableViewModel = model
+	}
+
+	@IBAction func close() {
+		dismiss(animated: true)
+	}
+}
+
+extension RiskLegendViewController {
+	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
+		case numberedTitle = "numberedTitleCell"
+		case dotBody = "dotBodyCell"
+	}
 }
