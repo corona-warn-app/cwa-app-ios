@@ -68,7 +68,6 @@ final class HomeInteractor {
 	var stateHandler: ENStateHandler!
 	private let taskScheduler: ENATaskScheduler
 	private var riskLevel: RiskLevel {
-		return .inactive
 		RiskLevel(riskScore: state.summary?.maximumRiskScore)
 	}
 
@@ -224,12 +223,12 @@ final class HomeInteractor {
 		}
 
 		// for testing
-		let thankYouConfigurator = HomeThankYouRiskCellConfigurator()
-		let findingPositiveConfigurator = HomeFindingPositiveRiskCellConfigurator()
-		findingPositiveConfigurator.nextAction = {
-			// ...
-		}
-		//
+		// let thankYouConfigurator = HomeThankYouRiskCellConfigurator()
+		// let findingPositiveConfigurator = HomeFindingPositiveRiskCellConfigurator()
+		// findingPositiveConfigurator.nextAction = { }
+		// ...
+		// actionsConfigurators.append(findingPositiveConfigurator)
+		// actionsConfigurators.append(thankYouConfigurator)
 
 		// MARK: Configure exposure submission view.
 		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
@@ -273,8 +272,7 @@ final class HomeInteractor {
 		if let exposureSubmission = exposureSubmissionConfigurator {
 			actionsConfigurators.append(exposureSubmission)
 		}
-		actionsConfigurators.append(findingPositiveConfigurator)
-		actionsConfigurators.append(thankYouConfigurator)
+
 
 
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
