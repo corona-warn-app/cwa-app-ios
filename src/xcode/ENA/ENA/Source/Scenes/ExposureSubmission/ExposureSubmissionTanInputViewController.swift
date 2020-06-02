@@ -85,6 +85,7 @@ extension ExposureSubmissionTanInputViewController {
 extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
 	func didTapBottomButton() {
 		startSpinner()
+		setButtonEnabled(enabled: false)
 		// If teleTAN is correct, show Alert Controller
 		// to check permissions to request TAN.
 		let teleTan = tanInput.text
@@ -92,6 +93,7 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 		exposureSubmissionService?
 			.getRegistrationToken(forKey: .teleTan(teleTan), completion: { result in
 				self.stopSpinner()
+				self.setButtonEnabled(enabled: true)
 				switch result {
 				case let .failure(error):
 					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
