@@ -199,7 +199,7 @@ final class HomeInteractor {
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
 		let settingsConfigurators: [CollectionViewCellConfiguratorAny] = [appInformationConfigurator, settingsConfigurator]
 
-		let actionsSection: SectionDefinition = setupActionConfigurators()
+		let actionsSection: SectionDefinition = setupActionSectionDefinition()
 		let infoSection: SectionDefinition = (.infos, infosConfigurators)
 		let settingsSection: SectionDefinition = (.settings, settingsConfigurators)
 
@@ -291,7 +291,7 @@ extension HomeInteractor {
 
 	/// Update the section cells and layout.
 	func showTestResultCell() {
-		sections[0] = setupActionConfigurators()
+		sections[0] = setupActionSectionDefinition()
 		homeViewController.updateSections()
 		homeViewController.applySnapshotFromSections(animatingDifferences: true)
 	}
@@ -429,7 +429,7 @@ extension HomeInteractor {
 			// This is shown when we registered a test.
 
 			// Test result card.
-			// TODO: Here we can either have: positive or (pending, negative, invalid). (not implemented yet.)
+			// TODO: Here we can either have: positive (not implemented yet) or (pending, negative, invalid).
 			let testResultConfigurator = setupTestResultConfigurator()
 			actionsConfigurators.append(testResultConfigurator)
 
@@ -442,7 +442,7 @@ extension HomeInteractor {
 		return actionsConfigurators
 	}
 
-	func setupActionConfigurators() -> SectionDefinition {
+	func setupActionSectionDefinition() -> SectionDefinition {
 		return (.actions, setupActionConfigurators())
 	}
 }

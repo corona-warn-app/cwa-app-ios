@@ -144,6 +144,7 @@
 		A36D07AD2483B43800E46F96 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		A36D07AF2483F6CF00E46F96 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		A36D07B12483F78500E46F96 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		A36D07B72486AD0100E46F96 /* HomeTestResultCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B62486AD0100E46F96 /* HomeTestResultCellConfigurator.swift */; };
 		A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */; };
 		A3E5E71A247D4FFB00237116 /* ExposureSubmissionViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */; };
 		A3E5E71E247E6F7A00237116 /* SpinnerInjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E5E71D247E6F7A00237116 /* SpinnerInjectable.swift */; };
@@ -441,6 +442,7 @@
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerUtils.swift; sourceTree = "<group>"; };
+		A36D07B62486AD0100E46F96 /* HomeTestResultCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellConfigurator.swift; sourceTree = "<group>"; };
 		A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewController.swift; sourceTree = "<group>"; };
 		A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionViewUtils.swift; sourceTree = "<group>"; };
 		A3E5E71D247E6F7A00237116 /* SpinnerInjectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerInjectable.swift; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 				51CE1BC02460B256002CF42A /* HomeSubmitCellConfigurator.swift */,
 				51CE1BC22460B28D002CF42A /* HomeInfoCellConfigurator.swift */,
 				13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */,
+				A36D07B62486AD0100E46F96 /* HomeTestResultCellConfigurator.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1724,6 +1727,7 @@
 				CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */,
 				51CE1B86246078B6002CF42A /* SubmitCollectionViewCell.swift in Sources */,
 				71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */,
+				A36D07B72486AD0100E46F96 /* HomeTestResultCellConfigurator.swift in Sources */,
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStore.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				71FE1C6D247AA43400851FEB /* ExposureDetectionViewController+Summary.swift in Sources */,
