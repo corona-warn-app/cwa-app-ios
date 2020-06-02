@@ -358,10 +358,10 @@
             </objects>
             <point key="canvasLocation" x="1103" y="113"/>
         </scene>
-        <!--Norifications View Controller-->
+        <!--Notifications View Controller-->
         <scene sceneID="0hg-3d-JjK">
             <objects>
-                <viewController id="nwm-kE-hsV" userLabel="Norifications View Controller" customClass="NotificationSettingsViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nwm-kE-hsV" userLabel="Notifications View Controller" customClass="NotificationSettingsViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VFf-c4-ccH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -384,7 +384,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
                                                         <real key="value" value="17"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Um Mitteilungen zu aktiviren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Telefoneinstellungen zulassen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxB-b8-GKr" userLabel="Description Label">
@@ -420,12 +420,6 @@
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                                    <real key="value" value="17"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                            </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6MS-HZ-mD7" userLabel="Toggle Switch">
                                                                             <rect key="frame" x="349" y="6.5" width="51" height="31"/>
