@@ -1,23 +1,24 @@
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+/* Corona-Warn-App
 
-//Put german language strings here
+   SAP SE and all other contributors
+   copyright owners license this file to you under the Apache
+   License, Version 2.0 (the "License"); you may not use this
+   file except in compliance with the License.
+   You may obtain a copy of the License at
 
-// General
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+ */
+
+/*Put german language strings here*/
+
+/* General */
 "Alert_TitleGeneral" = "Ein Fehler ist aufgetreten";
 "Alert_MessageGeneral" = "Bitte versuchen Sie es erneut.";
 "Alert_ActionOk" = "Ok";
@@ -29,7 +30,7 @@
 "Alert_CancelAction_Later" = "Später";
 "Alert_DefaultAction_OpenSettings" = "Einstellungen öffnen";
 
-// Exposure Detection
+/* Exposure Detection */
 "ExposureDetection_Off" = "Risikoermittlung gestoppt";
 "ExposureDetection_Unknown" = "Unbekanntes Risiko";
 "ExposureDetection_Inactive" = "Kein erhöhtes Risiko";
@@ -93,7 +94,7 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 "ExposureDetection_Button_RefreshingIn" = "Aktualisieren (%02d:%02d)";
 
-// Settings
+/* Settings */
 "Settings_StatusActive" = "An";
 "Settings_StatusInactive" = "Aus";
 
@@ -110,7 +111,7 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 
 "Settings_NavTitle" = "Einstellungen";
 
-// Noticiation Settings
+/* Noticiation Settings */
 "NotificationSettings_On_Title" = "Möchten Sie Benachrichtigungen zu Ihrem Covid-19-Risikostatus aktivieren?";
 "NotificationSettings_On_Description" = "Erlauben Sie der App hier die Mitteilungen.";
 "NotificationSettings_On_SectionTitle" = "Einstellung";
@@ -126,7 +127,7 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 
 "NotificationSettings_NavTitle" = "Mitteilungen";
 
-// Onboarding
+/* Onboarding */
 "Onboarding_Next" = "Nächste";
 "Onboarding_Finish" = "Fertig";
 "Onboarding_LetsGo_actionText" = "Los geht’s";
@@ -161,7 +162,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Isolation begeben und nach entsprechender Abklärung testen lassen.";
 
 
-// Exposure Submission
+/* Exposure Submission */
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
 "ExposureSubmission_DataPrivacyDescription" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
@@ -196,7 +197,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 "ExposureSubmission_TANInputButtonTitle" = "TAN-Code eingeben";
 
-// Exposure Submission Success
+/* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank";
 "ExposureSubmissionSuccess_Button" = "Fertig";
 "ExposureSubmissionSuccess_Description" = "Dank Ihrer Mithilfe können Andere gewarnt werden und entsprechend reagieren.";
@@ -205,7 +206,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmissionSuccess_listItem1" = "Sie sind ansteckend";
 "ExposureSubmissionSuccess_listItem2" = "Isolieren Sie sich von anderen Personen";
 
-// Exposure Submission Introduction
+/* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Info";
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
 "ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt  wie folgt vorgehen:";
@@ -215,7 +216,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmissionIntroduction_ListItem3" = "Wenn Ihnen für einen positiven Test eine TAN mitgeteilt wurde , können Sie diese für die Registrierung des Tests nutzen.";
 "ExposureSubmissionIntroduction_ListItem4" = "Wenn Sie keine TAN haben, können Sie diese telefonisch anfragen.";
 
-// Exposure Submission Result
+/* Exposure Submission Result */
 "ExposureSubmissionResult_Title" = "Test-Ergebnis";
 "ExposureSubmissionResult_CardSubTitle" = "IHR BEFUND";
 "ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
@@ -252,7 +253,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
 
-// Tracing Enable/Disable Settings
+/* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risikoermittlung";
 "ExposureNotificationSetting_EnableTracing" = "Risikoermittlung";
 "ExposureNotificationSetting_Tracing_Limited" = "Eingeschränkt";
@@ -269,40 +270,40 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19-Kontaktmitteilungen aktivieren";
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risikoermittlung benötigt aktivierte COVID-19-Kontaktmitteilungen in den Systemeinstellungen um Begegnungen zu protokollieren. Bitte aktivieren Sie COVID-19-Kontaktmitteilungen in Ihren Systemeinstellungen.";
 
-// Home
-// Home Cards
+/* Home */
+/* Home Cards */
 
-// Home Active card
+/* Home Active card */
 "Home_Activate_Card_On_Title" = "Risiko-Ermittlung aktiv";
 "Home_Activate_Card_Off_Title" = "Risiko-Ermittlung gestoppt";
 "Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth deaktiviert";
 "Home_Activate_Card_Internet_Off_Title" = "Keine Internetverbindung";
 
-// Home Unknown card
+/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 "Home_RiskCard_Unknown_Item_Title" = "Da Sie Ihre Umfeldaufzeichnung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 "Home_RiskCard_Unknown_Button" = "Aktualisieren";
 
-// Home Inactive card
+/* Home Inactive card */
 "Home_Risk_Inactive_Title" = "Keine Risikoprüfung";
 "Home_Risk_Inactive_Body" = "Aktivieren Sie die Risikoermittlung, um Ihr Risiko zu aktualisieren.";
 "Home_Risk_Inactive_Activate_Item_Title" = "Letzte Ermittlung: %@";
 "Home_Risk_Inactive_Date_Item_Title" = "Aktualisiert: %@";
 "Home_Risk_Inactive_Button" = "Risikoermittlung einschalten";
 
-// Home Low card
+/* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 "Home_Risk_Low_NoContact_Item_Title" = "Bisher keine Risikobegegnung";
 "Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen gespeichert";
 "Home_Risk_Low_Date_Item_Title" = "Aktualisiert: %@";
 "Home_Risk_Low_Button" = "Aktualisieren";
 
-// Home High card
+/* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
 "Home_Risk_High_Date_Item_Title" = "Aktualisiert: %@";
 "Home_Risk_High_Button" = "Aktualisieren";
 
-// Home Status Check
+/* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Prüfung läuft..";
 "Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 "Home_Risk_Status_Check_Button" = "Aktualisieren";
@@ -320,7 +321,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_AppInformationCard_Title" = "App Informationen";
 "Home_AppInformationCard_Version" = "Version";
 
-// Home Result Card
+/* Home Result Card */
 "Home_resultCard_ResultAvailableTitle" = "Ihr Ergebnis liegt vor";
 "Home_resultCard_ResultUnvailableTitle" = "Ergebnis liegt noch nicht vor";
 "Home_resultCard_ShowResultButton" = "Test anzeigen";
@@ -333,7 +334,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_resultCard_InvalidTitle" = "Befund ungültig";
 "Home_resultCard_InvalidDesc" = "Das Ergebnis ist ungültig.";
 
-// App Information - About
+/* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
 "App_Information_About_Title" = "Zusammen gegen Corona";
 "App_Information_About_Description" = "Die COVID Warn-App wurde vom Robert Koch-Instituts entwickelt, um die Gemeinschaft vor der Verbreitung des Coronavirus zu schützen.";
@@ -341,7 +342,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 
 Gemeinsam können wir helfen, die Ausbreitung zu stoppen und gesund zu bleiben.";
 
-// App Information - Contact
+/* App Information - Contact */
 "App_Information_Contact_Navigation" = "Kontakt";
 "App_Information_Contact_Title" = "Wie können wir Ihnen helfen";
 "App_Information_Contact_Description" = "Rufen Sie uns an, wenn Sie technische, datenschutzbezogene, gesundheitsbezogene oder psychologische Fragestellungen haben.";
@@ -351,7 +352,7 @@ Gemeinsam können wir helfen, die Ausbreitung zu stoppen und gesund zu bleiben."
 "App_Information_Contact_Hotline_Description" = "Unser technischer Kundenservice ist für Sie da. Die Wartezeit ist weniger als 5 Minuten im Moment.";
 "App_Information_Contact_Hotline_Terms" = "Unsere Öffnungszeiten:\nMo - Fr: 08:00 - 22:00 Uhr\nSa - So: 10:00 - 22:00 Uhr\nEs gelten die Preise Ihres Telefonanbieters.";
 
-// App Information - Legal
+/* App Information - Legal */
 "App_Information_Legal_Navigation" = "Impressum";
 "App_Information_Legal_Section1_Title" = "Anbieter";
 "App_Information_Legal_Section1_Text" = "Presse- und Informationsamt der Bundesregierung\nDorotheenstraße 84\n10117 Berlin\nTelefon: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
@@ -362,7 +363,7 @@ Gemeinsam können wir helfen, die Ausbreitung zu stoppen und gesund zu bleiben."
 "App_Information_Legal_Section4_Title" = "Briefanschrift";
 "App_Information_Legal_Section4_Text" = "...";
 
-// App Information - Privacy
+/* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Datenschutz";
 "App_Information_Privacy_Title" = "Datenschutz";
 "App_Information_Privacy_Description" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.";
@@ -377,13 +378,13 @@ Bitte lesen Sie unsere Datenschutzbestimmungen.
 Datenschutzhinweise:
 Duis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla.";
 
-// App Information - Terms
+/* App Information - Terms */
 "App_Information_Terms_Navigation" = "Nutzungsbedingungen";
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
 "App_Information_Terms_Description" = "Die nachfolgenden Nutzungsbedingungen gelten für die Nutzung der App und werden duch Aufruf oder Nutzung des Angebots oder einer einzelnen Funktion akzeptiert.";
 "App_Information_Terms_Text" = "...";
 
-// App Information - Tracing
+/* App Information - Tracing */
 "App_Information_Tracing_Navigation" = "Wie funktioniert Tracing?";
 "App_Information_Tracing_Text" = "COVID-19 Kontaktprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln von zufälligen ID's.
 
@@ -398,7 +399,7 @@ Fusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel 
 Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla. Fusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.";
 
 
-//Risk View
+/* Risk View */
 "unknown_risk" = "Risiko unbekannt";
 "inactive_risk" = "Keine Risikoprüfung";
 "low_risk" = "Geringes Risiko";
@@ -414,7 +415,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
-// Invite Friends
+/* Invite Friends */
 "InviteFriends_NavTitle" = "Covid WARN-App Teilen";
 "InviteFriends_Title" = "Zusammen gegen Corona.";
 "InviteFriends_Description" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Downloaden ein!";
@@ -422,7 +423,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_ShareTitle" = "Zusammen gegen Corona. Ich bin dabei. Du auch?";
 "InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
 
-//Reset View
+/* Reset View */
 "Reset_NavTitle" = "Zurücksetzen";
 "Reset_Header1" = "Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?";
 "Reset_Descrition1" = "Sie werden nicht mehr über Ihre Risiko-Begegnungen informiert und können andere Nutzerinnen und Nutzer nicht mehr warnen.";
@@ -432,10 +433,10 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "Reset_InfoDescription" = "Die Begegnungs-Aufzeichnung muss separat in den Geräte Einstellungen gelöscht werden.";
 "Reset_Subtitle" = "Anwendung zurücksetzen";
 
-//Safari
+/* Safari */
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
 
-//Local Notifications
+/* Local Notifications */
 "local_notifications_viewResults" = "Ergebnisse anzeigen";
 "local_notifications_ignore" = "Ignorieren";
 "local_notifications_detectexposure_title" = "Corona-Warn-App";
