@@ -42,10 +42,11 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 		let noteTitle = AppStrings.Home.thankYouCardNoteTitle
 		cell.configureNoteLabel(title: noteTitle)
 
+		let iconColor: UIColor = .preferredColor(for: .brandRed)
 		let phoneTitle = AppStrings.Home.thankYouCardPhoneItemTitle
-		let phoneItem = HomeRiskImageItemViewConfigurator(title: phoneTitle, titleColor: titleColor, iconImageName: "Phone", iconTintColor: .red, color: .clear, separatorColor: .clear)
+		let phoneItem = HomeRiskImageItemViewConfigurator(title: phoneTitle, titleColor: titleColor, iconImageName: "Icons - Hotline", iconTintColor: iconColor, color: .clear, separatorColor: .clear)
 		let homeTitle = AppStrings.Home.thankYouCardHomeItemTitle
-		let homeItem = HomeRiskImageItemViewConfigurator(title: homeTitle, titleColor: titleColor, iconImageName: "Icons - Home", iconTintColor: .red, color: .clear, separatorColor: .clear)
+		let homeItem = HomeRiskImageItemViewConfigurator(title: homeTitle, titleColor: titleColor, iconImageName: "Icons - Home", iconTintColor: iconColor, color: .clear, separatorColor: .clear)
 		cell.configureNoteRiskViews(cellConfigurators: [phoneItem, homeItem])
 
 
