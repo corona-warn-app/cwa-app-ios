@@ -17,8 +17,7 @@
 
 import UIKit
 
-// swiftlint:disable identifier_name
-// swiftlint:disable:next type_body_length
+// swiftlint:disable all
 enum AppStrings {
 	enum Common {
 		static let alertTitleGeneral = NSLocalizedString("Alert_TitleGeneral", comment: "")
