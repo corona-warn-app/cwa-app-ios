@@ -27,17 +27,7 @@ class RiskLegendViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		// TODO: Refactor into DynamicTableViewController
-		tableView.register(DynamicTableViewSpaceCell.self, forCellReuseIdentifier: CellReuseIdentifier.space.rawValue)
-		tableView.register(DynamicTypeTableViewCell.Title1.self, forCellReuseIdentifier: CellReuseIdentifier.title1.rawValue)
-		tableView.register(DynamicTypeTableViewCell.Title2.self, forCellReuseIdentifier: CellReuseIdentifier.title2.rawValue)
-		tableView.register(DynamicTypeTableViewCell.Headline.self, forCellReuseIdentifier: CellReuseIdentifier.headline.rawValue)
-		tableView.register(DynamicTypeTableViewCell.Subheadline.self, forCellReuseIdentifier: CellReuseIdentifier.subheadline.rawValue)
-		tableView.register(DynamicTypeTableViewCell.Body.self, forCellReuseIdentifier: CellReuseIdentifier.body.rawValue)
-		tableView.register(DynamicTypeTableViewCell.Footnote.self, forCellReuseIdentifier: CellReuseIdentifier.footnote.rawValue)
-
 		titleLabel.text = AppStrings.RiskLegend.title
-		subtitleLabel.text = AppStrings.RiskLegend.subtitle
 
 		dynamicTableViewModel = model
 	}
@@ -51,14 +41,5 @@ extension RiskLegendViewController {
 	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
 		case numberedTitle = "numberedTitleCell"
 		case dotBody = "dotBodyCell"
-
-		// TODO: Refactor into DynamicTableViewController
-		case space = "spaceCell"
-		case title1 = "title1Cell"
-		case title2 = "title2Cell"
-		case headline = "headlineCell"
-		case subheadline = "subheadlineCell"
-		case body = "bodyCell"
-		case footnote = "footnoteCell"
 	}
 }

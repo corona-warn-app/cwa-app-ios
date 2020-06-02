@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="HE9-Lw-n8D">
-                                <rect key="frame" x="0.0" y="87.5" width="414" height="754.5"/>
+                                <rect key="frame" x="0.0" y="61.5" width="414" height="780.5"/>
                                 <color key="backgroundColor" name="background"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="188" id="EKF-cq-Lm4">
@@ -74,7 +74,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LyM-IV-zgr" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="68" y="11" width="326" height="26.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="textPrimary1"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
@@ -107,7 +107,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onE-k3-TYh" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="68" y="11" width="326" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="textPrimary1"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
@@ -149,39 +149,25 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mi8-Cv-Sbm">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="87.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="61.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="kp4-gu-CH1">
-                                        <rect key="frame" x="16" y="24" width="334" height="55.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0E-Fd-yj4" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="334" height="33.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Headline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAr-dF-eBf" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="37.5" width="334" height="18"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" name="textPrimary2"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0E-Fd-yj4" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="24" width="334" height="33.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="textPrimary1"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottomMargin" secondItem="kp4-gu-CH1" secondAttribute="bottom" id="f4r-fU-HzK"/>
-                                    <constraint firstItem="kp4-gu-CH1" firstAttribute="top" secondItem="mi8-Cv-Sbm" secondAttribute="topMargin" id="jFF-cP-aXR"/>
-                                    <constraint firstItem="kp4-gu-CH1" firstAttribute="leading" secondItem="mi8-Cv-Sbm" secondAttribute="leadingMargin" id="r6T-7L-kFe"/>
+                                    <constraint firstItem="X0E-Fd-yj4" firstAttribute="top" secondItem="mi8-Cv-Sbm" secondAttribute="topMargin" id="HUf-O5-vNO"/>
+                                    <constraint firstItem="X0E-Fd-yj4" firstAttribute="leading" secondItem="mi8-Cv-Sbm" secondAttribute="leadingMargin" id="WTS-kE-wiB"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="X0E-Fd-yj4" secondAttribute="bottom" id="dGf-rV-kVu"/>
                                 </constraints>
-                                <edgeInsets key="layoutMargins" top="24" left="16" bottom="8" right="16"/>
+                                <edgeInsets key="layoutMargins" top="24" left="16" bottom="4" right="16"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqM-tL-rje" customClass="UIControl">
                                 <rect key="frame" x="357" y="15" width="50" height="50"/>
@@ -208,8 +194,8 @@
                         <color key="backgroundColor" name="background"/>
                         <constraints>
                             <constraint firstItem="HE9-Lw-n8D" firstAttribute="leading" secondItem="wV0-4z-n5g" secondAttribute="leading" id="8x0-67-nJm"/>
+                            <constraint firstItem="1Jv-e2-fP5" firstAttribute="leading" secondItem="X0E-Fd-yj4" secondAttribute="trailing" constant="16" id="ElY-yN-uvQ"/>
                             <constraint firstAttribute="trailing" secondItem="1Jv-e2-fP5" secondAttribute="trailing" constant="16" id="IwJ-sh-K4J"/>
-                            <constraint firstItem="1Jv-e2-fP5" firstAttribute="leading" secondItem="kp4-gu-CH1" secondAttribute="trailing" constant="16" id="NTu-cS-uU9"/>
                             <constraint firstAttribute="bottom" secondItem="HE9-Lw-n8D" secondAttribute="bottom" id="aUH-5R-doe"/>
                             <constraint firstItem="HE9-Lw-n8D" firstAttribute="top" secondItem="mi8-Cv-Sbm" secondAttribute="bottom" id="bF6-k4-1ZE"/>
                             <constraint firstItem="mi8-Cv-Sbm" firstAttribute="top" secondItem="wV0-4z-n5g" secondAttribute="top" id="nek-S0-lgm"/>
@@ -222,7 +208,6 @@
                     </view>
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="subtitleLabel" destination="IAr-dF-eBf" id="z24-5D-A61"/>
                         <outlet property="tableView" destination="HE9-Lw-n8D" id="KEx-iG-Jab"/>
                         <outlet property="titleLabel" destination="X0E-Fd-yj4" id="c6Q-W4-Cgu"/>
                     </connections>
@@ -243,8 +228,8 @@
         <namedColor name="negative">
             <color red="0.75300002098083496" green="0.059000000357627869" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="textPrimary2">
-            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="textPrimary1">
+            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
