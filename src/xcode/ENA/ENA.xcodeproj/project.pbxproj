@@ -64,6 +64,9 @@
 		51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51C7790B24867F16004582F8 /* RiskListItemView.xib */; };
 		51C7790E24867F22004582F8 /* RiskListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C7790D24867F22004582F8 /* RiskListItemView.swift */; };
 		51C77910248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C7790F248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift */; };
+		51C779122486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C779112486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift */; };
+		51C779142486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51C779132486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib */; };
+		51C779162486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C779152486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift */; };
 		51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */; };
 		51CE1B4C246016D1002CF42A /* UICollectionReusableView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */; };
 		51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B5424604DD2002CF42A /* HomeLayout.swift */; };
@@ -359,6 +362,9 @@
 		51C7790B24867F16004582F8 /* RiskListItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskListItemView.xib; sourceTree = "<group>"; };
 		51C7790D24867F22004582F8 /* RiskListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskListItemView.swift; sourceTree = "<group>"; };
 		51C7790F248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskListItemViewConfigurator.swift; sourceTree = "<group>"; };
+		51C779112486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFindingPositiveRiskCellConfigurator.swift; sourceTree = "<group>"; };
+		51C779132486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskFindingPositiveCollectionViewCell.xib; sourceTree = "<group>"; };
+		51C779152486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskFindingPositiveCollectionViewCell.swift; sourceTree = "<group>"; };
 		51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Identifier.swift"; sourceTree = "<group>"; };
 		51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+Identifier.swift"; sourceTree = "<group>"; };
@@ -652,6 +658,7 @@
 				514C0A15247C164700F235F6 /* HomeHighRiskCellConfigurator.swift */,
 				514C0A19247C16D600F235F6 /* HomeInactiveRiskCellConfigurator.swift */,
 				515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */,
+				51C779112486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift */,
 			);
 			path = HomeRiskCellConfigurators;
 			sourceTree = "<group>";
@@ -746,6 +753,8 @@
 				51486DA12485101500FCE216 /* RiskInactiveCollectionViewCell.xib */,
 				51486DA42485237200FCE216 /* RiskThankYouCollectionViewCell.swift */,
 				51486DA52485237200FCE216 /* RiskThankYouCollectionViewCell.xib */,
+				51C779152486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift */,
+				51C779132486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib */,
 				514EE991246D4A1600DE4884 /* Risk Items */,
 			);
 			path = Risk;
@@ -1672,6 +1681,7 @@
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
 				7132F2822477F9C700628648 /* exposure-detection.xcassets in Resources */,
 				2F785751248506BD00323A9C /* ExposureSubmissionCell.xib in Resources */,
+				51C779142486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				514C0A0B247AF9F700F235F6 /* RiskTextItemView.xib in Resources */,
@@ -1798,9 +1808,11 @@
 				B1D431CB246C84A400E728AD /* DownloadedPackagesStore.swift in Sources */,
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				71FE1C6D247AA43400851FEB /* ExposureDetectionViewController+Summary.swift in Sources */,
+				51C779162486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift in Sources */,
 				B10FD5F2246EAB1600E9D7F2 /* AppInformationDetailModel.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
 				514C0A14247C163800F235F6 /* HomeLowRiskCellConfigurator.swift in Sources */,
+				51C779122486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift in Sources */,
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
 				EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */,
 				2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */,

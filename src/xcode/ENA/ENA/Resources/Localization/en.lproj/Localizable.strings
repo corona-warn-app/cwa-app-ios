@@ -217,6 +217,16 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_Thank_You_Card_App_Item_Title" = "Please also pay special attention to people who are not automatically informed by the app because they do not have a smartphone or the app.";
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Even if you have no more symptoms and feel healthy again, you could still be contagious.";
 
+// Home Finding positive
+"Home_Finding_Positive_Card_Title" = "Finding positive";
+"Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2-positive";
+"Home_Finding_Positive_Card_Status_Subtitle" = "You have been diagnosed with the SARS-CoV-2 virus.";
+"Home_Finding_Positive_Card_Note_Title" = "Please note:";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "The health department will contact you by phone or in writing in the next few days.";
+"Home_Finding_Positive_Card_Home_Item_Title" = "You are contagious. Isolate yourself from other people.";
+"Home_Finding_Positive_Card_Share_Item_Title" = "Share your random codes so others can be warned.";
+"Home_Finding_Positive_Card_Button" = "Continue";
+
 // Home Submit card
 "Home_SubmitCard_Title" = "I would be tested";
 "Home_SubmitCard_Body" = "Report your findings anonymously so that contact persons can be informed";
