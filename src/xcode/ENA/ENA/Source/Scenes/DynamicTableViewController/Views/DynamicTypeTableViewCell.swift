@@ -49,12 +49,13 @@ class DynamicTypeTableViewCell: UITableViewCell {
 		}
 
 		configureDynamicType()
+		configure(text: "", color: .preferredColor(for: .textPrimary1))
 	}
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		configureDynamicType()
-		configure(text: "", color: nil)
+		configure(text: "", color: .preferredColor(for: .textPrimary1))
 	}
 
 	func configureDynamicType(size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body) {

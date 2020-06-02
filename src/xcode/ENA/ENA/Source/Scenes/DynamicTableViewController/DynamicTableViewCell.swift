@@ -85,7 +85,7 @@ extension DynamicCell {
 }
 
 extension DynamicCell {
-	private static func enaLabelStyle(_ style: ENALabel.Style, text: String, color: UIColor? = .preferredColor(for: .textPrimary1), configure: CellConfigurator? = nil) -> Self {
+	private static func enaLabelStyle(_ style: ENALabel.Style, text: String, color: UIColor?, configure: CellConfigurator? = nil) -> Self {
 		dynamicType(text: text, size: style.fontSize, weight: UIFont.Weight(style.fontWeight), style: style.textStyle, color: color, configure: configure)
 	}
 
