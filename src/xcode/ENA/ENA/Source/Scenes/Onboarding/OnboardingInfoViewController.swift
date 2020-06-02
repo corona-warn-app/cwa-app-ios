@@ -117,15 +117,6 @@ final class OnboardingInfoViewController: UIViewController {
 			completion()
 		}
 	}
-	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
-		switch pageType {
-		case .enableLoggingOfContactsPage:
-			warnUserAboutDisablingExposureManager(completion: completion)
-		default:
-			completion()
-		}
-	}
-
 
 	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
 		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
@@ -188,6 +179,8 @@ final class OnboardingInfoViewController: UIViewController {
 			titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 			boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+			nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+			ignoreButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		}
 	}
 
@@ -247,18 +240,6 @@ final class OnboardingInfoViewController: UIViewController {
 				}
 			}
 		}
-	}
-
-	private func warnUserAboutDisablingExposureManager(completion: (() -> Void)?) {
-		let alert = UIAlertController(
-			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_alertTitle,
-			message: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_alertMessage,
-			preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default) { _ in
-			completion?()
-		})
-		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionCancel, style: .cancel))
-		present(alert, animated: true)
 	}
 
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
