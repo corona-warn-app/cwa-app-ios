@@ -24,6 +24,8 @@ typealias DaysAndHours = Client.DaysAndHours
 /// the results of a transaction.
 protocol ExposureDetectionDelegate: AnyObject {
 	typealias Completion = (DaysAndHours?) -> Void
+	typealias DetectionHandler = (Result<ENExposureDetectionSummary, Error>) -> Void
+
 	func exposureDetection(
 		_ detection: ExposureDetection,
 		determineAvailableData completion: @escaping (DaysAndHours?) -> Void
@@ -52,6 +54,6 @@ protocol ExposureDetectionDelegate: AnyObject {
 		detectSummaryWithConfiguration
 		configuration: ENExposureConfiguration,
 		writtenPackages: WrittenPackages,
-		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void
+		completion: @escaping DetectionHandler
 	)
 }
