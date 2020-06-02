@@ -44,13 +44,11 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 	let identifier = UUID()
 	
 	var buttonAction: (() -> Void)?
-	var didConfigureCell: ((HomeTestResultCellConfigurator, HomeTestResultCell) -> Void)?
 	var testResult = TestResult.pending
 
 	func configure(cell: HomeTestResultCell) {
 		cell.delegate = self
 		updateState(cell)
-		didConfigureCell?(self, cell)
 	}
 
 	func updateState(_ cell: HomeTestResultCell) {

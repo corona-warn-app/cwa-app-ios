@@ -95,6 +95,9 @@ final class HomeViewController: UIViewController {
 		updateSections()
 		applySnapshotFromSections()
 		configureUI()
+
+		// TODO: Do this proplery! ###
+		fetchResult()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -151,6 +154,7 @@ final class HomeViewController: UIViewController {
 				ExposureSubmissionNavigationController(
 					coder: coder,
 					exposureSubmissionService: exposureSubmissionService,
+					homeViewController: self,
 					testResult: result
 				)
 			},
@@ -346,7 +350,14 @@ final class HomeViewController: UIViewController {
 			]
 		)
 
-		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskCollectionViewCell.self, SubmitCollectionViewCell.self, InfoCollectionViewCell.self]
+		let cellTypes: [UICollectionViewCell.Type] = [
+			ActivateCollectionViewCell.self,
+			RiskCollectionViewCell.self,
+			SubmitCollectionViewCell.self,
+			InfoCollectionViewCell.self,
+			HomeTestResultCell.self
+		]
+		
 		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
 		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
@@ -403,19 +414,23 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController {
 
-	func updateTestResultFor(_ cell: HomeTestResultCell, with configurator: HomeTestResultCellConfigurator) {
+	func showTestResultIfPossible() {
+		self.homeInteractor.showTestResult()
+		fetchResult()
+	}
+
+	private func fetchResult() {
 		self.exposureSubmissionService?.getTestResult { result in
 			switch result {
 			case .failure(let error):
-				appLogger.log(message: "Could not update test state: \(error)", file: #file, line: #line, function: #function)
+				appLogger.log(message: "Error while fetching result: \(error)", file: #file, line: #line, function: #function)
 			case .success(let result):
-				self.testResult = result
-				configurator.configure(cell: cell)
+				self.homeInteractor.reloadTestResult(with: result)
 			}
 		}
 	}
 
-	func showTestResult() {
+	func showTestResultScreen() {
 		showExposureSubmission(with: testResult)
 	}
 }
