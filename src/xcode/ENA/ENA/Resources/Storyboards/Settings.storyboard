@@ -176,7 +176,6 @@
                             <constraint firstItem="N0Q-lm-1nh" firstAttribute="leading" secondItem="DEG-xR-O81" secondAttribute="leading" constant="16" id="a0l-7R-R1M"/>
                             <constraint firstItem="N0Q-lm-1nh" firstAttribute="top" secondItem="te1-Qd-nmE" secondAttribute="bottom" constant="16" id="kVW-Uq-KP2"/>
                             <constraint firstItem="DEG-xR-O81" firstAttribute="trailing" secondItem="N0Q-lm-1nh" secondAttribute="trailing" constant="16" id="nzl-qb-yZo"/>
-                            <constraint firstItem="te1-Qd-nmE" firstAttribute="width" secondItem="jQp-ED-SYd" secondAttribute="width" id="v34-UV-sIf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DEG-xR-O81"/>
                     </view>
@@ -367,7 +366,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GH-Ib-DgS">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYJ-sA-5Ds">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="562.5"/>
@@ -571,10 +570,10 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="0GH-Ib-DgS" secondAttribute="trailing" id="DJ7-o7-9Ri"/>
-                            <constraint firstItem="0GH-Ib-DgS" firstAttribute="leading" secondItem="VFf-c4-ccH" secondAttribute="leading" id="H5Y-y4-4OU"/>
-                            <constraint firstItem="0GH-Ib-DgS" firstAttribute="top" secondItem="VFf-c4-ccH" secondAttribute="top" id="SOL-xB-eZl"/>
-                            <constraint firstAttribute="bottom" secondItem="0GH-Ib-DgS" secondAttribute="bottom" id="TrE-Fy-IcM"/>
+                            <constraint firstItem="dw0-ar-NUF" firstAttribute="trailing" secondItem="0GH-Ib-DgS" secondAttribute="trailing" id="DJ7-o7-9Ri"/>
+                            <constraint firstItem="0GH-Ib-DgS" firstAttribute="leading" secondItem="dw0-ar-NUF" secondAttribute="leading" id="H5Y-y4-4OU"/>
+                            <constraint firstItem="0GH-Ib-DgS" firstAttribute="top" secondItem="dw0-ar-NUF" secondAttribute="top" id="SOL-xB-eZl"/>
+                            <constraint firstItem="dw0-ar-NUF" firstAttribute="bottom" secondItem="0GH-Ib-DgS" secondAttribute="bottom" id="TrE-Fy-IcM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dw0-ar-NUF"/>
                     </view>
