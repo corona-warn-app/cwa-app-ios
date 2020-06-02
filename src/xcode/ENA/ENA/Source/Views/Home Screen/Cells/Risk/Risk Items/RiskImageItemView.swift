@@ -19,57 +19,29 @@ import UIKit
 
 final class RiskImageItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
 	@IBOutlet var iconImageView: UIImageView!
-	@IBOutlet var titleTextView: UITextView!
+	@IBOutlet var textLabel: UILabel!
 	@IBOutlet var separatorView: UIView!
-	@IBOutlet var separatorHeightConstraint: NSLayoutConstraint!
-	@IBOutlet var topImageTopTextViewConstraint: NSLayoutConstraint!
-
-	@IBOutlet var leadingTextViewLeadingMarginConstraint: NSLayoutConstraint!
-	@IBOutlet var leadingTextViewTrailingImageViewConstraint: NSLayoutConstraint!
-
-	private let titleTopPadding: CGFloat = 8.0
+	@IBOutlet var stackView: UIStackView!
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		separatorHeightConstraint.constant = 1
-		titleTextView.textContainerInset = .zero
-		titleTextView.textContainer.lineFragmentPadding = 0
-		titleTextView.textContainerInset = .init(top: titleTopPadding, left: 0.0, bottom: titleTopPadding, right: 0.0)
-		titleTextView.isUserInteractionEnabled = false
-		configureTextViewLayout()
-	}
-
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		wrapImage()
+		let containerInsets = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 16.0, right: 0.0)
+		stackView.layoutMargins = containerInsets
+		stackView.isLayoutMarginsRelativeArrangement = true
+		configureStackView()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
-		configureTextViewLayout()
+		configureStackView()
 	}
 
-	private func configureTextViewLayout() {
+	private func configureStackView() {
 		if traitCollection.preferredContentSizeCategory >= .accessibilityMedium {
-			leadingTextViewLeadingMarginConstraint.isActive = true
-			leadingTextViewTrailingImageViewConstraint.isActive = false
+
 		} else {
-			leadingTextViewLeadingMarginConstraint.isActive = false
-			leadingTextViewTrailingImageViewConstraint.isActive = true
+			
 		}
-	}
-
-	private func wrapImage() {
-		guard let lineHeight = titleTextView.font?.lineHeight else { return }
-
-		var iconImageFrame = convert(iconImageView.frame, to: titleTextView)
-		let offset: CGFloat = (lineHeight - iconImageFrame.height) / 2.0
-
-		topImageTopTextViewConstraint.constant = max(offset.rounded(), 0) + titleTopPadding
-		let iconTitleDistance = leadingTextViewTrailingImageViewConstraint.constant
-		iconImageFrame.size = CGSize(width: iconImageFrame.width + iconTitleDistance, height: iconImageFrame.height)
-		let bezierPath = UIBezierPath(rect: iconImageFrame)
-		titleTextView.textContainer.exclusionPaths = [bezierPath]
 	}
 
 	func hideSeparator() {
