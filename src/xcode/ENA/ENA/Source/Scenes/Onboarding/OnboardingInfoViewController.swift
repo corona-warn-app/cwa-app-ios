@@ -210,10 +210,10 @@ final class OnboardingInfoViewController: UIViewController {
 	// MARK: Exposure notifications
 
 	private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
-		#if targetEnvironment(simulator) || COMMUNITY
-		completion?()
-		return
-		#endif
+		if exposureManager is MockExposureManager {
+			completion?()
+			return
+		}
 
 		guard !exposureManagerActivated else {
 			completion?()
