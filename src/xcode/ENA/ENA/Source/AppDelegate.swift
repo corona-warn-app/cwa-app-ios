@@ -31,7 +31,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	let taskScheduler = ENATaskScheduler()
 	private var exposureManager: ExposureManager = ENAExposureManager()
-private var exposureDetection: ExposureDetection?
+	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
 
 	let downloadedPackagesStore: DownloadedPackagesStore = {
@@ -163,7 +163,12 @@ extension AppDelegate: ExposureDetectionDelegate {
 		}
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) {
+	func exposureDetection(
+		_ detection: ExposureDetection,
+		detectSummaryWithConfiguration
+		configuration: ENExposureConfiguration,
+		writtenPackages: WrittenPackages,
+		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) {
 		func withResultFrom(
 			summary: ENExposureDetectionSummary?,
 			error: Error?
@@ -249,7 +254,6 @@ extension AppDelegate: CoronaWarnAppDelegate {
 				showError()
 			}
 		}
-
 	}
 	func appStartExposureDetectionTransaction() {
 		precondition(
@@ -260,7 +264,6 @@ extension AppDelegate: CoronaWarnAppDelegate {
 			delegate: self
 		)
 		exposureDetection?.start(completion: useSummaryDetectionResult)
-
 	}
 }
 
@@ -297,7 +300,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		}
 
 		guard
-			self.exposureDetection == nil,
+			exposureDetection == nil,
 			exposureManager.preconditions().authorized,
 			UIApplication.shared.backgroundRefreshStatus == .available
 			else {
@@ -307,8 +310,12 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 		exposureDetection = ExposureDetection(delegate: self)
 
-		exposureDetection?.start { _ in 
-			complete(success: true)
+		self.exposureDetection?.start { result in
+			defer { complete(success: true) }
+			if case let .success(newSummary) = result {
+				// persist the previous risk score to the store
+				self.store.previousSummary = ENExposureDetectionSummaryContainer(with: newSummary)
+			}
 		}
 
 		task.expirationHandler = {
@@ -326,21 +333,24 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
-		self.exposureSubmissionService?.getTestResult { result in
+		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
+			self.exposureSubmissionService?.getTestResult { result in
+				switch result {
+				case .failure(let error):
+					logError(message: error.localizedDescription)
 
-			switch result {
-			case .failure(let error):
-				logError(message: error.localizedDescription)
-
-			case .success(let testResult):
-				if testResult != .pending {
-					self.taskScheduler.notificationManager.presentNotification(
-						title: AppStrings.LocalNotifications.testResultsTitle,
-						body: AppStrings.LocalNotifications.testResultsBody,
-						identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+				case .success(let testResult):
+					if testResult != .pending {
+						self.taskScheduler.notificationManager.presentNotification(
+							title: AppStrings.LocalNotifications.testResultsTitle,
+							body: AppStrings.LocalNotifications.testResultsBody,
+							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+					}
 				}
-			}
 
+				complete(success: true)
+			}
+		} else {
 			complete(success: true)
 		}
 

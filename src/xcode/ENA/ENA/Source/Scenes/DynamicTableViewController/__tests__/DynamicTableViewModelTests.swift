@@ -29,15 +29,15 @@ class DynamicTableViewModelTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		cellsSection0 = [
-			DynamicCell.bold(text: "Foo"),
-			DynamicCell.bold(text: "Bar")
+			DynamicCell.body(text: "Foo"),
+			DynamicCell.body(text: "Bar")
 		]
 		cellsSection1 = [
-			DynamicCell.bold(text: "Baz")
+			DynamicCell.body(text: "Baz")
 		]
 		sections = [
 			DynamicSection.section(cells: cellsSection0),
-		  DynamicSection.section(cells: cellsSection1),
+			DynamicSection.section(cells: cellsSection1)
 		]
 		sut = DynamicTableViewModel(sections)
 	}
@@ -54,9 +54,8 @@ class DynamicTableViewModelTests: XCTestCase {
 		let section = sut.section(1)
 		
 		XCTAssertEqual(section.cells.count, 1)
-		let cell = section.cells.first
-		if case .bold(text: let text) = cell {
-			XCTAssertEqual(text, "Baz")
+		if let cell = section.cells.first {
+			XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
 		} else {
 			XCTFail()
 		}
@@ -65,11 +64,10 @@ class DynamicTableViewModelTests: XCTestCase {
 	func testSectionAt_returnsInitializedSection() {
 		
 		let section = sut.section(at: IndexPath(row: 0, section: 1))
-		
+
 		XCTAssertEqual(section.cells.count, 1)
-		let cell = section.cells.first
-		if case .bold(text: let text) = cell {
-			XCTAssertEqual(text, "Baz")
+		if let cell = section.cells.first {
+			XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
 		} else {
 			XCTFail()
 		}
@@ -78,12 +76,7 @@ class DynamicTableViewModelTests: XCTestCase {
 	func testCellAt_returnsInitializedCell() {
 		
 		let cell = sut.cell(at: IndexPath(row: 0, section: 0))
-		
-		if case .bold(text: let text) = cell {
-			XCTAssertEqual(text, "Foo")
-		} else {
-			XCTFail()
-		}
+		XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
 	}
 	
 	func testNumberOfSections() {
@@ -104,9 +97,8 @@ class DynamicTableViewModelTests: XCTestCase {
 		// get last section
 		let section = getLastSection(from: sut)
 		// assert cell type and content
-		let cell = section.cells.first
-		if case .semibold(text: let text) = cell {
-			XCTAssertEqual(text, "23")
+		if let cell = section.cells.first {
+			XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
 		} else {
 			XCTFail()
 		}
@@ -122,9 +114,8 @@ class DynamicTableViewModelTests: XCTestCase {
 		// get last section
 		let section = getLastSection(from: model)
 		// assert cell type and content
-		let cell = section.cells.first
-		if case .semibold(text: let text) = cell {
-			XCTAssertEqual(text, "42")
+		if let cell = section.cells.first {
+			XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
 		} else {
 			XCTFail()
 		}
