@@ -72,6 +72,7 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var footerView: UIView!
 
 	private var onboardingInfos = OnboardingInfo.testData()
+	private var exposureManagerActivated = false
 
 	var onboardingInfo: OnboardingInfo?
 
@@ -87,6 +88,18 @@ final class OnboardingInfoViewController: UIViewController {
 		setupAccessibility()
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		if pageType == .togetherAgainstCoronaPage {
+			navigationController?.setNavigationBarHidden(true, animated: true)
+		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		navigationController?.setNavigationBarHidden(false, animated: true)
+	}
+
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		let height = footerView.frame.height + 20
@@ -98,12 +111,35 @@ final class OnboardingInfoViewController: UIViewController {
 		case .privacyPage:
 			persistTimestamp(completion: completion)
 		case .enableLoggingOfContactsPage:
-			askExposureNotificationsPermissions(completion: completion)
+			func handleBluetooth(completion: @escaping () -> Void) {
+				if let alertController = self.exposureManager.alertForBluetoothOff(completion: { completion() }) {
+					self.present(alertController, animated: true)
+				}
+				completion()
+			}
+			askExposureNotificationsPermissions(completion: {
+				handleBluetooth {
+					completion()
+				}
+			})
+
 		case .alwaysStayInformedPage:
 			askLocalNotificationsPermissions(completion: completion)
 		default:
 			completion()
 		}
+	}
+
+	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
+		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
+			completion()
+			return
+		}
+
+		let alert = OnboardingInfoViewControllerUtils.setupExposureConfirmationAlert {
+			completion()
+		}
+		present(alert, animated: true, completion: nil)
 	}
 
 	private func updateUI() {
@@ -131,6 +167,8 @@ final class OnboardingInfoViewController: UIViewController {
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+		nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+		ignoreButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 	}
 
 	func setupAccessibility() {
@@ -153,6 +191,8 @@ final class OnboardingInfoViewController: UIViewController {
 			titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 			boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+			nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+			ignoreButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		}
 	}
 
@@ -170,7 +210,7 @@ final class OnboardingInfoViewController: UIViewController {
 	// MARK: Exposure notifications
 
 	private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
-		if TestEnvironment.shared.isUITesting {
+		guard !TestEnvironment.shared.isUITesting && !exposureManagerActivated else {
 			completion?()
 			return
 		}
@@ -184,10 +224,15 @@ final class OnboardingInfoViewController: UIViewController {
 					log(message: "Encourage the user to authorize this application", level: .warning)
 				case .exposureNotificationUnavailable:
 					log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+				case .apiMisuse:
+					// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
+					completion?()
+					return
 				}
 				self.showError(error, from: self, completion: completion)
 				completion?()
 			} else {
+				self.exposureManagerActivated = true
 				self.exposureManager.enable { enableError in
 					if let enableError = enableError {
 						switch enableError {
@@ -197,6 +242,10 @@ final class OnboardingInfoViewController: UIViewController {
 							log(message: "Encourage the user to authorize this application", level: .warning)
 						case .exposureNotificationUnavailable:
 							log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+						case .apiMisuse:
+							// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed.
+							// The error condition here should not really happen as we are inside the `enable()` completion block
+							completion?()
 						}
 					}
 					self.taskScheduler.scheduleBackgroundTaskRequests()
@@ -244,14 +293,20 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	@IBAction func didTapIgnoreButton(_: Any) {
-		gotoNextScreen()
+		runIgnoreActionForPageType(
+			completion: {
+				self.gotoNextScreen()
+			}
+		)
 	}
 
 	func gotoNextScreen() {
+
 		guard let nextPageType = pageType.next() else {
-			store.isOnboarded = true
+			finishOnBoarding()
 			return
 		}
+
 		let storyboard = AppStoryboard.onboarding.instance
 		let next = storyboard.instantiateInitialViewController { [unowned self] coder in
 			OnboardingInfoViewController(
@@ -265,4 +320,11 @@ final class OnboardingInfoViewController: UIViewController {
 		// swiftlint:disable:next force_unwrapping
 		navigationController?.pushViewController(next!, animated: true)
 	}
+
+
+	private func finishOnBoarding() {
+		store.isOnboarded = true
+		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
+	}
+
 }
