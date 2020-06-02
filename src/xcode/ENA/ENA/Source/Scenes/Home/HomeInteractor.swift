@@ -75,6 +75,8 @@ final class HomeInteractor {
 
 	private var activeConfigurator: HomeActivateCellConfigurator!
 	private var riskConfigurator: HomeRiskCellConfigurator?
+	private var testResultConfigurator: HomeTestResultCellConfigurator?
+
 
 	func developerMenuEnableIfAllowed() {}
 
@@ -276,28 +278,48 @@ final class HomeInteractor {
 		let newDate = Calendar.current.date(byAdding: dateComponents, to: date)
 		return newDate
 	}
-
-
-	// TODO: MOVE!
-	var testResultConfigurator = HomeTestResultCellConfigurator()
 }
+
+// MARK: - Test result cell methods.
 
 extension HomeInteractor {
 
 	func reloadTestResult(with result: TestResult) {
-		self.testResultConfigurator.testResult = result
+		self.testResultConfigurator?.testResult = result
 		guard let indexPath = indexPathForTestResultCell() else { return }
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	func setupRiskConfigurator() {
+	/// Update the section cells and layout.
+	func showTestResultCell() {
+		sections[0] = setupActionConfigurators()
+		homeViewController.updateSections()
+		homeViewController.applySnapshotFromSections(animatingDifferences: true)
+	}
+
+	private func indexPathForTestResultCell() -> IndexPath? {
+		for section in sections {
+			let index = section.cellConfigurators.firstIndex { cellConfigurator in
+				cellConfigurator === self.testResultConfigurator
+			}
+			guard let item = index else { return nil }
+			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+			return indexPath
+		}
+
+		return nil
+	}
+}
+
+// MARK: - Action section setup helpers.
+
+extension HomeInteractor {
+
+	func setupRiskConfigurator() -> HomeRiskCellConfigurator? {
 		let isButtonHidden = userLoadingMode == .automatic
 		let isCounterLabelHidden = !isButtonHidden
 		let dateLastExposureDetection = store.dateLastExposureDetection
-
-
-		// MARK: - Add risk section.
 
 		if riskLevel != .inactive, userLoadingMode == .automatic {
 			startCountdown()
@@ -354,22 +376,47 @@ extension HomeInteractor {
 				self.startCountdownAndUpdateRisk()
 			}
 		}
+
+		return riskConfigurator
 	}
 
-	func setupActiveConfigurator() {
+	func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
+		guard let testResultConfigurator = self.testResultConfigurator else {
+			self.testResultConfigurator = HomeTestResultCellConfigurator()
+			// swiftlint:disable:next force_unwrapping
+			return self.testResultConfigurator!
+		}
+
+		testResultConfigurator.buttonAction = { [weak self] in
+			self?.homeViewController.showTestResultScreen()
+		}
+
+		return testResultConfigurator
+	}
+
+	func setupSubmitConfigurator() -> HomeSubmitCellConfigurator {
+		let submitConfigurator = HomeSubmitCellConfigurator()
+		submitConfigurator.submitAction = { [unowned self] in
+			self.homeViewController.showExposureSubmission()
+		}
+
+		return submitConfigurator
+	}
+
+	func setupActiveConfigurator() -> HomeActivateCellConfigurator {
 		let currentState = stateHandler.getState()
-		activeConfigurator = HomeActivateCellConfigurator(state: currentState)
+		return HomeActivateCellConfigurator(state: currentState)
 	}
 
-	func setupActionConfigurators() -> (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny]) {
+	func setupActionConfigurators() -> [CollectionViewCellConfiguratorAny] {
 		var actionsConfigurators: [CollectionViewCellConfiguratorAny] = []
 
-		// MARK: Active card.
-
-		setupActiveConfigurator()
+		// Active card.
+		activeConfigurator = setupActiveConfigurator()
 		actionsConfigurators.append(activeConfigurator)
 
-		setupRiskConfigurator()
+		// Risk card.
+		riskConfigurator = setupRiskConfigurator()
 		if let risk = riskConfigurator {
 			actionsConfigurators.append(risk)
 		}
@@ -377,48 +424,30 @@ extension HomeInteractor {
 		// MARK: - Add result cards.
 		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
-			// TODO: return HomeExposureSubmissionStateCellConfigurator()
-			print("store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil ### remove")
+			// Once this state is reached, it cannot be left anymore.
+
+			// TODO: Load "Thank You" screen. (not implemented yet.)
+			appLogger.log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
+
 		} else if store.registrationToken != nil {
-
 			// This is shown when we registered a test.
-			testResultConfigurator.buttonAction = { [weak self] in
-				self?.homeViewController.showTestResultScreen()
-			}
 
+			// Test result card.
+			// TODO: Here we can either have: positive or (pending, negative, invalid). (not implemented yet.)
+			let testResultConfigurator = setupTestResultConfigurator()
 			actionsConfigurators.append(testResultConfigurator)
 
 		} else {
 			// This is the default view that is shown when no test results are available.
-			let submitCellConfigurator = HomeSubmitCellConfigurator()
-			submitCellConfigurator.submitAction = { [unowned self] in
-				self.homeViewController.showExposureSubmission()
-			}
-
+			let submitCellConfigurator = setupSubmitConfigurator()
 			actionsConfigurators.append(submitCellConfigurator)
 		}
 
-		return (.actions, actionsConfigurators)
+		return actionsConfigurators
 	}
 
-	func showTestResult() {
-		sections[0] = setupActionConfigurators()
-		homeViewController.updateSections()
-		homeViewController.applySnapshotFromSections(animatingDifferences: true)
-	}
-
-
-	// TODO: Generalize method.
-	private func indexPathForTestResultCell() -> IndexPath? {
-		for section in sections {
-			let index = section.cellConfigurators.firstIndex { cellConfigurator in
-				cellConfigurator === self.testResultConfigurator
-			}
-			guard let item = index else { return nil }
-			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-			return indexPath
-		}
-		return nil
+	func setupActionConfigurators() -> (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny]) {
+		return (.actions, setupActionConfigurators())
 	}
 }
 

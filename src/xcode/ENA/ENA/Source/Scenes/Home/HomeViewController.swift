@@ -95,9 +95,7 @@ final class HomeViewController: UIViewController {
 		updateSections()
 		applySnapshotFromSections()
 		configureUI()
-
-		// TODO: Do this proplery! ###
-		fetchResult()
+		fetchTestResult()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -416,12 +414,24 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController {
 
-	func showTestResultIfPossible() {
-		self.homeInteractor.showTestResult()
-		fetchResult()
+	func showTestResultScreen() {
+		showExposureSubmission(with: testResult)
 	}
 
-	private func fetchResult() {
+	func updateTestResultState() {
+		self.homeInteractor.showTestResultCell()
+		fetchTestResult()
+	}
+
+	private func fetchTestResult() {
+		DispatchQueue.global(qos: .userInteractive).async {
+			self.fetchTestResultHelper()
+		}
+	}
+
+	private func fetchTestResultHelper() {
+		// Make sure we are able to fetch.
+		guard store.registrationToken != nil else { return }
 		self.exposureSubmissionService?.getTestResult { result in
 			switch result {
 			case .failure(let error):
@@ -433,9 +443,6 @@ extension HomeViewController {
 		}
 	}
 
-	func showTestResultScreen() {
-		showExposureSubmission(with: testResult)
-	}
 }
 
 extension HomeViewController: HomeLayoutDelegate {
