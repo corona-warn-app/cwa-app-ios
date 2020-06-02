@@ -20,60 +20,115 @@ import Foundation
 
 /// Basic SQLite Key/Value store with Keys as `TEXT` and Values stored as `BLOB`
 class SQLiteKeyValueStore {
-	private var db: SQLiteDBBacisWrapper?
+	private let db: FMDatabase
 
 	/// - parameter url: URL on disk where the FMDB should be initialized
 	init(with url: URL) {
 		let sqlStmt = """
 		CREATE TABLE IF NOT EXISTS kv (
-		    key TEXT UNIQUE,
-		    value BLOB
+			key TEXT UNIQUE,
+			value BLOB
 		);
 		"""
 
-		db = nil
+		db = FMDatabase(url: url)
+		if !db.open() {
+			logError(message: "Database could not be opened")
+			return
+		}
 		var key: String
 		if let keyData = loadFromKeychain(key: "secureStoreDatabaseKey") {
 			key = String(decoding: keyData, as: UTF8.self)
 		} else {
-			key = generateDatabaseKey()
+			guard let generatedKey = generateDatabaseKey() else {
+				return
+			}
+			key = generatedKey
 			if savetoKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) == noErr {
-				logError(message: "Unable to open save Key to Keychain")
+				logError(message: "Unable to save Key to Keychain")
+				return
 			}
 		}
-		do {
-			db = try SQLiteDBBacisWrapper.open(path: url.absoluteString, secret: key)
-			log(message: "Successfully opened connection to database.", level: .info)
-			try db?.createTable(sql: sqlStmt)
-		} catch {
-			logError(message: "Unable to open Database")
+
+		let dbhandle = OpaquePointer(db.sqliteHandle)
+
+		guard sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
+			logError(message: "Unable to set Key")
 			return
+		}
+		db.executeStatements(sqlStmt)
+	}
+
+	deinit {
+		db.close()
+	}
+
+	private func openDbIfNeeded() {
+		if !db.isOpen {
+			db.open()
 		}
 	}
 
 	/// - returns: `Data` if the key/value pair in the DB, `nil` otherwise
 	private func getData(for key: String) -> Data? {
-		return db?.getValue(key: key)
+		openDbIfNeeded()
+
+		do {
+			let query = "SELECT value FROM kv WHERE key = ?;"
+			let result = try db.executeQuery(query, values: [key])
+			var resultData: Data?
+			while result.next() {
+				// We use dataNoCopy() as data() returns nil even though there is empty Data
+				// This is unexpected, as empty Data of course does not mean nil
+				guard let data = result.dataNoCopy(forColumn: "value") else {
+					return nil
+				}
+				resultData = data
+			}
+			result.close()
+			return resultData
+		} catch {
+			logError(message: "Failed to retrieve value from K/V SQLite store: \(error.localizedDescription)")
+			return nil
+		}
 	}
 
 	/// Sets or overwrites the value for a given key
 	/// - attention: Passing `nil` to the data param causes the key/value pair to be deleted from the DB
 	private func setData(_ data: Data?, for key: String) {
+		openDbIfNeeded()
 		guard let data = data else {
-			db?.deleteKey(key)
+			let deleteStmt = "DELETE FROM kv WHERE key = ?;"
+			do {
+				try db.executeUpdate(deleteStmt, values: [key])
+				try db.executeUpdate("VACUUM", values: [])
+			} catch {
+				logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+			}
 			return
 		}
+
+		/// Insert the key/value pair if it isn't already in the Database, otherwise Update the value
+		let upsertStmt = "INSERT INTO kv(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value = ?"
 		do {
-			try db?.insertKeyValue(key: key, data: data)
+			try db.executeUpdate(upsertStmt, values: [key, data, data])
 		} catch {
-			return
+			logError(message: "Failed to insert key/V pair into K/V SQLite store: \(error.localizedDescription)")
 		}
 	}
 
 	/// Removes all key/value pairs from the Store
 	func clearAll() {
-		db?.clearAll()
-		db?.vacuum()
+		openDbIfNeeded()
+		let deleteStmt = "DELETE FROM kv;"
+		do {
+			try db.executeUpdate(deleteStmt, values: [])
+			try db.executeUpdate("VACUUM", values: [])
+			log(message: "Cleared SecureStore", level: .info)
+		} catch {
+			logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+		}
+		return
 	}
 
 	/// Removes most key/value pairs.
@@ -83,8 +138,15 @@ class SQLiteKeyValueStore {
 	/// - `developerDistributionBaseURLOverride`
 	/// - `developerVerificationBaseURLOverride`
 	func flush() {
-		db?.flush()
-		db?.vacuum()
+		openDbIfNeeded()
+		let deleteStmt = "DELETE FROM kv WHERE key NOT IN('developerSubmissionBaseURLOverride','developerDistributionBaseURLOverride','developerVerificationBaseURLOverride');"
+		do {
+			try db.executeUpdate(deleteStmt, values: [])
+			try db.executeUpdate("VACUUM", values: [])
+			log(message: "Flushed SecureStore", level: .info)
+		} catch {
+			logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+		}
 		return
 	}
 
@@ -109,6 +171,7 @@ class SQLiteKeyValueStore {
 			guard let data = getData(for: key) else {
 				return nil
 			}
+			// TODO: Error handling
 			return try? JSONDecoder().decode(Model.self, from: data)
 		}
 		set {
@@ -121,6 +184,7 @@ class SQLiteKeyValueStore {
 		}
 	}
 }
+
 /// Keychain Extension for storing and loading the Database Key in the Keychain
 extension SQLiteKeyValueStore {
 	func savetoKeychain(key: String, data: Data) -> OSStatus {
@@ -149,13 +213,12 @@ extension SQLiteKeyValueStore {
 		}
 	}
 
-	func generateDatabaseKey() -> String {
+	func generateDatabaseKey() -> String? {
 		var bytes = [UInt8](repeating: 0, count: 64)
 		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-
 		guard result == errSecSuccess else {
-			logError(message: "Error creating random bytes, reverting to UUID")
-			return UUID().uuidString
+			logError(message: "Error creating random bytes.")
+			return nil
 		}
 		return Data(bytes).base64EncodedString()
 	}
