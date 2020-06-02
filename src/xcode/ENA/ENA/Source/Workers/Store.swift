@@ -17,26 +17,7 @@
 
 import Foundation
 
-struct TracingStatusEntry: Codable {
-	let on: Bool
-	let date: Date
-}
 
-typealias TracingStatusHistory = [TracingStatusEntry]
-
-extension Array where Element == TracingStatusEntry {
-	static func from(data: Data) throws -> TracingStatusHistory {
-		let decoder = JSONDecoder()
-		decoder.dateDecodingStrategy = .secondsSince1970
-		return try decoder.decode(self, from: data)
-	}
-
-		func JSONData() throws -> Data {
-		let encoder = JSONEncoder()
-		encoder.dateEncodingStrategy = .secondsSince1970
-		return try encoder.encode(self)
-	}
-}
 
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
