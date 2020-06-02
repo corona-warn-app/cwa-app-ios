@@ -30,7 +30,6 @@
 		26374AF4248138EF00C10110 /* exposure-submission.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26374AF3248138EF00C10110 /* exposure-submission.xcassets */; };
 		2F3218CE24800F6500A7AC0A /* DynamicTableViewStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CD24800F6500A7AC0A /* DynamicTableViewStepCell.swift */; };
 		2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */; };
-		2F785751248506BD00323A9C /* ExposureSubmissionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F78574E248506BD00323A9C /* ExposureSubmissionCell.xib */; };
 		2F785752248506BD00323A9C /* HomeTestResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F78574F248506BD00323A9C /* HomeTestResultCell.xib */; };
 		2F785753248506BD00323A9C /* HomeTestResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F785750248506BD00323A9C /* HomeTestResultCell.swift */; };
 		2F80CFD9247ED988000F06AF /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */; };
@@ -145,8 +144,6 @@
 		A36D07AD2483B43800E46F96 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		A36D07AF2483F6CF00E46F96 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		A36D07B12483F78500E46F96 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		A36D07B32485649F00E46F96 /* HomeExposureSubmissionStateCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B22485649F00E46F96 /* HomeExposureSubmissionStateCellConfigurator.swift */; };
-		A36D07B52485652500E46F96 /* ExposureSubmissionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B42485652500E46F96 /* ExposureSubmissionCell.swift */; };
 		A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */; };
 		A3E5E71A247D4FFB00237116 /* ExposureSubmissionViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */; };
 		A3E5E71E247E6F7A00237116 /* SpinnerInjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E5E71D247E6F7A00237116 /* SpinnerInjectable.swift */; };
@@ -309,7 +306,6 @@
 		26374AF3248138EF00C10110 /* exposure-submission.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "exposure-submission.xcassets"; sourceTree = "<group>"; };
 		2F3218CD24800F6500A7AC0A /* DynamicTableViewStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewStepCell.swift; sourceTree = "<group>"; };
 		2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
-		2F78574E248506BD00323A9C /* ExposureSubmissionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExposureSubmissionCell.xib; sourceTree = "<group>"; };
 		2F78574F248506BD00323A9C /* HomeTestResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTestResultCell.xib; sourceTree = "<group>"; };
 		2F785750248506BD00323A9C /* HomeTestResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTestResultCell.swift; sourceTree = "<group>"; };
 		2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
@@ -445,8 +441,6 @@
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerUtils.swift; sourceTree = "<group>"; };
-		A36D07B22485649F00E46F96 /* HomeExposureSubmissionStateCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureSubmissionStateCellConfigurator.swift; sourceTree = "<group>"; };
-		A36D07B42485652500E46F96 /* ExposureSubmissionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCell.swift; sourceTree = "<group>"; };
 		A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewController.swift; sourceTree = "<group>"; };
 		A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionViewUtils.swift; sourceTree = "<group>"; };
 		A3E5E71D247E6F7A00237116 /* SpinnerInjectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerInjectable.swift; sourceTree = "<group>"; };
@@ -731,8 +725,6 @@
 		51CE1B75246078B6002CF42A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				2F78574E248506BD00323A9C /* ExposureSubmissionCell.xib */,
-				A36D07B42485652500E46F96 /* ExposureSubmissionCell.swift */,
 				2F785750248506BD00323A9C /* HomeTestResultCell.swift */,
 				2F78574F248506BD00323A9C /* HomeTestResultCell.xib */,
 				51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */,
@@ -772,7 +764,6 @@
 				51CE1BC02460B256002CF42A /* HomeSubmitCellConfigurator.swift */,
 				51CE1BC22460B28D002CF42A /* HomeInfoCellConfigurator.swift */,
 				13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */,
-				A36D07B22485649F00E46F96 /* HomeExposureSubmissionStateCellConfigurator.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1615,7 +1606,6 @@
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
 				7132F2822477F9C700628648 /* exposure-detection.xcassets in Resources */,
-				2F785751248506BD00323A9C /* ExposureSubmissionCell.xib in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
 				514C0A0B247AF9F700F235F6 /* RiskTextItemView.xib in Resources */,
@@ -1694,7 +1684,6 @@
 				51895EDC245E16CD0085DA38 /* UIColor+ColorStyle.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
-				A36D07B32485649F00E46F96 /* HomeExposureSubmissionStateCellConfigurator.swift in Sources */,
 				13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */,
 				514C0A0D247AFB0200F235F6 /* RiskTextItemView.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
@@ -1777,7 +1766,6 @@
 				514C0A0F247AFEC500F235F6 /* HomeRiskTextItemViewConfigurator.swift in Sources */,
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,
 				B1D7D68E24766D2100E4DA5D /* submission_payload.pb.swift in Sources */,
-				A36D07B52485652500E46F96 /* ExposureSubmissionCell.swift in Sources */,
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
 				B1A89F372481814E00DA1CEC /* PersistedAndPublished.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
