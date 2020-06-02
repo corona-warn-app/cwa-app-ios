@@ -339,6 +339,7 @@ final class HomeViewController: UIViewController {
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
+		collectionView.alwaysBounceVertical = true
 		view.addSubview(collectionView)
 
 		NSLayoutConstraint.activate(

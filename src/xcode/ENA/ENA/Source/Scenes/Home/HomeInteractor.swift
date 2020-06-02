@@ -411,12 +411,6 @@ extension HomeInteractor {
 		activeConfigurator = setupActiveConfigurator()
 		actionsConfigurators.append(activeConfigurator)
 
-		// Risk card.
-		riskConfigurator = setupRiskConfigurator()
-		if let risk = riskConfigurator {
-			actionsConfigurators.append(risk)
-		}
-
 		// MARK: - Add result cards.
 		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
@@ -426,7 +420,14 @@ extension HomeInteractor {
 			appLogger.log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
 
 		} else if store.registrationToken != nil {
+
 			// This is shown when we registered a test.
+
+			// Risk card.
+			riskConfigurator = setupRiskConfigurator()
+			if let risk = riskConfigurator {
+				actionsConfigurators.append(risk)
+			}
 
 			// Test result card.
 			// TODO: Here we can either have: positive (not implemented yet) or (pending, negative, invalid).
@@ -434,6 +435,13 @@ extension HomeInteractor {
 			actionsConfigurators.append(testResultConfigurator)
 
 		} else {
+			
+			// Risk card.
+			riskConfigurator = setupRiskConfigurator()
+			if let risk = riskConfigurator {
+				actionsConfigurators.append(risk)
+			}
+
 			// This is the default view that is shown when no test results are available.
 			let submitCellConfigurator = setupSubmitConfigurator()
 			actionsConfigurators.append(submitCellConfigurator)
