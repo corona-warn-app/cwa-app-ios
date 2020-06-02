@@ -223,6 +223,18 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				return
 			}
 
+			if let previousSummary = self.store.previousSummary {
+				let previousRiskLevel = RiskLevel(riskScore: previousSummary.maximumRiskScore)
+				let newRiskLevel = RiskLevel(riskScore: newSummary.maximumRiskScore)
+
+				if newRiskLevel > previousRiskLevel {
+				self.taskScheduler.notificationManager.presentNotification(
+					title: AppStrings.LocalNotifications.testResultsTitle,
+					body: AppStrings.LocalNotifications.testResultsBody,
+					identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+				}
+			}
+
 			// persist the previous risk score to the store
 			self.store.previousSummary = ENExposureDetectionSummaryContainer(with: newSummary)
 
