@@ -19,6 +19,7 @@ import UIKit
 
 class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
 	var submitAction: (() -> Void)?
+	var store: Store?
 
 	func configure(cell: SubmitCollectionViewCell) {
 		cell.delegate = self
