@@ -291,6 +291,8 @@ final class HomeViewController: UIViewController {
 				showExposureNotificationSetting()
 			} else if row == 1 {
 				showExposureDetection()
+			} else {
+				showExposureSubmission(with: testResult)
 			}
 		case .infos:
 			if row == 0 {
@@ -425,6 +427,7 @@ extension HomeViewController {
 			case .failure(let error):
 				appLogger.log(message: "Error while fetching result: \(error)", file: #file, line: #line, function: #function)
 			case .success(let result):
+				self.testResult = result
 				self.homeInteractor.reloadTestResult(with: result)
 			}
 		}
