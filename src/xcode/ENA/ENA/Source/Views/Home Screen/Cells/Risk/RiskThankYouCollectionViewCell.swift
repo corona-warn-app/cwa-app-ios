@@ -57,22 +57,26 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 		let image = UIImage(named: imageName)
 		imageView.image = image
 		stackView.addArrangedSubview(imageView)
+		stackView.setCustomSpacing(16.0, after: imageView)
 	}
 
 	func configureBody(text: String, bodyColor: UIColor) {
 		bodyLabel.text = text
 		bodyLabel.textColor = bodyColor
 		stackView.addArrangedSubview(bodyLabel)
+		stackView.setCustomSpacing(32.0, after: bodyLabel)
 	}
 
 	func configureNoteLabel(title: String) {
 		noteLabel.text = title
 		stackView.addArrangedSubview(noteLabel)
+		stackView.setCustomSpacing(8.0, after: noteLabel)
 	}
 
 	func configureFurtherInfoLabel(title: String) {
 		furtherInfoLabel.text = title
 		stackView.addArrangedSubview(furtherInfoLabel)
+		stackView.setCustomSpacing(8.0, after: furtherInfoLabel)
 	}
 
 	func configureBackgroundColor(color: UIColor) {
@@ -81,23 +85,38 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 
 	func configureNoteRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
 		guard let noteIndex = stackView.arrangedSubviews.firstIndex(of: noteLabel) else { return }
+		var lastView: UIView?
 		for itemConfigurator in cellConfigurators.reversed() {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
 			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
 				stackView.insertArrangedSubview(riskView, at: noteIndex + 1)
+				if lastView != nil {
+					stackView.setCustomSpacing(0.0, after: riskView)
+				} else {
+					lastView = riskView
+				}
 				itemConfigurator.configureAny(riskView: riskView)
 			}
+		}
+		if let last = lastView {
+			stackView.setCustomSpacing(22.0, after: last)
 		}
 	}
 
 	func configureFurtherInfoRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
 		guard let furtherInfoIndex = stackView.arrangedSubviews.firstIndex(of: furtherInfoLabel) else { return }
+		var lastView: UIView?
 		for itemConfigurator in cellConfigurators.reversed() {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
 			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
 				stackView.insertArrangedSubview(riskView, at: furtherInfoIndex + 1)
+				if lastView != nil {
+					stackView.setCustomSpacing(0.0, after: riskView)
+				} else {
+					lastView = riskView
+				}
 				itemConfigurator.configureAny(riskView: riskView)
 			}
 		}

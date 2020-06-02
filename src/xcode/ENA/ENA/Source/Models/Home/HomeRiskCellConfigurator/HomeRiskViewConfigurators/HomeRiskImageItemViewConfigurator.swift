@@ -25,6 +25,8 @@ final class HomeRiskImageItemViewConfigurator: HomeRiskViewConfigurator {
 	var color: UIColor
 	var separatorColor: UIColor
 
+	var containerInsets: UIEdgeInsets?
+
 	init(title: String, titleColor: UIColor, iconImageName: String, iconTintColor: UIColor, color: UIColor, separatorColor: UIColor) {
 		self.title = title
 		self.titleColor = titleColor
@@ -40,5 +42,9 @@ final class HomeRiskImageItemViewConfigurator: HomeRiskViewConfigurator {
 		riskView.textLabel?.textColor = titleColor
 		riskView.separatorView?.backgroundColor = separatorColor
 		riskView.backgroundColor = color
+
+		if let containerInsets = containerInsets {
+			riskView.containerInsets = containerInsets
+		}
 	}
 }

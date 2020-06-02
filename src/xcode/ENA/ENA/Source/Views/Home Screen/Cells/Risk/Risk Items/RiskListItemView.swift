@@ -27,10 +27,9 @@ final class RiskListItemView: UIView, RiskItemView {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		let containerInsets = UIEdgeInsets(top: 0.0, left: 8.0, bottom: 0.0, right: 0.0)
+		let containerInsets = UIEdgeInsets(top: 10.0, left: 8.0, bottom: 10.0, right: 0.0)
 		stackView.layoutMargins = containerInsets
 		stackView.isLayoutMarginsRelativeArrangement = true
-
 		configureStackView()
 	}
 

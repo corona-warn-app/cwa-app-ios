@@ -23,11 +23,16 @@ final class RiskImageItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
 	@IBOutlet var separatorView: UIView!
 	@IBOutlet var stackView: UIStackView!
 
+	var containerInsets = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 16.0, right: 0.0) {
+		didSet {
+			updateContainerInsets()
+		}
+	}
+
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		let containerInsets = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 16.0, right: 0.0)
-		stackView.layoutMargins = containerInsets
 		stackView.isLayoutMarginsRelativeArrangement = true
+		updateContainerInsets()
 		configureStackView()
 	}
 
@@ -42,6 +47,10 @@ final class RiskImageItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
 		} else {
 			
 		}
+	}
+
+	private func updateContainerInsets() {
+		stackView.layoutMargins = containerInsets
 	}
 
 	func hideSeparator() {

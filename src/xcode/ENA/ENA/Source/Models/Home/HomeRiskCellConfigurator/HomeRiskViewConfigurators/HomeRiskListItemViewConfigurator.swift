@@ -23,6 +23,7 @@ final class HomeRiskListItemViewConfigurator: HomeRiskViewConfigurator {
 	var text: String
 	var textColor: UIColor
 
+
 	init(text: String, titleColor: UIColor) {
 		self.text = text
 		self.textColor = titleColor
@@ -34,5 +35,6 @@ final class HomeRiskListItemViewConfigurator: HomeRiskViewConfigurator {
 
 		riskView.dotLabel?.text = "•"
 		riskView.dotLabel?.textColor = textColor
+
 	}
 }

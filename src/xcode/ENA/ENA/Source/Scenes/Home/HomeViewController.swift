@@ -385,7 +385,7 @@ final class HomeViewController: UIViewController {
 	func updateSections() {
 		sections = homeInteractor.sections
 	}
-
+	
 	private func configureUI() {
 
 		collectionView.backgroundColor = .systemGroupedBackground
