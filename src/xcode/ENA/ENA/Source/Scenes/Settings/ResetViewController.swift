@@ -30,6 +30,7 @@ final class ResetViewController: UIViewController {
 	@IBOutlet var infoTitleLabel: DynamicTypeLabel!
 	@IBOutlet var infoDescriptionLabel: UILabel!
 	@IBOutlet var infoView: UIView!
+	@IBOutlet var subtitleLabel: UILabel!
 
 	weak var delegate: ResetDelegate?
 
@@ -68,5 +69,6 @@ final class ResetViewController: UIViewController {
 		infoView.layer.cornerRadius = 14
 		infoTitleLabel.text = AppStrings.Reset.infoTitle
 		infoDescriptionLabel.text = AppStrings.Reset.infoDescription
+		subtitleLabel.text = AppStrings.Reset.subtitle
 	}
 }

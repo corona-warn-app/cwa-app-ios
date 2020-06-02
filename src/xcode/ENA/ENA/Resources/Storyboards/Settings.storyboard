@@ -19,8 +19,14 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="te1-Qd-nmE">
                                 <rect key="frame" x="0.0" y="56" width="414" height="610"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Anwendung Zurücksetzen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kt0-9j-kBQ" userLabel="Subtltle Label">
+                                        <rect key="frame" x="16" y="0.0" width="382" height="18"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <color key="textColor" name="textPrimary2"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cEi-3Y-TMb">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="563.5"/>
+                                        <rect key="frame" x="0.0" y="18" width="414" height="563.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_AppZuruecksetzen" translatesAutoresizingMaskIntoConstraints="NO" id="53g-kI-NE1">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="229"/>
@@ -64,10 +70,10 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8n-J6-m3c" userLabel="Info View">
-                                        <rect key="frame" x="16" y="593.5" width="382" height="190.5"/>
+                                        <rect key="frame" x="16" y="606.5" width="382" height="213.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="u9C-Fk-ALn">
-                                                <rect key="frame" x="16" y="16" width="350" height="158.5"/>
+                                                <rect key="frame" x="16" y="20" width="350" height="163.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b7y-ZV-YeH">
                                                         <rect key="frame" x="0.0" y="0.0" width="350" height="128"/>
@@ -103,7 +109,7 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Info Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgA-Zf-xZr" userLabel="Info Description Label">
-                                                        <rect key="frame" x="0.0" y="138" width="350" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="143" width="350" height="20.5"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -121,12 +127,15 @@
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="Kt0-9j-kBQ" firstAttribute="leading" secondItem="te1-Qd-nmE" secondAttribute="leading" constant="16" id="2bd-Q4-Jb5"/>
                                     <constraint firstItem="e8n-J6-m3c" firstAttribute="top" secondItem="cEi-3Y-TMb" secondAttribute="bottom" constant="25" id="39q-i1-zEe"/>
                                     <constraint firstItem="e8n-J6-m3c" firstAttribute="leading" secondItem="te1-Qd-nmE" secondAttribute="leading" constant="16" id="AHG-LY-6rs"/>
                                     <constraint firstItem="cEi-3Y-TMb" firstAttribute="width" secondItem="te1-Qd-nmE" secondAttribute="width" id="DTT-qz-nI8"/>
                                     <constraint firstAttribute="trailing" secondItem="cEi-3Y-TMb" secondAttribute="trailing" id="Frx-Jp-vNb"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kt0-9j-kBQ" secondAttribute="trailing" constant="16" id="LWo-1e-mia"/>
                                     <constraint firstAttribute="trailing" secondItem="e8n-J6-m3c" secondAttribute="trailing" constant="16" id="Y6P-Qj-H7O"/>
-                                    <constraint firstItem="cEi-3Y-TMb" firstAttribute="top" secondItem="te1-Qd-nmE" secondAttribute="top" id="Yue-TG-03X"/>
+                                    <constraint firstItem="cEi-3Y-TMb" firstAttribute="top" secondItem="Kt0-9j-kBQ" secondAttribute="bottom" id="Yue-TG-03X"/>
+                                    <constraint firstItem="Kt0-9j-kBQ" firstAttribute="top" secondItem="te1-Qd-nmE" secondAttribute="top" id="oVN-DP-KAz"/>
                                     <constraint firstAttribute="bottom" secondItem="e8n-J6-m3c" secondAttribute="bottom" constant="35" id="r9P-Aq-6uV"/>
                                     <constraint firstItem="cEi-3Y-TMb" firstAttribute="leading" secondItem="te1-Qd-nmE" secondAttribute="leading" id="xLp-if-6ul"/>
                                 </constraints>
@@ -142,12 +151,6 @@
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Daten zurücksetzen"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                        <color key="value" name="brandRed"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="colorRed" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
                                                 </connections>
@@ -209,6 +212,7 @@
                         <outlet property="infoTitleLabel" destination="Nbj-X3-Z5h" id="qn0-kz-VIk"/>
                         <outlet property="infoView" destination="e8n-J6-m3c" id="lFX-mV-ZzF"/>
                         <outlet property="resetButton" destination="wkA-Dj-yfV" id="hRW-hZ-9hA"/>
+                        <outlet property="subtitleLabel" destination="Kt0-9j-kBQ" id="cga-1n-Aaa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1Q-hW-w3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
