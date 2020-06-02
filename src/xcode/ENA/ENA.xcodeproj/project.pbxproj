@@ -199,6 +199,7 @@
 		B1B9CF1F246ED2E8008F04F5 /* Sap_FilebucketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9CF1E246ED2E8008F04F5 /* Sap_FilebucketTests.swift */; };
 		B1C6ECFF247F089E0066138F /* RiskImageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5B415246DF13D00DC5D3E /* RiskImageItemView.swift */; };
 		B1C6ED00247F23730066138F /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
+		B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */; };
 		B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */; };
 		B1D431CB246C84A400E728AD /* DownloadedPackagesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CA246C84A400E728AD /* DownloadedPackagesStore.swift */; };
 		B1D431CE246C84F200E728AD /* KeyPackagesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CC246C84ED00E728AD /* KeyPackagesStoreTests.swift */; };
@@ -481,6 +482,7 @@
 		B1A9E70D246D73180024CC12 /* ExposureDetectionTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionTransaction.swift; sourceTree = "<group>"; };
 		B1A9E710246D782F0024CC12 /* SAPDownloadedPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAPDownloadedPackage.swift; sourceTree = "<group>"; };
 		B1B9CF1E246ED2E8008F04F5 /* Sap_FilebucketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sap_FilebucketTests.swift; sourceTree = "<group>"; };
+		B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaWarnURLSessionDelegate.swift; sourceTree = "<group>"; };
 		B1CF8D0F246C1F4100DBE135 /* ClientModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientModeTests.swift; sourceTree = "<group>"; };
 		B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+ConfigurationTests.swift"; sourceTree = "<group>"; };
 		B1D431CA246C84A400E728AD /* DownloadedPackagesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStore.swift; sourceTree = "<group>"; };
@@ -1139,6 +1141,7 @@
 		B111EDEC2465B1F4001AEBB4 /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				B1CD333F2486AA5F00B06E9B /* Security */,
 				B1741B482462C207006275D9 /* Client.swift */,
 				B154F59A246DD5CF003E891E /* Client+Convenience.swift */,
 				B1DDDABA2471379900A07175 /* __tests__ */,
@@ -1304,6 +1307,14 @@
 				B1CF8D0F246C1F4100DBE135 /* ClientModeTests.swift */,
 			);
 			path = __tests__;
+			sourceTree = "<group>";
+		};
+		B1CD333F2486AA5F00B06E9B /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */,
+			);
+			path = Security;
 			sourceTree = "<group>";
 		};
 		B1D431C9246C848E00E728AD /* DownloadedPackagesStore */ = {
@@ -1771,6 +1782,7 @@
 				013DC102245DAC4E00EE58B0 /* Store.swift in Sources */,
 				51CE1B89246078B6002CF42A /* RiskCollectionViewCell.swift in Sources */,
 				B1F82DF224718C7300E2E56A /* DMConfigurationViewController.swift in Sources */,
+				B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */,
 				514C0A0F247AFEC500F235F6 /* HomeRiskTextItemViewConfigurator.swift in Sources */,
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,
 				B1D7D68E24766D2100E4DA5D /* submission_payload.pb.swift in Sources */,
