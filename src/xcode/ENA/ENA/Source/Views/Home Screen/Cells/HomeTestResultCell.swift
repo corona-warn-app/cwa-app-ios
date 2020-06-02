@@ -73,7 +73,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		configureResultsButton(for: cell)
 	}
 
-	// TODO: This is handled a bit different!
+	// TODO: This is handled a bit different. Remove this case as soon as the corresponding cell is implemented.
 	private func configureTestResultPositive(cell: HomeTestResultCell) {
 		cell.image.image = UIImage(named: "Hand_with_phone")
 		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
@@ -96,6 +96,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		cell.image.image = UIImage(named: "Illu_Hand_with_phone-pending")
 		cell.title.text = AppStrings.Home.resultCardResultUnvailableTitle
 		cell.result.text = ""
+		cell.result.textColor = .preferredColor(for: .chevron)
 		cell.body.text = AppStrings.Home.resultCardPendingDesc
 		configureResultsButton(for: cell)
 	}

@@ -18,7 +18,6 @@
 import ExposureNotification
 import Foundation
 
-// swiftlint:disable:next type_body_length
 final class HomeInteractor {
 
 	typealias SectionConfiguration = [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])]
@@ -299,16 +298,13 @@ extension HomeInteractor {
 	}
 
 	private func indexPathForTestResultCell() -> IndexPath? {
-		for section in sections {
-			let index = section.cellConfigurators.firstIndex { cellConfigurator in
-				cellConfigurator === self.testResultConfigurator
-			}
-			guard let item = index else { return nil }
-			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-			return indexPath
+		let section = sections.first
+		let index = section?.cellConfigurators.firstIndex { cellConfigurator in
+			cellConfigurator === self.testResultConfigurator
 		}
-
-		return nil
+		guard let item = index else { return nil }
+		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+		return indexPath
 	}
 }
 
@@ -316,6 +312,7 @@ extension HomeInteractor {
 
 extension HomeInteractor {
 
+	// swiftlint:disable:next function_body_length
 	func setupRiskConfigurator() -> HomeRiskCellConfigurator? {
 		let isButtonHidden = userLoadingMode == .automatic
 		let isCounterLabelHidden = !isButtonHidden
