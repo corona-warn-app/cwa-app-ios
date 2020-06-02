@@ -187,7 +187,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 						coder: coder,
 						pageType: .togetherAgainstCoronaPage,
 						exposureManager: self.exposureManager,
-						taskScheduler: self.taskScheduler,
 						store: self.store
 					)
 				}
