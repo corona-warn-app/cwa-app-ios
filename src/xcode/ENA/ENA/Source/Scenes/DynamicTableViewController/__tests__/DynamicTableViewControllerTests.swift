@@ -50,56 +50,30 @@ class DynamicTableViewControllerTests: XCTestCase {
 // MARK: - Register Cells
 extension DynamicTableViewControllerTests {
 	
-	func testViewDidLoad_registersBoldCell() {
+	func testViewDidLoad_registersDynamicTypeCell() {
 		// setup view model
-		let sections = [DynamicSection.section(cells: [.bold(text: "Foo")])]
+		let sections = [DynamicSection.section(cells: [.dynamicType(text: "Foo")])]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
 		
 		// dequeue cell
-		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.bold.rawValue
+		let reuseIdentifier = DynamicCell.CellReuseIdentifier.dynamicTypeText.rawValue
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
 																								 for: IndexPath(row: 0, section: 0))
 		// assert type
-		XCTAssertTrue(cell is DynamicTypeTableViewCell.Bold)
+		XCTAssertTrue(cell is DynamicTypeTableViewCell)
 	}
 	
-	func testViewDidLoad_registersSemiboldCell() {
+	func testViewDidLoad_registersSpaceCell() {
 		// setup view model
-		let sections = [DynamicSection.section(cells: [.semibold(text: "Foo")])]
+		let sections = [DynamicSection.section(cells: [.space(height: 1)])]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
 		
 		// dequeue cell
-		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.semibold.rawValue
+		let reuseIdentifier = DynamicCell.CellReuseIdentifier.space.rawValue
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
 																								 for: IndexPath(row: 0, section: 0))
 		// assert type
-		XCTAssertTrue(cell is DynamicTypeTableViewCell.Semibold)
-	}
-	
-	func testViewDidLoad_registersRegularCell() {
-		// setup view model
-		let sections = [DynamicSection.section(cells: [.regular(text: "Foo")])]
-		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
-		
-		// dequeue cell
-		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.regular.rawValue
-		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
-																								 for: IndexPath(row: 0, section: 0))
-		// assert type
-		XCTAssertTrue(cell is DynamicTypeTableViewCell.Regular)
-	}
-	
-	func testViewDidLoad_registersBigBoldCell() {
-		// setup view model
-		let sections = [DynamicSection.section(cells: [.bigBold(text: "Foo")])]
-		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
-		
-		// dequeue cell
-		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.bigBold.rawValue
-		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
-																								 for: IndexPath(row: 0, section: 0))
-		// assert type
-		XCTAssertTrue(cell is DynamicTypeTableViewCell.BigBold)
+		XCTAssertTrue(cell is DynamicTableViewSpaceCell)
 	}
 	
 	func testViewDidLoad_registersIconCell() {
@@ -108,7 +82,7 @@ extension DynamicTableViewControllerTests {
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
 
 		// dequeue cell
-		let reuseIdentifier = DynamicTableViewController.CellReuseIdentifier.icon.rawValue
+		let reuseIdentifier = DynamicCell.CellReuseIdentifier.icon.rawValue
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
 																								 for: IndexPath(row: 0, section: 0))
 		// assert type

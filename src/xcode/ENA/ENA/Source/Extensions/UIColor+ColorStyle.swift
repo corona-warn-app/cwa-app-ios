@@ -45,7 +45,7 @@ public enum ColorStyle: String {
 	case shadow
 }
 
-extension UIColor {
+public extension UIColor {
 	convenience init?(style: ColorStyle, interface: UIUserInterfaceStyle = .unspecified) {
 		if interface == .unspecified {
 			self.init(named: style.rawValue)
@@ -54,6 +54,19 @@ extension UIColor {
 		}
 	}
 
+
+	#if TARGET_INTERFACE_BUILDER
+	static func preferredColor(for style: ColorStyle, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
+		switch style {
+		case .tint: return UIColor(red: 0 / 255.0, green: 127 / 255.0, blue: 173 / 255.0, alpha: 1)
+		case .separator: return UIColor(red: 245 / 255.0, green: 245 / 255.0, blue: 245 / 255.0, alpha: 1)
+		case .textPrimary1: return UIColor(red: 23 / 255.0, green: 25 / 255.0, blue: 26 / 255.0, alpha: 1)
+		case .backgroundPrimary: return UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
+		default:
+			fatalError("Requested color is not available in interface builder: " + style.rawValue)
+		}
+	}
+	#else
 	static func preferredColor(for style: ColorStyle, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
 		if let color = UIColor(style: style, interface: interface) {
 			return color
@@ -61,4 +74,5 @@ extension UIColor {
 			fatalError("Requested color is not available: " + style.rawValue)
 		}
 	}
+	#endif
 }

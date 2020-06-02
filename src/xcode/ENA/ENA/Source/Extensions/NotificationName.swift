@@ -23,7 +23,5 @@ private func _withPrefix(_ name: String) -> Notification.Name {
 
 extension Notification.Name {
 	static let isOnboardedDidChange = _withPrefix("isOnboardedDidChange")
-
-	// Temporary Notification until implemented by actual transaction flow
 	static let didDetectExposureDetectionSummary = _withPrefix("didDetectExposureDetectionSummary")
 }

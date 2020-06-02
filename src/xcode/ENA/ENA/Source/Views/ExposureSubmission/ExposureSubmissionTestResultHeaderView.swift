@@ -41,11 +41,20 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// MARK: - DynamicTableViewHeaderFooterView methods.
 
-	func configure(testResult: TestResult) {
+	func configure(testResult: TestResult, timeStamp: Int64?) {
 		setupView(testResult)
 		subTitleLabel.text = AppStrings.ExposureSubmissionResult.card_subtitle
 		titleLabel.text = localizedString(for: testResult)
 		barView.layer.backgroundColor = color(for: testResult).cgColor
+		let formatter = DateFormatter()
+		formatter.dateStyle = .medium
+		formatter.timeStyle = .none
+		formatter.timeZone = TimeZone(abbreviation: "UTC")
+		if let timeStamp = timeStamp {
+			timeLabel.text = "Registriert am " + formatter.string(from: Date(timeIntervalSince1970: TimeInterval(timeStamp) ))
+		} else {
+			timeLabel.text = "Registrieungsdatum unbekannt."
+		}
 	}
 
 	// MARK: Configuration helpers.
@@ -109,7 +118,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		titleLabel.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
 
 		timeLabel = UILabel()
-		timeLabel.text = "Registriert am xx.xx.2020"
+		timeLabel.text = "timelabel"
 		timeLabel.font = UIFont.systemFont(ofSize: 13)
 		timeLabel.translatesAutoresizingMaskIntoConstraints = false
 		column.addSubview(timeLabel)

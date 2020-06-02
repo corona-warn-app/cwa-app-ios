@@ -129,6 +129,7 @@
 "ExposureSubmissionResult_testPositiveDesc" = "Ihr Test-Ergebnis wurde erfolgreich als “positiv” verifiziert.";
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
 "ExposureSubmissionResult_testNegativeDesc" = "Ihr Test-Ergebnis wurde erfolgreich als “negativ” verifiziert.";
+"ExposureSubmissionResult_removeNote" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Sie haben trotzdem gesundheitliche Beschwerden? Wenn Sie sich sehr krank fühlen und/oder Ihre Beschwerden sich verschlechtert haben, wenden Sie sich bitte an Ihre/-n Hausärztin/Hausarzt.";
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Bleiben Sie bis zu Ihrer Genesung trotzdem zu Hause. Falls Sie sich durch eine andere Infektion geschwächt mit dem Coronavirus (SARS-CoV-2) infizieren, kann dies zu schwereren Krankheitsverläufen führen.";
@@ -150,12 +151,23 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
 
 // Tracing Enable/Disable Settings
-"ExposureNotificationSetting_TracingSettingTitle" = "Umfeldaufnahme";
-"ExposureNotificationSetting_EnableTracing" = "Umfeldaufnahme aktivieren";
-"ExposureNotificationSetting_IntroductionTitle" = "Aktivieren Sie die Protokollierung der Kontakte";
-"ExposureNotificationSetting_IntroductionText" = "Die COVID-19 Kontakprotokoll Mitteilungen sollen Ihnen helfen, wenn Sie mit einem Benutzer in Kontakt gekommen sind, der sich später als postiv auf COVID-19 getestet meldet. Sie können diese Mitteilungen jederzeit abshalten.
-
-COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln von zufälligen ID. Diese ID's sind eine zufällige Folge von Zahlen, die Sie für andere Benutzer nicht identifizierbar machen und die sich mehrmals täglich ändern, um Ihre Privatshäre zu schützen.";
+"ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
+"ExposureNotificationSetting_EnableTracing" = "Risiko-Ermittlung";
+"ExposureNotificationSetting_Tracing_Limited" = "Eingeschränkt";
+"ExposureNotificationSetting_Tracing_Deactivated" = "Deaktiviert";
+"ExposureNotificationSetting_ActionCell_Header" = "Einstellung";
+"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktivieren Sie die Aufzeichnung Ihrer Begegnungen";
+"ExposureNotificationSetting_DescriptionTitle" = "So funktioniert die Aufzeichnung Ihrer Begegnungen";
+"ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
+"ExposureNotificationSetting_DescriptionText2" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.";
+"ExposureNotificationSetting_DescriptionText3" = "Die verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
+"ExposureNotificationSetting_Activate_Bluetooth" = "Bluetooth aktivieren";
+"ExposureNotificationSetting_Bluetooth_Description" = "Die Risiko-Ermittlung benötigt aktiviertes Bluetooth um Begegnungen aufzuzeichnen. Bitte aktivieren Sie Bluetooth in Ihren Geräte-Einstellungen.";
+"ExposureNotificationSetting_Activate_Internet" = "Internetverbindung herstellen";
+"ExposureNotificationSetting_Internet_Description" = "Die Risiko-Ermittlung benötigt eine Internetverbindung, um Risiko-Begegnungen berechnen zu können. Bitte aktivieren Sie WLAN oder mobile Daten in Ihren Geräte-Einstellungen.";
+"ExposureNotificationSetting_Detail_Action_Button" = "Geräte-Einstellungen öffnen";
+"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19-Kontaktmitteilungen aktivieren";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Kontaktmitteilungen in den Systemeinstellungen um Begegnungen zu protokollieren. Bitte aktivieren Sie COVID-19-Kontaktmitteilungen in Ihren Systemeinstellungen.";
 
 // Home
 // Home Cards
@@ -229,3 +241,6 @@ COVID-19 Kontakprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln
 
 //Safari
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
+
+// Invite Friends
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
