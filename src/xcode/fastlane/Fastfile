@@ -55,7 +55,7 @@ platform :ios do
     xcov(
       workspace: "ENA.xcworkspace",
       scheme: "ENATests",
-      markdown_report: true,
+      json_report: true,
       html_report: false,
       output_directory: "fastlane/test_output"
     )
