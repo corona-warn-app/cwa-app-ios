@@ -45,13 +45,13 @@ Find all available lanes: [Fastfile documentation](src/xcode/fastlane/README.md)
 
    We added the schema `ENACommunity` to our project which should enable third party developers to run and test the code. This schema uses a mocked implementation of `ExposureManager` in `SceneDelegate` and injects it into the application.
 
-2. Run the Server locally
+2. Run the server locally
 
-   If you have docker installed locally, the overall cwa-server setup can be easily build and run (incl. dependencies) by 'docker-compose up'. More information at: https://github.com/corona-warn-app/cwa-server
+   If you have Docker installed locally, the overall cwa-server setup can be easily built and run (incl. dependencies) by 'docker-compose up'. More information at: https://github.com/corona-warn-app/cwa-server
 3. Configure the URL scheme
   * On your device, store a deep link that has the following structure:
     `corona-warn-app://configure?distributionBaseURL=https://fix.me/&submissionBaseURL=https://fix.me&verificationBaseURL=https://fix.me`
-  * Tap on the link and then relaunch the app because the changes will only be effective in a new session. You can validate the configuration in the developer menu (Triple-tap somewhere in the homescreen and click on the settings icon in the toolbar).
+  * Tap on the link and then relaunch the app because the changes will only be effective in a new session. You can validate the configuration in the developer menu (triple-tap somewhere in the homescreen and click on the settings icon in the toolbar).
 
 ## Architecture & Documentation
 
