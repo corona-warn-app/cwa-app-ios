@@ -48,32 +48,39 @@ final class ExposureDetectionTransaction {
 
 	private weak var delegate: ExposureDetectionTransactionDelegate?
 	private let client: Client
-	private let downloadedPackagesStore: DownloadedPackagesStore
+	private let keyPackagesStore: DownloadedPackagesStore
 
 	// MARK: Creating a Transaction
 
 	init(
 		delegate: ExposureDetectionTransactionDelegate,
 		client: Client,
-		downloadedPackagesStore: DownloadedPackagesStore
+		keyPackagesStore: DownloadedPackagesStore
 	) {
 		self.delegate = delegate
 		self.client = client
-		self.downloadedPackagesStore = downloadedPackagesStore
+		self.keyPackagesStore = keyPackagesStore
 	}
 
 	// MARK: Starting the Transaction
 
-	func start() {
-		client.availableDaysAndHoursUpUntil(formattedToday()) { [weak self] result in
-			guard let self = self else { return }
+	func start(taskCompletion: ((ENExposureDetectionSummary?) -> Void)? = nil) {
+		let today = formattedToday()
+		client.availableDaysAndHoursUpUntil(today) { [weak self] result in
+			guard let self = self else {
+				taskCompletion?(nil)
+				return
+			}
 			switch result {
 			case let .success(daysAndHours):
-				self.continueWith(remoteDaysAndHours: daysAndHours)
+				self.continueWith(remoteDaysAndHours: daysAndHours) { summary in
+					taskCompletion?(summary)
+				}
 			case .failure:
 				self.endPrematurely(reason: .noDaysAndHours)
+				taskCompletion?(nil)
 			}
-		}
+		} 
 	}
 
 	// MARK: Working with the Delegate
@@ -89,11 +96,13 @@ final class ExposureDetectionTransaction {
 	}
 
 	// Get the exposure manager from the delegate
-	private func exposureManager() -> ExposureManager {
+	private func exposureDetector() -> ExposureDetector {
 		guard let delegate = delegate else {
 			fatalError("ExposureDetectionTransaction requires a delegate to work.")
 		}
-		return delegate.exposureDetectionTransactionRequiresExposureManager(self)
+
+
+		return delegate.exposureDetectionTransactionRequiresExposureDetector(self)
 	}
 
 	// Gets today formatted as required by the backend.
@@ -107,19 +116,26 @@ final class ExposureDetectionTransaction {
 	// MARK: Steps of a Transaction
 
 	// 1. Step: Download available Days & Hours
-	private func continueWith(remoteDaysAndHours: Client.DaysAndHours) {
+    private func continueWith(remoteDaysAndHours: Client.DaysAndHours, taskCompletion: ((ENExposureDetectionSummary?) -> Void)? = nil) {
 		fetchAndStoreMissingDaysAndHours(remoteDaysAndHours: remoteDaysAndHours) { [weak self] in
-			guard let self = self else { return }
+            guard let self = self else {
+				taskCompletion?(nil)
+				return
+			}
 			self.remoteExposureConfiguration { [weak self] configuration in
 				guard let self = self else {
+					taskCompletion?(nil)
 					logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 					return
 				}
 				do {
 					let writer = try self.createAppleFilesWriter()
-					self.detectExposures(writer: writer, configuration: configuration)
+					self.detectExposures(writer: writer, configuration: configuration) { summary in
+						taskCompletion?(summary)
+					}
 				} catch {
 					self.endPrematurely(reason: .unableToDiagnosisKeys)
+					taskCompletion?(nil)
 				}
 			}
 		}
@@ -140,15 +156,15 @@ final class ExposureDetectionTransaction {
 				let delta = DeltaCalculationResult(
 					remoteDays: Set(remoteDays),
 					remoteHours: Set(remoteHours),
-					localDays: Set(self.downloadedPackagesStore.allDays()),
-					localHours: Set(self.downloadedPackagesStore.hours(for: .formattedToday()))
+					localDays: Set(self.keyPackagesStore.allDays()),
+					localHours: Set(self.keyPackagesStore.hours(for: .formattedToday()))
 				)
 				self.client.fetchDays(
 					Array(delta.missingDays),
 					hours: Array(delta.missingHours),
 					of: .formattedToday()
 				) { fetchedDaysAndHours in
-					self.downloadedPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
+					self.keyPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
 					completion()
 				}
 			case .failure:
@@ -178,7 +194,7 @@ final class ExposureDetectionTransaction {
 		let rootDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try fm.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
 
-		let packages = downloadedPackagesStore.allPackages(for: .formattedToday())
+		let packages = keyPackagesStore.allPackages(for: .formattedToday())
 
 		return AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
 	}
@@ -186,17 +202,20 @@ final class ExposureDetectionTransaction {
 	// 5. Execute the actual exposure detection
 	private func detectExposures(
 		writer: AppleFilesWriter,
-		configuration: ENExposureConfiguration
+		configuration: ENExposureConfiguration,
+		taskCompletion: ((ENExposureDetectionSummary?) -> Void)? = nil
 	) {
 		writer.with { [weak self] diagnosisURLs, done in
 			guard let self = self else {
+				taskCompletion?(nil)
 				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
 			self._detectExposures(
 				diagnosisKeyURLs: diagnosisURLs,
 				configuration: configuration,
-				completion: done
+				completion: done,
+				taskCompletion: taskCompletion
 			)
 		}
 	}
@@ -204,29 +223,34 @@ final class ExposureDetectionTransaction {
 	private func _detectExposures(
 		diagnosisKeyURLs: [URL],
 		configuration: ENExposureConfiguration,
-		completion: @escaping () -> Void
+		completion: @escaping () -> Void,
+		taskCompletion: ((ENExposureDetectionSummary?) -> Void)? = nil
 	) {
-		let manager = exposureManager()
+		let manager = exposureDetector()
 		_ = manager.detectExposures(
 			configuration: configuration,
 			diagnosisKeyURLs: diagnosisKeyURLs
 		) { [weak self] summary, error in
 			guard let self = self else {
+				taskCompletion?(nil)
 				logError(message: "Reference to ExposureDetectionTransaction lost prematurely!")
 				return
 			}
 			if let error = error {
 				self.endPrematurely(reason: .noSummary(error))
+				taskCompletion?(nil)
 				return
 			}
 
 			guard let summary = summary else {
 				completion()
 				self.endPrematurely(reason: .noSummary(nil))
+				taskCompletion?(nil)
 				return
 			}
 			self.didDetectSummary(summary)
 			completion()
+			taskCompletion?(summary)
 		}
 	}
 }

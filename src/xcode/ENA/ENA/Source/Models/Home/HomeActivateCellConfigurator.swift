@@ -18,6 +18,9 @@
 import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
+
+	let identifier = UUID()
+	
 	private var state: RiskDetectionState
 
 	init(state: RiskDetectionState) {
@@ -35,7 +38,7 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 			iconImage = UIImage(named: "Icons_Risikoermittlung")
 			cell.titleTextView.text = AppStrings.Home.activateCardOnTitle
 			cell.iconImageView.tintColor = UIColor.preferredColor(for: .tint)
-		case .disabled:
+		case .disabled, .restricted:
 			iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
 			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negativeRisk)
 			cell.titleTextView.text = AppStrings.Home.activateCardOffTitle

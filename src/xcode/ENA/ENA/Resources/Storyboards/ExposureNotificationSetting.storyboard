@@ -129,7 +129,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yp9-fh-bpb">
                                                             <rect key="frame" x="0.0" y="0.0" width="350" height="128"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEQ-Jd-cnW">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jEQ-Jd-cnW">
                                                                     <rect key="frame" x="0.0" y="0.0" width="287" height="128"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                                     <color key="textColor" name="textPrimary1"/>
@@ -149,7 +149,7 @@
                                                                                     </constraints>
                                                                                     <userDefinedRuntimeAttributes>
                                                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                            <integer key="value" value="10"/>
+                                                                                            <integer key="value" value="6"/>
                                                                                         </userDefinedRuntimeAttribute>
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </imageView>
@@ -161,7 +161,7 @@
                                                                                     </constraints>
                                                                                     <userDefinedRuntimeAttributes>
                                                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                                            <integer key="value" value="10"/>
+                                                                                            <integer key="value" value="6"/>
                                                                                         </userDefinedRuntimeAttribute>
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </imageView>
@@ -234,11 +234,9 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XhU-KP-won" customClass="CircularProgressView" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="75" height="2238"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 </view>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgh-tM-Jzj">
                                                     <rect key="frame" x="90" y="0.0" width="284" height="2238"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" name="textPrimary3"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -280,7 +278,6 @@
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13X-VL-dxy">
                                                     <rect key="frame" x="0.0" y="40.5" width="382" height="280"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" name="textPrimary1"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -288,7 +285,6 @@
                                                 </textView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8X-gB-tQa">
                                                     <rect key="frame" x="0.0" y="340.5" width="382" height="280"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" name="textPrimary1"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
