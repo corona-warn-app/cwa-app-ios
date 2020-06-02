@@ -31,10 +31,8 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.register(DynamicTableViewHeaderImageView.self, forHeaderFooterViewReuseIdentifier: HeaderFooterReuseIdentifier.header.rawValue)
 		tableView.register(DynamicTableViewHeaderSeparatorView.self, forHeaderFooterViewReuseIdentifier: HeaderFooterReuseIdentifier.separator.rawValue)
 
-		tableView.register(DynamicTypeTableViewCell.Bold.self, forCellReuseIdentifier: CellReuseIdentifier.bold.rawValue)
-		tableView.register(DynamicTypeTableViewCell.Semibold.self, forCellReuseIdentifier: CellReuseIdentifier.semibold.rawValue)
-		tableView.register(DynamicTypeTableViewCell.Regular.self, forCellReuseIdentifier: CellReuseIdentifier.regular.rawValue)
-		tableView.register(DynamicTypeTableViewCell.BigBold.self, forCellReuseIdentifier: CellReuseIdentifier.bigBold.rawValue)
+		tableView.register(DynamicTypeTableViewCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeText.rawValue)
+		tableView.register(DynamicTableViewSpaceCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.space.rawValue)
 		tableView.register(UINib(nibName: String(describing: DynamicTableViewIconCell.self), bundle: nil), forCellReuseIdentifier: CellReuseIdentifier.icon.rawValue)
 	}
 }
@@ -53,47 +51,6 @@ extension DynamicTableViewController {
 		case semibold = "semiboldCell"
 		case regular = "regularCell"
 		case icon = "iconCell"
-	}
-}
-
-extension DynamicCell {
-	var cellReuseIdentifier: TableViewCellReuseIdentifiers {
-		switch self {
-		case .bigBold:
-			return DynamicTableViewController.CellReuseIdentifier.bigBold
-		case .bold:
-			return DynamicTableViewController.CellReuseIdentifier.bold
-		case .semibold:
-			return DynamicTableViewController.CellReuseIdentifier.semibold
-		case .regular:
-			return DynamicTableViewController.CellReuseIdentifier.regular
-		case .icon:
-			return DynamicTableViewController.CellReuseIdentifier.icon
-		case let .identifier(identifier, _, _, _):
-			return identifier
-		}
-	}
-
-	func configure(cell: UITableViewCell, at indexPath: IndexPath, for viewController: DynamicTableViewController) {
-		switch self {
-		case let .bigBold(text):
-			cell.textLabel?.text = text
-
-		case let .bold(text):
-			cell.textLabel?.text = text
-
-		case let .semibold(text):
-			cell.textLabel?.text = text
-
-		case let .regular(text):
-			cell.textLabel?.text = text
-
-		case let .icon(_, configuration):
-			(cell as? DynamicTableViewIconCell)?.configure(configuration)
-
-		case let .identifier(_, _, _, configure):
-			configure?(viewController, cell, indexPath)
-		}
 	}
 }
 

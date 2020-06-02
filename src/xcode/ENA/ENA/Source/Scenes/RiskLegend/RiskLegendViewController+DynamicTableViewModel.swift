@@ -23,6 +23,7 @@ import UIKit
 extension RiskLegendViewController {
 	var model: DynamicTableViewModel {
 		DynamicTableViewModel([
+			.navigationSubtitle(text: AppStrings.RiskLegend.subtitle),
 			.section(
 				header: .image(UIImage(named: "risk-legend-image"), height: 200),
 				footer: .space(height: 32),
@@ -81,50 +82,6 @@ extension RiskLegendViewController {
 }
 
 private extension DynamicCell {
-	static func space(height: CGFloat, color: UIColor? = nil) -> Self {
-		.identifier(RiskLegendViewController.CellReuseIdentifier.space) { _, cell, _ in
-			guard let cell = cell as? DynamicTableViewSpaceCell else { return }
-			cell.height = height
-			cell.backgroundColor = color
-		}
-	}
-
-	static func title1(text: String) -> Self {
-		.identifier(RiskLegendViewController.CellReuseIdentifier.title1) { _, cell, _ in
-			cell.textLabel?.text = text
-		}
-	}
-
-	static func title2(text: String) -> Self {
-		.identifier(RiskLegendViewController.CellReuseIdentifier.title2) { _, cell, _ in
-			cell.textLabel?.text = text
-		}
-	}
-
-	static func headline(text: String) -> Self {
-		.identifier(RiskLegendViewController.CellReuseIdentifier.headline) { _, cell, _ in
-			cell.textLabel?.text = text
-		}
-	}
-
-	static func subheadline(text: String) -> Self {
-		.identifier(RiskLegendViewController.CellReuseIdentifier.subheadline) { _, cell, _ in
-			cell.textLabel?.text = text
-		}
-	}
-
-	static func body(text: String) -> Self {
-		.identifier(RiskLegendViewController.CellReuseIdentifier.body) { _, cell, _ in
-			cell.textLabel?.text = text
-		}
-	}
-
-	static func footnote(text: String) -> Self {
-		.identifier(RiskLegendViewController.CellReuseIdentifier.footnote) { _, cell, _ in
-			cell.textLabel?.text = text
-		}
-	}
-
 	static func iconTitle(number: UInt8, text: String) -> Self {
 		.identifier(RiskLegendViewController.CellReuseIdentifier.numberedTitle) { _, cell, _ in
 			guard let cell = cell as? RiskLegendNumberedTitleCell else { return }
@@ -139,50 +96,5 @@ private extension DynamicCell {
 			cell.dotView.backgroundColor = color
 			cell.textLabel?.text = text
 		}
-	}
-}
-
-// TODO: Refactor into DynamicTableViewController
-extension DynamicTypeTableViewCell {
-	class Title1: DynamicTypeTableViewCell {
-		static let style: ENALabel.Style = .title1
-		override var textStyle: UIFont.TextStyle? { Self.style.textStyle }
-		override var fontSize: CGFloat? { Self.style.fontSize }
-		override var fontWeight: UIFont.Weight? { UIFont.Weight(Self.style.fontWeight) }
-	}
-
-	class Title2: DynamicTypeTableViewCell {
-		static let style: ENALabel.Style = .title2
-		override var textStyle: UIFont.TextStyle? { Self.style.textStyle }
-		override var fontSize: CGFloat? { Self.style.fontSize }
-		override var fontWeight: UIFont.Weight? { UIFont.Weight(Self.style.fontWeight) }
-	}
-
-	class Headline: DynamicTypeTableViewCell {
-		static let style: ENALabel.Style = .headline
-		override var textStyle: UIFont.TextStyle? { Self.style.textStyle }
-		override var fontSize: CGFloat? { Self.style.fontSize }
-		override var fontWeight: UIFont.Weight? { UIFont.Weight(Self.style.fontWeight) }
-	}
-
-	class Subheadline: DynamicTypeTableViewCell {
-		static let style: ENALabel.Style = .subheadline
-		override var textStyle: UIFont.TextStyle? { Self.style.textStyle }
-		override var fontSize: CGFloat? { Self.style.fontSize }
-		override var fontWeight: UIFont.Weight? { UIFont.Weight(Self.style.fontWeight) }
-	}
-
-	class Body: DynamicTypeTableViewCell {
-		static let style: ENALabel.Style = .body
-		override var textStyle: UIFont.TextStyle? { Self.style.textStyle }
-		override var fontSize: CGFloat? { Self.style.fontSize }
-		override var fontWeight: UIFont.Weight? { UIFont.Weight(Self.style.fontWeight) }
-	}
-
-	class Footnote: DynamicTypeTableViewCell {
-		static let style: ENALabel.Style = .footnote
-		override var textStyle: UIFont.TextStyle? { Self.style.textStyle }
-		override var fontSize: CGFloat? { Self.style.fontSize }
-		override var fontWeight: UIFont.Weight? { UIFont.Weight(Self.style.fontWeight) }
 	}
 }

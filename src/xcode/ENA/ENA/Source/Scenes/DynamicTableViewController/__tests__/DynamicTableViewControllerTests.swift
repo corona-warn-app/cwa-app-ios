@@ -60,7 +60,7 @@ extension DynamicTableViewControllerTests {
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
 																								 for: IndexPath(row: 0, section: 0))
 		// assert type
-		XCTAssertTrue(cell is DynamicTypeTableViewCell.Bold)
+		XCTAssertTrue(cell is DynamicTypeTableViewCell)
 	}
 	
 	func testViewDidLoad_registersSemiboldCell() {
@@ -73,7 +73,7 @@ extension DynamicTableViewControllerTests {
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
 																								 for: IndexPath(row: 0, section: 0))
 		// assert type
-		XCTAssertTrue(cell is DynamicTypeTableViewCell.Semibold)
+		XCTAssertTrue(cell is DynamicTypeTableViewCell)
 	}
 	
 	func testViewDidLoad_registersRegularCell() {
@@ -86,7 +86,7 @@ extension DynamicTableViewControllerTests {
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
 																								 for: IndexPath(row: 0, section: 0))
 		// assert type
-		XCTAssertTrue(cell is DynamicTypeTableViewCell.Regular)
+		XCTAssertTrue(cell is DynamicTypeTableViewCell)
 	}
 	
 	func testViewDidLoad_registersBigBoldCell() {
@@ -99,7 +99,7 @@ extension DynamicTableViewControllerTests {
 		let cell = sut.tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
 																								 for: IndexPath(row: 0, section: 0))
 		// assert type
-		XCTAssertTrue(cell is DynamicTypeTableViewCell.BigBold)
+		XCTAssertTrue(cell is DynamicTypeTableViewCell)
 	}
 	
 	func testViewDidLoad_registersIconCell() {
