@@ -35,7 +35,7 @@ class NotificationSettingsViewModel {
 	static func notificationsOn(_ store: Store) -> NotificationSettingsViewModel {
 		NotificationSettingsViewModel(
 			notificationsOn: true,
-			image: "settings_mitteilungen_an",
+			image: "Illu_Mitteilungen_On",
 			title: AppStrings.NotificationSettings.onTitle,
 			description: AppStrings.NotificationSettings.onDescription,
 			sections: [
@@ -61,7 +61,7 @@ class NotificationSettingsViewModel {
 	static func notificationsOff() -> NotificationSettingsViewModel {
 		NotificationSettingsViewModel(
 			notificationsOn: false,
-			image: "settings_mitteilungen_aus",
+			image: "Illu_Mitteilungen_Off",
 			title: AppStrings.NotificationSettings.offTitle,
 			description: AppStrings.NotificationSettings.offDescription,
 			sections: [

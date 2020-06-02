@@ -423,11 +423,14 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
 
 //Reset View
-"Reset_NavTitle" = "Anwendung zurücksetzen";
+"Reset_NavTitle" = "Zurücksetzen";
 "Reset_Header1" = "Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?";
-"Reset_Descrition1" = "Hier kommt ein Erklärungstext, der beschreibt was passiert wenn man die Anwendung zurücksetzt";
+"Reset_Descrition1" = "Sie werden nicht mehr über Ihre Risiko-Begegnungen informiert und können andere Nutzerinnen und Nutzer nicht mehr warnen.";
 "Reset_Button" = "Anwendung zurücksetzen";
 "Reset_Discard" = "Abbrechen";
+"Reset_InfoTitle" = "Begegnungs-Aufzeichnung löschen";
+"Reset_InfoDescription" = "Die Begegnungs-Aufzeichnung muss separat in den Geräte Einstellungen gelöscht werden.";
+"Reset_Subtitle" = "Anwendung zurücksetzen";
 
 //Safari
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
