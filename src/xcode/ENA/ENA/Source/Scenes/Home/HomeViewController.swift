@@ -43,16 +43,18 @@ final class HomeViewController: UIViewController {
 		self.delegate = delegate
 
 		super.init(coder: coder)
-		homeInteractor = HomeInteractor(
-			homeViewController: self,
-			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init())
-		)
 
 		exposureSubmissionService = ENAExposureSubmissionService(
 			diagnosiskeyRetrieval: self.exposureManager,
 			client: self.client,
 			store: self.store
+		)
+
+		homeInteractor = HomeInteractor(
+			homeViewController: self,
+			store: store,
+			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
+			exposureSubmissionService: exposureSubmissionService
 		)
 	}
 
@@ -78,7 +80,6 @@ final class HomeViewController: UIViewController {
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
 	private var exposureSubmissionService: ExposureSubmissionService?
-	private var testResult: TestResult?
 
 	enum Section: Int {
 		case actions
@@ -95,7 +96,7 @@ final class HomeViewController: UIViewController {
 		updateSections()
 		applySnapshotFromSections()
 		configureUI()
-		fetchTestResult()
+		homeInteractor.updateTestResults()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -290,7 +291,7 @@ final class HomeViewController: UIViewController {
 			} else if row == 1 {
 				showExposureDetection()
 			} else {
-				showExposureSubmission(with: testResult)
+				showExposureSubmission(with: homeInteractor.testResult)
 			}
 		case .infos:
 			if row == 0 {
@@ -416,34 +417,13 @@ final class HomeViewController: UIViewController {
 extension HomeViewController {
 
 	func showTestResultScreen() {
-		showExposureSubmission(with: testResult)
+		showExposureSubmission(with: homeInteractor.testResult)
 	}
 
 	func updateTestResultState() {
 		self.homeInteractor.showTestResultCell()
-		fetchTestResult()
+		self.homeInteractor.updateTestResults()
 	}
-
-	private func fetchTestResult() {
-		DispatchQueue.global(qos: .userInteractive).async {
-			self.fetchTestResultHelper()
-		}
-	}
-
-	private func fetchTestResultHelper() {
-		// Make sure we are able to fetch.
-		guard store.registrationToken != nil else { return }
-		self.exposureSubmissionService?.getTestResult { result in
-			switch result {
-			case .failure(let error):
-				appLogger.log(message: "Error while fetching result: \(error)", file: #file, line: #line, function: #function)
-			case .success(let result):
-				self.testResult = result
-				self.homeInteractor.reloadTestResult(with: result)
-			}
-		}
-	}
-
 }
 
 extension HomeViewController: HomeLayoutDelegate {

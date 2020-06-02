@@ -102,8 +102,8 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 	}
 }
 
-extension HomeTestResultCellConfigurator: HomeTestResultCellDelegate {
-	func showTestButtonTapped(cell: HomeTestResultCell) {
+extension HomeTestResultCellConfigurator: HomeCardCellButtonDelegate {
+	func buttonTapped(cell: HomeCardCollectionViewCell) {
 		buttonAction?()
 	}
 }

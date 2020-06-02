@@ -34,11 +34,13 @@ final class HomeInteractor {
 	init(
 		homeViewController: HomeViewController,
 		store: Store,
-		state: State
+		state: State,
+		exposureSubmissionService: ExposureSubmissionService? = nil
 	) {
 		self.homeViewController = homeViewController
 		self.store = store
 		self.state = state
+		self.exposureSubmissionService = exposureSubmissionService
 		stateHandler = ENStateHandler(self.state.exposureManager, delegate: self)
 		sections = initialCellConfigurators()
 	}
@@ -66,6 +68,7 @@ final class HomeInteractor {
 
 	private unowned var homeViewController: HomeViewController
 	private let store: Store
+	private var exposureSubmissionService: ExposureSubmissionService?
 	var stateHandler: ENStateHandler!
 
 	private var riskLevel: RiskLevel {
@@ -78,7 +81,6 @@ final class HomeInteractor {
 	private var riskConfigurator: HomeRiskCellConfigurator?
 	private var testResultConfigurator: HomeTestResultCellConfigurator?
 
-
 	func developerMenuEnableIfAllowed() {}
 
 	private let userLoadingMode = UserLoadingMode.manual // !
@@ -88,6 +90,8 @@ final class HomeInteractor {
 	private var isTimerRunning: Bool { updateRiskTimer?.isValid ?? false }
 	private var releaseDate: Date?
 	private var startDate: Date?
+	private(set) var testResult: TestResult?
+
 
 	private func riskCellTask(completion: @escaping (() -> Void)) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: completion)
@@ -435,7 +439,7 @@ extension HomeInteractor {
 			actionsConfigurators.append(testResultConfigurator)
 
 		} else {
-			
+
 			// Risk card.
 			riskConfigurator = setupRiskConfigurator()
 			if let risk = riskConfigurator {
@@ -452,6 +456,30 @@ extension HomeInteractor {
 
 	func setupActionSectionDefinition() -> SectionDefinition {
 		return (.actions, setupActionConfigurators())
+	}
+}
+
+// MARK: Exposure submission service calls.
+
+extension HomeInteractor {
+	func updateTestResults() {
+		DispatchQueue.global(qos: .userInteractive).async {
+			self.fetchTestResultHelper()
+		}
+	}
+
+	private func fetchTestResultHelper() {
+		// Make sure we are able to fetch.
+		guard store.registrationToken != nil else { return }
+		self.exposureSubmissionService?.getTestResult { result in
+			switch result {
+			case .failure(let error):
+				appLogger.log(message: "Error while fetching result: \(error)", file: #file, line: #line, function: #function)
+			case .success(let result):
+				self.testResult = result
+				self.reloadTestResult(with: result)
+			}
+		}
 	}
 }
 

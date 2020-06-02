@@ -20,10 +20,6 @@
 import Foundation
 import UIKit
 
-protocol HomeTestResultCellDelegate: AnyObject {
-	func showTestButtonTapped(cell: HomeTestResultCell)
-}
-
 class HomeTestResultCell: HomeCardCollectionViewCell {
 
 	@IBOutlet weak var title: UILabel!
@@ -31,9 +27,9 @@ class HomeTestResultCell: HomeCardCollectionViewCell {
 	@IBOutlet weak var image: UIImageView!
 	@IBOutlet weak var body: UILabel!
 	@IBOutlet weak var button: ENAButton!
-	weak var delegate: HomeTestResultCellDelegate?
+	weak var delegate: HomeCardCellButtonDelegate?
 
 	@IBAction func buttonTapped(_: UIButton) {
-		delegate?.showTestButtonTapped(cell: self)
+		delegate?.buttonTapped(cell: self)
 	}
 }
