@@ -91,7 +91,7 @@ class DynamicTableViewModelTests: XCTestCase {
 	
 	func testAdd_appendsSection() {
 		
-		let cells = [DynamicCell.semibold(text: "23")]
+		let cells = [DynamicCell.title1(text: "23")]
 		sut.add(DynamicSection.section(cells: cells))
 
 		// get last section
@@ -107,7 +107,7 @@ class DynamicTableViewModelTests: XCTestCase {
 	func testWith_returnsAlteredModel() {
 		
 		let model = DynamicTableViewModel.with { model in
-			let cells = [DynamicCell.semibold(text: "42")]
+			let cells = [DynamicCell.title1(text: "42")]
 			model.add(DynamicSection.section(cells: cells))
 		}
 		

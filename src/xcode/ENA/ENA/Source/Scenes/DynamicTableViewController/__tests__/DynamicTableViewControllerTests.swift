@@ -95,7 +95,7 @@ extension DynamicTableViewControllerTests {
 	func testNumberOfSections_returnsValueFromViewModel_withOneSection() {
 		// setup view model
 		let sections = [
-			DynamicSection.section(cells: [.bold(text: "Foo")])
+			DynamicSection.section(cells: [.title1(text: "Foo")])
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
 		
@@ -108,9 +108,9 @@ extension DynamicTableViewControllerTests {
 	func testNumberOfSections_returnsValueFromViewModel_withThreeSections() {
 		// setup view model
 		let sections: [DynamicSection] = [
-			.section(cells: [.bold(text: "Foo")]),
-			.section(cells: [.bold(text: "Bar")]),
-			.section(cells: [.bold(text: "Baz")])
+			.section(cells: [.body(text: "Foo")]),
+			.section(cells: [.body(text: "Bar")]),
+			.section(cells: [.body(text: "Baz")])
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
 		
@@ -123,7 +123,7 @@ extension DynamicTableViewControllerTests {
 	func testNumberOfRows_returnsValueFromViewModel_withOneCell() {
 		// setup view model
 		let cells = [
-			DynamicCell.bold(text: "Foo")
+			DynamicCell.body(text: "Foo")
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel([.section(cells: cells)])
 		
@@ -136,9 +136,9 @@ extension DynamicTableViewControllerTests {
 	func testNumberOfRows_returnsValueFromViewModel_withThreeCells() {
 		// setup view model
 		let cells: [DynamicCell] = [
-			.bold(text: "Foo"),
-			.bold(text: "Bar"),
-			.bold(text: "Baz")
+			.body(text: "Foo"),
+			.body(text: "Bar"),
+			.body(text: "Baz")
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel([.section(cells: cells)])
 		
@@ -151,9 +151,9 @@ extension DynamicTableViewControllerTests {
 	func testNumberOfRows_returnsOne_forHiddenSection() {
 		// setup view model
 		let cells: [DynamicCell] = [
-			.bold(text: "Foo"),
-			.bold(text: "Bar"),
-			.bold(text: "Baz")
+			.body(text: "Foo"),
+			.body(text: "Bar"),
+			.body(text: "Baz")
 		]
 		let section = DynamicSection.section(isHidden: { _ in return true }, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
@@ -167,11 +167,11 @@ extension DynamicTableViewControllerTests {
 
 // MARK: - Header
 extension DynamicTableViewControllerTests {
-	func testTitleForHeaderInSection_whenHeaderIsText_returnsHeaderText() {
+	func testTitleForHeader_whenHeaderIsText_returnsHeaderText() {
 		// set up view model
 		let expectedHeaderTitle = "Foo"
 		let section = DynamicSection.section(header: .text(expectedHeaderTitle),
-																				 cells: [.bold(text: "Bar")])
+																				 cells: [.body(text: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		// get header title from data source
@@ -180,11 +180,11 @@ extension DynamicTableViewControllerTests {
 		XCTAssertEqual(headerTitle, expectedHeaderTitle)
 	}
 	
-	func testTitleForHeaderInSection_whenHeaderIsTextAndSectionIsHidden_returnsNil() {
+	func testTitleForHeader_whenHeaderIsTextAndSectionIsHidden_returnsNil() {
 		// set up view model
 		let section = DynamicSection.section(header: .text("Foo"),
 																				 isHidden: { _ in return true },
-																				 cells: [.bold(text: "Bar")])
+																				 cells: [.body(text: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		// get header title from data source
@@ -193,7 +193,7 @@ extension DynamicTableViewControllerTests {
 		XCTAssertNil(headerTitle)
 	}
 	
-	func testTitleForHeaderInSection_whenHeaderIsNotText_returnsNil() {
+	func testTitleForHeader_whenHeaderIsNotText_returnsNil() {
 
 		let dynamicHeader: [DynamicHeader] = [
 			.none,
@@ -209,7 +209,7 @@ extension DynamicTableViewControllerTests {
 		
 		dynamicHeader.forEach { header in
 			let section = DynamicSection.section(header: header,
-																					 cells: [.bold(text: "Bar")])
+																					 cells: [.body(text: "Bar")])
 			sut.dynamicTableViewModel = DynamicTableViewModel([section])
 			
 			// get header title from data source
@@ -218,14 +218,165 @@ extension DynamicTableViewControllerTests {
 			XCTAssertNil(headerTitle)
 		}
 	}
+	
+	func testHeightForHeader_whenHeaderIsNone_isLeastNonezeroMagnitude() {
+		// set up view model
+		let section = DynamicSection.section(header: .none,
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForHeaderInSection: 0)
+		
+		XCTAssertEqual(height, .leastNonzeroMagnitude)
+	}
+	
+	func testHeightForHeader_whenHeaderIsBlank_isAutomaticDimension() {
+		// set up view model
+		let section = DynamicSection.section(header: .blank,
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForHeaderInSection: 0)
+		
+		XCTAssertEqual(height, UITableView.automaticDimension)
+	}
+	
+	func testHeightForHeader_whenHeaderIsSpace_isHeightOfSpace() {
+		// set up view model
+		let expectedHeight: CGFloat = 42
+		let section = DynamicSection.section(header: .space(height: expectedHeight, color: nil),
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForHeaderInSection: 0)
+		
+		XCTAssertEqual(height, expectedHeight)
+	}
+	
+	func testHeightForHeader_whenHeaderIsNotNoneOrBlankOrSpace_isAutomaticDimension() {
+		// set up view model
+		let dynamicHeader: [DynamicHeader] = [
+			.separator(color: .red),
+			.image(nil),
+			.view(UIView()),
+			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
+			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
+			.custom({ _ in return nil })
+		]
+		
+		dynamicHeader.forEach { header in
+			let section = DynamicSection.section(header: header,
+																					 cells: [.body(text: "Bar")])
+			sut.dynamicTableViewModel = DynamicTableViewModel([section])
+			
+			// get header height
+			let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForHeaderInSection: 0)
+			
+			XCTAssertEqual(height, UITableView.automaticDimension)
+		}
+	}
+	
+	func testHeightForHeader_whenHeaderIsHidden_isLeastNonzeroMagnitude() {
+		// set up view model
+		let section = DynamicSection.section(header: .text("Foo"),
+																				 isHidden: { _ in return true },
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForHeaderInSection: 0)
+		
+		XCTAssertEqual(height, .leastNonzeroMagnitude)
+	}
+	
+	func testViewForHeaderInSection_whenHeaderIsSpace_returnsColoredView() {
+		// set up view model
+		let section = DynamicSection.section(header: .space(height: 42, color: .red),
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0)
+		
+		XCTAssertEqual(view?.backgroundColor, .red)
+	}
+	
+	func testViewForHeaderInSection_whenHeaderIsSeparator_returnsColoredView() {
+		// set up view model
+		let color: UIColor = .red
+		let height: CGFloat = 42
+		let insets = UIEdgeInsets(top: 1, left: 2, bottom: 3, right: 4)
+		let section = DynamicSection.section(header: .separator(color: color, height: height, insets: insets),
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0) as! DynamicTableViewHeaderSeparatorView
+		
+		XCTAssertEqual(view.color, color)
+		XCTAssertEqual(view.height, height)
+		XCTAssertEqual(view.layoutMargins, insets)
+	}
+	
+	func testViewForHeaderInSection_whenHeaderIsImage_returnsImageView() {
+		// set up view model
+		let image = UIImage()
+		let height: CGFloat = 42
+		let section = DynamicSection.section(header: .image(image, height: height),
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0) as! DynamicTableViewHeaderImageView
+		
+		XCTAssertEqual(view.imageView.image, image)
+		XCTAssertEqual(view.height, height)
+	}
+	
+	func testViewForHeaderInSection_whenHeaderIsView_returnsView() {
+		// set up view model
+		let expectedView = UIView()
+		let section = DynamicSection.section(header: .view(expectedView),
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0)
+		
+		XCTAssertEqual(view, expectedView)
+	}
+	
+	func testViewForHeaderInSection_whenHeaderIsTextOrNoneOrBlank_returnsNil() {
+		
+		let dynamicHeader: [DynamicHeader] = [
+			.text("foo"),
+			.none,
+			.blank
+		]
+		
+		dynamicHeader.forEach { header in
+			// set up view model
+			let section = DynamicSection.section(header: header,
+																					 cells: [.body(text: "Bar")])
+			sut.dynamicTableViewModel = DynamicTableViewModel([section])
+			
+			// get header height
+			let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0)
+			
+			XCTAssertNil(view, "Expected nil but got something for \(header)")
+		}
+	}
 }
 
 // MARK: - Footer
 extension DynamicTableViewControllerTests {
-	func testTitleForFooterInSection_whenFooterIsText_returnsFooterText() {
+	func testTitleForFooter_whenFooterIsText_returnsFooterText() {
 		// set up view model
 		let expectedFooterTitle = "Foo"
-		let section = DynamicSection.section(footer: .text(expectedFooterTitle), cells: [.bold(text: "Bar")])
+		let section = DynamicSection.section(footer: .text(expectedFooterTitle), cells: [.body(text: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		// get header title from data source
@@ -234,11 +385,11 @@ extension DynamicTableViewControllerTests {
 		XCTAssertEqual(footerTitle, expectedFooterTitle)
 	}
 	
-	func testTitleForFooterInSection_whenFooterIsTextAndSectionIsHidden_returnsNil() {
+	func testTitleForFooter_whenFooterIsTextAndSectionIsHidden_returnsNil() {
 		// set up view model
 		let section = DynamicSection.section(footer: .text("Foo"),
 																				 isHidden: { _ in return true },
-																				 cells: [.bold(text: "Bar")])
+																				 cells: [.body(text: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		// get header title from data source
@@ -247,7 +398,7 @@ extension DynamicTableViewControllerTests {
 		XCTAssertNil(footerTitle)
 	}
 	
-	func testTitleForFooterInSection_whenFooterIsNotText_returnsNil() {
+	func testTitleForFooter_whenFooterIsNotText_returnsNil() {
 
 		let dynamicFooter: [DynamicFooter] = [
 			.none,
@@ -263,7 +414,7 @@ extension DynamicTableViewControllerTests {
 		
 		dynamicFooter.forEach { footer in
 			let section = DynamicSection.section(footer: footer,
-																					 cells: [.bold(text: "Bar")])
+																					 cells: [.body(text: "Bar")])
 			sut.dynamicTableViewModel = DynamicTableViewModel([section])
 			
 			// get header title from data source
@@ -271,5 +422,78 @@ extension DynamicTableViewControllerTests {
 			
 			XCTAssertNil(footerTitle)
 		}
+	}
+	
+	func testHeightForFooter_whenFooterIsNone_isLeastNonezeroMagnitude() {
+		// set up view model
+		let section = DynamicSection.section(footer: .none,
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForFooterInSection: 0)
+		
+		XCTAssertEqual(height, .leastNonzeroMagnitude)
+	}
+	
+	func testHeightForFooter_whenFooterIsBlank_isAutomaticDimension() {
+		// set up view model
+		let section = DynamicSection.section(footer: .blank,
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForFooterInSection: 0)
+		
+		XCTAssertEqual(height, UITableView.automaticDimension)
+	}
+	
+	func testHeightForFooter_whenFooterIsSpace_isHeightOfSpace() {
+		// set up view model
+		let expectedHeight: CGFloat = 42
+		let section = DynamicSection.section(footer: .space(height: expectedHeight, color: nil),
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForFooterInSection: 0)
+		
+		XCTAssertEqual(height, expectedHeight)
+	}
+	
+	func testHeightForFooter_whenFooterIsNotNoneOrBlankOrSpace_isAutomaticDimension() {
+		// set up view model
+		let dynamicFooter: [DynamicHeader] = [
+			.separator(color: .red),
+			.image(nil),
+			.view(UIView()),
+			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
+			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
+			.custom({ _ in return nil })
+		]
+		
+		dynamicFooter.forEach { footer in
+			let section = DynamicSection.section(footer: footer,
+																					 cells: [.body(text: "Bar")])
+			sut.dynamicTableViewModel = DynamicTableViewModel([section])
+			
+			// get header height
+			let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForFooterInSection: 0)
+			
+			XCTAssertEqual(height, UITableView.automaticDimension)
+		}
+	}
+	
+	func testHeightForFooterInSection_whenFooterIsHidden_isLeastNonzeroMagnitude() {
+		// set up view model
+		let section = DynamicSection.section(footer: .text("Foo"),
+																				 isHidden: { _ in return true },
+																				 cells: [.body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		// get header height
+		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForFooterInSection: 0)
+		
+		XCTAssertEqual(height, .leastNonzeroMagnitude)
 	}
 }
