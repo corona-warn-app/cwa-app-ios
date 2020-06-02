@@ -19,7 +19,7 @@ import BackgroundTasks
 import ExposureNotification
 import UIKit
 
-public enum ENATaskIdentifier: String, CaseIterable {
+enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
 	case detectExposures = "detect-exposures.exposure-notification"
 	case fetchTestResults = "fetch-test-results"
@@ -43,24 +43,19 @@ protocol ENATaskExecutionDelegate: AnyObject {
 	func executeFetchTestResults(task: BGTask)
 }
 
-public class ENATaskScheduler {
+final class ENATaskScheduler {
+	static let shared = ENATaskScheduler()
+	private init() {
+		registerBackgroundTaskRequests()
+	}
+
 	weak var taskDelegate: ENATaskExecutionDelegate?
 	lazy var notificationManager = LocalNotificationManager()
 	typealias CompletionHandler = (() -> Void)
 
-	public func registerBackgroundTaskRequests() {
+	private func registerBackgroundTaskRequests() {
 		registerTask(with: .detectExposures, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
-	}
-
-	public func scheduleBackgroundTaskRequests() {
-		BGTaskScheduler.shared.cancelAllTaskRequests()
-		scheduleBackgroundTask(for: .detectExposures)
-		scheduleBackgroundTask(for: .fetchTestResults)
-	}
-
-	public func cancelAllBackgroundTaskRequests() {
-		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
 
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
@@ -70,7 +65,17 @@ public class ENATaskScheduler {
 		}
 	}
 
-	public func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
+	func scheduleBackgroundTaskRequests() {
+		BGTaskScheduler.shared.cancelAllTaskRequests()
+		scheduleBackgroundTask(for: .detectExposures)
+		scheduleBackgroundTask(for: .fetchTestResults)
+	}
+
+	func cancelAllBackgroundTaskRequests() {
+		BGTaskScheduler.shared.cancelAllTaskRequests()
+	}
+
+	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
 
 		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)

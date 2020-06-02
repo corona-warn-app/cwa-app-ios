@@ -34,7 +34,8 @@ final class HomeViewController: UIViewController {
 		client: Client,
 		store: Store,
 		keyPackagesStore: DownloadedPackagesStore,
-		delegate: HomeViewControllerDelegate
+		delegate: HomeViewControllerDelegate,
+		taskScheduler: ENATaskScheduler
 	) {
 		self.client = client
 		self.store = store
@@ -46,7 +47,8 @@ final class HomeViewController: UIViewController {
 		homeInteractor = HomeInteractor(
 			homeViewController: self,
 			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init())
+			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
+			taskScheduler: taskScheduler
 		)
 
 		exposureSubmissionService = ENAExposureSubmissionService(
