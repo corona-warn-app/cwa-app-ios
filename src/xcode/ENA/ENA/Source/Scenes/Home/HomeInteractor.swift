@@ -224,14 +224,13 @@ final class HomeInteractor {
 			}
 		}
 
-		// test
+		// for testing
 		let thankYouConfigurator = HomeThankYouRiskCellConfigurator()
+		let findingPositiveConfigurator = HomeFindingPositiveRiskCellConfigurator()
+		findingPositiveConfigurator.nextAction = {
+			// ...
+		}
 		//
-		let submitConfigurator = HomeSubmitCellConfigurator()
-
-//		submitConfigurator.submitAction = { [unowned self] in
-//			self.homeViewController.showSubmitResult()
-//		}
 
 		// MARK: Configure exposure submission view.
 		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
@@ -275,7 +274,9 @@ final class HomeInteractor {
 		if let exposureSubmission = exposureSubmissionConfigurator {
 			actionsConfigurators.append(exposureSubmission)
 		}
+		actionsConfigurators.append(findingPositiveConfigurator)
 		actionsConfigurators.append(thankYouConfigurator)
+
 
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
 		let settingsConfigurators: [CollectionViewCellConfiguratorAny] = [appInformationConfigurator, settingsConfigurator]

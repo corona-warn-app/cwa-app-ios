@@ -345,7 +345,7 @@ final class HomeViewController: UIViewController {
 			]
 		)
 
-		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskLevelCollectionViewCell.self, SubmitCollectionViewCell.self, RiskInactiveCollectionViewCell.self, RiskThankYouCollectionViewCell.self, InfoCollectionViewCell.self]
+		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskLevelCollectionViewCell.self, SubmitCollectionViewCell.self, RiskInactiveCollectionViewCell.self, RiskThankYouCollectionViewCell.self, InfoCollectionViewCell.self, RiskFindingPositiveCollectionViewCell.self]
 		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
 		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
