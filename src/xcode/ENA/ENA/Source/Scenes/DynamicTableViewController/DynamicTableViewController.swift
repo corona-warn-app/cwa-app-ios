@@ -110,7 +110,7 @@ extension DynamicTableViewController {
 	private func tableView(_: UITableView, heightForHeaderFooter headerFooter: DynamicHeader, inSection _: Int) -> CGFloat {
 		switch headerFooter {
 		case .none:
-			return 0
+			return .leastNonzeroMagnitude
 		case .blank:
 			return UITableView.automaticDimension
 		case let .space(height, _):
@@ -258,7 +258,7 @@ extension DynamicTableViewController {
 
 	func tableView(_: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		if dynamicTableViewModel.section(at: indexPath).isHidden(for: self) {
-			return 0
+			return .leastNonzeroMagnitude
 		} else {
 			return UITableView.automaticDimension
 		}

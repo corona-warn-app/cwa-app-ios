@@ -53,6 +53,7 @@ class DynamicTableViewHeaderImageView: UITableViewHeaderFooterView {
 		imageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
 		heightConstraint = imageView.heightAnchor.constraint(equalToConstant: 100)
+		heightConstraint.priority = .defaultHigh
 		heightConstraint.isActive = true
 	}
 }

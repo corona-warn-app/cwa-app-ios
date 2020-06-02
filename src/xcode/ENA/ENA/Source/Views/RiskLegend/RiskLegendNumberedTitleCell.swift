@@ -1,6 +1,7 @@
+//
 // Corona-Warn-App
 //
-// SAP SE and all other contributors
+// SAP SE and all other contributors /
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -14,15 +15,12 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 import UIKit
 
-class RiskLegendTableViewCell: UITableViewCell {
-	static var identifier = "RiskLegendCell"
-
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var detailTextView: UITextView!
-	@IBOutlet var iconImageView: UIImageView!
-	@IBOutlet var iconBackgroundView: UIView!
+class RiskLegendNumberedTitleCell: UITableViewCell {
+	@IBOutlet weak var numberView: UIView!
+	@IBOutlet weak var numberLabel: UILabel!
 }
