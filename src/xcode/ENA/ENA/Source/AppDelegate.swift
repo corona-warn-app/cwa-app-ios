@@ -25,11 +25,37 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var client: Client { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
+	var taskScheduler: ENATaskScheduler { get }
+}
+
+protocol RequiresAppDependencies {
+	var client: Client { get }
+	var store: Store { get }
+	var taskScheduler: ENATaskScheduler { get }
+	var downloadedPackagesStore: DownloadedPackagesStore { get }
+}
+
+extension RequiresAppDependencies {
+	var client: Client {
+		UIApplication.coronaWarnDelegate().client
+	}
+
+	var downloadedPackagesStore: DownloadedPackagesStore {
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore
+	}
+
+	var store: Store {
+		UIApplication.coronaWarnDelegate().store
+	}
+
+	var taskScheduler: ENATaskScheduler {
+		UIApplication.coronaWarnDelegate().taskScheduler
+	}
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	let taskScheduler = ENATaskScheduler()
+	let taskScheduler = ENATaskScheduler.shared
 	private var exposureManager: ExposureManager = ENAExposureManager()
 	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
@@ -90,7 +116,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.taskDelegate = self
-		taskScheduler.registerBackgroundTaskRequests()
 		return true
 	}
 
@@ -168,7 +193,8 @@ extension AppDelegate: ExposureDetectionDelegate {
 		detectSummaryWithConfiguration
 		configuration: ENExposureConfiguration,
 		writtenPackages: WrittenPackages,
-		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) {
+		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void
+	) {
 		func withResultFrom(
 			summary: ENExposureDetectionSummary?,
 			error: Error?
@@ -185,9 +211,7 @@ extension AppDelegate: ExposureDetectionDelegate {
 			configuration: configuration,
 			diagnosisKeyURLs: writtenPackages.urls
 		) { summary, error in
-			completion(
-				withResultFrom(summary: summary, error: error)
-			)
+			completion(withResultFrom(summary: summary, error: error))
 		}
 	}
 }
