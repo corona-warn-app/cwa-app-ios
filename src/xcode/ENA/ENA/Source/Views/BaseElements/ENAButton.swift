@@ -23,10 +23,7 @@ class ENAButton: DynamicTypeButton {
 	@IBInspectable var color: UIColor?
 
 	@IBInspectable var isTransparent: Bool = false { didSet { applyStyle() } }
-	@IBInspectable var isLight: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
-
-	private var style: Style = .regular
 
 	override var isEnabled: Bool { didSet { applyStyle() } }
 	override var isHighlighted: Bool { didSet { applyHighlight() } }
@@ -66,15 +63,15 @@ class ENAButton: DynamicTypeButton {
 
 		clipsToBounds = true
 
-		contentEdgeInsets = UIEdgeInsets(top: 14, left: 14, bottom: 14, right: 14)
+		contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
-		titleLabel?.numberOfLines = 0 // TODO
 
 		highlightView?.removeFromSuperview()
 		highlightView = UIView(frame: bounds)
 		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		addSubview(highlightView)
 
+		titleLabel?.font = .preferredFont(forTextStyle: .body)
 		cornerRadius = 8
 		dynamicTypeSize = 17
 		dynamicTypeWeight = "semibold"
@@ -84,10 +81,9 @@ class ENAButton: DynamicTypeButton {
 	}
 
 	private func applyStyle() {
+		let style: Style
 		if isTransparent {
 			style = .transparent
-		} else if isLight {
-			style = .regular
 		} else if isInverted {
 			style = .contrast
 		} else {
@@ -110,10 +106,9 @@ class ENAButton: DynamicTypeButton {
 	}
 }
 
-extension ENAButton {
+private extension ENAButton {
 	enum Style {
 		case transparent
-		case regular
 		case emphasized(color: UIColor?)
 		case contrast
 	}
@@ -127,17 +122,15 @@ extension ENAButton.Style {
 	var backgroundColor: UIColor {
 		switch self {
 		case .transparent: return .clear
-		case .regular: return .preferredColor(for: .separator)
 		case .emphasized(let color): return color ?? .preferredColor(for: .tint)
-		case .contrast: return .preferredColor(for: .backgroundPrimary) // TODO
+		case .contrast: return .preferredColor(for: .backgroundPrimary)
 		}
 	}
 
 	var foregroundColor: UIColor {
 		switch self {
 		case .transparent: return .preferredColor(for: .tint)
-		case .regular: return .preferredColor(for: .tint)
-		case .emphasized: return .white // TODO
+		case .emphasized: return .white
 		case .contrast: return .preferredColor(for: .textPrimary1, interface: .dark)
 		}
 	}
@@ -145,7 +138,6 @@ extension ENAButton.Style {
 	var disabledBackgroundColor: UIColor {
 		switch self {
 		case .transparent: return .preferredColor(for: .separator)
-		case .regular: return .preferredColor(for: .separator)
 		case .emphasized: return .preferredColor(for: .separator)
 		case .contrast: return .preferredColor(for: .separator)
 		}
@@ -154,7 +146,6 @@ extension ENAButton.Style {
 	var disabledForegroundColor: UIColor {
 		switch self {
 		case .transparent: return .preferredColor(for: .tint)
-		case .regular: return .preferredColor(for: .tint)
 		case .emphasized: return .preferredColor(for: .textPrimary1)
 		case .contrast: return .preferredColor(for: .textPrimary1)
 		}
