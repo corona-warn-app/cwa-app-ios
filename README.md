@@ -30,10 +30,17 @@ Open Xcode 11.5 or higher and let the Swift Package Manager handle the rest 🎉
 
 ### Build
 
-Either build directly from Xcode or use fastlane to build and run all tests:
+1. Select the right app scheme.
 
+   We added the schema `ENACommunity` to our project which should enable third party developers to run and test the code. This schema uses a mocked implementation of `ExposureManager` in `SceneDelegate` and injects it into the application.
+
+2. Set the user-defined variable to your development team
+
+   In [project.pbxproj](./src/xcode/ENA/ENA.xcodeproj/project.pbxproj), set IPHONE_APP_DEV_TEAM to your development team
+
+#### Build using fastlane
 ```console
-cd src/xcode && fastlane build
+cd src/xcode && fastlane build_community
 cd src/xcode && fastlane test
 ```
 
@@ -41,14 +48,10 @@ Find all available lanes: [Fastfile documentation](src/xcode/fastlane/README.md)
 
 ### Run
 
-1. Select the right app scheme.
-
-   We added the schema `ENACommunity` to our project which should enable third party developers to run and test the code. This schema uses a mocked implementation of `ExposureManager` in `SceneDelegate` and injects it into the application.
-
-2. Run the server locally
+1. Run the server locally
 
    If you have Docker installed locally, the overall cwa-server setup can be easily built and run (incl. dependencies) by 'docker-compose up'. More information at: https://github.com/corona-warn-app/cwa-server
-3. Configure the URL scheme
+2. Configure the URL scheme
   * On your device, store a deep link that has the following structure:
     `corona-warn-app://configure?distributionBaseURL=https://fix.me/&submissionBaseURL=https://fix.me&verificationBaseURL=https://fix.me`
   * Tap on the link and then relaunch the app because the changes will only be effective in a new session. You can validate the configuration in the developer menu (triple-tap somewhere in the homescreen and click on the settings icon in the toolbar).

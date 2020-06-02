@@ -36,8 +36,4 @@ jobs:
 workflows:
     default:
       jobs:
-        - build-and-test:
-          filters:
-            branches:
-              only:
-                - /.*/
+        - build-and-test
