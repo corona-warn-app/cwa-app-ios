@@ -40,6 +40,8 @@ class HomeTestResultCell: HomeCardCollectionViewCell {
 }
 
 class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
+
+	let identifier = UUID()
 	
 	var buttonAction: (() -> Void)?
 	var didConfigureCell: ((HomeTestResultCellConfigurator, HomeTestResultCell) -> Void)?
