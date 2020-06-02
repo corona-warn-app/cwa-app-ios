@@ -268,6 +268,12 @@ private extension ExposureSubmissionTestResultViewController {
 					image: UIImage(named: "Icons_Grey_Check"),
 					hasSeparators: false
 				),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.removeNote,
+					image: nil,
+					hasSeparators: false
+				),
 				.bigBold(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
 				.stepCellWith(
 					title: nil,

@@ -74,6 +74,7 @@ enum AppStrings {
 		static let testPositiveDesc = NSLocalizedString("ExposureSubmissionResult_testPositiveDesc", comment: "")
 		static let testNegative = NSLocalizedString("ExposureSubmissionResult_testNegative", comment: "")
 		static let testNegativeDesc = NSLocalizedString("ExposureSubmissionResult_testNegativeDesc", comment: "")
+		static let removeNote = NSLocalizedString("ExposureSubmissionResult_removeNote", comment: "")
 		static let testInvalid = NSLocalizedString("ExposureSubmissionResult_testInvalid", comment: "")
 		static let testInvalidDesc = NSLocalizedString("ExposureSubmissionResult_testInvalidDesc", comment: "")
 		static let testPending = NSLocalizedString("ExposureSubmissionResult_testPending", comment: "")

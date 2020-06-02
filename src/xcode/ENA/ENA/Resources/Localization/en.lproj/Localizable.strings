@@ -129,6 +129,7 @@
 "ExposureSubmissionResult_testPositiveDesc" = "Ihr Test-Ergebnis wurde erfolgreich als “positiv” verifiziert.";
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
 "ExposureSubmissionResult_testNegativeDesc" = "Ihr Test-Ergebnis wurde erfolgreich als “negativ” verifiziert.";
+"ExposureSubmissionResult_removeNote" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Sie haben trotzdem gesundheitliche Beschwerden? Wenn Sie sich sehr krank fühlen und/oder Ihre Beschwerden sich verschlechtert haben, wenden Sie sich bitte an Ihre/-n Hausärztin/Hausarzt.";
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Bleiben Sie bis zu Ihrer Genesung trotzdem zu Hause. Falls Sie sich durch eine andere Infektion geschwächt mit dem Coronavirus (SARS-CoV-2) infizieren, kann dies zu schwereren Krankheitsverläufen führen.";
