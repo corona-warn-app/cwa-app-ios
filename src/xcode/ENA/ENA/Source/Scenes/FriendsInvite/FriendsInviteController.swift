@@ -23,6 +23,7 @@ final class FriendsInviteController: UIViewController, UIActivityItemSource {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var inviteButton: ENAButton!
+	@IBOutlet var subtitleLabel: UILabel!
 
 	let shareTitle = AppStrings.InviteFriends.shareTitle
 	// swiftlint:disable:next force_unwrapping
@@ -34,13 +35,9 @@ final class FriendsInviteController: UIViewController, UIActivityItemSource {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.title = AppStrings.InviteFriends.navigationBarTitle
 
+		subtitleLabel.text = AppStrings.InviteFriends.subtitle
 		titleLabel.text = AppStrings.InviteFriends.title
-		titleLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.boldSystemFont(ofSize: 22))
-		titleLabel.adjustsFontForContentSizeCategory = true
-
 		descriptionLabel.text = AppStrings.InviteFriends.description
-		descriptionLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17))
-		descriptionLabel.adjustsFontForContentSizeCategory = true
 
 		inviteButton.setTitle(AppStrings.InviteFriends.submit, for: .normal)
 		inviteButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
