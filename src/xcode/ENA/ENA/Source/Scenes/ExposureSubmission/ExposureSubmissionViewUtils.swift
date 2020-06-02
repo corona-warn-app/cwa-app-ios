@@ -19,7 +19,6 @@ import Foundation
 import UIKit
 
 enum ExposureSubmissionViewUtils {
-
 	static func setupErrorAlert(_ error: ExposureSubmissionError) -> UIAlertController {
 		setupAlert(message: error.localizedDescription)
 	}

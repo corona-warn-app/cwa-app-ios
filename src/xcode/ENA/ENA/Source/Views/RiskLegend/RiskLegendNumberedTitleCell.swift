@@ -21,6 +21,6 @@ import Foundation
 import UIKit
 
 class RiskLegendNumberedTitleCell: UITableViewCell {
-	@IBOutlet weak var numberView: UIView!
-	@IBOutlet weak var numberLabel: UILabel!
+	@IBOutlet var numberView: UIView!
+	@IBOutlet var numberLabel: UILabel!
 }

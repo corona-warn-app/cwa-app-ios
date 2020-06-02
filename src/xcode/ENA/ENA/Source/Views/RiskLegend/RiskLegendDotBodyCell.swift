@@ -21,5 +21,5 @@ import Foundation
 import UIKit
 
 class RiskLegendDotBodyCell: UITableViewCell {
-	@IBOutlet weak var dotView: UIView!
+	@IBOutlet var dotView: UIView!
 }

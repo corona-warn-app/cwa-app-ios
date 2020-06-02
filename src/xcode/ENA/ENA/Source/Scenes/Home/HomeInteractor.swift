@@ -20,6 +20,7 @@ import Foundation
 
 // swiftlint:disable:next type_body_length
 final class HomeInteractor {
+	typealias CellConfigurator = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 
 	enum UserLoadingMode {
 		case automatic
@@ -161,7 +162,7 @@ final class HomeInteractor {
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	private func initialCellConfigurators() -> [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] {
+	private func initialCellConfigurators() -> [CellConfigurator] {
 		let currentState = stateHandler.getState()
 		activeConfigurator = HomeActivateCellConfigurator(state: currentState)
 		let dateLastExposureDetection = store.dateLastExposureDetection
@@ -226,6 +227,7 @@ final class HomeInteractor {
 		}
 
 		// MARK: Configure exposure submission view.
+
 		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
 
 		let info1Configurator = HomeInfoCellConfigurator(
@@ -284,22 +286,22 @@ final class HomeInteractor {
 
 	private func selectConfiguratorForExposureSubmissionCell() -> CollectionViewCellConfiguratorAny? {
 		/* Enable this once the home view refreshing is done.
-		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
-			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
-			return HomeExposureSubmissionStateCellConfigurator()
-		} else if store.registrationToken != nil {
+		 if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
+		 	// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
+		 	return HomeExposureSubmissionStateCellConfigurator()
+		 } else if store.registrationToken != nil {
 
-			// This is shown when we registered a test.
-			let testResulCellConfigurator = HomeTestResultCellConfigurator()
-			testResulCellConfigurator.buttonAction = { [weak self] in
-				self?.homeViewController.showTestResult()
-			}
-			testResulCellConfigurator.didConfigureCell = { configurator, cell in
-				self.homeViewController.updateTestResultFor(cell, with: configurator)
-			}
+		 	// This is shown when we registered a test.
+		 	let testResulCellConfigurator = HomeTestResultCellConfigurator()
+		 	testResulCellConfigurator.buttonAction = { [weak self] in
+		 		self?.homeViewController.showTestResult()
+		 	}
+		 	testResulCellConfigurator.didConfigureCell = { configurator, cell in
+		 		self.homeViewController.updateTestResultFor(cell, with: configurator)
+		 	}
 
-			return testResulCellConfigurator
-		}*/
+		 	return testResulCellConfigurator
+		 }*/
 
 		// This is the default view that is shown when no test results are available.
 		let submitCellConfigurator = HomeSubmitCellConfigurator()

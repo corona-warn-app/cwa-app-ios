@@ -77,5 +77,4 @@ class ENAUITestsOnboarding: XCTestCase {
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
 	}
-
 }

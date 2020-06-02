@@ -67,8 +67,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			let verificationURLString = store.developerVerificationBaseURLOverride,
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) else {
-				return HTTPClient(configuration: .production)
+			let submissionURL = URL(string: submissionURLString)
+		else {
+			return HTTPClient(configuration: .production)
 		}
 
 		let config = HTTPClient.Configuration(
@@ -108,11 +109,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: ExposureDetectionTransactionDelegate {
-	func exposureDetectionTransactionRequiresExposureDetector(_ transaction: ExposureDetectionTransaction) -> ExposureDetector {
+	func exposureDetectionTransactionRequiresExposureDetector(_: ExposureDetectionTransaction) -> ExposureDetector {
 		exposureManager
 	}
-
-
 
 	func exposureDetectionTransaction(_: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
 		logError(message: "Exposure transaction failed: \(reason)")
@@ -205,17 +204,17 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		}
 
 		guard
-			self.exposureDetectionTransaction == nil,
+			exposureDetectionTransaction == nil,
 			exposureManager.preconditions().authorized,
 			UIApplication.shared.backgroundRefreshStatus == .available
-			else {
+		else {
 			complete(success: false)
 			return
 		}
 
-		self.exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: client, keyPackagesStore: downloadedPackagesStore)
+		exposureDetectionTransaction = ExposureDetectionTransaction(delegate: self, client: client, keyPackagesStore: downloadedPackagesStore)
 
-		self.exposureDetectionTransaction?.start { newSummary in
+		exposureDetectionTransaction?.start { newSummary in
 			guard let newSummary = newSummary else {
 				complete(success: true)
 				return
@@ -239,21 +238,21 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
-		
-		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
+		exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
-		self.exposureSubmissionService?.getTestResult { result in
+		exposureSubmissionService?.getTestResult { result in
 
 			switch result {
-			case .failure(let error):
+			case let .failure(error):
 				logError(message: error.localizedDescription)
 
-			case .success(let testResult):
+			case let .success(testResult):
 				if testResult != .pending {
 					self.taskScheduler.notificationManager.presentNotification(
 						title: AppStrings.LocalNotifications.testResultsTitle,
 						body: AppStrings.LocalNotifications.testResultsBody,
-						identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+						identifier: ENATaskIdentifier.fetchTestResults.rawValue
+					)
 				}
 			}
 
@@ -264,6 +263,5 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
 			complete(success: false)
 		}
-
 	}
 }

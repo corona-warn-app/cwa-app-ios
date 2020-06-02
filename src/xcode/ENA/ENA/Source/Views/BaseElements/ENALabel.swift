@@ -32,23 +32,23 @@ class ENALabel: DynamicTypeLabel {
 			}
 		}
 	}
-	
+
 	var style: Style = .body { didSet { applyStyle() } }
-	
+
 	override func prepareForInterfaceBuilder() {
-		self.applyStyle()
+		applyStyle()
 		super.prepareForInterfaceBuilder()
 	}
-	
+
 	override func awakeFromNib() {
-		self.applyStyle()
+		applyStyle()
 		super.awakeFromNib()
 	}
-	
+
 	private func applyStyle() {
-		self.font = UIFont.preferredFont(forTextStyle: self.style.textStyle)
-		self.dynamicTypeSize = self.style.fontSize
-		self.dynamicTypeWeight = self.style.fontWeight
+		font = UIFont.preferredFont(forTextStyle: style.textStyle)
+		dynamicTypeSize = style.fontSize
+		dynamicTypeWeight = style.fontWeight
 	}
 }
 
@@ -74,7 +74,7 @@ extension ENALabel.Style {
 		case .footnote: return 13
 		}
 	}
-	
+
 	var fontWeight: String {
 		switch self {
 		case .title1: return "bold"
@@ -85,7 +85,7 @@ extension ENALabel.Style {
 		case .footnote: return "regular"
 		}
 	}
-	
+
 	var textStyle: UIFont.TextStyle {
 		switch self {
 		case .title1: return .title1

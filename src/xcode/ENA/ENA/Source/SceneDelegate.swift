@@ -17,8 +17,8 @@
 
 import BackgroundTasks
 import ExposureNotification
-import UIKit
 import Reachability
+import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: Properties
@@ -129,7 +129,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: Helper
 
 	private func setupUI() {
-		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
+		if exposureManager is MockExposureManager, UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else if !store.isOnboarded {
 			showOnboarding()
@@ -137,7 +137,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			showHome()
 		}
 		UINavigationBar.appearance().tintColor = UIColor.preferredColor(for: .tint)
-		window?.rootViewController = navigationController
+		window?.rootViewController = navCtrl
 		window?.makeKeyAndVisible()
 	}
 
@@ -204,11 +204,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	@objc
 	func exposureSummaryDidChange(_ notification: NSNotification) {
-		guard
-			let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary
-		else {
-			fatalError("received invalid summary notification. this is a programmer error")
-		}
+		guard let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary
+		else { fatalError("received invalid summary notification. this is a programmer error") }
 
 		state.summary = summary
 		updateExposureState(state.exposureManager)
@@ -252,7 +249,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		showPrivacyProtectionWindow()
 	}
 
-	func sceneDidEnterBackground(_ scene: UIScene) {
+	func sceneDidEnterBackground(_: UIScene) {
 		taskScheduler.scheduleBackgroundTaskRequests()
 	}
 

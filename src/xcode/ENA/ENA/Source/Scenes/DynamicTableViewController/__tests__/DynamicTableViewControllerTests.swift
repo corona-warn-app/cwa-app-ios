@@ -147,7 +147,7 @@ extension DynamicTableViewControllerTests {
 			DynamicCell.bold(text: "Foo")
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel([.section(cells: cells)])
-		
+
 		let numberOfCells = sut.tableView.dataSource?.tableView(sut.tableView, numberOfRowsInSection: 0)
 
 		// assert
@@ -162,13 +162,13 @@ extension DynamicTableViewControllerTests {
 			.bold(text: "Baz")
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel([.section(cells: cells)])
-		
+
 		let numberOfCells = sut.tableView.dataSource?.tableView(sut.tableView, numberOfRowsInSection: 0)
 
 		// assert
 		XCTAssertEqual(numberOfCells, cells.count)
 	}
-	
+
 	func testNumberOfRows_returnsOne_forHiddenSection() {
 		// setup view model
 		let cells: [DynamicCell] = [
@@ -176,9 +176,9 @@ extension DynamicTableViewControllerTests {
 			.bold(text: "Bar"),
 			.bold(text: "Baz")
 		]
-		let section = DynamicSection.section(isHidden: { _ in return true }, cells: cells)
+		let section = DynamicSection.section(isHidden: { _ in true }, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
-		
+
 		let numberOfCells = sut.tableView.dataSource?.tableView(sut.tableView, numberOfRowsInSection: 0)
 
 		// hidden sections have only one cell
@@ -187,35 +187,39 @@ extension DynamicTableViewControllerTests {
 }
 
 // MARK: - Header
+
 extension DynamicTableViewControllerTests {
 	func testTitleForHeaderInSection_whenHeaderIsText_returnsHeaderText() {
 		// set up view model
 		let expectedHeaderTitle = "Foo"
-		let section = DynamicSection.section(header: .text(expectedHeaderTitle),
-																				 cells: [.bold(text: "Bar")])
+		let section = DynamicSection.section(
+			header: .text(expectedHeaderTitle),
+			cells: [.bold(text: "Bar")]
+		)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		// get header title from data source
 		let headerTitle = sut.tableView.dataSource?.tableView?(sut.tableView, titleForHeaderInSection: 0)
-		
+
 		XCTAssertEqual(headerTitle, expectedHeaderTitle)
 	}
-	
+
 	func testTitleForHeaderInSection_whenHeaderIsTextAndSectionIsHidden_returnsNil() {
 		// set up view model
-		let section = DynamicSection.section(header: .text("Foo"),
-																				 isHidden: { _ in return true },
-																				 cells: [.bold(text: "Bar")])
+		let section = DynamicSection.section(
+			header: .text("Foo"),
+			isHidden: { _ in true },
+			cells: [.bold(text: "Bar")]
+		)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		// get header title from data source
 		let headerTitle = sut.tableView.dataSource?.tableView?(sut.tableView, titleForHeaderInSection: 0)
-		
+
 		XCTAssertNil(headerTitle)
 	}
-	
-	func testTitleForHeaderInSection_whenHeaderIsNotText_returnsNil() {
 
+	func testTitleForHeaderInSection_whenHeaderIsNotText_returnsNil() {
 		let dynamicHeader: [DynamicHeader] = [
 			.none,
 			.blank,
@@ -225,23 +229,26 @@ extension DynamicTableViewControllerTests {
 			.view(UIView()),
 			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
 			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
-			.custom({ _ in return nil })
+			.custom { _ in nil }
 		]
-		
+
 		dynamicHeader.forEach { header in
-			let section = DynamicSection.section(header: header,
-																					 cells: [.bold(text: "Bar")])
+			let section = DynamicSection.section(
+				header: header,
+				cells: [.bold(text: "Bar")]
+			)
 			sut.dynamicTableViewModel = DynamicTableViewModel([section])
-			
+
 			// get header title from data source
 			let headerTitle = sut.tableView.dataSource?.tableView?(sut.tableView, titleForHeaderInSection: 0)
-			
+
 			XCTAssertNil(headerTitle)
 		}
 	}
 }
 
 // MARK: - Footer
+
 extension DynamicTableViewControllerTests {
 	func testTitleForFooterInSection_whenFooterIsText_returnsFooterText() {
 		// set up view model
@@ -251,25 +258,26 @@ extension DynamicTableViewControllerTests {
 
 		// get header title from data source
 		let footerTitle = sut.tableView.dataSource?.tableView?(sut.tableView, titleForFooterInSection: 0)
-		
+
 		XCTAssertEqual(footerTitle, expectedFooterTitle)
 	}
-	
+
 	func testTitleForFooterInSection_whenFooterIsTextAndSectionIsHidden_returnsNil() {
 		// set up view model
-		let section = DynamicSection.section(footer: .text("Foo"),
-																				 isHidden: { _ in return true },
-																				 cells: [.bold(text: "Bar")])
+		let section = DynamicSection.section(
+			footer: .text("Foo"),
+			isHidden: { _ in true },
+			cells: [.bold(text: "Bar")]
+		)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		// get header title from data source
 		let footerTitle = sut.tableView.dataSource?.tableView?(sut.tableView, titleForFooterInSection: 0)
-		
+
 		XCTAssertNil(footerTitle)
 	}
-	
-	func testTitleForFooterInSection_whenFooterIsNotText_returnsNil() {
 
+	func testTitleForFooterInSection_whenFooterIsNotText_returnsNil() {
 		let dynamicFooter: [DynamicFooter] = [
 			.none,
 			.blank,
@@ -279,17 +287,19 @@ extension DynamicTableViewControllerTests {
 			.view(UIView()),
 			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
 			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
-			.custom({ _ in return nil })
+			.custom { _ in nil }
 		]
-		
+
 		dynamicFooter.forEach { footer in
-			let section = DynamicSection.section(footer: footer,
-																					 cells: [.bold(text: "Bar")])
+			let section = DynamicSection.section(
+				footer: footer,
+				cells: [.bold(text: "Bar")]
+			)
 			sut.dynamicTableViewModel = DynamicTableViewModel([section])
-			
+
 			// get header title from data source
 			let footerTitle = sut.tableView.dataSource?.tableView?(sut.tableView, titleForFooterInSection: 0)
-			
+
 			XCTAssertNil(footerTitle)
 		}
 	}

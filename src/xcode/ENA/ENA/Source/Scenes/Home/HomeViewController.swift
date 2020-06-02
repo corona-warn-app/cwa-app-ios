@@ -123,8 +123,8 @@ final class HomeViewController: UIViewController {
 
 	@objc
 	private func infoButtonTapped(_: UIButton) {
-		let vc = AppStoryboard.riskLegend.initiateInitial()
-		present(vc, animated: true, completion: nil)
+		let viewCtrl = AppStoryboard.riskLegend.initiateInitial()
+		present(viewCtrl, animated: true, completion: nil)
 	}
 
 	// MARK: Misc
@@ -345,7 +345,12 @@ final class HomeViewController: UIViewController {
 			]
 		)
 
-		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskCollectionViewCell.self, SubmitCollectionViewCell.self, InfoCollectionViewCell.self]
+		let cellTypes: [UICollectionViewCell.Type] = [
+			ActivateCollectionViewCell.self,
+			RiskCollectionViewCell.self,
+			SubmitCollectionViewCell.self,
+			InfoCollectionViewCell.self
+		]
 		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
 		collectionView.register(
@@ -380,7 +385,7 @@ final class HomeViewController: UIViewController {
 		var snapshot = NSDiffableDataSourceSnapshot<Section, UUID>()
 		for section in sections {
 			snapshot.appendSections([section.section])
-			snapshot.appendItems( section.cellConfigurators.map { $0.identifier })
+			snapshot.appendItems(section.cellConfigurators.map { $0.identifier })
 		}
 		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
 	}
@@ -404,13 +409,12 @@ final class HomeViewController: UIViewController {
 // MARK: - Update test state.
 
 extension HomeViewController {
-
 	func updateTestResultFor(_ cell: HomeTestResultCell, with configurator: HomeTestResultCellConfigurator) {
-		self.exposureSubmissionService?.getTestResult { result in
+		exposureSubmissionService?.getTestResult { result in
 			switch result {
-			case .failure(let error):
+			case let .failure(error):
 				appLogger.log(message: "Could not update test state: \(error)", file: #file, line: #line, function: #function)
-			case .success(let result):
+			case let .success(result):
 				self.testResult = result
 				configurator.configure(cell: cell)
 			}

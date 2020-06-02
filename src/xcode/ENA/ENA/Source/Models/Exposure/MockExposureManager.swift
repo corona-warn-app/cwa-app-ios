@@ -72,9 +72,9 @@ extension MockExposureManager: ExposureManager {
 		completionHandler(diagnosisKeysResult!.keys, diagnosisKeysResult!.error)
 	}
 
-	func resume(observer: ENAExposureManagerObserver) {	}
+	func resume(observer _: ENAExposureManagerObserver) {}
 
-	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? { return nil }
+	func alertForBluetoothOff(completion _: @escaping () -> Void) -> UIAlertController? { nil }
 
 	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
 		completionHandler()

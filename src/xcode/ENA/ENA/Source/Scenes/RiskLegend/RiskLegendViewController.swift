@@ -21,8 +21,8 @@ import Foundation
 import UIKit
 
 class RiskLegendViewController: DynamicTableViewController {
-	@IBOutlet weak var titleLabel: UILabel!
-	@IBOutlet weak var subtitleLabel: UILabel!
+	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var subtitleLabel: UILabel!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()

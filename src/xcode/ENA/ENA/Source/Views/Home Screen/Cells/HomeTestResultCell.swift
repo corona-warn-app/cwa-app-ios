@@ -25,12 +25,11 @@ protocol TestResultCollectionViewCellDelegate: AnyObject {
 }
 
 class HomeTestResultCell: HomeCardCollectionViewCell {
-
-	@IBOutlet weak var title: UILabel!
-	@IBOutlet weak var result: UILabel!
-	@IBOutlet weak var image: UIImageView!
-	@IBOutlet weak var body: UILabel!
-	@IBOutlet weak var button: ENAButton!
+	@IBOutlet var title: UILabel!
+	@IBOutlet var result: UILabel!
+	@IBOutlet var image: UIImageView!
+	@IBOutlet var body: UILabel!
+	@IBOutlet var button: ENAButton!
 
 	weak var delegate: TestResultCollectionViewCellDelegate?
 
@@ -40,9 +39,8 @@ class HomeTestResultCell: HomeCardCollectionViewCell {
 }
 
 class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
-
 	let identifier = UUID()
-	
+
 	var buttonAction: (() -> Void)?
 	var didConfigureCell: ((HomeTestResultCellConfigurator, HomeTestResultCell) -> Void)?
 	var testResult = TestResult.pending
@@ -113,7 +111,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 	}
 
 	private func isButtonActive() -> Bool {
-		switch self.testResult {
+		switch testResult {
 		case .pending:
 			return false
 		default:
@@ -123,7 +121,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 }
 
 extension HomeTestResultCellConfigurator: TestResultCollectionViewCellDelegate {
-	func showTestButtonTapped(cell: HomeTestResultCell) {
+	func showTestButtonTapped(cell _: HomeTestResultCell) {
 		buttonAction?()
 	}
 }

@@ -71,7 +71,6 @@ public class ENATaskScheduler {
 	}
 
 	public func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
-
 		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
@@ -103,5 +102,4 @@ public class ENATaskScheduler {
 		}
 		taskDelegate.executeFetchTestResults(task: task)
 	}
-
 }

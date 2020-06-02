@@ -110,8 +110,8 @@ final class OnboardingInfoViewController: UIViewController {
 			persistTimestamp(completion: completion)
 		case .enableLoggingOfContactsPage:
 			func handleBluetooth(completion: @escaping () -> Void) {
-				if let alertController = self.exposureManager.alertForBluetoothOff(completion: { completion() }) {
-					self.present(alertController, animated: true)
+				if let alertController = exposureManager.alertForBluetoothOff(completion: { completion() }) {
+					present(alertController, animated: true)
 				}
 				completion()
 			}
@@ -259,7 +259,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
-		exposureManager.requestUserNotificationsPermissions() {
+		exposureManager.requestUserNotificationsPermissions {
 			completion?()
 			return
 		}
@@ -293,7 +293,6 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	func gotoNextScreen() {
-
 		guard let nextPageType = pageType.next() else {
 			finishOnBoarding()
 			return
@@ -313,10 +312,8 @@ final class OnboardingInfoViewController: UIViewController {
 		navigationController?.pushViewController(next!, animated: true)
 	}
 
-
 	private func finishOnBoarding() {
 		store.isOnboarded = true
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
-
 }

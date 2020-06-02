@@ -17,11 +17,10 @@
 // under the License.
 //
 
-import XCTest
 @testable import ENA
+import XCTest
 
 class DynamicTableViewModelTests: XCTestCase {
-	
 	var sut: DynamicTableViewModel!
 	var sections: [DynamicSection] = []
 	var cellsSection0: [DynamicCell] = []
@@ -37,67 +36,61 @@ class DynamicTableViewModelTests: XCTestCase {
 		]
 		sections = [
 			DynamicSection.section(cells: cellsSection0),
-		  DynamicSection.section(cells: cellsSection1),
+			DynamicSection.section(cells: cellsSection1)
 		]
 		sut = DynamicTableViewModel(sections)
 	}
-	
+
 	override func tearDownWithError() throws {
 		sut = nil
 		sections = []
 		cellsSection0 = []
 		cellsSection1 = []
 	}
-	
+
 	func testSection_returnsInitializedSection() {
-		
 		let section = sut.section(1)
-		
+
 		XCTAssertEqual(section.cells.count, 1)
 		let cell = section.cells.first
-		if case .bold(text: let text) = cell {
+		if case let .bold(text: text) = cell {
 			XCTAssertEqual(text, "Baz")
 		} else {
 			XCTFail()
 		}
 	}
-	
+
 	func testSectionAt_returnsInitializedSection() {
-		
 		let section = sut.section(at: IndexPath(row: 0, section: 1))
-		
+
 		XCTAssertEqual(section.cells.count, 1)
 		let cell = section.cells.first
-		if case .bold(text: let text) = cell {
+		if case let .bold(text: text) = cell {
 			XCTAssertEqual(text, "Baz")
 		} else {
 			XCTFail()
 		}
 	}
-	
+
 	func testCellAt_returnsInitializedCell() {
-		
 		let cell = sut.cell(at: IndexPath(row: 0, section: 0))
-		
-		if case .bold(text: let text) = cell {
+
+		if case let .bold(text: text) = cell {
 			XCTAssertEqual(text, "Foo")
 		} else {
 			XCTFail()
 		}
 	}
-	
+
 	func testNumberOfSections() {
-		
 		XCTAssertEqual(sut.numberOfSection, sections.count)
 	}
-	
+
 	func testNumberOfRows_section0() {
-		
 		XCTAssertEqual(sut.numberOfRows(inSection: 0, for: DynamicTableViewController()), cellsSection0.count)
 	}
-	
+
 	func testAdd_appendsSection() {
-		
 		let cells = [DynamicCell.semibold(text: "23")]
 		sut.add(DynamicSection.section(cells: cells))
 
@@ -105,25 +98,24 @@ class DynamicTableViewModelTests: XCTestCase {
 		let section = getLastSection(from: sut)
 		// assert cell type and content
 		let cell = section.cells.first
-		if case .semibold(text: let text) = cell {
+		if case let .semibold(text: text) = cell {
 			XCTAssertEqual(text, "23")
 		} else {
 			XCTFail()
 		}
 	}
-	
+
 	func testWith_returnsAlteredModel() {
-		
 		let model = DynamicTableViewModel.with { model in
 			let cells = [DynamicCell.semibold(text: "42")]
 			model.add(DynamicSection.section(cells: cells))
 		}
-		
+
 		// get last section
 		let section = getLastSection(from: model)
 		// assert cell type and content
 		let cell = section.cells.first
-		if case .semibold(text: let text) = cell {
+		if case let .semibold(text: text) = cell {
 			XCTAssertEqual(text, "42")
 		} else {
 			XCTFail()

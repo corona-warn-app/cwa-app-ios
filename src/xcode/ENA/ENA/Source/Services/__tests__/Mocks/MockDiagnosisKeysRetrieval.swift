@@ -15,12 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
-
-import Foundation
 import ExposureNotification
+import Foundation
 
 final class MockDiagnosisKeysRetrieval {
-
 	typealias MockDiagnosisKeysResult = ([ENTemporaryExposureKey]?, Error?)
 	let diagnosisKeysResult: MockDiagnosisKeysResult
 
@@ -30,7 +28,6 @@ final class MockDiagnosisKeysRetrieval {
 }
 
 extension MockDiagnosisKeysRetrieval: DiagnosisKeysRetrieval {
-
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		completionHandler(diagnosisKeysResult.0, diagnosisKeysResult.1)
 	}

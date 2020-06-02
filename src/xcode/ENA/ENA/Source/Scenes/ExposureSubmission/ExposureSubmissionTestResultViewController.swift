@@ -34,7 +34,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			self?.navigationController?.navigationBar.sizeToFit()
 		}
 	}
-	
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -351,7 +350,7 @@ private extension ExposureSubmissionTestResultViewController {
 
 private extension DynamicCell {
 	static func stepCellWith(title: String?, text: String, image: UIImage? = nil, hasSeparators: Bool = true) -> DynamicCell {
-		return .identifier(
+		.identifier(
 			DynamicTableViewStepCell.tableViewCellReuseIdentifier,
 			configure: { _, cell, _ in
 				guard let cell = cell as? DynamicTableViewStepCell else { return }

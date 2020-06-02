@@ -74,6 +74,16 @@ final class ResetViewController: UIViewController {
 		titleLabel.adjustsFontForContentSizeCategory = true
 		titleLabel.lineBreakMode = .byWordWrapping
 
-		resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: resetButton.titleLabel, attribute: .height, multiplier: 1, constant: 0))
+		resetButton.addConstraint(
+			NSLayoutConstraint(
+				item: resetButton,
+				attribute: .height,
+				relatedBy: .equal,
+				toItem: resetButton.titleLabel,
+				attribute: .height,
+				multiplier: 1,
+				constant: 0
+			)
+		)
 	}
 }

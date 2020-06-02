@@ -18,8 +18,6 @@
 import UIKit
 
 class ExposureSubmissionIntroViewController: DynamicTableViewController, ExposureSubmissionNavigationControllerChild, SpinnerInjectable {
-
-
 	private var exposureSubmissionService: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
 
@@ -35,7 +33,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		// The button is shared among multiple controllers,
 		// make sure to reset it whenever the view appears.
 		setButtonTitle(to: "Weiter")
-
 
 		if exposureSubmissionService?.hasRegistrationToken() ?? false {
 			fetchResult()
@@ -53,8 +50,8 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		// Grab ExposureSubmissionService from the navigation controller
 		// (which is the entry point for the storyboard, and in which
 		// this controller is embedded.)
-		if let navC = navigationController as? ExposureSubmissionNavigationController {
-			exposureSubmissionService = navC.getExposureSubmissionService()
+		if let navCtrl = navigationController as? ExposureSubmissionNavigationController {
+			exposureSubmissionService = navCtrl.getExposureSubmissionService()
 		}
 	}
 
@@ -78,7 +75,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 		dynamicTableViewModel = .intro
 	}
-	
+
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		switch Segue(segue) {
 		case .labResult:
@@ -97,6 +94,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	}
 
 	// MARK: - Helpers.
+
 	private func fetchResult() {
 		startSpinner()
 		exposureSubmissionService?.getTestResult { result in

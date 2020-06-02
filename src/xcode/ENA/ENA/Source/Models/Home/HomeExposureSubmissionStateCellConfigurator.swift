@@ -20,7 +20,6 @@
 import Foundation
 
 class HomeExposureSubmissionStateCellConfigurator: CollectionViewCellConfigurator {
-
 	let identifier = UUID()
 
 	// MARK: - Controllers from which we grab the screens for reuse.
@@ -28,7 +27,6 @@ class HomeExposureSubmissionStateCellConfigurator: CollectionViewCellConfigurato
 	let sVC = AppStoryboard
 		.exposureSubmission
 		.initiate(viewControllerType: ExposureSubmissionSuccessViewController.self)
-
 
 	func configure(cell: ExposureSubmissionCell) {
 		// Instantiate embedded view.
@@ -43,6 +41,7 @@ class HomeExposureSubmissionStateCellConfigurator: CollectionViewCellConfigurato
 			table.isScrollEnabled = false
 
 			// MARK: - Constraint setting.
+
 			table.translatesAutoresizingMaskIntoConstraints = false
 			table.leadingAnchor.constraint(equalTo: cell.leadingAnchor).isActive = true
 			table.trailingAnchor.constraint(equalTo: cell.trailingAnchor).isActive = true

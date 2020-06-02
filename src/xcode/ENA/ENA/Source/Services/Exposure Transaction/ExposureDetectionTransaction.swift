@@ -81,7 +81,7 @@ final class ExposureDetectionTransaction {
 				self.endPrematurely(reason: .noDaysAndHours)
 				taskCompletion?(nil)
 			}
-		} 
+		}
 	}
 
 	// MARK: Working with the Delegate
@@ -98,10 +98,7 @@ final class ExposureDetectionTransaction {
 
 	// Get the exposure manager from the delegate
 	private func exposureDetector() -> ExposureDetector {
-		guard let delegate = delegate else {
-			fatalError("ExposureDetectionTransaction requires a delegate to work.")
-		}
-
+		guard let delegate = delegate else { fatalError("ExposureDetectionTransaction requires a delegate to work.") }
 
 		return delegate.exposureDetectionTransactionRequiresExposureDetector(self)
 	}
@@ -115,9 +112,9 @@ final class ExposureDetectionTransaction {
 	// MARK: Steps of a Transaction
 
 	// 1. Step: Download available Days & Hours
-    private func continueWith(remoteDaysAndHours: Client.DaysAndHours, taskCompletion: ((ENExposureDetectionSummary?) -> Void)? = nil) {
+	private func continueWith(remoteDaysAndHours: Client.DaysAndHours, taskCompletion: ((ENExposureDetectionSummary?) -> Void)? = nil) {
 		fetchAndStoreMissingDaysAndHours(remoteDaysAndHours: remoteDaysAndHours) { [weak self] in
-            guard let self = self else {
+			guard let self = self else {
 				taskCompletion?(nil)
 				return
 			}

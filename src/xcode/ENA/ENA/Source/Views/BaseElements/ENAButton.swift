@@ -46,12 +46,10 @@ class ENAButton: DynamicTypeButton {
 		setup()
 	}
 
-
 	override func prepareForInterfaceBuilder() {
 		setup()
 		super.prepareForInterfaceBuilder()
 	}
-
 
 	override func awakeFromNib() {
 		setup()
@@ -122,7 +120,7 @@ extension ENAButton.Style {
 	var backgroundColor: UIColor {
 		switch self {
 		case .transparent: return .clear
-		case .emphasized(let color): return color ?? .preferredColor(for: .tint)
+		case let .emphasized(color): return color ?? .preferredColor(for: .tint)
 		case .contrast: return .preferredColor(for: .backgroundPrimary)
 		}
 	}

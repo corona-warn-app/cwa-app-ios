@@ -18,9 +18,8 @@
 import UIKit
 
 class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
-
 	let identifier = UUID()
-	
+
 	var title: String
 	var body: String?
 	var position: CellConfiguratorPositionInSection

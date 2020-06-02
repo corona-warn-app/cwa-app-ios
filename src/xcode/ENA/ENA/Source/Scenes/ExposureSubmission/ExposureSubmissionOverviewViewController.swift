@@ -42,7 +42,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
 	}
 
 	override func viewDidLoad() {
@@ -170,14 +169,14 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 	func qrScanner(_ viewCtrl: ExposureSubmissionQRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
-			dismissQRCodeScannerView(vc, completion: nil)
+			dismissQRCodeScannerView(viewCtrl, completion: nil)
 			let alert = ExposureSubmissionViewUtils.setupAlert(message: "The provided QR code was invalid.")
 			present(alert, animated: true, completion: nil)
 			return
 		}
 
 		// Found QR Code, deactivate scanning.
-		dismissQRCodeScannerView(vc, completion: {
+		dismissQRCodeScannerView(viewCtrl, completion: {
 			self.startSpinner()
 			self.getRegistrationToken(forKey: .guid(guid))
 		})
@@ -215,9 +214,9 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		return candidate
 	}
 
-	private func dismissQRCodeScannerView(_ vc: ExposureSubmissionQRScannerViewController, completion: (() -> Void)?) {
-		vc.delegate = nil
-		vc.dismiss(animated: true, completion: completion)
+	private func dismissQRCodeScannerView(_ viewCtrl: ExposureSubmissionQRScannerViewController, completion: (() -> Void)?) {
+		viewCtrl.delegate = nil
+		viewCtrl.dismiss(animated: true, completion: completion)
 	}
 }
 

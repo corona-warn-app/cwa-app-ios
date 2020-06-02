@@ -18,9 +18,8 @@
 import UIKit
 
 class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
-
 	let identifier = UUID()
-	
+
 	var submitAction: (() -> Void)?
 	var store: Store?
 

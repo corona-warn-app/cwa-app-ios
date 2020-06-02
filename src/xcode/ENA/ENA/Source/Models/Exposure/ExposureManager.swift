@@ -17,8 +17,8 @@
 
 import ExposureNotification
 import Foundation
-import UserNotifications
 import UIKit
+import UserNotifications
 
 enum ExposureNotificationError: Error {
 	case exposureNotificationRequired
@@ -73,12 +73,10 @@ protocol ExposureManagerLifeCycle {
 	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void))
 }
 
-
 protocol DiagnosisKeysRetrieval {
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 }
-
 
 protocol ExposureDetector {
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
@@ -89,11 +87,9 @@ protocol ExposureManagerObserving {
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController?
 }
 
-
 typealias ExposureManager = ExposureManagerLifeCycle &
 	DiagnosisKeysRetrieval &
 	ExposureDetector & ExposureManagerObserving
-
 
 protocol ENAExposureManagerObserver: AnyObject {
 	func exposureManager(
@@ -255,7 +251,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 	// MARK: User Notifications
 
-	public func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
+	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
 		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
 		let notificationCenter = UNUserNotificationCenter.current()
 		notificationCenter.requestAuthorization(options: options) { _, error in
@@ -268,7 +264,6 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			}
 		}
 	}
-
 }
 
 // MARK: Pretty print (Only for debugging)
@@ -310,18 +305,17 @@ extension ENAuthorizationStatus: CustomDebugStringConvertible {
 }
 
 extension ENAExposureManager {
-
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? {
-		if ENManager.authorizationStatus == .authorized && self.manager.exposureNotificationStatus == .bluetoothOff {
-			let alert = UIAlertController(title: AppStrings.Common.alertTitleBluetoothOff,
-										  message: AppStrings.Common.alertDescriptionBluetoothOff,
-										  preferredStyle: .alert)
+		if ENManager.authorizationStatus == .authorized, manager.exposureNotificationStatus == .bluetoothOff {
+			let alert = UIAlertController(
+				title: AppStrings.Common.alertTitleBluetoothOff,
+				message: AppStrings.Common.alertDescriptionBluetoothOff,
+				preferredStyle: .alert
+			)
 			let completionHandler: (UIAlertAction, @escaping () -> Void) -> Void = { action, completion in
 				switch action.style {
 				case .default:
-					guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-						return
-					}
+					guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
 					if UIApplication.shared.canOpenURL(settingsUrl) {
 						UIApplication.shared.open(settingsUrl, completionHandler: nil)
 					}
@@ -331,8 +325,20 @@ extension ENAExposureManager {
 					fatalError("Not all cases of actions covered when handling the bluetooth")
 				}
 			}
-			alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { action in completionHandler(action, completion) }))
-			alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionLater, style: .cancel, handler: { action in completionHandler(action, completion) }))
+			alert.addAction(
+				UIAlertAction(
+					title: AppStrings.Common.alertActionOpenSettings,
+					style: .default,
+					handler: { action in completionHandler(action, completion) }
+				)
+			)
+			alert.addAction(
+				UIAlertAction(
+					title: AppStrings.Common.alertActionLater,
+					style: .cancel,
+					handler: { action in completionHandler(action, completion) }
+				)
+			)
 			return alert
 		}
 		return nil
