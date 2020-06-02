@@ -16,26 +16,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="te1-Qd-nmE">
-                                <rect key="frame" x="0.0" y="56" width="414" height="610"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="te1-Qd-nmE">
+                                <rect key="frame" x="0.0" y="56" width="414" height="627"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Anwendung Zurücksetzen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kt0-9j-kBQ" userLabel="Subtltle Label">
+                                        <rect key="frame" x="16" y="0.0" width="382" height="18"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <color key="textColor" name="textPrimary2"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cEi-3Y-TMb">
-                                        <rect key="frame" x="0.0" y="20" width="414" height="501.5"/>
+                                        <rect key="frame" x="0.0" y="18" width="414" height="563.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zurucksetzen" translatesAutoresizingMaskIntoConstraints="NO" id="53g-kI-NE1">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="167"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="167" id="WVh-vS-EIw"/>
-                                                </constraints>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_AppZuruecksetzen" translatesAutoresizingMaskIntoConstraints="NO" id="53g-kI-NE1">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="229"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jvh-2J-2gh">
-                                                <rect key="frame" x="0.0" y="177" width="414" height="324.5"/>
+                                                <rect key="frame" x="0.0" y="239" width="414" height="324.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9t6-rj-j0U">
                                                         <rect key="frame" x="16" y="0.0" width="382" height="324.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDb-RN-MMz" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="42.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                 <color key="textColor" name="textPrimary1"/>
                                                                 <nil key="highlightedColor"/>
@@ -47,7 +50,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vY8-lF-Iik">
-                                                                <rect key="frame" x="0.0" y="57.5" width="382" height="267"/>
+                                                                <rect key="frame" x="0.0" y="56" width="382" height="268.5"/>
                                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </string>
                                                                 <color key="textColor" name="textPrimary1"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -66,69 +69,102 @@
                                             </view>
                                         </subviews>
                                     </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8n-J6-m3c" userLabel="Info View">
+                                        <rect key="frame" x="16" y="606.5" width="382" height="213.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="u9C-Fk-ALn">
+                                                <rect key="frame" x="16" y="20" width="350" height="163.5"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b7y-ZV-YeH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="350" height="128"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nbj-X3-Z5h" userLabel="Info Title Label" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="322" height="128"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
+                                                                        <real key="value" value="22"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </label>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="Icons_Settings_Risikoermittlung" translatesAutoresizingMaskIntoConstraints="NO" id="Yd6-KV-hGA" userLabel="Info Image View">
+                                                                <rect key="frame" x="322" y="0.0" width="28" height="28"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="28" id="T8M-PF-RtI"/>
+                                                                    <constraint firstAttribute="height" constant="28" id="yBJ-hF-HKv"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="separator"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Nbj-X3-Z5h" firstAttribute="leading" secondItem="b7y-ZV-YeH" secondAttribute="leading" id="FUW-QV-mmq"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Yd6-KV-hGA" secondAttribute="trailing" id="IgR-B6-FSZ"/>
+                                                            <constraint firstItem="Yd6-KV-hGA" firstAttribute="top" secondItem="b7y-ZV-YeH" secondAttribute="top" id="WcN-kS-1V0"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Nbj-X3-Z5h" secondAttribute="bottom" id="iVp-ah-Q8d"/>
+                                                            <constraint firstItem="Nbj-X3-Z5h" firstAttribute="top" secondItem="b7y-ZV-YeH" secondAttribute="top" id="ofb-Uj-05e"/>
+                                                            <constraint firstItem="Yd6-KV-hGA" firstAttribute="leading" secondItem="Nbj-X3-Z5h" secondAttribute="trailing" id="zus-1k-Jqt"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Info Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgA-Zf-xZr" userLabel="Info Description Label">
+                                                        <rect key="frame" x="0.0" y="143" width="350" height="20.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" name="separator"/>
+                                        <constraints>
+                                            <constraint firstItem="u9C-Fk-ALn" firstAttribute="top" secondItem="e8n-J6-m3c" secondAttribute="top" constant="20" id="G5c-3h-3o1"/>
+                                            <constraint firstItem="u9C-Fk-ALn" firstAttribute="leading" secondItem="e8n-J6-m3c" secondAttribute="leading" constant="16" id="LR5-Cm-w4Q"/>
+                                            <constraint firstAttribute="trailing" secondItem="u9C-Fk-ALn" secondAttribute="trailing" constant="16" id="SRN-GJ-hbe"/>
+                                            <constraint firstAttribute="bottom" secondItem="u9C-Fk-ALn" secondAttribute="bottom" constant="30" id="sS5-f4-Yzm"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="Kt0-9j-kBQ" firstAttribute="leading" secondItem="te1-Qd-nmE" secondAttribute="leading" constant="16" id="2bd-Q4-Jb5"/>
+                                    <constraint firstItem="e8n-J6-m3c" firstAttribute="top" secondItem="cEi-3Y-TMb" secondAttribute="bottom" constant="25" id="39q-i1-zEe"/>
+                                    <constraint firstItem="e8n-J6-m3c" firstAttribute="leading" secondItem="te1-Qd-nmE" secondAttribute="leading" constant="16" id="AHG-LY-6rs"/>
                                     <constraint firstItem="cEi-3Y-TMb" firstAttribute="width" secondItem="te1-Qd-nmE" secondAttribute="width" id="DTT-qz-nI8"/>
-                                    <constraint firstAttribute="bottom" secondItem="cEi-3Y-TMb" secondAttribute="bottom" id="FVn-5V-5qd"/>
                                     <constraint firstAttribute="trailing" secondItem="cEi-3Y-TMb" secondAttribute="trailing" id="Frx-Jp-vNb"/>
-                                    <constraint firstItem="cEi-3Y-TMb" firstAttribute="top" secondItem="te1-Qd-nmE" secondAttribute="top" constant="20" id="Yue-TG-03X"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kt0-9j-kBQ" secondAttribute="trailing" constant="16" id="LWo-1e-mia"/>
+                                    <constraint firstAttribute="trailing" secondItem="e8n-J6-m3c" secondAttribute="trailing" constant="16" id="Y6P-Qj-H7O"/>
+                                    <constraint firstItem="cEi-3Y-TMb" firstAttribute="top" secondItem="Kt0-9j-kBQ" secondAttribute="bottom" id="Yue-TG-03X"/>
+                                    <constraint firstItem="Kt0-9j-kBQ" firstAttribute="top" secondItem="te1-Qd-nmE" secondAttribute="top" id="oVN-DP-KAz"/>
+                                    <constraint firstAttribute="bottom" secondItem="e8n-J6-m3c" secondAttribute="bottom" constant="35" id="r9P-Aq-6uV"/>
                                     <constraint firstItem="cEi-3Y-TMb" firstAttribute="leading" secondItem="te1-Qd-nmE" secondAttribute="leading" id="xLp-if-6ul"/>
                                 </constraints>
                             </scrollView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="N0Q-lm-1nh">
-                                <rect key="frame" x="0.0" y="682" width="414" height="110"/>
+                                <rect key="frame" x="16" y="699" width="382" height="93"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Am-Bb-FCM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="0.0" width="382" height="50"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" title="Daten zurücksetzen"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                        <color key="value" name="brandRed"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="colorRed" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="wkA-Dj-yfV" secondAttribute="bottom" id="Kbp-1i-BzR"/>
-                                            <constraint firstItem="wkA-Dj-yfV" firstAttribute="top" secondItem="4Am-Bb-FCM" secondAttribute="top" id="O7n-gR-Q6A"/>
-                                            <constraint firstItem="wkA-Dj-yfV" firstAttribute="leading" secondItem="4Am-Bb-FCM" secondAttribute="leading" constant="16" id="V5e-oQ-gF7"/>
-                                            <constraint firstAttribute="height" constant="50" id="etf-J1-Hrs"/>
-                                            <constraint firstAttribute="trailing" secondItem="wkA-Dj-yfV" secondAttribute="trailing" constant="16" id="lRI-iJ-5Z7"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="JOC-sR-dWr"/>
                                         </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G99-lg-oFb">
-                                        <rect key="frame" x="0.0" y="60" width="414" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBM-os-0fd">
-                                                <rect key="frame" x="16" y="0.0" width="382" height="50"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <color key="tintColor" name="tint"/>
-                                                <state key="normal" title="Abbrechen"/>
-                                                <connections>
-                                                    <action selector="discard:" destination="uYn-mg-qmD" eventType="touchUpInside" id="nvG-Tj-vV4"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="IBM-os-0fd" secondAttribute="bottom" id="Eh3-vp-jqM"/>
-                                            <constraint firstAttribute="trailing" secondItem="IBM-os-0fd" secondAttribute="trailing" constant="16" id="hWu-az-aWg"/>
-                                            <constraint firstItem="IBM-os-0fd" firstAttribute="leading" secondItem="G99-lg-oFb" secondAttribute="leading" constant="16" id="ltm-pd-AZ7"/>
-                                            <constraint firstItem="IBM-os-0fd" firstAttribute="top" secondItem="G99-lg-oFb" secondAttribute="top" id="tXw-sA-rbu"/>
-                                        </constraints>
-                                    </view>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Daten zurücksetzen"/>
+                                        <connections>
+                                            <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBM-os-0fd">
+                                        <rect key="frame" x="0.0" y="60" width="382" height="33"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <color key="tintColor" name="tint"/>
+                                        <state key="normal" title="Abbrechen"/>
+                                        <connections>
+                                            <action selector="discard:" destination="uYn-mg-qmD" eventType="touchUpInside" id="nvG-Tj-vV4"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="G99-lg-oFb" firstAttribute="height" secondItem="4Am-Bb-FCM" secondAttribute="height" id="y5L-v5-toa"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="background"/>
@@ -137,10 +173,9 @@
                             <constraint firstItem="te1-Qd-nmE" firstAttribute="leading" secondItem="DEG-xR-O81" secondAttribute="leading" id="Iug-Iw-1TV"/>
                             <constraint firstItem="te1-Qd-nmE" firstAttribute="top" secondItem="DEG-xR-O81" secondAttribute="top" id="OmK-4M-tAf"/>
                             <constraint firstItem="DEG-xR-O81" firstAttribute="bottom" secondItem="N0Q-lm-1nh" secondAttribute="bottom" constant="16" id="TOs-1t-DXK"/>
-                            <constraint firstItem="N0Q-lm-1nh" firstAttribute="leading" secondItem="DEG-xR-O81" secondAttribute="leading" id="a0l-7R-R1M"/>
+                            <constraint firstItem="N0Q-lm-1nh" firstAttribute="leading" secondItem="DEG-xR-O81" secondAttribute="leading" constant="16" id="a0l-7R-R1M"/>
                             <constraint firstItem="N0Q-lm-1nh" firstAttribute="top" secondItem="te1-Qd-nmE" secondAttribute="bottom" constant="16" id="kVW-Uq-KP2"/>
-                            <constraint firstItem="N0Q-lm-1nh" firstAttribute="trailing" secondItem="DEG-xR-O81" secondAttribute="trailing" id="nzl-qb-yZo"/>
-                            <constraint firstItem="te1-Qd-nmE" firstAttribute="width" secondItem="jQp-ED-SYd" secondAttribute="width" id="v34-UV-sIf"/>
+                            <constraint firstItem="DEG-xR-O81" firstAttribute="trailing" secondItem="N0Q-lm-1nh" secondAttribute="trailing" constant="16" id="nzl-qb-yZo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DEG-xR-O81"/>
                     </view>
@@ -149,7 +184,11 @@
                         <outlet property="description1TextView" destination="vY8-lF-Iik" id="s4p-sS-KhS"/>
                         <outlet property="discardResetButton" destination="IBM-os-0fd" id="9rf-NY-HUL"/>
                         <outlet property="header1Label" destination="XDb-RN-MMz" id="QRR-5x-Jvb"/>
+                        <outlet property="infoDescriptionLabel" destination="QgA-Zf-xZr" id="O5C-5d-4KW"/>
+                        <outlet property="infoTitleLabel" destination="Nbj-X3-Z5h" id="qn0-kz-VIk"/>
+                        <outlet property="infoView" destination="e8n-J6-m3c" id="lFX-mV-ZzF"/>
                         <outlet property="resetButton" destination="wkA-Dj-yfV" id="hRW-hZ-9hA"/>
+                        <outlet property="subtitleLabel" destination="Kt0-9j-kBQ" id="cga-1n-Aaa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1Q-hW-w3k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -160,7 +199,7 @@
         <scene sceneID="DPS-OP-cAl">
             <objects>
                 <tableViewController storyboardIdentifier="SettingsViewController" id="W3W-4M-s1F" userLabel="Settings View Controller" customClass="SettingsViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6mJ-hU-tKe">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6mJ-hU-tKe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -318,25 +357,25 @@
             </objects>
             <point key="canvasLocation" x="1103" y="113"/>
         </scene>
-        <!--Norifications View Controller-->
+        <!--Notifications View Controller-->
         <scene sceneID="0hg-3d-JjK">
             <objects>
-                <viewController id="nwm-kE-hsV" userLabel="Norifications View Controller" customClass="NotificationSettingsViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nwm-kE-hsV" userLabel="Notifications View Controller" customClass="NotificationSettingsViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VFf-c4-ccH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GH-Ib-DgS">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GH-Ib-DgS">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYJ-sA-5Ds">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="545.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="562.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings_mitteilungen_an" translatesAutoresizingMaskIntoConstraints="NO" id="KfZ-KB-oS0" userLabel="Image View">
-                                                <rect key="frame" x="0.0" y="10" width="414" height="187"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_Mitteilungen_On" translatesAutoresizingMaskIntoConstraints="NO" id="KfZ-KB-oS0" userLabel="Image View">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="229"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="# Mitteilungen sind ausgestellt" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAD-sw-a8D" userLabel="Title Label" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="212" width="382" height="20.5"/>
+                                                <rect key="frame" x="16" y="229" width="382" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -344,11 +383,11 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
                                                         <real key="value" value="17"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Um Mitteilungen zu aktiviren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Telefoneinstellungen zulassen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxB-b8-GKr" userLabel="Description Label">
-                                                <rect key="frame" x="16" y="257.5" width="382" height="58"/>
+                                                <rect key="frame" x="16" y="274.5" width="382" height="58"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -359,7 +398,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Evt-7N-RCk">
-                                                <rect key="frame" x="0.0" y="325.5" width="414" height="200"/>
+                                                <rect key="frame" x="0.0" y="342.5" width="414" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="yF9-6Y-8mc"/>
@@ -380,12 +419,6 @@
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                                    <real key="value" value="17"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                            </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6MS-HZ-mD7" userLabel="Toggle Switch">
                                                                             <rect key="frame" x="349" y="6.5" width="51" height="31"/>
@@ -519,8 +552,8 @@
                                             <constraint firstItem="xxB-b8-GKr" firstAttribute="top" secondItem="ZAD-sw-a8D" secondAttribute="bottom" constant="25" id="bAf-R5-MCg"/>
                                             <constraint firstItem="xxB-b8-GKr" firstAttribute="leading" secondItem="HYJ-sA-5Ds" secondAttribute="leading" constant="16" id="djr-XN-XC0"/>
                                             <constraint firstItem="ZAD-sw-a8D" firstAttribute="leading" secondItem="HYJ-sA-5Ds" secondAttribute="leading" constant="16" id="fdz-mV-eLI"/>
-                                            <constraint firstItem="KfZ-KB-oS0" firstAttribute="top" secondItem="HYJ-sA-5Ds" secondAttribute="top" constant="10" id="gBi-4R-rYv"/>
-                                            <constraint firstItem="ZAD-sw-a8D" firstAttribute="top" secondItem="KfZ-KB-oS0" secondAttribute="bottom" constant="15" id="gp0-TX-pDA"/>
+                                            <constraint firstItem="KfZ-KB-oS0" firstAttribute="top" secondItem="HYJ-sA-5Ds" secondAttribute="top" id="gBi-4R-rYv"/>
+                                            <constraint firstItem="ZAD-sw-a8D" firstAttribute="top" secondItem="KfZ-KB-oS0" secondAttribute="bottom" id="gp0-TX-pDA"/>
                                             <constraint firstItem="Evt-7N-RCk" firstAttribute="leading" secondItem="HYJ-sA-5Ds" secondAttribute="leading" id="rkG-cd-M0Q"/>
                                             <constraint firstAttribute="trailing" secondItem="Evt-7N-RCk" secondAttribute="trailing" id="zOb-HB-L82"/>
                                         </constraints>
@@ -537,10 +570,10 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="0GH-Ib-DgS" secondAttribute="trailing" id="DJ7-o7-9Ri"/>
-                            <constraint firstItem="0GH-Ib-DgS" firstAttribute="leading" secondItem="VFf-c4-ccH" secondAttribute="leading" id="H5Y-y4-4OU"/>
-                            <constraint firstItem="0GH-Ib-DgS" firstAttribute="top" secondItem="VFf-c4-ccH" secondAttribute="top" id="SOL-xB-eZl"/>
-                            <constraint firstAttribute="bottom" secondItem="0GH-Ib-DgS" secondAttribute="bottom" id="TrE-Fy-IcM"/>
+                            <constraint firstItem="dw0-ar-NUF" firstAttribute="trailing" secondItem="0GH-Ib-DgS" secondAttribute="trailing" id="DJ7-o7-9Ri"/>
+                            <constraint firstItem="0GH-Ib-DgS" firstAttribute="leading" secondItem="dw0-ar-NUF" secondAttribute="leading" id="H5Y-y4-4OU"/>
+                            <constraint firstItem="0GH-Ib-DgS" firstAttribute="top" secondItem="dw0-ar-NUF" secondAttribute="top" id="SOL-xB-eZl"/>
+                            <constraint firstItem="dw0-ar-NUF" firstAttribute="bottom" secondItem="0GH-Ib-DgS" secondAttribute="bottom" id="TrE-Fy-IcM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dw0-ar-NUF"/>
                     </view>
@@ -579,14 +612,17 @@
     <resources>
         <image name="Icons_Settings_Risikoermittlung" width="28" height="28"/>
         <image name="Icons_iOS_Settings" width="28" height="28"/>
+        <image name="Illu_AppZuruecksetzen" width="375" height="229"/>
+        <image name="Illu_Mitteilungen_On" width="375" height="229"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <image name="settings_mitteilungen_an" width="376" height="187"/>
-        <image name="zurucksetzen" width="219" height="212"/>
         <namedColor name="background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="brandRed">
             <color red="0.74099999666213989" green="0.071000002324581146" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="separator">
+            <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textPrimary1">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
