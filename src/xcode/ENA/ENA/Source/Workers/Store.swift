@@ -18,6 +18,7 @@
 import Foundation
 
 protocol Store: AnyObject {
+	/// - note: Should post `Notification.Name.isOnboardedDidChange` on change
 	var isOnboarded: Bool { get set }
 	var dateLastExposureDetection: Date? { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
@@ -163,7 +164,10 @@ final class SecureStore: Store {
 
 	var isOnboarded: Bool {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
-		set { kvStore["isOnboarded"] = newValue }
+		set {
+			kvStore["isOnboarded"] = newValue
+			NotificationCenter.default.post(name: Notification.Name.isOnboardedDidChange, object: nil)
+		}
 	}
 
 	var dateLastExposureDetection: Date? {
