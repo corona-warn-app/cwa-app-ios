@@ -42,7 +42,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	#else
 	private let exposureManager = ENAExposureManager()
 	#endif
-	private let taskScheduler = ENATaskScheduler()
+	private let taskScheduler = ENATaskScheduler.shared
 	private let navigationController: UINavigationController = .withLargeTitle()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {

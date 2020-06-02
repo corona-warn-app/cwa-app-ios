@@ -89,7 +89,7 @@ final class HomeInteractor {
 	}
 
 	private func startCheckRisk() {
-		let taskScheduler = ENATaskScheduler()
+		let taskScheduler = ENATaskScheduler.shared
 
 		// TODO: handle state of pending scheduled tasks to determin active state for manual refresh button
 		// TODO: disable manual trigger button

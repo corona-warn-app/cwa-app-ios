@@ -44,13 +44,26 @@ protocol ENATaskExecutionDelegate: AnyObject {
 }
 
 public class ENATaskScheduler {
+	public static let shared = ENATaskScheduler()
+
+	public init() {
+		registerBackgroundTaskRequests()
+	}
+
 	weak var taskDelegate: ENATaskExecutionDelegate?
 	lazy var notificationManager = LocalNotificationManager()
 	typealias CompletionHandler = (() -> Void)
 
-	public func registerBackgroundTaskRequests() {
+	private func registerBackgroundTaskRequests() {
 		registerTask(with: .detectExposures, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
+	}
+
+	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
+		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
+		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
+			taskHander(task)
+		}
 	}
 
 	public func scheduleBackgroundTaskRequests() {
@@ -61,13 +74,6 @@ public class ENATaskScheduler {
 
 	public func cancelAllBackgroundTaskRequests() {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
-	}
-
-	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
-		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
-		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
-			taskHander(task)
-		}
 	}
 
 	public func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {

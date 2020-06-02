@@ -29,7 +29,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	let taskScheduler = ENATaskScheduler()
+	let taskScheduler = ENATaskScheduler.shared
 	private var exposureManager: ExposureManager = ENAExposureManager()
 	private var exposureDetectionTransaction: ExposureDetectionTransaction?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
@@ -90,7 +90,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.taskDelegate = self
-		taskScheduler.registerBackgroundTaskRequests()
 		return true
 	}
 
