@@ -20,6 +20,23 @@ import UIKit
 
 enum ExposureSubmissionViewUtils {
 
+	static func setupErrorAlert(_ error: Error, completion: (() -> Void)?) -> UIAlertController {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.generalErrorTitle,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+		alert.addAction(UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true, completion: completion)
+			})
+		)
+
+		return alert
+	}
+
 	static func setupErrorAlert(_ error: ExposureSubmissionError, retry: Bool = false, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
 		setupAlert(message: error.localizedDescription, retry: retry, retryActionHandler: retryActionHandler)
 	}

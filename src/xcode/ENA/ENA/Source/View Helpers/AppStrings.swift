@@ -95,6 +95,8 @@ enum AppStrings {
 		static let description = NSLocalizedString("ExposureSubmission_DispatchDescription", comment: "")
 		static let qrCodeButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonTitle", comment: "")
 		static let qrCodeButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonDescription", comment: "")
+		static let qrCodeButtonErrorNoPermission = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonErrorNoPermission", comment: "")
+		static let qrCodeButtonError = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonError", comment: "")
 		static let tanButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_TANButtonTitle", comment: "")
 		static let tanButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_TANButtonDescription", comment: "")
 		static let hotlineButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonTitle", comment: "")
