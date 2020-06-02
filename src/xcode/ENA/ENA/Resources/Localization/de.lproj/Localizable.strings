@@ -423,7 +423,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_Description" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Laden Sie Familie, Freunde und Bekannte ein!";
 "InviteFriends_Button" = "Download-Link versenden";
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
-"InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
 
 //Reset View
 "Reset_NavTitle" = "Anwendung zurücksetzen";
