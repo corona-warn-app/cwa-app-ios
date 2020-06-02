@@ -19,7 +19,7 @@ import BackgroundTasks
 import ExposureNotification
 import UIKit
 
-public enum ENATaskIdentifier: String, CaseIterable {
+enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
 	case detectExposures = "detect-exposures.exposure-notification"
 	case fetchTestResults = "fetch-test-results"
@@ -43,10 +43,9 @@ protocol ENATaskExecutionDelegate: AnyObject {
 	func executeFetchTestResults(task: BGTask)
 }
 
-public class ENATaskScheduler {
-	public static let shared = ENATaskScheduler()
-
-	public init() {
+final class ENATaskScheduler {
+	static let shared = ENATaskScheduler()
+	private init() {
 		registerBackgroundTaskRequests()
 	}
 
@@ -66,17 +65,17 @@ public class ENATaskScheduler {
 		}
 	}
 
-	public func scheduleBackgroundTaskRequests() {
+	func scheduleBackgroundTaskRequests() {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 		scheduleBackgroundTask(for: .detectExposures)
 		scheduleBackgroundTask(for: .fetchTestResults)
 	}
 
-	public func cancelAllBackgroundTaskRequests() {
+	func cancelAllBackgroundTaskRequests() {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
 
-	public func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
+	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
 
 		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)

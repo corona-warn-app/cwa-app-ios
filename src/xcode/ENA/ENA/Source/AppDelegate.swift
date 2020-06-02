@@ -25,6 +25,32 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var client: Client { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
+	var taskScheduler: ENATaskScheduler { get }
+}
+
+protocol RequiresAppDependencies {
+	var client: Client { get }
+	var store: Store { get }
+	var taskScheduler: ENATaskScheduler { get }
+	var downloadedPackagesStore: DownloadedPackagesStore { get }
+}
+
+extension RequiresAppDependencies {
+	var client: Client {
+		UIApplication.coronaWarnDelegate().client
+	}
+
+	var downloadedPackagesStore: DownloadedPackagesStore {
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore
+	}
+
+	var store: Store {
+		UIApplication.coronaWarnDelegate().store
+	}
+
+	var taskScheduler: ENATaskScheduler {
+		UIApplication.coronaWarnDelegate().taskScheduler
+	}
 }
 
 @UIApplicationMain
@@ -110,8 +136,6 @@ extension AppDelegate: ExposureDetectionTransactionDelegate {
 	func exposureDetectionTransactionRequiresExposureDetector(_ transaction: ExposureDetectionTransaction) -> ExposureDetector {
 		exposureManager
 	}
-
-
 
 	func exposureDetectionTransaction(_: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
 		logError(message: "Exposure transaction failed: \(reason)")
