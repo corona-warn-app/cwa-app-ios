@@ -87,8 +87,19 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
 			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
-				riskView.hideSeparator()
 				stackView.insertArrangedSubview(riskView, at: noteIndex + 1)
+				itemConfigurator.configureAny(riskView: riskView)
+			}
+		}
+	}
+
+	func configureFurtherInfoRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
+		guard let furtherInfoIndex = stackView.arrangedSubviews.firstIndex(of: furtherInfoLabel) else { return }
+		for itemConfigurator in cellConfigurators.reversed() {
+			let nibName = itemConfigurator.viewAnyType.stringName()
+			let nib = UINib(nibName: nibName, bundle: .main)
+			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
+				stackView.insertArrangedSubview(riskView, at: furtherInfoIndex + 1)
 				itemConfigurator.configureAny(riskView: riskView)
 			}
 		}

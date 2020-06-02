@@ -111,7 +111,7 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 				itemConfigurator.configureAny(riskView: riskView)
 			}
 		}
-		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemView {
+		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
 			riskItemView.hideSeparator()
 		}
 	}

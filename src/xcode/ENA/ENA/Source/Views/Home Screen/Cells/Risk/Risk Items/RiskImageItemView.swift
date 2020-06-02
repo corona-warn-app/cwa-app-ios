@@ -17,7 +17,7 @@
 
 import UIKit
 
-final class RiskImageItemView: UIView, RiskItemView {
+final class RiskImageItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
 	@IBOutlet var iconImageView: UIImageView!
 	@IBOutlet var titleTextView: UITextView!
 	@IBOutlet var separatorView: UIView!

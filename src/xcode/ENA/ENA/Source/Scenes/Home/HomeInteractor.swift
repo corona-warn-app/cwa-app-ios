@@ -74,6 +74,7 @@ final class HomeInteractor {
 
 	private var activeConfigurator: HomeActivateCellConfigurator!
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
+	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
 
 	func developerMenuEnableIfAllowed() {}
 
@@ -188,7 +189,7 @@ final class HomeInteractor {
 				lastUpdateDate: nil
 			)
 		case .inactive:
-			let inactiveConfigurator = HomeInactiveRiskCellConfigurator(lastInvestigation: "Geringes Risiko", lastUpdateDate: dateLastExposureDetection)
+			inactiveConfigurator = HomeInactiveRiskCellConfigurator(lastInvestigation: "Geringes Risiko", lastUpdateDate: dateLastExposureDetection)
 		case .low:
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
 				isLoading: false,
@@ -268,10 +269,13 @@ final class HomeInteractor {
 		if let risk = riskLevelConfigurator {
 			actionsConfigurators.append(risk)
 		}
-
+		if let inactive = inactiveConfigurator {
+			actionsConfigurators.append(inactive)
+		}
 		if let exposureSubmission = exposureSubmissionConfigurator {
 			actionsConfigurators.append(exposureSubmission)
 		}
+		actionsConfigurators.append(thankYouConfigurator)
 
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
 		let settingsConfigurators: [CollectionViewCellConfiguratorAny] = [appInformationConfigurator, settingsConfigurator]

@@ -22,7 +22,7 @@ import UIKit
 final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	let identifier = UUID()
-	
+
 	// MARK: Configuration
 
 	func configure(cell: RiskThankYouCollectionViewCell) {
@@ -51,10 +51,16 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		let furtherInfoTitle = AppStrings.Home.thankYouCardFurtherInfoItemTitle
 		cell.configureFurtherInfoLabel(title: furtherInfoTitle)
-		// add items
 
-		// var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
-		// cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
+		let info1Text = AppStrings.Home.thankYouCard14DaysItemTitle
+		let info1 = HomeRiskListItemViewConfigurator(text: info1Text, titleColor: titleColor)
+		let info2Text = AppStrings.Home.thankYouCardContactsItemTitle
+		let info2 = HomeRiskListItemViewConfigurator(text: info2Text, titleColor: titleColor)
+		let info3Text = AppStrings.Home.thankYouCardAppItemTitle
+		let info3 = HomeRiskListItemViewConfigurator(text: info3Text, titleColor: titleColor)
+		let info4Text = AppStrings.Home.thankYouCardNoSymptomsItemTitle
+		let info4 = HomeRiskListItemViewConfigurator(text: info4Text, titleColor: titleColor)
+		cell.configureFurtherInfoRiskViews(cellConfigurators: [info1, info2, info3, info4])
 
 		let backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
 		cell.configureBackgroundColor(color: backgroundColor)

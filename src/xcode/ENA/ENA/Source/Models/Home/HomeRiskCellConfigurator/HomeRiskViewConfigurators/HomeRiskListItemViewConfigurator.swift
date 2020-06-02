@@ -1,6 +1,7 @@
+//
 // Corona-Warn-App
 //
-// SAP SE and all other contributors
+// SAP SE and all other contributors /
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -14,23 +15,24 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import UIKit
 
-final class RiskTextItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var separatorView: UIView!
-	@IBOutlet var separatorHeightConstraint: NSLayoutConstraint!
+final class HomeRiskListItemViewConfigurator: HomeRiskViewConfigurator {
+	var text: String
+	var textColor: UIColor
 
-	private let titleTopPadding: CGFloat = 8.0
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		separatorHeightConstraint.constant = 1
-		layoutMargins = .init(top: titleTopPadding, left: 0, bottom: titleTopPadding, right: 0)
+	init(text: String, titleColor: UIColor) {
+		self.text = text
+		self.textColor = titleColor
 	}
 
-	func hideSeparator() {
-		separatorView.isHidden = true
+	func configure(riskView: RiskListItemView) {
+		riskView.textLabel?.text = text
+		riskView.textLabel?.textColor = textColor
+
+		riskView.dotLabel?.text = "•"
+		riskView.dotLabel?.textColor = textColor
 	}
 }

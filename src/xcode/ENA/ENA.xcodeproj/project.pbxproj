@@ -62,6 +62,9 @@
 		51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */; };
 		51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BC245B349700286105 /* OnboardingInfoViewController.swift */; };
 		51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BE245B3B5D00286105 /* OnboardingInfo.swift */; };
+		51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51C7790B24867F16004582F8 /* RiskListItemView.xib */; };
+		51C7790E24867F22004582F8 /* RiskListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C7790D24867F22004582F8 /* RiskListItemView.swift */; };
+		51C77910248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C7790F248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift */; };
 		51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */; };
 		51CE1B4C246016D1002CF42A /* UICollectionReusableView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */; };
 		51CE1B5524604DD2002CF42A /* HomeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B5424604DD2002CF42A /* HomeLayout.swift */; };
@@ -351,6 +354,9 @@
 		51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		51C737BC245B349700286105 /* OnboardingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewController.swift; sourceTree = "<group>"; };
 		51C737BE245B3B5D00286105 /* OnboardingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfo.swift; sourceTree = "<group>"; };
+		51C7790B24867F16004582F8 /* RiskListItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskListItemView.xib; sourceTree = "<group>"; };
+		51C7790D24867F22004582F8 /* RiskListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskListItemView.swift; sourceTree = "<group>"; };
+		51C7790F248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskListItemViewConfigurator.swift; sourceTree = "<group>"; };
 		51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		51CE1B49246016B0002CF42A /* UICollectionViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Identifier.swift"; sourceTree = "<group>"; };
 		51CE1B4B246016D1002CF42A /* UICollectionReusableView+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionReusableView+Identifier.swift"; sourceTree = "<group>"; };
@@ -677,6 +683,8 @@
 				51FE277C247535C400BB8144 /* RiskLoadingItemView.xib */,
 				514C0A0C247AFB0200F235F6 /* RiskTextItemView.swift */,
 				514C0A0A247AF9F700F235F6 /* RiskTextItemView.xib */,
+				51C7790D24867F22004582F8 /* RiskListItemView.swift */,
+				51C7790B24867F16004582F8 /* RiskListItemView.xib */,
 			);
 			path = "Risk Items";
 			sourceTree = "<group>";
@@ -708,6 +716,7 @@
 				514C0A0524772F3400F235F6 /* HomeRiskViewConfigurator.swift */,
 				514EE99F246D4DF800DE4884 /* HomeRiskImageItemViewConfigurator.swift */,
 				514C0A0E247AFEC500F235F6 /* HomeRiskTextItemViewConfigurator.swift */,
+				51C7790F248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift */,
 				51FE277A2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift */,
 			);
 			path = HomeRiskViewConfigurators;
@@ -1638,6 +1647,7 @@
 				71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */,
 				51CE1B8D246078B6002CF42A /* SubmitCollectionViewCell.xib in Resources */,
 				71FE1C87247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
+				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
@@ -1842,6 +1852,7 @@
 				B1D6B002247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift in Sources */,
 				713EA25B247818B000AB7EE8 /* DynamicTypeButton.swift in Sources */,
 				2F3218CE24800F6500A7AC0A /* DynamicTableViewStepCell.swift in Sources */,
+				51C77910248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift in Sources */,
 				B1D6B004247DA4920079DDD3 /* UIApplication+CoronaWarn.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
 				2F80CFDD247EEB88000F06AF /* DynamicTableViewImageCardCell.swift in Sources */,
@@ -1850,6 +1861,7 @@
 				134FFA10247466BD00D82D14 /* TestEnvironment.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */,
+				51C7790E24867F22004582F8 /* RiskListItemView.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
 				B10FD5EE246EAADF00E9D7F2 /* AppInformationHelpViewController.swift in Sources */,
