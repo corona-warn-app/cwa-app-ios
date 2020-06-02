@@ -41,12 +41,10 @@ final class OnboardingInfoViewController: UIViewController {
 		coder: NSCoder,
 		pageType: OnboardingPageType,
 		exposureManager: ExposureManager,
-		taskScheduler: ENATaskScheduler,
 		store: Store
 	) {
 		self.pageType = pageType
 		self.exposureManager = exposureManager
-		self.taskScheduler = taskScheduler
 		self.store = store
 		super.init(coder: coder)
 	}
@@ -59,7 +57,6 @@ final class OnboardingInfoViewController: UIViewController {
 
 	var pageType: OnboardingPageType
 	var exposureManager: ExposureManager
-	var taskScheduler: ENATaskScheduler
 	var store: Store
 	@IBOutlet var imageView: UIImageView!
 	@IBOutlet var titleLabel: UILabel!
@@ -251,7 +248,6 @@ final class OnboardingInfoViewController: UIViewController {
 							completion?()
 						}
 					}
-					self.taskScheduler.scheduleBackgroundTaskRequests()
 					completion?()
 				}
 			}
@@ -305,7 +301,6 @@ final class OnboardingInfoViewController: UIViewController {
 				coder: coder,
 				pageType: nextPageType,
 				exposureManager: self.exposureManager,
-				taskScheduler: self.taskScheduler,
 				store: self.store
 			)
 		}
