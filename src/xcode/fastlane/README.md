@@ -8,9 +8,10 @@ Make sure you have the latest version of the Xcode command line tools installed:
 xcode-select --install
 ```
 
-Install _fastlane_ using
+Install _fastlane_ including _xcov_ using
 ```
 [sudo] gem install fastlane -NV
+[sudo] gem install xcov
 ```
 or alternatively using `brew cask install fastlane`
 
