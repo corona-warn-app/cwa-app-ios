@@ -34,10 +34,10 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
 3. Set the user-defined variable to your development team
 
    In [project.pbxproj](./src/xcode/ENA/ENA.xcodeproj/project.pbxproj), set IPHONE_APP_DEV_TEAM to your development team
-4. Install SwiftLint
+4. Install SwiftLint & SwiftFormat
 
    ```console
-   brew install swiftlint
+   brew install swiftlint swiftformat
    ```
 
 5. (Optional) Set up fastlane:
