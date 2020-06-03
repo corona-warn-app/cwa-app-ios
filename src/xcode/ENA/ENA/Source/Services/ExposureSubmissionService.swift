@@ -190,9 +190,30 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return
 			}
 
-			guard let keys = keys, !keys.isEmpty else {
+			guard var keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
 				return
+			}
+
+			var transmissionRiskDefaultVector: [Int] {
+				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
+			}
+
+			keys.sort {
+				$0.rollingStartNumber > $1.rollingStartNumber
+			}
+			
+			if keys.count > 14 {
+				keys = Array(keys[0 ..< 14])
+			}
+			
+			let startIndex = 0
+			for i in startIndex...keys.count - 1 {
+				if i + 1 <= transmissionRiskDefaultVector.count - 1 {
+					keys[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
+				} else {
+					keys[i].transmissionRiskLevel = UInt8(1)
+				}
 			}
 
 			self.client.submit(keys: keys, tan: tan) { error in
@@ -237,8 +258,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .enNotEnabled
 			case .apiMisuse:
 				return .other("ENErrorCodeAPIMisuse")
-			default:
-				return .other(exposureNotificationError.localizedDescription)
 			}
 
 		}
@@ -281,6 +300,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case enNotEnabled
 	case noKeys
 	case noConsent
+	case noExposureConfiguration
 	case invalidTan
 	case invalidResponse
 	case noResponse
@@ -308,6 +328,8 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .noResponse:
 			return AppStrings.ExposureSubmissionError.noResponse
+		case .noExposureConfiguration:
+			return AppStrings.ExposureSubmissionError.noConfiguration
 		case .qRTeleTanAlreadyUsed:
 			return AppStrings.ExposureSubmissionError.qRTeleTanAlreadyUsed
 		case .regTokenNotExist:

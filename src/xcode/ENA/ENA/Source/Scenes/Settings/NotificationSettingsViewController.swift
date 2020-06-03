@@ -43,7 +43,7 @@ class NotificationSettingsViewController: UIViewController {
 
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.rowHeight = UITableView.automaticDimension
+		tableView.separatorColor = .preferredColor(for: .hairline)
 		setTableViewEstimatedRowHeight()
 
 		navigationItem.title = AppStrings.NotificationSettings.navigationBarTitle

@@ -25,6 +25,7 @@
 		134F0F2D2475794900D88934 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0F247466BD00D82D14 /* Accessibility.swift */; };
 		134FFA11247466BD00D82D14 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0F247466BD00D82D14 /* Accessibility.swift */; };
 		13722044247AEEAD00152764 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13722043247AEEAD00152764 /* LocalNotificationManager.swift */; };
+		137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */; };
 		138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138910C4247A909000D739F6 /* ENATaskScheduler.swift */; };
 		13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */; };
 		13FD1DE62473EE6C00A7C7AB /* AppInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE8599922462EFFD002E7AE2 /* AppInformation.storyboard */; };
@@ -332,6 +333,7 @@
 		134F0F2B2475793400D88934 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = ../../fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
 		134FFA0F247466BD00D82D14 /* Accessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
 		13722043247AEEAD00152764 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingInfoViewController+Extension.swift"; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
 		13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
 		26374AF3248138EF00C10110 /* exposure-submission.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "exposure-submission.xcassets"; sourceTree = "<group>"; };
@@ -874,6 +876,7 @@
 			children = (
 				51C737BC245B349700286105 /* OnboardingInfoViewController.swift */,
 				A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */,
+				137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -1818,6 +1821,7 @@
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
 				CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */,
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
+				137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */,
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
 				514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */,
