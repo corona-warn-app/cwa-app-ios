@@ -301,6 +301,7 @@ extension SceneDelegate: HomeViewControllerDelegate {
 	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
 		store.clearAll()
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
+		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
 	func homeViewControllerStartExposureTransaction(_: HomeViewController) {
