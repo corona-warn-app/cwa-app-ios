@@ -23,19 +23,19 @@ extension OnboardingInfoViewController {
 
 	func addPanel(title: String, body: String) {
 
-		let titleLabel = UILabel()
-		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		let titleLabel = ENALabel()
+		titleLabel.style = .headline
 		titleLabel.text = title
-		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .headline).pointSize)
-		titleLabel.textColor = UIColor.preferredColor(for: ColorStyle.textPrimary1, interface: .light)
+		titleLabel.translatesAutoresizingMaskIntoConstraints = false
+		titleLabel.textColor = UIColor.preferredColor(for: .textPrimary1)
 		titleLabel.lineBreakMode = .byWordWrapping
 		titleLabel.numberOfLines = 0
 
-		let textLabel = UILabel()
-		textLabel.translatesAutoresizingMaskIntoConstraints = false
+		let textLabel = ENALabel()
+		textLabel.style = .body
 		textLabel.text = body
-		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		textLabel.textColor = UIColor.preferredColor(for: ColorStyle.textPrimary2, interface: .light)
+		textLabel.translatesAutoresizingMaskIntoConstraints = false
+		textLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
 		textLabel.lineBreakMode = .byWordWrapping
 		textLabel.numberOfLines = 0
 
@@ -50,20 +50,11 @@ extension OnboardingInfoViewController {
 		containerView.translatesAutoresizingMaskIntoConstraints = false
 		containerView.addSubview(labelStackView)
 		containerView.layer.cornerRadius = 14.0
-		containerView.backgroundColor = UIColor.preferredColor(for: ColorStyle.backgroundSecondary, interface: .light)
+		containerView.backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
 
-		let parentContainerView = UIView()
-		parentContainerView.translatesAutoresizingMaskIntoConstraints = false
-		parentContainerView.addSubview(containerView)
-
-		stackView.addArrangedSubview(parentContainerView)
+		stackView.addArrangedSubview(containerView)
 
 		NSLayoutConstraint.activate([
-			containerView.topAnchor.constraint(equalTo: parentContainerView.topAnchor, constant: 16),
-			containerView.bottomAnchor.constraint(equalTo: parentContainerView.bottomAnchor, constant: -16),
-			containerView.leadingAnchor.constraint(equalTo: parentContainerView.leadingAnchor, constant: 16),
-			containerView.trailingAnchor.constraint(equalTo: parentContainerView.trailingAnchor, constant: -16),
-
 			labelStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
 			labelStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
 			labelStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
