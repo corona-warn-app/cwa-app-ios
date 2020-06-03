@@ -49,7 +49,6 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		let formatter = DateFormatter()
 		formatter.dateStyle = .medium
 		formatter.timeStyle = .none
-		formatter.timeZone = TimeZone(abbreviation: "UTC")
 		if let timeStamp = timeStamp {
 			timeLabel.text = "Registriert am " + formatter.string(from: Date(timeIntervalSince1970: TimeInterval(timeStamp) ))
 		} else {
