@@ -191,12 +191,15 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
 			<string>Risiko-Ermittlung ist seit weniger als 1 Tag aktiv.
 Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 			<key>one</key>
+			<!-- XFLD: Plural form for One -->
 			<string>Risiko-Ermittlung ist seit %u Tag aktiv.
 Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen. </string>
 			<key>other</key>
+			<!-- XFLD: Plural form for Other -->
 			<string>Risiko-Ermittlung ist seit %u Tagen aktiv.
 Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen. </string>
 		</dict>
