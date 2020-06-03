@@ -29,6 +29,7 @@ import ExposureNotification
 - exposureConfiguration: ENExposureConfiguration
 - exposureDetectionValidityDuration: DateComponents
 - dateLastExposureDetection: Date?
+- numberOfActiveTracingDays: Int = 0
 */
 
 
