@@ -24,6 +24,7 @@ import ExposureNotification
 private final class Summary: ENExposureDetectionSummary {}
 
 private final class RiskLevelProviderStoreMock: RiskLevelProviderStore {
+	var previousSummary: ENExposureDetectionSummaryContainer?
 	var dateLastExposureDetection: Date?
 }
 

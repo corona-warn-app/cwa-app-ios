@@ -20,6 +20,18 @@
 import Foundation
 import ExposureNotification
 
+
+// Notes:
+// The calculation will receive the following inputs:
+
+/**
+- summary: ENExposureDetectionSummaryContainer?
+- exposureConfiguration: ENExposureConfiguration
+- exposureDetectionValidityDuration: DateComponents
+- dateLastExposureDetection: Date?
+*/
+
+
 protocol RiskLevelProviderStore: AnyObject {
 	var dateLastExposureDetection: Date? { get set }
 	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
@@ -63,6 +75,7 @@ private extension RiskLevelProvider {
 		case isDetectingExposures
 	}
 }
+
 
 extension RiskLevelProvider: RiskLevelProviding {
 	func observeRiskLevel(_ consumer: RiskLevelConsumer) {
@@ -114,10 +127,24 @@ extension RiskLevelProvider: RiskLevelProviding {
 
 		let requiresExposureDetectionRun = Date() > exposureDetectionValidUntil
 
-		var previousSummary = store.previousSummary
+		var summary = store.previousSummary
 		var newSummary: ENExposureDetectionSummaryContainer?
 
+
+
+		//
+
+//		client.exposureConficutatio
+//		let riskLevelResult = riskLevelCalculator.riskLevel(summary, dateWhenSummaryWasDetermined, config, exposureNotificationConfiguration)
+//		switch riskLevelResult {
+//		case .requiresExposureDetectionRun:
+//			// dispatch riskLevelResult to all consumers/ovservers
+//			exposureSummaryProvider.detectExposure {
+//
+//			}
+//		}
 		if requiresExposureDetectionRun {
+
 			let waitForSummary = DispatchSemaphore(value: 0)
 			exposureSummaryProvider.detectExposure {
 				if let detectedSummary = $0 {
@@ -126,6 +153,8 @@ extension RiskLevelProvider: RiskLevelProviding {
 			}
 			waitForSummary.wait()
 		}
+
+
 
 		for consumer in consumers.allObjects {
 			provideRiskLevel(to: consumer)
