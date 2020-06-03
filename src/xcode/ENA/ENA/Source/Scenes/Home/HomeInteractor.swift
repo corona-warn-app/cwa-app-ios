@@ -31,13 +31,11 @@ final class HomeInteractor {
 	init(
 		homeViewController: HomeViewController,
 		store: Store,
-		state: State,
-		taskScheduler: ENATaskScheduler
+		state: State
 	) {
 		self.homeViewController = homeViewController
 		self.store = store
 		self.state = state
-		self.taskScheduler = taskScheduler
 		stateHandler = ENStateHandler(state.exposureManager, delegate: self)
 		sections = initialCellConfigurators()
 	}
@@ -66,7 +64,6 @@ final class HomeInteractor {
 	private unowned var homeViewController: HomeViewController
 	private let store: Store
 	var stateHandler: ENStateHandler!
-	private let taskScheduler: ENATaskScheduler
 	private var riskLevel: RiskLevel {
 		RiskLevel(riskScore: state.summary?.maximumRiskScore)
 	}
@@ -98,14 +95,11 @@ final class HomeInteractor {
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 
-		taskScheduler.cancelAllBackgroundTaskRequests()
-
 		riskCellTask {
 			self.riskConfigurator?.stopLoading()
 			guard let indexPath = self.indexPathForRiskCell() else { return }
 			self.homeViewController.updateSections()
 			self.homeViewController.reloadCell(at: indexPath)
-			self.taskScheduler.scheduleBackgroundTaskRequests()
 		}
 	}
 
