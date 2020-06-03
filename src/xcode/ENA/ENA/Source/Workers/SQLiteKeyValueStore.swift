@@ -36,7 +36,7 @@ class SQLiteKeyValueStore {
 	deinit {
 		db.close()
 	}
-	private func initDatabase(){
+	private func initDatabase() {
 		var key: String
 		if let keyData = loadFromKeychain(key: "secureStoreDatabaseKey") {
 			key = String(decoding: keyData, as: UTF8.self)
@@ -227,7 +227,7 @@ extension SQLiteKeyValueStore {
 			logError(message: "Error creating random bytes.")
 			return nil
 		}
-		return "x'"+Data(bytes).hexEncodedString()+"'"
+		return "x'\(Data(bytes).hexEncodedString())'"
 	}
 }
 
@@ -239,7 +239,7 @@ extension Data {
 	}
 
 	func hexEncodedString(options: HexEncodingOptions = []) -> String {
-		let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
+		let format = "%02hhX"
 		return map { String(format: format, $0) }.joined()
 	}
 }
