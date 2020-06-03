@@ -34,6 +34,8 @@ enum AppStrings {
 		static let alertDescriptionBluetoothOff = NSLocalizedString("Alert_BluetoothOff_Description", comment: "")
 		static let alertActionLater = NSLocalizedString("Alert_CancelAction_Later", comment: "")
 		static let alertActionOpenSettings = NSLocalizedString("Alert_DefaultAction_OpenSettings", comment: "")
+		
+		static let privacyProtectionMessage = NSLocalizedString("PrivacyProtectionScreen_Message", comment: "")
 	}
 
 	enum ExposureSubmission {

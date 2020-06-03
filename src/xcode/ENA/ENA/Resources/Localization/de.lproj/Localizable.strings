@@ -541,3 +541,6 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "RiskLegend_Notification_Text" = "Die Anzeige von Risiko-Begegnungen in der Corona-Warn-App.";
 "RiskLegend_Random_Title" = "Zufallscode";
 "RiskLegend_Random_Text" = "Die Zufallscodes sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufallskennungen lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufallscodes der letzten bis zu 14 Tage freiwillig mit anderen CWA-Nutzern teilen.";
+
+//Privacy protection screen
+"PrivacyProtectionScreen_Message" = "Inhalt verborgen, \num ihre Privatsphäre \n zu schützen";
