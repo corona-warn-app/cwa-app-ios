@@ -23,16 +23,19 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	var exposureSubmissionService: ExposureSubmissionService?
 	var testResult: TestResult?
+	var timeStamp: Int64?
 	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View Lifecycle methods.
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		setupButton()
 		DispatchQueue.main.async { [weak self] in
 			self?.navigationController?.navigationBar.sizeToFit()
 		}
 	}
+	
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -54,7 +57,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	private func setupView() {
 		setupDynamicTableView()
 		setupNavigationBar()
-		setupButton()
+		timeStamp = exposureSubmissionService?.devicePairingConsentAcceptTimestamp
 	}
 
 	private func setupButton() {
@@ -219,7 +222,7 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
@@ -250,7 +253,7 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
@@ -266,6 +269,37 @@ private extension ExposureSubmissionTestResultViewController {
 					text: AppStrings.ExposureSubmissionResult.testNegativeDesc,
 					image: UIImage(named: "Icons_Grey_Check"),
 					hasSeparators: false
+				),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
+					image: nil,
+					hasSeparators: false
+				),
+				.bigBold(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1,
+					image: UIImage(named: "Icons_Dark_Dot"),
+					hasSeparators: false
+				),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2,
+					image: UIImage(named: "Icons_Dark_Dot"),
+					hasSeparators: false
+				),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3,
+					image: UIImage(named: "Icons_Dark_Dot"),
+					hasSeparators: false
+				),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
+					image: UIImage(named: "Icons_Dark_Dot"),
+					hasSeparators: false
 				)
 			]
 		)
@@ -276,7 +310,7 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
@@ -302,7 +336,7 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending, timeStamp: self.timeStamp)
 				}
 			),
 			cells: [
@@ -324,7 +358,7 @@ private extension ExposureSubmissionTestResultViewController {
 }
 
 private extension DynamicCell {
-	static func stepCellWith(title: String, text: String, image: UIImage? = nil, hasSeparators: Bool = true) -> DynamicCell {
+	static func stepCellWith(title: String?, text: String, image: UIImage? = nil, hasSeparators: Bool = true) -> DynamicCell {
 		return .identifier(
 			DynamicTableViewStepCell.tableViewCellReuseIdentifier,
 			configure: { _, cell, _ in

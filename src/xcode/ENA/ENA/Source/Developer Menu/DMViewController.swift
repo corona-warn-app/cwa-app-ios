@@ -67,6 +67,12 @@ final class DMViewController: UITableViewController {
 				style: .plain,
 				target: self,
 				action: #selector(showConfiguration)
+			),
+			UIBarButtonItem(
+				image: UIImage(systemName: "trash"),
+				style: .plain,
+				target: self,
+				action: #selector(clearRegToken)
 			)
 		]
 
@@ -95,6 +101,14 @@ final class DMViewController: UITableViewController {
 			verificationURL: store.developerVerificationBaseURLOverride
 		)
 		navigationController?.pushViewController(viewController, animated: true)
+	}
+	// MARK: Clear Registration Token of Submission
+	@objc
+	private func clearRegToken() {
+		store.registrationToken = nil
+		let alert = UIAlertController(title: "Reg Token", message: "Reg Token deleted", preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+		self.present(alert, animated: true, completion: nil)
 	}
 
 	// MARK: Fetching Keys

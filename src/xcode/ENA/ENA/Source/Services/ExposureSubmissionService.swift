@@ -48,15 +48,29 @@ protocol ExposureSubmissionService {
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
 	func hasRegistrationToken() -> Bool
 	func deleteTest()
+	var devicePairingConsentAccept: Bool { get set }
+	var devicePairingConsentAcceptTimestamp: Int64? { get set }
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
-	let manager: ExposureManager
+
+
+	let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
 	let client: Client
 	let store: Store
+	
+	var devicePairingConsentAccept: Bool {
+		get { self.store.devicePairingConsentAccept }
+		set { self.store.devicePairingConsentAccept = newValue }
+	}
 
-	init(manager: ExposureManager, client: Client, store: Store) {
-		self.manager = manager
+	var devicePairingConsentAcceptTimestamp: Int64? {
+		get { self.store.devicePairingConsentAcceptTimestamp }
+		set { self.store.devicePairingConsentAcceptTimestamp = newValue }
+	}
+
+	init(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) {
+		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
 		self.client = client
 		self.store = store
 	}
@@ -70,8 +84,17 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	func deleteTest() {
 		store.registrationToken = nil
+		store.testResultReceivedTimeStamp = nil
+		store.devicePairingConsentAccept = false
+		store.devicePairingSuccessfulTimestamp = nil
+		store.devicePairingConsentAcceptTimestamp = nil
+		store.isAllowedToSubmitDiagnosisKeys = false
 	}
 
+
+	/// This method gets the test result based on the registrationToken that was previously
+	/// received, either from the TAN or QR Code flow. After successful completion,
+	/// the timestamp of the last received test is updated.
 	func getTestResult(_ completeWith: @escaping TestResultHandler) {
 		guard let registrationToken = store.registrationToken else {
 			completeWith(.failure(.noRegistrationToken))
@@ -89,6 +112,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				}
 
 				completeWith(.success(testResult))
+				if testResult != .pending {
+					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
+				}
 			}
 		}
 	}
@@ -98,7 +124,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
 		completion completeWith: @escaping RegistrationHandler
 	) {
-		store(key: deviceRegistrationKey)
 		let (key, type) = getKeyAndType(for: deviceRegistrationKey)
 		client.getRegistrationToken(forKey: key, withType: type) { result in
 			switch result {
@@ -106,7 +131,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completeWith(.failure(self.parseError(error)))
 			case let .success(registrationToken):
 				self.store.registrationToken = registrationToken
-				self.delete(key: deviceRegistrationKey)
+				self.store.testResultReceivedTimeStamp = nil
+				self.store.devicePairingSuccessfulTimestamp = Int64(Date().timeIntervalSince1970)
+				self.store.devicePairingConsentAccept = true
 				completeWith(.success(registrationToken))
 			}
 		}
@@ -151,28 +178,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	private func store(key: DeviceRegistrationKey) {
-		switch key {
-		case let .guid(testGUID):
-			store.testGUID = testGUID
-		case let .teleTan(teleTan):
-			store.teleTan = teleTan
-		}
-	}
-
-	private func delete(key: DeviceRegistrationKey) {
-		switch key {
-		case .guid:
-			store.testGUID = nil
-		case .teleTan:
-			store.teleTan = nil
-		}
-	}
-
+	/// This method submits the exposure keys. Additionally, after successful completion,
+	/// the timestamp of the key submission is updated.
 	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
 		appLogger.info(message: "Started exposure submission...")
 
-		manager.accessDiagnosisKeys { keys, error in
+		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
 			if let error = error {
 				appLogger.error(message: "Error while retrieving diagnosis keys: \(error.localizedDescription)")
 				completionHandler(self.parseError(error))
@@ -198,12 +209,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	// This method removes all left over persisted objects part of the
-	// `submitExposure` flow. Removes the guid, registrationToken,
+	// `submitExposure` flow. Removes the registrationToken,
 	// and isAllowedToSubmitDiagnosisKeys.
 	private func submitExposureCleanup() {
-		// View comment in `delete(key: DeviceRegistrationKey)`
-		// why this method is needed explicitly like this.
-		delete(key: .guid(""))
 		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
@@ -225,6 +233,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch exposureNotificationError {
 			case .exposureNotificationRequired, .exposureNotificationAuthorization, .exposureNotificationUnavailable:
 				return .enNotEnabled
+			case .apiMisuse:
+				return .other("ENErrorCodeAPIMisuse")
 			}
 		}
 

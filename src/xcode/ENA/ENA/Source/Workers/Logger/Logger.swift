@@ -59,21 +59,15 @@ struct Logger {
 	}
 	
 	private mutating func log(level: Level, message: String, file: String, line: Int, function: String) {
-		let fileName = URL(fileURLWithPath: file).lastPathComponent
-		
 		#if !APP_STORE
-		print(formatConsoleLogString(level: level, message: message, file: fileName, line: line, function: function))
-	
-		os_log(level.osLogLevel, "%@", formatOSLogString(message: message, file: fileName, line: line, function: function))
+		os_log(level.osLogLevel, "%@", formatLogString(level: level, message: message, file: file, line: line, function: function))
 		#endif
 	}
 	
-	private func formatConsoleLogString(level: Level, message: String, file: String, line: Int, function: String) -> String {
-		return "\(level.rawValue) \(file):\(line)(\(function)): \(message)"
-	}
-	
-	private func formatOSLogString(message: String, file: String, line: Int, function: String) -> String {
-		return "\(file):\(line)(\(function)): \(message)"
+	private func formatLogString(level: Level, message: String, file: String, line: Int, function: String) -> String {
+		let fileName = URL(fileURLWithPath: file).lastPathComponent
+		
+		return "\(level.rawValue) \(fileName):\(line)(\(function)): \(message)"
 	}
 	
 }

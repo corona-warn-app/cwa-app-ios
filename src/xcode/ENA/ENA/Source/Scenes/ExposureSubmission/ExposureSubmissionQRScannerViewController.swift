@@ -24,6 +24,17 @@ enum QRScannerError: Error {
 	case other
 }
 
+extension QRScannerError: LocalizedError {
+	var errorDescription: String? {
+		switch self {
+		case .cameraPermissionDenied:
+			return AppStrings.ExposureSubmissionDispatch.qrCodeButtonErrorNoPermission
+		case .other:
+			return AppStrings.ExposureSubmissionDispatch.qrCodeButtonError
+		}
+	}
+}
+
 protocol ExposureSubmissionQRScannerDelegate: AnyObject {
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String)
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError)

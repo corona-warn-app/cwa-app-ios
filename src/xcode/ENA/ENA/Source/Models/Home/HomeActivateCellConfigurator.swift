@@ -18,6 +18,9 @@
 import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
+
+	let identifier = UUID()
+	
 	private var state: RiskDetectionState
 
 	init(state: RiskDetectionState) {

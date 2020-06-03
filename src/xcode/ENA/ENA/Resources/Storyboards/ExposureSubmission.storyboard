@@ -288,6 +288,7 @@
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <segue destination="yc4-yu-NbP" kind="show" identifier="overviewSegue" id="lCb-cl-Yp4"/>
+                        <segue destination="efh-V6-b47" kind="show" identifier="labResultSegue" id="F8Z-7e-umN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aPQ-SJ-AWB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -314,10 +315,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="HlT-ix-3R2"/>
+        <segue reference="5YR-5A-F8h"/>
         <segue reference="aeq-iH-Hkk"/>
         <segue reference="n8Y-d3-Pny"/>
-        <segue reference="TMI-YH-9ne"/>
+        <segue reference="zPx-Mo-iVD"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bolt" catalog="system" width="101" height="128"/>

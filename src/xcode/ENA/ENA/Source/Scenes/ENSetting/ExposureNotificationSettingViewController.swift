@@ -99,6 +99,9 @@ extension ExposureNotificationSettingViewController {
 		case .exposureNotificationUnavailable:
 			appLogger.error(message: "Failed to enable")
 			alertError(message: "ExposureNotification is not availabe due to the sytem policy", title: "Error")
+		case .apiMisuse:
+			// This error should not happen as we toggle the enabled status on off - we can not enable without disabling first
+			alertError(message: "ExposureNotification is already enabled", title: "Note")
 		}
 		tableView.reloadData()
 	}

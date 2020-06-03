@@ -19,14 +19,17 @@ import BackgroundTasks
 import ExposureNotification
 import UIKit
 
-public enum ENATaskIdentifier: String, CaseIterable {
-	case exposureNotification = "exposure-notification"
+enum ENATaskIdentifier: String, CaseIterable {
+	// only one task identifier is allowed have the .exposure-notification suffix
+	case detectExposures = "detect-exposures.exposure-notification"
 	case fetchTestResults = "fetch-test-results"
 
 	var backgroundTaskScheduleInterval: TimeInterval {
 		switch self {
-		case .exposureNotification: return 15 * 60 // 2 * 60 * 60 // set to trigger every 2 hours
-		case .fetchTestResults: return 5 * 60 // 30 * 60     // set to trigger every 30 min
+		// set to trigger every 2 hours
+		case .detectExposures: return 2 * 60 * 60
+		// set to trigger every 2 hours
+		case .fetchTestResults: return 2 * 60 * 60
 		}
 	}
 
@@ -36,104 +39,74 @@ public enum ENATaskIdentifier: String, CaseIterable {
 }
 
 protocol ENATaskExecutionDelegate: AnyObject {
-	func executeExposureDetectionRequest(task: BGTask, completionHandler: (Bool) -> Void)
-	func executeFetchTestResults(task: BGTask, completionHandler: (Bool) -> Void)
+	func executeExposureDetectionRequest(task: BGTask)
+	func executeFetchTestResults(task: BGTask)
 }
 
-public class ENATaskScheduler {
+final class ENATaskScheduler {
+	static let shared = ENATaskScheduler()
+	private init() {
+		registerBackgroundTaskRequests()
+	}
+
 	weak var taskDelegate: ENATaskExecutionDelegate?
-	lazy var manager = ENAExposureManager()
 	lazy var notificationManager = LocalNotificationManager()
 	typealias CompletionHandler = (() -> Void)
 
-	public func registerBackgroundTaskRequests() {
-		appLogger.info(message: "# TASKSHED # \(#line), \(#function) STARTED")
-		cancelAllBackgroundTaskRequests()
-		registerTask(with: .exposureNotification, taskHander: executeExposureDetectionRequest(_:))
+	private func registerBackgroundTaskRequests() {
+		registerTask(with: .detectExposures, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
-		appLogger.info(message: "# TASKSHED # \(#line), \(#function) COMPLETED")
 	}
 
-	public func scheduleBackgroundTaskRequests() {
-		appLogger.info(message: "# TASKSHED # \(#line), \(#function)")
-		BGTaskScheduler.shared.cancelAllTaskRequests()
-		scheduleBackgroundTask(for: .exposureNotification)
-		scheduleBackgroundTask(for: .fetchTestResults)
-	}
-
-	public func isBackgroundRefreshEnabled() -> Bool {
-		UIApplication.shared.backgroundRefreshStatus == .available
-	}
-
-	public func arePendingTasksScheduled(completionHandler: @escaping ((Bool) -> Void)) {
-		fetchPendingBackgroundTaskRequests { requests in
-			completionHandler(!requests.isEmpty)
-		}
-	}
-
-	public func fetchPendingBackgroundTaskRequests(completionHandler: @escaping (([BGTaskRequest]) -> Void)) {
-		BGTaskScheduler.shared.getPendingTaskRequests { requests in
-			completionHandler(requests)
-		}
-	}
-
-	public func cancelAllBackgroundTaskRequests() {
-		appLogger.info(message: "# TASKSHED # \(#line), \(#function)")
-		BGTaskScheduler.shared.cancelAllTaskRequests()
-	}
-
-	private func registerTask(with identifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
-		let identifierString = identifier.backgroundTaskSchedulerIdentifier
-		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: nil) { task in
+	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
+		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
+		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
 			taskHander(task)
 		}
 	}
 
-	public func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
-		appLogger.info(message: "# TASKSHED # \(#line), \(#function) SCHEDULING \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
+	func scheduleBackgroundTaskRequests() {
+		BGTaskScheduler.shared.cancelAllTaskRequests()
+		scheduleBackgroundTask(for: .detectExposures)
+		scheduleBackgroundTask(for: .fetchTestResults)
+	}
 
-		if taskIdentifier == .exposureNotification, manager.preconditions().isGood == false || UIApplication.shared.backgroundRefreshStatus != .available {
-			appLogger.info(message: "# TASKSHED # \(#line), \(#function) UNABLE TO SCHEDULE \(taskIdentifier.backgroundTaskSchedulerIdentifier)")
-			return
-		}
+	func cancelAllBackgroundTaskRequests() {
+		BGTaskScheduler.shared.cancelAllTaskRequests()
+	}
+
+	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
 
 		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
-		appLogger.info(message: "# TASKSHED # \(#line), \(#function) TIME NOW IS  :\(Date(timeIntervalSinceNow: 0))")
-		appLogger.info(message: "# TASKSHED # \(#line), \(#function) SCHEDULED at :\(earliestBeginDate)")
-
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
 		taskRequest.requiresExternalPower = false
 		taskRequest.earliestBeginDate = earliestBeginDate
+
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {
-			appLogger.info(message: "# TASHSHED # Unable to schedule background task \(taskIdentifier.backgroundTaskSchedulerIdentifier): \(error)")
+			appLogger.error(message: error.localizedDescription)
 		}
 	}
 
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
-		let scheduler: ENATaskScheduler? = self
-		appLogger.info(message: "# TASKSHED # \(#line), \(#function) taskScheduler = \(String(describing: scheduler))")
 		guard let taskDelegate = taskDelegate else {
-			appLogger.info(message: "# TASKSHED # \(#line), \(#function) taskDelegate = nil")
+			task.setTaskCompleted(success: false)
+			scheduleBackgroundTask(for: .detectExposures)
 			return
 		}
-		taskDelegate.executeExposureDetectionRequest(task: task) { success in
-			task.setTaskCompleted(success: success)
-		}
+		taskDelegate.executeExposureDetectionRequest(task: task)
 	}
 
 	private func executeFetchTestResults(_ task: BGTask) {
-		let scheduler: ENATaskScheduler? = self
-		appLogger.info(message: "# TASKSHED # \(#line), \(#function) taskScheduler = \(String(describing: scheduler))")
 		guard let taskDelegate = taskDelegate else {
-			appLogger.info(message: "# TASKSHED # \(#line), \(#function) taskDelegate = nil")
+			task.setTaskCompleted(success: false)
+			scheduleBackgroundTask(for: .fetchTestResults)
 			return
 		}
-		taskDelegate.executeFetchTestResults(task: task) { success in
-			task.setTaskCompleted(success: success)
-		}
+		taskDelegate.executeFetchTestResults(task: task)
 	}
+
 }
