@@ -295,32 +295,32 @@ extension ExposureSubmissionError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case let .serverError(code):
-			return "Error \(code): \(HTTPURLResponse.localizedString(forStatusCode: code))"
+			return "\(code): \(HTTPURLResponse.localizedString(forStatusCode: code))"
 		case let .httpError(desc):
 			return desc
 		case .invalidTan:
-			return "Invalid Tan"
+			return AppStrings.ExposureSubmissionError.invalidTan
 		case .enNotEnabled:
-			return "Exposure Notification disabled"
+			return AppStrings.ExposureSubmissionError.enNotEnabled
 		case .noRegistrationToken:
-			return "No registration token"
+			return AppStrings.ExposureSubmissionError.noRegistrationToken
 		case .invalidResponse:
-			return "Invalid response"
+			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .noResponse:
-			return "No response was received"
+			return AppStrings.ExposureSubmissionError.noResponse
 		case .qRTeleTanAlreadyUsed:
-			return "QR Code or TeleTAN already used."
+			return AppStrings.ExposureSubmissionError.qRTeleTanAlreadyUsed
 		case .regTokenNotExist:
-			return "Reg Token does not exist."
+			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		case .noKeys:
-			return "No diagnoses keys available. Please try tomorrow again."
+			return AppStrings.ExposureSubmissionError.noKeys
 		case let .other(desc):
-			return "Other Error: \(desc)"
+			return AppStrings.ExposureSubmissionError.other + " " + desc
 		case .unknown:
-			return "An unknown error occured"
+			return AppStrings.ExposureSubmissionError.unknown
 		default:
 			logError(message: "\(self)")
-			return "Default Exposure Submission Error"
+			return AppStrings.ExposureSubmissionError.defaultError
 		}
 	}
 }

@@ -152,6 +152,20 @@ enum AppStrings {
 		static let listItem2_4 = NSLocalizedString("ExposureSubmissionSuccess_listItem2_4", comment: "")
 	}
 
+	enum ExposureSubmissionError {
+		static let noKeys = NSLocalizedString("ExposureSubmissionError_NoKeys", comment: "")
+		static let invalidTan = NSLocalizedString("ExposureSubmissionError_InvalidTan", comment: "")
+		static let enNotEnabled = NSLocalizedString("ExposureSubmissionError_EnNotEnabled", comment: "")
+		static let noRegistrationToken = NSLocalizedString("ExposureSubmissionError_NoRegistrationToken", comment: "")
+		static let invalidResponse = NSLocalizedString("ExposureSubmissionError_InvalidResponse", comment: "")
+		static let noResponse = NSLocalizedString("ExposureSubmissionError_NoResponse", comment: "")
+		static let qRTeleTanAlreadyUsed = NSLocalizedString("ExposureSubmissionError_QRTeleTanAlreadyUsed", comment: "")
+		static let regTokenNotExist = NSLocalizedString("ExposureSubmissionError_RegTokenNotExist", comment: "")
+		static let other = NSLocalizedString("ExposureSubmissionError_other", comment: "")
+		static let unknown = NSLocalizedString("ExposureSubmissionError_unknown", comment: "")
+		static let defaultError = NSLocalizedString("ExposureSubmissionError_defaultError", comment: "")
+	}
+
 	enum ExposureDetection {
 		static let off = NSLocalizedString("ExposureDetection_Off", comment: "")
 		static let unknown = NSLocalizedString("ExposureDetection_Unknown", comment: "")
