@@ -16,19 +16,31 @@
 // under the License.
 
 import Foundation
+import os
 
 var appLogger = Logger()
 
 struct Logger {
 	
 	enum Level: String {
-		case verbose = "VERBOSE"
-		case info = "INFO"
-		case warning = "WARNING"
-		case error = "ERROR"
+		case verbose = "💬 VERBOSE"
+		case info = "ℹ️ INFO"
+		case warning = "⚠️ WARNING ⚠️"
+		case error = "❌❌❌ ERROR ❌❌❌"
+		
+		var osLogLevel: OSLogType {
+			switch self {
+			case .verbose:
+				return .default
+			case .info:
+				return .info
+			case .warning:
+				return .debug
+			case .error:
+				return .error
+			}
+		}
 	}
-	
-	private var fileLogger = FileLogger()
 	
 	mutating func verbose(message: String, _ file: String = #file, _ line: Int = #line, _ function: String = #function) {
 		log(level: .verbose, message: message, file: file, line: line, function: function)
@@ -47,40 +59,21 @@ struct Logger {
 	}
 	
 	private mutating func log(level: Level, message: String, file: String, line: Int, function: String) {
-		let formattedString = formatLogString(level: level, message: message, file: file, line: line, function: function)
-		
-		#if !APP_STORE
-		print(formattedString)
-		#endif
-		
-		logToFile(formattedString: formattedString)
-	}
-	
-	private func formatLogString(level: Level, message: String, file: String, line: Int, function: String) -> String {
-		let levelIndicator: String
-		
-		switch level {
-		case .verbose:
-			levelIndicator = "💬"
-		case .info:
-			levelIndicator = "ℹ️"
-		case .warning:
-			levelIndicator = "⚠️"
-		case .error:
-			levelIndicator = "💥"
-		}
-		
 		let fileName = URL(fileURLWithPath: file).lastPathComponent
 		
-		return "\(levelIndicator) \(level.rawValue) \(fileName):\(line)(\(function)): \(message)"
+		#if !APP_STORE
+		print(formatConsoleLogString(level: level, message: message, file: fileName, line: line, function: function))
+	
+		os_log(level.osLogLevel, "%@", formatOSLogString(message: message, file: fileName, line: line, function: function))
+		#endif
 	}
 	
-	private mutating func logToFile(formattedString: String) {
-		fileLogger.write(formattedString)
+	private func formatConsoleLogString(level: Level, message: String, file: String, line: Int, function: String) -> String {
+		return "\(level.rawValue) \(file):\(line)(\(function)): \(message)"
 	}
-
-	func getLoggedData() -> Data? {
-		return fileLogger.getLoggedData()
+	
+	private func formatOSLogString(message: String, file: String, line: Int, function: String) -> String {
+		return "\(file):\(line)(\(function)): \(message)"
 	}
 	
 }

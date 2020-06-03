@@ -109,13 +109,6 @@ final class SettingsViewController: UITableViewController {
 	}
 
 	private func setupView() {
-		// We disable all app store checks to make testing a little bit easier.
-		//        #if !APP_STORE
-		let tap = UITapGestureRecognizer(target: self, action: #selector(sendLogFile))
-		tap.numberOfTapsRequired = 3
-		view.addGestureRecognizer(tap)
-		//        #endif
-
 		checkTracingStatus()
 		notificationSettings()
 
@@ -292,48 +285,5 @@ extension SettingsViewController: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		checkTracingStatus()
 		notificationSettingsController?.updateExposureState(state)
-	}
-}
-
-extension SettingsViewController: MFMailComposeViewControllerDelegate {
-	@objc
-	func sendLogFile() {
-		let alert = UIAlertController(title: "Send Log", message: "", preferredStyle: .alert)
-		alert.addTextField { textField in
-			textField.placeholder = "Please enter email"
-		}
-
-		let action = UIAlertAction(title: "Send Log File", style: .default) { [weak self] _ in
-			guard let strongSelf = self else { return }
-
-			guard let emailText = alert.textFields?[0].text else {
-				return
-			}
-
-			if !MFMailComposeViewController.canSendMail() {
-				return
-			}
-
-			let composeVC = MFMailComposeViewController()
-			composeVC.mailComposeDelegate = strongSelf
-			composeVC.setToRecipients([emailText])
-			composeVC.setSubject("Log File")
-
-			guard let logFile = appLogger.getLoggedData() else {
-				return
-			}
-			composeVC.addAttachmentData(logFile, mimeType: "txt", fileName: "Log")
-
-			self?.present(composeVC, animated: true, completion: nil)
-		}
-
-		alert.addAction(action)
-		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
-		present(alert, animated: true, completion: nil)
-	}
-
-	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith _: MFMailComposeResult, error _: Error?) {
-		controller.dismiss(animated: true, completion: nil)
 	}
 }
