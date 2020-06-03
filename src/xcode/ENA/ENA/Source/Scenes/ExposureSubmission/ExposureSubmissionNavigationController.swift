@@ -36,7 +36,7 @@ extension ExposureSubmissionNavigationControllerChild {
 
 extension ExposureSubmissionNavigationControllerChild where Self: UIViewController {
 	var bottomView: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.bottomView }
-	var button: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.button }
+	var button: ENAButton? { (navigationController as? ExposureSubmissionNavigationController)?.button }
 
 	func setButtonTitle(to title: String) {
 		(navigationController as? ExposureSubmissionNavigationController)?
@@ -70,6 +70,9 @@ extension ExposureSubmissionNavigationControllerChild where Self: UIViewControll
 }
 
 class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
+
+	private weak var homeViewController: HomeViewController?
+	private var testResult: TestResult?
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
 	private var keyboardWillChangeFrameObserver: NSObjectProtocol?
@@ -88,10 +91,14 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	init?(
 		coder: NSCoder,
-		exposureSubmissionService: ExposureSubmissionService
+		exposureSubmissionService: ExposureSubmissionService,
+		homeViewController: HomeViewController? = nil,
+		testResult: TestResult? = nil
 	) {
 		super.init(coder: coder)
 		self.exposureSubmissionService = exposureSubmissionService
+		self.homeViewController = homeViewController
+		self.testResult = testResult
 
 		let rootVC = getRootViewController()
 		viewControllers = [rootVC]
@@ -101,7 +108,19 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	/// Returns the root view controller, depending on whether we have a
+	/// registration token or not.
 	private func getRootViewController() -> UIViewController {
+
+		// We got a test result and can jump straight into the test result view controller.
+		if let service = exposureSubmissionService, testResult != nil {
+			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
+			vc.exposureSubmissionService = service
+			vc.testResult = testResult
+			return vc
+		}
+
+		// By default, we show the intro view.
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self)
 		return vc
 	}
@@ -164,10 +183,14 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		}
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+	}
+
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 
-		NotificationCenter.default.removeObserver(keyboardWillHideObserver as Any, name: UIResponder.keyboardWillShowNotification, object: nil)
+		NotificationCenter.default.removeObserver(keyboardWillShowObserver as Any, name: UIResponder.keyboardWillShowNotification, object: nil)
 		NotificationCenter.default.removeObserver(keyboardWillHideObserver as Any, name: UIResponder.keyboardWillHideNotification, object: nil)
 		NotificationCenter.default.removeObserver(keyboardWillChangeFrameObserver as Any, name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
@@ -274,7 +297,7 @@ extension ExposureSubmissionNavigationController {
 		bottomConstraint.priority = .defaultHigh
 		bottomViewTopConstraint = view.topAnchor.constraint(equalTo: self.view.bottomAnchor)
 
-		button = ENAButton(type: .system)
+		button = ENAButton(type: .custom)
 		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
 		button.setTitle("", for: .normal)
 
@@ -287,7 +310,7 @@ extension ExposureSubmissionNavigationController {
 		button.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
 		// by default, the secondary button is hidden.
-		secondaryButton = ENAButton(type: .system)
+		secondaryButton = ENAButton(type: .custom)
 		secondaryButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .bold)
 		secondaryButton.setTitle("", for: .normal)
 		secondaryButton.backgroundColor = .clear

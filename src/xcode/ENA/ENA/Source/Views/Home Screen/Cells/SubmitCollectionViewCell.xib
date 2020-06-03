@@ -69,7 +69,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="736-dz-fBH" firstAttribute="leading" secondItem="rDq-GM-tua" secondAttribute="leading" id="22v-ig-8K1"/>
                             <constraint firstAttribute="trailing" secondItem="Eol-wD-qBB" secondAttribute="trailing" constant="16" id="3Qg-4W-ayZ"/>

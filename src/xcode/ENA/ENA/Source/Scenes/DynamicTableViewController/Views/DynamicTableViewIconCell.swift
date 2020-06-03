@@ -23,7 +23,6 @@ class DynamicTableViewIconCell: UITableViewCell {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-
 		imageView?.tintColor = tintColor
 	}
 

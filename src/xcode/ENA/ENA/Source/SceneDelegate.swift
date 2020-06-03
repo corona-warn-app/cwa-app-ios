@@ -18,18 +18,12 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
+import Reachability
 
-final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
 
 	var window: UIWindow?
-	var store: Store {
-		UIApplication.coronaWarnDelegate().store
-	}
-
-	private var diagnosisKeysStore: DownloadedPackagesStore {
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore
-	}
 
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
@@ -39,9 +33,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
 	}()
 	#else
-	private let exposureManager = ENAExposureManager()
+	private let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
-	private let taskScheduler = ENATaskScheduler()
 	private let navigationController: UINavigationController = .withLargeTitle()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {
@@ -109,7 +102,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		exposureManager.resume(observer: self)
 
 		UNUserNotificationCenter.current().delegate = self
-		taskScheduler.scheduleBackgroundTaskRequests()
 
 		setupUI()
 
@@ -128,7 +120,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	// MARK: Helper
 
 	private func setupUI() {
-		store.isOnboarded ? showHome() : showOnboarding()
+		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
+			showOnboarding()
+		} else if !store.isOnboarded {
+			showOnboarding()
+		} else {
+			showHome()
+		}
+		UINavigationBar.appearance().tintColor = UIColor.preferredColor(for: .tint)
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 	}
@@ -151,15 +150,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	private func presentHomeVC() {
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
-			let homeVC = HomeViewController(
+			HomeViewController(
 				coder: coder,
 				exposureManager: self.exposureManager,
-				client: UIApplication.coronaWarnDelegate().client,
+				client: self.client,
 				store: self.store,
-				keyPackagesStore: self.diagnosisKeysStore,
-				delegate: self
+				keyPackagesStore: self.downloadedPackagesStore,
+				delegate: self,
+				taskScheduler: self.taskScheduler
 			)
-			return homeVC
 		}
 
 		homeController = vc // strong ref needed
@@ -180,7 +179,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 						coder: coder,
 						pageType: .togetherAgainstCoronaPage,
 						exposureManager: self.exposureManager,
-						taskScheduler: self.taskScheduler,
 						store: self.store
 					)
 				}
@@ -244,6 +242,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		showPrivacyProtectionWindow()
 	}
 
+	func sceneDidEnterBackground(_ scene: UIScene) {
+		taskScheduler.scheduleBackgroundTaskRequests()
+	}
+
 	private var privacyProtectionWindow: UIWindow?
 
 	private func showPrivacyProtectionWindow() {
@@ -277,6 +279,9 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		_: ENAExposureManager,
 		didChangeState newState: ExposureManagerState
 	) {
+		// Add the new state to the history
+		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
+
 		let message = """
 		New status of EN framework:
 		Authorized: \(newState.authorized)
@@ -295,10 +300,11 @@ extension SceneDelegate: ENAExposureManagerObserver {
 }
 
 extension SceneDelegate: HomeViewControllerDelegate {
+	/// Resets all stores and notifies the Onboarding.
 	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
-		store.isOnboarded = false
-		store.dateLastExposureDetection = nil
+		store.clearAll()
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
+		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
 	func homeViewControllerStartExposureTransaction(_: HomeViewController) {
@@ -313,7 +319,7 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.notification.request.identifier {
-		case ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier:
+		case ENATaskIdentifier.detectExposures.backgroundTaskSchedulerIdentifier:
 			log(message: "Handling notification for \(response.notification.request.identifier)")
 
 			switch response.actionIdentifier {

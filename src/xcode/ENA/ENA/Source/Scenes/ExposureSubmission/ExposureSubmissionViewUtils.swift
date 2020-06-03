@@ -19,50 +19,55 @@ import Foundation
 import UIKit
 
 enum ExposureSubmissionViewUtils {
-	static func setupConfirmationAlert(successAction: @escaping (() -> Void)) -> UIAlertController {
+
+	static func setupErrorAlert(_ error: Error, completion: (() -> Void)?) -> UIAlertController {
 		let alert = UIAlertController(
-			title: AppStrings.Common.alertTitleKeySubmit,
-			message: AppStrings.Common.alertDescriptionKeySubmit,
+			title: AppStrings.ExposureSubmission.generalErrorTitle,
+			message: error.localizedDescription,
 			preferredStyle: .alert
 		)
-		let ok = UIAlertAction(
+		alert.addAction(UIAlertAction(
 			title: AppStrings.Common.alertActionOk,
-			style: .default,
-			handler: { _ in
-				successAction()
-				alert.dismiss(animated: true, completion: nil)
-			}
-		)
-		let cancel = UIAlertAction(
-			title: AppStrings.Common.alertActionNo,
 			style: .cancel,
 			handler: { _ in
-				alert.dismiss(animated: true, completion: nil)
-			}
+				alert.dismiss(animated: true, completion: completion)
+			})
 		)
-		alert.addAction(cancel)
-		alert.addAction(ok)
+
 		return alert
 	}
 
-	static func setupErrorAlert(_ error: ExposureSubmissionError) -> UIAlertController {
-		setupAlert(message: error.localizedDescription)
+	static func setupErrorAlert(_ error: ExposureSubmissionError, retry: Bool = false, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
+		setupAlert(message: error.localizedDescription, retry: retry, retryActionHandler: retryActionHandler)
 	}
 
-	static func setupAlert(message: String, action completion: (() -> Void)? = nil) -> UIAlertController {
+	static func setupAlert(title: String? = nil, message: String, okTitle: String? = nil, retryTitle: String? = nil, retry: Bool = false, action completion: (() -> Void)? = nil, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
 		let alert = UIAlertController(
-			title: AppStrings.ExposureSubmission.generalErrorTitle,
+			title: title ?? AppStrings.ExposureSubmission.generalErrorTitle,
 			message: message,
 			preferredStyle: .alert
 		)
 		let ok = UIAlertAction(
-			title: AppStrings.Common.alertActionOk,
+			title: okTitle ?? AppStrings.Common.alertActionOk,
 			style: .cancel,
 			handler: { _ in
 				alert.dismiss(animated: true, completion: completion)
 			}
 		)
+
 		alert.addAction(ok)
+		if retry {
+			let retryAction = UIAlertAction(
+				title: retryTitle ?? AppStrings.Common.alertActionRetry,
+				style: .default,
+				handler: { _ in
+					alert.dismiss(animated: true, completion: retryActionHandler)
+
+				}
+			)
+			alert.addAction(retryAction)
+			alert.preferredAction = retryAction
+		}
 		return alert
 	}
 }

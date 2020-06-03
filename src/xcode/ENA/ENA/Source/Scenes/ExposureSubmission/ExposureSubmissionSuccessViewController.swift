@@ -55,9 +55,8 @@ private extension DynamicTableViewModel {
 			header: .image(UIImage(named: "Illu_Submission_VielenDank")),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionSuccess.subTitle),
-				.regular(text: AppStrings.ExposureSubmissionSuccess.description),
-				.bigBold(text: AppStrings.ExposureSubmissionSuccess.listTitle),
+				.body(text: AppStrings.ExposureSubmissionSuccess.description),
+				.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
@@ -65,7 +64,7 @@ private extension DynamicTableViewModel {
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
 						cell.configure(
 							text: AppStrings.ExposureSubmissionSuccess.listItem1,
-							image: UIImage(named: "Icons - Ansteckend"),
+							image: UIImage(named: "Icons - Hotline"),
 							hasSeparators: false,
 							isCircle: true,
 							iconTintColor: .preferredColor(for: .negativeRisk)
@@ -84,6 +83,63 @@ private extension DynamicTableViewModel {
 							iconTintColor: .preferredColor(for: .negativeRisk)
 						)
 					}
+				),
+				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle),
+				.identifier(
+					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
+					action: .none,
+					configure: { _, cell, _ in
+						guard let cell = cell as? DynamicTableViewStepCell else { return }
+						cell.configure(
+							text: AppStrings.ExposureSubmissionSuccess.listItem2_1,
+							image: UIImage(named: "Icons_Dark_Dot"),
+							hasSeparators: false,
+							isCircle: true,
+							iconTintColor: .preferredColor(for: .textPrimary1)
+						)
+				}
+				),
+				.identifier(
+					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
+					action: .none,
+					configure: { _, cell, _ in
+						guard let cell = cell as? DynamicTableViewStepCell else { return }
+						cell.configure(
+							text: AppStrings.ExposureSubmissionSuccess.listItem2_2,
+							image: UIImage(named: "Icons_Dark_Dot"),
+							hasSeparators: false,
+							isCircle: true,
+							iconTintColor: .preferredColor(for: .textPrimary1)
+						)
+				}
+				),
+				.identifier(
+					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
+					action: .none,
+					configure: { _, cell, _ in
+						guard let cell = cell as? DynamicTableViewStepCell else { return }
+						cell.configure(
+							text: AppStrings.ExposureSubmissionSuccess.listItem2_3,
+							image: UIImage(named: "Icons_Dark_Dot"),
+							hasSeparators: false,
+							isCircle: true,
+							iconTintColor: .preferredColor(for: .textPrimary1)
+						)
+				}
+				),
+				.identifier(
+					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
+					action: .none,
+					configure: { _, cell, _ in
+						guard let cell = cell as? DynamicTableViewStepCell else { return }
+						cell.configure(
+							text: AppStrings.ExposureSubmissionSuccess.listItem2_4,
+							image: UIImage(named: "Icons_Dark_Dot"),
+							hasSeparators: false,
+							isCircle: true,
+							iconTintColor: .preferredColor(for: .textPrimary1)
+						)
+				}
 				)
 			]
 		)
