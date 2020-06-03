@@ -215,30 +215,6 @@ final class HomeInteractor {
 		return sections
 	}
 
-	private func indexPathForActiveCell() -> IndexPath? {
-		for section in sections {
-			let index = section.cellConfigurators.firstIndex { cellConfigurator in
-				cellConfigurator === self.activeConfigurator
-			}
-			guard let item = index else { return nil }
-			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-			return indexPath
-		}
-		return nil
-	}
-
-	private func indexPathForRiskCell() -> IndexPath? {
-		for section in sections {
-			let index = section.cellConfigurators.firstIndex { cellConfigurator in
-				cellConfigurator === self.riskLevelConfigurator
-			}
-			guard let item = index else { return nil }
-			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-			return indexPath
-		}
-		return nil
-	}
-
 	// MARK: Timer
 
 	private func startTimer() {
@@ -290,26 +266,17 @@ extension HomeInteractor {
 
 	func reloadTestResult(with result: TestResult) {
 		self.testResultConfigurator?.testResult = result
+		reloadActionSection()
 		guard let indexPath = indexPathForTestResultCell() else { return }
-		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	/// Update the section cells and layout.
-	func showTestResultCell() {
+	func reloadActionSection(scroll: Bool = true) {
 		sections[0] = setupActionSectionDefinition()
 		homeViewController.updateSections()
 		homeViewController.applySnapshotFromSections(animatingDifferences: true)
-	}
-
-	private func indexPathForTestResultCell() -> IndexPath? {
-		let section = sections.first
-		let index = section?.cellConfigurators.firstIndex { cellConfigurator in
-			cellConfigurator === self.testResultConfigurator
-		}
-		guard let item = index else { return nil }
-		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-		return indexPath
+		homeViewController.reloadData()
+		if scroll { homeViewController.scrollUp() }
 	}
 }
 
@@ -436,11 +403,14 @@ extension HomeInteractor {
 	func setupActionConfigurators() -> [CollectionViewCellConfiguratorAny] {
 		var actionsConfigurators: [CollectionViewCellConfiguratorAny] = []
 
+		// MARK: - Add cards that are always shown.
+
 		// Active card.
 		activeConfigurator = setupActiveConfigurator()
 		actionsConfigurators.append(activeConfigurator)
 
-		// MARK: - Add result cards.
+		// MARK: - Add cards depending on result state.
+
 		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
 			// Once this state is reached, it cannot be left anymore.
@@ -450,7 +420,6 @@ extension HomeInteractor {
 			appLogger.log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
 
 		} else if store.registrationToken != nil {
-
 			// This is shown when we registered a test.
 
 			// Risk card.
@@ -468,13 +437,13 @@ extension HomeInteractor {
 				actionsConfigurators.append(testResultConfigurator)
 			}
 		} else {
+			// This is the default view that is shown when no test results are available and nothing has been submitted.
 
 			// Risk card.
 			if let risk = setupRiskConfigurator() as? HomeRiskLevelCellConfigurator {
 				actionsConfigurators.append(risk)
 			}
 
-			// This is the default view that is shown when no test results are available.
 			let submitCellConfigurator = setupSubmitConfigurator()
 			actionsConfigurators.append(submitCellConfigurator)
 		}
@@ -487,18 +456,57 @@ extension HomeInteractor {
 	}
 }
 
-// MARK: Exposure submission service calls.
+// MARK: - IndexPath helpers.
+
+extension HomeInteractor {
+
+	private func indexPathForRiskCell() -> IndexPath? {
+		for section in sections {
+			let index = section.cellConfigurators.firstIndex { cellConfigurator in
+				cellConfigurator === self.riskLevelConfigurator
+			}
+			guard let item = index else { return nil }
+			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+			return indexPath
+		}
+		return nil
+	}
+
+	private func indexPathForActiveCell() -> IndexPath? {
+		for section in sections {
+			let index = section.cellConfigurators.firstIndex { cellConfigurator in
+				cellConfigurator === self.activeConfigurator
+			}
+			guard let item = index else { return nil }
+			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+			return indexPath
+		}
+		return nil
+	}
+
+	private func indexPathForTestResultCell() -> IndexPath? {
+		let section = sections.first
+		let index = section?.cellConfigurators.firstIndex { cellConfigurator in
+			cellConfigurator === self.testResultConfigurator
+		}
+		guard let item = index else { return nil }
+		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+		return indexPath
+	}
+}
+
+// MARK: - Exposure submission service calls.
 
 extension HomeInteractor {
 	func updateTestResults() {
 		DispatchQueue.global(qos: .userInteractive).async {
-			self.fetchTestResultHelper()
+			self.updateTestResultHelper()
 		}
 	}
 
-	private func fetchTestResultHelper() {
-		// Make sure we are able to fetch.
+	private func updateTestResultHelper() {
 		guard store.registrationToken != nil else { return }
+
 		self.exposureSubmissionService?.getTestResult { result in
 			switch result {
 			case .failure(let error):
