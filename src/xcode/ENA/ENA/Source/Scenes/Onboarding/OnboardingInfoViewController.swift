@@ -87,6 +87,8 @@ final class OnboardingInfoViewController: UIViewController {
 		super.viewWillAppear(animated)
 		if pageType == .togetherAgainstCoronaPage {
 			navigationController?.setNavigationBarHidden(true, animated: true)
+		} else {
+			navigationController?.navigationBar.shadowImage = UIImage()
 		}
 	}
 
