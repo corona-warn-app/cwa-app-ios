@@ -20,14 +20,19 @@ import ExposureNotification
 import XCTest
 
 final class ENStateTests: XCTestCase {
+	// swiftlint:disable:next weak_delegate
 	var mockDelegate: MockStateHandlerObserverDelegate!
 	var exposureManagerState: ExposureManagerState!
-
+	lazy var mockReachabilityService = MockReachabilityService()
+	
 	// setup stateHandler to be in enabled state
 	override func setUp() {
 		super.setUp()
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
-		mockDelegate = MockStateHandlerObserverDelegate(exposureManagerState: exposureManagerState)
+		mockDelegate = MockStateHandlerObserverDelegate(
+			exposureManagerState: exposureManagerState,
+			reachabilityService: self.mockReachabilityService
+		)
 	}
 
 	override func tearDown() {
@@ -66,9 +71,9 @@ final class ENStateTests: XCTestCase {
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 		mockDelegate.exposureManagerState = exposureManagerState
 		XCTAssert(mockDelegate.getCurrentState() == .enabled)
-		mockDelegate.reachabilityChanged(false)
+		self.mockReachabilityService.reachabilityState = .disconnected
 		XCTAssert(mockDelegate.getCurrentState() == .internetOff)
-		mockDelegate.reachabilityChanged(true)
+		self.mockReachabilityService.reachabilityState = .connected
 		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 	}
 
@@ -83,7 +88,7 @@ final class ENStateTests: XCTestCase {
 
 	func testDisableTracingAndBluetoothOffAndInternetOff() {
 		XCTAssert(mockDelegate.getCurrentState() == .enabled)
-		mockDelegate.reachabilityChanged(false)
+		self.mockReachabilityService.reachabilityState = .disconnected
 		XCTAssert(mockDelegate.getCurrentState() == .internetOff)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
 		mockDelegate.exposureManagerState = exposureManagerState
@@ -94,9 +99,9 @@ final class ENStateTests: XCTestCase {
 		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .disabled)
 		mockDelegate.exposureManagerState = exposureManagerState
-		mockDelegate.reachabilityChanged(false)
+		self.mockReachabilityService.reachabilityState = .disconnected
 		XCTAssert(mockDelegate.getCurrentState() == .disabled)
-		mockDelegate.reachabilityChanged(true)
+		self.mockReachabilityService.reachabilityState = .connected
 		XCTAssert(mockDelegate.getCurrentState() == .disabled)
 	}
 
@@ -104,7 +109,7 @@ final class ENStateTests: XCTestCase {
 		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
 		mockDelegate.exposureManagerState = exposureManagerState
-		mockDelegate.reachabilityChanged(false)
+		self.mockReachabilityService.reachabilityState = .disconnected
 		XCTAssert(mockDelegate.getCurrentState() == .disabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .bluetoothOff)
 		mockDelegate.exposureManagerState = exposureManagerState
@@ -112,7 +117,7 @@ final class ENStateTests: XCTestCase {
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 		mockDelegate.exposureManagerState = exposureManagerState
 		XCTAssert(mockDelegate.getCurrentState() == .internetOff)
-		mockDelegate.reachabilityChanged(true)
+		self.mockReachabilityService.reachabilityState = .connected
 		XCTAssert(mockDelegate.getCurrentState() == .enabled)
 	}
 

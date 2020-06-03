@@ -251,7 +251,7 @@ final class HomeViewController: UIViewController {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManager,
 			riskLevel: riskLevel,
-			nextRefresh: nil, // TODO,
+			nextRefresh: nil,
 			summary: homeInteractor.state.summary
 		)
 

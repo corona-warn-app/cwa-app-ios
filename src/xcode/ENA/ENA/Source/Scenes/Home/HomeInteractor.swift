@@ -43,8 +43,11 @@ final class HomeInteractor {
 		self.store = store
 		self.state = state
 		self.taskScheduler = taskScheduler
-		self.exposureSubmissionService = exposureSubmissionService
-		stateHandler = ENStateHandler(state.exposureManager, delegate: self)
+		stateHandler = ENStateHandler(
+			self.state.exposureManager,
+			reachabilityService: ConnectivityReachabilityService(),
+			delegate: self
+		)
 		sections = initialCellConfigurators()
 	}
 
@@ -102,8 +105,6 @@ final class HomeInteractor {
 	}
 
 	private func startCheckRisk() {
-		// TODO: handle state of pending scheduled tasks to determin active state for manual refresh button
-		// TODO: disable manual trigger button
 		guard let indexPath = indexPathForRiskCell() else { return }
 		riskLevelConfigurator?.startLoading()
 		homeViewController.updateSections()

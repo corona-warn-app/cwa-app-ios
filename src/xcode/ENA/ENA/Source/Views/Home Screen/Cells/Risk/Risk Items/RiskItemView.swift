@@ -19,6 +19,6 @@ import UIKit
 
 protocol RiskItemView: UIView { }
 
-protocol RiskItemViewSeparatorable  {
+protocol RiskItemViewSeparatorable {
 	func hideSeparator()
 }
