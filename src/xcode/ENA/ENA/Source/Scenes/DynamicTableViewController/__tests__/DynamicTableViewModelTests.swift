@@ -111,7 +111,7 @@ class DynamicTableViewModelTests: XCTestCase {
 		let section = getLastSection(from: model)
 		// assert cell type and content
 		XCTAssertEqual(
-			section.cells.first.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier,
+			section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier,
 			DynamicCell.CellReuseIdentifier.dynamicTypeText
 		)
 	}
