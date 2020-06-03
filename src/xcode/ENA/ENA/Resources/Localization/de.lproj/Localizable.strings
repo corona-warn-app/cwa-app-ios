@@ -218,7 +218,6 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
 "ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt  wie folgt vorgehen:";
 "ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen  in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
-"ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen  in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
 "ExposureSubmissionIntroduction_ListItem2" = "Wenn Sie positiv getestet wurden, können Sie andere warnen.";
 "ExposureSubmissionIntroduction_ListItem3" = "Wenn Ihnen für einen positiven Test eine TAN mitgeteilt wurde , können Sie diese für die Registrierung des Tests nutzen.";
 "ExposureSubmissionIntroduction_ListItem4" = "Wenn Sie keine TAN haben, können Sie diese telefonisch anfragen.";
@@ -261,7 +260,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
 
-// Tracing Enable/Disable Settings
+/* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 "ExposureNotificationSetting_EnableTracing" = "Risiko-Ermittlung";
 "ExposureNotificationSetting_Tracing_Limited" = "Eingeschränkt";
@@ -448,7 +447,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
-// Invite Friends
+/* Invite Friends */
 "InviteFriends_NavTitle" = "Teilen";
 "InviteFriends_Subtitle" = "Teilen Sie die Corona-Warn-App";
 "InviteFriends_Title" = "Gemeinsam Corona bekämpfen";
@@ -474,12 +473,12 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "local_notifications_viewResults" = "Ergebnisse anzeigen";
 "local_notifications_ignore" = "Ignorieren";
 "local_notifications_detectexposure_title" = "Corona-Warn-App";
-"local_notifications_detectexposure_body" = "Es gibt Neuigkeiten in der Corona-Warn-App";
+"local_notifications_detectexposure_body" = "Es gibt Neuigkeiten von Ihrer Corona-Warn-App";
 "local_notifications_testresults_title" = "Corona-Warn-App";
-"local_notifications_testresults_body" = "Es gibt Neuigkeiten in der Corona-Warn-App";
+"local_notifications_testresults_body" = "Es gibt Neuigkeiten von Ihrer Corona-Warn-App";
 
 
-// Risk Legend
+/* Risk Legend */
 "RiskLegend_Title" = "Überblick";
 "RiskLegend_Subtitle" = "Die wichtigsten Funktionen und Begriffe";
 "RiskLegend_Legend1_Title" = "Risiko-Ermittlung";

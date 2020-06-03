@@ -70,13 +70,13 @@ extension RiskLevel: Comparable {
 		case (.unknownOutdated, .increased):
 			return true
 		default:
-			return lhs.rawValue < rhs.rawValue
+		return lhs.rawValue < rhs.rawValue
 		}
 	}
 }
 
 extension ENRiskScore {
-    var riskLevel: RiskLevel {
+	var riskLevel: RiskLevel {
 		self <= 100 ? .low : .increased
-    }
+	}
 }

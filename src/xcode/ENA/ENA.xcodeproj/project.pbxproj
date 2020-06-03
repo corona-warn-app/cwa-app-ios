@@ -15,6 +15,8 @@
 		01990E12247A8DAB00096D25 /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 01990E11247A8DAB00096D25 /* FMDB */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
+		0DFCC2722484DC8400E2811D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; };
+		0DFCC2732484DC8400E2811D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; };
 		1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1309194E247972C40066E329 /* PrivacyProtectionViewController.swift */; };
 		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
 		134F0DBC247578FF00D88934 /* ENAUITestsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0DB9247578FF00D88934 /* ENAUITestsHome.swift */; };
@@ -312,6 +314,10 @@
 		0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_signature_list.pb.swift; path = ../../../gen/output/temporary_exposure_key_signature_list.pb.swift; sourceTree = "<group>"; };
 		0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStore.swift; sourceTree = "<group>"; };
 		0D5611B7247FD36F00B5B094 /* PersistedAndPublished.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistedAndPublished.swift; sourceTree = "<group>"; };
+		0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ENA-Bridging-Header.h"; sourceTree = "<group>"; };
+		0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ENATests-Bridging-Header.h"; sourceTree = "<group>"; };
+		0DFCC2702484DC8400E2811D /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		0DFCC2712484DC8400E2811D /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		1309194E247972C40066E329 /* PrivacyProtectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionViewController.swift; sourceTree = "<group>"; };
 		130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsOnboarding.swift; sourceTree = "<group>"; };
 		134F0DB9247578FF00D88934 /* ENAUITestsHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsHome.swift; sourceTree = "<group>"; };
@@ -1051,6 +1057,8 @@
 		85D759322457048F008175F0 = {
 			isa = PBXGroup;
 			children = (
+				0DFCC2702484DC8400E2811D /* sqlite3.c */,
+				0DFCC2712484DC8400E2811D /* sqlite3.h */,
 				71B8044424828A6C00D53506 /* .swiftformat */,
 				71AFBD922464251000F91006 /* .swiftlint.yml */,
 				85D7593D2457048F008175F0 /* ENA */,
@@ -1059,6 +1067,8 @@
 				85D7593C2457048F008175F0 /* Products */,
 				5107E3D72459B2D60042FC9B /* Frameworks */,
 				B1741B572462EB26006275D9 /* Recovered References */,
+				0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */,
+				0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 1;
@@ -1617,9 +1627,11 @@
 				TargetAttributes = {
 					85D7593A2457048F008175F0 = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1150;
 					};
 					85D7595324570491008175F0 = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1150;
 						TestTargetID = 85D7593A2457048F008175F0;
 					};
 					85D7595E24570491008175F0 = {
@@ -1921,6 +1933,7 @@
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
 				A3E5E71E247E6F7A00237116 /* SpinnerInjectable.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
+				0DFCC2722484DC8400E2811D /* sqlite3.c in Sources */,
 				EE22DB93247FB4BB001B0A71 /* Reachability+ObserverDelegate.swift in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				514C0A0624772F3400F235F6 /* HomeRiskViewConfigurator.swift in Sources */,
@@ -1965,6 +1978,7 @@
 				A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */,
 				F247572B24838AC8003E1FC5 /* DynamicTableViewControllerTests.swift in Sources */,
 				CD678F6D246C43EE00B6A0F8 /* MockTestClient.swift in Sources */,
+				0DFCC2732484DC8400E2811D /* sqlite3.c in Sources */,
 				B1D431CE246C84F200E728AD /* KeyPackagesStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2092,10 +2106,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+				);
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2106,10 +2126,18 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.8.0;
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = COMMUNITY;
+				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2120,8 +2148,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 523TP53AQF;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+				);
 				INFOPLIST_FILE = ENATests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2129,8 +2163,16 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ux.ENATests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ENATests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ENA.app/ENA";
@@ -2279,10 +2321,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+				);				
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
@@ -2292,9 +2340,17 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.8.0;
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
+				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2304,10 +2360,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
@@ -2317,9 +2375,16 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.8.0;
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);	
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
+				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2330,8 +2395,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 523TP53AQF;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
+				);
 				INFOPLIST_FILE = ENATests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2339,8 +2410,16 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ux.ENATests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ENATests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ENA.app/ENA";
@@ -2352,8 +2431,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 523TP53AQF;
+				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENATests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2361,8 +2442,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ux.ENATests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ENATests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ENA.app/ENA";
@@ -2473,10 +2561,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";	
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
@@ -2486,9 +2576,16 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.8.0;
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
+				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2499,8 +2596,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 523TP53AQF;
+				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENATests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2508,8 +2607,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ux.ENATests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ENATests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ENA.app/ENA";
