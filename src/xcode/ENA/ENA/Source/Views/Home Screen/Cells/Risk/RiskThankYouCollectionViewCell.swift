@@ -47,6 +47,10 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 	}
 
+	func configureBackgroundColor(color: UIColor) {
+		viewContainer.backgroundColor = color
+	}
+	
 	func configureTitle(title: String, titleColor: UIColor) {
 		titleLabel.text = title
 		titleLabel.textColor = titleColor
@@ -77,10 +81,6 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 		furtherInfoLabel.text = title
 		stackView.addArrangedSubview(furtherInfoLabel)
 		stackView.setCustomSpacing(8.0, after: furtherInfoLabel)
-	}
-
-	func configureBackgroundColor(color: UIColor) {
-		viewContainer.backgroundColor = color
 	}
 
 	func configureNoteRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {

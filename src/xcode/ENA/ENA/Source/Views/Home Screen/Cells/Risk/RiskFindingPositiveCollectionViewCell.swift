@@ -138,7 +138,7 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 		viewContainer.backgroundColor = color
 	}
 
-	func configureNoteRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
+	func configureNotesRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
 		guard let noteIndex = stackView.arrangedSubviews.firstIndex(of: noteLabel) else { return }
 		var lastView: UIView?
 		for itemConfigurator in cellConfigurators.reversed() {
