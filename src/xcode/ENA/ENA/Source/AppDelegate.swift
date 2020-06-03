@@ -247,6 +247,12 @@ extension AppDelegate: CoronaWarnAppDelegate {
 				message = "No keys"
 			}
 
+			NotificationCenter.default.post(
+				name: .didFailDetectExposureDetectionSummary,
+				object: nil,
+				userInfo: ["exposureDetectionDidEndReason": reason]
+			)
+
 			// We have to remove this after the test has been concluded.
 			let alert = UIAlertController(
 				title: "Exposure Detection Failed",

@@ -149,6 +149,8 @@
 		A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */; };
 		A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */; };
 		A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */; };
+		A17DA5E62486E750006F310F /* RiskExposureCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DA5E52486E750006F310F /* RiskExposureCalculation.swift */; };
+		A17DA5E82486E803006F310F /* RiskExposureCalculationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DA5E72486E803006F310F /* RiskExposureCalculationDelegate.swift */; };
 		A36D07AD2483B43800E46F96 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		A36D07AF2483F6CF00E46F96 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		A36D07B12483F78500E46F96 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -457,6 +459,8 @@
 		A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerUtils.swift; sourceTree = "<group>"; };
 		A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelTests.swift; sourceTree = "<group>"; };
+		A17DA5E52486E750006F310F /* RiskExposureCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskExposureCalculation.swift; sourceTree = "<group>"; };
+		A17DA5E72486E803006F310F /* RiskExposureCalculationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskExposureCalculationDelegate.swift; sourceTree = "<group>"; };
 		A36D07B22485649F00E46F96 /* HomeExposureSubmissionStateCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExposureSubmissionStateCellConfigurator.swift; sourceTree = "<group>"; };
 		A36D07B42485652500E46F96 /* ExposureSubmissionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionCell.swift; sourceTree = "<group>"; };
 		A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewController.swift; sourceTree = "<group>"; };
@@ -1130,12 +1134,22 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A17DA5E42486E71A006F310F /* Risk Transaction */,
 				B15382DC248270220010F007 /* __tests__ */,
 				B14D0CD8246E939600D5BEBC /* Exposure Transaction */,
 				B1D431C9246C848E00E728AD /* DownloadedPackagesStore */,
 				CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		A17DA5E42486E71A006F310F /* Risk Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				A17DA5E52486E750006F310F /* RiskExposureCalculation.swift */,
+				A17DA5E72486E803006F310F /* RiskExposureCalculationDelegate.swift */,
+			);
+			path = "Risk Transaction";
 			sourceTree = "<group>";
 		};
 		A1C2B2DA24834934004A3BD5 /* __tests__ */ = {
@@ -1826,6 +1840,7 @@
 				0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */,
 				51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
+				A17DA5E62486E750006F310F /* RiskExposureCalculation.swift in Sources */,
 				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				B1D7D68C24766D2100E4DA5D /* risk_score_parameters.pb.swift in Sources */,
@@ -1881,6 +1896,7 @@
 				B154F59B246DD5CF003E891E /* Client+Convenience.swift in Sources */,
 				B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStore.swift in Sources */,
 				51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */,
+				A17DA5E82486E803006F310F /* RiskExposureCalculationDelegate.swift in Sources */,
 				EE22DB82247FB40A001B0A71 /* ENSettingModel.swift in Sources */,
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
 			);

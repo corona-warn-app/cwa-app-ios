@@ -40,6 +40,8 @@ protocol Store: AnyObject {
 
 	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
 
+	var lastRiskLevel: RiskLevel? { get set }
+
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
@@ -212,6 +214,11 @@ final class SecureStore: Store {
 	var previousSummary: ENExposureDetectionSummaryContainer? {
 		get { kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil }
 		set { kvStore["previousSummary"] = newValue }
+	}
+
+	var lastRiskLevel: RiskLevel? {
+		get { kvStore["lastRiskLevel"] as RiskLevel? ?? nil }
+		set { kvStore["lastRiskLevel"] = newValue }
 	}
 }
 

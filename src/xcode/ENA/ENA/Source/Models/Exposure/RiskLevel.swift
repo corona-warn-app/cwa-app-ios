@@ -31,7 +31,7 @@ enum RiskLevel: Int, CaseIterable {
 	4. .unknownOutdated overrides .low AND .increased
 	5. .unknownInitial overrides .low AND .unknownOutdated
 	*/
-	
+
 	/// Low risk
 	case low = 0
 	/// Increased risk
@@ -74,6 +74,8 @@ extension RiskLevel: Comparable {
 		}
 	}
 }
+
+extension RiskLevel: Codable { }
 
 extension ENRiskScore {
     var riskLevel: RiskLevel {
