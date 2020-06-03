@@ -25,6 +25,7 @@
 		134F0F2D2475794900D88934 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0F247466BD00D82D14 /* Accessibility.swift */; };
 		134FFA11247466BD00D82D14 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0F247466BD00D82D14 /* Accessibility.swift */; };
 		13722044247AEEAD00152764 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13722043247AEEAD00152764 /* LocalNotificationManager.swift */; };
+		137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */; };
 		138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138910C4247A909000D739F6 /* ENATaskScheduler.swift */; };
 		13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */; };
 		13FD1DE62473EE6C00A7C7AB /* AppInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE8599922462EFFD002E7AE2 /* AppInformation.storyboard */; };
@@ -37,6 +38,7 @@
 		2F80CFD9247ED988000F06AF /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */; };
 		2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */; };
 		2F80CFDD247EEB88000F06AF /* DynamicTableViewImageCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFDC247EEB88000F06AF /* DynamicTableViewImageCardCell.swift */; };
+		2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */; };
 		3DD767462483D4DE002DD2B3 /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD767452483D4DE002DD2B3 /* ReachabilityService.swift */; };
 		3DD767492483D6B5002DD2B3 /* Connectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD767482483D6B5002DD2B3 /* Connectivity */; };
 		3DD7674B2483D6C1002DD2B3 /* ConnectivityReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7674A2483D6C1002DD2B3 /* ConnectivityReachabilityService.swift */; };
@@ -46,7 +48,6 @@
 		51486DA32485101500FCE216 /* RiskInactiveCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51486DA12485101500FCE216 /* RiskInactiveCollectionViewCell.xib */; };
 		51486DA62485237200FCE216 /* RiskThankYouCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51486DA42485237200FCE216 /* RiskThankYouCollectionViewCell.swift */; };
 		51486DA72485237200FCE216 /* RiskThankYouCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51486DA52485237200FCE216 /* RiskThankYouCollectionViewCell.xib */; };
-		2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */; };
 		514C0A0624772F3400F235F6 /* HomeRiskViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C0A0524772F3400F235F6 /* HomeRiskViewConfigurator.swift */; };
 		514C0A0824772F5E00F235F6 /* RiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514C0A0724772F5E00F235F6 /* RiskItemView.swift */; };
 		514C0A0B247AF9F700F235F6 /* RiskTextItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 514C0A0A247AF9F700F235F6 /* RiskTextItemView.xib */; };
@@ -332,6 +333,7 @@
 		134F0F2B2475793400D88934 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = ../../fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
 		134FFA0F247466BD00D82D14 /* Accessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
 		13722043247AEEAD00152764 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingInfoViewController+Extension.swift"; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
 		13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
 		26374AF3248138EF00C10110 /* exposure-submission.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "exposure-submission.xcassets"; sourceTree = "<group>"; };
@@ -343,10 +345,10 @@
 		2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
 		2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionHotlineViewController.swift; sourceTree = "<group>"; };
 		2F80CFDC247EEB88000F06AF /* DynamicTableViewImageCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewImageCardCell.swift; sourceTree = "<group>"; };
+		2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Generation.swift"; sourceTree = "<group>"; };
 		3DD767452483D4DE002DD2B3 /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		3DD7674A2483D6C1002DD2B3 /* ConnectivityReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityReachabilityService.swift; sourceTree = "<group>"; };
 		3DD7674C2483DDAC002DD2B3 /* MockReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockReachabilityService.swift; sourceTree = "<group>"; };
-		2FF1D62D2487850200381FFB /* NSMutableAttributedString+Generation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Generation.swift"; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		51486D9E2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLevelCellConfigurator.swift; sourceTree = "<group>"; };
 		51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskInactiveCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -874,6 +876,7 @@
 			children = (
 				51C737BC245B349700286105 /* OnboardingInfoViewController.swift */,
 				A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */,
+				137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -1818,6 +1821,7 @@
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
 				CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */,
 				51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */,
+				137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */,
 				85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */,
 				71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */,
 				514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */,

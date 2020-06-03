@@ -103,7 +103,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	private func deleteTest() {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmissionResult.removeAlert_Title,
-			message:  AppStrings.ExposureSubmissionResult.removeAlert_Text,
+			message: AppStrings.ExposureSubmissionResult.removeAlert_Text,
 			preferredStyle: .alert
 		)
 
