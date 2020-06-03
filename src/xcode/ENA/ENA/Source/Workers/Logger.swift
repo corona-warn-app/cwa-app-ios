@@ -19,12 +19,14 @@ import Foundation
 
 let appLogger = Logger()
 
-func log(message: String, level _: LogLevel = .info, file _: String = #file, line _: UInt = #line, function _: String = #function) {
-	NSLog("%@", message)
+func log(message: String, level: LogLevel = .info, file: String = #file, line: UInt = #line, function: String = #function) {
+	#if DEBUG
+	print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
+	#endif
 }
 
-func logError(message: String, level _: LogLevel = .error, file _: String = #file, line _: UInt = #line, function _: String = #function) {
-	NSLog("%@", message)
+func logError(message: String, level: LogLevel = .error, file: String = #file, line: UInt = #line, function: String = #function) {
+	log(message: message, level: .error, file: file, line: line, function: function)
 }
 
 class Logger {
@@ -35,7 +37,7 @@ class Logger {
 	}
 }
 
-enum LogLevel {
+enum LogLevel: String {
 	case info
 	case warning
 	case error
