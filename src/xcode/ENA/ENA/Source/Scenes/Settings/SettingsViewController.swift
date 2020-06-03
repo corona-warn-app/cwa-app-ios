@@ -149,7 +149,7 @@ final class SettingsViewController: UITableViewController {
 				return
 			}
 
-			if granted, self.store.allowRiskChangesNotification, self.store.allowTestsStatusNotification {
+			if granted && (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
 				self.settingsViewModel.notifications.setState(state: true)
 			} else {
 				self.settingsViewModel.notifications.setState(state: false)
