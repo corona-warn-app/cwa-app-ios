@@ -94,9 +94,19 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		let font: UIFont = .preferredFont(forTextStyle: .body)
 		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
 		let color: UIColor = .preferredColor(for: .tint)
-		let attr: [NSAttributedString.Key: Any] = [.font: boldFont, .foregroundColor: color]
-		let word = NSAttributedString(string: AppStrings.ExposureSubmissionHotline.phoneNumber, attributes: attr)
-		return [word]
+		let attr1: [NSAttributedString.Key: Any] = [.font: boldFont, .foregroundColor: color]
+		let word = NSAttributedString(
+			string: AppStrings.ExposureSubmissionHotline.phoneNumber,
+			attributes: attr1
+		)
+
+		let attr2: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .footnote)]
+		let description = NSAttributedString(
+			string: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
+			attributes: attr2
+		)
+
+		return [word, description]
 	}
 }
 

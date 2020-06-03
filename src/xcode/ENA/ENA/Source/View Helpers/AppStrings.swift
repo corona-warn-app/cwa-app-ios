@@ -23,7 +23,10 @@ enum AppStrings {
 		static let alertTitleGeneral = NSLocalizedString("Alert_TitleGeneral", comment: "")
 		static let alertMessageGeneral = NSLocalizedString("Alert_MessageGeneral", comment: "")
 		static let alertActionOk = NSLocalizedString("Alert_ActionOk", comment: "")
+		static let alertActionRetry = NSLocalizedString("Alert_ActionRetry", comment: "")
+		static let alertActionCancel = NSLocalizedString("Alert_ActionCancel", comment: "")
 		static let alertActionNo = NSLocalizedString("Alert_ActionNo", comment: "")
+		static let alertActionRemove = NSLocalizedString("Alert_ActionRemove", comment: "")
 		static let alertTitleKeySubmit = NSLocalizedString("Alert_TitleKeySubmit", comment: "")
 		static let alertDescriptionKeySubmit = NSLocalizedString("Alert_DescriptionKeySubmit", comment: "")
 
@@ -93,6 +96,8 @@ enum AppStrings {
 		static let furtherInfos_ListItem2 = NSLocalizedString("ExposureSubmissionResult_testNegative_furtherInfos_listItem2", comment: "")
 		static let furtherInfos_ListItem3 = NSLocalizedString("ExposureSubmissionResult_testNegative_furtherInfos_listItem3", comment: "")
 		static let furtherInfos_Hint = NSLocalizedString("ExposureSubmissionResult_testNegative_furtherInfos_hint", comment: "")
+		static let removeAlert_Title = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Title", comment: "")
+		static let removeAlert_Text = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Text", comment: "")
 	}
 
 	enum ExposureSubmissionDispatch {
@@ -100,13 +105,21 @@ enum AppStrings {
 		static let description = NSLocalizedString("ExposureSubmission_DispatchDescription", comment: "")
 		static let qrCodeButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonTitle", comment: "")
 		static let qrCodeButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonDescription", comment: "")
-		static let qrCodeButtonErrorNoPermission = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonErrorNoPermission", comment: "")
-		static let qrCodeButtonError = NSLocalizedString("ExposureSubmissionDispatch_QRCodeButtonError", comment: "")
 		static let tanButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_TANButtonTitle", comment: "")
 		static let tanButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_TANButtonDescription", comment: "")
 		static let hotlineButtonTitle = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonTitle", comment: "")
 		static let hotlineButtonDescription = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonDescription", comment: "")
 		static let positiveWord = NSLocalizedString("ExposureSubmissionDispatch_HotlineButtonPositiveWord", comment: "")
+	}
+
+	enum ExposureSubmissionQRScanner {
+		static let title = NSLocalizedString("ExposureSubmissionQRScanner_title", comment: "")
+		static let instruction = NSLocalizedString("ExposureSubmissionQRScanner_instruction", comment: "")
+		static let alertCodeNotFoundTitle = NSLocalizedString("ExposureSubmissionQRScanner_notFoundAlertTitle", comment: "")
+		static let alertCodeNotFoundText = NSLocalizedString("ExposureSubmissionQRScanner_notFoundAlertText", comment: "")
+		static let otherError = NSLocalizedString("ExposureSubmissionQRScanner_otherError", comment: "")
+		static let cameraPermissionDenied = NSLocalizedString("ExposureSubmissionQRScanner_cameraPermissionDenied", comment: "")
+		static let cameraPermissionRestricted = NSLocalizedString("ExposureSubmissionQRScanner_cameraPermissionRestricted", comment: "")
 	}
 
 	enum ExposureSubmissionHotline {
@@ -118,6 +131,7 @@ enum AppStrings {
 		static let callButtonTitle = NSLocalizedString("ExposureSubmission_CallButtonTitle", comment: "")
 		static let tanInputButtonTitle = NSLocalizedString("ExposureSubmission_TANInputButtonTitle", comment: "")
 		static let phoneNumber = NSLocalizedString("ExposureSubmission_PhoneNumber", comment: "")
+		static let hotlineDetailDescription = NSLocalizedString("ExposureSubmission_PhoneDetailDescription", comment: "")
 	}
 
 	enum ExposureSubmissionWarnOthers {
@@ -140,6 +154,21 @@ enum AppStrings {
 		static let listItem2_2 = NSLocalizedString("ExposureSubmissionSuccess_listItem2_2", comment: "")
 		static let listItem2_3 = NSLocalizedString("ExposureSubmissionSuccess_listItem2_3", comment: "")
 		static let listItem2_4 = NSLocalizedString("ExposureSubmissionSuccess_listItem2_4", comment: "")
+	}
+
+	enum ExposureSubmissionError {
+		static let noKeys = NSLocalizedString("ExposureSubmissionError_NoKeys", comment: "")
+		static let invalidTan = NSLocalizedString("ExposureSubmissionError_InvalidTan", comment: "")
+		static let enNotEnabled = NSLocalizedString("ExposureSubmissionError_EnNotEnabled", comment: "")
+		static let noRegistrationToken = NSLocalizedString("ExposureSubmissionError_NoRegistrationToken", comment: "")
+		static let invalidResponse = NSLocalizedString("ExposureSubmissionError_InvalidResponse", comment: "")
+		static let noResponse = NSLocalizedString("ExposureSubmissionError_NoResponse", comment: "")
+		static let qRTeleTanAlreadyUsed = NSLocalizedString("ExposureSubmissionError_QRTeleTanAlreadyUsed", comment: "")
+		static let regTokenNotExist = NSLocalizedString("ExposureSubmissionError_RegTokenNotExist", comment: "")
+		static let other = NSLocalizedString("ExposureSubmissionError_other", comment: "")
+		static let unknown = NSLocalizedString("ExposureSubmissionError_unknown", comment: "")
+		static let defaultError = NSLocalizedString("ExposureSubmissionError_defaultError", comment: "")
+		static let noConfiguration = NSLocalizedString("No Exposure Configuration available", comment: "")
 	}
 
 	enum ExposureDetection {

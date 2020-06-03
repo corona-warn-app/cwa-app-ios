@@ -24,6 +24,8 @@ final class FriendsInviteController: UIViewController, UIActivityItemSource {
 	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var inviteButton: ENAButton!
 	@IBOutlet var subtitleLabel: UILabel!
+	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var footerView: UIView!
 
 	let shareTitle = AppStrings.InviteFriends.shareTitle
 	// swiftlint:disable:next force_unwrapping
@@ -44,6 +46,12 @@ final class FriendsInviteController: UIViewController, UIActivityItemSource {
 		if let inviteButton = inviteButton, let titleLabel = inviteButton.titleLabel {
 			inviteButton.addConstraint(NSLayoutConstraint(item: inviteButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
 		}
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+
+		scrollView.contentInset.bottom = footerView.frame.height
 	}
 
 	@IBAction func inviteAction(_: UIButton) {
