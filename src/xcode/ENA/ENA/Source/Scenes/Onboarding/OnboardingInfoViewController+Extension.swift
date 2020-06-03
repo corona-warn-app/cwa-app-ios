@@ -35,7 +35,7 @@ extension OnboardingInfoViewController {
 		textLabel.style = .body
 		textLabel.text = body
 		textLabel.translatesAutoresizingMaskIntoConstraints = false
-		textLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
+		textLabel.textColor = UIColor.preferredColor(for: .textPrimary1)
 		textLabel.lineBreakMode = .byWordWrapping
 		textLabel.numberOfLines = 0
 
@@ -45,20 +45,26 @@ extension OnboardingInfoViewController {
 		labelStackView.alignment = .fill
 		labelStackView.distribution = .equalSpacing
 		labelStackView.spacing = 10
+		let labelStackViewInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+		labelStackView.layoutMargins = labelStackViewInsets
+		labelStackView.isLayoutMarginsRelativeArrangement = true
 
 		let containerView = UIView()
-		containerView.translatesAutoresizingMaskIntoConstraints = false
 		containerView.addSubview(labelStackView)
 		containerView.layer.cornerRadius = 14.0
-		containerView.backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
-
+		containerView.backgroundColor = UIColor.preferredColor(for: .separator)
 		stackView.addArrangedSubview(containerView)
 
+		let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+		stackView.layoutMargins = containerInsets
+		stackView.isLayoutMarginsRelativeArrangement = true
+
+		let safeLayoutGuide = containerView.safeAreaLayoutGuide
 		NSLayoutConstraint.activate([
-			labelStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
-			labelStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
-			labelStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-			labelStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+			labelStackView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
+			labelStackView.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor),
+			labelStackView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
+			labelStackView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor)
 		])
 
 	}
