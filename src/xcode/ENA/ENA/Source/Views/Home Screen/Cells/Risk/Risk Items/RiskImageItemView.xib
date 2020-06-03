@@ -3,7 +3,6 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,21 +12,26 @@
             <rect key="frame" x="0.0" y="0.0" width="575" height="155"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet." adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEZ-Xx-WVk">
-                    <rect key="frame" x="60" y="44" width="495" height="77"/>
-                    <color key="textColor" name="textPrimary1"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="255" verticalHuggingPriority="251" image="Calendar" translatesAutoresizingMaskIntoConstraints="NO" id="3I7-DI-BV1">
-                    <rect key="frame" x="20" y="44" width="24" height="24"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="24" id="ZAx-AX-tFL"/>
-                        <constraint firstAttribute="width" constant="24" id="br8-Xz-Ghw"/>
-                    </constraints>
-                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="U8q-BV-ccC">
+                    <rect key="frame" x="0.0" y="0.0" width="575" height="155"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="765" verticalHuggingPriority="251" image="Icons_Calendar-Dark" translatesAutoresizingMaskIntoConstraints="NO" id="3I7-DI-BV1">
+                            <rect key="frame" x="0.0" y="61.5" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="900" constant="32" id="5NM-Ed-5sF"/>
+                                <constraint firstAttribute="width" priority="900" constant="32" id="sqY-Cl-O79"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8r0-5t-F3e">
+                            <rect key="frame" x="55" y="67.5" width="520" height="20.5"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xqB-br-Yjr" userLabel="Separator View">
-                    <rect key="frame" x="60" y="154" width="515" height="1"/>
+                    <rect key="frame" x="55" y="154" width="520" height="1"/>
                     <color key="backgroundColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="2Ko-AP-a7I"/>
@@ -35,34 +39,25 @@
                 </view>
             </subviews>
             <constraints>
-                <constraint firstItem="LEZ-Xx-WVk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="54r-4R-zcD"/>
                 <constraint firstAttribute="bottom" secondItem="xqB-br-Yjr" secondAttribute="bottom" id="Eec-3A-2t8"/>
-                <constraint firstAttribute="bottomMargin" secondItem="LEZ-Xx-WVk" secondAttribute="bottom" id="HeR-tk-VYN"/>
-                <constraint firstItem="xqB-br-Yjr" firstAttribute="leading" secondItem="LEZ-Xx-WVk" secondAttribute="leading" id="Tpl-Vs-lLK"/>
-                <constraint firstItem="3I7-DI-BV1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="XVe-ow-tIj"/>
-                <constraint firstItem="3I7-DI-BV1" firstAttribute="top" secondItem="LEZ-Xx-WVk" secondAttribute="top" id="e7K-Lz-rwZ"/>
-                <constraint firstItem="LEZ-Xx-WVk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" priority="900" id="jTr-vB-ZeC"/>
+                <constraint firstItem="U8q-BV-ccC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Wom-tu-YMP"/>
+                <constraint firstItem="U8q-BV-ccC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XPC-0n-zGZ"/>
+                <constraint firstAttribute="bottom" secondItem="U8q-BV-ccC" secondAttribute="bottom" id="p4N-z4-s3W"/>
                 <constraint firstAttribute="trailing" secondItem="xqB-br-Yjr" secondAttribute="trailing" id="pTY-nO-oHb"/>
-                <constraint firstAttribute="trailingMargin" secondItem="LEZ-Xx-WVk" secondAttribute="trailing" id="qkz-AQ-SGd"/>
-                <constraint firstItem="LEZ-Xx-WVk" firstAttribute="leading" secondItem="3I7-DI-BV1" secondAttribute="trailing" priority="900" constant="16" id="vKn-ov-wKA"/>
+                <constraint firstAttribute="trailing" secondItem="U8q-BV-ccC" secondAttribute="trailing" id="vJE-jW-HkY"/>
+                <constraint firstItem="xqB-br-Yjr" firstAttribute="leading" secondItem="8r0-5t-F3e" secondAttribute="leading" id="yV3-1E-GHY"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="iconImageView" destination="3I7-DI-BV1" id="ZUe-Wn-we0"/>
-                <outlet property="leadingTextViewLeadingMarginConstraint" destination="jTr-vB-ZeC" id="Vq6-TA-rnT"/>
-                <outlet property="leadingTextViewTrailingImageViewConstraint" destination="vKn-ov-wKA" id="f2B-pT-IvK"/>
-                <outlet property="separatorHeightConstraint" destination="2Ko-AP-a7I" id="vCM-XN-7l5"/>
                 <outlet property="separatorView" destination="xqB-br-Yjr" id="U2c-lj-ws8"/>
-                <outlet property="titleTextView" destination="LEZ-Xx-WVk" id="HRj-Jh-90h"/>
-                <outlet property="topImageTopTextViewConstraint" destination="e7K-Lz-rwZ" id="rdk-Ko-05b"/>
+                <outlet property="stackView" destination="U8q-BV-ccC" id="x67-8K-hzW"/>
+                <outlet property="textLabel" destination="8r0-5t-F3e" id="8vi-Kt-oO7"/>
             </connections>
             <point key="canvasLocation" x="207.97101449275365" y="88.058035714285708"/>
         </view>
     </objects>
     <resources>
-        <image name="Calendar" width="16" height="16"/>
-        <namedColor name="textPrimary1">
-            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <image name="Icons_Calendar-Dark" width="18" height="17"/>
     </resources>
 </document>
