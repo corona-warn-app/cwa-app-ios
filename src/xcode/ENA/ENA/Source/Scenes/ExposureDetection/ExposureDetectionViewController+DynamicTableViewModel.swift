@@ -272,7 +272,7 @@ extension ExposureDetectionViewController {
 					subtitle: AppStrings.ExposureDetection.explanationSubtitle,
 					action: .open(url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
 				),
-				.regular(text: text)
+				.body(text: text)
 			]
 		)
 	}

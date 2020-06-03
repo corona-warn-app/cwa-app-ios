@@ -269,7 +269,6 @@ private extension ExposureSubmissionOverviewViewController {
 			),
 			.identifier(
 				CustomCellReuseIdentifiers.imageCard,
-				// TODO: Add number.
 				action: .perform(segue: Segue.hotline),
 				configure: { _, cell, _ in
 					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
@@ -286,7 +285,7 @@ private extension ExposureSubmissionOverviewViewController {
 		return data
 	}
 
-	/// Comment me.
+	/// Gets the attributed string that makes the "Positive" word bold.
 	private func getAttributedStrings() -> [NSAttributedString] {
 		let font: UIFont = .preferredFont(forTextStyle: .body)
 		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)

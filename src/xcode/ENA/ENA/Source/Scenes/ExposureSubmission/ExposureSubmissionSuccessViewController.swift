@@ -55,8 +55,8 @@ private extension DynamicTableViewModel {
 			header: .image(UIImage(named: "Illu_Submission_VielenDank")),
 			separators: false,
 			cells: [
-				.regular(text: AppStrings.ExposureSubmissionSuccess.description),
-				.bigBold(text: AppStrings.ExposureSubmissionSuccess.listTitle),
+				.body(text: AppStrings.ExposureSubmissionSuccess.description),
+				.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
@@ -84,7 +84,7 @@ private extension DynamicTableViewModel {
 						)
 					}
 				),
-				.bigBold(text: AppStrings.ExposureSubmissionSuccess.subTitle),
+				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,

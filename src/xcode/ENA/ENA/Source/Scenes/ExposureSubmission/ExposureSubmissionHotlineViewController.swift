@@ -89,7 +89,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		)
 	}
 
-	/// Comment me.
+	/// Gets the attributed string that makes the phone number blue and bold.
 	private func getAttributedStrings() -> [NSAttributedString] {
 		let font: UIFont = .preferredFont(forTextStyle: .body)
 		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
