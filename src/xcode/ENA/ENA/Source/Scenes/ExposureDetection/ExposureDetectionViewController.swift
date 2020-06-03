@@ -185,13 +185,10 @@ extension ExposureDetectionViewController {
 		if !state.isTracingEnabled {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
-			checkButton.isTransparent = true
 			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
 			return
 		}
 		
-		checkButton.isTransparent = false
-
 		switch state.mode {
 		case .automatic:
 			footerView.isHidden = true
