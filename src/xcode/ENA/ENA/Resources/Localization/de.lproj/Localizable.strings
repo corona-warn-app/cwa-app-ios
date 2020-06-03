@@ -204,6 +204,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
+"ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code ihres Dokuments";
 "ExposureSubmissionQRScanner_notFoundAlertTitle" = "Befund wurde nicht gefunden";
 "ExposureSubmissionQRScanner_notFoundAlertText" = "Um das Lesen des Codes zu erleichtern, versuchen Sie, den Code vertikal zum Scanner auszurichten oder aktivieren Sie das Blitzlicht.";
 "ExposureSubmissionQRScanner_otherError" = "Ein unbekannter Fehler ist aufgetreten.";

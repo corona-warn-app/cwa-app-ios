@@ -56,6 +56,8 @@ final class ExposureSubmissionQRScannerNavigationController: UINavigationControl
 final class ExposureSubmissionQRScannerViewController: UIViewController {
 	@IBOutlet var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet var flashButton: UIButton!
+	@IBOutlet weak var navigationTitle: UINavigationItem!
+	@IBOutlet weak var instructionLabel: DynamicTypeLabel!
 
 	weak var delegate: ExposureSubmissionQRScannerDelegate?
 
@@ -64,7 +66,13 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		setupView()
 		prepareScanning()
+	}
+
+	private func setupView() {
+		navigationItem.title = AppStrings.ExposureSubmissionQRScanner.title
+		instructionLabel.text = AppStrings.ExposureSubmissionQRScanner.instruction
 	}
 
 	private func prepareScanning() {

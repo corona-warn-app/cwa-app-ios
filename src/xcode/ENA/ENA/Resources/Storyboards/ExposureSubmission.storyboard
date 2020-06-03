@@ -211,6 +211,7 @@
                     <connections>
                         <outlet property="flashButton" destination="6dT-1D-1p0" id="JCv-OD-9wD"/>
                         <outlet property="focusView" destination="R79-KI-RLB" id="mJb-2u-Vpe"/>
+                        <outlet property="instructionLabel" destination="aTI-P6-3Zh" id="lrH-Nw-wTD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YpB-P0-Ufl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -315,7 +316,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="5YR-5A-F8h"/>
+        <segue reference="HlT-ix-3R2"/>
         <segue reference="aeq-iH-Hkk"/>
         <segue reference="n8Y-d3-Pny"/>
         <segue reference="zPx-Mo-iVD"/>

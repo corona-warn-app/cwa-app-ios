@@ -111,6 +111,7 @@ enum AppStrings {
 
 	enum ExposureSubmissionQRScanner {
 		static let title = NSLocalizedString("ExposureSubmissionQRScanner_title", comment: "")
+		static let instruction = NSLocalizedString("ExposureSubmissionQRScanner_instruction", comment: "")
 		static let alertCodeNotFoundTitle = NSLocalizedString("ExposureSubmissionQRScanner_notFoundAlertTitle", comment: "")
 		static let alertCodeNotFoundText = NSLocalizedString("ExposureSubmissionQRScanner_notFoundAlertText", comment: "")
 		static let otherError = NSLocalizedString("ExposureSubmissionQRScanner_otherError", comment: "")
