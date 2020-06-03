@@ -192,6 +192,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				keys = Array(keys[0 ..< 14])
 			}
 			
+			keys.sort {
+				$0.rollingStartNumber > $1.rollingStartNumber
+			}
+			
 			let startIndex = 0
 			for i in startIndex...keys.count - 1 {
 				if i + 1 <= transmissionRiskDefaultVector.count - 1 {
