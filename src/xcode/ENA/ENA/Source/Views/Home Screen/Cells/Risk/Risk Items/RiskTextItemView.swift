@@ -17,7 +17,7 @@
 
 import UIKit
 
-final class RiskTextItemView: UIView, RiskItemView {
+final class RiskTextItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var separatorView: UIView!
 	@IBOutlet var separatorHeightConstraint: NSLayoutConstraint!
