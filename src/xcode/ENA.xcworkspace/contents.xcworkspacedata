@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/i336616/Development/SolExp/Covid/cwa-app-ios/src/xcode/ENA/ENA/Source/Scenes/Onboarding/OnboardingInfoViewController+Extension.swift">
-   </FileRef>
-   <FileRef
       location = "group:ENA/ENA.xcodeproj">
    </FileRef>
 </Workspace>
