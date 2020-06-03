@@ -329,13 +329,9 @@ extension ExposureSubmissionError: LocalizedError {
 		case .invalidResponse:
 			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .noResponse:
-<<<<<<< HEAD
-			return "No response was received"
-		case .noExposureConfiguration:
-			return "No Exposure Configuration available"
-=======
 			return AppStrings.ExposureSubmissionError.noResponse
->>>>>>> development
+		case .noExposureConfiguration:
+			return AppStrings.ExposureSubmissionError.noConfiguration
 		case .qRTeleTanAlreadyUsed:
 			return AppStrings.ExposureSubmissionError.qRTeleTanAlreadyUsed
 		case .regTokenNotExist:
