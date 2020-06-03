@@ -144,4 +144,24 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 			cellImage.image = image
 		}
 	}
+
+	/// This method builds a NSMutableAttributedString for the cell.
+	/// - Parameters:
+	///   - title: The title of the cell.
+	///   - image: The image to be displayed on the right hand of the cell.
+	///   - body: The text shown below the title, which should NOT be formatted in any way.
+	///   - attributedStrings: The text that is injected into `body` with applied attributes, e.g.
+	/// 	bold text, with color.
+	func configure(title: String, image: UIImage?, body: String, attributedStrings: [NSAttributedString]) {
+		setup()
+		setupConstraints()
+		self.title.text = title
+		self.body.attributedText = NSMutableAttributedString.generateAttributedString(
+			normalText: body,
+			attributedText: attributedStrings
+		)
+		if let image = image {
+			cellImage.image = image
+		}
+	}
 }

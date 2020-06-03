@@ -34,7 +34,8 @@ final class HomeViewController: UIViewController {
 		client: Client,
 		store: Store,
 		keyPackagesStore: DownloadedPackagesStore,
-		delegate: HomeViewControllerDelegate
+		delegate: HomeViewControllerDelegate,
+		taskScheduler: ENATaskScheduler
 	) {
 		self.client = client
 		self.store = store
@@ -46,7 +47,8 @@ final class HomeViewController: UIViewController {
 		homeInteractor = HomeInteractor(
 			homeViewController: self,
 			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init())
+			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
+			taskScheduler: taskScheduler
 		)
 
 		exposureSubmissionService = ENAExposureSubmissionService(
@@ -123,9 +125,8 @@ final class HomeViewController: UIViewController {
 
 	@objc
 	private func infoButtonTapped(_: UIButton) {
-		let vc = RiskLegendTableViewController.initiate(for: .riskLegend)
-		let naviController = UINavigationController(rootViewController: vc)
-		present(naviController, animated: true, completion: nil)
+		let vc = AppStoryboard.riskLegend.initiateInitial()
+		present(vc, animated: true, completion: nil)
 	}
 
 	// MARK: Misc
@@ -241,7 +242,7 @@ final class HomeViewController: UIViewController {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManager,
 			riskLevel: riskLevel,
-			nextRefresh: nil, // TODO,
+			nextRefresh: nil,
 			summary: homeInteractor.state.summary
 		)
 
@@ -346,7 +347,7 @@ final class HomeViewController: UIViewController {
 			]
 		)
 
-		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskCollectionViewCell.self, SubmitCollectionViewCell.self, InfoCollectionViewCell.self]
+		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskLevelCollectionViewCell.self, SubmitCollectionViewCell.self, RiskInactiveCollectionViewCell.self, RiskThankYouCollectionViewCell.self, InfoCollectionViewCell.self, RiskFindingPositiveCollectionViewCell.self]
 		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
 		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
@@ -385,7 +386,7 @@ final class HomeViewController: UIViewController {
 	func updateSections() {
 		sections = homeInteractor.sections
 	}
-
+	
 	private func configureUI() {
 
 		collectionView.backgroundColor = .systemGroupedBackground
