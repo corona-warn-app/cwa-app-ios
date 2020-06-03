@@ -23,6 +23,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	var exposureSubmissionService: ExposureSubmissionService?
 	var testResult: TestResult?
+	var timeStamp: Int64?
 	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View Lifecycle methods.
@@ -56,6 +57,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	private func setupView() {
 		setupDynamicTableView()
 		setupNavigationBar()
+		timeStamp = exposureSubmissionService?.devicePairingConsentAcceptTimestamp
 	}
 
 	private func setupButton() {
@@ -220,12 +222,12 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -251,12 +253,12 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -268,7 +270,13 @@ private extension ExposureSubmissionTestResultViewController {
 					image: UIImage(named: "Icons_Grey_Check"),
 					hasSeparators: false
 				),
-				.bigBold(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
+					image: nil,
+					hasSeparators: false
+				),
+				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
 				.stepCellWith(
 					title: nil,
 					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1,
@@ -302,12 +310,12 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -328,11 +336,11 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending, timeStamp: self.timeStamp)
 				}
 			),
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,

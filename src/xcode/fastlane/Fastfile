@@ -32,6 +32,17 @@ platform :ios do
     )
   end
 
+  desc "Build project (Community)"
+  lane :build_community do
+    build_ios_app(
+      skip_codesigning: true,
+      export_method: "ad-hoc",
+      skip_package_ipa: true,
+      destination: "platform=iOS Simulator,OS=13.5,name=iPhone 11",
+      scheme: "ENACommunity"
+    )
+  end
+
   desc "Run tests"
   lane :test do
     # Unit Tests

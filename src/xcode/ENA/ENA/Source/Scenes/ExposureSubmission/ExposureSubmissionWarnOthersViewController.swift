@@ -110,9 +110,9 @@ private extension ExposureSubmissionWarnOthersViewController {
 				.section(
 					header: .image(UIImage(named: "Illu_Submission_AndereWarnen"), height: 250),
 					cells: [
-						.bigBold(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle),
-						.regular(text: AppStrings.ExposureSubmissionWarnOthers.description),
-						.regular(text: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription)
+						.title2(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle),
+						.body(text: AppStrings.ExposureSubmissionWarnOthers.description),
+						.body(text: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription)
 					]
 				)
 			)

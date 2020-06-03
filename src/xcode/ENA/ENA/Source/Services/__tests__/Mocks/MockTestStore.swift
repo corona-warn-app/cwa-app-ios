@@ -33,9 +33,9 @@ class MockTestStore: Store {
 
 	var initialSubmitCompleted: Bool = false
 
-	var submitConsentAcceptTimestamp: Int64?
+	var exposureActivationConsentAcceptTimestamp: Int64?
 
-	var submitConsentAccept: Bool = false
+	var exposureActivationConsentAccept: Bool = false
 
 	var isOnboarded: Bool = false
 
@@ -70,4 +70,6 @@ class MockTestStore: Store {
 	var allowRiskChangesNotification: Bool = true
 
 	var allowTestsStatusNotification: Bool = true
+
+	var previousSummary: ENExposureDetectionSummaryContainer? = ENExposureDetectionSummaryContainer(daysSinceLastExposure: 0, matchedKeyCount: 0, maximumRiskScore: 0)
 }
