@@ -143,23 +143,28 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="N0Q-lm-1nh">
                                 <rect key="frame" x="16" y="699" width="382" height="93"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="JOC-sR-dWr"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Daten zurücksetzen"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                <color key="value" name="negative"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBM-os-0fd">
-                                        <rect key="frame" x="0.0" y="60" width="382" height="33"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <color key="tintColor" name="tint"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBM-os-0fd" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="60" width="382" height="50"/>
                                         <state key="normal" title="Abbrechen"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isTransparent" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="discard:" destination="uYn-mg-qmD" eventType="touchUpInside" id="nvG-Tj-vV4"/>
                                         </connections>
@@ -620,6 +625,9 @@
         </namedColor>
         <namedColor name="brandRed">
             <color red="0.74099999666213989" green="0.071000002324581146" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="negative">
+            <color red="0.75300002098083496" green="0.059000000357627869" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="separator">
             <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -85,7 +85,7 @@ final class SettingsViewController: UITableViewController {
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-		if segue.identifier == resetSegue, let vc = segue.destination as? ResetViewController {
+		if segue.identifier == resetSegue, let nc = segue.destination as? UINavigationController, let vc = nc.topViewController as? ResetViewController {
 			vc.delegate = self
 		}
 	}
@@ -149,7 +149,7 @@ final class SettingsViewController: UITableViewController {
 				return
 			}
 
-			if granted, self.store.allowRiskChangesNotification, self.store.allowTestsStatusNotification {
+			if granted && (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
 				self.settingsViewModel.notifications.setState(state: true)
 			} else {
 				self.settingsViewModel.notifications.setState(state: false)

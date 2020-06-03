@@ -128,24 +128,25 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Dnb-sh-MSz">
                                                     <rect key="frame" x="16" y="16" width="382" height="108"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjZ-ed-ItP" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjZ-ed-ItP" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="RXZ-iw-otW"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <state key="normal" title="Next"/>
                                                             <connections>
                                                                 <action selector="didTapNextButton:" destination="Vq1-Uv-hV6" eventType="touchUpInside" id="xFd-EU-3KZ"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clc-Yy-2ht">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clc-Yy-2ht" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="58" width="382" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="WAo-jw-dV0"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <state key="normal" title="Ignore"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isTransparent" value="YES"/>
+                                                            </userDefinedRuntimeAttributes>
                                                             <connections>
                                                                 <action selector="didTapIgnoreButton:" destination="Vq1-Uv-hV6" eventType="touchUpInside" id="PgS-gx-x7Y"/>
                                                             </connections>
