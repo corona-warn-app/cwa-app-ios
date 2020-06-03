@@ -169,43 +169,43 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19-Kontaktmitteilungen aktivieren";
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Kontaktmitteilungen in den Systemeinstellungen um Begegnungen zu protokollieren. Bitte aktivieren Sie COVID-19-Kontaktmitteilungen in Ihren Systemeinstellungen.";
 
-// Home
-// Home Cards
+/* Home */
+/* Home Cards */
 
-// Home Active card
+/* Home Active card */
 "Home_Activate_Card_On_Title" = "Risk tracing active";
 "Home_Activate_Card_Off_Title" = "Risk tracing stopped";
 
-// Home Unknown card
+/* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unknown risk";
 "Home_RiskCard_Unknown_Item_Title" = "Since you have not activated your environment recording long enough, we could not calculate any risk of infection for you.";
 "Home_RiskCard_Unknown_Button" = "To update";
 
-// Home Inactive card
+/* Home Inactive card */
 "Home_Risk_Inactive_Title" = "No risk assessment";
 "Home_Risk_Inactive_Body" = "Activate risk determination to update your risk.";
 "Home_Risk_Inactive_Activate_Item_Title" = "Last investigation: %@";
 "Home_Risk_Inactive_Date_Item_Title" = "Updated: %@";
 "Home_Risk_Inactive_Button" = "Switch on risk assessment";
 
-// Home Low card
+/* Home Low card */
 "Home_Risk_Low_Title" = "Low risk";
 "Home_Risk_Low_NoContact_Item_Title" = "No risk contact so far";
 "Home_Risk_Low_SaveDays_Item_Title" = "Saved %@ out of %@ days";
 "Home_Risk_Low_Date_Item_Title" = "Updated: %@";
 "Home_Risk_Low_Button" = "To update";
 
-// Home High card
+/* Home High card */
 "Home_Risk_High_Title" = "High risk";
 "Home_Risk_High_Date_Item_Title" = "Updated: %@";
 "Home_Risk_High_Button" = "To update";
 
-// Home Status Check
+/* Home Status Check */
 "Home_Risk_Status_Check_Title" = "In progress..";
 "Home_Risk_Status_Check_Body" = "Current data are downloaded and checked. This can take several minutes.";
 "Home_Risk_Status_Check_Button" = "To update";
 
-// Home Thank you card
+/* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Thank you so much!";
 "Home_Thank_You_Card_Body" = "Thanks to your help, others can be warned and react accordingly.";
 "Home_Thank_You_Card_Note_Title" = "Please note:";
@@ -217,7 +217,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_Thank_You_Card_App_Item_Title" = "Please also pay special attention to people who are not automatically informed by the app because they do not have a smartphone or the app.";
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Even if you have no more symptoms and feel healthy again, you could still be contagious.";
 
-// Home Finding positive
+/* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Finding positive";
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2-positive";
 "Home_Finding_Positive_Card_Status_Subtitle" = "You have been diagnosed with the SARS-CoV-2 virus.";
@@ -227,7 +227,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_Finding_Positive_Card_Share_Item_Title" = "Share your random codes so others can be warned.";
 "Home_Finding_Positive_Card_Button" = "Continue";
 
-// Home Submit card
+/* Home Submit card */
 "Home_SubmitCard_Title" = "I would be tested";
 "Home_SubmitCard_Body" = "Report your findings anonymously so that contact persons can be informed";
 "Home_SubmitCard_Button" = "Report findings";

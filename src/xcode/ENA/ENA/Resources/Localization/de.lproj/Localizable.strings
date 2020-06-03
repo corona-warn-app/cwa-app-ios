@@ -317,7 +317,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 "Home_Risk_Status_Check_Button" = "Aktualisieren";
 
-// Home Thank you card
+/* Home Thank you card */
 "Home_Thank_You_Card_Title" = "Vielen Dank!";
 "Home_Thank_You_Card_Body" = "Dank Ihrer Mithilfe können andere gewarnt werden und entsprechend reagieren.";
 "Home_Thank_You_Card_Note_Title" = "Bitte beachten Sie:";
@@ -329,7 +329,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_Thank_You_Card_App_Item_Title" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone oder die App haben.";
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend sein.";
 
-// Home Finding positive
+/* Home Finding positive */
 "Home_Finding_Positive_Card_Title" = "Befund Positiv";
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2-positiv";
 "Home_Finding_Positive_Card_Status_Subtitle" = "Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.";
@@ -339,7 +339,7 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_Finding_Positive_Card_Share_Item_Title" = "Teilen Sie Ihre Zufallcodes, damit andere gewarnt werden können.";
 "Home_Finding_Positive_Card_Button" = "Weiter";
 
-// Home Submit card
+/* Home Submit card */
 "Home_SubmitCard_Title" = "COVID Test";
 "Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen.";
 "Home_SubmitCard_Button" = "Test registrieren";
