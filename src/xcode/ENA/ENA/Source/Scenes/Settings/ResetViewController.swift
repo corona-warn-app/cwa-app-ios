@@ -26,7 +26,6 @@ final class ResetViewController: UIViewController {
 	@IBOutlet var header1Label: DynamicTypeLabel!
 	@IBOutlet var description1TextView: UITextView!
 	@IBOutlet var resetButton: ENAButton!
-	@IBOutlet var discardResetButton: UIButton!
 	@IBOutlet var infoTitleLabel: DynamicTypeLabel!
 	@IBOutlet var infoDescriptionLabel: UILabel!
 	@IBOutlet var infoView: UIView!
@@ -51,6 +50,10 @@ final class ResetViewController: UIViewController {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
 		navigationController?.navigationBar.prefersLargeTitles = true
 
+		let barButtonItem = UIBarButtonItem(image: UIImage(named: "Icons - Close - Light"), style: .done, target: self, action: #selector(discard)
+		)
+		navigationItem.rightBarButtonItem = barButtonItem
+
 		subtitleLabel.text = AppStrings.Reset.subtitle
 
 		description1TextView.contentInset = .zero
@@ -58,8 +61,6 @@ final class ResetViewController: UIViewController {
 
 		header1Label.text = AppStrings.Reset.header1
 		description1TextView.text = AppStrings.Reset.description1
-		discardResetButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
-		discardResetButton.titleLabel?.adjustsFontForContentSizeCategory = true
 
 		infoView.layer.cornerRadius = 14
 		infoTitleLabel.text = AppStrings.Reset.infoTitle
