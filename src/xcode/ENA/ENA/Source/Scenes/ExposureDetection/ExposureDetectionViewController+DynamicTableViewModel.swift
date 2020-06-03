@@ -25,10 +25,10 @@ extension ExposureDetectionViewController {
 		}
 
 		switch riskLevel {
-		case .unknown: return unknownRiskModel
+		case .unknownInitial, .unknownOutdated: return unknownRiskModel
 		case .inactive: return unknownRiskModel // TODO: remove
 		case .low: return lowRiskModel
-		case .high: return highRiskModel
+		case .increased: return highRiskModel
 		}
 	}
 }

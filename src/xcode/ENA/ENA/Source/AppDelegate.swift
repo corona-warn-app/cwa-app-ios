@@ -25,11 +25,37 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var client: Client { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
+	var taskScheduler: ENATaskScheduler { get }
+}
+
+protocol RequiresAppDependencies {
+	var client: Client { get }
+	var store: Store { get }
+	var taskScheduler: ENATaskScheduler { get }
+	var downloadedPackagesStore: DownloadedPackagesStore { get }
+}
+
+extension RequiresAppDependencies {
+	var client: Client {
+		UIApplication.coronaWarnDelegate().client
+	}
+
+	var downloadedPackagesStore: DownloadedPackagesStore {
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore
+	}
+
+	var store: Store {
+		UIApplication.coronaWarnDelegate().store
+	}
+
+	var taskScheduler: ENATaskScheduler {
+		UIApplication.coronaWarnDelegate().taskScheduler
+	}
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	let taskScheduler = ENATaskScheduler()
+	let taskScheduler = ENATaskScheduler.shared
 	private var exposureManager: ExposureManager = ENAExposureManager()
 	private var exposureDetectionTransaction: ExposureDetectionTransaction?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
@@ -90,7 +116,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.taskDelegate = self
-		taskScheduler.registerBackgroundTaskRequests()
 		return true
 	}
 
@@ -111,8 +136,6 @@ extension AppDelegate: ExposureDetectionTransactionDelegate {
 	func exposureDetectionTransactionRequiresExposureDetector(_ transaction: ExposureDetectionTransaction) -> ExposureDetector {
 		exposureManager
 	}
-
-
 
 	func exposureDetectionTransaction(_: ExposureDetectionTransaction, didEndPrematurely reason: ExposureDetectionTransaction.DidEndPrematurelyReason) {
 		logError(message: "Exposure transaction failed: \(reason)")
@@ -244,21 +267,24 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
-		self.exposureSubmissionService?.getTestResult { result in
+		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
+			self.exposureSubmissionService?.getTestResult { result in
+				switch result {
+				case .failure(let error):
+					logError(message: error.localizedDescription)
 
-			switch result {
-			case .failure(let error):
-				logError(message: error.localizedDescription)
-
-			case .success(let testResult):
-				if testResult != .pending {
-					self.taskScheduler.notificationManager.presentNotification(
-						title: AppStrings.LocalNotifications.testResultsTitle,
-						body: AppStrings.LocalNotifications.testResultsBody,
-						identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+				case .success(let testResult):
+					if testResult != .pending {
+						self.taskScheduler.notificationManager.presentNotification(
+							title: AppStrings.LocalNotifications.testResultsTitle,
+							body: AppStrings.LocalNotifications.testResultsBody,
+							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+					}
 				}
-			}
 
+				complete(success: true)
+			}
+		} else {
 			complete(success: true)
 		}
 
