@@ -23,6 +23,9 @@
 "Alert_MessageGeneral" = "Bitte versuchen Sie es erneut.";
 "Alert_ActionOk" = "Ok";
 "Alert_ActionNo" = "Nein";
+"Alert_ActionRetry" = "Wiederholen";
+"Alert_ActionCancel" = "Abbrechen";
+"Alert_ActionRemove" = "Entfernen";
 "Alert_TitleKeySubmit" = "Tan Generierung";
 "Alert_DescriptionKeySubmit" = "Sind Sie damit einverstanden, Ihre TAN generieren zu lassen?";
 "Alert_BluetoothOff_Title" = "Bluetooth einschalten";
@@ -167,7 +170,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 
 /* Exposure Submission */
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
-"ExposureSubmission_DataPrivacyDescription" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
+"ExposureSubmission_DataPrivacyDescription" = "QR-Code Datenschutztext";
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
 "ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nicht Erlauben";
 
@@ -185,8 +188,6 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmission_DispatchDescription" = "Was liegt Ihnen vor?";
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Dokument mit QR-Code";
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code ihres Test-Dokuments scannen.";
-"ExposureSubmissionDispatch_QRCodeButtonError" = "There has been an error scanning the QR Code.";
-"ExposureSubmissionDispatch_QRCodeButtonErrorNoPermission" = "Please enable your camera settings in order to scan a QR Code.";
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Code";
 "ExposureSubmissionDispatch_TANButtonDescription" = "Registrieren Sie Ihren Test per manueller TAN Eingabe.";
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Noch keine TAN?";
@@ -199,11 +200,30 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:
 
 %@
-";
+
+%@";
 "ExposureSubmission_PhoneNumber" = "+49 (0) 800 7540002";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:
+Deutsch, Englisch
+
+Erreichbarkeit:
+Mo - So: 00:00 - 24:00 Uhr
+
+Es gelten die Preise Ihres Telefonanbieters.
+";
+
 "ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 "ExposureSubmission_TANInputButtonTitle" = "TAN-Code eingeben";
+
+/* Exposure Submission QR Code Scanner */
+"ExposureSubmissionQRScanner_title" = "QR-Code Scan";
+"ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code ihres Dokuments";
+"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Befund wurde nicht gefunden";
+"ExposureSubmissionQRScanner_notFoundAlertText" = "Um das Lesen des Codes zu erleichtern, versuchen Sie, den Code vertikal zum Scanner auszurichten oder aktivieren Sie das Blitzlicht.";
+"ExposureSubmissionQRScanner_otherError" = "Ein unbekannter Fehler ist aufgetreten.";
+"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera um den QR-Code zu scannen.";
+"ExposureSubmissionQRScanner_cameraPermissionRestricted" = "Ihre Kamera Nutzung wurde eingeschränkt. Bitte erlauben Sie der App die Benutzung der Kamera um den QR-Code zu scannen.";
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank";
@@ -244,15 +264,16 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmissionResult_testPositive" = "Befund positiv";
 "ExposureSubmissionResult_testPositiveDesc" = "Ihr Test-Ergebnis wurde erfolgreich als “positiv” verifiziert.";
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
-"ExposureSubmissionResult_testNegativeDesc" = "Ihr Test-Ergebnis wurde erfolgreich als “negativ” verifiziert.";
+"ExposureSubmissionResult_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
 "ExposureSubmissionResult_removeNote" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Sie haben trotzdem gesundheitliche Beschwerden? Wenn Sie sich sehr krank fühlen und/oder Ihre Beschwerden sich verschlechtert haben, wenden Sie sich bitte an Ihre/-n Hausärztin/Hausarzt.";
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Bleiben Sie bis zu Ihrer Genesung trotzdem zu Hause. Falls Sie sich durch eine andere Infektion geschwächt mit dem Coronavirus (SARS-CoV-2) infizieren, kann dies zu schwereren Krankheitsverläufen führen.";
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Gehen Sie nicht krank zur Arbeit, um andere Personen nicht zu gefährden.";
-"ExposureSubmissionResult_testNegative_furtherInfos_hint" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteres SARS-CoV-2-Tests bestehen.";
+"ExposureSubmissionResult_testNegative_furtherInfos_hint" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 "ExposureSubmissionResult_testInvalid" = "Test fehlerhaft";
-"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Gesundheitsamt um Information zum weiteren Vorgehen zu erhalten. Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
+"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Gesundheitsamt um Information zum weiteren Vorgehen zu erhalten.
+Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 "ExposureSubmissionResult_testPending" = "Test-Ergebnis noch nicht verfügbar";
 "ExposureSubmissionResult_testPendingDesc" = "Ihr Test-Ergebnis steht noch nicht zur Verfügung.";
 "ExposureSubmissionResult_continueButton" = "Weiter";
@@ -265,6 +286,21 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 
 Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Test entfernen?";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Der Test wird endgültig aus der Corona-Warn-App entfernt und kann nicht wieder hinzugefügt werden. Dieser Vorgang kann nicht widerrufen werden.";
+
+/* Exposure Submission */
+"ExposureSubmissionError_NoKeys" = "Keine Diagnoseschlüssel verfügbar. Bitte versuchen Sie morgen erneut.";
+"ExposureSubmissionError_InvalidTan" = "Die erzeugte TAN für die Übermittlung ist ungültig.";
+"ExposureSubmissionError_EnNotEnabled" = "Das Exposure Notification ist nicht aktiv.";
+"ExposureSubmissionError_NoRegistrationToken" = "Kein Registration Token auf dem Gerät gefunden.";
+"ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
+"ExposureSubmissionError_NoResponse" = "Die Anwort enthält kein Inhalt";
+"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Der QR-Code oder die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
+"ExposureSubmissionError_RegTokenNotExist" = "Der verwendet Registration Token existiert nich.";
+"ExposureSubmissionError_other" = "Fehler: ";
+"ExposureSubmissionError_unknown" = "Unbekannter Fehler";
+"ExposureSubmissionError_defaultError" = "Allgemeinier Exposure Submission Fehler";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";

@@ -114,25 +114,23 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
 			preferredStyle: .alert
 		)
+		let acceptAction = UIAlertAction(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle, style: .default, handler: { _ in
 
-		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
-							  style: .default,
-							  handler: { _ in
-
-								self.exposureSubmissionService?.devicePairingConsentAccept = true
-								self.exposureSubmissionService?.devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
-								self.performSegue(
-									withIdentifier: Segue.qrScanner,
-									sender: self
-								)
-		}))
+											self.exposureSubmissionService?.devicePairingConsentAccept = true
+											self.exposureSubmissionService?.devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+											self.performSegue(
+												withIdentifier: Segue.qrScanner,
+												sender: self
+											)
+		})
+		alert.addAction(acceptAction)
 
 		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,
 							  style: .cancel,
 							  handler: { _ in
 								alert.dismiss(animated: true, completion: nil) }
 			))
-
+		alert.preferredAction = acceptAction
 		present(alert, animated: true, completion: nil)
 	}
 }
@@ -170,8 +168,17 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
-			let alert = ExposureSubmissionViewUtils.setupAlert(message: "The provided QR code was invalid.")
-			dismissQRCodeScannerView(vc, completion: nil)
+			vc.delegate = nil
+			let alert = ExposureSubmissionViewUtils.setupAlert(
+				title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
+				message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
+				okTitle: AppStrings.Common.alertActionCancel,
+				retry: true,
+				action: {
+					self.dismissQRCodeScannerView(vc, completion: nil)
+				},
+				retryActionHandler: { vc.delegate = self }
+			)
 			vc.present(alert, animated: true, completion: nil)
 			return
 		}
@@ -196,7 +203,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				self.present(alert, animated: true, completion: nil)
 
 			case let .success(token):
-				print("Received registration token: \(token)")
+				appLogger.log(message: "Received registration token: \(token)", file: #file, line: #line, function: #function)
 				self.fetchResult()
 			}
         })
@@ -300,10 +307,14 @@ private extension ExposureSubmissionOverviewViewController {
 		case .authorized, .notDetermined:
 			performSegue(withIdentifier: Segue.qrScanner, sender: self)
 		case .denied:
-			let alert = ExposureSubmissionViewUtils.setupAlert(message: "You need to allow camera usage")
+			let alert = ExposureSubmissionViewUtils.setupAlert(
+				message: AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
+			)
 			present(alert, animated: true, completion: nil)
 		case .restricted:
-			let alert = ExposureSubmissionViewUtils.setupAlert(message: "Your camera usage is restricted.")
+			let alert = ExposureSubmissionViewUtils.setupAlert(
+				message: AppStrings.ExposureSubmissionQRScanner.cameraPermissionRestricted
+			)
 			present(alert, animated: true, completion: nil)
         // swiftlint:disable:next switch_case_alignment
         @unknown default:

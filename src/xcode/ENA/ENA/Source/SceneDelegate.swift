@@ -279,6 +279,9 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		_: ENAExposureManager,
 		didChangeState newState: ExposureManagerState
 	) {
+		// Add the new state to the history
+		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
+
 		let message = """
 		New status of EN framework:
 		Authorized: \(newState.authorized)
