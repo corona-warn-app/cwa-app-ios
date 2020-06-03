@@ -25,6 +25,7 @@
 "Alert_ActionNo" = "Nein";
 "Alert_ActionRetry" = "Wiederholen";
 "Alert_ActionCancel" = "Abbrechen";
+"Alert_ActionRemove" = "Entfernen";
 "Alert_TitleKeySubmit" = "Tan Generierung";
 "Alert_DescriptionKeySubmit" = "Sind Sie damit einverstanden, Ihre TAN generieren zu lassen?";
 "Alert_BluetoothOff_Title" = "Bluetooth einschalten";
@@ -166,7 +167,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 
 /* Exposure Submission */
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
-"ExposureSubmission_DataPrivacyDescription" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sed pulvinar erat. Cras at finibus lacus. Fusce ultrices tristique turpis quis elementum. Cras luctus vestibulum iaculis. Mauris sit amet dolor urna. Pellentesque sapien nunc, volutpat id luctus ac, vulputate in tortor.";
+"ExposureSubmission_DataPrivacyDescription" = "QR-Code Datenschutztext";
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
 "ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Nicht Erlauben";
 
@@ -272,6 +273,8 @@ Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedar
 
 Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Test entfernen?";
+"ExposureSubmissionResult_RemoveAlert_Text" = "Der Test wird endgültig aus der Corona-Warn-App entfernt und kann nicht wieder hinzugefügt werden. Dieser Vorgang kann nicht widerrufen werden.";
 
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Keine Diagnoseschlüssel verfügbar. Bitte versuchen Sie morgen erneut.";

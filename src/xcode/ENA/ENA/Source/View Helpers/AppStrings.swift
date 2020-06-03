@@ -26,6 +26,7 @@ enum AppStrings {
 		static let alertActionRetry = NSLocalizedString("Alert_ActionRetry", comment: "")
 		static let alertActionCancel = NSLocalizedString("Alert_ActionCancel", comment: "")
 		static let alertActionNo = NSLocalizedString("Alert_ActionNo", comment: "")
+		static let alertActionRemove = NSLocalizedString("Alert_ActionRemove", comment: "")
 		static let alertTitleKeySubmit = NSLocalizedString("Alert_TitleKeySubmit", comment: "")
 		static let alertDescriptionKeySubmit = NSLocalizedString("Alert_DescriptionKeySubmit", comment: "")
 
@@ -95,6 +96,8 @@ enum AppStrings {
 		static let furtherInfos_ListItem2 = NSLocalizedString("ExposureSubmissionResult_testNegative_furtherInfos_listItem2", comment: "")
 		static let furtherInfos_ListItem3 = NSLocalizedString("ExposureSubmissionResult_testNegative_furtherInfos_listItem3", comment: "")
 		static let furtherInfos_Hint = NSLocalizedString("ExposureSubmissionResult_testNegative_furtherInfos_hint", comment: "")
+		static let removeAlert_Title = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Title", comment: "")
+		static let removeAlert_Text = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Text", comment: "")
 	}
 
 	enum ExposureSubmissionDispatch {
