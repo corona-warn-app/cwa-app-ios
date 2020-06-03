@@ -211,8 +211,8 @@ final class OnboardingInfoViewController: UIViewController {
 		}
 
 		func persistForDPP(accepted: Bool) {
-			self.store.submissionConsentAccept = accepted
-			self.store.submissionConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+			self.store.exposureActivationConsentAccept = accepted
+			self.store.exposureActivationConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
 		}
 
 		guard !exposureManagerActivated else {
