@@ -35,14 +35,6 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		}
 	}
 
-	override func awakeFromNib() {
-		actionButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
-		actionButton.titleLabel?.adjustsFontForContentSizeCategory = true
-		actionButton.titleLabel?.lineBreakMode = .byWordWrapping
-		actionButton.layer.masksToBounds = true
-		actionButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
-	}
-
 	func configure(for state: RiskDetectionState) {
 		iconImageView1.image = images(for: state).0
 		iconImageView2.image = images(for: state).1

@@ -36,7 +36,7 @@ extension ExposureSubmissionNavigationControllerChild {
 
 extension ExposureSubmissionNavigationControllerChild where Self: UIViewController {
 	var bottomView: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.bottomView }
-	var button: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.button }
+	var button: ENAButton? { (navigationController as? ExposureSubmissionNavigationController)?.button }
 
 	func setButtonTitle(to title: String) {
 		(navigationController as? ExposureSubmissionNavigationController)?
@@ -297,7 +297,7 @@ extension ExposureSubmissionNavigationController {
 		bottomConstraint.priority = .defaultHigh
 		bottomViewTopConstraint = view.topAnchor.constraint(equalTo: self.view.bottomAnchor)
 
-		button = ENAButton(type: .system)
+		button = ENAButton(type: .custom)
 		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
 		button.setTitle("", for: .normal)
 
@@ -310,7 +310,7 @@ extension ExposureSubmissionNavigationController {
 		button.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
 		// by default, the secondary button is hidden.
-		secondaryButton = ENAButton(type: .system)
+		secondaryButton = ENAButton(type: .custom)
 		secondaryButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .bold)
 		secondaryButton.setTitle("", for: .normal)
 		secondaryButton.backgroundColor = .clear
