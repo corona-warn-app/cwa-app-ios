@@ -235,7 +235,7 @@ private extension ExposureSubmissionOverviewViewController {
 				header: header,
 				separators: false,
 				cells: [
-					.regular(text: AppStrings.ExposureSubmissionDispatch.description)
+					.body(text: AppStrings.ExposureSubmissionDispatch.description)
 				]
 			)
 		)
@@ -275,13 +275,23 @@ private extension ExposureSubmissionOverviewViewController {
 					cell.configure(
 						title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
 						image: UIImage(named: "Illu_Submission_Anruf"),
-						body: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription
+						body: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
+						attributedStrings: self.getAttributedStrings()
 					)
 				}
 			)
 		]))
 
 		return data
+	}
+
+	/// Gets the attributed string that makes the "Positive" word bold.
+	private func getAttributedStrings() -> [NSAttributedString] {
+		let font: UIFont = .preferredFont(forTextStyle: .body)
+		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
+		let attr: [NSAttributedString.Key: Any] = [.font: boldFont]
+		let word = NSAttributedString(string: AppStrings.ExposureSubmissionDispatch.positiveWord, attributes: attr)
+		return [word]
 	}
 
 	private func transitionToQRScanner(_: UIViewController) {

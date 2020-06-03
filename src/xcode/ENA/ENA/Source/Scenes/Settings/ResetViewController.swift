@@ -36,6 +36,7 @@ final class ResetViewController: UIViewController {
 
 	@IBAction func resetData(_: Any) {
 		delegate?.reset()
+		dismiss(animated: true, completion: nil)
 	}
 
 	override func viewDidLoad() {

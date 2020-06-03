@@ -74,7 +74,8 @@ final class HomeInteractor {
 	private(set) var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
 
 	private var activeConfigurator: HomeActivateCellConfigurator!
-	private var riskConfigurator: HomeRiskCellConfigurator?
+	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
+	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
 
 	func developerMenuEnableIfAllowed() {}
 
@@ -94,19 +95,19 @@ final class HomeInteractor {
 		// TODO: handle state of pending scheduled tasks to determin active state for manual refresh button
 		// TODO: disable manual trigger button
 		guard let indexPath = indexPathForRiskCell() else { return }
-		riskConfigurator?.startLoading()
+		riskLevelConfigurator?.startLoading()
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 
 		taskScheduler.cancelAllBackgroundTaskRequests()
 
-		riskCellTask {
-			self.riskConfigurator?.stopLoading()
+		riskCellTask(completion: {
+			self.riskLevelConfigurator?.stopLoading()
 			guard let indexPath = self.indexPathForRiskCell() else { return }
 			self.homeViewController.updateSections()
 			self.homeViewController.reloadCell(at: indexPath)
 			self.taskScheduler.scheduleBackgroundTaskRequests()
-		}
+		})
 	}
 
 	private func fetchUpdateRisk() {
@@ -136,19 +137,19 @@ final class HomeInteractor {
 	}
 
 	private func updateRiskLoading() {
-		isUpdateTaskRunning ? riskConfigurator?.startLoading() : riskConfigurator?.stopLoading()
+		isUpdateTaskRunning ? riskLevelConfigurator?.startLoading() : riskLevelConfigurator?.stopLoading()
 	}
 
 	private func updateRiskCounter() {
 		if let releaseDate = releaseDate, isTimerRunning {
-			riskConfigurator?.updateCounter(startDate: Date(), releaseDate: releaseDate)
+			riskLevelConfigurator?.updateCounter(startDate: Date(), releaseDate: releaseDate)
 		} else {
-			riskConfigurator?.removeCounter()
+			riskLevelConfigurator?.removeCounter()
 		}
 	}
 
 	private func updateRiskButton() {
-		riskConfigurator?.updateButtonEnabled(!isUpdateTaskRunning && !isTimerRunning)
+		riskLevelConfigurator?.updateButtonEnabled(!isUpdateTaskRunning && !isTimerRunning)
 	}
 
 	private func reloadRiskCell() {
@@ -161,8 +162,10 @@ final class HomeInteractor {
 	}
 
 	private func initialCellConfigurators() -> [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] {
+
 		let currentState = stateHandler.getState()
 		activeConfigurator = HomeActivateCellConfigurator(state: currentState)
+
 		let dateLastExposureDetection = store.dateLastExposureDetection
 
 		let isButtonHidden = userLoadingMode == .automatic
@@ -174,7 +177,7 @@ final class HomeInteractor {
 
 		switch riskLevel {
 		case .unknownInitial, .unknownOutdated:
-			riskConfigurator = HomeUnknownRiskCellConfigurator(
+			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
 				isButtonEnabled: true,
 				isButtonHidden: isButtonHidden,
@@ -184,45 +187,44 @@ final class HomeInteractor {
 				lastUpdateDate: nil
 			)
 		case .inactive:
-			riskConfigurator = HomeInactiveRiskCellConfigurator(
-				isLoading: false,
-				isButtonEnabled: true,
-				lastInvestigation: "Geringes Risiko",
-				lastUpdateDate: dateLastExposureDetection
-			)
+			inactiveConfigurator = HomeInactiveRiskCellConfigurator(lastInvestigation: "Geringes Risiko", lastUpdateDate: dateLastExposureDetection)
 		case .low:
-			riskConfigurator = HomeLowRiskCellConfigurator(
-				isLoading: false,
-				isButtonEnabled: true,
-				isButtonHidden: isButtonHidden,
-				isCounterLabelHidden: isCounterLabelHidden,
+			riskLevelConfigurator = HomeLowRiskCellConfigurator(
 				startDate: startDate,
 				releaseDate: releaseDate,
 				numberDays: 2,
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection
 			)
+			riskLevelConfigurator?.isButtonHidden = isButtonHidden
+			riskLevelConfigurator?.isCounterLabelHidden = isCounterLabelHidden
 		case .increased:
-			riskConfigurator = HomeHighRiskCellConfigurator(
-				isLoading: false,
-				isButtonEnabled: true,
-				isButtonHidden: isButtonHidden,
-				isCounterLabelHidden: isCounterLabelHidden,
+			riskLevelConfigurator = HomeHighRiskCellConfigurator(
 				startDate: startDate,
 				releaseDate: releaseDate,
 				numberRiskContacts: state.numberRiskContacts,
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection
 			)
+			riskLevelConfigurator?.isButtonHidden = isButtonHidden
+			riskLevelConfigurator?.isCounterLabelHidden = isCounterLabelHidden
 		}
 
-		riskConfigurator?.buttonAction = { [unowned self] in
+		riskLevelConfigurator?.buttonAction = { [unowned self] in
 			if self.riskLevel == .inactive {
 				// go to settings?
 			} else {
 				self.startCountdownAndUpdateRisk()
 			}
 		}
+
+		// for testing
+		// let thankYouConfigurator = HomeThankYouRiskCellConfigurator()
+		// let findingPositiveConfigurator = HomeFindingPositiveRiskCellConfigurator()
+		// findingPositiveConfigurator.nextAction = { }
+		// ...
+		// actionsConfigurators.append(findingPositiveConfigurator)
+		// actionsConfigurators.append(thankYouConfigurator)
 
 		// MARK: Configure exposure submission view.
 		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
@@ -257,10 +259,12 @@ final class HomeInteractor {
 
 		var actionsConfigurators: [CollectionViewCellConfiguratorAny] = []
 		actionsConfigurators.append(activeConfigurator)
-		if let risk = riskConfigurator {
+		if let risk = riskLevelConfigurator {
 			actionsConfigurators.append(risk)
 		}
-
+		if let inactive = inactiveConfigurator {
+			actionsConfigurators.append(inactive)
+		}
 		if let exposureSubmission = exposureSubmissionConfigurator {
 			actionsConfigurators.append(exposureSubmission)
 		}
@@ -324,7 +328,7 @@ final class HomeInteractor {
 	private func indexPathForRiskCell() -> IndexPath? {
 		for section in sections {
 			let index = section.cellConfigurators.firstIndex { cellConfigurator in
-				cellConfigurator === self.riskConfigurator
+				cellConfigurator === self.riskLevelConfigurator
 			}
 			guard let item = index else { return nil }
 			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
