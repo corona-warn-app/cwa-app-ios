@@ -59,23 +59,9 @@ struct ExposureManagerState {
 	@objc dynamic var exposureNotificationStatus: ENStatus { get }
 	func getDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
-	func exposureInfo(
-		summary: ENExposureDetectionSummary,
-		userExplanation: String,
-		completionHandler: @escaping ENGetExposureInfoHandler
-	) -> Progress
-
 }
 
-extension ENManager: Manager {
-	func exposureInfo(
-		summary: ENExposureDetectionSummary,
-		userExplanation: String,
-		completionHandler: @escaping ENGetExposureInfoHandler
-	) -> Progress {
-		getExposureInfo(summary: summary, userExplanation: userExplanation, completionHandler: completionHandler)
-	}
-}
+extension ENManager: Manager {}
 
 protocol ExposureManagerLifeCycle {
 	typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
@@ -212,15 +198,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Wrapper for `ENManager.detectExposures`
 	/// `ExposureManager` needs to be activated and enabled
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
-		manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { summary, _ in
-
-			DispatchQueue.main.async {
-				self.manager.exposureInfo(summary: summary!, userExplanation: "hello world") { (info, err) in
-					print("info: \(info)")
-				}
-			}
-
-		}
+		manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs, completionHandler: completionHandler)
 	}
 
 	// MARK: Diagnosis Keys

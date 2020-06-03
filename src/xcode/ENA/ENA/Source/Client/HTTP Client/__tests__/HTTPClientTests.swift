@@ -19,6 +19,7 @@
 import ExposureNotification
 import XCTest
 
+// swiftlint:disable:next type_body_length
 final class HTTPClientTests: XCTestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
