@@ -114,25 +114,23 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			message: AppStrings.ExposureSubmission.dataPrivacyDisclaimer,
 			preferredStyle: .alert
 		)
+		let acceptAction = UIAlertAction(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle, style: .default, handler: { _ in
 
-		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
-							  style: .default,
-							  handler: { _ in
-
-								self.exposureSubmissionService?.devicePairingConsentAccept = true
-								self.exposureSubmissionService?.devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
-								self.performSegue(
-									withIdentifier: Segue.qrScanner,
-									sender: self
-								)
-		}))
+											self.exposureSubmissionService?.devicePairingConsentAccept = true
+											self.exposureSubmissionService?.devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+											self.performSegue(
+												withIdentifier: Segue.qrScanner,
+												sender: self
+											)
+		})
+		alert.addAction(acceptAction)
 
 		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyDontAcceptTitle,
 							  style: .cancel,
 							  handler: { _ in
 								alert.dismiss(animated: true, completion: nil) }
 			))
-
+		alert.preferredAction = acceptAction
 		present(alert, animated: true, completion: nil)
 	}
 }
