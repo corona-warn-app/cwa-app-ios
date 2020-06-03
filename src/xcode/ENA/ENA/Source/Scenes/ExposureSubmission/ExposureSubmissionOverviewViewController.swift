@@ -170,8 +170,15 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
-			let alert = ExposureSubmissionViewUtils.setupAlert(message: "The provided QR code was invalid.")
-			dismissQRCodeScannerView(vc, completion: nil)
+			let alert = ExposureSubmissionViewUtils.setupAlert(
+				title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
+				message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
+				okTitle: AppStrings.Common.alertActionCancel,
+				retry: true,
+				action: {
+					self.dismissQRCodeScannerView(vc, completion: nil)
+				}
+			)
 			vc.present(alert, animated: true, completion: nil)
 			return
 		}
@@ -196,7 +203,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				self.present(alert, animated: true, completion: nil)
 
 			case let .success(token):
-				print("Received registration token: \(token)")
+				appLogger.log(message: "Received registration token: \(token)", file: #file, line: #line, function: #function)
 				self.fetchResult()
 			}
         })
@@ -300,10 +307,14 @@ private extension ExposureSubmissionOverviewViewController {
 		case .authorized, .notDetermined:
 			performSegue(withIdentifier: Segue.qrScanner, sender: self)
 		case .denied:
-			let alert = ExposureSubmissionViewUtils.setupAlert(message: "You need to allow camera usage")
+			let alert = ExposureSubmissionViewUtils.setupAlert(
+				message: AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
+			)
 			present(alert, animated: true, completion: nil)
 		case .restricted:
-			let alert = ExposureSubmissionViewUtils.setupAlert(message: "Your camera usage is restricted.")
+			let alert = ExposureSubmissionViewUtils.setupAlert(
+				message: AppStrings.ExposureSubmissionQRScanner.cameraPermissionRestricted
+			)
 			present(alert, animated: true, completion: nil)
         // swiftlint:disable:next switch_case_alignment
         @unknown default:

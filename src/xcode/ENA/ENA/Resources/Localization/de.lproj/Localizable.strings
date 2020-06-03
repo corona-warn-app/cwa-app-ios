@@ -23,6 +23,8 @@
 "Alert_MessageGeneral" = "Bitte versuchen Sie es erneut.";
 "Alert_ActionOk" = "Ok";
 "Alert_ActionNo" = "Nein";
+"Alert_ActionRetry" = "Wiederholen";
+"Alert_ActionCancel" = "Abbrechen";
 "Alert_TitleKeySubmit" = "Tan Generierung";
 "Alert_DescriptionKeySubmit" = "Sind Sie damit einverstanden, Ihre TAN generieren zu lassen?";
 "Alert_BluetoothOff_Title" = "Bluetooth einschalten";
@@ -182,8 +184,6 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmission_DispatchDescription" = "Was liegt Ihnen vor?";
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Dokument mit QR-Code";
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code ihres Test-Dokuments scannen.";
-"ExposureSubmissionDispatch_QRCodeButtonError" = "There has been an error scanning the QR Code.";
-"ExposureSubmissionDispatch_QRCodeButtonErrorNoPermission" = "Please enable your camera settings in order to scan a QR Code.";
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Code";
 "ExposureSubmissionDispatch_TANButtonDescription" = "Registrieren Sie Ihren Test per manueller TAN Eingabe.";
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Noch keine TAN?";
@@ -201,6 +201,14 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 "ExposureSubmission_TANInputButtonTitle" = "TAN-Code eingeben";
+
+/* Exposure Submission QR Code Scanner */
+"ExposureSubmissionQRScanner_title" = "QR-Code Scan";
+"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Befund wurde nicht gefunden";
+"ExposureSubmissionQRScanner_notFoundAlertText" = "Um das Lesen des Codes zu erleichtern, versuchen Sie, den Code vertikal zum Scanner auszurichten oder aktivieren Sie das Blitzlicht.";
+"ExposureSubmissionQRScanner_otherError" = "Ein unbekannter Fehler ist aufgetreten.";
+"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera um den QR-Code zu scannen.";
+"ExposureSubmissionQRScanner_cameraPermissionRestricted" = "Ihre Kamera Nutzung wurde eingeschränkt. Bitte erlauben Sie der App die Benutzung der Kamera um den QR-Code zu scannen.";
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank";

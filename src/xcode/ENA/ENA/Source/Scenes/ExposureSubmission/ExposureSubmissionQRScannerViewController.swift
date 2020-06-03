@@ -28,9 +28,9 @@ extension QRScannerError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .cameraPermissionDenied:
-			return AppStrings.ExposureSubmissionDispatch.qrCodeButtonErrorNoPermission
-		case .other:
-			return AppStrings.ExposureSubmissionDispatch.qrCodeButtonError
+			return AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
+		default:
+			return AppStrings.ExposureSubmissionQRScanner.otherError
 		}
 	}
 }
@@ -200,7 +200,7 @@ final class ExposureSubmissionQRScannerFocusView: UIView {
 }
 
 private extension Array {
-	public func first<T>(ofType _: T.Type) -> T? {
+	func first<T>(ofType _: T.Type) -> T? {
 		first(where: { $0 is T }) as? T
 	}
 }
