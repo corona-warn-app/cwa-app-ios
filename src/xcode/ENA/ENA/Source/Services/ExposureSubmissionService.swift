@@ -199,12 +199,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
 			}
 
-			if keys.count > 14 {
-				keys = Array(keys[0 ..< 14])
-			}
-			
 			keys.sort {
 				$0.rollingStartNumber > $1.rollingStartNumber
+			}
+			
+			if keys.count > 14 {
+				keys = Array(keys[0 ..< 14])
 			}
 			
 			let startIndex = 0
