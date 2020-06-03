@@ -140,6 +140,8 @@ enum AppStrings {
 		static let sectionTitle = NSLocalizedString("ExposureSubmissionWarnOthers_sectionTitle", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionWarnOthers_description", comment: "")
 		static let dataPrivacyDescription = NSLocalizedString("ExposureSubmissionWarnOthers_dataPrivacyDescription", comment: "")
+		static let errorNotEnabledTitle = NSLocalizedString("ExposureSubmissionError_EnNotEnabledForWarnOthersTitle", comment: "")
+		static let errorNotEnabledDescription = NSLocalizedString("ExposureSubmissionError_EnNotEnabledForWarnOthersDescription", comment: "")
 	}
 
 	enum ExposureSubmissionSuccess {

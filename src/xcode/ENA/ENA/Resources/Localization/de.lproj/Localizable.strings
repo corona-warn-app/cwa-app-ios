@@ -298,6 +298,8 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "ExposureSubmissionError_other" = "Fehler: ";
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
 "ExposureSubmissionError_defaultError" = "Allgemeinier Exposure Submission Fehler";
+"ExposureSubmissionError_EnNotEnabledForWarnOthersTitle" = "Fehler";
+"ExposureSubmissionError_EnNotEnabledForWarnOthersDescription" = "Bitte aktivieren Sie die Risiko-Ermittlung um andere zu warnen.";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";

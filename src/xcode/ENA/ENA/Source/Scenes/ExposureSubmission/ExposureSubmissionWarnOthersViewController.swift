@@ -74,6 +74,20 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 		exposureSubmissionService?.submitExposure(with: tan, completionHandler: { error in
 			self.stopSpinner()
 			if let error = error {
+				print(error.localizedDescription)
+				// This error case needs a specialized description (which is not
+				// its default localizedDescription) that is only interesting
+				// for this particular screen.
+				if case .enNotEnabled = error {
+					logError(message: "error: \(error.localizedDescription)", level: .error)
+					let alert = ExposureSubmissionViewUtils.setupAlert(
+						title: AppStrings.ExposureSubmissionWarnOthers.errorNotEnabledTitle,
+						message: AppStrings.ExposureSubmissionWarnOthers.errorNotEnabledDescription,
+						retry: false
+					)
+					self.present(alert, animated: true, completion: nil)
+					return
+				}
 				logError(message: "error: \(error.localizedDescription)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
