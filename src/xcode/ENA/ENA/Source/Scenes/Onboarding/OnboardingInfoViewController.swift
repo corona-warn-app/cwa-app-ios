@@ -63,7 +63,7 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var boldLabel: UILabel!
 	@IBOutlet var textLabel: UILabel!
 	@IBOutlet var nextButton: ENAButton!
-	@IBOutlet var ignoreButton: UIButton!
+	@IBOutlet var ignoreButton: ENAButton!
 
 	@IBOutlet var scrollView: UIScrollView!
 	@IBOutlet var footerView: UIView!
@@ -155,15 +155,11 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
-		ignoreButton.setTitleColor(UIColor.preferredColor(for: .tint), for: .normal)
-		ignoreButton.backgroundColor = UIColor.clear
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
 
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		ignoreButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 	}
 
 	func setupAccessibility() {
@@ -186,8 +182,6 @@ final class OnboardingInfoViewController: UIViewController {
 			titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 			boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-			nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-			ignoreButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		}
 	}
 
