@@ -66,6 +66,11 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 		delegate?.activeButtonTapped(cell: self)
 	}
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		removeAllArrangedSubviews()
+	}
+	
 	func removeAllArrangedSubviews() {
 		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 	}

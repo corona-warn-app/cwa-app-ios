@@ -23,8 +23,6 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
 
-		cell.removeAllArrangedSubviews()
-
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
 		let titleColor: UIColor = .white
 		cell.configureTitle(title: title, titleColor: titleColor)

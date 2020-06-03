@@ -43,6 +43,11 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 		stackView.isLayoutMarginsRelativeArrangement = true
 	}
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		removeAllArrangedSubviews()
+	}
+	
 	func removeAllArrangedSubviews() {
 		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 	}

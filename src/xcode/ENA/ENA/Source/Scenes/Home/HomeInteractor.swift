@@ -230,6 +230,13 @@ final class HomeInteractor {
 		// actionsConfigurators.append(findingPositiveConfigurator)
 		// actionsConfigurators.append(thankYouConfigurator)
 
+		// for testing
+		 let thankYouConfigurator = HomeThankYouRiskCellConfigurator()
+		 let findingPositiveConfigurator = HomeFindingPositiveRiskCellConfigurator()
+		 findingPositiveConfigurator.nextAction = { }
+		// ...
+
+
 		// MARK: Configure exposure submission view.
 		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
 
@@ -273,6 +280,8 @@ final class HomeInteractor {
 			actionsConfigurators.append(exposureSubmission)
 		}
 
+		actionsConfigurators.append(findingPositiveConfigurator)
+		actionsConfigurators.append(thankYouConfigurator)
 
 
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
