@@ -197,8 +197,18 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:
 
 %@
-";
+
+%@";
 "ExposureSubmission_PhoneNumber" = "+49 (0) 800 7540002";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:
+Deutsch, Englisch
+
+Erreichbarkeit:
+Mo - So: 00:00 - 24:00 Uhr
+
+Es gelten die Preise Ihres Telefonanbieters.
+";
+
 "ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 "ExposureSubmission_TANInputButtonTitle" = "TAN-Code eingeben";
