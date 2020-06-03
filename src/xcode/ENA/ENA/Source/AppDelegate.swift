@@ -337,23 +337,23 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		self.exposureDetection?.start { result in
 			defer { complete(success: true) }
 			if case let .success(newSummary) = result {
+
+				// get the previous risk score from the store
+				// check if the risk score has escalated since the last summary
+				if let previousRiskScore = self.store.previousSummary?.maximumRiskScore,
+					RiskLevel(riskScore: newSummary.maximumRiskScore) > RiskLevel(riskScore: previousRiskScore),
+					RiskLevel(riskScore: newSummary.maximumRiskScore) == .increased {
+					// present a notification if the risk score has increased
+					self.taskScheduler.notificationManager.presentNotification(
+						title: AppStrings.LocalNotifications.testResultsTitle,
+						body: AppStrings.LocalNotifications.testResultsBody,
+						identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+				}
+
 				// persist the previous risk score to the store
 				self.store.previousSummary = ENExposureDetectionSummaryContainer(with: newSummary)
-			}
 
-			// get the previous risk score from the store
-			// check if the risk score has escalated since the last summary
-			if let previousRiskScore = self.store.previousSummary?.maximumRiskScore,
-				RiskLevel(riskScore: newSummary.maximumRiskScore) > RiskLevel(riskScore: previousRiskScore) {
-				// present a notification if the risk score has increased
-				self.taskScheduler.notificationManager.presentNotification(
-					title: AppStrings.LocalNotifications.testResultsTitle,
-					body: AppStrings.LocalNotifications.testResultsBody,
-					identifier: ENATaskIdentifier.fetchTestResults.rawValue)
 			}
-
-			// persist the previous risk score to the store
-			self.store.previousSummary = ENExposureDetectionSummaryContainer(with: newSummary)
 
 			complete(success: true)
 		}
