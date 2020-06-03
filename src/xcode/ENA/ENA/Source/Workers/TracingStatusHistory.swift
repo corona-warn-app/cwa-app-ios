@@ -42,7 +42,7 @@ extension Array where Element == TracingStatusEntry {
 	}
 
 	// MARK: Adjusting the History based on a new State reported by the Exposure Notification framework
-	func consumingState(_ state: ExposureManagerState) -> TracingStatusHistory {
+	func consumingState(_ state: ExposureManagerState, _ date: Date = Date()) -> TracingStatusHistory {
 		let newEntry = TracingStatusEntry(on: state.isGood, date: Date())
 		var copy = self
 		guard let lastEntry = last else {
@@ -54,6 +54,50 @@ extension Array where Element == TracingStatusEntry {
 		if lastEntry.on != newEntry.on {
 			copy.append(newEntry)
 		}
-		return copy
+		return copy.pruned()
+	}
+
+	// MARK: - Check Tracing History for Risk Calculation
+	/// Check the `TracingStatusHistory` if it has been turned on for `timeInterval` seconds
+	///
+	/// Typically used to check if risk calculation can work
+	func checkIfOn(for timeInterval: TimeInterval = 14 * 24 * 60 * 60) -> Bool {
+		guard !isEmpty else {
+			return false
+		}
+
+		var prevDate = Date()
+		// Assume pruned array
+		let sum = reversed().reduce(TimeInterval.zero) { acc, next -> TimeInterval in
+			if next.on {
+				let sum = acc + prevDate.timeIntervalSince(next.date)
+				prevDate = next.date
+			}
+			return acc
+		}
+
+		return sum > timeInterval
+	}
+
+	// MARK: - Prune stale elements older than 14 days
+	/// Clean up any `TracingStatusEntry` older than THRESHOLD
+	func pruned() -> TracingStatusHistory {
+		let now = Date()
+		let threshold: TimeInterval = 14 * 24 * 60 * 60		// 14 days in seconds. TODO: Put in enum/constant somewhere
+
+		// Iterate from end of array until we find a date older than THRESHOLD
+		var firstStaleIndex: Int?
+		for (i, element) in enumerated().reversed() {
+			if now.timeIntervalSince(element.date) > threshold {
+				firstStaleIndex = i
+				break
+			}
+		}
+
+		guard let staleIndex = firstStaleIndex else {
+			return self
+		}
+		// Should probably leave one element in
+		return Array(self[staleIndex...])
 	}
 }
