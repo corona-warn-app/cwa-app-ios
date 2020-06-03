@@ -132,6 +132,7 @@
 		71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */; };
 		71B804522485272F00D53506 /* RiskLegendNumberedTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B804512485272F00D53506 /* RiskLegendNumberedTitleCell.swift */; };
 		71B804542485273C00D53506 /* RiskLegendDotBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B804532485273C00D53506 /* RiskLegendDotBodyCell.swift */; };
+		71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */; };
 		71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */; };
 		71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C68247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift */; };
 		71FE1C6B247AA3F100851FEB /* ExposureDetectionViewController+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C6A247AA3F100851FEB /* ExposureDetectionViewController+State.swift */; };
@@ -447,6 +448,7 @@
 		71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabel.swift; sourceTree = "<group>"; };
 		71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicType.swift"; sourceTree = "<group>"; };
 		71CC3EA4246D74E800217F2C /* AppInformationHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationHelpViewController.swift; sourceTree = "<group>"; };
+		71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ena-colors.xcassets"; sourceTree = "<group>"; };
 		71FD885D246D7E1500E804D0 /* AppInformationHelpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationHelpModel.swift; sourceTree = "<group>"; };
 		71FD885F246D7E3100E804D0 /* AppInformationHelpModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationHelpModelData.swift; sourceTree = "<group>"; };
 		71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
@@ -1177,6 +1179,7 @@
 				85D7594A24570491008175F0 /* Assets.xcassets */,
 				71CC3E7C246D308000217F2C /* app-information-assets.xcassets */,
 				713FD5662482811900C1F6DD /* colors.xcassets */,
+				71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */,
 				7132F2812477F9C700628648 /* exposure-detection.xcassets */,
 				26374AF3248138EF00C10110 /* exposure-submission.xcassets */,
 				71B8044A2485190800D53506 /* risk-legend.xcassets */,
@@ -1694,6 +1697,7 @@
 				EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */,
 				71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */,
 				51CE1B8D246078B6002CF42A /* SubmitCollectionViewCell.xib in Resources */,
+				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
 				71FE1C87247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
 				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
