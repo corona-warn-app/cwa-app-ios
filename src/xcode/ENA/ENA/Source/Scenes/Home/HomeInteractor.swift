@@ -271,12 +271,11 @@ extension HomeInteractor {
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	func reloadActionSection(scroll: Bool = true) {
+	func reloadActionSection() {
 		sections[0] = setupActionSectionDefinition()
 		homeViewController.updateSections()
 		homeViewController.applySnapshotFromSections(animatingDifferences: true)
 		homeViewController.reloadData()
-		if scroll { homeViewController.scrollUp() }
 	}
 }
 
@@ -421,18 +420,19 @@ extension HomeInteractor {
 
 		} else if store.registrationToken != nil {
 			// This is shown when we registered a test.
+			// Note that the `positive` state has a custom cell and the risk cell will not be shown once the user was tested positive.
 
-			// Risk card.
-			if let risk = setupRiskConfigurator() {
-				actionsConfigurators.append(risk)
-			}
-
-			// Test result card.
 			switch self.testResult {
 			case .positive:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
+
 			default:
+				// Risk card.
+				if let risk = setupRiskConfigurator() {
+					actionsConfigurators.append(risk)
+				}
+
 				let testResultConfigurator = setupTestResultConfigurator()
 				actionsConfigurators.append(testResultConfigurator)
 			}

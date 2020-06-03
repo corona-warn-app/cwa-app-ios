@@ -348,10 +348,6 @@ final class HomeViewController: UIViewController {
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 
-	func scrollUp() {
-		collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-	}
-
 	private func createLayout() -> UICollectionViewLayout {
 		homeLayout = HomeLayout()
 		homeLayout.delegate = self
