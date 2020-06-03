@@ -43,17 +43,7 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-			</dict>
-		</dict>
+		<false/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Erlaube der App QR-Codes mit Hilfe der Kamera zu scannen</string>
