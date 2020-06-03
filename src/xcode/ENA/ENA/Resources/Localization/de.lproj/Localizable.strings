@@ -187,14 +187,17 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Code";
 "ExposureSubmissionDispatch_TANButtonDescription" = "Registrieren Sie Ihren Test per manueller TAN Eingabe.";
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Noch keine TAN?";
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bitte rufen Sie uns an, falls Sie Positiv getestet wurden.";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bitte rufen Sie uns an, falls Sie %@ getestet wurden.";
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Positiv";
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 "ExposureSubmissionHotline_Description" = "Wir teilen Ihnen Ihren TAN-Code gerne per Telefon mit.";
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 "ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:
 
-+49 (0) 800 7540002";
+%@
+";
+"ExposureSubmission_PhoneNumber" = "+49 (0) 800 7540002";
 "ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 "ExposureSubmission_TANInputButtonTitle" = "TAN-Code eingeben";

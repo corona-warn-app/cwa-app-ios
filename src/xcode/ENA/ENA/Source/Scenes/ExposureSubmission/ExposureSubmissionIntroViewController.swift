@@ -121,8 +121,8 @@ private extension DynamicTableViewModel {
 			header: .image(UIImage(named: "Illu_Submission_Funktion1"), height: 200),
 			separators: false,
 			cells: [
-				.bold(text: AppStrings.ExposureSubmissionIntroduction.usage01),
-				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage02),
+				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01),
+				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
