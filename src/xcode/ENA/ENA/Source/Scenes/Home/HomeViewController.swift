@@ -295,23 +295,20 @@ final class HomeViewController: UIViewController {
 			showExposureNotificationSetting()
 		case is RiskLevelCollectionViewCell:
 		 	showExposureDetection()
+		case is RiskFindingPositiveCollectionViewCell:
+			showExposureSubmission(with: homeInteractor.testResult)
 		case is HomeTestResultCell:
 			// Do not allow to open a pending test.
 			guard let result = homeInteractor.testResult, result != .pending else { return }
 			showExposureSubmission(with: homeInteractor.testResult)
+		case is SubmitCollectionViewCell:
+			showExposureSubmission()
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:
 			appLogger.log(message: "Unknown cell type tapped.", file: #file, line: #line, function: #function)
 			return
 		}
-		//if row == 0 {
-		//	showExposureNotificationSetting()
-		//} else if row == 1 {
-		//	showExposureDetection()
-		//} else {
-
-		//}
 	}
 
 	private func showScreen(at indexPath: IndexPath) {

@@ -40,8 +40,8 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			configureTestResultPending(cell: cell)
 		case .negative:
 			configureTestResultNegative(cell: cell)
-		case .positive:
-			configureTestResultPositive(cell: cell)
+		default:
+			appLogger.log(message: "Unsupported state", file: #file, line: #line, function: #function)
 		}
 	}
 
@@ -51,16 +51,6 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		cell.result.text = AppStrings.Home.resultCardNegativeTitle
 		cell.result.textColor = .preferredColor(for: .positiveRisk)
 		cell.body.text = AppStrings.Home.resultCardNegativeDesc
-		configureResultsButton(for: cell)
-	}
-
-	// TODO: This is handled a bit different. Remove this case as soon as the corresponding cell is implemented.
-	private func configureTestResultPositive(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Hand_with_phone")
-		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
-		cell.result.text = AppStrings.Home.resultCardPositiveTitle
-		cell.result.textColor = .preferredColor(for: .negativeRisk)
-		cell.body.text = AppStrings.Home.resultCardPositiveDesc
 		configureResultsButton(for: cell)
 	}
 
