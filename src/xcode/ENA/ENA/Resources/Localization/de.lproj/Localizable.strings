@@ -423,21 +423,6 @@ Duis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "App_Information_Terms_Description" = "Die nachfolgenden Nutzungsbedingungen gelten für die Nutzung der App und werden duch Aufruf oder Nutzung des Angebots oder einer einzelnen Funktion akzeptiert.";
 "App_Information_Terms_Text" = "...";
 
-/* App Information - Tracing */
-"App_Information_Tracing_Navigation" = "Wie funktioniert Tracing?";
-"App_Information_Tracing_Text" = "COVID-19 Kontaktprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln von zufälligen ID's.
-
-Diese ID’s sind eine zufällige Folge von Zahlen, die Sie für andere Benutzer nicht identifizierbar machen und die sich mehrmals täglich ändern, um Ihre Privatsphäre zu schützen.
-
-Ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est.
-
-Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla.
-
-Fusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.
-
-Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla. Fusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.";
-
-
 /* Risk View */
 "unknown_risk" = "Risiko unbekannt";
 "inactive_risk" = "Keine Risikoprüfung";
