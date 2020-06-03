@@ -62,27 +62,6 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardHighButton
 
-		if let (minutes, seconds) = counterTouple() {
-			let counterLabelText = String(format: AppStrings.Home.riskCardStatusCheckCounterLabel, minutes, seconds)
-			cell.configureCounterLabel(text: counterLabelText, isHidden: isCounterLabelHidden)
-			let formattedTime = String(format: "(%02u:%02u)", minutes, seconds)
-			let updateButtonText = "\(buttonTitle) \(formattedTime)"
-			cell.configureUpdateButton(
-				title: updateButtonText,
-				color: .preferredColor(for: .textPrimary1),
-				backgroundColor: .preferredColor(for: .backgroundPrimary),
-				isEnabled: isButtonEnabled,
-				isHidden: isButtonHidden
-			)
-		} else {
-			cell.configureCounterLabel(text: "test", isHidden: isCounterLabelHidden)
-			cell.configureUpdateButton(
-				title: buttonTitle,
-				color: .preferredColor(for: .textPrimary1),
-				backgroundColor: .preferredColor(for: .backgroundPrimary),
-				isEnabled: isButtonEnabled,
-				isHidden: isButtonHidden
-			)
-		}
+		configureCounter(buttonTitle: buttonTitle, cell: cell)
 	}
 }

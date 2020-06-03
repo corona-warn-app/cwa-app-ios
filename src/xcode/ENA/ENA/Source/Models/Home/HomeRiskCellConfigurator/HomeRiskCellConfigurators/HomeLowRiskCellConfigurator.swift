@@ -63,27 +63,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureChevron(image: UIImage(systemName: "chevron.right.circle.fill"), tintColor: .preferredColor(for: .chevron))
 
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardLowButton
-		if let (minutes, seconds) = counterTouple() {
-			let counterLabelText = String(format: AppStrings.Home.riskCardStatusCheckCounterLabel, minutes, seconds)
-			cell.configureCounterLabel(text: counterLabelText, isHidden: isCounterLabelHidden)
-			let formattedTime = String(format: "(%02u:%02u)", minutes, seconds)
-			let updateButtonText = "\(buttonTitle) \(formattedTime)"
-			cell.configureUpdateButton(
-				title: updateButtonText,
-				color: .preferredColor(for: .textPrimary1),
-				backgroundColor: .preferredColor(for: .backgroundPrimary),
-				isEnabled: isButtonEnabled,
-				isHidden: isButtonHidden
-			)
-		} else {
-			cell.configureCounterLabel(text: "test", isHidden: isCounterLabelHidden)
-			cell.configureUpdateButton(
-				title: buttonTitle,
-				color: .preferredColor(for: .textPrimary1),
-				backgroundColor: .preferredColor(for: .backgroundPrimary),
-				isEnabled: isButtonEnabled,
-				isHidden: isButtonHidden
-			)
-		}
+		
+		configureCounter(buttonTitle: buttonTitle, cell: cell)
 	}
 }
