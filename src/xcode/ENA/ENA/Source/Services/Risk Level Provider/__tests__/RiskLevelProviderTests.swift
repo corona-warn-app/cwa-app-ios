@@ -18,13 +18,76 @@
 //
 
 import XCTest
+import ExposureNotification
 @testable import ENA
+
+private final class Summary: ENExposureDetectionSummary {}
 
 private final class RiskLevelProviderStoreMock: RiskLevelProviderStore {
 	var dateLastExposureDetection: Date?
 }
 
+private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
+	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
+
+	func detectExposure(completion: (ENExposureDetectionSummary?) -> Void) {
+		onDetectExposure?(completion)
+	}
+}
+
 final class RiskLevelProviderTests: XCTestCase {
+	func testExposureDetectionIsExecutedIfLastDetectionIsToOldAndModeIsAutomatic() throws {
+		var duration = DateComponents()
+		duration.day = 1
+
+		let calendar = Calendar.current
+
+		let lastExposureDetectionDate = calendar.date(
+			byAdding: .day,
+			value: -3,
+			to: Date(),
+			wrappingComponents: false
+		)
+
+		let store = RiskLevelProviderStoreMock()
+		store.dateLastExposureDetection = lastExposureDetectionDate
+
+		let config = RiskLevelProvidingConfiguration(
+			updateMode: .automatic,
+			exposureDetectionValidityDuration: duration
+		)
+
+		let exposureSummaryProvider = ExposureSummaryProviderMock()
+
+		let expectThatSummaryIsRequested = expectation(description: "expectThatSummaryIsRequested")
+		exposureSummaryProvider.onDetectExposure = { completion in
+			store.dateLastExposureDetection = Date()
+			expectThatSummaryIsRequested.fulfill()
+			completion(ENExposureDetectionSummary())
+		}
+
+		let sut = RiskLevelProvider(
+			configuration: config,
+			store: store,
+			exposureSummaryProvider: exposureSummaryProvider
+		)
+
+		let consumer = RiskLevelConsumer()
+		let nextExposureDetectionDateDidChangeExpectation = expectation(
+			description: "expect willCalculateRiskLevelIn to be called"
+		)
+
+		consumer.nextExposureDetectionDateDidChange = { nextDetectionDate in
+			let expectedDate = Date()
+
+			XCTAssertTrue(calendar.isDate(expectedDate, equalTo: nextDetectionDate, toGranularity: .minute))
+			nextExposureDetectionDateDidChangeExpectation.fulfill()
+		}
+		sut.observeRiskLevel(consumer)
+		sut.requestRiskLevel()
+		wait(for: [nextExposureDetectionDateDidChangeExpectation, expectThatSummaryIsRequested], timeout: 1.0)
+    }
+
     func testExample() throws {
 		var duration = DateComponents()
 		duration.day = 1
@@ -46,7 +109,19 @@ final class RiskLevelProviderTests: XCTestCase {
 			exposureDetectionValidityDuration: duration
 		)
 
-		let sut = RiskLevelProvider(configuration: config, store: store)
+		let exposureSummaryProvider = ExposureSummaryProviderMock()
+
+		let expectThatNoSummaryIsRequested = expectation(description: "expectThatNoSummaryIsRequested")
+		expectThatNoSummaryIsRequested.isInverted = true
+		exposureSummaryProvider.onDetectExposure = { completion in
+			expectThatNoSummaryIsRequested.fulfill()
+		}
+
+		let sut = RiskLevelProvider(
+			configuration: config,
+			store: store,
+			exposureSummaryProvider: exposureSummaryProvider
+		)
 
 		let consumer = RiskLevelConsumer()
 		let nextExposureDetectionDateDidChangeExpectation = expectation(
@@ -60,6 +135,7 @@ final class RiskLevelProviderTests: XCTestCase {
 			nextExposureDetectionDateDidChangeExpectation.fulfill()
 		}
 		sut.observeRiskLevel(consumer)
-		waitForExpectations(timeout: 1.0)
+		sut.requestRiskLevel()
+		wait(for: [nextExposureDetectionDateDidChangeExpectation, expectThatNoSummaryIsRequested], timeout: 1.0)
     }
 }

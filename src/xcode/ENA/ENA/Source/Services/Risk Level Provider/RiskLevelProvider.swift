@@ -18,26 +18,37 @@
 //
 
 import Foundation
+import ExposureNotification
 
 protocol RiskLevelProviderStore: AnyObject {
 	var dateLastExposureDetection: Date? { get set }
+	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
+}
+
+protocol ExposureSummaryProvider: AnyObject {
+	typealias Completion = (ENExposureDetectionSummary?) -> Void
+	func detectExposure(completion: Completion)
 }
 
 final class RiskLevelProvider {
 	private let consumers = NSHashTable<RiskLevelConsumer>.weakObjects()
 	private let queue = DispatchQueue(label: "com.sap.RiskLevelProvider")
+	private var state: State = .waiting
 
 	// MARK: Creating a Risk Level Provider
 	init(
 		configuration: RiskLevelProvidingConfiguration,
-		store: RiskLevelProviderStore
+		store: RiskLevelProviderStore,
+		exposureSummaryProvider: ExposureSummaryProvider
 	) {
 		self.configuration = configuration
 		self.store = store
+		self.exposureSummaryProvider = exposureSummaryProvider
 	}
 
 	// MARK: Properties
 	private let store: RiskLevelProviderStore
+	private let exposureSummaryProvider: ExposureSummaryProvider
 	var configuration: RiskLevelProvidingConfiguration {
 		didSet {
 
@@ -45,28 +56,77 @@ final class RiskLevelProvider {
 	}
 }
 
+private extension RiskLevelProvider {
+	enum State {
+		case waiting
+		case isRequestingRiskLevel
+		case isDetectingExposures
+	}
+}
+
 extension RiskLevelProvider: RiskLevelProviding {
 	func observeRiskLevel(_ consumer: RiskLevelConsumer) {
-		queue.sync {
-			consumers.add(consumer)
+		queue.async {
+			self._observeRiskLevel(consumer)
 		}
-		let calendar = Calendar.current
-		let nextExposureDetectionDate = calendar.date(
-			byAdding: configuration.exposureDetectionValidityDuration,
-			to: store.dateLastExposureDetection ?? .distantPast,
-			wrappingComponents: false
-		) ?? Date()
+	}
 
-//		let timeUntilCalculation = calendar.dateComponents(
-//			[.day, .hour, .minute, .second],
-//			from: Date(),
-//			to: nextExposureDetectionDate
-//		)
+	private func _observeRiskLevel(_ consumer: RiskLevelConsumer) {
+		consumers.add(consumer)
+
+		let exposureDetectionValidityDuration = configuration.exposureDetectionValidityDuration
+		// Using .distantPast here simplifies the algorithm a bit
+		let lastExposureDetectionDate = store.dateLastExposureDetection ?? .distantPast
+
+		let nextExposureDetectionDate: Date = {
+			let now = Date()
+			// `proposedDate` can be way back in the past (because of `.distantPast` (see above)).
+			// But the next exposure detection date should always be between:
+			// `now` and `now + exposureDetectionValidityDuration`. That is why we ignore the past
+			// and cut the proposed date off at `now`.
+			let proposedDate = Calendar.current.date(
+				byAdding: exposureDetectionValidityDuration,
+				to: lastExposureDetectionDate,
+				wrappingComponents: false
+				) ?? now
+
+			return proposedDate < now ? now : proposedDate
+		}()
 
 		consumer.nextExposureDetectionDateDidChange?(nextExposureDetectionDate)
 	}
 
+
+	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRiskLevel() {
+		queue.async(execute: _requestRiskLevel)
+	}
+
+	private func _requestRiskLevel() {
+		let exposureDetectionValidUntil: Date = {
+			let lastRunDate = self.store.dateLastExposureDetection ?? .distantPast
+			return Calendar.current.date(
+				byAdding: self.configuration.exposureDetectionValidityDuration,
+				to: lastRunDate,
+				wrappingComponents: false
+				) ?? .distantPast
+		}()
+
+		let requiresExposureDetectionRun = Date() > exposureDetectionValidUntil
+
+		var previousSummary = store.previousSummary
+		var newSummary: ENExposureDetectionSummaryContainer?
+
+		if requiresExposureDetectionRun {
+			let waitForSummary = DispatchSemaphore(value: 0)
+			exposureSummaryProvider.detectExposure {
+				if let detectedSummary = $0 {
+					newSummary = ENExposureDetectionSummaryContainer(with: detectedSummary)
+				}
+			}
+			waitForSummary.wait()
+		}
+
 		for consumer in consumers.allObjects {
 			provideRiskLevel(to: consumer)
 		}
