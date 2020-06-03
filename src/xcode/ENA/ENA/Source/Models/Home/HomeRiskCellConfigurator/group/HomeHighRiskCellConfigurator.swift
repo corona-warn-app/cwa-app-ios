@@ -71,8 +71,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskCellConfigurator {
 			let updateButtonText = "\(buttonTitle) \(formattedTime)"
 			cell.configureUpdateButton(
 				title: updateButtonText,
-				color: .preferredColor(for: .textPrimary1),
-				backgroundColor: .preferredColor(for: .backgroundPrimary),
+				isInverted: true,
 				isEnabled: isButtonEnabled,
 				isHidden: isButtonHidden
 			)
@@ -80,8 +79,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskCellConfigurator {
 			cell.configureCounterLabel(text: "test", isHidden: isCounterLabelHidden)
 			cell.configureUpdateButton(
 				title: buttonTitle,
-				color: .preferredColor(for: .textPrimary1),
-				backgroundColor: .preferredColor(for: .backgroundPrimary),
+				isInverted: true,
 				isEnabled: isButtonEnabled,
 				isHidden: isButtonHidden
 			)

@@ -53,12 +53,10 @@
                                             <constraint firstAttribute="trailingMargin" secondItem="nJl-O5-rry" secondAttribute="trailing" id="xVx-tm-E7j"/>
                                         </constraints>
                                     </view>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b20-mf-cB4">
-                                        <rect key="frame" x="0.0" y="263.5" width="627" height="0.0"/>
-                                        <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b20-mf-cB4" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="206" width="627" height="50"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <color key="tintColor" name="separator"/>
-                                        <state key="normal" title="Button Button Button Button Button Button Button Button Button Button Button Button Button Button Button Button Button "/>
+                                        <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="contactButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="4jG-3D-nyf"/>
                                         </connections>
@@ -124,8 +122,5 @@
     </objects>
     <resources>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <namedColor name="separator">
-            <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
 </document>

@@ -32,7 +32,7 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: UILabel!
-	@IBOutlet var updateButton: UIButton!
+	@IBOutlet var updateButton: ENAButton!
 	@IBOutlet var counterLabel: UILabel!
 	@IBOutlet var counterLabelContainer: UIView!
 
@@ -45,7 +45,6 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		constructStackView()
-		constructUpdateButton()
 		constructCounterLabelContainer()
 		topContainer.layoutMargins = .zero
 	}
@@ -56,25 +55,12 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
 		stackView.isLayoutMarginsRelativeArrangement = true
 	}
 
-	private func constructUpdateButton() {
-		updateButton.titleLabel?.adjustsFontForContentSizeCategory = true
-		updateButton.titleLabel?.lineBreakMode = .byWordWrapping
-		updateButton.layer.cornerRadius = 10.0
-		updateButton.layer.masksToBounds = true
-		updateButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
-	}
-
 	private func constructCounterLabelContainer() {
 		counterLabelContainer.layer.cornerRadius = 18.0
 		counterLabelContainer.layer.masksToBounds = true
 		counterLabelContainer.layoutMargins = .init(top: 9.0, left: 16.0, bottom: 9.0, right: 16.0)
 		counterLabelContainer.backgroundColor = UIColor.black.withAlphaComponent(0.12)
 		counterLabel.textColor = .systemGray6
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		updateButton.titleLabel?.lineBreakMode = traitCollection.preferredContentSizeCategory >= .accessibilityExtraExtraLarge ? .byTruncatingMiddle : .byWordWrapping
 	}
 
 	// Ignore touches on the button when it's disabled
@@ -121,14 +107,12 @@ final class RiskCollectionViewCell: HomeCardCollectionViewCell {
 		chevronImageView.tintColor = tintColor
 	}
 
-	func configureUpdateButton(title: String, color: UIColor, backgroundColor: UIColor, isEnabled: Bool, isHidden: Bool) {
+	func configureUpdateButton(title: String, isInverted: Bool, isEnabled: Bool, isHidden: Bool) {
 		UIView.performWithoutAnimation {
 			updateButton.setTitle(title, for: .normal)
 			updateButton.layoutIfNeeded()
 		}
-		updateButton.setTitleColor(color, for: .normal)
-		updateButton.setTitleColor(color.withAlphaComponent(0.3), for: .disabled)
-		updateButton.backgroundColor = backgroundColor
+		updateButton.isInverted = isInverted
 		updateButton.isEnabled = isEnabled
 		updateButton.isHidden = isHidden
 		stackView.addArrangedSubview(updateButton)
