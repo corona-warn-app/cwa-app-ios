@@ -62,19 +62,20 @@ class ENAButton: DynamicTypeButton {
 		setValue(ButtonType.custom.rawValue, forKey: "buttonType")
 
 		clipsToBounds = true
+		cornerRadius = 8
 
 		contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
 
+		titleLabel?.font = .preferredFont(forTextStyle: .body)
+		dynamicTypeSize = 17
+		dynamicTypeWeight = "semibold"
+
+		// Important: Must be added after accessing title label for the first time for correct z-order.
 		highlightView?.removeFromSuperview()
 		highlightView = UIView(frame: bounds)
 		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		addSubview(highlightView)
-
-		titleLabel?.font = .preferredFont(forTextStyle: .body)
-		cornerRadius = 8
-		dynamicTypeSize = 17
-		dynamicTypeWeight = "semibold"
 
 		applyStyle()
 		applyHighlight()

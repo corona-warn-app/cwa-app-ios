@@ -59,7 +59,7 @@ final class HomeFindingPositiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		let shareItem = HomeRiskImageItemViewConfigurator(title: shareTitle, titleColor: titleColor, iconImageName: "Icons - Warnen", iconTintColor: iconColor, color: .clear, separatorColor: .clear)
 		shareItem.containerInsets = .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
 
-		cell.configureNoteRiskViews(cellConfigurators: [phoneItem, homeItem, shareItem])
+		cell.configureNotesRiskViews(cellConfigurators: [phoneItem, homeItem, shareItem])
 
 
 		let buttonTitle = AppStrings.Home.findingPositiveCardButton

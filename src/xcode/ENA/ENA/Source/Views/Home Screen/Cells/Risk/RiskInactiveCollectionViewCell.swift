@@ -39,7 +39,6 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		constructStackView()
-		constructActiveButton()
 		topContainer.layoutMargins = .zero
 	}
 
@@ -47,14 +46,6 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 		let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
 		stackView.layoutMargins = containerInsets
 		stackView.isLayoutMarginsRelativeArrangement = true
-	}
-
-	private func constructActiveButton() {
-		activeButton.titleLabel?.adjustsFontForContentSizeCategory = true
-		activeButton.titleLabel?.lineBreakMode = .byWordWrapping
-		activeButton.layer.cornerRadius = 10.0
-		activeButton.layer.masksToBounds = true
-		activeButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -91,14 +82,11 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 		chevronImageView.tintColor = tintColor
 	}
 
-	func configureActiveButton(title: String, color: UIColor, backgroundColor: UIColor) {
+	func configureActiveButton(title: String) {
 		UIView.performWithoutAnimation {
 			activeButton.setTitle(title, for: .normal)
 			activeButton.layoutIfNeeded()
 		}
-		activeButton.setTitleColor(color, for: .normal)
-		activeButton.setTitleColor(color.withAlphaComponent(0.3), for: .disabled)
-		activeButton.backgroundColor = backgroundColor
 		stackView.addArrangedSubview(activeButton)
 	}
 
