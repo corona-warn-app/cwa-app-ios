@@ -54,6 +54,8 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	func configure(cell: RiskInactiveCollectionViewCell) {
 		cell.delegate = self
 
+		cell.removeAllArrangedSubviews()
+
 		let title = AppStrings.Home.riskCardInactiveTitle
 		let titleColor: UIColor = .black
 		cell.configureTitle(title: title, titleColor: titleColor)

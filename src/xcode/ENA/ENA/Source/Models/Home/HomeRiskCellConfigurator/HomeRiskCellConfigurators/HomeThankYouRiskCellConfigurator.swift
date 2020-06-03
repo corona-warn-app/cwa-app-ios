@@ -27,6 +27,8 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	func configure(cell: RiskThankYouCollectionViewCell) {
 
+		cell.removeAllArrangedSubviews()
+
 		let title = AppStrings.Home.thankYouCardTitle
 		let titleColor: UIColor = UIColor.black
 		cell.configureTitle(title: title, titleColor: titleColor)

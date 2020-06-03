@@ -95,11 +95,6 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 
 	// MARK: Configuring the UI
 
-	override func prepareForReuse() {
-		super.prepareForReuse()
-		removeAllArrangedSubviews()
-	}
-
 	func removeAllArrangedSubviews() {
 		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 	}
