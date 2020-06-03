@@ -145,7 +145,13 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		}
 	}
 
-	/// TODO: Comment me!
+	/// This method builds a NSMutableAttributedString for the cell.
+	/// - Parameters:
+	///   - title: The title of the cell.
+	///   - image: The image to be displayed on the right hand of the cell.
+	///   - body: The text shown below the title, which should NOT be formatted in any way.
+	///   - attributedStrings: The text that is injected into `body` with applied attributes, e.g.
+	/// 	bold text, with color.
 	func configure(title: String, image: UIImage?, body: String, attributedStrings: [NSAttributedString]) {
 		setup()
 		setupConstraints()
@@ -157,25 +163,5 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		if let image = image {
 			cellImage.image = image
 		}
-	}
-}
-
-// TODO: Move me!
-extension NSMutableAttributedString {
-
-	// TODO: Comment!!
-	static func generateAttributedString(normalText: String, attributedText: [NSAttributedString]) -> NSMutableAttributedString {
-
-		let components = normalText.components(separatedBy: "%@")
-		let adjusted: NSMutableAttributedString = NSMutableAttributedString(string: "")
-
-		for (index, element) in components.enumerated() {
-			adjusted.append(NSAttributedString(string: element))
-			if index < attributedText.count {
-				adjusted.append(attributedText[index])
-			}
-		}
-
-		return adjusted
 	}
 }

@@ -61,12 +61,12 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 				.section(
 					header: .image(UIImage(named: "Illu_Submission_Kontakt")),
 					cells: [
-						.regular(text: AppStrings.ExposureSubmissionHotline.description)
+						.body(text: AppStrings.ExposureSubmissionHotline.description)
 					]
 				),
 				DynamicSection.section(
 					cells: [
-						.bigBold(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
+						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
 						.identifier(CustomCellReuseIdentifiers.stepCell,
 									action: .execute { _ in self.callHotline() },
 									configure: { _, cell, _ in

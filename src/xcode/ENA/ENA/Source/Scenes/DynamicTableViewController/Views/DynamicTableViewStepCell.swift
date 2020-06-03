@@ -154,6 +154,17 @@ class DynamicTableViewStepCell: UITableViewCell {
 		separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
 	}
 
+	/// Default configurator for a DynamicStepCell.
+	/// - Parameters:
+	///   - text: The text shown in the cell which should NOT be formatted in any way.
+	///   - attributedText: The text that is injected into `body` with applied attributes, e.g.
+	/// 	bold text, with color.
+	///   - image: The image to be displayed on the right hand of the cell.
+	///   - hasSeparators: boolean that indicates whether the cell has a grey
+	///     separator or not.
+	///   - isCircle: boolean indicating whether the icon of the cell is circular or not.
+	///   - iconTintColor: tintColor for the icon of the cell.
+	///   - iconBackgroundColor: background color for the icon of the cell.
 	func configure(
 		title: String? = nil,
 		text: String,
@@ -167,6 +178,17 @@ class DynamicTableViewStepCell: UITableViewCell {
 		setConstraints()
 	}
 
+	/// Configurator for a DynamicStepCell that supports NSAttributedStrings.
+	/// - Parameters:
+	///   - text: The text shown in the cell which should NOT be formatted in any way.
+	///   - attributedText: The text that is injected into `body` with applied attributes, e.g.
+	/// 	bold text, with color.
+	///   - image: The image to be displayed on the right hand of the cell.
+	///   - hasSeparators: boolean that indicates whether the cell has a grey
+	///     separator or not.
+	///   - isCircle: boolean indicating whether the icon of the cell is circular or not.
+	///   - iconTintColor: tintColor for the icon of the cell.
+	///   - iconBackgroundColor: background color for the icon of the cell.
 	func configure(
 		text: String,
 		attributedText: [NSAttributedString],

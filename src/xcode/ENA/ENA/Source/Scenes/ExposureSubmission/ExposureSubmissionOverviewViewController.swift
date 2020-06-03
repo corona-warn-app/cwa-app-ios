@@ -235,7 +235,7 @@ private extension ExposureSubmissionOverviewViewController {
 				header: header,
 				separators: false,
 				cells: [
-					.regular(text: AppStrings.ExposureSubmissionDispatch.description)
+					.body(text: AppStrings.ExposureSubmissionDispatch.description)
 				]
 			)
 		)
