@@ -17,7 +17,7 @@
 
 import UIKit
 
-final class RiskLoadingItemView: UIView, RiskItemView {
+final class RiskLoadingItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
 	@IBOutlet var activityIndicatorView: UIActivityIndicatorView!
 	@IBOutlet var titleTextView: UITextView!
 	@IBOutlet var separatorView: UIView!

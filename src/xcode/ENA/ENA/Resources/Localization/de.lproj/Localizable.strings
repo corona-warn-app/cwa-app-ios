@@ -187,14 +187,17 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Code";
 "ExposureSubmissionDispatch_TANButtonDescription" = "Registrieren Sie Ihren Test per manueller TAN Eingabe.";
 "ExposureSubmissionDispatch_HotlineButtonTitle" = "Noch keine TAN?";
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bitte rufen Sie uns an, falls Sie Positiv getestet wurden.";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Bitte rufen Sie uns an, falls Sie %@ getestet wurden.";
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Positiv";
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 "ExposureSubmissionHotline_Description" = "Wir teilen Ihnen Ihren TAN-Code gerne per Telefon mit.";
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 "ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:
 
-+49 (0) 800 7540002";
+%@
+";
+"ExposureSubmission_PhoneNumber" = "+49 (0) 800 7540002";
 "ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 "ExposureSubmission_TANInputButtonTitle" = "TAN-Code eingeben";
@@ -217,7 +220,6 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "ExposureSubmissionIntroduction_Title" = "Info";
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
 "ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt  wie folgt vorgehen:";
-"ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen  in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
 "ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen  in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
 "ExposureSubmissionIntroduction_ListItem2" = "Wenn Sie positiv getestet wurden, können Sie andere warnen.";
 "ExposureSubmissionIntroduction_ListItem3" = "Wenn Ihnen für einen positiven Test eine TAN mitgeteilt wurde , können Sie diese für die Registrierung des Tests nutzen.";
@@ -261,7 +263,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
 
-// Tracing Enable/Disable Settings
+/* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 "ExposureNotificationSetting_EnableTracing" = "Risiko-Ermittlung";
 "ExposureNotificationSetting_Tracing_Limited" = "Eingeschränkt";
@@ -318,6 +320,29 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 "Home_Risk_Status_Check_Button" = "Aktualisieren";
 
+/* Home Thank you card */
+"Home_Thank_You_Card_Title" = "Vielen Dank!";
+"Home_Thank_You_Card_Body" = "Dank Ihrer Mithilfe können andere gewarnt werden und entsprechend reagieren.";
+"Home_Thank_You_Card_Note_Title" = "Bitte beachten Sie:";
+"Home_Thank_You_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"Home_Thank_You_Card_Home_Item_Title" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
+"Home_Thank_You_Card_Further_Info_Item_Title" = "Weitere Infos:";
+"Home_Thank_You_Card_14Days_Item_Title" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich ihre Krankheitszeichen entwickeln.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten.";
+"Home_Thank_You_Card_App_Item_Title" = "Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone oder die App haben.";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend sein.";
+
+/* Home Finding positive */
+"Home_Finding_Positive_Card_Title" = "Befund Positiv";
+"Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2-positiv";
+"Home_Finding_Positive_Card_Status_Subtitle" = "Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.";
+"Home_Finding_Positive_Card_Note_Title" = "Bitte beachten Sie:";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.";
+"Home_Finding_Positive_Card_Home_Item_Title" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
+"Home_Finding_Positive_Card_Share_Item_Title" = "Teilen Sie Ihre Zufallcodes, damit andere gewarnt werden können.";
+"Home_Finding_Positive_Card_Button" = "Weiter";
+
+/* Home Submit card */
 "Home_SubmitCard_Title" = "COVID Test";
 "Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen.";
 "Home_SubmitCard_Button" = "Test registrieren";
@@ -425,7 +450,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
-// Invite Friends
+/* Invite Friends */
 "InviteFriends_NavTitle" = "Teilen";
 "InviteFriends_Subtitle" = "Teilen Sie die Corona-Warn-App";
 "InviteFriends_Title" = "Gemeinsam Corona bekämpfen";
@@ -451,12 +476,12 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "local_notifications_viewResults" = "Ergebnisse anzeigen";
 "local_notifications_ignore" = "Ignorieren";
 "local_notifications_detectexposure_title" = "Corona-Warn-App";
-"local_notifications_detectexposure_body" = "Es gibt Neuigkeiten in der Corona-Warn-App";
+"local_notifications_detectexposure_body" = "Es gibt Neuigkeiten von Ihrer Corona-Warn-App";
 "local_notifications_testresults_title" = "Corona-Warn-App";
-"local_notifications_testresults_body" = "Es gibt Neuigkeiten in der Corona-Warn-App";
+"local_notifications_testresults_body" = "Es gibt Neuigkeiten von Ihrer Corona-Warn-App";
 
 
-// Risk Legend
+/* Risk Legend */
 "RiskLegend_Title" = "Überblick";
 "RiskLegend_Subtitle" = "Die wichtigsten Funktionen und Begriffe";
 "RiskLegend_Legend1_Title" = "Risiko-Ermittlung";

@@ -45,19 +45,14 @@ final class AppleFilesWriterTests: XCTestCase {
 	}
 
 	override func tearDownWithError() throws {
-		try FileManager().removeItem(at: self.rootDir)
+		try FileManager().removeItem(at: rootDir)
 	}
 
 	func testWriterWithoutPackagesDoesNothing() throws {
 		let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: [])
-		let expectWithBlockToBeCalled = expectation(
-			description: "Expect with block to be called"
-		)
-		writer.with { urls, _ in
-			XCTAssertTrue(urls.isEmpty)
-			expectWithBlockToBeCalled.fulfill()
-		}
-		waitForExpectations(timeout: 1.0)
+		let writtenPackages = writer.writeAllPackages()
+		XCTAssertNotNil(writtenPackages)
+		XCTAssertTrue(writtenPackages?.urls.isEmpty == true)
 	}
 
 	func testWriterWithPackagesWritesEverything() throws {
@@ -68,40 +63,34 @@ final class AppleFilesWriterTests: XCTestCase {
 			)
 		]
 		let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
-		let expectWithBlockToBeCalled = expectation(
-			description: "Expect with block to be called"
+		let writtenPackages = writer.writeAllPackages()
+		XCTAssertNotNil(writtenPackages)
+		XCTAssertEqual(writtenPackages?.urls.count, 2)
+		let urls = writtenPackages?.urls ?? []
+
+		let url0 = urls[0]
+		let url1 = urls[1]
+		let hasSig = url0.pathExtension == "sig" || url1.pathExtension == "sig"
+		XCTAssertTrue(hasSig)
+		let hasBin = url0.pathExtension == "bin" || url1.pathExtension == "bin"
+		XCTAssertTrue(hasBin)
+
+		let writtenFiles = try? FileManager().contentsOfDirectory(
+			at: rootDir,
+			includingPropertiesForKeys: nil,
+			options: .skipsHiddenFiles
 		)
-		writer.with { urls, done in
-			XCTAssertEqual(urls.count, 2)
-			expectWithBlockToBeCalled.fulfill()
-			let url0 = urls[0]
-			let url1 = urls[1]
-			let hasSig = url0.pathExtension == "sig" || url1.pathExtension == "sig"
-			XCTAssertTrue(hasSig)
-			let hasBin = url0.pathExtension == "bin" || url1.pathExtension == "bin"
-			XCTAssertTrue(hasBin)
 
-			let fm = FileManager()
-			let writtenFiles = try? fm.contentsOfDirectory(
-				at: rootDir,
-				includingPropertiesForKeys: nil,
-				options: .skipsHiddenFiles
-			)
+		XCTAssertEqual(writtenFiles?.count, 2)
 
-			XCTAssertEqual(writtenFiles?.count, 2)
+		writtenPackages?.cleanUp()
+		
+		let contentsOfRootDir = try? FileManager().contentsOfDirectory(
+			at: rootDir,
+			includingPropertiesForKeys: nil,
+			options: .skipsHiddenFiles
+		)
 
-			// now call the done block...
-			done()
-
-			// and assert everything has been cleaned up
-			let filesAfterCleanup = try? fm.contentsOfDirectory(
-				at: rootDir,
-				includingPropertiesForKeys: nil,
-				options: .skipsHiddenFiles
-			)
-
-			XCTAssertTrue(((filesAfterCleanup?.isEmpty) != nil))
-		}
-		waitForExpectations(timeout: 1.0)
+		XCTAssertTrue(contentsOfRootDir?.isEmpty == true)
 	}
 }

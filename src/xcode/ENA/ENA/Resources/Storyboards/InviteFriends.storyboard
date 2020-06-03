@@ -76,13 +76,11 @@
                                     <constraint firstAttribute="bottom" secondItem="pbz-HJ-LCy" secondAttribute="bottom" id="qKz-3Z-mm2"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jUL-Sc-qEZ" userLabel="Invite Button" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jUL-Sc-qEZ" userLabel="Invite Button" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="16" y="796" width="382" height="50"/>
-                                <color key="backgroundColor" name="tint"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="EoV-5w-Heo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <state key="normal" title="# Einladungslink verschicken">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -142,9 +140,6 @@
         </namedColor>
         <namedColor name="textPrimary2">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="tint">
-            <color red="0.0" green="0.49799999594688416" blue="0.67799997329711914" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

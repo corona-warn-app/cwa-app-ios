@@ -34,7 +34,8 @@ final class HomeViewController: UIViewController {
 		client: Client,
 		store: Store,
 		keyPackagesStore: DownloadedPackagesStore,
-		delegate: HomeViewControllerDelegate
+		delegate: HomeViewControllerDelegate,
+		taskScheduler: ENATaskScheduler
 	) {
 		self.client = client
 		self.store = store
@@ -43,6 +44,12 @@ final class HomeViewController: UIViewController {
 		self.delegate = delegate
 
 		super.init(coder: coder)
+		homeInteractor = HomeInteractor(
+			homeViewController: self,
+			store: store,
+			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
+			taskScheduler: taskScheduler
+		)
 
 		exposureSubmissionService = ENAExposureSubmissionService(
 			diagnosiskeyRetrieval: self.exposureManager,
@@ -54,7 +61,8 @@ final class HomeViewController: UIViewController {
 			homeViewController: self,
 			store: store,
 			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
-			exposureSubmissionService: exposureSubmissionService
+			exposureSubmissionService: exposureSubmissionService,
+			taskScheduler: taskScheduler
 		)
 	}
 
@@ -355,12 +363,16 @@ final class HomeViewController: UIViewController {
 
 		let cellTypes: [UICollectionViewCell.Type] = [
 			ActivateCollectionViewCell.self,
-			RiskCollectionViewCell.self,
+			RiskLevelCollectionViewCell.self,
 			SubmitCollectionViewCell.self,
 			InfoCollectionViewCell.self,
-			HomeTestResultCell.self
+			HomeTestResultCell.self,
+			RiskInactiveCollectionViewCell.self,
+			RiskFindingPositiveCollectionViewCell.self,
+			RiskThankYouCollectionViewCell.self,
+			InfoCollectionViewCell.self
 		]
-		
+	
 		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
 		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
@@ -399,7 +411,7 @@ final class HomeViewController: UIViewController {
 	func updateSections() {
 		sections = homeInteractor.sections
 	}
-
+	
 	private func configureUI() {
 
 		collectionView.backgroundColor = .systemGroupedBackground

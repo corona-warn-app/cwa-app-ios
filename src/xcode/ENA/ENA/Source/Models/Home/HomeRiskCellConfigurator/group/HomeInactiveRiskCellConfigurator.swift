@@ -68,8 +68,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.configureCounterLabel(text: "", isHidden: isCounterLabelHidden)
 		cell.configureUpdateButton(
 			title: buttonTitle,
-			color: .preferredColor(for: .tint),
-			backgroundColor: .systemGray5,
+			isInverted: false,
 			isEnabled: isButtonEnabled,
 			isHidden: isButtonHidden
 		)

@@ -227,7 +227,7 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -258,7 +258,7 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -276,7 +276,7 @@ private extension ExposureSubmissionTestResultViewController {
 					image: nil,
 					hasSeparators: false
 				),
-				.bigBold(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
+				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
 				.stepCellWith(
 					title: nil,
 					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1,
@@ -315,7 +315,7 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -340,7 +340,7 @@ private extension ExposureSubmissionTestResultViewController {
 				}
 			),
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
