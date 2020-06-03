@@ -26,12 +26,17 @@ final class ResetViewController: UIViewController {
 	@IBOutlet var header1Label: DynamicTypeLabel!
 	@IBOutlet var description1TextView: UITextView!
 	@IBOutlet var resetButton: ENAButton!
-	@IBOutlet var discardResetButton: UIButton!
+	@IBOutlet var discardResetButton: ENAButton!
+	@IBOutlet var infoTitleLabel: DynamicTypeLabel!
+	@IBOutlet var infoDescriptionLabel: UILabel!
+	@IBOutlet var infoView: UIView!
+	@IBOutlet var subtitleLabel: UILabel!
 
 	weak var delegate: ResetDelegate?
 
 	@IBAction func resetData(_: Any) {
 		delegate?.reset()
+		dismiss(animated: true, completion: nil)
 	}
 
 	override func viewDidLoad() {
@@ -42,24 +47,27 @@ final class ResetViewController: UIViewController {
 		dismiss(animated: true, completion: nil)
 	}
 
-	override func traitCollectionDidChange(_: UITraitCollection?) {
-		resetButton.sizeToFit()
-		discardResetButton.sizeToFit()
-	}
-
 	private func setupView() {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
 		navigationController?.navigationBar.prefersLargeTitles = true
+
+		subtitleLabel.text = AppStrings.Reset.subtitle
 
 		description1TextView.contentInset = .zero
 		description1TextView.textContainer.lineFragmentPadding = 0
 
 		header1Label.text = AppStrings.Reset.header1
 		description1TextView.text = AppStrings.Reset.description1
-		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
-		resetButton.titleLabel?.adjustsFontForContentSizeCategory = true
-		resetButton.backgroundColor = UIColor.preferredColor(for: .brandRed)
 		discardResetButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
-		discardResetButton.titleLabel?.adjustsFontForContentSizeCategory = true
+
+		infoView.layer.cornerRadius = 14
+		infoTitleLabel.text = AppStrings.Reset.infoTitle
+		infoDescriptionLabel.text = AppStrings.Reset.infoDescription
+
+		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
+
+		if let resetButton = resetButton, let titleLabel = resetButton.titleLabel {
+			resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
+		}
 	}
 }

@@ -40,6 +40,8 @@ class HomeTestResultCell: HomeCardCollectionViewCell {
 }
 
 class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
+
+	let identifier = UUID()
 	
 	var buttonAction: (() -> Void)?
 	var didConfigureCell: ((HomeTestResultCellConfigurator, HomeTestResultCell) -> Void)?
@@ -73,7 +75,6 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		configureResultsButton(for: cell)
 	}
 
-	// TODO: This is handled a bit different!
 	private func configureTestResultPositive(cell: HomeTestResultCell) {
 		cell.image.image = UIImage(named: "Hand_with_phone")
 		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle

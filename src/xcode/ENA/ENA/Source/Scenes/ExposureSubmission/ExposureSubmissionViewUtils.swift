@@ -20,24 +20,54 @@ import UIKit
 
 enum ExposureSubmissionViewUtils {
 
-	static func setupErrorAlert(_ error: ExposureSubmissionError) -> UIAlertController {
-		setupAlert(message: error.localizedDescription)
-	}
-
-	static func setupAlert(message: String, action completion: (() -> Void)? = nil) -> UIAlertController {
+	static func setupErrorAlert(_ error: Error, completion: (() -> Void)?) -> UIAlertController {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmission.generalErrorTitle,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+		alert.addAction(UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true, completion: completion)
+			})
+		)
+
+		return alert
+	}
+
+	static func setupErrorAlert(_ error: ExposureSubmissionError, retry: Bool = false, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
+		setupAlert(message: error.localizedDescription, retry: retry, retryActionHandler: retryActionHandler)
+	}
+
+	static func setupAlert(title: String? = nil, message: String, okTitle: String? = nil, retryTitle: String? = nil, retry: Bool = false, action completion: (() -> Void)? = nil, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
+		let alert = UIAlertController(
+			title: title ?? AppStrings.ExposureSubmission.generalErrorTitle,
 			message: message,
 			preferredStyle: .alert
 		)
 		let ok = UIAlertAction(
-			title: AppStrings.Common.alertActionOk,
+			title: okTitle ?? AppStrings.Common.alertActionOk,
 			style: .cancel,
 			handler: { _ in
 				alert.dismiss(animated: true, completion: completion)
 			}
 		)
+
 		alert.addAction(ok)
+		if retry {
+			let retryAction = UIAlertAction(
+				title: retryTitle ?? AppStrings.Common.alertActionRetry,
+				style: .default,
+				handler: { _ in
+					alert.dismiss(animated: true, completion: retryActionHandler)
+
+				}
+			)
+			alert.addAction(retryAction)
+			alert.preferredAction = retryAction
+		}
 		return alert
 	}
 }

@@ -17,66 +17,49 @@
 
 import Foundation
 
+struct WrittenPackages {
+	init(urls: [URL]) {
+		self.urls = urls
+	}
+
+	var urls: [URL]
+	func cleanUp() {
+		let fileManager = FileManager()
+		for url in urls {
+			try? fileManager.removeItem(at: url)
+		}
+	}
+
+	mutating func add(_ url: URL) {
+		urls.append(url)
+	}
+}
+
 final class AppleFilesWriter {
 	// MARK: Creating a Writer
-
 	init(rootDir: URL, keyPackages: [SAPDownloadedPackage]) {
 		self.rootDir = rootDir
 		self.keyPackages = keyPackages
 	}
 
 	// MARK: Properties
-
 	let rootDir: URL
 	let keyPackages: [SAPDownloadedPackage]
 
 	// MARK: Interacting with the Writer
-
-	typealias WithDiagnosisKeyURLsHandler = (
-		_ diagnosisKeyURLs: [URL],
-		_ done: @escaping DoneHandler
-	) -> Void
-
-	typealias DoneHandler = () -> Void
-
-	func with(handler: WithDiagnosisKeyURLsHandler) {
-		var writtenURLs = [URL]()
-
-		func cleanup() {
-			let fileManager = FileManager()
-			for writtenURL in writtenURLs {
-				try? fileManager.removeItem(at: writtenURL)
+	func writeAllPackages() -> WrittenPackages? {
+		var writtenPackages = WrittenPackages(urls: [])
+		do {
+			for keyPackage in keyPackages {
+				let filename = UUID().uuidString
+				writtenPackages.add(try keyPackage.writeKeysEntry(toDirectory: rootDir, filename: filename))
+				writtenPackages.add(try keyPackage.writeSignatureEntry(toDirectory: rootDir, filename: filename))
 			}
-			return
+		} catch {
+			writtenPackages.cleanUp()
+			return nil
 		}
-
-		var needsCleanupInDone = true
-
-		for keyPackage in keyPackages {
-			let filename = UUID().uuidString
-
-			do {
-				writtenURLs.append(
-					try keyPackage.writeKeysEntry(toDirectory: rootDir, filename: filename)
-				)
-				writtenURLs.append(
-					try keyPackage.writeSignatureEntry(toDirectory: rootDir, filename: filename)
-				)
-			} catch {
-				cleanup()
-				writtenURLs = [] // we need to set this to an empty array
-				needsCleanupInDone = false
-			}
-		}
-
-		handler(writtenURLs) {
-			// This is executed when the app is finished.
-			// needsCleanupInDone will be true if the writer has cleaned up already due to errors.
-			guard needsCleanupInDone else {
-				return
-			}
-			cleanup()
-		}
+		return writtenPackages
 	}
 }
 
