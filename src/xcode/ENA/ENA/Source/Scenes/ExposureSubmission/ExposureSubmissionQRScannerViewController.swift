@@ -200,7 +200,7 @@ final class ExposureSubmissionQRScannerFocusView: UIView {
 }
 
 private extension Array {
-	public func first<T>(ofType _: T.Type) -> T? {
+	func first<T>(ofType _: T.Type) -> T? {
 		first(where: { $0 is T }) as? T
 	}
 }

@@ -96,15 +96,3 @@ extension DynamicCell {
 	static func subheadline(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.subheadline, text: text, color: color, configure: configure) }
 	static func footnote(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.footnote, text: text, color: color, configure: configure) }
 }
-
-extension DynamicCell {
-	// TODO to be removed
-	@available(*, deprecated, renamed: "title2")
-	static func bigBold(text: String) -> Self { .dynamicType(text: text, size: 22, weight: .bold, style: .headline) }
-	@available(*, deprecated)
-	static func bold(text: String) -> Self { .dynamicType(text: text, size: 17, weight: .bold, style: .body) }
-	@available(*, deprecated, renamed: "headline")
-	static func semibold(text: String) -> Self { .dynamicType(text: text, size: 17, weight: .semibold, style: .body) }
-	@available(*, deprecated, renamed: "body")
-	static func regular(text: String) -> Self { .dynamicType(text: text, size: 17, weight: .regular, style: .body) }
-}

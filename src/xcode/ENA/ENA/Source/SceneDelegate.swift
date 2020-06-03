@@ -33,7 +33,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
 	}()
 	#else
-	private let exposureManager = ENAExposureManager()
+	private let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
 	private let navigationController: UINavigationController = .withLargeTitle()
 	private var homeController: HomeViewController?

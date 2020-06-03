@@ -255,7 +255,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 	// MARK: User Notifications
 
-	public func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
+	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
 		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
 		let notificationCenter = UNUserNotificationCenter.current()
 		notificationCenter.requestAuthorization(options: options) { _, error in
@@ -313,9 +313,11 @@ extension ENAExposureManager {
 
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? {
 		if ENManager.authorizationStatus == .authorized && self.manager.exposureNotificationStatus == .bluetoothOff {
-			let alert = UIAlertController(title: AppStrings.Common.alertTitleBluetoothOff,
-										  message: AppStrings.Common.alertDescriptionBluetoothOff,
-										  preferredStyle: .alert)
+			let alert = UIAlertController(
+				title: AppStrings.Common.alertTitleBluetoothOff,
+				message: AppStrings.Common.alertDescriptionBluetoothOff,
+				preferredStyle: .alert
+			)
 			let completionHandler: (UIAlertAction, @escaping () -> Void) -> Void = { action, completion in
 				switch action.style {
 				case .default:
