@@ -260,7 +260,7 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
 
-// Tracing Enable/Disable Settings
+/* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 "ExposureNotificationSetting_EnableTracing" = "Risiko-Ermittlung";
 "ExposureNotificationSetting_Tracing_Limited" = "Eingeschränkt";
@@ -424,7 +424,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
 "high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
-// Invite Friends
+/* Invite Friends */
 "InviteFriends_NavTitle" = "Teilen";
 "InviteFriends_Subtitle" = "Teilen Sie die Corona-Warn-App";
 "InviteFriends_Title" = "Gemeinsam Corona bekämpfen";
