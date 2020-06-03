@@ -55,6 +55,8 @@ final class RiskLevelProviderTests: XCTestCase {
 			description: "expect willCalculateRiskLevelIn to be called"
 		)
 		consumer.willCalculateRiskLevelIn = { dateComponents in
+			let hours = dateComponents.hour ?? 0
+			XCTAssertTrue(hours == 11 || hours == 12)
 			expectWillCalculateRiskLevelIn.fulfill()
 		}
 		sut.observeRiskLevel(consumer)

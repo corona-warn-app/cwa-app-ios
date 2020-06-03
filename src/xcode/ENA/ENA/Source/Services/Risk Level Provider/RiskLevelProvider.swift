@@ -51,7 +51,20 @@ extension RiskLevelProvider: RiskLevelProviding {
 		queue.sync {
 			consumers.add(consumer)
 		}
-		consumer.willCalculateRiskLevelIn?(DateComponents())
+		let calendar = Calendar.current
+		let nextExposureDetectionDate = calendar.date(
+			byAdding: configuration.exposureDetectionValidityDuration,
+			to: store.dateLastExposureDetection ?? .distantPast,
+			wrappingComponents: true
+		) ?? Date()
+
+		let timeUntilCalculation = calendar.dateComponents(
+			[.day, .hour, .minute, .second],
+			from: Date(),
+			to: nextExposureDetectionDate
+		)
+
+		consumer.willCalculateRiskLevelIn?(timeUntilCalculation)
 	}
 
 	func requestRiskLevel() {
