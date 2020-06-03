@@ -66,6 +66,7 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var ignoreButton: ENAButton!
 
 	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet weak var stackView: UIStackView!
 	@IBOutlet var footerView: UIView!
 
 	private var onboardingInfos = OnboardingInfo.testData()
@@ -87,6 +88,8 @@ final class OnboardingInfoViewController: UIViewController {
 		super.viewWillAppear(animated)
 		if pageType == .togetherAgainstCoronaPage {
 			navigationController?.setNavigationBarHidden(true, animated: true)
+		} else {
+			navigationController?.navigationBar.shadowImage = UIImage()
 		}
 	}
 
@@ -155,6 +158,14 @@ final class OnboardingInfoViewController: UIViewController {
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
+		
+		if pageType == .enableLoggingOfContactsPage {
+			addPanel(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText
+			)
+		}
+		
 	}
 
 	func setupAccessibility() {
