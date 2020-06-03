@@ -27,7 +27,7 @@ final class ExposureDetectionViewController: DynamicTableViewController {
 	@IBOutlet var titleViewBottomConstraint: NSLayoutConstraint!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var footerView: UIView!
-	@IBOutlet var checkButton: UIButton!
+	@IBOutlet var checkButton: ENAButton!
 
 	var state: State
 	private weak var delegate: ExposureDetectionViewControllerDelegate?
@@ -185,10 +185,12 @@ extension ExposureDetectionViewController {
 		if !state.isTracingEnabled {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
-			checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
-			checkButton.setTitleColor(.white, for: .normal)
-			checkButton.backgroundColor = .preferredColor(for: .tint)
+			checkButton.isTransparent = true
+			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
+			return
 		}
+		
+		checkButton.isTransparent = false
 
 		switch state.mode {
 		case .automatic:
