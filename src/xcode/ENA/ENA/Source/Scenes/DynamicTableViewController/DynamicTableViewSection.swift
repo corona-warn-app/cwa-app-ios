@@ -41,3 +41,14 @@ struct DynamicSection {
 		.init(header: header, footer: footer, separators: separators, isHidden: isHidden, cells: cells)
 	}
 }
+
+extension DynamicSection {
+	static func navigationSubtitle(text: String, insets: UIEdgeInsets = .init(top: 0, left: 16, bottom: 8, right: 16)) -> Self {
+		.section(cells: [
+			.subheadline(text: text, color: .preferredColor(for: .textPrimary2)) { _, cell, _ in
+				cell.contentView.preservesSuperviewLayoutMargins = false
+				cell.contentView.layoutMargins = insets
+			}
+		])
+	}
+}

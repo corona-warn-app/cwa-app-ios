@@ -118,6 +118,9 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		alert.addAction(.init(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle,
 							  style: .default,
 							  handler: { _ in
+
+								self.exposureSubmissionService?.devicePairingConsentAccept = true
+								self.exposureSubmissionService?.devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
 								self.performSegue(
 									withIdentifier: Segue.qrScanner,
 									sender: self
@@ -154,11 +157,12 @@ extension ExposureSubmissionOverviewViewController {
 
 extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerDelegate {
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError) {
-		dismissQRCodeScannerView(viewController, completion: nil)
 		switch error {
 		case .cameraPermissionDenied:
-			let alert = ExposureSubmissionViewUtils.setupAlert(message: "You need to allow camera access.")
-			present(alert, animated: true, completion: nil)
+			let alert = ExposureSubmissionViewUtils.setupErrorAlert(error) {
+				self.dismissQRCodeScannerView(viewController, completion: nil)
+			}
+			viewController.present(alert, animated: true, completion: nil)
 		default:
 			logError(message: "QRScannerError.other occured.", level: .error)
 		}
@@ -166,9 +170,9 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
-			dismissQRCodeScannerView(vc, completion: nil)
 			let alert = ExposureSubmissionViewUtils.setupAlert(message: "The provided QR code was invalid.")
-			present(alert, animated: true, completion: nil)
+			dismissQRCodeScannerView(vc, completion: nil)
+			vc.present(alert, animated: true, completion: nil)
 			return
 		}
 
@@ -185,7 +189,10 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			switch result {
 			case let .failure(error):
 				logError(message: "Error while getting registration token: \(error)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, retry: true, retryActionHandler: {
+					self.startSpinner()
+					self.getRegistrationToken(forKey: forKey)
+				})
 				self.present(alert, animated: true, completion: nil)
 
 			case let .success(token):

@@ -55,20 +55,14 @@ final class HomeLayout {
 	private func mainSection() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-		let itemSize2 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(400.0))
-		let item2 = NSCollectionLayoutItem(layoutSize: itemSize2)
-
-		let itemSize3 = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
-		let item3 = NSCollectionLayoutItem(layoutSize: itemSize3)
+		item.edgeSpacing = .init(leading: .none, top: .fixed(16.0), trailing: .none, bottom: .none)
 
 		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1000.0))
-		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item, item2, item3])
-		group.interItemSpacing = .fixed(16)
+		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
 		let section = NSCollectionLayoutSection(group: group)
 		let insets: CGFloat = 16.0
-		section.contentInsets = .init(top: insets, leading: insets, bottom: 0.0, trailing: insets)
+		section.contentInsets = .init(top: 0.0, leading: insets, bottom: 0.0, trailing: insets)
 
 		let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
 		section.decorationItems = [sectionBackgroundDecoration]

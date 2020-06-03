@@ -34,7 +34,8 @@ final class HomeViewController: UIViewController {
 		client: Client,
 		store: Store,
 		keyPackagesStore: DownloadedPackagesStore,
-		delegate: HomeViewControllerDelegate
+		delegate: HomeViewControllerDelegate,
+		taskScheduler: ENATaskScheduler
 	) {
 		self.client = client
 		self.store = store
@@ -46,7 +47,8 @@ final class HomeViewController: UIViewController {
 		homeInteractor = HomeInteractor(
 			homeViewController: self,
 			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init())
+			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
+			taskScheduler: taskScheduler
 		)
 
 		exposureSubmissionService = ENAExposureSubmissionService(
@@ -62,13 +64,14 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Properties
 
+	private var sections: [(section: Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+
 	private let keyPackagesStore: DownloadedPackagesStore
 	private let exposureManager: ExposureManager
-	private var dataSource: UICollectionViewDiffableDataSource<Section, Int>?
+	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
 	private var homeLayout: HomeLayout!
 	var homeInteractor: HomeInteractor!
-	private var cellConfigurators: [CollectionViewCellConfiguratorAny] = []
 	private let store: Store
 	private let client: Client
 	private var summaryNotificationObserver: NSObjectProtocol?
@@ -89,9 +92,10 @@ final class HomeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		prepareData()
 		configureHierarchy()
 		configureDataSource()
+		updateSections()
+		applySnapshotFromSections()
 		configureUI()
 	}
 
@@ -121,9 +125,8 @@ final class HomeViewController: UIViewController {
 
 	@objc
 	private func infoButtonTapped(_: UIButton) {
-		let vc = RiskLegendTableViewController.initiate(for: .riskLegend)
-		let naviController = UINavigationController(rootViewController: vc)
-		present(naviController, animated: true, completion: nil)
+		let vc = AppStoryboard.riskLegend.initiateInitial()
+		present(vc, animated: true, completion: nil)
 	}
 
 	// MARK: Misc
@@ -303,10 +306,6 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Configuration
 
-	func prepareData() {
-		cellConfigurators = homeInteractor.cellConfigurators
-	}
-
 	func reloadData() {
 		guard isViewLoaded else { return }
 		collectionView.reloadData()
@@ -315,12 +314,9 @@ final class HomeViewController: UIViewController {
 	func reloadCell(at indexPath: IndexPath) {
 		settingsController?.stateHandler = homeInteractor.stateHandler
 		notificationSettingsController?.stateHandler = homeInteractor.stateHandler
-		guard let snapshot = dataSource?.snapshot() else {
-			return
-		}
-		cellConfigurators = homeInteractor.cellConfigurators
+		guard let snapshot = dataSource?.snapshot() else { return }
 		guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-		cellConfigurators[indexPath.item].configureAny(cell: cell)
+		sections[indexPath.section].cellConfigurators[indexPath.item].configureAny(cell: cell)
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 
@@ -351,14 +347,15 @@ final class HomeViewController: UIViewController {
 			]
 		)
 
-		collectionView.register(cellTypes: cellConfigurators.map { $0.viewAnyType })
+		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskCollectionViewCell.self, SubmitCollectionViewCell.self, InfoCollectionViewCell.self]
+		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
 		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
 	}
 
 	private func configureDataSource() {
-		dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) { [unowned self] collectionView, indexPath, identifier in
-			let configurator = self.cellConfigurators[identifier]
+		dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
+			let configurator = self.sections[indexPath.section].cellConfigurators[indexPath.row]
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			configurator.configureAny(cell: cell)
 			return cell
@@ -375,14 +372,19 @@ final class HomeViewController: UIViewController {
 			supplementaryView.configure()
 			return supplementaryView
 		}
-		var snapshot = NSDiffableDataSourceSnapshot<Section, Int>()
-		snapshot.appendSections([.actions])
-		snapshot.appendItems(Array(0 ... 2))
-		snapshot.appendSections([.infos])
-		snapshot.appendItems(Array(3 ... 4))
-		snapshot.appendSections([.settings])
-		snapshot.appendItems(Array(5 ... 6))
-		dataSource?.apply(snapshot, animatingDifferences: false)
+	}
+
+	func applySnapshotFromSections(animatingDifferences: Bool = false) {
+		var snapshot = NSDiffableDataSourceSnapshot<Section, UUID>()
+		for section in sections {
+			snapshot.appendSections([section.section])
+			snapshot.appendItems( section.cellConfigurators.map { $0.identifier })
+		}
+		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
+	}
+
+	func updateSections() {
+		sections = homeInteractor.sections
 	}
 
 	private func configureUI() {

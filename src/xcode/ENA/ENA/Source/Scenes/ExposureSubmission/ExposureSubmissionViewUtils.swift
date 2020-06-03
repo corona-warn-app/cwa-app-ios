@@ -20,11 +20,28 @@ import UIKit
 
 enum ExposureSubmissionViewUtils {
 
-	static func setupErrorAlert(_ error: ExposureSubmissionError) -> UIAlertController {
-		setupAlert(message: error.localizedDescription)
+	static func setupErrorAlert(_ error: Error, completion: (() -> Void)?) -> UIAlertController {
+		let alert = UIAlertController(
+			title: AppStrings.ExposureSubmission.generalErrorTitle,
+			message: error.localizedDescription,
+			preferredStyle: .alert
+		)
+		alert.addAction(UIAlertAction(
+			title: AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true, completion: completion)
+			})
+		)
+
+		return alert
 	}
 
-	static func setupAlert(message: String, action completion: (() -> Void)? = nil) -> UIAlertController {
+	static func setupErrorAlert(_ error: ExposureSubmissionError, retry: Bool = false, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
+		setupAlert(message: error.localizedDescription, retry: retry, retryActionHandler: retryActionHandler)
+	}
+
+	static func setupAlert(message: String, retry: Bool = false, action completion: (() -> Void)? = nil, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmission.generalErrorTitle,
 			message: message,
@@ -37,7 +54,20 @@ enum ExposureSubmissionViewUtils {
 				alert.dismiss(animated: true, completion: completion)
 			}
 		)
+
 		alert.addAction(ok)
+		if retry {
+			let retryAction = UIAlertAction(
+				title: "Retry",
+				style: .default,
+				handler: { _ in
+					alert.dismiss(animated: true, completion: retryActionHandler)
+
+				}
+			)
+			alert.addAction(retryAction)
+			alert.preferredAction = retryAction
+		}
 		return alert
 	}
 }
