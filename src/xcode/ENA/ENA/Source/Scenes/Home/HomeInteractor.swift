@@ -190,28 +190,24 @@ final class HomeInteractor {
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(lastInvestigation: "Geringes Risiko", lastUpdateDate: dateLastExposureDetection)
 		case .low:
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
-				isLoading: false,
-				isButtonEnabled: true,
-				isButtonHidden: isButtonHidden,
-				isCounterLabelHidden: isCounterLabelHidden,
 				startDate: startDate,
 				releaseDate: releaseDate,
 				numberDays: 2,
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection
 			)
+			riskLevelConfigurator?.isButtonHidden = isButtonHidden
+			riskLevelConfigurator?.isCounterLabelHidden = isCounterLabelHidden
 		case .increased:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
-				isLoading: false,
-				isButtonEnabled: true,
-				isButtonHidden: isButtonHidden,
-				isCounterLabelHidden: isCounterLabelHidden,
 				startDate: startDate,
 				releaseDate: releaseDate,
 				numberRiskContacts: state.numberRiskContacts,
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection
 			)
+			riskLevelConfigurator?.isButtonHidden = isButtonHidden
+			riskLevelConfigurator?.isCounterLabelHidden = isCounterLabelHidden
 		}
 
 		riskLevelConfigurator?.buttonAction = { [unowned self] in
@@ -229,13 +225,6 @@ final class HomeInteractor {
 		// ...
 		// actionsConfigurators.append(findingPositiveConfigurator)
 		// actionsConfigurators.append(thankYouConfigurator)
-
-		// for testing
-		 let thankYouConfigurator = HomeThankYouRiskCellConfigurator()
-		 let findingPositiveConfigurator = HomeFindingPositiveRiskCellConfigurator()
-		 findingPositiveConfigurator.nextAction = { }
-		// ...
-
 
 		// MARK: Configure exposure submission view.
 		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
@@ -279,10 +268,6 @@ final class HomeInteractor {
 		if let exposureSubmission = exposureSubmissionConfigurator {
 			actionsConfigurators.append(exposureSubmission)
 		}
-
-		actionsConfigurators.append(findingPositiveConfigurator)
-		actionsConfigurators.append(thankYouConfigurator)
-
 
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
 		let settingsConfigurators: [CollectionViewCellConfiguratorAny] = [appInformationConfigurator, settingsConfigurator]

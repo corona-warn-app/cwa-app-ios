@@ -23,10 +23,10 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(isLoading: Bool, isButtonEnabled: Bool, isButtonHidden: Bool, isCounterLabelHidden: Bool, startDate: Date?, releaseDate: Date?, numberRiskContacts: Int, daysSinceLastExposure: Int?, lastUpdateDate: Date?) {
+	init(startDate: Date?, releaseDate: Date?, numberRiskContacts: Int, daysSinceLastExposure: Int?, lastUpdateDate: Date?) {
 		self.numberRiskContacts = numberRiskContacts
 		self.daysSinceLastExposure = daysSinceLastExposure
-		super.init(isLoading: isLoading, isButtonEnabled: isButtonEnabled, isButtonHidden: isButtonHidden, isCounterLabelHidden: isCounterLabelHidden, startDate: startDate, releaseDate: releaseDate, lastUpdateDate: lastUpdateDate)
+		super.init(isLoading: false, isButtonEnabled: true, isButtonHidden: false, isCounterLabelHidden: true, startDate: startDate, releaseDate: releaseDate, lastUpdateDate: lastUpdateDate)
 	}
 
 	// MARK: Configuration
@@ -46,10 +46,10 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
 			itemCellConfigurators.append(isLoadingItem)
 		} else {
-			let daysSinceLastExposure = self.daysSinceLastExposure ?? 0
+			let numberOfDaysSinceLastExposure = daysSinceLastExposure ?? 0
 			let numberContactsTitle = String(format: AppStrings.Home.riskCardHighNumberContactsItemTitle, numberRiskContacts)
 			let item1 = HomeRiskImageItemViewConfigurator(title: numberContactsTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
-			let lastContactTitle = String(format: AppStrings.Home.riskCardHighLastContactItemTitle, daysSinceLastExposure)
+			let lastContactTitle = String(format: AppStrings.Home.riskCardHighLastContactItemTitle, numberOfDaysSinceLastExposure)
 			let item2 = HomeRiskImageItemViewConfigurator(title: lastContactTitle, titleColor: titleColor, iconImageName: "Icons_Calendar-Dark", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
 			let dateTitle = String(format: AppStrings.Home.riskCardHighDateItemTitle, lastUpdateDateString)
 			let item3 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "LetztePruefung", iconTintColor: titleColor, color: color, separatorColor: separatorColor)

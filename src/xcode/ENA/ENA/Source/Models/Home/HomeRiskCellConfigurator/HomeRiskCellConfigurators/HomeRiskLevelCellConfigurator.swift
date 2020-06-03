@@ -26,15 +26,15 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 
 	var buttonAction: (() -> Void)?
 
-	private(set) var isLoading: Bool
-	private(set) var isButtonEnabled: Bool
-	private(set) var isButtonHidden: Bool
-	private(set) var isCounterLabelHidden: Bool
+	var isLoading: Bool
+	var isButtonEnabled: Bool
+	var isButtonHidden: Bool
+	var isCounterLabelHidden: Bool
 
-	private(set) var startDate: Date?
-	private(set) var releaseDate: Date?
+	var startDate: Date?
+	var releaseDate: Date?
 
-	private var lastUpdateDate: Date?
+	var lastUpdateDate: Date?
 
 	private let calendar = Calendar.current
 
