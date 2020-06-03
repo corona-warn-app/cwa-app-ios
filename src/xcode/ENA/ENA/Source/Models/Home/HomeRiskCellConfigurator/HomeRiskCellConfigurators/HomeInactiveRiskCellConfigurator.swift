@@ -82,11 +82,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		let buttonTitle = AppStrings.Home.riskCardInactiveButton
 
-		cell.configureActiveButton(
-			title: buttonTitle,
-			color: .preferredColor(for: .tint),
-			backgroundColor: .systemGray5
-		)
+		cell.configureActiveButton(title: buttonTitle)
 	}
 }
 

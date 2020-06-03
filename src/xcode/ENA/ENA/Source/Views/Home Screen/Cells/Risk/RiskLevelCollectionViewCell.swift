@@ -107,12 +107,11 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		chevronImageView.tintColor = tintColor
 	}
 
-	func configureUpdateButton(title: String, isInverted: Bool, isEnabled: Bool, isHidden: Bool) {
+	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool) {
 		UIView.performWithoutAnimation {
 			updateButton.setTitle(title, for: .normal)
 			updateButton.layoutIfNeeded()
 		}
-		updateButton.isInverted = isInverted
 		updateButton.isEnabled = isEnabled
 		updateButton.isHidden = isHidden
 		stackView.addArrangedSubview(updateButton)
