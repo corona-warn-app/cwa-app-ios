@@ -59,11 +59,11 @@ protocol Store: AnyObject {
 
 	// An integer value representing the timestamp when the user
 	// accepted to submit his diagnosisKeys with the CWA submission service.
-	var submitConsentAcceptTimestamp: Int64? { get set }
+	var exposureActivationConsentAcceptTimestamp: Int64? { get set }
 
 	// A boolean storing if the user has confirmed to submit
 	// his diagnosiskeys to the CWA submission service.
-	var submitConsentAccept: Bool { get set }
+	var exposureActivationConsentAccept: Bool { get set }
 
 	func clearAll()
 	}
@@ -114,14 +114,14 @@ final class SecureStore: Store {
 		set { kvStore["initialSubmitCompleted"] = newValue }
 		}
 
-	var submitConsentAcceptTimestamp: Int64? {
-		get { kvStore["submitConsentAcceptTimestamp"] as Int64? ?? 0 }
-		set { kvStore["submitConsentAcceptTimestamp"] = newValue }
+	var exposureActivationConsentAcceptTimestamp: Int64? {
+		get { kvStore["exposureActivationConsentAcceptTimestamp"] as Int64? ?? 0 }
+		set { kvStore["exposureActivationConsentAcceptTimestamp"] = newValue }
 	}
 
-	var submitConsentAccept: Bool {
-		get { kvStore["submitConsentAccept"] as Bool? ?? false }
-		set { kvStore["submitConsentAccept"] = newValue }
+	var exposureActivationConsentAccept: Bool {
+		get { kvStore["exposureActivationConsentAccept"] as Bool? ?? false }
+		set { kvStore["exposureActivationConsentAccept"] = newValue }
 		}
 
 	var registrationToken: String? {
