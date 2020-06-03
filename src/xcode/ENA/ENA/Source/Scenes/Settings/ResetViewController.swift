@@ -24,13 +24,15 @@ protocol ResetDelegate: AnyObject {
 
 final class ResetViewController: UIViewController {
 	@IBOutlet var header1Label: DynamicTypeLabel!
-	@IBOutlet var description1TextView: UITextView!
+	@IBOutlet var description1Label: UILabel!
 	@IBOutlet var resetButton: ENAButton!
 	@IBOutlet var discardResetButton: ENAButton!
 	@IBOutlet var infoTitleLabel: DynamicTypeLabel!
 	@IBOutlet var infoDescriptionLabel: UILabel!
 	@IBOutlet var infoView: UIView!
 	@IBOutlet var subtitleLabel: UILabel!
+	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var footerView: UIView!
 
 	weak var delegate: ResetDelegate?
 
@@ -43,21 +45,23 @@ final class ResetViewController: UIViewController {
 		setupView()
 	}
 
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+
+		scrollView.contentInset.bottom = footerView.frame.height
+	}
+
 	@IBAction func discard(_: Any) {
 		dismiss(animated: true, completion: nil)
 	}
 
 	private func setupView() {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
-		navigationController?.navigationBar.prefersLargeTitles = true
 
 		subtitleLabel.text = AppStrings.Reset.subtitle
 
-		description1TextView.contentInset = .zero
-		description1TextView.textContainer.lineFragmentPadding = 0
-
 		header1Label.text = AppStrings.Reset.header1
-		description1TextView.text = AppStrings.Reset.description1
+		description1Label.text = AppStrings.Reset.description1
 		discardResetButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
 
 		infoView.layer.cornerRadius = 14
