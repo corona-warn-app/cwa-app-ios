@@ -144,44 +144,29 @@
                                 </constraints>
                             </scrollView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZq-Fq-6XF">
-                                <rect key="frame" x="0.0" y="668" width="414" height="174"/>
+                                <rect key="frame" x="0.0" y="726" width="414" height="116"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GDV-z5-gaV">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="174"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N0Q-lm-1nh">
-                                            <rect key="frame" x="16" y="16" width="382" height="108"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
-                                                    <state key="normal" title="Daten zurücksetzen"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                            <color key="value" name="ENA Button Destructive Color"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBM-os-0fd" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="58" width="382" height="50"/>
-                                                    <state key="normal" title="Abbrechen"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isTransparent" value="YES"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="discard:" destination="uYn-mg-qmD" eventType="touchUpInside" id="nvG-Tj-vV4"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                            <rect key="frame" x="16" y="16" width="382" height="50"/>
+                                            <state key="normal" title="Daten zurücksetzen"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                    <color key="value" name="ENA Button Destructive Color"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="N0Q-lm-1nh" firstAttribute="top" secondItem="GDV-z5-gaV" secondAttribute="topMargin" id="9Df-e1-JLZ"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="N0Q-lm-1nh" secondAttribute="bottom" id="SqL-kA-5gL"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="N0Q-lm-1nh" secondAttribute="trailing" id="ZyM-Na-XOw"/>
-                                        <constraint firstItem="N0Q-lm-1nh" firstAttribute="leading" secondItem="GDV-z5-gaV" secondAttribute="leadingMargin" id="vil-A2-fmH"/>
+                                        <constraint firstItem="wkA-Dj-yfV" firstAttribute="leading" secondItem="GDV-z5-gaV" secondAttribute="leadingMargin" id="4sL-lF-hPR"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="wkA-Dj-yfV" secondAttribute="bottom" id="CKh-de-WtZ"/>
+                                        <constraint firstItem="wkA-Dj-yfV" firstAttribute="trailing" secondItem="GDV-z5-gaV" secondAttribute="trailingMargin" id="F2i-Ri-mz2"/>
+                                        <constraint firstItem="wkA-Dj-yfV" firstAttribute="top" secondItem="GDV-z5-gaV" secondAttribute="topMargin" id="UI1-BV-omA"/>
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                 </view>
@@ -203,7 +188,6 @@
                     <navigationItem key="navigationItem" title="# Anwendung zurücksetzen" largeTitleDisplayMode="always" id="mPv-pG-gEC"/>
                     <connections>
                         <outlet property="description1Label" destination="fZN-uX-w1I" id="7Sm-n7-1fm"/>
-                        <outlet property="discardResetButton" destination="IBM-os-0fd" id="9rf-NY-HUL"/>
                         <outlet property="footerView" destination="VZq-Fq-6XF" id="n0N-mi-fTd"/>
                         <outlet property="header1Label" destination="XDb-RN-MMz" id="QRR-5x-Jvb"/>
                         <outlet property="infoDescriptionLabel" destination="QgA-Zf-xZr" id="O5C-5d-4KW"/>
