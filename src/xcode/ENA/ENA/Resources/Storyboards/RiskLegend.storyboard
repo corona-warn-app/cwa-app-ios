@@ -20,29 +20,8 @@
                                 <rect key="frame" x="0.0" y="61.5" width="414" height="780.5"/>
                                 <color key="backgroundColor" name="background"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="188" id="EKF-cq-Lm4">
-                                        <rect key="frame" x="0.0" y="55.5" width="414" height="188"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EKF-cq-Lm4" id="eHp-m3-LJy">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="188"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XQT-N8-fML">
-                                                    <rect key="frame" x="20" y="11" width="374" height="166"/>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="XQT-N8-fML" secondAttribute="bottom" id="FiT-3h-S48"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="XQT-N8-fML" secondAttribute="trailing" id="PPS-Jm-9pE"/>
-                                                <constraint firstItem="XQT-N8-fML" firstAttribute="leading" secondItem="eHp-m3-LJy" secondAttribute="leadingMargin" id="SYc-Tq-THo"/>
-                                                <constraint firstItem="XQT-N8-fML" firstAttribute="top" secondItem="eHp-m3-LJy" secondAttribute="topMargin" id="dGu-EY-8Jc"/>
-                                            </constraints>
-                                            <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
-                                        </tableViewCellContentView>
-                                        <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="numberedTitleCell" id="0B7-SQ-UFz" customClass="RiskLegendNumberedTitleCell" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="243.5" width="414" height="48.5"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="48.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0B7-SQ-UFz" id="yjn-ic-RhS">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="48.5"/>
@@ -98,7 +77,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dotBodyCell" id="HgF-Kh-Lfs" customClass="RiskLegendDotBodyCell" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="292" width="414" height="42.5"/>
+                                        <rect key="frame" x="0.0" y="104" width="414" height="42.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HgF-Kh-Lfs" id="g3u-X0-F9D">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="42.5"/>
