@@ -300,7 +300,6 @@ extension SceneDelegate: HomeViewControllerDelegate {
 	/// Resets all stores and notifies the Onboarding.
 	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
 		store.clearAll()
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
