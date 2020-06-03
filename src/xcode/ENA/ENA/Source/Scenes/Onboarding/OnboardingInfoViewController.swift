@@ -161,6 +161,12 @@ final class OnboardingInfoViewController: UIViewController {
 		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
 		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+
+		if pageType == .enableLoggingOfContactsPage {
+			addPanel(title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
+					 body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody)
+		}
+
 	}
 
 	func setupAccessibility() {
