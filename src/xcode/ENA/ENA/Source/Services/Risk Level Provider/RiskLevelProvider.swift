@@ -30,6 +30,7 @@ import ExposureNotification
 - exposureDetectionValidityDuration: DateComponents
 - dateLastExposureDetection: Date?
 - numberOfActiveTracingDays: Int = 0
+- preconditions: ExposureManagerState
 */
 
 
