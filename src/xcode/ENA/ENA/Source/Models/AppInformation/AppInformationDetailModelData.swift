@@ -42,6 +42,12 @@ extension AppInformationDetailModel {
 		]
 	)
 
+	static let faq = AppInformationDetailModel(
+		title: "App_Information_FAQ_Navigation".localized,
+		headerImage: UIImage(),
+		content: [ ]
+	)
+
 	static let legal = AppInformationDetailModel(
 		title: "App_Information_Legal_Navigation".localized,
 		headerImage: UIImage(named: "app-information-security"),

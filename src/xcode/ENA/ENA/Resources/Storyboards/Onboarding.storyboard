@@ -41,7 +41,7 @@
                                                 <rect key="frame" x="0.0" y="22" width="414" height="251"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboarding_2" translatesAutoresizingMaskIntoConstraints="NO" id="mfP-Vw-3SQ">
-                                                        <rect key="frame" x="110.66666666666669" y="0.0" width="193" height="251"/>
+                                                        <rect key="frame" x="19.666666666666657" y="0.0" width="375" height="251"/>
                                                     </imageView>
                                                 </subviews>
                                                 <constraints>
@@ -212,7 +212,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="onboarding_2" width="193" height="229"/>
+        <image name="onboarding_2" width="375" height="229"/>
         <namedColor name="background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

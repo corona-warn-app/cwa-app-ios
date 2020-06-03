@@ -16,7 +16,6 @@
 // under the License.
 
 import ExposureNotification
-import SafariServices
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
@@ -259,24 +258,9 @@ final class HomeViewController: UIViewController {
 
 	func showAppInformation() {
 		navigationController?.pushViewController(
-			AppStoryboard.appInformation.initiateInitial(),
+			AppInformationViewController(),
 			animated: true
 		)
-	}
-
-	func showWebPage() {
-		if let url = URL(string: AppStrings.SafariView.targetURL) {
-			let config = SFSafariViewController.Configuration()
-			config.entersReaderIfAvailable = true
-			config.barCollapsingEnabled = true
-
-			let vc = SFSafariViewController(url: url, configuration: config)
-			present(vc, animated: true)
-		} else {
-			let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
-			logError(message: error)
-			fatalError(error)
-		}
 	}
 
 	private func showScreen(at indexPath: IndexPath) {
@@ -293,7 +277,7 @@ final class HomeViewController: UIViewController {
 			if row == 0 {
 				showInviteFriends()
 			} else {
-				showWebPage()
+				WebPageHelper.showWebPage(from: self)
 			}
 		case .settings:
 			if row == 0 {

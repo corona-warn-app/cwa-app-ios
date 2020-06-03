@@ -351,9 +351,13 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 
 Gemeinsam können wir helfen, die Ausbreitung zu stoppen und gesund zu bleiben.";
 
+/* App Information - FAQ */
+"App_Information_FAQ_Navigation" = "Häufige Fragen";
+"App_Information_FAQ_Title" = "Häufige Fragen";
+
 /* App Information - Contact */
-"App_Information_Contact_Navigation" = "Kontakt";
-"App_Information_Contact_Title" = "Wie können wir Ihnen helfen";
+"App_Information_Contact_Navigation" = "Technische Hotline";
+"App_Information_Contact_Title" = "Wie können wir Ihnen helfen?";
 "App_Information_Contact_Description" = "Rufen Sie uns an, wenn Sie technische, datenschutzbezogene, gesundheitsbezogene oder psychologische Fragestellungen haben.";
 "App_Information_Contact_Hotline_Title" = "Technische Hotline";
 "App_Information_Contact_Hotline_Text" = "+49 080 XXX XXX";
