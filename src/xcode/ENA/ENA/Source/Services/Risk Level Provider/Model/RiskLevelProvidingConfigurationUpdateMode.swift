@@ -20,10 +20,10 @@
 import Foundation
 
 /// Determines how the risk level is updated
-enum RiskLevelUpdateMode {
+enum RiskLevelProvidingConfigurationUpdateMode {
 	/// The user has to manually update the risk level (e.g.: by tapping on a button)
 	case manual
-	
+
 	/// The risk level is automatically kept up to day (background processing)
 	case automatic
 }

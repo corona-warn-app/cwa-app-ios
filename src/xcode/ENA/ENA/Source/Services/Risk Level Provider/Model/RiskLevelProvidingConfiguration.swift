@@ -19,17 +19,11 @@
 
 import Foundation
 
-protocol RiskLevelProviding: AnyObject {
-	typealias RiskLevelResult = Result<RiskLevel, Error>
-	typealias Completion = (RiskLevelResult) -> Void
+/// Used to configure a `RiskLevelProvider`.
+struct RiskLevelProvidingConfiguration {
+	/// The mode of operation – either manual or automatic.
+	var updateMode: RiskLevelProvidingConfigurationUpdateMode
 
-	func observeRiskLevel(_ consumer: RiskLevelConsumer)
-	func requestRiskLevel()
-
-	var configuration: RiskLevelProvidingConfiguration { get set }
-}
-
-final class RiskLevelConsumer: NSObject {
-	var didCalculateRiskLevel: ((RiskLevel) -> Void)?
-	var willCalculateRiskLevelIn: ((DateComponents) -> Void)?
+	/// The duration a conducted exposure detection is considered valid.
+	var exposureDetectionValidityDuration: DateComponents
 }

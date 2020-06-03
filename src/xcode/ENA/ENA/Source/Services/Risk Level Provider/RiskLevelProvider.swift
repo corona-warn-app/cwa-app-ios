@@ -19,33 +19,48 @@
 
 import Foundation
 
+protocol RiskLevelProviderStore: AnyObject {
+	var dateLastExposureDetection: Date? { get set }
+}
+
+
 final class RiskLevelProvider {
-	private let consumerRefs = NSHashTable<ConsumerRef>.weakObjects()
+	private let consumers = NSHashTable<RiskLevelConsumer>.weakObjects()
 	private let queue = DispatchQueue(label: "com.sap.RiskLevelProvider")
+
+	// MARK: Creating a Risk Level Provider
+	init(
+		configuration: RiskLevelProvidingConfiguration,
+		store: RiskLevelProviderStore
+	) {
+		self.configuration = configuration
+		self.store = store
+	}
+
+	// MARK: Properties
+	private let store: RiskLevelProviderStore
+	var configuration: RiskLevelProvidingConfiguration {
+		didSet {
+
+		}
+	}
 }
 
 extension RiskLevelProvider: RiskLevelProviding {
 	func observeRiskLevel(_ consumer: RiskLevelConsumer) {
 		queue.sync {
-			consumerRefs.add(ConsumerRef(consumer))
+			consumers.add(consumer)
 		}
+		consumer.willCalculateRiskLevelIn?(DateComponents())
 	}
 
 	func requestRiskLevel() {
-		for ref in consumerRefs.allObjects {
-			provideRiskLevel(to: ref.consumer)
+		for consumer in consumers.allObjects {
+			provideRiskLevel(to: consumer)
 		}
 	}
 
 	private func provideRiskLevel(to: RiskLevelConsumer?) {
 
 	}
-}
-
-
-private final class ConsumerRef {
-	init(_ consumer: RiskLevelConsumer) {
-		self.consumer = consumer
-	}
-	weak var consumer: RiskLevelConsumer?
 }
