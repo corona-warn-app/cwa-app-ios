@@ -20,44 +20,14 @@
 import Foundation
 import ExposureNotification
 
-protocol RiskLevelConsumer: NSObjectProtocol {
-	func riskLevelProvider(
-		provider: RiskLevelProviding,
-		didCalculateRiskLevel riskLevel: RiskLevel
-	)
-}
-
-private final class ConsumerRef {
-	init(_ consumer: RiskLevelConsumer) {
-		self.consumer = consumer
-	}
-	weak var consumer: RiskLevelConsumer?
-}
 
 
-protocol RiskLevelProviding: AnyObject {
-	typealias RiskLevelResult = Result<RiskLevel, Error>
-	typealias Completion = (RiskLevelResult) -> Void
-
-	func observeRiskLevel(_ consumer: RiskLevelConsumer)
-	func requestRiskLevel()
-}
 
 
-extension RiskExposureCalculation: RiskLevelProviding {
-	func observeRiskLevel(_ consumer: RiskLevelConsumer) {
-		queue.sync { consumerRefs.add(consumer) }
-	}
 
-	func requestRiskLevel() {
-		for ref in consumerRefs.allObjects {
-			provideRiskLevel(to: ref.consumer)
-		}
-	}
-	private provideRiskLevel(to: RiskLevelConsumer?) {
 
-	}
-}
+
+
 /// When the user (either as a scheduled task or on-demand) wants to re-calculate their risk level, this class is used.
 ///
 /// High level steps:
@@ -69,15 +39,12 @@ extension RiskExposureCalculation: RiskLevelProviding {
 ///		6. Wait for failure or success
 ///
 final class RiskExposureCalculation {
-	private let consumerRefs = NSHashTable<ConsumerRef>.weakObjects()
-
 	private let queue = DispatchQueue(label: "com.sap.RiskExposureCalculation")
 	typealias CalculationCompletion = (Result<RiskLevel, ExposureDetection.DidEndPrematurelyReason>) -> Void
 	// MARK: - Properties
 
 	// Serial queue to handle multiple calculation requests one after another
 	// TODO: Put on background queue? We will need to block!
-	private let queue = DispatchQueue(label: "\(Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp")\(String(describing: RiskExposureCalculation.self))")
 
 	private let exposureState: ExposureManagerState
 	private let downloadedPackagesStore: DownloadedPackagesStore
@@ -192,11 +159,5 @@ extension Date {
 			from: Date(),
 			to: self
 		).day ?? .max < 1
-	}
-}
-
-extension RiskExposureCalculation: RiskLevelProviding {
-	func riskLevel(completion: (RiskLevelResult) -> Void) {
-
 	}
 }

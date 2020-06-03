@@ -243,6 +243,9 @@
 		B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */ = {isa = PBXBuildFile; fileRef = B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */; };
 		B1F8AE4C2479C1C20093A588 /* de-config in Resources */ = {isa = PBXBuildFile; fileRef = B1F8AE4B2479C1C20093A588 /* de-config */; };
 		B1FE13D82487DEED00D012E5 /* RiskExposureCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13D72487DEED00D012E5 /* RiskExposureCalculation.swift */; };
+		B1FE13DB2488217300D012E5 /* RiskLevelUpdateMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DA2488217300D012E5 /* RiskLevelUpdateMode.swift */; };
+		B1FE13DD248821CB00D012E5 /* RiskLevelProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DC248821CB00D012E5 /* RiskLevelProviding.swift */; };
+		B1FE13DF248821E000D012E5 /* RiskLevelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DE248821E000D012E5 /* RiskLevelProvider.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
 		CD678F6D246C43EE00B6A0F8 /* MockTestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6C246C43EE00B6A0F8 /* MockTestClient.swift */; };
 		CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6E246C43FC00B6A0F8 /* MockURLSession.swift */; };
@@ -549,6 +552,9 @@
 		B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-day-2020-05-16"; sourceTree = "<group>"; };
 		B1F8AE4B2479C1C20093A588 /* de-config */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config"; sourceTree = "<group>"; };
 		B1FE13D72487DEED00D012E5 /* RiskExposureCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskExposureCalculation.swift; sourceTree = "<group>"; };
+		B1FE13DA2488217300D012E5 /* RiskLevelUpdateMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelUpdateMode.swift; sourceTree = "<group>"; };
+		B1FE13DC248821CB00D012E5 /* RiskLevelProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelProviding.swift; sourceTree = "<group>"; };
+		B1FE13DE248821E000D012E5 /* RiskLevelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelProvider.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
 		CD678F6C246C43EE00B6A0F8 /* MockTestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTestClient.swift; sourceTree = "<group>"; };
@@ -1189,6 +1195,7 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B1FE13D92488216300D012E5 /* Risk Level Provider */,
 				B1FE13D62487DEDD00D012E5 /* Risk Level Calculation */,
 				B15382DC248270220010F007 /* __tests__ */,
 				B14D0CD8246E939600D5BEBC /* Exposure Transaction */,
@@ -1440,6 +1447,16 @@
 				B1FE13D72487DEED00D012E5 /* RiskExposureCalculation.swift */,
 			);
 			path = "Risk Level Calculation";
+			sourceTree = "<group>";
+		};
+		B1FE13D92488216300D012E5 /* Risk Level Provider */ = {
+			isa = PBXGroup;
+			children = (
+				B1FE13DA2488217300D012E5 /* RiskLevelUpdateMode.swift */,
+				B1FE13DC248821CB00D012E5 /* RiskLevelProviding.swift */,
+				B1FE13DE248821E000D012E5 /* RiskLevelProvider.swift */,
+			);
+			path = "Risk Level Provider";
 			sourceTree = "<group>";
 		};
 		CD8638512477EBAA00A5A07C /* Settings */ = {
@@ -1826,6 +1843,7 @@
 				B1EAEC91247128ED003BE9A2 /* ClientMode.swift in Sources */,
 				B161782724804AF3006E435A /* DownloadedPackagesInMemoryStore.swift in Sources */,
 				B1D7D69124766D2100E4DA5D /* risk_level.pb.swift in Sources */,
+				B1FE13DD248821CB00D012E5 /* RiskLevelProviding.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */,
 				51486DA22485101500FCE216 /* RiskInactiveCollectionViewCell.swift in Sources */,
@@ -1923,6 +1941,7 @@
 				2F80CFDD247EEB88000F06AF /* DynamicTableViewImageCardCell.swift in Sources */,
 				138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */,
 				71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */,
+				B1FE13DB2488217300D012E5 /* RiskLevelUpdateMode.swift in Sources */,
 				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */,
@@ -1968,6 +1987,7 @@
 				51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */,
 				EE22DB82247FB40A001B0A71 /* ENSettingModel.swift in Sources */,
 				713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */,
+				B1FE13DF248821E000D012E5 /* RiskLevelProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
