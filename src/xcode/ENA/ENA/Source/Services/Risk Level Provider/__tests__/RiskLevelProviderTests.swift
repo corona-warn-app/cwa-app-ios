@@ -25,8 +25,6 @@ private final class RiskLevelProviderStoreMock: RiskLevelProviderStore {
 }
 
 final class RiskLevelProviderTests: XCTestCase {
-
-
     func testExample() throws {
 		var duration = DateComponents()
 		duration.day = 1
@@ -37,7 +35,7 @@ final class RiskLevelProviderTests: XCTestCase {
 			byAdding: .hour,
 			value: -12,
 			to: Date(),
-			wrappingComponents: true
+			wrappingComponents: false
 		)
 
 		let store = RiskLevelProviderStoreMock()
@@ -51,17 +49,17 @@ final class RiskLevelProviderTests: XCTestCase {
 		let sut = RiskLevelProvider(configuration: config, store: store)
 
 		let consumer = RiskLevelConsumer()
-		let expectWillCalculateRiskLevelIn = expectation(
+		let nextExposureDetectionDateDidChangeExpectation = expectation(
 			description: "expect willCalculateRiskLevelIn to be called"
 		)
-		consumer.willCalculateRiskLevelIn = { dateComponents in
-			let hours = dateComponents.hour ?? 0
-			XCTAssertTrue(hours == 11 || hours == 12)
-			expectWillCalculateRiskLevelIn.fulfill()
+
+		consumer.nextExposureDetectionDateDidChange = { nextDetectionDate in
+			// swiftlint:disable:next force_unwrapping
+			let expectedDate = calendar.date(byAdding: .hour, value: 12, to: Date(), wrappingComponents: false)!
+			XCTAssertTrue(calendar.isDate(expectedDate, equalTo: nextDetectionDate, toGranularity: .hour))
+			nextExposureDetectionDateDidChangeExpectation.fulfill()
 		}
 		sut.observeRiskLevel(consumer)
 		waitForExpectations(timeout: 1.0)
     }
-
-
 }

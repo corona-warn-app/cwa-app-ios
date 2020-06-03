@@ -31,5 +31,7 @@ protocol RiskLevelProviding: AnyObject {
 
 final class RiskLevelConsumer: NSObject {
 	var didCalculateRiskLevel: ((RiskLevel) -> Void)?
-	var willCalculateRiskLevelIn: ((DateComponents) -> Void)?
+
+	/// Called when the
+	var nextExposureDetectionDateDidChange: ((Date) -> Void)?
 }

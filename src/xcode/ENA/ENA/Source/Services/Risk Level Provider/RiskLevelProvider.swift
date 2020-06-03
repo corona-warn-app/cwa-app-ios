@@ -23,7 +23,6 @@ protocol RiskLevelProviderStore: AnyObject {
 	var dateLastExposureDetection: Date? { get set }
 }
 
-
 final class RiskLevelProvider {
 	private let consumers = NSHashTable<RiskLevelConsumer>.weakObjects()
 	private let queue = DispatchQueue(label: "com.sap.RiskLevelProvider")
@@ -55,16 +54,16 @@ extension RiskLevelProvider: RiskLevelProviding {
 		let nextExposureDetectionDate = calendar.date(
 			byAdding: configuration.exposureDetectionValidityDuration,
 			to: store.dateLastExposureDetection ?? .distantPast,
-			wrappingComponents: true
+			wrappingComponents: false
 		) ?? Date()
 
-		let timeUntilCalculation = calendar.dateComponents(
-			[.day, .hour, .minute, .second],
-			from: Date(),
-			to: nextExposureDetectionDate
-		)
+//		let timeUntilCalculation = calendar.dateComponents(
+//			[.day, .hour, .minute, .second],
+//			from: Date(),
+//			to: nextExposureDetectionDate
+//		)
 
-		consumer.willCalculateRiskLevelIn?(timeUntilCalculation)
+		consumer.nextExposureDetectionDateDidChange?(nextExposureDetectionDate)
 	}
 
 	func requestRiskLevel() {
