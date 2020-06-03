@@ -92,8 +92,6 @@ final class HomeInteractor {
 	}
 
 	private func startCheckRisk() {
-		// TODO: handle state of pending scheduled tasks to determin active state for manual refresh button
-		// TODO: disable manual trigger button
 		guard let indexPath = indexPathForRiskCell() else { return }
 		riskLevelConfigurator?.startLoading()
 		homeViewController.updateSections()

@@ -258,7 +258,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
-		exposureManager.requestUserNotificationsPermissions() {
+		exposureManager.requestUserNotificationsPermissions {
 			completion?()
 			return
 		}
