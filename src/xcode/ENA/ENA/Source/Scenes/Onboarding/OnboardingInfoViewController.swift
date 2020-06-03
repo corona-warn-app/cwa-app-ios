@@ -66,6 +66,7 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var ignoreButton: ENAButton!
 
 	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var stackView: UIStackView!
 	@IBOutlet var footerView: UIView!
 
 	private var onboardingInfos = OnboardingInfo.testData()

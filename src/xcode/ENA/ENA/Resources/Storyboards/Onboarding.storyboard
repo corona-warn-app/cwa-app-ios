@@ -41,7 +41,7 @@
                                                 <rect key="frame" x="0.0" y="22" width="414" height="251"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboarding_2" translatesAutoresizingMaskIntoConstraints="NO" id="mfP-Vw-3SQ">
-                                                        <rect key="frame" x="110.66666666666669" y="0.0" width="193" height="251"/>
+                                                        <rect key="frame" x="19.666666666666657" y="0.0" width="375" height="251"/>
                                                     </imageView>
                                                 </subviews>
                                                 <constraints>
@@ -203,6 +203,7 @@
                         <outlet property="imageView" destination="mfP-Vw-3SQ" id="SAq-8U-IOS"/>
                         <outlet property="nextButton" destination="XjZ-ed-ItP" id="M6T-Jt-59B"/>
                         <outlet property="scrollView" destination="1HX-Yf-LyV" id="UsC-cr-Xe3"/>
+                        <outlet property="stackView" destination="2eY-pe-EqA" id="QoE-4s-4AM"/>
                         <outlet property="textLabel" destination="B7z-ur-AOj" id="owY-2Z-1FW"/>
                         <outlet property="titleLabel" destination="1kj-Lh-G2l" id="0J2-gj-RYK"/>
                     </connections>
@@ -213,7 +214,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="onboarding_2" width="193" height="229"/>
+        <image name="onboarding_2" width="375" height="229"/>
         <namedColor name="background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
