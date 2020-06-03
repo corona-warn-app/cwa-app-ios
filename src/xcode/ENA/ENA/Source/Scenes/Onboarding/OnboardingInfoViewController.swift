@@ -210,6 +210,11 @@ final class OnboardingInfoViewController: UIViewController {
 			return
 		}
 
+		func persistForDPP(accepted: Bool) {
+			self.store.submitConsentAccept = accepted
+			self.store.submitConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+		}
+
 		guard !exposureManagerActivated else {
 			completion?()
 			return
@@ -230,6 +235,7 @@ final class OnboardingInfoViewController: UIViewController {
 					return
 				}
 				self.showError(error, from: self, completion: completion)
+				persistForDPP(accepted: false)
 				completion?()
 			} else {
 				self.exposureManagerActivated = true
@@ -247,6 +253,9 @@ final class OnboardingInfoViewController: UIViewController {
 							// The error condition here should not really happen as we are inside the `enable()` completion block
 							completion?()
 						}
+						persistForDPP(accepted: false)
+					} else {
+						persistForDPP(accepted: true)
 					}
 					completion?()
 				}
