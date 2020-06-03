@@ -455,7 +455,7 @@ Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "local_notifications_testresults_body" = "Es gibt Neuigkeiten in der Corona-Warn-App";
 
 
-// Risk Legend
+/* Risk Legend */
 "RiskLegend_Title" = "Überblick";
 "RiskLegend_Subtitle" = "Die wichtigsten Funktionen und Begriffe";
 "RiskLegend_Legend1_Title" = "Risiko-Ermittlung";
