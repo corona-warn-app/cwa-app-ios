@@ -66,16 +66,10 @@ final class ResetViewController: UIViewController {
 		infoTitleLabel.text = AppStrings.Reset.infoTitle
 		infoDescriptionLabel.text = AppStrings.Reset.infoDescription
 
-		guard let resetButton = resetButton, let titleLabel = resetButton.titleLabel else { return }
-
 		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
-		resetButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-		resetButton.backgroundColor = UIColor.preferredColor(for: .brandRed)
 
-		titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
-		titleLabel.adjustsFontForContentSizeCategory = true
-		titleLabel.lineBreakMode = .byWordWrapping
-
-		resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: resetButton.titleLabel, attribute: .height, multiplier: 1, constant: 0))
+		if let resetButton = resetButton, let titleLabel = resetButton.titleLabel {
+			resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
+		}
 	}
 }

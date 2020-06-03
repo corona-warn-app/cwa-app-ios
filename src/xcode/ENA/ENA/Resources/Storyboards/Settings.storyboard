@@ -38,7 +38,7 @@
                                                         <rect key="frame" x="16" y="0.0" width="382" height="324.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDb-RN-MMz" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="42.5"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                 <color key="textColor" name="textPrimary1"/>
                                                                 <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vY8-lF-Iik">
-                                                                <rect key="frame" x="0.0" y="56" width="382" height="268.5"/>
+                                                                <rect key="frame" x="0.0" y="57.5" width="382" height="267"/>
                                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </string>
                                                                 <color key="textColor" name="textPrimary1"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -140,14 +140,18 @@
                                     <constraint firstItem="cEi-3Y-TMb" firstAttribute="leading" secondItem="te1-Qd-nmE" secondAttribute="leading" id="xLp-if-6ul"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="16" y="742" width="382" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="JOC-sR-dWr"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Daten zurücksetzen"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" name="negative"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
                                 </connections>
@@ -605,6 +609,9 @@
         </namedColor>
         <namedColor name="brandRed">
             <color red="0.74099999666213989" green="0.071000002324581146" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="negative">
+            <color red="0.75300002098083496" green="0.059000000357627869" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="separator">
             <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
