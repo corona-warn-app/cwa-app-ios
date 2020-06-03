@@ -41,12 +41,10 @@ final class OnboardingInfoViewController: UIViewController {
 		coder: NSCoder,
 		pageType: OnboardingPageType,
 		exposureManager: ExposureManager,
-		taskScheduler: ENATaskScheduler,
 		store: Store
 	) {
 		self.pageType = pageType
 		self.exposureManager = exposureManager
-		self.taskScheduler = taskScheduler
 		self.store = store
 		super.init(coder: coder)
 	}
@@ -59,14 +57,13 @@ final class OnboardingInfoViewController: UIViewController {
 
 	var pageType: OnboardingPageType
 	var exposureManager: ExposureManager
-	var taskScheduler: ENATaskScheduler
 	var store: Store
 	@IBOutlet var imageView: UIImageView!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var boldLabel: UILabel!
 	@IBOutlet var textLabel: UILabel!
 	@IBOutlet var nextButton: ENAButton!
-	@IBOutlet var ignoreButton: UIButton!
+	@IBOutlet var ignoreButton: ENAButton!
 
 	@IBOutlet var scrollView: UIScrollView!
 	@IBOutlet var footerView: UIView!
@@ -100,8 +97,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		let height = footerView.frame.height + 20
-		scrollView.contentInset.bottom = height
+		scrollView.contentInset.bottom = footerView.frame.height
 	}
 
 	func runActionForPageType(completion: @escaping () -> Void) {
@@ -158,15 +154,7 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
-		ignoreButton.setTitleColor(UIColor.preferredColor(for: .tint), for: .normal)
-		ignoreButton.backgroundColor = UIColor.clear
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
-
-		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
-		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		ignoreButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
 	}
 
 	func setupAccessibility() {
@@ -180,18 +168,6 @@ final class OnboardingInfoViewController: UIViewController {
 		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
 		nextButton.accessibilityIdentifier = Accessibility.Button.next
 		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-			// content size has changed
-			titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
-			boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-			nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-			ignoreButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		}
 	}
 
 	private func persistTimestamp(completion: (() -> Void)?) {
@@ -211,6 +187,11 @@ final class OnboardingInfoViewController: UIViewController {
 		if exposureManager is MockExposureManager {
 			completion?()
 			return
+		}
+
+		func persistForDPP(accepted: Bool) {
+			self.store.exposureActivationConsentAccept = accepted
+			self.store.exposureActivationConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
 		}
 
 		guard !exposureManagerActivated else {
@@ -233,6 +214,7 @@ final class OnboardingInfoViewController: UIViewController {
 					return
 				}
 				self.showError(error, from: self, completion: completion)
+				persistForDPP(accepted: false)
 				completion?()
 			} else {
 				self.exposureManagerActivated = true
@@ -250,8 +232,10 @@ final class OnboardingInfoViewController: UIViewController {
 							// The error condition here should not really happen as we are inside the `enable()` completion block
 							completion?()
 						}
+						persistForDPP(accepted: false)
+					} else {
+						persistForDPP(accepted: true)
 					}
-					self.taskScheduler.scheduleBackgroundTaskRequests()
 					completion?()
 				}
 			}
@@ -259,7 +243,7 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
-		exposureManager.requestUserNotificationsPermissions() {
+		exposureManager.requestUserNotificationsPermissions {
 			completion?()
 			return
 		}
@@ -305,7 +289,6 @@ final class OnboardingInfoViewController: UIViewController {
 				coder: coder,
 				pageType: nextPageType,
 				exposureManager: self.exposureManager,
-				taskScheduler: self.taskScheduler,
 				store: self.store
 			)
 		}

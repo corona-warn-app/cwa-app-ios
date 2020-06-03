@@ -574,23 +574,15 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMV-Lp-NXE" customClass="DynamicTypeButton" customModule="ENA" customModuleProvider="target">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMV-Lp-NXE" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                             <rect key="frame" x="16" y="16" width="382" height="50"/>
-                                            <color key="backgroundColor" name="tint"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="LSL-sV-nHB"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="16"/>
                                             <state key="normal" title="Check Now">
                                                 <color key="titleColor" name="background"/>
                                             </state>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                    <real key="value" value="17"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
-                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="tappedBottomButton" destination="DFY-cN-Vfe" eventType="primaryActionTriggered" id="FYZ-1j-NXG"/>
                                             </connections>

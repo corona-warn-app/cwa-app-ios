@@ -19,6 +19,8 @@
 import Foundation
 
 class MockTestStore: Store {
+	var tracingStatusHistory: TracingStatusHistory = []
+
 	var testResultReceivedTimeStamp: Int64?
 	
 	func clearAll() {}
@@ -31,9 +33,9 @@ class MockTestStore: Store {
 
 	var initialSubmitCompleted: Bool = false
 
-	var submitConsentAcceptTimestamp: Int64?
+	var exposureActivationConsentAcceptTimestamp: Int64?
 
-	var submitConsentAccept: Bool = false
+	var exposureActivationConsentAccept: Bool = false
 
 	var isOnboarded: Bool = false
 

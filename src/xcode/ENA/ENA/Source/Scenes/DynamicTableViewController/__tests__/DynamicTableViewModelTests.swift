@@ -54,11 +54,8 @@ class DynamicTableViewModelTests: XCTestCase {
 		let section = sut.section(1)
 		
 		XCTAssertEqual(section.cells.count, 1)
-		if let cell = section.cells.first {
-			XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
-		} else {
-			XCTFail()
-		}
+		XCTAssertEqual(section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
+		
 	}
 	
 	func testSectionAt_returnsInitializedSection() {
@@ -66,11 +63,11 @@ class DynamicTableViewModelTests: XCTestCase {
 		let section = sut.section(at: IndexPath(row: 0, section: 1))
 
 		XCTAssertEqual(section.cells.count, 1)
-		if let cell = section.cells.first {
-			XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
-		} else {
-			XCTFail()
-		}
+		XCTAssertEqual(
+			section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier,
+			DynamicCell.CellReuseIdentifier.dynamicTypeText
+		)
+
 	}
 	
 	func testCellAt_returnsInitializedCell() {
@@ -91,34 +88,32 @@ class DynamicTableViewModelTests: XCTestCase {
 	
 	func testAdd_appendsSection() {
 		
-		let cells = [DynamicCell.title1(text: "23")]
+		let cells = [DynamicCell.headline(text: "23")]
 		sut.add(DynamicSection.section(cells: cells))
 
 		// get last section
 		let section = getLastSection(from: sut)
 		// assert cell type and content
-		if let cell = section.cells.first {
-			XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
-		} else {
-			XCTFail()
-		}
+		XCTAssertEqual(
+			section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText
+		)
+
 	}
 	
 	func testWith_returnsAlteredModel() {
 		
 		let model = DynamicTableViewModel.with { model in
-			let cells = [DynamicCell.title1(text: "42")]
+			let cells = [DynamicCell.headline(text: "42")]
 			model.add(DynamicSection.section(cells: cells))
 		}
 		
 		// get last section
 		let section = getLastSection(from: model)
 		// assert cell type and content
-		if let cell = section.cells.first {
-			XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
-		} else {
-			XCTFail()
-		}
+		XCTAssertEqual(
+			section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier,
+			DynamicCell.CellReuseIdentifier.dynamicTypeText
+		)
 	}
 }
 
