@@ -31,9 +31,9 @@ class MockTestStore: Store {
 
 	var initialSubmitCompleted: Bool = false
 
-	var submitConsentAcceptTimestamp: Int64?
+	var submissionConsentAcceptTimestamp: Int64?
 
-	var submitConsentAccept: Bool = false
+	var submissionConsentAccept: Bool = false
 
 	var isOnboarded: Bool = false
 
