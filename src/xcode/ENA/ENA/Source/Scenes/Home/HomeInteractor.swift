@@ -371,14 +371,6 @@ extension HomeInteractor {
 			}
 		}
 
-		// for testing
-		// let thankYouConfigurator = HomeThankYouRiskCellConfigurator()
-		// let findingPositiveConfigurator = HomeFindingPositiveRiskCellConfigurator()
-		// findingPositiveConfigurator.nextAction = { }
-		// ...
-		// actionsConfigurators.append(findingPositiveConfigurator)
-		// actionsConfigurators.append(thankYouConfigurator)
-
 		riskLevelConfigurator?.buttonAction = { [unowned self] in
 			if self.riskLevel == .inactive {
 				// go to settings?
@@ -423,6 +415,19 @@ extension HomeInteractor {
 		return submitConfigurator
 	}
 
+	func setupThankYouConfigurator() -> HomeThankYouRiskCellConfigurator {
+		let configurator = HomeThankYouRiskCellConfigurator()
+		return configurator
+	}
+
+	func setupFindingPositiveRiskCellConfigurator() -> HomeFindingPositiveRiskCellConfigurator {
+		let configurator = HomeFindingPositiveRiskCellConfigurator()
+		configurator.nextAction = {
+			self.homeViewController.showExposureSubmission(with: self.testResult)
+		}
+		return configurator
+	}
+
 	func setupActiveConfigurator() -> HomeActivateCellConfigurator {
 		let currentState = stateHandler.getState()
 		return HomeActivateCellConfigurator(state: currentState)
@@ -440,7 +445,8 @@ extension HomeInteractor {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
 			// Once this state is reached, it cannot be left anymore.
 
-			// TODO: Load "Thank You" screen. (not implemented yet.)
+			let thankYou = setupThankYouConfigurator()
+			actionsConfigurators.append(thankYou)
 			appLogger.log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
 
 		} else if store.registrationToken != nil {
@@ -453,10 +459,14 @@ extension HomeInteractor {
 			}
 
 			// Test result card.
-			// TODO: Here we can either have: positive (not implemented yet) or (pending, negative, invalid).
-			let testResultConfigurator = setupTestResultConfigurator()
-			actionsConfigurators.append(testResultConfigurator)
-
+			switch self.testResult {
+			case .positive:
+				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
+				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
+			default:
+				let testResultConfigurator = setupTestResultConfigurator()
+				actionsConfigurators.append(testResultConfigurator)
+			}
 		} else {
 
 			// Risk card.

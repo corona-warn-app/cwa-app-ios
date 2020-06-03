@@ -288,20 +288,38 @@ final class HomeViewController: UIViewController {
 		}
 	}
 
+	private func showScreenForActionSectionForCell(at indexPath: IndexPath) {
+		let cell = collectionView.cellForItem(at: indexPath)
+		switch cell {
+		case is ActivateCollectionViewCell:
+			showExposureNotificationSetting()
+		case is RiskLevelCollectionViewCell:
+		 	showExposureDetection()
+		case is HomeTestResultCell:
+			// Do not allow to open a pending test.
+			guard let result = homeInteractor.testResult, result != .pending else { return }
+			showExposureSubmission(with: homeInteractor.testResult)
+		case is RiskThankYouCollectionViewCell:
+			return
+		default:
+			appLogger.log(message: "Unknown cell type tapped.", file: #file, line: #line, function: #function)
+			return
+		}
+		//if row == 0 {
+		//	showExposureNotificationSetting()
+		//} else if row == 1 {
+		//	showExposureDetection()
+		//} else {
+
+		//}
+	}
+
 	private func showScreen(at indexPath: IndexPath) {
 		guard let section = Section(rawValue: indexPath.section) else { return }
 		let row = indexPath.row
 		switch section {
 		case .actions:
-			if row == 0 {
-				showExposureNotificationSetting()
-			} else if row == 1 {
-				showExposureDetection()
-			} else {
-				// Do not allow to open a pending test.
-				guard let result = homeInteractor.testResult, result != .pending else { return }
-				showExposureSubmission(with: homeInteractor.testResult)
-			}
+			showScreenForActionSectionForCell(at: indexPath)
 		case .infos:
 			if row == 0 {
 				showInviteFriends()
@@ -436,6 +454,7 @@ extension HomeViewController {
 	func updateTestResultState() {
 		self.homeInteractor.showTestResultCell()
 		self.homeInteractor.updateTestResults()
+		self.collectionView.reloadData()
 	}
 }
 
