@@ -17,8 +17,8 @@
 
 import Foundation
 
-extension ExposureDetectionTransaction {
-	enum DidEndPrematurelyReason {
+extension ExposureDetection {
+	enum DidEndPrematurelyReason: Error {
 		/// Delegate was unable to provide an exposure manager to the transaction.
 		case noExposureManager
 		/// The actual exposure summary detection was started but did either produce an error
@@ -29,6 +29,6 @@ extension ExposureDetectionTransaction {
 		/// Unable to get exposure configuration
 		case noExposureConfiguration
 		/// Unable to write diagnosis keys
-		case unableToDiagnosisKeys
+		case unableToWriteDiagnosisKeys
 	}
 }

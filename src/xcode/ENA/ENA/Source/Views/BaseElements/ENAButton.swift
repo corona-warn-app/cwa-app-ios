@@ -62,19 +62,20 @@ class ENAButton: DynamicTypeButton {
 		setValue(ButtonType.custom.rawValue, forKey: "buttonType")
 
 		clipsToBounds = true
+		cornerRadius = 8
 
 		contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 		heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
 
+		titleLabel?.font = .preferredFont(forTextStyle: .body)
+		dynamicTypeSize = 17
+		dynamicTypeWeight = "semibold"
+
+		// Important: Must be added after accessing title label for the first time for correct z-order.
 		highlightView?.removeFromSuperview()
 		highlightView = UIView(frame: bounds)
 		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		addSubview(highlightView)
-
-		titleLabel?.font = .preferredFont(forTextStyle: .body)
-		cornerRadius = 8
-		dynamicTypeSize = 17
-		dynamicTypeWeight = "semibold"
 
 		applyStyle()
 		applyHighlight()
@@ -122,14 +123,15 @@ extension ENAButton.Style {
 	var backgroundColor: UIColor {
 		switch self {
 		case .transparent: return .clear
-		case .emphasized(let color): return color ?? .preferredColor(for: .tint)
+		case .emphasized(let color): return color ?? UIColor(red: 0 / 255.0, green: 127 / 255.0, blue: 173 / 255.0, alpha: 1) // TODO will be replaced in coming incremental PR
+//		case .emphasized(let color): return color ?? .preferredColor(for: .tint)
 		case .contrast: return .preferredColor(for: .backgroundPrimary)
 		}
 	}
 
 	var foregroundColor: UIColor {
 		switch self {
-		case .transparent: return .preferredColor(for: .tint)
+		case .transparent: return .preferredColor(for: .tint) // Update with color dedicated to button.
 		case .emphasized: return .white
 		case .contrast: return .preferredColor(for: .textPrimary1, interface: .dark)
 		}

@@ -102,19 +102,19 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	private func deleteTest() {
 		let alert = UIAlertController(
-			title: "Test entfernen?",
-			message: "Der Test wird endgültig aus der Corona-Warn-App entfernt. Dieser Vorgang kann nicht widerrufen werden.",
+			title: AppStrings.ExposureSubmissionResult.removeAlert_Title,
+			message:  AppStrings.ExposureSubmissionResult.removeAlert_Text,
 			preferredStyle: .alert
 		)
 
 		let cancel = UIAlertAction(
-			title: "Abbrechen",
+			title: AppStrings.Common.alertActionCancel,
 			style: .cancel,
 			handler: { _ in alert.dismiss(animated: true, completion: nil) }
 		)
 
 		let delete = UIAlertAction(
-			title: "Entfernen",
+			title: AppStrings.Common.alertActionRemove,
 			style: .destructive,
 			handler: { _ in
 				self.exposureSubmissionService?.deleteTest()
@@ -227,7 +227,7 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -248,6 +248,7 @@ private extension ExposureSubmissionTestResultViewController {
 		)
 	}
 
+	// swiftlint:disable:next function_body_length
 	private func negativeTestResultSection() -> DynamicSection {
 		.section(
 			header: .identifier(
@@ -258,7 +259,7 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -276,7 +277,7 @@ private extension ExposureSubmissionTestResultViewController {
 					image: nil,
 					hasSeparators: false
 				),
-				.bigBold(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
+				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
 				.stepCellWith(
 					title: nil,
 					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1,
@@ -315,7 +316,7 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -340,7 +341,7 @@ private extension ExposureSubmissionTestResultViewController {
 				}
 			),
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,

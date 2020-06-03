@@ -26,7 +26,7 @@ extension ExposureDetectionViewController {
 
 		switch riskLevel {
 		case .unknownInitial, .unknownOutdated: return unknownRiskModel
-		case .inactive: return unknownRiskModel // TODO: remove
+		case .inactive: return unknownRiskModel
 		case .low: return lowRiskModel
 		case .increased: return highRiskModel
 		}
@@ -272,7 +272,7 @@ extension ExposureDetectionViewController {
 					subtitle: AppStrings.ExposureDetection.explanationSubtitle,
 					action: .open(url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
 				),
-				.regular(text: text)
+				.body(text: text)
 			]
 		)
 	}
