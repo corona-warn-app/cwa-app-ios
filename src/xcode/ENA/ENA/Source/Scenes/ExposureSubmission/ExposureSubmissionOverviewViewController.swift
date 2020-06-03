@@ -170,6 +170,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
+			vc.delegate = nil
 			let alert = ExposureSubmissionViewUtils.setupAlert(
 				title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
 				message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
@@ -177,7 +178,8 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				retry: true,
 				action: {
 					self.dismissQRCodeScannerView(vc, completion: nil)
-				}
+				},
+				retryActionHandler: { vc.delegate = self }
 			)
 			vc.present(alert, animated: true, completion: nil)
 			return
