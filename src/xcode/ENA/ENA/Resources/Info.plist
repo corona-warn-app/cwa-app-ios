@@ -40,11 +40,6 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Erlaube der App QR-Codes mit Hilfe der Kamera zu scannen</string>
 	<key>UIApplicationSceneManifest</key>
