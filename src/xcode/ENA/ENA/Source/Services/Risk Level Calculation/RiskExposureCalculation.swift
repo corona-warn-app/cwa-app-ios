@@ -75,10 +75,10 @@ final class RiskExposureCalculation {
 			calculatedRiskLevel = levelChange
 		}
 
-		// Step 2 - Check for downloaded keys
-		if let levelChange = self.checkForDownloadedKeys(), calculatedRiskLevel < levelChange {
-			calculatedRiskLevel = levelChange
-		}
+//		// Step 2 - Check for downloaded keys
+//		if let levelChange = self.checkForDownloadedKeys(), calculatedRiskLevel < levelChange {
+//			calculatedRiskLevel = levelChange
+//		}
 
 		// Step 3 - Check the tracing duration. Tracing must have been active for at least 24h
 		if let levelChange = self.checkTraceActiveDuration(), calculatedRiskLevel < levelChange {
@@ -115,17 +115,17 @@ final class RiskExposureCalculation {
 		return exposureState.isGood ? nil : .inactive
 	}
 
-	/// Step 2 - Check for downloaded keys
-	private func checkForDownloadedKeys() -> RiskLevel? {
-		// TODO: Verify this is the process
-		return nil
-//		return self.keyPackagesStore.allDays().isEmpty ? .unknownInitial : nil
-	}
+//	/// Step 2 - Check for downloaded keys
+	// Not necessary as exposure transaction will already do this!
+//	private func checkForDownloadedKeys() -> RiskLevel? {
+//		// TODO: Verify this is the process
+//		return nil
+////		return self.keyPackagesStore.allDays().isEmpty ? .unknownInitial : nil
+//	}
 
 	/// Step 3 - Check tracing duration. If intital tracing was activated less than 24h before, we are in state `RiskLevel.unknownInitial`
 	private func checkTraceActiveDuration() -> RiskLevel? {
-		// TODO
-		nil
+		store.tracingStatusHistory.checkIfOn() ? nil : .unknownInitial
 	}
 
 	/// Step 4 - Check if the exposure dection last run is outdated, if so risk  level is `.unknownOutdated`
