@@ -224,8 +224,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func parseError(_ error: Error) -> ExposureSubmissionError {
 		if let enError = error as? ENError {
 			switch enError.code {
-			default:
+			case .notEnabled:
 				return .enNotEnabled
+			default:
+				return .other(enError.localizedDescription)
 			}
 		}
 
@@ -235,7 +237,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .enNotEnabled
 			case .apiMisuse:
 				return .other("ENErrorCodeAPIMisuse")
+			default:
+				return .other(exposureNotificationError.localizedDescription)
 			}
+
 		}
 
 		if let submissionError = error as? SubmissionError {
