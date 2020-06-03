@@ -166,7 +166,7 @@ final class HomeInteractor {
 		let currentState = stateHandler.getState()
 		activeConfigurator = HomeActivateCellConfigurator(state: currentState)
 
-		let dateLastExposureDetection = Date(timeIntervalSinceNow: -232000) //store.dateLastExposureDetection
+		let dateLastExposureDetection = store.dateLastExposureDetection
 
 		let isButtonHidden = userLoadingMode == .automatic
 		let isCounterLabelHidden = !isButtonHidden
