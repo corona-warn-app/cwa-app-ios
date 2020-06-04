@@ -27,10 +27,41 @@ final class CachedAppConfiguration {
 
 	// MARK: Properties
 	private let client: Client
+	private var cache: Cache?
 }
 
 extension CachedAppConfiguration: AppConfigurationProviding {
 	func appConfiguration(completion: @escaping Completion) {
-		client.appConfiguration(completion: completion)
+		guard let cache = cache else {
+			actuallyDownloadAppConfiguration(completion: completion)
+			return
+		}
+
+		let calendar = Calendar.current
+		let deltaInMinutes = abs(calendar.dateComponents([.minute], from: cache.date, to: Date()).minute ?? .max)
+		if deltaInMinutes < 5 {
+			completion(cache.value)
+			return
+		}
+		actuallyDownloadAppConfiguration(completion: completion)
+	}
+
+	private func actuallyDownloadAppConfiguration(completion: @escaping Completion) {
+		client.appConfiguration { [weak self] appConfiguration in
+			guard let appConfiguration = appConfiguration else {
+				self?.cache = nil
+				completion(nil)
+				return
+			}
+			self?.cache = .init(date: Date(), value: appConfiguration)
+			completion(appConfiguration)
+		}
+	}
+}
+
+private extension CachedAppConfiguration {
+	struct Cache {
+		let date: Date
+		let value: SAP_ApplicationConfiguration
 	}
 }

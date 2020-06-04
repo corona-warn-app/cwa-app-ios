@@ -23,9 +23,28 @@ import XCTest
 final class CachedAppConfigurationTests: XCTestCase {
 	func testXX() {
 		let client = ClientMock(submissionError: nil)
+
+		let expectation = self.expectation(description: "onAppConfiguration called")
+		expectation.expectedFulfillmentCount = 1
+		expectation.assertForOverFulfill = true
+
+		let expectedConfig = SAP_ApplicationConfiguration()
 		client.onAppConfiguration = { completeWith in
-			completeWith(nil)
+			completeWith(expectedConfig)
+			expectation.fulfill()
 		}
+
 		let sut = CachedAppConfiguration(client: client)
+
+		sut.appConfiguration { config in
+			XCTAssertEqual(config, expectedConfig)
+		}
+
+		// Should not trigger another call to the actual client
+		sut.appConfiguration { config in
+			XCTAssertEqual(config, expectedConfig)
+		}
+
+		waitForExpectations(timeout: 0.5)
 	}
 }
