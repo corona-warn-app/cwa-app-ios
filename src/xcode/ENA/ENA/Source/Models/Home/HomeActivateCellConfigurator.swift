@@ -60,12 +60,14 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 		setupAccessibility(for: cell)
 	}
 
-	func set(newState: ENStateHandler.State) {
-		state = newState
-	}
-
 	func setupAccessibility(for cell: ActivateCollectionViewCell) {
 		cell.isAccessibilityElement = true
 		cell.accessibilityIdentifier = Accessibility.StaticText.homeActivateTitle
+	}
+}
+
+extension HomeActivateCellConfigurator: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		self.state = state
 	}
 }

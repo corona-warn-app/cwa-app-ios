@@ -32,26 +32,17 @@ protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
 final class ExposureNotificationSettingViewController: UITableViewController {
 	private weak var delegate: ExposureNotificationSettingViewControllerDelegate?
 
-	var currentState: ENStateHandler.State {
-		stateHandler.getState()
-	}
-
-	var stateHandler: ENStateHandler {
-		didSet {
-			tableView.reloadData()
-		}
-	}
-
 	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
 	let numberRiskContacts = 10
+	var enState: ENStateHandler.State
 
 	init?(
 		coder: NSCoder,
-		stateHandler: ENStateHandler,
+		initialEnState: ENStateHandler.State,
 		delegate: ExposureNotificationSettingViewControllerDelegate
 	) {
-		self.stateHandler = stateHandler
 		self.delegate = delegate
+		self.enState = initialEnState
 		super.init(coder: coder)
 	}
 
@@ -64,6 +55,7 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		navigationItem.largeTitleDisplayMode = .always
 		setUIText()
 		tableView.sectionFooterHeight = 0.0
+
 	}
 
 	private func tryEnManager() {
@@ -170,17 +162,17 @@ extension ExposureNotificationSettingViewController {
 		if let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell {
 			switch content {
 			case .banner:
-				cell.configure(for: currentState)
+				cell.configure(for: enState)
 			case .actionCell:
 				if let cell = cell as? ActionCell {
-					cell.configure(for: currentState, delegate: self)
+					cell.configure(for: enState, delegate: self)
 				}
 			case .tracingCell, .actionDetailCell:
-				switch currentState {
+				switch enState {
 				case .enabled, .disabled:
 					let tracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
 					if let tracingCell = tracingCell as? TracingHistoryTableViewCell {
-						let colorConfig: (UIColor, UIColor) = (currentState == .enabled) ?
+						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
 							(UIColor.preferredColor(for: .tint), UIColor.preferredColor(for: .textPrimary3)) :
 							(UIColor.preferredColor(for: .textPrimary2), UIColor.preferredColor(for: .textPrimary3))
 						tracingCell.configure(
@@ -191,10 +183,10 @@ extension ExposureNotificationSettingViewController {
 						return tracingCell
 					}
 				case .bluetoothOff, .internetOff, .restricted:
-					cell.configure(for: currentState)
+					cell.configure(for: enState)
 				}
 			case .descriptionCell:
-				cell.configure(for: currentState)
+				cell.configure(for: enState)
 			}
 			return cell
 		} else {
@@ -209,11 +201,14 @@ extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate
 	}
 }
 
-extension ExposureNotificationSettingViewController {
-	func stateDidChange(to _: ENStateHandler.State) {
+
+extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		self.enState = state
 		tableView.reloadData()
 	}
 }
+
 
 extension ExposureNotificationSettingViewController {
 	fileprivate enum ReusableCellIdentifier: String {

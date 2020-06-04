@@ -35,21 +35,17 @@ final class HomeViewController: UIViewController {
 		store: Store,
 		keyPackagesStore: DownloadedPackagesStore,
 		delegate: HomeViewControllerDelegate,
-		taskScheduler: ENATaskScheduler
+		taskScheduler: ENATaskScheduler,
+		initialEnState: ENStateHandler.State
 	) {
 		self.client = client
 		self.store = store
 		self.keyPackagesStore = keyPackagesStore
 		self.exposureManager = exposureManager
 		self.delegate = delegate
+		self.enState = initialEnState
 
 		super.init(coder: coder)
-		homeInteractor = HomeInteractor(
-			homeViewController: self,
-			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
-			taskScheduler: taskScheduler
-		)
 
 		exposureSubmissionService = ENAExposureSubmissionService(
 			diagnosiskeyRetrieval: self.exposureManager,
@@ -62,7 +58,8 @@ final class HomeViewController: UIViewController {
 			store: store,
 			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
 			exposureSubmissionService: exposureSubmissionService,
-			taskScheduler: taskScheduler
+			taskScheduler: taskScheduler,
+				initialEnState: initialEnState
 		)
 	}
 
@@ -82,6 +79,7 @@ final class HomeViewController: UIViewController {
 	var homeInteractor: HomeInteractor!
 	private let store: Store
 	private let client: Client
+	private var enState: ENStateHandler.State
 	private var summaryNotificationObserver: NSObjectProtocol?
 	private weak var exposureDetectionController: ExposureDetectionViewController?
 	private weak var settingsController: SettingsViewController?
@@ -141,8 +139,6 @@ final class HomeViewController: UIViewController {
 
 	// Called by HomeInteractor
 	func setStateOfChildViewControllers(_ state: State, stateHandler: ENStateHandler) {
-		settingsController?.stateHandler = stateHandler
-		notificationSettingsController?.stateHandler = stateHandler
 		let riskLevel = RiskLevel(riskScore: state.summary?.maximumRiskScore)
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: state.exposureManager,
@@ -223,9 +219,9 @@ final class HomeViewController: UIViewController {
 		let storyboard = AppStoryboard.exposureNotificationSetting.instance
 		let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
 			ExposureNotificationSettingViewController(
-				coder: coder,
-				stateHandler: self.homeInteractor.stateHandler,
-				delegate: self
+					coder: coder,
+					initialEnState: self.enState,
+					delegate: self
 			)
 		}
 		notificationSettingsController = vc
@@ -238,7 +234,7 @@ final class HomeViewController: UIViewController {
 			SettingsViewController(
 				coder: coder,
 				store: self.store,
-				stateHandler: self.homeInteractor.stateHandler,
+				initialEnState: self.enState,
 				delegate: self
 			)
 		}
@@ -340,8 +336,6 @@ final class HomeViewController: UIViewController {
 	}
 
 	func reloadCell(at indexPath: IndexPath) {
-		settingsController?.stateHandler = homeInteractor.stateHandler
-		notificationSettingsController?.stateHandler = homeInteractor.stateHandler
 		guard let snapshot = dataSource?.snapshot() else { return }
 		guard let cell = collectionView.cellForItem(at: indexPath) else { return }
 		sections[indexPath.section].cellConfigurators[indexPath.item].configureAny(cell: cell)
@@ -519,7 +513,6 @@ private extension HomeViewController {
 extension HomeViewController: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		updateOwnUI()
-		homeInteractor.updateExposureState(state)
 		exposureDetectionController?.updateUI()
 		settingsController?.updateExposureState(state)
 		notificationSettingsController?.updateExposureState(state)
@@ -527,6 +520,13 @@ extension HomeViewController: ExposureStateUpdating {
 
 	private func updateOwnUI() {
 		reloadData()
+	}
+}
+
+extension  HomeViewController: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		enState = state
+		homeInteractor.updateEnState(state)
 	}
 }
 

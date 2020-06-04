@@ -19,10 +19,11 @@ import Foundation
 
 
 
-protocol StateHandlerObserverDelegate: AnyObject {
-	func stateDidChange(to state:  ENStateHandler.State)
-	func getLatestExposureManagerState() -> ExposureManagerState
+protocol ENStateHandlerUpdating: AnyObject {
+	func updateEnState(_ state: ENStateHandler.State)
+	//var initialState: ENStateHandler.State
 }
+
 
 final class ENStateHandler {
 
@@ -37,6 +38,8 @@ final class ENStateHandler {
 		case internetOff
 		/// Restricted Mode.
 		case restricted
+		//FIXME: NOT YET DONE.
+		//case notAuthorized
 	}
 
 	private var currentState: State! {
@@ -46,13 +49,14 @@ final class ENStateHandler {
 	}
 	
 	private let reachabilityService: ReachabilityService
-	private weak var delegate: StateHandlerObserverDelegate?
+	private weak var delegate: ENStateHandlerUpdating?
 	private var internetOff = false
+	private var latestState: ExposureManagerState?
 
 	init(
 		_ initialState: ExposureManagerState,
 		reachabilityService: ReachabilityService,
-		delegate: StateHandlerObserverDelegate
+		delegate: ENStateHandlerUpdating
 	) {
 		self.reachabilityService = reachabilityService
 		self.delegate = delegate
@@ -77,7 +81,8 @@ final class ENStateHandler {
 				currentState = .internetOff
 			}
 		case .internetOff:
-			guard let latestState = delegate?.getLatestExposureManagerState() else {
+			//FIXME: What does this mean?
+			guard let latestState = latestState else {
 				return
 			}
 			currentState = determineCurrentState(from: latestState)
@@ -87,7 +92,10 @@ final class ENStateHandler {
 	}
 
 	private func stateDidChange() {
-		delegate?.stateDidChange(to: currentState)
+		guard let delegate = delegate else {
+			fatalError("Delegate is nil. It should not happen.")
+		}
+		delegate.updateEnState(currentState)
 	}
 
 	private func determineCurrentState(from enManagerState: ExposureManagerState) -> State {
@@ -114,11 +122,15 @@ final class ENStateHandler {
 		}
 	}
 
-	func getState() -> State {
+	var state: ENStateHandler.State {
 		currentState
 	}
 
-	func exposureManagerDidUpdate(to state: ExposureManagerState) {
+}
+
+extension ENStateHandler : ExposureStateUpdating {
+	func updateExposureState(_ state: ExposureManagerState) {
+		latestState = state
 		currentState = determineCurrentState(from: state)
 	}
 }

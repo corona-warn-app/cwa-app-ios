@@ -184,6 +184,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func presentHomeVC() {
+
+		//FIXME: Move it to other place.
+		let enStateHandler = ENStateHandler(
+				exposureManager.preconditions(),
+				reachabilityService: ConnectivityReachabilityService(),
+				delegate: self
+		)
+
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
@@ -192,7 +200,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 				store: self.store,
 				keyPackagesStore: self.downloadedPackagesStore,
 				delegate: self,
-				taskScheduler: self.taskScheduler
+				taskScheduler: self.taskScheduler,
+					initialEnState: enStateHandler.state
+
 			)
 		}
 
@@ -393,5 +403,12 @@ extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		homeController?.homeInteractor.state.summary = self.state.summary
 		homeController?.updateExposureState(state)
+	}
+}
+
+extension SceneDelegate: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		//TODO: Ask home controller to update.
+		homeController?.updateEnState(state)
 	}
 }
