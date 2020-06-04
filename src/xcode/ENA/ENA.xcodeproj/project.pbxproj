@@ -169,9 +169,6 @@
 		A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */; };
 		A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */; };
 		A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */; };
-		A36D07AD2483B43800E46F96 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		A36D07AF2483F6CF00E46F96 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		A36D07B12483F78500E46F96 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		A36D07B72486AD0100E46F96 /* HomeTestResultCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B62486AD0100E46F96 /* HomeTestResultCellConfigurator.swift */; };
 		A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B82486D61C00E46F96 /* HomeCardCellButtonDelegate.swift */; };
 		A36D07B32485649F00E46F96 /* HomeExposureSubmissionStateCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B22485649F00E46F96 /* HomeExposureSubmissionStateCellConfigurator.swift */; };
