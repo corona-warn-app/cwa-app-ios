@@ -205,6 +205,24 @@ final class OnboardingInfoViewController: UIViewController {
 			self.store.exposureActivationConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
 		}
 
+		func shouldHandleError(_ error: ExposureNotificationError?) -> Bool {
+			switch error {
+			case .exposureNotificationRequired:
+				log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+			case .exposureNotificationAuthorization:
+				log(message: "Encourage the user to authorize this application", level: .warning)
+			case .exposureNotificationUnavailable:
+				log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+			case .apiMisuse:
+				// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
+				completion?()
+				return false
+			default:
+				break
+			}
+			return true
+		}
+
 		guard !exposureManagerActivated else {
 			completion?()
 			return
@@ -212,15 +230,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 		exposureManager.activate { error in
 			if let error = error {
-				switch error {
-				case .exposureNotificationRequired:
-					log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-				case .exposureNotificationAuthorization:
-					log(message: "Encourage the user to authorize this application", level: .warning)
-				case .exposureNotificationUnavailable:
-					log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
-				case .apiMisuse:
-					// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
+				guard shouldHandleError(error) else {
 					completion?()
 					return
 				}
@@ -231,17 +241,9 @@ final class OnboardingInfoViewController: UIViewController {
 				self.exposureManagerActivated = true
 				self.exposureManager.enable { enableError in
 					if let enableError = enableError {
-						switch enableError {
-						case .exposureNotificationRequired:
-							log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-						case .exposureNotificationAuthorization:
-							log(message: "Encourage the user to authorize this application", level: .warning)
-						case .exposureNotificationUnavailable:
-							log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
-						case .apiMisuse:
-							// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed.
-							// The error condition here should not really happen as we are inside the `enable()` completion block
+						guard shouldHandleError(enableError) else {
 							completion?()
+							return
 						}
 						persistForDPP(accepted: false)
 					} else {
