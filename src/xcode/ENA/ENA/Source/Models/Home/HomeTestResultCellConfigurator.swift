@@ -74,21 +74,11 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 
 	private func configureResultsButton(for cell: HomeTestResultCell) {
 		let title = AppStrings.Home.resultCardShowResultButton
-		cell.button.isEnabled = isButtonActive()
 		cell.button.setTitle(title, for: .normal)
 		guard let buttonLabel = cell.button.titleLabel else { return }
 		buttonLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
 		buttonLabel.adjustsFontForContentSizeCategory = true
 		buttonLabel.lineBreakMode = .byWordWrapping
-	}
-
-	private func isButtonActive() -> Bool {
-		switch self.testResult {
-		case .pending:
-			return false
-		default:
-			return true
-		}
 	}
 }
 

@@ -66,7 +66,7 @@ final class ENATaskScheduler {
 	}
 
 	func scheduleBackgroundTaskRequests() {
-		BGTaskScheduler.shared.cancelAllTaskRequests()
+		cancelAllBackgroundTaskRequests()
 		scheduleBackgroundTask(for: .detectExposures)
 		scheduleBackgroundTask(for: .fetchTestResults)
 	}
