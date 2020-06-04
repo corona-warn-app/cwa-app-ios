@@ -53,12 +53,12 @@ enum RiskExposureCalculation {
 		numberOfTracingActiveDays: Int, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date()
-	) -> RiskLevel {
+	) -> Result<RiskLevel, RiskLevelCalculationError> {
 		var riskLevel = RiskLevel.low
 		// Precondition 1 - Exposure Notifications must be turned on
 		guard preconditions.isGood else {
 			// This overrides all other levels
-			return .inactive
+			return .success(.inactive)
 		}
 
 		// Precondition 2 - If tracing is active less than 1 day, risk is .unknownInitial
@@ -68,6 +68,7 @@ enum RiskExposureCalculation {
 
 		// Precondition 3 - Risk is unknownInitial if summary is not present
 		if summary == nil, riskLevel < .unknownInitial {
+			// TODO: Early return?
 			riskLevel = .unknownInitial
 		}
 
@@ -81,27 +82,65 @@ enum RiskExposureCalculation {
 		}
 
 		guard let summary = summary else {
-			return .unknownOutdated
-		}
-		// TODO: More in-depth calculation to be done by RKI provided formula
-		// TODO: Anything we need from backend?
-		let calculatedLevel = RiskLevel(riskScore: summary.maximumRiskScore)
-		if calculatedLevel > riskLevel {
-			riskLevel = calculatedLevel
+			// TODO: Is this correct, need to test
+			return .success(.unknownOutdated)
 		}
 
-		let maxRisk = summary.maximumRiskScore
-//		let attenuationDurationsInSec = summary.attenuationDurations
+		/* Android:
+		val maxRisk = it.exposureSummary?.maximumRiskScore
+		val atWeights = it.appConfig?.attenuationDuration?.weights
+		val attenuationDurationInMin =
+			it.exposureSummary?.attenuationDurationsInMinutes
+		val attenuationConfig = it.appConfig?.attenuationDuration
+		val formulaString =
+			"($maxRisk / ${attenuationConfig?.riskScoreNormalizationDivisor}) * " +
+					"(${attenuationDurationInMin?.get(0)} * ${atWeights?.low} " +
+					"+ ${attenuationDurationInMin?.get(1)} * ${atWeights?.mid} " +
+					"+ ${attenuationDurationInMin?.get(2)} * ${atWeights?.high} " +
+					"+ ${attenuationConfig?.defaultBucketOffset})"
+		*/
 
-//		val formulaString =
-//						   "($maxRisk / ${attenuationConfig?.riskScoreNormalizationDivisor}) * " +
-//								   "(${attenuationDurationInMin?.get(0)} * ${atWeights?.low} " +
-//								   "+ ${attenuationDurationInMin?.get(1)} * ${atWeights?.mid} " +
-//								   "+ ${attenuationDurationInMin?.get(2)} * ${atWeights?.high} " +
-//								   "+ ${attenuationConfig?.defaultBucketOffset})"
+		guard
+			let riskScoreClassLow = configuration.riskScoreClasses.riskClasses.first(where: { $0.label == "LOW" }),
+			let riskScoreClassHigh = configuration.riskScoreClasses.riskClasses.first(where: { $0.label == "HIGH" })
+		else {
+			return .failure(.undefinedRiskRange)
+		}
 
-		return riskLevel
+		let riskRangeLow = Range<Double>(uncheckedBounds: (lower: Double(riskScoreClassLow.min), upper: Double(riskScoreClassLow.max)))
+		let riskRangeHigh = Range<Double>(uncheckedBounds: (lower: Double(riskScoreClassHigh.min), upper: Double(riskScoreClassHigh.max)))
+
+		let maximumRisk = summary.maximumRiskScore
+		let adWeights = configuration.attenuationDuration.weights
+		let attenuationDurations = summary.configuredAttenuationDurations
+		let attenuationConfig = configuration.attenuationDuration
+
+		let normRiskScore = Double(maximumRisk) / Double(attenuationConfig.riskScoreNormalizationDivisor)
+		let weightedAttenuationDurationsLow = attenuationDurations[0] / 60.0 * adWeights.low
+		let weightedAttenuationDurationsMid = attenuationDurations[1] / 60.0 * adWeights.mid
+		let weightedAttenuationDurationsHigh = attenuationDurations[2] / 60.0 * adWeights.high
+		let bucketOffset = Double(attenuationConfig.defaultBucketOffset)
+
+		let riskScore = normRiskScore * (weightedAttenuationDurationsLow * weightedAttenuationDurationsMid * weightedAttenuationDurationsHigh + bucketOffset)
+
+		if riskRangeLow.contains(riskScore) {
+			let calculatedRiskLevel = RiskLevel.low
+			// Only use the calculated risk level if it is of a higher priority than the
+			riskLevel = calculatedRiskLevel > riskLevel ? calculatedRiskLevel : riskLevel
+		} else if riskRangeHigh.contains(riskScore) {
+			let calculatedRiskLevel = RiskLevel.increased
+			riskLevel = calculatedRiskLevel > riskLevel ? calculatedRiskLevel : riskLevel
+		} else {
+			return .failure(.riskOutsideRange)
+		}
+
+		return .success(riskLevel)
 	}
+}
+
+enum RiskLevelCalculationError: Error {
+	case riskOutsideRange
+	case undefinedRiskRange
 }
 
 extension Date {
