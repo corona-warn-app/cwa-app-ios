@@ -291,16 +291,17 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Keine Diagnoseschlüssel verfügbar. Bitte versuchen Sie morgen erneut.";
-"ExposureSubmissionError_InvalidTan" = "Die erzeugte TAN für die Übermittlung ist ungültig.";
-"ExposureSubmissionError_EnNotEnabled" = "Das Exposure Notification ist nicht aktiv.";
+"ExposureSubmissionError_InvalidTan" = "Die erzeugte Übermittlungs TAN ist ungültig. Fehler 403";
+"ExposureSubmissionError_EnNotEnabled" = "Bitte aktivieren Sie die Risiko-Ermittlung, um andere zu warnen.";
 "ExposureSubmissionError_NoRegistrationToken" = "Kein Registration Token auf dem Gerät gefunden.";
 "ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
 "ExposureSubmissionError_NoResponse" = "Die Anwort enthält kein Inhalt";
-"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Der QR-Code oder die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
 "ExposureSubmissionError_RegTokenNotExist" = "Der verwendet Registration Token existiert nich.";
 "ExposureSubmissionError_other" = "Fehler: ";
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
-"ExposureSubmissionError_defaultError" = "Allgemeinier Exposure Submission Fehler";
+"ExposureSubmissionError_defaultError" = "Allgemeiner Exposure Submission Fehler";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";

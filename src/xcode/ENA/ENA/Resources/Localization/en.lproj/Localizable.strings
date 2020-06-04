@@ -160,7 +160,8 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "ExposureSubmissionError_NoRegistrationToken" = "Kein Registration Token auf dem Gerät gefunden.";
 "ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
 "ExposureSubmissionError_NoResponse" = "Die Anwort enthält kein Inhalt";
-"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Der QR-Code oder die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
 "ExposureSubmissionError_RegTokenNotExist" = "Der verwendet Registration Token existiert nich.";
 "ExposureSubmissionError_other" = "Fehler: ";
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";

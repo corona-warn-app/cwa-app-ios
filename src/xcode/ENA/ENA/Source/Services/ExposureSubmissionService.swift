@@ -278,8 +278,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .httpError(wrapped.localizedDescription)
 			case .invalidResponse:
 				return .invalidResponse
-			case .qRTeleTanAlreadyUsed:
-				return .qRTeleTanAlreadyUsed
+			case .teleTanAlreadyUsed:
+				return .teleTanAlreadyUsed
+			case .qRAlreadyUsed:
+				return .qRAlreadyUsed
 			case .regTokenNotExist:
 				return .regTokenNotExist
 			case .noResponse:
@@ -303,7 +305,8 @@ enum ExposureSubmissionError: Error, Equatable {
 	case invalidTan
 	case invalidResponse
 	case noResponse
-	case qRTeleTanAlreadyUsed
+	case teleTanAlreadyUsed
+	case qRAlreadyUsed
 	case regTokenNotExist
 	case serverError(Int)
 	case unknown
@@ -329,8 +332,10 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.noResponse
 		case .noExposureConfiguration:
 			return AppStrings.ExposureSubmissionError.noConfiguration
-		case .qRTeleTanAlreadyUsed:
-			return AppStrings.ExposureSubmissionError.qRTeleTanAlreadyUsed
+		case .qRAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
+		case .teleTanAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
 		case .regTokenNotExist:
 			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		case .noKeys:
