@@ -24,7 +24,7 @@ class ENAColorTests: XCTestCase {
 
 	func testAvailableColors() {
 		for style in ENAColor.allCases {
-			_ = UIColor(enaColor: style)
+			XCTAssertNotNil(UIColor(enaColor: style), "ENAColor does not exist: \(style.rawValue)")
 		}
 	}
 
