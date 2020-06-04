@@ -51,11 +51,11 @@ final class ConfigurationCache {
 		self.client = client
 	}
 	private let client: Client
-	typealias Completion = (ENExposureConfiguration?) -> Void
-	private var cachedConfiguration: ENExposureConfiguration?
+	typealias Completion = (SAP_ApplicationConfiguration?) -> Void
+	private var cachedConfiguration: SAP_ApplicationConfiguration?
 
 	func configuration(completion: @escaping Completion) {
-		client.exposureConfiguration(completion: completion)
+		client.appConfiguration(completion: completion)
 	}
 }
 
@@ -179,10 +179,10 @@ extension RiskLevelProvider: RiskLevelProviding {
 			}
 		}
 
-		var exposureConfiguration: ENExposureConfiguration?
+		var appConfiguration: SAP_ApplicationConfiguration?
 		group.enter()
 		configurationCache.configuration { configuration in
-			exposureConfiguration = configuration
+			appConfiguration = configuration
 			group.leave()
 		}
 
@@ -190,7 +190,7 @@ extension RiskLevelProvider: RiskLevelProviding {
 			return
 		}
 
-		guard let _exposureConfiguration = exposureConfiguration else {
+		guard let _appConfiguration = appConfiguration else {
 			return
 		}
 		
@@ -198,7 +198,7 @@ extension RiskLevelProvider: RiskLevelProviding {
 		let numberOfEnabledDays = tracingHistory.countEnabledDays()
 		let riskLevel = RiskExposureCalculation.riskLevel(
 			summary: nil,
-			configuration: _exposureConfiguration,
+			configuration: _appConfiguration,
 			dateLastExposureDetection: self.store.dateLastExposureDetection,
 			numberOfTracingActiveDays: numberOfEnabledDays,
 			preconditions: self.exposureManagerState,

@@ -47,7 +47,7 @@ enum RiskExposureCalculation {
 	*/
 	static func riskLevel(
 		summary: ENExposureDetectionSummaryContainer?,
-		configuration: ENExposureConfiguration,
+		configuration: SAP_ApplicationConfiguration,
 //		exposureDetectionValidityDuration: DateComponents,
 		dateLastExposureDetection: Date?,
 		numberOfTracingActiveDays: Int, // Get this from the `TracingStatusHistory`
