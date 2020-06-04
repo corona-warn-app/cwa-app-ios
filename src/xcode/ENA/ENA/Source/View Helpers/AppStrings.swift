@@ -57,6 +57,7 @@ enum AppStrings {
 
 	enum ExposureSubmissionIntroduction {
 		static let title = NSLocalizedString("ExposureSubmissionIntroduction_Title", comment: "")
+		static let subTitle = NSLocalizedString("ExposureSubmissionIntroduction_SubTitle", comment: "")
 		static let usage01 = NSLocalizedString("ExposureSubmissionIntroduction_Usage01", comment: "")
 		static let usage02 = NSLocalizedString("ExposureSubmissionIntroduction_Usage02", comment: "")
 		static let usage03 = NSLocalizedString("ExposureSubmissionIntroduction_Usage03", comment: "")
@@ -140,6 +141,7 @@ enum AppStrings {
 		static let sectionTitle = NSLocalizedString("ExposureSubmissionWarnOthers_sectionTitle", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionWarnOthers_description", comment: "")
 		static let dataPrivacyDescription = NSLocalizedString("ExposureSubmissionWarnOthers_dataPrivacyDescription", comment: "")
+		static let dataPrivacyTitle = NSLocalizedString("ExposureSubmissionWarnOthers_dataPrivacyTitle", comment: "")
 	}
 
 	enum ExposureSubmissionSuccess {
@@ -163,9 +165,12 @@ enum AppStrings {
 		static let noRegistrationToken = NSLocalizedString("ExposureSubmissionError_NoRegistrationToken", comment: "")
 		static let invalidResponse = NSLocalizedString("ExposureSubmissionError_InvalidResponse", comment: "")
 		static let noResponse = NSLocalizedString("ExposureSubmissionError_NoResponse", comment: "")
-		static let qRTeleTanAlreadyUsed = NSLocalizedString("ExposureSubmissionError_QRTeleTanAlreadyUsed", comment: "")
+		static let teleTanAlreadyUsed = NSLocalizedString("ExposureSubmissionError_TeleTanAlreadyUsed", comment: "")
+		static let qrAlreadyUsed = NSLocalizedString("ExposureSubmissionError_QRAlreadyUsed", comment: "")
 		static let regTokenNotExist = NSLocalizedString("ExposureSubmissionError_RegTokenNotExist", comment: "")
 		static let other = NSLocalizedString("ExposureSubmissionError_other", comment: "")
+		static let otherend = NSLocalizedString("ExposureSubmissionError_otherend", comment: "")
+		static let notAuthorized = NSLocalizedString("ExposureSubmissionError_declined", comment: "")
 		static let unknown = NSLocalizedString("ExposureSubmissionError_unknown", comment: "")
 		static let defaultError = NSLocalizedString("ExposureSubmissionError_defaultError", comment: "")
 		static let noConfiguration = NSLocalizedString("No Exposure Configuration available", comment: "")
@@ -418,6 +423,7 @@ enum AppStrings {
 		static let shareTitle = NSLocalizedString("InviteFriends_ShareTitle", comment: "")
 		static let shareUrl = NSLocalizedString("InviteFriends_ShareUrl", comment: "")
 		static let subtitle = NSLocalizedString("InviteFriends_Subtitle", comment: "")
+		static let imageAccessLabel = NSLocalizedString("InviteFriends_Illustration_Label", comment: "")
 	}
 
 	enum Reset {
@@ -468,5 +474,6 @@ enum AppStrings {
 		static let notificationText = NSLocalizedString("RiskLegend_Notification_Text", comment: "")
 		static let randomTitle = NSLocalizedString("RiskLegend_Random_Title", comment: "")
 		static let randomText = NSLocalizedString("RiskLegend_Random_Text", comment: "")
+		static let titleImageAccLabel = NSLocalizedString("RiskLegend_Image1_AccLabel", comment: "")
 	}
 }

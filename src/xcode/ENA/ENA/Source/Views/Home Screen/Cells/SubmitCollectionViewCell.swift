@@ -17,19 +17,15 @@
 
 import UIKit
 
-protocol SubmitCollectionViewCellDelegate: AnyObject {
-	func submitButtonTapped(cell: SubmitCollectionViewCell)
-}
-
 class SubmitCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var iconImageView: UIImageView!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var bodyLabel: UILabel!
 	@IBOutlet var contactButton: UIButton!
 
-	weak var delegate: SubmitCollectionViewCellDelegate?
+	weak var delegate: HomeCardCellButtonDelegate?
 
 	@IBAction func submitButtonTapped(_: UIButton) {
-		delegate?.submitButtonTapped(cell: self)
+		delegate?.buttonTapped(cell: self)
 	}
 }

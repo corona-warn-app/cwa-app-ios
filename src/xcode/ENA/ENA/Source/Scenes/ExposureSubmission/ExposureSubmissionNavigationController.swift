@@ -113,7 +113,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	private func getRootViewController() -> UIViewController {
 
 		// We got a test result and can jump straight into the test result view controller.
-		if let service = exposureSubmissionService, testResult != nil {
+		if let service = exposureSubmissionService, testResult != nil, service.hasRegistrationToken() {
 			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
 			vc.exposureSubmissionService = service
 			vc.testResult = testResult
@@ -127,9 +127,9 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		let barButtonItem = UIBarButtonItem(
-			image: UIImage(named: "Icons - Close - Light"),
+			image: UIImage(named: "Icons - Close"),
 			style: .done, target: self, action: #selector(close)
 		)
 		navigationItem.rightBarButtonItem = barButtonItem
@@ -185,6 +185,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		self.homeViewController?.updateTestResultState()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {

@@ -305,6 +305,8 @@
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Info";
 
+"ExposureSubmissionIntroduction_SubTitle" = "So funktioniert das Corona-Warn-System";
+
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
 
 "ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt  wie folgt vorgehen:";
@@ -384,7 +386,11 @@
 
 "ExposureSubmissionWarnOthers_description" = "Als Nächstes können Sie dafür sorgen, dass das Corona-Warn-System Ihre lokal gespeicherten Zufallscodes der letzten 14 Tage an andere verteilt. So können Sie Ihre Mitmenschen warnen und helfen, die Infektionskette zu unterbrechen.\n\nDa nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Ich willige hiermit ein, dass mein positiver Corona-Befund an das Tracing Backend übermittelt und dazu genutzt wird, andere App Nutzer auf ein mögliches Infektionsrisiko hinzuweisen. Dabei werden die auf meinem Gerät gespeicherten Temporary Exposure Keys an das Tracing Backend übermittelt und dort anderen Nutzern der App zur Verfügung gestellt.
+
+Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Ein Widerruf lässt die Rechtmäßigkeit der Verarbeitung bis zum Widerruf unberührt.";
+
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test entfernen?";
 
@@ -405,13 +411,19 @@
 
 "ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Der QR-Code oder die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
 
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde schon verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Kontakt.";
+
 "ExposureSubmissionError_RegTokenNotExist" = "Der verwendet Registrations-Token existiert nicht.";
 
 "ExposureSubmissionError_other" = "Fehler:";
 
+"ExposureSubmissionError_otherend" = ". Bitte versuchen Sie es erneut.";
+
+"ExposureSubmissionError_declined" = "Bitte geben Sie ihre zufälligen IDs frei, um andere zu warnen.";
+
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
 
-"ExposureSubmissionError_defaultError" = "Allgemeinier Exposure Submission Fehler";
+"ExposureSubmissionError_defaultError" = "Allgemeiner Exposure Submission Fehler";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
@@ -578,54 +590,42 @@
 
 "Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tage.";
 
-"Home_resultCard_InvalidTitle" = "Befund ungültig";
-
-"Home_resultCard_InvalidDesc" = "Das Ergebnis ist ungültig.";
+"Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
+"Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
+"App_Information_About_Title" = "Gemeinsam Corona bekämpfen";
+"App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App für die gesamte Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
+"App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schenll nachzuverfolgen und zu durchbrechen. Die App speichert dezentral - auf Ihrem Smartphone - Begegnungen mit anderen. Sie werden informiert, wenn Sie Kontakt mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
 
-"App_Information_About_Title" = "Zusammen gegen Corona";
-
-"App_Information_About_Description" = "Die COVID Warn-App wurde vom Robert Koch-Instituts entwickelt, um die Gemeinschaft vor der Verbreitung des Coronavirus zu schützen.";
-
-"App_Information_About_Text" = "Die COVID Warn-App wird Begegnungen, die Sie mit anderen Benutzern der App haben, sicher notieren. Auf diese Weise wird ermittelt, ob Sie sich in der Nähe eines Corona-Infizierten aufgehalten haben.\n\nGemeinsam können wir helfen, die Ausbreitung zu stoppen und gesund zu bleiben.";
+/* App Information - FAQ */
+"App_Information_FAQ_Navigation" = "Häufige Fragen";
+"App_Information_FAQ_Title" = "Häufige Fragen";
 
 /* App Information - Contact */
-"App_Information_Contact_Navigation" = "Kontakt";
-
-"App_Information_Contact_Title" = "Wie können wir Ihnen helfen";
-
-"App_Information_Contact_Description" = "Rufen Sie uns an, wenn Sie technische, datenschutzbezogene, gesundheitsbezogene oder psychologische Fragestellungen haben.";
-
+"App_Information_Contact_Navigation" = "Technische Hotline";
+"App_Information_Contact_Title" = "Wie können wir Ihnen helfen?";
+"App_Information_Contact_Description" = "Für technische Fragen rund um die Corona-Warn-App können Sie sich direkt an unsere technische Hotline wenden.";
 "App_Information_Contact_Hotline_Title" = "Technische Hotline";
+"App_Information_Contact_Hotline_Text" = "+49 (0)800 7540001";
+"App_Information_Contact_Hotline_Number" = "00498007540001";
+"App_Information_Contact_Hotline_Description" = "Sprachen:\nDeutsch, Englisch";
+"App_Information_Contact_Hotline_Terms" = "Erreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
 
-"App_Information_Contact_Hotline_Text" = "+49 080 XXX XXX";
+// App Information - Imprint
+"App_Information_Imprint_Navigation" = "Impressum";
+"App_Information_Imprint_Section1_Title" = "Anbieter";
+"App_Information_Imprint_Section1_Text" = "Presse- und Informationsamt der Bundesregierung\nDorotheenstraße 84\n10117 Berlin\nTelefon: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
+"App_Information_Imprint_Section2_Title" = "Gesetzlicher Vertreter";
+"App_Information_Imprint_Section2_Text" = "Chef des Presse- und Informationsamtes der BundesRegierung";
+"App_Information_Imprint_Section3_Title" = "";
+"App_Information_Imprint_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
+"App_Information_Imprint_Section4_Title" = "Briefanschrift";
+"App_Information_Imprint_Section4_Text" = "...";
 
-"App_Information_Contact_Hotline_Number" = "+49080123456";
-
-"App_Information_Contact_Hotline_Description" = "Unser technischer Kundenservice ist für Sie da. Die Wartezeit ist weniger als 5 Minuten im Moment.";
-
-"App_Information_Contact_Hotline_Terms" = "Unsere Öffnungszeiten:\nMo - Fr: 08:00 - 22:00 Uhr\nSa - So: 10:00 - 22:00 Uhr\nEs gelten die Preise Ihres Telefonanbieters.";
-
-/* App Information - Legal */
-"App_Information_Legal_Navigation" = "Impressum";
-
-"App_Information_Legal_Section1_Title" = "Anbieter";
-
-"App_Information_Legal_Section1_Text" = "Presse- und Informationsamt der Bundesregierung\nDorotheenstraße 84\n10117 Berlin\nTelefon: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
-
-"App_Information_Legal_Section2_Title" = "Gesetzlicher Vertreter";
-
-"App_Information_Legal_Section2_Text" = "Chef des Presse- und Informationsamtes der Bundesregierung";
-
-"App_Information_Legal_Section3_Title" = "";
-
-"App_Information_Legal_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
-
-"App_Information_Legal_Section4_Title" = "Briefanschrift";
-
-"App_Information_Legal_Section4_Text" = "...";
+// App Information - Legal
+"App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Datenschutz";
@@ -644,11 +644,6 @@
 "App_Information_Terms_Description" = "Die nachfolgenden Nutzungsbedingungen gelten für die Nutzung der App und werden duch Aufruf oder Nutzung des Angebots oder einer einzelnen Funktion akzeptiert.";
 
 "App_Information_Terms_Text" = "...";
-
-/* App Information - Tracing */
-"App_Information_Tracing_Navigation" = "Wie funktioniert Tracing?";
-
-"App_Information_Tracing_Text" = "COVID-19 Kontaktprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln von zufälligen ID's.\n\nDiese ID’s sind eine zufällige Folge von Zahlen, die Sie für andere Benutzer nicht identifizierbar machen und die sich mehrmals täglich ändern, um Ihre Privatsphäre zu schützen.\n\nUllamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est.\n\nProin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla.\n\nFusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.\n\nTuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla. Fusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.";
 
 /* Risk View */
 "unknown_risk" = "Risiko unbekannt";
@@ -689,6 +684,7 @@
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 
 "InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
+"InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
 /* Reset View */
 "Reset_NavTitle" = "Zurücksetzen";
@@ -770,3 +766,4 @@
 
 "RiskLegend_Random_Text" = "Die Zufallscodes sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufallskennungen lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufallscodes der letzten bis zu 14 Tage freiwillig mit anderen CWA-Nutzern teilen.";
 
+"RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";

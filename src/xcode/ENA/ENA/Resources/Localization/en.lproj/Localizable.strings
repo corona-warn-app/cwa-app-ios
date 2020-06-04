@@ -403,7 +403,9 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Either the QR code or the TAN is invalid or has been used previously. Please contact the hotline.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Either the QR code or the TAN is invalid or has been used previously. Please contact the hotline.";
+
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Either the QR code or the TAN is invalid or has been used previously. Please contact the hotline.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "The registration token you want to use does not exist.";
 
@@ -447,6 +449,9 @@
 "ExposureNotificationSetting_Activate_OSENSetting" = "Activate COVID-19 Exposure Notifications";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "For risk calculation, COVID-19 exposure notifications must be activated in the system settings so that exposures can be logged. Please activate COVID-19 exposure notifications in your system settings.";
+
+/* Home */
+/* Home Cards */
 
 /* Home Active card */
 "Home_Activate_Card_On_Title" = "Risk calculation active";
@@ -712,6 +717,12 @@
 
 /* Local Notifications */
 "local_notifications_viewResults" = "Display Results";
+
+// App Information - Legal
+"App_Information_Imprint_Navigation" = "Legal Notice";
+
+//Local Notifications
+"local_notifications_viewResults" = "View Results";
 
 "local_notifications_ignore" = "Ignore";
 
