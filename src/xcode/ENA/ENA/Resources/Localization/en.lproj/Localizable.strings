@@ -257,6 +257,9 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_AppInformationCard_Title" = "App Information";
 "Home_AppInformationCard_Version" = "Version";
 
+// App Information - Legal
+"App_Information_Imprint_Navigation" = "Legal Notice";
+
 //Local Notifications
 "local_notifications_viewResults" = "View Results";
 "local_notifications_ignore" = "Ignore";

@@ -122,7 +122,6 @@ private extension ExposureDetectionViewController {
 		} else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
 				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
-				// TODO: handle error
 			}
 		}
 	}
@@ -156,9 +155,9 @@ extension ExposureDetectionViewController {
 
 	private func updateCloseButton() {
 		if state.isTracingEnabled {
-			closeImage.image = UIImage(named: "exposure-detection-close-contrast")
+			closeImage.image = UIImage(named: "Icons - Close - Contrast")
 		} else {
-			closeImage.image = UIImage(named: "exposure-detection-close")
+			closeImage.image = UIImage(named: "Icons - Close")
 		}
 	}
 
