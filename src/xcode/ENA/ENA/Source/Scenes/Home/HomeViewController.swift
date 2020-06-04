@@ -282,8 +282,6 @@ final class HomeViewController: UIViewController {
 		case is RiskFindingPositiveCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is HomeTestResultCell:
-			// Do not allow to open a pending test.
-			guard let result = homeInteractor.testResult, result != .pending else { return }
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is SubmitCollectionViewCell:
 			showExposureSubmission()

@@ -185,13 +185,13 @@
                         <viewLayoutGuide key="safeArea" id="SS3-oV-R9m"/>
                     </view>
                     <navigationItem key="navigationItem" title="QR-Code Scan" largeTitleDisplayMode="never" id="Mky-1g-CYO">
-                        <barButtonItem key="leftBarButtonItem" title="Schließen" style="plain" id="YEe-QI-wZs">
+                        <barButtonItem key="leftBarButtonItem" title="Schließen" id="YEe-QI-wZs">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="close" destination="G7e-Tz-9aM" id="RPm-4y-q6C"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="mLH-hK-j6V">
+                        <barButtonItem key="rightBarButtonItem" id="mLH-hK-j6V">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dT-1D-1p0">
                                 <rect key="frame" x="374" y="14" width="20" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

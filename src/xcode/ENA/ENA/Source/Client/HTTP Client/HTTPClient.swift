@@ -288,7 +288,11 @@ final class HTTPClient: Client {
 				switch result {
 				case let .success(response):
 					if response.statusCode == 400 {
-						completeWith(.failure(.qRTeleTanAlreadyUsed))
+						if type == "TELETAN" {
+							completeWith(.failure(.teleTanAlreadyUsed))
+						} else {
+							completeWith(.failure(.qRAlreadyUsed))
+						}
 						return
 					}
 					guard response.hasAcceptableStatusCode else {
