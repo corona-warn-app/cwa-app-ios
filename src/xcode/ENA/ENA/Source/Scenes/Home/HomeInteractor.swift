@@ -40,6 +40,7 @@ final class HomeInteractor {
 		self.homeViewController = homeViewController
 		self.store = store
 		self.state = state
+		self.exposureSubmissionService = exposureSubmissionService
 		stateHandler = ENStateHandler(
 			self.state.exposureManager,
 			reachabilityService: ConnectivityReachabilityService(),

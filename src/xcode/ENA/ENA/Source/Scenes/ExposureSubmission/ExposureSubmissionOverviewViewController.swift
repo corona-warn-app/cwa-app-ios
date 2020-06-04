@@ -215,13 +215,13 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	/// - contains only alphanumeric characters
 	/// - is not empty
 	private func sanitizeAndExtractGuid(_ input: String) -> String? {
-		guard input.count < 128 else { return nil }
-		guard let regex = try? NSRegularExpression(pattern: "^https:\\/\\/.*\\?(?<GUID>[A-Z,a-z,0-9,-]*)") else { return nil }
+		guard input.count <= 150 else { return nil }
+		guard let regex = try? NSRegularExpression(pattern: "^.*\\?(?<GUID>[A-Z,a-z,0-9,-]*)") else { return nil }
 		guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count)) else { return nil }
 		let nsRange = match.range(withName: "GUID")
 		guard let range = Range(nsRange, in: input) else { return nil }
 		let candidate = String(input[range])
-		guard !candidate.isEmpty else { return nil }
+		guard !candidate.isEmpty, candidate.count <= 80 else { return nil }
 		return candidate
 	}
 

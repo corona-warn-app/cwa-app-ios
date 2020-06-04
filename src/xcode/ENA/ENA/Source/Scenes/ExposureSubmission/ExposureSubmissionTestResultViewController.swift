@@ -144,8 +144,17 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			}
 	}
 
+	/// Only show the "warn others" screen if the ENManager is enabled correctly,
+	/// otherwise, show an alert.
 	private func showWarnOthers() {
-		performSegue(withIdentifier: Segue.warnOthers, sender: self)
+		if let state = exposureSubmissionService?.preconditions() {
+			if !state.isGood {
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(.enNotEnabled)
+				self.present(alert, animated: true, completion: nil)
+				return
+			}
+			performSegue(withIdentifier: Segue.warnOthers, sender: self)
+		}
 	}
 }
 

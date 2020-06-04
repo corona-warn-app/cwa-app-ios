@@ -30,6 +30,9 @@ final class MockDiagnosisKeysRetrieval {
 }
 
 extension MockDiagnosisKeysRetrieval: DiagnosisKeysRetrieval {
+	func preconditions() -> ExposureManagerState {
+		return .init(authorized: true, enabled: true, status: .active)
+	}
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		completionHandler(diagnosisKeysResult.0, diagnosisKeysResult.1)
