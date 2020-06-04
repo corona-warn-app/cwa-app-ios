@@ -38,8 +38,8 @@ class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
 	}
 }
 
-extension HomeSubmitCellConfigurator: SubmitCollectionViewCellDelegate {
-	func submitButtonTapped(cell _: SubmitCollectionViewCell) {
+extension HomeSubmitCellConfigurator: HomeCardCellButtonDelegate {
+	func buttonTapped(cell _: HomeCardCollectionViewCell) {
 		submitAction?()
 	}
 }
