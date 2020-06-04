@@ -488,6 +488,7 @@ Duis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_Button" = "Download-Link versenden";
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 "InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
+"InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
 /* Reset View */
 "Reset_NavTitle" = "Zurücksetzen";

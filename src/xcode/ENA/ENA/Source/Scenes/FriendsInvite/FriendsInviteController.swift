@@ -26,6 +26,7 @@ final class FriendsInviteController: UIViewController, UIActivityItemSource {
 	@IBOutlet var subtitleLabel: UILabel!
 	@IBOutlet var scrollView: UIScrollView!
 	@IBOutlet var footerView: UIView!
+	@IBOutlet weak var imageView: UIImageView!
 
 	let shareTitle = AppStrings.InviteFriends.shareTitle
 	// swiftlint:disable:next force_unwrapping
@@ -40,6 +41,8 @@ final class FriendsInviteController: UIViewController, UIActivityItemSource {
 		subtitleLabel.text = AppStrings.InviteFriends.subtitle
 		titleLabel.text = AppStrings.InviteFriends.title
 		descriptionLabel.text = AppStrings.InviteFriends.description
+		imageView.isAccessibilityElement = true
+		imageView.accessibilityLabel = AppStrings.InviteFriends.imageAccessLabel
 
 		inviteButton.setTitle(AppStrings.InviteFriends.submit, for: .normal)
 
