@@ -46,8 +46,7 @@ final class HomeViewController: UIViewController {
 		homeInteractor = HomeInteractor(
 			homeViewController: self,
 			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
-			taskScheduler: taskScheduler
+			state: .init(isLoading: false, summary: nil, exposureManager: .init())
 		)
 
 		exposureSubmissionService = ENAExposureSubmissionService(
@@ -60,8 +59,7 @@ final class HomeViewController: UIViewController {
 			homeViewController: self,
 			store: store,
 			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
-			exposureSubmissionService: exposureSubmissionService,
-			taskScheduler: taskScheduler
+			exposureSubmissionService: exposureSubmissionService
 		)
 	}
 
