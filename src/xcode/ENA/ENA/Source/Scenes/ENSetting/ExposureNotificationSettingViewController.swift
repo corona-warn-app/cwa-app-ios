@@ -171,8 +171,8 @@ extension ExposureNotificationSettingViewController {
 					let tracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
 					if let tracingCell = tracingCell as? TracingHistoryTableViewCell {
 						let colorConfig: (UIColor, UIColor) = (currentState == .enabled) ?
-							(UIColor.preferredColor(for: .tint), UIColor.preferredColor(for: .textPrimary3)) :
-							(UIColor.preferredColor(for: .textPrimary2), UIColor.preferredColor(for: .textPrimary3))
+							(UIColor.preferredColor(for: .tint), UIColor.preferredColor(for: .hairline)) :
+							(UIColor.preferredColor(for: .textPrimary2), UIColor.preferredColor(for: .hairline))
 						tracingCell.configure(
 							progress: CGFloat(numberRiskContacts),
 							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberRiskContacts),

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vq1-Uv-hV6">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -12,23 +13,23 @@
             <objects>
                 <viewController storyboardIdentifier="OnboardingInfoViewController" automaticallyAdjustsScrollViewInsets="NO" id="Vq1-Uv-hV6" customClass="OnboardingInfoViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Z4y-Yc-scw">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1HX-Yf-LyV">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQb-9Z-xLl">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="432.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="443"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="2eY-pe-EqA">
-                                                <rect key="frame" x="16" y="16" width="568" height="400.5"/>
+                                                <rect key="frame" x="16" y="16" width="382" height="411"/>
                                                 <subviews>
                                                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="0fv-1M-Keg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="568" height="251"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="251"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_Onboarding_Datenschutz" translatesAutoresizingMaskIntoConstraints="NO" id="mfP-Vw-3SQ">
-                                                                <rect key="frame" x="220" y="0.0" width="128" height="251"/>
+                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboarding_2" translatesAutoresizingMaskIntoConstraints="NO" id="mfP-Vw-3SQ">
+                                                                <rect key="frame" x="3.6666666666666572" y="0.0" width="375" height="251"/>
                                                             </imageView>
                                                         </subviews>
                                                         <constraints>
@@ -38,8 +39,8 @@
                                                             <constraint firstAttribute="bottom" secondItem="mfP-Vw-3SQ" secondAttribute="bottom" id="ySP-3n-hjS"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" verticalCompressionResistancePriority="50" text="Title 1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1kj-Lh-G2l" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="283" width="568" height="20.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" verticalCompressionResistancePriority="50" text="Title 1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1kj-Lh-G2l" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="283" width="382" height="33.666666666666686"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                         <nil key="highlightedColor"/>
@@ -48,10 +49,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="mqn-eD-7XN">
-                                                        <rect key="frame" x="0.0" y="335.5" width="568" height="65"/>
+                                                        <rect key="frame" x="0.0" y="348.66666666666669" width="382" height="62.333333333333314"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iX7-JF-1ms" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="568" height="20.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iX7-JF-1ms" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="20.333333333333332"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                 <nil key="highlightedColor"/>
@@ -59,8 +60,8 @@
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subheadline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7z-ur-AOj" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="44.5" width="568" height="20.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subheadline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7z-ur-AOj" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="44.333333333333314" width="382" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                 <nil key="highlightedColor"/>
@@ -94,16 +95,16 @@
                                 </constraints>
                             </scrollView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0oH-fF-RI6">
-                                <rect key="frame" x="0.0" y="460" width="600" height="140"/>
+                                <rect key="frame" x="0.0" y="722" width="414" height="174"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5H2-LC-1rB">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="140"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="174"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Dnb-sh-MSz">
-                                            <rect key="frame" x="16" y="16" width="568" height="108"/>
+                                            <rect key="frame" x="16" y="16" width="382" height="108"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjZ-ed-ItP" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="RXZ-iw-otW"/>
                                                     </constraints>
@@ -113,7 +114,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Clc-Yy-2ht" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="58" width="568" height="50"/>
+                                                    <rect key="frame" x="0.0" y="58" width="382" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="WAo-jw-dV0"/>
                                                     </constraints>
@@ -175,7 +176,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Illu_Onboarding_Datenschutz" width="128" height="128"/>
+        <image name="onboarding_2" width="375" height="229"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
