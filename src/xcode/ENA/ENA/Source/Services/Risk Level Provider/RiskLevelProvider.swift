@@ -46,18 +46,7 @@ protocol ExposureSummaryProvider: AnyObject {
 	func detectExposure(completion: @escaping Completion)
 }
 
-final class ConfigurationCache {
-	init(client: Client) {
-		self.client = client
-	}
-	private let client: Client
-	typealias Completion = (SAP_ApplicationConfiguration?) -> Void
-	private var cachedConfiguration: SAP_ApplicationConfiguration?
 
-	func configuration(completion: @escaping Completion) {
-		client.appConfiguration(completion: completion)
-	}
-}
 
 final class RiskLevelProvider {
 	private let consumers = NSHashTable<RiskLevelConsumer>.weakObjects()
@@ -69,20 +58,20 @@ final class RiskLevelProvider {
 		configuration: RiskLevelProvidingConfiguration,
 		store: Store,
 		exposureSummaryProvider: ExposureSummaryProvider,
-		configurationCache: ConfigurationCache,
+		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState
 	) {
 		self.configuration = configuration
 		self.store = store
 		self.exposureSummaryProvider = exposureSummaryProvider
-		self.configurationCache = configurationCache
+		self.appConfigurationProvider = appConfigurationProvider
 		self.exposureManagerState = exposureManagerState
 	}
 
 	// MARK: Properties
 	private let store: Store
 	private let exposureSummaryProvider: ExposureSummaryProvider
-	private let configurationCache: ConfigurationCache
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let exposureManagerState: ExposureManagerState
 	var configuration: RiskLevelProvidingConfiguration {
 		didSet {
@@ -181,7 +170,8 @@ extension RiskLevelProvider: RiskLevelProviding {
 
 		var appConfiguration: SAP_ApplicationConfiguration?
 		group.enter()
-		configurationCache.configuration { configuration in
+
+		appConfigurationProvider.appConfiguration { configuration in
 			appConfiguration = configuration
 			group.leave()
 		}

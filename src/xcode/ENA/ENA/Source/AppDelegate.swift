@@ -88,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			configuration: config,
 			store: self.store,
 			exposureSummaryProvider: self,
-			configurationCache: ConfigurationCache(client: self.client),
+			appConfigurationProvider: CachedAppConfiguration(client: self.client),
 			exposureManagerState: self.exposureManager.preconditions()
 		)
 	}()

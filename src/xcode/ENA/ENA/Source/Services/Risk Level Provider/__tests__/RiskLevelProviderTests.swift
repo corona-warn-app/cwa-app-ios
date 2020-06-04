@@ -72,7 +72,7 @@ final class RiskLevelProviderTests: XCTestCase {
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			configurationCache: ConfigurationCache(client: MockTestClient(submissionError: nil)),
+			appConfigurationProvider: CachedAppConfiguration(client: ClientMock(submissionError: nil)),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
@@ -125,7 +125,7 @@ final class RiskLevelProviderTests: XCTestCase {
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			configurationCache: ConfigurationCache(client: MockTestClient(submissionError: nil)),
+			appConfigurationProvider: CachedAppConfiguration(client: ClientMock(submissionError: nil)),
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
