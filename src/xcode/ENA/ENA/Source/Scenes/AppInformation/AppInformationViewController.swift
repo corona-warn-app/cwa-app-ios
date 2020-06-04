@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,60 +16,94 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import Foundation
 import UIKit
 
-class AppInformationViewController: UITableViewController {
-	
-	@IBOutlet weak var labelVersion: UILabel!
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		updateVersionLabel()
+class AppInformationViewController: DynamicTableViewController {
+
+	// MARK: - Properties
+	private let model: [AppInformationDetailModel] = [
+		.about,
+		.faq,
+		.terms,
+		.privacy,
+		.legal,
+		.contact,
+		.imprint
+	]
+
+	override func loadView() {
+		let tableView = UITableView(frame: .zero, style: .grouped)
+		tableView.backgroundColor = .preferredColor(for: .separator)
+
+		self.view = tableView
 	}
-	
-	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-		let destination = segue.destination
 
-		guard
-			let segueIdentifier = segue.identifier,
-			let segue = SegueIdentifier(rawValue: segueIdentifier)
-		else { return }
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-		switch segue {
-		case .about:
-			(destination as? AppInformationDetailViewController)?.model = .about
-		case .contact:
-			(destination as? AppInformationDetailViewController)?.model = .contact
-		case .help:
-			(destination as? AppInformationHelpViewController)?.model = .questions
-		case .imprint:
-			(destination as? AppInformationDetailViewController)?.model = .imprint
-		case .legal:
-			(destination as? AppInformationLegalViewController)?.model = .legalEntries
-		case .privacy:
-			(destination as? AppInformationDetailViewController)?.model = .privacy
-		case .terms:
-			(destination as? AppInformationDetailViewController)?.model = .terms
+		navigationItem.largeTitleDisplayMode = .always
+		title = "Home_AppInformationCard_Title".localized
+
+		dynamicTableViewModel = .init([
+			.section(
+				header: .space(height: 30),
+				footer: .view(footerView()),
+				separators: false,
+				cells: self.model.map({ .body(text: $0.title) })
+			)
+		])
+
+		tableView.dataSource = self
+		tableView.delegate = self
+    }
+
+	func footerView() -> UIView {
+		let versionLabel = ENALabel()
+		versionLabel.translatesAutoresizingMaskIntoConstraints = false
+		versionLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
+		versionLabel.style = .footnote
+
+		if let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"],
+			let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] {
+			versionLabel.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
+		} else {
+			versionLabel.text = "\(AppStrings.Home.appInformationVersion) <unknown>"
+			logError(message: "Unknown version. Should not happen!")
 		}
-	}
-	
-	func updateVersionLabel() {
-		guard let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] else { return }
-		guard let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] else { return }
-		
-		self.labelVersion.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
+
+		let footerView = UIView()
+
+		footerView.addSubview(versionLabel)
+
+		versionLabel.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
+		versionLabel.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 10).isActive = true
+		versionLabel.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 10).isActive = true
+
+		return footerView
 	}
 }
 
 extension AppInformationViewController {
-	private enum SegueIdentifier: String {
-		case about = "aboutSegue"
-		case contact = "contactSegue"
-		case imprint = "imprintSegue"
-		case legal = "legalSegue"
-		case privacy = "privacySegue"
-		case terms = "termsSegue"
-		case help = "helpSegue"
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+
+		if indexPath.row == 1 {
+			WebPageHelper.showWebPage(from: self)
+		} else if indexPath.row == 4 {
+			let destination = AppStoryboard.appInformation.initiate(viewControllerType: AppInformationLegalViewController.self)
+			destination.model = .legalEntries
+			navigationController?.pushViewController(
+				destination,
+				animated: true
+			)
+		} else {
+			let destination = AppStoryboard.appInformation.initiate(viewControllerType: AppInformationDetailViewController.self)
+			destination.model = model[indexPath.row]
+
+			navigationController?.pushViewController(
+				destination,
+				animated: true
+			)
+		}
 	}
 }

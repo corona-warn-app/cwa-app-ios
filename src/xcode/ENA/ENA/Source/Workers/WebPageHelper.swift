@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -16,28 +17,22 @@
 // under the License.
 
 import Foundation
+import SafariServices
+import UIKit
 
-struct AppInformationHelpModel {
-	typealias Question = (title: String, details: AppInformationDetailModel)
-	typealias Section = (sectionTitle: String, questions: [Question])
+enum WebPageHelper {
+	static func showWebPage(from viewController: UIViewController) {
+		if let url = URL(string: AppStrings.SafariView.targetURL) {
+			let config = SFSafariViewController.Configuration()
+			config.entersReaderIfAvailable = true
+			config.barCollapsingEnabled = true
 
-	private let sections: [Section]
-
-	init(questions: [Section]) {
-		sections = questions
-	}
-
-	var numberOfSections: Int { sections.count }
-
-	func title(for section: Int) -> String {
-		sections[section].sectionTitle
-	}
-
-	func questions(in section: Int) -> [Question] {
-		sections[section].questions
-	}
-
-	func question(_ index: Int, in section: Int) -> Question {
-		sections[section].questions[index]
+			let vc = SFSafariViewController(url: url, configuration: config)
+			viewController.present(vc, animated: true)
+		} else {
+			let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
+			logError(message: error)
+			fatalError(error)
+		}
 	}
 }
