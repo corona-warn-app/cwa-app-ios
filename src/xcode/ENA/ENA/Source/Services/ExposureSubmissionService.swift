@@ -50,6 +50,7 @@ protocol ExposureSubmissionService {
 	func deleteTest()
 	var devicePairingConsentAccept: Bool { get set }
 	var devicePairingConsentAcceptTimestamp: Int64? { get set }
+	func preconditions() -> ExposureManagerState
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
@@ -294,6 +295,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 
 		return .unknown
+	}
+
+	func preconditions() -> ExposureManagerState {
+		diagnosiskeyRetrieval.preconditions()
 	}
 }
 
