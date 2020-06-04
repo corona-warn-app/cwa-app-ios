@@ -18,52 +18,21 @@
 import UIKit
 
 class PrivacyProtectionViewController: UIViewController {
-	let gradient = CAGradientLayer()
-	let blurEffectView = UIVisualEffectView()
-	let label = UILabel()
-	let logoImageView = UIImageView()
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		view.backgroundColor = .clear
-		view.alpha = 0.0
+	override func loadView() {
+		view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = .enaColor(for: .background)
 		
-		gradient.frame = self.view.bounds
-		let appRedColor = UIColor(named: ColorStyle.brandRed.rawValue)?.withAlphaComponent(0.5).cgColor
-		let appBlueColor = UIColor(named: ColorStyle.brandBlue.rawValue)?.withAlphaComponent(0.5).cgColor
-		gradient.colors = [appRedColor ?? UIColor.clear.cgColor, appBlueColor ?? UIColor.clear.cgColor]
-		view.layer.insertSublayer(gradient, at: 0)
-		
-		let blurEffect = UIBlurEffect(style: .systemMaterial)
-		blurEffectView.effect = blurEffect
-		blurEffectView.frame = self.view.bounds
-		
-		label.font = UIFont.preferredFont(forTextStyle: .title1)
-		label.adjustsFontForContentSizeCategory = true
-		label.adjustsFontSizeToFitWidth = true
-		label.textAlignment = .center
-		label.textColor = .secondaryLabel
-		label.numberOfLines = 0
-		label.text = AppStrings.Common.privacyProtectionMessage
-		let labelHeight = view.bounds.height * 0.66
-		(label.frame, _) = blurEffectView.contentView.bounds.divided(atDistance: labelHeight, from: .minYEdge)
-		
-		let logo = UIImage(named: "cwa_logo.pdf")
-		logoImageView.image = logo
-		logoImageView.center = blurEffectView.center
-		logoImageView.contentMode = .scaleAspectFit
-		logoImageView.frame.size.width = 70
-		logoImageView.frame.size.height = 70
-		logoImageView.center = blurEffectView.center
-		
-		let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect, style: .fill)
-		let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
-		vibrancyView.translatesAutoresizingMaskIntoConstraints = false
-		vibrancyView.frame = self.view.bounds
-		vibrancyView.contentView.addSubview(label)
-		vibrancyView.contentView.addSubview(logoImageView)
-		blurEffectView.contentView.addSubview(vibrancyView)
-		view.addSubview(blurEffectView)
+		if let image = UIImage(named: "Illu_PrivacyProtection_Logo") {
+			let imageView = UIImageView(image: image)
+			imageView.translatesAutoresizingMaskIntoConstraints = false
+			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: image.size.width / image.size.height).isActive = true
+			
+			view.addSubview(imageView)
+			view.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
+			view.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+			view.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 375.0 / 100.0).isActive = true
+		}
 	}
 	
 	func show() {
@@ -71,7 +40,7 @@ class PrivacyProtectionViewController: UIViewController {
 			self.view.alpha = 1.0
 		})
 	}
-
+	
 	func hide(completion: (() -> Void)? = nil) {
 		UIView.animate(withDuration: 0.1, animations: {
 			self.view.alpha = 0.0

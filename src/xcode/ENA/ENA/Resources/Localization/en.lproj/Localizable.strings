@@ -273,6 +273,3 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 
 // Invite Friends
 "InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
-
-//Privacy protection screen
-"PrivacyProtectionScreen_Message" = "Content hidden\nto protect\nyour privacy";
