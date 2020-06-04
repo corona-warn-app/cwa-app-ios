@@ -15,12 +15,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <imageView key="tableHeaderView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-information-people" id="cfO-PV-dHa">
+                        <imageView key="tableHeaderView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-information-about" id="cfO-PV-dHa">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <view key="tableFooterView" contentMode="scaleToFill" id="DEc-Gl-NZf">
-                            <rect key="frame" x="0.0" y="568.5" width="414" height="0.0"/>
+                            <rect key="frame" x="0.0" y="575.5" width="414" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </view>
                         <prototypes>
@@ -152,14 +152,14 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="phoneCell" id="cb7-Gl-piG">
-                                <rect key="frame" x="0.0" y="498" width="414" height="41.5"/>
+                                <rect key="frame" x="0.0" y="498" width="414" height="48.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cb7-Gl-piG" id="Efz-1U-eam">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="41.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="48.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KM5-43-qAw" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                            <rect key="frame" x="56" y="11" width="338" height="19.5"/>
+                                            <rect key="frame" x="56" y="11" width="338" height="26.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" name="tint"/>
                                             <nil key="highlightedColor"/>
@@ -171,7 +171,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone" catalog="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gba-tZ-bsi">
-                                            <rect key="frame" x="20" y="7.5" width="28" height="26.5"/>
+                                            <rect key="frame" x="20" y="11" width="28" height="26.5"/>
                                             <color key="tintColor" name="textPrimary1"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="28" id="STt-lp-Ki4"/>
@@ -194,7 +194,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="separatorCell" id="O2b-tZ-8Jw">
-                                <rect key="frame" x="0.0" y="539.5" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="546.5" width="414" height="1"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O2b-tZ-8Jw" id="bDC-5G-ylJ">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
@@ -226,11 +226,46 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dm4-Wz-9K7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="57" y="688"/>
+            <point key="canvasLocation" x="80" y="688"/>
+        </scene>
+        <!--Rechtliche Hinweise-->
+        <scene sceneID="Km3-Ki-tQA">
+            <objects>
+                <tableViewController storyboardIdentifier="AppInformationLegalViewController" id="ci4-7X-j9t" customClass="AppInformationLegalViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ERu-zE-pr2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <imageView key="tableHeaderView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app-information-legal" id="Wd6-DT-7SF">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="legalEntryCell" id="zqo-H6-SXy" customClass="AppInformationLegalEntryViewCell">
+                                <rect key="frame" x="0.0" y="305.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zqo-H6-SXy" id="Yvl-3z-hU9">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ci4-7X-j9t" id="Iio-f1-80q"/>
+                            <outlet property="delegate" destination="ci4-7X-j9t" id="E2B-zq-aQT"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Rechtliche Hinweise" id="8ak-c3-kln"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aXC-Q7-nJy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="17" y="1405"/>
         </scene>
     </scenes>
     <resources>
-        <image name="app-information-people" width="750" height="390"/>
+        <image name="app-information-about" width="375" height="229"/>
+        <image name="app-information-legal" width="375" height="229"/>
         <image name="phone" catalog="system" width="128" height="115"/>
         <namedColor name="separator">
             <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
