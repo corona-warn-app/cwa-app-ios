@@ -148,7 +148,7 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 
 Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufallscodes austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
 
-"OnboardingInfo_privacyPage_title" = "Datenschutz";
+"OnboardingInfo_privacyPage_title" = "Datenschutzinformation";
 "OnboardingInfo_privacyPage_boldText" = "";
 "OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
 
@@ -432,16 +432,19 @@ Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. E
 "App_Information_Contact_Hotline_Description" = "Sprachen:\nDeutsch, Englisch";
 "App_Information_Contact_Hotline_Terms" = "Erreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
 
-/* App Information - Legal */
-"App_Information_Legal_Navigation" = "Impressum";
-"App_Information_Legal_Section1_Title" = "Anbieter";
-"App_Information_Legal_Section1_Text" = "Presse- und Informationsamt der Bundesregierung\nDorotheenstraße 84\n10117 Berlin\nTelefon: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
-"App_Information_Legal_Section2_Title" = "Gesetzlicher Vertreter";
-"App_Information_Legal_Section2_Text" = "Chef des Presse- und Informationsamtes der BundesRegierung";
-"App_Information_Legal_Section3_Title" = "";
-"App_Information_Legal_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
-"App_Information_Legal_Section4_Title" = "Briefanschrift";
-"App_Information_Legal_Section4_Text" = "...";
+// App Information - Imprint
+"App_Information_Imprint_Navigation" = "Impressum";
+"App_Information_Imprint_Section1_Title" = "Anbieter";
+"App_Information_Imprint_Section1_Text" = "Presse- und Informationsamt der Bundesregierung\nDorotheenstraße 84\n10117 Berlin\nTelefon: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
+"App_Information_Imprint_Section2_Title" = "Gesetzlicher Vertreter";
+"App_Information_Imprint_Section2_Text" = "Chef des Presse- und Informationsamtes der BundesRegierung";
+"App_Information_Imprint_Section3_Title" = "";
+"App_Information_Imprint_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
+"App_Information_Imprint_Section4_Title" = "Briefanschrift";
+"App_Information_Imprint_Section4_Text" = "...";
+
+// App Information - Legal
+"App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Datenschutz";
