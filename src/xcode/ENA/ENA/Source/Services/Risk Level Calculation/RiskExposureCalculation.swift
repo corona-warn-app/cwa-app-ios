@@ -58,7 +58,6 @@ enum RiskExposureCalculation {
 	static func riskLevel(
 		summary: ENExposureDetectionSummaryContainer?,
 		configuration: SAP_ApplicationConfiguration,
-//		exposureDetectionValidityDuration: DateComponents,
 		dateLastExposureDetection: Date?,
 		numberOfTracingActiveDays: Int, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
@@ -78,7 +77,6 @@ enum RiskExposureCalculation {
 
 		// Precondition 3 - Risk is unknownInitial if summary is not present
 		if summary == nil, riskLevel < .unknownInitial {
-			// TODO: Early return?
 			riskLevel = .unknownInitial
 		}
 
@@ -96,23 +94,12 @@ enum RiskExposureCalculation {
 			return .success(.unknownOutdated)
 		}
 
-		/* Android:
-		val maxRisk = it.exposureSummary?.maximumRiskScore
-		val atWeights = it.appConfig?.attenuationDuration?.weights
-		val attenuationDurationInMin =
-			it.exposureSummary?.attenuationDurationsInMinutes
-		val attenuationConfig = it.appConfig?.attenuationDuration
-		val formulaString =
-			"($maxRisk / ${attenuationConfig?.riskScoreNormalizationDivisor}) * " +
-					"(${attenuationDurationInMin?.get(0)} * ${atWeights?.low} " +
-					"+ ${attenuationDurationInMin?.get(1)} * ${atWeights?.mid} " +
-					"+ ${attenuationDurationInMin?.get(2)} * ${atWeights?.high} " +
-					"+ ${attenuationConfig?.defaultBucketOffset})"
-		*/
+		let riskScoreClasses = configuration.riskScoreClasses
+		let riskClasses = riskScoreClasses.riskClasses
 
 		guard
-			let riskScoreClassLow = configuration.riskScoreClasses.riskClasses.first(where: { $0.label == "LOW" }),
-			let riskScoreClassHigh = configuration.riskScoreClasses.riskClasses.first(where: { $0.label == "HIGH" })
+			let riskScoreClassLow = riskClasses.low,
+			let riskScoreClassHigh = riskClasses.high
 		else {
 			return .failure(.undefinedRiskRange)
 		}
@@ -120,18 +107,21 @@ enum RiskExposureCalculation {
 		let riskRangeLow = Range<Double>(uncheckedBounds: (lower: Double(riskScoreClassLow.min), upper: Double(riskScoreClassLow.max)))
 		let riskRangeHigh = Range<Double>(uncheckedBounds: (lower: Double(riskScoreClassHigh.min), upper: Double(riskScoreClassHigh.max)))
 
+//		let riskRangeLow = Double(riskScoreClassLow.min)..<Double(riskScoreClassLow.max)
+//		let riskRangeHigh = Double(riskScoreClassHigh.min)..<Double(riskScoreClassHigh.max)
 		let maximumRisk = summary.maximumRiskScore
 		let adWeights = configuration.attenuationDuration.weights
-		let attenuationDurations = summary.configuredAttenuationDurations
+		let attenuationDurationsInMin = summary.configuredAttenuationDurations.map { $0 / Double(60.0) }
 		let attenuationConfig = configuration.attenuationDuration
 
 		let normRiskScore = Double(maximumRisk) / Double(attenuationConfig.riskScoreNormalizationDivisor)
-		let weightedAttenuationDurationsLow = attenuationDurations[0] / Double(60.0) * adWeights.low
-		let weightedAttenuationDurationsMid = attenuationDurations[1] / Double(60.0) * adWeights.mid
-		let weightedAttenuationDurationsHigh = attenuationDurations[2] / Double(60.0) * adWeights.high
+		let weightedAttenuationDurationsLow = attenuationDurationsInMin[0] * adWeights.low
+		let weightedAttenuationDurationsMid = attenuationDurationsInMin[1] * adWeights.mid
+		let weightedAttenuationDurationsHigh = attenuationDurationsInMin[2] * adWeights.high
 		let bucketOffset = Double(attenuationConfig.defaultBucketOffset)
 
-		let riskScore = normRiskScore * (weightedAttenuationDurationsLow * weightedAttenuationDurationsMid * weightedAttenuationDurationsHigh + bucketOffset)
+		let weight = weightedAttenuationDurationsLow * weightedAttenuationDurationsMid * weightedAttenuationDurationsHigh
+		let riskScore = normRiskScore * (weight + bucketOffset)
 
 		if riskRangeLow.contains(riskScore) {
 			let calculatedRiskLevel = RiskLevel.low
@@ -189,4 +179,12 @@ extension Date {
 			to: self
 		).day ?? .max < 1
 	}
+}
+
+extension Array where Element == SAP_RiskScoreClass {
+	private func firstWhereLabel(is label: String) -> SAP_RiskScoreClass? {
+		first(where: { $0.label == label })
+	}
+	var low: SAP_RiskScoreClass? { firstWhereLabel(is: "LOW") }
+	var high: SAP_RiskScoreClass? { firstWhereLabel(is: "HIGH") }
 }
