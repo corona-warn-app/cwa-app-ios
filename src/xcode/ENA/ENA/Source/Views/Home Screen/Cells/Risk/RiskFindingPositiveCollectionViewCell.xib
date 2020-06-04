@@ -24,13 +24,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="627" height="376"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Spi-Gj-sSS" userLabel="Top Container">
-                                        <rect key="frame" x="0.0" y="0.0" width="627" height="149.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="627" height="126.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMD-kf-ckR">
-                                                <rect key="frame" x="8" y="52" width="571" height="89.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMD-kf-ckR" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="8" y="52" width="571" height="66.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="E2G-eI-N45">
                                                 <rect key="frame" x="587" y="55.5" width="32" height="34"/>
@@ -54,7 +57,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjF-48-PMv" userLabel="Status Container View">
-                                        <rect key="frame" x="0.0" y="164.5" width="627" height="128"/>
+                                        <rect key="frame" x="0.0" y="141.5" width="627" height="128"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="kY3-DP-IbX">
                                                 <rect key="frame" x="8" y="8" width="611" height="112"/>
@@ -69,17 +72,23 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oAq-8a-guk">
                                                         <rect key="frame" x="34" y="34.5" width="487" height="43"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="SARS-CoV-2-positiv" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJS-KL-MVl">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="SARS-CoV-2-positiv" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJS-KL-MVl" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="487" height="20.5"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Das Virus SARS-CoV-2 wurde bei Ihnen  nachgewiesen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOR-ZF-7xa">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Das Virus SARS-CoV-2 wurde bei Ihnen  nachgewiesen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOR-ZF-7xa" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="28.5" width="487" height="14.5"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="footnote"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
@@ -104,14 +113,17 @@
                                             <constraint firstAttribute="bottomMargin" secondItem="kY3-DP-IbX" secondAttribute="bottom" id="LlQ-el-TL8"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="Note Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXz-Xi-Tf9" userLabel="Note Label">
-                                        <rect key="frame" x="0.0" y="307.5" width="627" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="Note Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXz-Xi-Tf9" userLabel="Note Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="284.5" width="627" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZI-TN-oBQ">
-                                        <rect key="frame" x="0.0" y="343" width="627" height="33"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZI-TN-oBQ" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="320" width="627" height="56"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <color key="tintColor" name="separator"/>
