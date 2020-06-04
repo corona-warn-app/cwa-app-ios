@@ -91,6 +91,7 @@ enum RiskExposureCalculation {
 		}
 
 		let maxRisk = summary.maximumRiskScore
+//		let attenuationDurationsInSec = summary.attenuationDurations
 
 //		val formulaString =
 //						   "($maxRisk / ${attenuationConfig?.riskScoreNormalizationDivisor}) * " +
