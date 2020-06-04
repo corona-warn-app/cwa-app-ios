@@ -183,7 +183,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hv1-5a-n0n" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="322" width="350" height="50"/>
+                                                            <rect key="frame" x="0.0" y="460" width="350" height="34"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <state key="normal" title="Button"/>
                                                             <connections>
