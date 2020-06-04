@@ -24,8 +24,8 @@ extension AppInformationDetailModel {
 		headerImage: UIImage(named: "Illu_AppInfo_UeberApp"),
 		content: [
 			.headline(text: "App_Information_About_Title".localized),
-			.body(text: "App_Information_About_Description".localized),
-			.small(text: "App_Information_About_Text".localized)
+			.bold(text: "App_Information_About_Description".localized),
+			.body(text: "App_Information_About_Text".localized)
 		]
 	)
 
@@ -38,13 +38,19 @@ extension AppInformationDetailModel {
 			.bold(text: "App_Information_Contact_Hotline_Title".localized),
 			.phone(text: "App_Information_Contact_Hotline_Text".localized, number: "App_Information_Contact_Hotline_Number".localized),
 			.small(text: "App_Information_Contact_Hotline_Description".localized),
-			.tiny(text: "App_Information_Contact_Hotline_Terms".localized)
+			.small(text: "App_Information_Contact_Hotline_Terms".localized)
 		]
+	)
+
+	static let faq = AppInformationDetailModel(
+		title: "App_Information_FAQ_Navigation".localized,
+		headerImage: nil,
+		content: [ ]
 	)
 
 	static let legal = AppInformationDetailModel(
 		title: "App_Information_Legal_Navigation".localized,
-		headerImage: UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"),
+		headerImage: UIImage(named: "Illu_Appinfo_Impressum"),
 		content: [
 			.bold(text: "App_Information_Legal_Section1_Title".localized),
 			.body(text: "App_Information_Legal_Section1_Text".localized),
@@ -70,20 +76,11 @@ extension AppInformationDetailModel {
 
 	static let terms = AppInformationDetailModel(
 		title: "App_Information_Terms_Navigation".localized,
-		headerImage: UIImage(named: "Illu_Appinfo_Impressum"),
+		headerImage: UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"),
 		content: [
 			.headline(text: "App_Information_Terms_Title".localized),
 			.body(text: "App_Information_Terms_Description".localized),
 			.body(text: "App_Information_Terms_Text".localized)
-		]
-	)
-
-	static let helpTracing = AppInformationDetailModel(
-		title: "App_Information_Tracing_Navigation".localized,
-		headerImage: nil,
-		content: [
-			.bold(text: "App_Information_Tracing_Title".localized),
-			.body(text: "App_Information_Tracing_Text".localized)
 		]
 	)
 }
