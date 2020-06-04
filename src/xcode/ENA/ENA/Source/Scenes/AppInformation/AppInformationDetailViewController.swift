@@ -76,6 +76,8 @@ class AppInformationDetailViewController: UITableViewController {
 		case let .phone(_, number):
 			if let url = URL(string: "tel://\(number)") {
 				UIApplication.shared.open(url)
+			} else {
+				logError(message: "Failed to create URL from phone number: \(number)")
 			}
 		default:
 			break

@@ -24,8 +24,8 @@ extension AppInformationDetailModel {
 		headerImage: UIImage(named: "app-information-about"),
 		content: [
 			.headline(text: "App_Information_About_Title".localized),
-			.body(text: "App_Information_About_Description".localized),
-			.small(text: "App_Information_About_Text".localized)
+			.bold(text: "App_Information_About_Description".localized),
+			.body(text: "App_Information_About_Text".localized)
 		]
 	)
 
@@ -38,7 +38,7 @@ extension AppInformationDetailModel {
 			.bold(text: "App_Information_Contact_Hotline_Title".localized),
 			.phone(text: "App_Information_Contact_Hotline_Text".localized, number: "App_Information_Contact_Hotline_Number".localized),
 			.small(text: "App_Information_Contact_Hotline_Description".localized),
-			.tiny(text: "App_Information_Contact_Hotline_Terms".localized)
+			.small(text: "App_Information_Contact_Hotline_Terms".localized)
 		]
 	)
 

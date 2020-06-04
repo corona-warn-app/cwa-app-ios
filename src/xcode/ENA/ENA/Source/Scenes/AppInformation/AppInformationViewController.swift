@@ -41,7 +41,7 @@ class AppInformationViewController: UITableViewController {
     }
 
 	private func setupTableView() {
-		tableView.contentInset = .init(top: 20, left: 0, bottom: 0, right: 0)
+		tableView.contentInset = .init(top: 30, left: 0, bottom: 0, right: 0)
 		tableView.backgroundColor = .preferredColor(for: .backgroundSecondary)
 
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "appInformationCell")
