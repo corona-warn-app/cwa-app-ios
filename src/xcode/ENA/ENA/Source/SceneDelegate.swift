@@ -35,7 +35,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	#else
 	private let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
-	private let navigationController: UINavigationController = .withLargeTitle()
+	private let navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {
 		didSet {
@@ -163,10 +163,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		homeController = vc // strong ref needed
 		homeController?.homeInteractor.state.exposureManager = state.exposureManager
-		navigationController.setViewControllers(
-			[vc],
-			animated: true
-		)
+		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
+			self.navigationController.setViewControllers([vc], animated: false)
+		})
 		enableDeveloperMenuIfAllowed(in: vc)
 	}
 
@@ -336,15 +335,6 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 		}
 
 		completionHandler()
-	}
-}
-
-private extension UINavigationController {
-	class func withLargeTitle() -> UINavigationController {
-		let result = UINavigationController()
-		result.navigationBar.prefersLargeTitles = true
-		result.navigationBar.isTranslucent = true
-		return result
 	}
 }
 
