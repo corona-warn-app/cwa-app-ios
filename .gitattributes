@@ -1,0 +1,3 @@
+# Exclude vendored code from project language stats
+sqlite3.h linguist-vendored
+sqlite3.c linguist-vendored
