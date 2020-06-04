@@ -61,14 +61,18 @@ extension MockExposureManager: ExposureManager {
 	}
 
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+		// swiftlint:disable:next force_unwrapping
 		completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
 	}
 
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
+		// swiftlint:disable:next force_unwrapping
 		completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
 	}
 
-	func resume(observer: ENAExposureManagerObserver) {	}
+	func resume(observer: ENAExposureManagerObserver) {
+		
+	}
 
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? { return nil }
 

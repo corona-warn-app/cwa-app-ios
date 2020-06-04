@@ -33,7 +33,7 @@ class ExposureDetectionLongGuideCell: UITableViewCell {
 		}
 
 		for text in text[1...] {
-			let imageView = UIImageView(image: UIImage(named: "exposure-detection-content-dot"))
+			let imageView = UIImageView(image: UIImage(named: "Icons_Dot"))
 			imageView.translatesAutoresizingMaskIntoConstraints = false
 			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
 

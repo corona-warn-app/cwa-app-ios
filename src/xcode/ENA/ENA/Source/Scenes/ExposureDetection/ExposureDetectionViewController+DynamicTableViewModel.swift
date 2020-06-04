@@ -26,7 +26,7 @@ extension ExposureDetectionViewController {
 
 		switch riskLevel {
 		case .unknownInitial, .unknownOutdated: return unknownRiskModel
-		case .inactive: return unknownRiskModel // TODO: remove
+		case .inactive: return unknownRiskModel
 		case .low: return lowRiskModel
 		case .increased: return highRiskModel
 		}
@@ -254,10 +254,10 @@ extension ExposureDetectionViewController {
 			header: .backgroundSpace(height: 16),
 			cells: [
 				.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
-				.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "exposure-detection-content-hands")),
-				.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "exposure-detection-content-mask")),
-				.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "exposure-detection-content-distance")),
-				.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "exposure-detection-content-sneeze"))
+				.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "Icons - Hands")),
+				.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "Icons - Mundschutz")),
+				.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "Icons - Abstand")),
+				.guide(text: AppStrings.ExposureDetection.guideSneeze, image: UIImage(named: "Icons - Niesen"))
 			]
 		)
 	}
@@ -284,8 +284,8 @@ extension ExposureDetectionViewController {
 				footer: .separator(color: .preferredColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 16, right: 0)),
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.inactiveText),
-					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "exposure-detection-header-result")),
-					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "exposure-detection-header-refreshed"))
+					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
+					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
 			),
 			riskLoadingSection,
@@ -309,9 +309,9 @@ extension ExposureDetectionViewController {
 	private var lowRiskModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			riskDataSection(cells: [
-				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "exposure-detection-header-contacts-none")),
-				.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, imageName: "exposure-detection-header-stored-%u"),
-				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "exposure-detection-header-refreshed"))
+				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
+				.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, imageName: "Icons_TracingCircle-Dark_Step %u"),
+				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),
 			riskRefreshSection,
 			riskLoadingSection,
@@ -323,10 +323,10 @@ extension ExposureDetectionViewController {
 	private var highRiskModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			riskDataSection(cells: [
-				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "exposure-detection-header-contacts")),
-				.riskLastExposure(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "exposure-detection-header-calendar")),
-				.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, imageName: "exposure-detection-header-stored-%u"),
-				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "exposure-detection-header-refreshed"))
+				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_RisikoBegegnung")),
+				.riskLastExposure(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "Icons_Calendar")),
+				.riskStored(text: AppStrings.ExposureDetection.numberOfDaysStored, imageName: "Icons_TracingCircle-Dark_Step %u"),
+				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),
 			riskRefreshSection,
 			riskLoadingSection,
@@ -334,9 +334,9 @@ extension ExposureDetectionViewController {
 				header: .backgroundSpace(height: 16),
 				cells: [
 					.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
-					.guide(text: AppStrings.ExposureDetection.guideHome, image: UIImage(named: "exposure-detection-content-home")),
-					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "exposure-detection-content-distance")),
-					.guide(image: UIImage(named: "exposure-detection-content-hotline"), text: [
+					.guide(text: AppStrings.ExposureDetection.guideHome, image: UIImage(named: "Icons - Home")),
+					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "Icons - Abstand")),
+					.guide(image: UIImage(named: "Icons - Hotline"), text: [
 						AppStrings.ExposureDetection.guideHotline1,
 						AppStrings.ExposureDetection.guideHotline2,
 						AppStrings.ExposureDetection.guideHotline3,

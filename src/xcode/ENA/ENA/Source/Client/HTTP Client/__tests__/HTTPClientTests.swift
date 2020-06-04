@@ -19,11 +19,12 @@
 import ExposureNotification
 import XCTest
 
+// swiftlint:disable:next type_body_length
 final class HTTPClientTests: XCTestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
 	let expectationsTimeout: TimeInterval = 2
-	let mockUrl = URL(string: "http://example.com")!
+	let mockUrl = URL(staticString: "http://example.com")
 	let tan = "1234"
 
 	private var keys: [ENTemporaryExposureKey] {
@@ -224,6 +225,7 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testFetchHour_Success() throws {
+		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
 
@@ -264,6 +266,7 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testFetchDay_Success() throws {
+		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
 
@@ -467,6 +470,7 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testValidExposureConfigurationResponseData() throws {
+		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
 
@@ -484,6 +488,7 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testValidExposureConfigurationDataBut404Response() throws {
+		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
 
@@ -507,101 +512,3 @@ final class HTTPClientTests: XCTestCase {
 enum TestError: Error {
 	case error
 }
-
-// MARK: Creating a valid signed payload
-
-//
-// private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
-//    static func valid() -> Self {
-//        SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameters.with {
-//            $0.ge14Days = .unspecified
-//            $0.ge12Lt14Days = .unspecified
-//            $0.ge10Lt12Days = .unspecified
-//            $0.ge8Lt10Days = .unspecified
-//            $0.ge6Lt8Days = .unspecified
-//            $0.ge4Lt6Days = .unspecified
-//            $0.ge2Lt4Days = .unspecified
-//            $0.ge0Lt2Days = .unspecified
-//        }
-//    }
-// }
-
-// private extension SAP_RiskScoreParameters.AttenuationRiskParameters {
-//    static func valid() -> Self {
-//        SAP_RiskScoreParameters.AttenuationRiskParameters.with {
-//            $0.gt73Dbm = .unspecified
-//            $0.gt63Le73Dbm = .unspecified
-//            $0.gt51Le63Dbm = .unspecified
-//            $0.gt33Le51Dbm = .unspecified
-//            $0.gt27Le33Dbm = .unspecified
-//            $0.gt15Le27Dbm = .unspecified
-//            $0.gt10Le15Dbm = .unspecified
-//            $0.lt10Dbm = .unspecified
-//        }
-//    }
-// }
-//
-// private extension SAP_RiskScoreParameters.DurationRiskParameters {
-//    static func valid() -> Self {
-//        SAP_RiskScoreParameters.DurationRiskParameters.with {
-//            $0.eq0Min = .unspecified
-//            $0.gt0Le5Min = .unspecified
-//            $0.gt5Le10Min = .unspecified
-//            $0.gt10Le15Min = .unspecified
-//            $0.gt15Le20Min = .unspecified
-//            $0.gt20Le25Min = .unspecified
-//            $0.gt25Le30Min = .unspecified
-//            $0.gt30Min = .unspecified
-//        }
-//    }
-// }
-//
-// private extension SAP_RiskScoreParameters.TransmissionRiskParameters {
-//    static func valid() -> Self {
-//        SAP_RiskScoreParameters.TransmissionRiskParameters.with {
-//            $0.appDefined1 = .unspecified
-//            $0.appDefined2 = .unspecified
-//            $0.appDefined3 = .unspecified
-//            $0.appDefined4 = .unspecified
-//            $0.appDefined5 = .unspecified
-//            $0.appDefined6 = .unspecified
-//            $0.appDefined7 = .unspecified
-//            $0.appDefined8 = .unspecified
-//        }
-//    }
-// }
-//
-// private extension SAP_RiskScoreParameters {
-//    static func valid() -> Self {
-//
-//        SAP_RiskScoreParameters.with {
-//
-//
-//            $0.daysSinceLastExposure = .valid()
-//
-//            $0.attenuation = .valid()
-//            $0.attenuationWeight = 0.5
-//
-//            $0.duration = .valid()
-//            $0.durationWeight = 0.5
-//
-//            $0.transmission = .valid()
-//            $0.transmissionWeight = 0.5
-//        }
-//    }
-//    func asSignedPayload() throws -> Sap_SignedPayload {
-//        try Sap_SignedPayload.with {
-//            let payload = try serializedData()
-//            $0.payload = payload
-//        }
-//    }
-// }
-
-// private extension Sap_SignedPayload {
-//
-////    static func valid() -> Self {
-////        Sap_SignedPayload.with {
-////            $0.payload = try! SAP_RiskScoreParameters.valid().serializedData()
-////        }
-////    }
-// }

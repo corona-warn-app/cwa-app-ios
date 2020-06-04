@@ -36,7 +36,7 @@ extension ExposureSubmissionNavigationControllerChild {
 
 extension ExposureSubmissionNavigationControllerChild where Self: UIViewController {
 	var bottomView: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.bottomView }
-	var button: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.button }
+	var button: ENAButton? { (navigationController as? ExposureSubmissionNavigationController)?.button }
 
 	func setButtonTitle(to title: String) {
 		(navigationController as? ExposureSubmissionNavigationController)?
@@ -113,7 +113,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	private func getRootViewController() -> UIViewController {
 
 		// We got a test result and can jump straight into the test result view controller.
-		if let service = exposureSubmissionService, testResult != nil {
+		if let service = exposureSubmissionService, testResult != nil, service.hasRegistrationToken() {
 			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
 			vc.exposureSubmissionService = service
 			vc.testResult = testResult
@@ -129,7 +129,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		super.viewDidLoad()
 
 		let barButtonItem = UIBarButtonItem(
-			image: UIImage(named: "Icons - Close - Light"),
+			image: UIImage(named: "Icons - Close"),
 			style: .done, target: self, action: #selector(close)
 		)
 		navigationItem.rightBarButtonItem = barButtonItem
@@ -185,6 +185,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		self.homeViewController?.updateTestResultState()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -297,7 +298,7 @@ extension ExposureSubmissionNavigationController {
 		bottomConstraint.priority = .defaultHigh
 		bottomViewTopConstraint = view.topAnchor.constraint(equalTo: self.view.bottomAnchor)
 
-		button = ENAButton(type: .system)
+		button = ENAButton(type: .custom)
 		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
 		button.setTitle("", for: .normal)
 
@@ -310,7 +311,7 @@ extension ExposureSubmissionNavigationController {
 		button.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
 		// by default, the secondary button is hidden.
-		secondaryButton = ENAButton(type: .system)
+		secondaryButton = ENAButton(type: .custom)
 		secondaryButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .bold)
 		secondaryButton.setTitle("", for: .normal)
 		secondaryButton.backgroundColor = .clear

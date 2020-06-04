@@ -4,7 +4,7 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER).detect-exposures.exposure-notification</string>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER).exposure-notification</string>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER).fetch-test-results</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
@@ -40,21 +40,6 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>distribution-mock-cwa-server.apps.p006.otc.mcs-paas.io</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Erlaube der App QR-Codes mit Hilfe der Kamera zu scannen</string>
 	<key>UIApplicationSceneManifest</key>

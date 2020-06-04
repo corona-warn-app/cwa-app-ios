@@ -178,7 +178,6 @@ class SQLiteKeyValueStore {
 			guard let data = getData(for: key) else {
 				return nil
 			}
-			// TODO: Error handling
 			return try? JSONDecoder().decode(Model.self, from: data)
 		}
 		set {
@@ -208,9 +207,10 @@ extension SQLiteKeyValueStore {
 		let query = [
 			kSecClass as String: kSecClassGenericPassword,
 			kSecAttrAccount as String: key,
-			kSecReturnData as String: kCFBooleanTrue!,
-			kSecMatchLimit as String: kSecMatchLimitOne] as [String: Any]
-
+			kSecReturnData as String: kCFBooleanTrue as Any,
+			kSecMatchLimit as String: kSecMatchLimitOne
+			] as [String: Any]
+		
 		var dataTypeRef: AnyObject?
 		let status: OSStatus = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
 		if status == noErr {

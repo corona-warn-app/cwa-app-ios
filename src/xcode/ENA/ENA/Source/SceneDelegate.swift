@@ -33,7 +33,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
 	}()
 	#else
-	private let exposureManager = ENAExposureManager()
+	private let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
 	private let navigationController: UINavigationController = .withLargeTitle()
 	private var homeController: HomeViewController?
@@ -279,6 +279,9 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		_: ENAExposureManager,
 		didChangeState newState: ExposureManagerState
 	) {
+		// Add the new state to the history
+		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
+
 		let message = """
 		New status of EN framework:
 		Authorized: \(newState.authorized)
@@ -297,10 +300,11 @@ extension SceneDelegate: ENAExposureManagerObserver {
 }
 
 extension SceneDelegate: HomeViewControllerDelegate {
+	/// Resets all stores and notifies the Onboarding.
 	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
-		store.isOnboarded = false
-		store.dateLastExposureDetection = nil
+		store.clearAll()
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
+		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
 	func homeViewControllerStartExposureTransaction(_: HomeViewController) {

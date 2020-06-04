@@ -27,7 +27,7 @@ final class ExposureDetectionViewController: DynamicTableViewController {
 	@IBOutlet var titleViewBottomConstraint: NSLayoutConstraint!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var footerView: UIView!
-	@IBOutlet var checkButton: UIButton!
+	@IBOutlet var checkButton: ENAButton!
 
 	var state: State
 	private weak var delegate: ExposureDetectionViewControllerDelegate?
@@ -122,7 +122,6 @@ private extension ExposureDetectionViewController {
 		} else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
 				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
-				// TODO: handle error
 			}
 		}
 	}
@@ -156,9 +155,9 @@ extension ExposureDetectionViewController {
 
 	private func updateCloseButton() {
 		if state.isTracingEnabled {
-			closeImage.image = UIImage(named: "exposure-detection-close-contrast")
+			closeImage.image = UIImage(named: "Icons - Close - Contrast")
 		} else {
-			closeImage.image = UIImage(named: "exposure-detection-close")
+			closeImage.image = UIImage(named: "Icons - Close")
 		}
 	}
 
@@ -185,11 +184,10 @@ extension ExposureDetectionViewController {
 		if !state.isTracingEnabled {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
-			checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
-			checkButton.setTitleColor(.white, for: .normal)
-			checkButton.backgroundColor = .preferredColor(for: .tint)
+			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
+			return
 		}
-
+		
 		switch state.mode {
 		case .automatic:
 			footerView.isHidden = true

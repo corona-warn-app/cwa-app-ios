@@ -68,8 +68,7 @@ final class SettingsViewController: UITableViewController {
 
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 44
+		tableView.separatorColor = .preferredColor(for: .hairline)
 
 		navigationItem.title = AppStrings.Settings.navigationBarTitle
 		navigationController?.navigationBar.prefersLargeTitles = true
@@ -85,7 +84,7 @@ final class SettingsViewController: UITableViewController {
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-		if segue.identifier == resetSegue, let vc = segue.destination as? ResetViewController {
+		if segue.identifier == resetSegue, let nc = segue.destination as? UINavigationController, let vc = nc.topViewController as? ResetViewController {
 			vc.delegate = self
 		}
 	}
