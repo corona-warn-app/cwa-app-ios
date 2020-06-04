@@ -13,12 +13,12 @@
             <objects>
                 <viewController id="DFY-cN-Vfe" customClass="ExposureDetectionViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rGF-GP-JTN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="1146"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" delaysContentTouches="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWK-uI-Gcu">
                                 <rect key="frame" x="0.0" y="73.5" width="414" height="1072.5"/>
-                                <color key="backgroundColor" name="background"/>
+                                <color key="backgroundColor" name="ENA Background Color"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="riskCell" id="XQi-Gr-JdM" customClass="ExposureDetectionRiskCell" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="414" height="64"/>
@@ -37,23 +37,20 @@
                                                                 <constraint firstAttribute="height" constant="32" id="Fnh-dg-Chu"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Risk label with icon" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWt-6z-94P" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Risk label with icon" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWt-6z-94P" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                             <rect key="frame" x="48" y="6" width="326" height="20.5"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="ENA Text Contrast Color"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                    <real key="value" value="17"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xNl-Wo-GeB">
                                                     <rect key="frame" x="68" y="0.0" width="326" height="1"/>
-                                                    <color key="backgroundColor" name="hairlineContrast"/>
+                                                    <color key="backgroundColor" name="ENA Hairline Contrast Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="1" id="KXq-NP-7fJ"/>
                                                     </constraints>
@@ -70,7 +67,7 @@
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" name="negative"/>
+                                        <color key="backgroundColor" name="ENA Risk High Color"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="imageView" destination="vUl-Bt-dck" id="Iej-vN-JpE"/>
@@ -88,20 +85,17 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4CM-02-z5M" customClass="ExposureDetectionRoundedView" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="157.5" y="0.0" width="99.5" height="26"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Regular Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBg-Oe-vjR" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Regular Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBg-Oe-vjR" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                             <rect key="frame" x="12" y="5" width="75.5" height="16"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="ENA Text Contrast Color"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                    <real key="value" value="13"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="footnote"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="textPrimary3"/>
+                                                    <color key="backgroundColor" name="ENA Text Primary 3 Color"/>
                                                     <constraints>
                                                         <constraint firstItem="YBg-Oe-vjR" firstAttribute="leading" secondItem="4CM-02-z5M" secondAttribute="leadingMargin" id="LFO-Rq-5s2"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="YBg-Oe-vjR" secondAttribute="bottom" id="LoO-aA-rYP"/>
@@ -120,7 +114,7 @@
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="16"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" name="negative"/>
+                                        <color key="backgroundColor" name="ENA Risk High Color"/>
                                         <connections>
                                             <outlet property="textLabel" destination="YBg-Oe-vjR" id="Kth-z4-7LA"/>
                                         </connections>
@@ -132,16 +126,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="52.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknown risk" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRj-fw-XcY" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unknown risk" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRj-fw-XcY" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="16" width="374" height="20.5"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="ENA Text Contrast Color"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                            <real key="value" value="17"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -153,7 +144,7 @@
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" name="unknown"/>
+                                        <color key="backgroundColor" name="ENA Risk Neutral Color"/>
                                         <connections>
                                             <outlet property="textLabel" destination="uRj-fw-XcY" id="9V6-Sq-jRN"/>
                                         </connections>
@@ -176,16 +167,13 @@
                                                             </constraints>
                                                             <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </activityIndicatorView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Risk label with icon" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bb-KN-NA7" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Risk label with icon" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bb-KN-NA7" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                             <rect key="frame" x="48" y="6" width="326" height="20.5"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="ENA Text Contrast Color"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                    <real key="value" value="17"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
@@ -199,45 +187,39 @@
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" name="positive"/>
+                                        <color key="backgroundColor" name="ENA Risk Low Color"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="activityIndicatorView" destination="dSL-nO-pKB" id="pmh-f8-KBX"/>
                                             <outlet property="textLabel" destination="3bb-KN-NA7" id="EVq-JD-KSq"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="headerCell" id="qVO-bK-CJi" customClass="ExposureDetectionHeaderCell" customModule="ENA" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCell" id="qVO-bK-CJi" customClass="ExposureDetectionHeaderCell" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="262" width="414" height="77.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qVO-bK-CJi" id="5pY-2Z-14e">
-                                            <rect key="frame" x="0.0" y="0.0" width="370" height="77.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="77.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="0Sp-0h-6O3">
-                                                    <rect key="frame" x="20" y="16" width="334" height="45.5"/>
+                                                    <rect key="frame" x="20" y="16" width="374" height="45.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsC-uh-ys5" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="334" height="26.5"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                            <color key="textColor" name="textPrimary1"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsC-uh-ys5" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="26.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                    <real key="value" value="22"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0XD-bP-Gpw" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="27.5" width="334" height="18"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                            <color key="textColor" name="textPrimary2"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0XD-bP-Gpw" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="27.5" width="374" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                             <nil key="highlightedColor"/>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                    <real key="value" value="15"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </label>
                                                     </subviews>
@@ -252,7 +234,6 @@
                                             <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="tintColor" name="tint"/>
                                         <connections>
                                             <outlet property="subtitleLabel" destination="0XD-bP-Gpw" id="83e-fT-gfm"/>
                                             <outlet property="titleLabel" destination="ZsC-uh-ys5" id="dQe-UP-GVh"/>
@@ -272,16 +253,13 @@
                                                         <constraint firstAttribute="width" constant="32" id="zqx-Ve-3Mo"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guide with simple icon" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTC-mP-LkP" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guide with simple icon" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTC-mP-LkP" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="68" y="16" width="326" height="20.5"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" name="textPrimary1"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                            <real key="value" value="17"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -310,7 +288,7 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjz-Kl-CNj">
                                                     <rect key="frame" x="35.5" y="32" width="1" height="144"/>
-                                                    <color key="backgroundColor" name="separator"/>
+                                                    <color key="backgroundColor" name="ENA Hairline Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="3Bq-lc-4Fu"/>
                                                     </constraints>
@@ -322,16 +300,13 @@
                                                         <constraint firstAttribute="width" constant="32" id="bo1-NZ-ZZa"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Extended Guide with timeline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZhA-Zt-tmi" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Extended Guide with timeline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZhA-Zt-tmi" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="68" y="16" width="326" height="32"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" name="textPrimary1"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                            <real key="value" value="17"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pyd-gc-en5">
@@ -347,16 +322,13 @@
                                                                         <constraint firstAttribute="height" constant="32" id="d9X-Oi-uZL"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbb-kF-XCB" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbb-kF-XCB" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="48" y="0.0" width="326" height="32"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                                    <color key="textColor" name="textPrimary1"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                            <real key="value" value="17"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                             </subviews>
@@ -371,16 +343,13 @@
                                                                         <constraint firstAttribute="height" constant="32" id="omL-q7-6Re"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6XM-CR-9mN" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6XM-CR-9mN" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="48" y="0.0" width="326" height="32"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                                    <color key="textColor" name="textPrimary1"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                            <real key="value" value="17"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                             </subviews>
@@ -395,16 +364,13 @@
                                                                         <constraint firstAttribute="height" constant="32" id="kL7-JO-8lY"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line 3" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1u-jr-EJM" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line 3" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1u-jr-EJM" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="48" y="0.0" width="326" height="32"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                                    <color key="textColor" name="textPrimary1"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                            <real key="value" value="17"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                             </subviews>
@@ -443,16 +409,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="42.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hyperlink" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tu-t6-LuQ" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hyperlink" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tu-t6-LuQ" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="11" width="374" height="20.5"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <color key="textColor" name="tint"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="ENA Text Tint Color"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                            <real key="value" value="17"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -487,12 +450,12 @@
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmP-50-JsU" customClass="DynamicTypeButton" customModule="ENA" customModuleProvider="target">
                                                             <rect key="frame" x="16" y="136" width="342" height="50"/>
-                                                            <color key="backgroundColor" name="separator"/>
+                                                            <color key="backgroundColor" name="ENA Separator Color"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="PZy-AC-BON"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <color key="tintColor" name="tint"/>
+                                                            <color key="tintColor" name="ENA Tint Color"/>
                                                             <state key="normal" title="Hotline anrufen"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
@@ -507,34 +470,28 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="L6A-uC-oKo">
                                                             <rect key="frame" x="16" y="16" width="206" height="112"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="Hilfe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGl-Rr-mna" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" text="Hilfe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGl-Rr-mna" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="206" height="26.5"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                                    <color key="textColor" name="textPrimary1"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                            <real key="value" value="22"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Wir helfen Ihnen gerne auch am Telefon." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qbl-eg-0Rw" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Wir helfen Ihnen gerne auch am Telefon." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qbl-eg-0Rw" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="34.5" width="206" height="77.5"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                                    <color key="textColor" name="textPrimary2"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="regular"/>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                                            <real key="value" value="17"/>
-                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="background"/>
+                                                    <color key="backgroundColor" name="ENA Background Color"/>
                                                     <constraints>
                                                         <constraint firstItem="L6A-uC-oKo" firstAttribute="top" secondItem="I6i-E7-UgV" secondAttribute="topMargin" id="1AN-xM-JMg"/>
                                                         <constraint firstItem="qmP-50-JsU" firstAttribute="top" secondItem="L6A-uC-oKo" secondAttribute="bottom" constant="8" id="8nu-LK-kj5"/>
@@ -569,7 +526,7 @@
                                 </connections>
                             </tableView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKv-vN-XYX">
-                                <rect key="frame" x="0.0" y="1030" width="414" height="116"/>
+                                <rect key="frame" x="0.0" y="984" width="414" height="116"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Yff-4j-Uub">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -580,9 +537,7 @@
                                                 <constraint firstAttribute="height" constant="50" id="LSL-sV-nHB"/>
                                             </constraints>
                                             <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="16"/>
-                                            <state key="normal" title="Check Now">
-                                                <color key="titleColor" name="background"/>
-                                            </state>
+                                            <state key="normal" title="Check Now"/>
                                             <connections>
                                                 <action selector="tappedBottomButton" destination="DFY-cN-Vfe" eventType="primaryActionTriggered" id="FYZ-1j-NXG"/>
                                             </connections>
@@ -596,7 +551,7 @@
                                     </constraints>
                                     <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                 </view>
-                                <blurEffect style="prominent"/>
+                                <blurEffect style="regular"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7J8-aC-PDv">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="73.5"/>
@@ -604,16 +559,13 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tYy-qm-bQA" userLabel="Title View">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="73.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Current Risk Level" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LpH-l8-dtB" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Current Risk Level" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LpH-l8-dtB" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="24" width="318" height="33.5"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" name="ENA Text Contrast Color"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                                        <real key="value" value="28"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
@@ -626,7 +578,7 @@
                                         <edgeInsets key="layoutMargins" top="24" left="16" bottom="16" right="16"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" name="negative"/>
+                                <color key="backgroundColor" name="ENA Risk High Color"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="tYy-qm-bQA" secondAttribute="bottom" id="U4j-Lr-Z60"/>
                                     <constraint firstItem="tYy-qm-bQA" firstAttribute="top" secondItem="7J8-aC-PDv" secondAttribute="top" id="ZGR-cT-QrY"/>
@@ -655,7 +607,7 @@
                                 </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
                             <constraint firstItem="YMn-0h-IfS" firstAttribute="top" secondItem="rGF-GP-JTN" secondAttribute="top" constant="24" id="4yc-mE-v10"/>
                             <constraint firstItem="QWK-uI-Gcu" firstAttribute="top" secondItem="tYy-qm-bQA" secondAttribute="bottom" id="8HO-Nr-P15"/>
@@ -674,7 +626,7 @@
                         <viewLayoutGuide key="safeArea" id="aWL-92-gDJ"/>
                     </view>
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="1200"/>
+                    <size key="freeformSize" width="414" height="1154"/>
                     <connections>
                         <outlet property="checkButton" destination="cMV-Lp-NXE" id="z3i-Tb-KeN"/>
                         <outlet property="closeImage" destination="YMn-0h-IfS" id="SfS-Li-9HN"/>
@@ -696,35 +648,44 @@
         <image name="Icons_Dot" width="32" height="32"/>
         <image name="Icons_RisikoBegegnung" width="128" height="128"/>
         <image name="Illu_Appinfo_Kontakt" width="375" height="229"/>
-        <namedColor name="background">
+        <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="hairlineContrast">
-            <color red="0.98039215686274506" green="0.99215686274509807" blue="1" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="ENA Hairline Color">
+            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="negative">
+        <namedColor name="ENA Hairline Contrast Color">
+            <color red="1" green="1" blue="1" alpha="0.20000000298023224" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Risk High Color">
             <color red="0.75300002098083496" green="0.059000000357627869" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="positive">
+        <namedColor name="ENA Risk Low Color">
             <color red="0.18000000715255737" green="0.5220000147819519" blue="0.29399999976158142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="separator">
+        <namedColor name="ENA Risk Neutral Color">
+            <color red="0.36500000953674316" green="0.43500000238418579" blue="0.50199997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Separator Color">
             <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="textPrimary1">
+        <namedColor name="ENA Text Contrast Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 1 Color">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="textPrimary2">
+        <namedColor name="ENA Text Primary 2 Color">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="textPrimary3">
+        <namedColor name="ENA Text Primary 3 Color">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="tint">
+        <namedColor name="ENA Text Tint Color">
             <color red="0.0" green="0.49799999594688416" blue="0.67799997329711914" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="unknown">
-            <color red="0.36500000953674316" green="0.43500000238418579" blue="0.50199997425079346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="ENA Tint Color">
+            <color red="0.0" green="0.49799999594688416" blue="0.67799997329711914" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
