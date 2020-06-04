@@ -285,7 +285,11 @@ Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedar
 "ExposureSubmissionWarnOthers_description" = "Als Nächstes können Sie dafür sorgen, dass das Corona-Warn-System  Ihre lokal gespeicherten Zufallscodes der letzten 14 Tage an andere verteilt. So können Sie Ihre Mitmenschen warnen und helfen, die Infektionskette zu unterbrechen.
 
 Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Ich willige hiermit ein, dass mein positiver Corona-Befund an das Tracing Backend übermittelt und dazu genutzt wird, andere App Nutzer auf ein mögliches Infektionsrisiko hinzuweisen. Dabei werden die auf meinem Gerät gespeicherten Temporary Exposure Keys an das Tracing Backend übermittelt und dort anderen Nutzern der App zur Verfügung gestellt.
+
+Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Ein Widerruf lässt die Rechtmäßigkeit der Verarbeitung bis zum Widerruf unberührt.";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
+
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test entfernen?";
 "ExposureSubmissionResult_RemoveAlert_Text" = "Der Test wird endgültig aus der Corona-Warn-App entfernt und kann nicht wieder hinzugefügt werden. Dieser Vorgang kann nicht widerrufen werden.";
 
@@ -406,26 +410,28 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_resultCard_PositiveDesc" = "Sie wurden Positiv auf SARS-CoV-2 getestet.";
 "Home_resultCard_PendingTitle" = "Ergebnis liegt noch nicht vor";
 "Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tage.";
-"Home_resultCard_InvalidTitle" = "Befund ungültig";
-"Home_resultCard_InvalidDesc" = "Das Ergebnis ist ungültig.";
+"Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
+"Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
-"App_Information_About_Title" = "Zusammen gegen Corona";
-"App_Information_About_Description" = "Die COVID Warn-App wurde vom Robert Koch-Instituts entwickelt, um die Gemeinschaft vor der Verbreitung des Coronavirus zu schützen.";
-"App_Information_About_Text" = "Die COVID Warn-App wird Begegnungen, die Sie mit anderen Benutzern der App haben, sicher notieren. Auf diese Weise wird ermittelt ob Sie sich in der Nähe eines Corona-Infizierten aufgehalten haben.
+"App_Information_About_Title" = "Gemeinsam Corona bekämpfen";
+"App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App für die gesamte Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
+"App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schenll nachzuverfolgen und zu durchbrechen. Die App speichert dezentral - auf Ihrem Smartphone - Begegnungen mit anderen. Sie werden informiert, wenn Sie Kontakt mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
 
-Gemeinsam können wir helfen, die Ausbreitung zu stoppen und gesund zu bleiben.";
+/* App Information - FAQ */
+"App_Information_FAQ_Navigation" = "Häufige Fragen";
+"App_Information_FAQ_Title" = "Häufige Fragen";
 
 /* App Information - Contact */
-"App_Information_Contact_Navigation" = "Kontakt";
-"App_Information_Contact_Title" = "Wie können wir Ihnen helfen";
-"App_Information_Contact_Description" = "Rufen Sie uns an, wenn Sie technische, datenschutzbezogene, gesundheitsbezogene oder psychologische Fragestellungen haben.";
+"App_Information_Contact_Navigation" = "Technische Hotline";
+"App_Information_Contact_Title" = "Wie können wir Ihnen helfen?";
+"App_Information_Contact_Description" = "Für technische Fragen rund um die Corona-Warn-App können Sie sich direkt an unsere technische Hotline wenden.";
 "App_Information_Contact_Hotline_Title" = "Technische Hotline";
-"App_Information_Contact_Hotline_Text" = "+49 080 XXX XXX";
-"App_Information_Contact_Hotline_Number" = "+49080123456";
-"App_Information_Contact_Hotline_Description" = "Unser technischer Kundenservice ist für Sie da. Die Wartezeit ist weniger als 5 Minuten im Moment.";
-"App_Information_Contact_Hotline_Terms" = "Unsere Öffnungszeiten:\nMo - Fr: 08:00 - 22:00 Uhr\nSa - So: 10:00 - 22:00 Uhr\nEs gelten die Preise Ihres Telefonanbieters.";
+"App_Information_Contact_Hotline_Text" = "+49 (0)800 7540001";
+"App_Information_Contact_Hotline_Number" = "00498007540001";
+"App_Information_Contact_Hotline_Description" = "Sprachen:\nDeutsch, Englisch";
+"App_Information_Contact_Hotline_Terms" = "Erreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Impressum";
@@ -458,21 +464,6 @@ Duis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
 "App_Information_Terms_Description" = "Die nachfolgenden Nutzungsbedingungen gelten für die Nutzung der App und werden duch Aufruf oder Nutzung des Angebots oder einer einzelnen Funktion akzeptiert.";
 "App_Information_Terms_Text" = "...";
-
-/* App Information - Tracing */
-"App_Information_Tracing_Navigation" = "Wie funktioniert Tracing?";
-"App_Information_Tracing_Text" = "COVID-19 Kontaktprotokoll Mitteilungen beruhen auf der Weitergabe und dem Sammeln von zufälligen ID's.
-
-Diese ID’s sind eine zufällige Folge von Zahlen, die Sie für andere Benutzer nicht identifizierbar machen und die sich mehrmals täglich ändern, um Ihre Privatsphäre zu schützen.
-
-Ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est.
-
-Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla.
-
-Fusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.
-
-Tuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla. Fusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.";
-
 
 /* Risk View */
 "unknown_risk" = "Risiko unbekannt";
