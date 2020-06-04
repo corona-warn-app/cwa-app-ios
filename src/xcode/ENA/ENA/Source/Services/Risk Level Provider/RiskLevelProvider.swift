@@ -196,7 +196,12 @@ extension RiskLevelProvider: RiskLevelProviding {
 		)
 
 		for consumer in consumers.allObjects {
-			_provideRiskLevel(riskLevel, to: consumer)
+			switch riskLevel {
+			case .success(let rl):
+				_provideRiskLevel(rl, to: consumer)
+			case .failure:
+				print("fail")
+			}
 		}
 	}
 
