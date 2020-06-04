@@ -25,6 +25,7 @@ class AppInformationDetailViewController: UITableViewController {
 		super.viewWillAppear(animated)
 
 		navigationItem.title = model.title
+		navigationItem.largeTitleDisplayMode = .always
 
 		if let headerImage = model.headerImage {
 			(tableView.tableHeaderView as? UIImageView)?.image = headerImage
@@ -75,6 +76,8 @@ class AppInformationDetailViewController: UITableViewController {
 		case let .phone(_, number):
 			if let url = URL(string: "tel://\(number)") {
 				UIApplication.shared.open(url)
+			} else {
+				logError(message: "Failed to create URL from phone number: \(number)")
 			}
 		default:
 			break
