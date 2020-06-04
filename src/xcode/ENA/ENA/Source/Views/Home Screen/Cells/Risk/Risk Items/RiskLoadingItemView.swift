@@ -20,7 +20,7 @@ import UIKit
 final class RiskLoadingItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
 
 	@IBOutlet var activityIndicatorView: UIActivityIndicatorView!
-	@IBOutlet var textLabel: UILabel!
+	@IBOutlet var textLabel: ENALabel!
 	@IBOutlet var separatorView: UIView!
 	@IBOutlet var stackView: UIStackView!
 
