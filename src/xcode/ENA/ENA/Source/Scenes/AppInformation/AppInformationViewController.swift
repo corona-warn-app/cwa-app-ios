@@ -57,16 +57,20 @@ class AppInformationViewController: DynamicTableViewController {
     }
 
 	func footerView() -> UIView {
-		let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? ""
-		let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] ?? ""
-
-		let footerView = UIView()
-
 		let versionLabel = ENALabel()
 		versionLabel.translatesAutoresizingMaskIntoConstraints = false
-		versionLabel.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
 		versionLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
 		versionLabel.style = .footnote
+
+		if let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"],
+			let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] {
+			versionLabel.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
+		} else {
+			versionLabel.text = "\(AppStrings.Home.appInformationVersion) <unknown>"
+			logError(message: "Unknown version. Should not happen!")
+		}
+
+		let footerView = UIView()
 
 		footerView.addSubview(versionLabel)
 
@@ -87,8 +91,6 @@ extension AppInformationViewController {
 		} else {
 			let destination = AppStoryboard.appInformation.initiate(viewControllerType: AppInformationDetailViewController.self)
 			destination.model = model[indexPath.row]
-
-			tableView.deselectRow(at: indexPath, animated: true)
 
 			navigationController?.pushViewController(
 				destination,
