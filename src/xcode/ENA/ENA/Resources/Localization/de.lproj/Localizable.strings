@@ -387,12 +387,12 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_SubmitCard_Button" = "Test registrieren";
 
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App teilen";
-"Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Download ein!";
-"Home_InfoCard_AboutTitle" = "Über COVID-19";
-"Home_InfoCard_AboutBody" = "Finden Sie verlässliche Antworten und konkrete Informationen, wie Sie sich schützen und anderen helfen können.";
+"Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Laden Sie Familie, Freunde und Bekannte ein!";
+"Home_InfoCard_AboutTitle" = "Häufige Fragen";
+"Home_InfoCard_AboutBody" = "Hier finden Sie Antworten auf häufig gestellte Fragen rund um die Corona-Warn-App.";
 
 "Home_SettingsCard_Title" = "Einstellungen";
-"Home_AppInformationCard_Title" = "App Informationen";
+"Home_AppInformationCard_Title" = "App-Informationen";
 "Home_AppInformationCard_Version" = "Version";
 
 /* Home Result Card */
