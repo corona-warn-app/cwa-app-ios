@@ -155,7 +155,7 @@ extension ExposureDetectionViewController {
 
 	private func updateCloseButton() {
 		if state.isTracingEnabled {
-			closeImage.image = UIImage(named: "Icons - Close")
+			closeImage.image = UIImage(named: "Icons - Close - Contrast")
 		} else {
 			closeImage.image = UIImage(named: "Icons - Close")
 		}
