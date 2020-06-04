@@ -152,7 +152,7 @@ extension RiskLevelProvider: RiskLevelProviding {
 
 		var summary = store.previousSummary
 		var newSummary: ENExposureDetectionSummaryContainer?
-//		.
+
 		let group = DispatchGroup()
 
 		if requiresExposureDetectionRun {
