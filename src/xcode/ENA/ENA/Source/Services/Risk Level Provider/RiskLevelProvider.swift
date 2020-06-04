@@ -99,6 +99,20 @@ private extension RiskLevelProvider {
 	}
 }
 
+private extension RiskLevelConsumer {
+	func provideRiskRevel(_ riskLevel: RiskLevel) {
+		targetQueue.async { [weak self] in
+			self?.didCalculateRiskLevel?(riskLevel)
+		}
+
+	}
+	func provideNextExposureDetectionDate(_ date: Date) {
+		targetQueue.async { [weak self] in
+			self?.nextExposureDetectionDateDidChange?(date)
+		}
+	}
+}
+
 
 extension RiskLevelProvider: RiskLevelProviding {
 	func observeRiskLevel(_ consumer: RiskLevelConsumer) {
@@ -172,14 +186,14 @@ extension RiskLevelProvider: RiskLevelProviding {
 			group.leave()
 		}
 
-		guard let _exposureConfiguration = exposureConfiguration else {
-			return
-		}
-
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
 			return
 		}
 
+		guard let _exposureConfiguration = exposureConfiguration else {
+			return
+		}
+		
 		let tracingHistory = self.store.tracingStatusHistory
 		let numberOfEnabledDays = tracingHistory.countEnabledDays()
 		let riskLevel = RiskExposureCalculation.riskLevel(
@@ -197,6 +211,6 @@ extension RiskLevelProvider: RiskLevelProviding {
 	}
 
 	private func _provideRiskLevel(_ riskLevel: RiskLevel, to consumer: RiskLevelConsumer?) {
-		consumer?.didCalculateRiskLevel?(riskLevel)
+		consumer?.provideRiskRevel(riskLevel)
 	}
 }

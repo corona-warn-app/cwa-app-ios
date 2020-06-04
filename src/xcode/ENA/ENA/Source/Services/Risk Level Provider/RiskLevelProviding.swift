@@ -30,8 +30,17 @@ protocol RiskLevelProviding: AnyObject {
 }
 
 final class RiskLevelConsumer: NSObject {
+	// MARK: Creating a Consumer
+	init(targetQueue: DispatchQueue = .main) {
+		self.targetQueue = targetQueue
+	}
+
+	// MARK: Properties
+	let targetQueue: DispatchQueue
+
+	/// Called when the risk level changed
 	var didCalculateRiskLevel: ((RiskLevel) -> Void)?
 
-	/// Called when the
+	/// Called when the date of the next exposure detection changed
 	var nextExposureDetectionDateDidChange: ((Date) -> Void)?
 }

@@ -19,7 +19,7 @@ import ExposureNotification
 import Foundation
 import UIKit
 
-final class ExposureDetectionViewController: DynamicTableViewController {
+final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
 	// MARK: Properties
 
 	@IBOutlet var closeImage: UIImageView!
@@ -32,6 +32,8 @@ final class ExposureDetectionViewController: DynamicTableViewController {
 	var state: State
 	private weak var delegate: ExposureDetectionViewControllerDelegate?
 	private weak var refreshTimer: Timer?
+
+	private let consumer = RiskLevelConsumer()
 
 	// MARK: Creating an Exposure Detection View Controller
 
@@ -54,12 +56,19 @@ extension ExposureDetectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		consumer.didCalculateRiskLevel = { riskLevel in
+			print("risk level: \(riskLevel)")
+			self.state.riskLevel = riskLevel
+			self.updateUI()
+		}
+
+		riskLevelProvider.observeRiskLevel(consumer)
 		updateUI()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
+		riskLevelProvider.requestRiskLevel()
 		updateUI()
 	}
 
