@@ -20,10 +20,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQb-9Z-xLl">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="443"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="432"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="2eY-pe-EqA">
-                                                <rect key="frame" x="16" y="16" width="382" height="411"/>
+                                                <rect key="frame" x="16" y="16" width="382" height="400"/>
                                                 <subviews>
                                                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="0fv-1M-Keg">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="251"/>
@@ -40,7 +40,7 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" verticalCompressionResistancePriority="50" text="Title 1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1kj-Lh-G2l" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="283" width="382" height="33.666666666666686"/>
+                                                        <rect key="frame" x="0.0" y="283" width="382" height="20.333333333333314"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                         <nil key="highlightedColor"/>
@@ -49,7 +49,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="mqn-eD-7XN">
-                                                        <rect key="frame" x="0.0" y="348.66666666666669" width="382" height="62.333333333333314"/>
+                                                        <rect key="frame" x="0.0" y="335.33333333333331" width="382" height="64.666666666666686"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iX7-JF-1ms" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="382" height="20.333333333333332"/>
@@ -61,7 +61,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subheadline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7z-ur-AOj" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="44.333333333333314" width="382" height="18"/>
+                                                                <rect key="frame" x="0.0" y="44.333333333333371" width="382" height="20.333333333333329"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                                 <nil key="highlightedColor"/>
@@ -165,6 +165,7 @@
                         <outlet property="imageView" destination="mfP-Vw-3SQ" id="SAq-8U-IOS"/>
                         <outlet property="nextButton" destination="XjZ-ed-ItP" id="M6T-Jt-59B"/>
                         <outlet property="scrollView" destination="1HX-Yf-LyV" id="UsC-cr-Xe3"/>
+                        <outlet property="stackView" destination="2eY-pe-EqA" id="WbR-dJ-Jp8"/>
                         <outlet property="textLabel" destination="B7z-ur-AOj" id="owY-2Z-1FW"/>
                         <outlet property="titleLabel" destination="1kj-Lh-G2l" id="0J2-gj-RYK"/>
                     </connections>

@@ -156,6 +156,9 @@ Die App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschl
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.\n\nDie verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
 
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Datenschutz";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Ja, ich willige in die Nutzung meiner Tracing Funktionalität für meine Stopp-Corona App ein. Ich möchte damit einen wichtigen Beitrag zur der Unterbrechung von Infektionsketten und der Eindämmung des Corona Virus in Deutschland leisten. Mit dem Contact Tracing können Kontakte nachverfolgt werden, um später auf das Coronavirus positiv getestete Kontakte zu identifizieren.\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Weitere Informationen finden Sie in unserer Datenschutzhinweisen.";
+
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie positiv getestet werden ...";
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "... teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.";
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufallscodes Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.";
@@ -282,7 +285,11 @@ Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedar
 "ExposureSubmissionWarnOthers_description" = "Als Nächstes können Sie dafür sorgen, dass das Corona-Warn-System  Ihre lokal gespeicherten Zufallscodes der letzten 14 Tage an andere verteilt. So können Sie Ihre Mitmenschen warnen und helfen, die Infektionskette zu unterbrechen.
 
 Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Ich willige hiermit ein, dass mein positiver Corona-Befund an das Tracing Backend übermittelt und dazu genutzt wird, andere App Nutzer auf ein mögliches Infektionsrisiko hinzuweisen. Dabei werden die auf meinem Gerät gespeicherten Temporary Exposure Keys an das Tracing Backend übermittelt und dort anderen Nutzern der App zur Verfügung gestellt.
+
+Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Ein Widerruf lässt die Rechtmäßigkeit der Verarbeitung bis zum Widerruf unberührt.";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
+
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test entfernen?";
 "ExposureSubmissionResult_RemoveAlert_Text" = "Der Test wird endgültig aus der Corona-Warn-App entfernt und kann nicht wieder hinzugefügt werden. Dieser Vorgang kann nicht widerrufen werden.";
 
@@ -384,12 +391,12 @@ Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität un
 "Home_SubmitCard_Button" = "Test registrieren";
 
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App teilen";
-"Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto flacher bekommen wir die Kurve. Laden Sie Familie, Freunde und Bekannte zum Download ein!";
-"Home_InfoCard_AboutTitle" = "Über COVID-19";
-"Home_InfoCard_AboutBody" = "Finden Sie verlässliche Antworten und konkrete Informationen, wie Sie sich schützen und anderen helfen können.";
+"Home_InfoCard_ShareBody" = "Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Laden Sie Familie, Freunde und Bekannte ein!";
+"Home_InfoCard_AboutTitle" = "Häufige Fragen";
+"Home_InfoCard_AboutBody" = "Hier finden Sie Antworten auf häufig gestellte Fragen rund um die Corona-Warn-App.";
 
 "Home_SettingsCard_Title" = "Einstellungen";
-"Home_AppInformationCard_Title" = "App Informationen";
+"Home_AppInformationCard_Title" = "App-Informationen";
 "Home_AppInformationCard_Version" = "Version";
 
 /* Home Result Card */

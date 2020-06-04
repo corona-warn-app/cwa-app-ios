@@ -18,8 +18,6 @@
 import Foundation
 import ExposureNotification
 
-
-
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
 	var dateLastExposureDetection: Date? { get set }
