@@ -20,10 +20,6 @@
 import Foundation
 import UIKit
 
-protocol TestResultCollectionViewCellDelegate: AnyObject {
-	func showTestButtonTapped(cell: HomeTestResultCell)
-}
-
 class HomeTestResultCell: HomeCardCollectionViewCell {
 
 	@IBOutlet weak var title: UILabel!
@@ -31,98 +27,9 @@ class HomeTestResultCell: HomeCardCollectionViewCell {
 	@IBOutlet weak var image: UIImageView!
 	@IBOutlet weak var body: UILabel!
 	@IBOutlet weak var button: ENAButton!
-
-	weak var delegate: TestResultCollectionViewCellDelegate?
+	weak var delegate: HomeCardCellButtonDelegate?
 
 	@IBAction func buttonTapped(_: UIButton) {
-		delegate?.showTestButtonTapped(cell: self)
-	}
-}
-
-class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
-
-	let identifier = UUID()
-	
-	var buttonAction: (() -> Void)?
-	var didConfigureCell: ((HomeTestResultCellConfigurator, HomeTestResultCell) -> Void)?
-	var testResult = TestResult.pending
-
-	func configure(cell: HomeTestResultCell) {
-		cell.delegate = self
-		updateState(cell)
-		didConfigureCell?(self, cell)
-	}
-
-	func updateState(_ cell: HomeTestResultCell) {
-		switch testResult {
-		case .invalid:
-			configureTestResultInvalid(cell: cell)
-		case .pending:
-			configureTestResultPending(cell: cell)
-		case .negative:
-			configureTestResultNegative(cell: cell)
-		case .positive:
-			configureTestResultPositive(cell: cell)
-		}
-	}
-
-	private func configureTestResultNegative(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Illu_Hand_with_phone-negativ")
-		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
-		cell.result.text = AppStrings.Home.resultCardNegativeTitle
-		cell.result.textColor = .preferredColor(for: .positiveRisk)
-		cell.body.text = AppStrings.Home.resultCardNegativeDesc
-		configureResultsButton(for: cell)
-	}
-
-	private func configureTestResultPositive(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Hand_with_phone")
-		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
-		cell.result.text = AppStrings.Home.resultCardPositiveTitle
-		cell.result.textColor = .preferredColor(for: .negativeRisk)
-		cell.body.text = AppStrings.Home.resultCardPositiveDesc
-		configureResultsButton(for: cell)
-	}
-
-	private func configureTestResultInvalid(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Illu_Hand_with_phone-error")
-		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
-		cell.result.text = AppStrings.Home.resultCardInvalidTitle
-		cell.result.textColor = .preferredColor(for: .separator)
-		cell.body.text = AppStrings.Home.resultCardInvalidDesc
-		configureResultsButton(for: cell)
-	}
-
-	private func configureTestResultPending(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Illu_Hand_with_phone-pending")
-		cell.title.text = AppStrings.Home.resultCardResultUnvailableTitle
-		cell.result.text = ""
-		cell.body.text = AppStrings.Home.resultCardPendingDesc
-		configureResultsButton(for: cell)
-	}
-
-	private func configureResultsButton(for cell: HomeTestResultCell) {
-		let title = AppStrings.Home.resultCardShowResultButton
-		cell.button.isEnabled = isButtonActive()
-		cell.button.setTitle(title, for: .normal)
-		guard let buttonLabel = cell.button.titleLabel else { return }
-		buttonLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
-		buttonLabel.adjustsFontForContentSizeCategory = true
-		buttonLabel.lineBreakMode = .byWordWrapping
-	}
-
-	private func isButtonActive() -> Bool {
-		switch self.testResult {
-		case .pending:
-			return false
-		default:
-			return true
-		}
-	}
-}
-
-extension HomeTestResultCellConfigurator: TestResultCollectionViewCellDelegate {
-	func showTestButtonTapped(cell: HomeTestResultCell) {
-		buttonAction?()
+		delegate?.buttonTapped(cell: self)
 	}
 }

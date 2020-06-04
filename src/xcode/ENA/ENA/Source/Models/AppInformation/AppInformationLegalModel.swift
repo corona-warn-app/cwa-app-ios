@@ -19,5 +19,23 @@
 
 import Foundation
 
-// Dummy cell that allows nib loading. Only used to be filled by the Configurator.
-class ExposureSubmissionCell: HomeCardCollectionViewCell {}
+struct AppInformationLegalModel {
+	typealias LegalEntry = (
+		title: String,
+		licensor: String,
+		fullLicense: String
+	)
+
+	private let legalEntries: [LegalEntry]
+
+	init(legalEntries: [LegalEntry]) {
+		self.legalEntries = legalEntries
+	}
+	
+	var numberOfLegalEntries: Int { legalEntries.count }
+	
+	func legalEntry(_ index: Int) -> LegalEntry {
+		legalEntries[index]
+	}
+
+}

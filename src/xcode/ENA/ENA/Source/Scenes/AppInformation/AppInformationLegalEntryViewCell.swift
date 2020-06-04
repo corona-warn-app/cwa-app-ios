@@ -1,6 +1,7 @@
+//
 // Corona-Warn-App
 //
-// SAP SE and all other contributors
+// SAP SE and all other contributors /
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -14,30 +15,15 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
+import UIKit
 
-struct AppInformationHelpModel {
-	typealias Question = (title: String, details: AppInformationDetailModel)
-	typealias Section = (sectionTitle: String, questions: [Question])
+class AppInformationLegalEntryViewCell: UITableViewCell {
 
-	private let sections: [Section]
+	@IBOutlet weak var labelTitle: UILabel!
+	@IBOutlet weak var labelLicensor: UILabel!
+	@IBOutlet weak var textviewLicense: UITextView!
 
-	init(questions: [Section]) {
-		sections = questions
-	}
-
-	var numberOfSections: Int { sections.count }
-
-	func title(for section: Int) -> String {
-		sections[section].sectionTitle
-	}
-
-	func questions(in section: Int) -> [Question] {
-		sections[section].questions
-	}
-
-	func question(_ index: Int, in section: Int) -> Question {
-		sections[section].questions[index]
-	}
 }
