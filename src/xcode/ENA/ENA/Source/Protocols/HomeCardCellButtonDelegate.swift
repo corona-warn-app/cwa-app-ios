@@ -19,5 +19,6 @@
 
 import Foundation
 
-// Dummy cell that allows nib loading. Only used to be filled by the Configurator.
-class ExposureSubmissionCell: HomeCardCollectionViewCell {}
+protocol HomeCardCellButtonDelegate: class {
+	func buttonTapped(cell: HomeCardCollectionViewCell)
+}

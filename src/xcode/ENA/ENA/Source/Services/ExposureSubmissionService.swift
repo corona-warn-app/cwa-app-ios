@@ -258,10 +258,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .enNotEnabled
 			case .apiMisuse:
 				return .other("ENErrorCodeAPIMisuse")
-			default:
-				return .other(exposureNotificationError.localizedDescription)
 			}
-
 		}
 
 		if let submissionError = error as? SubmissionError {

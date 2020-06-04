@@ -21,6 +21,10 @@ import Foundation
 // swiftlint:disable:next type_body_length
 final class HomeInteractor {
 
+	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
+	typealias SectionConfiguration = [SectionDefinition]
+
+
 	enum UserLoadingMode {
 		case automatic
 		case manual
@@ -32,6 +36,7 @@ final class HomeInteractor {
 		homeViewController: HomeViewController,
 		store: Store,
 		state: State,
+		exposureSubmissionService: ExposureSubmissionService? = nil,
 		taskScheduler: ENATaskScheduler
 	) {
 		self.homeViewController = homeViewController
@@ -69,15 +74,17 @@ final class HomeInteractor {
 
 	private unowned var homeViewController: HomeViewController
 	private let store: Store
+	private var exposureSubmissionService: ExposureSubmissionService?
 	var stateHandler: ENStateHandler!
 	private let taskScheduler: ENATaskScheduler
 	private var riskLevel: RiskLevel {
 		RiskLevel(riskScore: state.summary?.maximumRiskScore)
 	}
 
-	private(set) var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+	private(set) var sections: SectionConfiguration = []
 
 	private var activeConfigurator: HomeActivateCellConfigurator!
+	private var testResultConfigurator: HomeTestResultCellConfigurator?
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
 	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
 
@@ -90,6 +97,8 @@ final class HomeInteractor {
 	private var isTimerRunning: Bool { updateRiskTimer?.isValid ?? false }
 	private var releaseDate: Date?
 	private var startDate: Date?
+	private(set) var testResult: TestResult?
+
 
 	private func riskCellTask(completion: @escaping (() -> Void)) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: completion)
@@ -163,11 +172,120 @@ final class HomeInteractor {
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	private func initialCellConfigurators() -> [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] {
 
-		let currentState = stateHandler.getState()
-		activeConfigurator = HomeActivateCellConfigurator(state: currentState)
+	private func initialCellConfigurators() -> SectionConfiguration {
 
+		let info1Configurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.infoCardShareTitle,
+			body: AppStrings.Home.infoCardShareBody,
+			position: .first,
+			accessibilityIdentifier: Accessibility.Cell.infoCardShareTitle
+		)
+
+		let info2Configurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.infoCardAboutTitle,
+			body: AppStrings.Home.infoCardAboutBody,
+			position: .last,
+			accessibilityIdentifier: Accessibility.Cell.infoCardAboutTitle
+		)
+
+		let appInformationConfigurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.appInformationCardTitle,
+			body: nil,
+			position: .first,
+			accessibilityIdentifier: Accessibility.Cell.appInformationCardTitle
+		)
+
+		let settingsConfigurator = HomeInfoCellConfigurator(
+			title: AppStrings.Home.settingsCardTitle,
+			body: nil,
+			position: .last,
+			accessibilityIdentifier: Accessibility.Cell.settingsCardTitle
+		)
+
+		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
+		let settingsConfigurators: [CollectionViewCellConfiguratorAny] = [appInformationConfigurator, settingsConfigurator]
+
+		let actionsSection: SectionDefinition = setupActionSectionDefinition()
+		let infoSection: SectionDefinition = (.infos, infosConfigurators)
+		let settingsSection: SectionDefinition = (.settings, settingsConfigurators)
+
+		var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+		sections.append(contentsOf: [actionsSection, infoSection, settingsSection])
+
+		return sections
+	}
+
+	// MARK: Timer
+
+	private func startTimer() {
+		let timer = Timer(timeInterval: 1.0, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+		updateRiskTimer = timer
+		RunLoop.current.add(timer, forMode: .common)
+		updateRiskTimer?.tolerance = 0.1
+	}
+
+	private func stopTimer() {
+		updateRiskTimer?.invalidate()
+		updateRiskTimer = nil
+	}
+
+	@objc
+	private func fireTimer(timer _: Timer) {
+		guard let releaseDate = releaseDate else { return }
+		let now = Date()
+		if now <= releaseDate {
+			reloadRiskCell()
+		} else {
+			stopTimer()
+			if userLoadingMode == .automatic, !isUpdateTaskRunning {
+				startCountdownAndUpdateRisk()
+			} else {
+				reloadRiskCell()
+			}
+		}
+	}
+
+	private func startCountdown() {
+		startDate = Date()
+		releaseDate = calculateReleaseDate(from: startDate)
+		startTimer()
+	}
+
+	private func calculateReleaseDate(from date: Date?) -> Date? {
+		guard let date = date else { return nil }
+		var dateComponents = DateComponents()
+		dateComponents.second = 6
+		let newDate = Calendar.current.date(byAdding: dateComponents, to: date)
+		return newDate
+	}
+}
+
+// MARK: - Test result cell methods.
+
+extension HomeInteractor {
+
+	func reloadTestResult(with result: TestResult) {
+		self.testResultConfigurator?.testResult = result
+		reloadActionSection()
+		guard let indexPath = indexPathForTestResultCell() else { return }
+		homeViewController.reloadCell(at: indexPath)
+	}
+
+	func reloadActionSection() {
+		sections[0] = setupActionSectionDefinition()
+		homeViewController.updateSections()
+		homeViewController.applySnapshotFromSections(animatingDifferences: true)
+		homeViewController.reloadData()
+	}
+}
+
+// MARK: - Action section setup helpers.
+
+extension HomeInteractor {
+
+	// swiftlint:disable:next function_body_length
+	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
 		let dateLastExposureDetection = store.dateLastExposureDetection
 
 		let isButtonHidden = userLoadingMode == .automatic
@@ -220,99 +338,139 @@ final class HomeInteractor {
 			}
 		}
 
-		// for testing
-		// let thankYouConfigurator = HomeThankYouRiskCellConfigurator()
-		// let findingPositiveConfigurator = HomeFindingPositiveRiskCellConfigurator()
-		// findingPositiveConfigurator.nextAction = { }
-		// ...
-		// actionsConfigurators.append(findingPositiveConfigurator)
-		// actionsConfigurators.append(thankYouConfigurator)
+		riskLevelConfigurator?.buttonAction = { [unowned self] in
+			if self.riskLevel == .inactive {
+				// go to settings?
+			} else {
+				self.startCountdownAndUpdateRisk()
+			}
+		}
 
-		// MARK: Configure exposure submission view.
-		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
-
-		let info1Configurator = HomeInfoCellConfigurator(
-			title: AppStrings.Home.infoCardShareTitle,
-			body: AppStrings.Home.infoCardShareBody,
-			position: .first,
-			accessibilityIdentifier: Accessibility.Cell.infoCardShareTitle
-		)
-
-		let info2Configurator = HomeInfoCellConfigurator(
-			title: AppStrings.Home.infoCardAboutTitle,
-			body: AppStrings.Home.infoCardAboutBody,
-			position: .last,
-			accessibilityIdentifier: Accessibility.Cell.infoCardAboutTitle
-		)
-
-		let appInformationConfigurator = HomeInfoCellConfigurator(
-			title: AppStrings.Home.appInformationCardTitle,
-			body: nil,
-			position: .first,
-			accessibilityIdentifier: Accessibility.Cell.appInformationCardTitle
-		)
-
-		let settingsConfigurator = HomeInfoCellConfigurator(
-			title: AppStrings.Home.settingsCardTitle,
-			body: nil,
-			position: .last,
-			accessibilityIdentifier: Accessibility.Cell.settingsCardTitle
-		)
-
-		var actionsConfigurators: [CollectionViewCellConfiguratorAny] = []
-		actionsConfigurators.append(activeConfigurator)
 		if let risk = riskLevelConfigurator {
-			actionsConfigurators.append(risk)
+			riskLevelConfigurator = risk
+			return risk
 		}
+
 		if let inactive = inactiveConfigurator {
-			actionsConfigurators.append(inactive)
-		}
-		if let exposureSubmission = exposureSubmissionConfigurator {
-			actionsConfigurators.append(exposureSubmission)
+			inactiveConfigurator = inactive
+			return inactive
 		}
 
-		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
-		let settingsConfigurators: [CollectionViewCellConfiguratorAny] = [appInformationConfigurator, settingsConfigurator]
-
-		let actionsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
-			= (.actions, actionsConfigurators)
-		let infoSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
-			= (.infos, infosConfigurators)
-		let settingsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
-			= (.settings, settingsConfigurators)
-
-		var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
-		sections.append(contentsOf: [actionsSection, infoSection, settingsSection])
-
-		return sections
+		return nil
 	}
 
-	private func selectConfiguratorForExposureSubmissionCell() -> CollectionViewCellConfiguratorAny? {
-		/* Enable this once the home view refreshing is done.
-		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
-			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
-			return HomeExposureSubmissionStateCellConfigurator()
-		} else if store.registrationToken != nil {
+	func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
+		guard let testResultConfigurator = self.testResultConfigurator else {
+			self.testResultConfigurator = HomeTestResultCellConfigurator()
+			// swiftlint:disable:next force_unwrapping
+			return self.testResultConfigurator!
+		}
 
-			// This is shown when we registered a test.
-			let testResulCellConfigurator = HomeTestResultCellConfigurator()
-			testResulCellConfigurator.buttonAction = { [weak self] in
-				self?.homeViewController.showTestResult()
-			}
-			testResulCellConfigurator.didConfigureCell = { configurator, cell in
-				self.homeViewController.updateTestResultFor(cell, with: configurator)
-			}
+		testResultConfigurator.buttonAction = { [weak self] in
+			self?.homeViewController.showTestResultScreen()
+		}
 
-			return testResulCellConfigurator
-		}*/
+		return testResultConfigurator
+	}
 
-		// This is the default view that is shown when no test results are available.
-		let submitCellConfigurator = HomeSubmitCellConfigurator()
-		submitCellConfigurator.submitAction = { [unowned self] in
+	func setupSubmitConfigurator() -> HomeSubmitCellConfigurator {
+		let submitConfigurator = HomeSubmitCellConfigurator()
+		submitConfigurator.submitAction = { [unowned self] in
 			self.homeViewController.showExposureSubmission()
 		}
 
-		return submitCellConfigurator
+		return submitConfigurator
+	}
+
+	func setupThankYouConfigurator() -> HomeThankYouRiskCellConfigurator {
+		let configurator = HomeThankYouRiskCellConfigurator()
+		return configurator
+	}
+
+	func setupFindingPositiveRiskCellConfigurator() -> HomeFindingPositiveRiskCellConfigurator {
+		let configurator = HomeFindingPositiveRiskCellConfigurator()
+		configurator.nextAction = {
+			self.homeViewController.showExposureSubmission(with: self.testResult)
+		}
+		return configurator
+	}
+
+	func setupActiveConfigurator() -> HomeActivateCellConfigurator {
+		let currentState = stateHandler.getState()
+		return HomeActivateCellConfigurator(state: currentState)
+	}
+
+	func setupActionConfigurators() -> [CollectionViewCellConfiguratorAny] {
+		var actionsConfigurators: [CollectionViewCellConfiguratorAny] = []
+
+		// MARK: - Add cards that are always shown.
+
+		// Active card.
+		activeConfigurator = setupActiveConfigurator()
+		actionsConfigurators.append(activeConfigurator)
+
+		// MARK: - Add cards depending on result state.
+
+		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
+			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
+			// Once this state is reached, it cannot be left anymore.
+
+			let thankYou = setupThankYouConfigurator()
+			actionsConfigurators.append(thankYou)
+			appLogger.log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
+
+		} else if store.registrationToken != nil {
+			// This is shown when we registered a test.
+			// Note that the `positive` state has a custom cell and the risk cell will not be shown once the user was tested positive.
+
+			switch self.testResult {
+			case .positive:
+				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
+				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
+
+			default:
+				// Risk card.
+				if let risk = setupRiskConfigurator() {
+					actionsConfigurators.append(risk)
+				}
+
+				let testResultConfigurator = setupTestResultConfigurator()
+				actionsConfigurators.append(testResultConfigurator)
+			}
+		} else {
+			// This is the default view that is shown when no test results are available and nothing has been submitted.
+
+			// Risk card.
+			if let risk = setupRiskConfigurator() as? HomeRiskLevelCellConfigurator {
+				actionsConfigurators.append(risk)
+			}
+
+			let submitCellConfigurator = setupSubmitConfigurator()
+			actionsConfigurators.append(submitCellConfigurator)
+		}
+
+		return actionsConfigurators
+	}
+
+	func setupActionSectionDefinition() -> SectionDefinition {
+		return (.actions, setupActionConfigurators())
+	}
+}
+
+// MARK: - IndexPath helpers.
+
+extension HomeInteractor {
+
+	private func indexPathForRiskCell() -> IndexPath? {
+		for section in sections {
+			let index = section.cellConfigurators.firstIndex { cellConfigurator in
+				cellConfigurator === self.riskLevelConfigurator
+			}
+			guard let item = index else { return nil }
+			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+			return indexPath
+		}
+		return nil
 	}
 
 	private func indexPathForActiveCell() -> IndexPath? {
@@ -327,60 +485,38 @@ final class HomeInteractor {
 		return nil
 	}
 
-	private func indexPathForRiskCell() -> IndexPath? {
-		for section in sections {
-			let index = section.cellConfigurators.firstIndex { cellConfigurator in
-				cellConfigurator === self.riskLevelConfigurator
-			}
-			guard let item = index else { return nil }
-			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-			return indexPath
+	private func indexPathForTestResultCell() -> IndexPath? {
+		let section = sections.first
+		let index = section?.cellConfigurators.firstIndex { cellConfigurator in
+			cellConfigurator === self.testResultConfigurator
 		}
-		return nil
+		guard let item = index else { return nil }
+		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+		return indexPath
 	}
+}
 
-	// MARK: Timer
+// MARK: - Exposure submission service calls.
 
-	private func startTimer() {
-		let timer = Timer(timeInterval: 1.0, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
-		updateRiskTimer = timer
-		RunLoop.current.add(timer, forMode: .common)
-		updateRiskTimer?.tolerance = 0.1
-	}
-
-	private func stopTimer() {
-		updateRiskTimer?.invalidate()
-		updateRiskTimer = nil
-	}
-
-	@objc
-	private func fireTimer(timer _: Timer) {
-		guard let releaseDate = releaseDate else { return }
-		let now = Date()
-		if now <= releaseDate {
-			reloadRiskCell()
-		} else {
-			stopTimer()
-			if userLoadingMode == .automatic, !isUpdateTaskRunning {
-				startCountdownAndUpdateRisk()
-			} else {
-				reloadRiskCell()
-			}
+extension HomeInteractor {
+	func updateTestResults() {
+		DispatchQueue.global(qos: .userInteractive).async {
+			self.updateTestResultHelper()
 		}
 	}
 
-	private func startCountdown() {
-		startDate = Date()
-		releaseDate = calculateReleaseDate(from: startDate)
-		startTimer()
-	}
+	private func updateTestResultHelper() {
+		guard store.registrationToken != nil else { return }
 
-	private func calculateReleaseDate(from date: Date?) -> Date? {
-		guard let date = date else { return nil }
-		var dateComponents = DateComponents()
-		dateComponents.second = 6
-		let newDate = Calendar.current.date(byAdding: dateComponents, to: date)
-		return newDate
+		self.exposureSubmissionService?.getTestResult { result in
+			switch result {
+			case .failure(let error):
+				appLogger.log(message: "Error while fetching result: \(error)", file: #file, line: #line, function: #function)
+			case .success(let result):
+				self.testResult = result
+				self.reloadTestResult(with: result)
+			}
+		}
 	}
 }
 
