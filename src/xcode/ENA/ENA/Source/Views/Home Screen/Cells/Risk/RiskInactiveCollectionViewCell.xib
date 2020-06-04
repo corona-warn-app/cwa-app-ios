@@ -25,22 +25,23 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDg-FC-gaM" userLabel="Top Container">
                                         <rect key="frame" x="0.0" y="0.0" width="627" height="275.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rq-C8-y2o">
-                                                <rect key="frame" x="8" y="52" width="571" height="215.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rq-C8-y2o" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="8" y="52" width="587" height="215.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
+                                                </userDefinedRuntimeAttributes>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="blU-Zi-zxC">
-                                                <rect key="frame" x="587" y="55.5" width="32" height="34"/>
+                                                <rect key="frame" x="603" y="53.5" width="16" height="17"/>
                                                 <color key="tintColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="7cz-Af-hQ5"/>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="RCi-Vy-wTC"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="7cz-Af-hQ5"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="RCi-Vy-wTC"/>
                                                 </constraints>
-                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                                </preferredSymbolConfiguration>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
                                             </imageView>
                                         </subviews>
                                         <constraints>
@@ -52,11 +53,14 @@
                                             <constraint firstItem="8rq-C8-y2o" firstAttribute="leading" secondItem="bDg-FC-gaM" secondAttribute="leadingMargin" id="xZa-wi-T0q"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="Body Body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkq-bX-I2X">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" text="Body Body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkq-bX-I2X" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="290.5" width="627" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebl-5E-48J" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="326" width="627" height="50"/>

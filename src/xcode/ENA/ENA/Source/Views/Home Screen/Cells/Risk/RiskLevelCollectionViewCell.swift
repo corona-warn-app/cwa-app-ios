@@ -125,13 +125,19 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	}
 
 	func configureRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
+		var lastView: UIView?
 		for itemConfigurator in cellConfigurators {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
 			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? UIView {
 				stackView.addArrangedSubview(riskView)
+				stackView.setCustomSpacing(0.0, after: riskView)
 				itemConfigurator.configureAny(riskView: riskView)
+				lastView = riskView
 			}
+		}
+		if let last = lastView {
+			stackView.setCustomSpacing(15.0, after: last)
 		}
 		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
 			riskItemView.hideSeparator()

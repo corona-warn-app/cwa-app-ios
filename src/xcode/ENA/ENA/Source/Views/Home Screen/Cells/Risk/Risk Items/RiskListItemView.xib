@@ -17,21 +17,21 @@
                     <rect key="frame" x="0.0" y="44" width="513" height="119"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="800" verticalHuggingPriority="251" horizontalCompressionResistancePriority="745" text="dot Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UH-8p-hUr" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="71.5" height="20.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="64.5" height="18"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQT-KO-jfY" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                            <rect key="frame" x="87.5" y="0.0" width="425.5" height="20.5"/>
+                            <rect key="frame" x="80.5" y="0.0" width="432.5" height="18"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="subheadline"/>
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
