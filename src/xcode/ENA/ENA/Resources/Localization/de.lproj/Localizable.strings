@@ -409,8 +409,8 @@ Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. E
 "Home_resultCard_PositiveDesc" = "Sie wurden Positiv auf SARS-CoV-2 getestet.";
 "Home_resultCard_PendingTitle" = "Ergebnis liegt noch nicht vor";
 "Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tage.";
-"Home_resultCard_InvalidTitle" = "Befund ungültig";
-"Home_resultCard_InvalidDesc" = "Das Ergebnis ist ungültig.";
+"Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
+"Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";

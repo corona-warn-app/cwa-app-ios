@@ -55,6 +55,14 @@ final class HomeViewController: UIViewController {
 			client: self.client,
 			store: self.store
 		)
+
+		homeInteractor = HomeInteractor(
+			homeViewController: self,
+			store: store,
+			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
+			exposureSubmissionService: exposureSubmissionService,
+			taskScheduler: taskScheduler
+		)
 	}
 
 	required init?(coder _: NSCoder) {
@@ -63,7 +71,7 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Properties
 
-	private var sections: [(section: Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+	private var sections: HomeInteractor.SectionConfiguration = []
 
 	private let keyPackagesStore: DownloadedPackagesStore
 	private let exposureManager: ExposureManager
@@ -79,7 +87,6 @@ final class HomeViewController: UIViewController {
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
 	private var exposureSubmissionService: ExposureSubmissionService?
-	private var testResult: TestResult?
 
 	enum Section: Int {
 		case actions
@@ -96,6 +103,7 @@ final class HomeViewController: UIViewController {
 		updateSections()
 		applySnapshotFromSections()
 		configureUI()
+		homeInteractor.updateTestResults()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -109,7 +117,7 @@ final class HomeViewController: UIViewController {
 		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
 	}
-	
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
@@ -151,6 +159,7 @@ final class HomeViewController: UIViewController {
 				ExposureSubmissionNavigationController(
 					coder: coder,
 					exposureSubmissionService: exposureSubmissionService,
+					homeViewController: self,
 					testResult: result
 				)
 			},
@@ -263,16 +272,34 @@ final class HomeViewController: UIViewController {
 		)
 	}
 
+	private func showScreenForActionSectionForCell(at indexPath: IndexPath) {
+		let cell = collectionView.cellForItem(at: indexPath)
+		switch cell {
+		case is ActivateCollectionViewCell:
+			showExposureNotificationSetting()
+		case is RiskLevelCollectionViewCell:
+		 	showExposureDetection()
+		case is RiskFindingPositiveCollectionViewCell:
+			showExposureSubmission(with: homeInteractor.testResult)
+		case is HomeTestResultCell:
+			// Do not allow to open a pending test.
+			guard let result = homeInteractor.testResult, result != .pending else { return }
+			showExposureSubmission(with: homeInteractor.testResult)
+		case is SubmitCollectionViewCell:
+			showExposureSubmission()
+		case is RiskThankYouCollectionViewCell:
+			return
+		default:
+			appLogger.log(message: "Unknown cell type tapped.", file: #file, line: #line, function: #function)
+			return
+		}
+	}
 	private func showScreen(at indexPath: IndexPath) {
 		guard let section = Section(rawValue: indexPath.section) else { return }
 		let row = indexPath.row
 		switch section {
 		case .actions:
-			if row == 0 {
-				showExposureNotificationSetting()
-			} else if row == 1 {
-				showExposureDetection()
-			}
+			showScreenForActionSectionForCell(at: indexPath)
 		case .infos:
 			if row == 0 {
 				showInviteFriends()
@@ -320,6 +347,7 @@ final class HomeViewController: UIViewController {
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
+		collectionView.alwaysBounceVertical = true
 		view.addSubview(collectionView)
 
 		NSLayoutConstraint.activate(
@@ -331,7 +359,18 @@ final class HomeViewController: UIViewController {
 			]
 		)
 
-		let cellTypes: [UICollectionViewCell.Type] = [ActivateCollectionViewCell.self, RiskLevelCollectionViewCell.self, SubmitCollectionViewCell.self, RiskInactiveCollectionViewCell.self, RiskThankYouCollectionViewCell.self, InfoCollectionViewCell.self, RiskFindingPositiveCollectionViewCell.self]
+		let cellTypes: [UICollectionViewCell.Type] = [
+			ActivateCollectionViewCell.self,
+			RiskLevelCollectionViewCell.self,
+			SubmitCollectionViewCell.self,
+			InfoCollectionViewCell.self,
+			HomeTestResultCell.self,
+			RiskInactiveCollectionViewCell.self,
+			RiskFindingPositiveCollectionViewCell.self,
+			RiskThankYouCollectionViewCell.self,
+			InfoCollectionViewCell.self
+		]
+
 		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
 		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
@@ -370,13 +409,13 @@ final class HomeViewController: UIViewController {
 	func updateSections() {
 		sections = homeInteractor.sections
 	}
-	
+
 	private func configureUI() {
 
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
-		
+
 		let image = UIImage(named: "navi_bar_icon")
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
@@ -388,20 +427,13 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController {
 
-	func updateTestResultFor(_ cell: HomeTestResultCell, with configurator: HomeTestResultCellConfigurator) {
-		self.exposureSubmissionService?.getTestResult { result in
-			switch result {
-			case .failure(let error):
-				appLogger.log(message: "Could not update test state: \(error)", file: #file, line: #line, function: #function)
-			case .success(let result):
-				self.testResult = result
-				configurator.configure(cell: cell)
-			}
-		}
+	func showTestResultScreen() {
+		showExposureSubmission(with: homeInteractor.testResult)
 	}
 
-	func showTestResult() {
-		showExposureSubmission(with: testResult)
+	func updateTestResultState() {
+		homeInteractor.reloadActionSection()
+		self.homeInteractor.updateTestResults()
 	}
 }
 
