@@ -423,6 +423,7 @@ enum AppStrings {
 		static let shareTitle = NSLocalizedString("InviteFriends_ShareTitle", comment: "")
 		static let shareUrl = NSLocalizedString("InviteFriends_ShareUrl", comment: "")
 		static let subtitle = NSLocalizedString("InviteFriends_Subtitle", comment: "")
+		static let imageAccessLabel = NSLocalizedString("InviteFriends_Illustration_Label", comment: "")
 	}
 
 	enum Reset {
@@ -473,5 +474,6 @@ enum AppStrings {
 		static let notificationText = NSLocalizedString("RiskLegend_Notification_Text", comment: "")
 		static let randomTitle = NSLocalizedString("RiskLegend_Random_Title", comment: "")
 		static let randomText = NSLocalizedString("RiskLegend_Random_Text", comment: "")
+		static let titleImageAccLabel = NSLocalizedString("RiskLegend_Image1_AccLabel", comment: "")
 	}
 }

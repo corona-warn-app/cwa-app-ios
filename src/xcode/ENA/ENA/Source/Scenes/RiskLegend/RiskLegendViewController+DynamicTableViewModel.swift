@@ -25,7 +25,7 @@ extension RiskLegendViewController {
 		DynamicTableViewModel([
 			.navigationSubtitle(text: AppStrings.RiskLegend.subtitle),
 			.section(
-				header: .image(UIImage(named: "Illu_Legende_Overview"), height: 200),
+				header: .image(UIImage(named: "Illu_Legende-Overview"), accessibilityLabel: AppStrings.RiskLegend.titleImageAccLabel, height: 200),
 				footer: .space(height: 32),
 				cells: [
 					.iconTitle(number: 1, text: AppStrings.RiskLegend.legend1Title),

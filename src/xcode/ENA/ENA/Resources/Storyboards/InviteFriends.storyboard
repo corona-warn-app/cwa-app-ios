@@ -123,6 +123,7 @@
                     <connections>
                         <outlet property="descriptionLabel" destination="Nvu-il-Ajs" id="UP7-79-Dqd"/>
                         <outlet property="footerView" destination="kHT-UJ-ZvZ" id="i4D-qU-2Hj"/>
+                        <outlet property="imageView" destination="JK0-JO-fAP" id="JHg-5l-DNj"/>
                         <outlet property="inviteButton" destination="jUL-Sc-qEZ" id="eyD-P6-eKS"/>
                         <outlet property="scrollView" destination="DvA-ys-EYb" id="isB-HB-fG6"/>
                         <outlet property="subtitleLabel" destination="KIv-Jd-rxH" id="T4c-iX-GPr"/>

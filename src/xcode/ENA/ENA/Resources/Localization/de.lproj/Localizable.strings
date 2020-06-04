@@ -495,6 +495,7 @@ Duis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "InviteFriends_Button" = "Download-Link versenden";
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 "InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
+"InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
 /* Reset View */
 "Reset_NavTitle" = "Zurücksetzen";
@@ -542,3 +543,4 @@ Duis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dict
 "RiskLegend_Notification_Text" = "Die Anzeige von Risiko-Begegnungen in der Corona-Warn-App.";
 "RiskLegend_Random_Title" = "Zufallscode";
 "RiskLegend_Random_Text" = "Die Zufallscodes sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufallskennungen lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufallscodes der letzten bis zu 14 Tage freiwillig mit anderen CWA-Nutzern teilen.";
+"RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
