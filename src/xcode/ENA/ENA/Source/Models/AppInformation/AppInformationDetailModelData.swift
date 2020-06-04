@@ -21,30 +21,36 @@ import UIKit
 extension AppInformationDetailModel {
 	static let about = AppInformationDetailModel(
 		title: "App_Information_About_Navigation".localized,
-		headerImage: UIImage(named: "app-information-people"),
+		headerImage: UIImage(named: "app-information-about"),
 		content: [
 			.headline(text: "App_Information_About_Title".localized),
-			.body(text: "App_Information_About_Description".localized),
-			.small(text: "App_Information_About_Text".localized)
+			.bold(text: "App_Information_About_Description".localized),
+			.body(text: "App_Information_About_Text".localized)
 		]
 	)
 
 	static let contact = AppInformationDetailModel(
 		title: "App_Information_Contact_Navigation".localized,
-		headerImage: UIImage(named: "app-information-notification"),
+		headerImage: UIImage(named: "app-information-contact"),
 		content: [
 			.headline(text: "App_Information_Contact_Title".localized),
 			.body(text: "App_Information_Contact_Description".localized),
 			.bold(text: "App_Information_Contact_Hotline_Title".localized),
 			.phone(text: "App_Information_Contact_Hotline_Text".localized, number: "App_Information_Contact_Hotline_Number".localized),
 			.small(text: "App_Information_Contact_Hotline_Description".localized),
-			.tiny(text: "App_Information_Contact_Hotline_Terms".localized)
+			.small(text: "App_Information_Contact_Hotline_Terms".localized)
 		]
+	)
+
+	static let faq = AppInformationDetailModel(
+		title: "App_Information_FAQ_Navigation".localized,
+		headerImage: nil,
+		content: [ ]
 	)
 
 	static let legal = AppInformationDetailModel(
 		title: "App_Information_Legal_Navigation".localized,
-		headerImage: UIImage(named: "app-information-security"),
+		headerImage: UIImage(named: "app-information-impressum"),
 		content: [
 			.bold(text: "App_Information_Legal_Section1_Title".localized),
 			.body(text: "App_Information_Legal_Section1_Text".localized),
@@ -70,20 +76,11 @@ extension AppInformationDetailModel {
 
 	static let terms = AppInformationDetailModel(
 		title: "App_Information_Terms_Navigation".localized,
-		headerImage: UIImage(named: "app-information-security"),
+		headerImage: UIImage(named: "app-information-terms"),
 		content: [
 			.headline(text: "App_Information_Terms_Title".localized),
 			.body(text: "App_Information_Terms_Description".localized),
 			.body(text: "App_Information_Terms_Text".localized)
-		]
-	)
-
-	static let helpTracing = AppInformationDetailModel(
-		title: "App_Information_Tracing_Navigation".localized,
-		headerImage: nil,
-		content: [
-			.bold(text: "App_Information_Tracing_Title".localized),
-			.body(text: "App_Information_Tracing_Text".localized)
 		]
 	)
 }
