@@ -34,7 +34,7 @@ class DynamicTableViewControllerFooterTests: XCTestCase {
 		// crash immedeately informs about a problem in the test.
 		guard let viewController = storyboardFake.instantiateViewController(identifier: "DynamicTableViewController") as? DynamicTableViewController
 			else {
-				XCTAssert(false, "Unable to instantiate DynamicTableViewController from DynamicTableViewControllerFake.storyboard")
+				XCTFail("Unable to instantiate DynamicTableViewController from DynamicTableViewControllerFake.storyboard")
 				return
 		}
 		sut = viewController
