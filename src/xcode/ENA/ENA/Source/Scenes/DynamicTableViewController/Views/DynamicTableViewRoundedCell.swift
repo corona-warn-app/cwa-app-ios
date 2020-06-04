@@ -21,8 +21,8 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 
 	// MARK: - View elements.
 
-	lazy var title = UILabel(frame: .zero)
-	lazy var body = UILabel(frame: .zero)
+	lazy var title = ENALabel(frame: .zero)
+	lazy var body = ENALabel(frame: .zero)
 	lazy var insetView = UIView(frame: .zero)
 
 	required init?(coder: NSCoder) {
@@ -45,17 +45,18 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		backgroundColor = .preferredColor(for: .backgroundPrimary)
 
 		// MARK: - Add inset view
-		insetView.backgroundColor = .preferredColor(for: .backgroundSecondary)
+		insetView.backgroundColor = .preferredColor(for: .separator)
 		insetView.layer.cornerRadius = 16.0
 
 		// MARK: - Title adjustment.
-
-		title.font = .preferredFont(forTextStyle: .headline)
+		title.style = .headline
+		title.textColor = .preferredColor(for: .textPrimary1)
 		title.lineBreakMode = .byWordWrapping
 		title.numberOfLines = 0
 
 		// MARK: - Body adjustment.
-		body.font = .preferredFont(forTextStyle: .body)
+		body.style = .body
+		body.textColor = .preferredColor(for: .textPrimary1)
 		body.lineBreakMode = .byWordWrapping
 		body.numberOfLines = 0
 
