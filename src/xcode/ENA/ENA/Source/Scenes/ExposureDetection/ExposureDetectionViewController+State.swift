@@ -33,7 +33,7 @@ extension ExposureDetectionViewController {
 		var isTracingEnabled: Bool { exposureManagerState.enabled }
 		var isLoading: Bool = false
 
-		var riskLevel: RiskLevel = .unknown
+		var riskLevel: RiskLevel = .unknownInitial
 		var nextRefresh: Date?
 		var summary: ExposureDetectionViewController.Summary?
 
@@ -58,28 +58,28 @@ extension ExposureDetectionViewController {
 private extension RiskLevel {
 	var text: String {
 		switch self {
-		case .unknown: return AppStrings.ExposureDetection.unknown
+		case .unknownInitial, .unknownOutdated: return AppStrings.ExposureDetection.unknown
 		case .inactive: return AppStrings.ExposureDetection.inactive
 		case .low: return AppStrings.ExposureDetection.low
-		case .high: return AppStrings.ExposureDetection.high
+		case .increased: return AppStrings.ExposureDetection.high
 		}
 	}
 
 	var tintColor: UIColor {
 		switch self {
-		case .unknown: return .preferredColor(for: .unknownRisk)
+		case .unknownInitial, .unknownOutdated: return .preferredColor(for: .unknownRisk)
 		case .inactive: return .preferredColor(for: .inactiveRisk)
 		case .low: return .preferredColor(for: .positiveRisk)
-		case .high: return .preferredColor(for: .negativeRisk)
+		case .increased: return .preferredColor(for: .negativeRisk)
 		}
 	}
 
 	var contrastColor: UIColor {
 		switch self {
-		case .unknown: return .white
+		case .unknownInitial, .unknownOutdated: return .white
 		case .inactive: return .white
 		case .low: return .white
-		case .high: return .white
+		case .increased: return .white
 		}
 	}
 }

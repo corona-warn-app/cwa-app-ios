@@ -101,5 +101,26 @@
                 <string>%02u</string>
             </dict>
         </dict>
+        <key>ENSetting_Tracing_History</key>
+	    <dict>
+		    <key>NSStringLocalizedFormatKey</key>
+		    <string>%#@VARIABLE@</string>
+		    <key>VARIABLE</key>
+		    <dict>
+			    <key>NSStringFormatSpecTypeKey</key>
+			    <string>NSStringPluralRuleType</string>
+			    <key>NSStringFormatValueTypeKey</key>
+			    <string>u</string>
+			    <key>zero</key>
+			    <string>Risiko-Ermittlung ist seit weniger als 1 Tag aktiv.
+Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			    <key>one</key>
+			    <string>Risiko-Ermittlung ist seit %u Tag aktiv.
+Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen. </string>
+			    <key>other</key>
+			    <string>Risiko-Ermittlung ist seit %u Tagen aktiv.
+Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen. </string>
+		    </dict>
+	    </dict>
     </dict>
 </plist>

@@ -24,6 +24,17 @@ enum QRScannerError: Error {
 	case other
 }
 
+extension QRScannerError: LocalizedError {
+	var errorDescription: String? {
+		switch self {
+		case .cameraPermissionDenied:
+			return AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
+		default:
+			return AppStrings.ExposureSubmissionQRScanner.otherError
+		}
+	}
+}
+
 protocol ExposureSubmissionQRScannerDelegate: AnyObject {
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String)
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError)
@@ -45,6 +56,8 @@ final class ExposureSubmissionQRScannerNavigationController: UINavigationControl
 final class ExposureSubmissionQRScannerViewController: UIViewController {
 	@IBOutlet var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet var flashButton: UIButton!
+	@IBOutlet weak var navigationTitle: UINavigationItem!
+	@IBOutlet weak var instructionLabel: DynamicTypeLabel!
 
 	weak var delegate: ExposureSubmissionQRScannerDelegate?
 
@@ -53,7 +66,13 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		setupView()
 		prepareScanning()
+	}
+
+	private func setupView() {
+		navigationItem.title = AppStrings.ExposureSubmissionQRScanner.title
+		instructionLabel.text = AppStrings.ExposureSubmissionQRScanner.instruction
 	}
 
 	private func prepareScanning() {
@@ -189,7 +208,7 @@ final class ExposureSubmissionQRScannerFocusView: UIView {
 }
 
 private extension Array {
-	public func first<T>(ofType _: T.Type) -> T? {
+	func first<T>(ofType _: T.Type) -> T? {
 		first(where: { $0 is T }) as? T
 	}
 }

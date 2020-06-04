@@ -21,7 +21,7 @@ import UIKit
 class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var iconImageView1: UIImageView!
 	@IBOutlet var iconImageView2: UIImageView!
-	@IBOutlet var actionTitleLabel: UILabel!
+	@IBOutlet weak var actionTitleLabel: ENALabel!
 	@IBOutlet var descriptionTextView: UITextView!
 	@IBOutlet var actionButton: ENAButton!
 
@@ -35,19 +35,12 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		}
 	}
 
-	override func awakeFromNib() {
-		actionButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
-		actionButton.titleLabel?.adjustsFontForContentSizeCategory = true
-		actionButton.titleLabel?.lineBreakMode = .byWordWrapping
-		actionButton.layer.masksToBounds = true
-		actionButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
-	}
-
 	func configure(for state: RiskDetectionState) {
 		iconImageView1.image = images(for: state).0
 		iconImageView2.image = images(for: state).1
 		actionButton.setTitle(AppStrings.ExposureNotificationSetting.detailActionButtonTitle, for: .normal)
 
+		actionTitleLabel.style = .title2
 		switch state {
 		case .enabled, .disabled:
 			return

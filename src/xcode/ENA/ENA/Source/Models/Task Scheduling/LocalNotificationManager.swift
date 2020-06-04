@@ -55,8 +55,10 @@ class LocalNotificationManager {
 		if let taskId = ENATaskIdentifier(rawValue: identifier) {
 			let openActionIdentifier: LocalNotificationAction
 			switch taskId {
-			case .exposureNotification: openActionIdentifier = LocalNotificationAction.openExposureDetectionResults
-			case .fetchTestResults: openActionIdentifier = LocalNotificationAction.openTestResults
+			case .detectExposures:
+				openActionIdentifier = LocalNotificationAction.openExposureDetectionResults
+			case .fetchTestResults:
+				openActionIdentifier = LocalNotificationAction.openTestResults
 			}
 
 			let viewAction = UNNotificationAction(

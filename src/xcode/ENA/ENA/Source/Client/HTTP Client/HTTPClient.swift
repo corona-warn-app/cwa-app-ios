@@ -233,7 +233,7 @@ final class HTTPClient: Client {
 				switch result {
 				case let .success(response):
 
-					if (response.statusCode == 400) {
+					if response.statusCode == 400 {
 						completeWith(.failure(.regTokenNotExist))
 						return
 					}
@@ -287,7 +287,7 @@ final class HTTPClient: Client {
 			session.POST(url, data) { result in
 				switch result {
 				case let .success(response):
-					if (response.statusCode == 400) {
+					if response.statusCode == 400 {
 						completeWith(.failure(.qRTeleTanAlreadyUsed))
 						return
 					}

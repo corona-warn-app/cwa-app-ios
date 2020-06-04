@@ -25,7 +25,7 @@ class ENAUITestsOnboarding: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments = ["-isOnboarded", "NO"]
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
 	}
 
 	override func tearDownWithError() throws {
@@ -78,5 +78,4 @@ class ENAUITestsOnboarding: XCTestCase {
 		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
 	}
 
-	func testOnboardingFlow_Record() throws {}
 }
