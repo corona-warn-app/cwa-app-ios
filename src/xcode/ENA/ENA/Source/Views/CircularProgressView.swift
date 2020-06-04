@@ -17,30 +17,31 @@
 
 import UIKit
 
+@IBDesignable
 class CircularProgressView: UIView {
 	let circleLayer = CAShapeLayer()
 	let progressLayer = CAShapeLayer()
 	let textLayer = CATextLayer()
 
-	var maxValue: CGFloat = 14
-	var minValue: CGFloat = 0
-	var fontSize: CGFloat = 15
-	var lineWidth: CGFloat = 10
-	var progressBarColor = UIColor.green {
+	@IBInspectable var maxValue: CGFloat = 14
+	@IBInspectable var minValue: CGFloat = 0
+	@IBInspectable var fontSize: CGFloat = 15
+	@IBInspectable var lineWidth: CGFloat = 10
+	@IBInspectable var progressBarColor: UIColor = UIColor.green {
 		didSet {
 			updateLayers()
 		}
 	}
 
-	var circleColor = UIColor.red {
+	@IBInspectable var circleColor: UIColor = UIColor.red {
 		didSet {
 			updateLayers()
 		}
 	}
 
-	var fontColor = UIColor.gray
+	@IBInspectable var fontColor: UIColor = UIColor.gray
 
-	var progress: CGFloat = 4.0 {
+	@IBInspectable var progress: CGFloat = 4.0 {
 		didSet {
 			progressLayer.updateProgress(progressValue: progress, minValue: minValue, maxValue: maxValue)
 			let text = "\(Int(progress))/\(Int(maxValue))"
