@@ -66,7 +66,7 @@
 		514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99A246D4C4C00DE4884 /* UITableView+Dequeue.swift */; };
 		514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */; };
 		515BBDEB2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */; };
-		51895EDC245E16CD0085DA38 /* UIColor+ColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* UIColor+ColorStyle.swift */; };
+		51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* ENAColor.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
 		51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51B5B413246DF07300DC5D3E /* RiskImageItemView.xib */; };
 		51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */; };
@@ -114,6 +114,7 @@
 		710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB26247533FA00948792 /* DynamicTableViewController.swift */; };
 		710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB282475353900948792 /* DynamicTableViewModel.swift */; };
 		710ABB2C2475531700948792 /* app-information-assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71CC3E7C246D308000217F2C /* app-information-assets.xcassets */; };
+		71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71176E2D24891C02004B0C9F /* ENAColorTests.swift */; };
 		7132F2822477F9C700628648 /* exposure-detection.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7132F2812477F9C700628648 /* exposure-detection.xcassets */; };
 		71330E3F248109F000EB10F6 /* DynamicTableViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E3E248109F000EB10F6 /* DynamicTableViewIcon.swift */; };
 		71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E40248109F600EB10F6 /* DynamicTableViewSection.swift */; };
@@ -372,7 +373,7 @@
 		514EE99C246D4CFB00DE4884 /* TableViewCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellConfigurator.swift; sourceTree = "<group>"; };
 		514EE99F246D4DF800DE4884 /* HomeRiskImageItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskImageItemViewConfigurator.swift; sourceTree = "<group>"; };
 		515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeThankYouRiskCellConfigurator.swift; sourceTree = "<group>"; };
-		51895EDB245E16CD0085DA38 /* UIColor+ColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorStyle.swift"; sourceTree = "<group>"; };
+		51895EDB245E16CD0085DA38 /* ENAColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAColor.swift; sourceTree = "<group>"; };
 		518A69FA24687D5800444E66 /* RiskLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevel.swift; sourceTree = "<group>"; };
 		51B5B413246DF07300DC5D3E /* RiskImageItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskImageItemView.xib; sourceTree = "<group>"; };
 		51B5B415246DF13D00DC5D3E /* RiskImageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskImageItemView.swift; sourceTree = "<group>"; };
@@ -422,6 +423,7 @@
 		710ABB24247514BD00948792 /* UIViewController+Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Segue.swift"; sourceTree = "<group>"; };
 		710ABB26247533FA00948792 /* DynamicTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewController.swift; sourceTree = "<group>"; };
 		710ABB282475353900948792 /* DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewModel.swift; sourceTree = "<group>"; };
+		71176E2D24891C02004B0C9F /* ENAColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAColorTests.swift; sourceTree = "<group>"; };
 		7132F2812477F9C700628648 /* exposure-detection.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "exposure-detection.xcassets"; sourceTree = "<group>"; };
 		71330E3E248109F000EB10F6 /* DynamicTableViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewIcon.swift; sourceTree = "<group>"; };
 		71330E40248109F600EB10F6 /* DynamicTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSection.swift; sourceTree = "<group>"; };
@@ -897,13 +899,14 @@
 		51D420B524583B5100AD70CA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				71176E2C24891BCF004B0C9F /* __tests__ */,
 				514EE996246D4BDD00DE4884 /* UICollectionView */,
 				514EE997246D4BEB00DE4884 /* UITableView */,
+				51895EDB245E16CD0085DA38 /* ENAColor.swift */,
 				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
 				51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */,
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
 				85142500245DA0B3009D2791 /* UIViewController+Alert.swift */,
-				51895EDB245E16CD0085DA38 /* UIColor+ColorStyle.swift */,
 				EE46E5D72466AEA50057627F /* UIView.swift */,
 				B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */,
 				71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */,
@@ -978,6 +981,14 @@
 				51C737BE245B3B5D00286105 /* OnboardingInfo.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		71176E2C24891BCF004B0C9F /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				71176E2D24891C02004B0C9F /* ENAColorTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		71B804502485272200D53506 /* RiskLegend */ = {
@@ -1701,7 +1712,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A36D07AD2483B43800E46F96 /* (null) in Resources */,
 				13FD1DE62473EE6C00A7C7AB /* AppInformation.storyboard in Resources */,
 				514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */,
 				710ABB2C2475531700948792 /* app-information-assets.xcassets in Resources */,
@@ -1801,7 +1811,7 @@
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */,
 				71330E3F248109F000EB10F6 /* DynamicTableViewIcon.swift in Sources */,
-				51895EDC245E16CD0085DA38 /* UIColor+ColorStyle.swift in Sources */,
+				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
 				13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */,
@@ -2006,6 +2016,7 @@
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
 				B161782D248062CE006E435A /* DeltaCalculationResultTests.swift in Sources */,
 				3DD7674E2483DE18002DD2B3 /* MockReachabilityService.swift in Sources */,
+				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
 				CDF27BD5246ADBF30044D32B /* HTTPClientTests.swift in Sources */,
 				A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */,
