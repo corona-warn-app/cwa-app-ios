@@ -403,10 +403,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	func executeFetchTestResults(task: BGTask) {
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+			taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
 		}
 
-		
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
