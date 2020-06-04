@@ -26,8 +26,9 @@ class AppInformationViewController: DynamicTableViewController {
 		.faq,
 		.terms,
 		.privacy,
+		.legal,
 		.contact,
-		.legal
+		.imprint
 	]
 
 	override func loadView() {
@@ -88,6 +89,13 @@ extension AppInformationViewController {
 
 		if indexPath.row == 1 {
 			WebPageHelper.showWebPage(from: self)
+		} else if indexPath.row == 4 {
+			let destination = AppStoryboard.appInformation.initiate(viewControllerType: AppInformationLegalViewController.self)
+			destination.model = .legalEntries
+			navigationController?.pushViewController(
+				destination,
+				animated: true
+			)
 		} else {
 			let destination = AppStoryboard.appInformation.initiate(viewControllerType: AppInformationDetailViewController.self)
 			destination.model = model[indexPath.row]
