@@ -242,16 +242,15 @@ enum AppStrings {
 
 	enum NotificationSettings {
 		static let onTitle = NSLocalizedString("NotificationSettings_On_Title", comment: "")
-		static let onDescription = NSLocalizedString("NotificationSettings_On_Description", comment: "")
 		static let onSectionTitle = NSLocalizedString("NotificationSettings_On_SectionTitle", comment: "")
 		static let riskChanges = NSLocalizedString("NotificationSettings_On_RiskChanges", comment: "")
 		static let testsStatus = NSLocalizedString("NotificationSettings_On_TestsStatus", comment: "")
 
-		static let offTitle = NSLocalizedString("NotificationSettings_Off_Title", comment: "")
-		static let offDescription = NSLocalizedString("NotificationSettings_Off_Description", comment: "")
-		static let navigateSettings = NSLocalizedString("NotificationSettings_Off_NavigateSettings", comment: "")
-		static let pickNotifications = NSLocalizedString("NotificationSettings_Off_PickNotifications", comment: "")
+		static let offSectionTitle = NSLocalizedString("NotificationSettings_Off_SectionTitle", comment: "")
 		static let enableNotifications = NSLocalizedString("NotificationSettings_Off_EnableNotifications", comment: "")
+		static let statusInactive = NSLocalizedString("NotificationSettings_Off_StatusInactive", comment: "")
+		static let infoTitle = NSLocalizedString("NotificationSettings_Off_InfoTitle", comment: "")
+		static let infoDescription = NSLocalizedString("NotificationSettings_Off_InfoDescription", comment: "")
 		static let openSettings = NSLocalizedString("NotificationSettings_Off_OpenSettings", comment: "")
 
 		static let navigationBarTitle = NSLocalizedString("NotificationSettings_NavTitle", comment: "")

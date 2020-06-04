@@ -19,7 +19,14 @@ import UIKit
 
 class NotificationSettingsViewController: UIViewController {
 	@IBOutlet var illustrationImageView: UIImageView!
-	@IBOutlet var titleLabel: DynamicTypeLabel!
+	@IBOutlet var titleLabel: ENALabel!
+
+	@IBOutlet var infoView: UIView!
+	@IBOutlet var infoViewTitleLabel: ENALabel!
+	@IBOutlet var infoViewImage: UIImageView!
+	@IBOutlet var infoViewDescriptionLabel: ENALabel!
+	@IBOutlet var infoViewButton: ENAButton!
+
 	@IBOutlet var tableView: UITableView!
 
 	@IBOutlet var tableViewHeightConstraint: NSLayoutConstraint!
@@ -69,6 +76,14 @@ class NotificationSettingsViewController: UIViewController {
 		setTableViewEstimatedRowHeight()
 	}
 
+	@IBAction func openSettings(_ sender: Any) {
+		guard let settingsURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsURL) else {
+			return
+		}
+
+		UIApplication.shared.open(settingsURL)
+	}
+
 	@objc
 	private func willEnterForeground() {
 		notificationSettings()
@@ -96,10 +111,25 @@ class NotificationSettingsViewController: UIViewController {
 	}
 
 	private func setupView() {
-		tableView.separatorStyle = viewModel.notificationsOn ? .singleLine : .none
-
 		illustrationImageView.image = UIImage(named: viewModel.image)
-		titleLabel.text = viewModel.title
+
+		if let title = viewModel.title {
+			titleLabel.isHidden = false
+			titleLabel.text = title
+		} else {
+			titleLabel.isHidden = true
+		}
+
+		if let openSettings = viewModel.openSettings {
+			infoView.isHidden = false
+			infoView.layer.cornerRadius = 14
+			infoViewTitleLabel.text = openSettings.title
+			infoViewImage.image = UIImage(named: openSettings.icon)
+			infoViewDescriptionLabel.text = openSettings.description
+			infoViewButton.setTitle(openSettings.openSettings, for: .normal)
+		} else {
+			infoView.isHidden = true
+		}
 	}
 }
 
@@ -112,35 +142,8 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let section = viewModel.sections[section]
 
 		switch section {
-		case let .settingsOn(_, cells), let .settingsOff(cells):
+		case let .settingsOn(_, cells), let .settingsOff(_, cells):
 			return cells.count
-		case .openSettings:
-			return 1
-		}
-	}
-
-	func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		let section = viewModel.sections[section]
-
-		switch section {
-		case .openSettings:
-			return 0.5
-		case .settingsOff:
-			return 20
-		case .settingsOn:
-			return UITableView.automaticDimension
-		}
-	}
-
-	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let headerView = tableView.headerView(forSection: section)
-		let section = viewModel.sections[section]
-
-		switch section {
-		case .openSettings:
-			return cellSeparatorView(tableView)
-		case .settingsOn, .settingsOff:
-			return headerView
 		}
 	}
 
@@ -148,35 +151,8 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let section = viewModel.sections[section]
 
 		switch section {
-		case let .settingsOn(title, _):
+		case let .settingsOn(title, _), let .settingsOff(title, _):
 			return title
-		case .settingsOff, .openSettings:
-			return ""
-		}
-	}
-
-	func tableView(_: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		let section = viewModel.sections[section]
-
-		switch section {
-		case .settingsOff:
-			return 25
-		case .openSettings:
-			return 0.5
-		case .settingsOn:
-			return 0
-		}
-	}
-
-	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		let footerView = tableView.footerView(forSection: section)
-		let section = viewModel.sections[section]
-
-		switch section {
-		case .openSettings:
-			return cellSeparatorView(tableView)
-		case .settingsOff, .settingsOn:
-			return footerView
 		}
 	}
 
@@ -184,11 +160,9 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let section = viewModel.sections[indexPath.section]
 
 		switch section {
-		case let .settingsOn(_, cells), let .settingsOff(cells):
+		case let .settingsOn(_, cells), let .settingsOff(_, cells):
 			let cellModel = cells[indexPath.row]
 			return configureCell(cellModel, indexPath: indexPath)
-		case let .openSettings(cell):
-			return configureCell(cell, indexPath: indexPath)
 		}
 	}
 
@@ -203,20 +177,12 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 			cell.configure()
 
 			return cell
-		case let .navigateSettings(item), let .pickNotifications(item), let .enableNotifications(item):
+		case let .enableNotifications(item):
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: item.identifier, for: indexPath) as? NotificationSettingsOffTableViewCell else {
 				fatalError("No cell for reuse identifier.")
 			}
 
 			cell.configure(viewModel: item)
-
-			return cell
-		case let .openSettings(identifier, title):
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? LabelTableViewCell else {
-				fatalError("No cell for reuse identifier.")
-			}
-
-			cell.titleLabel.text = title
 
 			return cell
 		}
@@ -226,20 +192,5 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let view = UIView()
 		view.backgroundColor = tableView.separatorColor
 		return view
-	}
-
-	func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let section = viewModel.sections[indexPath.section]
-
-		switch section {
-		case .openSettings:
-			guard let settingsURL = URL(string: UIApplication.openSettingsURLString),
-				UIApplication.shared.canOpenURL(settingsURL) else {
-				return
-			}
-			UIApplication.shared.open(settingsURL)
-		case .settingsOn, .settingsOff:
-			return
-		}
 	}
 }
