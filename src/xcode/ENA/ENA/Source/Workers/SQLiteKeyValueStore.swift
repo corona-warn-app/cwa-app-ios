@@ -176,7 +176,6 @@ class SQLiteKeyValueStore {
 			try db.executeUpdate("VACUUM", values: [])
 			log(message: "Flushed SecureStore", level: .info)
 			rekeyDatabase()
-			db.close()
 		} catch {
 			logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
 		}
