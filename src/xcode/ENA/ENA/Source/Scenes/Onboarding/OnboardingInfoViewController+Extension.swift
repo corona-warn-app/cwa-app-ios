@@ -45,26 +45,20 @@ extension OnboardingInfoViewController {
 		labelStackView.alignment = .fill
 		labelStackView.distribution = .equalSpacing
 		labelStackView.spacing = 10
-		let labelStackViewInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
-		labelStackView.layoutMargins = labelStackViewInsets
-		labelStackView.isLayoutMarginsRelativeArrangement = true
 
 		let containerView = UIView()
 		containerView.addSubview(labelStackView)
 		containerView.layer.cornerRadius = 14.0
 		containerView.backgroundColor = UIColor.preferredColor(for: .separator)
+		containerView.layoutMargins = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
 		stackView.addArrangedSubview(containerView)
 
-		let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
-		stackView.layoutMargins = containerInsets
-		stackView.isLayoutMarginsRelativeArrangement = true
-
-		let safeLayoutGuide = containerView.safeAreaLayoutGuide
+		let layoutMarginsGuide = containerView.layoutMarginsGuide
 		NSLayoutConstraint.activate([
-			labelStackView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-			labelStackView.bottomAnchor.constraint(equalTo: safeLayoutGuide.bottomAnchor),
-			labelStackView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-			labelStackView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor)
+			labelStackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+			labelStackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
+			labelStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+			labelStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
 		])
 
 	}

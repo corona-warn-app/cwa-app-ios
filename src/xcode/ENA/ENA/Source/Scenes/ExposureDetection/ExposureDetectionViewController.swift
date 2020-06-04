@@ -84,13 +84,13 @@ extension ExposureDetectionViewController {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
 
 		(cell as? DynamicTypeTableViewCell)?.backgroundColor = .clear
-
+		
 		if cell.backgroundView == nil {
 			cell.backgroundView = UIView()
 		}
 
 		if cell.backgroundColor == nil || cell.backgroundColor == .clear {
-			cell.backgroundView?.backgroundColor = .preferredColor(for: .backgroundPrimary)
+			cell.backgroundView?.backgroundColor = .enaColor(for: .background)
 		}
 
 		return cell
@@ -122,7 +122,6 @@ private extension ExposureDetectionViewController {
 		} else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
 				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
-				// TODO: handle error
 			}
 		}
 	}
@@ -156,9 +155,9 @@ extension ExposureDetectionViewController {
 
 	private func updateCloseButton() {
 		if state.isTracingEnabled {
-			closeImage.image = UIImage(named: "exposure-detection-close-contrast")
+			closeImage.image = UIImage(named: "Icons - Close - Contrast")
 		} else {
-			closeImage.image = UIImage(named: "exposure-detection-close")
+			closeImage.image = UIImage(named: "Icons - Close")
 		}
 	}
 
@@ -169,7 +168,6 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateTableView() {
-		tableView.backgroundColor = state.riskTintColor
 		tableView.reloadData()
 	}
 
