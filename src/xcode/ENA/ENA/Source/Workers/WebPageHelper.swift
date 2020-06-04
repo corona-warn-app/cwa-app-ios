@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -15,17 +16,23 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import Foundation
+import SafariServices
 import UIKit
 
-class SubmitCollectionViewCell: HomeCardCollectionViewCell {
-	@IBOutlet var iconImageView: UIImageView!
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var bodyLabel: UILabel!
-	@IBOutlet var contactButton: UIButton!
+enum WebPageHelper {
+	static func showWebPage(from viewController: UIViewController) {
+		if let url = URL(string: AppStrings.SafariView.targetURL) {
+			let config = SFSafariViewController.Configuration()
+			config.entersReaderIfAvailable = true
+			config.barCollapsingEnabled = true
 
-	weak var delegate: HomeCardCellButtonDelegate?
-
-	@IBAction func submitButtonTapped(_: UIButton) {
-		delegate?.buttonTapped(cell: self)
+			let vc = SFSafariViewController(url: url, configuration: config)
+			viewController.present(vc, animated: true)
+		} else {
+			let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
+			logError(message: error)
+			fatalError(error)
+		}
 	}
 }

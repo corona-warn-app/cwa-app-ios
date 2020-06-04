@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,18 +15,17 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import UIKit
+import XCTest
+@testable import ENA
 
-class SubmitCollectionViewCell: HomeCardCollectionViewCell {
-	@IBOutlet var iconImageView: UIImageView!
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var bodyLabel: UILabel!
-	@IBOutlet var contactButton: UIButton!
+class ENAColorTests: XCTestCase {
 
-	weak var delegate: HomeCardCellButtonDelegate?
-
-	@IBAction func submitButtonTapped(_: UIButton) {
-		delegate?.buttonTapped(cell: self)
+	func testAvailableColors() {
+		for style in ENAColor.allCases {
+			XCTAssertNotNil(UIColor(enaColor: style), "ENAColor does not exist: \(style.rawValue)")
+		}
 	}
+
 }

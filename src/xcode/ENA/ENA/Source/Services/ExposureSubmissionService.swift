@@ -259,7 +259,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			case .apiMisuse:
 				return .other("ENErrorCodeAPIMisuse")
 			}
-
 		}
 
 		if let submissionError = error as? SubmissionError {

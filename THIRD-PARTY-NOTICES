@@ -30,19 +30,14 @@ Licensor:  Flying Meat Inc.
 Website:   https://github.com/ccgus/fmdb
 License:   MIT License
 
-Component: CocoaLumberJack
-Licensor:  Deusty, LLC
-Website:   https://github.com/CocoaLumberjack/CocoaLumberjack
-License:   3-Clause BSD License
-
 Component: swift-protobuf
 Licensor:  Apple Inc.
 Website:   https://github.com/apple/swift-protobuf
 License:   Apache 2.0 License
 
-Component: Reachability.swift
-Licensor:  Ashley Mills
-Website:   https://github.com/ashleymills/Reachability.swift
+Component: Connectivity.swift
+Licensor:  Ross Butler
+Website:   https://github.com/rwbutler/Connectivity
 License:   MIT License
 
 --------------------------------------------------------------------------------
