@@ -38,12 +38,12 @@ class PrivacyProtectionViewController: UIViewController {
 		blurEffectView.effect = blurEffect
 		blurEffectView.frame = self.view.bounds
 		
-        label.font = UIFont.preferredFont(forTextStyle: .title1)
-        label.adjustsFontForContentSizeCategory = true
-        label.adjustsFontSizeToFitWidth = true
-        label.textAlignment = .center
-        label.textColor = .secondaryLabel
-        label.numberOfLines = 0
+		label.font = UIFont.preferredFont(forTextStyle: .title1)
+		label.adjustsFontForContentSizeCategory = true
+		label.adjustsFontSizeToFitWidth = true
+		label.textAlignment = .center
+		label.textColor = .secondaryLabel
+		label.numberOfLines = 0
 		label.text = AppStrings.Common.privacyProtectionMessage
 		let labelHeight = view.bounds.height * 0.66
 		(label.frame, _) = blurEffectView.contentView.bounds.divided(atDistance: labelHeight, from: .minYEdge)
