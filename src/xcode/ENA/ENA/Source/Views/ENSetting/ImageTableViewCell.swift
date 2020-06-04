@@ -19,17 +19,17 @@ import Foundation
 import UIKit
 
 protocol ConfigurableENSettingCell: UITableViewCell {
-	func configure(for state: RiskDetectionState)
+	func configure(for state: ENStateHandler.State)
 }
 
 class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var imageContainerView: UIImageView!
 
-	func configure(for state: RiskDetectionState) {
+	func configure(for state: ENStateHandler.State) {
 		imageContainerView.image = bannerImage(for: state)
 	}
 
-	private func bannerImage(for state: RiskDetectionState) -> UIImage? {
+	private func bannerImage(for state: ENStateHandler.State) -> UIImage? {
 		switch state {
 		case .enabled:
 			return UIImage(named: "Illu_Risikoermittlung_On")

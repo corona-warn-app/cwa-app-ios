@@ -17,21 +17,29 @@
 
 import Foundation
 
-enum RiskDetectionState {
-	case enabled
-	case disabled
-	case bluetoothOff
-	case internetOff
-	case restricted
-}
+
 
 protocol StateHandlerObserverDelegate: AnyObject {
-	func stateDidChange(to state: RiskDetectionState)
+	func stateDidChange(to state:  ENStateHandler.State)
 	func getLatestExposureManagerState() -> ExposureManagerState
 }
 
-class ENStateHandler {
-	private var currentState: RiskDetectionState! {
+final class ENStateHandler {
+
+	enum State {
+		/// Exposure Notification is enabled.
+		case enabled
+		/// Exposure Notification is disabled.
+		case disabled
+		/// Bluetooth is off.
+		case bluetoothOff
+		/// Internet is off.
+		case internetOff
+		/// Restricted Mode.
+		case restricted
+	}
+
+	private var currentState: State! {
 		didSet {
 			stateDidChange()
 		}
@@ -82,7 +90,7 @@ class ENStateHandler {
 		delegate?.stateDidChange(to: currentState)
 	}
 
-	private func determineCurrentState(from enManagerState: ExposureManagerState) -> RiskDetectionState {
+	private func determineCurrentState(from enManagerState: ExposureManagerState) -> State {
 
 		switch enManagerState.status {
 		case .active:
@@ -106,7 +114,7 @@ class ENStateHandler {
 		}
 	}
 
-	func getState() -> RiskDetectionState {
+	func getState() -> State {
 		currentState
 	}
 

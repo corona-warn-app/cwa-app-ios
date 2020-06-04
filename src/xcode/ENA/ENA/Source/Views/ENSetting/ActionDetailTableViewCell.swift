@@ -35,7 +35,7 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		}
 	}
 
-	func configure(for state: RiskDetectionState) {
+	func configure(for state: ENStateHandler.State) {
 		iconImageView1.image = images(for: state).0
 		iconImageView2.image = images(for: state).1
 		actionButton.setTitle(AppStrings.ExposureNotificationSetting.detailActionButtonTitle, for: .normal)
@@ -59,7 +59,7 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		}
 	}
 
-	private func images(for state: RiskDetectionState) -> (UIImage?, UIImage?) {
+	private func images(for state: ENStateHandler.State) -> (UIImage?, UIImage?) {
 		switch state {
 		case .enabled, .disabled:
 			return (nil, nil)

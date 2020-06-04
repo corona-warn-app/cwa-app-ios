@@ -540,7 +540,7 @@ extension HomeInteractor {
 }
 
 extension HomeInteractor: StateHandlerObserverDelegate {
-	func stateDidChange(to _: RiskDetectionState) {
+	func stateDidChange(to _: ENStateHandler.State) {
 		updateActiveCell()
 	}
 

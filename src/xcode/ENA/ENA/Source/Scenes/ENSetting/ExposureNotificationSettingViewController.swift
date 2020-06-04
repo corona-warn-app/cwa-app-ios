@@ -32,7 +32,7 @@ protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
 final class ExposureNotificationSettingViewController: UITableViewController {
 	private weak var delegate: ExposureNotificationSettingViewControllerDelegate?
 
-	var currentState: RiskDetectionState {
+	var currentState: ENStateHandler.State {
 		stateHandler.getState()
 	}
 
@@ -64,6 +64,16 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		navigationItem.largeTitleDisplayMode = .always
 		setUIText()
 		tableView.sectionFooterHeight = 0.0
+	}
+
+	private func tryEnManager() {
+		let enManager = ENManager()
+		enManager.activate { error in
+			if let error = error {
+				print("Cannot activate the enmanager.")
+				return
+			}
+		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -200,7 +210,7 @@ extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate
 }
 
 extension ExposureNotificationSettingViewController {
-	func stateDidChange(to _: RiskDetectionState) {
+	func stateDidChange(to _: ENStateHandler.State) {
 		tableView.reloadData()
 	}
 }

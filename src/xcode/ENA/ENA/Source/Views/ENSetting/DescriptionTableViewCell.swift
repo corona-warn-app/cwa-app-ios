@@ -24,7 +24,7 @@ class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var textView2: UITextView!
 	@IBOutlet weak var textView3: UITextView!
 
-	func configure(for riskDetectionState: RiskDetectionState) {
+	func configure(for riskDetectionState: ENStateHandler.State) {
 		if riskDetectionState == .disabled {
 			titleLabel.text = AppStrings.ExposureNotificationSetting.descriptionTitleInactive
 		} else {
