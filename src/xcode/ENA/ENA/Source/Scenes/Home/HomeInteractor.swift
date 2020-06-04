@@ -38,6 +38,7 @@ final class HomeInteractor {
 		self.store = store
 		self.state = state
 		self.taskScheduler = taskScheduler
+		self.exposureSubmissionService = exposureSubmissionService
 		stateHandler = ENStateHandler(
 			self.state.exposureManager,
 			reachabilityService: ConnectivityReachabilityService(),
