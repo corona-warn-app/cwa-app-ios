@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>ExposureDetection_Refreshed_Format</key>
@@ -20,7 +19,7 @@
 			<string>Gestern, %%1$@</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%%2$@, %%1$@ </string>
+			<string>%%2$@, %%1$@</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_NumberOfContacts</key>
@@ -62,7 +61,7 @@
 			<string>Letzter Kontakt: Gestern</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u Tage seit letztem Begegnung</string>
+			<string>%u Tage seit letzter Begegnung</string>
 		</dict>
 	</dict>
     <key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -197,11 +196,11 @@ Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
 			<string>Risiko-Ermittlung ist seit %u Tag aktiv.
-Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen. </string>
+Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
 			<string>Risiko-Ermittlung ist seit %u Tagen aktiv.
-Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen. </string>
+Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 		</dict>
 	</dict>
 </dict>
