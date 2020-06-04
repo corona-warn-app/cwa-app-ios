@@ -122,7 +122,6 @@ private extension ExposureDetectionViewController {
 		} else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
 				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
-				// TODO: handle error
 			}
 		}
 	}
