@@ -80,14 +80,24 @@ enum RiskExposureCalculation {
 			riskLevel = .unknownOutdated
 		}
 
-		if let summary = summary {
-			// TODO: More in-depth calculation to be done by RKI provided formula
-			// TODO: Anything we need from backend?
-			let calculatedLevel = RiskLevel(riskScore: summary.maximumRiskScore)
-			if calculatedLevel > riskLevel {
-				riskLevel = calculatedLevel
-			}
+		guard let summary = summary else {
+			return .unknownOutdated
 		}
+		// TODO: More in-depth calculation to be done by RKI provided formula
+		// TODO: Anything we need from backend?
+		let calculatedLevel = RiskLevel(riskScore: summary.maximumRiskScore)
+		if calculatedLevel > riskLevel {
+			riskLevel = calculatedLevel
+		}
+
+		let maxRisk = summary.maximumRiskScore
+
+//		val formulaString =
+//						   "($maxRisk / ${attenuationConfig?.riskScoreNormalizationDivisor}) * " +
+//								   "(${attenuationDurationInMin?.get(0)} * ${atWeights?.low} " +
+//								   "+ ${attenuationDurationInMin?.get(1)} * ${atWeights?.mid} " +
+//								   "+ ${attenuationDurationInMin?.get(2)} * ${atWeights?.high} " +
+//								   "+ ${attenuationConfig?.defaultBucketOffset})"
 
 		return riskLevel
 	}
