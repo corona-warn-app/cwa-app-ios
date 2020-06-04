@@ -470,5 +470,6 @@ enum AppStrings {
 		static let notificationText = NSLocalizedString("RiskLegend_Notification_Text", comment: "")
 		static let randomTitle = NSLocalizedString("RiskLegend_Random_Title", comment: "")
 		static let randomText = NSLocalizedString("RiskLegend_Random_Text", comment: "")
+		static let titleImageAccLabel = NSLocalizedString("RiskLegend_Image1_AccLabel", comment: "")
 	}
 }
