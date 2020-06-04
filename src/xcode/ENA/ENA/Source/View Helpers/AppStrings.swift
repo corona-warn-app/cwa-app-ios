@@ -57,6 +57,7 @@ enum AppStrings {
 
 	enum ExposureSubmissionIntroduction {
 		static let title = NSLocalizedString("ExposureSubmissionIntroduction_Title", comment: "")
+		static let subTitle = NSLocalizedString("ExposureSubmissionIntroduction_SubTitle", comment: "")
 		static let usage01 = NSLocalizedString("ExposureSubmissionIntroduction_Usage01", comment: "")
 		static let usage02 = NSLocalizedString("ExposureSubmissionIntroduction_Usage02", comment: "")
 		static let usage03 = NSLocalizedString("ExposureSubmissionIntroduction_Usage03", comment: "")

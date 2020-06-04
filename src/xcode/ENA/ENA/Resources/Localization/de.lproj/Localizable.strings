@@ -241,6 +241,7 @@ Es gelten die Preise Ihres Telefonanbieters.
 
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Info";
+"ExposureSubmissionIntroduction_SubTitle" = "So funktioniert das Corona-Warn-System";
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
 "ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt  wie folgt vorgehen:";
 "ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen  in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
