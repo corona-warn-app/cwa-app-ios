@@ -190,9 +190,30 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return
 			}
 
-			guard let keys = keys, !keys.isEmpty else {
+			guard var keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
 				return
+			}
+
+			var transmissionRiskDefaultVector: [Int] {
+				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
+			}
+
+			keys.sort {
+				$0.rollingStartNumber > $1.rollingStartNumber
+			}
+			
+			if keys.count > 14 {
+				keys = Array(keys[0 ..< 14])
+			}
+			
+			let startIndex = 0
+			for i in startIndex...keys.count - 1 {
+				if i + 1 <= transmissionRiskDefaultVector.count - 1 {
+					keys[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
+				} else {
+					keys[i].transmissionRiskLevel = UInt8(1)
+				}
 			}
 
 			self.client.submit(keys: keys, tan: tan) { error in
@@ -224,8 +245,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func parseError(_ error: Error) -> ExposureSubmissionError {
 		if let enError = error as? ENError {
 			switch enError.code {
-			default:
+			case .notEnabled:
 				return .enNotEnabled
+			default:
+				return .other(enError.localizedDescription)
 			}
 		}
 
@@ -276,6 +299,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case enNotEnabled
 	case noKeys
 	case noConsent
+	case noExposureConfiguration
 	case invalidTan
 	case invalidResponse
 	case noResponse
@@ -290,32 +314,34 @@ extension ExposureSubmissionError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case let .serverError(code):
-			return "Error \(code): \(HTTPURLResponse.localizedString(forStatusCode: code))"
+			return "\(code): \(HTTPURLResponse.localizedString(forStatusCode: code))"
 		case let .httpError(desc):
 			return desc
 		case .invalidTan:
-			return "Invalid Tan"
+			return AppStrings.ExposureSubmissionError.invalidTan
 		case .enNotEnabled:
-			return "Exposure Notification disabled"
+			return AppStrings.ExposureSubmissionError.enNotEnabled
 		case .noRegistrationToken:
-			return "No registration token"
+			return AppStrings.ExposureSubmissionError.noRegistrationToken
 		case .invalidResponse:
-			return "Invalid response"
+			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .noResponse:
-			return "No response was received"
+			return AppStrings.ExposureSubmissionError.noResponse
+		case .noExposureConfiguration:
+			return AppStrings.ExposureSubmissionError.noConfiguration
 		case .qRTeleTanAlreadyUsed:
-			return "QR Code or TeleTAN already used."
+			return AppStrings.ExposureSubmissionError.qRTeleTanAlreadyUsed
 		case .regTokenNotExist:
-			return "Reg Token does not exist."
+			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		case .noKeys:
-			return "No diagnoses keys available. Please try tomorrow again."
+			return AppStrings.ExposureSubmissionError.noKeys
 		case let .other(desc):
-			return "Other Error: \(desc)"
+			return AppStrings.ExposureSubmissionError.other + " " + desc
 		case .unknown:
-			return "An unknown error occured"
+			return AppStrings.ExposureSubmissionError.unknown
 		default:
 			logError(message: "\(self)")
-			return "Default Exposure Submission Error"
+			return AppStrings.ExposureSubmissionError.defaultError
 		}
 	}
 }

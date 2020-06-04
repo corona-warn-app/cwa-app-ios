@@ -50,6 +50,9 @@
 "OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To be able to analyze your Covid 19 risk, you must enable Exposure Notifications.";
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "When enabled, your phone will receive encrypted and randomized tokens broadcasted from other users around you, and broadcast your own encrypted and randomized tokens. This functionality can be turned off at any time.\n\nThese encrypted tokens only contain information of the date, duration, and your proximity calculated based on signal strength to persons around you. Personal data like name, address, or location are never collected. It is not possible to trace a token back to the user.";
 
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Privacy";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Yes, I consent to the use of my tracing functionality for my Stop Corona app. I want to make an important contribution to the breakdown of infection chains and the containment of the Corona Virus in Germany. Contact tracing can be used to track contacts in order to later identify contacts that tested positive for the coronavirus. \ N \ nI can withdraw my consent at any time with future effect. You can find further information in our data protection notice.";
+
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Have you been tested positive?";
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Then please report it via the COVID warning app. Voluntarily and safely. For everyone's health.";
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your message is reliably encrypted and processed via a secure server. As a result, your contacts can be warned, isolated or tested.";
@@ -149,6 +152,19 @@
 
 Da nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
+
+/* Exposure Submission */
+"ExposureSubmissionError_NoKeys" = "Keine Diagnoseschlüssel verfügbar. Bitte versuchen Sie morgen erneut.";
+"ExposureSubmissionError_InvalidTan" = "Die erzeugte TAN für die Übermittlung ist ungültig.";
+"ExposureSubmissionError_EnNotEnabled" = "Das Exposure Notification ist nicht aktiv.";
+"ExposureSubmissionError_NoRegistrationToken" = "Kein Registration Token auf dem Gerät gefunden.";
+"ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
+"ExposureSubmissionError_NoResponse" = "Die Anwort enthält kein Inhalt";
+"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Der QR-Code oder die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
+"ExposureSubmissionError_RegTokenNotExist" = "Der verwendet Registration Token existiert nich.";
+"ExposureSubmissionError_other" = "Fehler: ";
+"ExposureSubmissionError_unknown" = "Unbekannter Fehler";
+"ExposureSubmissionError_defaultError" = "Allgemeinier Exposure Submission Fehler";
 
 // Tracing Enable/Disable Settings
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";

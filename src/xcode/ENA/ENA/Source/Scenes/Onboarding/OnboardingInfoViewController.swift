@@ -66,6 +66,7 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var ignoreButton: ENAButton!
 
 	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet weak var stackView: UIStackView!
 	@IBOutlet var footerView: UIView!
 
 	private var onboardingInfos = OnboardingInfo.testData()
@@ -87,6 +88,8 @@ final class OnboardingInfoViewController: UIViewController {
 		super.viewWillAppear(animated)
 		if pageType == .togetherAgainstCoronaPage {
 			navigationController?.setNavigationBarHidden(true, animated: true)
+		} else {
+			navigationController?.navigationBar.shadowImage = UIImage()
 		}
 	}
 
@@ -97,8 +100,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		let height = footerView.frame.height + 20
-		scrollView.contentInset.bottom = height
+		scrollView.contentInset.bottom = footerView.frame.height
 	}
 
 	func runActionForPageType(completion: @escaping () -> Void) {
@@ -156,10 +158,14 @@ final class OnboardingInfoViewController: UIViewController {
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
-
-		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
-		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+		
+		if pageType == .enableLoggingOfContactsPage {
+			addPanel(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText
+			)
+		}
+		
 	}
 
 	func setupAccessibility() {
@@ -173,16 +179,6 @@ final class OnboardingInfoViewController: UIViewController {
 		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
 		nextButton.accessibilityIdentifier = Accessibility.Button.next
 		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-			// content size has changed
-			titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
-			boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		}
 	}
 
 	private func persistTimestamp(completion: (() -> Void)?) {

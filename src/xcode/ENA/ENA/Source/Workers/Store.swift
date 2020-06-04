@@ -65,6 +65,8 @@ protocol Store: AnyObject {
 	// his diagnosiskeys to the CWA submission service.
 	var exposureActivationConsentAccept: Bool { get set }
 
+	var tracingStatusHistory: TracingStatusHistory { get set }
+
 	func clearAll()
 	}
 
@@ -207,6 +209,18 @@ final class SecureStore: Store {
 	var allowTestsStatusNotification: Bool {
 		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }
 		set { kvStore["allowTestsStatusNotification"] = newValue }
+	}
+	
+	var tracingStatusHistory: TracingStatusHistory {
+		get {
+			guard let historyData = kvStore["tracingStatusHistory"] else {
+				return []
+			}
+			return (try? TracingStatusHistory.from(data: historyData)) ?? []
+		}
+		set {
+			kvStore["tracingStatusHistory"] = try? newValue.JSONData()
+		}
 	}
 
 	var previousSummary: ENExposureDetectionSummaryContainer? {

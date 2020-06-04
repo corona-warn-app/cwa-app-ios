@@ -38,7 +38,11 @@ final class HomeInteractor {
 		self.store = store
 		self.state = state
 		self.taskScheduler = taskScheduler
-		stateHandler = ENStateHandler(state.exposureManager, delegate: self)
+		stateHandler = ENStateHandler(
+			self.state.exposureManager,
+			reachabilityService: ConnectivityReachabilityService(),
+			delegate: self
+		)
 		sections = initialCellConfigurators()
 	}
 

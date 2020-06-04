@@ -43,6 +43,10 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 	private func setupTableView() {
 		tableView.delegate = self
 		tableView.dataSource = self
+		tableView.register(
+			DynamicTableViewRoundedCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.roundedCell.rawValue
+		)
 		dynamicTableViewModel = dynamicTableViewModel()
 	}
 
@@ -112,10 +116,29 @@ private extension ExposureSubmissionWarnOthersViewController {
 					cells: [
 						.title2(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle),
 						.body(text: AppStrings.ExposureSubmissionWarnOthers.description),
-						.body(text: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription)
+						.custom(withIdentifier: CustomCellReuseIdentifiers.roundedCell,
+								configure: { _, cell, _ in
+									guard let cell = cell as? DynamicTableViewRoundedCell else { return }
+									cell.configure(
+										title: NSMutableAttributedString(
+											string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyTitle
+										),
+										body: NSMutableAttributedString(
+											string: AppStrings.ExposureSubmissionWarnOthers.dataPrivacyDescription
+										)
+									)
+						})
 					]
 				)
 			)
 		}
+	}
+}
+
+// MARK: - Cell reuse identifiers.
+
+extension ExposureSubmissionWarnOthersViewController {
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case roundedCell
 	}
 }

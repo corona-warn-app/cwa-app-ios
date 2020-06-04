@@ -102,19 +102,19 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	private func deleteTest() {
 		let alert = UIAlertController(
-			title: "Test entfernen?",
-			message: "Der Test wird endgültig aus der Corona-Warn-App entfernt. Dieser Vorgang kann nicht widerrufen werden.",
+			title: AppStrings.ExposureSubmissionResult.removeAlert_Title,
+			message: AppStrings.ExposureSubmissionResult.removeAlert_Text,
 			preferredStyle: .alert
 		)
 
 		let cancel = UIAlertAction(
-			title: "Abbrechen",
+			title: AppStrings.Common.alertActionCancel,
 			style: .cancel,
 			handler: { _ in alert.dismiss(animated: true, completion: nil) }
 		)
 
 		let delete = UIAlertAction(
-			title: "Entfernen",
+			title: AppStrings.Common.alertActionRemove,
 			style: .destructive,
 			handler: { _ in
 				self.exposureSubmissionService?.deleteTest()
@@ -248,6 +248,7 @@ private extension ExposureSubmissionTestResultViewController {
 		)
 	}
 
+	// swiftlint:disable:next function_body_length
 	private func negativeTestResultSection() -> DynamicSection {
 		.section(
 			header: .identifier(
