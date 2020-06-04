@@ -104,11 +104,11 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "Settings_KontaktProtokollStatusActive" = "Aktiv";
 "Settings_KontaktProtokollStatusInactive" = "Gestoppt";
 
-"Settings_Tracing_Label" = "Risikoermittlung";
+"Settings_Tracing_Label" = "Risiko-Ermittlung";
 "Settings_Notification_Label" = "Mitteilungen";
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
-"Settings_Tracing_Description" = "Erlauben Sie Erfassung und Weitergabe von Covid-19-Zufalls-IDs.";
+"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von Zufallscodes.";
 "Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Covid-19-Risikostatus.";
 "Settings_Reset_Description" = "Löschen Sie alle Ihre Daten in der App.";
 
