@@ -287,7 +287,6 @@ final class HTTPClient: Client {
 			session.POST(url, data) { result in
 				switch result {
 				case let .success(response):
-					print(type)
 					if response.statusCode == 400 {
 						if type == "TELETAN" {
 							completeWith(.failure(.teleTanAlreadyUsed))
