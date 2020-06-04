@@ -137,26 +137,31 @@ final class SettingsViewController: UITableViewController {
 	}
 
 	private func notificationSettings() {
-		let currentCenter = UNUserNotificationCenter.current()
+		if store.requestedUserNotificationAuthorization {
+			let currentCenter = UNUserNotificationCenter.current()
 
-		currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
-			guard let self = self else { return }
+			currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
+				guard let self = self else { return }
 
-			if let error = error {
-				log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
-				self.settingsViewModel.notifications.setState(state: false)
-				return
+				if let error = error {
+					log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
+					self.settingsViewModel.notifications.setState(state: false)
+					return
+				}
+
+				if granted && (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
+					self.settingsViewModel.notifications.setState(state: true)
+				} else {
+					self.settingsViewModel.notifications.setState(state: false)
+				}
+
+				DispatchQueue.main.async {
+					self.tableView.reloadData()
+				}
+				
 			}
-
-			if granted && (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
-				self.settingsViewModel.notifications.setState(state: true)
-			} else {
-				self.settingsViewModel.notifications.setState(state: false)
-			}
-
-			DispatchQueue.main.async {
-				self.tableView.reloadData()
-			}
+		} else {
+			self.settingsViewModel.notifications.setState(state: false)
 		}
 	}
 

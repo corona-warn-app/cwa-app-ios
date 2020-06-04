@@ -127,6 +127,7 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "NotificationSettings_Off_PickNotifications" = "2. Wählen Sie Mitteilungen aus";
 "NotificationSettings_Off_EnableNotifications" = "3. Erlauben Sie Mitteilungen";
 "NotificationSettings_Off_OpenSettings" = "Einstellungen App öffnen";
+"NotificationSettings_Off_RequestNotificationAuthorization" = "Mitteilungen erlauben";
 
 "NotificationSettings_NavTitle" = "Mitteilungen";
 

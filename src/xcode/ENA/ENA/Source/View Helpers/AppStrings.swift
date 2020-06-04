@@ -252,6 +252,7 @@ enum AppStrings {
 		static let pickNotifications = NSLocalizedString("NotificationSettings_Off_PickNotifications", comment: "")
 		static let enableNotifications = NSLocalizedString("NotificationSettings_Off_EnableNotifications", comment: "")
 		static let openSettings = NSLocalizedString("NotificationSettings_Off_OpenSettings", comment: "")
+		static let requestNotificationAuthorization = NSLocalizedString("NotificationSettings_Off_RequestNotificationAuthorization", comment: "")
 
 		static let navigationBarTitle = NSLocalizedString("NotificationSettings_NavTitle", comment: "")
 	}

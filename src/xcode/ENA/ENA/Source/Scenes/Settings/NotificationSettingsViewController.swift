@@ -86,8 +86,12 @@ class NotificationSettingsViewController: UIViewController {
 			guard let self = self else { return }
 
 			let authorized = (settings.authorizationStatus == .authorized) || (settings.authorizationStatus == .provisional)
-
-			self.viewModel = authorized ? NotificationSettingsViewModel.notificationsOn(self.store) : NotificationSettingsViewModel.notificationsOff()
+			
+			if self.store.requestedUserNotificationAuthorization {
+				self.viewModel = authorized ? NotificationSettingsViewModel.notificationsOn(self.store) : NotificationSettingsViewModel.notificationsOff()
+			} else {
+				self.viewModel = NotificationSettingsViewModel.notificationsNeverAsked(self.store)
+			}
 
 			DispatchQueue.main.async {
 				self.setupView()
@@ -116,7 +120,7 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		switch section {
 		case let .settingsOn(_, cells), let .settingsOff(cells):
 			return cells.count
-		case .openSettings:
+		case .openSettings, .notificationsNeverAsked:
 			return 1
 		}
 	}
@@ -125,7 +129,7 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let section = viewModel.sections[section]
 
 		switch section {
-		case .openSettings:
+		case .openSettings,.notificationsNeverAsked:
 			return 0.5
 		case .settingsOff:
 			return 20
@@ -139,7 +143,7 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let section = viewModel.sections[section]
 
 		switch section {
-		case .openSettings:
+		case .openSettings, .notificationsNeverAsked:
 			return cellSeparatorView(tableView)
 		case .settingsOn, .settingsOff:
 			return headerView
@@ -152,7 +156,7 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		switch section {
 		case let .settingsOn(title, _):
 			return title
-		case .settingsOff, .openSettings:
+		case .settingsOff, .openSettings, .notificationsNeverAsked:
 			return ""
 		}
 	}
@@ -163,7 +167,7 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		switch section {
 		case .settingsOff:
 			return 25
-		case .openSettings:
+		case .openSettings, .notificationsNeverAsked:
 			return 0.5
 		case .settingsOn:
 			return 0
@@ -175,7 +179,7 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let section = viewModel.sections[section]
 
 		switch section {
-		case .openSettings:
+		case .openSettings, .notificationsNeverAsked:
 			return cellSeparatorView(tableView)
 		case .settingsOff, .settingsOn:
 			return footerView
@@ -190,6 +194,8 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 			let cellModel = cells[indexPath.row]
 			return configureCell(cellModel, indexPath: indexPath)
 		case let .openSettings(cell):
+			return configureCell(cell, indexPath: indexPath)
+		case let .notificationsNeverAsked(cell):
 			return configureCell(cell, indexPath: indexPath)
 		}
 	}
@@ -221,6 +227,12 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 			cell.titleLabel.text = title
 
 			return cell
+		case let .requestNotificationAuthorization(identifier, title):
+			guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? LabelTableViewCell else {
+				fatalError("No cell for reuse identifier.")
+			}
+			cell.titleLabel.text = title
+			return cell
 		}
 	}
 
@@ -240,6 +252,22 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 				return
 			}
 			UIApplication.shared.open(settingsURL)
+		case .notificationsNeverAsked:
+			self.store.requestedUserNotificationAuthorization = true
+			let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+			let notificationCenter = UNUserNotificationCenter.current()
+			notificationCenter.requestAuthorization(options: options) { _, error in
+				if let error = error {
+					// handle error
+					log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
+				} else {
+					DispatchQueue.main.async {
+						self.notificationSettings()
+						self.navigationController?.popViewController(animated: true)
+					}
+				}
+			}
+			return
 		case .settingsOn, .settingsOff:
 			return
 		}

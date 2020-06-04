@@ -37,6 +37,7 @@ protocol Store: AnyObject {
 	var devicePairingSuccessfulTimestamp: Int64? { get set }
 	var isAllowedToSubmitDiagnosisKeys: Bool { get set }
 
+	var requestedUserNotificationAuthorization: Bool { get set }
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
@@ -75,6 +76,7 @@ protocol Store: AnyObject {
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
+	
 	private let fileURL: URL
 	private let kvStore: SQLiteKeyValueStore
 
@@ -203,6 +205,11 @@ final class SecureStore: Store {
 		set { kvStore["developerVerificationBaseURLOverride"] = newValue }
 		}
 
+	var requestedUserNotificationAuthorization: Bool {
+		get { kvStore["requestedUserNotificationAuthorization"] as Bool? ?? true }
+		set { kvStore["requestedUserNotificationAuthorization"] = newValue }
+	}
+	
 	var allowRiskChangesNotification: Bool {
 		get { kvStore["allowRiskChangesNotification"] as Bool? ?? true }
 		set { kvStore["allowRiskChangesNotification"] = newValue }

@@ -123,7 +123,7 @@ final class OnboardingInfoViewController: UIViewController {
 		case .alwaysStayInformedPage:
 			askLocalNotificationsPermissions(completion: completion)
 		default:
-			completion()
+			skipLocalNotificationsPermissions(completion: completion)
 		}
 	}
 
@@ -255,9 +255,16 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
 		exposureManager.requestUserNotificationsPermissions {
+			self.store.requestedUserNotificationAuthorization = true
 			completion?()
 			return
 		}
+	}
+	
+	private func skipLocalNotificationsPermissions(completion: (() -> Void)?) {
+		self.store.requestedUserNotificationAuthorization = false
+		completion?()
+		return
 	}
 
 	func openSettings() {

@@ -57,6 +57,36 @@ class NotificationSettingsViewModel {
 			]
 		)
 	}
+	
+	static func notificationsNeverAsked(_ store: Store) -> NotificationSettingsViewModel {
+		NotificationSettingsViewModel(
+			notificationsOn: false,
+			image: "Illu_Mitteilungen_Off",
+			title: AppStrings.NotificationSettings.onTitle,
+			description: AppStrings.NotificationSettings.onDescription,
+			sections: [
+				/*.settingsOff(
+					cells: [
+						.navigateSettings(.init(
+							icon: "Icons_iOS_Settings",
+							description: AppStrings.NotificationSettings.navigateSettings
+						)),
+						.pickNotifications(.init(
+							icon: "Icons_iOS_Mitteilungen",
+							description: AppStrings.NotificationSettings.pickNotifications
+						)),
+						.enableNotifications(.init(
+							icon: "Icons_iOS_Mitteilungen",
+							description: AppStrings.NotificationSettings.enableNotifications
+						))
+					]
+				),*/
+				.notificationsNeverAsked(
+					cell: .requestNotificationAuthorization(title: AppStrings.NotificationSettings.requestNotificationAuthorization)
+				)
+			]
+		)
+	}
 
 	static func notificationsOff() -> NotificationSettingsViewModel {
 		NotificationSettingsViewModel(
@@ -97,6 +127,7 @@ extension NotificationSettingsViewModel {
 		case navigateSettings(SettingsOffItem)
 		case pickNotifications(SettingsOffItem)
 		case enableNotifications(SettingsOffItem)
+		case requestNotificationAuthorization(identifier: String = "requestNotificationAuthorization", title: String)
 		case openSettings(identifier: String = "openSettings", title: String)
 	}
 
@@ -123,6 +154,7 @@ extension NotificationSettingsViewModel {
 	enum Section {
 		case settingsOn(title: String, cells: [SettingsItems])
 		case settingsOff(cells: [SettingsItems])
+		case notificationsNeverAsked(cell: SettingsItems)
 		case openSettings(cell: SettingsItems)
 	}
 }
