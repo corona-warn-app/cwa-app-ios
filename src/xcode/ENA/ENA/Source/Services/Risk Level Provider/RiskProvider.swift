@@ -33,27 +33,27 @@ import ExposureNotification
 - preconditions: ExposureManagerState
 */
 
-protocol RiskLevelProviderStore {
+protocol RiskProviderStore {
 	var dateLastExposureDetection: Date? { get set }
 	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
 	var tracingStatusHistory: TracingStatusHistory { get set }
 }
 
-extension SecureStore: RiskLevelProviderStore {}
+extension SecureStore: RiskProviderStore {}
 
 protocol ExposureSummaryProvider: AnyObject {
 	typealias Completion = (ENExposureDetectionSummary?) -> Void
 	func detectExposure(completion: @escaping Completion)
 }
 
-final class RiskLevelProvider {
-	private let consumers = NSHashTable<RiskLevelConsumer>.weakObjects()
+final class RiskProvider {
+	private let consumers = NSHashTable<RiskConsumer>.weakObjects()
 	private let queue = DispatchQueue(label: "com.sap.RiskLevelProvider")
-	private var state: State = .waiting
+//	private var state: State = .waiting
 
 	// MARK: Creating a Risk Level Provider
 	init(
-		configuration: RiskLevelProvidingConfiguration,
+		configuration: RiskProvidingConfiguration,
 		store: Store,
 		exposureSummaryProvider: ExposureSummaryProvider,
 		appConfigurationProvider: AppConfigurationProviding,
@@ -71,25 +71,17 @@ final class RiskLevelProvider {
 	private let exposureSummaryProvider: ExposureSummaryProvider
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let exposureManagerState: ExposureManagerState
-	var configuration: RiskLevelProvidingConfiguration {
+	var configuration: RiskProvidingConfiguration {
 		didSet {
 
 		}
 	}
 }
 
-private extension RiskLevelProvider {
-	enum State {
-		case waiting
-		case isRequestingRiskLevel
-		case isDetectingExposures
-	}
-}
-
-private extension RiskLevelConsumer {
-	func provideRiskRevel(_ risk: Risk) {
+private extension RiskConsumer {
+	func provideRisk(_ risk: Risk) {
 		targetQueue.async { [weak self] in
-			self?.didCalculateRiskLevel?(risk)
+			self?.didCalculateRisk?(risk)
 		}
 
 	}
@@ -101,14 +93,14 @@ private extension RiskLevelConsumer {
 }
 
 
-extension RiskLevelProvider: RiskLevelProviding {
-	func observeRiskLevel(_ consumer: RiskLevelConsumer) {
+extension RiskProvider: RiskProviding {
+	func observeRisk(_ consumer: RiskConsumer) {
 		queue.async {
-			self._observeRiskLevel(consumer)
+			self._observeRisk(consumer)
 		}
 	}
 
-	private func _observeRiskLevel(_ consumer: RiskLevelConsumer) {
+	private func _observeRisk(_ consumer: RiskConsumer) {
 		consumers.add(consumer)
 
 		let exposureDetectionValidityDuration = configuration.exposureDetectionValidityDuration
@@ -134,7 +126,7 @@ extension RiskLevelProvider: RiskLevelProviding {
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
-	func requestRiskLevel() {
+	func requestRisk() {
 		queue.async(execute: _requestRiskLevel)
 	}
 
@@ -195,14 +187,14 @@ extension RiskLevelProvider: RiskLevelProviding {
 		for consumer in consumers.allObjects {
 			switch risk {
 			case .success(let rl):
-				_provideRiskLevel(rl, to: consumer)
+				_provideRisk(rl, to: consumer)
 			case .failure:
 				print("fail")
 			}
 		}
 	}
 
-	private func _provideRiskLevel(_ risk: Risk, to consumer: RiskLevelConsumer?) {
-		consumer?.provideRiskRevel(risk)
+	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
+		consumer?.provideRisk(risk)
 	}
 }

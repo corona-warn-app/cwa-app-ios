@@ -26,7 +26,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var riskLevelProvider: RiskLevelProvider { get }
+	var riskLevelProvider: RiskProvider { get }
 }
 
 protocol RequiresAppDependencies {
@@ -34,7 +34,7 @@ protocol RequiresAppDependencies {
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
-	var riskLevelProvider: RiskLevelProvider { get }
+	var riskLevelProvider: RiskProvider { get }
 }
 
 extension RequiresAppDependencies {
@@ -54,7 +54,7 @@ extension RequiresAppDependencies {
 		UIApplication.coronaWarnDelegate().taskScheduler
 	}
 
-	var riskLevelProvider: RiskLevelProvider {
+	var riskLevelProvider: RiskProvider {
 		UIApplication.coronaWarnDelegate().riskLevelProvider
 	}
 }
@@ -76,15 +76,15 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	let taskScheduler = ENATaskScheduler.shared
-	lazy var riskLevelProvider: RiskLevelProvider = {
+	lazy var riskLevelProvider: RiskProvider = {
 		var duration = DateComponents()
 		duration.day = 1
 
-		let config = RiskLevelProvidingConfiguration(
+		let config = RiskProvidingConfiguration(
 			updateMode: .automatic,
 			exposureDetectionValidityDuration: duration
 		)
-		return RiskLevelProvider(
+		return RiskProvider(
 			configuration: config,
 			store: self.store,
 			exposureSummaryProvider: self,

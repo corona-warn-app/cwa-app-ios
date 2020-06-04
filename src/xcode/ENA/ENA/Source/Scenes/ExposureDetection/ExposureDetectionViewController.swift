@@ -33,7 +33,7 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 	private weak var delegate: ExposureDetectionViewControllerDelegate?
 	private weak var refreshTimer: Timer?
 
-	private let consumer = RiskLevelConsumer()
+	private let consumer = RiskConsumer()
 
 	// MARK: Creating an Exposure Detection View Controller
 
@@ -56,18 +56,18 @@ extension ExposureDetectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		consumer.didCalculateRiskLevel = { risk in
+		consumer.didCalculateRisk = { risk in
 			self.state.risk = risk
 			self.updateUI()
 		}
 
-		riskLevelProvider.observeRiskLevel(consumer)
+		riskLevelProvider.observeRisk(consumer)
 		updateUI()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		riskLevelProvider.requestRiskLevel()
+		riskLevelProvider.requestRisk()
 		updateUI()
 	}
 
@@ -129,7 +129,7 @@ private extension ExposureDetectionViewController {
 			}
 			return
 		}
-		riskLevelProvider.requestRiskLevel()
+		riskLevelProvider.requestRisk()
 	}
 }
 

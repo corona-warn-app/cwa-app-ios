@@ -20,7 +20,7 @@
 import Foundation
 
 /// Used to configure a `RiskLevelProvider`.
-struct RiskLevelProvidingConfiguration {
+struct RiskProvidingConfiguration {
 	/// The mode of operation – either manual or automatic.
 	var updateMode: RiskLevelProvidingConfigurationUpdateMode
 
