@@ -20,9 +20,9 @@ import UIKit
 
 class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet weak var titleLabel: ENALabel!
-	@IBOutlet var textView1: UITextView!
-	@IBOutlet var textView2: UITextView!
-	@IBOutlet weak var textView3: UITextView!
+	@IBOutlet weak var label1: UILabel!
+	@IBOutlet weak var label2: UILabel!
+	@IBOutlet weak var label3: UILabel!
 
 	func configure(for riskDetectionState: RiskDetectionState) {
 		if riskDetectionState == .disabled {
@@ -30,10 +30,8 @@ class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		} else {
 			titleLabel.text = AppStrings.ExposureNotificationSetting.descriptionTitle
 		}
-		titleLabel.style = .title2
-		textView1.text = AppStrings.ExposureNotificationSetting.descriptionText1
-		textView1.font = UIFont.preferredFont(forTextStyle: .headline)
-		textView2.text = AppStrings.ExposureNotificationSetting.descriptionText2
-		textView3.text = AppStrings.ExposureNotificationSetting.descriptionText3
+		label1.text = AppStrings.ExposureNotificationSetting.descriptionText1
+		label2.text = AppStrings.ExposureNotificationSetting.descriptionText2
+		label3.text = AppStrings.ExposureNotificationSetting.descriptionText3
 	}
 }
