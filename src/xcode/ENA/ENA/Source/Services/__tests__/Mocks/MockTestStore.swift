@@ -67,6 +67,8 @@ class MockTestStore: Store {
 
 	var registrationToken: String?
 
+	var requestedUserNotificationAuthorization: Bool = true
+	
 	var allowRiskChangesNotification: Bool = true
 
 	var allowTestsStatusNotification: Bool = true

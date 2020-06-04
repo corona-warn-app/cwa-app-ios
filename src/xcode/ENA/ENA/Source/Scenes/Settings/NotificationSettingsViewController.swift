@@ -129,7 +129,7 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let section = viewModel.sections[section]
 
 		switch section {
-		case .openSettings,.notificationsNeverAsked:
+		case .openSettings, .notificationsNeverAsked:
 			return 0.5
 		case .settingsOff:
 			return 20
