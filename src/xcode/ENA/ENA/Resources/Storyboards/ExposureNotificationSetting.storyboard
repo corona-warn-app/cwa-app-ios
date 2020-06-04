@@ -23,7 +23,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="237"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tracing_banner" translatesAutoresizingMaskIntoConstraints="NO" id="onr-QD-Bec">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="onr-QD-Bec">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="237"/>
                                         </imageView>
                                     </subviews>
@@ -114,17 +114,17 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="actionDetailCell" id="4Jl-Py-HhP" userLabel="detailedActionCell" customClass="ActionDetailTableViewCell" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="345.5" width="414" height="522"/>
+                                <rect key="frame" x="0.0" y="345.5" width="414" height="526"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4Jl-Py-HhP" id="oos-mn-Ycm">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="522"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="526"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmL-a4-iQp">
-                                            <rect key="frame" x="16" y="0.0" width="382" height="522"/>
+                                            <rect key="frame" x="16" y="0.0" width="382" height="526"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="9vh-fg-LyJ">
-                                                    <rect key="frame" x="16" y="16" width="350" height="490"/>
+                                                    <rect key="frame" x="16" y="16" width="350" height="494"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yp9-fh-bpb">
                                                             <rect key="frame" x="0.0" y="0.0" width="350" height="128"/>
@@ -184,7 +184,7 @@
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         </textView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hv1-5a-n0n" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="460" width="350" height="50"/>
+                                                            <rect key="frame" x="0.0" y="460" width="350" height="34"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <state key="normal" title="Button"/>
                                                             <connections>
@@ -224,7 +224,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tracingCell" id="Ip1-td-013" userLabel="tracingHistoryCell" customClass="TracingHistoryTableViewCell" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="867.5" width="414" height="2242"/>
+                                <rect key="frame" x="0.0" y="871.5" width="414" height="2242"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ip1-td-013" id="Udp-QI-MbE">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="2242"/>
@@ -262,7 +262,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" id="xbF-3o-4Hm" userLabel="descriptionCell" customClass="DescriptionTableViewCell" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="3109.5" width="414" height="838.5"/>
+                                <rect key="frame" x="0.0" y="3113.5" width="414" height="838.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xbF-3o-4Hm" id="cDL-9j-OWe">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="838.5"/>
@@ -330,7 +330,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tracing_banner" width="562" height="311"/>
         <namedColor name="background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

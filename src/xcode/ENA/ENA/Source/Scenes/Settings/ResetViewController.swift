@@ -57,7 +57,7 @@ final class ResetViewController: UIViewController {
 	private func setupView() {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
 
-		let barButtonItem = UIBarButtonItem(image: UIImage(named: "Icons - Close - Light"), style: .done, target: self, action: #selector(discard)
+		let barButtonItem = UIBarButtonItem(image: UIImage(named: "Icons - Close"), style: .done, target: self, action: #selector(discard)
 		)
 		navigationItem.rightBarButtonItem = barButtonItem
 

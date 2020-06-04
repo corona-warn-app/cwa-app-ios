@@ -76,7 +76,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 	}
 
 	private func configureTestResultPositive(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Hand_with_phone")
+		cell.image.image = UIImage(named: "Illu_Hand_with_phone-initial")
 		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
 		cell.result.text = AppStrings.Home.resultCardPositiveTitle
 		cell.result.textColor = .preferredColor(for: .negativeRisk)

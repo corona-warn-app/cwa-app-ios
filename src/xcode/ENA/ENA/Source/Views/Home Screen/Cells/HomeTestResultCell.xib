@@ -46,7 +46,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Hand_with_phone" translatesAutoresizingMaskIntoConstraints="NO" id="2MF-0K-j40">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_Hand_with_phone-initial" translatesAutoresizingMaskIntoConstraints="NO" id="2MF-0K-j40">
                                         <rect key="frame" x="224" y="0.0" width="120" height="129"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="SdW-cT-815"/>
@@ -109,7 +109,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="Hand_with_phone" width="128" height="120"/>
+        <image name="Illu_Hand_with_phone-initial" width="128" height="120"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <namedColor name="textPrimary2">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
