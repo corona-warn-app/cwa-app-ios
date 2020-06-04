@@ -17,7 +17,7 @@
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
 		0DFCC2722484DC8400E2811D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
-		0DFCC2732484DC8400E2811D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; };
+		0DFCC2732484DC8400E2811D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1309194E247972C40066E329 /* PrivacyProtectionViewController.swift */; };
 		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
 		134F0DBC247578FF00D88934 /* ENAUITestsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0DB9247578FF00D88934 /* ENAUITestsHome.swift */; };
