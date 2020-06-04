@@ -29,11 +29,11 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 
 	// MARK: Outlets
 
-	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var chevronImageView: UIImageView!
-	@IBOutlet var bodyLabel: UILabel!
+	@IBOutlet var bodyLabel: ENALabel!
 	@IBOutlet var updateButton: ENAButton!
-	@IBOutlet var counterLabel: UILabel!
+	@IBOutlet var counterLabel: ENALabel!
 	@IBOutlet var counterLabelContainer: UIView!
 
 	@IBOutlet var viewContainer: UIView!
@@ -102,7 +102,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		viewContainer.backgroundColor = color
 	}
 
-	func configureChevron(image: UIImage?, tintColor: UIColor) {
+	func configureChevron(image: UIImage?, tintColor: UIColor?) {
 		chevronImageView.image = image
 		chevronImageView.tintColor = tintColor
 	}
