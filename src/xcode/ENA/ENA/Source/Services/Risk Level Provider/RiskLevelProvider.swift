@@ -33,7 +33,6 @@ import ExposureNotification
 - preconditions: ExposureManagerState
 */
 
-
 protocol RiskLevelProviderStore: AnyObject {
 	var dateLastExposureDetection: Date? { get set }
 	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
