@@ -1,12 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>FILEHEADER</key>
-	<string>
+//
 // Corona-Warn-App
 //
-// SAP SE and all other contributors
+// SAP SE and all other contributors /
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -20,6 +15,27 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//</string>
-</dict>
-</plist>
+//
+
+import Foundation
+
+struct AppInformationLegalModel {
+	typealias LegalEntry = (
+		title: String,
+		licensor: String,
+		fullLicense: String
+	)
+
+	private let legalEntries: [LegalEntry]
+
+	init(legalEntries: [LegalEntry]) {
+		self.legalEntries = legalEntries
+	}
+	
+	var numberOfLegalEntries: Int { legalEntries.count }
+	
+	func legalEntry(_ index: Int) -> LegalEntry {
+		legalEntries[index]
+	}
+
+}

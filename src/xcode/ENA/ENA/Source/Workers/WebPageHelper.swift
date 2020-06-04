@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>FILEHEADER</key>
-	<string>
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -20,6 +15,24 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//</string>
-</dict>
-</plist>
+
+import Foundation
+import SafariServices
+import UIKit
+
+enum WebPageHelper {
+	static func showWebPage(from viewController: UIViewController) {
+		if let url = URL(string: AppStrings.SafariView.targetURL) {
+			let config = SFSafariViewController.Configuration()
+			config.entersReaderIfAvailable = true
+			config.barCollapsingEnabled = true
+
+			let vc = SFSafariViewController(url: url, configuration: config)
+			viewController.present(vc, animated: true)
+		} else {
+			let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
+			logError(message: error)
+			fatalError(error)
+		}
+	}
+}
