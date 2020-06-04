@@ -37,7 +37,7 @@ extension ExposureDetectionViewController {
 
 private extension DynamicHeader {
 	static func backgroundSpace(height: CGFloat) -> DynamicHeader {
-		.space(height: height, color: .preferredColor(for: .backgroundPrimary))
+		.space(height: height, color: .enaColor(for: .background))
 	}
 
 	static func riskTint(height _: CGFloat) -> DynamicHeader {
@@ -75,9 +75,12 @@ private extension DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.risk) { viewController, cell, indexPath in
 			let state = viewController.state
 			cell.backgroundColor = state.riskTintColor
-			cell.tintColor = state.isTracingEnabled ? .white : .preferredColor(for: .unknownRisk)
+			cell.tintColor = state.isTracingEnabled ? .enaColor(for: .textContrast) : .enaColor(for: .riskNeutral)
 			cell.textLabel?.textColor = state.riskContrastColor
-			(cell as? ExposureDetectionRiskCell)?.separatorView.isHidden = (indexPath.row == 0)
+			if let cell = cell as? ExposureDetectionRiskCell {
+				cell.separatorView.isHidden = (indexPath.row == 0)
+				cell.separatorView.backgroundColor = state.isTracingEnabled ? .enaColor(for: .hairlineContrast) : .enaColor(for: .hairline)
+			}
 			configure(viewController, cell, indexPath)
 		}
 	}
@@ -164,19 +167,18 @@ private extension DynamicCell {
 		}
 	}
 
-	static func header(title: String, subtitle: String, action: DynamicAction? = nil) -> DynamicCell {
-		.exposureDetectionCell(ReusableCellIdentifer.header, accessoryAction: action ?? .none) { _, cell, _ in
+	static func header(title: String, subtitle: String) -> DynamicCell {
+		.exposureDetectionCell(ReusableCellIdentifer.header) { _, cell, _ in
 			let cell = cell as? ExposureDetectionHeaderCell
 			cell?.titleLabel?.text = title
 			cell?.subtitleLabel?.text = subtitle
-			cell?.accessoryType = action != nil ? .detailButton : .none
 		}
 	}
 
 	static func guide(text: String, image: UIImage?) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.guide) { viewController, cell, _ in
 			let state = viewController.state
-			cell.tintColor = state.isTracingEnabled ? state.riskTintColor : .preferredColor(for: .unknownRisk)
+			cell.tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
 			cell.textLabel?.text = text
 			cell.imageView?.image = image
 		}
@@ -185,7 +187,7 @@ private extension DynamicCell {
 	static func guide(image: UIImage?, text: [String]) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.longGuide) { viewController, cell, _ in
 			let state = viewController.state
-			cell.tintColor = state.isTracingEnabled ? state.riskTintColor : .preferredColor(for: .unknownRisk)
+			cell.tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
 			(cell as? ExposureDetectionLongGuideCell)?.configure(image: image, text: text)
 		}
 	}
@@ -269,8 +271,7 @@ extension ExposureDetectionViewController {
 			cells: [
 				.header(
 					title: AppStrings.ExposureDetection.explanationTitle,
-					subtitle: AppStrings.ExposureDetection.explanationSubtitle,
-					action: .open(url: URL(string: AppStrings.ExposureDetection.moreInformationUrl))
+					subtitle: AppStrings.ExposureDetection.explanationSubtitle
 				),
 				.body(text: text)
 			]
@@ -281,7 +282,7 @@ extension ExposureDetectionViewController {
 		DynamicTableViewModel([
 			.section(
 				header: .none,
-				footer: .separator(color: .preferredColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 16, right: 0)),
+				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 16, right: 0)),
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.inactiveText),
 					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "exposure-detection-header-result")),
