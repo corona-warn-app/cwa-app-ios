@@ -693,7 +693,7 @@
 
 "InviteFriends_ShareTitle" = "Fighting coronavirus together. I'm in on this, you too?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
 
 /* Reset View */
 "Reset_NavTitle" = "Reset";
@@ -713,7 +713,7 @@
 "Reset_Subtitle" = "Reset app";
 
 /* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
 
 /* Local Notifications */
 "local_notifications_viewResults" = "Display Results";
