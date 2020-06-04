@@ -45,41 +45,51 @@ enum RiskExposureCalculation {
 		- preconditions: Current state of the `ExposureManager`
 		- currentDate: The current `Date` to use in checks. Defaults to `Date()`
 	*/
-	static func riskLevel(		//swiftlint:disable:this function_parameter_count
+	static func riskLevel(
 		summary: ENExposureDetectionSummaryContainer?,
 		configuration: ENExposureConfiguration,
 //		exposureDetectionValidityDuration: DateComponents,
 		dateLastExposureDetection: Date?,
-		numberOfTracingActiveDays: Int,
+		numberOfTracingActiveDays: Int,		// Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date()
 	) -> RiskLevel {
+		var riskLevel = RiskLevel.low
 		// Precondition 1 - Exposure Notifications must be turned on
 		guard preconditions.isGood else {
+			// This overrides all other levels
 			return .inactive
 		}
 
-		// Precondition 2 - Ensure that tracing has been active for more than one day
-		guard numberOfTracingActiveDays >= 1 else {
-			return .unknownInitial
+		// Precondition 2 - If tracing is active less than 1 day, risk is .unknownInitial
+		if numberOfTracingActiveDays < 1, riskLevel < .unknownInitial {
+			riskLevel = .unknownInitial
 		}
 
-		// Precondition 3 - Ensure that we have an exposure summary
-		guard let summary = summary else {
-			return .unknownInitial
+		// Precondition 3 - Risk is unknownInitial if summary is not present
+		if summary == nil, riskLevel < .unknownInitial {
+			riskLevel = .unknownInitial
 		}
 
-		// Precondition 4 - Check that the last exposure detection was run within the valid interval
-		guard
+		// Precondition 4 - If date of last exposure detection was not within 1 day, risk is unknownOutdated
+		if
 			let dateLastExposureDetection = dateLastExposureDetection,
-			dateLastExposureDetection.isWithinExposureDetectionValidInterval(from: currentDate)
-		else {
-			return .unknownOutdated
+			!dateLastExposureDetection.isWithinExposureDetectionValidInterval(from: currentDate),
+			riskLevel < .unknownOutdated
+		{
+			riskLevel = .unknownOutdated
 		}
 
-		// TODO: More in-depth calculation to be done by RKI provided formula
+		if let summary = summary {
+			// TODO: More in-depth calculation to be done by RKI provided formula
+			// TODO: Anything we need from backend?
+			let calculatedLevel = RiskLevel(riskScore: summary.maximumRiskScore)
+			if calculatedLevel > riskLevel {
+				riskLevel = calculatedLevel
+			}
+		}
 
-		return RiskLevel(riskScore: summary.maximumRiskScore)
+		return riskLevel
 	}
 }
 
