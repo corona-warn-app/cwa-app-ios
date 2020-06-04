@@ -127,7 +127,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		let barButtonItem = UIBarButtonItem(
 			image: UIImage(named: "Icons - Close - Light"),
 			style: .done, target: self, action: #selector(close)

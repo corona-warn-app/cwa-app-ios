@@ -247,6 +247,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch enError.code {
 			case .notEnabled:
 				return .enNotEnabled
+			case .notAuthorized:
+				return .notAuthorized
 			default:
 				return .other(enError.localizedDescription)
 			}
@@ -299,6 +301,7 @@ enum ExposureSubmissionError: Error, Equatable {
 	case other(String)
 	case noRegistrationToken
 	case enNotEnabled
+	case notAuthorized
 	case noKeys
 	case noConsent
 	case noExposureConfiguration
@@ -317,13 +320,15 @@ extension ExposureSubmissionError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case let .serverError(code):
-			return "\(code): \(HTTPURLResponse.localizedString(forStatusCode: code))"
+			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
 		case let .httpError(desc):
 			return desc
 		case .invalidTan:
 			return AppStrings.ExposureSubmissionError.invalidTan
 		case .enNotEnabled:
 			return AppStrings.ExposureSubmissionError.enNotEnabled
+		case .notAuthorized:
+			return AppStrings.ExposureSubmissionError.notAuthorized
 		case .noRegistrationToken:
 			return AppStrings.ExposureSubmissionError.noRegistrationToken
 		case .invalidResponse:
@@ -341,7 +346,7 @@ extension ExposureSubmissionError: LocalizedError {
 		case .noKeys:
 			return AppStrings.ExposureSubmissionError.noKeys
 		case let .other(desc):
-			return AppStrings.ExposureSubmissionError.other + " " + desc
+			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:
 			return AppStrings.ExposureSubmissionError.unknown
 		default:
