@@ -29,6 +29,10 @@ final class MockTestClient {
 }
 
 extension MockTestClient: Client {
+	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
+		completion(nil)
+	}
+
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
 		completion(.success([]))
 	}

@@ -24,6 +24,7 @@ import ExposureNotification
 private final class Summary: ENExposureDetectionSummary {}
 
 private final class RiskLevelProviderStoreMock: RiskLevelProviderStore {
+	var tracingStatusHistory: TracingStatusHistory = []
 	var previousSummary: ENExposureDetectionSummaryContainer?
 	var dateLastExposureDetection: Date?
 }
@@ -50,7 +51,7 @@ final class RiskLevelProviderTests: XCTestCase {
 			wrappingComponents: false
 		)
 
-		let store = RiskLevelProviderStoreMock()
+		let store = MockTestStore()
 		store.dateLastExposureDetection = lastExposureDetectionDate
 
 		let config = RiskLevelProvidingConfiguration(
@@ -70,7 +71,9 @@ final class RiskLevelProviderTests: XCTestCase {
 		let sut = RiskLevelProvider(
 			configuration: config,
 			store: store,
-			exposureSummaryProvider: exposureSummaryProvider
+			exposureSummaryProvider: exposureSummaryProvider,
+			configurationCache: ConfigurationCache(client: MockTestClient(submissionError: nil)),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
 		let consumer = RiskLevelConsumer()
@@ -102,7 +105,7 @@ final class RiskLevelProviderTests: XCTestCase {
 			wrappingComponents: false
 		)
 
-		let store = RiskLevelProviderStoreMock()
+		let store = MockTestStore()
 		store.dateLastExposureDetection = lastExposureDetectionDate
 
 		let config = RiskLevelProvidingConfiguration(
@@ -121,7 +124,9 @@ final class RiskLevelProviderTests: XCTestCase {
 		let sut = RiskLevelProvider(
 			configuration: config,
 			store: store,
-			exposureSummaryProvider: exposureSummaryProvider
+			exposureSummaryProvider: exposureSummaryProvider,
+			configurationCache: ConfigurationCache(client: MockTestClient(submissionError: nil)),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
 		let consumer = RiskLevelConsumer()
