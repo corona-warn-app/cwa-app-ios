@@ -20,8 +20,18 @@
 import Foundation
 import ExposureNotification
 
-enum RiskExposureCalculation {
+struct Risk {
+	struct Details {
+		var numberOfExposures: Int?
+		var numberOfDaysWithActiveTracing: Int
+		var exposureDetectionDate: Date
+	}
 
+	let level: RiskLevel
+	let details: Details
+}
+
+enum RiskExposureCalculation {
 	/**
 	Calculates the risk level of the user
 
@@ -135,6 +145,34 @@ enum RiskExposureCalculation {
 		}
 
 		return .success(riskLevel)
+	}
+
+	static func risk(
+		summary: ENExposureDetectionSummaryContainer?,
+		configuration: SAP_ApplicationConfiguration,
+		dateLastExposureDetection: Date?,
+		numberOfTracingActiveDays: Int,
+		preconditions: ExposureManagerState,
+		currentDate: Date = Date()
+	) -> Result<Risk, RiskLevelCalculationError> {
+		switch riskLevel(
+			summary: summary,
+			configuration: configuration,
+			dateLastExposureDetection: dateLastExposureDetection,
+			numberOfTracingActiveDays: numberOfTracingActiveDays,
+			preconditions: preconditions
+		) {
+		case .success(let level):
+			let details = Risk.Details(
+				numberOfExposures: Int(summary?.matchedKeyCount ?? 0),
+				numberOfDaysWithActiveTracing: numberOfTracingActiveDays,
+				exposureDetectionDate: dateLastExposureDetection ?? Date()
+			)
+
+			return .success(Risk(level: level, details: details))
+		case .failure(let error):
+			return .failure(error)
+		}
 	}
 }
 

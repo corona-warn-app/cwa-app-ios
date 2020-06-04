@@ -56,8 +56,8 @@ extension ExposureDetectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		consumer.didCalculateRiskLevel = { riskLevel in
-			self.state.riskLevel = riskLevel
+		consumer.didCalculateRiskLevel = { risk in
+			self.state.risk = risk
 			self.updateUI()
 		}
 

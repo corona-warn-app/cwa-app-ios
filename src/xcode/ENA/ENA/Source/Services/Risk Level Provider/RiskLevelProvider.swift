@@ -46,8 +46,6 @@ protocol ExposureSummaryProvider: AnyObject {
 	func detectExposure(completion: @escaping Completion)
 }
 
-
-
 final class RiskLevelProvider {
 	private let consumers = NSHashTable<RiskLevelConsumer>.weakObjects()
 	private let queue = DispatchQueue(label: "com.sap.RiskLevelProvider")
@@ -89,9 +87,9 @@ private extension RiskLevelProvider {
 }
 
 private extension RiskLevelConsumer {
-	func provideRiskRevel(_ riskLevel: RiskLevel) {
+	func provideRiskRevel(_ risk: Risk) {
 		targetQueue.async { [weak self] in
-			self?.didCalculateRiskLevel?(riskLevel)
+			self?.didCalculateRiskLevel?(risk)
 		}
 
 	}
@@ -185,7 +183,7 @@ extension RiskLevelProvider: RiskLevelProviding {
 		
 		let tracingHistory = self.store.tracingStatusHistory
 		let numberOfEnabledDays = tracingHistory.countEnabledDays()
-		let riskLevel = RiskExposureCalculation.riskLevel(
+		let risk = RiskExposureCalculation.risk(
 			summary: nil,
 			configuration: _appConfiguration,
 			dateLastExposureDetection: self.store.dateLastExposureDetection,
@@ -195,7 +193,7 @@ extension RiskLevelProvider: RiskLevelProviding {
 		)
 
 		for consumer in consumers.allObjects {
-			switch riskLevel {
+			switch risk {
 			case .success(let rl):
 				_provideRiskLevel(rl, to: consumer)
 			case .failure:
@@ -204,7 +202,7 @@ extension RiskLevelProvider: RiskLevelProviding {
 		}
 	}
 
-	private func _provideRiskLevel(_ riskLevel: RiskLevel, to consumer: RiskLevelConsumer?) {
-		consumer?.provideRiskRevel(riskLevel)
+	private func _provideRiskLevel(_ risk: Risk, to consumer: RiskLevelConsumer?) {
+		consumer?.provideRiskRevel(risk)
 	}
 }

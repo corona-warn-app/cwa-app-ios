@@ -39,7 +39,7 @@ final class RiskLevelConsumer: NSObject {
 	let targetQueue: DispatchQueue
 
 	/// Called when the risk level changed
-	var didCalculateRiskLevel: ((RiskLevel) -> Void)?
+	var didCalculateRiskLevel: ((Risk) -> Void)?
 
 	/// Called when the date of the next exposure detection changed
 	var nextExposureDetectionDateDidChange: ((Date) -> Void)?

@@ -24,20 +24,16 @@ protocol HomeViewControllerDelegate: AnyObject {
 }
 
 // swiftlint:disable:next type_body_length
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
 
 	init?(
 		coder: NSCoder,
 		exposureManager: ExposureManager,
-		client: Client,
-		store: Store,
 		keyPackagesStore: DownloadedPackagesStore,
 		delegate: HomeViewControllerDelegate,
 		taskScheduler: ENATaskScheduler
 	) {
-		self.client = client
-		self.store = store
 		self.keyPackagesStore = keyPackagesStore
 		self.exposureManager = exposureManager
 		self.delegate = delegate
@@ -77,14 +73,14 @@ final class HomeViewController: UIViewController {
 	private var collectionView: UICollectionView!
 	private var homeLayout: HomeLayout!
 	var homeInteractor: HomeInteractor!
-	private let store: Store
-	private let client: Client
 	private var summaryNotificationObserver: NSObjectProtocol?
 	private weak var exposureDetectionController: ExposureDetectionViewController?
 	private weak var settingsController: SettingsViewController?
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
 	private var exposureSubmissionService: ExposureSubmissionService?
+
+	private var risk: Risk?
 
 	enum Section: Int {
 		case actions
@@ -140,12 +136,10 @@ final class HomeViewController: UIViewController {
 	func setStateOfChildViewControllers(_ state: State, stateHandler: ENStateHandler) {
 		settingsController?.stateHandler = stateHandler
 		notificationSettingsController?.stateHandler = stateHandler
-		let riskLevel = RiskLevel(riskScore: state.summary?.maximumRiskScore)
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: state.exposureManager,
-			riskLevel: riskLevel,
-			nextRefresh: nil,
-			summary: state.summary
+			risk: risk,
+			nextRefresh: nil
 		)
 		exposureDetectionController?.state = state
 	}
@@ -244,12 +238,10 @@ final class HomeViewController: UIViewController {
 	}
 
 	func showExposureDetection() {
-		let riskLevel = RiskLevel(riskScore: homeInteractor.state.summary?.maximumRiskScore)
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManager,
-			riskLevel: riskLevel,
-			nextRefresh: nil,
-			summary: homeInteractor.state.summary
+			risk: risk,
+			nextRefresh: nil
 		)
 
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in

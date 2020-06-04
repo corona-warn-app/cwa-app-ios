@@ -128,7 +128,6 @@
 		713EA26324798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713EA26224798F8500AB7EE8 /* ExposureDetectionHeaderCell.swift */; };
 		713FD5672482811A00C1F6DD /* colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 713FD5662482811900C1F6DD /* colors.xcassets */; };
 		714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714194E9247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift */; };
-		714CD8672472885900F56450 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8662472885900F56450 /* ExposureDetectionViewController+DynamicTableViewModel.swift */; };
 		714CD869247297F800F56450 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD868247297F800F56450 /* NibLoadable.swift */; };
 		7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7154EB49247D21E200A467FF /* ExposureDetectionLongGuideCell.swift */; };
 		7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7154EB4B247E862100A467FF /* ExposureDetectionLoadingCell.swift */; };
@@ -221,6 +220,7 @@
 		B1A89F3B24819CE800DA1CEC /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD87C5C247559E3007CE6CA /* LabelTableViewCell.swift */; };
 		B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12995E8246C344100854AD0 /* HTTPClient+Configuration.swift */; };
 		B1B9CF1F246ED2E8008F04F5 /* Sap_FilebucketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B9CF1E246ED2E8008F04F5 /* Sap_FilebucketTests.swift */; };
+		B1BD9E7E24898A2300BD3930 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD8662472885900F56450 /* ExposureDetectionViewController+DynamicTableViewModel.swift */; };
 		B1C6ECFF247F089E0066138F /* RiskImageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5B415246DF13D00DC5D3E /* RiskImageItemView.swift */; };
 		B1C6ED00247F23730066138F /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420D324586DCA00AD70CA /* NotificationName.swift */; };
 		B1CD333C24865A7D00B06E9B /* TracingStatusHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CD333B24865A7D00B06E9B /* TracingStatusHistory.swift */; };
@@ -1881,7 +1881,6 @@
 				B1C6ECFF247F089E0066138F /* RiskImageItemView.swift in Sources */,
 				51486DA62485237200FCE216 /* RiskThankYouCollectionViewCell.swift in Sources */,
 				71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */,
-				714CD8672472885900F56450 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */,
 				B14D0CDD246E972400D5BEBC /* ExposureDetectionDelegate.swift in Sources */,
 				B161782E2480658F006E435A /* DeltaCalculationResult.swift in Sources */,
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
@@ -2014,6 +2013,7 @@
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				CDD87C56247556DE007CE6CA /* MainSettingsTableViewCell.swift in Sources */,
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
+				B1BD9E7E24898A2300BD3930 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */,
 				0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */,
 				51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
