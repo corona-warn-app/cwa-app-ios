@@ -34,7 +34,7 @@ final class HomeFindingPositiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.removeAllArrangedSubviews()
 
 		let title = AppStrings.Home.findingPositiveCardTitle
-		let titleColor: UIColor = UIColor.black
+		let titleColor: UIColor = UIColor.preferredColor(for: .textPrimary1)
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureChevron(image: UIImage(systemName: "chevron.right.circle.fill"), tintColor: .preferredColor(for: .chevron))
 		

@@ -31,7 +31,7 @@ extension OnboardingInfo {
 		let info1 = OnboardingInfo(
 			title:
 			AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title,
-			imageName: "onboarding_1",
+			imageName: "Illu_Onboarding_GemeinsamCoronabekaempfen",
 			boldText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingLetsGo,
@@ -40,7 +40,7 @@ extension OnboardingInfo {
 
 		let info2 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_privacyPage_title,
-			imageName: "onboarding_2",
+			imageName: "Illu_Onboarding_Datenschutz",
 			boldText: AppStrings.Onboarding.onboardingInfo_privacyPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_privacyPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
@@ -49,7 +49,7 @@ extension OnboardingInfo {
 
 		let info3 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_title,
-			imageName: "onboarding_3",
+			imageName: "Illu_Onboarding_Risikoerekennung",
 			boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
@@ -58,7 +58,7 @@ extension OnboardingInfo {
 
 		let info4 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title,
-			imageName: "onboarding_4",
+			imageName: "Illu_Onboarding_Getestet",
 			boldText: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
@@ -67,7 +67,7 @@ extension OnboardingInfo {
 
 		let info5 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_title,
-			imageName: "onboarding_5",
+			imageName: "Illu_Onboarding_Mitteilungen",
 			boldText: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,

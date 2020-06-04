@@ -381,9 +381,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 					RiskLevel(riskScore: newSummary.maximumRiskScore) == .increased {
 					// present a notification if the risk score has increased
 					self.taskScheduler.notificationManager.presentNotification(
-						title: AppStrings.LocalNotifications.testResultsTitle,
-						body: AppStrings.LocalNotifications.testResultsBody,
-						identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+						title: AppStrings.LocalNotifications.detectExposureTitle,
+						body: AppStrings.LocalNotifications.detectExposureBody,
+						identifier: ENATaskIdentifier.detectExposures.rawValue)
 				}
 
 				// persist the previous risk score to the store
