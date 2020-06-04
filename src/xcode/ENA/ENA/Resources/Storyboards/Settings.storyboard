@@ -386,7 +386,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYJ-sA-5Ds">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="565.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="469.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_Mitteilungen_On" translatesAutoresizingMaskIntoConstraints="NO" id="KfZ-KB-oS0" userLabel="Image View">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="229"/>
@@ -400,17 +400,8 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Um Mitteilungen zu aktiviren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Telefoneinstellungen zulassen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxB-b8-GKr" userLabel="Description Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="274.5" width="382" height="61"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" name="ENA Text Primary 1 Color"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Evt-7N-RCk">
-                                                <rect key="frame" x="0.0" y="345.5" width="414" height="200"/>
+                                                <rect key="frame" x="0.0" y="249.5" width="414" height="200"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="yF9-6Y-8mc"/>
@@ -556,14 +547,11 @@
                                             </tableView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="xxB-b8-GKr" secondAttribute="trailing" constant="16" id="7fF-A9-w6u"/>
                                             <constraint firstAttribute="bottom" secondItem="Evt-7N-RCk" secondAttribute="bottom" constant="20" id="CMH-9M-fkl"/>
-                                            <constraint firstItem="Evt-7N-RCk" firstAttribute="top" secondItem="xxB-b8-GKr" secondAttribute="bottom" constant="10" id="Dqd-jG-ZMy"/>
                                             <constraint firstAttribute="trailing" secondItem="KfZ-KB-oS0" secondAttribute="trailing" id="I6W-5h-rA6"/>
                                             <constraint firstAttribute="trailing" secondItem="ZAD-sw-a8D" secondAttribute="trailing" constant="16" id="JeQ-wH-s0T"/>
                                             <constraint firstItem="KfZ-KB-oS0" firstAttribute="leading" secondItem="HYJ-sA-5Ds" secondAttribute="leading" id="auq-gV-LLz"/>
-                                            <constraint firstItem="xxB-b8-GKr" firstAttribute="top" secondItem="ZAD-sw-a8D" secondAttribute="bottom" constant="25" id="bAf-R5-MCg"/>
-                                            <constraint firstItem="xxB-b8-GKr" firstAttribute="leading" secondItem="HYJ-sA-5Ds" secondAttribute="leading" constant="16" id="djr-XN-XC0"/>
+                                            <constraint firstItem="Evt-7N-RCk" firstAttribute="top" secondItem="ZAD-sw-a8D" secondAttribute="bottom" id="eKB-Qm-rDS"/>
                                             <constraint firstItem="ZAD-sw-a8D" firstAttribute="leading" secondItem="HYJ-sA-5Ds" secondAttribute="leading" constant="16" id="fdz-mV-eLI"/>
                                             <constraint firstItem="KfZ-KB-oS0" firstAttribute="top" secondItem="HYJ-sA-5Ds" secondAttribute="top" id="gBi-4R-rYv"/>
                                             <constraint firstItem="ZAD-sw-a8D" firstAttribute="top" secondItem="KfZ-KB-oS0" secondAttribute="bottom" id="gp0-TX-pDA"/>
@@ -592,7 +580,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="# Mitteilungen" largeTitleDisplayMode="always" id="bPb-ql-o6n"/>
                     <connections>
-                        <outlet property="descriptionLabel" destination="xxB-b8-GKr" id="cBL-bM-b2f"/>
                         <outlet property="illustrationImageView" destination="KfZ-KB-oS0" id="VwF-LO-z97"/>
                         <outlet property="tableView" destination="Evt-7N-RCk" id="bnB-4q-cbB"/>
                         <outlet property="tableViewHeightConstraint" destination="yF9-6Y-8mc" id="CiU-7p-3Kk"/>

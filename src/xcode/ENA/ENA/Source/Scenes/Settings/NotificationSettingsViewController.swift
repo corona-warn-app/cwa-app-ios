@@ -20,7 +20,6 @@ import UIKit
 class NotificationSettingsViewController: UIViewController {
 	@IBOutlet var illustrationImageView: UIImageView!
 	@IBOutlet var titleLabel: DynamicTypeLabel!
-	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var tableView: UITableView!
 
 	@IBOutlet var tableViewHeightConstraint: NSLayoutConstraint!
@@ -101,7 +100,6 @@ class NotificationSettingsViewController: UIViewController {
 
 		illustrationImageView.image = UIImage(named: viewModel.image)
 		titleLabel.text = viewModel.title
-		descriptionLabel.text = viewModel.description
 	}
 }
 
