@@ -117,6 +117,30 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			)
 	}
 
+	func sceneWillEnterForeground(_ scene: UIScene) {
+		let state = exposureManager.preconditions()
+		let newState = ExposureManagerState(
+				authorized: ENManager.authorizationStatus == .authorized,
+				enabled: state.enabled,
+				status: state.status
+		)
+		updateExposureState(newState)
+	}
+
+
+	func sceneDidBecomeActive(_: UIScene) {
+		hidePrivacyProtectionWindow()
+		UIApplication.shared.applicationIconBadgeNumber = 0
+	}
+
+	func sceneWillResignActive(_: UIScene) {
+		showPrivacyProtectionWindow()
+	}
+
+	func sceneDidEnterBackground(_ scene: UIScene) {
+		taskScheduler.scheduleBackgroundTaskRequests()
+	}
+
 	// MARK: Helper
 
 	private func setupUI() {
@@ -133,16 +157,27 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func showHome(animated _: Bool = false) {
+		//FIXME: During the onboarding, if the user decline, the status == Unknown.
+		//After that
 		if exposureManager.preconditions().status == .active {
 			presentHomeVC()
 		} else {
-			log(message: "ExposureManager not activate yet.")
+//			let enManager = ENManager()
+//			enManager.activate { theError in
+//				if let theError = theError {
+//					logError(message: "Cannot activate the  ENManager. The reason is \(theError)")
+//					return
+//				}
+//				self.presentHomeVC()
+//			}
+
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					// TODO: Error handling, if error occurs, what can we do?
 					logError(message: "Cannot activate the  ENManager. The reason is \(error)")
 					return
 				}
+				//TODO: Set some state
 				self?.presentHomeVC()
 			}
 		}
@@ -231,28 +266,21 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		
 	}
 
-	// MARK: Privacy Protection
 
-	func sceneDidBecomeActive(_: UIScene) {
-		hidePrivacyProtectionWindow()
-		UIApplication.shared.applicationIconBadgeNumber = 0
-	}
 
-	func sceneWillResignActive(_: UIScene) {
-		showPrivacyProtectionWindow()
-	}
-
-	func sceneDidEnterBackground(_ scene: UIScene) {
-		taskScheduler.scheduleBackgroundTaskRequests()
-	}
 
 	private var privacyProtectionWindow: UIWindow?
+}
+
+// MARK: Privacy Protection
+extension  SceneDelegate {
+
 
 	private func showPrivacyProtectionWindow() {
 		guard
-			let windowScene = window?.windowScene,
-			store.isOnboarded == true
-		else {
+				let windowScene = window?.windowScene,
+				store.isOnboarded == true
+				else {
 			return
 		}
 		let privacyProtectionViewController = PrivacyProtectionViewController()
