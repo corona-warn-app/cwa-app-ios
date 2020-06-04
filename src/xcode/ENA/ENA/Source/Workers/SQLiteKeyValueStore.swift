@@ -36,20 +36,27 @@ class SQLiteKeyValueStore {
 	deinit {
 		db.close()
 	}
+
+	/// Generates or Loads Database Key
+	/// Creates the K/V Datsbase if it is not already there
 	private func initDatabase() {
 		var key: String
-		if let keyData = loadFromKeychain(key: "secureStoreDatabaseKey") {
-			key = String(decoding: keyData, as: UTF8.self)
-		} else {
+
+		if checkInitalSetup() {
 			guard let generatedKey = generateDatabaseKey() else {
 				db.close()
 				return
 			}
 			key = generatedKey
-			if savetoKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) == noErr {
-				logError(message: "Unable to save Key to Keychain")
-				db.close()
-				return
+		} else {
+			if let keyData = loadFromKeychain(key: "secureStoreDatabaseKey") {
+				key = String(decoding: keyData, as: UTF8.self)
+			} else {
+				guard let generatedKey = generateDatabaseKey() else {
+					db.close()
+					return
+				}
+				key = generatedKey
 			}
 		}
 		let dbhandle = OpaquePointer(db.sqliteHandle)
@@ -59,12 +66,27 @@ class SQLiteKeyValueStore {
 			return
 		}
 		let sqlStmt = """
+		PRAGMA auto_vacuum=2;
+
 		CREATE TABLE IF NOT EXISTS kv (
 			key TEXT UNIQUE,
 			value BLOB
 		);
 		"""
 		db.executeStatements(sqlStmt)
+	}
+
+	/// Checks if is the inital Setup of the Database
+	/// This determins if a new Key should be generated or not
+	private func checkInitalSetup() -> Bool {
+		do {
+			let query = "SELECT count(*) FROM sqlite_master;;"
+			 let result = try db.executeQuery(query, values: [])
+			result.close()
+			return true
+		} catch {
+			return false
+		}
 	}
 
 	///Open Database Connection, set the Key and check if the Key/Value Table already exits.
@@ -127,15 +149,17 @@ class SQLiteKeyValueStore {
 	/// Removes all key/value pairs from the Store
 	func clearAll() {
 		openDbIfNeeded()
-		let deleteStmt = "DELETE FROM kv;"
-		do {
-			try db.executeUpdate(deleteStmt, values: [])
-			try db.executeUpdate("VACUUM", values: [])
-			log(message: "Cleared SecureStore", level: .info)
-		} catch {
-			logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+
+		let sqlStmt = """
+		DROP TABLE kv;
+		VACUUM;
+		"""
+		if db.executeStatements(sqlStmt) {
+			rekeyDatabase()
+			db.close()
+		} else {
+			logError(message: "Failed to delete key K/V store")
 		}
-		return
 	}
 
 	/// Removes most key/value pairs.
@@ -151,10 +175,26 @@ class SQLiteKeyValueStore {
 			try db.executeUpdate(deleteStmt, values: [])
 			try db.executeUpdate("VACUUM", values: [])
 			log(message: "Flushed SecureStore", level: .info)
+			rekeyDatabase()
+			db.close()
 		} catch {
 			logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
 		}
 		return
+	}
+
+	/// Rekeys the database after a reset to generate a new Database Key
+	func rekeyDatabase() {
+		guard let newKey = generateDatabaseKey() else {
+			return
+		}
+
+		let dbhandle = OpaquePointer(db.sqliteHandle)
+		guard sqlite3_rekey(dbhandle, newKey, Int32(newKey.count)) == SQLITE_OK else {
+			logError(message: "Unable to set Key")
+			db.close()
+			return
+		}
 	}
 
 	/// - parameter key: key index to look in the DB for
@@ -227,7 +267,13 @@ extension SQLiteKeyValueStore {
 			logError(message: "Error creating random bytes.")
 			return nil
 		}
-		return "x'\(Data(bytes).hexEncodedString())'"
+		let key = "x'\(Data(bytes).hexEncodedString())'"
+		if savetoKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) != noErr {
+			logError(message: "Unable to save Key to Keychain")
+			db.close()
+			return nil
+		}
+		return key
 	}
 }
 
