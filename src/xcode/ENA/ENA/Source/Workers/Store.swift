@@ -18,6 +18,12 @@
 import Foundation
 import ExposureNotification
 
+//extension SecureStore where Self: Store {
+////	var dateLastExposureDetection: Date? { get set }
+////	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
+////	var tracingStatusHistory: TracingStatusHistory { get set }
+//}
+
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
 	var dateLastExposureDetection: Date? { get set }

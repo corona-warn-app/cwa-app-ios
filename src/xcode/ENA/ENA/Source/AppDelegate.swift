@@ -26,6 +26,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
+	var riskLevelProvider: RiskLevelProvider { get }
 }
 
 protocol RequiresAppDependencies {
@@ -33,6 +34,7 @@ protocol RequiresAppDependencies {
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
+	var riskLevelProvider: RiskLevelProvider { get }
 }
 
 extension RequiresAppDependencies {
@@ -51,11 +53,45 @@ extension RequiresAppDependencies {
 	var taskScheduler: ENATaskScheduler {
 		UIApplication.coronaWarnDelegate().taskScheduler
 	}
+
+	var riskLevelProvider: RiskLevelProvider {
+		UIApplication.coronaWarnDelegate().riskLevelProvider
+	}
+}
+
+extension AppDelegate: ExposureSummaryProvider {
+	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
+		exposureDetection = ExposureDetection(delegate: self)
+		exposureDetection?.start { result in
+			switch result {
+			case .success(let summary):
+				completion(summary)
+			case .failure:
+				completion(nil)
+			}
+		}
+	}
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	let taskScheduler = ENATaskScheduler.shared
+	lazy var riskLevelProvider: RiskLevelProvider = {
+		var duration = DateComponents()
+		duration.day = 1
+
+		let config = RiskLevelProvidingConfiguration(
+			updateMode: .automatic,
+			exposureDetectionValidityDuration: duration
+		)
+		return RiskLevelProvider(
+			configuration: config,
+			store: self.store,
+			exposureSummaryProvider: self,
+			configurationCache: ConfigurationCache(client: self.client),
+			exposureManagerState: self.exposureManager.preconditions()
+		)
+	}()
 	private var exposureManager: ExposureManager = ENAExposureManager()
 	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?

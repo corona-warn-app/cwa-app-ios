@@ -33,14 +33,30 @@ import ExposureNotification
 - preconditions: ExposureManagerState
 */
 
-protocol RiskLevelProviderStore: AnyObject {
+protocol RiskLevelProviderStore {
 	var dateLastExposureDetection: Date? { get set }
 	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
+	var tracingStatusHistory: TracingStatusHistory { get set }
 }
+
+extension SecureStore: RiskLevelProviderStore {}
 
 protocol ExposureSummaryProvider: AnyObject {
 	typealias Completion = (ENExposureDetectionSummary?) -> Void
-	func detectExposure(completion: Completion)
+	func detectExposure(completion: @escaping Completion)
+}
+
+final class ConfigurationCache {
+	init(client: Client) {
+		self.client = client
+	}
+	private let client: Client
+	typealias Completion = (ENExposureConfiguration?) -> Void
+	private var cachedConfiguration: ENExposureConfiguration?
+
+	func configuration(completion: @escaping Completion) {
+		client.exposureConfiguration(completion: completion)
+	}
 }
 
 final class RiskLevelProvider {
@@ -51,17 +67,23 @@ final class RiskLevelProvider {
 	// MARK: Creating a Risk Level Provider
 	init(
 		configuration: RiskLevelProvidingConfiguration,
-		store: RiskLevelProviderStore,
-		exposureSummaryProvider: ExposureSummaryProvider
+		store: Store,
+		exposureSummaryProvider: ExposureSummaryProvider,
+		configurationCache: ConfigurationCache,
+		exposureManagerState: ExposureManagerState
 	) {
 		self.configuration = configuration
 		self.store = store
 		self.exposureSummaryProvider = exposureSummaryProvider
+		self.configurationCache = configurationCache
+		self.exposureManagerState = exposureManagerState
 	}
 
 	// MARK: Properties
-	private let store: RiskLevelProviderStore
+	private let store: Store
 	private let exposureSummaryProvider: ExposureSummaryProvider
+	private let configurationCache: ConfigurationCache
+	private let exposureManagerState: ExposureManagerState
 	var configuration: RiskLevelProvidingConfiguration {
 		didSet {
 
@@ -130,39 +152,51 @@ extension RiskLevelProvider: RiskLevelProviding {
 
 		var summary = store.previousSummary
 		var newSummary: ENExposureDetectionSummaryContainer?
+//		.
+		let group = DispatchGroup()
 
-
-
-		//
-
-//		client.exposureConficutatio
-//		let riskLevelResult = riskLevelCalculator.riskLevel(summary, dateWhenSummaryWasDetermined, config, exposureNotificationConfiguration)
-//		switch riskLevelResult {
-//		case .requiresExposureDetectionRun:
-//			// dispatch riskLevelResult to all consumers/ovservers
-//			exposureSummaryProvider.detectExposure {
-//
-//			}
-//		}
 		if requiresExposureDetectionRun {
-
-			let waitForSummary = DispatchSemaphore(value: 0)
+			group.enter()
 			exposureSummaryProvider.detectExposure {
+				defer { group.leave() }
 				if let detectedSummary = $0 {
 					newSummary = ENExposureDetectionSummaryContainer(with: detectedSummary)
 				}
 			}
-			waitForSummary.wait()
 		}
 
+		var exposureConfiguration: ENExposureConfiguration?
+		group.enter()
+		configurationCache.configuration { configuration in
+			exposureConfiguration = configuration
+			group.leave()
+		}
 
+		guard let _exposureConfiguration = exposureConfiguration else {
+			return
+		}
+
+		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
+			return
+		}
+
+		let tracingHistory = self.store.tracingStatusHistory
+		let numberOfEnabledDays = tracingHistory.countEnabledDays()
+		let riskLevel = RiskExposureCalculation.riskLevel(
+			summary: nil,
+			configuration: _exposureConfiguration,
+			dateLastExposureDetection: self.store.dateLastExposureDetection,
+			numberOfTracingActiveDays: numberOfEnabledDays,
+			preconditions: self.exposureManagerState,
+			currentDate: Date()
+		)
 
 		for consumer in consumers.allObjects {
-			provideRiskLevel(to: consumer)
+			_provideRiskLevel(riskLevel, to: consumer)
 		}
 	}
 
-	private func provideRiskLevel(to: RiskLevelConsumer?) {
-
+	private func _provideRiskLevel(_ riskLevel: RiskLevel, to consumer: RiskLevelConsumer?) {
+		consumer?.didCalculateRiskLevel?(riskLevel)
 	}
 }

@@ -50,7 +50,7 @@ enum RiskExposureCalculation {
 		configuration: ENExposureConfiguration,
 //		exposureDetectionValidityDuration: DateComponents,
 		dateLastExposureDetection: Date?,
-		numberOfTracingActiveDays: Int,		// Get this from the `TracingStatusHistory`
+		numberOfTracingActiveDays: Int, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date()
 	) -> RiskLevel {

@@ -22,7 +22,6 @@ import Foundation
 ///
 /// - important: Due to exception case, `CaseIterable` `allCases` does not produce a correctly sorted collection!
 enum RiskLevel: Int, CaseIterable {
-
 	/*
 	RiskLevels are ordered according to these rules:
 	1. .low is least
