@@ -135,7 +135,6 @@ extension RiskLevelProvider: RiskLevelProviding {
 		consumer.nextExposureDetectionDateDidChange?(nextExposureDetectionDate)
 	}
 
-
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRiskLevel() {
 		queue.async(execute: _requestRiskLevel)

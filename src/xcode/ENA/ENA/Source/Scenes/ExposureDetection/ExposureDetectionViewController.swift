@@ -57,7 +57,6 @@ extension ExposureDetectionViewController {
 		super.viewDidLoad()
 
 		consumer.didCalculateRiskLevel = { riskLevel in
-			print("risk level: \(riskLevel)")
 			self.state.riskLevel = riskLevel
 			self.updateUI()
 		}
@@ -124,21 +123,19 @@ private extension ExposureDetectionViewController {
 	}
 
 	@IBAction private func tappedBottomButton() {
-		log(message: "Starting exposure detection ...")
-
-		if state.isTracingEnabled {
-			delegate?.exposureDetectionViewControllerStartTransaction(self)
-		} else {
+		guard state.isTracingEnabled else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
 				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
 			}
+			return
 		}
+		riskLevelProvider.requestRiskLevel()
 	}
 }
 
 extension ExposureDetectionViewController: ExposureStateUpdating {
-	func updateExposureState(_ emState: ExposureManagerState) {
-		state.exposureManagerState = emState
+	func updateExposureState(_ exposureManagerState: ExposureManagerState) {
+		state.exposureManagerState = exposureManagerState
 		updateUI()
 	}
 }

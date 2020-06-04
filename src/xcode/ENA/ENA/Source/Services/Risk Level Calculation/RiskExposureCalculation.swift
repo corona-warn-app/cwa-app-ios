@@ -116,9 +116,9 @@ enum RiskExposureCalculation {
 		let attenuationConfig = configuration.attenuationDuration
 
 		let normRiskScore = Double(maximumRisk) / Double(attenuationConfig.riskScoreNormalizationDivisor)
-		let weightedAttenuationDurationsLow = attenuationDurations[0] / 60.0 * adWeights.low
-		let weightedAttenuationDurationsMid = attenuationDurations[1] / 60.0 * adWeights.mid
-		let weightedAttenuationDurationsHigh = attenuationDurations[2] / 60.0 * adWeights.high
+		let weightedAttenuationDurationsLow = attenuationDurations[0] / Double(60.0) * adWeights.low
+		let weightedAttenuationDurationsMid = attenuationDurations[1] / Double(60.0) * adWeights.mid
+		let weightedAttenuationDurationsHigh = attenuationDurations[2] / Double(60.0) * adWeights.high
 		let bucketOffset = Double(attenuationConfig.defaultBucketOffset)
 
 		let riskScore = normRiskScore * (weightedAttenuationDurationsLow * weightedAttenuationDurationsMid * weightedAttenuationDurationsHigh + bucketOffset)
