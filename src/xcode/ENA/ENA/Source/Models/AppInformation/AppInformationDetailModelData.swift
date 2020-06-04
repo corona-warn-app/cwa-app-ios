@@ -42,24 +42,31 @@ extension AppInformationDetailModel {
 		]
 	)
 
+	static let imprint = AppInformationDetailModel(
+		title: "App_Information_Imprint_Navigation".localized,
+		headerImage: UIImage(named: "app-information-impressum"),
+		content: [
+			.bold(text: "App_Information_Imprint_Section1_Title".localized),
+			.body(text: "App_Information_Imprint_Section1_Text".localized),
+			.bold(text: "App_Information_Imprint_Section2_Title".localized),
+			.body(text: "App_Information_Imprint_Section2_Text".localized),
+			// .bold(text: "App_Information_Legal_Section3_Title".localized),
+			.body(text: "App_Information_Imprint_Section3_Text".localized),
+			.bold(text: "App_Information_Imprint_Section4_Title".localized),
+			.body(text: "App_Information_Imprint_Section4_Text".localized)
+		]
+	)
+
 	static let faq = AppInformationDetailModel(
 		title: "App_Information_FAQ_Navigation".localized,
 		headerImage: nil,
-		content: [ ]
+		content: []
 	)
 
 	static let legal = AppInformationDetailModel(
 		title: "App_Information_Legal_Navigation".localized,
-		headerImage: UIImage(named: "app-information-impressum"),
+		headerImage: nil,
 		content: [
-			.bold(text: "App_Information_Legal_Section1_Title".localized),
-			.body(text: "App_Information_Legal_Section1_Text".localized),
-			.bold(text: "App_Information_Legal_Section2_Title".localized),
-			.body(text: "App_Information_Legal_Section2_Text".localized),
-			// .bold(text: "App_Information_Legal_Section3_Title".localized),
-			.body(text: "App_Information_Legal_Section3_Text".localized),
-			.bold(text: "App_Information_Legal_Section4_Title".localized),
-			.body(text: "App_Information_Legal_Section4_Text".localized)
 		]
 	)
 

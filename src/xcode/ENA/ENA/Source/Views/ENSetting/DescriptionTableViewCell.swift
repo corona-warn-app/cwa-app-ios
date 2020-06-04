@@ -19,10 +19,10 @@ import Foundation
 import UIKit
 
 class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
-	@IBOutlet weak var titleLabel: ENALabel!
-	@IBOutlet weak var label1: UILabel!
-	@IBOutlet weak var label2: UILabel!
-	@IBOutlet weak var label3: UILabel!
+	@IBOutlet var titleLabel: ENALabel!
+	@IBOutlet var label1: UILabel!
+	@IBOutlet var label2: UILabel!
+	@IBOutlet var label3: UILabel!
 
 	func configure(for riskDetectionState: RiskDetectionState) {
 		if riskDetectionState == .disabled {
