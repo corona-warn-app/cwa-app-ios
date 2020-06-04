@@ -75,7 +75,7 @@ extension CircularProgressView {
 	private func bezierPath(with center: CGPoint) -> UIBezierPath {
 		let circularPath = UIBezierPath(
 			arcCenter: center,
-			radius: frame.width / 2,
+			radius: frame.width / 2 - lineWidth / 2,
 			startAngle: -.pi / 2,
 			endAngle: 3 * .pi / 2,
 			clockwise: true
