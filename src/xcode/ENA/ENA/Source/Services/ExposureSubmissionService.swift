@@ -50,6 +50,7 @@ protocol ExposureSubmissionService {
 	func deleteTest()
 	var devicePairingConsentAccept: Bool { get set }
 	var devicePairingConsentAcceptTimestamp: Int64? { get set }
+	func preconditions() -> ExposureManagerState
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
@@ -190,9 +191,30 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return
 			}
 
-			guard let keys = keys, !keys.isEmpty else {
+			guard var keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
 				return
+			}
+
+			var transmissionRiskDefaultVector: [Int] {
+				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
+			}
+
+			keys.sort {
+				$0.rollingStartNumber > $1.rollingStartNumber
+			}
+			
+			if keys.count > 14 {
+				keys = Array(keys[0 ..< 14])
+			}
+			
+			let startIndex = 0
+			for i in startIndex...keys.count - 1 {
+				if i + 1 <= transmissionRiskDefaultVector.count - 1 {
+					keys[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
+				} else {
+					keys[i].transmissionRiskLevel = UInt8(1)
+				}
 			}
 
 			self.client.submit(keys: keys, tan: tan) { error in
@@ -226,6 +248,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch enError.code {
 			case .notEnabled:
 				return .enNotEnabled
+			case .notAuthorized:
+				return .notAuthorized
 			default:
 				return .other(enError.localizedDescription)
 			}
@@ -237,10 +261,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .enNotEnabled
 			case .apiMisuse:
 				return .other("ENErrorCodeAPIMisuse")
-			default:
-				return .other(exposureNotificationError.localizedDescription)
 			}
-
 		}
 
 		if let submissionError = error as? SubmissionError {
@@ -260,8 +281,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .httpError(wrapped.localizedDescription)
 			case .invalidResponse:
 				return .invalidResponse
-			case .qRTeleTanAlreadyUsed:
-				return .qRTeleTanAlreadyUsed
+			case .teleTanAlreadyUsed:
+				return .teleTanAlreadyUsed
+			case .qRAlreadyUsed:
+				return .qRAlreadyUsed
 			case .regTokenNotExist:
 				return .regTokenNotExist
 			case .noResponse:
@@ -273,18 +296,25 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		return .unknown
 	}
+
+	func preconditions() -> ExposureManagerState {
+		diagnosiskeyRetrieval.preconditions()
+	}
 }
 
 enum ExposureSubmissionError: Error, Equatable {
 	case other(String)
 	case noRegistrationToken
 	case enNotEnabled
+	case notAuthorized
 	case noKeys
 	case noConsent
+	case noExposureConfiguration
 	case invalidTan
 	case invalidResponse
 	case noResponse
-	case qRTeleTanAlreadyUsed
+	case teleTanAlreadyUsed
+	case qRAlreadyUsed
 	case regTokenNotExist
 	case serverError(Int)
 	case unknown
@@ -295,27 +325,33 @@ extension ExposureSubmissionError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case let .serverError(code):
-			return "\(code): \(HTTPURLResponse.localizedString(forStatusCode: code))"
+			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
 		case let .httpError(desc):
 			return desc
 		case .invalidTan:
 			return AppStrings.ExposureSubmissionError.invalidTan
 		case .enNotEnabled:
 			return AppStrings.ExposureSubmissionError.enNotEnabled
+		case .notAuthorized:
+			return AppStrings.ExposureSubmissionError.notAuthorized
 		case .noRegistrationToken:
 			return AppStrings.ExposureSubmissionError.noRegistrationToken
 		case .invalidResponse:
 			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .noResponse:
 			return AppStrings.ExposureSubmissionError.noResponse
-		case .qRTeleTanAlreadyUsed:
-			return AppStrings.ExposureSubmissionError.qRTeleTanAlreadyUsed
+		case .noExposureConfiguration:
+			return AppStrings.ExposureSubmissionError.noConfiguration
+		case .qRAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
+		case .teleTanAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
 		case .regTokenNotExist:
 			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		case .noKeys:
 			return AppStrings.ExposureSubmissionError.noKeys
 		case let .other(desc):
-			return AppStrings.ExposureSubmissionError.other + " " + desc
+			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:
 			return AppStrings.ExposureSubmissionError.unknown
 		default:

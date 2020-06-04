@@ -20,7 +20,7 @@ import UIKit
 
 class TracingHistoryTableViewCell: UITableViewCell {
 	@IBOutlet var circleView: CircularProgressView!
-	@IBOutlet var historyTextView: UITextView!
+	@IBOutlet var historyLabel: UILabel!
 
 	func configure(progress: CGFloat, text: String, colorConfigurationTuple: (UIColor, UIColor)) {
 		if circleView.progressBarColor != colorConfigurationTuple.0 {
@@ -29,7 +29,7 @@ class TracingHistoryTableViewCell: UITableViewCell {
 		if circleView.circleColor != colorConfigurationTuple.1 {
 			circleView.circleColor = colorConfigurationTuple.1
 		}
-		historyTextView.text = text
+		historyLabel.text = text
 		circleView.progress = progress
 	}
 }

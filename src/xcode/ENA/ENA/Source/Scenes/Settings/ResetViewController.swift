@@ -24,12 +24,14 @@ protocol ResetDelegate: AnyObject {
 
 final class ResetViewController: UIViewController {
 	@IBOutlet var header1Label: DynamicTypeLabel!
-	@IBOutlet var description1TextView: UITextView!
+	@IBOutlet var description1Label: UILabel!
 	@IBOutlet var resetButton: ENAButton!
 	@IBOutlet var infoTitleLabel: DynamicTypeLabel!
 	@IBOutlet var infoDescriptionLabel: UILabel!
 	@IBOutlet var infoView: UIView!
 	@IBOutlet var subtitleLabel: UILabel!
+	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var footerView: UIView!
 
 	weak var delegate: ResetDelegate?
 
@@ -42,25 +44,27 @@ final class ResetViewController: UIViewController {
 		setupView()
 	}
 
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+
+		scrollView.contentInset.bottom = footerView.frame.height
+	}
+
 	@IBAction func discard(_: Any) {
 		dismiss(animated: true, completion: nil)
 	}
 
 	private func setupView() {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
-		navigationController?.navigationBar.prefersLargeTitles = true
 
-		let barButtonItem = UIBarButtonItem(image: UIImage(named: "Icons - Close - Light"), style: .done, target: self, action: #selector(discard)
+		let barButtonItem = UIBarButtonItem(image: UIImage(named: "Icons - Close"), style: .done, target: self, action: #selector(discard)
 		)
 		navigationItem.rightBarButtonItem = barButtonItem
 
 		subtitleLabel.text = AppStrings.Reset.subtitle
 
-		description1TextView.contentInset = .zero
-		description1TextView.textContainer.lineFragmentPadding = 0
-
 		header1Label.text = AppStrings.Reset.header1
-		description1TextView.text = AppStrings.Reset.description1
+		description1Label.text = AppStrings.Reset.description1
 
 		infoView.layer.cornerRadius = 14
 		infoTitleLabel.text = AppStrings.Reset.infoTitle

@@ -86,9 +86,13 @@ extension DynamicTableViewController {
 			view?.layoutMargins = insets
 			return view
 
-		case let .image(image, height):
+		case let .image(image, accessibilityLabel: label, height):
 			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.header.rawValue) as? DynamicTableViewHeaderImageView
 			view?.imageView?.image = image
+			if let label = label {
+				view?.imageView?.isAccessibilityElement = true
+				view?.imageView?.accessibilityLabel = label
+			}
 			view?.height = height
 			return view
 

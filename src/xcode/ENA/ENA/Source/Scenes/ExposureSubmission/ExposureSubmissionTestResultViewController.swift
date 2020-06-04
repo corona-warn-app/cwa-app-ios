@@ -103,7 +103,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	private func deleteTest() {
 		let alert = UIAlertController(
 			title: AppStrings.ExposureSubmissionResult.removeAlert_Title,
-			message:  AppStrings.ExposureSubmissionResult.removeAlert_Text,
+			message: AppStrings.ExposureSubmissionResult.removeAlert_Text,
 			preferredStyle: .alert
 		)
 
@@ -144,8 +144,17 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			}
 	}
 
+	/// Only show the "warn others" screen if the ENManager is enabled correctly,
+	/// otherwise, show an alert.
 	private func showWarnOthers() {
-		performSegue(withIdentifier: Segue.warnOthers, sender: self)
+		if let state = exposureSubmissionService?.preconditions() {
+			if !state.isGood {
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(.enNotEnabled)
+				self.present(alert, animated: true, completion: nil)
+				return
+			}
+			performSegue(withIdentifier: Segue.warnOthers, sender: self)
+		}
 	}
 }
 

@@ -21,7 +21,7 @@ import UIKit
 
 enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
-	case detectExposures = "detect-exposures.exposure-notification"
+	case detectExposures = "exposure-notification" // detect-exposures.exposure-notification"
 	case fetchTestResults = "fetch-test-results"
 
 	var backgroundTaskScheduleInterval: TimeInterval {
@@ -66,7 +66,7 @@ final class ENATaskScheduler {
 	}
 
 	func scheduleBackgroundTaskRequests() {
-		BGTaskScheduler.shared.cancelAllTaskRequests()
+		cancelAllBackgroundTaskRequests()
 		scheduleBackgroundTask(for: .detectExposures)
 		scheduleBackgroundTask(for: .fetchTestResults)
 	}
