@@ -237,9 +237,9 @@ struct ENExposureDetectionSummaryContainer: Codable {
 	///
 	/// Its values are adjusted based on the metadata in `ENExposureConfiguration`
 	/// - see also: [Apple Documentation](https://developer.apple.com/documentation/exposurenotification/enexposuredetectionsummary/3586324-metadata)
-	let configuredAttenuationDurations: [Float]
+	let configuredAttenuationDurations: [Double]
 
-	init(daysSinceLastExposure: Int, matchedKeyCount: UInt64, maximumRiskScore: ENRiskScore, attenuationDurations: [Float]) {
+	init(daysSinceLastExposure: Int, matchedKeyCount: UInt64, maximumRiskScore: ENRiskScore, attenuationDurations: [Double]) {
 		self.daysSinceLastExposure = daysSinceLastExposure
 		self.matchedKeyCount = matchedKeyCount
 		self.maximumRiskScore = maximumRiskScore
@@ -251,7 +251,7 @@ struct ENExposureDetectionSummaryContainer: Codable {
 		self.matchedKeyCount = summary.matchedKeyCount
 		self.maximumRiskScore = summary.maximumRiskScore
 		if let attenuationDurations = summary.metadata?["attenuationDurations"] as? [NSNumber] {
-			self.configuredAttenuationDurations = attenuationDurations.map { $0.floatValue }
+			self.configuredAttenuationDurations = attenuationDurations.map { Double($0.floatValue) }
 		} else {
 			self.configuredAttenuationDurations = []
 		}
