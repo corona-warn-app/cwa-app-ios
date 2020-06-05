@@ -209,13 +209,15 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	}
 
 	private func applyNavigationBarItem(of viewController: UIViewController?) {
+		let defaultColor = UINavigationBar.appearance().largeTitleTextAttributes?[NSAttributedString.Key.foregroundColor] ?? UIColor.enaColor(for: .textPrimary1)
 		if let viewController = viewController,
 			let navigationItem = viewController.navigationItem as? ExposureSubmissionNavigationItem,
 			let titleColor = navigationItem.titleColor {
-			navigationBar.largeTitleTextAttributes = [:]
-			navigationBar.largeTitleTextAttributes?[NSAttributedString.Key.foregroundColor] = titleColor
+			navigationBar.standardAppearance.titleTextAttributes[NSAttributedString.Key.foregroundColor] = defaultColor
+			navigationBar.standardAppearance.largeTitleTextAttributes[NSAttributedString.Key.foregroundColor] = titleColor
 		} else {
-			navigationBar.largeTitleTextAttributes?.removeValue(forKey: NSAttributedString.Key.foregroundColor)
+			navigationBar.standardAppearance.titleTextAttributes[NSAttributedString.Key.foregroundColor] = defaultColor
+			navigationBar.standardAppearance.largeTitleTextAttributes[NSAttributedString.Key.foregroundColor] = defaultColor
 		}
 	}
 
