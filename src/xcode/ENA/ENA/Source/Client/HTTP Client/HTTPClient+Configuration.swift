@@ -122,7 +122,7 @@ extension HTTPClient {
 				.appending(
 					"version",
 					apiVersion,
-					"configuration ",
+					"configuration",
 					"country",
 					country
 				)
