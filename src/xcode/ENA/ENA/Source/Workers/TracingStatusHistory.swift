@@ -61,7 +61,7 @@ extension Array where Element == TracingStatusEntry {
 	/// Clean up `[TracingStatusEntry]` so we do not store entries past the threshold (14 days)
 	///
 	/// - parameter threshold: Max seconds entries can be in the past for. Defaults to 14 days
-	func pruned(with threshold: TimeInterval = Constants.maxStoredSeconds) -> TracingStatusHistory {
+	func pruned(with threshold: TimeInterval = Self.maxStoredSeconds) -> TracingStatusHistory {
 		let now = Date()
 
 		// Iterate from end of array until we find a date older than threshold
@@ -93,7 +93,10 @@ extension Array where Element == TracingStatusEntry {
 	/// Typically used to check the tracing duration precondition for risk calculation
 	/// - parameter timeInterval: Seconds to use as the threshold. Defaults to 24 hours.
 	/// - parameter date: Date to use as the baseline. Defaults to `Date()`
-	func checkIfEnabled(for continuousInterval: TimeInterval = Constants.minimumActiveSeconds, since date: Date = Date()) -> Bool {
+	func checkIfEnabled(
+		for continuousInterval: TimeInterval = Self.minimumActiveSeconds,
+		since date: Date = Date()
+	) -> Bool {
 		getContinuousEnabledInterval(since: date) > continuousInterval
 	}
 
@@ -121,7 +124,7 @@ extension Array where Element == TracingStatusEntry {
 
 		var prevDate = since
 		// Assume pruned array
-		let sum = reversed().reduce(TimeInterval.zero) { acc, next -> TimeInterval in
+		let sum = reversed().reduce(.zero) { acc, next -> TimeInterval in
 			if next.on {
 				let sum = acc + prevDate.timeIntervalSince(next.date)
 				prevDate = next.date
@@ -135,14 +138,13 @@ extension Array where Element == TracingStatusEntry {
 
 	// MARK: - Constants for Tracing
 
-	enum Constants {
-		/// The minumum count of hours tracing must have been active for risk calculation to work
-		static let minimumActiveHours = 24
-		/// The minumum count of seconds tracing must have been active for risk calculation to work
-		static var minimumActiveSeconds: TimeInterval { TimeInterval(minimumActiveHours * 60 * 60) }
-		/// The maximum count of days to keep tracing history for
-		static let maxStoredDays = 14
-		/// The minumum count of seconds to keep tracing history for
-		static var maxStoredSeconds: TimeInterval { TimeInterval(maxStoredDays * 24 * 60 * 60) }
-	}
+	/// The minumum count of hours tracing must have been active for risk calculation to work
+	static let minimumActiveHours = 24
+	/// The minumum count of seconds tracing must have been active for risk calculation to work
+	static var minimumActiveSeconds: TimeInterval { TimeInterval(minimumActiveHours * 60 * 60) }
+	/// The maximum count of days to keep tracing history for
+	static let maxStoredDays = 14
+	/// The minumum count of seconds to keep tracing history for
+	static var maxStoredSeconds: TimeInterval { TimeInterval(maxStoredDays * 24 * 60 * 60) }
+
 }
