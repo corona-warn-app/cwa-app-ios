@@ -167,17 +167,23 @@
 
 "Onboarding_DeactivateExposureConfirmation_message" = "Sie können die Funktion jederzeit ausschalten.";
 
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Eine vielfältige Gruppe benutzt die Corona-Warn-App in der Stadt.";
+
 "OnboardingInfo_togetherAgainstCoronaPage_title" = "Gemeinsam Corona bekämpfen";
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen infizierte Personen in ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufallscodes austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
 
+"OnboardingInfo_privacyPage_imageDescription" = "Eine Frau benutzt die Corona-Warn-App und ein als Datenverschlüsselungssymbol ist zu sehen.";
+
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
 
 "OnboardingInfo_privacyPage_boldText" = "HELLO WORLD";
 
 "OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
+
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Drei Personen haben ihre Risikoerkennung an ihren Smartphones aktiviert und können sich daher erkennen.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risiko-Ermittlung ermöglichen";
 
@@ -189,11 +195,15 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Ja, ich willige in die Nutzung meiner Tracing Funktionalität für meine Corona-Warn-App ein. Ich möchte damit einen wichtigen Beitrag zur der Unterbrechung von Infektionsketten und der Eindämmung des Coronavirus in Deutschland leisten. Mit dem Contact Tracing können Kontakte nachverfolgt werden, um später auf das Coronavirus positiv getestete Kontakte zu identifizieren.\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Weitere Informationen finden Sie in unserer Datenschutzhinweisen.";
 
+"OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Eine Frau teilt ihr positives Testergebnis mit der zentralen Vermittlung.";
+
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie positiv getestet werden ...";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "... teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufallscodes Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.";
+
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Eine Frau erhält eine Benachrichtigung von ihrer Corona-Warn-App.";
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken kennen";
 
