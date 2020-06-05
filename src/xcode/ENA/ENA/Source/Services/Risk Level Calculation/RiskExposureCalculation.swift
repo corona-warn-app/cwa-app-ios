@@ -23,7 +23,8 @@ import ExposureNotification
 struct Risk {
 	struct Details {
 		var numberOfExposures: Int?
-		var numberOfDaysWithActiveTracing: Int
+		var numberOfHoursWithActiveTracing: Int
+		var numberOfDaysWithActiveTracing: Int { numberOfHoursWithActiveTracing / 24 }
 		var exposureDetectionDate: Date
 	}
 
@@ -32,12 +33,22 @@ struct Risk {
 }
 
 enum RiskExposureCalculation {
+
+	// MARK: - Precondition Time Constants
+
+	/// Minimum duration (in hours) that tracing has to be active for in order to perform a valid risk calculation
+	static let minTracingActiveHours = TracingStatusHistory.Constants.minimumActiveHours
+	/// Count of days until a previously calculated exposure detection is considered outdated
+	static let exposureDetectionStaleThreshold = 1
+
+	// MARK: - Risk Calculation Functions
+
 	/**
 	Calculates the risk level of the user
 
 	Preconditions:
 	1. Check that notification exposure is turned on (via preconditions) on If not, `.inactive`
-	2. Check tracingActiveDays >= 1 (needs to be active for 24hours) If not, `.unknownInitial`
+	2. Check tracingActiveHours >= 24 (needs to be active for 24hours) If not, `.unknownInitial`
 	3. Check if ExposureDetectionSummaryContainer is there. If not, `.unknownInitial`
 	4. Check dateLastExposureDetection is less than 24h ago. If not `.unknownOutdated`
 
@@ -59,7 +70,7 @@ enum RiskExposureCalculation {
 		summary: ENExposureDetectionSummaryContainer?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
-		numberOfTracingActiveDays: Int, // Get this from the `TracingStatusHistory`
+		numberOfTracingActiveHours: Int, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date()
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
@@ -71,7 +82,7 @@ enum RiskExposureCalculation {
 		}
 
 		// Precondition 2 - If tracing is active less than 1 day, risk is .unknownInitial
-		if numberOfTracingActiveDays < 1, riskLevel < .unknownInitial {
+		if numberOfTracingActiveHours < minTracingActiveHours, riskLevel < .unknownInitial {
 			riskLevel = .unknownInitial
 		}
 
@@ -122,6 +133,8 @@ enum RiskExposureCalculation {
 		return .success(riskLevel)
 	}
 
+	/// Performs the raw risk calculation without checking any preconditions
+	/// - returns: weighted risk score
 	static func calculateRawRisk(
 		summary: ENExposureDetectionSummaryContainer,
 		configuration: SAP_ApplicationConfiguration
@@ -146,7 +159,7 @@ enum RiskExposureCalculation {
 		summary: ENExposureDetectionSummaryContainer?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
-		numberOfTracingActiveDays: Int,
+		numberOfTracingActiveHours: Int,
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date()
 	) -> Result<Risk, RiskLevelCalculationError> {
@@ -154,13 +167,13 @@ enum RiskExposureCalculation {
 			summary: summary,
 			configuration: configuration,
 			dateLastExposureDetection: dateLastExposureDetection,
-			numberOfTracingActiveDays: numberOfTracingActiveDays,
+			numberOfTracingActiveHours: numberOfTracingActiveHours,
 			preconditions: preconditions
 		) {
 		case .success(let level):
 			let details = Risk.Details(
 				numberOfExposures: Int(summary?.matchedKeyCount ?? 0),
-				numberOfDaysWithActiveTracing: numberOfTracingActiveDays,
+				numberOfHoursWithActiveTracing: numberOfTracingActiveHours,
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
 
@@ -171,10 +184,14 @@ enum RiskExposureCalculation {
 	}
 }
 
+// MARK: - Risk Level Calculation Errors
+
 enum RiskLevelCalculationError: Error {
 	case riskOutsideRange
 	case undefinedRiskRange
 }
+
+// MARK: - Helpers
 
 extension Date {
 	func isWithinExposureDetectionValidInterval(from date: Date = Date()) -> Bool {
@@ -182,7 +199,7 @@ extension Date {
 			[.day],
 			from: date,
 			to: self
-		).day ?? .max < 1
+		).day ?? .max < RiskExposureCalculation.exposureDetectionStaleThreshold
 	}
 }
 

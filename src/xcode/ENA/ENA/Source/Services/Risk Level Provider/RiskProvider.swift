@@ -174,12 +174,12 @@ extension RiskProvider: RiskProviding {
 		}
 		
 		let tracingHistory = self.store.tracingStatusHistory
-		let numberOfEnabledDays = tracingHistory.countEnabledDays()
+		let numberOfEnabledHours = tracingHistory.countEnabledHours()
 		let risk = RiskExposureCalculation.risk(
 			summary: nil,
 			configuration: _appConfiguration,
 			dateLastExposureDetection: self.store.dateLastExposureDetection,
-			numberOfTracingActiveDays: numberOfEnabledDays,
+			numberOfTracingActiveHours: numberOfEnabledHours,
 			preconditions: self.exposureManagerState,
 			currentDate: Date()
 		)

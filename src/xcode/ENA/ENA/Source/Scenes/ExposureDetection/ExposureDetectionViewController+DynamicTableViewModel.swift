@@ -136,7 +136,7 @@ private extension DynamicCell {
 				valueText = String(format: valueText, timeValue, dateValue)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever
-			} 
+			}
 
 			cell.textLabel?.text = String(format: text, valueText)
 			cell.imageView?.image = image
