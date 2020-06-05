@@ -142,7 +142,6 @@ extension RiskProvider: RiskProviding {
 
 		let requiresExposureDetectionRun = Date() > exposureDetectionValidUntil
 
-		var summary = store.previousSummary
 		var newSummary: ENExposureDetectionSummaryContainer?
 
 		let group = DispatchGroup()
@@ -156,6 +155,8 @@ extension RiskProvider: RiskProviding {
 				}
 			}
 		}
+
+		let summary = newSummary ?? store.previousSummary
 
 		var appConfiguration: SAP_ApplicationConfiguration?
 		group.enter()
@@ -176,7 +177,7 @@ extension RiskProvider: RiskProviding {
 		let tracingHistory = self.store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.countEnabledHours()
 		let risk = RiskCalculation.risk(
-			summary: nil,
+			summary: summary,
 			configuration: _appConfiguration,
 			dateLastExposureDetection: self.store.dateLastExposureDetection,
 			numberOfTracingActiveHours: numberOfEnabledHours,
