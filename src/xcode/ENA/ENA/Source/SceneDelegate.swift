@@ -127,6 +127,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		} else {
 			showHome()
 		}
+		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		UINavigationBar.appearance().tintColor = UIColor.preferredColor(for: .tint)
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
