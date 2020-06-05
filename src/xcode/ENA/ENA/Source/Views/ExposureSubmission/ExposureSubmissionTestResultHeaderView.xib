@@ -19,7 +19,7 @@
                         <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dpb-Q6-5J5">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" insetsLayoutMarginsFromSafeArea="NO" image="app-information-people" translatesAutoresizingMaskIntoConstraints="NO" id="JTc-py-mfu">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTc-py-mfu">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="186"/>
                                 </imageView>
                                 <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuq-W2-IVT" customClass="ExposureSubmissionTestResultView" customModule="ENA" customModuleProvider="target">
@@ -29,7 +29,7 @@
                                             <rect key="frame" x="20" y="20" width="279" height="106"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" insetsLayoutMarginsFromSafeArea="NO" text="Ergebnis: positiv" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgh-bq-U4Q" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="279" height="33"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="279" height="35.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <color key="textColor" name="negative"/>
                                                     <nil key="highlightedColor"/>
@@ -41,7 +41,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" insetsLayoutMarginsFromSafeArea="NO" text="SARS-CoV-2 wurde nachgewiesen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMJ-dg-ALK" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="49" width="279" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="51.5" width="279" height="20.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" name="textPrimary1"/>
                                                     <nil key="highlightedColor"/>
@@ -52,7 +52,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" insetsLayoutMarginsFromSafeArea="NO" text="Eingangsdatum: 2. Mai 2020" textAlignment="natural" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSV-ZU-jSo" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="85.5" width="279" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="88" width="279" height="18"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" name="textPrimary2"/>
                                                     <nil key="highlightedColor"/>
@@ -146,7 +146,6 @@
         </view>
     </objects>
     <resources>
-        <image name="app-information-people" width="750" height="390"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <namedColor name="background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

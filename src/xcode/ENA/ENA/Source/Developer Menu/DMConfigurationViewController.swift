@@ -20,10 +20,11 @@ import UIKit
 final class DMConfigurationViewController: UITableViewController {
 	// MARK: Creating a Configuration View Controller
 
-	init(distributionURL: String?, submissionURL: String?, verificationURL: String?) {
+	init(distributionURL: String?, submissionURL: String?, verificationURL: String?, store: Store) {
 		self.distributionURL = distributionURL
 		self.submissionURL = submissionURL
 		self.verificationURL = verificationURL
+		self.store = store
 		super.init(style: .plain)
 		title = "Configuration"
 	}
@@ -37,6 +38,7 @@ final class DMConfigurationViewController: UITableViewController {
 	private let distributionURL: String?
 	private let submissionURL: String?
 	private let verificationURL: String?
+	private let store: Store
 
 	// MARK: UIViewController
 
@@ -46,6 +48,9 @@ final class DMConfigurationViewController: UITableViewController {
 			DMConfigurationCell.self,
 			forCellReuseIdentifier: DMConfigurationCell.reuseIdentifier
 		)
+		tableView.sectionFooterHeight = UITableView.automaticDimension
+		tableView.estimatedSectionFooterHeight = 20
+		tableView.tableFooterView = UIView()
 	}
 
 	// MARK: UITableViewController
@@ -79,6 +84,39 @@ final class DMConfigurationViewController: UITableViewController {
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		3
+	}
+
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		let footerView = UIView()
+
+		let label = UILabel()
+		label.translatesAutoresizingMaskIntoConstraints = false
+		label.text = "Hourly Fetching:"
+		label.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular)
+		label.textColor = UIColor.preferredColor(for: .textPrimary1)
+
+		footerView.addSubview(label)
+		label.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 15).isActive = true
+		label.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
+		label.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 15).isActive = true
+		label.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 15).isActive = true
+
+		let toggle = UISwitch()
+		toggle.translatesAutoresizingMaskIntoConstraints = false
+		toggle.isOn = store.hourlyFetchingEnabled
+		toggle.addTarget(self, action: #selector(self.changeHourlyFetching), for: .valueChanged)
+
+		footerView.addSubview(toggle)
+		toggle.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
+		toggle.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 15).isActive = true
+		toggle.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 15).isActive = true
+
+		return footerView
+	}
+
+	@objc
+	func changeHourlyFetching(_ toggle: UISwitch) {
+		store.hourlyFetchingEnabled = toggle.isOn
 	}
 }
 

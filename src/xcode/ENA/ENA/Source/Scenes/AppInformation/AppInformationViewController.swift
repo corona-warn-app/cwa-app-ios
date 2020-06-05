@@ -16,48 +16,44 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import Foundation
 import UIKit
 
 class AppInformationViewController: DynamicTableViewController {
-
-	// MARK: - Properties
-	private let model: [AppInformationDetailModel] = [
-		.about,
-		.faq,
-		.terms,
-		.privacy,
-		.legal,
-		.contact,
-		.imprint
-	]
-
-	override func loadView() {
-		let tableView = UITableView(frame: .zero, style: .grouped)
-		tableView.backgroundColor = .preferredColor(for: .separator)
-
-		self.view = tableView
-	}
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		tableView.backgroundColor = .enaColor(for: .separator)
+		tableView.separatorColor = .enaColor(for: .hairline)
+
 		navigationItem.largeTitleDisplayMode = .always
-		title = "Home_AppInformationCard_Title".localized
+		navigationItem.title = "Home_AppInformationCard_Title".localized
 
 		dynamicTableViewModel = .init([
 			.section(
-				header: .space(height: 30),
+				header: .space(height: 32),
 				footer: .view(footerView()),
 				separators: false,
-				cells: self.model.map({ .body(text: $0.title) })
+				cells: Category.allCases.compactMap { Self.model[$0]?.text }.map { .body(text: $0) }
 			)
 		])
-
-		tableView.dataSource = self
-		tableView.delegate = self
     }
+}
 
-	func footerView() -> UIView {
+extension AppInformationViewController {
+	enum Category: Int, Hashable, CaseIterable {
+		case about
+		case faq
+		case terms
+		case privacy
+		case legal
+		case contact
+		case imprint
+	}
+}
+
+extension AppInformationViewController {
+	private func footerView() -> UIView {
 		let versionLabel = ENALabel()
 		versionLabel.translatesAutoresizingMaskIntoConstraints = false
 		versionLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
@@ -72,38 +68,30 @@ class AppInformationViewController: DynamicTableViewController {
 		}
 
 		let footerView = UIView()
-
 		footerView.addSubview(versionLabel)
 
 		versionLabel.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
-		versionLabel.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 10).isActive = true
-		versionLabel.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 10).isActive = true
+		versionLabel.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 16).isActive = true
+		versionLabel.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 16).isActive = true
 
 		return footerView
 	}
 }
 
 extension AppInformationViewController {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = super.tableView(tableView, cellForRowAt: indexPath)
+		cell.accessoryType = .disclosureIndicator
+		cell.selectionStyle = .default
+		return cell
+	}
+
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 
-		if indexPath.row == 1 {
-			WebPageHelper.showWebPage(from: self)
-		} else if indexPath.row == 4 {
-			let destination = AppStoryboard.appInformation.initiate(viewControllerType: AppInformationLegalViewController.self)
-			destination.model = .legalEntries
-			navigationController?.pushViewController(
-				destination,
-				animated: true
-			)
-		} else {
-			let destination = AppStoryboard.appInformation.initiate(viewControllerType: AppInformationDetailViewController.self)
-			destination.model = model[indexPath.row]
-
-			navigationController?.pushViewController(
-				destination,
-				animated: true
-			)
+		if let category = Category(rawValue: indexPath.row),
+			let action = Self.model[category]?.action {
+			self.execute(action: action)
 		}
 	}
 

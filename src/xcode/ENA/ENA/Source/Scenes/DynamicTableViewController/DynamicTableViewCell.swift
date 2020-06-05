@@ -69,9 +69,10 @@ extension DynamicCell {
 		}
 	}
 
-	static func icon(action: DynamicAction = .none, _ icon: DynamicIcon) -> Self {
-		.identifier(CellReuseIdentifier.icon, action: action, accessoryAction: .none) { _, cell, _ in
-			(cell as? DynamicTableViewIconCell)?.configure(icon)
+	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+		.identifier(CellReuseIdentifier.icon, action: action, accessoryAction: .none) { viewController, cell, indexPath in
+			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor)
+			configure?(viewController, cell, indexPath)
 		}
 	}
 

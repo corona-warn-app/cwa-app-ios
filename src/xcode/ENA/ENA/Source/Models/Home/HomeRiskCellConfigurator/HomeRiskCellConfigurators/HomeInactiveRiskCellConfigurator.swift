@@ -69,16 +69,17 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		let lastInvestigationTitle = String(format: AppStrings.Home.riskCardInactiveActivateItemTitle, lastInvestigation)
 		let iconTintColor = UIColor(red: 93.0 / 255.0, green: 111.0 / 255.0, blue: 128.0 / 255.0, alpha: 1.0)
-		let item1 = HomeRiskImageItemViewConfigurator(title: lastInvestigationTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
+		let item1 = HomeRiskImageItemViewConfigurator(title: lastInvestigationTitle, titleColor: titleColor, iconImageName: "Icons_LetzteErmittlung-Light", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
 
 		let dateTitle = String(format: AppStrings.Home.riskCardInactiveDateItemTitle, lastUpdateDateString)
-		let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Calendar", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
+		let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
 		itemCellConfigurators.append(contentsOf: [item1, item2])
 
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		cell.configureChevron(image: UIImage(systemName: "chevron.right.circle.fill"), tintColor: .lightGray)
+		let chevronImage = UIImage(systemName: "chevron.right")
+		cell.configureChevron(image: chevronImage, tintColor: .lightGray)
 
 		let buttonTitle = AppStrings.Home.riskCardInactiveButton
 

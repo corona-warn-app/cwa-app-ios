@@ -117,7 +117,7 @@
 
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
-"Settings_Tracing_Description" = "Erlauben Sie Erfassung und Weitergabe von Covid-19-Zufalls-IDs.";
+"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von Zufallscodes.";
 
 "Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Covid-19-Risikostatus.";
 
@@ -126,27 +126,25 @@
 "Settings_NavTitle" = "Einstellungen";
 
 /* Noticiation Settings */
-"NotificationSettings_On_Title" = "Möchten Sie Benachrichtigungen zu Ihrem Covid-19-Risikostatus aktivieren?";
-
-"NotificationSettings_On_Description" = "Erlauben Sie der App hier die Mitteilungen.";
+"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem Covid-19-Risikostatus aktivieren?";
 
 "NotificationSettings_On_SectionTitle" = "Einstellung";
 
 "NotificationSettings_On_RiskChanges" = "Änderung Ihres Infektionsrisikos";
 
-"NotificationSettings_On_TestsStatus" = "Status Ihres COVID-19 Tests";
+"NotificationSettings_On_TestsStatus" = "Status Ihres Coronavirus-Tests";
 
-"NotificationSettings_Off_Title" = "Mitteilungen sind ausgestellt";
+"NotificationSettings_Off_SectionTitle" = "Einstellung";
 
-"NotificationSettings_Off_Description" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Telefoneinstellungen zulassen.";
+"NotificationSettings_Off_EnableNotifications" = "Mitteilungen";
 
-"NotificationSettings_Off_NavigateSettings" = "1. Öffnen Sie Einstellungen.";
+"NotificationSettings_Off_StatusInactive" = "Aus";
 
-"NotificationSettings_Off_PickNotifications" = "2. Wählen Sie Mitteilungen aus.";
+"NotificationSettings_Off_InfoTitle" = "Mitteilungen aktivieren";
 
-"NotificationSettings_Off_EnableNotifications" = "3. Erlauben Sie Mitteilungen.";
+"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Geräte-Einstellungen zulassen.";
 
-"NotificationSettings_Off_OpenSettings" = "Einstellungen App öffnen";
+"NotificationSettings_Off_OpenSettings" = "App-Einstellungen öffnen";
 
 "NotificationSettings_NavTitle" = "Mitteilungen";
 
@@ -205,7 +203,7 @@
 
 /* Exposure Submission */
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
-
+"ExposureSubmission_Continue_actionText" = "Weiter";
 "ExposureSubmission_DataPrivacyDescription" = "QR-Code Datenschutztext";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
@@ -214,7 +212,7 @@
 
 "ExposureSubmission_Submit" = "TAN eingeben";
 
-"ExposureSubmissionTanEntry_Title" = "TAN-Eingabe";
+"ExposureSubmissionTanEntry_Title" = "TAN Eingabe";
 
 "ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die Ihnen mitgeteilte TAN ein:";
 
@@ -236,7 +234,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code ihres Test-Dokuments scannen.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Code";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
 
 "ExposureSubmissionDispatch_TANButtonDescription" = "Registrieren Sie Ihren Test per manueller TAN-Eingabe.";
 
@@ -248,7 +246,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 
-"ExposureSubmissionHotline_Description" = "Wir teilen Ihnen Ihren TAN-Code gerne per Telefon mit.";
+"ExposureSubmissionHotline_Description" = "Bitte halten zur TAN Anfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
@@ -262,7 +260,7 @@
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
-"ExposureSubmission_TANInputButtonTitle" = "TAN-Code eingeben";
+"ExposureSubmission_TANInputButtonTitle" = "TAN eingeben";
 
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
@@ -281,6 +279,8 @@
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank";
+
+"ExposureSubmissionSuccess_AccImageDescription" = "Eine vielfältige Gruppe begrüßt durch Jubel, dass jemand sein Testergebnis mit anderen geteilt hat.";
 
 "ExposureSubmissionSuccess_Button" = "Fertig";
 
@@ -306,6 +306,8 @@
 "ExposureSubmissionIntroduction_Title" = "Info";
 
 "ExposureSubmissionIntroduction_SubTitle" = "So funktioniert das Corona-Warn-System";
+
+"ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
 
@@ -380,6 +382,8 @@
 
 "ExposureSubmissionWarnOthers_title" = "Andere warnen";
 
+"ExposureSubmissionWarnOthers_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
+
 "ExposureSubmissionWarnOthers_continueButton" = "Weiter";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Helfen Sie mit!";
@@ -397,23 +401,23 @@
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Keine Diagnoseschlüssel verfügbar. Bitte versuchen Sie es morgen erneut.";
 
-"ExposureSubmissionError_InvalidTan" = "Die erzeugte TAN für die Übermittlung ist ungültig.";
+"ExposureSubmissionError_InvalidTan" = "Die erzeugte Übermittlungs TAN ist ungültig. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_EnNotEnabled" = "Die Exposure Notification ist nicht aktiv.";
+"ExposureSubmissionError_EnNotEnabled" = "Bitte aktivieren Sie die Risiko-Ermittlung, um andere zu warnen.";
 
-"ExposureSubmissionError_NoRegistrationToken" = "Kein Registrations-Token auf dem Gerät gefunden.";
+"ExposureSubmissionError_NoRegistrationToken" = "Kein Registration Token auf dem Gerät gefunden.";
 
 "ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
 
-"ExposureSubmissionError_NoResponse" = "Die Antwort enthält kein Inhalt.";
+"ExposureSubmissionError_NoResponse" = "Die Anwort enthält kein Inhalt";
 
-"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Der QR-Code oder die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code wurde bereits verwendet. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde schon verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Kontakt.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde schon verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_RegTokenNotExist" = "Der verwendet Registrations-Token existiert nicht.";
+"ExposureSubmissionError_RegTokenNotExist" = "Es konnte keine Übermittlungs-TAN erstellt werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_other" = "Fehler:";
+"ExposureSubmissionError_other" = "Es ist ein Verbindungsfehler aufgetreten ";
 
 "ExposureSubmissionError_otherend" = ". Bitte versuchen Sie es erneut.";
 
@@ -458,6 +462,11 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Kontaktmitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie COVID-19-Kontaktmitteilungen in Ihren Systemeinstellungen.";
 
+"ExposureNotificationSetting_AccLabel_Enabled" = "Drei Personen haben die Risiko-Erkennung auf ihren Smartphones aktiviert, ihre Begegnung wird daher aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_Disabled" = "Eine Person hat die Risiko-Erkennung auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Eine Person hat Bluetooth auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_InternetOff" = "Eine Person hat die Internetverbindung ihres Smartphones ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
+
 /* Home Active card */
 "Home_Activate_Card_On_Title" = "Risiko-Ermittlung aktiv";
 
@@ -470,7 +479,7 @@
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 
-"Home_RiskCard_Unknown_Item_Title" = "Da Sie Ihre Umfeldaufzeichnung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
+"Home_RiskCard_Unknown_Item_Title" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 
 "Home_RiskCard_Unknown_Button" = "Aktualisieren";
 
@@ -488,9 +497,7 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
-"Home_Risk_Low_NoContact_Item_Title" = "Bisher keine Risiko-Begegnung";
-
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen gespeichert";
+"Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen aktiv";
 
 "Home_Risk_Low_Date_Item_Title" = "Aktualisiert: %@";
 
@@ -595,6 +602,8 @@
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
 
+"App_Information_About_ImageDescription" = "";
+
 "App_Information_About_Title" = "Gemeinsam Corona bekämpfen";
 
 "App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App für die gesamte Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
@@ -608,6 +617,8 @@
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Technische Hotline";
+
+"App_Information_Contact_ImageDescription" = "Ein Mann nutzt ein Headset zum Telefonieren";
 
 "App_Information_Contact_Title" = "Wie können wir Ihnen helfen?";
 
@@ -625,6 +636,8 @@
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
+
+"App_Information_Imprint_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Paragraphenzeichen als Symbol für das Impressum.";
 
 "App_Information_Imprint_Section1_Title" = "Anbieter";
 
@@ -645,8 +658,12 @@
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
+"App_Information_Legal_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist eine Balkenwaage als Symbol für rechtliche Hinweise.";
+
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Datenschutz";
+
+"App_Information_Privacy_ImageDescription" = "";
 
 "App_Information_Privacy_Title" = "Datenschutz";
 
@@ -656,6 +673,8 @@
 
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "Nutzungsbedingungen";
+
+"App_Information_Terms_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Haken als Symbol für akzeptierte Nutzungsbedingungen.";
 
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
 
