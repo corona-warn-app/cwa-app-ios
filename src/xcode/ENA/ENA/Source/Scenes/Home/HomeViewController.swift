@@ -235,8 +235,8 @@ final class HomeViewController: UIViewController {
 					delegate: self
 			)
 		}
+		addToUpdatingSetIfNeeded(vc)
 		notificationSettingsController = vc
-		addToUpdatingSetIfNeeded(notificationSettingsController)
 		navigationController?.pushViewController(vc, animated: true)
 	}
 
@@ -250,7 +250,7 @@ final class HomeViewController: UIViewController {
 				delegate: self
 			)
 		}
-		addToUpdatingSetIfNeeded(settingsController)
+		addToUpdatingSetIfNeeded(vc)
 		settingsController = vc
 		navigationController?.pushViewController(vc, animated: true)
 	}
@@ -271,7 +271,7 @@ final class HomeViewController: UIViewController {
 				delegate: self
 			)
 		}
-		addToUpdatingSetIfNeeded(exposureDetectionController)
+		addToUpdatingSetIfNeeded(vc)
 		exposureDetectionController = vc as? ExposureDetectionViewController
 		present(vc, animated: true)
 	}
@@ -539,13 +539,12 @@ extension HomeViewController: ExposureStateUpdating {
 extension  HomeViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		enState = state
-		notifyAll(state)
+		updateAllState(state)
 	}
 
-	private func notifyAll(_ state: ENStateHandler.State) {
+	private func updateAllState(_ state: ENStateHandler.State) {
 		enStateUpdatingSet.allObjects.forEach { anyObject in
 			if let updating = anyObject as? ENStateHandlerUpdating {
-				log(message: "Notifying \(updating)")
 				updating.updateEnState(state)
 			}
 		}
