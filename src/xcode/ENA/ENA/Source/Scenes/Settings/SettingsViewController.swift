@@ -296,5 +296,3 @@ extension SettingsViewController: ENStateHandlerUpdating {
 		notificationSettingsController?.updateEnState(state)
 	}
 }
-
-
