@@ -92,6 +92,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		return HTTPClient(configuration: config)
 	}()
 
+
+	private var enStateHandler:ENStateHandler?
+
+
 	// MARK: UISceneDelegate
 
 	func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
@@ -185,12 +189,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private func presentHomeVC() {
 
-		//FIXME: Move it to other place.
-		let enStateHandler = ENStateHandler(
+		enStateHandler = ENStateHandler(
 				exposureManager.preconditions(),
 				reachabilityService: ConnectivityReachabilityService(),
-				delegate: self
-		)
+				delegate: self)
+		guard let enStateHandler = self.enStateHandler else {
+			fatalError("It should not happen.")
+			return
+		}
 
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
@@ -408,7 +414,7 @@ extension SceneDelegate: ExposureStateUpdating {
 
 extension SceneDelegate: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		//TODO: Ask home controller to update.
+		log(message: "SceneDelegate got EnState update: \(state)")
 		homeController?.updateEnState(state)
 	}
 }

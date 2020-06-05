@@ -95,6 +95,7 @@ final class ENStateHandler {
 		guard let delegate = delegate else {
 			fatalError("Delegate is nil. It should not happen.")
 		}
+		log(message: "ENStateHandler: stateDidChange \(currentState)")
 		delegate.updateEnState(currentState)
 	}
 

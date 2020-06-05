@@ -61,12 +61,18 @@ final class HomeViewController: UIViewController {
 			taskScheduler: taskScheduler,
 				initialEnState: initialEnState
 		)
+
+		addToUpdatingSetIfNeeded(homeInteractor)
+
 	}
 
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
 
+	deinit {
+		enStateUpdatingSet.removeAllObjects()
+	}
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
@@ -86,6 +92,11 @@ final class HomeViewController: UIViewController {
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
 	private var exposureSubmissionService: ExposureSubmissionService?
+	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
+	
+
+
+	
 
 	enum Section: Int {
 		case actions
@@ -225,6 +236,7 @@ final class HomeViewController: UIViewController {
 			)
 		}
 		notificationSettingsController = vc
+		addToUpdatingSetIfNeeded(notificationSettingsController)
 		navigationController?.pushViewController(vc, animated: true)
 	}
 
@@ -238,6 +250,7 @@ final class HomeViewController: UIViewController {
 				delegate: self
 			)
 		}
+		addToUpdatingSetIfNeeded(settingsController)
 		settingsController = vc
 		navigationController?.pushViewController(vc, animated: true)
 	}
@@ -258,6 +271,7 @@ final class HomeViewController: UIViewController {
 				delegate: self
 			)
 		}
+		addToUpdatingSetIfNeeded(exposureDetectionController)
 		exposureDetectionController = vc as? ExposureDetectionViewController
 		present(vc, animated: true)
 	}
@@ -526,7 +540,23 @@ extension HomeViewController: ExposureStateUpdating {
 extension  HomeViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		enState = state
-		homeInteractor.updateEnState(state)
+		notifyAll(state)
+	}
+
+	private func notifyAll(_ state: ENStateHandler.State) {
+		enStateUpdatingSet.allObjects.forEach { anyObject in
+			if let updating = anyObject as? ENStateHandlerUpdating {
+				log(message: "Notifying \(updating)")
+				updating.updateEnState(state)
+			}
+		}
+	}
+
+	private func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?) {
+		if let anyObject = anyObject,
+		   anyObject is ENStateHandlerUpdating {
+			enStateUpdatingSet.add(anyObject)
+		}
 	}
 }
 

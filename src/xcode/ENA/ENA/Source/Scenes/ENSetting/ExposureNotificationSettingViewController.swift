@@ -202,14 +202,6 @@ extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate
 }
 
 
-extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
-	func updateEnState(_ state: ENStateHandler.State) {
-		self.enState = state
-		tableView.reloadData()
-	}
-}
-
-
 extension ExposureNotificationSettingViewController {
 	fileprivate enum ReusableCellIdentifier: String {
 		case banner
@@ -234,5 +226,14 @@ private extension ENSettingModel.Content {
 		case .descriptionCell:
 			return .descriptionCell
 		}
+	}
+}
+
+//MARK: ENStateHandler Updating
+extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		log(message: "Get the new state: \(state)")
+		self.enState = state
+		tableView.reloadData()
 	}
 }
