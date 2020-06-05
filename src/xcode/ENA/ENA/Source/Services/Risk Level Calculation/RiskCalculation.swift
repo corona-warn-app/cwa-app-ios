@@ -32,7 +32,7 @@ struct Risk {
 	let details: Details
 }
 
-enum RiskExposureCalculation {
+enum RiskCalculation {
 
 	// MARK: - Precondition Time Constants
 
@@ -199,7 +199,7 @@ extension Date {
 			[.day],
 			from: date,
 			to: self
-		).day ?? .max < RiskExposureCalculation.exposureDetectionStaleThreshold
+		).day ?? .max < RiskCalculation.exposureDetectionStaleThreshold
 	}
 }
 
