@@ -29,20 +29,13 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	init?(
 		coder: NSCoder,
 		exposureManager: ExposureManager,
-		keyPackagesStore: DownloadedPackagesStore,
-		delegate: HomeViewControllerDelegate,
-		taskScheduler: ENATaskScheduler
+		delegate: HomeViewControllerDelegate
 	) {
-		self.keyPackagesStore = keyPackagesStore
 		self.exposureManager = exposureManager
 		self.delegate = delegate
 
 		super.init(coder: coder)
-		homeInteractor = HomeInteractor(
-			homeViewController: self,
-			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init())
-		)
+
 
 		exposureSubmissionService = ENAExposureSubmissionService(
 			diagnosiskeyRetrieval: self.exposureManager,
@@ -65,13 +58,16 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
-
-	private let keyPackagesStore: DownloadedPackagesStore
 	private let exposureManager: ExposureManager
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
-	private var homeLayout: HomeLayout!
-	var homeInteractor: HomeInteractor!
+	lazy var homeInteractor: HomeInteractor = {
+		HomeInteractor(
+			homeViewController: self,
+			store: store,
+			state: .init(isLoading: false, summary: nil, exposureManager: .init())
+		)
+	}()
 	private var summaryNotificationObserver: NSObjectProtocol?
 	private weak var exposureDetectionController: ExposureDetectionViewController?
 	private weak var settingsController: SettingsViewController?
@@ -124,9 +120,12 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Actions
 
 	@objc
-	private func infoButtonTapped(_: UIButton) {
-		let vc = AppStoryboard.riskLegend.initiateInitial()
-		present(vc, animated: true, completion: nil)
+	private func infoButtonTapped() {
+		present(
+			AppStoryboard.riskLegend.initiateInitial(),
+			animated: true,
+			completion: nil
+		)
 	}
 
 	// MARK: Misc
@@ -318,18 +317,22 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 
-	private func createLayout() -> UICollectionViewLayout {
-		homeLayout = HomeLayout()
-		homeLayout.delegate = self
-		return homeLayout.collectionLayout()
-	}
+//	private func createLayout() -> UICollectionViewLayout {
+//		homeLayout = HomeLayout()
+//		homeLayout.delegate = self
+//		return homeLayout.collectionLayout()
+//	}
 
 	private func configureHierarchy() {
 		let safeLayoutGuide = view.safeAreaLayoutGuide
 
 		view.backgroundColor = .systemGroupedBackground
 
-		collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+		collectionView = UICollectionView(
+			frame: view.bounds,
+			collectionViewLayout: UICollectionViewLayout.homeLayout(delegate: self)
+		)
+
 		collectionView.delegate = self
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isAccessibilityElement = false
@@ -398,10 +401,14 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func configureUI() {
-
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
-		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			image: infoImage,
+			style: .plain,
+			target: self,
+			action: #selector(infoButtonTapped)
+		)
 		let image = UIImage(named: "Corona-Warn-App")
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
@@ -424,7 +431,7 @@ extension HomeViewController {
 }
 
 extension HomeViewController: HomeLayoutDelegate {
-	func homeLayout(homeLayout _: HomeLayout, for sectionIndex: Int) -> Section? {
+	func homeLayoutSection(for sectionIndex: Int) -> Section? {
 		Section(rawValue: sectionIndex)
 	}
 }
