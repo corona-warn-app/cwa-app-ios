@@ -75,6 +75,7 @@ extension AppDelegate: ExposureSummaryProvider {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+	private let consumer = RiskConsumer()
 	let taskScheduler = ENATaskScheduler.shared
 	lazy var riskLevelProvider: RiskProvider = {
 		var duration = DateComponents()
@@ -152,6 +153,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.taskDelegate = self
+		riskLevelProvider.observeRisk(consumer)
+
 		return true
 	}
 
@@ -352,47 +355,24 @@ private extension DownloadedPackagesStore {
 	}
 }
 
-extension AppDelegate: ENATaskExecutionDelegate {
+extension AppDelegate: RequiresAppDependencies, ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask) {
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
 			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
-		guard
-			exposureDetection == nil,
-			exposureManager.preconditions().authorized,
-			UIApplication.shared.backgroundRefreshStatus == .available
-			else {
-			complete(success: false)
-			return
-		}
-
-		exposureDetection = ExposureDetection(delegate: self)
-
-		self.exposureDetection?.start { result in
-			defer { complete(success: true) }
-			if case let .success(newSummary) = result {
-
-				// get the previous risk score from the store
-				// check if the risk score has escalated since the last summary
-				if let previousRiskScore = self.store.previousSummary?.maximumRiskScore,
-					RiskLevel(riskScore: newSummary.maximumRiskScore) > RiskLevel(riskScore: previousRiskScore),
-					RiskLevel(riskScore: newSummary.maximumRiskScore) == .increased {
-					// present a notification if the risk score has increased
-					self.taskScheduler.notificationManager.presentNotification(
-						title: AppStrings.LocalNotifications.detectExposureTitle,
-						body: AppStrings.LocalNotifications.detectExposureBody,
-						identifier: ENATaskIdentifier.detectExposures.rawValue)
-				}
-
-				// persist the previous risk score to the store
-				self.store.previousSummary = ENExposureDetectionSummaryContainer(with: newSummary)
-
-			}
+		consumer.didCalculateRisk = { risk in
+			// present a notification if the risk score has increased
 
 			complete(success: true)
 		}
+
+		consumer.nextExposureDetectionDateDidChange = { date in
+			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+		}
+
+		riskLevelProvider.requestRisk()
 
 		task.expirationHandler = {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
