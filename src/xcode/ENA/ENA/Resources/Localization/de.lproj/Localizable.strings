@@ -189,7 +189,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Datenschutz";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Ja, ich willige in die Nutzung meiner Tracing Funktionalität für meine Corona-Warn-App ein. Ich möchte damit einen wichtigen Beitrag zur der Unterbrechung von Infektionsketten und der Eindämmung des Coronavirus in Deutschland leisten. Mit dem Contact Tracing können Kontakte nachverfolgt werden, um später auf das Coronavirus positiv getestete Kontakte zu identifizieren.\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Weitere Informationen finden Sie in unserer Datenschutzhinweisen.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Ja, ich willige in die Nutzung meiner Tracing-Funktionalität für meine Corona-Warn-App ein. Ich möchte damit einen wichtigen Beitrag zur Unterbrechung von Infektionsketten und der Eindämmung des Coronavirus in Deutschland leisten. Mit dem Contact-Tracing können Kontakte nachverfolgt werden, um später auf das Coronavirus positiv getestete Kontakte zu identifizieren.\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Weitere Informationen finden Sie in unseren Datenschutzhinweisen.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie positiv getestet werden ...";
 
@@ -234,7 +234,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Dokument mit QR-Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code ihres Test-Dokuments scannen.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code Ihres Test-Dokuments scannen.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Code";
 
@@ -267,7 +267,7 @@
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
 
-"ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code ihres Dokuments.";
+"ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code Ihres Dokuments.";
 
 "ExposureSubmissionQRScanner_notFoundAlertTitle" = "Befund wurde nicht gefunden";
 
@@ -294,7 +294,7 @@
 
 "ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich ihre Krankheitszeichen entwickeln.";
+"ExposureSubmissionSuccess_listItem2_1" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich Ihre Krankheitszeichen entwickeln.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten.";
 
@@ -309,7 +309,7 @@
 
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
 
-"ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt  wie folgt vorgehen:";
+"ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt wie folgt vorgehen:";
 
 "ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
 
@@ -405,13 +405,13 @@
 
 "ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
 
-"ExposureSubmissionError_NoResponse" = "Die Antwort enthält kein Inhalt.";
+"ExposureSubmissionError_NoResponse" = "Die Antwort enthält keinen Inhalt.";
 
 "ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Der QR-Code oder die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde schon verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Kontakt.";
 
-"ExposureSubmissionError_RegTokenNotExist" = "Der verwendet Registrations-Token existiert nicht.";
+"ExposureSubmissionError_RegTokenNotExist" = "Der verwendete Registrations-Token existiert nicht.";
 
 "ExposureSubmissionError_other" = "Fehler:";
 
@@ -528,7 +528,7 @@
 
 "Home_Thank_You_Card_Further_Info_Item_Title" = "Weitere Infos:";
 
-"Home_Thank_You_Card_14Days_Item_Title" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich ihre Krankheitszeichen entwickeln.";
+"Home_Thank_You_Card_14Days_Item_Title" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich Ihre Krankheitszeichen entwickeln.";
 
 "Home_Thank_You_Card_Contacts_Item_Title" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten.";
 
@@ -604,7 +604,7 @@
 
 "App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App für die gesamte Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
 
-"App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schenll nachzuverfolgen und zu durchbrechen. Die App speichert dezentral - auf Ihrem Smartphone - Begegnungen mit anderen. Sie werden informiert, wenn Sie Kontakt mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
+"App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schnell nachzuverfolgen und zu durchbrechen. Die App speichert dezentral - auf Ihrem Smartphone - Begegnungen mit anderen. Sie werden informiert, wenn Sie Kontakt mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "Häufige Fragen";
@@ -641,7 +641,7 @@
 
 "App_Information_Imprint_Section3_Title" = "";
 
-"App_Information_Imprint_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
+"App_Information_Imprint_Section3_Text" = "Das Infotelefon der Bundesregierung erreichen Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
 
 "App_Information_Imprint_Section4_Title" = "Briefanschrift";
 
@@ -689,9 +689,9 @@
 
 "inactive_risk_detail_help" = "inactive";
 
-"low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
+"low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über einen kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
 
-"high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
+"high_risk_detail_help" = "Es besteht ein hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Teilen";
