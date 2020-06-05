@@ -128,12 +128,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 		self.observer = observer
 
-		enabledObservation = observe(\.manager.exposureNotificationEnabled, options: .new) { [weak self] _, _ in
-			guard let self = self else { return }
-			DispatchQueue.main.async {
-				observer.exposureManager(self, didChangeState: self.preconditions())
-			}
-		}
+//		enabledObservation = observe(\.manager.exposureNotificationEnabled, options: .new) { [weak self] _, _ in
+//			guard let self = self else { return }
+//			DispatchQueue.main.async {
+//				observer.exposureManager(self, didChangeState: self.preconditions())
+//			}
+//		}
 
 		statusObservation = observe(\.manager.exposureNotificationStatus, options: .new) { [weak self] _, _ in
 			guard let self = self else { return }

@@ -47,27 +47,28 @@ final class ENStateHandler {
 			stateDidChange()
 		}
 	}
+
+	var state: ENStateHandler.State {
+		currentState
+	}
 	
 	private let reachabilityService: ReachabilityService
 	private weak var delegate: ENStateHandlerUpdating?
 	private var internetOff = false
-	private let exposureManager: ExposureManager
-	private var latestState: ExposureManagerState?
+	private var latestExposureManagerState: ExposureManagerState
 
 	init(
-		exposureManager: ExposureManager,
-		reachabilityService: ReachabilityService,
-		delegate: ENStateHandlerUpdating
+			initialExposureManagerState:ExposureManagerState,
+			reachabilityService: ReachabilityService,
+			delegate: ENStateHandlerUpdating
 	) {
 		self.reachabilityService = reachabilityService
 		self.delegate = delegate
-		self.exposureManager = exposureManager
-		self.latestState = exposureManager.preconditions()
-		self.currentState = determineCurrentState(from: exposureManager.preconditions())
+		self.latestExposureManagerState = initialExposureManagerState
+		self.currentState = determineCurrentState(from: latestExposureManagerState)
 		self.reachabilityService.observe(on: self) { [weak self] reachabilityState in
 			self?.internet(reachabilityState == .connected)
 		}
-		exposureManager.resume(observer: self)
 	}
 
 	private func internet(_ isReachable: Bool) {
@@ -86,10 +87,10 @@ final class ENStateHandler {
 			}
 		case .internetOff:
 			//FIXME: What does this mean?
-			guard let latestState = latestState else {
-				return
-			}
-			currentState = determineCurrentState(from: latestState)
+//			guard let latestState = latestState else {
+//				return
+//			}
+			currentState = determineCurrentState(from: latestExposureManagerState)
 		case .none:
 			fatalError("Unexpected state found in ENState Handler")
 		}
@@ -126,18 +127,11 @@ final class ENStateHandler {
 			fatalError("New state was added that is not being covered by ENStateHandler")
 		}
 	}
-
-	var state: ENStateHandler.State {
-		currentState
-	}
-
-
 }
 
-extension ENStateHandler : ENAExposureManagerObserver {
-	func exposureManager(_ manager: ENAExposureManager,
-						 didChangeState newState: ExposureManagerState) {
-		latestState = newState
-		currentState = determineCurrentState(from: newState)
+extension ENStateHandler: ExposureStateUpdating {
+	func updateExposureState(_ state: ExposureManagerState) {
+		latestExposureManagerState = state
+		currentState = determineCurrentState(from: state)
 	}
 }

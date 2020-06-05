@@ -229,7 +229,7 @@ private extension ENSettingModel.Content {
 	}
 }
 
-//MARK: ENStateHandler Updating
+// MARK: ENStateHandler Updating
 extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		log(message: "Get the new state: \(state)")

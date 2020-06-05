@@ -103,7 +103,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
-		//exposureManager.resume(observer: self)
+		exposureManager.resume(observer: self)
 
 		UNUserNotificationCenter.current().delegate = self
 
@@ -190,12 +190,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private func presentHomeVC() {
 
 		enStateHandler = ENStateHandler(
-				exposureManager: exposureManager,
+				initialExposureManagerState: exposureManager.preconditions(),
 				reachabilityService: ConnectivityReachabilityService(),
 				delegate: self)
+
+
 		guard let enStateHandler = self.enStateHandler else {
 			fatalError("It should not happen.")
-			return
 		}
 
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
@@ -409,6 +410,7 @@ extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		homeController?.homeInteractor.state.summary = self.state.summary
 		homeController?.updateExposureState(state)
+		enStateHandler?.updateExposureState(state)
 	}
 }
 
