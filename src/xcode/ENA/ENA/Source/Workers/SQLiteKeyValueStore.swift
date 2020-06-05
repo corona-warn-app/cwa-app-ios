@@ -39,6 +39,7 @@ class SQLiteKeyValueStore {
 
 	/// Generates or Loads Database Key
 	/// Creates the K/V Datsbase if it is not already there
+	/// If the Database can't be accessed with the key the currentFile will be reset
 	private func initDatabase() {
 		var key: String
 
@@ -73,7 +74,9 @@ class SQLiteKeyValueStore {
 			value BLOB
 		);
 		"""
-		db.executeStatements(sqlStmt)
+		if !db.executeStatements(sqlStmt) {
+			clearAll()
+		}
 	}
 
 	/// Checks if is the inital Setup of the Database
@@ -146,19 +149,17 @@ class SQLiteKeyValueStore {
 		}
 	}
 
-	/// Removes all key/value pairs from the Store
+	/// Removes the Database File to clear everything
 	func clearAll() {
-		openDbIfNeeded()
-
-		let sqlStmt = """
-		DROP TABLE kv;
-		VACUUM;
-		"""
-		if db.executeStatements(sqlStmt) {
-			rekeyDatabase()
-			db.close()
-		} else {
-			logError(message: "Failed to delete key K/V store")
+		db.close()
+		do {
+			guard let url: URL = db.databaseURL else {
+				logError(message: "DatabaseURL not found in db")
+				return
+			}
+			try FileManager.default.removeItem(at: url)
+		} catch {
+			logError(message: "Failed to delete database file")
 		}
 	}
 
@@ -175,25 +176,10 @@ class SQLiteKeyValueStore {
 			try db.executeUpdate(deleteStmt, values: [])
 			try db.executeUpdate("VACUUM", values: [])
 			log(message: "Flushed SecureStore", level: .info)
-			rekeyDatabase()
 		} catch {
 			logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
 		}
 		return
-	}
-
-	/// Rekeys the database after a reset to generate a new Database Key
-	func rekeyDatabase() {
-		guard let newKey = generateDatabaseKey() else {
-			return
-		}
-
-		let dbhandle = OpaquePointer(db.sqliteHandle)
-		guard sqlite3_rekey(dbhandle, newKey, Int32(newKey.count)) == SQLITE_OK else {
-			logError(message: "Unable to set Key")
-			db.close()
-			return
-		}
 	}
 
 	/// - parameter key: key index to look in the DB for
