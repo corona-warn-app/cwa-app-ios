@@ -64,8 +64,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 	private func setupTitle() {
 		title = AppStrings.ExposureSubmissionIntroduction.title
-		navigationItem.largeTitleDisplayMode = .always
-		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	private func setupTableView() {
