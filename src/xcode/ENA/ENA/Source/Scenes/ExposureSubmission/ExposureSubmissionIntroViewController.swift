@@ -28,10 +28,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		DispatchQueue.main.async { [weak self] in
-			self?.navigationController?.navigationBar.sizeToFit()
-		}
-
 		// The button is shared among multiple controllers,
 		// make sure to reset it whenever the view appears.
 		setButtonTitle(to: "Weiter")
@@ -42,7 +38,8 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		}
 	}
 
-	override func viewWillDisappear(_: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
 		setButtonTitle(to: "")
 	}
 
@@ -67,8 +64,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 	private func setupTitle() {
 		title = AppStrings.ExposureSubmissionIntroduction.title
-		navigationItem.largeTitleDisplayMode = .always
-		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	private func setupTableView() {
@@ -118,7 +113,7 @@ private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
 
 		DynamicSection.section(
-			header: .image(UIImage(named: "Illu_Submission_Funktion1"), height: 200),
+			header: .image(UIImage(named: "Illu_Submission_Funktion1"), accessibilityLabel: nil, height: 200),
 			separators: false,
 			cells: [
 				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01),

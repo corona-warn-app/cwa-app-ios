@@ -127,9 +127,9 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		let barButtonItem = UIBarButtonItem(
-			image: UIImage(named: "Icons - Close - Light"),
+			image: UIImage(named: "Icons - Close"),
 			style: .done, target: self, action: #selector(close)
 		)
 		navigationItem.rightBarButtonItem = barButtonItem
@@ -184,7 +184,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillAppear(animated)
+		super.viewWillDisappear(animated)
 		self.homeViewController?.updateTestResultState()
 	}
 
