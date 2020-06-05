@@ -174,7 +174,7 @@ extension ExposureSubmissionTestResultViewController {
 // MARK: ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
+	func didTapButton() {
 		guard let result = testResult else { return }
 
 		switch result {

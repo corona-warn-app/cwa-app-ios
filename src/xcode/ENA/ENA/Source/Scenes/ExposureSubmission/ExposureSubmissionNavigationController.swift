@@ -25,12 +25,18 @@ class ExposureSubmissionNavigationItem: UINavigationItem {
 
 protocol ExposureSubmissionNavigationControllerChild: AnyObject {
 	var bottomView: UIView? { get }
-	func didTapBottomButton()
+	func didTapButton()
 	func didTapSecondButton()
 }
 
 extension ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {}
+
+	/// Default handler for the button that appears at the bottom of the screen.
+	func didTapButton() {}
+
+	/// This is the handler for the second button that appears under the
+	/// button normally shown in the screens. Currently,
+	/// you can find this button used in `ExposureSubmissionHotlineViewController.swift`.
 	func didTapSecondButton() {}
 }
 
@@ -334,7 +340,7 @@ extension ExposureSubmissionNavigationController {
 
 	@objc
 	private func didTapButton() {
-		(topViewController as? ExposureSubmissionNavigationControllerChild)?.didTapBottomButton()
+		(topViewController as? ExposureSubmissionNavigationControllerChild)?.didTapButton()
 	}
 
 	@objc

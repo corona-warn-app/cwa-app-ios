@@ -45,7 +45,7 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 		backgroundColor = .preferredColor(for: .backgroundPrimary)
 
 		// MARK: - Add inset view
-		insetView.backgroundColor = .preferredColor(for: .separator)
+		insetView.backgroundColor = .preferredColor(for: .backgroundSecondary)
 		insetView.layer.cornerRadius = 16.0
 
 		// MARK: - Title adjustment.
