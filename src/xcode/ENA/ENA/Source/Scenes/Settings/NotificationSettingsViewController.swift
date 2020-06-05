@@ -50,7 +50,6 @@ class NotificationSettingsViewController: UIViewController {
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.separatorColor = .preferredColor(for: .hairline)
-		setTableViewEstimatedRowHeight()
 
 		navigationItem.title = AppStrings.NotificationSettings.navigationBarTitle
 		navigationController?.navigationBar.prefersLargeTitles = true
@@ -72,10 +71,6 @@ class NotificationSettingsViewController: UIViewController {
 		tableViewHeightConstraint.constant = tableView.contentSize.height
 	}
 
-	override func traitCollectionDidChange(_: UITraitCollection?) {
-		setTableViewEstimatedRowHeight()
-	}
-
 	@IBAction func openSettings(_ sender: Any) {
 		guard let settingsURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsURL) else {
 			return
@@ -87,10 +82,6 @@ class NotificationSettingsViewController: UIViewController {
 	@objc
 	private func willEnterForeground() {
 		notificationSettings()
-	}
-
-	private func setTableViewEstimatedRowHeight() {
-		tableView.estimatedRowHeight = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? 260 : 60
 	}
 
 	private func notificationSettings() {
@@ -120,15 +111,26 @@ class NotificationSettingsViewController: UIViewController {
 			titleLabel.isHidden = true
 		}
 
-		if let openSettings = viewModel.openSettings {
-			infoView.isHidden = false
-			infoView.layer.cornerRadius = 14
-			infoViewTitleLabel.text = openSettings.title
-			infoViewImage.image = UIImage(named: openSettings.icon)
-			infoViewDescriptionLabel.text = openSettings.description
-			infoViewButton.setTitle(openSettings.openSettings, for: .normal)
-		} else {
+		setupInfoView(viewModel.openSettings)
+	}
+
+	private func setupInfoView(_ viewModel: NotificationSettingsViewModel.OpenSettings?) {
+		guard let viewModel = viewModel else {
 			infoView.isHidden = true
+			return
+		}
+
+		infoView.isHidden = false
+
+		infoView.layer.cornerRadius = 14
+		infoViewTitleLabel.text = viewModel.title
+		infoViewImage.image = UIImage(named: viewModel.icon)
+		infoViewDescriptionLabel.text = viewModel.description
+		infoViewButton.setTitle(viewModel.openSettings, for: .normal)
+		infoViewButton.titleLabel?.lineBreakMode = .byWordWrapping
+
+		if let infoViewButton = infoViewButton {
+			infoViewButton.addConstraint(NSLayoutConstraint(item: infoViewButton, attribute: .height, relatedBy: .equal, toItem: infoViewButton.titleLabel, attribute: .height, multiplier: 1, constant: 0))
 		}
 	}
 }
@@ -188,9 +190,15 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		}
 	}
 
-	private func cellSeparatorView(_ tableView: UITableView) -> UIView {
-		let view = UIView()
-		view.backgroundColor = tableView.separatorColor
-		return view
+	func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+		let section = viewModel.sections[indexPath.section]
+		let isAccessibility = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
+
+		switch section {
+		case .settingsOn:
+			return isAccessibility ? 220 : 44
+		case .settingsOff:
+			return isAccessibility ? 120 : 44
+		}
 	}
 }

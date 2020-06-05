@@ -115,17 +115,17 @@ Wenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitglieder
 "Settings_NavTitle" = "Einstellungen";
 
 /* Noticiation Settings */
-"NotificationSettings_On_Title" = "Möchten Sie Benachrichtigungen zu Ihrem Covid-19-Risikostatus aktivieren?";
+"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem Covid-19-Risikostatus aktivieren?";
 "NotificationSettings_On_SectionTitle" = "Einstellung";
 "NotificationSettings_On_RiskChanges" = "Änderung Ihres Infektionsrisikos";
-"NotificationSettings_On_TestsStatus" = "Status Ihres COVID-19 Tests";
+"NotificationSettings_On_TestsStatus" = "Status Ihres Coronavirus-Tests";
 
 "NotificationSettings_Off_SectionTitle" = "Einstellung";
 "NotificationSettings_Off_EnableNotifications" = "Mitteilungen";
 "NotificationSettings_Off_StatusInactive" = "Aus";
 "NotificationSettings_Off_InfoTitle" = "Mitteilungen aktivieren";
-"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihrem Geräte-Einstellungen zulassen.";
-"NotificationSettings_Off_OpenSettings" = "Einstellungen App öffnen";
+"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Geräte-Einstellungen zulassen.";
+"NotificationSettings_Off_OpenSettings" = "App-Einstellungen öffnen";
 
 "NotificationSettings_NavTitle" = "Mitteilungen";
 
