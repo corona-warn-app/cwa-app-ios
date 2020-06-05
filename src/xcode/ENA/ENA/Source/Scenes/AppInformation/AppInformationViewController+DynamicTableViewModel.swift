@@ -95,7 +95,10 @@ extension AppInformationViewController {
 extension AppInformationViewController {
 	private static let aboutModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_AppInfo_UeberApp"), height: 230),
+			header: .image(UIImage(named: "Illu_AppInfo_UeberApp"),
+						   // TODO: gg=et the accessibility content for this image
+						   //accessibilityLabel: AppStrings.AppInformation.aboutImageDescription,
+						   height: 230),
 			cells: [
 				.title2(text: AppStrings.AppInformation.aboutTitle),
 				.headline(text: AppStrings.AppInformation.aboutDescription),
@@ -106,7 +109,9 @@ extension AppInformationViewController {
 
 	private static let contactModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Kontakt"), height: 230),
+			header: .image(UIImage(named: "Illu_Appinfo_Kontakt"),
+						   accessibilityLabel: AppStrings.AppInformation.contactImageDescription,
+						   height: 230),
 			cells: [
 				.title2(text: AppStrings.AppInformation.contactTitle),
 				.body(text: "App_Information_Contact_Description".localized),
@@ -120,7 +125,9 @@ extension AppInformationViewController {
 
 	private static let imprintModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Impressum"), height: 230),
+			header: .image(UIImage(named: "Illu_Appinfo_Impressum"),
+						   accessibilityLabel: AppStrings.AppInformation.imprintImageDescription,
+						   height: 230),
 			cells: [
 				.headline(text: AppStrings.AppInformation.imprintSection1Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection1Text),
@@ -136,7 +143,10 @@ extension AppInformationViewController {
 
 	private static let privacyModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Datenschutz"), height: 230),
+			header: .image(UIImage(named: "Illu_Appinfo_Datenschutz"),
+						   // TODO: gg=et the accessibility content for this image
+						   //accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
+						   height: 230),
 			footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)),
 			cells: [
 				.title2(text: AppStrings.AppInformation.privacyTitle),
@@ -152,7 +162,9 @@ extension AppInformationViewController {
 
 	private static let termsModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"), height: 230),
+			header: .image(UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"),
+						   accessibilityLabel: AppStrings.AppInformation.termsImageDescription,
+						   height: 230),
 			cells: [
 				.title2(text: AppStrings.AppInformation.termsTitle),
 				.body(text: AppStrings.AppInformation.termsDescription),

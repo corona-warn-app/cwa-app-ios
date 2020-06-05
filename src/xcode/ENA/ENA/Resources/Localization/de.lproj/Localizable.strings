@@ -602,6 +602,8 @@
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
 
+"App_Information_About_ImageDescription" = "";
+
 "App_Information_About_Title" = "Gemeinsam Corona bekämpfen";
 
 "App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App für die gesamte Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
@@ -615,6 +617,8 @@
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Technische Hotline";
+
+"App_Information_Contact_ImageDescription" = "Ein Mann nutzt ein Headset zum Telefonieren";
 
 "App_Information_Contact_Title" = "Wie können wir Ihnen helfen?";
 
@@ -632,6 +636,8 @@
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
+
+"App_Information_Imprint_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Paragraphenzeichen als Symbol für das Impressum.";
 
 "App_Information_Imprint_Section1_Title" = "Herausgeber";
 
@@ -652,8 +658,12 @@
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
+"App_Information_Legal_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist eine Balkenwaage als Symbol für rechtliche Hinweise.";
+
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Datenschutz";
+
+"App_Information_Privacy_ImageDescription" = "";
 
 "App_Information_Privacy_Title" = "Datenschutz";
 
@@ -663,6 +673,8 @@
 
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "Nutzungsbedingungen";
+
+"App_Information_Terms_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Haken als Symbol für akzeptierte Nutzungsbedingungen.";
 
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
 

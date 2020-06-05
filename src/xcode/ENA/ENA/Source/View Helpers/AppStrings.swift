@@ -530,7 +530,6 @@ enum AppStrings {
 		static let termsTitle = NSLocalizedString("App_Information_Terms_Title", comment: "")
 		static let termsDescription = NSLocalizedString("App_Information_Terms_Description", comment: "")
 		static let termsText = NSLocalizedString("App_Information_Terms_Text", comment: "")
-		static let termsImage1Acclabel = NSLocalizedString("App_Information_Terms_Image1_AccLabel", comment: "")
 	}
 
 }
