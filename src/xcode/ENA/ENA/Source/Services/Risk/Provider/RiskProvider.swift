@@ -124,9 +124,7 @@ extension RiskProvider: RiskProviding {
 		}()
 
 		let requiresExposureDetectionRun = Date() > exposureDetectionValidUntil
-
 		var newSummary: ENExposureDetectionSummaryContainer?
-
 		let group = DispatchGroup()
 
 		if requiresExposureDetectionRun {
@@ -139,7 +137,6 @@ extension RiskProvider: RiskProviding {
 			}
 		}
 
-
 		var appConfiguration: SAP_ApplicationConfiguration?
 		group.enter()
 
@@ -151,6 +148,7 @@ extension RiskProvider: RiskProviding {
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
 			return
 		}
+		
 		let summary = newSummary ?? store.previousSummary
 
 		guard let _appConfiguration = appConfiguration else {
@@ -159,23 +157,22 @@ extension RiskProvider: RiskProviding {
 		
 		let tracingHistory = self.store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.countEnabledHours()
-		let risk = RiskCalculation.risk(
-			summary: summary,
-			configuration: _appConfiguration,
-			dateLastExposureDetection: self.store.dateLastExposureDetection,
-			numberOfTracingActiveHours: numberOfEnabledHours,
-			preconditions: self.exposureManagerState,
-			currentDate: Date(),
-			previousSummary: store.previousSummary
-		)
+		guard
+			let risk = RiskCalculation.risk(
+				summary: summary,
+				configuration: _appConfiguration,
+				dateLastExposureDetection: self.store.dateLastExposureDetection,
+				numberOfTracingActiveHours: numberOfEnabledHours,
+				preconditions: self.exposureManagerState,
+				currentDate: Date(),
+				previousSummary: store.previousSummary
+			) else {
+				print("send email to christopher")
+				return
+		}
 
 		for consumer in consumers.allObjects {
-			switch risk {
-			case .success(let rl):
-				_provideRisk(rl, to: consumer)
-			case .failure:
-				print("fail")
-			}
+			_provideRisk(risk, to: consumer)
 		}
 	}
 

@@ -35,10 +35,6 @@ final class ENStateTests: XCTestCase {
 		)
 	}
 
-	override func tearDown() {
-		super.tearDown()
-	}
-
 	// MARK: Enable/Disable State Tests
 
 	// statehandler should reflect enabled state after setup

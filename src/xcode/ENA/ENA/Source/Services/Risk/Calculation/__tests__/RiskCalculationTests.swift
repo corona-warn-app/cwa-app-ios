@@ -44,7 +44,7 @@ final class RiskCalculationTests: XCTestCase {
 
 	// MARK: - Tests for calculating risk levels
 
-	func testCalculateRisk_Inactive() throws {
+	func testCalculateRisk_Inactive() {
 		// Test the condition when the risk is returned as inactive
 		// This occurs when the preconditions are not met, ex. when tracing is off.
 		let risk = RiskCalculation.risk(
@@ -56,10 +56,10 @@ final class RiskCalculationTests: XCTestCase {
 			previousSummary: nil
 		)
 
-		XCTAssertEqual(try risk.get().level, .inactive)
+		XCTAssertEqual(risk?.level, .inactive)
 	}
 
-	func testCalculateRisk_UnknownInitial() throws {
+	func testCalculateRisk_UnknownInitial() {
 		// Test the condition when the risk is returned as unknownInitial
 
 		// That will happen when:
@@ -67,7 +67,7 @@ final class RiskCalculationTests: XCTestCase {
 		// 2. There is no ENExposureDetectionSummary to use
 
 		// Test case for tracing not being active long enough
-		var risk = try RiskCalculation
+		var risk = RiskCalculation
 			.risk(
 				summary: summaryLow,
 				configuration: appConfig,
@@ -76,42 +76,41 @@ final class RiskCalculationTests: XCTestCase {
 				preconditions: preconditions(.valid),
 				previousSummary: nil
 			)
-			.get()
 
-		XCTAssertEqual(risk.level, .unknownInitial)
+		XCTAssertEqual(risk?.level, .unknownInitial)
 
 		// Test case when summary is nil
-		risk = try RiskCalculation.risk(
+		risk = RiskCalculation.risk(
 			summary: nil,
 			configuration: appConfig,
 			dateLastExposureDetection: Date(),
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid),
 			previousSummary: nil
-		).get()
+		)
 
-		XCTAssertEqual(risk.level, .unknownInitial)
+		XCTAssertEqual(risk?.level, .unknownInitial)
 	}
 
-	func testCalculateRisk_UnknownOutdated() throws {
+	func testCalculateRisk_UnknownOutdated() {
 		// Test the condition when the risk is returned as unknownOutdated.
 
 		// That will happen when the date of last exposure detection is older than one day
-		let risk = try RiskCalculation.risk(
+		let risk = RiskCalculation.risk(
 			summary: summaryLow,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid),
 			previousSummary: nil
-		).get()
+		)
 
-		XCTAssertEqual(risk.level, .unknownOutdated)
+		XCTAssertEqual(risk?.level, .unknownOutdated)
 	}
 
-	func testCalculateRisk_LowRisk() throws {
+	func testCalculateRisk_LowRisk() {
 		// Test the case where preconditions pass and there is low risk
-		let risk = try RiskCalculation.risk(
+		let risk = RiskCalculation.risk(
 			summary: summaryLow,
 			configuration: appConfig,
 			// arbitrary, but within limit
@@ -119,14 +118,14 @@ final class RiskCalculationTests: XCTestCase {
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid),
 			previousSummary: nil
-		).get()
+		)
 
-		XCTAssertEqual(risk.level, .low)
+		XCTAssertEqual(risk?.level, .low)
 	}
 
-	func testCalculateRisk_IncreasedRisk() throws {
+	func testCalculateRisk_IncreasedRisk() {
 		// Test the case where preconditions pass and there is increased risk
-		let risk = try RiskCalculation.risk(
+		let risk = RiskCalculation.risk(
 			summary: summaryHigh,
 			configuration: appConfig,
 			// arbitrary, but within limit
@@ -134,14 +133,14 @@ final class RiskCalculationTests: XCTestCase {
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid),
 			previousSummary: nil
-		).get()
+		)
 
-		XCTAssertEqual(risk.level, .increased)
+		XCTAssertEqual(risk?.level, .increased)
 	}
 
 	// MARK: - Risk Level Calculation Error Cases
 
-	func testCalculateRisk_OutsideRangeError_Middle() throws {
+	func testCalculateRisk_OutsideRangeError_Middle() {
 		// Test the case where preconditions pass and there is increased risk
 		// Values below are hand-picked to result in a raw risk score of 5.12 - within a gap in the range
 		let summary = makeExposureSummaryContainer(maxRiskScoreFullRange: 128, ad_low: 30, ad_mid: 30, ad_high: 30)
@@ -155,10 +154,10 @@ final class RiskCalculationTests: XCTestCase {
 			previousSummary: nil
 		)
 
-		XCTAssertThrowsError(try risk.get())
+		XCTAssertNil(risk)
 	}
 
-	func testCalculateRisk_OutsideRangeError_OffHigh() throws {
+	func testCalculateRisk_OutsideRangeError_OffHigh() {
 		// Test the case where preconditions pass and there is increased risk
 		// Values below are hand-picked to result in a raw risk score of 13.6 - outside of the top range of the config
 		let summary = makeExposureSummaryContainer(maxRiskScoreFullRange: 255, ad_low: 40, ad_mid: 40, ad_high: 40)
@@ -172,10 +171,10 @@ final class RiskCalculationTests: XCTestCase {
 			previousSummary: nil
 		)
 
-		XCTAssertThrowsError(try risk.get())
+		XCTAssertNil(risk)
 	}
 
-	func testCalculateRisk_OutsideRangeError_TooLow() throws {
+	func testCalculateRisk_OutsideRangeError_TooLow() {
 		// Test the case where preconditions pass and there is increased risk
 		// Values below are hand-picked to result in a raw risk score of 0.85 - outside of the botton bound of the config
 		let summary = makeExposureSummaryContainer(maxRiskScoreFullRange: 64, ad_low: 10, ad_mid: 10, ad_high: 10)
@@ -189,40 +188,40 @@ final class RiskCalculationTests: XCTestCase {
 			previousSummary: nil
 		)
 
-		XCTAssertThrowsError(try risk.get())
+		XCTAssertNil(risk)
 	}
 
 	// MARK: - Risk Level Calculation Hierarchy Tests
 
 	// There is a certain order to risk levels, and some override others. This is tested below.
 
-	func testCalculateRisk_IncreasedOverridesUnknownOutdated() throws {
+	func testCalculateRisk_IncreasedOverridesUnknownOutdated() {
 		// Test case where last exposure summary was gotten too far in the past,
 		// But the risk is increased
-		let risk = try RiskCalculation.risk(
+		let risk = RiskCalculation.risk(
 			summary: summaryHigh,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid),
 			previousSummary: nil
-		).get()
+		)
 
-		XCTAssertEqual(risk.level, .increased)
+		XCTAssertEqual(risk?.level, .increased)
 	}
 
-	func testCalculateRisk_UnknownInitialOverridesUnknownOutdated() throws {
+	func testCalculateRisk_UnknownInitialOverridesUnknownOutdated() {
 		// Test case where last exposure summary was gotten too far in the past,
-		let risk = try RiskCalculation.risk(
+		let risk = RiskCalculation.risk(
 			summary: nil,
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid),
 			previousSummary: nil
-		).get()
+		)
 
-		XCTAssertEqual(risk.level, .unknownInitial)
+		XCTAssertEqual(risk?.level, .unknownInitial)
 	}
 }
 
@@ -254,9 +253,14 @@ private extension RiskCalculationTests {
 	private func preconditions(_ state: PreconditionState) -> ExposureManagerState {
 		switch state {
 		case .valid:
-			return ExposureManagerState(authorized: true, enabled: true, status: .active)
+			return .init(
+				authorized: true,
+				enabled: true,
+				status:
+				.active
+			)
 		default:
-			return ExposureManagerState(authorized: true, enabled: false, status: .disabled)
+			return .init(authorized: true, enabled: false, status: .disabled)
 		}
 	}
 

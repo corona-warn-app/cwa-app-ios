@@ -63,7 +63,9 @@ enum RiskCalculation {
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date()
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
+//		return .success(.increased)
 		var riskLevel = RiskLevel.low
+
 		DispatchQueue.main.async {
 			let appDelegate = UIApplication.shared.delegate as? AppDelegate  // TODO: Remove
 			appDelegate?.lastRiskCalculation = ""  // Reset; Append from here on
@@ -73,7 +75,6 @@ enum RiskCalculation {
 			appDelegate?.lastRiskCalculation.append("currentDate: \(currentDate)\n")
 			appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
 		}
-
 
 		// Precondition 1 - Exposure Notifications must be turned on
 		guard preconditions.isGood else {
@@ -177,7 +178,7 @@ enum RiskCalculation {
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date(),
 		previousSummary: ENExposureDetectionSummaryContainer?
-	) -> Result<Risk, RiskLevelCalculationError> {
+	) -> Risk? {
 		switch riskLevel(
 			summary: summary,
 			configuration: configuration,
@@ -192,8 +193,9 @@ enum RiskCalculation {
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
 
-			var riskLevelHasIncreased: Bool = false
-			if let summary = summary,
+			var riskLevelHasIncreased = false
+			if
+				let summary = summary,
 				let previousSummary = previousSummary,
 				RiskLevel(riskScore: summary.maximumRiskScore) == .increased,
 				RiskLevel(riskScore: summary.maximumRiskScore) > RiskLevel(riskScore: previousSummary.maximumRiskScore) {
@@ -205,12 +207,16 @@ enum RiskCalculation {
 				let appDelegate = UIApplication.shared.delegate as? AppDelegate
 				appDelegate?.lastRiskCalculation.append("\n ===== Risk =====\n")
 				appDelegate?.lastRiskCalculation.append("details: \(details)\n")
-				appDelegate?.lastRiskCalculation.append("summary: \(summary)\n")
+				appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary))\n")
 			}
 
-			return .success(Risk(level: level, details: details, riskLevelHasIncreased: riskLevelHasIncreased))
-		case .failure(let error):
-			return .failure(error)
+			return Risk(
+				level: level,
+				details: details,
+				riskLevelHasIncreased: riskLevelHasIncreased
+			)
+		case .failure:
+			return nil
 		}
 	}
 }
@@ -234,13 +240,6 @@ extension Date {
 	}
 }
 
-extension Array where Element == SAP_RiskScoreClass {
-	private func firstWhereLabel(is label: String) -> SAP_RiskScoreClass? {
-		first(where: { $0.label == label })
-	}
-	var low: SAP_RiskScoreClass? { firstWhereLabel(is: "LOW") }
-	var high: SAP_RiskScoreClass? { firstWhereLabel(is: "HIGH") }
-}
 
 extension Double {
 	func rounded(to places: Int) -> Double {

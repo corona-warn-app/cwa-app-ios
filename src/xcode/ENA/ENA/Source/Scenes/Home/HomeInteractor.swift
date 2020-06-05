@@ -18,12 +18,10 @@
 import ExposureNotification
 import Foundation
 
-// swiftlint:disable:next type_body_length
 final class HomeInteractor {
 
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
-
 
 	enum UserLoadingMode {
 		case automatic
