@@ -30,9 +30,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 		// The button is shared among multiple controllers,
 		// make sure to reset it whenever the view appears.
-		setButtonTitle(to: "Weiter")
-
-
+		setButtonTitle(to: AppStrings.ExposureSubmission.continueText)
 		if exposureSubmissionService?.hasRegistrationToken() ?? false {
 			fetchResult()
 		}
@@ -40,7 +38,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		setButtonTitle(to: "")
 	}
 
 	override func viewDidLoad() {
@@ -89,7 +86,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 	// MARK: - ExposureSubmissionNavigationControllerChild methods.
 
-	func didTapBottomButton() {
+	func didTapButton() {
 		performSegue(withIdentifier: Segue.overview, sender: self)
 	}
 
@@ -114,7 +111,11 @@ private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
 		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle),
 		.section(
-			header: .image(UIImage(named: "Illu_Submission_Funktion1"), accessibilityLabel: nil, height: 200),
+			header: .image(
+				UIImage(named: "Illu_Submission_Funktion1"),
+				accessibilityLabel: nil,
+				height: 200
+			),
 			separators: false,
 			cells: [
 				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01),
