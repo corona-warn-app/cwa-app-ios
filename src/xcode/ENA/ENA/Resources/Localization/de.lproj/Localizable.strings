@@ -476,6 +476,11 @@
 
 "Home_Activate_Card_Internet_Off_Title" = "Keine Internetverbindung";
 
+/* Home common card */
+
+"Home_Risk_Date_Item_Title" = "Aktualisiert: %@";
+"Home_Risk_No_Date_Title" = "Unbekannt";
+
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 
@@ -484,29 +489,26 @@
 "Home_RiskCard_Unknown_Button" = "Aktualisieren";
 
 /* Home Inactive card */
-"Home_Risk_Inactive_Title" = "Keine Risikoprüfung";
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Risiko-Ermittlung gestoppt";
+"Home_Risk_Inactive_Outdated_Results_Title" = "Risiko-Ermittlung nicht möglich";
 
-"Home_Risk_Inactive_Body" = "Aktivieren Sie die Risiko-Ermittlung, um Ihr Risiko zu aktualisieren.";
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Aktivieren Sie die Risiko-Ermittlung, um Ihre heutige Risiko-Einschätzung zu berechnen.";
+"Home_Risk_Inactive_Outdated_Results_Body" = "Ihre Risiko-Berechnung konnte seit mehr als 24 Stunden nicht aktualisiert werden.";
 
 "Home_Risk_Inactive_Activate_Item_Title" = "Letzte Ermittlung: %@";
 
-"Home_Risk_Inactive_Date_Item_Title" = "Aktualisiert: %@";
-
-"Home_Risk_Inactive_Button" = "Risiko-Ermittlung einschalten";
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Risiko-Ermittlung einschalten";
+"Home_Risk_Inactive_Outdated_Results_Button" = "Risiko-Ermittlung einschalten";
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
 "Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen aktiv";
 
-"Home_Risk_Low_Date_Item_Title" = "Aktualisiert: %@";
-
 "Home_Risk_Low_Button" = "Aktualisieren";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
-
-"Home_Risk_High_Date_Item_Title" = "Aktualisiert: %@";
 
 "Home_Risk_High_Button" = "Aktualisieren";
 
