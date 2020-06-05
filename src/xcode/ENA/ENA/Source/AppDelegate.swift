@@ -77,7 +77,7 @@ extension AppDelegate: ExposureSummaryProvider {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	private let consumer = RiskConsumer()
 	let taskScheduler = ENATaskScheduler.shared
-	lazy var riskProvier: RiskProvider = {
+	lazy var riskProvider: RiskProvider = {
 		var duration = DateComponents()
 		duration.day = 1
 
@@ -153,7 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.taskDelegate = self
-		riskLevelProvider.observeRisk(consumer)
+		riskProvider.observeRisk(consumer)
 
 		return true
 	}
@@ -372,7 +372,7 @@ extension AppDelegate: RequiresAppDependencies, ENATaskExecutionDelegate {
 			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
-		riskLevelProvider.requestRisk()
+		riskProvider.requestRisk()
 
 		task.expirationHandler = {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
