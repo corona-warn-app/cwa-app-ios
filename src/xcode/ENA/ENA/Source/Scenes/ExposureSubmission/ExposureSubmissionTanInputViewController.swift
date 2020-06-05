@@ -58,12 +58,10 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		setButtonEnabled(enabled: tanInput.isValid)
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
 
-		descriptionLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
 		descriptionLabel.adjustsFontForContentSizeCategory = true
 		descriptionLabel.lineBreakMode = .byWordWrapping
 		descriptionLabel.numberOfLines = 0
 		infoLabel.text = AppStrings.ExposureSubmissionTanEntry.info
-		infoLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .regular))
 	}
 
 	private func fetchService() {
