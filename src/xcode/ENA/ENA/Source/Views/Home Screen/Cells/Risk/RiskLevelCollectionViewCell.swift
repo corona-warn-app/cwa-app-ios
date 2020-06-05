@@ -110,7 +110,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool) {
 		UIView.performWithoutAnimation {
 			updateButton.setTitle(title, for: .normal)
-			updateButton.setNeedsLayout()
+			updateButton.layoutIfNeeded()
 		}
 		updateButton.isEnabled = isEnabled
 		updateButton.isHidden = isHidden
