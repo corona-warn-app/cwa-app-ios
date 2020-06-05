@@ -46,8 +46,7 @@ final class HomeViewController: UIViewController {
 		homeInteractor = HomeInteractor(
 			homeViewController: self,
 			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
-			taskScheduler: taskScheduler
+			state: .init(isLoading: false, summary: nil, exposureManager: .init())
 		)
 
 		exposureSubmissionService = ENAExposureSubmissionService(
@@ -60,8 +59,7 @@ final class HomeViewController: UIViewController {
 			homeViewController: self,
 			store: store,
 			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
-			exposureSubmissionService: exposureSubmissionService,
-			taskScheduler: taskScheduler
+			exposureSubmissionService: exposureSubmissionService
 		)
 	}
 
@@ -121,7 +119,7 @@ final class HomeViewController: UIViewController {
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-				let image = UIImage(named: "navi_bar_icon")
+				let image = UIImage(named: "Corona-Warn-App")
 				let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 				leftItem.isEnabled = false
 				self.navigationItem.leftBarButtonItem = leftItem
@@ -282,8 +280,6 @@ final class HomeViewController: UIViewController {
 		case is RiskFindingPositiveCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is HomeTestResultCell:
-			// Do not allow to open a pending test.
-			guard let result = homeInteractor.testResult, result != .pending else { return }
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is SubmitCollectionViewCell:
 			showExposureSubmission()
@@ -415,8 +411,7 @@ final class HomeViewController: UIViewController {
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
-
-		let image = UIImage(named: "navi_bar_icon")
+		let image = UIImage(named: "Corona-Warn-App")
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
 		self.navigationItem.leftBarButtonItem = leftItem
