@@ -34,13 +34,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>No risk exposures up to now</string>
+			<string>No exposure up to now</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>%u risk exposure</string>
+			<string>%u exposure</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u risk exposures</string>
+			<string>%u exposures</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_LastExposure</key>
@@ -55,13 +55,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Last Exposure: Today</string>
+			<string>Last encounter: today</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Last Exposure: Yesterday</string>
+			<string>Last encounter: yesterday</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u Tage seit letzter Begegnung</string>
+			<string>%u days since last encounter</string>
 		</dict>
 	</dict>
     <key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -76,13 +76,13 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-            <string>No exposure risk up to now</string>
+            <string>No exposure up to now</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One -->
-            <string>%u risk exposure</string>
+            <string>%u exposure</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
-            <string>%u risk exposures</string>
+            <string>%u exposures</string>
         </dict>
     </dict>
     <key>Home_Risk_High_Last_Contact_Item_Title</key>
@@ -97,13 +97,13 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-            <string>Less than one day since the last exposure</string>
+            <string>Less than one day since the last encounter</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One -->
-            <string>%u day since the last exposure</string>
+            <string>%u day since the last encounter</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
-            <string>%u days since the last exposure</string>
+            <string>%u days since the last encounter</string>
         </dict>
     </dict>
     <key>Home_Risk_Status_Counter_Label</key>
@@ -149,13 +149,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>No exposure risk up to now</string>
+			<string>No exposure up to now</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>%u risk exposure</string>
+			<string>%u exposure</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u risk exposures</string>
+			<string>%u exposures</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Last_Contact_Item_Title</key>
@@ -170,13 +170,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Less than one day since the last exposure</string>
+			<string>Less than one day since the last encounter</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>%u day since the last exposure</string>
+			<string>%u day since the last encounter</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u days since the last exposure</string>
+			<string>%u days since the last encounter</string>
 		</dict>
 	</dict>
 	<key>ENSetting_Tracing_History</key>
@@ -191,16 +191,16 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Risk calculation has been active for less than one day.
-A risk check can only be reliable if the risk calculation is permanently activated.</string>
+			<string>Exposure logging has been active for less than one day.
+An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Risiko-Ermittlung ist seit %u Tag aktiv.
-Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<string>Exposure logging has been active for less than %u day.
+An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>Risiko-Ermittlung ist seit %u Tagen aktiv.
-Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<string>Exposure logging has been active for less than %u days.
+An exposure check can only be reliable if exposure logging is permanently activated.</string>
 		</dict>
 	</dict>
 </dict>
