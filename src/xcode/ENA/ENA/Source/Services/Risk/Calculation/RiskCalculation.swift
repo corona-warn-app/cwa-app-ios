@@ -19,6 +19,7 @@
 
 import Foundation
 import ExposureNotification
+import UIKit
 
 enum RiskCalculation {
 
