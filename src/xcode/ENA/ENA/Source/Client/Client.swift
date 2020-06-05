@@ -111,7 +111,7 @@ extension SubmissionError: LocalizedError {
 	var localizedDescription: String {
 		switch self {
 		case let .serverError(code):
-			return HTTPURLResponse.localizedString(forStatusCode: code)
+			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .invalidPayloadOrHeaders:
 			return "Received an invalid Payload or headers."
 		case .invalidTan:

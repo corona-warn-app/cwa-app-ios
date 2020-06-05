@@ -26,7 +26,6 @@ enum AppStoryboard: String {
 	case developerMenu = "DeveloperMenu"
 	case inviteFriends = "InviteFriends"
 	case exposureDetection = "ExposureDetection"
-	case appInformation = "AppInformation"
 	case riskLegend = "RiskLegend"
 
 	var instance: UIStoryboard {

@@ -26,6 +26,7 @@ final class SapFileBucketTests: XCTestCase {
 		let fixtureUrl = bundle.url(
 			forResource: "api-response-day-2020-05-16",
 			withExtension: nil
+			// swiftlint:disable:next force_unwrapping
 		)!
 
 		let fixtureData = try Data(contentsOf: fixtureUrl)

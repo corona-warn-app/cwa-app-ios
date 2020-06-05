@@ -50,4 +50,5 @@ enum Accessibility {
 		static let appInformationCardTitle = "appInformationCardTitle"
 		static let settingsCardTitle = "settingsCardTitle"
 	}
+
 }

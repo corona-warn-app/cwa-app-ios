@@ -18,18 +18,12 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
+import Reachability
 
-final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
 
 	var window: UIWindow?
-	var store: Store {
-		UIApplication.coronaWarnDelegate().store
-	}
-
-	private var diagnosisKeysStore: DownloadedPackagesStore {
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore
-	}
 
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
@@ -39,10 +33,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
 	}()
 	#else
-	private let exposureManager = ENAExposureManager()
+	private let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
-	private let taskScheduler = ENATaskScheduler()
-	private let navigationController: UINavigationController = .withLargeTitle()
+	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {
 		didSet {
@@ -99,6 +92,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		return HTTPClient(configuration: config)
 	}()
 
+
+	private var enStateHandler:ENStateHandler?
+
+
 	// MARK: UISceneDelegate
 
 	func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
@@ -109,7 +106,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		exposureManager.resume(observer: self)
 
 		UNUserNotificationCenter.current().delegate = self
-		taskScheduler.scheduleBackgroundTaskRequests()
 
 		setupUI()
 
@@ -125,49 +121,116 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			)
 	}
 
+	func sceneWillEnterForeground(_ scene: UIScene) {
+		let state = exposureManager.preconditions()
+		let newState = ExposureManagerState(
+				authorized: ENManager.authorizationStatus == .authorized,
+				enabled: state.enabled,
+				status: state.status
+		)
+		updateExposureState(newState)
+	}
+
+
+	func sceneDidBecomeActive(_: UIScene) {
+		hidePrivacyProtectionWindow()
+		UIApplication.shared.applicationIconBadgeNumber = 0
+	}
+
+	func sceneWillResignActive(_: UIScene) {
+		showPrivacyProtectionWindow()
+	}
+
+	func sceneDidEnterBackground(_ scene: UIScene) {
+		taskScheduler.scheduleBackgroundTaskRequests()
+	}
+
 	// MARK: Helper
 
 	private func setupUI() {
-		store.isOnboarded ? showHome() : showOnboarding()
+		setupNavigationBarAppearance()
+
+		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
+			showOnboarding()
+		} else if !store.isOnboarded {
+			showOnboarding()
+		} else {
+			showHome()
+		}
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 	}
 
+	private func setupNavigationBarAppearance() {
+		let appearance = UINavigationBar.appearance()
+		appearance.tintColor = .enaColor(for: .tint)
+		appearance.titleTextAttributes = [
+			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
+		appearance.largeTitleTextAttributes = [
+			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
+			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
+	}
+
 	private func showHome(animated _: Bool = false) {
+		//FIXME: During the onboarding, if the user decline, the status == Unknown.
+		//After that
 		if exposureManager.preconditions().status == .active {
 			presentHomeVC()
 		} else {
-			log(message: "ExposureManager not activate yet.")
+//			let enManager = ENManager()
+//			enManager.activate { theError in
+//				if let theError = theError {
+//					logError(message: "Cannot activate the  ENManager. The reason is \(theError)")
+//					return
+//				}
+//				self.presentHomeVC()
+//			}
+
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					// TODO: Error handling, if error occurs, what can we do?
 					logError(message: "Cannot activate the  ENManager. The reason is \(error)")
 					return
 				}
+				//TODO: Set some state
 				self?.presentHomeVC()
 			}
 		}
 	}
 
 	private func presentHomeVC() {
+
+		enStateHandler = ENStateHandler(
+				initialExposureManagerState: exposureManager.preconditions(),
+				reachabilityService: ConnectivityReachabilityService(),
+				delegate: self)
+
+
+		guard let enStateHandler = self.enStateHandler else {
+			fatalError("It should not happen.")
+		}
+
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
-			let homeVC = HomeViewController(
+			HomeViewController(
 				coder: coder,
 				exposureManager: self.exposureManager,
-				client: UIApplication.coronaWarnDelegate().client,
+				client: self.client,
 				store: self.store,
-				keyPackagesStore: self.diagnosisKeysStore,
-				delegate: self
+				keyPackagesStore: self.downloadedPackagesStore,
+				delegate: self,
+				taskScheduler: self.taskScheduler,
+					initialEnState: enStateHandler.state
+
 			)
-			return homeVC
 		}
 
 		homeController = vc // strong ref needed
 		homeController?.homeInteractor.state.exposureManager = state.exposureManager
-		navigationController.setViewControllers(
-			[vc],
-			animated: true
-		)
+		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
+			self.navigationController.setViewControllers([vc], animated: false)
+		})
 		enableDeveloperMenuIfAllowed(in: vc)
 	}
 
@@ -180,7 +243,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 						coder: coder,
 						pageType: .togetherAgainstCoronaPage,
 						exposureManager: self.exposureManager,
-						taskScheduler: self.taskScheduler,
 						store: self.store
 					)
 				}
@@ -233,24 +295,21 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		
 	}
 
-	// MARK: Privacy Protection
 
-	func sceneDidBecomeActive(_: UIScene) {
-		hidePrivacyProtectionWindow()
-		UIApplication.shared.applicationIconBadgeNumber = 0
-	}
 
-	func sceneWillResignActive(_: UIScene) {
-		showPrivacyProtectionWindow()
-	}
 
 	private var privacyProtectionWindow: UIWindow?
+}
+
+// MARK: Privacy Protection
+extension  SceneDelegate {
+
 
 	private func showPrivacyProtectionWindow() {
 		guard
-			let windowScene = window?.windowScene,
-			store.isOnboarded == true
-		else {
+				let windowScene = window?.windowScene,
+				store.isOnboarded == true
+				else {
 			return
 		}
 		let privacyProtectionViewController = PrivacyProtectionViewController()
@@ -277,6 +336,9 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		_: ENAExposureManager,
 		didChangeState newState: ExposureManagerState
 	) {
+		// Add the new state to the history
+		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
+
 		let message = """
 		New status of EN framework:
 		Authorized: \(newState.authorized)
@@ -295,10 +357,11 @@ extension SceneDelegate: ENAExposureManagerObserver {
 }
 
 extension SceneDelegate: HomeViewControllerDelegate {
+	/// Resets all stores and notifies the Onboarding.
 	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
-		store.isOnboarded = false
-		store.dateLastExposureDetection = nil
+		store.clearAll()
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
+		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
 	func homeViewControllerStartExposureTransaction(_: HomeViewController) {
@@ -313,7 +376,7 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.notification.request.identifier {
-		case ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier:
+		case ENATaskIdentifier.detectExposures.backgroundTaskSchedulerIdentifier:
 			log(message: "Handling notification for \(response.notification.request.identifier)")
 
 			switch response.actionIdentifier {
@@ -330,15 +393,6 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 		}
 
 		completionHandler()
-	}
-}
-
-private extension UINavigationController {
-	class func withLargeTitle() -> UINavigationController {
-		let result = UINavigationController()
-		result.navigationBar.prefersLargeTitles = true
-		result.navigationBar.isTranslucent = true
-		return result
 	}
 }
 
@@ -359,5 +413,13 @@ extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		homeController?.homeInteractor.state.summary = self.state.summary
 		homeController?.updateExposureState(state)
+		enStateHandler?.updateExposureState(state)
+	}
+}
+
+extension SceneDelegate: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		log(message: "SceneDelegate got EnState update: \(state)")
+		homeController?.updateEnState(state)
 	}
 }

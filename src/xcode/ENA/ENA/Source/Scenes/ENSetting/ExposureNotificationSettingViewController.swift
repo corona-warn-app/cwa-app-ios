@@ -32,26 +32,19 @@ protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
 final class ExposureNotificationSettingViewController: UITableViewController {
 	private weak var delegate: ExposureNotificationSettingViewControllerDelegate?
 
-	var currentState: RiskDetectionState {
-		stateHandler.getState()
-	}
-
-	var stateHandler: ENStateHandler {
-		didSet {
-			tableView.reloadData()
-		}
-	}
+	private var lastActionCell: ActionCell?
 
 	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
 	let numberRiskContacts = 10
+	var enState: ENStateHandler.State
 
 	init?(
 		coder: NSCoder,
-		stateHandler: ENStateHandler,
+		initialEnState: ENStateHandler.State,
 		delegate: ExposureNotificationSettingViewControllerDelegate
 	) {
-		self.stateHandler = stateHandler
 		self.delegate = delegate
+		self.enState = initialEnState
 		super.init(coder: coder)
 	}
 
@@ -64,7 +57,18 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		navigationItem.largeTitleDisplayMode = .always
 		setUIText()
 		tableView.sectionFooterHeight = 0.0
+
 	}
+//
+//	private func tryEnManager() {
+//		let enManager = ENManager()
+//		enManager.activate { error in
+//			if let error = error {
+//				print("Cannot activate the enmanager.")
+//				return
+//			}
+//		}
+//	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -99,6 +103,9 @@ extension ExposureNotificationSettingViewController {
 		case .exposureNotificationUnavailable:
 			logError(message: "Failed to enable")
 			alertError(message: "ExposureNotification is not availabe due to the sytem policy", title: "Error")
+		case .apiMisuse:
+			// This error should not happen as we toggle the enabled status on off - we can not enable without disabling first
+			alertError(message: "ExposureNotification is already enabled", title: "Note")
 		}
 		tableView.reloadData()
 	}
@@ -112,11 +119,7 @@ extension ExposureNotificationSettingViewController {
 	}
 }
 
-extension ExposureNotificationSettingViewController: ExposureStateUpdating {
-	func updateExposureState(_: ExposureManagerState) {
-		tableView.reloadData()
-	}
-}
+
 
 extension ExposureNotificationSettingViewController {
 	override func numberOfSections(in _: UITableView) -> Int {
@@ -157,19 +160,24 @@ extension ExposureNotificationSettingViewController {
 		if let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell {
 			switch content {
 			case .banner:
-				cell.configure(for: currentState)
+				cell.configure(for: enState)
 			case .actionCell:
+				if let lastActionCell = lastActionCell {
+					return lastActionCell
+				}
 				if let cell = cell as? ActionCell {
-					cell.configure(for: currentState, delegate: self)
+					cell.configure(for: enState, delegate: self)
+					lastActionCell = cell
 				}
 			case .tracingCell, .actionDetailCell:
-				switch currentState {
+				switch enState {
 				case .enabled, .disabled:
 					let tracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
 					if let tracingCell = tracingCell as? TracingHistoryTableViewCell {
-						let colorConfig: (UIColor, UIColor) = (currentState == .enabled) ?
+						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
 							(UIColor.preferredColor(for: .tint), UIColor.preferredColor(for: .textPrimary3)) :
 							(UIColor.preferredColor(for: .textPrimary2), UIColor.preferredColor(for: .textPrimary3))
+						
 						tracingCell.configure(
 							progress: CGFloat(numberRiskContacts),
 							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberRiskContacts),
@@ -178,10 +186,10 @@ extension ExposureNotificationSettingViewController {
 						return tracingCell
 					}
 				case .bluetoothOff, .internetOff, .restricted:
-					cell.configure(for: currentState)
+					cell.configure(for: enState)
 				}
 			case .descriptionCell:
-				cell.configure(for: currentState)
+				cell.configure(for: enState)
 			}
 			return cell
 		} else {
@@ -196,11 +204,6 @@ extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate
 	}
 }
 
-extension ExposureNotificationSettingViewController {
-	func stateDidChange(to _: RiskDetectionState) {
-		tableView.reloadData()
-	}
-}
 
 extension ExposureNotificationSettingViewController {
 	fileprivate enum ReusableCellIdentifier: String {
@@ -226,5 +229,15 @@ private extension ENSettingModel.Content {
 		case .descriptionCell:
 			return .descriptionCell
 		}
+	}
+}
+
+// MARK: ENStateHandler Updating
+extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		log(message: "Get the new state: \(state)")
+		self.enState = state
+		lastActionCell?.configure(for: enState, delegate: self)
+		self.tableView.reloadData()
 	}
 }

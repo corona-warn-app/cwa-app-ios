@@ -17,11 +17,15 @@
 
 import ExposureNotification
 import Foundation
+import UserNotifications
+import UIKit
 
 enum ExposureNotificationError: Error {
 	case exposureNotificationRequired
 	case exposureNotificationAuthorization
 	case exposureNotificationUnavailable
+	/// Typically occurs when `activate()` is called more than once.
+	case apiMisuse
 }
 
 struct ExposureManagerState {
@@ -59,18 +63,38 @@ struct ExposureManagerState {
 
 extension ENManager: Manager {}
 
-protocol ExposureManager {
+protocol ExposureManagerLifeCycle {
 	typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
 	func invalidate()
 	func activate(completion: @escaping CompletionHandler)
 	func enable(completion: @escaping CompletionHandler)
 	func disable(completion: @escaping CompletionHandler)
 	func preconditions() -> ExposureManagerState
-	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void))
+}
+
+
+protocol DiagnosisKeysRetrieval {
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
-	func resume(observer: ENAExposureManagerObserver)
+	func preconditions() -> ExposureManagerState
 }
+
+
+protocol ExposureDetector {
+	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+}
+
+protocol ExposureManagerObserving {
+	func resume(observer: ENAExposureManagerObserver)
+	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController?
+}
+
+
+typealias ExposureManager = ExposureManagerLifeCycle &
+	DiagnosisKeysRetrieval &
+	ExposureDetector & ExposureManagerObserving
+
 
 protocol ENAExposureManagerObserver: AnyObject {
 	func exposureManager(
@@ -84,7 +108,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	// MARK: Properties
 
 	private weak var observer: ENAExposureManagerObserver?
-	private var enabledObservation: NSKeyValueObservation?
+//	private var enabledObservation: NSKeyValueObservation?
 	private var statusObservation: NSKeyValueObservation?
 	@objc private let manager: Manager
 
@@ -105,12 +129,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 		self.observer = observer
 
-		enabledObservation = observe(\.manager.exposureNotificationEnabled, options: .new) { [weak self] _, _ in
-			guard let self = self else { return }
-			DispatchQueue.main.async {
-				observer.exposureManager(self, didChangeState: self.preconditions())
-			}
-		}
+//		enabledObservation = observe(\.manager.exposureNotificationEnabled, options: .new) { [weak self] _, _ in
+//			guard let self = self else { return }
+//			DispatchQueue.main.async {
+//				observer.exposureManager(self, didChangeState: self.preconditions())
+//			}
+//		}
 
 		statusObservation = observe(\.manager.exposureNotificationStatus, options: .new) { [weak self] _, _ in
 			guard let self = self else { return }
@@ -150,6 +174,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	}
 
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
+//		print("The status of exposure manager is \(manager.exposureNotificationStatus)")
+//		print("The status of authorizationStatus \(ENManager.authorizationStatus)")
+//		if ENManager.authorizationStatus == .notAuthorized {
+//			//TODO:
+//		}
+
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
 				logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
@@ -208,6 +238,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				completion(ExposureNotificationError.exposureNotificationRequired)
 			case .restricted:
 				completion(ExposureNotificationError.exposureNotificationUnavailable)
+			case .apiMisuse:
+				completion(ExposureNotificationError.apiMisuse)
 			default:
 				let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
 				logError(message: error)
@@ -227,6 +259,23 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	deinit {
 		manager.invalidate()
 	}
+
+	// MARK: User Notifications
+
+	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
+		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+		let notificationCenter = UNUserNotificationCenter.current()
+		notificationCenter.requestAuthorization(options: options) { _, error in
+			if let error = error {
+				// handle error
+				log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
+			}
+			DispatchQueue.main.async {
+				completionHandler()
+			}
+		}
+	}
+
 }
 
 // MARK: Pretty print (Only for debugging)
@@ -264,5 +313,37 @@ extension ENAuthorizationStatus: CustomDebugStringConvertible {
 		default:
 			return "not handled"
 		}
+	}
+}
+
+extension ENAExposureManager {
+
+	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? {
+		if ENManager.authorizationStatus == .authorized && self.manager.exposureNotificationStatus == .bluetoothOff {
+			let alert = UIAlertController(
+				title: AppStrings.Common.alertTitleBluetoothOff,
+				message: AppStrings.Common.alertDescriptionBluetoothOff,
+				preferredStyle: .alert
+			)
+			let completionHandler: (UIAlertAction, @escaping () -> Void) -> Void = { action, completion in
+				switch action.style {
+				case .default:
+					guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+						return
+					}
+					if UIApplication.shared.canOpenURL(settingsUrl) {
+						UIApplication.shared.open(settingsUrl, completionHandler: nil)
+					}
+				case .cancel, .destructive:
+					completion()
+				@unknown default:
+					fatalError("Not all cases of actions covered when handling the bluetooth")
+				}
+			}
+			alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { action in completionHandler(action, completion) }))
+			alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionLater, style: .cancel, handler: { action in completionHandler(action, completion) }))
+			return alert
+		}
+		return nil
 	}
 }

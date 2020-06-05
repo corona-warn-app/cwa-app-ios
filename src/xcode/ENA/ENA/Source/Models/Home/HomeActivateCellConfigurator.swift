@@ -18,9 +18,12 @@
 import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
-	private var state: RiskDetectionState
 
-	init(state: RiskDetectionState) {
+	let identifier = UUID()
+	
+	private var state: ENStateHandler.State
+
+	init(state: ENStateHandler.State) {
 		self.state = state
 	}
 
@@ -51,18 +54,20 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
 		cell.iconImageView.image = iconImage
 
-		let chevronImage = UIImage(systemName: "chevron.right.circle.fill")
+		let chevronImage = UIImage(systemName: "chevron.right")
 		cell.chevronImageView.image = chevronImage
 
 		setupAccessibility(for: cell)
 	}
 
-	func set(newState: RiskDetectionState) {
-		state = newState
-	}
-
 	func setupAccessibility(for cell: ActivateCollectionViewCell) {
 		cell.isAccessibilityElement = true
 		cell.accessibilityIdentifier = Accessibility.StaticText.homeActivateTitle
+	}
+}
+
+extension HomeActivateCellConfigurator: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		self.state = state
 	}
 }

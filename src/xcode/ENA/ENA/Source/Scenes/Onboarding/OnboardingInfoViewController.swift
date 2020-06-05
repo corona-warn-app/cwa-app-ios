@@ -41,12 +41,10 @@ final class OnboardingInfoViewController: UIViewController {
 		coder: NSCoder,
 		pageType: OnboardingPageType,
 		exposureManager: ExposureManager,
-		taskScheduler: ENATaskScheduler,
 		store: Store
 	) {
 		self.pageType = pageType
 		self.exposureManager = exposureManager
-		self.taskScheduler = taskScheduler
 		self.store = store
 		super.init(coder: coder)
 	}
@@ -59,23 +57,22 @@ final class OnboardingInfoViewController: UIViewController {
 
 	var pageType: OnboardingPageType
 	var exposureManager: ExposureManager
-	var taskScheduler: ENATaskScheduler
 	var store: Store
 	@IBOutlet var imageView: UIImageView!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var boldLabel: UILabel!
 	@IBOutlet var textLabel: UILabel!
 	@IBOutlet var nextButton: ENAButton!
-	@IBOutlet var ignoreButton: UIButton!
+	@IBOutlet var ignoreButton: ENAButton!
 
 	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet weak var stackView: UIStackView!
 	@IBOutlet var footerView: UIView!
 
 	private var onboardingInfos = OnboardingInfo.testData()
+	private var exposureManagerActivated = false
 
 	var onboardingInfo: OnboardingInfo?
-
-	private let notificationCenter = UNUserNotificationCenter.current()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -91,6 +88,8 @@ final class OnboardingInfoViewController: UIViewController {
 		super.viewWillAppear(animated)
 		if pageType == .togetherAgainstCoronaPage {
 			navigationController?.setNavigationBarHidden(true, animated: true)
+		} else {
+			navigationController?.navigationBar.shadowImage = UIImage()
 		}
 	}
 
@@ -101,8 +100,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		let height = footerView.frame.height + 20
-		scrollView.contentInset.bottom = height
+		scrollView.contentInset.bottom = footerView.frame.height
 	}
 
 	func runActionForPageType(completion: @escaping () -> Void) {
@@ -110,12 +108,35 @@ final class OnboardingInfoViewController: UIViewController {
 		case .privacyPage:
 			persistTimestamp(completion: completion)
 		case .enableLoggingOfContactsPage:
-			askExposureNotificationsPermissions(completion: completion)
+			func handleBluetooth(completion: @escaping () -> Void) {
+				if let alertController = self.exposureManager.alertForBluetoothOff(completion: { completion() }) {
+					self.present(alertController, animated: true)
+				}
+				completion()
+			}
+			askExposureNotificationsPermissions(completion: {
+				handleBluetooth {
+					completion()
+				}
+			})
+
 		case .alwaysStayInformedPage:
 			askLocalNotificationsPermissions(completion: completion)
 		default:
 			completion()
 		}
+	}
+
+	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
+		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
+			completion()
+			return
+		}
+
+		let alert = OnboardingInfoViewControllerUtils.setupExposureConfirmationAlert {
+			completion()
+		}
+		present(alert, animated: true, completion: nil)
 	}
 
 	private func updateUI() {
@@ -136,15 +157,15 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
-		ignoreButton.setTitleColor(UIColor.preferredColor(for: .tint), for: .normal)
-		ignoreButton.backgroundColor = UIColor.clear
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
-
-		titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
-		boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		ignoreButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
+		
+		if pageType == .enableLoggingOfContactsPage {
+			addPanel(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText
+			)
+		}
+		
 	}
 
 	func setupAccessibility() {
@@ -158,16 +179,6 @@ final class OnboardingInfoViewController: UIViewController {
 		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
 		nextButton.accessibilityIdentifier = Accessibility.Button.next
 		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
-			// content size has changed
-			titleLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title1).pointSize)
-			boldLabel.font = UIFont.boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-			textLabel.font = UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize)
-		}
 	}
 
 	private func persistTimestamp(completion: (() -> Void)?) {
@@ -184,36 +195,60 @@ final class OnboardingInfoViewController: UIViewController {
 	// MARK: Exposure notifications
 
 	private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
-		if TestEnvironment.shared.isUITesting {
+		if exposureManager is MockExposureManager {
+			completion?()
+			return
+		}
+
+		func persistForDPP(accepted: Bool) {
+			self.store.exposureActivationConsentAccept = accepted
+			self.store.exposureActivationConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+		}
+
+		func shouldHandleError(_ error: ExposureNotificationError?) -> Bool {
+			switch error {
+			case .exposureNotificationRequired:
+				log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+			case .exposureNotificationAuthorization:
+				log(message: "Encourage the user to authorize this application", level: .warning)
+			case .exposureNotificationUnavailable:
+				log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+			case .apiMisuse:
+				// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
+				completion?()
+				return false
+			default:
+				break
+			}
+			return true
+		}
+
+		guard !exposureManagerActivated else {
 			completion?()
 			return
 		}
 
 		exposureManager.activate { error in
 			if let error = error {
-				switch error {
-				case .exposureNotificationRequired:
-					log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-				case .exposureNotificationAuthorization:
-					log(message: "Encourage the user to authorize this application", level: .warning)
-				case .exposureNotificationUnavailable:
-					log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+				guard shouldHandleError(error) else {
+					completion?()
+					return
 				}
 				self.showError(error, from: self, completion: completion)
+				persistForDPP(accepted: false)
 				completion?()
 			} else {
+				self.exposureManagerActivated = true
 				self.exposureManager.enable { enableError in
 					if let enableError = enableError {
-						switch enableError {
-						case .exposureNotificationRequired:
-							log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-						case .exposureNotificationAuthorization:
-							log(message: "Encourage the user to authorize this application", level: .warning)
-						case .exposureNotificationUnavailable:
-							log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+						guard shouldHandleError(enableError) else {
+							completion?()
+							return
 						}
+						persistForDPP(accepted: false)
+					} else {
+						persistForDPP(accepted: true)
 					}
-					self.taskScheduler.scheduleBackgroundTaskRequests()
 					completion?()
 				}
 			}
@@ -221,20 +256,9 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func askLocalNotificationsPermissions(completion: (() -> Void)?) {
-		if TestEnvironment.shared.isUITesting {
+		exposureManager.requestUserNotificationsPermissions {
 			completion?()
 			return
-		}
-
-		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
-		notificationCenter.requestAuthorization(options: options) { _, error in
-			if let error = error {
-				// handle error
-				log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
-			}
-			DispatchQueue.main.async {
-				completion?()
-			}
 		}
 	}
 
@@ -258,25 +282,37 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	@IBAction func didTapIgnoreButton(_: Any) {
-		gotoNextScreen()
+		runIgnoreActionForPageType(
+			completion: {
+				self.gotoNextScreen()
+			}
+		)
 	}
 
 	func gotoNextScreen() {
+
 		guard let nextPageType = pageType.next() else {
-			store.isOnboarded = true
+			finishOnBoarding()
 			return
 		}
+
 		let storyboard = AppStoryboard.onboarding.instance
 		let next = storyboard.instantiateInitialViewController { [unowned self] coder in
 			OnboardingInfoViewController(
 				coder: coder,
 				pageType: nextPageType,
 				exposureManager: self.exposureManager,
-				taskScheduler: self.taskScheduler,
 				store: self.store
 			)
 		}
 		// swiftlint:disable:next force_unwrapping
 		navigationController?.pushViewController(next!, animated: true)
 	}
+
+
+	private func finishOnBoarding() {
+		store.isOnboarded = true
+		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
+	}
+
 }

@@ -18,11 +18,15 @@
 import UIKit
 
 class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
+
+	let identifier = UUID()
+	
 	var submitAction: (() -> Void)?
+	var store: Store?
 
 	func configure(cell: SubmitCollectionViewCell) {
 		cell.delegate = self
-		cell.iconImageView.image = UIImage(named: "Hand_with_phone")
+		cell.iconImageView.image = UIImage(named: "Illu_Hand_with_phone-initial")
 		cell.titleLabel.text = AppStrings.Home.submitCardTitle
 		cell.bodyLabel.text = AppStrings.Home.submitCardBody
 		let buttonTitle = AppStrings.Home.submitCardButton
@@ -34,8 +38,8 @@ class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
 	}
 }
 
-extension HomeSubmitCellConfigurator: SubmitCollectionViewCellDelegate {
-	func submitButtonTapped(cell _: SubmitCollectionViewCell) {
+extension HomeSubmitCellConfigurator: HomeCardCellButtonDelegate {
+	func buttonTapped(cell _: HomeCardCollectionViewCell) {
 		submitAction?()
 	}
 }

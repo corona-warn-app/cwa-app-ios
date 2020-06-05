@@ -17,28 +17,39 @@
 
 import UIKit
 
-class ExposureSubmissionIntroViewController: DynamicTableViewController, ExposureSubmissionNavigationControllerChild {
+class ExposureSubmissionIntroViewController: DynamicTableViewController, ExposureSubmissionNavigationControllerChild, SpinnerInjectable {
+
+
+	private var exposureSubmissionService: ExposureSubmissionService?
+	var spinner: UIActivityIndicatorView?
+
 	// MARK: - View lifecycle methods.
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		DispatchQueue.main.async { [weak self] in
-			self?.navigationController?.navigationBar.sizeToFit()
-		}
-
 		// The button is shared among multiple controllers,
 		// make sure to reset it whenever the view appears.
-		setButtonTitle(to: "Weiter")
+		setButtonTitle(to: AppStrings.ExposureSubmission.continueText)
+		if exposureSubmissionService?.hasRegistrationToken() ?? false {
+			fetchResult()
+		}
 	}
 
-	override func viewWillDisappear(_: Bool) {
-		setButtonTitle(to: "")
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
+
+		// Grab ExposureSubmissionService from the navigation controller
+		// (which is the entry point for the storyboard, and in which
+		// this controller is embedded.)
+		if let navC = navigationController as? ExposureSubmissionNavigationController {
+			exposureSubmissionService = navC.getExposureSubmissionService()
+		}
 	}
 
 	// MARK: - Setup helpers.
@@ -49,9 +60,8 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	}
 
 	private func setupTitle() {
-		title = AppStrings.ExposureSubmissionIntroduction.title
 		navigationItem.largeTitleDisplayMode = .always
-		navigationController?.navigationBar.prefersLargeTitles = true
+		title = AppStrings.ExposureSubmissionIntroduction.title
 	}
 
 	private func setupTableView() {
@@ -62,23 +72,54 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		dynamicTableViewModel = .intro
 		
 	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		switch Segue(segue) {
+		case .labResult:
+			let destination = segue.destination as? ExposureSubmissionTestResultViewController
+			destination?.exposureSubmissionService = exposureSubmissionService
+			destination?.testResult = sender as? TestResult
+		default:
+			break
+		}
+	}
 
 	// MARK: - ExposureSubmissionNavigationControllerChild methods.
 
-	func didTapBottomButton() {
+	func didTapButton() {
 		performSegue(withIdentifier: Segue.overview, sender: self)
+	}
+
+	// MARK: - Helpers.
+	private func fetchResult() {
+		startSpinner()
+		exposureSubmissionService?.getTestResult { result in
+			self.stopSpinner()
+			switch result {
+			case let .failure(error):
+				logError(message: "An error occured during result fetching: \(error)", level: .error)
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				self.present(alert, animated: true, completion: nil)
+			case let .success(testResult):
+				self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
+			}
+		}
 	}
 }
 
 private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
-
-		DynamicSection.section(
-			header: .image(UIImage(named: "Illu_Submission_Funktion1"), height: 200),
+		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle),
+		.section(
+			header: .image(
+				UIImage(named: "Illu_Submission_Funktion1"),
+				accessibilityLabel: nil,
+				height: 200
+			),
 			separators: false,
 			cells: [
-				.bold(text: AppStrings.ExposureSubmissionIntroduction.usage01),
-				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage02),
+				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01),
+				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
@@ -86,10 +127,9 @@ private extension DynamicTableViewModel {
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
 						cell.configure(
 							text: AppStrings.ExposureSubmissionIntroduction.listItem1,
-							image: UIImage(named: "Icons - Empty"),
+							image: UIImage(named: "Icons_Dark_Dot"),
 							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
+							isCircle: false
 						)
 				}
 				),
@@ -100,7 +140,7 @@ private extension DynamicTableViewModel {
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
 						cell.configure(
 							text: AppStrings.ExposureSubmissionIntroduction.listItem2,
-							image: UIImage(named: "Icons - Empty"),
+							image: UIImage(named: "Icons_Dark_Dot"),
 							hasSeparators: false,
 							isCircle: true,
 							iconTintColor: .preferredColor(for: .textPrimary1)
@@ -114,7 +154,7 @@ private extension DynamicTableViewModel {
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
 						cell.configure(
 							text: AppStrings.ExposureSubmissionIntroduction.listItem3,
-							image: UIImage(named: "Icons - Empty"),
+							image: UIImage(named: "Icons_Dark_Dot"),
 							hasSeparators: false,
 							isCircle: true,
 							iconTintColor: .preferredColor(for: .textPrimary1)
@@ -128,13 +168,13 @@ private extension DynamicTableViewModel {
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
 						cell.configure(
 							text: AppStrings.ExposureSubmissionIntroduction.listItem4,
-							image: UIImage(named: "Icons - Empty"),
+							image: UIImage(named: "Icons_Dark_Dot"),
 							hasSeparators: false,
 							isCircle: true,
 							iconTintColor: .preferredColor(for: .textPrimary1)
 						)
 				}
-				),
+				)
 
 			]
 		)
@@ -144,6 +184,7 @@ private extension DynamicTableViewModel {
 private extension ExposureSubmissionIntroViewController {
 	enum Segue: String, SegueIdentifiers {
 		case overview = "overviewSegue"
+		case labResult = "labResultSegue"
 	}
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell

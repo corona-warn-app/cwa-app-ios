@@ -33,7 +33,7 @@ extension ExposureDetectionViewController {
 		var isTracingEnabled: Bool { exposureManagerState.enabled }
 		var isLoading: Bool = false
 
-		var riskLevel: RiskLevel = .unknown
+		var riskLevel: RiskLevel = .unknownInitial
 		var nextRefresh: Date?
 		var summary: ExposureDetectionViewController.Summary?
 
@@ -46,11 +46,11 @@ extension ExposureDetectionViewController {
 		}
 
 		var riskTintColor: UIColor {
-			isTracingEnabled ? riskLevel.tintColor : .preferredColor(for: .backgroundPrimary)
+			isTracingEnabled ? riskLevel.tintColor : .enaColor(for: .background)
 		}
 
 		var riskContrastColor: UIColor {
-			isTracingEnabled ? riskLevel.contrastColor : .preferredColor(for: .textPrimary1)
+			isTracingEnabled ? riskLevel.contrastColor : .enaColor(for: .textPrimary1)
 		}
 	}
 }
@@ -58,28 +58,28 @@ extension ExposureDetectionViewController {
 private extension RiskLevel {
 	var text: String {
 		switch self {
-		case .unknown: return AppStrings.ExposureDetection.unknown
+		case .unknownInitial, .unknownOutdated: return AppStrings.ExposureDetection.unknown
 		case .inactive: return AppStrings.ExposureDetection.inactive
 		case .low: return AppStrings.ExposureDetection.low
-		case .high: return AppStrings.ExposureDetection.high
+		case .increased: return AppStrings.ExposureDetection.high
 		}
 	}
 
 	var tintColor: UIColor {
 		switch self {
-		case .unknown: return .preferredColor(for: .unknownRisk)
-		case .inactive: return .preferredColor(for: .inactiveRisk)
-		case .low: return .preferredColor(for: .positiveRisk)
-		case .high: return .preferredColor(for: .negativeRisk)
+		case .unknownInitial, .unknownOutdated: return .enaColor(for: .riskNeutral)
+		case .inactive: return .enaColor(for: .riskNeutral)
+		case .low: return .enaColor(for: .riskLow)
+		case .increased: return .enaColor(for: .riskHigh)
 		}
 	}
 
 	var contrastColor: UIColor {
 		switch self {
-		case .unknown: return .white
+		case .unknownInitial, .unknownOutdated: return .white
 		case .inactive: return .white
 		case .low: return .white
-		case .high: return .white
+		case .increased: return .white
 		}
 	}
 }
