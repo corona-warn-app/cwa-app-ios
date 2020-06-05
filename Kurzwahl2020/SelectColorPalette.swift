@@ -16,7 +16,7 @@ struct SelectColorPalette: View {
     var body: some View {
         VStack {
             SingleActionBackView( title: "",
-                                  buttonText: NSLocalizedString("Cancel", comment: "Navigation bar Cancel button"),
+                                  buttonText: NSLocalizedString("Back", comment: "Navigation bar Back button"),
                                   action:{
                                     self.navigation.unwind()
             })
@@ -61,3 +61,6 @@ struct thumbnailRow : View {
         }
     }
 }
+
+// When tabbing one of the table lines then the following error message appears on the Xcode console:
+// 2020-06-05 19:30:07.807413+0200 Kurzwahl2020[2630:1158516] [TableView] Warning once only: UITableView was told to layout its visible cells and other contents without being in the view hierarchy (the table view or one of its superviews has not been added to a window). This may cause bugs by forcing views inside the table view to load and perform layout without accurate information (e.g. table view bounds, trait collection, layout margins, safe area insets, etc), and will also cause unnecessary performance overhead due to extra layout passes. Make a symbolic breakpoint at UITableViewAlertForLayoutOutsideViewHierarchy to catch this in the debugger and see what caused this to occur, so you can avoid this action altogether if possible, or defer it until the table view has been added to a window. Table view: <_TtC7SwiftUIP33_BFB370BA5F1BADDC9D83021565761A4925UpdateCoalescingTableView: 0x10e00ac00; baseClass = UITableView; frame = (0 0; 375 637.333); clipsToBounds = YES; autoresize = W+H; gestureRecognizers = <NSArray: 0x2838a9950>; layer = <CALayer: 0x2836e49e0>; contentOffset: {0, 0}; contentSize: {375, 0}; adjustedContentInset: {0, 0, 0, 0}; dataSource: (null)>

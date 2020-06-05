@@ -23,10 +23,11 @@ struct SettingsView: View {
                             Text("Size: \(model.getFontSizeAsInt())")
                         } //.labelsHidden
                     }.padding(.leading, 2.0)
+
                     Button(action: {
                         self.navigation.advance(NavigationItem(
-                    view: AnyView(AboutView()))) }) {
-                        Text("About")
+                    view: AnyView(ColorSelectView()))) }) {
+                        Text("Colors")
                     }.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
@@ -40,12 +41,13 @@ struct SettingsView: View {
                     view: AnyView(PrivacyView()))) }) {
                         Text("Privacy Statement")
                     }.buttonStyle(PlainButtonStyle())
+                    
                     Button(action: {
                         self.navigation.advance(NavigationItem(
-                    view: AnyView(ColorSelectView()))) }) {
-                        Text("Colors")
+                    view: AnyView(AboutView()))) }) {
+                        Text("About")
                     }.buttonStyle(PlainButtonStyle())
-                    
+
                 }.navigationBarTitle(Text("Settings"))
             }
         }
