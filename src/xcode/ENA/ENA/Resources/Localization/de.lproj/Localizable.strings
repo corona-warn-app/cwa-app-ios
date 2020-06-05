@@ -214,7 +214,7 @@
 
 "ExposureSubmission_Submit" = "TAN eingeben";
 
-"ExposureSubmissionTanEntry_Title" = "TAN-Eingabe";
+"ExposureSubmissionTanEntry_Title" = "TAN Eingabe";
 
 "ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die Ihnen mitgeteilte TAN ein:";
 
@@ -236,7 +236,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code ihres Test-Dokuments scannen.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Code";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
 
 "ExposureSubmissionDispatch_TANButtonDescription" = "Registrieren Sie Ihren Test per manueller TAN-Eingabe.";
 
@@ -248,7 +248,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 
-"ExposureSubmissionHotline_Description" = "Wir teilen Ihnen Ihren TAN-Code gerne per Telefon mit.";
+"ExposureSubmissionHotline_Description" = "Bitte halten zur TAN Anfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
@@ -262,7 +262,7 @@
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
-"ExposureSubmission_TANInputButtonTitle" = "TAN-Code eingeben";
+"ExposureSubmission_TANInputButtonTitle" = "TAN eingeben";
 
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
