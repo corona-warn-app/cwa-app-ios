@@ -72,4 +72,6 @@ class MockTestStore: Store {
 	var allowTestsStatusNotification: Bool = true
 
 	var previousSummary: ENExposureDetectionSummaryContainer? = ENExposureDetectionSummaryContainer(daysSinceLastExposure: 0, matchedKeyCount: 0, maximumRiskScore: 0)
+
+	var hourlyFetchingEnabled: Bool = true
 }
