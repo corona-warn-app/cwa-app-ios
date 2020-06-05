@@ -518,6 +518,7 @@ enum AppStrings {
 
 		static let legalNavigation = NSLocalizedString("App_Information_Legal_Navigation", comment: "")
 		static let legalImageDescription = NSLocalizedString("App_Information_Legal_ImageDescription", comment: "")
+
 		static let privacyNavigation = NSLocalizedString("App_Information_Privacy_Navigation", comment: "")
 		static let privacyImageDescription = NSLocalizedString("App_Information_Privacy_ImageDescription", comment: "")
 		static let privacyTitle = NSLocalizedString("App_Information_Privacy_Title", comment: "")
