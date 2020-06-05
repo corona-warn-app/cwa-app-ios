@@ -89,6 +89,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		let footerView = UIView()
+		footerView.backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
 
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -99,8 +100,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		footerView.addSubview(label)
 		label.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 15).isActive = true
 		label.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
-		label.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 15).isActive = true
-		label.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 15).isActive = true
+		label.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
 
 		let toggle = UISwitch()
 		toggle.translatesAutoresizingMaskIntoConstraints = false
@@ -109,8 +109,9 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 
 		footerView.addSubview(toggle)
 		toggle.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
-		toggle.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 15).isActive = true
-		toggle.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 15).isActive = true
+		toggle.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
+
+		footerView.sizeToFit()
 
 		return footerView
 	}
