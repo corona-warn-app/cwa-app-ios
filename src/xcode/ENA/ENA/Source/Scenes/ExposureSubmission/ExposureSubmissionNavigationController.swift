@@ -21,8 +21,6 @@ import UIKit
 @IBDesignable
 class ExposureSubmissionNavigationItem: UINavigationItem {
 	@IBInspectable var titleColor: UIColor?
-	@IBInspectable var buttonText: String?
-	// TODO @IBInspectable var secondaryButtonText: String?
 }
 
 protocol ExposureSubmissionNavigationControllerChild: UIViewController {
@@ -41,33 +39,27 @@ extension ExposureSubmissionNavigationControllerChild {
 	var bottomView: UIView? { exposureSubmissionNavigationController?.bottomView }
 	var button: ENAButton? { exposureSubmissionNavigationController?.button }
 
-	@available(*, deprecated, message: "Use ExposureSubmissionNavigationItem.buttonText instead.")
 	func setButtonTitle(to title: String) {
 		exposureSubmissionNavigationController?.setButtonTitle(title: title)
 	}
 
 	func setButtonEnabled(enabled: Bool) {
-		// ToDo: Could also be handled by navigation item
 		exposureSubmissionNavigationController?.setButtonEnabled(enabled: enabled)
 	}
 
 	func hideButton() {
-		// ToDo: Can this be removed? Would normally be handled by UIViewController.hidesBottomBarOnPush
 		exposureSubmissionNavigationController?.button.isHidden = true
 	}
 
 	func setSecondaryButtonTitle(to title: String) {
-		// ToDo apply same to secondary button
 		exposureSubmissionNavigationController?.setSecondaryButtonTitle(title: title)
 	}
 
 	func showSecondaryButton() {
-		// ToDo Visibility could also be handled by the navigation item
 		exposureSubmissionNavigationController?.secondaryButton.isHidden = false
 	}
 
 	func hideSecondaryButton() {
-		// ToDo Visibility could also be handled by the navigation item
 		exposureSubmissionNavigationController?.secondaryButton.isHidden = true
 	}
 }
@@ -211,8 +203,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			let titleColor = navigationItem.titleColor {
 			navigationBar.largeTitleTextAttributes = [:]
 			navigationBar.largeTitleTextAttributes?[NSAttributedString.Key.foregroundColor] = titleColor
-			// ToDo double check implementation (add secondary button)
-			button.setTitle(navigationItem.buttonText, for: .normal)
 		} else {
 			navigationBar.largeTitleTextAttributes?.removeValue(forKey: NSAttributedString.Key.foregroundColor)
 		}
