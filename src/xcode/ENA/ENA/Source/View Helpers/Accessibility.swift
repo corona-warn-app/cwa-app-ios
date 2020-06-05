@@ -51,9 +51,4 @@ enum Accessibility {
 		static let settingsCardTitle = "settingsCardTitle"
 	}
 
-	enum Image {
-		static let exposureSubmissionIntroDescription = NSLocalizedString("ExposureSubmissionIntroduction_AccImageDescription", comment: "")
-		static let exposureSubmissionWarnOthersDescription = NSLocalizedString("ExposureSubmissionWarnOthers_AccImageDescription", comment: "")
-		static let exposureSubmissionSuccessThankYouDescription = NSLocalizedString("ExposureSubmissionSuccess_AccImageDescription", comment: "")
-	}
 }

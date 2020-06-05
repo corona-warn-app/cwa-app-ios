@@ -114,7 +114,7 @@ private extension ExposureSubmissionWarnOthersViewController {
 				.section(
 					header: .image(
 						UIImage(named: "Illu_Submission_AndereWarnen"),
-						accessibilityLabel: Accessibility.Image.exposureSubmissionWarnOthersDescription,
+						accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
 						height: 250),
 					cells: [
 						.title2(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle),
