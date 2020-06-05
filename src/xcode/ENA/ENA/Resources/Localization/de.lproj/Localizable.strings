@@ -117,7 +117,7 @@
 
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
-"Settings_Tracing_Description" = "Erlauben Sie Erfassung und Weitergabe von Covid-19-Zufalls-IDs.";
+"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von Zufallscodes.";
 
 "Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Covid-19-Risikostatus.";
 
@@ -126,27 +126,25 @@
 "Settings_NavTitle" = "Einstellungen";
 
 /* Noticiation Settings */
-"NotificationSettings_On_Title" = "Möchten Sie Benachrichtigungen zu Ihrem Covid-19-Risikostatus aktivieren?";
-
-"NotificationSettings_On_Description" = "Erlauben Sie der App hier die Mitteilungen.";
+"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem Covid-19-Risikostatus aktivieren?";
 
 "NotificationSettings_On_SectionTitle" = "Einstellung";
 
 "NotificationSettings_On_RiskChanges" = "Änderung Ihres Infektionsrisikos";
 
-"NotificationSettings_On_TestsStatus" = "Status Ihres COVID-19 Tests";
+"NotificationSettings_On_TestsStatus" = "Status Ihres Coronavirus-Tests";
 
-"NotificationSettings_Off_Title" = "Mitteilungen sind ausgestellt";
+"NotificationSettings_Off_SectionTitle" = "Einstellung";
 
-"NotificationSettings_Off_Description" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Telefoneinstellungen zulassen.";
+"NotificationSettings_Off_EnableNotifications" = "Mitteilungen";
 
-"NotificationSettings_Off_NavigateSettings" = "1. Öffnen Sie Einstellungen.";
+"NotificationSettings_Off_StatusInactive" = "Aus";
 
-"NotificationSettings_Off_PickNotifications" = "2. Wählen Sie Mitteilungen aus.";
+"NotificationSettings_Off_InfoTitle" = "Mitteilungen aktivieren";
 
-"NotificationSettings_Off_EnableNotifications" = "3. Erlauben Sie Mitteilungen.";
+"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Geräte-Einstellungen zulassen.";
 
-"NotificationSettings_Off_OpenSettings" = "Einstellungen App öffnen";
+"NotificationSettings_Off_OpenSettings" = "App-Einstellungen öffnen";
 
 "NotificationSettings_NavTitle" = "Mitteilungen";
 
@@ -282,6 +280,8 @@
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank";
 
+"ExposureSubmissionSuccess_AccImageDescription" = "Eine vielfältige Gruppe begrüßt durch Jubel, dass jemand sein Testergebnis mit anderen geteilt hat.";
+
 "ExposureSubmissionSuccess_Button" = "Fertig";
 
 "ExposureSubmissionSuccess_Description" = "Dank Ihrer Mithilfe können Andere gewarnt werden und entsprechend reagieren.";
@@ -306,6 +306,8 @@
 "ExposureSubmissionIntroduction_Title" = "Info";
 
 "ExposureSubmissionIntroduction_SubTitle" = "So funktioniert das Corona-Warn-System";
+
+"ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
 
@@ -379,6 +381,8 @@
 "ExposureSubmissionResult_refreshButton" = "Aktualisieren";
 
 "ExposureSubmissionWarnOthers_title" = "Andere warnen";
+
+"ExposureSubmissionWarnOthers_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Weiter";
 
@@ -475,7 +479,7 @@
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 
-"Home_RiskCard_Unknown_Item_Title" = "Da Sie Ihre Umfeldaufzeichnung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
+"Home_RiskCard_Unknown_Item_Title" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 
 "Home_RiskCard_Unknown_Button" = "Aktualisieren";
 
@@ -493,9 +497,7 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
-"Home_Risk_Low_NoContact_Item_Title" = "Bisher keine Risiko-Begegnung";
-
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen gespeichert";
+"Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen aktiv";
 
 "Home_Risk_Low_Date_Item_Title" = "Aktualisiert: %@";
 

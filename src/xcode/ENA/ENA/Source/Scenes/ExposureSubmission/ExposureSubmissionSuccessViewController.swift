@@ -40,7 +40,7 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController 
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
-	func didTapBottomButton() {
+	func didTapButton() {
 		dismiss(animated: true, completion: nil)
 	}
 
@@ -52,7 +52,10 @@ extension ExposureSubmissionSuccessViewController: ExposureSubmissionNavigationC
 private extension DynamicTableViewModel {
 	static let data = DynamicTableViewModel([
 		DynamicSection.section(
-			header: .image(UIImage(named: "Illu_Submission_VielenDank"), accessibilityLabel: nil),
+			header: .image(
+				UIImage(named: "Illu_Submission_VielenDank"),
+				accessibilityLabel: AppStrings.ExposureSubmissionSuccess.accImageDescription
+			),
 			separators: false,
 			cells: [
 				.body(text: AppStrings.ExposureSubmissionSuccess.description),

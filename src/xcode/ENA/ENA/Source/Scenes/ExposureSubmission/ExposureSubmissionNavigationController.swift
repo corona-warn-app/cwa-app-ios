@@ -24,12 +24,18 @@ class ExposureSubmissionNavigationItem: UINavigationItem {
 }
 
 protocol ExposureSubmissionNavigationControllerChild: UIViewController {
-	func didTapBottomButton()
+	func didTapButton()
 	func didTapSecondButton()
 }
 
 extension ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {}
+
+	/// Default handler for the button that appears at the bottom of the screen.
+	func didTapButton() {}
+
+	/// This is the handler for the second button that appears under the
+	/// button normally shown in the screens. Currently,
+	/// you can find this button used in `ExposureSubmissionHotlineViewController.swift`.
 	func didTapSecondButton() {}
 }
 
@@ -94,9 +100,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		self.exposureSubmissionService = exposureSubmissionService
 		self.homeViewController = homeViewController
 		self.testResult = testResult
-
-		let rootVC = getRootViewController()
-		viewControllers = [rootVC]
 	}
 
 	required init?(coder _: NSCoder) {
@@ -122,7 +125,10 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
+		let rootVC = getRootViewController()
+		setViewControllers([rootVC], animated: false)
+
 		let barButtonItem = UIBarButtonItem(
 			image: UIImage(named: "Icons - Close"),
 			style: .done, target: self, action: #selector(close)
@@ -198,13 +204,15 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	}
 
 	private func applyNavigationBarItem(of viewController: UIViewController?) {
+		let defaultColor = UINavigationBar.appearance().largeTitleTextAttributes?[NSAttributedString.Key.foregroundColor] ?? UIColor.enaColor(for: .textPrimary1)
 		if let viewController = viewController,
 			let navigationItem = viewController.navigationItem as? ExposureSubmissionNavigationItem,
 			let titleColor = navigationItem.titleColor {
-			navigationBar.largeTitleTextAttributes = [:]
-			navigationBar.largeTitleTextAttributes?[NSAttributedString.Key.foregroundColor] = titleColor
+			navigationBar.standardAppearance.titleTextAttributes[NSAttributedString.Key.foregroundColor] = defaultColor
+			navigationBar.standardAppearance.largeTitleTextAttributes[NSAttributedString.Key.foregroundColor] = titleColor
 		} else {
-			navigationBar.largeTitleTextAttributes?.removeValue(forKey: NSAttributedString.Key.foregroundColor)
+			navigationBar.standardAppearance.titleTextAttributes[NSAttributedString.Key.foregroundColor] = defaultColor
+			navigationBar.standardAppearance.largeTitleTextAttributes[NSAttributedString.Key.foregroundColor] = defaultColor
 		}
 	}
 
@@ -329,7 +337,7 @@ extension ExposureSubmissionNavigationController {
 
 	@objc
 	private func didTapButton() {
-		(topViewController as? ExposureSubmissionNavigationControllerChild)?.didTapBottomButton()
+		(topViewController as? ExposureSubmissionNavigationControllerChild)?.didTapButton()
 	}
 
 	@objc

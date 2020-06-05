@@ -92,7 +92,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 // MARK: ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionWarnOthersViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
+	func didTapButton() {
 		startSubmitProcess()
 	}
 }
@@ -112,7 +112,10 @@ private extension ExposureSubmissionWarnOthersViewController {
 		DynamicTableViewModel.with {
 			$0.add(
 				.section(
-					header: .image(UIImage(named: "Illu_Submission_AndereWarnen"), accessibilityLabel: nil, height: 250),
+					header: .image(
+						UIImage(named: "Illu_Submission_AndereWarnen"),
+						accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
+						height: 250),
 					cells: [
 						.title2(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle),
 						.body(text: AppStrings.ExposureSubmissionWarnOthers.description),

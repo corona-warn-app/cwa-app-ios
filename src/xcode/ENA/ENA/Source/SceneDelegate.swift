@@ -35,7 +35,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	#else
 	private let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
-	private let navigationController: UINavigationController = AppNavigationController()
+	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {
 		didSet {
@@ -120,6 +120,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	// MARK: Helper
 
 	private func setupUI() {
+		setupNavigationBarAppearance()
+
 		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else if !store.isOnboarded {
@@ -127,9 +129,20 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		} else {
 			showHome()
 		}
-		UINavigationBar.appearance().tintColor = UIColor.preferredColor(for: .tint)
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
+	}
+
+	private func setupNavigationBarAppearance() {
+		let appearance = UINavigationBar.appearance()
+		appearance.tintColor = .enaColor(for: .tint)
+		appearance.titleTextAttributes = [
+			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
+		appearance.largeTitleTextAttributes = [
+			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
+			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
 	}
 
 	private func showHome(animated _: Bool = false) {
