@@ -20,7 +20,6 @@ import Foundation
 struct OnboardingInfo {
 	var title: String
 	var imageName: String
-
 	var boldText: String
 	var text: String
 	var actionText: String
