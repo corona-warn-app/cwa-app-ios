@@ -151,6 +151,15 @@ final class TracingStatusHistoryTests: XCTestCase {
 
 		XCTAssertEqual(history.countEnabledDays(), 0)
 	}
+
+	func testEnabledHoursCount_EnabledRecently() throws {
+		var history = TracingStatusHistory()
+		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
+
+		history = history.consumingState(goodState, Date().addingTimeInterval(-5400))
+		// Enabled for 1.5 hours should only count as 1 enabled hour (truncating)
+		XCTAssertEqual(history.countEnabledHours(), 1)
+	}
 }
 
 private extension TimeInterval {
