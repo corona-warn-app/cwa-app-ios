@@ -305,6 +305,8 @@
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Information";
 
+"ExposureSubmissionIntroduction_SubTitle" = "This is how the Corona warning system works";
+
 "ExposureSubmissionIntroduction_Usage01" = "For the app to work well, we are relying on the support of people who have tested positive.";
 
 "ExposureSubmissionIntroduction_Usage02" = "Since only encrypted random IDs are exchanged, you remain anonymous. You can now proceed as follows:";
@@ -386,7 +388,9 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test?";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Privacy";
+
+"ExposureSubmissionResult_RemoveAlert_Title" = "Remove the test?";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "The test will be permanently deleted from the Corona-Warn-App and cannot be added again. This procedure cannot be undone. ";
 
@@ -410,6 +414,10 @@
 "ExposureSubmissionError_RegTokenNotExist" = "The registration token you want to use does not exist.";
 
 "ExposureSubmissionError_other" = "Error:";
+
+"ExposureSubmissionError_otherend" = "Please try again.";
+
+"ExposureSubmissionError_declined" = "Please release your random IDs to warn others.";
 
 "ExposureSubmissionError_unknown" = "Unknown error";
 
@@ -449,9 +457,6 @@
 "ExposureNotificationSetting_Activate_OSENSetting" = "Activate COVID-19 Exposure Notifications";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "For risk calculation, COVID-19 exposure notifications must be activated in the system settings so that exposures can be logged. Please activate COVID-19 exposure notifications in your system settings.";
-
-/* Home */
-/* Home Cards */
 
 /* Home Active card */
 "Home_Activate_Card_On_Title" = "Risk calculation active";
@@ -594,6 +599,11 @@
 
 "App_Information_About_Text" = "The COVID-Warn-App will securely log exposures you have with other app user. This is how the app can determine whether you have been in close proximity to a person infected with the coronavirus.\n\nTogether we can help stop the virus spreading and keep ourselves healthy.";
 
+/* App Information - FAQ */
+"App_Information_FAQ_Navigation" = "Frequently asked questions";
+
+"App_Information_FAQ_Title" = "Frequently asked questions";
+
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Contact";
 
@@ -611,24 +621,27 @@
 
 "App_Information_Contact_Hotline_Terms" = "Business hours:\nMonday to Friday: 8am - 10pm\nSaturday and Sunday: 10am - 10pm\nThe standard charges of your telephone provider apply.";
 
-/* App Information - Legal */
-"App_Information_Legal_Navigation" = "Publication Details";
+// App Information - Imprint
+"App_Information_Imprint_Navigation" = "Publication Details";
 
-"App_Information_Legal_Section1_Title" = "Provider";
+"App_Information_Imprint_Section1_Title" = "Provider";
 
-"App_Information_Legal_Section1_Text" = "Press and Information Office of the Federal Government\nDorotheenstraße 84\n10117 Berlin\nTel: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
+"App_Information_Imprint_Section1_Text" = "Press and Information Office of the Federal Government\nDorotheenstraße 84\n10117 Berlin\nTel: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
 
-"App_Information_Legal_Section2_Title" = "Legal Representative";
+"App_Information_Imprint_Section2_Title" = "Legal Representative";
 
-"App_Information_Legal_Section2_Text" = "Head of Press and Information Office of the Federal Government";
+"App_Information_Imprint_Section2_Text" = "Head of Press and Information Office of the Federal Government";
 
-"App_Information_Legal_Section3_Title" = "";
+"App_Information_Imprint_Section3_Title" = "";
 
-"App_Information_Legal_Section3_Text" = "You can contact the helpline of the Federal Government Monday to Friday from 8am to 6pm on:\n030 18 272-2720";
+"App_Information_Imprint_Section3_Text" = "You can contact the helpline of the Federal Government Monday to Friday from 8am to 6pm on:\n030 18 272-2720";
 
-"App_Information_Legal_Section4_Title" = "Postal Address";
+"App_Information_Imprint_Section4_Title" = "Postal Address";
 
-"App_Information_Legal_Section4_Text" = "...";
+"App_Information_Imprint_Section4_Text" = "...";
+
+// App Information - Legal
+"App_Information_Legal_Navigation" = "Legal Notice";
 
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Data Protection";
@@ -647,11 +660,6 @@
 "App_Information_Terms_Description" = "The following terms of use apply for the app and are accepted when you call or use the app, or one of its features. ";
 
 "App_Information_Terms_Text" = "...";
-
-/* App Information - Tracing */
-"App_Information_Tracing_Navigation" = "How does tracing work?";
-
-"App_Information_Tracing_Text" = "Notifcations of COVID-19 exposure loggings are based on the forwarding and collection of random IDs.\n\nDiese ID’s sind eine zufällige Folge von Zahlen, die Sie für andere Benutzer nicht identifizierbar machen und die sich mehrmals täglich ändern, um Ihre Privatsphäre zu schützen.\n\nUllamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est.\n\nProin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla.\n\nFusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.\n\nTuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla. Fusce ultrices quam at metus tristique, et porta mauris scelerisque. Mauris vel felis dui. Donec varius odio quis urna auctor auctor. Ut in pretium lorem. Nam ornare semper nibh eu semper. Donec vitae dui sit amet nisi imperdiet consequat eu quis erat.";
 
 /* Risk View */
 "unknown_risk" = "Risk unknown";
@@ -693,6 +701,8 @@
 
 "InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
 
+"InviteFriends_Illustration_Label" = "One man shares the Corona Warning app with four other people.";
+
 /* Reset View */
 "Reset_NavTitle" = "Reset";
 
@@ -715,12 +725,6 @@
 
 /* Local Notifications */
 "local_notifications_viewResults" = "Display Results";
-
-// App Information - Legal
-"App_Information_Imprint_Navigation" = "Legal Notice";
-
-//Local Notifications
-"local_notifications_viewResults" = "View Results";
 
 "local_notifications_ignore" = "Ignore";
 
@@ -779,3 +783,4 @@
 
 "RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exhanged between smartphones in close proximity. Random IDs cannot be assigned to a specific person and are automatically deleted after 14 days. People who tested positive can choose to share their random IDs of up to the last 14 days with other app users.";
 
+"RiskLegend_Image1_AccLabel" = "A smartphone shows different content that is numbered.";
