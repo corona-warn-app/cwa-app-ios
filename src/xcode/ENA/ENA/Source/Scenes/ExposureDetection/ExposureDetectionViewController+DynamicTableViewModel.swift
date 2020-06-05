@@ -115,11 +115,7 @@ private extension DynamicCell {
 	static func riskStored(text: String, imageName: String) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
-<<<<<<< HEAD
-			let numberOfDaysStored = state.risk?.details.numberOfDaysWithActiveTracing ?? 0
-=======
-			var numberOfDaysStored = state.summary?.numberOfDaysStored ?? 0
->>>>>>> development
+			var numberOfDaysStored = state.risk?.details.numberOfDaysWithActiveTracing ?? 0
 			cell.textLabel?.text = String(format: text, numberOfDaysStored)
 			if numberOfDaysStored < 0 { numberOfDaysStored = 0 }
 			if numberOfDaysStored > 13 {
