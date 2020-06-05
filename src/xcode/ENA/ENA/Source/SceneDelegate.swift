@@ -153,9 +153,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			HomeViewController(
 				coder: coder,
 				exposureManager: self.exposureManager,
-				keyPackagesStore: self.downloadedPackagesStore,
-				delegate: self,
-				taskScheduler: self.taskScheduler
+				delegate: self
 			)
 		}
 
