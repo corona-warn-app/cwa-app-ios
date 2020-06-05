@@ -2139,16 +2139,14 @@
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
 				CDF27BD5246ADBF30044D32B /* HTTPClientTests.swift in Sources */,
 				A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */,
-<<<<<<< HEAD
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
 				F247572B24838AC8003E1FC5 /* DynamicTableViewControllerTests.swift in Sources */,
 				CD678F6D246C43EE00B6A0F8 /* ClientMock.swift in Sources */,
-=======
 				F247572B24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift in Sources */,
 				CD678F6D246C43EE00B6A0F8 /* MockTestClient.swift in Sources */,
 				0DFCC2732484DC8400E2811D /* sqlite3.c in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
->>>>>>> development
+
 				B1D431CE246C84F200E728AD /* KeyPackagesStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
