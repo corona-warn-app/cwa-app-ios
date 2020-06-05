@@ -41,7 +41,9 @@
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="7cz-Af-hQ5"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="RCi-Vy-wTC"/>
                                                 </constraints>
-                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                </preferredSymbolConfiguration>
                                             </imageView>
                                         </subviews>
                                         <constraints>

@@ -75,6 +75,7 @@ final class HomeInteractor {
 	private var exposureSubmissionService: ExposureSubmissionService?
 	var stateHandler: ENStateHandler!
 	private var riskLevel: RiskLevel {
+		return .increased
 		RiskLevel(riskScore: state.summary?.maximumRiskScore)
 	}
 
@@ -435,7 +436,7 @@ extension HomeInteractor {
 			// This is the default view that is shown when no test results are available and nothing has been submitted.
 
 			// Risk card.
-			if let risk = setupRiskConfigurator() as? HomeRiskLevelCellConfigurator {
+			if let risk = setupRiskConfigurator() {
 				actionsConfigurators.append(risk)
 			}
 

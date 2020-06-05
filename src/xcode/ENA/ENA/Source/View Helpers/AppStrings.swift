@@ -338,8 +338,8 @@ enum AppStrings {
 		static let riskCardLowButton = NSLocalizedString("Home_Risk_Low_Button", comment: "")
 
 		static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
-		static let riskCardHighNumberContactsItemTitle = NSLocalizedString("Home_Risk_High_Number_Contacts_Item_Title", comment: "")
-		static let riskCardHighLastContactItemTitle = NSLocalizedString("Home_Risk_High_Last_Contact_Item_Title", comment: "")
+		static let riskCardHighNumberContactsItemTitle = NSLocalizedString("Home_Risk_Number_Contacts_Item_Title", comment: "")
+		static let riskCardHighLastContactItemTitle = NSLocalizedString("Home_Risk_Last_Contact_Item_Title", comment: "")
 		static let riskCardHighDateItemTitle = NSLocalizedString("Home_Risk_High_Date_Item_Title", comment: "")
 		static let riskCardHighButton = NSLocalizedString("Home_Risk_High_Button", comment: "")
 
