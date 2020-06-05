@@ -112,7 +112,7 @@ extension AppInformationViewController {
 				.body(text: "App_Information_Imprint_Section1_Text".localized),
 				.headline(text: "App_Information_Imprint_Section2_Title".localized),
 				.body(text: "App_Information_Imprint_Section2_Text".localized),
-				// .headline(text: "App_Information_Legal_Section3_Title".localized),
+				.headline(text: "App_Information_Imprint_Section3_Title".localized),
 				.body(text: "App_Information_Imprint_Section3_Text".localized),
 				.headline(text: "App_Information_Imprint_Section4_Title".localized),
 				.body(text: "App_Information_Imprint_Section4_Text".localized)
