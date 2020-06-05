@@ -36,16 +36,15 @@ final class HomeInteractor {
 		homeViewController: HomeViewController,
 		store: Store,
 		state: State,
-		exposureSubmissionService: ExposureSubmissionService? = nil) {
+		exposureSubmissionService: ExposureSubmissionService? = nil,
+		taskScheduler: ENATaskScheduler,
+		initialEnState: ENStateHandler.State
+	) {
 		self.homeViewController = homeViewController
 		self.store = store
 		self.state = state
-		self.exposureSubmissionService = exposureSubmissionService
-		stateHandler = ENStateHandler(
-			self.state.exposureManager,
-			reachabilityService: ConnectivityReachabilityService(),
-			delegate: self
-		)
+		self.taskScheduler = taskScheduler
+		self.enState = initialEnState
 		sections = initialCellConfigurators()
 	}
 
@@ -57,12 +56,11 @@ final class HomeInteractor {
 		exposureManager: .init()
 	) {
 		didSet {
-			stateHandler.exposureManagerDidUpdate(to: state.exposureManager)
 			homeViewController.setStateOfChildViewControllers(
 				.init(
 					exposureManager: state.exposureManager,
 					summary: state.summary
-				), stateHandler: stateHandler
+				)
 			)
 			reloadRiskCell()
 			sections = initialCellConfigurators()
@@ -73,7 +71,8 @@ final class HomeInteractor {
 	private unowned var homeViewController: HomeViewController
 	private let store: Store
 	private var exposureSubmissionService: ExposureSubmissionService?
-	var stateHandler: ENStateHandler!
+	private let taskScheduler: ENATaskScheduler
+	private var enState: ENStateHandler.State
 	private var riskLevel: RiskLevel {
 		RiskLevel(riskScore: state.summary?.maximumRiskScore)
 	}
@@ -130,8 +129,6 @@ final class HomeInteractor {
 
 	func updateActiveCell() {
 		guard let indexPath = indexPathForActiveCell() else { return }
-		let currentState = stateHandler.getState()
-		activeConfigurator.set(newState: currentState)
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 	}
@@ -285,12 +282,12 @@ extension HomeInteractor {
 		let isButtonHidden = userLoadingMode == .automatic
 		let isCounterLabelHidden = !isButtonHidden
 
-		if riskLevel != .inactive, userLoadingMode == .automatic {
+		if riskLevel != .inactive, userLoadingMode == .automatic { // ?
 			startCountdown()
 		}
 
 		switch riskLevel {
-		case .unknownInitial, .unknownOutdated:
+		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
 				isButtonEnabled: true,
@@ -301,11 +298,14 @@ extension HomeInteractor {
 				lastUpdateDate: nil
 			)
 		case .inactive:
-			inactiveConfigurator = HomeInactiveRiskCellConfigurator(lastInvestigation: "Geringes Risiko", lastUpdateDate: dateLastExposureDetection)
+			inactiveConfigurator = HomeInactiveRiskCellConfigurator(incativeType: .noCalculationPossible, lastInvestigation: "Geringes Risiko", lastUpdateDate: dateLastExposureDetection)
+		case .unknownOutdated:
+			inactiveConfigurator = HomeInactiveRiskCellConfigurator(incativeType: .outdatedResults, lastInvestigation: "Geringes Risiko", lastUpdateDate: dateLastExposureDetection)
 		case .low:
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
 				startDate: startDate,
 				releaseDate: releaseDate,
+				numberRiskContacts: state.numberRiskContacts,
 				numberDays: 2,
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection
@@ -390,8 +390,7 @@ extension HomeInteractor {
 	}
 
 	func setupActiveConfigurator() -> HomeActivateCellConfigurator {
-		let currentState = stateHandler.getState()
-		return HomeActivateCellConfigurator(state: currentState)
+		return HomeActivateCellConfigurator(state: enState)
 	}
 
 	func setupActionConfigurators() -> [CollectionViewCellConfiguratorAny] {
@@ -435,7 +434,7 @@ extension HomeInteractor {
 			// This is the default view that is shown when no test results are available and nothing has been submitted.
 
 			// Risk card.
-			if let risk = setupRiskConfigurator() as? HomeRiskLevelCellConfigurator {
+			if let risk = setupRiskConfigurator() {
 				actionsConfigurators.append(risk)
 			}
 
@@ -533,18 +532,11 @@ extension HomeInteractor {
 	}
 }
 
-extension HomeInteractor: StateHandlerObserverDelegate {
-	func stateDidChange(to _: RiskDetectionState) {
+//MARK: - The ENStateHandler updating
+extension HomeInteractor: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		self.enState = state
+		activeConfigurator.updateEnState(state)
 		updateActiveCell()
-	}
-
-	func getLatestExposureManagerState() -> ExposureManagerState {
-		state.exposureManager
-	}
-}
-
-extension HomeInteractor: ExposureStateUpdating {
-	func updateExposureState(_ state: ExposureManagerState) {
-		stateHandler.exposureManagerDidUpdate(to: state)
 	}
 }

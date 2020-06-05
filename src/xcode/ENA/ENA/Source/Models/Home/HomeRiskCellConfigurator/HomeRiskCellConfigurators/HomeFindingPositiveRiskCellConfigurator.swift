@@ -36,11 +36,11 @@ final class HomeFindingPositiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		let title = AppStrings.Home.findingPositiveCardTitle
 		let titleColor: UIColor = UIColor.preferredColor(for: .textPrimary1)
 		cell.configureTitle(title: title, titleColor: titleColor)
-		cell.configureChevron(image: UIImage(systemName: "chevron.right.circle.fill"), tintColor: .preferredColor(for: .chevron))
+		cell.configureChevron(image: UIImage(systemName: "chevron.right"), tintColor: .preferredColor(for: .chevron))
 		
 		let statusTitle = AppStrings.Home.findingPositiveCardStatusTitle
 		let statusSubtitle = AppStrings.Home.findingPositiveCardStatusSubtitle
-		let statusImageName = "Illu_Submission_PositivTestErgebnis"
+		let statusImageName = "Illu_Home_PositivTestErgebnis"
 		cell.configureStatus(title: statusTitle, subtitle: statusSubtitle, titleColor: titleColor, lineColor: .preferredColor(for: .brandRed), imageName: statusImageName)
 
 		let noteTitle = AppStrings.Home.findingPositiveCardNoteTitle

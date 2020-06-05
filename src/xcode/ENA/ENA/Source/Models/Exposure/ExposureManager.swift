@@ -108,7 +108,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	// MARK: Properties
 
 	private weak var observer: ENAExposureManagerObserver?
-	private var enabledObservation: NSKeyValueObservation?
+//	private var enabledObservation: NSKeyValueObservation?
 	private var statusObservation: NSKeyValueObservation?
 	@objc private let manager: Manager
 
@@ -129,12 +129,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 		self.observer = observer
 
-		enabledObservation = observe(\.manager.exposureNotificationEnabled, options: .new) { [weak self] _, _ in
-			guard let self = self else { return }
-			DispatchQueue.main.async {
-				observer.exposureManager(self, didChangeState: self.preconditions())
-			}
-		}
+//		enabledObservation = observe(\.manager.exposureNotificationEnabled, options: .new) { [weak self] _, _ in
+//			guard let self = self else { return }
+//			DispatchQueue.main.async {
+//				observer.exposureManager(self, didChangeState: self.preconditions())
+//			}
+//		}
 
 		statusObservation = observe(\.manager.exposureNotificationStatus, options: .new) { [weak self] _, _ in
 			guard let self = self else { return }
@@ -174,6 +174,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	}
 
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
+//		print("The status of exposure manager is \(manager.exposureNotificationStatus)")
+//		print("The status of authorizationStatus \(ENManager.authorizationStatus)")
+//		if ENManager.authorizationStatus == .notAuthorized {
+//			//TODO:
+//		}
+
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
 				logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")

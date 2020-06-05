@@ -28,6 +28,7 @@ enum WebPageHelper {
 			config.barCollapsingEnabled = true
 
 			let vc = SFSafariViewController(url: url, configuration: config)
+			vc.preferredControlTintColor = .enaColor(for: .tint)
 			viewController.present(vc, animated: true)
 		} else {
 			let error = "\(AppStrings.SafariView.targetURL) is no valid URL"

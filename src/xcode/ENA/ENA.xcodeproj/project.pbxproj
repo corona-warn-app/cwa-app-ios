@@ -29,7 +29,6 @@
 		137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */; };
 		138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138910C4247A909000D739F6 /* ENATaskScheduler.swift */; };
 		13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */; };
-		13FD1DE62473EE6C00A7C7AB /* AppInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE8599922462EFFD002E7AE2 /* AppInformation.storyboard */; };
 		2F3218CE24800F6500A7AC0A /* DynamicTableViewStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CD24800F6500A7AC0A /* DynamicTableViewStepCell.swift */; };
 		2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */; };
 		2F785752248506BD00323A9C /* HomeTestResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F78574F248506BD00323A9C /* HomeTestResultCell.xib */; };
@@ -43,11 +42,8 @@
 		3DD767492483D6B5002DD2B3 /* Connectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD767482483D6B5002DD2B3 /* Connectivity */; };
 		3DD7674B2483D6C1002DD2B3 /* ConnectivityReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7674A2483D6C1002DD2B3 /* ConnectivityReachabilityService.swift */; };
 		3DD7674E2483DE18002DD2B3 /* MockReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7674C2483DDAC002DD2B3 /* MockReachabilityService.swift */; };
-		4026C2D824851DFD00926FB4 /* AppInformationLegalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2D724851DFD00926FB4 /* AppInformationLegalViewController.swift */; };
-		4026C2DA2485249D00926FB4 /* AppInformationLegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2D92485249D00926FB4 /* AppInformationLegalModel.swift */; };
-		4026C2DC24852B7600926FB4 /* AppInformationLegalModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationLegalModelData.swift */; };
-		4026C2E2248540FF00926FB4 /* AppInformationLegalEntryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4026C2E1248540FF00926FB4 /* AppInformationLegalEntryViewCell.xib */; };
-		4026C2E424854C8D00926FB4 /* AppInformationLegalEntryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalEntryViewCell.swift */; };
+		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
+		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
 		51486D9F2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51486D9E2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift */; };
 		51486DA22485101500FCE216 /* RiskInactiveCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */; };
 		51486DA32485101500FCE216 /* RiskInactiveCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51486DA12485101500FCE216 /* RiskInactiveCollectionViewCell.xib */; };
@@ -117,7 +113,6 @@
 		710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB282475353900948792 /* DynamicTableViewModel.swift */; };
 		71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71176E2D24891C02004B0C9F /* ENAColorTests.swift */; };
 		71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71176E31248957C3004B0C9F /* AppNavigationController.swift */; };
-		71330E3F248109F000EB10F6 /* DynamicTableViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E3E248109F000EB10F6 /* DynamicTableViewIcon.swift */; };
 		71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E40248109F600EB10F6 /* DynamicTableViewSection.swift */; };
 		71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E42248109FD00EB10F6 /* DynamicTableViewCell.swift */; };
 		71330E4524810A0500EB10F6 /* DynamicTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E4424810A0500EB10F6 /* DynamicTableViewHeader.swift */; };
@@ -181,8 +176,7 @@
 		A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF84EB247BFAF00053E947 /* Hasher.swift */; };
 		B10FB030246036F3004CA11E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = B10FB02F246036F3004CA11E /* SwiftProtobuf */; };
 		B10FD5ED246EAADC00E9D7F2 /* AppInformationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */; };
-		B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3E9C246D5D8000217F2C /* AppInformationDetailModelData.swift */; };
-		B10FD5F2246EAB1600E9D7F2 /* AppInformationDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3E9A246D5D6C00217F2C /* AppInformationDetailModel.swift */; };
+		B10FD5F1246EAB1000E9D7F2 /* AppInformationViewController+DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3E9C246D5D8000217F2C /* AppInformationViewController+DynamicTableViewModel.swift */; };
 		B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FD5F3246EAC1700E9D7F2 /* AppleFilesWriter.swift */; };
 		B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */; };
 		B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1125459246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift */; };
@@ -349,11 +343,8 @@
 		3DD767452483D4DE002DD2B3 /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		3DD7674A2483D6C1002DD2B3 /* ConnectivityReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityReachabilityService.swift; sourceTree = "<group>"; };
 		3DD7674C2483DDAC002DD2B3 /* MockReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockReachabilityService.swift; sourceTree = "<group>"; };
-		4026C2D724851DFD00926FB4 /* AppInformationLegalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalViewController.swift; sourceTree = "<group>"; };
-		4026C2D92485249D00926FB4 /* AppInformationLegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalModel.swift; sourceTree = "<group>"; };
-		4026C2DB24852B7600926FB4 /* AppInformationLegalModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalModelData.swift; sourceTree = "<group>"; };
-		4026C2E1248540FF00926FB4 /* AppInformationLegalEntryViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppInformationLegalEntryViewCell.xib; sourceTree = "<group>"; };
-		4026C2E324854C8D00926FB4 /* AppInformationLegalEntryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalEntryViewCell.swift; sourceTree = "<group>"; };
+		4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+LegalModel.swift"; sourceTree = "<group>"; };
+		4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalCell.swift; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		51486D9E2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLevelCellConfigurator.swift; sourceTree = "<group>"; };
 		51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskInactiveCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -429,7 +420,6 @@
 		710ABB282475353900948792 /* DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewModel.swift; sourceTree = "<group>"; };
 		71176E2D24891C02004B0C9F /* ENAColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAColorTests.swift; sourceTree = "<group>"; };
 		71176E31248957C3004B0C9F /* AppNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
-		71330E3E248109F000EB10F6 /* DynamicTableViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewIcon.swift; sourceTree = "<group>"; };
 		71330E40248109F600EB10F6 /* DynamicTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSection.swift; sourceTree = "<group>"; };
 		71330E42248109FD00EB10F6 /* DynamicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewCell.swift; sourceTree = "<group>"; };
 		71330E4424810A0500EB10F6 /* DynamicTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeader.swift; sourceTree = "<group>"; };
@@ -454,8 +444,7 @@
 		71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSpaceCell.swift; sourceTree = "<group>"; };
 		71B804512485272F00D53506 /* RiskLegendNumberedTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendNumberedTitleCell.swift; sourceTree = "<group>"; };
 		71B804532485273C00D53506 /* RiskLegendDotBodyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendDotBodyCell.swift; sourceTree = "<group>"; };
-		71CC3E9A246D5D6C00217F2C /* AppInformationDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDetailModel.swift; sourceTree = "<group>"; };
-		71CC3E9C246D5D8000217F2C /* AppInformationDetailModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDetailModelData.swift; sourceTree = "<group>"; };
+		71CC3E9C246D5D8000217F2C /* AppInformationViewController+DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+DynamicTableViewModel.swift"; sourceTree = "<group>"; };
 		71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDetailViewController.swift; sourceTree = "<group>"; };
 		71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabel.swift; sourceTree = "<group>"; };
 		71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicType.swift"; sourceTree = "<group>"; };
@@ -591,7 +580,6 @@
 		EE46E5D72466AEA50057627F /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		EE8599922462EFFD002E7AE2 /* AppInformation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppInformation.storyboard; sourceTree = "<group>"; };
 		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		EEF10679246EBF8B009DFB4E /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
 		F247572A24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerRowsTests.swift; sourceTree = "<group>"; };
@@ -968,7 +956,6 @@
 				138910C3247A907500D739F6 /* Task Scheduling */,
 				CD8638512477EBAA00A5A07C /* Settings */,
 				B1125458246F2C2100AB5036 /* Converting Keys */,
-				71CC3E99246D5D5800217F2C /* AppInformation */,
 				514E81322461B97700636861 /* Exposure */,
 				51CE1BB82460AE69002CF42A /* Home */,
 				51EE9A6C245C0FB500F2544F /* Onboarding */,
@@ -1009,17 +996,6 @@
 			path = RiskLegend;
 			sourceTree = "<group>";
 		};
-		71CC3E99246D5D5800217F2C /* AppInformation */ = {
-			isa = PBXGroup;
-			children = (
-				71CC3E9A246D5D6C00217F2C /* AppInformationDetailModel.swift */,
-				71CC3E9C246D5D8000217F2C /* AppInformationDetailModelData.swift */,
-				4026C2D92485249D00926FB4 /* AppInformationLegalModel.swift */,
-				4026C2DB24852B7600926FB4 /* AppInformationLegalModelData.swift */,
-			);
-			path = AppInformation;
-			sourceTree = "<group>";
-		};
 		71F76D0E24767AF100515A01 /* DynamicTableViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1032,7 +1008,6 @@
 				71330E4624810A0C00EB10F6 /* DynamicTableViewFooter.swift */,
 				71330E42248109FD00EB10F6 /* DynamicTableViewCell.swift */,
 				71330E4824810A5A00EB10F6 /* DynamicTableViewAction.swift */,
-				71330E3E248109F000EB10F6 /* DynamicTableViewIcon.swift */,
 			);
 			path = DynamicTableViewController;
 			sourceTree = "<group>";
@@ -1199,7 +1174,6 @@
 		85D75975245706B0008175F0 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				EE8599922462EFFD002E7AE2 /* AppInformation.storyboard */,
 				CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */,
 				85D7594C24570491008175F0 /* LaunchScreen.storyboard */,
 				51D420B02458397300AD70CA /* Onboarding.storyboard */,
@@ -1570,11 +1544,11 @@
 		EE85998B2462EFD4002E7AE2 /* AppInformation */ = {
 			isa = PBXGroup;
 			children = (
-				71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */,
-				4026C2D724851DFD00926FB4 /* AppInformationLegalViewController.swift */,
-				4026C2E1248540FF00926FB4 /* AppInformationLegalEntryViewCell.xib */,
-				4026C2E324854C8D00926FB4 /* AppInformationLegalEntryViewCell.swift */,
 				01F5F7212487B9C000229720 /* AppInformationViewController.swift */,
+				71CC3E9C246D5D8000217F2C /* AppInformationViewController+DynamicTableViewModel.swift */,
+				4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */,
+				71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */,
+				4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */,
 			);
 			path = AppInformation;
 			sourceTree = "<group>";
@@ -1726,7 +1700,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13FD1DE62473EE6C00A7C7AB /* AppInformation.storyboard in Resources */,
 				514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */,
 				51486DA32485101500FCE216 /* RiskInactiveCollectionViewCell.xib in Resources */,
 				51486DA72485237200FCE216 /* RiskThankYouCollectionViewCell.xib in Resources */,
@@ -1747,7 +1720,6 @@
 				51C779142486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
 				8539874F2467094E00D28B62 /* AppIcon.xcassets in Resources */,
-				4026C2E2248540FF00926FB4 /* AppInformationLegalEntryViewCell.xib in Resources */,
 				514C0A0B247AF9F700F235F6 /* RiskTextItemView.xib in Resources */,
 				51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */,
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
@@ -1820,7 +1792,6 @@
 				B1D7D69224766D2100E4DA5D /* apple_export.pb.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */,
-				71330E3F248109F000EB10F6 /* DynamicTableViewIcon.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
@@ -1873,7 +1844,6 @@
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				71FE1C6D247AA43400851FEB /* ExposureDetectionViewController+Summary.swift in Sources */,
 				51C779162486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift in Sources */,
-				B10FD5F2246EAB1600E9D7F2 /* AppInformationDetailModel.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
 				514C0A14247C163800F235F6 /* HomeLowRiskCellConfigurator.swift in Sources */,
 				51C779122486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift in Sources */,
@@ -1892,8 +1862,7 @@
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */,
 				3DD767462483D4DE002DD2B3 /* ReachabilityService.swift in Sources */,
-				4026C2E424854C8D00926FB4 /* AppInformationLegalEntryViewCell.swift in Sources */,
-				4026C2DA2485249D00926FB4 /* AppInformationLegalModel.swift in Sources */,
+				4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
 				016146912487A43E00660992 /* WebPageHelper.swift in Sources */,
@@ -1919,7 +1888,7 @@
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
 				B1A89F372481814E00DA1CEC /* PersistedAndPublished.swift in Sources */,
 				51D420B424583ABB00AD70CA /* AppStoryboard.swift in Sources */,
-				4026C2DC24852B7600926FB4 /* AppInformationLegalModelData.swift in Sources */,
+				4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */,
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				713EA26124798AD100AB7EE8 /* InsetTableViewCell.swift in Sources */,
@@ -1960,7 +1929,7 @@
 				514EE99B246D4C4C00DE4884 /* UITableView+Dequeue.swift in Sources */,
 				713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */,
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
-				B10FD5F1246EAB1000E9D7F2 /* AppInformationDetailModelData.swift in Sources */,
+				B10FD5F1246EAB1000E9D7F2 /* AppInformationViewController+DynamicTableViewModel.swift in Sources */,
 				51C7790E24867F22004582F8 /* RiskListItemView.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
@@ -1985,7 +1954,6 @@
 				71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */,
 				710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */,
 				A3E5E71E247E6F7A00237116 /* SpinnerInjectable.swift in Sources */,
-				4026C2D824851DFD00926FB4 /* AppInformationLegalViewController.swift in Sources */,
 				518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */,
 				0DFCC2722484DC8400E2811D /* sqlite3.c in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
@@ -2172,7 +2140,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 665;
+				CURRENT_PROJECT_VERSION = 830;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2187,7 +2155,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.2;
+				MARKETING_VERSION = 0.8.3;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2387,7 +2355,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 665;
+				CURRENT_PROJECT_VERSION = 830;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2401,7 +2369,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.2;
+				MARKETING_VERSION = 0.8.3;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2426,7 +2394,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 665;
+				CURRENT_PROJECT_VERSION = 830;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2436,7 +2404,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.2;
+				MARKETING_VERSION = 0.8.3;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2627,7 +2595,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 665;
+				CURRENT_PROJECT_VERSION = 830;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2637,7 +2605,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.2;
+				MARKETING_VERSION = 0.8.3;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
