@@ -338,12 +338,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 
-//	private func createLayout() -> UICollectionViewLayout {
-//		homeLayout = HomeLayout()
-//		homeLayout.delegate = self
-//		return homeLayout.collectionLayout()
-//	}
-
 	private func configureHierarchy() {
 		let safeLayoutGuide = view.safeAreaLayoutGuide
 
