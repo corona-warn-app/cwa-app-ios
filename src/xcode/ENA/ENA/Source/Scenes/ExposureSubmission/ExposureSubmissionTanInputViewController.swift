@@ -52,18 +52,16 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		} else {
 			tanInput.becomeFirstResponder()
 		}
-
+		hideSecondaryButton()
 		setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
 		title = AppStrings.ExposureSubmissionTanEntry.title
 		setButtonEnabled(enabled: tanInput.isValid)
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
 
-		descriptionLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
 		descriptionLabel.adjustsFontForContentSizeCategory = true
 		descriptionLabel.lineBreakMode = .byWordWrapping
 		descriptionLabel.numberOfLines = 0
 		infoLabel.text = AppStrings.ExposureSubmissionTanEntry.info
-		infoLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .regular))
 	}
 
 	private func fetchService() {
@@ -83,7 +81,7 @@ extension ExposureSubmissionTanInputViewController {
 // MARK: - ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
+	func didTapButton() {
 		startSpinner()
 		setButtonEnabled(enabled: false)
 		// If teleTAN is correct, show Alert Controller

@@ -18,15 +18,32 @@
 import UIKit
 
 final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
+	private var numberRiskContacts: Int
 	private var numberDays: Int
 	private var totalDays: Int
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(startDate: Date?, releaseDate: Date?, numberDays: Int, totalDays: Int, lastUpdateDate: Date?) {
+	init(
+		startDate: Date?,
+		releaseDate: Date?,
+		numberRiskContacts: Int,
+		numberDays: Int,
+		totalDays: Int,
+		lastUpdateDate: Date?
+	) {
+		self.numberRiskContacts = numberRiskContacts
 		self.numberDays = numberDays
 		self.totalDays = totalDays
-		super.init(isLoading: false, isButtonEnabled: true, isButtonHidden: false, isCounterLabelHidden: true, startDate: startDate, releaseDate: releaseDate, lastUpdateDate: lastUpdateDate)
+		super.init(
+			isLoading: false,
+			isButtonEnabled: true,
+			isButtonHidden: false,
+			isCounterLabelHidden: true,
+			startDate: startDate,
+			releaseDate: releaseDate,
+			lastUpdateDate: lastUpdateDate
+		)
 	}
 
 	// MARK: Configuration
@@ -48,13 +65,14 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
 			itemCellConfigurators.append(isLoadingItem)
 		} else {
-			let item1 = HomeRiskImageItemViewConfigurator(title: AppStrings.Home.riskCardLowNoContactItemTitle, titleColor: titleColor, iconImageName: "InfizierteKontakte", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
+			let numberContactsTitle = String(format: AppStrings.Home.riskCardNumberContactsItemTitle, numberRiskContacts)
+			let item1 = HomeRiskImageItemViewConfigurator(title: numberContactsTitle, titleColor: titleColor, iconImageName: "Icons_KeineRisikoBegegnung", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
 			let numberDaysString = String(numberDays)
 			let totalDaysString = String(totalDays)
 			let saveDays = String(format: AppStrings.Home.riskCardLowSaveDaysItemTitle, numberDaysString, totalDaysString)
-			let item2 = HomeRiskImageItemViewConfigurator(title: saveDays, titleColor: titleColor, iconImageName: "LetztePruefung", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
-			let dateTitle = String(format: AppStrings.Home.riskCardLowDateItemTitle, lastUpdateDateString)
-			let item3 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "History", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
+			let item2 = HomeRiskImageItemViewConfigurator(title: saveDays, titleColor: titleColor, iconImageName: "Icons_TracingCircleFull - Dark", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
+			let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
+			let item3 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
 			itemCellConfigurators.append(item1)
 			itemCellConfigurators.append(item2)
 			itemCellConfigurators.append(item3)
@@ -62,7 +80,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		cell.configureChevron(image: UIImage(systemName: "chevron.right.circle.fill"), tintColor: .preferredColor(for: .chevron))
+		cell.configureChevron(image: UIImage(named: "Icons_Chevron_White"), tintColor: nil)
 
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardLowButton
 		

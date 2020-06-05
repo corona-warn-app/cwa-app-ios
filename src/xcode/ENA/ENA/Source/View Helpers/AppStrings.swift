@@ -42,6 +42,7 @@ enum AppStrings {
 		static let dataPrivacyDisclaimer = NSLocalizedString("ExposureSubmission_DataPrivacyDescription", comment: "")
 		static let dataPrivacyAcceptTitle = NSLocalizedString("ExposureSubmissionDataPrivacy_AcceptTitle", comment: "")
 		static let dataPrivacyDontAcceptTitle = NSLocalizedString("ExposureSubmissionDataPrivacy_DontAcceptTitle", comment: "")
+		static let continueText = NSLocalizedString("ExposureSubmission_Continue_actionText", comment: "")
 	}
 
 	enum ExposureSubmissionTanEntry {
@@ -58,6 +59,7 @@ enum AppStrings {
 	enum ExposureSubmissionIntroduction {
 		static let title = NSLocalizedString("ExposureSubmissionIntroduction_Title", comment: "")
 		static let subTitle = NSLocalizedString("ExposureSubmissionIntroduction_SubTitle", comment: "")
+		static let accImageDescription = NSLocalizedString("ExposureSubmissionIntroduction_AccImageDescription", comment: "")
 		static let usage01 = NSLocalizedString("ExposureSubmissionIntroduction_Usage01", comment: "")
 		static let usage02 = NSLocalizedString("ExposureSubmissionIntroduction_Usage02", comment: "")
 		static let usage03 = NSLocalizedString("ExposureSubmissionIntroduction_Usage03", comment: "")
@@ -137,6 +139,7 @@ enum AppStrings {
 
 	enum ExposureSubmissionWarnOthers {
 		static let title = NSLocalizedString("ExposureSubmissionWarnOthers_title", comment: "")
+		static let accImageDescription = NSLocalizedString("ExposureSubmissionWarnOthers_AccImageDescription", comment: "")
 		static let continueButton = NSLocalizedString("ExposureSubmissionWarnOthers_continueButton", comment: "")
 		static let sectionTitle = NSLocalizedString("ExposureSubmissionWarnOthers_sectionTitle", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionWarnOthers_description", comment: "")
@@ -146,6 +149,7 @@ enum AppStrings {
 
 	enum ExposureSubmissionSuccess {
 		static let title = NSLocalizedString("ExposureSubmissionSuccess_Title", comment: "")
+		static let accImageDescription = NSLocalizedString("ExposureSubmissionSuccess_AccImageDescription", comment: "")
 		static let button = NSLocalizedString("ExposureSubmissionSuccess_Button", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionSuccess_Description", comment: "")
 		static let listTitle = NSLocalizedString("ExposureSubmissionSuccess_listTitle", comment: "")
@@ -329,22 +333,30 @@ enum AppStrings {
 		static let riskCardUnknownItemTitle = NSLocalizedString("Home_RiskCard_Unknown_Item_Title", comment: "")
 		static let riskCardUnknownButton = NSLocalizedString("Home_RiskCard_Unknown_Button", comment: "")
 
-		static let riskCardInactiveTitle = NSLocalizedString("Home_Risk_Inactive_Title", comment: "")
-		static let riskCardInactiveBody = NSLocalizedString("Home_Risk_Inactive_Body", comment: "")
+		// Inactive Card
+		static let riskCardInactiveNoCalculationPossibleTitle = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Title", comment: "")
+		static let riskCardInactiveOutdatedResultsTitle = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Title", comment: "")
+		static let riskCardInactiveNoCalculationPossibleBody = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Body", comment: "")
+		static let riskCardInactiveOutdatedResultsBody = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Body", comment: "")
 		static let riskCardInactiveActivateItemTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Title", comment: "")
-		static let riskCardInactiveDateItemTitle = NSLocalizedString("Home_Risk_Inactive_Date_Item_Title", comment: "")
-		static let riskCardInactiveButton = NSLocalizedString("Home_Risk_Inactive_Button", comment: "")
+		static let riskCardInactiveNoCalculationPossibleButton = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Button", comment: "")
+		static let riskCardInactiveOutdatedResultsButton = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Button", comment: "")
+
+		// Common
+
+		static let riskCardDateItemTitle = NSLocalizedString("Home_Risk_Date_Item_Title", comment: "")
+		static let riskCardNoDateTitle = NSLocalizedString("Home_Risk_No_Date_Title", comment: "")
+		static let riskCardNumberContactsItemTitle = NSLocalizedString("Home_Risk_Number_Contacts_Item_Title", comment: "")
+		static let riskCardLastContactItemTitle = NSLocalizedString("Home_Risk_Last_Contact_Item_Title", comment: "")
+
+		// Low Card
 
 		static let riskCardLowTitle = NSLocalizedString("Home_Risk_Low_Title", comment: "")
-		static let riskCardLowNoContactItemTitle = NSLocalizedString("Home_Risk_Low_NoContact_Item_Title", comment: "")
 		static let riskCardLowSaveDaysItemTitle = NSLocalizedString("Home_Risk_Low_SaveDays_Item_Title", comment: "")
-		static let riskCardLowDateItemTitle = NSLocalizedString("Home_Risk_Low_Date_Item_Title", comment: "")
 		static let riskCardLowButton = NSLocalizedString("Home_Risk_Low_Button", comment: "")
 
+		// High Card
 		static let riskCardHighTitle = NSLocalizedString("Home_Risk_High_Title", comment: "")
-		static let riskCardHighNumberContactsItemTitle = NSLocalizedString("Home_Risk_High_Number_Contacts_Item_Title", comment: "")
-		static let riskCardHighLastContactItemTitle = NSLocalizedString("Home_Risk_High_Last_Contact_Item_Title", comment: "")
-		static let riskCardHighDateItemTitle = NSLocalizedString("Home_Risk_High_Date_Item_Title", comment: "")
 		static let riskCardHighButton = NSLocalizedString("Home_Risk_High_Button", comment: "")
 
 		static let riskCardStatusCheckTitle = NSLocalizedString("Home_Risk_Status_Check_Title", comment: "")

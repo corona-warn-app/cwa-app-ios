@@ -31,7 +31,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		setSecondaryButtonTitle(to: "")
 		hideSecondaryButton()
 	}
 
@@ -129,7 +128,7 @@ extension ExposureSubmissionHotlineViewController {
 // MARK: - ExposureSubmissionNavigationControllerChild Extension.
 
 extension ExposureSubmissionHotlineViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
+	func didTapButton() {
 		callHotline()
 	}
 

@@ -130,7 +130,6 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		focusView.startAnimating()
 	}
 
 	@IBAction func toggleFlash() {
@@ -193,17 +192,6 @@ final class ExposureSubmissionQRScannerFocusView: UIView {
 		layer.cornerRadius = cornerRadius
 		layer.borderWidth = borderWidth
 		layer.borderColor = tintColor.cgColor
-	}
-
-	func startAnimating() {
-		UIView.animate(
-			withDuration: 0.5,
-			delay: 0,
-			options: [.repeat, .autoreverse],
-			animations: {
-				self.transform = .init(scaleX: 0.9, y: 0.9)
-			}
-		)
 	}
 }
 
