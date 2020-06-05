@@ -35,7 +35,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	#else
 	private let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
-	private let navigationController: UINavigationController = .withLargeTitle()
+	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {
 		didSet {
@@ -148,6 +148,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	// MARK: Helper
 
 	private func setupUI() {
+		setupNavigationBarAppearance()
+
 		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else if !store.isOnboarded {
@@ -155,9 +157,20 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		} else {
 			showHome()
 		}
-		UINavigationBar.appearance().tintColor = UIColor.preferredColor(for: .tint)
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
+	}
+
+	private func setupNavigationBarAppearance() {
+		let appearance = UINavigationBar.appearance()
+		appearance.tintColor = .enaColor(for: .tint)
+		appearance.titleTextAttributes = [
+			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
+		appearance.largeTitleTextAttributes = [
+			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
+			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
 	}
 
 	private func showHome(animated _: Bool = false) {
@@ -215,10 +228,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		homeController = vc // strong ref needed
 		homeController?.homeInteractor.state.exposureManager = state.exposureManager
-		navigationController.setViewControllers(
-			[vc],
-			animated: true
-		)
+		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
+			self.navigationController.setViewControllers([vc], animated: false)
+		})
 		enableDeveloperMenuIfAllowed(in: vc)
 	}
 
@@ -381,15 +393,6 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 		}
 
 		completionHandler()
-	}
-}
-
-private extension UINavigationController {
-	class func withLargeTitle() -> UINavigationController {
-		let result = UINavigationController()
-		result.navigationBar.prefersLargeTitles = true
-		result.navigationBar.isTranslucent = true
-		return result
 	}
 }
 

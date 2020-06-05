@@ -22,7 +22,7 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var iconImageView1: UIImageView!
 	@IBOutlet var iconImageView2: UIImageView!
 	@IBOutlet weak var actionTitleLabel: ENALabel!
-	@IBOutlet var descriptionTextView: UITextView!
+	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var actionButton: ENAButton!
 
 	@IBAction func actionButtonTapped(_: Any) {
@@ -40,21 +40,20 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		iconImageView2.image = images(for: state).1
 		actionButton.setTitle(AppStrings.ExposureNotificationSetting.detailActionButtonTitle, for: .normal)
 
-		actionTitleLabel.style = .title2
 		switch state {
 		case .enabled, .disabled:
 			return
 		case .bluetoothOff:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateBluetooth
-			descriptionTextView.text = AppStrings.ExposureNotificationSetting.bluetoothDescription
+			descriptionLabel.text = AppStrings.ExposureNotificationSetting.bluetoothDescription
 			iconImageView2.isHidden = true
 		case .internetOff:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateInternet
-			descriptionTextView.text = AppStrings.ExposureNotificationSetting.internetDescription
+			descriptionLabel.text = AppStrings.ExposureNotificationSetting.internetDescription
 			iconImageView2.isHidden = false
 		case .restricted:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
-			descriptionTextView.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
+			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
 			iconImageView2.isHidden = true
 		}
 	}

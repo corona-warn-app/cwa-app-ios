@@ -25,16 +25,16 @@ protocol RiskFindingPositiveCollectionViewCellDelegate: AnyObject {
 
 final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 
-	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var chevronImageView: UIImageView!
 
-	@IBOutlet var statusTitleLabel: UILabel!
-	@IBOutlet var statusSubtitleLabel: UILabel!
+	@IBOutlet var statusTitleLabel: ENALabel!
+	@IBOutlet var statusSubtitleLabel: ENALabel!
 	@IBOutlet var statusImageView: UIImageView!
 	@IBOutlet var statusLineView: UIView!
 
-	@IBOutlet var noteLabel: UILabel!
-	@IBOutlet var nextButton: UIButton!
+	@IBOutlet var noteLabel: ENALabel!
+	@IBOutlet var nextButton: ENAButton!
 
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var topContainer: UIView!

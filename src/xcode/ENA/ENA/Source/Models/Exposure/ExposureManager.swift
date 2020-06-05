@@ -77,6 +77,7 @@ protocol ExposureManagerLifeCycle {
 protocol DiagnosisKeysRetrieval {
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
+	func preconditions() -> ExposureManagerState
 }
 
 

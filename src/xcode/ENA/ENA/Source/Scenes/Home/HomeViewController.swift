@@ -16,7 +16,6 @@
 // under the License.
 
 import ExposureNotification
-import SafariServices
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
@@ -127,11 +126,11 @@ final class HomeViewController: UIViewController {
 		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
 	}
-	
+
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-				let image = UIImage(named: "navi_bar_icon")
+				let image = UIImage(named: "Corona-Warn-App")
 				let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 				leftItem.isEnabled = false
 				self.navigationItem.leftBarButtonItem = leftItem
@@ -278,24 +277,9 @@ final class HomeViewController: UIViewController {
 
 	func showAppInformation() {
 		navigationController?.pushViewController(
-			AppStoryboard.appInformation.initiateInitial(),
+			AppInformationViewController(),
 			animated: true
 		)
-	}
-
-	func showWebPage() {
-		if let url = URL(string: AppStrings.SafariView.targetURL) {
-			let config = SFSafariViewController.Configuration()
-			config.entersReaderIfAvailable = true
-			config.barCollapsingEnabled = true
-
-			let vc = SFSafariViewController(url: url, configuration: config)
-			present(vc, animated: true)
-		} else {
-			let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
-			logError(message: error)
-			fatalError(error)
-		}
 	}
 
 	private func showScreenForActionSectionForCell(at indexPath: IndexPath) {
@@ -308,8 +292,6 @@ final class HomeViewController: UIViewController {
 		case is RiskFindingPositiveCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is HomeTestResultCell:
-			// Do not allow to open a pending test.
-			guard let result = homeInteractor.testResult, result != .pending else { return }
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is SubmitCollectionViewCell:
 			showExposureSubmission()
@@ -320,7 +302,6 @@ final class HomeViewController: UIViewController {
 			return
 		}
 	}
-
 	private func showScreen(at indexPath: IndexPath) {
 		guard let section = Section(rawValue: indexPath.section) else { return }
 		let row = indexPath.row
@@ -331,7 +312,7 @@ final class HomeViewController: UIViewController {
 			if row == 0 {
 				showInviteFriends()
 			} else {
-				showWebPage()
+				WebPageHelper.showWebPage(from: self)
 			}
 		case .settings:
 			if row == 0 {
@@ -395,7 +376,7 @@ final class HomeViewController: UIViewController {
 			RiskThankYouCollectionViewCell.self,
 			InfoCollectionViewCell.self
 		]
-	
+
 		collectionView.register(cellTypes: cellTypes)
 		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
 		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
@@ -434,14 +415,13 @@ final class HomeViewController: UIViewController {
 	func updateSections() {
 		sections = homeInteractor.sections
 	}
-	
+
 	private func configureUI() {
 
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
-		
-		let image = UIImage(named: "navi_bar_icon")
+		let image = UIImage(named: "Corona-Warn-App")
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
 		self.navigationItem.leftBarButtonItem = leftItem

@@ -117,31 +117,30 @@ private extension ENAButton {
 
 extension ENAButton.Style {
 	var highlightColor: UIColor {
-		UIColor.black.withAlphaComponent(0.2)
+		.enaColor(for: .buttonHighlight)
 	}
 
 	var backgroundColor: UIColor {
 		switch self {
 		case .transparent: return .clear
-		case .emphasized(let color): return color ?? UIColor(red: 0 / 255.0, green: 127 / 255.0, blue: 173 / 255.0, alpha: 1) // TODO will be replaced in coming incremental PR
-//		case .emphasized(let color): return color ?? .preferredColor(for: .tint)
-		case .contrast: return .preferredColor(for: .backgroundPrimary)
+		case .emphasized(let color): return color ?? .enaColor(for: .buttonPrimary)
+		case .contrast: return .enaColor(for: .background)
 		}
 	}
 
 	var foregroundColor: UIColor {
 		switch self {
-		case .transparent: return .preferredColor(for: .tint) // Update with color dedicated to button.
-		case .emphasized: return .white
-		case .contrast: return .preferredColor(for: .textPrimary1, interface: .dark)
+		case .transparent: return .enaColor(for: .textTint)
+		case .emphasized: return .enaColor(for: .textContrast)
+		case .contrast: return .enaColor(for: .textPrimary1)
 		}
 	}
 
 	var disabledBackgroundColor: UIColor {
 		switch self {
-		case .transparent: return .preferredColor(for: .separator)
-		case .emphasized: return .preferredColor(for: .separator)
-		case .contrast: return .preferredColor(for: .separator)
+		case .transparent: return .clear
+		case .emphasized: return .enaColor(for: .separator)
+		case .contrast: return .enaColor(for: .separator)
 		}
 	}
 

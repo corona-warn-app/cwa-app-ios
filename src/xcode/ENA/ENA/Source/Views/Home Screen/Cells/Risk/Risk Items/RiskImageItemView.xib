@@ -15,23 +15,26 @@
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="U8q-BV-ccC">
                     <rect key="frame" x="0.0" y="0.0" width="575" height="155"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="765" verticalHuggingPriority="251" image="Icons_Calendar-Dark" translatesAutoresizingMaskIntoConstraints="NO" id="3I7-DI-BV1">
-                            <rect key="frame" x="0.0" y="61.5" width="32" height="32"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="765" verticalHuggingPriority="251" image="Icons_Calendar" translatesAutoresizingMaskIntoConstraints="NO" id="3I7-DI-BV1">
+                            <rect key="frame" x="0.0" y="65.5" width="24" height="24"/>
                             <constraints>
-                                <constraint firstAttribute="height" priority="900" constant="32" id="5NM-Ed-5sF"/>
-                                <constraint firstAttribute="width" priority="900" constant="32" id="sqY-Cl-O79"/>
+                                <constraint firstAttribute="height" priority="900" constant="24" id="5NM-Ed-5sF"/>
+                                <constraint firstAttribute="width" priority="900" constant="24" id="sqY-Cl-O79"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8r0-5t-F3e">
-                            <rect key="frame" x="55" y="67.5" width="520" height="20.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8r0-5t-F3e" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                            <rect key="frame" x="47" y="67.5" width="528" height="20.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xqB-br-Yjr" userLabel="Separator View">
-                    <rect key="frame" x="55" y="154" width="520" height="1"/>
+                    <rect key="frame" x="47" y="154" width="528" height="1"/>
                     <color key="backgroundColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="2Ko-AP-a7I"/>
@@ -58,6 +61,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Icons_Calendar-Dark" width="18" height="17"/>
+        <image name="Icons_Calendar" width="18" height="17"/>
     </resources>
 </document>

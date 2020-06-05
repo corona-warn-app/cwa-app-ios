@@ -106,14 +106,11 @@ final class HomeInteractor {
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 
-		taskScheduler.cancelAllBackgroundTaskRequests()
-
 		riskCellTask(completion: {
 			self.riskLevelConfigurator?.stopLoading()
 			guard let indexPath = self.indexPathForRiskCell() else { return }
 			self.homeViewController.updateSections()
 			self.homeViewController.reloadCell(at: indexPath)
-			self.taskScheduler.scheduleBackgroundTaskRequests()
 		})
 	}
 
@@ -306,6 +303,7 @@ extension HomeInteractor {
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
 				startDate: startDate,
 				releaseDate: releaseDate,
+				numberRiskContacts: state.numberRiskContacts,
 				numberDays: 2,
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection
@@ -365,7 +363,7 @@ extension HomeInteractor {
 		}
 
 		return testResultConfigurator
-	}
+		}
 
 	func setupSubmitConfigurator() -> HomeSubmitCellConfigurator {
 		let submitConfigurator = HomeSubmitCellConfigurator()
@@ -434,7 +432,7 @@ extension HomeInteractor {
 			// This is the default view that is shown when no test results are available and nothing has been submitted.
 
 			// Risk card.
-			if let risk = setupRiskConfigurator() as? HomeRiskLevelCellConfigurator {
+			if let risk = setupRiskConfigurator() {
 				actionsConfigurators.append(risk)
 			}
 
@@ -443,12 +441,12 @@ extension HomeInteractor {
 		}
 
 		return actionsConfigurators
-	}
+		}
 
 	func setupActionSectionDefinition() -> SectionDefinition {
 		return (.actions, setupActionConfigurators())
 	}
-}
+	}
 
 // MARK: - IndexPath helpers.
 
@@ -487,7 +485,7 @@ extension HomeInteractor {
 		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
 		return indexPath
 	}
-}
+	}
 
 // MARK: - Exposure submission service calls.
 
@@ -495,8 +493,8 @@ extension HomeInteractor {
 	func updateTestResults() {
 		DispatchQueue.global(qos: .userInteractive).async {
 			self.updateTestResultHelper()
+			}
 		}
-	}
 
 	private func updateTestResultHelper() {
 		guard store.registrationToken != nil else { return }
@@ -508,8 +506,8 @@ extension HomeInteractor {
 			case .success(let result):
 				self.testResult = result
 				self.reloadTestResult(with: result)
-			}
-		}
+	}
+	}
 	}
 }
 

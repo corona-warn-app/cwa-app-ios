@@ -17,18 +17,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="HE9-Lw-n8D">
-                                <rect key="frame" x="0.0" y="61.5" width="414" height="780.5"/>
+                                <rect key="frame" x="0.0" y="48.5" width="414" height="793.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="numberedTitleCell" id="0B7-SQ-UFz" customClass="RiskLegendNumberedTitleCell" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="414" height="48.5"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="42.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0B7-SQ-UFz" id="yjn-ic-RhS">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="48.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="42.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lWx-UY-HUn">
-                                                    <rect key="frame" x="20" y="8.5" width="32" height="32"/>
+                                                    <rect key="frame" x="20" y="5.5" width="32" height="32"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qc9-LB-X43">
                                                             <rect key="frame" x="12" y="6" width="8.5" height="20.5"/>
@@ -37,7 +37,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" name="ENA Brand Light Blue"/>
+                                                    <color key="backgroundColor" name="ENA Brand Light Blue Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="5Sc-V3-Ir3"/>
                                                         <constraint firstItem="Qc9-LB-X43" firstAttribute="centerY" secondItem="lWx-UY-HUn" secondAttribute="centerY" id="9d8-ke-l5C"/>
@@ -51,7 +51,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LyM-IV-zgr" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="68" y="11" width="326" height="26.5"/>
+                                                    <rect key="frame" x="68" y="11" width="326" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                     <nil key="highlightedColor"/>
@@ -78,7 +78,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dotBodyCell" id="HgF-Kh-Lfs" customClass="RiskLegendDotBodyCell" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104" width="414" height="42.5"/>
+                                        <rect key="frame" x="0.0" y="98" width="414" height="42.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HgF-Kh-Lfs" id="g3u-X0-F9D">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="42.5"/>
@@ -130,10 +130,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mi8-Cv-Sbm">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="61.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="48.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0E-Fd-yj4" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="24" width="334" height="33.5"/>
+                                        <rect key="frame" x="16" y="24" width="334" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -153,7 +153,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqM-tL-rje" customClass="UIControl">
                                 <rect key="frame" x="357" y="15" width="50" height="50"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="risk-legend-close" translatesAutoresizingMaskIntoConstraints="NO" id="1Jv-e2-fP5">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icons - Close" translatesAutoresizingMaskIntoConstraints="NO" id="1Jv-e2-fP5">
                                         <rect key="frame" x="9" y="9" width="32" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="jlv-MU-Tnf"/>
@@ -199,21 +199,21 @@
         </scene>
     </scenes>
     <resources>
-        <image name="risk-legend-close" width="30" height="30"/>
+        <image name="Icons - Close" width="30" height="30"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="ENA Brand Light Blue">
-            <color red="0.90196078431372551" green="0.96078431372549022" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="ENA Brand Light Blue Color">
+            <color red="0.90200001001358032" green="0.96100002527236938" blue="0.98400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Risk High Color">
-            <color red="0.75294117647058822" green="0.058823529411764705" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.75300002098083496" green="0.059000000357627869" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Primary 1 Color">
-            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Primary 1 Contrast Color">
-            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

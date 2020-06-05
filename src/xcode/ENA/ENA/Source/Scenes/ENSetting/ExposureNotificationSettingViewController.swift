@@ -177,6 +177,7 @@ extension ExposureNotificationSettingViewController {
 						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
 							(UIColor.preferredColor(for: .tint), UIColor.preferredColor(for: .textPrimary3)) :
 							(UIColor.preferredColor(for: .textPrimary2), UIColor.preferredColor(for: .textPrimary3))
+						
 						tracingCell.configure(
 							progress: CGFloat(numberRiskContacts),
 							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberRiskContacts),

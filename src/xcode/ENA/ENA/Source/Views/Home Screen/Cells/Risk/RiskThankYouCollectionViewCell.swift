@@ -21,13 +21,13 @@ import UIKit
 
 final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 
-	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var imageView: UIImageView!
-	@IBOutlet var bodyLabel: UILabel!
+	@IBOutlet var bodyLabel: ENALabel!
 
-	@IBOutlet var noteLabel: UILabel!
+	@IBOutlet var noteLabel: ENALabel!
 
-	@IBOutlet var furtherInfoLabel: UILabel!
+	@IBOutlet var furtherInfoLabel: ENALabel!
 
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var stackView: UIStackView!

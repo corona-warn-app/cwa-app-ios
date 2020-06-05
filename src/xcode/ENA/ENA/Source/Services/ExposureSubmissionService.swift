@@ -48,23 +48,23 @@ protocol ExposureSubmissionService {
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
 	func hasRegistrationToken() -> Bool
 	func deleteTest()
-	var devicePairingConsentAccept: Bool { get set }
-	var devicePairingConsentAcceptTimestamp: Int64? { get set }
+	var devicePairingConsentAcceptTimestamp: Int64? { get }
+	func preconditions() -> ExposureManagerState
+	func acceptPairing()
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
-
 
 	let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
 	let client: Client
 	let store: Store
 	
-	var devicePairingConsentAccept: Bool {
+	private var devicePairingConsentAccept: Bool {
 		get { self.store.devicePairingConsentAccept }
 		set { self.store.devicePairingConsentAccept = newValue }
 	}
 
-	var devicePairingConsentAcceptTimestamp: Int64? {
+	private(set) var devicePairingConsentAcceptTimestamp: Int64? {
 		get { self.store.devicePairingConsentAcceptTimestamp }
 		set { self.store.devicePairingConsentAcceptTimestamp = newValue }
 	}
@@ -247,6 +247,8 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch enError.code {
 			case .notEnabled:
 				return .enNotEnabled
+			case .notAuthorized:
+				return .notAuthorized
 			default:
 				return .other(enError.localizedDescription)
 			}
@@ -278,8 +280,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .httpError(wrapped.localizedDescription)
 			case .invalidResponse:
 				return .invalidResponse
-			case .qRTeleTanAlreadyUsed:
-				return .qRTeleTanAlreadyUsed
+			case .teleTanAlreadyUsed:
+				return .teleTanAlreadyUsed
+			case .qRAlreadyUsed:
+				return .qRAlreadyUsed
 			case .regTokenNotExist:
 				return .regTokenNotExist
 			case .noResponse:
@@ -291,19 +295,30 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		return .unknown
 	}
+
+	func preconditions() -> ExposureManagerState {
+		diagnosiskeyRetrieval.preconditions()
+	}
+
+	func acceptPairing() {
+		devicePairingConsentAccept = true
+		devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+	}
 }
 
 enum ExposureSubmissionError: Error, Equatable {
 	case other(String)
 	case noRegistrationToken
 	case enNotEnabled
+	case notAuthorized
 	case noKeys
 	case noConsent
 	case noExposureConfiguration
 	case invalidTan
 	case invalidResponse
 	case noResponse
-	case qRTeleTanAlreadyUsed
+	case teleTanAlreadyUsed
+	case qRAlreadyUsed
 	case regTokenNotExist
 	case serverError(Int)
 	case unknown
@@ -314,13 +329,15 @@ extension ExposureSubmissionError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case let .serverError(code):
-			return "\(code): \(HTTPURLResponse.localizedString(forStatusCode: code))"
+			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
 		case let .httpError(desc):
 			return desc
 		case .invalidTan:
 			return AppStrings.ExposureSubmissionError.invalidTan
 		case .enNotEnabled:
 			return AppStrings.ExposureSubmissionError.enNotEnabled
+		case .notAuthorized:
+			return AppStrings.ExposureSubmissionError.notAuthorized
 		case .noRegistrationToken:
 			return AppStrings.ExposureSubmissionError.noRegistrationToken
 		case .invalidResponse:
@@ -329,14 +346,16 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.noResponse
 		case .noExposureConfiguration:
 			return AppStrings.ExposureSubmissionError.noConfiguration
-		case .qRTeleTanAlreadyUsed:
-			return AppStrings.ExposureSubmissionError.qRTeleTanAlreadyUsed
+		case .qRAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
+		case .teleTanAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
 		case .regTokenNotExist:
 			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		case .noKeys:
 			return AppStrings.ExposureSubmissionError.noKeys
 		case let .other(desc):
-			return AppStrings.ExposureSubmissionError.other + " " + desc
+			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:
 			return AppStrings.ExposureSubmissionError.unknown
 		default:
