@@ -177,7 +177,7 @@
 
 "OnboardingInfo_privacyPage_title" = "Data Protection";
 
-"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_boldText" = "HELLO WORLD";
 
 "OnboardingInfo_privacyPage_normalText" = "You remain anonymous.\nYour data is transmitted fully encrypted and under a pseudonym.\n\nResponsible body: GDPR, Article 4, Paragraph 7:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nPlease read our data protection regulations.\n\nData protection information:";
 
@@ -305,7 +305,7 @@
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Information";
 
-"ExposureSubmissionIntroduction_SubTitle" = "This is how the Corona warning system works";
+"ExposureSubmissionIntroduction_SubTitle" = "So funktioniert das Corona-Warn-System";
 
 "ExposureSubmissionIntroduction_Usage01" = "For the app to work well, we are relying on the support of people who have tested positive.";
 
@@ -388,9 +388,9 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
 
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Privacy";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Remove the test?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test?";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "The test will be permanently deleted from the Corona-Warn-App and cannot be added again. This procedure cannot be undone. ";
 
@@ -407,17 +407,17 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Either the QR code or the TAN is invalid or has been used previously. Please contact the hotline.";
+"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Either the QR code or the TAN is invalid or has been used previously. Please contact the hotline.";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Either the QR code or the TAN is invalid or has been used previously. Please contact the hotline.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde schon verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Kontakt.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "The registration token you want to use does not exist.";
 
 "ExposureSubmissionError_other" = "Error:";
 
-"ExposureSubmissionError_otherend" = "Please try again.";
+"ExposureSubmissionError_otherend" = ". Bitte versuchen Sie es erneut.";
 
-"ExposureSubmissionError_declined" = "Please release your random IDs to warn others.";
+"ExposureSubmissionError_declined" = "Bitte geben Sie ihre zufälligen IDs frei, um andere zu warnen.";
 
 "ExposureSubmissionError_unknown" = "Unknown error";
 
@@ -602,9 +602,9 @@
 "App_Information_About_Text" = "The COVID-Warn-App will securely log exposures you have with other app user. This is how the app can determine whether you have been in close proximity to a person infected with the coronavirus.\n\nTogether we can help stop the virus spreading and keep ourselves healthy.";
 
 /* App Information - FAQ */
-"App_Information_FAQ_Navigation" = "Frequently asked questions";
+"App_Information_FAQ_Navigation" = "Häufige Fragen";
 
-"App_Information_FAQ_Title" = "Frequently asked questions";
+"App_Information_FAQ_Title" = "Häufige Fragen";
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Contact";
@@ -623,27 +623,27 @@
 
 "App_Information_Contact_Hotline_Terms" = "Business hours:\nMonday to Friday: 8am - 10pm\nSaturday and Sunday: 10am - 10pm\nThe standard charges of your telephone provider apply.";
 
-// App Information - Imprint
-"App_Information_Imprint_Navigation" = "Publication Details";
+/* App Information - Imprint */
+"App_Information_Imprint_Navigation" = "Impressum";
 
-"App_Information_Imprint_Section1_Title" = "Provider";
+"App_Information_Imprint_Section1_Title" = "Anbieter";
 
-"App_Information_Imprint_Section1_Text" = "Press and Information Office of the Federal Government\nDorotheenstraße 84\n10117 Berlin\nTel: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
+"App_Information_Imprint_Section1_Text" = "Presse- und Informationsamt der Bundesregierung\nDorotheenstraße 84\n10117 Berlin\nTelefon: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
 
-"App_Information_Imprint_Section2_Title" = "Legal Representative";
+"App_Information_Imprint_Section2_Title" = "Gesetzlicher Vertreter";
 
-"App_Information_Imprint_Section2_Text" = "Head of Press and Information Office of the Federal Government";
+"App_Information_Imprint_Section2_Text" = "Chef des Presse- und Informationsamtes der BundesRegierung";
 
 "App_Information_Imprint_Section3_Title" = "";
 
-"App_Information_Imprint_Section3_Text" = "You can contact the helpline of the Federal Government Monday to Friday from 8am to 6pm on:\n030 18 272-2720";
+"App_Information_Imprint_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
 
-"App_Information_Imprint_Section4_Title" = "Postal Address";
+"App_Information_Imprint_Section4_Title" = "Briefanschrift";
 
 "App_Information_Imprint_Section4_Text" = "...";
 
-// App Information - Legal
-"App_Information_Legal_Navigation" = "Legal Notice";
+/* App Information - Legal */
+"App_Information_Legal_Navigation" = "Publication Details";
 
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Data Protection";
@@ -701,9 +701,9 @@
 
 "InviteFriends_ShareTitle" = "Fighting coronavirus together. I'm in on this, you too?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
 
-"InviteFriends_Illustration_Label" = "One man shares the Corona Warning app with four other people.";
+"InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
 /* Reset View */
 "Reset_NavTitle" = "Reset";
@@ -723,7 +723,7 @@
 "Reset_Subtitle" = "Reset app";
 
 /* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
 
 /* Local Notifications */
 "local_notifications_viewResults" = "Display Results";
@@ -785,4 +785,5 @@
 
 "RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exhanged between smartphones in close proximity. Random IDs cannot be assigned to a specific person and are automatically deleted after 14 days. People who tested positive can choose to share their random IDs of up to the last 14 days with other app users.";
 
-"RiskLegend_Image1_AccLabel" = "A smartphone shows different content that is numbered.";
+"RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
+
