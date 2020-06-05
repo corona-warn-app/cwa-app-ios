@@ -212,43 +212,21 @@ final class OnboardingInfoViewController: UIViewController {
 
 		exposureManager.activate { error in
 			if let error = error {
-				switch error {
-				case .exposureNotificationRequired:
-					log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-				case .exposureNotificationAuthorization:
-					log(message: "Encourage the user to authorize this application", level: .warning)
-				case .exposureNotificationUnavailable:
-					log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
-				case .apiMisuse:
-					// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
+				logError(message: "Error during activation of ENManager: \(error)")
+				persistForDPP(accepted: false)
+				self.showError(error, from: self, completion: completion)
+				return
+			}
+			self.exposureManagerActivated = true
+			self.exposureManager.enable { enableError in
+				if let enableError = enableError {
+					logError(message: "Error during enable of ENManager: \(enableError)")
+					persistForDPP(accepted: false)
 					completion?()
 					return
 				}
-				self.showError(error, from: self, completion: completion)
-				persistForDPP(accepted: false)
+				persistForDPP(accepted: true)
 				completion?()
-			} else {
-				self.exposureManagerActivated = true
-				self.exposureManager.enable { enableError in
-					if let enableError = enableError {
-						switch enableError {
-						case .exposureNotificationRequired:
-							log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
-						case .exposureNotificationAuthorization:
-							log(message: "Encourage the user to authorize this application", level: .warning)
-						case .exposureNotificationUnavailable:
-							log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
-						case .apiMisuse:
-							// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed.
-							// The error condition here should not really happen as we are inside the `enable()` completion block
-							completion?()
-						}
-						persistForDPP(accepted: false)
-					} else {
-						persistForDPP(accepted: true)
-					}
-					completion?()
-				}
 			}
 		}
 	}
