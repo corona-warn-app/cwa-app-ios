@@ -19,7 +19,6 @@ import ExposureNotification
 import Foundation
 
 final class HomeInteractor {
-
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
 
@@ -507,10 +506,10 @@ extension HomeInteractor {
 	}
 }
 
-// MARK: - The ENStateHandler updating
+// MARK: The ENStateHandler updating
 extension HomeInteractor: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		self.enState = state
+		enState = state
 		activeConfigurator.updateEnState(state)
 		updateActiveCell()
 	}
