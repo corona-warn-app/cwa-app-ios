@@ -76,11 +76,14 @@ final class ENATaskScheduler {
 
 	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
 
-		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
 		taskRequest.requiresExternalPower = false
-		taskRequest.earliestBeginDate = earliestBeginDate
+		if let interval = taskIdentifier.backgroundTaskScheduleInterval {
+			taskRequest.earliestBeginDate = Date(timeIntervalSinceNow: interval)
+		} else {
+			taskRequest.earliestBeginDate = nil
+		}
 
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
