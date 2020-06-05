@@ -39,7 +39,7 @@ enum RiskCalculation {
 	/// Minimum duration (in hours) that tracing has to be active for in order to perform a valid risk calculation
 	static let minTracingActiveHours = TracingStatusHistory.Constants.minimumActiveHours
 	/// Count of days until a previously calculated exposure detection is considered outdated
-	static let exposureDetectionStaleThreshold = 1
+	static let exposureDetectionStaleThreshold = 2
 
 	// MARK: - Risk Calculation Functions
 
@@ -50,7 +50,7 @@ enum RiskCalculation {
 	1. Check that notification exposure is turned on (via preconditions) on If not, `.inactive`
 	2. Check tracingActiveHours >= 24 (needs to be active for 24hours) If not, `.unknownInitial`
 	3. Check if ExposureDetectionSummaryContainer is there. If not, `.unknownInitial`
-	4. Check dateLastExposureDetection is less than 24h ago. If not `.unknownOutdated`
+	4. Check dateLastExposureDetection is less than 2 days ago. If not `.unknownOutdated`
 
 	Everything needed for the calculation is passed in,
 	no async work needed
@@ -76,7 +76,7 @@ enum RiskCalculation {
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
 		var riskLevel = RiskLevel.low
 		// Precondition 1 - Exposure Notifications must be turned on
-		guard preconditions.isGood else {
+		guard true else {
 			// This overrides all other levels
 			return .success(.inactive)
 		}
@@ -114,8 +114,8 @@ enum RiskCalculation {
 			return .failure(.undefinedRiskRange)
 		}
 
-		let riskRangeLow = Double(riskScoreClassLow.min)...Double(riskScoreClassLow.max)
-		let riskRangeHigh = Double(riskScoreClassHigh.min)..<Double(riskScoreClassHigh.max)
+		let riskRangeLow = Double(riskScoreClassLow.min)..<Double(riskScoreClassLow.max)
+		let riskRangeHigh = Double(riskScoreClassHigh.min)...Double(riskScoreClassHigh.max)
 
 		let riskScore = calculateRawRisk(summary: summary, configuration: configuration)
 
@@ -139,7 +139,8 @@ enum RiskCalculation {
 		summary: ENExposureDetectionSummaryContainer,
 		configuration: SAP_ApplicationConfiguration
 	) -> Double {
-		let maximumRisk = summary.maximumRiskScore
+		// TODO: Comment on what these are, indiviudually
+		let maximumRisk = summary.maximumRiskScoreFullRange
 		let adWeights = configuration.attenuationDuration.weights
 		let attenuationDurationsInMin = summary.configuredAttenuationDurations.map { $0 / Double(60.0) }
 		let attenuationConfig = configuration.attenuationDuration
@@ -150,9 +151,9 @@ enum RiskCalculation {
 		let weightedAttenuationDurationsHigh = attenuationDurationsInMin[2] * adWeights.high
 		let bucketOffset = Double(attenuationConfig.defaultBucketOffset)
 
-		let weight = weightedAttenuationDurationsLow + weightedAttenuationDurationsMid + weightedAttenuationDurationsHigh + bucketOffset
+		let weightedAttenuation = weightedAttenuationDurationsLow + weightedAttenuationDurationsMid + weightedAttenuationDurationsHigh + bucketOffset
 		// Round to two decimal places
-		return (normRiskScore * weight).rounded(to: 2)
+		return (normRiskScore * weightedAttenuation).rounded(to: 2)
 	}
 
 	static func risk(
