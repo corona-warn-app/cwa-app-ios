@@ -76,7 +76,7 @@ enum RiskCalculation {
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
 		var riskLevel = RiskLevel.low
 		// Precondition 1 - Exposure Notifications must be turned on
-		guard true else {
+		guard preconditions.isGood else {
 			// This overrides all other levels
 			return .success(.inactive)
 		}
@@ -139,7 +139,6 @@ enum RiskCalculation {
 		summary: ENExposureDetectionSummaryContainer,
 		configuration: SAP_ApplicationConfiguration
 	) -> Double {
-		// TODO: Comment on what these are, indiviudually
 		let maximumRisk = summary.maximumRiskScoreFullRange
 		let adWeights = configuration.attenuationDuration.weights
 		let attenuationDurationsInMin = summary.configuredAttenuationDurations.map { $0 / Double(60.0) }

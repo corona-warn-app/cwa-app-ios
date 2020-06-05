@@ -89,8 +89,8 @@ final class TracingStatusHistoryTests: XCTestCase {
 	}
 
 	func testIfTracingActiveForThresholdDuration_EnabledClosePast() throws {
-		// Test the simple case where the user disabling notification tracing,
-		// and just left it disabled
+		// Test the simple case where the user enabled notification tracing not too long ago,
+		// and just left it enabled
 		var history = TracingStatusHistory()
 		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 

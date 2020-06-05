@@ -26,20 +26,20 @@ final class RiskCalculationTests: XCTestCase {
 	// MARK: - Tests for calculating raw risk score
 
 	func testCalculateRawRiskScore_Zero() throws {
-		let summaryZeroMaxRisk = makeExposureSummaryContainer(maxRiskScore: 0, ad_low: 10, ad_mid: 10, ad_high: 10)
-		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryZeroMaxRisk, configuration: appConfig), 0.0)
+		let summaryZeroMaxRisk = makeExposureSummaryContainer(maxRiskScoreFullRange: 0, ad_low: 10, ad_mid: 10, ad_high: 10)
+		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryZeroMaxRisk, configuration: appConfig), 0.0, accuracy: 0.01)
 	}
 
 	func testCalculateRawRiskScore_Low() throws {
-		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryLow, configuration: appConfig), 1.07)
+		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryLow, configuration: appConfig), 1.07, accuracy: 0.01)
 	}
 
 	func testCalculateRawRiskScore_Med() throws {
-		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryMed, configuration: appConfig), 2.56)
+		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryMed, configuration: appConfig), 2.56, accuracy: 0.01)
 	}
 
 	func testCalculateRawRiskScore_High() throws {
-		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryHigh, configuration: appConfig), 10.2)
+		XCTAssertEqual(RiskCalculation.calculateRawRisk(summary: summaryHigh, configuration: appConfig), 10.2, accuracy: 0.01)
 	}
 
 	// MARK: - Tests for calculating risk levels
@@ -92,7 +92,7 @@ final class RiskCalculationTests: XCTestCase {
 		let risk = try RiskCalculation.risk(
 			summary: summaryLow,
 			configuration: appConfig,
-			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -1)),
+			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid)).get()
 
@@ -130,7 +130,7 @@ final class RiskCalculationTests: XCTestCase {
 	func testCalculateRisk_OutsideRangeError_Middle() throws {
 		// Test the case where preconditions pass and there is increased risk
 		// Values below are hand-picked to result in a raw risk score of 5.12 - within a gap in the range
-		let summary = makeExposureSummaryContainer(maxRiskScore: 128, ad_low: 30, ad_mid: 30, ad_high: 30)
+		let summary = makeExposureSummaryContainer(maxRiskScoreFullRange: 128, ad_low: 30, ad_mid: 30, ad_high: 30)
 		let risk = RiskCalculation.risk(
 			summary: summary,
 			configuration: appConfig,
@@ -145,7 +145,7 @@ final class RiskCalculationTests: XCTestCase {
 	func testCalculateRisk_OutsideRangeError_OffHigh() throws {
 		// Test the case where preconditions pass and there is increased risk
 		// Values below are hand-picked to result in a raw risk score of 13.6 - outside of the top range of the config
-		let summary = makeExposureSummaryContainer(maxRiskScore: 255, ad_low: 40, ad_mid: 40, ad_high: 40)
+		let summary = makeExposureSummaryContainer(maxRiskScoreFullRange: 255, ad_low: 40, ad_mid: 40, ad_high: 40)
 		let risk = RiskCalculation.risk(
 			summary: summary,
 			configuration: appConfig,
@@ -160,7 +160,7 @@ final class RiskCalculationTests: XCTestCase {
 	func testCalculateRisk_OutsideRangeError_TooLow() throws {
 		// Test the case where preconditions pass and there is increased risk
 		// Values below are hand-picked to result in a raw risk score of 0.85 - outside of the botton bound of the config
-		let summary = makeExposureSummaryContainer(maxRiskScore: 64, ad_low: 10, ad_mid: 10, ad_high: 10)
+		let summary = makeExposureSummaryContainer(maxRiskScoreFullRange: 64, ad_low: 10, ad_mid: 10, ad_high: 10)
 		let risk = RiskCalculation.risk(
 			summary: summary,
 			configuration: appConfig,
@@ -211,15 +211,15 @@ private extension RiskCalculationTests {
 	}
 
 	private var summaryLow: ENExposureDetectionSummaryContainer {
-		makeExposureSummaryContainer(maxRiskScore: 80, ad_low: 10, ad_mid: 10, ad_high: 10)
+		makeExposureSummaryContainer(maxRiskScoreFullRange: 80, ad_low: 10, ad_mid: 10, ad_high: 10)
 	}
 
 	private var summaryMed: ENExposureDetectionSummaryContainer {
-		makeExposureSummaryContainer(maxRiskScore: 128, ad_low: 15, ad_mid: 15, ad_high: 15)
+		makeExposureSummaryContainer(maxRiskScoreFullRange: 128, ad_low: 15, ad_mid: 15, ad_high: 15)
 	}
 
 	private var summaryHigh: ENExposureDetectionSummaryContainer {
-		makeExposureSummaryContainer(maxRiskScore: 255, ad_low: 30, ad_mid: 30, ad_high: 30)
+		makeExposureSummaryContainer(maxRiskScoreFullRange: 255, ad_low: 30, ad_mid: 30, ad_high: 30)
 	}
 
 	enum PreconditionState {
@@ -237,12 +237,12 @@ private extension RiskCalculationTests {
 	}
 
 	private func makeExposureSummaryContainer(
-		maxRiskScore: ENRiskScore,
+		maxRiskScoreFullRange: Int,
 		ad_low: Double,
 		ad_mid: Double,
 		ad_high: Double
 	) -> ENExposureDetectionSummaryContainer {
-		ENExposureDetectionSummaryContainer(daysSinceLastExposure: 0, matchedKeyCount: 0, maximumRiskScore: maxRiskScore, attenuationDurations: [ad_low, ad_mid, ad_high]
+		ENExposureDetectionSummaryContainer(daysSinceLastExposure: 0, matchedKeyCount: 0, maximumRiskScore: 0, attenuationDurations: [ad_low, ad_mid, ad_high], maximumRiskScoreFullRange: maxRiskScoreFullRange
 		)
 	}
 

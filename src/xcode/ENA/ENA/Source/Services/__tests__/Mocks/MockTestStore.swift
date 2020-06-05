@@ -49,6 +49,7 @@ class MockTestStore: Store {
 		daysSinceLastExposure: 0,
 		matchedKeyCount: 0,
 		maximumRiskScore: 0,
-		attenuationDurations: []
+		attenuationDurations: [],
+		maximumRiskScoreFullRange: 0
 	)
 }
