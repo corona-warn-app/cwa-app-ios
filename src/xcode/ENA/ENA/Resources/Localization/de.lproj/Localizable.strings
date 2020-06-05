@@ -473,7 +473,7 @@
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 
-"Home_RiskCard_Unknown_Item_Title" = "Da Sie Ihre Umfeldaufzeichnung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
+"Home_RiskCard_Unknown_Item_Title" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 
 "Home_RiskCard_Unknown_Button" = "Aktualisieren";
 
@@ -491,9 +491,7 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
-"Home_Risk_Low_NoContact_Item_Title" = "Bisher keine Risiko-Begegnung";
-
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen gespeichert";
+"Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen aktiv";
 
 "Home_Risk_Low_Date_Item_Title" = "Aktualisiert: %@";
 
