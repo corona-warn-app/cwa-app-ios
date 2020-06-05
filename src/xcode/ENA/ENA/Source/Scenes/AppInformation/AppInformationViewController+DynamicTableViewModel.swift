@@ -25,6 +25,20 @@ private extension DynamicCell {
 			(cell.textLabel as? ENALabel)?.style = .title2
 		}
 	}
+
+	static func headlineWithoutBottomInset(text: String) -> Self {
+		.headline(text: text) { _, cell, _ in
+			cell.contentView.preservesSuperviewLayoutMargins = false
+			cell.contentView.layoutMargins.bottom = 0
+		}
+	}
+
+	static func bodyWithoutTopInset(text: String) -> Self {
+		.body(text: text) { _, cell, _ in
+			cell.contentView.preservesSuperviewLayoutMargins = false
+			cell.contentView.layoutMargins.top = 0
+		}
+	}
 }
 
 private extension DynamicAction {
@@ -109,13 +123,13 @@ extension AppInformationViewController {
 			header: .image(UIImage(named: "Illu_Appinfo_Impressum"), height: 230),
 			cells: [
 				.headline(text: "App_Information_Imprint_Section1_Title".localized),
-				.body(text: "App_Information_Imprint_Section1_Text".localized),
-				.headline(text: "App_Information_Imprint_Section2_Title".localized),
-				.body(text: "App_Information_Imprint_Section2_Text".localized),
-				.headline(text: "App_Information_Imprint_Section3_Title".localized),
-				.body(text: "App_Information_Imprint_Section3_Text".localized),
-				.headline(text: "App_Information_Imprint_Section4_Title".localized),
-				.body(text: "App_Information_Imprint_Section4_Text".localized)
+				.bodyWithoutTopInset(text: "App_Information_Imprint_Section1_Text".localized),
+				.headlineWithoutBottomInset(text: "App_Information_Imprint_Section2_Title".localized),
+				.bodyWithoutTopInset(text: "App_Information_Imprint_Section2_Text".localized),
+				.headlineWithoutBottomInset(text: "App_Information_Imprint_Section3_Title".localized),
+				.bodyWithoutTopInset(text: "App_Information_Imprint_Section3_Text".localized),
+				.headlineWithoutBottomInset(text: "App_Information_Imprint_Section4_Title".localized),
+				.bodyWithoutTopInset(text: "App_Information_Imprint_Section4_Text".localized)
 			]
 		)
 	])
