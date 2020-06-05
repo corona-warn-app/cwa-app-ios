@@ -182,7 +182,8 @@ extension RiskProvider: RiskProviding {
 			dateLastExposureDetection: self.store.dateLastExposureDetection,
 			numberOfTracingActiveHours: numberOfEnabledHours,
 			preconditions: self.exposureManagerState,
-			currentDate: Date()
+			currentDate: Date(),
+			previousSummary: store.previousSummary
 		)
 
 		for consumer in consumers.allObjects {

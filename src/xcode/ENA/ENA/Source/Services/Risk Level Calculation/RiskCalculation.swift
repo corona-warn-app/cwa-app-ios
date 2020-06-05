@@ -28,9 +28,9 @@ struct Risk {
 		var exposureDetectionDate: Date
 	}
 
-//	let riskLevelHasIncreased: Bool
 	let level: RiskLevel
 	let details: Details
+	let riskLevelHasIncreased: Bool
 }
 
 enum RiskCalculation {
@@ -162,7 +162,8 @@ enum RiskCalculation {
 		dateLastExposureDetection: Date?,
 		numberOfTracingActiveHours: Int,
 		preconditions: ExposureManagerState,
-		currentDate: Date = Date()
+		currentDate: Date = Date(),
+		previousSummary: ENExposureDetectionSummaryContainer?
 	) -> Result<Risk, RiskLevelCalculationError> {
 		switch riskLevel(
 			summary: summary,
@@ -178,7 +179,15 @@ enum RiskCalculation {
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
 
-			return .success(Risk(level: level, details: details))
+			var riskLevelHasIncreased: Bool = false
+			if let summary = summary,
+				let previousSummary = previousSummary,
+				RiskLevel(riskScore: summary.maximumRiskScore) == .increased,
+				RiskLevel(riskScore: summary.maximumRiskScore) > RiskLevel(riskScore: previousSummary.maximumRiskScore) {
+				riskLevelHasIncreased = true
+			}
+
+			return .success(Risk(level: level, details: details, riskLevelHasIncreased: riskLevelHasIncreased))
 		case .failure(let error):
 			return .failure(error)
 		}
