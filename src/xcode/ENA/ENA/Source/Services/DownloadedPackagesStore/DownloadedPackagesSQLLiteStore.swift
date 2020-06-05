@@ -185,7 +185,7 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 	}
 
 	func hourlyPackages(for day: String) -> [SAPDownloadedPackage] {
-		let sql = "SELECT Z_BIN, Z_SIGNATURE FROM Z_DOWNLOADED_PACKAGE WHERE Z_DAY = :day AND Z_HOUR IS NOT NULL;"
+		let sql = "SELECT Z_BIN, Z_SIGNATURE, Z_HOUR FROM Z_DOWNLOADED_PACKAGE WHERE Z_DAY = :day AND Z_HOUR IS NOT NULL ORDER BY Z_HOUR DESC;"
 		guard let result = database.execute(query: sql, parameters: ["day": day]) else {
 			return []
 		}
