@@ -623,7 +623,7 @@
 
 "App_Information_Contact_Hotline_Terms" = "Erreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
 
-// App Information - Imprint
+/* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
 
 "App_Information_Imprint_Section1_Title" = "Anbieter";
@@ -642,7 +642,7 @@
 
 "App_Information_Imprint_Section4_Text" = "...";
 
-// App Information - Legal
+/* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
 /* App Information - Privacy */
