@@ -44,21 +44,13 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		constructStackView()
 		constructCounterLabelContainer()
-		topContainer.layoutMargins = .zero
-	}
-
-	private func constructStackView() {
-		let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
-		stackView.layoutMargins = containerInsets
-		stackView.isLayoutMarginsRelativeArrangement = true
 	}
 
 	private func constructCounterLabelContainer() {
 		counterLabelContainer.layer.cornerRadius = 18.0
 		counterLabelContainer.layer.masksToBounds = true
-		counterLabelContainer.layoutMargins = .init(top: 9.0, left: 16.0, bottom: 9.0, right: 16.0)
+		counterLabelContainer.layoutMargins = .init(top: 8.0, left: 16.0, bottom: 8.0, right: 16.0)
 		counterLabelContainer.backgroundColor = UIColor.black.withAlphaComponent(0.12)
 		counterLabel.textColor = .systemGray6
 	}
@@ -137,7 +129,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 			}
 		}
 		if let last = lastView {
-			stackView.setCustomSpacing(15.0, after: last)
+			stackView.setCustomSpacing(16.0, after: last)
 		}
 		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
 			riskItemView.hideSeparator()
