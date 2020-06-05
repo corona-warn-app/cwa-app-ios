@@ -107,9 +107,9 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	// MARK: Properties
 
 	private weak var observer: ENAExposureManagerObserver?
-	private var enabledObservation: NSKeyValueObservation?
+//	private var enabledObservation: NSKeyValueObservation?
 	private var statusObservation: NSKeyValueObservation?
-	@objc public let manager: Manager
+	@objc private let manager: Manager
 
 	// MARK: Creating a Manager
 
