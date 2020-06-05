@@ -52,7 +52,10 @@ extension ExposureSubmissionSuccessViewController: ExposureSubmissionNavigationC
 private extension DynamicTableViewModel {
 	static let data = DynamicTableViewModel([
 		DynamicSection.section(
-			header: .image(UIImage(named: "Illu_Submission_VielenDank"), accessibilityLabel: nil),
+			header: .image(
+				UIImage(named: "Illu_Submission_VielenDank"),
+				accessibilityLabel: Accessibility.Image.exposureSubmissionSuccessThankYouDescription
+			),
 			separators: false,
 			cells: [
 				.body(text: AppStrings.ExposureSubmissionSuccess.description),

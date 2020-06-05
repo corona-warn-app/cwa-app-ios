@@ -282,6 +282,8 @@
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank";
 
+"ExposureSubmissionSuccess_AccImageDescription" = "Eine vielfältige Gruppe begrüßt durch Jubel, dass jemand sein Testergebnis mit anderen geteilt hat.";
+
 "ExposureSubmissionSuccess_Button" = "Fertig";
 
 "ExposureSubmissionSuccess_Description" = "Dank Ihrer Mithilfe können Andere gewarnt werden und entsprechend reagieren.";
@@ -306,6 +308,8 @@
 "ExposureSubmissionIntroduction_Title" = "Info";
 
 "ExposureSubmissionIntroduction_SubTitle" = "So funktioniert das Corona-Warn-System";
+
+"ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
 
@@ -379,6 +383,8 @@
 "ExposureSubmissionResult_refreshButton" = "Aktualisieren";
 
 "ExposureSubmissionWarnOthers_title" = "Andere warnen";
+
+"ExposureSubmissionWarnOthers_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Weiter";
 
