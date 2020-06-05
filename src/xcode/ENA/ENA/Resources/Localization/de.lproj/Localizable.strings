@@ -177,7 +177,7 @@
 
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
 
-"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_boldText" = "HELLO WORLD";
 
 "OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
 
