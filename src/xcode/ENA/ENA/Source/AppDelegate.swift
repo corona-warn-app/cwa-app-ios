@@ -332,6 +332,11 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			return
 		}
 
+		self.taskScheduler.notificationManager.presentNotification(
+			title: "BGTask event received",
+			body: "\(ENATaskIdentifier.detectExposures.backgroundTaskSchedulerIdentifier)",
+			identifier: ENATaskIdentifier.detectExposures.rawValue)
+
 		exposureDetection = ExposureDetection(delegate: self)
 
 		self.exposureDetection?.start { result in
@@ -369,6 +374,11 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			task.setTaskCompleted(success: success)
 			taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
 		}
+
+		self.taskScheduler.notificationManager.presentNotification(
+			title: "BGTask event received",
+			body: "\(ENATaskIdentifier.fetchTestResults.backgroundTaskSchedulerIdentifier)",
+			identifier: ENATaskIdentifier.fetchTestResults.rawValue)
 
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 

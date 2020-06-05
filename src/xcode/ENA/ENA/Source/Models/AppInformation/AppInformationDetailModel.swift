@@ -21,6 +21,7 @@ import UIKit
 struct AppInformationDetailModel {
 	let title: String
 	let headerImage: UIImage?
+	let headerImageAccessibilityLabel: String?
 	let content: [Content]
 }
 

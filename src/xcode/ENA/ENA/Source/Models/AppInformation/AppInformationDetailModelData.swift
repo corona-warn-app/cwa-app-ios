@@ -22,6 +22,7 @@ extension AppInformationDetailModel {
 	static let about = AppInformationDetailModel(
 		title: "App_Information_About_Navigation".localized,
 		headerImage: UIImage(named: "Illu_AppInfo_UeberApp"),
+		headerImageAccessibilityLabel: "placeholder",
 		content: [
 			.headline(text: "App_Information_About_Title".localized),
 			.bold(text: "App_Information_About_Description".localized),
@@ -32,6 +33,7 @@ extension AppInformationDetailModel {
 	static let contact = AppInformationDetailModel(
 		title: "App_Information_Contact_Navigation".localized,
 		headerImage: UIImage(named: "Illu_Appinfo_Kontakt"),
+		headerImageAccessibilityLabel: "placeholder",
 		content: [
 			.headline(text: "App_Information_Contact_Title".localized),
 			.body(text: "App_Information_Contact_Description".localized),
@@ -45,6 +47,7 @@ extension AppInformationDetailModel {
 	static let imprint = AppInformationDetailModel(
 		title: "App_Information_Imprint_Navigation".localized,
 		headerImage: UIImage(named: "app-information-impressum"),
+		headerImageAccessibilityLabel: "App_Information_Terms_Image1_AccLabel".localized,
 		content: [
 			.bold(text: "App_Information_Imprint_Section1_Title".localized),
 			.body(text: "App_Information_Imprint_Section1_Text".localized),
@@ -60,12 +63,14 @@ extension AppInformationDetailModel {
 	static let faq = AppInformationDetailModel(
 		title: "App_Information_FAQ_Navigation".localized,
 		headerImage: nil,
+		headerImageAccessibilityLabel: nil,
 		content: []
 	)
 
 	static let legal = AppInformationDetailModel(
 		title: "App_Information_Legal_Navigation".localized,
 		headerImage: nil,
+		headerImageAccessibilityLabel: nil,
 		content: [
 		]
 	)
@@ -73,6 +78,7 @@ extension AppInformationDetailModel {
 	static let privacy = AppInformationDetailModel(
 		title: "App_Information_Privacy_Navigation".localized,
 		headerImage: UIImage(named: "Illu_Appinfo_RechtlicheHinweise"),
+		headerImageAccessibilityLabel: "placeholder",
 		content: [
 			.headline(text: "App_Information_Privacy_Title".localized),
 			.body(text: "App_Information_Privacy_Description".localized),
@@ -84,6 +90,7 @@ extension AppInformationDetailModel {
 	static let terms = AppInformationDetailModel(
 		title: "App_Information_Terms_Navigation".localized,
 		headerImage: UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"),
+		headerImageAccessibilityLabel: "placeholder",
 		content: [
 			.headline(text: "App_Information_Terms_Title".localized),
 			.body(text: "App_Information_Terms_Description".localized),
