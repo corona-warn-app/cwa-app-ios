@@ -4,7 +4,6 @@ jobs:
   build-and-test:
     macos:
       xcode: 11.5.0
-    shell: zsh
 
     steps:
       - checkout
@@ -17,27 +16,10 @@ jobs:
       - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
-      - run:
-          name: Convert coverage information to SonarCloud format
-          command: |
-            ./xcov_to_sonarqube_generic.sh src/xcode/fastlane/test_output/*.xccovarchive/ > coverage.xml
-            sed -i "" 's|/Users/distiller/project/||' coverage.xml
-      - run:
-          name: Fix swiftlint output for SonarCloud
-          command: |
-                mv src/xcode/swiftlint.result.json src/xcode/swiftlint.result.original.json
-                cat src/xcode/swiftlint.result.original.json | jq '.["issues"]' > src/xcode/swiftlint.result.json
-      - sonarcloud/scan:
-          os: macosx
-          version: 4.3.0.2102
       - store_test_results:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
           path: src/xcode/fastlane/test_output
-      - store_artifacts:
-          path: coverage.xml
-      - store_artifacts:
-          path: src/xcode/swiftlint.result.json
 
   grab-screenshots:
     macos:
@@ -51,10 +33,7 @@ jobs:
       - store_artifacts:
           path: src/xcode/screenshots
 
-orbs:
-  sonarcloud: tkowark/sonarcloud3@0.1.0
 workflows:
     default:
       jobs:
-        - build-and-test:
-            context: SonarCloud
+        - build-and-test
