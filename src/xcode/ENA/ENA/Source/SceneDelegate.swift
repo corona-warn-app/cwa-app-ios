@@ -48,6 +48,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private var developerMenu: DMDeveloperMenu?
+	private var appUpdateChecker: AppUpdateCheckHelper?
 
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
 		developerMenu = DMDeveloperMenu(
@@ -99,6 +100,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
+		appUpdateChecker = AppUpdateCheckHelper(client: client)
+
 		exposureManager.resume(observer: self)
 
 		UNUserNotificationCenter.current().delegate = self
@@ -131,6 +134,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		}
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
+		appUpdateChecker?.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
 	private func setupNavigationBarAppearance() {

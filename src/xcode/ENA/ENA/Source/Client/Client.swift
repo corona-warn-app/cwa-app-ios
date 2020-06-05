@@ -31,8 +31,12 @@ protocol Client {
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
+	typealias AppConfigurationCompletion = (SAP_ApplicationConfiguration?) -> Void
+
 
 	// MARK: Interacting with a Client
+	/// Gets the app configuratoin
+	func appConfiguration(completion: @escaping AppConfigurationCompletion)
 
 	/// Determines days that can be downloaded.
 	func availableDays(
