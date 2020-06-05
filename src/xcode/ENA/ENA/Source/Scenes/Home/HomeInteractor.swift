@@ -77,7 +77,7 @@ final class HomeInteractor {
 	private(set) var sections: SectionConfiguration = []
 
 	private var activeConfigurator: HomeActivateCellConfigurator!
-	private var testResultConfigurator: HomeTestResultCellConfigurator?
+	private var testResultConfigurator = HomeTestResultCellConfigurator()
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
 	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
 
@@ -254,7 +254,7 @@ final class HomeInteractor {
 extension HomeInteractor {
 
 	func reloadTestResult(with result: TestResult) {
-		self.testResultConfigurator?.testResult = result
+		testResultConfigurator.testResult = result
 		reloadActionSection()
 		guard let indexPath = indexPathForTestResultCell() else { return }
 		homeViewController.reloadCell(at: indexPath)
@@ -350,32 +350,15 @@ extension HomeInteractor {
 		return nil
 	}
 
-	func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
-		guard let testResultConfigurator = self.testResultConfigurator else {
-			self.testResultConfigurator = HomeTestResultCellConfigurator()
-			// swiftlint:disable:next force_unwrapping
-			return self.testResultConfigurator!
-		}
-
-		testResultConfigurator.buttonAction = { [weak self] in
-			self?.homeViewController.showTestResultScreen()
-		}
-
+	private func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
+		testResultConfigurator.buttonAction = homeViewController.showTestResultScreen
 		return testResultConfigurator
-		}
+	}
 
 	func setupSubmitConfigurator() -> HomeSubmitCellConfigurator {
 		let submitConfigurator = HomeSubmitCellConfigurator()
-		submitConfigurator.submitAction = { [unowned self] in
-			self.homeViewController.showExposureSubmission()
-		}
-
+		submitConfigurator.submitAction = homeViewController.showExposureSubmissionWithoutResult
 		return submitConfigurator
-	}
-
-	func setupThankYouConfigurator() -> HomeThankYouRiskCellConfigurator {
-		let configurator = HomeThankYouRiskCellConfigurator()
-		return configurator
 	}
 
 	func setupFindingPositiveRiskCellConfigurator() -> HomeFindingPositiveRiskCellConfigurator {
@@ -405,7 +388,7 @@ extension HomeInteractor {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
 			// Once this state is reached, it cannot be left anymore.
 
-			let thankYou = setupThankYouConfigurator()
+			let thankYou = HomeThankYouRiskCellConfigurator()
 			actionsConfigurators.append(thankYou)
 			appLogger.log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
 
@@ -490,21 +473,15 @@ extension HomeInteractor {
 
 extension HomeInteractor {
 	func updateTestResults() {
-		DispatchQueue.global(qos: .userInteractive).async {
-			self.updateTestResultHelper()
-		}
-	}
-
-	private func updateTestResultHelper() {
 		guard store.registrationToken != nil else { return }
 
-		self.exposureSubmissionService?.getTestResult { result in
+		self.exposureSubmissionService?.getTestResult { [weak self] result in
 			switch result {
-			case .failure(let error):
-				appLogger.log(message: "Error while fetching result: \(error)", file: #file, line: #line, function: #function)
+			case .failure:
+				self?.testResult = nil
 			case .success(let result):
-				self.testResult = result
-				self.reloadTestResult(with: result)
+				self?.testResult = result
+				self?.reloadTestResult(with: result)
 			}
 		}
 	}
