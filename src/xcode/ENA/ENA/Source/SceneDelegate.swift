@@ -92,9 +92,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		return HTTPClient(configuration: config)
 	}()
 
-
-	private var enStateHandler:ENStateHandler?
-
+	private var enStateHandler: ENStateHandler?
 
 	// MARK: UISceneDelegate
 

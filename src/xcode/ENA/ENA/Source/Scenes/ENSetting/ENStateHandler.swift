@@ -55,7 +55,7 @@ final class ENStateHandler {
 	private var latestExposureManagerState: ExposureManagerState
 
 	init(
-		initialExposureManagerState:ExposureManagerState,
+		initialExposureManagerState: ExposureManagerState,
 		reachabilityService: ReachabilityService,
 		delegate: ENStateHandlerUpdating
 	) {
