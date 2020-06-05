@@ -156,7 +156,6 @@ extension RiskProvider: RiskProviding {
 			}
 		}
 
-		let summary = newSummary ?? store.previousSummary
 
 		var appConfiguration: SAP_ApplicationConfiguration?
 		group.enter()
@@ -169,6 +168,7 @@ extension RiskProvider: RiskProviding {
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
 			return
 		}
+		let summary = newSummary ?? store.previousSummary
 
 		guard let _appConfiguration = appConfiguration else {
 			return
