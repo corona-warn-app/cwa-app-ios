@@ -285,12 +285,12 @@ extension HomeInteractor {
 		let isButtonHidden = userLoadingMode == .automatic
 		let isCounterLabelHidden = !isButtonHidden
 
-		if riskLevel != .inactive, userLoadingMode == .automatic {
+		if riskLevel != .inactive, userLoadingMode == .automatic { // ?
 			startCountdown()
 		}
 
 		switch riskLevel {
-		case .unknownInitial, .unknownOutdated:
+		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
 				isButtonEnabled: true,
@@ -301,7 +301,9 @@ extension HomeInteractor {
 				lastUpdateDate: nil
 			)
 		case .inactive:
-			inactiveConfigurator = HomeInactiveRiskCellConfigurator(lastInvestigation: "Geringes Risiko", lastUpdateDate: dateLastExposureDetection)
+			inactiveConfigurator = HomeInactiveRiskCellConfigurator(incativeType: .noCalculationPossible, lastInvestigation: "Geringes Risiko", lastUpdateDate: dateLastExposureDetection)
+		case .unknownOutdated:
+			inactiveConfigurator = HomeInactiveRiskCellConfigurator(incativeType: .outdatedResults, lastInvestigation: "Geringes Risiko", lastUpdateDate: dateLastExposureDetection)
 		case .low:
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
 				startDate: startDate,

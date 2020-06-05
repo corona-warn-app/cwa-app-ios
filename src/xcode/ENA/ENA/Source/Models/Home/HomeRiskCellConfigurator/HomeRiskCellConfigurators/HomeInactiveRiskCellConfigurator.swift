@@ -24,6 +24,13 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	private var lastInvestigation: String
 	private var lastUpdateDate: Date?
 
+	enum IncativeType {
+		case noCalculationPossible
+		case outdatedResults
+	}
+
+	var incativeType: IncativeType = .noCalculationPossible
+
 	var activeAction: (() -> Void)?
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
@@ -44,7 +51,8 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(lastInvestigation: String, lastUpdateDate: Date?) {
+	init(incativeType: IncativeType, lastInvestigation: String, lastUpdateDate: Date?) {
+		self.incativeType = incativeType
 		self.lastInvestigation = lastInvestigation
 		self.lastUpdateDate = lastUpdateDate
 	}
