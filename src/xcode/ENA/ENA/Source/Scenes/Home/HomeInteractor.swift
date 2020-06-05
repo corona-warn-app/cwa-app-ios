@@ -75,7 +75,6 @@ final class HomeInteractor {
 	private var exposureSubmissionService: ExposureSubmissionService?
 	var stateHandler: ENStateHandler!
 	private var riskLevel: RiskLevel {
-		return .increased
 		RiskLevel(riskScore: state.summary?.maximumRiskScore)
 	}
 
