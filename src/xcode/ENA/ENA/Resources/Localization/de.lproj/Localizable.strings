@@ -117,7 +117,7 @@
 
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
-"Settings_Tracing_Description" = "Erlauben Sie Erfassung und Weitergabe von Covid-19-Zufalls-IDs.";
+"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von Zufallscodes.";
 
 "Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Covid-19-Risikostatus.";
 
@@ -126,27 +126,25 @@
 "Settings_NavTitle" = "Einstellungen";
 
 /* Noticiation Settings */
-"NotificationSettings_On_Title" = "Möchten Sie Benachrichtigungen zu Ihrem Covid-19-Risikostatus aktivieren?";
-
-"NotificationSettings_On_Description" = "Erlauben Sie der App hier die Mitteilungen.";
+"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem Covid-19-Risikostatus aktivieren?";
 
 "NotificationSettings_On_SectionTitle" = "Einstellung";
 
 "NotificationSettings_On_RiskChanges" = "Änderung Ihres Infektionsrisikos";
 
-"NotificationSettings_On_TestsStatus" = "Status Ihres COVID-19 Tests";
+"NotificationSettings_On_TestsStatus" = "Status Ihres Coronavirus-Tests";
 
-"NotificationSettings_Off_Title" = "Mitteilungen sind ausgestellt";
+"NotificationSettings_Off_SectionTitle" = "Einstellung";
 
-"NotificationSettings_Off_Description" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Telefoneinstellungen zulassen.";
+"NotificationSettings_Off_EnableNotifications" = "Mitteilungen";
 
-"NotificationSettings_Off_NavigateSettings" = "1. Öffnen Sie Einstellungen.";
+"NotificationSettings_Off_StatusInactive" = "Aus";
 
-"NotificationSettings_Off_PickNotifications" = "2. Wählen Sie Mitteilungen aus.";
+"NotificationSettings_Off_InfoTitle" = "Mitteilungen aktivieren";
 
-"NotificationSettings_Off_EnableNotifications" = "3. Erlauben Sie Mitteilungen.";
+"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Geräte-Einstellungen zulassen.";
 
-"NotificationSettings_Off_OpenSettings" = "Einstellungen App öffnen";
+"NotificationSettings_Off_OpenSettings" = "App-Einstellungen öffnen";
 
 "NotificationSettings_NavTitle" = "Mitteilungen";
 
@@ -457,6 +455,11 @@
 "ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19-Kontaktmitteilungen aktivieren";
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Kontaktmitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie COVID-19-Kontaktmitteilungen in Ihren Systemeinstellungen.";
+
+"ExposureNotificationSetting_AccLabel_Enabled" = "Drei Personen haben die Risiko-Erkennung auf ihren Smartphones aktiviert, ihre Begegnung wird daher aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_Disabled" = "Eine Person hat die Risiko-Erkennung auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Eine Person hat Bluetooth auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_InternetOff" = "Eine Person hat die Internetverbindung ihres Smartphones ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
 
 /* Home Active card */
 "Home_Activate_Card_On_Title" = "Risiko-Ermittlung aktiv";
