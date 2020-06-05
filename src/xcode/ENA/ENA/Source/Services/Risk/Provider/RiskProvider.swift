@@ -21,14 +21,6 @@ import Foundation
 import ExposureNotification
 import UIKit
 
-protocol RiskProviderStore {
-	var dateLastExposureDetection: Date? { get set }
-	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
-	var tracingStatusHistory: TracingStatusHistory { get set }
-}
-
-extension SecureStore: RiskProviderStore {}
-
 protocol ExposureSummaryProvider: AnyObject {
 	typealias Completion = (ENExposureDetectionSummary?) -> Void
 	func detectExposure(completion: @escaping Completion)
@@ -139,7 +131,6 @@ extension RiskProvider: RiskProviding {
 
 		var appConfiguration: SAP_ApplicationConfiguration?
 		group.enter()
-
 		appConfigurationProvider.appConfiguration { configuration in
 			appConfiguration = configuration
 			group.leave()
@@ -155,15 +146,15 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 		
-		let tracingHistory = self.store.tracingStatusHistory
+		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.countEnabledHours()
 		guard
 			let risk = RiskCalculation.risk(
 				summary: summary,
 				configuration: _appConfiguration,
-				dateLastExposureDetection: self.store.dateLastExposureDetection,
+				dateLastExposureDetection: store.dateLastExposureDetection,
 				numberOfTracingActiveHours: numberOfEnabledHours,
-				preconditions: self.exposureManagerState,
+				preconditions: exposureManagerState,
 				currentDate: Date(),
 				previousSummary: store.previousSummary
 			) else {
