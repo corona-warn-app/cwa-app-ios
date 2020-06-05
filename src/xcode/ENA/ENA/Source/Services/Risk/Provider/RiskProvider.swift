@@ -58,11 +58,7 @@ final class RiskProvider {
 	private let exposureSummaryProvider: ExposureSummaryProvider
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let exposureManagerState: ExposureManagerState
-	var configuration: RiskProvidingConfiguration {
-		didSet {
-
-		}
-	}
+	var configuration: RiskProvidingConfiguration
 }
 
 private extension RiskConsumer {

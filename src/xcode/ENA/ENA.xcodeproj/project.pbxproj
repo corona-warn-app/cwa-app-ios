@@ -1250,8 +1250,7 @@
 		85D759802459A82D008175F0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B1FE13D92488216300D012E5 /* Risk Provider */,
-				B1FE13D62487DEDD00D012E5 /* Risk Calculation */,
+				B1175211248A837300C3325C /* Risk */,
 				B15382DC248270220010F007 /* __tests__ */,
 				3DD767442483D3E2002DD2B3 /* ReachabilityService */,
 				B14D0CD8246E939600D5BEBC /* Exposure Transaction */,
@@ -1324,6 +1323,15 @@
 				B1125459246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift */,
 			);
 			path = "Converting Keys";
+			sourceTree = "<group>";
+		};
+		B1175211248A837300C3325C /* Risk */ = {
+			isa = PBXGroup;
+			children = (
+				B1FE13D62487DEDD00D012E5 /* Calculation */,
+				B1FE13D92488216300D012E5 /* Provider */,
+			);
+			path = Risk;
 			sourceTree = "<group>";
 		};
 		B13FF407247EC66500535F37 /* Model */ = {
@@ -1508,16 +1516,16 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
-		B1FE13D62487DEDD00D012E5 /* Risk Calculation */ = {
+		B1FE13D62487DEDD00D012E5 /* Calculation */ = {
 			isa = PBXGroup;
 			children = (
 				A128F04B2489ABE700EC7F6C /* __tests__ */,
 				B1FE13D72487DEED00D012E5 /* RiskCalculation.swift */,
 			);
-			path = "Risk Calculation";
+			path = Calculation;
 			sourceTree = "<group>";
 		};
-		B1FE13D92488216300D012E5 /* Risk Provider */ = {
+		B1FE13D92488216300D012E5 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
 				B1FE13F724896DC400D012E5 /* Helper */,
@@ -1526,7 +1534,7 @@
 				B1FE13DC248821CB00D012E5 /* RiskProviding.swift */,
 				B1FE13DE248821E000D012E5 /* RiskProvider.swift */,
 			);
-			path = "Risk Provider";
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		B1FE13E0248824D700D012E5 /* __tests__ */ = {
