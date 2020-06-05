@@ -177,7 +177,7 @@
 
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
 
-"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_boldText" = "HELLO WORLD";
 
 "OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
 
@@ -386,9 +386,7 @@
 
 "ExposureSubmissionWarnOthers_description" = "Als Nächstes können Sie dafür sorgen, dass das Corona-Warn-System Ihre lokal gespeicherten Zufallscodes der letzten 14 Tage an andere verteilt. So können Sie Ihre Mitmenschen warnen und helfen, die Infektionskette zu unterbrechen.\n\nDa nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Ich willige hiermit ein, dass mein positiver Corona-Befund an das Tracing Backend übermittelt und dazu genutzt wird, andere App Nutzer auf ein mögliches Infektionsrisiko hinzuweisen. Dabei werden die auf meinem Gerät gespeicherten Temporary Exposure Keys an das Tracing Backend übermittelt und dort anderen Nutzern der App zur Verfügung gestellt.
-
-Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Ein Widerruf lässt die Rechtmäßigkeit der Verarbeitung bis zum Widerruf unberührt.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Ich willige hiermit ein, dass mein positiver Corona-Befund an das Tracing Backend übermittelt und dazu genutzt wird, andere App Nutzer auf ein mögliches Infektionsrisiko hinzuweisen. Dabei werden die auf meinem Gerät gespeicherten Temporary Exposure Keys an das Tracing Backend übermittelt und dort anderen Nutzern der App zur Verfügung gestellt.\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Ein Widerruf lässt die Rechtmäßigkeit der Verarbeitung bis zum Widerruf unberührt.";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
 
@@ -591,40 +589,60 @@ Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. E
 "Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tage.";
 
 "Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
+
 "Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
+
 "App_Information_About_Title" = "Gemeinsam Corona bekämpfen";
+
 "App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App für die gesamte Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
+
 "App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schenll nachzuverfolgen und zu durchbrechen. Die App speichert dezentral - auf Ihrem Smartphone - Begegnungen mit anderen. Sie werden informiert, wenn Sie Kontakt mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "Häufige Fragen";
+
 "App_Information_FAQ_Title" = "Häufige Fragen";
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Technische Hotline";
+
 "App_Information_Contact_Title" = "Wie können wir Ihnen helfen?";
+
 "App_Information_Contact_Description" = "Für technische Fragen rund um die Corona-Warn-App können Sie sich direkt an unsere technische Hotline wenden.";
+
 "App_Information_Contact_Hotline_Title" = "Technische Hotline";
+
 "App_Information_Contact_Hotline_Text" = "+49 (0)800 7540001";
+
 "App_Information_Contact_Hotline_Number" = "00498007540001";
+
 "App_Information_Contact_Hotline_Description" = "Sprachen:\nDeutsch, Englisch";
+
 "App_Information_Contact_Hotline_Terms" = "Erreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
 
-// App Information - Imprint
+/* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
+
 "App_Information_Imprint_Section1_Title" = "Anbieter";
+
 "App_Information_Imprint_Section1_Text" = "Presse- und Informationsamt der Bundesregierung\nDorotheenstraße 84\n10117 Berlin\nTelefon: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
+
 "App_Information_Imprint_Section2_Title" = "Gesetzlicher Vertreter";
+
 "App_Information_Imprint_Section2_Text" = "Chef des Presse- und Informationsamtes der BundesRegierung";
+
 "App_Information_Imprint_Section3_Title" = "";
+
 "App_Information_Imprint_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
+
 "App_Information_Imprint_Section4_Title" = "Briefanschrift";
+
 "App_Information_Imprint_Section4_Text" = "...";
 
-// App Information - Legal
+/* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
 /* App Information - Privacy */
@@ -684,6 +702,7 @@ Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. E
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 
 "InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
+
 "InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
 /* Reset View */
