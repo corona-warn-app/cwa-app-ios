@@ -88,7 +88,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 	// MARK: - ExposureSubmissionNavigationControllerChild methods.
 
-	func didTapBottomButton() {
+	func didTapButton() {
 		performSegue(withIdentifier: Segue.overview, sender: self)
 	}
 

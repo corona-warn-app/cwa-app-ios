@@ -92,7 +92,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 // MARK: ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionWarnOthersViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
+	func didTapButton() {
 		startSubmitProcess()
 	}
 }

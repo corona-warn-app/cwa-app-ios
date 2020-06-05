@@ -129,7 +129,7 @@ extension ExposureSubmissionHotlineViewController {
 // MARK: - ExposureSubmissionNavigationControllerChild Extension.
 
 extension ExposureSubmissionHotlineViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
+	func didTapButton() {
 		callHotline()
 	}
 
