@@ -51,19 +51,23 @@ final class ENStateHandler {
 	private let reachabilityService: ReachabilityService
 	private weak var delegate: ENStateHandlerUpdating?
 	private var internetOff = false
+	private let exposureManager: ExposureManager
 	private var latestState: ExposureManagerState?
 
 	init(
-		_ initialState: ExposureManagerState,
+		exposureManager: ExposureManager,
 		reachabilityService: ReachabilityService,
 		delegate: ENStateHandlerUpdating
 	) {
 		self.reachabilityService = reachabilityService
 		self.delegate = delegate
-		currentState = determineCurrentState(from: initialState)
+		self.exposureManager = exposureManager
+		self.latestState = exposureManager.preconditions()
+		self.currentState = determineCurrentState(from: exposureManager.preconditions())
 		self.reachabilityService.observe(on: self) { [weak self] reachabilityState in
 			self?.internet(reachabilityState == .connected)
 		}
+		exposureManager.resume(observer: self)
 	}
 
 	private func internet(_ isReachable: Bool) {
@@ -127,11 +131,13 @@ final class ENStateHandler {
 		currentState
 	}
 
+
 }
 
-extension ENStateHandler : ExposureStateUpdating {
-	func updateExposureState(_ state: ExposureManagerState) {
-		latestState = state
-		currentState = determineCurrentState(from: state)
+extension ENStateHandler : ENAExposureManagerObserver {
+	func exposureManager(_ manager: ENAExposureManager,
+						 didChangeState newState: ExposureManagerState) {
+		latestState = newState
+		currentState = determineCurrentState(from: newState)
 	}
 }

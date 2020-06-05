@@ -103,7 +103,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
-		exposureManager.resume(observer: self)
+		//exposureManager.resume(observer: self)
 
 		UNUserNotificationCenter.current().delegate = self
 
@@ -190,7 +190,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private func presentHomeVC() {
 
 		enStateHandler = ENStateHandler(
-				exposureManager.preconditions(),
+				exposureManager: exposureManager,
 				reachabilityService: ConnectivityReachabilityService(),
 				delegate: self)
 		guard let enStateHandler = self.enStateHandler else {
