@@ -21,8 +21,8 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 	// MARK: - View elements.
 
-	lazy var title = UILabel(frame: .zero)
-	lazy var body = UILabel(frame: .zero)
+	lazy var title = ENALabel(frame: .zero)
+	lazy var body = ENALabel(frame: .zero)
 	lazy var cellImage = UIImageView(frame: .zero)
 	lazy var chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
 	lazy var insetView = UIView(frame: .zero)
@@ -57,13 +57,15 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 		// MARK: - Title adjustment.
 
-		title.font = .preferredFont(forTextStyle: .headline)
+		title.style = .headline
+		title.textColor = .preferredColor(for: .textPrimary1)
 		title.lineBreakMode = .byWordWrapping
 		title.numberOfLines = 0
 
 		// MARK: - Body adjustment.
 
-		body.font = .preferredFont(forTextStyle: .body)
+		body.style = .body
+		body.textColor = .preferredColor(for: .textPrimary1)
 		body.lineBreakMode = .byWordWrapping
 		body.numberOfLines = 0
 

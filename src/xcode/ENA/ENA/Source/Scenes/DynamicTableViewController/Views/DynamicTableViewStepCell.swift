@@ -20,8 +20,8 @@ import UIKit
 class DynamicTableViewStepCell: UITableViewCell {
 
 	// MARK: - Attributes.
-	lazy var head = UILabel(frame: .zero)
-	lazy var body = UILabel(frame: .zero)
+	lazy var head = ENALabel(frame: .zero)
+	lazy var body = ENALabel(frame: .zero)
 	lazy var cellIcon = UIImageView(frame: .zero)
 	lazy var separator = UIView(frame: .zero)
 
@@ -46,7 +46,8 @@ class DynamicTableViewStepCell: UITableViewCell {
 		// MARK: - Head.
 
 		if let title = title {
-			head.font = .preferredFont(forTextStyle: .headline)
+			head.style = .headline
+			head.textColor = .preferredColor(for: .textPrimary1)
 			head.numberOfLines = 0
 			head.lineBreakMode = .byWordWrapping
 			head.text = title
@@ -54,7 +55,8 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Body.
 
-		body.font = .preferredFont(forTextStyle: .body)
+		body.textColor = .preferredColor(for: .textPrimary1)
+		body.style = .body
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
 		body.text = text
@@ -135,7 +137,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 		head.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
 
 		if head.text != nil {
-			head.topAnchor.constraint(equalTo: topAnchor).isActive = true
+			head.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
 			body.topAnchor.constraint(equalTo: head.bottomAnchor, constant: 8).isActive = true
 		} else {
 			body.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
