@@ -20,10 +20,11 @@ import ExposureNotification
 import XCTest
 
 final class ENStateTests: XCTestCase {
-	// swiftlint:disable:next weak_delegate
+
 	var stateHandler: ENStateHandler!
 	var exposureManagerState: ExposureManagerState!
 	lazy var mockReachabilityService = MockReachabilityService()
+	let mockStateHandler = MockStateHandlerObserverDelegate()
 	
 	// setup stateHandler to be in enabled state
 	override func setUp() {
@@ -33,7 +34,7 @@ final class ENStateTests: XCTestCase {
 		stateHandler = ENStateHandler(
 				initialExposureManagerState: exposureManagerState,
 				reachabilityService: self.mockReachabilityService,
-				delegate: MockStateHandlerObserverDelegate()
+				delegate: mockStateHandler
 		)
 
 	}
