@@ -26,6 +26,7 @@ protocol Store: AnyObject {
 	var developerDistributionBaseURLOverride: String? { get set }
 	var developerVerificationBaseURLOverride: String? { get set }
 	var teleTan: String? { get set }
+	var hourlyFetchingEnabled: Bool { get set }
 
 	// A secret allowing the client to upload the diagnosisKey set.
 	var tan: String? { get set }
@@ -226,6 +227,11 @@ final class SecureStore: Store {
 	var previousSummary: ENExposureDetectionSummaryContainer? {
 		get { kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil }
 		set { kvStore["previousSummary"] = newValue }
+	}
+
+	var hourlyFetchingEnabled: Bool {
+		get { kvStore["hourlyFetchingEnabled"] as Bool? ?? true }
+		set { kvStore["hourlyFetchingEnabled"] = newValue }
 	}
 }
 
