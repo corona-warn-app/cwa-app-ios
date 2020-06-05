@@ -81,7 +81,7 @@ extension DynamicTableViewControllerRegisterCellsTests {
 	}
 	
 	func testViewDidLoad_registersIconCell() {
-		let dynamicCell = DynamicCell.icon(action: .none, .init(text: "Foo", image: nil, backgroundColor: .red, tintColor: .green))
+		let dynamicCell = DynamicCell.icon(nil, text: "Foo", tintColor: .green, action: .none)
 		let sections = [DynamicSection.section(cells: [dynamicCell])]
 		sut.dynamicTableViewModel = DynamicTableViewModel(sections)
 
