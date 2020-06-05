@@ -113,7 +113,10 @@ private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
 
 		DynamicSection.section(
-			header: .image(UIImage(named: "Illu_Submission_Funktion1"), accessibilityLabel: nil, height: 200),
+			header: .image(
+				UIImage(named: "Illu_Submission_Funktion1"),
+				accessibilityLabel: AppStrings.ExposureSubmissionIntroduction.accImageDescription,
+				height: 200),
 			separators: false,
 			cells: [
 				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01),
