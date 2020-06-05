@@ -26,7 +26,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var riskProvier: RiskProvider { get }
+	var riskProvider: RiskProvider { get }
 }
 
 protocol RequiresAppDependencies {
@@ -34,7 +34,7 @@ protocol RequiresAppDependencies {
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
-	var riskProvier: RiskProvider { get }
+	var riskProvider: RiskProvider { get }
 }
 
 extension RequiresAppDependencies {
@@ -54,8 +54,8 @@ extension RequiresAppDependencies {
 		UIApplication.coronaWarnDelegate().taskScheduler
 	}
 
-	var riskProvier: RiskProvider {
-		UIApplication.coronaWarnDelegate().riskProvier
+	var riskProvider: RiskProvider {
+		UIApplication.coronaWarnDelegate().riskProvider
 	}
 }
 
@@ -362,7 +362,7 @@ private extension DownloadedPackagesStore {
 	}
 }
 
-extension AppDelegate: RequiresAppDependencies, ENATaskExecutionDelegate {
+extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask) {
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)

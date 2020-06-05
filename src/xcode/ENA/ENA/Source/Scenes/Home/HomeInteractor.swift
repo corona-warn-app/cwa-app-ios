@@ -496,12 +496,12 @@ extension HomeInteractor {
 	func updateTestResults() {
 		DispatchQueue.global(qos: .userInteractive).async {
 			self.updateTestResultHelper()
-			}
 		}
-
+	}
+	
 	private func updateTestResultHelper() {
 		guard store.registrationToken != nil else { return }
-
+		
 		self.exposureSubmissionService?.getTestResult { result in
 			switch result {
 			case .failure(let error):
@@ -509,8 +509,8 @@ extension HomeInteractor {
 			case .success(let result):
 				self.testResult = result
 				self.reloadTestResult(with: result)
-	}
-	}
+			}
+		}
 	}
 }
 

@@ -19,7 +19,6 @@ import ExposureNotification
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
-	func homeViewControllerStartExposureTransaction(_ controller: HomeViewController)
 	func homeViewControllerUserDidRequestReset(_ controller: HomeViewController)
 }
 
@@ -437,12 +436,6 @@ extension HomeViewController: UICollectionViewDelegate {
 }
 
 extension HomeViewController: ExposureDetectionViewControllerDelegate {
-	func exposureDetectionViewControllerStartTransaction(
-		_: ExposureDetectionViewController
-	) {
-		delegate?.homeViewControllerStartExposureTransaction(self)
-	}
-
 	func exposureDetectionViewController(
 		_: ExposureDetectionViewController,
 		setExposureManagerEnabled enabled: Bool,
@@ -497,13 +490,5 @@ extension HomeViewController: ExposureStateUpdating {
 
 	private func updateOwnUI() {
 		reloadData()
-	}
-}
-
-// MARK: Working with the Delegate
-
-extension HomeViewController {
-	private func startExposureTransaction() {
-		delegate?.homeViewControllerStartExposureTransaction(self)
 	}
 }
