@@ -70,7 +70,7 @@ class AppUpdateCheckHelper {
         applicationDidBecomeActiveObserver = nil
 	}
 
-	private func createAlert(_ type: UpdateAlertType, vc: UIViewController?) -> UIAlertController? {
+	func createAlert(_ type: UpdateAlertType, vc: UIViewController?) -> UIAlertController? {
 		let alert = UIAlertController(title: "Akutalisierung verfügbar", message: "Es gibt eine neue Aktualisierung für die Applikation", preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: NSLocalizedString("Aktualisieren", comment: "Default action"), style: .default, handler: { _ in
 			//TODO: Add correct App Store ID
@@ -93,7 +93,7 @@ class AppUpdateCheckHelper {
 		return alert
 	}
 
-	private func compareVersion(currentVersion: String, minVersion: String, latestVersion: String) -> UpdateAlertType {
+	func compareVersion(currentVersion: String, minVersion: String, latestVersion: String) -> UpdateAlertType {
 		let checkMinVersion = currentVersion.compare(minVersion, options: .numeric)
 		if checkMinVersion == .orderedAscending {
 			return .forceUpdate
