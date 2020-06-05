@@ -593,6 +593,8 @@
 /* App Information - About */
 "App_Information_About_Navigation" = "About the App";
 
+"App_Information_About_ImageDescription" = "";
+
 "App_Information_About_Title" = "Together against Corona";
 
 "App_Information_About_Description" = "The COVID-Warn app was developed by the Robert Koch Institute to protect society against the spread of coronavirus.";
@@ -606,6 +608,8 @@
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Contact";
+
+"App_Information_Contact_ImageDescription" = "A man uses a headset to make calls";
 
 "App_Information_Contact_Title" = "How can we help you?";
 
@@ -637,15 +641,18 @@
 "App_Information_Imprint_Section3_Text" = "You can contact the helpline of the Federal Government Monday to Friday from 8am to 6pm on:\n030 18 272-2720";
 
 "App_Information_Imprint_Section4_Title" = "Postal Address";
-"App_Information_Legal_Section4_Text" = "...";
 
 "App_Information_Imprint_Section4_Text" = "...";
 
 // App Information - Legal
 "App_Information_Legal_Navigation" = "Legal Notice";
 
+"App_Information_Legal_ImageDescription" = "One hand holds a smartphone with a lot of text, next to it is a beam scale as a symbol for legal information.";
+
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Data Protection";
+
+"App_Information_Privacy_ImageDescription" = "";
 
 "App_Information_Privacy_Title" = "Data Protection";
 
@@ -655,6 +662,8 @@
 
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "Terms of Use";
+
+"App_Information_Terms_ImageDescription" = "A hand holds a smartphone with a lot of text, next to it is a checkmark as a symbol for accepted terms of use.";
 
 "App_Information_Terms_Title" = "Terms of Use";
 
@@ -733,7 +742,9 @@
 "local_notifications_viewResults" = "Display Results";
 
 // App Information - Legal
-"App_Information_Imprint_Navigation" = "Legal Notice";
+"App_Information_Imprint_Navigation" = "Imprint";
+
+"App_Information_Imprint_ImageDescription" = "A hand holds a smartphone with a lot of text, next to it is a paragraph symbol as a symbol for the imprint.";
 
 "local_notifications_ignore" = "Ignore";
 
