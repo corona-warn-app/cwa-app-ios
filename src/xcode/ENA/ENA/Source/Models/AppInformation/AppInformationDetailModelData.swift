@@ -44,7 +44,7 @@ extension AppInformationDetailModel {
 
 	static let imprint = AppInformationDetailModel(
 		title: "App_Information_Imprint_Navigation".localized,
-		headerImage: UIImage(named: "app-information-impressum"),
+		headerImage: UIImage(named: "Illu_Appinfo_Impressum"),
 		content: [
 			.bold(text: "App_Information_Imprint_Section1_Title".localized),
 			.body(text: "App_Information_Imprint_Section1_Text".localized),
