@@ -19,7 +19,7 @@
 
 import Foundation
 import ExposureNotification
-
+import UIKit
 
 // Notes:
 // The calculation will receive the following inputs:
