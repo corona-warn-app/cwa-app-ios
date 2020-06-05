@@ -39,20 +39,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 		super.init(coder: coder)
 
-		exposureSubmissionService = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: self.exposureManager,
-			client: self.client,
-			store: self.store
-		)
-
-		homeInteractor = HomeInteractor(
-			homeViewController: self,
-			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
-			exposureSubmissionService: exposureSubmissionService,
-			taskScheduler: taskScheduler,
-			initialEnState: initialEnState
-		)
 		addToUpdatingSetIfNeeded(homeInteractor)
 	}
 
@@ -83,12 +69,17 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			initialEnState: self.enState
 		)
 	}()
-	private var summaryNotificationObserver: NSObjectProtocol?
 	private weak var exposureDetectionController: ExposureDetectionViewController?
 	private weak var settingsController: SettingsViewController?
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
-	private var exposureSubmissionService: ExposureSubmissionService?
+	private lazy var exposureSubmissionService: ExposureSubmissionService = {
+		ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: self.exposureManager,
+			client: self.client,
+			store: self.store
+		)
+	}()
 	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
 
 	enum Section: Int {
@@ -114,11 +105,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		updateOwnUI()
 		navigationItem.largeTitleDisplayMode = .never
 		homeInteractor.developerMenuEnableIfAllowed()
-	}
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -161,12 +147,11 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func showExposureSubmission(with result: TestResult? = nil) {
-		guard let exposureSubmissionService = exposureSubmissionService else { return }
 		present(
 			AppStoryboard.exposureSubmission.initiateInitial { coder in
 				ExposureSubmissionNavigationController(
 					coder: coder,
-					exposureSubmissionService: exposureSubmissionService,
+					exposureSubmissionService: self.exposureSubmissionService,
 					homeViewController: self,
 					testResult: result
 				)
@@ -176,54 +161,18 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func showDeveloperMenu() {
-		let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
-		present(developerMenuController, animated: true, completion: nil)
+		present(
+			AppStoryboard.developerMenu.initiateInitial(),
+			animated: true,
+			completion: nil
+		)
 	}
 
 	func showInviteFriends() {
-		let vc = FriendsInviteController.initiate(for: .inviteFriends)
-		navigationController?.pushViewController(vc, animated: true)
-	}
-
-	// This method makes the exposure manager usable.
-	private func enableExposureManagerIfNeeded() {
-		func activate(then completion: @escaping () -> Void) {
-			exposureManager.activate { error in
-				if let error = error {
-					logError(message: "Failed to activate: \(error)")
-					return
-				}
-				completion()
-			}
-		}
-		func enable() {
-			exposureManager.enable { error in
-				if let error = error {
-					logError(message: "Failed to enable: \(error)")
-					return
-				}
-			}
-		}
-
-		func enableIfNeeded() {
-			guard exposureManager.preconditions().enabled else {
-				enable()
-				return
-			}
-		}
-
-		let status = exposureManager.preconditions()
-
-		guard status.authorized else {
-			log(message: "User declined authorization")
-			return
-		}
-
-		guard status.status == .active else {
-			activate(then: enableIfNeeded)
-			return
-		}
-		enableIfNeeded()
+		navigationController?.pushViewController(
+			FriendsInviteController.initiate(for: .inviteFriends),
+			animated: true
+		)
 	}
 
 	func showExposureNotificationSetting() {
@@ -303,6 +252,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			return
 		}
 	}
+
 	private func showScreen(at indexPath: IndexPath) {
 		guard let section = Section(rawValue: indexPath.section) else { return }
 		let row = indexPath.row
@@ -340,14 +290,11 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	private func configureHierarchy() {
 		let safeLayoutGuide = view.safeAreaLayoutGuide
-
 		view.backgroundColor = .systemGroupedBackground
-
 		collectionView = UICollectionView(
 			frame: view.bounds,
 			collectionViewLayout: UICollectionViewLayout.homeLayout(delegate: self)
 		)
-
 		collectionView.delegate = self
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isAccessibilityElement = false
