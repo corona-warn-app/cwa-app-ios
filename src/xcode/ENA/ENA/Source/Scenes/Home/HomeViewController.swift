@@ -58,11 +58,9 @@ final class HomeViewController: UIViewController {
 			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
 			exposureSubmissionService: exposureSubmissionService,
 			taskScheduler: taskScheduler,
-				initialEnState: initialEnState
+			initialEnState: initialEnState
 		)
-
 		addToUpdatingSetIfNeeded(homeInteractor)
-
 	}
 
 	required init?(coder _: NSCoder) {
@@ -92,10 +90,6 @@ final class HomeViewController: UIViewController {
 	private weak var delegate: HomeViewControllerDelegate?
 	private var exposureSubmissionService: ExposureSubmissionService?
 	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
-	
-
-
-	
 
 	enum Section: Int {
 		case actions
@@ -157,6 +151,10 @@ final class HomeViewController: UIViewController {
 			summary: state.summary
 		)
 		exposureDetectionController?.state = state
+	}
+
+	func showExposureSubmissionWithoutResult() {
+		showExposureSubmission()
 	}
 
 	func showExposureSubmission(with result: TestResult? = nil) {
@@ -431,14 +429,13 @@ final class HomeViewController: UIViewController {
 // MARK: - Update test state.
 
 extension HomeViewController {
-
 	func showTestResultScreen() {
 		showExposureSubmission(with: homeInteractor.testResult)
 	}
 
 	func updateTestResultState() {
 		homeInteractor.reloadActionSection()
-		self.homeInteractor.updateTestResults()
+		homeInteractor.updateTestResults()
 	}
 }
 
