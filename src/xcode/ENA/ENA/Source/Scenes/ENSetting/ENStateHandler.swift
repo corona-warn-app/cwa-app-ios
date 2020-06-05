@@ -86,10 +86,6 @@ final class ENStateHandler {
 				currentState = .internetOff
 			}
 		case .internetOff:
-			//FIXME: What does this mean?
-//			guard let latestState = latestState else {
-//				return
-//			}
 			currentState = determineCurrentState(from: latestExposureManagerState)
 		case .none:
 			fatalError("Unexpected state found in ENState Handler")
@@ -100,7 +96,6 @@ final class ENStateHandler {
 		guard let delegate = delegate else {
 			fatalError("Delegate is nil. It should not happen.")
 		}
-		log(message: "ENStateHandler: stateDidChange \(currentState)")
 		delegate.updateEnState(currentState)
 	}
 
