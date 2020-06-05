@@ -24,10 +24,10 @@ enum ENATaskIdentifier: String, CaseIterable {
 	case detectExposures = "exposure-notification" // detect-exposures.exposure-notification"
 	case fetchTestResults = "fetch-test-results"
 
-	var backgroundTaskScheduleInterval: TimeInterval {
+	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
-		// set to trigger every 2 hours
-		case .detectExposures: return 2 * 60 * 60
+		// set to trigger at the earliest begin time possible
+		case .detectExposures: return nil
 		// set to trigger every 2 hours
 		case .fetchTestResults: return 2 * 60 * 60
 		}
