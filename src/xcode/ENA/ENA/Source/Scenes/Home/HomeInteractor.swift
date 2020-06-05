@@ -535,8 +535,8 @@ extension HomeInteractor {
 //MARK: - The ENStateHandler updating
 extension HomeInteractor: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		updateActiveCell()
-		activeConfigurator.updateEnState(state)
 		self.enState = state
+		activeConfigurator.updateEnState(state)
+		updateActiveCell()
 	}
 }
