@@ -72,7 +72,7 @@ extension AppInformationDetailModel {
 
 	static let privacy = AppInformationDetailModel(
 		title: "App_Information_Privacy_Navigation".localized,
-		headerImage: UIImage(named: "Illu_Appinfo_RechtlicheHinweise"),
+		headerImage: UIImage(named: "Illu_Appinfo_Datenschutz"),
 		content: [
 			.headline(text: "App_Information_Privacy_Title".localized),
 			.body(text: "App_Information_Privacy_Description".localized),
