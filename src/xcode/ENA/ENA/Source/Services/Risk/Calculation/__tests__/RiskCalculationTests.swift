@@ -47,14 +47,16 @@ final class RiskCalculationTests: XCTestCase {
 	func testCalculateRisk_Inactive() throws {
 		// Test the condition when the risk is returned as inactive
 		// This occurs when the preconditions are not met, ex. when tracing is off.
-		let risk = try RiskCalculation.risk(
+		let risk = RiskCalculation.risk(
 			summary: summaryHigh,
 			configuration: appConfig,
 			dateLastExposureDetection: Date(),
 			numberOfTracingActiveHours: 48,
-			preconditions: preconditions(.invalid)).get()
+			preconditions: preconditions(.invalid),
+			previousSummary: nil
+		)
 
-		XCTAssertEqual(risk.level, .inactive)
+		XCTAssertEqual(try risk.get().level, .inactive)
 	}
 
 	func testCalculateRisk_UnknownInitial() throws {
@@ -65,12 +67,16 @@ final class RiskCalculationTests: XCTestCase {
 		// 2. There is no ENExposureDetectionSummary to use
 
 		// Test case for tracing not being active long enough
-		var risk = try RiskCalculation.risk(
-			summary: summaryLow,
-			configuration: appConfig,
-			dateLastExposureDetection: Date(),
-			numberOfTracingActiveHours: 0,
-			preconditions: preconditions(.valid)).get()
+		var risk = try RiskCalculation
+			.risk(
+				summary: summaryLow,
+				configuration: appConfig,
+				dateLastExposureDetection: Date(),
+				numberOfTracingActiveHours: 0,
+				preconditions: preconditions(.valid),
+				previousSummary: nil
+			)
+			.get()
 
 		XCTAssertEqual(risk.level, .unknownInitial)
 
@@ -80,7 +86,9 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			dateLastExposureDetection: Date(),
 			numberOfTracingActiveHours: 48,
-			preconditions: preconditions(.valid)).get()
+			preconditions: preconditions(.valid),
+			previousSummary: nil
+		).get()
 
 		XCTAssertEqual(risk.level, .unknownInitial)
 	}
@@ -94,7 +102,9 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			numberOfTracingActiveHours: 48,
-			preconditions: preconditions(.valid)).get()
+			preconditions: preconditions(.valid),
+			previousSummary: nil
+		).get()
 
 		XCTAssertEqual(risk.level, .unknownOutdated)
 	}
@@ -107,7 +117,9 @@ final class RiskCalculationTests: XCTestCase {
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
 			numberOfTracingActiveHours: 48,
-			preconditions: preconditions(.valid)).get()
+			preconditions: preconditions(.valid),
+			previousSummary: nil
+		).get()
 
 		XCTAssertEqual(risk.level, .low)
 	}
@@ -120,7 +132,9 @@ final class RiskCalculationTests: XCTestCase {
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
 			numberOfTracingActiveHours: 48,
-			preconditions: preconditions(.valid)).get()
+			preconditions: preconditions(.valid),
+			previousSummary: nil
+		).get()
 
 		XCTAssertEqual(risk.level, .increased)
 	}
@@ -137,7 +151,9 @@ final class RiskCalculationTests: XCTestCase {
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
 			numberOfTracingActiveHours: 48,
-			preconditions: preconditions(.valid))
+			preconditions: preconditions(.valid),
+			previousSummary: nil
+		)
 
 		XCTAssertThrowsError(try risk.get())
 	}
@@ -152,7 +168,9 @@ final class RiskCalculationTests: XCTestCase {
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
 			numberOfTracingActiveHours: 48,
-			preconditions: preconditions(.valid))
+			preconditions: preconditions(.valid),
+			previousSummary: nil
+		)
 
 		XCTAssertThrowsError(try risk.get())
 	}
@@ -167,7 +185,9 @@ final class RiskCalculationTests: XCTestCase {
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
 			numberOfTracingActiveHours: 48,
-			preconditions: preconditions(.valid))
+			preconditions: preconditions(.valid),
+			previousSummary: nil
+		)
 
 		XCTAssertThrowsError(try risk.get())
 	}
@@ -184,7 +204,9 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			numberOfTracingActiveHours: 48,
-			preconditions: preconditions(.valid)).get()
+			preconditions: preconditions(.valid),
+			previousSummary: nil
+		).get()
 
 		XCTAssertEqual(risk.level, .increased)
 	}
@@ -196,7 +218,9 @@ final class RiskCalculationTests: XCTestCase {
 			configuration: appConfig,
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			numberOfTracingActiveHours: 48,
-			preconditions: preconditions(.valid)).get()
+			preconditions: preconditions(.valid),
+			previousSummary: nil
+		).get()
 
 		XCTAssertEqual(risk.level, .unknownInitial)
 	}

@@ -19,26 +19,13 @@
 
 import Foundation
 import ExposureNotification
-import UIKit
-struct Risk {
-	struct Details {
-		var numberOfExposures: Int?
-		var numberOfHoursWithActiveTracing: Int
-		var numberOfDaysWithActiveTracing: Int { numberOfHoursWithActiveTracing / 24 }
-		var exposureDetectionDate: Date
-	}
-
-	let level: RiskLevel
-	let details: Details
-	let riskLevelHasIncreased: Bool
-}
 
 enum RiskCalculation {
 
 	// MARK: - Precondition Time Constants
 
 	/// Minimum duration (in hours) that tracing has to be active for in order to perform a valid risk calculation
-	static let minTracingActiveHours = TracingStatusHistory.Constants.minimumActiveHours
+	static let minTracingActiveHours = TracingStatusHistory.minimumActiveHours
 	/// Count of days until a previously calculated exposure detection is considered outdated
 	static let exposureDetectionStaleThreshold = 2
 

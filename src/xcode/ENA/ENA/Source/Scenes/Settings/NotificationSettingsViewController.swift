@@ -19,8 +19,14 @@ import UIKit
 
 class NotificationSettingsViewController: UIViewController {
 	@IBOutlet var illustrationImageView: UIImageView!
-	@IBOutlet var titleLabel: DynamicTypeLabel!
-	@IBOutlet var descriptionLabel: UILabel!
+	@IBOutlet var titleLabel: ENALabel!
+
+	@IBOutlet var infoView: UIView!
+	@IBOutlet var infoViewTitleLabel: ENALabel!
+	@IBOutlet var infoViewImage: UIImageView!
+	@IBOutlet var infoViewDescriptionLabel: ENALabel!
+	@IBOutlet var infoViewButton: ENAButton!
+
 	@IBOutlet var tableView: UITableView!
 
 	@IBOutlet var tableViewHeightConstraint: NSLayoutConstraint!
@@ -44,7 +50,6 @@ class NotificationSettingsViewController: UIViewController {
 		tableView.delegate = self
 		tableView.dataSource = self
 		tableView.separatorColor = .preferredColor(for: .hairline)
-		setTableViewEstimatedRowHeight()
 
 		navigationItem.title = AppStrings.NotificationSettings.navigationBarTitle
 		navigationController?.navigationBar.prefersLargeTitles = true
@@ -66,17 +71,17 @@ class NotificationSettingsViewController: UIViewController {
 		tableViewHeightConstraint.constant = tableView.contentSize.height
 	}
 
-	override func traitCollectionDidChange(_: UITraitCollection?) {
-		setTableViewEstimatedRowHeight()
+	@IBAction func openSettings(_ sender: Any) {
+		guard let settingsURL = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsURL) else {
+			return
+		}
+
+		UIApplication.shared.open(settingsURL)
 	}
 
 	@objc
 	private func willEnterForeground() {
 		notificationSettings()
-	}
-
-	private func setTableViewEstimatedRowHeight() {
-		tableView.estimatedRowHeight = traitCollection.preferredContentSizeCategory.isAccessibilityCategory ? 260 : 60
 	}
 
 	private func notificationSettings() {
@@ -97,11 +102,36 @@ class NotificationSettingsViewController: UIViewController {
 	}
 
 	private func setupView() {
-		tableView.separatorStyle = viewModel.notificationsOn ? .singleLine : .none
-
 		illustrationImageView.image = UIImage(named: viewModel.image)
-		titleLabel.text = viewModel.title
-		descriptionLabel.text = viewModel.description
+
+		if let title = viewModel.title {
+			titleLabel.isHidden = false
+			titleLabel.text = title
+		} else {
+			titleLabel.isHidden = true
+		}
+
+		setupInfoView(viewModel.openSettings)
+	}
+
+	private func setupInfoView(_ viewModel: NotificationSettingsViewModel.OpenSettings?) {
+		guard let viewModel = viewModel else {
+			infoView.isHidden = true
+			return
+		}
+
+		infoView.isHidden = false
+
+		infoView.layer.cornerRadius = 14
+		infoViewTitleLabel.text = viewModel.title
+		infoViewImage.image = UIImage(named: viewModel.icon)
+		infoViewDescriptionLabel.text = viewModel.description
+		infoViewButton.setTitle(viewModel.openSettings, for: .normal)
+		infoViewButton.titleLabel?.lineBreakMode = .byWordWrapping
+
+		if let infoViewButton = infoViewButton {
+			infoViewButton.addConstraint(NSLayoutConstraint(item: infoViewButton, attribute: .height, relatedBy: .equal, toItem: infoViewButton.titleLabel, attribute: .height, multiplier: 1, constant: 0))
+		}
 	}
 }
 
@@ -114,35 +144,8 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let section = viewModel.sections[section]
 
 		switch section {
-		case let .settingsOn(_, cells), let .settingsOff(cells):
+		case let .settingsOn(_, cells), let .settingsOff(_, cells):
 			return cells.count
-		case .openSettings:
-			return 1
-		}
-	}
-
-	func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		let section = viewModel.sections[section]
-
-		switch section {
-		case .openSettings:
-			return 0.5
-		case .settingsOff:
-			return 20
-		case .settingsOn:
-			return UITableView.automaticDimension
-		}
-	}
-
-	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let headerView = tableView.headerView(forSection: section)
-		let section = viewModel.sections[section]
-
-		switch section {
-		case .openSettings:
-			return cellSeparatorView(tableView)
-		case .settingsOn, .settingsOff:
-			return headerView
 		}
 	}
 
@@ -150,35 +153,8 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let section = viewModel.sections[section]
 
 		switch section {
-		case let .settingsOn(title, _):
+		case let .settingsOn(title, _), let .settingsOff(title, _):
 			return title
-		case .settingsOff, .openSettings:
-			return ""
-		}
-	}
-
-	func tableView(_: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		let section = viewModel.sections[section]
-
-		switch section {
-		case .settingsOff:
-			return 25
-		case .openSettings:
-			return 0.5
-		case .settingsOn:
-			return 0
-		}
-	}
-
-	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		let footerView = tableView.footerView(forSection: section)
-		let section = viewModel.sections[section]
-
-		switch section {
-		case .openSettings:
-			return cellSeparatorView(tableView)
-		case .settingsOff, .settingsOn:
-			return footerView
 		}
 	}
 
@@ -186,11 +162,9 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 		let section = viewModel.sections[indexPath.section]
 
 		switch section {
-		case let .settingsOn(_, cells), let .settingsOff(cells):
+		case let .settingsOn(_, cells), let .settingsOff(_, cells):
 			let cellModel = cells[indexPath.row]
 			return configureCell(cellModel, indexPath: indexPath)
-		case let .openSettings(cell):
-			return configureCell(cell, indexPath: indexPath)
 		}
 	}
 
@@ -205,7 +179,7 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 			cell.configure()
 
 			return cell
-		case let .navigateSettings(item), let .pickNotifications(item), let .enableNotifications(item):
+		case let .enableNotifications(item):
 			guard let cell = tableView.dequeueReusableCell(withIdentifier: item.identifier, for: indexPath) as? NotificationSettingsOffTableViewCell else {
 				fatalError("No cell for reuse identifier.")
 			}
@@ -213,35 +187,18 @@ extension NotificationSettingsViewController: UITableViewDataSource, UITableView
 			cell.configure(viewModel: item)
 
 			return cell
-		case let .openSettings(identifier, title):
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? LabelTableViewCell else {
-				fatalError("No cell for reuse identifier.")
-			}
-
-			cell.titleLabel.text = title
-
-			return cell
 		}
 	}
 
-	private func cellSeparatorView(_ tableView: UITableView) -> UIView {
-		let view = UIView()
-		view.backgroundColor = tableView.separatorColor
-		return view
-	}
-
-	func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+	func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
 		let section = viewModel.sections[indexPath.section]
+		let isAccessibility = traitCollection.preferredContentSizeCategory.isAccessibilityCategory
 
 		switch section {
-		case .openSettings:
-			guard let settingsURL = URL(string: UIApplication.openSettingsURLString),
-				UIApplication.shared.canOpenURL(settingsURL) else {
-				return
-			}
-			UIApplication.shared.open(settingsURL)
-		case .settingsOn, .settingsOff:
-			return
+		case .settingsOn:
+			return isAccessibility ? 220 : 44
+		case .settingsOff:
+			return isAccessibility ? 120 : 44
 		}
 	}
 }

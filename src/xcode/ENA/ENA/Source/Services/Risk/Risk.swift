@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,15 +15,21 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import UIKit
+import Foundation
 
-class NotificationSettingsOffTableViewCell: UITableViewCell {
-	@IBOutlet var descriptionLabel: ENALabel!
-	@IBOutlet var stateLabel: ENALabel!
+struct Risk {
+	let level: RiskLevel
+	let details: Details
+	let riskLevelHasIncreased: Bool
+}
 
-	func configure(viewModel: NotificationSettingsViewModel.SettingsOffItem) {
-		descriptionLabel.text = viewModel.description
-		stateLabel.text = viewModel.state
+extension Risk {
+	struct Details {
+		var numberOfExposures: Int?
+		var numberOfHoursWithActiveTracing: Int
+		var numberOfDaysWithActiveTracing: Int { numberOfHoursWithActiveTracing / 24 }
+		var exposureDetectionDate: Date
 	}
 }
