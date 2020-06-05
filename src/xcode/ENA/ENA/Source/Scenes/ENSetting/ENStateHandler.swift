@@ -17,11 +17,8 @@
 
 import Foundation
 
-
-
 protocol ENStateHandlerUpdating: AnyObject {
 	func updateEnState(_ state: ENStateHandler.State)
-	//var initialState: ENStateHandler.State
 }
 
 
@@ -61,7 +58,7 @@ final class ENStateHandler {
 			initialExposureManagerState:ExposureManagerState,
 			reachabilityService: ReachabilityService,
 			delegate: ENStateHandlerUpdating
-	) {
+	){
 		self.reachabilityService = reachabilityService
 		self.delegate = delegate
 		self.latestExposureManagerState = initialExposureManagerState

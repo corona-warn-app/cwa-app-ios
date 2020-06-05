@@ -59,16 +59,16 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		tableView.sectionFooterHeight = 0.0
 
 	}
-
-	private func tryEnManager() {
-		let enManager = ENManager()
-		enManager.activate { error in
-			if let error = error {
-				print("Cannot activate the enmanager.")
-				return
-			}
-		}
-	}
+//
+//	private func tryEnManager() {
+//		let enManager = ENManager()
+//		enManager.activate { error in
+//			if let error = error {
+//				print("Cannot activate the enmanager.")
+//				return
+//			}
+//		}
+//	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
