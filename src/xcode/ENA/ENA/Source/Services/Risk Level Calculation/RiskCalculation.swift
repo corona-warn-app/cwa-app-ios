@@ -28,6 +28,7 @@ struct Risk {
 		var exposureDetectionDate: Date
 	}
 
+//	let riskLevelHasIncreased: Bool
 	let level: RiskLevel
 	let details: Details
 }

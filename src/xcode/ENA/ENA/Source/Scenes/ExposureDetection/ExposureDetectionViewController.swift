@@ -65,13 +65,13 @@ extension ExposureDetectionViewController {
 
 		}
 
-		riskLevelProvider.observeRisk(consumer)
+		riskProvier.observeRisk(consumer)
 		updateUI()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		riskLevelProvider.requestRisk()
+		riskProvier.requestRisk()
 		updateUI()
 	}
 
@@ -133,7 +133,7 @@ private extension ExposureDetectionViewController {
 			}
 			return
 		}
-		riskLevelProvider.requestRisk()
+		riskProvier.requestRisk()
 	}
 }
 
