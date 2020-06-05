@@ -19,7 +19,7 @@ import UIKit
 
 final class RiskImageItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
 	@IBOutlet var iconImageView: UIImageView!
-	@IBOutlet var textLabel: UILabel!
+	@IBOutlet var textLabel: ENALabel!
 	@IBOutlet var separatorView: UIView!
 	@IBOutlet var stackView: UIStackView!
 

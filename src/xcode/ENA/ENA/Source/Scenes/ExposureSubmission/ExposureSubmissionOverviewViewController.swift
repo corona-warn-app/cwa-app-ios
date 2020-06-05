@@ -325,17 +325,3 @@ extension ExposureSubmissionOverviewViewController {
 		case imageCard = "imageCardCell"
 	}
 }
-
-private extension DynamicCell {
-	static func phone(text: String, number: String) -> DynamicCell {
-		.icon(
-			action: .call(number: number),
-			DynamicIcon(
-				text: text,
-				image: UIImage(systemName: "phone.fill"),
-				backgroundColor: .preferredColor(for: .brandMagenta),
-				tintColor: .white
-			)
-		)
-	}
-}
