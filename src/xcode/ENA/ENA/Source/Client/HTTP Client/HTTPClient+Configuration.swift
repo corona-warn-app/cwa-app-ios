@@ -124,7 +124,8 @@ extension HTTPClient {
 					apiVersion,
 					"configuration",
 					"country",
-					country
+					country,
+					"app_config"
 				)
 		}
 
