@@ -36,7 +36,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 		super.init(coder: coder)
 
-
 		exposureSubmissionService = ENAExposureSubmissionService(
 			diagnosiskeyRetrieval: self.exposureManager,
 			client: self.client,
@@ -46,7 +45,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		homeInteractor = HomeInteractor(
 			homeViewController: self,
 			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
+			state: .init(isLoading: false, exposureManager: .init(), risk: self.risk),
 			exposureSubmissionService: exposureSubmissionService
 		)
 	}
@@ -65,9 +64,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		HomeInteractor(
 			homeViewController: self,
 			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init())
+			state: .init(isLoading: false, exposureManager: .init(), risk: risk)
 		)
 	}()
+
 	private var summaryNotificationObserver: NSObjectProtocol?
 	private weak var exposureDetectionController: ExposureDetectionViewController?
 	private weak var settingsController: SettingsViewController?
@@ -76,6 +76,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	private var exposureSubmissionService: ExposureSubmissionService?
 
 	private var risk: Risk?
+	private let riskConsumer = RiskConsumer()
 
 	enum Section: Int {
 		case actions
@@ -87,12 +88,19 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		riskConsumer.didCalculateRisk = { [weak self] risk in
+			self?.risk = risk
+			self?.updateOwnUI()
+		}
+
 		configureHierarchy()
 		configureDataSource()
 		updateSections()
 		applySnapshotFromSections()
 		configureUI()
 		homeInteractor.updateTestResults()
+
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
