@@ -31,9 +31,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupButton()
-		DispatchQueue.main.async { [weak self] in
-			self?.navigationController?.navigationBar.sizeToFit()
-		}
 	}
 	
 

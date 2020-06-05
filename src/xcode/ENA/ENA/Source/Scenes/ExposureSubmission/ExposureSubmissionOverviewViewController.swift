@@ -40,11 +40,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 
 	// MARK: - View lifecycle methods.
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-	}
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		dynamicTableViewModel = dynamicTableData()
