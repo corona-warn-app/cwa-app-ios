@@ -24,6 +24,13 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	private var lastInvestigation: String
 	private var lastUpdateDate: Date?
 
+	enum IncativeType {
+		case noCalculationPossible
+		case outdatedResults
+	}
+
+	var incativeType: IncativeType = .noCalculationPossible
+
 	var activeAction: (() -> Void)?
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
@@ -38,13 +45,14 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		if let lastUpdateDate = lastUpdateDate {
 			return Self.lastUpdateDateFormatter.string(from: lastUpdateDate)
 		} else {
-			return " - "
+			return AppStrings.Home.riskCardNoDateTitle
 		}
 	}
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(lastInvestigation: String, lastUpdateDate: Date?) {
+	init(incativeType: IncativeType, lastInvestigation: String, lastUpdateDate: Date?) {
+		self.incativeType = incativeType
 		self.lastInvestigation = lastInvestigation
 		self.lastUpdateDate = lastUpdateDate
 	}
@@ -56,11 +64,11 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		cell.removeAllArrangedSubviews()
 
-		let title = AppStrings.Home.riskCardInactiveTitle
+		let title: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
 		let titleColor: UIColor = .black
 		cell.configureTitle(title: title, titleColor: titleColor)
 
-		let bodyText = AppStrings.Home.riskCardInactiveBody
+		let bodyText: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleBody : AppStrings.Home.riskCardInactiveOutdatedResultsBody
 		cell.configureBody(text: bodyText, bodyColor: titleColor)
 
 		let color = UIColor.white
@@ -70,8 +78,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		let lastInvestigationTitle = String(format: AppStrings.Home.riskCardInactiveActivateItemTitle, lastInvestigation)
 		let iconTintColor = UIColor(red: 93.0 / 255.0, green: 111.0 / 255.0, blue: 128.0 / 255.0, alpha: 1.0)
 		let item1 = HomeRiskImageItemViewConfigurator(title: lastInvestigationTitle, titleColor: titleColor, iconImageName: "Icons_LetzteErmittlung-Light", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
-
-		let dateTitle = String(format: AppStrings.Home.riskCardInactiveDateItemTitle, lastUpdateDateString)
+		let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
 		let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
 		itemCellConfigurators.append(contentsOf: [item1, item2])
 
@@ -81,7 +88,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		let chevronImage = UIImage(systemName: "chevron.right")
 		cell.configureChevron(image: chevronImage, tintColor: .lightGray)
 
-		let buttonTitle = AppStrings.Home.riskCardInactiveButton
+		let buttonTitle: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
 
 		cell.configureActiveButton(title: buttonTitle)
 	}
