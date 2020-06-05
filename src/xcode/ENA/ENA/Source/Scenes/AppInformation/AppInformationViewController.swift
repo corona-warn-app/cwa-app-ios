@@ -107,8 +107,8 @@ extension AppInformationViewController {
 		}
 	}
 
-	func setupAccexxibility() {
-		
+	func setupAccessibility() {
+
 	}
 
 }

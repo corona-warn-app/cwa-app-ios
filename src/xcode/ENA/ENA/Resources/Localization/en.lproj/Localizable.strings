@@ -664,6 +664,7 @@
 
 "App_Information_Terms_Text" = "...";
 
+"App_Information_Terms_Image1_AccLabel" = "A hand holds a smartphone with a lot of text, next to it is a checkmark as a symbol for accepted terms of use.";
 
 /* App Information - Tracing */
 "App_Information_Tracing_Navigation" = "How does tracing work?";

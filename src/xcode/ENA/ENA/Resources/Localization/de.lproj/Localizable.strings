@@ -663,6 +663,8 @@
 
 "App_Information_Terms_Text" = "...";
 
+"App_Information_Terms_Image1_AccLabel" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Haken als Symbol für akzeptierte Nutzungsbedingungen.";
+
 /* Risk View */
 "unknown_risk" = "Risiko unbekannt";
 
