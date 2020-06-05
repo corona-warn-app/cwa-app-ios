@@ -3,15 +3,6 @@
     {
       "filename" : "Icons - Home.pdf",
       "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "idiom" : "universal"
     }
   ],
   "info" : {
