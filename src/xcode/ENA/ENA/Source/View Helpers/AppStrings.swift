@@ -42,6 +42,7 @@ enum AppStrings {
 		static let dataPrivacyDisclaimer = NSLocalizedString("ExposureSubmission_DataPrivacyDescription", comment: "")
 		static let dataPrivacyAcceptTitle = NSLocalizedString("ExposureSubmissionDataPrivacy_AcceptTitle", comment: "")
 		static let dataPrivacyDontAcceptTitle = NSLocalizedString("ExposureSubmissionDataPrivacy_DontAcceptTitle", comment: "")
+		static let continueText = NSLocalizedString("ExposureSubmission_Continue_actionText", comment: "")
 	}
 
 	enum ExposureSubmissionTanEntry {

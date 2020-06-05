@@ -31,7 +31,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		setSecondaryButtonTitle(to: "")
 		hideSecondaryButton()
 	}
 

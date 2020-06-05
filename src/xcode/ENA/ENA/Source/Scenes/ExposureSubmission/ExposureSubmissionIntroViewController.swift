@@ -30,9 +30,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 		// The button is shared among multiple controllers,
 		// make sure to reset it whenever the view appears.
-		setButtonTitle(to: "Weiter")
-
-
+		setButtonTitle(to: AppStrings.ExposureSubmission.continueText)
 		if exposureSubmissionService?.hasRegistrationToken() ?? false {
 			fetchResult()
 		}
@@ -40,7 +38,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		setButtonTitle(to: "")
 	}
 
 	override func viewDidLoad() {

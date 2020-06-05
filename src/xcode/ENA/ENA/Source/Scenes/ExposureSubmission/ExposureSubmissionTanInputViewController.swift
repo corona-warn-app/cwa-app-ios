@@ -52,7 +52,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		} else {
 			tanInput.becomeFirstResponder()
 		}
-
+		hideSecondaryButton()
 		setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
 		title = AppStrings.ExposureSubmissionTanEntry.title
 		setButtonEnabled(enabled: tanInput.isValid)

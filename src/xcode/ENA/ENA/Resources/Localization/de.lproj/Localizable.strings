@@ -203,7 +203,7 @@
 
 /* Exposure Submission */
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
-
+"ExposureSubmission_Continue_actionText" = "Weiter";
 "ExposureSubmission_DataPrivacyDescription" = "QR-Code Datenschutztext";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
@@ -212,7 +212,7 @@
 
 "ExposureSubmission_Submit" = "TAN eingeben";
 
-"ExposureSubmissionTanEntry_Title" = "TAN-Eingabe";
+"ExposureSubmissionTanEntry_Title" = "TAN Eingabe";
 
 "ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die Ihnen mitgeteilte TAN ein:";
 
@@ -234,7 +234,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code ihres Test-Dokuments scannen.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Code";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
 
 "ExposureSubmissionDispatch_TANButtonDescription" = "Registrieren Sie Ihren Test per manueller TAN-Eingabe.";
 
@@ -246,7 +246,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 
-"ExposureSubmissionHotline_Description" = "Wir teilen Ihnen Ihren TAN-Code gerne per Telefon mit.";
+"ExposureSubmissionHotline_Description" = "Bitte halten zur TAN Anfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
@@ -260,7 +260,7 @@
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
-"ExposureSubmission_TANInputButtonTitle" = "TAN-Code eingeben";
+"ExposureSubmission_TANInputButtonTitle" = "TAN eingeben";
 
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
@@ -401,23 +401,23 @@
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Keine Diagnoseschlüssel verfügbar. Bitte versuchen Sie es morgen erneut.";
 
-"ExposureSubmissionError_InvalidTan" = "Die erzeugte TAN für die Übermittlung ist ungültig.";
+"ExposureSubmissionError_InvalidTan" = "Die erzeugte Übermittlungs TAN ist ungültig. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_EnNotEnabled" = "Die Exposure Notification ist nicht aktiv.";
+"ExposureSubmissionError_EnNotEnabled" = "Bitte aktivieren Sie die Risiko-Ermittlung, um andere zu warnen.";
 
-"ExposureSubmissionError_NoRegistrationToken" = "Kein Registrations-Token auf dem Gerät gefunden.";
+"ExposureSubmissionError_NoRegistrationToken" = "Kein Registration Token auf dem Gerät gefunden.";
 
 "ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
 
-"ExposureSubmissionError_NoResponse" = "Die Antwort enthält kein Inhalt.";
+"ExposureSubmissionError_NoResponse" = "Die Anwort enthält kein Inhalt";
 
-"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Der QR-Code oder die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code wurde bereits verwendet. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde schon verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Kontakt.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde schon verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_RegTokenNotExist" = "Der verwendet Registrations-Token existiert nicht.";
+"ExposureSubmissionError_RegTokenNotExist" = "Es konnte keine Übermittlungs-TAN erstellt werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_other" = "Fehler:";
+"ExposureSubmissionError_other" = "Es ist ein Verbindungsfehler aufgetreten ";
 
 "ExposureSubmissionError_otherend" = ". Bitte versuchen Sie es erneut.";
 

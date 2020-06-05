@@ -23,8 +23,7 @@ class ExposureSubmissionNavigationItem: UINavigationItem {
 	@IBInspectable var titleColor: UIColor?
 }
 
-protocol ExposureSubmissionNavigationControllerChild: AnyObject {
-	var bottomView: UIView? { get }
+protocol ExposureSubmissionNavigationControllerChild: UIViewController {
 	func didTapButton()
 	func didTapSecondButton()
 }
@@ -40,38 +39,34 @@ extension ExposureSubmissionNavigationControllerChild {
 	func didTapSecondButton() {}
 }
 
-extension ExposureSubmissionNavigationControllerChild where Self: UIViewController {
-	var bottomView: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.bottomView }
-	var button: ENAButton? { (navigationController as? ExposureSubmissionNavigationController)?.button }
+extension ExposureSubmissionNavigationControllerChild {
+	var exposureSubmissionNavigationController: ExposureSubmissionNavigationController? { navigationController as? ExposureSubmissionNavigationController }
+	var exposureSubmissionNavigationItem: ExposureSubmissionNavigationItem? { navigationItem as? ExposureSubmissionNavigationItem }
+	var bottomView: UIView? { exposureSubmissionNavigationController?.bottomView }
+	var button: ENAButton? { exposureSubmissionNavigationController?.button }
 
 	func setButtonTitle(to title: String) {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.setButtonTitle(title: title)
+		exposureSubmissionNavigationController?.setButtonTitle(title: title)
 	}
 
 	func setButtonEnabled(enabled: Bool) {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.setButtonEnabled(enabled: enabled)
+		exposureSubmissionNavigationController?.setButtonEnabled(enabled: enabled)
 	}
 
 	func hideButton() {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.button.isHidden = true
+		exposureSubmissionNavigationController?.button.isHidden = true
 	}
 
 	func setSecondaryButtonTitle(to title: String) {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.setSecondaryButtonTitle(title: title)
+		exposureSubmissionNavigationController?.setSecondaryButtonTitle(title: title)
 	}
 
 	func showSecondaryButton() {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.secondaryButton.isHidden = false
+		exposureSubmissionNavigationController?.secondaryButton.isHidden = false
 	}
 
 	func hideSecondaryButton() {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.secondaryButton.isHidden = true
+		exposureSubmissionNavigationController?.secondaryButton.isHidden = true
 	}
 }
 
