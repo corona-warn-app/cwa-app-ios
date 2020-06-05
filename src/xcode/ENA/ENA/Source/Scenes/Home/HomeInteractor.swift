@@ -60,7 +60,7 @@ final class HomeInteractor {
 				.init(
 					exposureManager: state.exposureManager,
 					summary: state.summary
-				), stateHandler: stateHandler
+				)
 			)
 			reloadRiskCell()
 			sections = initialCellConfigurators()
@@ -71,7 +71,6 @@ final class HomeInteractor {
 	private unowned var homeViewController: HomeViewController
 	private let store: Store
 	private var exposureSubmissionService: ExposureSubmissionService?
-	var stateHandler: ENStateHandler!
 	private let taskScheduler: ENATaskScheduler
 	private var enState: ENStateHandler.State
 	private var riskLevel: RiskLevel {
@@ -533,6 +532,7 @@ extension HomeInteractor {
 	}
 }
 
+//MARK: - The ENStateHandler updating
 extension HomeInteractor: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		updateActiveCell()

@@ -138,7 +138,7 @@ final class HomeViewController: UIViewController {
 	// MARK: Misc
 
 	// Called by HomeInteractor
-	func setStateOfChildViewControllers(_ state: State, stateHandler: ENStateHandler) {
+	func setStateOfChildViewControllers(_ state: State) {
 		let riskLevel = RiskLevel(riskScore: state.summary?.maximumRiskScore)
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: state.exposureManager,
