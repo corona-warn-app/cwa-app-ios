@@ -24,7 +24,7 @@
 		134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0F2B2475793400D88934 /* SnapshotHelper.swift */; };
 		134F0F2D2475794900D88934 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0F247466BD00D82D14 /* Accessibility.swift */; };
 		134FFA11247466BD00D82D14 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0F247466BD00D82D14 /* Accessibility.swift */; };
-		13722044247AEEAD00152764 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13722043247AEEAD00152764 /* LocalNotificationManager.swift */; };
+		13722044247AEEAD00152764 /* UNNotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */; };
 		137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */; };
 		138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138910C4247A909000D739F6 /* ENATaskScheduler.swift */; };
 		13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */; };
@@ -340,7 +340,7 @@
 		134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Extensions.swift"; sourceTree = "<group>"; };
 		134F0F2B2475793400D88934 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = ../../fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
 		134FFA0F247466BD00D82D14 /* Accessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
-		13722043247AEEAD00152764 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingInfoViewController+Extension.swift"; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
 		13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
@@ -676,7 +676,6 @@
 			isa = PBXGroup;
 			children = (
 				138910C4247A909000D739F6 /* ENATaskScheduler.swift */,
-				13722043247AEEAD00152764 /* LocalNotificationManager.swift */,
 			);
 			path = "Task Scheduling";
 			sourceTree = "<group>";
@@ -919,6 +918,7 @@
 				514EE996246D4BDD00DE4884 /* UICollectionView */,
 				514EE997246D4BEB00DE4884 /* UITableView */,
 				51895EDB245E16CD0085DA38 /* ENAColor.swift */,
+				13722043247AEEAD00152764 /* UNNotificationCenter+Extension.swift */,
 				51D420B624583B7200AD70CA /* NSObject+Identifier.swift */,
 				51D420B824583B8300AD70CA /* UIViewController+AppStoryboard.swift */,
 				51D420D324586DCA00AD70CA /* NotificationName.swift */,
@@ -2017,7 +2017,7 @@
 				B1FE13FB24896E6700D012E5 /* AppConfigurationProviding.swift in Sources */,
 				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
 				2F785753248506BD00323A9C /* HomeTestResultCell.swift in Sources */,
-				13722044247AEEAD00152764 /* LocalNotificationManager.swift in Sources */,
+				13722044247AEEAD00152764 /* UNNotificationCenter+Extension.swift in Sources */,
 				B10FD5ED246EAADC00E9D7F2 /* AppInformationDetailViewController.swift in Sources */,
 				CDCE11D9247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift in Sources */,
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
