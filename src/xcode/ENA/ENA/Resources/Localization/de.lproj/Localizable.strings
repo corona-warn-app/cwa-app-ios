@@ -490,8 +490,6 @@ Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. E
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
-"Home_Risk_Low_NoContact_Item_Title" = "Bisher keine Risiko-Begegnung";
-
 "Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen aktiv";
 
 "Home_Risk_Low_Date_Item_Title" = "Aktualisiert: %@";

@@ -49,7 +49,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			itemCellConfigurators.append(isLoadingItem)
 		} else {
 			let numberOfDaysSinceLastExposure = daysSinceLastExposure ?? 0
-			let numberContactsTitle = String(format: AppStrings.Home.riskCardHighNumberContactsItemTitle, numberRiskContacts)
+			let numberContactsTitle = String(format: AppStrings.Home.riskCardNumberContactsItemTitle, numberRiskContacts)
 			let item1 = HomeRiskImageItemViewConfigurator(title: numberContactsTitle, titleColor: titleColor, iconImageName: "Icons_RisikoBegegnung", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
 			let lastContactTitle = String(format: AppStrings.Home.riskCardHighLastContactItemTitle, numberOfDaysSinceLastExposure)
 			let item2 = HomeRiskImageItemViewConfigurator(title: lastContactTitle, titleColor: titleColor, iconImageName: "Icons_Calendar", iconTintColor: titleColor, color: color, separatorColor: separatorColor)

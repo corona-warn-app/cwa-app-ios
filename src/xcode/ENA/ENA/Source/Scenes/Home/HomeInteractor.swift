@@ -307,6 +307,7 @@ extension HomeInteractor {
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
 				startDate: startDate,
 				releaseDate: releaseDate,
+				numberRiskContacts: state.numberRiskContacts,
 				numberDays: 2,
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection
