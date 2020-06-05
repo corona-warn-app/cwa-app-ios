@@ -119,8 +119,6 @@ extension ExposureNotificationSettingViewController {
 	}
 }
 
-
-
 extension ExposureNotificationSettingViewController {
 	override func numberOfSections(in _: UITableView) -> Int {
 		model.content.count

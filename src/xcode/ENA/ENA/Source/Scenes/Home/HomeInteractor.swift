@@ -18,12 +18,9 @@
 import ExposureNotification
 import Foundation
 
-// swiftlint:disable:next type_body_length
 final class HomeInteractor {
-
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
-
 
 	enum UserLoadingMode {
 		case automatic
@@ -495,8 +492,8 @@ extension HomeInteractor {
 	func updateTestResults() {
 		DispatchQueue.global(qos: .userInteractive).async {
 			self.updateTestResultHelper()
-			}
 		}
+	}
 
 	private func updateTestResultHelper() {
 		guard store.registrationToken != nil else { return }
@@ -508,8 +505,8 @@ extension HomeInteractor {
 			case .success(let result):
 				self.testResult = result
 				self.reloadTestResult(with: result)
-	}
-	}
+			}
+		}
 	}
 }
 
@@ -532,7 +529,7 @@ extension HomeInteractor {
 	}
 }
 
-//MARK: - The ENStateHandler updating
+// MARK: The ENStateHandler updating
 extension HomeInteractor: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		self.enState = state

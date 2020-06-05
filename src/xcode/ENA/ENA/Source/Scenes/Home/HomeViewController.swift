@@ -58,11 +58,9 @@ final class HomeViewController: UIViewController {
 			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
 			exposureSubmissionService: exposureSubmissionService,
 			taskScheduler: taskScheduler,
-				initialEnState: initialEnState
+			initialEnState: initialEnState
 		)
-
 		addToUpdatingSetIfNeeded(homeInteractor)
-
 	}
 
 	required init?(coder _: NSCoder) {
