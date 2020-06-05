@@ -21,10 +21,11 @@ import UIKit
 @IBDesignable
 class ExposureSubmissionNavigationItem: UINavigationItem {
 	@IBInspectable var titleColor: UIColor?
+	@IBInspectable var buttonText: String?
+	// TODO @IBInspectable var secondaryButtonText: String?
 }
 
-protocol ExposureSubmissionNavigationControllerChild: AnyObject {
-	var bottomView: UIView? { get }
+protocol ExposureSubmissionNavigationControllerChild: UIViewController {
 	func didTapBottomButton()
 	func didTapSecondButton()
 }
@@ -34,38 +35,40 @@ extension ExposureSubmissionNavigationControllerChild {
 	func didTapSecondButton() {}
 }
 
-extension ExposureSubmissionNavigationControllerChild where Self: UIViewController {
-	var bottomView: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.bottomView }
-	var button: ENAButton? { (navigationController as? ExposureSubmissionNavigationController)?.button }
+extension ExposureSubmissionNavigationControllerChild {
+	var exposureSubmissionNavigationController: ExposureSubmissionNavigationController? { navigationController as? ExposureSubmissionNavigationController }
+	var exposureSubmissionNavigationItem: ExposureSubmissionNavigationItem? { navigationItem as? ExposureSubmissionNavigationItem }
+	var bottomView: UIView? { exposureSubmissionNavigationController?.bottomView }
+	var button: ENAButton? { exposureSubmissionNavigationController?.button }
 
+	@available(*, deprecated, message: "Use ExposureSubmissionNavigationItem.buttonText instead.")
 	func setButtonTitle(to title: String) {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.setButtonTitle(title: title)
+		exposureSubmissionNavigationController?.setButtonTitle(title: title)
 	}
 
 	func setButtonEnabled(enabled: Bool) {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.setButtonEnabled(enabled: enabled)
+		// ToDo: Could also be handled by navigation item
+		exposureSubmissionNavigationController?.setButtonEnabled(enabled: enabled)
 	}
 
 	func hideButton() {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.button.isHidden = true
+		// ToDo: Can this be removed? Would normally be handled by UIViewController.hidesBottomBarOnPush
+		exposureSubmissionNavigationController?.button.isHidden = true
 	}
 
 	func setSecondaryButtonTitle(to title: String) {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.setSecondaryButtonTitle(title: title)
+		// ToDo apply same to secondary button
+		exposureSubmissionNavigationController?.setSecondaryButtonTitle(title: title)
 	}
 
 	func showSecondaryButton() {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.secondaryButton.isHidden = false
+		// ToDo Visibility could also be handled by the navigation item
+		exposureSubmissionNavigationController?.secondaryButton.isHidden = false
 	}
 
 	func hideSecondaryButton() {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.secondaryButton.isHidden = true
+		// ToDo Visibility could also be handled by the navigation item
+		exposureSubmissionNavigationController?.secondaryButton.isHidden = true
 	}
 }
 
@@ -208,6 +211,8 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			let titleColor = navigationItem.titleColor {
 			navigationBar.largeTitleTextAttributes = [:]
 			navigationBar.largeTitleTextAttributes?[NSAttributedString.Key.foregroundColor] = titleColor
+			// ToDo double check implementation (add secondary button)
+			button.setTitle(navigationItem.buttonText, for: .normal)
 		} else {
 			navigationBar.largeTitleTextAttributes?.removeValue(forKey: NSAttributedString.Key.foregroundColor)
 		}
