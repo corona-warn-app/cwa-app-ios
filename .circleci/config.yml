@@ -21,7 +21,7 @@ jobs:
           name: Convert coverage information to SonarCloud format
           command: |
             ./scripts/xcov_to_sonarqube_generic.sh src/xcode/fastlane/test_output/*.xccovarchive/ > src/xcode/fastlane/test_output/coverage.xml
-            sed -i "" 's|/Users/distiller/project/||' src/xcode/fastlane/test_outputcoverage.xml
+            sed -i "" 's|/Users/distiller/project/||' src/xcode/fastlane/test_output/coverage.xml
       - run:
           name: Fix swiftlint output for SonarCloud
           command: |
