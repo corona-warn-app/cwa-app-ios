@@ -53,6 +53,7 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 		insetView.backgroundColor = .preferredColor(for: .backgroundSecondary)
 		insetView.layer.cornerRadius = 16.0
+		insetView.clipsToBounds = true
 
 		// MARK: - Title adjustment.
 
@@ -70,6 +71,10 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 		chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
 		chevron.tintColor = UIColor.preferredColor(for: .textPrimary2)
+
+		// MARK: - Image adjustment.
+
+		cellImage.contentMode = .scaleAspectFit
 	}
 
 	override func updateConstraints() {
@@ -84,7 +89,7 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 	private func calculateHeight() -> CGFloat {
 		body.sizeToFit()
 		title.sizeToFit()
-		return max((64 + 21 + body.frame.height + title.frame.height), 196)
+		return max((64 + 21 + body.frame.height + title.frame.height), 213)
 	}
 
 	private func setupConstraints() {

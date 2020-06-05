@@ -55,7 +55,6 @@ protocol ExposureSubmissionService {
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
 
-
 	let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
 	let client: Client
 	let store: Store

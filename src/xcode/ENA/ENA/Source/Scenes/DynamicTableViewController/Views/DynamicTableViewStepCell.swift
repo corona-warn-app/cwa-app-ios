@@ -138,7 +138,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 			head.topAnchor.constraint(equalTo: topAnchor).isActive = true
 			body.topAnchor.constraint(equalTo: head.bottomAnchor, constant: 8).isActive = true
 		} else {
-			body.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+			body.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
 		}
 
 		bottomAnchor.constraint(equalTo: body.bottomAnchor, constant: 8).isActive = true
