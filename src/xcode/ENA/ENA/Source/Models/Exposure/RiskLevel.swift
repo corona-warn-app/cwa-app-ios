@@ -35,7 +35,7 @@ enum RiskLevel: Int, CaseIterable {
 	case low = 0
 	/// Increased risk
 	///
-	/// - important: Should overrule `.unknownOutdated`
+	/// - important: Should overrule `.unknownOutdated`, and `.unknownInitial`
 	case increased
 	/// Unknown risk  last calculation more than 24 hours old
 	///

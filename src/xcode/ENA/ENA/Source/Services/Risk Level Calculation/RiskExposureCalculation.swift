@@ -55,7 +55,7 @@ enum RiskExposureCalculation {
 		- preconditions: Current state of the `ExposureManager`
 		- currentDate: The current `Date` to use in checks. Defaults to `Date()`
 	*/
-	static func riskLevel(
+	private static func riskLevel(
 		summary: ENExposureDetectionSummaryContainer?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
@@ -83,15 +83,14 @@ enum RiskExposureCalculation {
 		// Precondition 4 - If date of last exposure detection was not within 1 day, risk is unknownOutdated
 		if
 			let dateLastExposureDetection = dateLastExposureDetection,
-			!dateLastExposureDetection.isWithinExposureDetectionValidInterval(from: currentDate),
+			!currentDate.isWithinExposureDetectionValidInterval(from: dateLastExposureDetection),
 			riskLevel < .unknownOutdated
 		{
 			riskLevel = .unknownOutdated
 		}
 
 		guard let summary = summary else {
-			// TODO: Is this correct, need to test
-			return .success(.unknownOutdated)
+			return .success(riskLevel)
 		}
 
 		let riskScoreClasses = configuration.riskScoreClasses
@@ -104,24 +103,10 @@ enum RiskExposureCalculation {
 			return .failure(.undefinedRiskRange)
 		}
 
-		let riskRangeLow = Range<Double>(uncheckedBounds: (lower: Double(riskScoreClassLow.min), upper: Double(riskScoreClassLow.max)))
-		let riskRangeHigh = Range<Double>(uncheckedBounds: (lower: Double(riskScoreClassHigh.min), upper: Double(riskScoreClassHigh.max)))
+		let riskRangeLow = Double(riskScoreClassLow.min)...Double(riskScoreClassLow.max)
+		let riskRangeHigh = Double(riskScoreClassHigh.min)..<Double(riskScoreClassHigh.max)
 
-//		let riskRangeLow = Double(riskScoreClassLow.min)..<Double(riskScoreClassLow.max)
-//		let riskRangeHigh = Double(riskScoreClassHigh.min)..<Double(riskScoreClassHigh.max)
-		let maximumRisk = summary.maximumRiskScore
-		let adWeights = configuration.attenuationDuration.weights
-		let attenuationDurationsInMin = summary.configuredAttenuationDurations.map { $0 / Double(60.0) }
-		let attenuationConfig = configuration.attenuationDuration
-
-		let normRiskScore = Double(maximumRisk) / Double(attenuationConfig.riskScoreNormalizationDivisor)
-		let weightedAttenuationDurationsLow = attenuationDurationsInMin[0] * adWeights.low
-		let weightedAttenuationDurationsMid = attenuationDurationsInMin[1] * adWeights.mid
-		let weightedAttenuationDurationsHigh = attenuationDurationsInMin[2] * adWeights.high
-		let bucketOffset = Double(attenuationConfig.defaultBucketOffset)
-
-		let weight = weightedAttenuationDurationsLow + weightedAttenuationDurationsMid + weightedAttenuationDurationsHigh + bucketOffset
-		let riskScore = normRiskScore * weight
+		let riskScore = calculateRawRisk(summary: summary, configuration: configuration)
 
 		if riskRangeLow.contains(riskScore) {
 			let calculatedRiskLevel = RiskLevel.low
@@ -135,6 +120,26 @@ enum RiskExposureCalculation {
 		}
 
 		return .success(riskLevel)
+	}
+
+	static func calculateRawRisk(
+		summary: ENExposureDetectionSummaryContainer,
+		configuration: SAP_ApplicationConfiguration
+	) -> Double {
+		let maximumRisk = summary.maximumRiskScore
+		let adWeights = configuration.attenuationDuration.weights
+		let attenuationDurationsInMin = summary.configuredAttenuationDurations.map { $0 / Double(60.0) }
+		let attenuationConfig = configuration.attenuationDuration
+
+		let normRiskScore = Double(maximumRisk) / Double(attenuationConfig.riskScoreNormalizationDivisor)
+		let weightedAttenuationDurationsLow = attenuationDurationsInMin[0] * adWeights.low
+		let weightedAttenuationDurationsMid = attenuationDurationsInMin[1] * adWeights.mid
+		let weightedAttenuationDurationsHigh = attenuationDurationsInMin[2] * adWeights.high
+		let bucketOffset = Double(attenuationConfig.defaultBucketOffset)
+
+		let weight = weightedAttenuationDurationsLow + weightedAttenuationDurationsMid + weightedAttenuationDurationsHigh + bucketOffset
+		// Round to two decimal places
+		return (normRiskScore * weight).rounded(to: 2)
 	}
 
 	static func risk(
@@ -187,4 +192,11 @@ extension Array where Element == SAP_RiskScoreClass {
 	}
 	var low: SAP_RiskScoreClass? { firstWhereLabel(is: "LOW") }
 	var high: SAP_RiskScoreClass? { firstWhereLabel(is: "HIGH") }
+}
+
+extension Double {
+	func rounded(to places: Int) -> Double {
+		let factor = pow(10, Double(places))
+		return (self * factor).rounded() / factor
+	}
 }
