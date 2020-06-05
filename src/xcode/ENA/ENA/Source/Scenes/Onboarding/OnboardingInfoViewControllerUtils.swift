@@ -32,13 +32,6 @@ enum OnboardingInfoViewControllerUtils {
 			message: AppStrings.Onboarding.onboarding_deactivate_exposure_notif_confirmation_message,
 			preferredStyle: .alert
 		)
-		let goBack = UIAlertAction(
-			title: AppStrings.Onboarding.onboardingBack,
-			style: .cancel,
-			handler: { _ in
-				alert.dismiss(animated: true, completion: nil)
-			}
-		)
 		let deactivate = UIAlertAction(
 			title: AppStrings.Onboarding.onboardingDoNotActivate,
 			style: .default,
@@ -47,9 +40,7 @@ enum OnboardingInfoViewControllerUtils {
 				alert.dismiss(animated: true, completion: nil)
 			}
 		)
-		alert.addAction(goBack)
 		alert.addAction(deactivate)
-		alert.preferredAction = goBack
 		return alert
 	}
 }
