@@ -416,7 +416,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 				case .success(let testResult):
 					if testResult != .pending {
-						self.taskScheduler.notificationManager.presentNotification(
+						UNUserNotificationCenter.current().presentNotification(
 							title: AppStrings.LocalNotifications.testResultsTitle,
 							body: AppStrings.LocalNotifications.testResultsBody,
 							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
