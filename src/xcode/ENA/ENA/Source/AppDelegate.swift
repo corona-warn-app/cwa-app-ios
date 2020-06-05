@@ -180,7 +180,7 @@ extension AppDelegate: ExposureDetectionDelegate {
 		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		do {
 			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-			let packages = downloadedPackagesStore.allPackages(for: .formattedToday())
+			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), onlyHours: store.hourlyFetchingEnabled)
 			let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
 			return writer.writeAllPackages()
 		} catch {
@@ -306,12 +306,19 @@ extension DownloadedPackagesStore {
 }
 
 private extension DownloadedPackagesStore {
-	func allPackages(for day: String) -> [SAPDownloadedPackage] {
-		let fullDays = allDays()
+	func allPackages(for day: String, onlyHours: Bool) -> [SAPDownloadedPackage] {
 		var packages = [SAPDownloadedPackage]()
-		packages.append(
-			contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
-		)
+
+		if onlyHours {  // Testing only: Feed last three hours into framework
+			let allHoursForToday = hourlyPackages(for: .formattedToday())
+			packages.append(contentsOf: Array(allHoursForToday.prefix(3)))
+		} else {
+			let fullDays = allDays()
+			packages.append(
+				contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
+			)
+		}
+
 		return packages
 	}
 }
