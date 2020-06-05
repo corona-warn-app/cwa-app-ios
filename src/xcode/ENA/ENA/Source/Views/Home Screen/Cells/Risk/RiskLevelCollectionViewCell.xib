@@ -39,15 +39,15 @@
                                                 <rect key="frame" x="587" y="54" width="32" height="28.5"/>
                                                 <color key="tintColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="gv6-c3-YX2"/>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="pm1-Pr-Fe4"/>
+                                                    <constraint firstAttribute="height" constant="24" id="gv6-c3-YX2"/>
+                                                    <constraint firstAttribute="width" constant="24" id="pm1-Pr-Fe4"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="nJl-O5-rry" firstAttribute="leading" secondItem="gno-nj-MZX" secondAttribute="trailing" constant="8" id="8lx-g4-Qb7"/>
                                             <constraint firstItem="gno-nj-MZX" firstAttribute="top" secondItem="6sx-gi-fDy" secondAttribute="topMargin" id="YiG-L2-zYq"/>
-                                            <constraint firstItem="nJl-O5-rry" firstAttribute="top" secondItem="6sx-gi-fDy" secondAttribute="topMargin" id="dqa-ul-NBC"/>
+                                            <constraint firstItem="nJl-O5-rry" firstAttribute="centerY" secondItem="6sx-gi-fDy" secondAttribute="centerYWithinMargins" id="dqa-ul-NBC"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="gno-nj-MZX" secondAttribute="bottom" id="rqg-sr-ywp"/>
                                             <constraint firstItem="gno-nj-MZX" firstAttribute="leading" secondItem="6sx-gi-fDy" secondAttribute="leadingMargin" id="tTg-da-8VY"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="nJl-O5-rry" secondAttribute="trailing" id="xVx-tm-E7j"/>
