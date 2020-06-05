@@ -62,32 +62,32 @@ private extension DynamicAction {
 extension AppInformationViewController {
 	static let model: [Category: (text: String, action: DynamicAction)] = [
 		.about: (
-			text: "App_Information_About_Navigation".localized,
-			action: .push(model: aboutModel, withTitle:  "App_Information_About_Navigation".localized)
+			text: AppStrings.AppInformation.aboutNavigation,
+			action: .push(model: aboutModel, withTitle:  AppStrings.AppInformation.aboutNavigation)
 		),
 		.faq: (
-			text: "App_Information_FAQ_Navigation".localized,
+			text: AppStrings.AppInformation.faqNavigation,
 			action: .safari
 		),
 		.terms: (
-			text: "App_Information_Terms_Navigation".localized,
-			action: .push(model: termsModel, withTitle:  "App_Information_Terms_Navigation".localized)
+			text: AppStrings.AppInformation.termsNavigation,
+			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsNavigation)
 		),
 		.privacy: (
-			text: "App_Information_Privacy_Navigation".localized,
-			action: .push(model: privacyModel, withTitle:  "App_Information_Privacy_Navigation".localized)
+			text: AppStrings.AppInformation.privacyNavigation,
+			action: .push(model: privacyModel, withTitle:  AppStrings.AppInformation.privacyNavigation)
 		),
 		.legal: (
-			text: "App_Information_Legal_Navigation".localized,
-			action: .push(model: legalModel, separators: true, withTitle:  "App_Information_Legal_Navigation".localized)
+			text: AppStrings.AppInformation.legalNavigation,
+			action: .push(model: legalModel, separators: true, withTitle:  AppStrings.AppInformation.legalNavigation)
 		),
 		.contact: (
-			text: "App_Information_Contact_Navigation".localized,
-			action: .push(model: contactModel, withTitle:  "App_Information_Contact_Navigation".localized)
+			text: AppStrings.AppInformation.contactNavigation,
+			action: .push(model: contactModel, withTitle:  AppStrings.AppInformation.contactNavigation)
 		),
 		.imprint: (
-			text: "App_Information_Imprint_Navigation".localized,
-			action: .push(model: imprintModel, withTitle:  "App_Information_Imprint_Navigation".localized)
+			text: AppStrings.AppInformation.imprintNavigation,
+			action: .push(model: imprintModel, withTitle:  AppStrings.AppInformation.imprintNavigation)
 		)
 	]
 }
@@ -97,9 +97,9 @@ extension AppInformationViewController {
 		.section(
 			header: .image(UIImage(named: "Illu_AppInfo_UeberApp"), height: 230),
 			cells: [
-				.title2(text: "App_Information_About_Title".localized),
-				.headline(text: "App_Information_About_Description".localized),
-				.subheadline(text: "App_Information_About_Text".localized)
+				.title2(text: AppStrings.AppInformation.aboutTitle),
+				.headline(text: AppStrings.AppInformation.aboutDescription),
+				.subheadline(text: AppStrings.AppInformation.aboutText)
 			]
 		)
 	])
@@ -108,12 +108,12 @@ extension AppInformationViewController {
 		.section(
 			header: .image(UIImage(named: "Illu_Appinfo_Kontakt"), height: 230),
 			cells: [
-				.title2(text: "App_Information_Contact_Title".localized),
+				.title2(text: AppStrings.AppInformation.contactTitle),
 				.body(text: "App_Information_Contact_Description".localized),
 				.headline(text: "App_Information_Contact_Hotline_Title".localized),
-				.phone(text: "App_Information_Contact_Hotline_Text".localized, number: "App_Information_Contact_Hotline_Number".localized),
-				.footnote(text: "App_Information_Contact_Hotline_Description".localized),
-				.footnote(text: "App_Information_Contact_Hotline_Terms".localized)
+				.phone(text: AppStrings.AppInformation.contactHotlineText, number: AppStrings.AppInformation.contactHotlineNumber),
+				.footnote(text: AppStrings.AppInformation.contactHotlineDescription),
+				.footnote(text: AppStrings.AppInformation.contactHotlineTerms)
 			]
 		)
 	])
@@ -122,14 +122,14 @@ extension AppInformationViewController {
 		.section(
 			header: .image(UIImage(named: "Illu_Appinfo_Impressum"), height: 230),
 			cells: [
-				.headline(text: "App_Information_Imprint_Section1_Title".localized),
-				.bodyWithoutTopInset(text: "App_Information_Imprint_Section1_Text".localized),
-				.headlineWithoutBottomInset(text: "App_Information_Imprint_Section2_Title".localized),
-				.bodyWithoutTopInset(text: "App_Information_Imprint_Section2_Text".localized),
-				.headlineWithoutBottomInset(text: "App_Information_Imprint_Section3_Title".localized),
-				.bodyWithoutTopInset(text: "App_Information_Imprint_Section3_Text".localized),
-				.headlineWithoutBottomInset(text: "App_Information_Imprint_Section4_Title".localized),
-				.bodyWithoutTopInset(text: "App_Information_Imprint_Section4_Text".localized)
+				.headline(text: AppStrings.AppInformation.imprintSection1Title),
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection1Text),
+				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection2Title),
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection2Text),
+				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection3Title),
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text),
+				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title),
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection4Text)
 			]
 		)
 	])
@@ -139,13 +139,13 @@ extension AppInformationViewController {
 			header: .image(UIImage(named: "Illu_Appinfo_Datenschutz"), height: 230),
 			footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)),
 			cells: [
-				.title2(text: "App_Information_Privacy_Title".localized),
-				.body(text: "App_Information_Privacy_Description".localized)
+				.title2(text: AppStrings.AppInformation.privacyTitle),
+				.body(text: AppStrings.AppInformation.privacyDescription)
 			]
 		),
 		.section(
 			cells: [
-				.subheadline(text: "App_Information_Privacy_Text".localized)
+				.subheadline(text: AppStrings.AppInformation.privacyText)
 			]
 		)
 	])
@@ -154,9 +154,9 @@ extension AppInformationViewController {
 		.section(
 			header: .image(UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"), height: 230),
 			cells: [
-				.title2(text: "App_Information_Terms_Title".localized),
-				.body(text: "App_Information_Terms_Description".localized),
-				.body(text: "App_Information_Terms_Text".localized)
+				.title2(text: AppStrings.AppInformation.termsTitle),
+				.body(text: AppStrings.AppInformation.termsDescription),
+				.body(text: AppStrings.AppInformation.termsText)
 			]
 		)
 	])
