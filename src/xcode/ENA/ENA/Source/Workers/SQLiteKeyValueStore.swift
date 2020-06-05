@@ -24,6 +24,7 @@ class SQLiteKeyValueStore {
 
 	/// - parameter url: URL on disk where the FMDB should be initialized
 	/// If any part of the init fails no Datbase will be created
+	/// If the Database can't be accessed with the key the currentFile will be reset
 	init(with url: URL) {
 		db = FMDatabase(url: url)
 		if !db.open() {
@@ -39,7 +40,6 @@ class SQLiteKeyValueStore {
 
 	/// Generates or Loads Database Key
 	/// Creates the K/V Datsbase if it is not already there
-	/// If the Database can't be accessed with the key the currentFile will be reset
 	private func initDatabase() {
 		var key: String
 
@@ -75,7 +75,7 @@ class SQLiteKeyValueStore {
 		);
 		"""
 		if !db.executeStatements(sqlStmt) {
-			clearAll()
+			removeDatabase()
 		}
 	}
 
@@ -149,8 +149,20 @@ class SQLiteKeyValueStore {
 		}
 	}
 
-	/// Removes the Database File to clear everything
+	/// Removes all key/value pairs from the Store
 	func clearAll() {
+		openDbIfNeeded()
+
+		let sqlStmt = """
+		DROP TABLE kv;
+		VACUUM;
+		"""
+		 db.executeStatements(sqlStmt)
+		removeDatabase()
+	}
+
+	/// Removes the Database File to clear everything
+	private func removeDatabase() {
 		db.close()
 		do {
 			guard let url: URL = db.databaseURL else {
