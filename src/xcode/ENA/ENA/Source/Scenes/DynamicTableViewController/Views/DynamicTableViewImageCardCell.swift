@@ -57,7 +57,7 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 		// MARK: - Title adjustment.
 
-		title.style = .headline
+		title.style = .title2
 		title.textColor = .preferredColor(for: .textPrimary1)
 		title.lineBreakMode = .byWordWrapping
 		title.numberOfLines = 0
