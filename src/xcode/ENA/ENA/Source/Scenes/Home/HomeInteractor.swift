@@ -18,7 +18,7 @@
 import ExposureNotification
 import Foundation
 
-final class HomeInteractor {
+final class HomeInteractor: RequiresAppDependencies {
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
 
@@ -31,20 +31,23 @@ final class HomeInteractor {
 
 	init(
 		homeViewController: HomeViewController,
-		store: Store,
 		state: State,
 		exposureSubmissionService: ExposureSubmissionService? = nil,
 		initialEnState: ENStateHandler.State
 	) {
 		self.homeViewController = homeViewController
-		self.store = store
 		self.state = state
 		self.enState = initialEnState
 		sections = initialCellConfigurators()
+		riskConsumer.didCalculateRisk = { [weak self] risk in
+			self?.state.risk = risk
+		}
+		riskProvider.observeRisk(riskConsumer)
 	}
 
 	// MARK: Properties
 	private var enState: ENStateHandler.State
+	private let riskConsumer = RiskConsumer()
 
 	var state = HomeInteractor.State(
 		isLoading: false,
@@ -63,7 +66,6 @@ final class HomeInteractor {
 	}
 
 	private unowned var homeViewController: HomeViewController
-	private let store: Store
 	private var exposureSubmissionService: ExposureSubmissionService?
 	var enStateHandler: ENStateHandler?
 
@@ -88,7 +90,6 @@ final class HomeInteractor {
 	private var releaseDate: Date?
 	private var startDate: Date?
 	private(set) var testResult: TestResult?
-
 
 	private func riskCellTask(completion: @escaping (() -> Void)) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: completion)

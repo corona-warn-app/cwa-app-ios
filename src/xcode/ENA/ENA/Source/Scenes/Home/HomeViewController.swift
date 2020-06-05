@@ -38,16 +38,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 		super.init(coder: coder)
 
-		exposureSubmissionService = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: self.exposureManager,
-			client: self.client,
-			store: self.store
-		)
 
 		homeInteractor = HomeInteractor(
 			homeViewController: self,
-			store: store,
-			state: .init(isLoading: false, exposureManager: .init(), risk: self.risk),
+			state: .init(isLoading: false, exposureManager: .init(), risk: risk),
 			exposureSubmissionService: exposureSubmissionService,
 			initialEnState: initialEnState
 		)
@@ -71,7 +65,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	lazy var homeInteractor: HomeInteractor = {
 		HomeInteractor(
 			homeViewController: self,
-			store: self.store,
 			state: .init(
 				isLoading: false,
 				exposureManager: .init(),
@@ -80,12 +73,17 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			initialEnState: self.enState
 		)
 	}()
-	private var summaryNotificationObserver: NSObjectProtocol?
 	private weak var exposureDetectionController: ExposureDetectionViewController?
 	private weak var settingsController: SettingsViewController?
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
-	private var exposureSubmissionService: ExposureSubmissionService?
+	private lazy var exposureSubmissionService: ExposureSubmissionService = {
+		ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: self.exposureManager,
+			client: self.client,
+			store: self.store
+		)
+	}()
 	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
 
 	private var risk: Risk?
@@ -121,11 +119,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		updateOwnUI()
 		navigationItem.largeTitleDisplayMode = .never
 		homeInteractor.developerMenuEnableIfAllowed()
-	}
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -166,12 +159,11 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func showExposureSubmission(with result: TestResult? = nil) {
-		guard let exposureSubmissionService = exposureSubmissionService else { return }
 		present(
 			AppStoryboard.exposureSubmission.initiateInitial { coder in
 				ExposureSubmissionNavigationController(
 					coder: coder,
-					exposureSubmissionService: exposureSubmissionService,
+					exposureSubmissionService: self.exposureSubmissionService,
 					homeViewController: self,
 					testResult: result
 				)
