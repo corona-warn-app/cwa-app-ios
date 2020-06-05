@@ -28,10 +28,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		DispatchQueue.main.async { [weak self] in
-			self?.navigationController?.navigationBar.sizeToFit()
-		}
-
 		// The button is shared among multiple controllers,
 		// make sure to reset it whenever the view appears.
 		setButtonTitle(to: "Weiter")
