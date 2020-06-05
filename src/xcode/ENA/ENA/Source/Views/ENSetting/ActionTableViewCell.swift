@@ -34,7 +34,7 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 	weak var delegate: ActionTableViewCellDelegate?
 
 	@IBAction func switchValueDidChange(_: Any) {
-		delegate?.performAction(enable: actionSwitch.isOn)
+		delegate?.performAction(enable: self.actionSwitch.isOn)
 	}
 
 	func turnSwitch(to on: Bool) {

@@ -529,7 +529,6 @@ extension HomeViewController: ExposureStateUpdating {
 		updateOwnUI()
 		exposureDetectionController?.updateUI()
 		settingsController?.updateExposureState(state)
-		notificationSettingsController?.updateExposureState(state)
 	}
 
 	private func updateOwnUI() {

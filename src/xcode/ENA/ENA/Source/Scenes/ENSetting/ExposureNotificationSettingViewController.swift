@@ -32,6 +32,8 @@ protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
 final class ExposureNotificationSettingViewController: UITableViewController {
 	private weak var delegate: ExposureNotificationSettingViewControllerDelegate?
 
+	private var lastActionCell: ActionCell?
+
 	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
 	let numberRiskContacts = 10
 	var enState: ENStateHandler.State
@@ -117,11 +119,7 @@ extension ExposureNotificationSettingViewController {
 	}
 }
 
-extension ExposureNotificationSettingViewController: ExposureStateUpdating {
-	func updateExposureState(_: ExposureManagerState) {
-		tableView.reloadData()
-	}
-}
+
 
 extension ExposureNotificationSettingViewController {
 	override func numberOfSections(in _: UITableView) -> Int {
@@ -164,8 +162,12 @@ extension ExposureNotificationSettingViewController {
 			case .banner:
 				cell.configure(for: enState)
 			case .actionCell:
+				if let lastActionCell = lastActionCell {
+					return lastActionCell
+				}
 				if let cell = cell as? ActionCell {
 					cell.configure(for: enState, delegate: self)
+					lastActionCell = cell
 				}
 			case .tracingCell, .actionDetailCell:
 				switch enState {
@@ -234,6 +236,7 @@ extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		log(message: "Get the new state: \(state)")
 		self.enState = state
-		tableView.reloadData()
+		lastActionCell?.configure(for: enState, delegate: self)
+		self.tableView.reloadData()
 	}
 }
