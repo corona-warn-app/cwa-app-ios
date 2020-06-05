@@ -95,6 +95,7 @@ public enum ENAColor: String, CaseIterable {
 
 	// MARK: - Button Colors
 	case buttonDestructive = "ENA Button Destructive Color"
+	case buttonHighlight = "ENA Button Highlight Color"
 	case buttonPrimary = "ENA Button Primary Color"
 
 	// MARK: - Miscellaneous Colors

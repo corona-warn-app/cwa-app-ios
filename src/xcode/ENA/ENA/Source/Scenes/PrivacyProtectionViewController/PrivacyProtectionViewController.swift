@@ -18,18 +18,29 @@
 import UIKit
 
 class PrivacyProtectionViewController: UIViewController {
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		view.backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
-		view.alpha = 0.0
+	override func loadView() {
+		view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
+		view.backgroundColor = .enaColor(for: .background)
+		
+		if let image = UIImage(named: "Illu_PrivacyProtection_Logo") {
+			let imageView = UIImageView(image: image)
+			imageView.translatesAutoresizingMaskIntoConstraints = false
+			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: image.size.width / image.size.height).isActive = true
+			
+			view.addSubview(imageView)
+			view.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
+			view.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+			view.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 375.0 / 100.0).isActive = true
+		}
 	}
-
+	
 	func show() {
 		UIView.animate(withDuration: 0.2, animations: {
 			self.view.alpha = 1.0
 		})
 	}
-
+	
 	func hide(completion: (() -> Void)? = nil) {
 		UIView.animate(withDuration: 0.1, animations: {
 			self.view.alpha = 0.0

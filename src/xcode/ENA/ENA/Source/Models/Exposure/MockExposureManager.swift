@@ -77,6 +77,20 @@ extension MockExposureManager: ExposureManager {
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? { return nil }
 
 	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
+		#if COMMUNITY
+		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+		let notificationCenter = UNUserNotificationCenter.current()
+		notificationCenter.requestAuthorization(options: options) { _, error in
+			if let error = error {
+				// handle error
+				log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
+			}
+			DispatchQueue.main.async {
+				completionHandler()
+			}
+		}
+		#else
 		completionHandler()
+		#endif
 	}
 }

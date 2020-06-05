@@ -21,12 +21,20 @@ import UIKit
 class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	var dynamicTableViewModel = DynamicTableViewModel([])
 
-	@IBOutlet private(set) var tableView: UITableView!
+	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
+
+	override func loadView() {
+		if nil != nibName {
+			super.loadView()
+		} else {
+			view = UITableView(frame: .zero, style: .grouped)
+			tableView.delegate = self
+			tableView.dataSource = self
+		}
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		if tableView == nil { tableView = view as? UITableView }
 
 		tableView.register(DynamicTableViewHeaderImageView.self, forHeaderFooterViewReuseIdentifier: HeaderFooterReuseIdentifier.header.rawValue)
 		tableView.register(DynamicTableViewHeaderSeparatorView.self, forHeaderFooterViewReuseIdentifier: HeaderFooterReuseIdentifier.separator.rawValue)
@@ -120,7 +128,7 @@ extension DynamicTableViewController {
 		}
 	}
 
-	private func execute(action: DynamicAction) {
+	final func execute(action: DynamicAction) {
 		switch action {
 		case let .open(url):
 			if let url = url { UIApplication.shared.open(url) }

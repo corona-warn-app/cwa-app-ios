@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,13 +15,18 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 import UIKit
 
-struct DynamicIcon {
-	let text: String
-	let image: UIImage?
-	let backgroundColor: UIColor
-	let tintColor: UIColor
+class AppNavigationController: UINavigationController {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		navigationBar.isTranslucent = true
+		navigationBar.prefersLargeTitles = true
+
+		view.backgroundColor = .enaColor(for: .separator)
+	}
 }
