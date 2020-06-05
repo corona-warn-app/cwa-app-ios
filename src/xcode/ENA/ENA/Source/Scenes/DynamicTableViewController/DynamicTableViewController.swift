@@ -120,7 +120,7 @@ extension DynamicTableViewController {
 		}
 	}
 
-	private func execute(action: DynamicAction) {
+	final func execute(action: DynamicAction) {
 		switch action {
 		case let .open(url):
 			if let url = url { UIApplication.shared.open(url) }
