@@ -19,11 +19,11 @@
 
 import Foundation
 
-/// Used to configure a `RiskLevelProvider`.
-struct RiskProvidingConfiguration {
-	/// The mode of operation – either manual or automatic.
-	var updateMode: RiskLevelProvidingConfigurationUpdateMode
+/// Determines how the risk level is updated
+enum RiskProvidingConfigurationUpdateMode {
+	/// The user has to manually update the risk level (e.g.: by tapping on a button)
+	case manual
 
-	/// The duration a conducted exposure detection is considered valid.
-	var exposureDetectionValidityDuration: DateComponents
+	/// The risk level is automatically kept up to day (background processing)
+	case automatic
 }

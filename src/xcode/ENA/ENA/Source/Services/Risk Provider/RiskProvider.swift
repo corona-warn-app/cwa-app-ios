@@ -21,18 +21,6 @@ import Foundation
 import ExposureNotification
 import UIKit
 
-// Notes:
-// The calculation will receive the following inputs:
-
-/**
-- summary: ENExposureDetectionSummaryContainer?
-- exposureConfiguration: ENExposureConfiguration
-- exposureDetectionValidityDuration: DateComponents
-- dateLastExposureDetection: Date?
-- numberOfActiveTracingDays: Int = 0
-- preconditions: ExposureManagerState
-*/
-
 protocol RiskProviderStore {
 	var dateLastExposureDetection: Date? { get set }
 	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
@@ -49,7 +37,6 @@ protocol ExposureSummaryProvider: AnyObject {
 final class RiskProvider {
 	private let consumers = NSHashTable<RiskConsumer>.weakObjects()
 	private let queue = DispatchQueue(label: "com.sap.RiskLevelProvider")
-//	private var state: State = .waiting
 
 	// MARK: Creating a Risk Level Provider
 	init(
