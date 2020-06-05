@@ -19,7 +19,7 @@
 
 import Foundation
 import ExposureNotification
-
+import UIKit
 struct Risk {
 	struct Details {
 		var numberOfExposures: Int?
@@ -76,6 +76,17 @@ enum RiskCalculation {
 		currentDate: Date = Date()
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
 		var riskLevel = RiskLevel.low
+		DispatchQueue.main.async {
+			let appDelegate = UIApplication.shared.delegate as? AppDelegate  // TODO: Remove
+			appDelegate?.lastRiskCalculation = ""  // Reset; Append from here on
+			appDelegate?.lastRiskCalculation.append("Configuation: \(configuration)\n")
+			appDelegate?.lastRiskCalculation.append("numberOfTracingActiveHours: \(numberOfTracingActiveHours)\n")
+			appDelegate?.lastRiskCalculation.append("preconditions: \(preconditions)\n")
+			appDelegate?.lastRiskCalculation.append("currentDate: \(currentDate)\n")
+			appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
+		}
+
+
 		// Precondition 1 - Exposure Notifications must be turned on
 		guard preconditions.isGood else {
 			// This overrides all other levels
@@ -152,6 +163,20 @@ enum RiskCalculation {
 		let bucketOffset = Double(attenuationConfig.defaultBucketOffset)
 
 		let weightedAttenuation = weightedAttenuationDurationsLow + weightedAttenuationDurationsMid + weightedAttenuationDurationsHigh + bucketOffset
+
+		// TODO: Remove
+		DispatchQueue.main.async {
+			let appDelegate = UIApplication.shared.delegate as? AppDelegate
+			appDelegate?.lastRiskCalculation.append("\n ===== Calculation =====\n")
+			appDelegate?.lastRiskCalculation.append("normRiskScore: \(normRiskScore)\n")
+			appDelegate?.lastRiskCalculation.append("weightedAttenuationDurationsLow: \(weightedAttenuationDurationsLow)\n")
+			appDelegate?.lastRiskCalculation.append("weightedAttenuationDurationsMid: \(weightedAttenuationDurationsMid)\n")
+			appDelegate?.lastRiskCalculation.append("weightedAttenuationDurationsHigh: \(weightedAttenuationDurationsHigh)\n")
+			appDelegate?.lastRiskCalculation.append("bucketOffset: \(bucketOffset)\n")
+			appDelegate?.lastRiskCalculation.append("weightedAttenuation: \(weightedAttenuation)\n")
+			appDelegate?.lastRiskCalculation.append("Final result: \((normRiskScore * weightedAttenuation).rounded(to: 2))\n")
+		}
+
 		// Round to two decimal places
 		return (normRiskScore * weightedAttenuation).rounded(to: 2)
 	}
@@ -185,6 +210,14 @@ enum RiskCalculation {
 				RiskLevel(riskScore: summary.maximumRiskScore) == .increased,
 				RiskLevel(riskScore: summary.maximumRiskScore) > RiskLevel(riskScore: previousSummary.maximumRiskScore) {
 				riskLevelHasIncreased = true
+			}
+
+			DispatchQueue.main.async {
+				// TODO: Remove
+				let appDelegate = UIApplication.shared.delegate as? AppDelegate
+				appDelegate?.lastRiskCalculation.append("\n ===== Risk =====\n")
+				appDelegate?.lastRiskCalculation.append("details: \(details)\n")
+				appDelegate?.lastRiskCalculation.append("summary: \(summary)\n")
 			}
 
 			return .success(Risk(level: level, details: details, riskLevelHasIncreased: riskLevelHasIncreased))

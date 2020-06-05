@@ -17,16 +17,15 @@
 
 import UIKit
 
-final class DMConfigurationViewController: UITableViewController {
+final class DMConfigurationViewController: UITableViewController, RequiresAppDependencies {
 	// MARK: Creating a Configuration View Controller
 
-	init(distributionURL: String?, submissionURL: String?, verificationURL: String?, store: Store) {
+	init(distributionURL: String?, submissionURL: String?, verificationURL: String?) {
 		self.distributionURL = distributionURL
 		self.submissionURL = submissionURL
 		self.verificationURL = verificationURL
-		self.store = store
 		super.init(style: .plain)
-		title = "Configuration"
+		title = "⚙️ Configuration"
 	}
 
 	required init?(coder _: NSCoder) {
@@ -38,7 +37,6 @@ final class DMConfigurationViewController: UITableViewController {
 	private let distributionURL: String?
 	private let submissionURL: String?
 	private let verificationURL: String?
-	private let store: Store
 
 	// MARK: UIViewController
 
@@ -72,6 +70,9 @@ final class DMConfigurationViewController: UITableViewController {
 		case 2:
 			title = "Verification URL"
 			subtitle = verificationURL ?? "<none>"
+		case 3:
+			title = "Last Risk Calculation"
+			subtitle = lastRiskCalculation
 		default:
 			title = nil
 			subtitle = nil
@@ -83,7 +84,7 @@ final class DMConfigurationViewController: UITableViewController {
 	}
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-		3
+		4
 	}
 
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

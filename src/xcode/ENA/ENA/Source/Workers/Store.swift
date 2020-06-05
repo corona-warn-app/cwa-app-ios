@@ -265,4 +265,13 @@ struct ENExposureDetectionSummaryContainer: Codable {
 			self.configuredAttenuationDurations = []
 		}
 	}
+
+	var description: String {
+		var str = ""
+		str.append("daysSinceLastExposure: \(daysSinceLastExposure)\n")
+		str.append("matchedKeyCount: \(matchedKeyCount)\n")
+		str.append("maximumRiskScore: \(maximumRiskScore)\n")
+		str.append("maximumRiskScoreFullRange: \(maximumRiskScoreFullRange)\n")
+		return str
+	}
 }

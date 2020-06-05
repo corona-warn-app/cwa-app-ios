@@ -27,6 +27,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var riskProvider: RiskProvider { get }
+	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 }
 
 protocol RequiresAppDependencies {
@@ -35,6 +36,7 @@ protocol RequiresAppDependencies {
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var riskProvider: RiskProvider { get }
+	var lastRiskCalculation: String { get }  // TODO: REMOVE ME
 }
 
 extension RequiresAppDependencies {
@@ -56,6 +58,10 @@ extension RequiresAppDependencies {
 
 	var riskProvider: RiskProvider {
 		UIApplication.coronaWarnDelegate().riskProvider
+	}
+
+	var lastRiskCalculation: String {
+		UIApplication.coronaWarnDelegate().lastRiskCalculation
 	}
 }
 
@@ -145,6 +151,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		)
 		return HTTPClient(configuration: config)
 	}()
+
+	// TODO: REMOVE ME
+	var lastRiskCalculation: String = ""
 
 	func application(
 		_: UIApplication,
