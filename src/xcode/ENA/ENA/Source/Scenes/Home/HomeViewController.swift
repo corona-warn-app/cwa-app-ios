@@ -24,22 +24,15 @@ protocol HomeViewControllerDelegate: AnyObject {
 }
 
 // swiftlint:disable:next type_body_length
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
-
+	
 	init?(
 		coder: NSCoder,
 		exposureManager: ExposureManager,
-		client: Client,
-		store: Store,
-		keyPackagesStore: DownloadedPackagesStore,
 		delegate: HomeViewControllerDelegate,
-		taskScheduler: ENATaskScheduler,
 		initialEnState: ENStateHandler.State
 	) {
-		self.client = client
-		self.store = store
-		self.keyPackagesStore = keyPackagesStore
 		self.exposureManager = exposureManager
 		self.delegate = delegate
 		self.enState = initialEnState
@@ -73,16 +66,23 @@ final class HomeViewController: UIViewController {
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
-
-	private let keyPackagesStore: DownloadedPackagesStore
 	private let exposureManager: ExposureManager
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
-	private var homeLayout: HomeLayout!
-	var homeInteractor: HomeInteractor!
-	private let store: Store
-	private let client: Client
 	private var enState: ENStateHandler.State
+	lazy var homeInteractor: HomeInteractor = {
+		HomeInteractor(
+			homeViewController: self,
+			store: self.store,
+			state: .init(
+				isLoading: false,
+				summary: nil,
+				exposureManager: .init()
+			),
+			taskScheduler: self.taskScheduler,
+			initialEnState: self.enState
+		)
+	}()
 	private var summaryNotificationObserver: NSObjectProtocol?
 	private weak var exposureDetectionController: ExposureDetectionViewController?
 	private weak var settingsController: SettingsViewController?
@@ -134,9 +134,12 @@ final class HomeViewController: UIViewController {
 	// MARK: Actions
 
 	@objc
-	private func infoButtonTapped(_: UIButton) {
-		let vc = AppStoryboard.riskLegend.initiateInitial()
-		present(vc, animated: true, completion: nil)
+	private func infoButtonTapped() {
+		present(
+			AppStoryboard.riskLegend.initiateInitial(),
+			animated: true,
+			completion: nil
+		)
 	}
 
 	// MARK: Misc
@@ -335,18 +338,22 @@ final class HomeViewController: UIViewController {
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 
-	private func createLayout() -> UICollectionViewLayout {
-		homeLayout = HomeLayout()
-		homeLayout.delegate = self
-		return homeLayout.collectionLayout()
-	}
+//	private func createLayout() -> UICollectionViewLayout {
+//		homeLayout = HomeLayout()
+//		homeLayout.delegate = self
+//		return homeLayout.collectionLayout()
+//	}
 
 	private func configureHierarchy() {
 		let safeLayoutGuide = view.safeAreaLayoutGuide
 
 		view.backgroundColor = .systemGroupedBackground
 
-		collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+		collectionView = UICollectionView(
+			frame: view.bounds,
+			collectionViewLayout: UICollectionViewLayout.homeLayout(delegate: self)
+		)
+
 		collectionView.delegate = self
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isAccessibilityElement = false
@@ -415,10 +422,14 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func configureUI() {
-
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
-		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			image: infoImage,
+			style: .plain,
+			target: self,
+			action: #selector(infoButtonTapped)
+		)
 		let image = UIImage(named: "Corona-Warn-App")
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
@@ -440,7 +451,7 @@ extension HomeViewController {
 }
 
 extension HomeViewController: HomeLayoutDelegate {
-	func homeLayout(homeLayout _: HomeLayout, for sectionIndex: Int) -> Section? {
+	func homeLayoutSection(for sectionIndex: Int) -> Section? {
 		Section(rawValue: sectionIndex)
 	}
 }
