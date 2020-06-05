@@ -19,26 +19,19 @@ import Foundation
 import UIKit
 
 class DynamicTableViewIconCell: UITableViewCell {
-	@IBOutlet var imageFrameView: UIView!
-
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		imageView?.tintColor = tintColor
 	}
 
-	func configure(text: String, image: UIImage?, backgroundColor: UIColor, tintColor: UIColor) {
-		textLabel?.text = text
-		imageView?.image = image
-		imageFrameView.backgroundColor = backgroundColor
-		imageView?.tintColor = tintColor
-	}
+	func configure(image: UIImage?, text: String, tintColor: UIColor?) {
+		if let tintColor = tintColor {
+			imageView?.tintColor = tintColor
+			imageView?.image = image?.withRenderingMode(.alwaysTemplate)
+		} else {
+			imageView?.image = image?.withRenderingMode(.alwaysOriginal)
+		}
 
-	func configure(_ configuration: DynamicIcon) {
-		configure(
-			text: configuration.text,
-			image: configuration.image,
-			backgroundColor: configuration.backgroundColor,
-			tintColor: configuration.tintColor
-		)
+		textLabel?.text = text
 	}
 }

@@ -113,7 +113,6 @@
 		710ABB292475353900948792 /* DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB282475353900948792 /* DynamicTableViewModel.swift */; };
 		71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71176E2D24891C02004B0C9F /* ENAColorTests.swift */; };
 		71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71176E31248957C3004B0C9F /* AppNavigationController.swift */; };
-		71330E3F248109F000EB10F6 /* DynamicTableViewIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E3E248109F000EB10F6 /* DynamicTableViewIcon.swift */; };
 		71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E40248109F600EB10F6 /* DynamicTableViewSection.swift */; };
 		71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E42248109FD00EB10F6 /* DynamicTableViewCell.swift */; };
 		71330E4524810A0500EB10F6 /* DynamicTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E4424810A0500EB10F6 /* DynamicTableViewHeader.swift */; };
@@ -417,7 +416,6 @@
 		710ABB282475353900948792 /* DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewModel.swift; sourceTree = "<group>"; };
 		71176E2D24891C02004B0C9F /* ENAColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAColorTests.swift; sourceTree = "<group>"; };
 		71176E31248957C3004B0C9F /* AppNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
-		71330E3E248109F000EB10F6 /* DynamicTableViewIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewIcon.swift; sourceTree = "<group>"; };
 		71330E40248109F600EB10F6 /* DynamicTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSection.swift; sourceTree = "<group>"; };
 		71330E42248109FD00EB10F6 /* DynamicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewCell.swift; sourceTree = "<group>"; };
 		71330E4424810A0500EB10F6 /* DynamicTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeader.swift; sourceTree = "<group>"; };
@@ -1782,7 +1780,6 @@
 				B1D7D69224766D2100E4DA5D /* apple_export.pb.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */,
-				71330E3F248109F000EB10F6 /* DynamicTableViewIcon.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
 				0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */,
