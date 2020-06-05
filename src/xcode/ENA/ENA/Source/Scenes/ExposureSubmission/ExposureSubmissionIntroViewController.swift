@@ -38,7 +38,8 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		}
 	}
 
-	override func viewWillDisappear(_: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
 		setButtonTitle(to: "")
 	}
 
