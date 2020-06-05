@@ -96,7 +96,7 @@ extension AppInformationViewController {
 	private static let aboutModel = DynamicTableViewModel([
 		.section(
 			header: .image(UIImage(named: "Illu_AppInfo_UeberApp"),
-						   // TODO: gg=et the accessibility content for this image
+						   // TODO: get the accessibility content for this image
 						   //accessibilityLabel: AppStrings.AppInformation.aboutImageDescription,
 						   height: 230),
 			cells: [
@@ -144,7 +144,7 @@ extension AppInformationViewController {
 	private static let privacyModel = DynamicTableViewModel([
 		.section(
 			header: .image(UIImage(named: "Illu_Appinfo_Datenschutz"),
-						   // TODO: gg=et the accessibility content for this image
+						   // TODO: get the accessibility content for this image
 						   //accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
 						   height: 230),
 			footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)),
