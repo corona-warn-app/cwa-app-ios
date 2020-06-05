@@ -306,6 +306,7 @@ extension HomeInteractor {
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
 				startDate: startDate,
 				releaseDate: releaseDate,
+				numberRiskContacts: state.numberRiskContacts,
 				numberDays: 2,
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection
@@ -435,7 +436,7 @@ extension HomeInteractor {
 			// This is the default view that is shown when no test results are available and nothing has been submitted.
 
 			// Risk card.
-			if let risk = setupRiskConfigurator() as? HomeRiskLevelCellConfigurator {
+			if let risk = setupRiskConfigurator() {
 				actionsConfigurators.append(risk)
 			}
 

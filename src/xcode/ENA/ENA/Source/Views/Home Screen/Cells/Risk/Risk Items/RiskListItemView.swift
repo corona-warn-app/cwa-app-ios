@@ -21,8 +21,8 @@ import UIKit
 
 final class RiskListItemView: UIView, RiskItemView {
 
-	@IBOutlet var dotLabel: UILabel!
-	@IBOutlet var textLabel: UILabel!
+	@IBOutlet var dotLabel: ENALabel!
+	@IBOutlet var textLabel: ENALabel!
 	@IBOutlet var stackView: UIStackView!
 
 	override func awakeFromNib() {

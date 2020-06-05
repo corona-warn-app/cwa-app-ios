@@ -105,9 +105,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		self.exposureSubmissionService = exposureSubmissionService
 		self.homeViewController = homeViewController
 		self.testResult = testResult
-
-		let rootVC = getRootViewController()
-		viewControllers = [rootVC]
 	}
 
 	required init?(coder _: NSCoder) {
@@ -133,7 +130,10 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
+		let rootVC = getRootViewController()
+		setViewControllers([rootVC], animated: false)
+
 		let barButtonItem = UIBarButtonItem(
 			image: UIImage(named: "Icons - Close"),
 			style: .done, target: self, action: #selector(close)

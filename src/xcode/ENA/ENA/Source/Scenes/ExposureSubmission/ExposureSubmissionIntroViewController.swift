@@ -63,6 +63,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	}
 
 	private func setupTitle() {
+		navigationItem.largeTitleDisplayMode = .always
 		title = AppStrings.ExposureSubmissionIntroduction.title
 	}
 
@@ -111,12 +112,13 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
-
-		DynamicSection.section(
+		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle),
+		.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_Funktion1"),
-				accessibilityLabel: AppStrings.ExposureSubmissionIntroduction.accImageDescription,
-				height: 200),
+				accessibilityLabel: nil,
+				height: 200
+			),
 			separators: false,
 			cells: [
 				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01),

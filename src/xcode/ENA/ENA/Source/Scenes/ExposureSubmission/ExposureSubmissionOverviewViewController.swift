@@ -325,11 +325,3 @@ extension ExposureSubmissionOverviewViewController {
 		case imageCard = "imageCardCell"
 	}
 }
-
-// MARK: ReuseIdentifier extension.
-
-extension ExposureSubmissionOverviewViewController {
-	enum HeaderReuseIdentifier: String, TableViewHeaderFooterReuseIdentifiers {
-		case test
-	}
-}
