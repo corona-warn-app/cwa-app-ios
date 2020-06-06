@@ -320,7 +320,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			RiskInactiveCollectionViewCell.self,
 			RiskFindingPositiveCollectionViewCell.self,
 			RiskThankYouCollectionViewCell.self,
-			InfoCollectionViewCell.self
+			InfoCollectionViewCell.self,
+			HomeTestResultLoadingCell.self
 		]
 
 		collectionView.register(cellTypes: cellTypes)

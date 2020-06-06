@@ -382,6 +382,11 @@ extension HomeInteractor {
 		activeConfigurator = setupActiveConfigurator()
 		actionsConfigurators.append(activeConfigurator)
 
+		// MARK: - Loading card.
+		// TODO: Move this.
+		let testResultLoadingCellConfigurator = HomeTestResultLoadingCellConfigurator()
+		actionsConfigurators.append(testResultLoadingCellConfigurator)
+
 		// MARK: - Add cards depending on result state.
 
 		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
@@ -397,6 +402,8 @@ extension HomeInteractor {
 			// Note that the `positive` state has a custom cell and the risk cell will not be shown once the user was tested positive.
 
 			switch self.testResult {
+			case .none:
+				print("SET LOADING TILE HERE.")
 			case .positive:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
