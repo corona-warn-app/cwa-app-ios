@@ -40,6 +40,7 @@ final class HomeInteractor {
 		self.homeViewController = homeViewController
 		self.store = store
 		self.state = state
+		self.exposureSubmissionService = exposureSubmissionService
 		self.taskScheduler = taskScheduler
 		self.enState = initialEnState
 		sections = initialCellConfigurators()
@@ -382,11 +383,6 @@ extension HomeInteractor {
 		activeConfigurator = setupActiveConfigurator()
 		actionsConfigurators.append(activeConfigurator)
 
-		// MARK: - Loading card.
-		// TODO: Move this.
-		let testResultLoadingCellConfigurator = HomeTestResultLoadingCellConfigurator()
-		actionsConfigurators.append(testResultLoadingCellConfigurator)
-
 		// MARK: - Add cards depending on result state.
 
 		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
@@ -403,7 +399,15 @@ extension HomeInteractor {
 
 			switch self.testResult {
 			case .none:
-				print("SET LOADING TILE HERE.")
+				// Risk card.
+				if let risk = setupRiskConfigurator() {
+					actionsConfigurators.append(risk)
+				}
+
+				// Loading card.
+				let testResultLoadingCellConfigurator = HomeTestResultLoadingCellConfigurator()
+				actionsConfigurators.append(testResultLoadingCellConfigurator)
+
 			case .positive:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
@@ -482,13 +486,25 @@ extension HomeInteractor {
 	func updateTestResults() {
 		guard store.registrationToken != nil else { return }
 
+		// Make sure to make the loading cell appear for at least `minRequestTime`.
+		// This avoids an ugly flickering when the cell is only shown for the fraction of a second.
+		// Make sure to only trigger this additional delay when no other test result is present already.
+		let requestStart = Date()
+		let minRequestTime: TimeInterval = 2.0
+
 		self.exposureSubmissionService?.getTestResult { [weak self] result in
 			switch result {
 			case .failure:
+				// TODO: initiate retry?
 				self?.testResult = nil
 			case .success(let result):
-				self?.testResult = result
-				self?.reloadTestResult(with: result)
+				let requestTime = Date().timeIntervalSince(requestStart)
+				let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
+				DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+					self?.testResult = result
+					self?.reloadTestResult(with: result)
+				}
+
 			}
 		}
 	}

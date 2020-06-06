@@ -65,6 +65,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				summary: nil,
 				exposureManager: .init()
 			),
+			exposureSubmissionService: self.exposureSubmissionService,
 			taskScheduler: self.taskScheduler,
 			initialEnState: self.enState
 		)
