@@ -42,14 +42,14 @@ class AppUpdateCheckHelper {
 
 	func checkAppVersionDialog(for vc: UIViewController?) {
 		client.appConfiguration { result in
-			/*guard let versionInfo: SAP_ApplicationVersionConfiguration = result?.appVersion else {
+			guard let versionInfo: SAP_ApplicationVersionConfiguration = result?.appVersion else {
 				return
-			}*/
+			}
 			guard let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
 				return
 			}
-			let minVersion = "0.1.0"// "\(versionInfo.ios.min.major).\(versionInfo.ios.min.minor).\(versionInfo.ios.min.patch)"
-			let latestVersion = "1.0.0"// "\(versionInfo.ios.latest.major).\(versionInfo.ios.latest.minor).\(versionInfo.ios.latest.patch)"
+			let minVersion = "\(versionInfo.ios.min.major).\(versionInfo.ios.min.minor).\(versionInfo.ios.min.patch)"
+			let latestVersion = "\(versionInfo.ios.latest.major).\(versionInfo.ios.latest.minor).\(versionInfo.ios.latest.patch)"
 			guard let alert = self.createAlert(self.compareVersion(currentVersion: appVersion, minVersion: minVersion, latestVersion: latestVersion), vc: vc) else {
 				return
 			}
@@ -57,11 +57,14 @@ class AppUpdateCheckHelper {
 		}
 	}
 
-	private func setObserver(vc: UIViewController?) {
+	private func setObserver(vc: UIViewController?, alertType: UpdateAlertType) {
 		guard self.applicationDidBecomeActiveObserver == nil else { return }
 		self.applicationDidBecomeActiveObserver = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] _ in
 			guard let self = self else { return }
-			self.checkAppVersionDialog(for: vc)
+			guard let alert = self.createAlert(alertType, vc: vc) else {
+				return
+			}
+			vc?.present(alert, animated: true, completion: nil)
 		}
 	}
 
@@ -86,7 +89,7 @@ class AppUpdateCheckHelper {
 			}))
 		case .forceUpdate:
 			alert.message = AppStrings.UpdateMessage.textForce
-			self.setObserver(vc: vc)
+			self.setObserver(vc: vc, alertType: type)
 		case .none:
 			return nil
 		}
