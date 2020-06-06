@@ -238,10 +238,10 @@ extension HomeInteractor {
 				numberRiskContacts: state.numberRiskContacts,
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection,
-				isCounterLabelHidden: false
+				detectionMode: state.detectionMode
 			)
-			riskLevelConfigurator?.isButtonHidden = true // TODO: isButtonHidden
-			riskLevelConfigurator?.detectionIntervalLabelHidden = isCounterLabelHidden
+//			riskLevelConfigurator?.isButtonHidden = true // TODO: isButtonHidden
+//			riskLevelConfigurator?.detectionIntervalLabelHidden = isCounterLabelHidden
 		}
 		
 		riskLevelConfigurator?.buttonAction = riskProvider.requestRisk
