@@ -18,7 +18,7 @@
 //
 
 import Foundation
-import CommonCrypto
+import CryptoKit
 
 enum CWAKeys {
 	// How to get current environment?

@@ -170,6 +170,7 @@
 		A128F057248B452000EC7F6C /* pemToRawKey.sh in Resources */ = {isa = PBXBuildFile; fileRef = A128F056248B452000EC7F6C /* pemToRawKey.sh */; };
 		A128F059248B459F00EC7F6C /* CWAKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128F058248B459F00EC7F6C /* CWAKeys.swift */; };
 		A128F05D248B52F300EC7F6C /* Data+Cryptography.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128F05C248B52F300EC7F6C /* Data+Cryptography.swift */; };
+		A128F05F248B702E00EC7F6C /* trimmedRawKey.der in Resources */ = {isa = PBXBuildFile; fileRef = A128F05E248B702E00EC7F6C /* trimmedRawKey.der */; };
 		A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */; };
 		A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */; };
 		A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */; };
@@ -496,6 +497,7 @@
 		A128F056248B452000EC7F6C /* pemToRawKey.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = pemToRawKey.sh; sourceTree = "<group>"; };
 		A128F058248B459F00EC7F6C /* CWAKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWAKeys.swift; sourceTree = "<group>"; };
 		A128F05C248B52F300EC7F6C /* Data+Cryptography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Cryptography.swift"; sourceTree = "<group>"; };
+		A128F05E248B702E00EC7F6C /* trimmedRawKey.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = trimmedRawKey.der; sourceTree = "<group>"; };
 		A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerUtils.swift; sourceTree = "<group>"; };
 		A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelTests.swift; sourceTree = "<group>"; };
@@ -1225,6 +1227,7 @@
 		A128F04F248AEBB200EC7F6C /* Keys */ = {
 			isa = PBXGroup;
 			children = (
+				A128F05E248B702E00EC7F6C /* trimmedRawKey.der */,
 				A128F056248B452000EC7F6C /* pemToRawKey.sh */,
 				A128F054248AEBF700EC7F6C /* de.rki.coronawarnapp-prod-public.pem */,
 				A128F051248AEBC200EC7F6C /* de.rki.coronawarnapp-dev-public.pem */,
@@ -1753,6 +1756,7 @@
 				01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */,
 				51CE1B8A246078B6002CF42A /* InfoCollectionViewCell.xib in Resources */,
 				51FE277D247535C400BB8144 /* RiskLoadingItemView.xib in Resources */,
+				A128F05F248B702E00EC7F6C /* trimmedRawKey.der in Resources */,
 				A128F057248B452000EC7F6C /* pemToRawKey.sh in Resources */,
 				853D98832469DC5000490DBA /* ExposureNotificationSetting.storyboard in Resources */,
 				51D420B12458397300AD70CA /* Onboarding.storyboard in Resources */,

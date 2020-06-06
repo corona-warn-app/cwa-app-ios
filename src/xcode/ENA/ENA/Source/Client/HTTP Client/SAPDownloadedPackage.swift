@@ -60,11 +60,13 @@ extension SAPDownloadedPackage {
 	/// 4. Hash the .bin file, and compare the two.
 	/// 5. If they match, we can be sure that they have not been tampered with and originated from our server.
 	func verifyHash() throws {
-		let parsedSignatureFile = try SAP_TEKSignature(serializedData: signature)
-		let encryptedSignature = parsedSignatureFile.signature
+		let parsedSignatureFile = try SAP_TEKSignatureList(serializedData: signature)
+		let encryptedSignature = parsedSignatureFile.signatures.first?.signature
 		let key = try CWAKeys.getPubSecKey(for: .development)
 
-		guard let decryptedHash = encryptedSignature.decrypted(with: key) else {
+		try encryptedSignature?.verify(bin)
+
+		guard let decryptedHash = encryptedSignature?.decrypted(with: key) else {
 			logError(message: "Package signature decryption failed!")
 			throw Archive.KeyPackageError.signatureCheckFailed
 		}
