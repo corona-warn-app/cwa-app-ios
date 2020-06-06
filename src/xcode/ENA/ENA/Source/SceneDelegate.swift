@@ -25,17 +25,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	var window: UIWindow?
 
-	#if targetEnvironment(simulator) || COMMUNITY
-	// Enable third party contributors that do not have the required
-	// entitlements to also use the app
-	private let exposureManager: ExposureManager = {
-		let keys = [ENTemporaryExposureKey()]
-		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
-	}()
-	#else
-	private let exposureManager: ExposureManager = ENAExposureManager()
-	#endif
-
 	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
 	var state = State(exposureManager: .init()) {
@@ -119,7 +108,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		taskScheduler.scheduleBackgroundTaskRequests()
 	}
 
-
 	func sceneDidBecomeActive(_: UIScene) {
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
@@ -190,7 +178,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
-				exposureManager: self.exposureManager,
 				delegate: self,
 				initialEnState: enStateHandler.state
 			)
@@ -367,6 +354,8 @@ extension SceneDelegate {
 
 extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
+		riskProvider.exposureManagerState = state
+		riskProvider.requestRisk()
 		homeController?.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
 	}

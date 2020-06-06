@@ -28,11 +28,9 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	init?(
 		coder: NSCoder,
-		exposureManager: ExposureManager,
 		delegate: HomeViewControllerDelegate,
 		initialEnState: ENStateHandler.State
 	) {
-		self.exposureManager = exposureManager
 		self.delegate = delegate
 		self.enState = initialEnState
 		super.init(coder: coder)
@@ -49,7 +47,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
-	private let exposureManager: ExposureManager
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
 	private var enState: ENStateHandler.State

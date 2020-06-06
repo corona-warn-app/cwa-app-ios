@@ -49,7 +49,7 @@ final class RiskProvider {
 	private let store: Store
 	private let exposureSummaryProvider: ExposureSummaryProvider
 	private let appConfigurationProvider: AppConfigurationProviding
-	private let exposureManagerState: ExposureManagerState
+	var exposureManagerState: ExposureManagerState
 	var configuration: RiskProvidingConfiguration
 }
 
