@@ -458,11 +458,6 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "For exposure logging, COVID-19 exposure notifications must be activated in the system settings so that encounters can be logged. Please activate COVID-19 exposure notifications in your system settings.";
 
-/* Home Navigation Bar */
-"Home_LeftBarButton_description" = "Corona Warn App Logo";
-
-"Home_RightBarButton_description" = "Info";
-
 /* Home Active card */
 "Home_Activate_Card_On_Title" = "Exposure logging active";
 
