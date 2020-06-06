@@ -25,7 +25,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 // swiftlint:disable:next type_body_length
 final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
-	
+
 	init?(
 		coder: NSCoder,
 		exposureManager: ExposureManager,
@@ -35,16 +35,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		self.exposureManager = exposureManager
 		self.delegate = delegate
 		self.enState = initialEnState
-
 		super.init(coder: coder)
-
-//!		homeInteractor = HomeInteractor(
-//			homeViewController: self,
-//			state: .init(isLoading: false, exposureManager: .init(), risk: risk),
-//			exposureSubmissionService: exposureSubmissionService,
-//			initialEnState: initialEnState
-//		)
-
 		addToUpdatingSetIfNeeded(homeInteractor)
 	}
 
@@ -70,6 +61,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				exposureManager: .init(),
                 risk: risk
 			),
+			exposureSubmissionService: exposureSubmissionService,
 			initialEnState: self.enState
 		)
 	}()
