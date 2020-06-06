@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,13 +15,21 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 
-protocol ExposureDetectionViewControllerDelegate: AnyObject {
-	func exposureDetectionViewController(
-		_ controller: ExposureDetectionViewController,
-		setExposureManagerEnabled enabled: Bool,
-		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
-	)
+struct Risk {
+	let level: RiskLevel
+	let details: Details
+	let riskLevelHasIncreased: Bool
+}
+
+extension Risk {
+	struct Details {
+		var numberOfExposures: Int?
+		var numberOfHoursWithActiveTracing: Int
+		var numberOfDaysWithActiveTracing: Int { numberOfHoursWithActiveTracing / 24 }
+		var exposureDetectionDate: Date
+	}
 }

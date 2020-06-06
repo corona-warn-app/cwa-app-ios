@@ -59,7 +59,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	init(isLoading: Bool, isButtonEnabled: Bool, isButtonHidden: Bool, isCounterLabelHidden: Bool, startDate: Date?, releaseDate: Date?, lastUpdateDate: Date?) {
 		self.isLoading = isLoading
 		self.isButtonEnabled = isButtonEnabled
-		self.isButtonHidden = isButtonHidden
+		self.isButtonHidden = isButtonHidden // ; TODO: Use isButtonHidden again
 		self.isCounterLabelHidden = isCounterLabelHidden
 		self.startDate = startDate
 		self.releaseDate = releaseDate

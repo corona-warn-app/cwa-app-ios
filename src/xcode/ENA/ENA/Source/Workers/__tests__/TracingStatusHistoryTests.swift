@@ -89,7 +89,8 @@ final class TracingStatusHistoryTests: XCTestCase {
 	}
 
 	func testIfTracingActiveForThresholdDuration_EnabledClosePast() throws {
-		// Test the simple case where the user recently enabled tracing
+		// Test the simple case where the user enabled notification tracing not too long ago,
+		// and just left it enabled
 		var history = TracingStatusHistory()
 		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 
@@ -149,6 +150,15 @@ final class TracingStatusHistoryTests: XCTestCase {
 		history = history.consumingState(goodState, Date().addingTimeInterval(-10))
 
 		XCTAssertEqual(history.countEnabledDays(), 0)
+	}
+
+	func testEnabledHoursCount_EnabledRecently() throws {
+		var history = TracingStatusHistory()
+		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
+
+		history = history.consumingState(goodState, Date().addingTimeInterval(-5400))
+		// Enabled for 1.5 hours should only count as 1 enabled hour (truncating)
+		XCTAssertEqual(history.countEnabledHours(), 1)
 	}
 }
 

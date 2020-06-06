@@ -1,6 +1,7 @@
+//
 // Corona-Warn-App
 //
-// SAP SE and all other contributors
+// SAP SE and all other contributors /
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -14,13 +15,15 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 
-protocol ExposureDetectionViewControllerDelegate: AnyObject {
-	func exposureDetectionViewController(
-		_ controller: ExposureDetectionViewController,
-		setExposureManagerEnabled enabled: Bool,
-		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
-	)
+/// Used to configure a `RiskLevelProvider`.
+struct RiskProvidingConfiguration {
+	/// The mode of operation – either manual or automatic.
+	var updateMode: RiskProvidingConfigurationUpdateMode
+
+	/// The duration a conducted exposure detection is considered valid.
+	var exposureDetectionValidityDuration: DateComponents
 }

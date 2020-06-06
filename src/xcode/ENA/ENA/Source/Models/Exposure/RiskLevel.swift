@@ -22,7 +22,6 @@ import Foundation
 ///
 /// - important: Due to exception case, `CaseIterable` `allCases` does not produce a correctly sorted collection!
 enum RiskLevel: Int, CaseIterable {
-
 	/*
 	RiskLevels are ordered according to these rules:
 	1. .low is least
@@ -36,7 +35,7 @@ enum RiskLevel: Int, CaseIterable {
 	case low = 0
 	/// Increased risk
 	///
-	/// - important: Should overrule `.unknownOutdated`
+	/// - important: Should overrule `.unknownOutdated`, and `.unknownInitial`
 	case increased
 	/// Unknown risk  last calculation more than 24 hours old
 	///
@@ -69,6 +68,9 @@ extension RiskLevel: Comparable {
 		switch (lhs, rhs) {
 		case (.unknownOutdated, .increased):
 			return true
+		// .increased should override .unknownInitial
+		case (.unknownInitial, .increased):
+				return true
 		default:
 		return lhs.rawValue < rhs.rawValue
 		}
