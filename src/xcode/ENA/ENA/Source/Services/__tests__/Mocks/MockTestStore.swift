@@ -45,6 +45,7 @@ class MockTestStore: Store {
 	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
+	var previousSummaryDate: Date? = Date()
 	var previousSummary: ENExposureDetectionSummaryContainer? = ENExposureDetectionSummaryContainer(
 		daysSinceLastExposure: 0,
 		matchedKeyCount: 0,
@@ -52,6 +53,5 @@ class MockTestStore: Store {
 		attenuationDurations: [],
 		maximumRiskScoreFullRange: 0
 	)
-	var previousSummaryDate: Date? = Date()
 	var hourlyFetchingEnabled: Bool = true
 }
