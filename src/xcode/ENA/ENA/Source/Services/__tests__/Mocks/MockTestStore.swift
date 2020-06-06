@@ -52,5 +52,6 @@ class MockTestStore: Store {
 		attenuationDurations: [],
 		maximumRiskScoreFullRange: 0
 	)
+	var previousRisk: Risk?
 	var hourlyFetchingEnabled: Bool = true
 }
