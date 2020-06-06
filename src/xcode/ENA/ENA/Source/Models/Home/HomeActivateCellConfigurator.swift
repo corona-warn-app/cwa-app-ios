@@ -63,17 +63,6 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 	func setupAccessibility(for cell: ActivateCollectionViewCell) {
 		cell.isAccessibilityElement = true
 		cell.accessibilityIdentifier = Accessibility.StaticText.homeActivateTitle
-		cell.accessibilityTraits = .button
-		switch state {
-		case .enabled:
-			cell.accessibilityLabel = AppStrings.Home.activateCardOnTitle
-		case .disabled, .restricted:
-			cell.accessibilityLabel = AppStrings.Home.activateCardOffTitle
-		case .bluetoothOff:
-			cell.accessibilityLabel = AppStrings.Home.activateCardBluetoothOffTitle
-		case .internetOff:
-			cell.accessibilityLabel = AppStrings.Home.activateCardInternetOffTitle
-		}
 	}
 }
 
