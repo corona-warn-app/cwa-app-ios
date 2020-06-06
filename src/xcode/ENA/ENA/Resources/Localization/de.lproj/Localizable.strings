@@ -596,6 +596,10 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "Home_resultCard_ShowResultButton" = "Test anzeigen";
 
+"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
+
+"Home_resultCard_LoadingTitle" = "Aktualisierung läuft...";
+
 "Home_resultCard_NegativeTitle" = "Befund Negativ";
 
 "Home_resultCard_NegativeDesc" = "Das Virus SARS-CoV-2 konnte bei Ihnen nicht nachgewiesen werden.";

@@ -24,7 +24,11 @@ class HomeTestResultLoadingCellConfigurator: CollectionViewCellConfigurator {
 	let identifier = UUID()
 
 	func configure(cell: HomeTestResultLoadingCell) {
-		print("Configure cell.")
+		cell.setupCell()
+		cell.title.text = AppStrings.Home.resultCardLoadingTitle
+		cell.body.text = AppStrings.Home.resultCardLoadingBody
+		cell.button.isEnabled = false
+		cell.button.setTitle(AppStrings.Home.resultCardShowResultButton, for: .disabled)
 		return
 	}
 
