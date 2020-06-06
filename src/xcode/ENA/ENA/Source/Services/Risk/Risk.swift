@@ -33,3 +33,7 @@ extension Risk {
 		var exposureDetectionDate: Date
 	}
 }
+
+extension Risk {
+	static var initial: Risk = Risk(level: .unknownInitial, details: .init(numberOfExposures: 0, numberOfHoursWithActiveTracing: 0, exposureDetectionDate: Date()), riskLevelHasIncreased: true)
+}

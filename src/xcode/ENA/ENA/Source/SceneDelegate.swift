@@ -41,7 +41,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		didSet {
 			homeController?.homeInteractor.state = .init(
 				isLoading: false,
-				exposureManager: state.exposureManager
+				exposureManager: state.exposureManager,
+				risk: store.previousRisk ?? .initial
 			)
 		}
 	}

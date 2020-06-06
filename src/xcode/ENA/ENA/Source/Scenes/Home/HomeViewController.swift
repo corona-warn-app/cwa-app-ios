@@ -54,7 +54,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	private var collectionView: UICollectionView!
 	private var enState: ENStateHandler.State
 	lazy var homeInteractor: HomeInteractor = {
-		HomeInteractor(
+		let risk = store.previousRisk ?? .initial
+		return HomeInteractor(
 			homeViewController: self,
 			state: .init(
 				isLoading: false,
@@ -77,11 +78,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		)
 	}()
 	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
-
-	private lazy var risk: Risk? = {
-		store.previousRisk
-	}()
-	private let riskConsumer = RiskConsumer()
 
 	enum Section: Int {
 		case actions
@@ -146,7 +142,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	func setStateOfChildViewControllers(_ state: State) {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: state.exposureManager,
-			risk: risk,
+			risk: homeInteractor.state.risk,
 			nextRefresh: nil
 		)
 		exposureDetectionController?.state = state
@@ -217,7 +213,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	func showExposureDetection() {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManager,
-			risk: risk,
+			risk: homeInteractor.state.risk,
 			nextRefresh: nil
 		)
 

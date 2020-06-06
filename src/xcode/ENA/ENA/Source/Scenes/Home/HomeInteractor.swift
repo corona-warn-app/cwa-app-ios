@@ -49,10 +49,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	private var enState: ENStateHandler.State
 	private let riskConsumer = RiskConsumer()
 
-	var state = HomeInteractor.State(
-		isLoading: false,
-		exposureManager: .init()
-	) {
+	var state: HomeInteractor.State {
 		didSet {
 			homeViewController.setStateOfChildViewControllers(
 				.init(
@@ -477,18 +474,16 @@ extension HomeInteractor {
 		var isLoading = false
 		var exposureManager: ExposureManagerState
 		var numberRiskContacts: Int {
-			risk?.details.numberOfExposures ?? 0
+			risk.details.numberOfExposures ?? 0
 		}
 
 		var daysSinceLastExposure: Int? {
-			guard let date = risk?.details.exposureDetectionDate else {
-				return nil
-			}
+			let date = risk.details.exposureDetectionDate
 			return Calendar.current.dateComponents([.day], from: date, to: Date()).day
 		}
 
-		var risk: Risk?
-		var riskLevel: RiskLevel { risk?.level ?? .unknownInitial }
+		var risk: Risk
+		var riskLevel: RiskLevel { risk.level }
 	}
 }
 
