@@ -60,7 +60,7 @@ let APPGROUP : String = "group.org.tcfos.callbycolor"
 // global constants
 struct appdefaults : Hashable {
     struct rows {
-        static let small = 5
+        // static let small = 5
         static let large = 6
     }
     struct colorScheme{

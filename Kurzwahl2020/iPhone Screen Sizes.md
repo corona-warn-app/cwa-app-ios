@@ -68,3 +68,21 @@ Launch screen test: OK
 https://stackoverflow.com/questions/2634898/what-are-the-sizes-used-for-the-ios-application-splash-screen
 https://wiki.starling-framework.org/manual/ios_launch_images
 https://medium.com/flawless-app-stories/change-splash-screen-in-ios-app-for-dummies-the-better-way-e385327219e
+
+
+# 06.06.2020 Test des Launch Screen 2
+
+## Light Mode
+iPhone 8 – OK
+iPhone 11 – OK
+iPhone 11 Pro – OK
+iPhone 11 pro max – OK
+iPhone 6
+
+## Dark Mode
+iPhone 8  – Launch Screen ist etwas größer als der HomeView
+iPhone 11 – Launch Screen ist etwas größer als der HomeView
+iPhone 11 Pro – Launch Screen ist etwas größer als der HomeView
+iPhone 11 Pro max – Launch Screen ist etwas größer als der HomeView
+iPhone 6
+iPhone SE – Launch Screen ist wesentlich kleiner als der HomeView; Aspect Ratio unterscheidet sich
