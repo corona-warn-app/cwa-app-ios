@@ -169,6 +169,6 @@ extension RiskProvider: RiskProviding {
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
 		consumer?.provideRisk(risk)
-		store.previousRisk = risk
+		store.previousRisk = risk // is it right place for it ?
 	}
 }
