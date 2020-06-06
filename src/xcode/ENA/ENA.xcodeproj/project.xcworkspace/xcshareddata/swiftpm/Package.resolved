@@ -3,21 +3,20 @@
     "pins": [
       {
         "package": "FMDB",
-        "package": "Connectivity",
-        "repositoryURL": "https://github.com/rwbutler/Connectivity",
-        "state": {
-          "branch": null,
-          "revision": "7b0215b0bf9f24dc0eb758ea1c47f06f33831e7a",
-          "version": "3.3.4"
-        }
-      },
-      {
-        "package": "FMDB",
         "repositoryURL": "https://github.com/ccgus/fmdb.git",
         "state": {
           "branch": null,
           "revision": "61e51fde7f7aab6554f30ab061cc588b28a97d04",
           "version": "2.7.7"
+        }
+      },
+      {
+        "package": "Reachability",
+        "repositoryURL": "https://github.com/ashleymills/Reachability.swift",
+        "state": {
+          "branch": null,
+          "revision": "98e968e7b6c1318fb61df23e347bc319761e8acb",
+          "version": "5.0.0"
         }
       },
       {
