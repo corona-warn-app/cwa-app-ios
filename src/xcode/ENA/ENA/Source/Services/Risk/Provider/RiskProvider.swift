@@ -165,10 +165,10 @@ extension RiskProvider: RiskProviding {
 		for consumer in consumers.allObjects {
 			_provideRisk(risk, to: consumer)
 		}
+		store.previousRisk = risk
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
 		consumer?.provideRisk(risk)
-		store.previousRisk = risk // is it right place for it ?
 	}
 }
