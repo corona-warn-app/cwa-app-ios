@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Icons_Aktualisiert-Light.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "Icons_Aktualisiert-Dark.pdf",
+      "filename" : "Icons_Aktualisiert-Dark-1.pdf",
       "idiom" : "universal"
     }
   ],
