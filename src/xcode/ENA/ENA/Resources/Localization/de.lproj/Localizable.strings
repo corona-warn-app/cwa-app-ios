@@ -558,11 +558,11 @@
 "Home_Finding_Positive_Card_Button" = "Weiter";
 
 /* Home Submit card */
-"Home_SubmitCard_Title" = "COVID 19 Test";
+"Home_SubmitCard_Title" = "Wurden Sie getestet?";
 
-"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen.";
+"Home_SubmitCard_Body" = "Helfen Sie, die Ausbreitung des Virus zu verlangsamen.";
 
-"Home_SubmitCard_Button" = "Test registrieren";
+"Home_SubmitCard_Button" = "Informieren & mitmachen";
 
 "Home_InfoCard_ShareTitle" = "Corona-Warn-App teilen";
 
@@ -587,15 +587,15 @@
 
 "Home_resultCard_NegativeTitle" = "Befund Negativ";
 
-"Home_resultCard_NegativeDesc" = "Sie wurden Negativ auf SARS-CoV-2 getestet.";
+"Home_resultCard_NegativeDesc" = "Das Virus SARS-CoV-2 konnte bei Ihnen nicht nachgewiesen werden.";
 
 "Home_resultCard_PositiveTitle" = "Befund Positiv";
 
-"Home_resultCard_PositiveDesc" = "Sie wurden Positiv auf SARS-CoV-2 getestet.";
+"Home_resultCard_PositiveDesc" = "Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.";
 
 "Home_resultCard_PendingTitle" = "Ergebnis liegt noch nicht vor";
 
-"Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tage.";
+"Home_resultCard_PendingDesc" = "Die Auswertung Ihres Tests ist noch nicht abgeschlossen.";
 
 "Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
 
