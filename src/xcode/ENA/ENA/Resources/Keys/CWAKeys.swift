@@ -21,14 +21,18 @@ import Foundation
 import CryptoKit
 
 enum CWAKeys {
+	
+	private static let nonProductionKey = "3BYTxr2HuJYQG+d7Ezu6KS8GEbFkiEvyJFg0j+C839gTjT6j7Ho0EXXZ/a07ZfvKcC2cmc1SunsrqU9Jov1J5Q=="
+	private static let productionKey = "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
+	
 	// How to get current environment?
 	enum Environment {
 		case production
-		case development
+		case nonProduction
 		case unknown
 
 		var publicKeyString: String {
-			self == .production ? prodPublic : devPublic
+			self == .production ? productionKey : nonProductionKey
 		}
 	}
 
@@ -36,10 +40,11 @@ enum CWAKeys {
 		/// It was not possible to create the base64 encoded data from the public key string
 		case encodingError
 		case createError
+		case environmentError
 	}
 	
 	static func getPublicKeyData(_ applictionBundle: String) throws -> Data {
-		let env = getEnvironmentForApplicationBundle(applictionBundle)
+		let env = try getEnvironmentForApplicationBundle(applictionBundle)
 		
 		guard let data = Data(base64Encoded: env.publicKeyString) else {
 			throw KeyError.encodingError
@@ -48,16 +53,13 @@ enum CWAKeys {
 		return data
 	}
 	
-	static private func getEnvironmentForApplicationBundle(_ applicationBundle: String) -> Environment{
+	static private func getEnvironmentForApplicationBundle(_ applicationBundle: String) throws -> Environment{
 		if(applicationBundle == "de.rki.coronawarnapp"){
 			return .production
 		} else if(applicationBundle == "de.rki.coronawarnapp-dev"){
-			return .development
+			return .nonProduction
 		} else {
-			return .unknown
+			throw KeyError.environmentError
 		}
 	}
-
-	private static let devPublic = "3BYTxr2HuJYQG+d7Ezu6KS8GEbFkiEvyJFg0j+C839gTjT6j7Ho0EXXZ/a07ZfvKcC2cmc1SunsrqU9Jov1J5Q=="
-	private static let prodPublic = "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
 }
