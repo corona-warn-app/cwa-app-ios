@@ -28,19 +28,21 @@ class ENATanInput: UIControl, UIKeyInput {
 	@IBInspectable var boxColor: UIColor = UIColor.preferredColor(for: .backgroundSecondary)
 
 	@IBInspectable var fontSize: CGFloat = 30
-	@IBInspectable var digits: Int = 7
+	@IBInspectable var digits: Int = 10
+	var dashes: [Int] = [3, 6]
 
-	@IBInspectable var spacing: CGFloat = 8
+	@IBInspectable var spacing: CGFloat = 3
 	@IBInspectable var cornerRadius: CGFloat = 4
 
 	private weak var stackView: UIStackView!
 	weak var delegate: ENATanInputDelegate?
 	private(set) var text = ""
 	var count: Int { text.count }
+	var currentIndex: Int = 0
 
 	// swiftlint:disable:next empty_count
 	var isEmpty: Bool { count == 0 }
-	var isValid: Bool { count == digits }
+	var isValid: Bool { currentIndex == digits + dashes.count }
 
 	override var canBecomeFirstResponder: Bool { true }
 
@@ -69,7 +71,18 @@ class ENATanInput: UIControl, UIKeyInput {
 		super.awakeFromNib()
 		setup()
 	}
+	class LineLabel: UILabel {
+		var lineLabe: Bool = true
+		override func draw(_ rect: CGRect) {
+			guard let context = UIGraphicsGetCurrentContext() else { return }
+			context.setLineWidth(3.0)
+			context.setStrokeColor(UIColor.black.cgColor)
+			context.move(to: CGPoint(x: 0, y: self.frame.size.height / 2))
+			context.addLine(to: CGPoint(x: self.frame.size.width, y: self.frame.size.height / 2))
+			context.strokePath()
 
+		}
+	}
 	private func setup() {
 		guard stackView == nil else { return }
 		addTarget(self, action: #selector(becomeFirstResponder), for: .touchUpInside)
@@ -82,18 +95,30 @@ class ENATanInput: UIControl, UIKeyInput {
 		stackView.isUserInteractionEnabled = false
 		stackView.spacing = spacing
 		stackView.axis = .horizontal
-		stackView.distribution = .fillEqually
+		stackView.distribution = .fill
 		stackView.alignment = .fill
 
 		let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: fontSize, weight: .bold)
-		for _ in 0 ..< digits {
-			let label = UILabel()
-			label.clipsToBounds = true
-			label.backgroundColor = boxColor
-			label.layer.cornerRadius = cornerRadius
-			label.textAlignment = .center
-			label.font = font
-			stackView.addArrangedSubview(label)
+		for i in 0 ..< digits {
+			if dashes.contains(i) {
+				let line = LineLabel(frame: CGRect(x: 0, y: 0, width: 7, height: 52))
+				line.widthAnchor.constraint(equalToConstant: 7 ).isActive = true
+				line.translatesAutoresizingMaskIntoConstraints = false
+				stackView.addArrangedSubview(line)
+
+//				line.translatesAutoresizingMaskIntoConstraints = false
+//				line.widthAnchor.constraint(equalToConstant: 7 ).isActive = true
+			}
+				let label = UILabel()
+				label.clipsToBounds = true
+				label.backgroundColor = boxColor
+				label.layer.cornerRadius = cornerRadius
+				label.textAlignment = .center
+				label.font = font
+				label.widthAnchor.constraint(equalToConstant: (self.frame.size.width - spacing * CGFloat(digits + 9)) / CGFloat(digits + 1) ).isActive = true
+				label.translatesAutoresizingMaskIntoConstraints = false
+				stackView.addArrangedSubview(label)
+
 		}
 
 		addSubview(stackView)
@@ -106,17 +131,26 @@ class ENATanInput: UIControl, UIKeyInput {
 	func insertText(_ text: String) {
 		for character in text {
 			guard !isValid else { return }
-			let label = stackView.arrangedSubviews[count] as? UILabel
+			if stackView.arrangedSubviews[currentIndex] is LineLabel {
+				currentIndex += 1
+			}
+			let label = stackView.arrangedSubviews[currentIndex] as? UILabel
 			label?.text = "\(character)"
 			self.text += "\(character)"
+			currentIndex += 1
 		}
 		delegate?.tanChanged(isValid: isValid)
 	}
 
 	func deleteBackward() {
 		guard !isEmpty else { return }
+
+		currentIndex -= 1
 		text = String(text[..<text.index(before: text.endIndex)])
-		let label = stackView.arrangedSubviews[count] as? UILabel
+		if stackView.arrangedSubviews[currentIndex] is LineLabel {
+			currentIndex -= 1
+		}
+		let label = stackView.arrangedSubviews[currentIndex] as? UILabel
 		label?.text = ""
 		delegate?.tanChanged(isValid: isValid)
 	}
