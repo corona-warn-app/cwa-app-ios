@@ -113,6 +113,7 @@ final class HomeViewController: UIViewController {
 		applySnapshotFromSections()
 		configureUI()
 		homeInteractor.updateTestResults()
+		setupAccessibility()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -130,10 +131,10 @@ final class HomeViewController: UIViewController {
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-				let image = UIImage(named: "Corona-Warn-App")
-				let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
-				leftItem.isEnabled = false
-				self.navigationItem.leftBarButtonItem = leftItem
+			let image = UIImage(named: "Corona-Warn-App")
+			let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
+			leftItem.isEnabled = false
+			self.navigationItem.leftBarButtonItem = leftItem
 		}
 	}
 
@@ -417,7 +418,6 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func configureUI() {
-
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
@@ -426,6 +426,16 @@ final class HomeViewController: UIViewController {
 		leftItem.isEnabled = false
 		self.navigationItem.leftBarButtonItem = leftItem
 	}
+
+	private func setupAccessibility() {
+		self.navigationItem.leftBarButtonItem?.isAccessibilityElement = true
+		self.navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
+		self.navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
+
+		self.navigationItem.rightBarButtonItem?.isAccessibilityElement = true
+		self.navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+	}
+
 }
 
 // MARK: - Update test state.
