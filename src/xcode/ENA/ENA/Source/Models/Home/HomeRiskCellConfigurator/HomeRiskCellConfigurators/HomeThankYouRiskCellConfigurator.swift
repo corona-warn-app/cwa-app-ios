@@ -70,7 +70,6 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.configureBackgroundColor(color: backgroundColor)
 
 		setupAccessibility(cell)
-
 	}
 
 	func setupAccessibility(_ cell: RiskThankYouCollectionViewCell) {
