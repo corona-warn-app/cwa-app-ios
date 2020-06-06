@@ -331,6 +331,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		Authorized: \(newState.authorized)
 		enabled: \(newState.enabled)
 		status: \(newState.status)
+		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
 		log(message: message)
 

@@ -183,7 +183,7 @@ extension ExposureNotificationSettingViewController {
 						)
 						return tracingCell
 					}
-				case .bluetoothOff, .internetOff, .restricted:
+				case .bluetoothOff, .internetOff, .restricted, .notAuthorized, .unknown:
 					cell.configure(for: enState)
 				}
 			case .descriptionCell:

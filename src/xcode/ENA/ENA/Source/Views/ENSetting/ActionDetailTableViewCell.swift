@@ -52,8 +52,16 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.internetDescription
 			iconImageView2.isHidden = false
 		case .restricted:
+			actionTitleLabel.text = "Kindersicherung aktiv"
+			descriptionLabel.text = "Bitte deaktivieren Sie Einschränkungen durch die Kindersicherung, um die Risikoermittlung zu nutzen"
+			iconImageView2.isHidden = true
+		case .notAuthorized:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
+			iconImageView2.isHidden = true
+		case .unknown:
+			actionTitleLabel.text = "Autorisierung erforderlich"
+			descriptionLabel.text = "Bitte bestätigen Sie die Nutzung der COVID-19 Kontakt-Protokollierung"
 			iconImageView2.isHidden = true
 		}
 	}
@@ -66,7 +74,7 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 			return (UIImage(named: "Icons_Bluetooth"), nil)
 		case .internetOff:
 			return (UIImage(named: "Icons_MobileDaten"), UIImage(named: "Icons_iOS_Wifi"))
-		case .restricted:
+		case .restricted, .notAuthorized, .unknown:
 			return (UIImage(named: "Icons_iOS_Settings"), nil)
 		}
 	}
