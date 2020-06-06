@@ -19,13 +19,14 @@ import Foundation
 import UIKit
 
 protocol ConfigurableENSettingCell: UITableViewCell {
-	func configure(for state: RiskDetectionState)
+	func configure(for state: ENStateHandler.State)
 }
 
 class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var imageContainerView: UIImageView!
 
-	func configure(for state: RiskDetectionState) {
+
+	func configure(for state: ENStateHandler.State) {
 		let imageConfiguration = bannerImageConfig(for: state)
 		imageContainerView.image = imageConfiguration.image
 		if let label = imageConfiguration.label {
@@ -36,7 +37,7 @@ class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		}
 	}
 
-	private func bannerImageConfig(for state: RiskDetectionState) -> (image: UIImage?, label: String?) {
+	private func bannerImageConfig(for state: ENStateHandler.State) -> (image: UIImage?, label: String?) {
 		switch state {
 		case .enabled:
 			return (UIImage(named: "Illu_Risikoermittlung_On"), AppStrings.ExposureNotificationSetting.accLabelEnabled)

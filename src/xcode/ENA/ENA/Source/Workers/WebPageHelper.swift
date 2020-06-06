@@ -36,4 +36,15 @@ enum WebPageHelper {
 			fatalError(error)
 		}
 	}
+
+	static func openSafari(withUrl url: URL, from viewController: UIViewController) {
+		let config = SFSafariViewController.Configuration()
+		config.entersReaderIfAvailable = true
+		config.barCollapsingEnabled = true
+
+		let vc = SFSafariViewController(url: url, configuration: config)
+		vc.preferredControlTintColor = .enaColor(for: .tint)
+
+		viewController.present(vc, animated: true)
+	}
 }

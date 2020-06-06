@@ -19,72 +19,67 @@ import ExposureNotification
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
-	func homeViewControllerStartExposureTransaction(_ controller: HomeViewController)
 	func homeViewControllerUserDidRequestReset(_ controller: HomeViewController)
 }
 
 // swiftlint:disable:next type_body_length
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
 
 	init?(
 		coder: NSCoder,
 		exposureManager: ExposureManager,
-		client: Client,
-		store: Store,
-		keyPackagesStore: DownloadedPackagesStore,
 		delegate: HomeViewControllerDelegate,
-		taskScheduler: ENATaskScheduler
+		initialEnState: ENStateHandler.State
 	) {
-		self.client = client
-		self.store = store
-		self.keyPackagesStore = keyPackagesStore
 		self.exposureManager = exposureManager
 		self.delegate = delegate
-
+		self.enState = initialEnState
 		super.init(coder: coder)
-		homeInteractor = HomeInteractor(
-			homeViewController: self,
-			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init())
-		)
-
-		exposureSubmissionService = ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: self.exposureManager,
-			client: self.client,
-			store: self.store
-		)
-
-		homeInteractor = HomeInteractor(
-			homeViewController: self,
-			store: store,
-			state: .init(isLoading: false, summary: nil, exposureManager: .init()),
-			exposureSubmissionService: exposureSubmissionService
-		)
+		addToUpdatingSetIfNeeded(homeInteractor)
 	}
 
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
 
+	deinit {
+		enStateUpdatingSet.removeAllObjects()
+	}
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
-
-	private let keyPackagesStore: DownloadedPackagesStore
 	private let exposureManager: ExposureManager
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
-	private var homeLayout: HomeLayout!
-	var homeInteractor: HomeInteractor!
-	private let store: Store
-	private let client: Client
-	private var summaryNotificationObserver: NSObjectProtocol?
+	private var enState: ENStateHandler.State
+	lazy var homeInteractor: HomeInteractor = {
+		HomeInteractor(
+			homeViewController: self,
+			state: .init(
+				isLoading: false,
+				exposureManager: .init(),
+                risk: risk
+			),
+			exposureSubmissionService: exposureSubmissionService,
+			initialEnState: self.enState
+		)
+	}()
 	private weak var exposureDetectionController: ExposureDetectionViewController?
 	private weak var settingsController: SettingsViewController?
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
-	private var exposureSubmissionService: ExposureSubmissionService?
+	private lazy var exposureSubmissionService: ExposureSubmissionService = {
+		ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: self.exposureManager,
+			client: self.client,
+			store: self.store
+		)
+	}()
+	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
+
+	private var risk: Risk?
+	private let riskConsumer = RiskConsumer()
 
 	enum Section: Int {
 		case actions
@@ -96,12 +91,19 @@ final class HomeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		riskConsumer.didCalculateRisk = { [weak self] risk in
+			self?.risk = risk
+			self?.updateOwnUI()
+		}
+
 		configureHierarchy()
 		configureDataSource()
 		updateSections()
 		applySnapshotFromSections()
 		configureUI()
 		homeInteractor.updateTestResults()
+		setupAccessibility()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -111,52 +113,58 @@ final class HomeViewController: UIViewController {
 		homeInteractor.developerMenuEnableIfAllowed()
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		NotificationCenter.default.removeObserver(summaryNotificationObserver as Any, name: .didDetectExposureDetectionSummary, object: nil)
-	}
-
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-				let image = UIImage(named: "Corona-Warn-App")
-				let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
-				leftItem.isEnabled = false
-				self.navigationItem.leftBarButtonItem = leftItem
+			let image = UIImage(named: "Corona-Warn-App")
+			let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
+			leftItem.isEnabled = false
+			self.navigationItem.leftBarButtonItem = leftItem
 		}
+	}
+
+	private func setupAccessibility() {
+		self.navigationItem.leftBarButtonItem?.isAccessibilityElement = true
+		self.navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
+		self.navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
+
+		self.navigationItem.rightBarButtonItem?.isAccessibilityElement = true
+		self.navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 	}
 
 	// MARK: Actions
 
 	@objc
-	private func infoButtonTapped(_: UIButton) {
-		let vc = AppStoryboard.riskLegend.initiateInitial()
-		present(vc, animated: true, completion: nil)
+	private func infoButtonTapped() {
+		present(
+			AppStoryboard.riskLegend.initiateInitial(),
+			animated: true,
+			completion: nil
+		)
 	}
 
 	// MARK: Misc
 
 	// Called by HomeInteractor
-	func setStateOfChildViewControllers(_ state: State, stateHandler: ENStateHandler) {
-		settingsController?.stateHandler = stateHandler
-		notificationSettingsController?.stateHandler = stateHandler
-		let riskLevel = RiskLevel(riskScore: state.summary?.maximumRiskScore)
+	func setStateOfChildViewControllers(_ state: State) {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: state.exposureManager,
-			riskLevel: riskLevel,
-			nextRefresh: nil,
-			summary: state.summary
+			risk: risk,
+			nextRefresh: nil
 		)
 		exposureDetectionController?.state = state
 	}
 
+	func showExposureSubmissionWithoutResult() {
+		showExposureSubmission()
+	}
+
 	func showExposureSubmission(with result: TestResult? = nil) {
-		guard let exposureSubmissionService = exposureSubmissionService else { return }
 		present(
 			AppStoryboard.exposureSubmission.initiateInitial { coder in
 				ExposureSubmissionNavigationController(
 					coder: coder,
-					exposureSubmissionService: exposureSubmissionService,
+					exposureSubmissionService: self.exposureSubmissionService,
 					homeViewController: self,
 					testResult: result
 				)
@@ -166,65 +174,30 @@ final class HomeViewController: UIViewController {
 	}
 
 	func showDeveloperMenu() {
-		let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
-		present(developerMenuController, animated: true, completion: nil)
+		present(
+			AppStoryboard.developerMenu.initiateInitial(),
+			animated: true,
+			completion: nil
+		)
 	}
 
 	func showInviteFriends() {
-		let vc = FriendsInviteController.initiate(for: .inviteFriends)
-		navigationController?.pushViewController(vc, animated: true)
-	}
-
-	// This method makes the exposure manager usable.
-	private func enableExposureManagerIfNeeded() {
-		func activate(then completion: @escaping () -> Void) {
-			exposureManager.activate { error in
-				if let error = error {
-					logError(message: "Failed to activate: \(error)")
-					return
-				}
-				completion()
-			}
-		}
-		func enable() {
-			exposureManager.enable { error in
-				if let error = error {
-					logError(message: "Failed to enable: \(error)")
-					return
-				}
-			}
-		}
-
-		func enableIfNeeded() {
-			guard exposureManager.preconditions().enabled else {
-				enable()
-				return
-			}
-		}
-
-		let status = exposureManager.preconditions()
-
-		guard status.authorized else {
-			log(message: "User declined authorization")
-			return
-		}
-
-		guard status.status == .active else {
-			activate(then: enableIfNeeded)
-			return
-		}
-		enableIfNeeded()
+		navigationController?.pushViewController(
+			FriendsInviteController.initiate(for: .inviteFriends),
+			animated: true
+		)
 	}
 
 	func showExposureNotificationSetting() {
 		let storyboard = AppStoryboard.exposureNotificationSetting.instance
 		let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
 			ExposureNotificationSettingViewController(
-				coder: coder,
-				stateHandler: self.homeInteractor.stateHandler,
-				delegate: self
+					coder: coder,
+					initialEnState: self.enState,
+					delegate: self
 			)
 		}
+		addToUpdatingSetIfNeeded(vc)
 		notificationSettingsController = vc
 		navigationController?.pushViewController(vc, animated: true)
 	}
@@ -235,21 +208,20 @@ final class HomeViewController: UIViewController {
 			SettingsViewController(
 				coder: coder,
 				store: self.store,
-				stateHandler: self.homeInteractor.stateHandler,
+				initialEnState: self.enState,
 				delegate: self
 			)
 		}
+		addToUpdatingSetIfNeeded(vc)
 		settingsController = vc
 		navigationController?.pushViewController(vc, animated: true)
 	}
 
 	func showExposureDetection() {
-		let riskLevel = RiskLevel(riskScore: homeInteractor.state.summary?.maximumRiskScore)
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManager,
-			riskLevel: riskLevel,
-			nextRefresh: nil,
-			summary: homeInteractor.state.summary
+			risk: risk,
+			nextRefresh: nil
 		)
 
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
@@ -259,6 +231,7 @@ final class HomeViewController: UIViewController {
 				delegate: self
 			)
 		}
+		addToUpdatingSetIfNeeded(vc)
 		exposureDetectionController = vc as? ExposureDetectionViewController
 		present(vc, animated: true)
 	}
@@ -290,6 +263,7 @@ final class HomeViewController: UIViewController {
 			return
 		}
 	}
+
 	private func showScreen(at indexPath: IndexPath) {
 		guard let section = Section(rawValue: indexPath.section) else { return }
 		let row = indexPath.row
@@ -315,30 +289,24 @@ final class HomeViewController: UIViewController {
 
 	func reloadData() {
 		guard isViewLoaded else { return }
+		updateSections()
 		collectionView.reloadData()
 	}
 
 	func reloadCell(at indexPath: IndexPath) {
-		settingsController?.stateHandler = homeInteractor.stateHandler
-		notificationSettingsController?.stateHandler = homeInteractor.stateHandler
 		guard let snapshot = dataSource?.snapshot() else { return }
 		guard let cell = collectionView.cellForItem(at: indexPath) else { return }
 		sections[indexPath.section].cellConfigurators[indexPath.item].configureAny(cell: cell)
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 
-	private func createLayout() -> UICollectionViewLayout {
-		homeLayout = HomeLayout()
-		homeLayout.delegate = self
-		return homeLayout.collectionLayout()
-	}
-
 	private func configureHierarchy() {
 		let safeLayoutGuide = view.safeAreaLayoutGuide
-
 		view.backgroundColor = .systemGroupedBackground
-
-		collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+		collectionView = UICollectionView(
+			frame: view.bounds,
+			collectionViewLayout: UICollectionViewLayout.homeLayout(delegate: self)
+		)
 		collectionView.delegate = self
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isAccessibilityElement = false
@@ -407,33 +375,37 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func configureUI() {
-
 		collectionView.backgroundColor = .systemGroupedBackground
 		let infoImage = UIImage(systemName: "info.circle")
-		navigationItem.rightBarButtonItem = UIBarButtonItem(image: infoImage, style: .plain, target: self, action: #selector(infoButtonTapped(_:)))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			image: infoImage,
+			style: .plain,
+			target: self,
+			action: #selector(infoButtonTapped)
+		)
 		let image = UIImage(named: "Corona-Warn-App")
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
 		self.navigationItem.leftBarButtonItem = leftItem
 	}
+
 }
 
 // MARK: - Update test state.
 
 extension HomeViewController {
-
 	func showTestResultScreen() {
 		showExposureSubmission(with: homeInteractor.testResult)
 	}
 
 	func updateTestResultState() {
 		homeInteractor.reloadActionSection()
-		self.homeInteractor.updateTestResults()
+		homeInteractor.updateTestResults()
 	}
 }
 
 extension HomeViewController: HomeLayoutDelegate {
-	func homeLayout(homeLayout _: HomeLayout, for sectionIndex: Int) -> Section? {
+	func homeLayoutSection(for sectionIndex: Int) -> Section? {
 		Section(rawValue: sectionIndex)
 	}
 }
@@ -445,12 +417,6 @@ extension HomeViewController: UICollectionViewDelegate {
 }
 
 extension HomeViewController: ExposureDetectionViewControllerDelegate {
-	func exposureDetectionViewControllerStartTransaction(
-		_: ExposureDetectionViewController
-	) {
-		delegate?.homeViewControllerStartExposureTransaction(self)
-	}
-
 	func exposureDetectionViewController(
 		_: ExposureDetectionViewController,
 		setExposureManagerEnabled enabled: Bool,
@@ -497,10 +463,8 @@ private extension HomeViewController {
 extension HomeViewController: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		updateOwnUI()
-		homeInteractor.updateExposureState(state)
 		exposureDetectionController?.updateUI()
 		settingsController?.updateExposureState(state)
-		notificationSettingsController?.updateExposureState(state)
 	}
 
 	private func updateOwnUI() {
@@ -508,10 +472,24 @@ extension HomeViewController: ExposureStateUpdating {
 	}
 }
 
-// MARK: Working with the Delegate
+extension  HomeViewController: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		enState = state
+		updateAllState(state)
+	}
 
-extension HomeViewController {
-	private func startExposureTransaction() {
-		delegate?.homeViewControllerStartExposureTransaction(self)
+	private func updateAllState(_ state: ENStateHandler.State) {
+		enStateUpdatingSet.allObjects.forEach { anyObject in
+			if let updating = anyObject as? ENStateHandlerUpdating {
+				updating.updateEnState(state)
+			}
+		}
+	}
+
+	private func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?) {
+		if let anyObject = anyObject,
+		   anyObject is ENStateHandlerUpdating {
+			enStateUpdatingSet.add(anyObject)
+		}
 	}
 }

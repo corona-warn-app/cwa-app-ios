@@ -113,12 +113,32 @@ struct SAP_ApplicationConfiguration {
   /// Clears the value of `exposureConfig`. Subsequent reads from it will return its default value.
   mutating func clearExposureConfig() {self._exposureConfig = nil}
 
+  var attenuationDuration: SAP_AttenuationDuration {
+    get {return _attenuationDuration ?? SAP_AttenuationDuration()}
+    set {_attenuationDuration = newValue}
+  }
+  /// Returns true if `attenuationDuration` has been explicitly set.
+  var hasAttenuationDuration: Bool {return self._attenuationDuration != nil}
+  /// Clears the value of `attenuationDuration`. Subsequent reads from it will return its default value.
+  mutating func clearAttenuationDuration() {self._attenuationDuration = nil}
+
+  var appVersion: SAP_ApplicationVersionConfiguration {
+    get {return _appVersion ?? SAP_ApplicationVersionConfiguration()}
+    set {_appVersion = newValue}
+  }
+  /// Returns true if `appVersion` has been explicitly set.
+  var hasAppVersion: Bool {return self._appVersion != nil}
+  /// Clears the value of `appVersion`. Subsequent reads from it will return its default value.
+  mutating func clearAppVersion() {self._appVersion = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
   fileprivate var _riskScoreClasses: SAP_RiskScoreClassification? = nil
   fileprivate var _exposureConfig: SAP_RiskScoreParameters? = nil
+  fileprivate var _attenuationDuration: SAP_AttenuationDuration? = nil
+  fileprivate var _appVersion: SAP_ApplicationVersionConfiguration? = nil
 }
 
 struct SAP_RiskScoreParameters {
@@ -363,6 +383,8 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
     1: .same(proto: "minRiskScore"),
     2: .same(proto: "riskScoreClasses"),
     3: .same(proto: "exposureConfig"),
+    4: .same(proto: "attenuationDuration"),
+    5: .same(proto: "appVersion"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -371,6 +393,8 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 1: try decoder.decodeSingularInt32Field(value: &self.minRiskScore)
       case 2: try decoder.decodeSingularMessageField(value: &self._riskScoreClasses)
       case 3: try decoder.decodeSingularMessageField(value: &self._exposureConfig)
+      case 4: try decoder.decodeSingularMessageField(value: &self._attenuationDuration)
+      case 5: try decoder.decodeSingularMessageField(value: &self._appVersion)
       default: break
       }
     }
@@ -386,6 +410,12 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
     if let v = self._exposureConfig {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     }
+    if let v = self._attenuationDuration {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }
+    if let v = self._appVersion {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -393,6 +423,8 @@ extension SAP_ApplicationConfiguration: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs.minRiskScore != rhs.minRiskScore {return false}
     if lhs._riskScoreClasses != rhs._riskScoreClasses {return false}
     if lhs._exposureConfig != rhs._exposureConfig {return false}
+    if lhs._attenuationDuration != rhs._attenuationDuration {return false}
+    if lhs._appVersion != rhs._appVersion {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

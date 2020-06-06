@@ -31,7 +31,7 @@ final class DMViewController: UITableViewController {
 		self.store = store
 		self.exposureManager = exposureManager
 		super.init(style: .plain)
-		title = "Developer Menu"
+		title = "👩🏾‍💻🧑‍💻"
 	}
 
 	required init?(coder _: NSCoder) {
@@ -98,8 +98,7 @@ final class DMViewController: UITableViewController {
 		let viewController = DMConfigurationViewController(
 			distributionURL: store.developerDistributionBaseURLOverride,
 			submissionURL: store.developerSubmissionBaseURLOverride,
-			verificationURL: store.developerVerificationBaseURLOverride,
-			store: store
+			verificationURL: store.developerVerificationBaseURLOverride
 		)
 		navigationController?.pushViewController(viewController, animated: true)
 	}

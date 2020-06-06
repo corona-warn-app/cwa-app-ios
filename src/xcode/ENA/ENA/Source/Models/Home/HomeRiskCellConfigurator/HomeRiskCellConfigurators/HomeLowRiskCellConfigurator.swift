@@ -24,11 +24,26 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(startDate: Date?, releaseDate: Date?, numberRiskContacts: Int, numberDays: Int, totalDays: Int, lastUpdateDate: Date?) {
+	init(
+		startDate: Date?,
+		releaseDate: Date?,
+		numberRiskContacts: Int,
+		numberDays: Int,
+		totalDays: Int,
+		lastUpdateDate: Date?
+	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.numberDays = numberDays
 		self.totalDays = totalDays
-		super.init(isLoading: false, isButtonEnabled: true, isButtonHidden: false, isCounterLabelHidden: true, startDate: startDate, releaseDate: releaseDate, lastUpdateDate: lastUpdateDate)
+		super.init(
+			isLoading: false,
+			isButtonEnabled: true,
+			isButtonHidden: true,
+			isCounterLabelHidden: true,
+			startDate: startDate,
+			releaseDate: releaseDate,
+			lastUpdateDate: lastUpdateDate
+		)
 	}
 
 	// MARK: Configuration
