@@ -138,6 +138,7 @@
 		71CAB9D7248B894D00F516A5 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CAB9D6248B894D00F516A5 /* PrivacyPolicyViewController.swift */; };
 		71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */; };
 		71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 71F5418A248BEDBE006DB793 /* privacy-policy.html */; };
+		71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F54190248BF677006DB793 /* HtmlTextView.swift */; };
 		71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */; };
 		71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C68247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift */; };
 		71FE1C6B247AA3F100851FEB /* ExposureDetectionViewController+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C6A247AA3F100851FEB /* ExposureDetectionViewController+State.swift */; };
@@ -455,6 +456,7 @@
 		71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ena-colors.xcassets"; sourceTree = "<group>"; };
 		71F5418B248BEDBE006DB793 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = "de.lproj/privacy-policy.html"; sourceTree = "<group>"; };
 		71F5418D248BEDF5006DB793 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = "en.lproj/privacy-policy.html"; sourceTree = "<group>"; };
+		71F54190248BF677006DB793 /* HtmlTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlTextView.swift; sourceTree = "<group>"; };
 		71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
 		71FE1C68247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
 		71FE1C6A247AA3F100851FEB /* ExposureDetectionViewController+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureDetectionViewController+State.swift"; sourceTree = "<group>"; };
@@ -794,6 +796,7 @@
 			isa = PBXGroup;
 			children = (
 				713EA26024798AD100AB7EE8 /* InsetTableViewCell.swift */,
+				71F54190248BF677006DB793 /* HtmlTextView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1826,6 +1829,7 @@
 				515BBDEB2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift in Sources */,
 				514C0A0D247AFB0200F235F6 /* RiskTextItemView.swift in Sources */,
 				CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */,
+				71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */,
 				51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
 				A3E5E71A247D4FFB00237116 /* ExposureSubmissionViewUtils.swift in Sources */,
