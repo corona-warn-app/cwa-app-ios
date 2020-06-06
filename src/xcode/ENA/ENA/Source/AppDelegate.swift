@@ -378,13 +378,44 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
-		consumer.didCalculateRisk = { risk in
+		//! consumer.didCalculateRisk = { risk in
 			// present a notification if the risk score has increased
-			if risk.riskLevelHasIncreased {
-				UNUserNotificationCenter.current().presentNotification(
-					title: AppStrings.LocalNotifications.detectExposureTitle,
-					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: ENATaskIdentifier.detectExposures.rawValue)
+//			if risk.riskLevelHasIncreased {
+//				UNUserNotificationCenter.current().presentNotification(
+//					title: AppStrings.LocalNotifications.detectExposureTitle,
+//					body: AppStrings.LocalNotifications.detectExposureBody,
+//					identifier: ENATaskIdentifier.detectExposures.rawValue)
+		guard
+			exposureDetection == nil,
+			exposureManager.preconditions().authorized,
+			UIApplication.shared.backgroundRefreshStatus == .available
+			else {
+			complete(success: false)
+			return
+		}
+
+		exposureDetection = ExposureDetection(delegate: self)
+
+		self.exposureDetection?.start { result in
+			defer { complete(success: true) }
+			if case let .success(newSummary) = result {
+
+				// get the previous risk score from the store
+				// check if the risk score has escalated since the last summary
+				if let previousRiskScore = self.store.previousSummary?.maximumRiskScore,
+					RiskLevel(riskScore: newSummary.maximumRiskScore) > RiskLevel(riskScore: previousRiskScore),
+					RiskLevel(riskScore: newSummary.maximumRiskScore) == .increased {
+					// present a notification if the risk score has increased
+					UNUserNotificationCenter.current().presentNotification(
+						title: AppStrings.LocalNotifications.detectExposureTitle,
+						body: AppStrings.LocalNotifications.detectExposureBody,
+						identifier: ENATaskIdentifier.detectExposures.rawValue)
+				}
+
+				// persist the previous risk score to the store
+				self.store.previousSummary = ENExposureDetectionSummaryContainer(with: newSummary)
+
+//!
 			}
 
 			complete(success: true)

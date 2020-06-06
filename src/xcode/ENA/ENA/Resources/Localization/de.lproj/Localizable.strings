@@ -26,7 +26,7 @@
 "Alert_DefaultAction_OpenSettings" = "Einstellungen öffnen";
 
 /* Exposure Detection */
-"ExposureDetection_Off" = "Risikoermittlung gestoppt";
+"ExposureDetection_Off" = "Risiko-Ermittlung gestoppt";
 
 "ExposureDetection_Unknown" = "Unbekanntes Risiko";
 
@@ -34,7 +34,7 @@
 
 "ExposureDetection_Low" = "Geringes Risiko";
 
-"ExposureDetection_High" = "Hohes Risiko";
+"ExposureDetection_High" = "Erhöhtes Risiko";
 
 "ExposureDetection_Loading" = "Prüfung läuft ...";
 
@@ -50,7 +50,7 @@
 
 "ExposureDetection_UnknownText" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 
-"ExposureDetection_InactiveText" = "Schalten Sie die Risikoermittlung ein, um Ihr Risiko zu aktualisieren.";
+"ExposureDetection_InactiveText" = "Schalten Sie die Risiko-Ermittlung ein, um Ihr Risiko zu aktualisieren.";
 
 "ExposureDetection_LoadingText" = "Es werden aktuelle Daten heruntergeladen und geprüft.\nDies kann mehrere Minuten dauern.";
 
@@ -60,7 +60,7 @@
 
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig.";
 
-"ExposureDetection_Guide_Mask" = "Tragen Sie einen Mundschutz bei Kontakt mit anderen Personen.";
+"ExposureDetection_Guide_Mask" = "Tragen Sie einen Mundschutz bei Begegnungen mit anderen Personen.";
 
 "ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
@@ -82,13 +82,13 @@
 
 "ExposureDetection_Explanation_Text_Off" = "Lorem Ipsum..";
 
-"ExposureDetection_Explanation_Text_Unknown" = "Sie haben ein unbekanntes Infektionsrisiko, da... Lorem Ipsum..";
+"ExposureDetection_Explanation_Text_Unknown" = "Sie haben ein unbekanntes Infektionsrisiko.";
 
-"ExposureDetection_Explanation_Text_Inactive" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiven Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDie Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Inactive" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDie Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiven Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDie Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDie Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer Corona positiven Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.\n\nDie Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\n\nWenn Sie nach Hause kommen, vermeiden Sie auch den Kontakt zu Familienmitgliedern und Mitbewohnern.";
+"ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.\n\nDie Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\n\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
 
 "ExposureDetection_MoreInformation" = "Mehr Info";
 
@@ -117,7 +117,7 @@
 
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
-"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von Zufallscodes.";
+"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von Covid-19-Zufallscodes.";
 
 "Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Covid-19-Risikostatus.";
 
@@ -171,7 +171,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen infizierte Personen in ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufallscodes austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufallscodes austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
 
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
 
@@ -187,7 +187,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Datenschutz";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Ja, ich willige in die Nutzung meiner Tracing Funktionalität für meine Corona-Warn-App ein. Ich möchte damit einen wichtigen Beitrag zur der Unterbrechung von Infektionsketten und der Eindämmung des Coronavirus in Deutschland leisten. Mit dem Contact Tracing können Kontakte nachverfolgt werden, um später auf das Coronavirus positiv getestete Kontakte zu identifizieren.\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Weitere Informationen finden Sie in unserer Datenschutzhinweisen.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Ja, ich willige in die Nutzung meiner Tracing-Funktionalität für meine Corona-Warn-App ein. Ich möchte damit einen wichtigen Beitrag zur Unterbrechung von Infektionsketten und der Eindämmung des Coronavirus in Deutschland leisten. Mit dem Contact-Tracing können Kontakte nachverfolgt werden, um später auf das Coronavirus positiv getestete Kontakte zu identifizieren.\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Weitere Informationen finden Sie in unseren Datenschutzhinweisen.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie positiv getestet werden ...";
 
@@ -199,7 +199,7 @@
 
 "OnboardingInfo_alwaysStayInformedPage_boldText" = "Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.";
 
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Isolation begeben und nach entsprechender Abklärung testen lassen.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Isolation begeben und sich nach entsprechender Abklärung testen lassen.";
 
 /* Exposure Submission */
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
@@ -220,7 +220,7 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Weiter";
 
-"ExposureSubmission_NavTitle" = "Diagnoseschlüssel senden";
+"ExposureSubmission_NavTitle" = "Positivkennung senden";
 
 "ExposureSubmissionConfirmation_Title" = "Positive Diagnose";
 
@@ -232,7 +232,7 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Dokument mit QR-Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code ihres Test-Dokuments scannen.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code Ihres Test-Dokuments scannen.";
 
 "ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
 
@@ -265,7 +265,7 @@
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
 
-"ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code ihres Dokuments.";
+"ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code Ihres Dokuments.";
 
 "ExposureSubmissionQRScanner_notFoundAlertTitle" = "Befund wurde nicht gefunden";
 
@@ -294,7 +294,7 @@
 
 "ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich ihre Krankheitszeichen entwickeln.";
+"ExposureSubmissionSuccess_listItem2_1" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich Ihre Krankheitszeichen entwickeln.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten.";
 
@@ -309,15 +309,15 @@
 
 "ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
 
-"ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiven Personen angewiesen.";
+"ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiv getesteten Personen angewiesen.";
 
-"ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt  wie folgt vorgehen:";
+"ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt wie folgt vorgehen:";
 
 "ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
 
-"ExposureSubmissionIntroduction_ListItem2" = "Wenn Sie positiv getestet wurden, können Sie andere warnen.";
+"ExposureSubmissionIntroduction_ListItem2" = "Wenn Sie Corona-positiv getestet wurden, können Sie andere warnen.";
 
-"ExposureSubmissionIntroduction_ListItem3" = "Wenn Ihnen für einen positiven Test eine TAN mitgeteilt wurde, können Sie diese für die Registrierung des Tests nutzen.";
+"ExposureSubmissionIntroduction_ListItem3" = "Wenn Ihnen für einen positiven Testbefund eine TAN mitgeteilt wurde, können Sie diese für die Registrierung des Tests nutzen.";
 
 "ExposureSubmissionIntroduction_ListItem4" = "Wenn Sie keine TAN haben, können Sie diese telefonisch anfragen.";
 
@@ -390,7 +390,7 @@
 
 "ExposureSubmissionWarnOthers_description" = "Als Nächstes können Sie dafür sorgen, dass das Corona-Warn-System Ihre lokal gespeicherten Zufallscodes der letzten 14 Tage an andere verteilt. So können Sie Ihre Mitmenschen warnen und helfen, die Infektionskette zu unterbrechen.\n\nDa nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Ich willige hiermit ein, dass mein positiver Corona-Befund an das Tracing Backend übermittelt und dazu genutzt wird, andere App Nutzer auf ein mögliches Infektionsrisiko hinzuweisen. Dabei werden die auf meinem Gerät gespeicherten Temporary Exposure Keys an das Tracing Backend übermittelt und dort anderen Nutzern der App zur Verfügung gestellt.\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Ein Widerruf lässt die Rechtmäßigkeit der Verarbeitung bis zum Widerruf unberührt.";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Datenschutztexte fehlt noch";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
 
@@ -399,29 +399,29 @@
 "ExposureSubmissionResult_RemoveAlert_Text" = "Der Test wird endgültig aus der Corona-Warn-App entfernt und kann nicht wieder hinzugefügt werden. Dieser Vorgang kann nicht widerrufen werden.";
 
 /* Exposure Submission */
-"ExposureSubmissionError_NoKeys" = "Keine Diagnoseschlüssel verfügbar. Bitte versuchen Sie es morgen erneut.";
+"ExposureSubmissionError_NoKeys" = "Keine Positivkennung verfügbar. Bitte versuchen Sie es morgen erneut.";
 
 "ExposureSubmissionError_InvalidTan" = "Die erzeugte Übermittlungs TAN ist ungültig. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_EnNotEnabled" = "Bitte aktivieren Sie die Risiko-Ermittlung, um andere zu warnen.";
+"ExposureSubmissionError_EnNotEnabled" = "Die Risiko-Ermittlung ist nicht aktiv.";
 
-"ExposureSubmissionError_NoRegistrationToken" = "Kein Registration Token auf dem Gerät gefunden.";
+"ExposureSubmissionError_NoRegistrationToken" = "Kein Registrations-Token auf dem Endgerät gefunden.";
 
 "ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
 
-"ExposureSubmissionError_NoResponse" = "Die Anwort enthält kein Inhalt";
+"ExposureSubmissionError_NoResponse" = "Die Antwort enthält keinen Inhalt.";
 
 "ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code wurde bereits verwendet. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde schon verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde bereits verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "Es konnte keine Übermittlungs-TAN erstellt werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
 "ExposureSubmissionError_other" = "Es ist ein Verbindungsfehler aufgetreten ";
 
-"ExposureSubmissionError_otherend" = ". Bitte versuchen Sie es erneut.";
+"ExposureSubmissionError_otherend" = "Bitte versuchen Sie es erneut.";
 
-"ExposureSubmissionError_declined" = "Bitte geben Sie ihre zufälligen IDs frei, um andere zu warnen.";
+"ExposureSubmissionError_declined" = "Bitte geben Sie ihre Zufallscodes frei, um andere zu warnen.";
 
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
 
@@ -438,9 +438,9 @@
 
 "ExposureNotificationSetting_ActionCell_Header" = "Einstellung";
 
-"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktivieren Sie die Aufzeichnung Ihrer Begegnungen";
+"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktivieren Sie die Begegnungs-Aufzeichnung";
 
-"ExposureNotificationSetting_DescriptionTitle" = "So funktioniert die Aufzeichnung Ihrer Begegnungen";
+"ExposureNotificationSetting_DescriptionTitle" = "So funktioniert die Begegnungs-Aufzeichnung";
 
 "ExposureNotificationSetting_DescriptionText1" = "Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.";
 
@@ -484,7 +484,7 @@
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 
-"Home_RiskCard_Unknown_Item_Title" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
+"Home_RiskCard_Unknown_Item_Title" = "Da Sie Ihre Begegnungs-Aufzeichnung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 
 "Home_RiskCard_Unknown_Button" = "Aktualisieren";
 
@@ -495,7 +495,7 @@
 "Home_Risk_Inactive_NoCalculation_Possible_Body" = "Aktivieren Sie die Risiko-Ermittlung, um Ihre heutige Risiko-Einschätzung zu berechnen.";
 "Home_Risk_Inactive_Outdated_Results_Body" = "Ihre Risiko-Berechnung konnte seit mehr als 24 Stunden nicht aktualisiert werden.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Letzte Ermittlung: %@";
+"Home_Risk_Inactive_Activate_Item_Title" = "Letzte Risiko-Ermittlung: %@";
 
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Risiko-Ermittlung einschalten";
 "Home_Risk_Inactive_Outdated_Results_Button" = "Risiko-Ermittlung einschalten";
@@ -513,7 +513,7 @@
 "Home_Risk_High_Button" = "Aktualisieren";
 
 /* Home Status Check */
-"Home_Risk_Status_Check_Title" = "Prüfung läuft...";
+"Home_Risk_Status_Check_Title" = "Prüfung läuft…";
 
 "Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 
@@ -532,7 +532,7 @@
 
 "Home_Thank_You_Card_Further_Info_Item_Title" = "Weitere Infos:";
 
-"Home_Thank_You_Card_14Days_Item_Title" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich ihre Krankheitszeichen entwickeln.";
+"Home_Thank_You_Card_14Days_Item_Title" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich Ihre Krankheitszeichen entwickeln.";
 
 "Home_Thank_You_Card_Contacts_Item_Title" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten.";
 
@@ -558,7 +558,7 @@
 "Home_Finding_Positive_Card_Button" = "Weiter";
 
 /* Home Submit card */
-"Home_SubmitCard_Title" = "COVID 19 Test";
+"Home_SubmitCard_Title" = "COVID-19-Test";
 
 "Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen.";
 
@@ -585,19 +585,19 @@
 
 "Home_resultCard_ShowResultButton" = "Test anzeigen";
 
-"Home_resultCard_NegativeTitle" = "Befund Negativ";
+"Home_resultCard_NegativeTitle" = "Befund negativ";
 
-"Home_resultCard_NegativeDesc" = "Sie wurden Negativ auf SARS-CoV-2 getestet.";
+"Home_resultCard_NegativeDesc" = "Sie wurden negativ auf SARS-CoV-2 getestet.";
 
-"Home_resultCard_PositiveTitle" = "Befund Positiv";
+"Home_resultCard_PositiveTitle" = "Befund positiv";
 
-"Home_resultCard_PositiveDesc" = "Sie wurden Positiv auf SARS-CoV-2 getestet.";
+"Home_resultCard_PositiveDesc" = "Sie wurden positiv auf SARS-CoV-2 getestet.";
 
 "Home_resultCard_PendingTitle" = "Ergebnis liegt noch nicht vor";
 
 "Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tage.";
 
-"Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
+"Home_resultCard_InvalidTitle" = "Befund ungültig";
 
 "Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
 
@@ -608,7 +608,7 @@
 
 "App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App für die gesamte Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
 
-"App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schenll nachzuverfolgen und zu durchbrechen. Die App speichert dezentral - auf Ihrem Smartphone - Begegnungen mit anderen. Sie werden informiert, wenn Sie Kontakt mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
+"App_Information_About_Text" = "Wer sie nutzt, hilft, Infektionsketten schnell nachzuverfolgen und zu durchbrechen. Die App speichert dezentral – auf Ihrem Smartphone – Begegnungen mit anderen. Sie werden informiert, wenn Sie Kontakt mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.";
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "Häufige Fragen";
@@ -626,30 +626,30 @@
 
 "App_Information_Contact_Hotline_Text" = "+49 (0)800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "00498007540001";
+"App_Information_Contact_Hotline_Number" = "+49 (0)800 7540001";
 
-"App_Information_Contact_Hotline_Description" = "Sprachen:\nDeutsch, Englisch";
+"App_Information_Contact_Hotline_Description" = "Unser technischer Kundenservice ist für Sie da. Die Wartezeit ist weniger als 5 Minuten im Moment.";
 
-"App_Information_Contact_Hotline_Terms" = "Erreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
+"App_Information_Contact_Hotline_Terms" = "Unsere Öffnungszeiten:\nMo - Fr: 08:00 - 22:00 Uhr\nSa - So: 10:00 - 22:00 Uhr\nEs gelten die Preise Ihres Telefonanbieters.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
 
 "App_Information_Imprint_Section1_Title" = "Herausgeber";
 
-"App_Information_Imprint_Section1_Text" = "Robert Koch-Institut\nNordufer 20\n13353 Berlin\nVertreten durch den Präsidenten\nVerantwortlich i. S. d.\nRundfunkstaatsvertrages\nN.N.";
+"App_Information_Imprint_Section1_Text" = "(verantwortlich nach § 5 Abs. 1 TMG, § 55 Abs. 1 RStV, DS-GVO, BDSG)";
 
-"App_Information_Imprint_Section2_Title" = "Umsatzsteueridentifikationsnummer";
+"App_Information_Imprint_Section2_Title" = "Robert Koch-Institut";
 
-"App_Information_Imprint_Section2_Text" = "DE 165 893 430";
+"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin\nvertreten durch den Präsidenten";
 
 "App_Information_Imprint_Section3_Title" = "Kontakt";
 
-"App_Information_Imprint_Section3_Text" = "E-Mail: N.N.\nTelefon: N.N.";
+"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelefon: 030 18754 – 5100";
 
-"App_Information_Imprint_Section4_Title" = "Design, technische Umsetzung und Hosting";
+"App_Information_Imprint_Section4_Title" = "Umsatzsteueridentifikationsnummer";
 
-"App_Information_Imprint_Section4_Text" = "Strato";
+"App_Information_Imprint_Section4_Text" = "DE 165 893 430";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
@@ -675,27 +675,27 @@
 /* Risk View */
 "unknown_risk" = "Risiko unbekannt";
 
-"inactive_risk" = "Keine Risikoprüfung";
+"inactive_risk" = "Keine Risiko-Überprüfung";
 
 "low_risk" = "Geringes Risiko";
 
-"high_risk" = "Hohes Risiko";
+"high_risk" = "Erhöhtes Risiko";
 
-"unknown_risk_detail" = "Es wurde kein Kontakt mit COVID 19 erkannt.";
+"unknown_risk_detail" = "Es wurde keine Begegnung mit Corona-positiv getesteten Personen erkannt.";
 
 "inactive_risk_detail" = "inactive";
 
-"low_risk_detail" = "Es wurde ein geringes Risiko für den Kontakt mit COVID 19 erkannt.";
+"low_risk_detail" = "Es wurde ein geringes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.";
 
-"high_risk_detail" = "Es wurde ein hohes Risiko für den Kontakt mit COVID 19 erkannt.";
+"high_risk_detail" = "Es wurde ein hohes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.";
 
-"unknown_risk_detail_help" = "Das Infektionsrisiko ist unbekannt, da bisher noch keine Kontakte aufgezeichnet wurden.";
+"unknown_risk_detail_help" = "Das Infektionsrisiko ist unbekannt, da bisher noch keine Begegungen aufgezeichnet wurden.";
 
 "inactive_risk_detail_help" = "inactive";
 
-"low_risk_detail_help" = "Das Infektionsrisiko ist gering, da ein Kontakt mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
+"low_risk_detail_help" = "Das Infektionsrisiko ist gering, da eine Begegnung mit infizierten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
 
-"high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da ein Kontakt mit infizierten Personen aufgezeichnet wurde.";
+"high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da eine Begegnung mit infizierten Personen aufgezeichnet wurde.";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Teilen";
@@ -795,3 +795,4 @@
 "RiskLegend_Random_Text" = "Die Zufallscodes sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufallskennungen lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufallscodes der letzten bis zu 14 Tage freiwillig mit anderen CWA-Nutzern teilen.";
 
 "RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
+

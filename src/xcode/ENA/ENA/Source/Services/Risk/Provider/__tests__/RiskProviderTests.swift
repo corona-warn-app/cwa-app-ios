@@ -23,12 +23,6 @@ import ExposureNotification
 
 private final class Summary: ENExposureDetectionSummary {}
 
-private final class RiskProviderStoreMock: RiskProviderStore {
-	var tracingStatusHistory: TracingStatusHistory = []
-	var previousSummary: ENExposureDetectionSummaryContainer?
-	var dateLastExposureDetection: Date?
-}
-
 private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 	var onDetectExposure: ((ExposureSummaryProvider.Completion) -> Void)?
 

@@ -151,6 +151,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		} else {
 			showHome()
 		}
+		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 	}
@@ -168,37 +169,29 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func showHome(animated _: Bool = false) {
-		// FIXME: During the onboarding, if the user decline, the status == Unknown.
-		//After that
-		if exposureManager.preconditions().status == .active {
-			presentHomeVC()
-		} else {
-//			let enManager = ENManager()
-//			enManager.activate { theError in
-//				if let theError = theError {
-//					logError(message: "Cannot activate the  ENManager. The reason is \(theError)")
-//					return
-//				}
-//				self.presentHomeVC()
-//			}
-
+		if exposureManager.preconditions().status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					// TODO: Error handling, if error occurs, what can we do?
 					logError(message: "Cannot activate the  ENManager. The reason is \(error)")
 					return
 				}
-				// TODO: Set some state
 				self?.presentHomeVC()
 			}
+		} else {
+			presentHomeVC()
 		}
 	}
 
+
 	private func presentHomeVC() {
+		//TODO: Change the URL back to clientConfiguration.configurationURL
+		let url = URL(string: "https://www.apple.com")!
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),
 			reachabilityService: ConnectivityReachabilityService(
-				connectivityURLs: [clientConfiguration.configurationURL]
+//				connectivityURLs: [clientConfiguration.configurationURL]
+					connectivityURLs: [url]
 			),
 			delegate: self
 		)
