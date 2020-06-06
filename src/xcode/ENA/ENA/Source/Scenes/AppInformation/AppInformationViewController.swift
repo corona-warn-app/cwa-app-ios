@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -18,54 +19,80 @@
 import Foundation
 import UIKit
 
-class AppInformationViewController: UITableViewController {
-	
-	@IBOutlet weak var labelVersion: UILabel!
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		updateVersionLabel()
-	}
-	
-	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-		let destination = segue.destination
+class AppInformationViewController: DynamicTableViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-		guard
-			let segueIdentifier = segue.identifier,
-			let segue = SegueIdentifier(rawValue: segueIdentifier)
-		else { return }
+		tableView.backgroundColor = .enaColor(for: .separator)
+		tableView.separatorColor = .enaColor(for: .hairline)
 
-		switch segue {
-		case .about:
-			(destination as? AppInformationDetailViewController)?.model = .about
-		case .contact:
-			(destination as? AppInformationDetailViewController)?.model = .contact
-		case .help:
-			(destination as? AppInformationHelpViewController)?.model = .questions
-		case .legal:
-			(destination as? AppInformationDetailViewController)?.model = .legal
-		case .privacy:
-			(destination as? AppInformationDetailViewController)?.model = .privacy
-		case .terms:
-			(destination as? AppInformationDetailViewController)?.model = .terms
-		}
-	}
-	
-	func updateVersionLabel() {
-		guard let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] else { return }
-		guard let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] else { return }
-		
-		self.labelVersion.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
+		navigationItem.largeTitleDisplayMode = .always
+		navigationItem.title = "Home_AppInformationCard_Title".localized
+
+		dynamicTableViewModel = .init([
+			.section(
+				header: .space(height: 32),
+				footer: .view(footerView()),
+				separators: false,
+				cells: Category.allCases.compactMap { Self.model[$0]?.text }.map { .body(text: $0) }
+			)
+		])
+    }
+}
+
+extension AppInformationViewController {
+	enum Category: Int, Hashable, CaseIterable {
+		case about
+		case faq
+		case terms
+		case privacy
+		case legal
+		case contact
+		case imprint
 	}
 }
 
 extension AppInformationViewController {
-	private enum SegueIdentifier: String {
-		case about = "aboutSegue"
-		case contact = "contactSegue"
-		case legal = "legalSegue"
-		case privacy = "privacySegue"
-		case terms = "termsSegue"
-		case help = "helpSegue"
+	private func footerView() -> UIView {
+		let versionLabel = ENALabel()
+		versionLabel.translatesAutoresizingMaskIntoConstraints = false
+		versionLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
+		versionLabel.style = .footnote
+
+		if let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"],
+			let bundleBuild = Bundle.main.infoDictionary?["CFBundleVersion"] {
+			versionLabel.text = "\(AppStrings.Home.appInformationVersion) \(bundleVersion) (\(bundleBuild))"
+		} else {
+			versionLabel.text = "\(AppStrings.Home.appInformationVersion) <unknown>"
+			logError(message: "Unknown version. Should not happen!")
+		}
+
+		let footerView = UIView()
+		footerView.addSubview(versionLabel)
+
+		versionLabel.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
+		versionLabel.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 16).isActive = true
+		versionLabel.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 16).isActive = true
+
+		return footerView
 	}
+}
+
+extension AppInformationViewController {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = super.tableView(tableView, cellForRowAt: indexPath)
+		cell.accessoryType = .disclosureIndicator
+		cell.selectionStyle = .default
+		return cell
+	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+
+		if let category = Category(rawValue: indexPath.row),
+			let action = Self.model[category]?.action {
+			self.execute(action: action)
+		}
+	}
+
 }

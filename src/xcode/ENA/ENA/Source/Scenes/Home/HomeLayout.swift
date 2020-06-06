@@ -18,16 +18,14 @@
 import UIKit
 
 protocol HomeLayoutDelegate: AnyObject {
-	func homeLayout(homeLayout: HomeLayout, for sectionIndex: Int) -> HomeViewController.Section?
+	func homeLayoutSection(for sectionIndex: Int) -> HomeViewController.Section?
 }
 
-final class HomeLayout {
-	weak var delegate: HomeLayoutDelegate?
-
-	func collectionLayout() -> UICollectionViewLayout {
-		let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { [unowned self] sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
-			guard let homeSection = self.delegate?.homeLayout(homeLayout: self, for: sectionIndex) else { return nil }
-			let section = self.layoutSection(for: homeSection, layoutEnvironment: layoutEnvironment)
+extension UICollectionViewLayout {
+	class func homeLayout(delegate: HomeLayoutDelegate) -> UICollectionViewLayout {
+		let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
+			guard let homeSection = delegate.homeLayoutSection(for: sectionIndex) else { return nil }
+			let section = layoutSection(for: homeSection, layoutEnvironment: layoutEnvironment)
 			return section
 		}
 		let config = UICollectionViewCompositionalLayoutConfiguration()
@@ -40,8 +38,8 @@ final class HomeLayout {
 
 		return layout
 	}
-
-	private func layoutSection(for section: HomeViewController.Section, layoutEnvironment _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
+	
+	private static func layoutSection(for section: HomeViewController.Section, layoutEnvironment _: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
 		switch section {
 		case .actions:
 			return mainSection()
@@ -52,12 +50,12 @@ final class HomeLayout {
 		}
 	}
 
-	private func mainSection() -> NSCollectionLayoutSection {
-		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
+	private static func mainSection() -> NSCollectionLayoutSection {
+		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(500.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
 		item.edgeSpacing = .init(leading: .none, top: .fixed(16.0), trailing: .none, bottom: .none)
 
-		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1000.0))
+		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1500.0))
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
 		let section = NSCollectionLayoutSection(group: group)
@@ -70,7 +68,7 @@ final class HomeLayout {
 		return section
 	}
 
-	private func infoSection() -> NSCollectionLayoutSection {
+	private static func infoSection() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -83,7 +81,7 @@ final class HomeLayout {
 		return section
 	}
 
-	private func settingsSection() -> NSCollectionLayoutSection {
+	private static func settingsSection() -> NSCollectionLayoutSection {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
 

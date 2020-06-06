@@ -48,12 +48,26 @@ protocol ExposureSubmissionService {
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
 	func hasRegistrationToken() -> Bool
 	func deleteTest()
+	var devicePairingConsentAcceptTimestamp: Int64? { get }
+	func preconditions() -> ExposureManagerState
+	func acceptPairing()
 }
 
 class ENAExposureSubmissionService: ExposureSubmissionService {
+
 	let diagnosiskeyRetrieval: DiagnosisKeysRetrieval
 	let client: Client
 	let store: Store
+	
+	private var devicePairingConsentAccept: Bool {
+		get { self.store.devicePairingConsentAccept }
+		set { self.store.devicePairingConsentAccept = newValue }
+	}
+
+	private(set) var devicePairingConsentAcceptTimestamp: Int64? {
+		get { self.store.devicePairingConsentAcceptTimestamp }
+		set { self.store.devicePairingConsentAcceptTimestamp = newValue }
+	}
 
 	init(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) {
 		self.diagnosiskeyRetrieval = diagnosiskeyRetrieval
@@ -70,7 +84,13 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	func deleteTest() {
 		store.registrationToken = nil
+		store.testResultReceivedTimeStamp = nil
+		store.devicePairingConsentAccept = false
+		store.devicePairingSuccessfulTimestamp = nil
+		store.devicePairingConsentAcceptTimestamp = nil
+		store.isAllowedToSubmitDiagnosisKeys = false
 	}
+
 
 	/// This method gets the test result based on the registrationToken that was previously
 	/// received, either from the TAN or QR Code flow. After successful completion,
@@ -92,7 +112,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				}
 
 				completeWith(.success(testResult))
-				self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
+				if testResult != .pending {
+					self.store.testResultReceivedTimeStamp = Int64(Date().timeIntervalSince1970)
+				}
 			}
 		}
 	}
@@ -102,7 +124,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
 		completion completeWith: @escaping RegistrationHandler
 	) {
-		store(key: deviceRegistrationKey)
 		let (key, type) = getKeyAndType(for: deviceRegistrationKey)
 		client.getRegistrationToken(forKey: key, withType: type) { result in
 			switch result {
@@ -110,7 +131,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				completeWith(.failure(self.parseError(error)))
 			case let .success(registrationToken):
 				self.store.registrationToken = registrationToken
-				self.delete(key: deviceRegistrationKey)
+				self.store.testResultReceivedTimeStamp = nil
+				self.store.devicePairingSuccessfulTimestamp = Int64(Date().timeIntervalSince1970)
+				self.store.devicePairingConsentAccept = true
 				completeWith(.success(registrationToken))
 			}
 		}
@@ -155,24 +178,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	private func store(key: DeviceRegistrationKey) {
-		switch key {
-		case let .guid(testGUID):
-			store.testGUID = testGUID
-		case let .teleTan(teleTan):
-			store.teleTan = teleTan
-		}
-	}
-
-	private func delete(key: DeviceRegistrationKey) {
-		switch key {
-		case .guid:
-			store.testGUID = nil
-		case .teleTan:
-			store.teleTan = nil
-		}
-	}
-
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
 	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
@@ -185,9 +190,30 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return
 			}
 
-			guard let keys = keys, !keys.isEmpty else {
+			guard var keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
 				return
+			}
+
+			var transmissionRiskDefaultVector: [Int] {
+				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
+			}
+
+			keys.sort {
+				$0.rollingStartNumber > $1.rollingStartNumber
+			}
+			
+			if keys.count > 14 {
+				keys = Array(keys[0 ..< 14])
+			}
+			
+			let startIndex = 0
+			for i in startIndex...keys.count - 1 {
+				if i + 1 <= transmissionRiskDefaultVector.count - 1 {
+					keys[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
+				} else {
+					keys[i].transmissionRiskLevel = UInt8(1)
+				}
 			}
 
 			self.client.submit(keys: keys, tan: tan) { error in
@@ -204,12 +230,9 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	}
 
 	// This method removes all left over persisted objects part of the
-	// `submitExposure` flow. Removes the guid, registrationToken,
+	// `submitExposure` flow. Removes the registrationToken,
 	// and isAllowedToSubmitDiagnosisKeys.
 	private func submitExposureCleanup() {
-		// View comment in `delete(key: DeviceRegistrationKey)`
-		// why this method is needed explicitly like this.
-		delete(key: .guid(""))
 		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
@@ -222,8 +245,12 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func parseError(_ error: Error) -> ExposureSubmissionError {
 		if let enError = error as? ENError {
 			switch enError.code {
-			default:
+			case .notEnabled:
 				return .enNotEnabled
+			case .notAuthorized:
+				return .notAuthorized
+			default:
+				return .other(enError.localizedDescription)
 			}
 		}
 
@@ -253,8 +280,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				return .httpError(wrapped.localizedDescription)
 			case .invalidResponse:
 				return .invalidResponse
-			case .qRTeleTanAlreadyUsed:
-				return .qRTeleTanAlreadyUsed
+			case .teleTanAlreadyUsed:
+				return .teleTanAlreadyUsed
+			case .qRAlreadyUsed:
+				return .qRAlreadyUsed
 			case .regTokenNotExist:
 				return .regTokenNotExist
 			case .noResponse:
@@ -266,18 +295,30 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 		return .unknown
 	}
+
+	func preconditions() -> ExposureManagerState {
+		diagnosiskeyRetrieval.preconditions()
+	}
+
+	func acceptPairing() {
+		devicePairingConsentAccept = true
+		devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+	}
 }
 
 enum ExposureSubmissionError: Error, Equatable {
 	case other(String)
 	case noRegistrationToken
 	case enNotEnabled
+	case notAuthorized
 	case noKeys
 	case noConsent
+	case noExposureConfiguration
 	case invalidTan
 	case invalidResponse
 	case noResponse
-	case qRTeleTanAlreadyUsed
+	case teleTanAlreadyUsed
+	case qRAlreadyUsed
 	case regTokenNotExist
 	case serverError(Int)
 	case unknown
@@ -288,32 +329,38 @@ extension ExposureSubmissionError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case let .serverError(code):
-			return "Error \(code): \(HTTPURLResponse.localizedString(forStatusCode: code))"
+			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
 		case let .httpError(desc):
 			return desc
 		case .invalidTan:
-			return "Invalid Tan"
+			return AppStrings.ExposureSubmissionError.invalidTan
 		case .enNotEnabled:
-			return "Exposure Notification disabled"
+			return AppStrings.ExposureSubmissionError.enNotEnabled
+		case .notAuthorized:
+			return AppStrings.ExposureSubmissionError.notAuthorized
 		case .noRegistrationToken:
-			return "No registration token"
+			return AppStrings.ExposureSubmissionError.noRegistrationToken
 		case .invalidResponse:
-			return "Invalid response"
+			return AppStrings.ExposureSubmissionError.invalidResponse
 		case .noResponse:
-			return "No response was received"
-		case .qRTeleTanAlreadyUsed:
-			return "QR Code or TeleTAN already used."
+			return AppStrings.ExposureSubmissionError.noResponse
+		case .noExposureConfiguration:
+			return AppStrings.ExposureSubmissionError.noConfiguration
+		case .qRAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.qrAlreadyUsed
+		case .teleTanAlreadyUsed:
+			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
 		case .regTokenNotExist:
-			return "Reg Token does not exist."
+			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		case .noKeys:
-			return "No diagnoses keys available. Please try tomorrow again."
+			return AppStrings.ExposureSubmissionError.noKeys
 		case let .other(desc):
-			return "Other Error: \(desc)"
+			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:
-			return "An unknown error occured"
+			return AppStrings.ExposureSubmissionError.unknown
 		default:
 			logError(message: "\(self)")
-			return "Default Exposure Submission Error"
+			return AppStrings.ExposureSubmissionError.defaultError
 		}
 	}
 }

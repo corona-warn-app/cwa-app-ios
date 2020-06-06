@@ -31,13 +31,15 @@ protocol Client {
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
+	typealias AppConfigurationCompletion = (SAP_ApplicationConfiguration?) -> Void
 
 	// MARK: Interacting with a Client
 
+	/// Gets the app configuratoin
+	func appConfiguration(completion: @escaping AppConfigurationCompletion)
+
 	/// Determines days that can be downloaded.
-	func availableDays(
-		completion: @escaping AvailableDaysCompletionHandler
-	)
+	func availableDays(completion: @escaping AvailableDaysCompletionHandler)
 
 	/// Determines hours that can be downloaded for a given day.
 	func availableHours(
@@ -45,7 +47,7 @@ protocol Client {
 		completion: @escaping AvailableHoursCompletionHandler
 	)
 
-	// registersTheDevice
+	/// Gets the registration token
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String, completion completeWith: @escaping RegistrationHandler
@@ -111,7 +113,7 @@ extension SubmissionError: LocalizedError {
 	var localizedDescription: String {
 		switch self {
 		case let .serverError(code):
-			return HTTPURLResponse.localizedString(forStatusCode: code)
+			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .invalidPayloadOrHeaders:
 			return "Received an invalid Payload or headers."
 		case .invalidTan:

@@ -18,99 +18,39 @@
 import Foundation
 import UIKit
 
-class AppInformationDetailViewController: UITableViewController {
-	var model: AppInformationDetailModel!
+class AppInformationDetailViewController: DynamicTableViewController {
+	var separatorStyle: UITableViewCell.SeparatorStyle = .none { didSet { tableView?.separatorStyle = separatorStyle } }
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
-		navigationItem.title = model.title
+		tableView.backgroundColor = .enaColor(for: .background)
+		tableView.separatorColor = .enaColor(for: .hairline)
+		tableView.allowsSelection = false
+		tableView.separatorStyle = separatorStyle
 
-		if let headerImage = model.headerImage {
-			(tableView.tableHeaderView as? UIImageView)?.image = headerImage
-		} else {
-			tableView.tableHeaderView = nil
-		}
-	}
-
-	override func numberOfSections(in _: UITableView) -> Int {
-		1
-	}
-
-	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-		model.content.count
+		tableView.register(AppInformationLegalCell.self, forCellReuseIdentifier: CellReuseIdentifier.legal.rawValue)
+		tableView.register(DynamicTableViewHtmlCell.self, forCellReuseIdentifier: CellReuseIdentifier.html.rawValue)
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cellContent = model.content[indexPath.item]
-
-		let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: cellContent.cellType.rawValue, for: indexPath)
-
-		switch cellContent {
-		case let .headline(text):
-			cell.textLabel?.text = text
-		case let .body(text):
-			cell.textLabel?.text = text
-		case let .bold(text):
-			cell.textLabel?.text = text
-		case let .small(text):
-			cell.textLabel?.text = text
-		case let .tiny(text):
-			cell.textLabel?.text = text
-		case let .phone(text, _):
-			cell.textLabel?.text = text
-		case .seperator:
-			break
-		}
-
+		let cell = super.tableView(tableView, cellForRowAt: indexPath)
+		cell.backgroundColor = .clear
 		return cell
 	}
-
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		tableView.deselectRow(at: indexPath, animated: true)
-
-		let cellContent = model.content[indexPath.item]
-
-		switch cellContent {
-		case let .phone(_, number):
-			if let url = URL(string: "tel://\(number)") {
-				UIApplication.shared.open(url)
-			}
-		default:
-			break
-		}
-	}
 }
+
 
 extension AppInformationDetailViewController {
-	fileprivate enum ReusableCellIdentifier: String {
-		case headline = "headlineCell"
-		case body = "bodyCell"
-		case bold = "boldCell"
-		case small = "smallCell"
-		case tiny = "tinyCell"
-		case phone = "phoneCell"
-		case seperator = "separatorCell"
+	enum CellReuseIdentifier: String, TableViewCellReuseIdentifiers {
+		case legal = "legalCell"
+		case html = "htmlCell"
 	}
 }
 
-private extension AppInformationDetailModel.Content {
-	var cellType: AppInformationDetailViewController.ReusableCellIdentifier {
-		switch self {
-		case .headline:
-			return .headline
-		case .body:
-			return .body
-		case .bold:
-			return .bold
-		case .small:
-			return .small
-		case .tiny:
-			return .tiny
-		case .phone:
-			return .phone
-		case .seperator:
-			return .seperator
-		}
+extension AppInformationDetailViewController: UITextViewDelegate {
+	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+		WebPageHelper.openSafari(withUrl: url, from: self)
+		return false
 	}
 }

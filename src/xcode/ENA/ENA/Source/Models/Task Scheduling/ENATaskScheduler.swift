@@ -19,15 +19,15 @@ import BackgroundTasks
 import ExposureNotification
 import UIKit
 
-public enum ENATaskIdentifier: String, CaseIterable {
+enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
-	case detectExposures = "detect-exposures.exposure-notification"
+	case detectExposures = "exposure-notification" // detect-exposures.exposure-notification"
 	case fetchTestResults = "fetch-test-results"
 
-	var backgroundTaskScheduleInterval: TimeInterval {
+	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
-		// set to trigger every 2 hours
-		case .detectExposures: return 2 * 60 * 60
+		// set to trigger at the earliest begin time possible
+		case .detectExposures: return nil
 		// set to trigger every 2 hours
 		case .fetchTestResults: return 2 * 60 * 60
 		}
@@ -43,24 +43,18 @@ protocol ENATaskExecutionDelegate: AnyObject {
 	func executeFetchTestResults(task: BGTask)
 }
 
-public class ENATaskScheduler {
+final class ENATaskScheduler {
+	static let shared = ENATaskScheduler()
+	private init() {
+		registerBackgroundTaskRequests()
+	}
+
 	weak var taskDelegate: ENATaskExecutionDelegate?
-	lazy var notificationManager = LocalNotificationManager()
 	typealias CompletionHandler = (() -> Void)
 
-	public func registerBackgroundTaskRequests() {
+	private func registerBackgroundTaskRequests() {
 		registerTask(with: .detectExposures, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
-	}
-
-	public func scheduleBackgroundTaskRequests() {
-		BGTaskScheduler.shared.cancelAllTaskRequests()
-		scheduleBackgroundTask(for: .detectExposures)
-		scheduleBackgroundTask(for: .fetchTestResults)
-	}
-
-	public func cancelAllBackgroundTaskRequests() {
-		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
 
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
@@ -70,13 +64,26 @@ public class ENATaskScheduler {
 		}
 	}
 
-	public func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
+	func scheduleBackgroundTaskRequests() {
+		cancelAllBackgroundTaskRequests()
+		scheduleBackgroundTask(for: .detectExposures)
+		scheduleBackgroundTask(for: .fetchTestResults)
+	}
 
-		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
+	func cancelAllBackgroundTaskRequests() {
+		BGTaskScheduler.shared.cancelAllTaskRequests()
+	}
+
+	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
+
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
 		taskRequest.requiresExternalPower = false
-		taskRequest.earliestBeginDate = earliestBeginDate
+		if let interval = taskIdentifier.backgroundTaskScheduleInterval {
+			taskRequest.earliestBeginDate = Date(timeIntervalSinceNow: interval)
+		} else {
+			taskRequest.earliestBeginDate = nil
+		}
 
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)

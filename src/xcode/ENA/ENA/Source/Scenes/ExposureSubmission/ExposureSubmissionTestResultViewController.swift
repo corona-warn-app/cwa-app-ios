@@ -23,6 +23,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	var exposureSubmissionService: ExposureSubmissionService?
 	var testResult: TestResult?
+	var timeStamp: Int64?
 	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View Lifecycle methods.
@@ -30,9 +31,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupButton()
-		DispatchQueue.main.async { [weak self] in
-			self?.navigationController?.navigationBar.sizeToFit()
-		}
 	}
 	
 
@@ -56,6 +54,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	private func setupView() {
 		setupDynamicTableView()
 		setupNavigationBar()
+		timeStamp = exposureSubmissionService?.devicePairingConsentAcceptTimestamp
 	}
 
 	private func setupButton() {
@@ -100,19 +99,19 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	private func deleteTest() {
 		let alert = UIAlertController(
-			title: "Test entfernen?",
-			message: "Der Test wird endgültig aus der Corona-Warn-App entfernt. Dieser Vorgang kann nicht widerrufen werden.",
+			title: AppStrings.ExposureSubmissionResult.removeAlert_Title,
+			message: AppStrings.ExposureSubmissionResult.removeAlert_Text,
 			preferredStyle: .alert
 		)
 
 		let cancel = UIAlertAction(
-			title: "Abbrechen",
+			title: AppStrings.Common.alertActionCancel,
 			style: .cancel,
 			handler: { _ in alert.dismiss(animated: true, completion: nil) }
 		)
 
 		let delete = UIAlertAction(
-			title: "Entfernen",
+			title: AppStrings.Common.alertActionRemove,
 			style: .destructive,
 			handler: { _ in
 				self.exposureSubmissionService?.deleteTest()
@@ -142,8 +141,17 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			}
 	}
 
+	/// Only show the "warn others" screen if the ENManager is enabled correctly,
+	/// otherwise, show an alert.
 	private func showWarnOthers() {
-		performSegue(withIdentifier: Segue.warnOthers, sender: self)
+		if let state = exposureSubmissionService?.preconditions() {
+			if !state.isGood {
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(.enNotEnabled)
+				self.present(alert, animated: true, completion: nil)
+				return
+			}
+			performSegue(withIdentifier: Segue.warnOthers, sender: self)
+		}
 	}
 }
 
@@ -166,7 +174,7 @@ extension ExposureSubmissionTestResultViewController {
 // MARK: ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
+	func didTapButton() {
 		guard let result = testResult else { return }
 
 		switch result {
@@ -220,12 +228,12 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .positive, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -246,17 +254,18 @@ private extension ExposureSubmissionTestResultViewController {
 		)
 	}
 
+	// swiftlint:disable:next function_body_length
 	private func negativeTestResultSection() -> DynamicSection {
 		.section(
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .negative, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -268,7 +277,13 @@ private extension ExposureSubmissionTestResultViewController {
 					image: UIImage(named: "Icons_Grey_Check"),
 					hasSeparators: false
 				),
-				.bigBold(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
+				.stepCellWith(
+					title: nil,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
+					image: nil,
+					hasSeparators: false
+				),
+				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
 				.stepCellWith(
 					title: nil,
 					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1,
@@ -302,12 +317,12 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .invalid, timeStamp: self.timeStamp)
 				}
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -328,11 +343,11 @@ private extension ExposureSubmissionTestResultViewController {
 			header: .identifier(
 				ExposureSubmissionTestResultViewController.HeaderReuseIdentifier.testResult,
 				configure: { view, _ in
-					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending)
+					(view as? ExposureSubmissionTestResultHeaderView)?.configure(testResult: .pending, timeStamp: self.timeStamp)
 				}
 			),
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,

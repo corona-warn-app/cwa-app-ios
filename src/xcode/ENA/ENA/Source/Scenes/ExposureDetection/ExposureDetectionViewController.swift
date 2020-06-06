@@ -19,7 +19,7 @@ import ExposureNotification
 import Foundation
 import UIKit
 
-final class ExposureDetectionViewController: DynamicTableViewController {
+final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
 	// MARK: Properties
 
 	@IBOutlet var closeImage: UIImageView!
@@ -27,11 +27,13 @@ final class ExposureDetectionViewController: DynamicTableViewController {
 	@IBOutlet var titleViewBottomConstraint: NSLayoutConstraint!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var footerView: UIView!
-	@IBOutlet var checkButton: UIButton!
+	@IBOutlet var checkButton: ENAButton!
 
 	var state: State
 	private weak var delegate: ExposureDetectionViewControllerDelegate?
 	private weak var refreshTimer: Timer?
+
+	private let consumer = RiskConsumer()
 
 	// MARK: Creating an Exposure Detection View Controller
 
@@ -54,12 +56,21 @@ extension ExposureDetectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		consumer.didCalculateRisk = { risk in
+			self.state.risk = risk
+			self.updateUI()
+		}
+
+		consumer.nextExposureDetectionDateDidChange = { date in
+
+		}
+
+		riskProvider.observeRisk(consumer)
 		updateUI()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
 		updateUI()
 	}
 
@@ -84,13 +95,13 @@ extension ExposureDetectionViewController {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
 
 		(cell as? DynamicTypeTableViewCell)?.backgroundColor = .clear
-
+		
 		if cell.backgroundView == nil {
 			cell.backgroundView = UIView()
 		}
 
 		if cell.backgroundColor == nil || cell.backgroundColor == .clear {
-			cell.backgroundView?.backgroundColor = .preferredColor(for: .backgroundPrimary)
+			cell.backgroundView?.backgroundColor = .enaColor(for: .background)
 		}
 
 		return cell
@@ -115,22 +126,19 @@ private extension ExposureDetectionViewController {
 	}
 
 	@IBAction private func tappedBottomButton() {
-		log(message: "Starting exposure detection ...")
-
-		if state.isTracingEnabled {
-			delegate?.exposureDetectionViewControllerStartTransaction(self)
-		} else {
+		guard state.isTracingEnabled else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
 				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
-				// TODO: handle error
 			}
+			return
 		}
+		riskProvider.requestRisk()
 	}
 }
 
 extension ExposureDetectionViewController: ExposureStateUpdating {
-	func updateExposureState(_ emState: ExposureManagerState) {
-		state.exposureManagerState = emState
+	func updateExposureState(_ exposureManagerState: ExposureManagerState) {
+		state.exposureManagerState = exposureManagerState
 		updateUI()
 	}
 }
@@ -156,9 +164,9 @@ extension ExposureDetectionViewController {
 
 	private func updateCloseButton() {
 		if state.isTracingEnabled {
-			closeImage.image = UIImage(named: "exposure-detection-close-contrast")
+			closeImage.image = UIImage(named: "Icons - Close - Contrast")
 		} else {
-			closeImage.image = UIImage(named: "exposure-detection-close")
+			closeImage.image = UIImage(named: "Icons - Close")
 		}
 	}
 
@@ -169,7 +177,6 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateTableView() {
-		tableView.backgroundColor = state.riskTintColor
 		tableView.reloadData()
 	}
 
@@ -185,11 +192,10 @@ extension ExposureDetectionViewController {
 		if !state.isTracingEnabled {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
-			checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
-			checkButton.setTitleColor(.white, for: .normal)
-			checkButton.backgroundColor = .preferredColor(for: .tint)
+			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
+			return
 		}
-
+		
 		switch state.mode {
 		case .automatic:
 			footerView.isHidden = true

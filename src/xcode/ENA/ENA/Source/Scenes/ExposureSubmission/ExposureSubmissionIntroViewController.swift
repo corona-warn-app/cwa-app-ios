@@ -28,22 +28,16 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		DispatchQueue.main.async { [weak self] in
-			self?.navigationController?.navigationBar.sizeToFit()
-		}
-
 		// The button is shared among multiple controllers,
 		// make sure to reset it whenever the view appears.
-		setButtonTitle(to: "Weiter")
-
-
+		setButtonTitle(to: AppStrings.ExposureSubmission.continueText)
 		if exposureSubmissionService?.hasRegistrationToken() ?? false {
 			fetchResult()
 		}
 	}
 
-	override func viewWillDisappear(_: Bool) {
-		setButtonTitle(to: "")
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
 	}
 
 	override func viewDidLoad() {
@@ -66,9 +60,8 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	}
 
 	private func setupTitle() {
-		title = AppStrings.ExposureSubmissionIntroduction.title
 		navigationItem.largeTitleDisplayMode = .always
-		navigationController?.navigationBar.prefersLargeTitles = true
+		title = AppStrings.ExposureSubmissionIntroduction.title
 	}
 
 	private func setupTableView() {
@@ -93,7 +86,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 	// MARK: - ExposureSubmissionNavigationControllerChild methods.
 
-	func didTapBottomButton() {
+	func didTapButton() {
 		performSegue(withIdentifier: Segue.overview, sender: self)
 	}
 
@@ -116,13 +109,17 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
-
-		DynamicSection.section(
-			header: .image(UIImage(named: "Illu_Submission_Funktion1"), height: 200),
+		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle),
+		.section(
+			header: .image(
+				UIImage(named: "Illu_Submission_Funktion1"),
+				accessibilityLabel: nil,
+				height: 200
+			),
 			separators: false,
 			cells: [
-				.bold(text: AppStrings.ExposureSubmissionIntroduction.usage01),
-				.regular(text: AppStrings.ExposureSubmissionIntroduction.usage02),
+				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01),
+				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,

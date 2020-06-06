@@ -18,23 +18,67 @@
 import ExposureNotification
 import Foundation
 
-enum RiskLevel {
-	case unknown
+/// Exposure Risk level
+///
+/// - important: Due to exception case, `CaseIterable` `allCases` does not produce a correctly sorted collection!
+enum RiskLevel: Int, CaseIterable {
+	/*
+	RiskLevels are ordered according to these rules:
+	1. .low is least
+	2. .inactive is highest
+	3. .increased overrides .unknownOutdated
+	4. .unknownOutdated overrides .low AND .increased
+	5. .unknownInitial overrides .low AND .unknownOutdated
+	*/
+	
+	/// Low risk
+	case low = 0
+	/// Increased risk
+	///
+	/// - important: Should overrule `.unknownOutdated`, and `.unknownInitial`
+	case increased
+	/// Unknown risk  last calculation more than 24 hours old
+	///
+	/// Will be shown when the last calculation is more than 24 hours old - until the calculation is run again
+	/// - important: Overrules `.increased` and `low`
+	case unknownOutdated
+	/// Unknown risk - no calculation has been performed yet
+	///
+	/// - important: Overrules `.low` and `.unknownOutdated`
+	case unknownInitial
+	/// No calculation possible - tracing is inactive
+	///
+	/// - important: Should always be displayed, even if a different risk level has been calculated. It should override all other levels!
 	case inactive
-	case low
-	case high
 
 	init(riskScore: ENRiskScore?) {
 		guard let riskScore = riskScore else {
-			self = .unknown
+			self = .unknownInitial
 			return
 		}
 		self = riskScore.riskLevel
 	}
 }
 
+extension RiskLevel: Comparable {
+	/// - attention: Might not produce valid results when sorting Collections  of RiskLevels, because of the exception case which overrides the normal rawValue compare!
+	static func < (lhs: RiskLevel, rhs: RiskLevel) -> Bool {
+		// Generally we compare the raw values, but there is one exception:
+		// .increased should override .unknownOutdated
+		switch (lhs, rhs) {
+		case (.unknownOutdated, .increased):
+			return true
+		// .increased should override .unknownInitial
+		case (.unknownInitial, .increased):
+				return true
+		default:
+		return lhs.rawValue < rhs.rawValue
+		}
+	}
+}
+
 extension ENRiskScore {
 	var riskLevel: RiskLevel {
-		self <= 100 ? .low : .high
+		self <= 100 ? .low : .increased
 	}
 }

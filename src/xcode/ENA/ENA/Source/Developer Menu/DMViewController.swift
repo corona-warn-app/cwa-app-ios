@@ -31,7 +31,7 @@ final class DMViewController: UITableViewController {
 		self.store = store
 		self.exposureManager = exposureManager
 		super.init(style: .plain)
-		title = "Developer Menu"
+		title = "👩🏾‍💻🧑‍💻"
 	}
 
 	required init?(coder _: NSCoder) {

@@ -31,7 +31,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		setSecondaryButtonTitle(to: "")
 		hideSecondaryButton()
 	}
 
@@ -59,20 +58,23 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		dynamicTableViewModel = DynamicTableViewModel(
 			[
 				.section(
-					header: .image(UIImage(named: "Illu_Submission_Kontakt")),
+					header: .image(UIImage(named: "Illu_Submission_Kontakt"), accessibilityLabel: nil),
 					cells: [
-						.regular(text: AppStrings.ExposureSubmissionHotline.description)
+						.body(text: AppStrings.ExposureSubmissionHotline.description)
 					]
 				),
 				DynamicSection.section(
 					cells: [
-						.bigBold(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
-						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
-							guard let cell = cell as? DynamicTableViewStepCell else { return }
-							cell.configure(
-								text: AppStrings.ExposureSubmissionHotline.sectionDescription1,
-								image: UIImage(named: "Icons_Grey_1")
-							)
+						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
+						.identifier(CustomCellReuseIdentifiers.stepCell,
+									action: .execute { _ in self.callHotline() },
+									configure: { _, cell, _ in
+										guard let cell = cell as? DynamicTableViewStepCell else { return }
+										cell.configure(
+											text: AppStrings.ExposureSubmissionHotline.sectionDescription1,
+											attributedText: self.getAttributedStrings(),
+											image: UIImage(named: "Icons_Grey_1")
+										)
                         }),
 						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
 							guard let cell = cell as? DynamicTableViewStepCell else { return }
@@ -84,6 +86,26 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 					])
 			]
 		)
+	}
+
+	/// Gets the attributed string that makes the phone number blue and bold.
+	private func getAttributedStrings() -> [NSAttributedString] {
+		let font: UIFont = .preferredFont(forTextStyle: .body)
+		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
+		let color: UIColor = .preferredColor(for: .tint)
+		let attr1: [NSAttributedString.Key: Any] = [.font: boldFont, .foregroundColor: color]
+		let word = NSAttributedString(
+			string: AppStrings.ExposureSubmissionHotline.phoneNumber,
+			attributes: attr1
+		)
+
+		let attr2: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .footnote)]
+		let description = NSAttributedString(
+			string: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
+			attributes: attr2
+		)
+
+		return [word, description]
 	}
 }
 
@@ -106,7 +128,7 @@ extension ExposureSubmissionHotlineViewController {
 // MARK: - ExposureSubmissionNavigationControllerChild Extension.
 
 extension ExposureSubmissionHotlineViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
+	func didTapButton() {
 		callHotline()
 	}
 

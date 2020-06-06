@@ -23,26 +23,81 @@ class SQLiteKeyValueStore {
 	private let db: FMDatabase
 
 	/// - parameter url: URL on disk where the FMDB should be initialized
+	/// If any part of the init fails no Datbase will be created
+	/// If the Database can't be accessed with the key the currentFile will be reset
 	init(with url: URL) {
-		let sqlStmt = """
-		CREATE TABLE IF NOT EXISTS kv (
-		    key TEXT UNIQUE,
-		    value BLOB
-		);
-		"""
-
 		db = FMDatabase(url: url)
-		db.open()
-		db.executeStatements(sqlStmt)
+		if !db.open() {
+			logError(message: "Database could not be opened")
+			return
+		}
+		initDatabase()
 	}
 
 	deinit {
 		db.close()
 	}
 
+	/// Generates or Loads Database Key
+	/// Creates the K/V Datsbase if it is not already there
+	private func initDatabase() {
+		var key: String
+
+		if checkInitalSetup() {
+			guard let generatedKey = generateDatabaseKey() else {
+				db.close()
+				return
+			}
+			key = generatedKey
+		} else {
+			if let keyData = loadFromKeychain(key: "secureStoreDatabaseKey") {
+				key = String(decoding: keyData, as: UTF8.self)
+			} else {
+				guard let generatedKey = generateDatabaseKey() else {
+					db.close()
+					return
+				}
+				key = generatedKey
+			}
+		}
+		let dbhandle = OpaquePointer(db.sqliteHandle)
+		guard sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
+			logError(message: "Unable to set Key")
+			db.close()
+			return
+		}
+		let sqlStmt = """
+		PRAGMA auto_vacuum=2;
+
+		CREATE TABLE IF NOT EXISTS kv (
+			key TEXT UNIQUE,
+			value BLOB
+		);
+		"""
+		if !db.executeStatements(sqlStmt) {
+			removeDatabase()
+		}
+	}
+
+	/// Checks if is the inital Setup of the Database
+	/// This determins if a new Key should be generated or not
+	private func checkInitalSetup() -> Bool {
+		do {
+			let query = "SELECT count(*) FROM sqlite_master;;"
+			 let result = try db.executeQuery(query, values: [])
+			result.close()
+			return true
+		} catch {
+			return false
+		}
+	}
+
+	///Open Database Connection, set the Key and check if the Key/Value Table already exits.
+	/// This retries the init steps, in case there was an issue
 	private func openDbIfNeeded() {
 		if !db.isOpen {
 			db.open()
+			initDatabase()
 		}
 	}
 
@@ -62,9 +117,7 @@ class SQLiteKeyValueStore {
 				}
 				resultData = data
 			}
-
 			result.close()
-
 			return resultData
 		} catch {
 			logError(message: "Failed to retrieve value from K/V SQLite store: \(error.localizedDescription)")
@@ -99,15 +152,28 @@ class SQLiteKeyValueStore {
 	/// Removes all key/value pairs from the Store
 	func clearAll() {
 		openDbIfNeeded()
-		let deleteStmt = "DELETE FROM kv;"
+
+		let sqlStmt = """
+		PRAGMA journal_mode=OFF;
+		DROP TABLE kv;
+		VACUUM;
+		"""
+		 db.executeStatements(sqlStmt)
+		removeDatabase()
+	}
+
+	/// Removes the Database File to clear everything
+	private func removeDatabase() {
+		db.close()
 		do {
-			try db.executeUpdate(deleteStmt, values: [])
-			try db.executeUpdate("VACUUM", values: [])
-			log(message: "Cleared SecureStore", level: .info)
+			guard let url: URL = db.databaseURL else {
+				logError(message: "DatabaseURL not found in db")
+				return
+			}
+			try FileManager.default.removeItem(at: url)
 		} catch {
-			logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+			logError(message: "Failed to delete database file")
 		}
-		return
 	}
 
 	/// Removes most key/value pairs.
@@ -150,7 +216,6 @@ class SQLiteKeyValueStore {
 			guard let data = getData(for: key) else {
 				return nil
 			}
-			// TODO: Error handling
 			return try? JSONDecoder().decode(Model.self, from: data)
 		}
 		set {
@@ -161,5 +226,64 @@ class SQLiteKeyValueStore {
 				logError(message: "Error when encoding value for inserting into K/V SQLite store: \(error.localizedDescription)")
 			}
 		}
+	}
+}
+
+/// Keychain Extension for storing and loading the Database Key in the Keychain
+extension SQLiteKeyValueStore {
+	func savetoKeychain(key: String, data: Data) -> OSStatus {
+		let query = [
+			kSecClass as String: kSecClassGenericPassword as String,
+			kSecAttrAccount as String: key,
+			kSecValueData as String: data ] as [String: Any]
+
+		SecItemDelete(query as CFDictionary)
+		return SecItemAdd(query as CFDictionary, nil)
+	}
+
+	func loadFromKeychain(key: String) -> Data? {
+		let query = [
+			kSecClass as String: kSecClassGenericPassword,
+			kSecAttrAccount as String: key,
+			kSecReturnData as String: kCFBooleanTrue as Any,
+			kSecMatchLimit as String: kSecMatchLimitOne
+			] as [String: Any]
+		
+		var dataTypeRef: AnyObject?
+		let status: OSStatus = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
+		if status == noErr {
+			return dataTypeRef as? Data ?? nil
+		} else {
+			return nil
+		}
+	}
+
+	func generateDatabaseKey() -> String? {
+		var bytes = [UInt8](repeating: 0, count: 32)
+		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
+		guard result == errSecSuccess else {
+			logError(message: "Error creating random bytes.")
+			return nil
+		}
+		let key = "x'\(Data(bytes).hexEncodedString())'"
+		if savetoKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) != noErr {
+			logError(message: "Unable to save Key to Keychain")
+			db.close()
+			return nil
+		}
+		return key
+	}
+}
+
+/// Extensions for Hexencoding when generating key
+extension Data {
+	struct HexEncodingOptions: OptionSet {
+		let rawValue: Int
+		static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+	}
+
+	func hexEncodedString(options: HexEncodingOptions = []) -> String {
+		let format = "%02hhX"
+		return map { String(format: format, $0) }.joined()
 	}
 }

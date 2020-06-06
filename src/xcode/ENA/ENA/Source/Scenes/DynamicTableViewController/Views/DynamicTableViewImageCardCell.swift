@@ -21,8 +21,8 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 	// MARK: - View elements.
 
-	lazy var title = UILabel(frame: .zero)
-	lazy var body = UILabel(frame: .zero)
+	lazy var title = ENALabel(frame: .zero)
+	lazy var body = ENALabel(frame: .zero)
 	lazy var cellImage = UIImageView(frame: .zero)
 	lazy var chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
 	lazy var insetView = UIView(frame: .zero)
@@ -53,16 +53,19 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 		insetView.backgroundColor = .preferredColor(for: .backgroundSecondary)
 		insetView.layer.cornerRadius = 16.0
+		insetView.clipsToBounds = true
 
 		// MARK: - Title adjustment.
 
-		title.font = .preferredFont(forTextStyle: .headline)
+		title.style = .title2
+		title.textColor = .preferredColor(for: .textPrimary1)
 		title.lineBreakMode = .byWordWrapping
 		title.numberOfLines = 0
 
 		// MARK: - Body adjustment.
 
-		body.font = .preferredFont(forTextStyle: .body)
+		body.style = .body
+		body.textColor = .preferredColor(for: .textPrimary1)
 		body.lineBreakMode = .byWordWrapping
 		body.numberOfLines = 0
 
@@ -70,6 +73,10 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 		chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
 		chevron.tintColor = UIColor.preferredColor(for: .textPrimary2)
+
+		// MARK: - Image adjustment.
+
+		cellImage.contentMode = .scaleAspectFit
 	}
 
 	override func updateConstraints() {
@@ -84,7 +91,7 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 	private func calculateHeight() -> CGFloat {
 		body.sizeToFit()
 		title.sizeToFit()
-		return max((64 + 21 + body.frame.height + title.frame.height), 196)
+		return max((64 + 21 + body.frame.height + title.frame.height), 213)
 	}
 
 	private func setupConstraints() {
@@ -140,6 +147,26 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		setupConstraints()
 		self.title.text = title
 		self.body.text = body
+		if let image = image {
+			cellImage.image = image
+		}
+	}
+
+	/// This method builds a NSMutableAttributedString for the cell.
+	/// - Parameters:
+	///   - title: The title of the cell.
+	///   - image: The image to be displayed on the right hand of the cell.
+	///   - body: The text shown below the title, which should NOT be formatted in any way.
+	///   - attributedStrings: The text that is injected into `body` with applied attributes, e.g.
+	/// 	bold text, with color.
+	func configure(title: String, image: UIImage?, body: String, attributedStrings: [NSAttributedString]) {
+		setup()
+		setupConstraints()
+		self.title.text = title
+		self.body.attributedText = NSMutableAttributedString.generateAttributedString(
+			normalText: body,
+			attributedText: attributedStrings
+		)
 		if let image = image {
 			cellImage.image = image
 		}

@@ -19,34 +19,8 @@
 import ExposureNotification
 import XCTest
 
-class MockStateHandlerObserverDelegate: StateHandlerObserverDelegate, ReachabilityObserverDelegate {
-	private var stateHandler: ENStateHandler!
-	var exposureManagerState: ExposureManagerState {
-		didSet {
-			stateHandler.exposureManagerDidUpdate(to: exposureManagerState)
-		}
-	}
-
-	var currentState: RiskDetectionState {
-		stateHandler.getState()
-	}
-
-	init(exposureManagerState: ExposureManagerState) {
-		self.exposureManagerState = exposureManagerState
-		stateHandler = ENStateHandler(exposureManagerState, delegate: self)
-	}
-
-	func stateDidChange(to _: RiskDetectionState) {}
-
-	func getLatestExposureManagerState() -> ExposureManagerState {
-		exposureManagerState
-	}
-
-	func getCurrentState() -> RiskDetectionState {
-		currentState
-	}
-
-	func reachabilityChanged(_ isReachable: Bool) {
-		stateHandler.reachabilityChanged(isReachable)
+class MockStateHandlerObserverDelegate: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		
 	}
 }
