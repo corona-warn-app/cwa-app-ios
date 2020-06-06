@@ -60,17 +60,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		developerMenu?.enableIfAllowed()
 	}
 
-	private(set) lazy var client: Client = {
-		// We disable app store checks to make testing easier.
-		//        #if APP_STORE
-		//        return HTTPClient(configuration: .production)
-		//        #endif
-
-		if ClientMode.default == .mock {
-			fatalError("not implemented")
-		}
-
-		let store = self.store
+	private lazy var clientConfiguration: HTTPClient.Configuration = {
 		guard
 			let distributionURLString = store.developerDistributionBaseURLOverride,
 			let submissionURLString = store.developerSubmissionBaseURLOverride,
@@ -78,10 +68,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
 			let submissionURL = URL(string: submissionURLString) else {
-			return HTTPClient(configuration: .production)
+			return .production
 		}
 
-		let config = HTTPClient.Configuration(
+		return HTTPClient.Configuration(
 			apiVersion: "v1",
 			country: "DE",
 			endpoints: HTTPClient.Configuration.Endpoints(
@@ -90,12 +80,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 				verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
 			)
 		)
-		return HTTPClient(configuration: config)
 	}()
 
+	private(set) lazy var client: Client = {
+		// We disable app store checks to make testing easier.
+		//        #if APP_STORE
+		//        return HTTPClient(configuration: .production)
+		//        #endif
+		return HTTPClient(configuration: self.clientConfiguration)
+	}()
 
-	private var enStateHandler:ENStateHandler?
-
+	private var enStateHandler: ENStateHandler?
 
 	// MARK: UISceneDelegate
 
@@ -160,6 +155,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		} else {
 			showHome()
 		}
+		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 		appUpdateChecker?.checkAppVersionDialog(for: window?.rootViewController)
@@ -178,7 +174,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func showHome(animated _: Bool = false) {
-		//FIXME: During the onboarding, if the user decline, the status == Unknown.
+		// FIXME: During the onboarding, if the user decline, the status == Unknown.
 		//After that
 		if exposureManager.preconditions().status == .active {
 			presentHomeVC()
@@ -198,20 +194,21 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 					logError(message: "Cannot activate the  ENManager. The reason is \(error)")
 					return
 				}
-				//TODO: Set some state
+				// TODO: Set some state
 				self?.presentHomeVC()
 			}
 		}
 	}
 
 	private func presentHomeVC() {
-
 		enStateHandler = ENStateHandler(
-				initialExposureManagerState: exposureManager.preconditions(),
-				reachabilityService: ConnectivityReachabilityService(),
-				delegate: self)
-
-
+			initialExposureManagerState: exposureManager.preconditions(),
+			reachabilityService: ConnectivityReachabilityService(
+				connectivityURLs: [clientConfiguration.configurationURL]
+			),
+			delegate: self
+		)
+		
 		guard let enStateHandler = self.enStateHandler else {
 			fatalError("It should not happen.")
 		}
@@ -220,13 +217,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			HomeViewController(
 				coder: coder,
 				exposureManager: self.exposureManager,
-				client: self.client,
-				store: self.store,
-				keyPackagesStore: self.downloadedPackagesStore,
 				delegate: self,
-				taskScheduler: self.taskScheduler,
-					initialEnState: enStateHandler.state
-
+				initialEnState: enStateHandler.state
 			)
 		}
 
@@ -299,22 +291,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		
 	}
 
-
-
-
 	private var privacyProtectionWindow: UIWindow?
 }
 
 // MARK: Privacy Protection
-extension  SceneDelegate {
-
-
+extension SceneDelegate {
 	private func showPrivacyProtectionWindow() {
 		guard
-				let windowScene = window?.windowScene,
-				store.isOnboarded == true
-				else {
-			return
+			let windowScene = window?.windowScene,
+			store.isOnboarded == true
+			else {
+				return
 		}
 		let privacyProtectionViewController = PrivacyProtectionViewController()
 		privacyProtectionWindow = UIWindow(windowScene: windowScene)

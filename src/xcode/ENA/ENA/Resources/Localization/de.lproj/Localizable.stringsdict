@@ -34,13 +34,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Bisher keine Risikobegegnungen</string>
+			<string>Bisher keine Risiko-Begegnung</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>%u Risikobegegnung</string>
+			<string>%u Risiko-Begegnung</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u Risikobegegnungen</string>
+			<string>%u Risiko-Begegnungen</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_LastExposure</key>
@@ -55,10 +55,10 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Letzter Kontakt: Heute</string>
+			<string>Letzte Begegnung: Heute</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Letzter Kontakt: Gestern</string>
+			<string>Letzte Begegnung: Gestern</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
 			<string>%u Tage seit letzter Begegnung</string>
@@ -76,10 +76,10 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-            <string>Bisher keine Risiko-Begegnungen</string>
+            <string>Bisher keine Risiko-Begegnung</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One -->
-            <string>Eine Risiko-Begegnung</string>
+            <string>%u Risiko-Begegnung</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
             <string>%u Risiko-Begegnungen</string>
@@ -149,16 +149,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Risiko-Ermittlung ist seit weniger als 1 Tag aktiv.
-Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<string>Risiko-Ermittlung ist seit weniger als 1 Tag aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Risiko-Ermittlung ist seit %u Tag aktiv.
-Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<string>Risiko-Ermittlung ist seit %u Tag aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>Risiko-Ermittlung ist seit %u Tagen aktiv.
-Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 		</dict>
 	</dict>
 </dict>

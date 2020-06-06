@@ -186,7 +186,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		self.homeViewController?.updateTestResultState()
+		homeViewController?.updateTestResultState()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
