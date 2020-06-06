@@ -12,14 +12,15 @@
             <rect key="frame" x="0.0" y="0.0" width="575" height="155"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="U8q-BV-ccC">
-                    <rect key="frame" x="0.0" y="0.0" width="575" height="155"/>
+                <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="U8q-BV-ccC">
+                    <rect key="frame" x="0.0" y="0.0" width="346" height="57"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="765" verticalHuggingPriority="251" image="Icons_Calendar" translatesAutoresizingMaskIntoConstraints="NO" id="3I7-DI-BV1">
-                            <rect key="frame" x="0.0" y="65.5" width="24" height="24"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Calendar" translatesAutoresizingMaskIntoConstraints="NO" id="3I7-DI-BV1">
+                            <rect key="frame" x="0.0" y="12.5" width="32" height="32"/>
+                            <color key="tintColor" name="ENA Text Contrast Color"/>
                             <constraints>
-                                <constraint firstAttribute="height" priority="900" constant="24" id="5NM-Ed-5sF"/>
-                                <constraint firstAttribute="width" priority="900" constant="24" id="sqY-Cl-O79"/>
+                                <constraint firstAttribute="height" constant="32" id="5NM-Ed-5sF"/>
+                                <constraint firstAttribute="width" constant="32" id="sqY-Cl-O79"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8r0-5t-F3e" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
