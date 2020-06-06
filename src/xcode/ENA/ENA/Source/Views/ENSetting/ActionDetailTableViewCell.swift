@@ -57,17 +57,17 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.internetDescription
 			iconImageView2.isHidden = false
 		case .restricted:
-			actionTitleLabel.text = "Kindersicherung aktiv"
-			descriptionLabel.text = "Bitte deaktivieren Sie Einschränkungen durch die Kindersicherung, um die Risikoermittlung zu nutzen"
+			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateParentalControlENSetting
+			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateParentalControlENSettingDescription
 			iconImageView2.isHidden = true
 		case .notAuthorized:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
 			iconImageView2.isHidden = true
 		case .unknown:
-			actionTitleLabel.text = "Autorisierung erforderlich"
-			descriptionLabel.text = "Bitte bestätigen Sie die Nutzung der COVID-19 Kontakt-Protokollierung"
-			actionButton.setTitle("Autorisieren", for: .normal)
+			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.authorizationRequiredENSetting
+			descriptionLabel.text = AppStrings.ExposureNotificationSetting.authorizationRequiredENSettingDescription
+			actionButton.setTitle(AppStrings.ExposureNotificationSetting.authorizationButtonTitle, for: .normal)
 			iconImageView2.isHidden = true
 		}
 	}
