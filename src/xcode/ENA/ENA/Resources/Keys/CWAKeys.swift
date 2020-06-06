@@ -37,28 +37,6 @@ enum CWAKeys {
 		case encodingError
 		case createError
 	}
-
-	static func getPubSecKey(for environment: Environment) throws -> SecKey {
-		guard let data = Data(base64Encoded: environment.publicKeyString) else {
-			throw KeyError.encodingError
-		}
-
-		let attributes: [String: Any] = [
-			kSecAttrKeyType as String: kSecAttrKeyTypeEC,
-			kSecAttrKeyClass as String: kSecAttrKeyClassPublic
-		]
-
-		var error: Unmanaged<CFError>?
-		let key = SecKeyCreateWithData(data as NSData, attributes as CFDictionary, &error)
-
-		if let error = error { throw error.takeRetainedValue() as Error }
-
-		guard let secKey = key else { throw KeyError.createError }
-
-		return secKey
-	}
-	
-	
 	
 	static func getPublicKeyData(_ applictionBundle: String) throws -> Data {
 		let env = getEnvironmentForApplicationBundle(applictionBundle)

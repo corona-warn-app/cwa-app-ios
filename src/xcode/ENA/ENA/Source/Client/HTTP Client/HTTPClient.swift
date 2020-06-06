@@ -58,6 +58,13 @@ final class HTTPClient: Client {
 					return
 				}
 				do {
+					// Configuration File Signature must be checked by the application since it is not verified by the operation system
+					guard try package.verifySignature() else {
+						logError(message: "Failed to verify configuration data signature")
+						completion(nil)
+						return
+					}
+					
 					let appConfig = try SAP_ApplicationConfiguration(serializedData: package.bin)
 					completion(try ENExposureConfiguration(from: appConfig.exposureConfig))
 				} catch {

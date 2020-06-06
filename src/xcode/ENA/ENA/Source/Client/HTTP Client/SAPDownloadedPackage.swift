@@ -33,12 +33,11 @@ struct SAPDownloadedPackage {
 		}
 		do {
 			self = try archive.extractKeyPackage()
-			try verifyHash(bin)
 		} catch {
 			return nil
 		}
 	}
-
+	
 	// MARK: Properties
 
 	let bin: Data
@@ -50,25 +49,19 @@ extension SAPDownloadedPackage {
 	///
 	/// This works as follows:
 	/// - We store the public key of our server (depends on landscape, we have two public keys right now)
-	/// - Neither the .bin or .sig data is encrypted (besides in transit), but the .sig file stores an encrypted SHA256 hash of the .bin file
+	/// - Neither the .bin or .sig data is encrypted (besides in transit), but the .sig file serves the signature
 	/// - The server has signed this hash with their private key.
 	///
-	/// The actual checking is performed as follows:
-	/// 1. Deserialze the `signature` `Data` into the corresponding model `SAP_TEKSignature`
-	/// 2. Decrypt the therein contained signature with out public key
-	/// 3. We now have the SHA256 hash of the .bin file
-	/// 4. Hash the .bin file, and compare the two.
-	/// 5. If they match, we can be sure that they have not been tampered with and originated from our server.
-	func verifyHash(_ dataToVerify: Data) throws -> Bool{
+	func verifySignature() throws -> Bool{
 		
 		let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature)
-
+		
 		for signatureEntry in parsedSignatureFile!.signatures{
 			let signatureData : Data = signatureEntry.signature
 			let publicKey = try P256.Signing.PublicKey(rawRepresentation: CWAKeys.getPublicKeyData(signatureEntry.signatureInfo.appBundleID))
 			let signature = try P256.Signing.ECDSASignature.init(derRepresentation: signatureData)
 				
-			if publicKey.isValidSignature(signature, for: dataToVerify) {
+			if publicKey.isValidSignature(signature, for: self.bin) {
 				return true
 			}
 		}
