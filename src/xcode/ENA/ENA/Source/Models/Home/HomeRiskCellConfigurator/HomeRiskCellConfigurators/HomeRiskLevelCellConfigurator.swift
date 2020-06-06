@@ -20,20 +20,14 @@ import UIKit
 
 class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 
-	let identifier = UUID()
-
 	// MARK: Properties
-
+	let identifier = UUID()
 	var buttonAction: (() -> Void)?
 
 	var isLoading: Bool
 	var isButtonEnabled: Bool
 	var isButtonHidden: Bool
 	var detectionIntervalLabelHidden: Bool
-
-	var startDate: Date?
-	var releaseDate: Date?
-
 	var lastUpdateDate: Date?
 
 	private let calendar = Calendar.current
@@ -61,39 +55,22 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		isButtonEnabled: Bool,
 		isButtonHidden: Bool,
 		detectionIntervalLabelHidden: Bool,
-		startDate: Date?,
-		releaseDate: Date?,
 		lastUpdateDate: Date?
 	) {
 		self.isLoading = isLoading
 		self.isButtonEnabled = isButtonEnabled
-		self.isButtonHidden = isButtonHidden // ; TODO: Use isButtonHidden again
+		self.isButtonHidden = isButtonHidden
 		self.detectionIntervalLabelHidden = detectionIntervalLabelHidden
-		self.startDate = startDate
-		self.releaseDate = releaseDate
 		self.lastUpdateDate = lastUpdateDate
 	}
 
 	// MARK: Loading
-
 	func startLoading() {
 		isLoading = true
 	}
 
 	func stopLoading() {
 		isLoading = false
-	}
-
-	// MARK: Counter
-
-	func updateCounter(startDate: Date, releaseDate: Date) {
-		self.startDate = startDate
-		self.releaseDate = releaseDate
-	}
-
-	func removeCounter() {
-		startDate = nil
-		releaseDate = nil
 	}
 
 	// MARK: Button

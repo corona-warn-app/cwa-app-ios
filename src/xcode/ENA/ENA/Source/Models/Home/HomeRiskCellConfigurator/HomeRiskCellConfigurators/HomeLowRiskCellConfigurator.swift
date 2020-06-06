@@ -25,12 +25,11 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		startDate: Date?,
-		releaseDate: Date?,
 		numberRiskContacts: Int,
 		numberDays: Int,
 		totalDays: Int,
-		lastUpdateDate: Date?
+		lastUpdateDate: Date?,
+		isButtonHidden: Bool
 	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.numberDays = numberDays
@@ -38,10 +37,8 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		super.init(
 			isLoading: false,
 			isButtonEnabled: true,
-			isButtonHidden: true,
-			detectionIntervalLabelHidden: true,
-			startDate: startDate,
-			releaseDate: releaseDate,
+			isButtonHidden: isButtonHidden,
+			detectionIntervalLabelHidden: false,
 			lastUpdateDate: lastUpdateDate
 		)
 	}

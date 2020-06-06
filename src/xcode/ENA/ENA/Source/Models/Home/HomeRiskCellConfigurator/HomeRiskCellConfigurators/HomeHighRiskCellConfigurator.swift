@@ -24,8 +24,6 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		startDate: Date?,
-		releaseDate: Date?,
 		numberRiskContacts: Int,
 		daysSinceLastExposure: Int?,
 		lastUpdateDate: Date?,
@@ -36,11 +34,9 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		super.init(
 			isLoading: false,
 			isButtonEnabled: true,
-			isButtonHidden: detectionMode == .automatic,
+			isButtonHidden: false, //detectionMode == .automatic,
 			// we never want to hide the detection interval label
 			detectionIntervalLabelHidden: false,
-			startDate: startDate,
-			releaseDate: releaseDate,
 			lastUpdateDate: lastUpdateDate
 		)
 	}

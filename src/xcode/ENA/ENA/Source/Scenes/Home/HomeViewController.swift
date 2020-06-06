@@ -123,12 +123,11 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func setupAccessibility() {
-		self.navigationItem.leftBarButtonItem?.isAccessibilityElement = true
-		self.navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
-		self.navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
-
-		self.navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-		self.navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
+		navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
+		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
+		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
+		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 	}
 
 	// MARK: Actions

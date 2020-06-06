@@ -108,12 +108,10 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	}
 
 	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool) {
-		UIView.performWithoutAnimation {
-			updateButton.setTitle(title, for: .normal)
-			updateButton.layoutIfNeeded()
-		}
+		updateButton.setTitle(title, for: .normal)
+		updateButton.setNeedsLayout()
 		updateButton.isEnabled = isEnabled
-		updateButton.isHidden = isHidden
+		updateButton.isHidden = false//isHidden
 		stackView.addArrangedSubview(updateButton)
 	}
 
