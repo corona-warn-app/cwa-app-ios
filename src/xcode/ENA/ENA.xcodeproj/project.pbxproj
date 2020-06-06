@@ -169,6 +169,7 @@
 		A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */; };
 		A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */; };
 		A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */; };
+		A189E45F248C325E001D0996 /* de-config in Resources */ = {isa = PBXBuildFile; fileRef = A189E45E248C325E001D0996 /* de-config */; };
 		A36D07B72486AD0100E46F96 /* HomeTestResultCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B62486AD0100E46F96 /* HomeTestResultCellConfigurator.swift */; };
 		A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B82486D61C00E46F96 /* HomeCardCellButtonDelegate.swift */; };
 		A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */; };
@@ -237,7 +238,6 @@
 		B1EAEC91247128ED003BE9A2 /* ClientMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EAEC90247128ED003BE9A2 /* ClientMode.swift */; };
 		B1F82DF224718C7300E2E56A /* DMConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F82DF124718C7300E2E56A /* DMConfigurationViewController.swift */; };
 		B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */ = {isa = PBXBuildFile; fileRef = B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */; };
-		B1F8AE4C2479C1C20093A588 /* de-config in Resources */ = {isa = PBXBuildFile; fileRef = B1F8AE4B2479C1C20093A588 /* de-config */; };
 		B1FE13EA248838E400D012E5 /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = B1FE13E9248838E400D012E5 /* FMDB */; };
 		B1FE13F224893CCE00D012E5 /* app_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13F124893CCE00D012E5 /* app_config.pb.swift */; };
 		CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */; };
@@ -491,6 +491,7 @@
 		A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerUtils.swift; sourceTree = "<group>"; };
 		A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelTests.swift; sourceTree = "<group>"; };
+		A189E45E248C325E001D0996 /* de-config */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config"; sourceTree = "<group>"; };
 		A36D07B62486AD0100E46F96 /* HomeTestResultCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellConfigurator.swift; sourceTree = "<group>"; };
 		A36D07B82486D61C00E46F96 /* HomeCardCellButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardCellButtonDelegate.swift; sourceTree = "<group>"; };
 		A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewController.swift; sourceTree = "<group>"; };
@@ -548,7 +549,6 @@
 		B1EAEC90247128ED003BE9A2 /* ClientMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMode.swift; sourceTree = "<group>"; };
 		B1F82DF124718C7300E2E56A /* DMConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMConfigurationViewController.swift; sourceTree = "<group>"; };
 		B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-day-2020-05-16"; sourceTree = "<group>"; };
-		B1F8AE4B2479C1C20093A588 /* de-config */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config"; sourceTree = "<group>"; };
 		B1FE13F124893CCE00D012E5 /* app_config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_config.pb.swift; path = ../../../gen/output/app_config.pb.swift; sourceTree = "<group>"; };
 		CD2EC328247D82EE00C6B3F9 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		CD678F6A246C43E200B6A0F8 /* MockExposureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureManager.swift; sourceTree = "<group>"; };
@@ -1293,7 +1293,7 @@
 			isa = PBXGroup;
 			children = (
 				B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */,
-				B1F8AE4B2479C1C20093A588 /* de-config */,
+				A189E45E248C325E001D0996 /* de-config */,
 				B17A44A12464906A00CB195E /* KeyTests.swift */,
 				B1B9CF1E246ED2E8008F04F5 /* Sap_FilebucketTests.swift */,
 			);
@@ -1741,8 +1741,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */,
+				A189E45F248C325E001D0996 /* de-config in Resources */,
 				F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */,
-				B1F8AE4C2479C1C20093A588 /* de-config in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
