@@ -3,7 +3,7 @@
 
 "Alert_MessageGeneral" = "Please try again.";
 
-"Alert_ActionOk" = "OK ";
+"Alert_ActionOk" = "OK";
 
 "Alert_ActionNo" = "No";
 
@@ -26,15 +26,15 @@
 "Alert_DefaultAction_OpenSettings" = "Open Settings";
 
 /* Exposure Detection */
-"ExposureDetection_Off" = "Risk calculation stopped";
+"ExposureDetection_Off" = "Exposure logging stopped";
 
-"ExposureDetection_Unknown" = "Risk unknown";
+"ExposureDetection_Unknown" = "Risk Unknown";
 
-"ExposureDetection_Inactive" = "No increased risk";
+"ExposureDetection_Inactive" = "No Higher Risk";
 
-"ExposureDetection_Low" = "Low risk";
+"ExposureDetection_Low" = "Low Risk";
 
-"ExposureDetection_High" = "High risk";
+"ExposureDetection_High" = "Higher Risk";
 
 "ExposureDetection_Loading" = "Check is running....";
 
@@ -46,11 +46,11 @@
 
 "ExposureDetection_RefreshingIn" = "Update in %02d:%02d minutes";
 
-"ExposureDetection_LastRiskLevel" = "Last calculation: %@";
+"ExposureDetection_LastRiskLevel" = "Last logging: %@";
 
-"ExposureDetection_UnknownText" = "Since you have not activated the risk calculation for long enough, we could not calculate your risk of infection. ";
+"ExposureDetection_UnknownText" = "Since you have not activated the exposure logging for long enough, we could not calculate your risk of infection.";
 
-"ExposureDetection_InactiveText" = "Activate risk calculation to update your risk.";
+"ExposureDetection_InactiveText" = "Activate exposure logging to update your risk.";
 
 "ExposureDetection_LoadingText" = "Current data is being downloaded and checked.\nThis can take several minutes.";
 
@@ -60,7 +60,7 @@
 
 "ExposureDetection_Guide_Hands" = "Wash your hands regularly";
 
-"ExposureDetection_Guide_Mask" = "Wear a face mask when you are close to other people.";
+"ExposureDetection_Guide_Mask" = "Wear a face mask when you encounter other people.";
 
 "ExposureDetection_Guide_Distance" = "Keep at least 1.5 metres distance from other people.";
 
@@ -74,7 +74,7 @@
 
 "ExposureDetection_Guide_Hotline3" = "General medical emergency service on telephone number 116117";
 
-"ExposureDetection_Guide_Hotline4" = "You local health authority";
+"ExposureDetection_Guide_Hotline4" = "Your public health authority";
 
 "ExposureDetection_Explanation_Title" = "Risk of Infection";
 
@@ -82,13 +82,13 @@
 
 "ExposureDetection_Explanation_Text_Off" = "Lorem Ipsum..";
 
-"ExposureDetection_Explanation_Text_Unknown" = "Your risk of infection is not known because.... Lorem Ipsum..";
+"ExposureDetection_Explanation_Text_Unknown" = "Your risk of infection is unknown.";
 
-"ExposureDetection_Explanation_Text_Inactive" = "You have a low risk of infection since no exposure to anyone tested positive for corona has been logged, or your exposure was restricted to a short time and at a greater distance.\n\nTherefore your risk of infection has been ranked as low.\n\nThe infection risk is calculated from the risk calculation data (duration and proximity) locally on your phone. Your infection risk cannot be seen by, or passed on to, anyone else.\n";
+"ExposureDetection_Explanation_Text_Inactive" = "You have a low risk of infection since no encounter to anyone diagnosed with COVID-19 has been logged, or your encounter was restricted to a short time and at a greater distance.\n\nTherefore your risk of infection has been ranked as low.\n\nThe risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
-"ExposureDetection_Explanation_Text_Low" = "You have a low risk of infection since no exposure to anyone tested positive for corona has been logged, or your exposure was restricted to a short time and at a greater distance.\n\nTherefore your risk of infection has been ranked as low.\n\nThe infection risk is calculated from the risk calculation data (duration and proximity) locally on your phone. Your infection risk cannot be seen by, or passed on to, anyone else.";
+"ExposureDetection_Explanation_Text_Low" = "You have a low risk of infection since no encounter with a person diagnosed with COVID-19 has been logged, or your encounter was restricted to a short time and at a greater distance.\n\nTherefore your risk of infection has been ranked as low.\n\nThe risk of infection is calculated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
 
-"ExposureDetection_Explanation_Text_High" = "You have an increased risk of infection because you were last exposed two days ago over a longer period of time and at close proximity to at least one person tested positive.\n\nTherefore, your risk of infection has been ranked as increased.\n\nWhen you get home, please also avoid contact with members of your family or household. ";
+"ExposureDetection_Explanation_Text_High" = "You have an increased risk of infection because you were last exposed two days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.\n\nTherefore, your risk of infection has been ranked as increased.\n\nWhen you get home, please also avoid encounters with members of your family or household.";
 
 "ExposureDetection_MoreInformation" = "More information";
 
@@ -96,7 +96,7 @@
 
 "ExposureDetection_Hotline_Number" = "+498007540002";
 
-"ExposureDetection_Button_Enable" = "Activate Risk Calculation";
+"ExposureDetection_Button_Enable" = "Activate Exposure Logging";
 
 "ExposureDetection_Button_Refresh" = "Update";
 
@@ -111,13 +111,13 @@
 
 "Settings_KontaktProtokollStatusInactive" = "Stopped";
 
-"Settings_Tracing_Label" = "Risk Calculation";
+"Settings_Tracing_Label" = "Exposure Logging";
 
 "Settings_Notification_Label" = "Notifications";
 
 "Settings_Reset_Label" = "Reset App";
 
-"Settings_Tracing_Description" = "Allow creation and sharing of COVID-19 random IDs";
+"Settings_Tracing_Description" = "Allow COVID-19 random IDs to be generated and shared.";
 
 "Settings_Notification_Description" = "Allow automatic notifications of COVID-19 risk status";
 
@@ -132,13 +132,13 @@
 
 "NotificationSettings_On_SectionTitle" = "Setting";
 
-"NotificationSettings_On_RiskChanges" = "Change your infection risk";
+"NotificationSettings_On_RiskChanges" = "Change your risk of infection";
 
 "NotificationSettings_On_TestsStatus" = "Status of your COVID-19 test";
 
 "NotificationSettings_Off_Title" = "Notifications will be issued";
 
-"NotificationSettings_Off_Description" = "To activate notifications, you have to allow notifications for the Corona-Warn-App in your phone's settings.";
+"NotificationSettings_Off_Description" = "To activate notifications, you have to allow notifications for the Corona-Warn-App in your device settings.";
 
 "NotificationSettings_Off_NavigateSettings" = "1. Open Settings";
 
@@ -173,31 +173,31 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the Corona-Warn-App we can break infection chains much quicker.";
 
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your phone into a coronavirus warning system. Get an overview of your risk status and find out whether you've had close contact with infected people in the last 14 days. \n\nThe app logs exposures between individuals by their phones exchanging encrypted random IDs, and without accessing any personal data. ";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Turn your device into a corona warning system. Get an overview of your risk status and find out whether you've had close contact with people diagnosed with COVID-19 in the last 14 days. \n\nThe app logs encounters between individuals by their devices exchanging encrypted random IDs, and without accessing any personal data. ";
 
 "OnboardingInfo_privacyPage_title" = "Data Protection";
 
-"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_boldText" = "Hello world";
 
 "OnboardingInfo_privacyPage_normalText" = "You remain anonymous.\nYour data is transmitted fully encrypted and under a pseudonym.\n\nResponsible body: GDPR, Article 4, Paragraph 7:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nPlease read our data protection regulations.\n\nData protection information:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_title" = "How to enable your risk calculation";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "How to Enable Exposure Logging";
 
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To find out whether you are at risk of infection, you have to activate risk calculation.";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify whether you are at risk of infection, you have to activate the exposure logging feature.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Risk calculation works by your phone receiving, via Bluetooth, encrypted random IDs of other users and passing your random ID to their phones. This feature can be deactivated at any time. \nEncrypted random IDs only pass information about date, duration and proximity (calculated using signal strength) to other people. Personal data such as name, address, location is never recorded. Individuals cannot be identified.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your device receiving, via Bluetooth, encrypted random IDs of other users and passing your random ID to their devices. This feature can be deactivated at any time. \nEncrypted random IDs only pass information about date, duration and proximity (calculated using signal strength) to other people. Personal data such as name, address, location is never recorded. Individuals cannot be identified.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Data Protection";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Yes, I consent to the use of my tracing function in my Corona-Warn-App. In doing so, I would Iike to make an important contribution to helping break infection chains, and containing the spread of coronavirus in Germany. With exposure logging, contacts can be traced in order to identify contacts that later test positive for coronavirus.\nI can revoke my consent at any time with effect for the future.\nFor more information, see the data protection notes. ";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "I can revoke my consent at any time with effect for the future.\nFor more information, see the data protection notes. ";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "If you test positive...";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "If you are diagnosed with COVID-19...";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Please notify the app. This is voluntary and secure. Do it for the sake of everyone's health.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. People whose encrypted random IDs your phone has collected will now receive a warning along with information about what they should now do. ";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. People whose encrypted random IDs your device has collected will now receive a warning along with information about what they should now do.";
 
-"OnboardingInfo_alwaysStayInformedPage_title" = "Receiving Warnings and Identifying Risks ";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Receive Warnings and Identify Risks ";
 
 "OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can notify you automatically about your risk status and warn you about new infections of people you have been exposed to. Allow the app now to notify you. ";
 
@@ -214,7 +214,7 @@
 
 "ExposureSubmission_Submit" = "Enter TAN";
 
-"ExposureSubmissionTanEntry_Title" = "TAN entry";
+"ExposureSubmissionTanEntry_Title" = "TAN Entry";
 
 "ExposureSubmissionTanEntry_Info" = "Please enter the TAN you were given:";
 
@@ -232,11 +232,11 @@
 
 "ExposureSubmission_DispatchDescription" = "What's here for you?";
 
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Document with QR code";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Document with QR Code";
 
 "ExposureSubmissionDispatch_QRCodeButtonDescription" = "Register your test by scanning the QR code of your test document.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN code";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN Code";
 
 "ExposureSubmissionDispatch_TANButtonDescription" = "Register your test by entering your TAN manually.";
 
@@ -256,7 +256,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 (0)800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Languages:\nGerman, English\n\nBusiness hours:\nMonday - Saturday: 00:00 - 24:00\n\nThe normal charges from your telephone provider apply.";
+"ExposureSubmission_PhoneDetailDescription" = "Languages:\nGerman, English\n\nBusiness hours:\nMonday - Saturday: 00:00 - 24:00\n\nThe standard charges from your telephone provider apply.";
 
 "ExposureSubmission_SectionDescription2" = "Register the test by entering the TAN in the app.";
 
@@ -290,32 +290,32 @@
 
 "ExposureSubmissionSuccess_listTitle" = "Please note:";
 
-"ExposureSubmissionSuccess_listItem1" = "The health authority will contact you within the next few days by telephone or by letter. ";
+"ExposureSubmissionSuccess_listItem1" = "The public health authority will contact you within the next few days by telephone or by letter.";
 
 "ExposureSubmissionSuccess_listItem2" = "You are infectious. Isolate yourself from other people.  ";
 
 "ExposureSubmissionSuccess_listItem2_1" = "Your quarantine period is usually 14 days. Please observe your symptoms and monitor how they develop. ";
 
-"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you developed symptoms. ";
+"ExposureSubmissionSuccess_listItem2_2" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you developed symptoms.";
 
-"ExposureSubmissionSuccess_listItem2_3" = "Please think especially about the people that will not be notified directly by the app since they don't have a smartphone, or haven't installed the app. ";
+"ExposureSubmissionSuccess_listItem2_3" = "Please think especially about the people that will not be notified directly by the app since they don't have a device, or haven't installed the app.";
 
 "ExposureSubmissionSuccess_listItem2_4" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious. ";
 
 /* Exposure Submission Introduction */
 "ExposureSubmissionIntroduction_Title" = "Information";
 
-"ExposureSubmissionIntroduction_SubTitle" = "This is how the Corona warning system works";
+"ExposureSubmissionIntroduction_SubTitle" = "This is how the Corona-Warn-App works";
 
-"ExposureSubmissionIntroduction_Usage01" = "For the app to work well, we are relying on the support of people who have tested positive.";
+"ExposureSubmissionIntroduction_Usage01" = "For the app to work well, we are relying on the support of people who were diagnosed with COVID-19.";
 
 "ExposureSubmissionIntroduction_Usage02" = "Since only encrypted random IDs are exchanged, you remain anonymous. You can now proceed as follows:";
 
 "ExposureSubmissionIntroduction_ListItem1" = "If there is a QR code in your test document, you can scan this and register the test. As soon as the result is available, you can view it in the app. ";
 
-"ExposureSubmissionIntroduction_ListItem2" = "If you tested positive, you can warn others.";
+"ExposureSubmissionIntroduction_ListItem2" = "If you have been diagnosed with COVID-19, you can warn others.";
 
-"ExposureSubmissionIntroduction_ListItem3" = "If you were given a TAN for a positive result, you can use this to register the test.";
+"ExposureSubmissionIntroduction_ListItem3" = "If you were given a TAN for a positive diagnosis, you can use this to register the test.";
 
 "ExposureSubmissionIntroduction_ListItem4" = "If you do not have a TAN, you can request one by telephone.";
 
@@ -338,7 +338,7 @@
 
 "ExposureSubmissionResult_testAdded" = "Test added successfully";
 
-"ExposureSubmissionResult_testAddedDesc" = "Your test has been registered in the Corona-Warn App.";
+"ExposureSubmissionResult_testAddedDesc" = "Your test has been registered in the Corona-Warn-App.";
 
 "ExposureSubmissionResult_warnOthers" = "Warning Others";
 
@@ -350,7 +350,7 @@
 
 "ExposureSubmissionResult_testNegative" = "Negative Diagnosis";
 
-"ExposureSubmissionResult_testNegativeDesc" = "The laboratory result indicates no verification that you have Coronavirus SARS-CoV-2.";
+"ExposureSubmissionResult_testNegativeDesc" = "The laboratory result indicates no verification that you have corona virus SARS-CoV-2.";
 
 "ExposureSubmissionResult_removeNote" = "Please delete the test from the Corona-Warn-App, so that you can save a new test here if necessary.";
 
@@ -358,7 +358,7 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Still feeling unwell? If you feel very poorly and/or your symptoms have worsened, please contact your general practitioner.";
 
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Remain at home until you feel well again. If you were to get infected with coronavirus (SARS-CoV-2) whilst weakened from another infection, this could lead to a serious illness. ";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Remain at home until you feel well again. If you were to get infected with corona virus (SARS-CoV-2) whilst weakened from another infection, this could lead to a serious illness.";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Do not go to work if you feel unwell to ensure you do not put other people at risk.";
 
@@ -366,7 +366,7 @@
 
 "ExposureSubmissionResult_testInvalid" = "Test has errors";
 
-"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the health authority to find out how to proceed. Please delete the test from your Corona-Warn-App so that you will be able to save a new test there if necesssary. ";
+"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the public health authority to find out how to proceed. Please delete the test from your Corona-Warn-App so that you will be able to save a new test there if necesssary.";
 
 "ExposureSubmissionResult_testPending" = "Test result is not yet available.";
 
@@ -378,19 +378,19 @@
 
 "ExposureSubmissionResult_refreshButton" = "Update";
 
-"ExposureSubmissionWarnOthers_title" = "Warn others";
+"ExposureSubmissionWarnOthers_title" = "Warn Others";
 
 "ExposureSubmissionWarnOthers_continueButton" = "Next";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Help all of us! ";
 
-"ExposureSubmissionWarnOthers_description" = "Next ,you can make sure that the Corona-Warn-App shares your random IDs of the last 14 days with others. By doing this, you can warn other people and help to break the infection chain.\n\nSince only impersonal random IDs are transmitted, your identity remains anonymous. ";
+"ExposureSubmissionWarnOthers_description" = "Next ,you can make sure that the Corona-Warn-App shares your random IDs of the last 14 days with others. By doing this, you can warn other people and help to break the infection chain.\n\nSince only impersonal random IDs are transmitted, your identity remains anonymous.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data Security Text";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Data security text is missing";
 
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Privacy";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Data Protection";
 
-"ExposureSubmissionResult_RemoveAlert_Title" = "Remove the test?";
+"ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test?";
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "The test will be permanently deleted from the Corona-Warn-App and cannot be added again. This procedure cannot be undone. ";
 
@@ -399,7 +399,7 @@
 
 "ExposureSubmissionError_InvalidTan" = "The generated TAN is invalid for submission.";
 
-"ExposureSubmissionError_EnNotEnabled" = "Exposure notification is not active.";
+"ExposureSubmissionError_EnNotEnabled" = "Exposure logging is not active.";
 
 "ExposureSubmissionError_NoRegistrationToken" = "No registration token could be found on the device.";
 
@@ -407,9 +407,9 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
-"ExposureSubmissionError_QRAlreadyUsed" = "Either the QR code or the TAN is invalid or has been used previously. Please contact the hotline.";
+"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Either the QR code or the TAN is invalid or has been used previously. Please contact the hotline.";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Either the QR code or the TAN is invalid or has been used previously. Please contact the hotline.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has been used already. Please try again or contact the technical hotline.";
 
 "ExposureSubmissionError_RegTokenNotExist" = "The registration token you want to use does not exist.";
 
@@ -417,16 +417,16 @@
 
 "ExposureSubmissionError_otherend" = "Please try again.";
 
-"ExposureSubmissionError_declined" = "Please release your random IDs to warn others.";
+"ExposureSubmissionError_declined" = "Please release your random IDs to warn other people.";
 
 "ExposureSubmissionError_unknown" = "Unknown error";
 
 "ExposureSubmissionError_defaultError" = "General exposure submission error";
 
 /* Tracing Enable/Disable Settings */
-"ExposureNotificationSetting_TracingSettingTitle" = "Risk Calculation";
+"ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
 
-"ExposureNotificationSetting_EnableTracing" = "Risk Calculation";
+"ExposureNotificationSetting_EnableTracing" = "Exposure Logging";
 
 "ExposureNotificationSetting_Tracing_Limited" = "Restricted";
 
@@ -436,57 +436,57 @@
 
 "ExposureNotificationSetting_DescriptionTitle_Inactive" = "Activate Exposure Logging";
 
-"ExposureNotificationSetting_DescriptionTitle" = "This is how your exposures are logged.";
+"ExposureNotificationSetting_DescriptionTitle" = "This is how your exposure logging works.";
 
-"ExposureNotificationSetting_DescriptionText1" = "To identify whether you are at risk of infection, you have to activate the risk calculation feature.";
+"ExposureNotificationSetting_DescriptionText1" = "To identify whether you are at risk of infection, you have to activate the exposure logging feature.";
 
-"ExposureNotificationSetting_DescriptionText2" = "Risk calculation works by your phone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their phones. This feature can be deactivated at any time. \n";
+"ExposureNotificationSetting_DescriptionText2" = "Exposure logging works by your device receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be deactivated at any time.";
 
 "ExposureNotificationSetting_DescriptionText3" = "The encrypted random IDs only pass information about date, duration and proximity (using signal strength) to other people. Personal data such as name, address, location is never recorded. Individuals cannot be identified.";
 
 "ExposureNotificationSetting_Activate_Bluetooth" = "Turn on Bluetooth";
 
-"ExposureNotificationSetting_Bluetooth_Description" = "Bluetooth must be turned on to calculate your risk of exposure. Please turn on Bluetooth in your phone's settings.";
+"ExposureNotificationSetting_Bluetooth_Description" = "Bluetooth must be turned on for exposure logging in order to log encounters. Please turn on Bluetooth in your device settings.";
 
 "ExposureNotificationSetting_Activate_Internet" = "Open Internet connection";
 
-"ExposureNotificationSetting_Internet_Description" = "Risk calculation requires an Internet connection to calculate risk exposures. Please turn on wifi or mobile data in your phone's settings. ";
+"ExposureNotificationSetting_Internet_Description" = "Exposure logging requires an Internet connection to calculate exposures. Please turn on wifi or mobile data in your device settings.";
 
-"ExposureNotificationSetting_Detail_Action_Button" = "Open Phone Settings";
+"ExposureNotificationSetting_Detail_Action_Button" = "Open Device Settings";
 
 "ExposureNotificationSetting_Activate_OSENSetting" = "Activate COVID-19 Exposure Notifications";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "For risk calculation, COVID-19 exposure notifications must be activated in the system settings so that exposures can be logged. Please activate COVID-19 exposure notifications in your system settings.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "For exposure logging, COVID-19 exposure notifications must be activated in the system settings so that encounters can be logged. Please activate COVID-19 exposure notifications in your system settings.";
 
 /* Home Active card */
-"Home_Activate_Card_On_Title" = "Risk calculation active";
+"Home_Activate_Card_On_Title" = "Exposure logging active";
 
-"Home_Activate_Card_Off_Title" = "Risk calculation stopped";
+"Home_Activate_Card_Off_Title" = "Exposure logging stopped";
 
 "Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth turned off";
 
 "Home_Activate_Card_Internet_Off_Title" = "No Internet connection";
 
 /* Home Unknown card */
-"Home_Risk_Unknown_Title" = "Risk unknown";
+"Home_Risk_Unknown_Title" = "Risk Unknown";
 
-"Home_RiskCard_Unknown_Item_Title" = "Since you have not activated risk calculation for long enough, we could not calculate your risk of infection.";
+"Home_RiskCard_Unknown_Item_Title" = "Since you have not had exposure logging turned on for long enough, we could not calculate your risk of infection.";
 
 "Home_RiskCard_Unknown_Button" = "Update";
 
 /* Home Inactive card */
-"Home_Risk_Inactive_Title" = "No risk check";
+"Home_Risk_Inactive_Title" = "No Exposure Check";
 
-"Home_Risk_Inactive_Body" = "Activate risk calculation to update your risk.";
+"Home_Risk_Inactive_Body" = "Activate exposure logging to update your risk status.";
 
-"Home_Risk_Inactive_Activate_Item_Title" = "Last calculation: %@";
+"Home_Risk_Inactive_Activate_Item_Title" = "Last exposure logging: %@";
 
 "Home_Risk_Inactive_Date_Item_Title" = "Updated: %@";
 
-"Home_Risk_Inactive_Button" = "Activate Risk Calculation";
+"Home_Risk_Inactive_Button" = "Activate Exposure Logging";
 
 /* Home Low card */
-"Home_Risk_Low_Title" = "Low risk";
+"Home_Risk_Low_Title" = "Low Risk";
 
 "Home_Risk_Low_SaveDays_Item_Title" = "%@ of %@ days saved";
 
@@ -495,7 +495,7 @@
 "Home_Risk_Low_Button" = "Update";
 
 /* Home High card */
-"Home_Risk_High_Title" = "High risk";
+"Home_Risk_High_Title" = "High Risk";
 
 "Home_Risk_High_Date_Item_Title" = "Updated: %@";
 
@@ -515,7 +515,7 @@
 
 "Home_Thank_You_Card_Note_Title" = "Please note:";
 
-"Home_Thank_You_Card_Phone_Item_Title" = "The health authority will contact you within the next few days by telephone or by letter. ";
+"Home_Thank_You_Card_Phone_Item_Title" = "The public health authority will contact you within the next few days by telephone or by letter.";
 
 "Home_Thank_You_Card_Home_Item_Title" = "You are infectious. Isolate yourself from other people.  ";
 
@@ -523,9 +523,9 @@
 
 "Home_Thank_You_Card_14Days_Item_Title" = "Your quarantine period is usually 14 days. Please observe your symptoms and monitor how they develop.";
 
-"Home_Thank_You_Card_Contacts_Item_Title" = "You will be asked by your health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you developed symptoms. ";
+"Home_Thank_You_Card_Contacts_Item_Title" = "You will be asked by your public health authority to create a list of people you have had contact with. This should include all people with whom you have had close contact with (less than 2 meters, face-to-face conversation) for over 15 minutes in the two days before you developed symptoms.";
 
-"Home_Thank_You_Card_App_Item_Title" = "Please think especially about the people that will not be notified directly by the app since they don't have a smartphone, or haven't installed the app. ";
+"Home_Thank_You_Card_App_Item_Title" = "Please think especially about the people that will not be notified directly by the app since they don't have a device, or haven't installed the app.";
 
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Even when you no longer have any symptoms and you feel well again, you could still be infectious. ";
 
@@ -538,7 +538,7 @@
 
 "Home_Finding_Positive_Card_Note_Title" = "Please note:";
 
-"Home_Finding_Positive_Card_Phone_Item_Title" = "The health authority will contact you within the next few days by telephone or by letter. ";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "The public health authority will contact you within the next few days by telephone or by letter.";
 
 "Home_Finding_Positive_Card_Home_Item_Title" = "You are infectious. Isolate yourself from other people.  ";
 
@@ -547,7 +547,7 @@
 "Home_Finding_Positive_Card_Button" = "Next";
 
 /* Home Submit card */
-"Home_SubmitCard_Title" = "COVID 19 Test";
+"Home_SubmitCard_Title" = "COVID-19 Test";
 
 "Home_SubmitCard_Body" = "Help to break the infection chain.";
 
@@ -572,15 +572,15 @@
 
 "Home_resultCard_ResultUnvailableTitle" = "Your result is not available";
 
-"Home_resultCard_ShowResultButton" = "Display test";
+"Home_resultCard_ShowResultButton" = "Display Test";
 
 "Home_resultCard_NegativeTitle" = "Negative Diagnosis";
 
-"Home_resultCard_NegativeDesc" = "You have been tested negative for SARS-CoV-2";
+"Home_resultCard_NegativeDesc" = "You have been diagnosed negative for SARS-CoV-2.";
 
-"Home_resultCard_PositiveTitle" = "Positive Daignosis";
+"Home_resultCard_PositiveTitle" = "Positive Diagnosis";
 
-"Home_resultCard_PositiveDesc" = "You have been tested positive for SARS-CoV-2";
+"Home_resultCard_PositiveDesc" = "You have been diagnosed positive for SARS-CoV-2.";
 
 "Home_resultCard_PendingTitle" = "Your result is not available";
 
@@ -588,44 +588,44 @@
 
 "Home_resultCard_InvalidTitle" = "Invalid Diagnosis";
 
-"Home_resultCard_InvalidDesc" = "Result is invalid";
+"Home_resultCard_InvalidDesc" = "Your test could not be evaluated.";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "About the App";
 
 "App_Information_About_ImageDescription" = "";
 
-"App_Information_About_Title" = "Together against Corona";
+"App_Information_About_Title" = "Let's fight corona virus together.";
 
-"App_Information_About_Description" = "The COVID-Warn app was developed by the Robert Koch Institute to protect society against the spread of coronavirus.";
+"App_Information_About_Description" = "The Robert Koch Institute (RKI) is the central body for the federal state in the field of public health. The RKI is publishing the Corona-Warn-App for the federal government. The app represents the digital extension to the public health measures already introduced: social distancing, hygiene behavior, and face masks.";
 
-"App_Information_About_Text" = "The COVID-Warn-App will securely log exposures you have with other app user. This is how the app can determine whether you have been in close proximity to a person infected with the coronavirus.\n\nTogether we can help stop the virus spreading and keep ourselves healthy.";
+"App_Information_About_Text" = "Whoever uses the app helps to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with COVID-19. Your identity and privacy is always protected.";
 
 /* App Information - FAQ */
-"App_Information_FAQ_Navigation" = "Frequently asked questions";
+"App_Information_FAQ_Navigation" = "FAQ";
 
-"App_Information_FAQ_Title" = "Frequently asked questions";
+"App_Information_FAQ_Title" = "FAQ";
 
 /* App Information - Contact */
-"App_Information_Contact_Navigation" = "Contact";
+"App_Information_Contact_Navigation" = "Technical hotline";
 
 "App_Information_Contact_ImageDescription" = "A man uses a headset to make calls";
 
 "App_Information_Contact_Title" = "How can we help you?";
 
-"App_Information_Contact_Description" = "Call us if you have technical, questions or questions related to data protection or health.";
+"App_Information_Contact_Description" = "For technical questions about the Corona-Warn-App, please contact our hotline.";
 
 "App_Information_Contact_Hotline_Title" = "Technical hotline";
 
-"App_Information_Contact_Hotline_Text" = "+49 080 XXX XXX";
+"App_Information_Contact_Hotline_Text" = "+49 (0)800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "+49080123456";
+"App_Information_Contact_Hotline_Number" = "+49 (0)800 7540001";
 
 "App_Information_Contact_Hotline_Description" = "Our technical customer service is there for you. Waiting time is currently less than 5 minutes.";
 
 "App_Information_Contact_Hotline_Terms" = "Business hours:\nMonday to Friday: 8am - 10pm\nSaturday and Sunday: 10am - 10pm\nThe standard charges of your telephone provider apply.";
 
-// App Information - Imprint
+/* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Publication Details";
 
 "App_Information_Imprint_Section1_Title" = "Provider";
@@ -644,8 +644,8 @@
 
 "App_Information_Imprint_Section4_Text" = "...";
 
-// App Information - Legal
-"App_Information_Legal_Navigation" = "Legal Notice";
+/* App Information - Legal */
+"App_Information_Legal_Navigation" = "Legal Notes";
 
 "App_Information_Legal_ImageDescription" = "One hand holds a smartphone with a lot of text, next to it is a beam scale as a symbol for legal information.";
 
@@ -677,29 +677,29 @@
 "App_Information_Tracing_Navigation" = "How does tracing work?";
 
 /* Risk View */
-"unknown_risk" = "Risk unknown";
+"unknown_risk" = "Risk Unknown";
 
-"inactive_risk" = "No risk check";
+"inactive_risk" = "No Exposure Check";
 
-"low_risk" = "Low risk";
+"low_risk" = "Low Risk";
 
-"high_risk" = "High risk";
+"high_risk" = "Higher Risk";
 
-"unknown_risk_detail" = "No exposure to COVID-19 detected.";
+"unknown_risk_detail" = "No encounters with people diagnosed with COVID-19 were identified.";
 
 "inactive_risk_detail" = "Inactive";
 
-"low_risk_detail" = "A low risk of exposure to COVID 19 was identified.";
+"low_risk_detail" = "A low risk of encounters with people diagnosed with COVID 19 was identified.";
 
-"high_risk_detail" = "A high risk of exposure to COVID 19 was identified.";
+"high_risk_detail" = "A higher risk of encounters with people diagnosed with COVID 19 was identified.";
 
-"unknown_risk_detail_help" = "Infection risk is unknown because no contacts have been logged.";
+"unknown_risk_detail_help" = "Risk of infection is unknown because no encounters have been logged.";
 
 "inactive_risk_detail_help" = "Inactive";
 
-"low_risk_detail_help" = "Infection risk is low because an exposure to infected persons has not been logged at all or only or only for a very short time.";
+"low_risk_detail_help" = "Risk of infection is low because no encounters with infected people have been logged at all, or encounters were logged only for a very short time.";
 
-"high_risk_detail_help" = "Infection risk is high because exposure to infected persons was logged.";
+"high_risk_detail_help" = "Risk of infection is higher because encounters with infected people were logged.";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Share";
@@ -712,31 +712,31 @@
 
 "InviteFriends_Button" = "Send Download Link";
 
-"InviteFriends_ShareTitle" = "Fighting coronavirus together. I'm in on this, you too?";
+"InviteFriends_ShareTitle" = "Fighting corona virus together. I'm in on this, you too?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/en/";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
 
-"InviteFriends_Illustration_Label" = "One man shares the Corona Warning app with four other people.";
+"InviteFriends_Illustration_Label" = "A man is sharing the Corona-Warn-App with four other people.";
 
 /* Reset View */
 "Reset_NavTitle" = "Reset";
 
 "Reset_Header1" = "Are you sure you want to reset the app?";
 
-"Reset_Descrition1" = "You will no longer be notified of your risk exposure and you will no longer be able to warn other users.";
+"Reset_Descrition1" = "You will no longer be notified of your exposures and you will no longer be able to warn other users.";
 
-"Reset_Button" = "Reset app";
+"Reset_Button" = "Reset App";
 
 "Reset_Discard" = "Cancel";
 
-"Reset_InfoTitle" = "Delete Exposure Log";
+"Reset_InfoTitle" = "Delete Exposure Logging";
 
-"Reset_InfoDescription" = "The exposure log has to be deleted separately in your phone settings.";
+"Reset_InfoDescription" = "Exposure logging has to be deleted separately in your device settings.";
 
-"Reset_Subtitle" = "Reset app";
+"Reset_Subtitle" = "Reset App";
 
 /* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
 
 /* Local Notifications */
 "local_notifications_viewResults" = "Display Results";
@@ -761,17 +761,17 @@
 
 "RiskLegend_Subtitle" = "The most Important Features and Concepts";
 
-"RiskLegend_Legend1_Title" = "Risk Calculation";
+"RiskLegend_Legend1_Title" = "Exposure Logging";
 
-"RiskLegend_Legend1_Text" = "Risk calculation is one of the three central features of the app. When you activate it, contacts with peoples' phones are logged. You don't have to do anything else.";
+"RiskLegend_Legend1_Text" = "Exposure logging is one of the three central features of the app. When you activate it, encounters with peoples' devices are logged. You don't have to do anything else.";
 
-"RiskLegend_Legend2_Title" = "Risk of infection";
+"RiskLegend_Legend2_Title" = "Risk of Infection";
 
-"RiskLegend_Legend2_Text" = "If you had contact within the last 14 days with a person who tested positve for coronavirus, the app calculates your peronal infection risk. It does this by measuring duration and proximity of the exposure.";
+"RiskLegend_Legend2_Text" = "If you have had contact within the last 14 days with a person who was diagnosed with COVID-19, the app calculates your peronal risk of infection. It does this by measuring duration and proximity of the exposure.";
 
 "RiskLegend_Legend2_RiskLevels" = "The following risk levels can be shown:";
 
-"RiskLegend_Legend2_High" = "High Risk";
+"RiskLegend_Legend2_High" = "Higher Risk";
 
 "RiskLegend_Legend2_Low" = "Low Risk";
 
@@ -779,28 +779,29 @@
 
 "RiskLegend_Legend3_Title" = "Notifying Other Users";
 
-"RiskLegend_Legend3_Text" = "Another central feature is registering your test and retrieving the result. If you test positive, you can warn others and break the chain of infection.";
+"RiskLegend_Legend3_Text" = "Another central feature is registering your test and retrieving the result. If you are diagnosed with COVID-19, you can warn others and break the chain of infection.";
 
 "RiskLegend_Definitions_Title" = "Definition of Terms";
 
-"RiskLegend_Store_Title" = "Exposure logging";
+"RiskLegend_Store_Title" = "Exposure Logging";
 
-"RiskLegend_Store_Text" = "List of received and temporary random IDs saved temporarily in the operating system memory. This list is read when the risk is checked. All random IDs are automatically deleted after 14 days.";
+"RiskLegend_Store_Text" = "List of received and temporary random IDs saved temporarily in the operating system storage. This list is read when the exposures are checked. All random IDs are automatically deleted after 14 days.";
 
-"RiskLegend_Check_Title" = "Checking Your Risk";
+"RiskLegend_Check_Title" = "Exposure Check";
 
-"RiskLegend_Check_Text" = "Retrieving the exposure logging and comparing it with reported infections of other users. The risk check is performed automatically about every two hours.";
+"RiskLegend_Check_Text" = "Retrieving the exposure logging and comparing it with reported infections of other users. The exposure check is performed automatically about every two hours.";
 
-"RiskLegend_Contact_Title" = "Risk exposures";
+"RiskLegend_Contact_Title" = "Exposures";
 
-"RiskLegend_Contact_Text" = "Exposures over a longer duration and close proximity to people tested positive for coronavirus.";
+"RiskLegend_Contact_Text" = "Encounters over a longer duration and close proximity to people diagnosed with COVID-19.";
 
-"RiskLegend_Notification_Title" = "Risk notification";
+"RiskLegend_Notification_Title" = "Exposure Notification";
 
-"RiskLegend_Notification_Text" = "Display of risk exposures in the Corona-Warn-App.";
+"RiskLegend_Notification_Text" = "Display exposures in the Corona-Warn-App.";
 
 "RiskLegend_Random_Title" = "Random IDs";
 
-"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exhanged between smartphones in close proximity. Random IDs cannot be assigned to a specific person and are automatically deleted after 14 days. People who tested positive can choose to share their random IDs of up to the last 14 days with other app users.";
+"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exhanged between devices in close proximity. Random IDs cannot be assigned to a specific person and are automatically deleted after 14 days. People diagnosed with COVID-19 can opt to share their random IDs of up to the last 14 days with other app users.";
 
-"RiskLegend_Image1_AccLabel" = "A smartphone shows different content that is numbered.";
+"RiskLegend_Image1_AccLabel" = "A device is showing different numbered contents.";
+

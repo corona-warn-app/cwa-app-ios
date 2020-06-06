@@ -38,7 +38,9 @@ final class ConnectivityReachabilityService {
 	
 	/// The Observers listining for ReachabilityState updates
 	var observers: [(ReachabilityState) -> Bool]
-	
+
+	private let connectivityURLs: [URL]
+
 	// MARK: Initializer
 	
 	/// Designated Initializer
@@ -48,11 +50,13 @@ final class ConnectivityReachabilityService {
 	///   - observers: The Observers listining for ReachabilityState updates. Default value `.init()`
 	init(
 		connectivity: Connectivity = .init(),
+		connectivityURLs: [URL],
 		connectivityStatus: Connectivity.Status? = nil,
 		observers: [(ReachabilityState) -> Bool] = .init()
 	) {
 		self.connectivity = connectivity
 		self.connectivityStatus = connectivityStatus
+		self.connectivityURLs = connectivityURLs
 		self.observers = observers
 		self.setup()
 	}
@@ -66,22 +70,27 @@ private extension ConnectivityReachabilityService {
 	/// Perform setup
 	func setup() {
 		// Set whenConnected closure
-		self.connectivity.whenConnected = { [weak self] in
+		connectivity.whenConnected = { [weak self] in
 			// Invoke Connectivity did change
 			self?.connectivityDidChange(to: $0.status)
 		}
 		// Set whenDisconnected closure
-		self.connectivity.whenDisconnected = { [weak self] in
+		connectivity.whenDisconnected = { [weak self] in
 			// Invoke Connectivity did change
 			self?.connectivityDidChange(to: $0.status)
 		}
 		// Enable Polling when running in the simulator
 		// Read more: https://github.com/rwbutler/Connectivity#simulator-issues
 		#if targetEnvironment(simulator)
-		self.connectivity.isPollingEnabled = true
+		connectivity.isPollingEnabled = true
 		#endif
+
+		connectivity.connectivityURLs = connectivityURLs
+		connectivity.responseValidator = CustomConnectivityResponseValidator()
+		connectivity.validationMode = .custom
+
 		// Start Notifier
-		self.connectivity.startNotifier()
+		connectivity.startNotifier()
 	}
 	
 }
@@ -162,4 +171,10 @@ private extension ReachabilityState {
 		}
 	}
 	
+}
+
+final class CustomConnectivityResponseValidator: ConnectivityResponseValidator {
+	func isResponseValid(url: URL, response: URLResponse?, data: Data?) -> Bool {
+		response != nil
+	}
 }

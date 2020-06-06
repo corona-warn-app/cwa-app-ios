@@ -53,12 +53,12 @@ final class ENStateHandler {
 	private weak var delegate: ENStateHandlerUpdating?
 	private var internetOff = false
 	private var latestExposureManagerState: ExposureManagerState
-
+	
 	init(
-			initialExposureManagerState:ExposureManagerState,
-			reachabilityService: ReachabilityService,
-			delegate: ENStateHandlerUpdating
-	){
+		initialExposureManagerState: ExposureManagerState,
+		reachabilityService: ReachabilityService,
+		delegate: ENStateHandlerUpdating
+	) {
 		self.reachabilityService = reachabilityService
 		self.delegate = delegate
 		self.latestExposureManagerState = initialExposureManagerState
