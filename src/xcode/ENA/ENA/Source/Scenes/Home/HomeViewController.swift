@@ -116,6 +116,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		riskProvider.requestRisk()
 		updateOwnUI()
 		navigationItem.largeTitleDisplayMode = .never
 		homeInteractor.developerMenuEnableIfAllowed()

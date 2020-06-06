@@ -96,6 +96,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	private func startCheckRisk() {
+		riskProvider.requestRisk()
 		guard let indexPath = indexPathForRiskCell() else { return }
 		riskLevelConfigurator?.startLoading()
 		homeViewController.updateSections()
