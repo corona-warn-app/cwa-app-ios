@@ -114,8 +114,8 @@ extension AppInformationViewController {
 						   height: 230),
 			cells: [
 				.title2(text: AppStrings.AppInformation.contactTitle),
-				.body(text: "App_Information_Contact_Description".localized),
-				.headline(text: "App_Information_Contact_Hotline_Title".localized),
+				.body(text: AppStrings.AppInformation.contactDescription),
+				.headline(text: AppStrings.AppInformation.contactHotlineTitle),
 				.phone(text: AppStrings.AppInformation.contactHotlineText, number: AppStrings.AppInformation.contactHotlineNumber),
 				.footnote(text: AppStrings.AppInformation.contactHotlineDescription),
 				.footnote(text: AppStrings.AppInformation.contactHotlineTerms)
