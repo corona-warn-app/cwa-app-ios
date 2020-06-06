@@ -152,6 +152,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		} else {
 			showHome()
 		}
+		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 	}
