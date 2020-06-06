@@ -162,7 +162,7 @@ final class OnboardingInfoViewController: UIViewController {
 		if pageType == .enableLoggingOfContactsPage {
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
-				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
 			)
 		}
 		
