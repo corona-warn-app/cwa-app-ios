@@ -19,6 +19,7 @@ import BackgroundTasks
 import ExposureNotification
 import UIKit
 
+
 enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
 	case detectExposures = "exposure-notification" // detect-exposures.exposure-notification"
@@ -41,6 +42,7 @@ enum ENATaskIdentifier: String, CaseIterable {
 protocol ENATaskExecutionDelegate: AnyObject {
 	func executeExposureDetectionRequest(task: BGTask)
 	func executeFetchTestResults(task: BGTask)
+	func taskScheduler(_ scheduler: ENATaskScheduler, didScheduleTasksSuccessfully success: Bool)
 }
 
 final class ENATaskScheduler {
@@ -59,9 +61,10 @@ final class ENATaskScheduler {
 
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
-		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
+		let success = BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
 			taskHander(task)
 		}
+		print("fuck \(success)")
 	}
 
 	func scheduleBackgroundTaskRequests() {
@@ -75,7 +78,6 @@ final class ENATaskScheduler {
 	}
 
 	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
-
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
 		taskRequest.requiresExternalPower = false
@@ -84,11 +86,12 @@ final class ENATaskScheduler {
 		} else {
 			taskRequest.earliestBeginDate = nil
 		}
-
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
+			didScheduleTasksSuccessfully(true)
 		} catch {
 			logError(message: error.localizedDescription)
+			didScheduleTasksSuccessfully(false)
 		}
 	}
 
@@ -109,6 +112,11 @@ final class ENATaskScheduler {
 			return
 		}
 		taskDelegate.executeFetchTestResults(task: task)
+	}
+
+	// MARK: Working with the Delegate
+	private func didScheduleTasksSuccessfully(_ success: Bool) {
+		taskDelegate?.taskScheduler(self, didScheduleTasksSuccessfully: success)
 	}
 
 }

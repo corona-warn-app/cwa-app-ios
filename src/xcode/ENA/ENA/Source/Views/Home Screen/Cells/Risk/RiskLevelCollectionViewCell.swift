@@ -33,8 +33,8 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: ENALabel!
 	@IBOutlet var updateButton: ENAButton!
-	@IBOutlet var counterLabel: ENALabel!
-	@IBOutlet var counterLabelContainer: UIView!
+	@IBOutlet var detectionIntervalLabel: ENALabel!
+	@IBOutlet var detectionIntervalLabelContainer: UIView!
 
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var topContainer: UIView!
@@ -56,11 +56,11 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	}
 
 	private func constructCounterLabelContainer() {
-		counterLabelContainer.layer.cornerRadius = 18.0
-		counterLabelContainer.layer.masksToBounds = true
-		counterLabelContainer.layoutMargins = .init(top: 9.0, left: 16.0, bottom: 9.0, right: 16.0)
-		counterLabelContainer.backgroundColor = UIColor.black.withAlphaComponent(0.12)
-		counterLabel.textColor = .systemGray6
+		detectionIntervalLabelContainer.layer.cornerRadius = 18.0
+		detectionIntervalLabelContainer.layer.masksToBounds = true
+		detectionIntervalLabelContainer.layoutMargins = .init(top: 9.0, left: 16.0, bottom: 9.0, right: 16.0)
+		detectionIntervalLabelContainer.backgroundColor = UIColor.black.withAlphaComponent(0.12)
+		detectionIntervalLabel.textColor = .systemGray6
 	}
 
 	// Ignore touches on the button when it's disabled
@@ -117,11 +117,11 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		stackView.addArrangedSubview(updateButton)
 	}
 
-	func configureCounterLabel(text: String, isHidden: Bool) {
-		counterLabel.text = text
-		counterLabel.isHidden = isHidden
-		counterLabelContainer.isHidden = isHidden
-		stackView.addArrangedSubview(counterLabelContainer)
+	func configureDetectionIntervalLabel(text: String, isHidden: Bool) {
+		detectionIntervalLabel.text = text
+		detectionIntervalLabel.isHidden = isHidden
+		detectionIntervalLabelContainer.isHidden = isHidden
+		stackView.addArrangedSubview(detectionIntervalLabelContainer)
 	}
 
 	func configureRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {

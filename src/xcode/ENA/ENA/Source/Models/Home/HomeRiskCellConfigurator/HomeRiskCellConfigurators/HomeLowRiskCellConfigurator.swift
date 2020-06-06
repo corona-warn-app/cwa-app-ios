@@ -39,7 +39,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			isLoading: false,
 			isButtonEnabled: true,
 			isButtonHidden: true,
-			isCounterLabelHidden: true,
+			detectionIntervalLabelHidden: true,
 			startDate: startDate,
 			releaseDate: releaseDate,
 			lastUpdateDate: lastUpdateDate

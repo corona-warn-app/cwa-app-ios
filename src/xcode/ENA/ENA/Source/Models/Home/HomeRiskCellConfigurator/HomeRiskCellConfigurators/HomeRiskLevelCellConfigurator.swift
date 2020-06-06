@@ -29,7 +29,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	var isLoading: Bool
 	var isButtonEnabled: Bool
 	var isButtonHidden: Bool
-	var isCounterLabelHidden: Bool
+	var detectionIntervalLabelHidden: Bool
 
 	var startDate: Date?
 	var releaseDate: Date?
@@ -56,11 +56,19 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(isLoading: Bool, isButtonEnabled: Bool, isButtonHidden: Bool, isCounterLabelHidden: Bool, startDate: Date?, releaseDate: Date?, lastUpdateDate: Date?) {
+	init(
+		isLoading: Bool,
+		isButtonEnabled: Bool,
+		isButtonHidden: Bool,
+		detectionIntervalLabelHidden: Bool,
+		startDate: Date?,
+		releaseDate: Date?,
+		lastUpdateDate: Date?
+	) {
 		self.isLoading = isLoading
 		self.isButtonEnabled = isButtonEnabled
 		self.isButtonHidden = isButtonHidden // ; TODO: Use isButtonHidden again
-		self.isCounterLabelHidden = isCounterLabelHidden
+		self.detectionIntervalLabelHidden = detectionIntervalLabelHidden
 		self.startDate = startDate
 		self.releaseDate = releaseDate
 		self.lastUpdateDate = lastUpdateDate
@@ -94,34 +102,14 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		isButtonEnabled = enabled
 	}
 
-	func counterTouple() -> (minutes: Int, seconds: Int)? {
-		guard let startDate = startDate else { return nil }
-		guard let releaseDate = releaseDate else { return nil }
-		let dateComponents = calendar.dateComponents([.minute, .second], from: startDate, to: releaseDate)
-		guard let minutes = dateComponents.minute else { return nil }
-		guard let seconds = dateComponents.second else { return nil }
-		return (minutes: minutes, seconds: seconds)
-	}
-
 	func configureCounter(buttonTitle: String, cell: RiskLevelCollectionViewCell) {
-		if let (minutes, seconds) = counterTouple() {
-			let counterLabelText = String(format: AppStrings.Home.riskCardStatusCheckCounterLabel, minutes, seconds)
-			cell.configureCounterLabel(text: counterLabelText, isHidden: isCounterLabelHidden)
-			let formattedTime = String(format: "(%02u:%02u)", minutes, seconds)
-			let updateButtonText = "\(buttonTitle) \(formattedTime)"
-			cell.configureUpdateButton(
-				title: updateButtonText,
-				isEnabled: isButtonEnabled,
-				isHidden: isButtonHidden
-			)
-		} else {
-			cell.configureCounterLabel(text: "", isHidden: isCounterLabelHidden)
-			cell.configureUpdateButton(
-				title: buttonTitle,
-				isEnabled: isButtonEnabled,
-				isHidden: isButtonHidden
-			)
-		}
+		cell.configureDetectionIntervalLabel(text: "Aktualisierung alle 24 Stunden", isHidden: detectionIntervalLabelHidden)
+		cell.configureUpdateButton(
+			title: buttonTitle,
+			isEnabled: isButtonEnabled,
+			isHidden: isButtonHidden
+		)
+
 	}
 
 	// MARK: Configuration

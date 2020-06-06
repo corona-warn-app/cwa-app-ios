@@ -23,10 +23,25 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(startDate: Date?, releaseDate: Date?, numberRiskContacts: Int, daysSinceLastExposure: Int?, lastUpdateDate: Date?) {
+	init(
+		startDate: Date?,
+		releaseDate: Date?,
+		numberRiskContacts: Int,
+		daysSinceLastExposure: Int?,
+		lastUpdateDate: Date?,
+		isCounterLabelHidden: Bool
+	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.daysSinceLastExposure = daysSinceLastExposure
-		super.init(isLoading: false, isButtonEnabled: true, isButtonHidden: true, isCounterLabelHidden: true, startDate: startDate, releaseDate: releaseDate, lastUpdateDate: lastUpdateDate)
+		super.init(
+			isLoading: false,
+			isButtonEnabled: true,
+			isButtonHidden: true,
+			detectionIntervalLabelHidden: isCounterLabelHidden,
+			startDate: startDate,
+			releaseDate: releaseDate,
+			lastUpdateDate: lastUpdateDate
+		)
 	}
 
 	// MARK: Configuration

@@ -110,7 +110,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		super.viewWillAppear(animated)
 		updateOwnUI()
 		navigationItem.largeTitleDisplayMode = .never
-		homeInteractor.developerMenuEnableIfAllowed()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

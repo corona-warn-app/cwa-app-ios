@@ -372,6 +372,12 @@ private extension DownloadedPackagesStore {
 }
 
 extension AppDelegate: ENATaskExecutionDelegate {
+	func taskScheduler(_ scheduler: ENATaskScheduler, didScheduleTasksSuccessfully success: Bool) {
+		guard let scene = UIApplication.shared.connectedScenes.first else { return }
+		guard let delegate = scene.delegate as? SceneDelegate else { return }
+		delegate.state.detectionMode = success ? .automatic : .manual
+	}
+
 	func executeExposureDetectionRequest(task: BGTask) {
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
@@ -384,7 +390,8 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.detectExposureTitle,
 					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: ENATaskIdentifier.detectExposures.rawValue)
+					identifier: ENATaskIdentifier.detectExposures.rawValue
+				)
 			}
 			complete(success: true)
 		}

@@ -35,11 +35,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	#else
 	private let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
+
 	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
-	var state = State(summary: nil, exposureManager: .init()) {
+	var state = State(exposureManager: .init()) {
 		didSet {
 			homeController?.homeInteractor.state = .init(
+				detectionMode: state.detectionMode,
 				isLoading: false,
 				exposureManager: state.exposureManager
 			)
@@ -104,15 +106,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		setupUI()
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
-
-		NotificationCenter
-			.default
-			.addObserver(
-				self,
-				selector: #selector(exposureSummaryDidChange(_:)),
-				name: .didDetectExposureDetectionSummary,
-				object: nil
-			)
 	}
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
@@ -123,6 +116,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 				status: state.status
 		)
 		updateExposureState(newState)
+		taskScheduler.scheduleBackgroundTaskRequests()
 	}
 
 
@@ -133,10 +127,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func sceneWillResignActive(_: UIScene) {
 		showPrivacyProtectionWindow()
-	}
-
-	func sceneDidEnterBackground(_ scene: UIScene) {
-		taskScheduler.scheduleBackgroundTaskRequests()
 	}
 
 	// MARK: Helper
@@ -234,15 +224,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	@objc
 	func isOnboardedDidChange(_: NSNotification) {
 		store.isOnboarded ? showHome() : showOnboarding()
-	}
-
-	@objc
-	func exposureSummaryDidChange(_ notification: NSNotification) {
-		guard let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary else {
-			fatalError("received invalid summary notification. this is a programmer error")
-		}
-		state.summary = summary
-		updateExposureState(state.exposureManager)
 	}
 
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -379,8 +360,8 @@ private extension Array where Element == URLQueryItem {
 
 extension SceneDelegate {
 	struct State {
-		var summary: ENExposureDetectionSummary?
 		var exposureManager: ExposureManagerState
+		var detectionMode: DetectionMode = .automatic
 	}
 }
 

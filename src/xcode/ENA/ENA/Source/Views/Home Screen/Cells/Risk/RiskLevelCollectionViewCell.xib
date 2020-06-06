@@ -118,8 +118,8 @@
             <connections>
                 <outlet property="bodyLabel" destination="8Sq-Fu-7Ci" id="QZe-bX-pDV"/>
                 <outlet property="chevronImageView" destination="nJl-O5-rry" id="Pnf-9I-Xn0"/>
-                <outlet property="counterLabel" destination="NNo-PQ-bh2" id="hWu-Vd-mQ1"/>
-                <outlet property="counterLabelContainer" destination="eyD-er-ora" id="XCV-9r-ESU"/>
+                <outlet property="detectionIntervalLabel" destination="NNo-PQ-bh2" id="cMO-t7-M00"/>
+                <outlet property="detectionIntervalLabelContainer" destination="eyD-er-ora" id="G3g-tV-zcz"/>
                 <outlet property="stackView" destination="vPX-Xb-EeD" id="Rly-Le-zRW"/>
                 <outlet property="titleLabel" destination="gno-nj-MZX" id="mus-pa-Ikd"/>
                 <outlet property="topContainer" destination="6sx-gi-fDy" id="oxB-aW-I9Q"/>
@@ -130,7 +130,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="chevron.right" catalog="system" width="32" height="32"/>
         <namedColor name="ENA Text Primary 1 Color">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
