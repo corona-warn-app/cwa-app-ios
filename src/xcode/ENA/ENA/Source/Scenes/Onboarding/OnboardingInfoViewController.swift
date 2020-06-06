@@ -158,14 +158,14 @@ final class OnboardingInfoViewController: UIViewController {
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
-		
+
 		if pageType == .enableLoggingOfContactsPage {
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
 			)
 		}
-		
+
 	}
 
 	func setupAccessibility() {

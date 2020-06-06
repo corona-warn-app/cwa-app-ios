@@ -26,6 +26,8 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
+	var riskProvider: RiskProvider { get }
+	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 }
 
 protocol RequiresAppDependencies {
@@ -33,6 +35,8 @@ protocol RequiresAppDependencies {
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
+	var riskProvider: RiskProvider { get }
+	var lastRiskCalculation: String { get }  // TODO: REMOVE ME
 }
 
 extension RequiresAppDependencies {
@@ -51,11 +55,50 @@ extension RequiresAppDependencies {
 	var taskScheduler: ENATaskScheduler {
 		UIApplication.coronaWarnDelegate().taskScheduler
 	}
+
+	var riskProvider: RiskProvider {
+		UIApplication.coronaWarnDelegate().riskProvider
+	}
+
+	var lastRiskCalculation: String {
+		UIApplication.coronaWarnDelegate().lastRiskCalculation
+	}
+}
+
+extension AppDelegate: ExposureSummaryProvider {
+	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
+		exposureDetection = ExposureDetection(delegate: self)
+		exposureDetection?.start { result in
+			switch result {
+			case .success(let summary):
+				completion(summary)
+			case .failure:
+				completion(nil)
+			}
+		}
+	}
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+	private let consumer = RiskConsumer()
 	let taskScheduler = ENATaskScheduler.shared
+	lazy var riskProvider: RiskProvider = {
+		var duration = DateComponents()
+		duration.day = 1
+
+		let config = RiskProvidingConfiguration(
+			updateMode: .automatic,
+			exposureDetectionValidityDuration: duration
+		)
+		return RiskProvider(
+			configuration: config,
+			store: self.store,
+			exposureSummaryProvider: self,
+			appConfigurationProvider: CachedAppConfiguration(client: self.client),
+			exposureManagerState: self.exposureManager.preconditions()
+		)
+	}()
 	private var exposureManager: ExposureManager = ENAExposureManager()
 	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
@@ -109,6 +152,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return HTTPClient(configuration: config)
 	}()
 
+	// TODO: REMOVE ME
+	var lastRiskCalculation: String = ""
+
 	func application(
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
@@ -116,6 +162,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.taskDelegate = self
+		riskProvider.observeRisk(consumer)
+
 		return true
 	}
 
@@ -330,40 +378,22 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
-		guard
-			exposureDetection == nil,
-			exposureManager.preconditions().authorized,
-			UIApplication.shared.backgroundRefreshStatus == .available
-			else {
-			complete(success: false)
-			return
-		}
-
-		exposureDetection = ExposureDetection(delegate: self)
-
-		self.exposureDetection?.start { result in
-			defer { complete(success: true) }
-			if case let .success(newSummary) = result {
-
-				// get the previous risk score from the store
-				// check if the risk score has escalated since the last summary
-				if let previousRiskScore = self.store.previousSummary?.maximumRiskScore,
-					RiskLevel(riskScore: newSummary.maximumRiskScore) > RiskLevel(riskScore: previousRiskScore),
-					RiskLevel(riskScore: newSummary.maximumRiskScore) == .increased {
-					// present a notification if the risk score has increased
-					UNUserNotificationCenter.current().presentNotification(
-						title: AppStrings.LocalNotifications.detectExposureTitle,
-						body: AppStrings.LocalNotifications.detectExposureBody,
-						identifier: ENATaskIdentifier.detectExposures.rawValue)
-				}
-
-				// persist the previous risk score to the store
-				self.store.previousSummary = ENExposureDetectionSummaryContainer(with: newSummary)
-
+		consumer.didCalculateRisk = { risk in
+			// present a notification if the risk score has increased
+			if risk.riskLevelHasIncreased {
+				UNUserNotificationCenter.current().presentNotification(
+					title: AppStrings.LocalNotifications.detectExposureTitle,
+					body: AppStrings.LocalNotifications.detectExposureBody,
+					identifier: ENATaskIdentifier.detectExposures.rawValue)
 			}
-
 			complete(success: true)
 		}
+
+		consumer.nextExposureDetectionDateDidChange = { date in
+			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+		}
+
+		riskProvider.requestRisk()
 
 		task.expirationHandler = {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))

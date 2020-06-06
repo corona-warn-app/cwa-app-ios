@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,13 +15,11 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 
-protocol ExposureDetectionViewControllerDelegate: AnyObject {
-	func exposureDetectionViewController(
-		_ controller: ExposureDetectionViewController,
-		setExposureManagerEnabled enabled: Bool,
-		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
-	)
+protocol AppConfigurationProviding: AnyObject {
+	typealias Completion = (SAP_ApplicationConfiguration?) -> Void
+	func appConfiguration(completion: @escaping Completion)
 }
