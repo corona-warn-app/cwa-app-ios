@@ -37,12 +37,4 @@ extension Data {
 
 		return Data(bytes: decryptedBytes, count: bufferSize)
 	}
-
-	/// SHA256 digest
-	func sha256() -> Data {
-		var hash = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
-		let bytes = [UInt8](self)
-		_ = CC_SHA256(bytes, CC_LONG(count), &hash)
-		return Data(hash)
-	}
 }

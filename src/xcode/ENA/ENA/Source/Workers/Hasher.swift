@@ -25,4 +25,10 @@ enum Hasher {
 		let hash = value.compactMap { String(format: "%02x", $0) }.joined()
 		return hash
 	}
+
+	static func sha256(_ input: Data) -> String {
+		let value = SHA256.hash(data: input)
+		let hash = value.compactMap { String(format: "%02x", $0) }.joined()
+		return hash
+	}
 }

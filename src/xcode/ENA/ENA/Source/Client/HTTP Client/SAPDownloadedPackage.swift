@@ -17,6 +17,7 @@
 
 import Foundation
 import ZIPFoundation
+import CryptoKit
 
 struct SAPDownloadedPackage {
 	// MARK: Creating a Key Package
@@ -67,8 +68,8 @@ extension SAPDownloadedPackage {
 			logError(message: "Package signature decryption failed!")
 			throw Archive.KeyPackageError.signatureCheckFailed
 		}
-
-		if decryptedHash != bin.sha256() {
+		let stringHash = decryptedHash.compactMap { String(format: "%02x", $0) }.joined()
+		if stringHash != Hasher.sha256(bin) {
 			throw Archive.KeyPackageError.signatureCheckFailed
 		}
 	}
