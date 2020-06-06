@@ -107,6 +107,9 @@ extension ExposureNotificationSettingViewController {
 			// This error should not happen as we toggle the enabled status on off - we can not enable without disabling first
 			alertError(message: "ExposureNotification is already enabled", title: "Note")
 		}
+		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+			mySceneDelegate.requestUpdatedExposureState()
+		}
 		tableView.reloadData()
 	}
 
