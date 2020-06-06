@@ -19,7 +19,7 @@ import Foundation
 import UIKit
 
 protocol ActionCell: ConfigurableENSettingCell {
-	func configure(for state: RiskDetectionState, delegate: ActionTableViewCellDelegate)
+	func configure(for state: ENStateHandler.State, delegate: ActionTableViewCellDelegate)
 }
 
 protocol ActionTableViewCellDelegate: AnyObject {
@@ -34,14 +34,14 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 	weak var delegate: ActionTableViewCellDelegate?
 
 	@IBAction func switchValueDidChange(_: Any) {
-		delegate?.performAction(enable: actionSwitch.isOn)
+		delegate?.performAction(enable: self.actionSwitch.isOn)
 	}
 
 	func turnSwitch(to on: Bool) {
 		actionSwitch.setOn(on, animated: true)
 	}
 
-	func configure(for state: RiskDetectionState) {
+	func configure(for state: ENStateHandler.State) {
 		actionTitleLabel.text = AppStrings.ExposureNotificationSetting.enableTracing
 		detailLabel.text = AppStrings.ExposureNotificationSetting.limitedTracing
 		turnSwitch(to: state == .enabled)
@@ -61,7 +61,7 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 	}
 
 	func configure(
-		for state: RiskDetectionState,
+		for state: ENStateHandler.State,
 		delegate: ActionTableViewCellDelegate
 	) {
 		self.delegate = delegate

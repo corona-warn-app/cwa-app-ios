@@ -182,6 +182,7 @@
 		B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FD5F3246EAC1700E9D7F2 /* AppleFilesWriter.swift */; };
 		B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */; };
 		B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1125459246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift */; };
+		B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1175215248A9F9600C3325C /* ConvertingKeysTests.swift */; };
 		B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */; };
 		B11E619C246EE4E9004A056A /* UIFont+DynamicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */; };
 		B13FF409247EC67F00535F37 /* HomeViewController+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13FF408247EC67F00535F37 /* HomeViewController+State.swift */; };
@@ -503,6 +504,7 @@
 		B10FD5F3246EAC1700E9D7F2 /* AppleFilesWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleFilesWriter.swift; sourceTree = "<group>"; };
 		B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		B1125459246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENTemporaryExposureKey+Convert.swift"; sourceTree = "<group>"; };
+		B1175215248A9F9600C3325C /* ConvertingKeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertingKeysTests.swift; sourceTree = "<group>"; };
 		B12995E8246C344100854AD0 /* HTTPClient+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+Configuration.swift"; sourceTree = "<group>"; };
 		B13FF408247EC67F00535F37 /* HomeViewController+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+State.swift"; sourceTree = "<group>"; };
 		B14D0CDA246E968C00D5BEBC /* String+Today.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Today.swift"; sourceTree = "<group>"; };
@@ -1265,9 +1267,18 @@
 		B1125458246F2C2100AB5036 /* Converting Keys */ = {
 			isa = PBXGroup;
 			children = (
+				B1175214248A9F8300C3325C /* __tests__ */,
 				B1125459246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift */,
 			);
 			path = "Converting Keys";
+			sourceTree = "<group>";
+		};
+		B1175214248A9F8300C3325C /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				B1175215248A9F9600C3325C /* ConvertingKeysTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		B13FF407247EC66500535F37 /* Model */ = {
@@ -1989,6 +2000,7 @@
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
 				B1A76EA224714F7900EA5208 /* ClientModeTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
+				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
