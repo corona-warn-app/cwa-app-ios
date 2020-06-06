@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Connectivity",
+        "repositoryURL": "https://github.com/rwbutler/Connectivity",
+        "state": {
+          "branch": null,
+          "revision": "7b0215b0bf9f24dc0eb758ea1c47f06f33831e7a",
+          "version": "3.3.4"
+        }
+      },
+      {
         "package": "FMDB",
         "repositoryURL": "https://github.com/ccgus/fmdb.git",
         "state": {
@@ -11,21 +20,12 @@
         }
       },
       {
-        "package": "Reachability",
-        "repositoryURL": "https://github.com/ashleymills/Reachability.swift",
-        "state": {
-          "branch": null,
-          "revision": "98e968e7b6c1318fb61df23e347bc319761e8acb",
-          "version": "5.0.0"
-        }
-      },
-      {
         "package": "SwiftProtobuf",
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
           "branch": null,
-          "revision": "7790acf0a81d08429cb20375bf42a8c7d279c5fe",
-          "version": "1.8.0"
+          "revision": "7f36441e3372665b1b414f8ac93b5905cc42a405",
+          "version": "1.9.0"
         }
       },
       {

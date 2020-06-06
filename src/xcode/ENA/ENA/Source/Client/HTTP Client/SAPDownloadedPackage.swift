@@ -54,9 +54,11 @@ extension SAPDownloadedPackage {
 	///
 	func verifySignature() throws -> Bool{
 		
-		let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature)
+		guard let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature) else {
+			return false
+		}
 		
-		for signatureEntry in parsedSignatureFile!.signatures{
+		for signatureEntry in parsedSignatureFile.signatures{
 			let signatureData : Data = signatureEntry.signature
 			let publicKey = try P256.Signing.PublicKey(rawRepresentation: CWAKeys.getPublicKeyData(signatureEntry.signatureInfo.appBundleID))
 			let signature = try P256.Signing.ECDSASignature.init(derRepresentation: signatureData)
