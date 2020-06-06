@@ -25,6 +25,8 @@
 
 "Alert_DefaultAction_OpenSettings" = "Einstellungen öffnen";
 
+"General_BackButtonTitle" = "Zurück";
+
 /* Exposure Detection */
 "ExposureDetection_Off" = "Risikoermittlung gestoppt";
 
