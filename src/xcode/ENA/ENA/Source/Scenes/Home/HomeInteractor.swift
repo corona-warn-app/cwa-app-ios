@@ -315,7 +315,7 @@ extension HomeInteractor {
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection
 			)
-			riskLevelConfigurator?.isButtonHidden = isButtonHidden
+			riskLevelConfigurator?.isButtonHidden = true // TODO: isButtonHidden
 			riskLevelConfigurator?.isCounterLabelHidden = isCounterLabelHidden
 		}
 		riskLevelConfigurator?.buttonAction = { [unowned self] in
