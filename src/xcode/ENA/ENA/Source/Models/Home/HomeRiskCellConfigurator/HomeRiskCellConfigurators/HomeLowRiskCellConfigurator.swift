@@ -80,8 +80,6 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		cell.configureChevron(image: UIImage(named: "Icons_Chevron_White"), tintColor: nil)
-
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardLowButton
 		
 		configureCounter(buttonTitle: buttonTitle, cell: cell)
