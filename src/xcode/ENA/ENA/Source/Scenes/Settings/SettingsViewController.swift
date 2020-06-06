@@ -44,16 +44,13 @@ final class SettingsViewController: UITableViewController {
 	let resetSegue = "showReset"
 
 	let settingsViewModel = SettingsViewModel.model
-	var stateHandler: ENStateHandler {
-		didSet {
-			notificationSettingsController?.stateHandler = stateHandler
-		}
-	}
+	var enState: ENStateHandler.State
 
-	init?(coder: NSCoder, store: Store, stateHandler: ENStateHandler, delegate: SettingsViewControllerDelegate) {
+
+	init?(coder: NSCoder, store: Store, initialEnState: ENStateHandler.State, delegate: SettingsViewControllerDelegate) {
 		self.store = store
 		self.delegate = delegate
-		self.stateHandler = stateHandler
+		self.enState = initialEnState
 		super.init(coder: coder)
 	}
 
@@ -91,7 +88,11 @@ final class SettingsViewController: UITableViewController {
 
 	@IBSegueAction
 	func createExposureNotificationSettingViewController(coder: NSCoder) -> ExposureNotificationSettingViewController? {
-		let vc = ExposureNotificationSettingViewController(coder: coder, stateHandler: stateHandler, delegate: self)
+		let vc = ExposureNotificationSettingViewController(
+				coder: coder,
+				initialEnState: enState,
+				delegate: self
+		)
 		notificationSettingsController = vc
 		return vc
 	}
@@ -108,12 +109,6 @@ final class SettingsViewController: UITableViewController {
 	}
 
 	private func setupView() {
-		// We disable all app store checks to make testing a little bit easier.
-		//        #if !APP_STORE
-		let tap = UITapGestureRecognizer(target: self, action: #selector(sendLogFile))
-		tap.numberOfTapsRequired = 3
-		view.addGestureRecognizer(tap)
-		//        #endif
 
 		checkTracingStatus()
 		notificationSettings()
@@ -130,7 +125,9 @@ final class SettingsViewController: UITableViewController {
 		DispatchQueue.main.async { [weak self] in
 			guard let self = self else { return }
 
-			self.settingsViewModel.tracing.state = self.stateHandler.getState() == .enabled ? self.settingsViewModel.tracing.stateActive : self.settingsViewModel.tracing.stateInactive
+			self.settingsViewModel.tracing.state = self.enState == .enabled
+					? self.settingsViewModel.tracing.stateActive
+					: self.settingsViewModel.tracing.stateInactive
 
 			self.tableView.reloadData()
 		}
@@ -290,49 +287,12 @@ extension SettingsViewController: ExposureNotificationSettingViewControllerDeleg
 extension SettingsViewController: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		checkTracingStatus()
-		notificationSettingsController?.updateExposureState(state)
 	}
 }
 
-extension SettingsViewController: MFMailComposeViewControllerDelegate {
-	@objc
-	func sendLogFile() {
-		let alert = UIAlertController(title: "Send Log", message: "", preferredStyle: .alert)
-		alert.addTextField { textField in
-			textField.placeholder = "Please enter email"
-		}
-
-		let action = UIAlertAction(title: "Send Log File", style: .default) { [weak self] _ in
-			guard let strongSelf = self else { return }
-
-			guard let emailText = alert.textFields?[0].text else {
-				return
-			}
-
-			if !MFMailComposeViewController.canSendMail() {
-				return
-			}
-
-			let composeVC = MFMailComposeViewController()
-			composeVC.mailComposeDelegate = strongSelf
-			composeVC.setToRecipients([emailText])
-			composeVC.setSubject("Log File")
-
-			guard let logFile = appLogger.getLoggedData() else {
-				return
-			}
-			composeVC.addAttachmentData(logFile, mimeType: "txt", fileName: "Log")
-
-			self?.present(composeVC, animated: true, completion: nil)
-		}
-
-		alert.addAction(action)
-		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
-		present(alert, animated: true, completion: nil)
-	}
-
-	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith _: MFMailComposeResult, error _: Error?) {
-		controller.dismiss(animated: true, completion: nil)
+extension SettingsViewController: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		enState = state
+		notificationSettingsController?.updateEnState(state)
 	}
 }
