@@ -59,7 +59,6 @@ final class HomeInteractor: RequiresAppDependencies {
 					exposureManager: state.exposureManager
 				)
 			)
-			reloadRiskCell()
 			sections = initialCellConfigurators()
 			homeViewController.reloadData()
 		}
@@ -92,7 +91,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	private(set) var testResult: TestResult?
 
 	private func riskCellTask(completion: @escaping (() -> Void)) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: completion)
+		riskProvider.requestRisk()
 	}
 
 	private func startCheckRisk() {
@@ -287,7 +286,7 @@ extension HomeInteractor {
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
 				isButtonEnabled: true,
-				isButtonHidden: isButtonHidden,
+				isButtonHidden: true,
 				isCounterLabelHidden: isCounterLabelHidden,
 				startDate: startDate,
 				releaseDate: releaseDate,
@@ -320,19 +319,7 @@ extension HomeInteractor {
 			riskLevelConfigurator?.isCounterLabelHidden = isCounterLabelHidden
 		}
 		riskLevelConfigurator?.buttonAction = { [unowned self] in
-			if self.riskLevel == .inactive {
-				// go to settings?
-			} else {
-				self.startCountdownAndUpdateRisk()
-			}
-		}
-
-		riskLevelConfigurator?.buttonAction = { [unowned self] in
-			if self.riskLevel == .inactive {
-				// go to settings?
-			} else {
-				self.startCountdownAndUpdateRisk()
-			}
+			self.startCountdownAndUpdateRisk()
 		}
 
 		if let risk = riskLevelConfigurator {
@@ -394,7 +381,7 @@ extension HomeInteractor {
 			// This is shown when we registered a test.
 			// Note that the `positive` state has a custom cell and the risk cell will not be shown once the user was tested positive.
 
-			switch self.testResult {
+			switch testResult {
 			case .positive:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
