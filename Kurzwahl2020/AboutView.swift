@@ -31,7 +31,7 @@ struct AboutView: View {
                 Text("Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)")
                     .fontWeight(.medium)
                 
-                Image("Icon120").resizable().frame(width: 120, height: 120).cornerRadius(20)
+                Image("Icon1024").resizable().frame(width: 120, height: 120).cornerRadius(20)
                     Spacer()
                         .fixedSize()
                         .frame(width: 150, height: 150)

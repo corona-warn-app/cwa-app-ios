@@ -7,6 +7,7 @@ Aspect ratio: 1,820
 
 ## iPhone SE (1st Gen)
 1136 x 640
+4"
 Aspect ratio: 1,775
 Launch screen test: failed
 LS Bild füllt die gesamte Bildschirmbreite und ist damit zu hoch für den Bildschirm
@@ -14,6 +15,7 @@ HomeView: falsches Seitenverhältnis für alle Felder
 
 ## iPhone SE (2nd Gen)
 750 x 1334
+4.7"
 Aspect ratio: 1,779
 Launch screen test: failed
 LS Bild füllt die gesamte Bildschirmbreite und ist damit zu hoch für den Bildschirm
@@ -22,6 +24,7 @@ HomeView: ok
 
 ## iPhone 6/7/8
 750 x 1334 (@2x) for portrait
+4.7"
 Aspect ratio: 1,779
 Launch screen test: failed
 LS Bild füllt die gesamte Bildschirmbreite und ist damit zu hoch für den Bildschirm
@@ -29,13 +32,16 @@ LS Bild füllt die gesamte Bildschirmbreite und ist damit zu hoch für den Bilds
 
 ## iPhone 6+ / 7+ / 8+
 1242 x 2208 (@3x) for portrait
+5.5"
 Aspect ratio: 1,778
 Launch screen test: failed
 LS Bild füllt die gesamte Bildschirmbreite und ist damit zu hoch für den Bildschirm
 
 
+
 ## iPhone X/Xs
 1125 x 2436 (@3x) for portrait
+5.8"
 
 
 ## iPhone Xs Max
@@ -44,7 +50,7 @@ LS Bild füllt die gesamte Bildschirmbreite und ist damit zu hoch für den Bilds
 
 ## iPhone Xr
 828 x 1792
-
+6,1"
 
 ## iPhone 11
 828 × 1792
@@ -54,6 +60,7 @@ Launch screen test: OK
 
 ## iPhone 11 Pro
 1125 x 2436
+5.8"
 Aspect ratio: 2,165
 Launch screen test: failed
 LS Bild ist ein wenig zu groß. 
@@ -61,6 +68,7 @@ LS Bild ist ein wenig zu groß.
 
 ## iPhone 11 Pro Max
 1242 x 2688
+6.5"
 Aspect ratio: 2,164
 Launch screen test: OK
 

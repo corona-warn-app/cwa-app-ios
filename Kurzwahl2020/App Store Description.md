@@ -7,6 +7,7 @@ Features
 - nice colors
 - customize the screens with different colors
 - pick names and numbers from your contacts
+- supports dark mode 
 - no ads
 
 Privacy
