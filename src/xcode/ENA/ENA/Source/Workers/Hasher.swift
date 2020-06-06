@@ -25,5 +25,4 @@ enum Hasher {
 		let hash = value.compactMap { String(format: "%02x", $0) }.joined()
 		return hash
 	}
-
 }
