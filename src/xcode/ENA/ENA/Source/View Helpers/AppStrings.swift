@@ -322,6 +322,10 @@ enum AppStrings {
 	}
 
 	enum Home {
+		// Home Navigation
+		static let leftBarButtonDescription = NSLocalizedString("Home_LeftBarButton_description", comment: "")
+		static let rightBarButtonDescription = NSLocalizedString("Home_RightBarButton_description", comment: "")
+
 		// Activate Card
 		static let activateCardOnTitle = NSLocalizedString("Home_Activate_Card_On_Title", comment: "")
 		static let activateCardOffTitle = NSLocalizedString("Home_Activate_Card_Off_Title", comment: "")
@@ -500,4 +504,51 @@ enum AppStrings {
 		static let actionUpdate = NSLocalizedString("Update_Message_Action_Update", comment: "")
 		static let actionLater = NSLocalizedString("Update_Message_Action_Later", comment: "")
 	}
+	enum AppInformation {
+		static let aboutNavigation = NSLocalizedString("App_Information_About_Navigation", comment: "")
+		static let aboutImageDescription = NSLocalizedString("App_Information_About_ImageDescription", comment: "")
+		static let aboutTitle = NSLocalizedString("App_Information_About_Title", comment: "")
+		static let aboutDescription = NSLocalizedString("App_Information_About_Description", comment: "")
+		static let aboutText = NSLocalizedString("App_Information_About_Text", comment: "")
+
+		static let faqNavigation = NSLocalizedString("App_Information_FAQ_Navigation", comment: "")
+		static let faqTitle = NSLocalizedString("App_Information_FAQ_Title", comment: "")
+
+		static let contactNavigation = NSLocalizedString("App_Information_Contact_Navigation", comment: "")
+		static let contactImageDescription = NSLocalizedString("App_Information_Contact_ImageDescription", comment: "")
+		static let contactTitle = NSLocalizedString("App_Information_Contact_Title", comment: "")
+		static let contactDescription = NSLocalizedString("App_Information_Contact_Description", comment: "")
+		static let contactHotlineTitle = NSLocalizedString("App_Information_Contact_Hotline_Title", comment: "")
+		static let contactHotlineText = NSLocalizedString("App_Information_Contact_Hotline_Text", comment: "")
+		static let contactHotlineNumber = NSLocalizedString("App_Information_Contact_Hotline_Number", comment: "")
+		static let contactHotlineDescription = NSLocalizedString("App_Information_Contact_Hotline_Description", comment: "")
+		static let contactHotlineTerms = NSLocalizedString("App_Information_Contact_Hotline_Terms", comment: "")
+
+		static let imprintNavigation = NSLocalizedString("App_Information_Imprint_Navigation", comment: "")
+		static let imprintImageDescription = NSLocalizedString("App_Information_Imprint_ImageDescription", comment: "")
+		static let imprintSection1Title = NSLocalizedString("App_Information_Imprint_Section1_Title", comment: "")
+		static let imprintSection1Text = NSLocalizedString("App_Information_Imprint_Section1_Text", comment: "")
+		static let imprintSection2Title = NSLocalizedString("App_Information_Imprint_Section2_Title", comment: "")
+		static let imprintSection2Text = NSLocalizedString("App_Information_Imprint_Section2_Text", comment: "")
+		static let imprintSection3Title = NSLocalizedString("App_Information_Imprint_Section3_Title", comment: "")
+		static let imprintSection3Text = NSLocalizedString("App_Information_Imprint_Section3_Text", comment: "")
+		static let imprintSection4Title = NSLocalizedString("App_Information_Imprint_Section4_Title", comment: "")
+		static let imprintSection4Text = NSLocalizedString("App_Information_Imprint_Section4_Text", comment: "")
+
+		static let legalNavigation = NSLocalizedString("App_Information_Legal_Navigation", comment: "")
+		static let legalImageDescription = NSLocalizedString("App_Information_Legal_ImageDescription", comment: "")
+
+		static let privacyNavigation = NSLocalizedString("App_Information_Privacy_Navigation", comment: "")
+		static let privacyImageDescription = NSLocalizedString("App_Information_Privacy_ImageDescription", comment: "")
+		static let privacyTitle = NSLocalizedString("App_Information_Privacy_Title", comment: "")
+		static let privacyDescription = NSLocalizedString("App_Information_Privacy_Description", comment: "")
+		static let privacyText = NSLocalizedString("App_Information_Privacy_Text", comment: "")
+
+		static let termsNavigation = NSLocalizedString("App_Information_Terms_Navigation", comment: "")
+		static let termsImageDescription = NSLocalizedString("App_Information_Terms_ImageDescription", comment: "")
+		static let termsTitle = NSLocalizedString("App_Information_Terms_Title", comment: "")
+		static let termsDescription = NSLocalizedString("App_Information_Terms_Description", comment: "")
+		static let termsText = NSLocalizedString("App_Information_Terms_Text", comment: "")
+	}
+
 }

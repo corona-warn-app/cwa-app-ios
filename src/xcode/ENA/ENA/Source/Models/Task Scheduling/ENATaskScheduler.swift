@@ -50,7 +50,6 @@ final class ENATaskScheduler {
 	}
 
 	weak var taskDelegate: ENATaskExecutionDelegate?
-	lazy var notificationManager = LocalNotificationManager()
 	typealias CompletionHandler = (() -> Void)
 
 	private func registerBackgroundTaskRequests() {
