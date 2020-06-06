@@ -42,10 +42,7 @@ extension UNUserNotificationCenter {
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
 		let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
 
-//!		add(request) { error in
-		let notificationCenter = UNUserNotificationCenter.current()
-
-		notificationCenter.add(request) { error in
+		add(request) { error in
 			if let error = error {
 				logError(message: error.localizedDescription)
 			}
