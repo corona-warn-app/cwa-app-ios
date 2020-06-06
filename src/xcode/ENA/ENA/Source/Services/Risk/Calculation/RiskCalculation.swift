@@ -77,10 +77,10 @@ enum RiskCalculation {
 		}
 
 		// Precondition 1 - Exposure Notifications must be turned on
-		guard preconditions.isGood else {
-			// This overrides all other levels
-			return .success(.inactive)
-		}
+//		guard preconditions.isGood else {
+//			// This overrides all other levels
+//			return .success(.inactive)
+//		}
 
 		// Precondition 2 - If tracing is active less than 1 day, risk is .unknownInitial
 		if numberOfTracingActiveHours < minTracingActiveHours, riskLevel < .unknownInitial {

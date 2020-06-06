@@ -410,9 +410,9 @@ extension HomeInteractor {
 		return actionsConfigurators
 		}
 
-	func setupActionSectionDefinition() -> SectionDefinition {
-		return (.actions, setupActionConfigurators())
-	}
+		func setupActionSectionDefinition() -> SectionDefinition {
+			return (.actions, setupActionConfigurators())
+		}
 	}
 
 // MARK: - IndexPath helpers.

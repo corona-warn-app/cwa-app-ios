@@ -41,6 +41,8 @@ protocol Store: AnyObject {
 
 	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
 
+	var previousRisk: Risk? { get set }
+
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
@@ -227,6 +229,11 @@ final class SecureStore: Store {
 	var previousSummary: ENExposureDetectionSummaryContainer? {
 		get { kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil }
 		set { kvStore["previousSummary"] = newValue }
+	}
+
+	var previousRisk: Risk? {
+		get { kvStore["previousRisk"] as Risk? ?? nil }
+		set { kvStore["previousRisk"] = newValue }
 	}
 
 	var hourlyFetchingEnabled: Bool {
