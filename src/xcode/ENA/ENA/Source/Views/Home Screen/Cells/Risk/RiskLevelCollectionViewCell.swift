@@ -40,21 +40,6 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var topContainer: UIView!
 	@IBOutlet var stackView: UIStackView!
 
-	// MARK: Nib Loading
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		constructCounterLabelContainer()
-	}
-
-	private func constructCounterLabelContainer() {
-		counterLabelContainer.layer.cornerRadius = 18.0
-		counterLabelContainer.layer.masksToBounds = true
-		counterLabelContainer.layoutMargins = .init(top: 8.0, left: 16.0, bottom: 8.0, right: 16.0)
-		counterLabelContainer.backgroundColor = UIColor.black.withAlphaComponent(0.12)
-		counterLabel.textColor = .systemGray6
-	}
-
 	// Ignore touches on the button when it's disabled
 	override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 		let buttonPoint = convert(point, to: updateButton)
@@ -92,11 +77,6 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 
 	func configureBackgroundColor(color: UIColor) {
 		viewContainer.backgroundColor = color
-	}
-
-	func configureChevron(image: UIImage?, tintColor: UIColor?) {
-		chevronImageView.image = image
-		chevronImageView.tintColor = tintColor
 	}
 
 	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool) {

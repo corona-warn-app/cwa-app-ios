@@ -37,14 +37,14 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="999" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="Icons_Chevron_White" translatesAutoresizingMaskIntoConstraints="NO" id="nJl-O5-rry">
                                                 <rect key="frame" x="368" y="0.0" width="30" height="30"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="gv6-c3-YX2"/>
-                                                    <constraint firstAttribute="width" constant="30" id="pm1-Pr-Fe4"/>
+                                                    <constraint firstAttribute="height" priority="900" constant="30" id="gv6-c3-YX2"/>
+                                                    <constraint firstAttribute="width" priority="900" constant="30" id="pm1-Pr-Fe4"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Sq-Fu-7Ci" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="46" width="398" height="97.5"/>
+                                        <rect key="frame" x="0.0" y="46" width="398" height="124"/>
                                         <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Contrast Color"/>
@@ -54,7 +54,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b20-mf-cB4" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="159.5" width="398" height="50"/>
+                                        <rect key="frame" x="0.0" y="186" width="398" height="50"/>
                                         <state key="normal" title="Button"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isInverted" value="YES"/>
@@ -63,27 +63,39 @@
                                             <action selector="updateButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="WC5-CV-Zky"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyD-er-ora" userLabel="Label Container" customClass="ExposureDetectionRoundedView" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="225.5" width="398" height="52.5"/>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="LND-HN-Opd">
+                                        <rect key="frame" x="0.0" y="252" width="398" height="26"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="255" verticalCompressionResistancePriority="755" insetsLayoutMarginsFromSafeArea="NO" text="Aktualisierung in 51:08 Minuten" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NNo-PQ-bh2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="16" width="382" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" name="ENA Text Contrast Color"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="footnote"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </label>
+                                            <view contentMode="scaleToFill" verticalHuggingPriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyD-er-ora" customClass="ExposureDetectionRoundedView" customModule="ENA" customModuleProvider="target">
+                                                <rect key="frame" x="91.5" y="0.0" width="215" height="26"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="755" insetsLayoutMarginsFromSafeArea="NO" text="Aktualisierung in 51:08 Minuten" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NNo-PQ-bh2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                        <rect key="frame" x="12" y="5" width="191" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" name="ENA Text Contrast Color"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="footnote"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" name="ENA Text Primary 3 Color"/>
+                                                <constraints>
+                                                    <constraint firstItem="NNo-PQ-bh2" firstAttribute="top" secondItem="eyD-er-ora" secondAttribute="topMargin" id="8Fo-Jl-3TD"/>
+                                                    <constraint firstItem="NNo-PQ-bh2" firstAttribute="leading" secondItem="eyD-er-ora" secondAttribute="leadingMargin" id="9dL-i6-SkD"/>
+                                                    <constraint firstAttribute="trailingMargin" secondItem="NNo-PQ-bh2" secondAttribute="trailing" id="DGf-mj-rja"/>
+                                                    <constraint firstAttribute="bottomMargin" secondItem="NNo-PQ-bh2" secondAttribute="bottom" id="ekz-RU-Ojc"/>
+                                                </constraints>
+                                                <edgeInsets key="layoutMargins" top="5" left="12" bottom="5" right="12"/>
+                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" name="ENA Text Primary 3 Color"/>
                                         <constraints>
-                                            <constraint firstItem="NNo-PQ-bh2" firstAttribute="top" secondItem="eyD-er-ora" secondAttribute="topMargin" id="8Fo-Jl-3TD"/>
-                                            <constraint firstItem="NNo-PQ-bh2" firstAttribute="leading" secondItem="eyD-er-ora" secondAttribute="leadingMargin" id="9dL-i6-SkD"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="NNo-PQ-bh2" secondAttribute="trailing" id="DGf-mj-rja"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="NNo-PQ-bh2" secondAttribute="bottom" id="ekz-RU-Ojc"/>
+                                            <constraint firstItem="eyD-er-ora" firstAttribute="centerX" secondItem="LND-HN-Opd" secondAttribute="centerX" id="3Nt-Yl-S1t"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eyD-er-ora" secondAttribute="trailing" id="ETA-aW-hPr"/>
+                                            <constraint firstItem="eyD-er-ora" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LND-HN-Opd" secondAttribute="leading" id="FKE-hL-9JO"/>
+                                            <constraint firstAttribute="bottom" secondItem="eyD-er-ora" secondAttribute="bottom" id="FQy-Xe-vKo"/>
+                                            <constraint firstItem="eyD-er-ora" firstAttribute="top" secondItem="LND-HN-Opd" secondAttribute="top" id="bEf-HM-oLw"/>
                                         </constraints>
-                                        <edgeInsets key="layoutMargins" top="16" left="8" bottom="16" right="8"/>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -110,7 +122,7 @@
                 <outlet property="bodyLabel" destination="8Sq-Fu-7Ci" id="QZe-bX-pDV"/>
                 <outlet property="chevronImageView" destination="nJl-O5-rry" id="Pnf-9I-Xn0"/>
                 <outlet property="counterLabel" destination="NNo-PQ-bh2" id="hWu-Vd-mQ1"/>
-                <outlet property="counterLabelContainer" destination="eyD-er-ora" id="XCV-9r-ESU"/>
+                <outlet property="counterLabelContainer" destination="LND-HN-Opd" id="m8c-bW-Gwu"/>
                 <outlet property="stackView" destination="vPX-Xb-EeD" id="Rly-Le-zRW"/>
                 <outlet property="titleLabel" destination="gno-nj-MZX" id="mus-pa-Ikd"/>
                 <outlet property="topContainer" destination="BBM-2X-os2" id="MTS-wj-L48"/>
