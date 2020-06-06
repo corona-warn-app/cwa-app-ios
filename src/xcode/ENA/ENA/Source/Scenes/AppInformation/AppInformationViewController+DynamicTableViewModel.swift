@@ -81,7 +81,7 @@ extension AppInformationViewController {
 		),
 		.terms: (
 			text: AppStrings.AppInformation.termsNavigation,
-			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsNavigation)
+			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsTitle)
 		),
 		.privacy: (
 			text: AppStrings.AppInformation.privacyNavigation,
