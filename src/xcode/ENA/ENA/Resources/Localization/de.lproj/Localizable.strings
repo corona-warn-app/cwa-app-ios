@@ -254,9 +254,9 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 (0)800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch\n\nErreichbarkeit:\nMo - So: 00:00 - 24:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: 00:00 - 24:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
 
-"ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
+"ExposureSubmission_SectionDescription2" = "Ihren Test per TAN-Eingabe in der App registrieren";
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
