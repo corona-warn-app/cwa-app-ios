@@ -176,6 +176,8 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isAccessibilityElement = true
 		ignoreButton.isAccessibilityElement = true
 
+		titleLabel.accessibilityTraits = .header
+		
 		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
 		nextButton.accessibilityIdentifier = Accessibility.Button.next
 		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
