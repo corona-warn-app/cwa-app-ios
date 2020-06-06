@@ -18,12 +18,9 @@
 import ExposureNotification
 import Foundation
 
-// swiftlint:disable:next type_body_length
-final class HomeInteractor {
-
+final class HomeInteractor: RequiresAppDependencies {
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
-
 
 	enum UserLoadingMode {
 		case automatic
@@ -34,53 +31,51 @@ final class HomeInteractor {
 
 	init(
 		homeViewController: HomeViewController,
-		store: Store,
 		state: State,
 		exposureSubmissionService: ExposureSubmissionService? = nil,
-		taskScheduler: ENATaskScheduler,
 		initialEnState: ENStateHandler.State
 	) {
 		self.homeViewController = homeViewController
-		self.store = store
 		self.state = state
-		self.taskScheduler = taskScheduler
 		self.enState = initialEnState
 		sections = initialCellConfigurators()
+		riskConsumer.didCalculateRisk = { [weak self] risk in
+			self?.state.risk = risk
+		}
+		riskProvider.observeRisk(riskConsumer)
 	}
 
 	// MARK: Properties
+	private var enState: ENStateHandler.State
+	private let riskConsumer = RiskConsumer()
 
 	var state = HomeInteractor.State(
 		isLoading: false,
-		summary: nil,
 		exposureManager: .init()
 	) {
 		didSet {
 			homeViewController.setStateOfChildViewControllers(
 				.init(
-					exposureManager: state.exposureManager,
-					summary: state.summary
+					exposureManager: state.exposureManager
 				)
 			)
-			reloadRiskCell()
 			sections = initialCellConfigurators()
 			homeViewController.reloadData()
 		}
 	}
 
 	private unowned var homeViewController: HomeViewController
-	private let store: Store
 	private var exposureSubmissionService: ExposureSubmissionService?
-	private let taskScheduler: ENATaskScheduler
-	private var enState: ENStateHandler.State
+	var enStateHandler: ENStateHandler?
+
 	private var riskLevel: RiskLevel {
-		RiskLevel(riskScore: state.summary?.maximumRiskScore)
+		state.riskLevel
 	}
 
 	private(set) var sections: SectionConfiguration = []
 
 	private var activeConfigurator: HomeActivateCellConfigurator!
-	private var testResultConfigurator: HomeTestResultCellConfigurator?
+	private var testResultConfigurator = HomeTestResultCellConfigurator()
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
 	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
 
@@ -95,23 +90,23 @@ final class HomeInteractor {
 	private var startDate: Date?
 	private(set) var testResult: TestResult?
 
-
 	private func riskCellTask(completion: @escaping (() -> Void)) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: completion)
+		riskProvider.requestRisk()
 	}
 
 	private func startCheckRisk() {
+//		riskProvider.requestRisk()
 		guard let indexPath = indexPathForRiskCell() else { return }
 		riskLevelConfigurator?.startLoading()
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 
-		riskCellTask(completion: {
+		riskCellTask {
 			self.riskLevelConfigurator?.stopLoading()
 			guard let indexPath = self.indexPathForRiskCell() else { return }
 			self.homeViewController.updateSections()
 			self.homeViewController.reloadCell(at: indexPath)
-		})
+		}
 	}
 
 	private func fetchUpdateRisk() {
@@ -257,7 +252,7 @@ final class HomeInteractor {
 extension HomeInteractor {
 
 	func reloadTestResult(with result: TestResult) {
-		self.testResultConfigurator?.testResult = result
+		testResultConfigurator.testResult = result
 		reloadActionSection()
 		guard let indexPath = indexPathForTestResultCell() else { return }
 		homeViewController.reloadCell(at: indexPath)
@@ -282,16 +277,16 @@ extension HomeInteractor {
 		let isButtonHidden = userLoadingMode == .automatic
 		let isCounterLabelHidden = !isButtonHidden
 
-		if riskLevel != .inactive, userLoadingMode == .automatic { // ?
-			startCountdown()
-		}
+//		if riskLevel != .inactive, userLoadingMode == .automatic {
+//			startCountdown()
+//		}
 
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
 				isButtonEnabled: true,
-				isButtonHidden: isButtonHidden,
+				isButtonHidden: true,
 				isCounterLabelHidden: isCounterLabelHidden,
 				startDate: startDate,
 				releaseDate: releaseDate,
@@ -310,7 +305,7 @@ extension HomeInteractor {
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection
 			)
-			riskLevelConfigurator?.isButtonHidden = isButtonHidden
+			riskLevelConfigurator?.isButtonHidden = true // TODO: hide isButtonHidden
 			riskLevelConfigurator?.isCounterLabelHidden = isCounterLabelHidden
 		case .increased:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
@@ -320,24 +315,11 @@ extension HomeInteractor {
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection
 			)
-			riskLevelConfigurator?.isButtonHidden = isButtonHidden
+			riskLevelConfigurator?.isButtonHidden = true // TODO: isButtonHidden
 			riskLevelConfigurator?.isCounterLabelHidden = isCounterLabelHidden
 		}
-
 		riskLevelConfigurator?.buttonAction = { [unowned self] in
-			if self.riskLevel == .inactive {
-				// go to settings?
-			} else {
-				self.startCountdownAndUpdateRisk()
-			}
-		}
-
-		riskLevelConfigurator?.buttonAction = { [unowned self] in
-			if self.riskLevel == .inactive {
-				// go to settings?
-			} else {
-				self.startCountdownAndUpdateRisk()
-			}
+			self.startCountdownAndUpdateRisk()
 		}
 
 		if let risk = riskLevelConfigurator {
@@ -353,32 +335,15 @@ extension HomeInteractor {
 		return nil
 	}
 
-	func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
-		guard let testResultConfigurator = self.testResultConfigurator else {
-			self.testResultConfigurator = HomeTestResultCellConfigurator()
-			// swiftlint:disable:next force_unwrapping
-			return self.testResultConfigurator!
-		}
-
-		testResultConfigurator.buttonAction = { [weak self] in
-			self?.homeViewController.showTestResultScreen()
-		}
-
+	private func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
+		testResultConfigurator.buttonAction = homeViewController.showTestResultScreen
 		return testResultConfigurator
-		}
+	}
 
 	func setupSubmitConfigurator() -> HomeSubmitCellConfigurator {
 		let submitConfigurator = HomeSubmitCellConfigurator()
-		submitConfigurator.submitAction = { [unowned self] in
-			self.homeViewController.showExposureSubmission()
-		}
-
+		submitConfigurator.submitAction = homeViewController.showExposureSubmissionWithoutResult
 		return submitConfigurator
-	}
-
-	func setupThankYouConfigurator() -> HomeThankYouRiskCellConfigurator {
-		let configurator = HomeThankYouRiskCellConfigurator()
-		return configurator
 	}
 
 	func setupFindingPositiveRiskCellConfigurator() -> HomeFindingPositiveRiskCellConfigurator {
@@ -408,7 +373,7 @@ extension HomeInteractor {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
 			// Once this state is reached, it cannot be left anymore.
 
-			let thankYou = setupThankYouConfigurator()
+			let thankYou = HomeThankYouRiskCellConfigurator()
 			actionsConfigurators.append(thankYou)
 			appLogger.log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
 
@@ -416,7 +381,7 @@ extension HomeInteractor {
 			// This is shown when we registered a test.
 			// Note that the `positive` state has a custom cell and the risk cell will not be shown once the user was tested positive.
 
-			switch self.testResult {
+			switch testResult {
 			case .positive:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
@@ -493,49 +458,44 @@ extension HomeInteractor {
 
 extension HomeInteractor {
 	func updateTestResults() {
-		DispatchQueue.global(qos: .userInteractive).async {
-			self.updateTestResultHelper()
-			}
-		}
-
-	private func updateTestResultHelper() {
 		guard store.registrationToken != nil else { return }
 
-		self.exposureSubmissionService?.getTestResult { result in
+		self.exposureSubmissionService?.getTestResult { [weak self] result in
 			switch result {
-			case .failure(let error):
-				appLogger.log(message: "Error while fetching result: \(error)", file: #file, line: #line, function: #function)
+			case .failure:
+				self?.testResult = nil
 			case .success(let result):
-				self.testResult = result
-				self.reloadTestResult(with: result)
-	}
-	}
+				self?.testResult = result
+				self?.reloadTestResult(with: result)
+			}
+		}
 	}
 }
 
 extension HomeInteractor {
 	struct State {
 		var isLoading = false
-		var summary: ENExposureDetectionSummary?
 		var exposureManager: ExposureManagerState
 		var numberRiskContacts: Int {
-			summary?.numberOfContacts ?? 0
+			risk?.details.numberOfExposures ?? 0
 		}
 
 		var daysSinceLastExposure: Int? {
-			summary?.daysSinceLastExposure
+			guard let date = risk?.details.exposureDetectionDate else {
+				return nil
+			}
+			return Calendar.current.dateComponents([.day], from: date, to: Date()).day
 		}
 
-		var riskLevel: RiskLevel {
-			RiskLevel(riskScore: summary?.maximumRiskScore)
-		}
+		var risk: Risk?
+		var riskLevel: RiskLevel { risk?.level ?? .unknownInitial }
 	}
 }
 
-//MARK: - The ENStateHandler updating
+// MARK: The ENStateHandler updating
 extension HomeInteractor: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		self.enState = state
+		enState = state
 		activeConfigurator.updateEnState(state)
 		updateActiveCell()
 	}

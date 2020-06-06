@@ -36,7 +36,9 @@ private extension DynamicCell {
 extension AppInformationViewController {
 	static let legalModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_RechtlicheHinweise"), height: 230),
+			header: .image(UIImage(named: "Illu_Appinfo_RechtlicheHinweise"),
+						   accessibilityLabel: AppStrings.AppInformation.legalImageDescription,
+						   height: 230),
 			cells: legalCells
 		)
 	])

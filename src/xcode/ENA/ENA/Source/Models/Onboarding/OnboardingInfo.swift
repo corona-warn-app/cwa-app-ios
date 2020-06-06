@@ -55,7 +55,7 @@ extension OnboardingInfo {
 			imageDescription: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_imageDescription,
 			boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
-			actionText: AppStrings.Onboarding.onboardingContinue,
+			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
 			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate
 		)
 
