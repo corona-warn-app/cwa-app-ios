@@ -22,60 +22,24 @@ import CommonCrypto
 import CryptoKit
 
 extension Data {
-	/// Attempt to decypt the data with the given `SecKey`
-	///
-	/// - parameter key: `SecKey` to decrypt the data with
-	/// - returns: decrypted `Data`, `nil` if decryption fails
-	func decrypted(with key: SecKey) -> Data? {
-//		var bufferSize = SecKeyGetBlockSize(key)
-//		var decryptedBytes = [UInt8](repeating: 0, count: bufferSize)
-//		let encryptedBytes = [UInt8](self)
-//
-//		let status = SecKeyDecrypt(key, SecPadding(rawValue: 0), encryptedBytes, bufferSize, &decryptedBytes, &bufferSize)
-//		guard status == errSecSuccess else {
-//			return nil
-//		}
-//
-//		return Data(bytes: decryptedBytes, count: bufferSize)
 
-		/*
-		        status = SecKeyDecrypt(privateKey!, SecPadding.PKCS1, &messageEncrypted, messageEncryptedSize, &messageDecrypted, &messageDecryptedSize)
-		*/
-
-		/*
-		size_t cipherBufferSize = [content length];
-		void *cipherBuffer = malloc(cipherBufferSize);
-		[content getBytes:cipherBuffer length:cipherBufferSize];
-		size_t plainBufferSize = [content length];
-		uint8_t *plainBuffer = malloc(plainBufferSize);
-		OSStatus sanityCheck = SecKeyDecrypt(key,
-		kSecPaddingPKCS1,
-		cipherBuffer,
-		cipherBufferSize,
-		plainBuffer,
-		&plainBufferSize);
-		*/
-
-		let cipherBufferSize = count
-		var cipherBuffer = [UInt8](self)
-		var plainBufferSize = count
-		var plainBuffer = [UInt8](repeating: 0, count: plainBufferSize)
-
-		let status = SecKeyDecrypt(key, SecPadding.PKCS1, cipherBuffer, cipherBufferSize, &plainBuffer, &plainBufferSize)
-		guard status == errSecSuccess else {
-			return nil
-		}
-
-		return Data(bytes: plainBuffer, count: plainBufferSize)
-	}
-
-	//data is the content of the bin file
+	/// - parameter data: Byte stream of the .bin file
 	func verify(_ data: Data) throws -> Bool {
-		guard let keyURL = Bundle.main.url(forResource: "trimmedRawKey", withExtension: "der") else { return false }
+		// TODO: Get key as String, no need to have it.
+		// Openssl will help, something like this (might need tweaking)
+		// openssl pkey -pubin -in pubkey.pem -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
 
-		let keyData = try Data(contentsOf: keyURL)
+		// ⬇️ Check if right
+		let keyData = Data(base64Encoded: "3BYTxr2HuJYQG+d7Ezu6KS8GEbFkiEvyJFg0j+C839gTjT6j7Ho0EXXZ/a07ZfvKcC2cmc1SunsrqU9Jov1J5Q==")!
 		let pubKey = try P256.Signing.PublicKey(rawRepresentation: keyData)
-
-		return true
+		// 1 Get pub key
+		// 2 build signature out of the .sig binary
+		// 3 Build digest from bin using SHA256
+		// 4 Verify signature for digest with public key
+		// TODO: Check if we need to remove the utf8 header from the export.bin
+		// TODO: Check if we need to use the digest function instead of the data function below. If so, we need to SHA256 the byte stream first
+		// TODO: Apple checks the keys for us, we only really need to check the App Config
+		// TODO: Fix for incorrect parameter size error when executing this statement: P256.Signing.ECDSASignature(rawRepresentation: self)
+		return pubKey.isValidSignature(try P256.Signing.ECDSASignature(rawRepresentation: self), for: data)
 	}
 }

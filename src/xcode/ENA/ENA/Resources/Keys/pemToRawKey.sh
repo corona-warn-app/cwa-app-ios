@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# We might not need this after all, should try to get openssl version working, similar to:
+# openssl pkey -pubin -in pubkey.pem -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
+
 #############################################################
 # PEM public key -> raw key extractor for use in CommonCrypto
 #############################################################

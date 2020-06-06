@@ -37,6 +37,7 @@ enum CWAKeys {
 		case createError
 	}
 
+	// ⬇️ We should use the CryptoKit APIs instead, not this below.
 	static func getPubSecKey(for environment: Environment) throws -> SecKey {
 		guard let data = Data(base64Encoded: environment.publicKeyString) else {
 			throw KeyError.encodingError

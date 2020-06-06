@@ -61,19 +61,26 @@ extension SAPDownloadedPackage {
 	/// 5. If they match, we can be sure that they have not been tampered with and originated from our server.
 	func verifyHash() throws {
 		let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature)
-		let encryptedSignature = parsedSignatureFile?.signatures.first?.signature
-		let key = try CWAKeys.getPubSecKey(for: .development)
+		let signatureData = parsedSignatureFile?.signatures.first?.signature
+//		let key = try CWAKeys.getPubSecKey(for: .development)
 
-		try encryptedSignature?.verify(bin)
-
-		guard let decryptedHash = encryptedSignature?.decrypted(with: key) else {
-			logError(message: "Package signature decryption failed!")
+		guard let signature = signatureData else {
 			throw Archive.KeyPackageError.signatureCheckFailed
 		}
-		let stringHash = decryptedHash.compactMap { String(format: "%02x", $0) }.joined()
-		if stringHash != Hasher.sha256(bin) {
+
+		if !(try signature.verify(bin)) {
 			throw Archive.KeyPackageError.signatureCheckFailed
 		}
+
+		// ⬇️ Likely not necessary
+//		guard let decryptedHash = encryptedSignature?.decrypted(with: key) else {
+//			logError(message: "Package signature decryption failed!")
+//			throw Archive.KeyPackageError.signatureCheckFailed
+//		}
+//		let stringHash = decryptedHash.compactMap { String(format: "%02x", $0) }.joined()
+//		if stringHash != Hasher.sha256(bin) {
+//			throw Archive.KeyPackageError.signatureCheckFailed
+//		}
 	}
 }
 
