@@ -795,3 +795,10 @@
 "RiskLegend_Random_Text" = "Die Zufallscodes sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufallskennungen lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufallscodes der letzten bis zu 14 Tage freiwillig mit anderen CWA-Nutzern teilen.";
 
 "RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
+
+/* Update Message */
+"Update_Message_Title" = "Aktualisierung verfügbar";
+"Update_Message_Text" = "Es gibt eine neue Aktualisierung für die Applikation";
+"Update_Message_Text_Force" = "Um die Applikation weiter zu nutzen müssen sie eine neue Version installieren";
+"Update_Message_Action_Update" = "Aktualisieren";
+"Update_Message_Action_Later" = "Später aktualisieren";

@@ -71,8 +71,8 @@ class AppUpdateCheckHelper {
 	}
 
 	func createAlert(_ type: UpdateAlertType, vc: UIViewController?) -> UIAlertController? {
-		let alert = UIAlertController(title: "Akutalisierung verfügbar", message: "Es gibt eine neue Aktualisierung für die Applikation", preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: NSLocalizedString("Aktualisieren", comment: "Default action"), style: .default, handler: { _ in
+		let alert = UIAlertController(title: AppStrings.UpdateMessage.title, message: AppStrings.UpdateMessage.text, preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionUpdate, comment: ""), style: .default, handler: { _ in
 			//TODO: Add correct App Store ID
 			guard let url: URL = URL(string: "itms-apps://itunes.apple.com/app/apple-store/") else {
 				return
@@ -81,12 +81,12 @@ class AppUpdateCheckHelper {
 		}))
 		switch type {
 		case .update:
-			alert.addAction(UIAlertAction(title: NSLocalizedString("Später aktualisieren", comment: "Remind me later"), style: .default, handler: { _ in
+			alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionLater, comment: ""), style: .default, handler: { _ in
 				self.setObserver(vc: vc)
 				//Do nothing
 			}))
 		case .forceUpdate:
-			alert.message = "Um die Applikation weiter zu nutzen müssen sie eine neue Version installieren"
+			alert.message = AppStrings.UpdateMessage.textForce
 		case .none:
 			return nil
 		}
