@@ -26,7 +26,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	init(startDate: Date?, releaseDate: Date?, numberRiskContacts: Int, daysSinceLastExposure: Int?, lastUpdateDate: Date?) {
 		self.numberRiskContacts = numberRiskContacts
 		self.daysSinceLastExposure = daysSinceLastExposure
-		super.init(isLoading: false, isButtonEnabled: true, isButtonHidden: false, isCounterLabelHidden: true, startDate: startDate, releaseDate: releaseDate, lastUpdateDate: lastUpdateDate)
+		super.init(isLoading: false, isButtonEnabled: true, isButtonHidden: true, isCounterLabelHidden: true, startDate: startDate, releaseDate: releaseDate, lastUpdateDate: lastUpdateDate)
 	}
 
 	// MARK: Configuration
