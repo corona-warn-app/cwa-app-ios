@@ -159,11 +159,22 @@ final class OnboardingInfoViewController: UIViewController {
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
 		
-		if pageType == .enableLoggingOfContactsPage {
+		switch pageType {
+		case .enableLoggingOfContactsPage:
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText
 			)
+		case .privacyPage:
+			stackView.arrangedSubviews.last?.isHidden = true
+			let textView = HtmlTextView()
+			textView.delegate = self
+			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
+				textView.load(from: url)
+			}
+			stackView.addArrangedSubview(textView)
+		default:
+			break
 		}
 		
 	}
@@ -315,4 +326,11 @@ final class OnboardingInfoViewController: UIViewController {
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
+}
+
+extension OnboardingInfoViewController: UITextViewDelegate {
+	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+		WebPageHelper.openSafari(withUrl: url, from: self)
+		return false
+	}
 }
