@@ -24,6 +24,7 @@ class SQLiteKeyValueStore {
 
 	/// - parameter url: URL on disk where the FMDB should be initialized
 	/// If any part of the init fails no Datbase will be created
+	/// If the Database can't be accessed with the key the currentFile will be reset
 	init(with url: URL) {
 		db = FMDatabase(url: url)
 		if !db.open() {
@@ -36,20 +37,27 @@ class SQLiteKeyValueStore {
 	deinit {
 		db.close()
 	}
+
+	/// Generates or Loads Database Key
+	/// Creates the K/V Datsbase if it is not already there
 	private func initDatabase() {
 		var key: String
-		if let keyData = loadFromKeychain(key: "secureStoreDatabaseKey") {
-			key = String(decoding: keyData, as: UTF8.self)
-		} else {
+
+		if checkInitalSetup() {
 			guard let generatedKey = generateDatabaseKey() else {
 				db.close()
 				return
 			}
 			key = generatedKey
-			if savetoKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) == noErr {
-				logError(message: "Unable to save Key to Keychain")
-				db.close()
-				return
+		} else {
+			if let keyData = loadFromKeychain(key: "secureStoreDatabaseKey") {
+				key = String(decoding: keyData, as: UTF8.self)
+			} else {
+				guard let generatedKey = generateDatabaseKey() else {
+					db.close()
+					return
+				}
+				key = generatedKey
 			}
 		}
 		let dbhandle = OpaquePointer(db.sqliteHandle)
@@ -59,12 +67,29 @@ class SQLiteKeyValueStore {
 			return
 		}
 		let sqlStmt = """
+		PRAGMA auto_vacuum=2;
+
 		CREATE TABLE IF NOT EXISTS kv (
 			key TEXT UNIQUE,
 			value BLOB
 		);
 		"""
-		db.executeStatements(sqlStmt)
+		if !db.executeStatements(sqlStmt) {
+			removeDatabase()
+		}
+	}
+
+	/// Checks if is the inital Setup of the Database
+	/// This determins if a new Key should be generated or not
+	private func checkInitalSetup() -> Bool {
+		do {
+			let query = "SELECT count(*) FROM sqlite_master;;"
+			 let result = try db.executeQuery(query, values: [])
+			result.close()
+			return true
+		} catch {
+			return false
+		}
 	}
 
 	///Open Database Connection, set the Key and check if the Key/Value Table already exits.
@@ -127,15 +152,28 @@ class SQLiteKeyValueStore {
 	/// Removes all key/value pairs from the Store
 	func clearAll() {
 		openDbIfNeeded()
-		let deleteStmt = "DELETE FROM kv;"
+
+		let sqlStmt = """
+		PRAGMA journal_mode=OFF;
+		DROP TABLE kv;
+		VACUUM;
+		"""
+		 db.executeStatements(sqlStmt)
+		removeDatabase()
+	}
+
+	/// Removes the Database File to clear everything
+	private func removeDatabase() {
+		db.close()
 		do {
-			try db.executeUpdate(deleteStmt, values: [])
-			try db.executeUpdate("VACUUM", values: [])
-			log(message: "Cleared SecureStore", level: .info)
+			guard let url: URL = db.databaseURL else {
+				logError(message: "DatabaseURL not found in db")
+				return
+			}
+			try FileManager.default.removeItem(at: url)
 		} catch {
-			logError(message: "Failed to delete key from K/V SQLite store: \(error.localizedDescription)")
+			logError(message: "Failed to delete database file")
 		}
-		return
 	}
 
 	/// Removes most key/value pairs.
@@ -227,7 +265,13 @@ extension SQLiteKeyValueStore {
 			logError(message: "Error creating random bytes.")
 			return nil
 		}
-		return "x'\(Data(bytes).hexEncodedString())'"
+		let key = "x'\(Data(bytes).hexEncodedString())'"
+		if savetoKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) != noErr {
+			logError(message: "Unable to save Key to Keychain")
+			db.close()
+			return nil
+		}
+		return key
 	}
 }
 

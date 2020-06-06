@@ -170,31 +170,20 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func showHome(animated _: Bool = false) {
-		// FIXME: During the onboarding, if the user decline, the status == Unknown.
-		//After that
-		if exposureManager.preconditions().status == .active {
-			presentHomeVC()
-		} else {
-//			let enManager = ENManager()
-//			enManager.activate { theError in
-//				if let theError = theError {
-//					logError(message: "Cannot activate the  ENManager. The reason is \(theError)")
-//					return
-//				}
-//				self.presentHomeVC()
-//			}
-
+		if exposureManager.preconditions().status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					// TODO: Error handling, if error occurs, what can we do?
 					logError(message: "Cannot activate the  ENManager. The reason is \(error)")
 					return
 				}
-				// TODO: Set some state
 				self?.presentHomeVC()
 			}
+		} else {
+			presentHomeVC()
 		}
 	}
+
 
 	private func presentHomeVC() {
 		enStateHandler = ENStateHandler(
@@ -368,9 +357,9 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 			log(message: "Handling notification for \(response.notification.request.identifier)")
 
 			switch response.actionIdentifier {
-			case LocalNotificationAction.openExposureDetectionResults.rawValue: showHome(animated: true)
-			case LocalNotificationAction.openTestResults.rawValue: showHome(animated: true)
-			case LocalNotificationAction.ignore.rawValue: break
+			case UserNotificationAction.openExposureDetectionResults.rawValue: showHome(animated: true)
+			case UserNotificationAction.openTestResults.rawValue: showHome(animated: true)
+			case UserNotificationAction.ignore.rawValue: break
 			case UNNotificationDefaultActionIdentifier: break
 			case UNNotificationDismissActionIdentifier: break
 			default: break
