@@ -38,7 +38,6 @@ final class HomeInteractor: RequiresAppDependencies {
 		self.homeViewController = homeViewController
 		self.state = state
 		self.exposureSubmissionService = exposureSubmissionService
-		self.taskScheduler = taskScheduler
 		self.enState = initialEnState
 		sections = initialCellConfigurators()
 		riskConsumer.didCalculateRisk = { [weak self] risk in

@@ -62,7 +62,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
                 risk: risk
 			),
 			exposureSubmissionService: self.exposureSubmissionService,
-			taskScheduler: self.taskScheduler,
 			initialEnState: self.enState
 		)
 	}()
