@@ -442,6 +442,7 @@
 		7154EB49247D21E200A467FF /* ExposureDetectionLongGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionLongGuideCell.swift; sourceTree = "<group>"; };
 		7154EB4B247E862100A467FF /* ExposureDetectionLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionLoadingCell.swift; sourceTree = "<group>"; };
 		717D21E8248C022E00D9717E /* DynamicTableViewHtmlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHtmlCell.swift; sourceTree = "<group>"; };
+		717D21EA248C072300D9717E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = "en.lproj/privacy-policy.html"; sourceTree = "<group>"; };
 		71AFBD922464251000F91006 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		71B8044424828A6C00D53506 /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		71B804462484CC0800D53506 /* ENALabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENALabel.swift; sourceTree = "<group>"; };
@@ -457,7 +458,6 @@
 		71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicType.swift"; sourceTree = "<group>"; };
 		71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ena-colors.xcassets"; sourceTree = "<group>"; };
 		71F5418B248BEDBE006DB793 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = "de.lproj/privacy-policy.html"; sourceTree = "<group>"; };
-		71F5418D248BEDF5006DB793 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = "en.lproj/privacy-policy.html"; sourceTree = "<group>"; };
 		71F54190248BF677006DB793 /* HtmlTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlTextView.swift; sourceTree = "<group>"; };
 		71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
 		71FE1C68247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
@@ -2083,7 +2083,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				71F5418B248BEDBE006DB793 /* de */,
-				71F5418D248BEDF5006DB793 /* en */,
+				717D21EA248C072300D9717E /* en */,
 			);
 			name = "privacy-policy.html";
 			sourceTree = "<group>";
