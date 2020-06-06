@@ -51,7 +51,7 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
    [sudo] gem install fastlane -NV
    [sudo] gem install xcov
    ```
-   or alternatively using `brew cask install fastlane`
+   or alternatively using `brew install fastlane`
 
 
 ### Build

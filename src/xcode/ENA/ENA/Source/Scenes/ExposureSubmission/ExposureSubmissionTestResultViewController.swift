@@ -31,9 +31,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupButton()
-		DispatchQueue.main.async { [weak self] in
-			self?.navigationController?.navigationBar.sizeToFit()
-		}
 	}
 	
 
@@ -177,7 +174,7 @@ extension ExposureSubmissionTestResultViewController {
 // MARK: ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
+	func didTapButton() {
 		guard let result = testResult else { return }
 
 		switch result {
