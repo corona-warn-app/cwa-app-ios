@@ -49,5 +49,8 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardUnknownButton
 
 		configureCounter(buttonTitle: buttonTitle, cell: cell)
+
+		setupAccessibility(cell)
 	}
+
 }

@@ -91,7 +91,25 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		let buttonTitle: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
 
 		cell.configureActiveButton(title: buttonTitle)
+
+		setupAccessibility(cell)
+
 	}
+
+	func setupAccessibility(_ cell: RiskInactiveCollectionViewCell) {
+		cell.titleLabel.isAccessibilityElement = false
+		cell.chevronImageView.isAccessibilityElement = false
+		cell.viewContainer.isAccessibilityElement = false
+		cell.stackView.isAccessibilityElement = false
+
+		cell.topContainer.isAccessibilityElement = true
+		cell.bodyLabel.isAccessibilityElement = true
+
+		let topContainerText = cell.titleLabel.text ?? ""
+		cell.topContainer.accessibilityLabel = topContainerText
+		cell.topContainer.accessibilityTraits = [.button, .header]
+	}
+
 }
 
 extension HomeInactiveRiskCellConfigurator: RiskInactiveCollectionViewCellDelegate {
