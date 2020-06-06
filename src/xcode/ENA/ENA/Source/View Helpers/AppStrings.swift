@@ -492,4 +492,8 @@ enum AppStrings {
 		static let randomText = NSLocalizedString("RiskLegend_Random_Text", comment: "")
 		static let titleImageAccLabel = NSLocalizedString("RiskLegend_Image1_AccLabel", comment: "")
 	}
+
+	enum PrivacyPolicy {
+		static let navigationTitle = NSLocalizedString("PrivacyPolicy_Navigation_Title", comment: "")
+	}
 }

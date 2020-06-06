@@ -796,3 +796,6 @@
 
 "RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
 
+
+/* Privacy Policy */
+"PrivacyPolicy_Navigation_Title" = "Datenschutzerklärung";
