@@ -42,8 +42,9 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 	@IBAction func switchValueDidChange(_: Any) {
 		if askForConsent {
 			delegate?.performAction(action: .askConsent)
+		} else {
+			delegate?.performAction(action: .enable(self.actionSwitch.isOn))
 		}
-		delegate?.performAction(action: .enable(self.actionSwitch.isOn))
 	}
 
 	func turnSwitch(to on: Bool) {
