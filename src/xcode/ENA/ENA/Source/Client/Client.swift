@@ -37,9 +37,6 @@ protocol Client {
 	/// Gets the app configuratoin
 	func appConfiguration(completion: @escaping AppConfigurationCompletion)
 
-	/// Gets the app configuratoin
-	func appConfiguration(completion: @escaping AppConfigurationCompletion)
-
 	/// Determines days that can be downloaded.
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler)
 

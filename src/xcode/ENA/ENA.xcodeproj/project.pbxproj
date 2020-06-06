@@ -16,11 +16,11 @@
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
-		0DF6BB94248AD3EC007E8B0C /* app_config_attenuation_duration.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BB92248AD3EB007E8B0C /* app_config_attenuation_duration.pb.swift */; };
-		0DF6BB95248AD3EC007E8B0C /* app_config_app_version_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BB93248AD3EB007E8B0C /* app_config_app_version_config.pb.swift */; };
 		0DF6BB97248AD616007E8B0C /* AppUpdateCheckHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BB96248AD616007E8B0C /* AppUpdateCheckHelper.swift */; };
-		0DF6BB99248AD6F6007E8B0C /* app_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BB98248AD6F6007E8B0C /* app_config.pb.swift */; };
 		0DF6BB9D248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BB9C248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift */; };
+		0DF6BBB5248C04CF007E8B0C /* app_config_attenuation_duration.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BBB2248C04CF007E8B0C /* app_config_attenuation_duration.pb.swift */; };
+		0DF6BBB6248C04CF007E8B0C /* app_config_app_version_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BBB3248C04CF007E8B0C /* app_config_app_version_config.pb.swift */; };
+		0DF6BBB7248C04CF007E8B0C /* app_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF6BBB4248C04CF007E8B0C /* app_config.pb.swift */; };
 		0DFCC2722484DC8400E2811D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1309194E247972C40066E329 /* PrivacyProtectionViewController.swift */; };
 		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
@@ -254,9 +254,6 @@
 		B1FE13EE24891D0900D012E5 /* RiskProvidingConfigurationUpdateMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DA2488217300D012E5 /* RiskProvidingConfigurationUpdateMode.swift */; };
 		B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13E52488255900D012E5 /* RiskProvidingConfiguration.swift */; };
 		B1FE13F024891D1500D012E5 /* RiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13D72487DEED00D012E5 /* RiskCalculation.swift */; };
-		B1FE13F224893CCE00D012E5 /* app_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13F124893CCE00D012E5 /* app_config.pb.swift */; };
-		B1FE13F52489580D00D012E5 /* app_config_attenuation_duration.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13F32489580D00D012E5 /* app_config_attenuation_duration.pb.swift */; };
-		B1FE13F62489580D00D012E5 /* app_config_app_version_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13F42489580D00D012E5 /* app_config_app_version_config.pb.swift */; };
 		B1FE13FB24896E6700D012E5 /* AppConfigurationProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13FA24896E6700D012E5 /* AppConfigurationProviding.swift */; };
 		B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13FD24896EF700D012E5 /* CachedAppConfigurationTests.swift */; };
 		B1FE13FF2489708200D012E5 /* CachedAppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13F824896DDB00D012E5 /* CachedAppConfiguration.swift */; };
@@ -341,6 +338,9 @@
 		0DF6BB96248AD616007E8B0C /* AppUpdateCheckHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateCheckHelper.swift; sourceTree = "<group>"; };
 		0DF6BB98248AD6F6007E8B0C /* app_config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_config.pb.swift; path = ../../../gen/output/app_config.pb.swift; sourceTree = "<group>"; };
 		0DF6BB9C248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateCheckerHelperTests.swift; sourceTree = "<group>"; };
+		0DF6BBB2248C04CF007E8B0C /* app_config_attenuation_duration.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_config_attenuation_duration.pb.swift; path = ../../../gen/output/app_config_attenuation_duration.pb.swift; sourceTree = "<group>"; };
+		0DF6BBB3248C04CF007E8B0C /* app_config_app_version_config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_config_app_version_config.pb.swift; path = ../../../gen/output/app_config_app_version_config.pb.swift; sourceTree = "<group>"; };
+		0DF6BBB4248C04CF007E8B0C /* app_config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_config.pb.swift; path = ../../../gen/output/app_config.pb.swift; sourceTree = "<group>"; };
 		0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ENA-Bridging-Header.h"; sourceTree = "<group>"; };
 		0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ENATests-Bridging-Header.h"; sourceTree = "<group>"; };
 		0DFCC2702484DC8400E2811D /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
@@ -582,9 +582,6 @@
 		B1FE13DE248821E000D012E5 /* RiskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskProvider.swift; sourceTree = "<group>"; };
 		B1FE13E1248824E900D012E5 /* RiskProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskProviderTests.swift; sourceTree = "<group>"; };
 		B1FE13E52488255900D012E5 /* RiskProvidingConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskProvidingConfiguration.swift; sourceTree = "<group>"; };
-		B1FE13F124893CCE00D012E5 /* app_config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_config.pb.swift; path = ../../../gen/output/app_config.pb.swift; sourceTree = "<group>"; };
-		B1FE13F32489580D00D012E5 /* app_config_attenuation_duration.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_config_attenuation_duration.pb.swift; path = ../../../gen/output/app_config_attenuation_duration.pb.swift; sourceTree = "<group>"; };
-		B1FE13F42489580D00D012E5 /* app_config_app_version_config.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = app_config_app_version_config.pb.swift; path = ../../../gen/output/app_config_app_version_config.pb.swift; sourceTree = "<group>"; };
 		B1FE13F824896DDB00D012E5 /* CachedAppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAppConfiguration.swift; sourceTree = "<group>"; };
 		B1FE13FA24896E6700D012E5 /* AppConfigurationProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigurationProviding.swift; sourceTree = "<group>"; };
 		B1FE13FD24896EF700D012E5 /* CachedAppConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAppConfigurationTests.swift; sourceTree = "<group>"; };
@@ -1278,10 +1275,10 @@
 				0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */,
 				0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */,
 				B1D7D68A24766D2100E4DA5D /* apple_export.pb.swift */,
+				0DF6BBB4248C04CF007E8B0C /* app_config.pb.swift */,
+				0DF6BBB3248C04CF007E8B0C /* app_config_app_version_config.pb.swift */,
+				0DF6BBB2248C04CF007E8B0C /* app_config_attenuation_duration.pb.swift */,
 				B1D7D68624766D2100E4DA5D /* submission_payload.pb.swift */,
-				B1FE13F124893CCE00D012E5 /* app_config.pb.swift */,
-				B1FE13F42489580D00D012E5 /* app_config_app_version_config.pb.swift */,
-				B1FE13F32489580D00D012E5 /* app_config_attenuation_duration.pb.swift */,
 				B102BDC22460410600CD55A2 /* README.md */,
 			);
 			path = Backend;
@@ -1459,6 +1456,9 @@
 		B1741B572462EB26006275D9 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				0DF6BB93248AD3EB007E8B0C /* app_config_app_version_config.pb.swift */,
+				0DF6BB98248AD6F6007E8B0C /* app_config.pb.swift */,
+				0DF6BB92248AD3EB007E8B0C /* app_config_attenuation_duration.pb.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1941,9 +1941,9 @@
 				514EE99D246D4CFB00DE4884 /* TableViewCellConfigurator.swift in Sources */,
 				B1741B4D2462C21F006275D9 /* DMQRCodeViewController.swift in Sources */,
 				B1741B4B2462C21C006275D9 /* DMQRCodeScanViewController.swift in Sources */,
+				0DF6BBB7248C04CF007E8B0C /* app_config.pb.swift in Sources */,
 				B1DDDABE24713BAD00A07175 /* SAPDownloadedPackage.swift in Sources */,
 				71FE1C7C247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift in Sources */,
-				B1FE13F52489580D00D012E5 /* app_config_attenuation_duration.pb.swift in Sources */,
 				B1FE13EC24891CFE00D012E5 /* RiskProviding.swift in Sources */,
 				011E4B032483A92A002E6412 /* MockExposureManager.swift in Sources */,
 				51FE277F247535E300BB8144 /* RiskLoadingItemView.swift in Sources */,
@@ -2007,9 +2007,11 @@
 				EE22DB8A247FB43A001B0A71 /* ImageTableViewCell.swift in Sources */,
 				B11E619C246EE4E9004A056A /* UIFont+DynamicType.swift in Sources */,
 				71330E4524810A0500EB10F6 /* DynamicTableViewHeader.swift in Sources */,
+				0DF6BBB5248C04CF007E8B0C /* app_config_attenuation_duration.pb.swift in Sources */,
 				B1EAEC8B24711884003BE9A2 /* URLSession+Convenience.swift in Sources */,
 				7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */,
 				A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */,
+				0DF6BBB6248C04CF007E8B0C /* app_config_app_version_config.pb.swift in Sources */,
 				B153096A24706F1000A4A1BD /* URLSession+Default.swift in Sources */,
 				2FF1D62E2487850200381FFB /* NSMutableAttributedString+Generation.swift in Sources */,
 				B13FF409247EC67F00535F37 /* HomeViewController+State.swift in Sources */,
@@ -2029,7 +2031,6 @@
 				EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */,
 				710ABB27247533FA00948792 /* DynamicTableViewController.swift in Sources */,
 				713EA26124798AD100AB7EE8 /* InsetTableViewCell.swift in Sources */,
-				0DF6BB95248AD3EC007E8B0C /* app_config_app_version_config.pb.swift in Sources */,
 				51CE1B87246078B6002CF42A /* ActivateCollectionViewCell.swift in Sources */,
 				B1C6ED00247F23730066138F /* NotificationName.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
@@ -2054,7 +2055,6 @@
 				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
 				71B8044D248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift in Sources */,
-				B1FE13F62489580D00D012E5 /* app_config_app_version_config.pb.swift in Sources */,
 				859DD512248549790073D59F /* MockDiagnosisKeysRetrieval.swift in Sources */,
 				EE22DB89247FB43A001B0A71 /* TracingHistoryTableViewCell.swift in Sources */,
 				71B804472484CC0800D53506 /* ENALabel.swift in Sources */,
@@ -2077,13 +2077,11 @@
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
-				0DF6BB99248AD6F6007E8B0C /* app_config.pb.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
 				71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */,
 				1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */,
 				CDCE11DB247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift in Sources */,
 				EE46E5D82466AEA50057627F /* UIView.swift in Sources */,
-				0DF6BB94248AD3EC007E8B0C /* app_config_attenuation_duration.pb.swift in Sources */,
 				71FE1C6B247AA3F100851FEB /* ExposureDetectionViewController+State.swift in Sources */,
 				51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */,
 				B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */,
