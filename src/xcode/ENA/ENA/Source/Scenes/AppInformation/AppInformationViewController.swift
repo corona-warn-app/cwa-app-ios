@@ -94,4 +94,5 @@ extension AppInformationViewController {
 			self.execute(action: action)
 		}
 	}
+
 }
