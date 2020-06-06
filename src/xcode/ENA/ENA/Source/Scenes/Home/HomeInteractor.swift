@@ -305,7 +305,7 @@ extension HomeInteractor {
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection
 			)
-			riskLevelConfigurator?.isButtonHidden = isButtonHidden
+			riskLevelConfigurator?.isButtonHidden = true // TODO: hide isButtonHidden
 			riskLevelConfigurator?.isCounterLabelHidden = isCounterLabelHidden
 		case .increased:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
