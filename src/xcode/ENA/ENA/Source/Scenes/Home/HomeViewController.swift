@@ -323,6 +323,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	func reloadData() {
 		guard isViewLoaded else { return }
+		updateSections()
 		collectionView.reloadData()
 	}
 
