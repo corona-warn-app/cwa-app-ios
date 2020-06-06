@@ -741,7 +741,7 @@
 /* Local Notifications */
 "local_notifications_viewResults" = "Display Results";
 
-// App Information - Legal
+/* App Information - Legal */
 "App_Information_Imprint_Navigation" = "Imprint";
 
 "App_Information_Imprint_ImageDescription" = "A hand holds a smartphone with a lot of text, next to it is a paragraph symbol as a symbol for the imprint.";
