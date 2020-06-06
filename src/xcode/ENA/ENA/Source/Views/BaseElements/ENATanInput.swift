@@ -29,6 +29,7 @@ class ENATanInput: UIControl, UIKeyInput {
 
 	@IBInspectable var fontSize: CGFloat = 30
 	@IBInspectable var groups: String = "3,3,4"
+	@IBInspectable var forbidden: String = "1,0"
 
 	@IBInspectable var spacing: CGFloat = 3
 	@IBInspectable var cornerRadius: CGFloat = 4
@@ -39,6 +40,7 @@ class ENATanInput: UIControl, UIKeyInput {
 	var count: Int { text.count }
 
 	var dashes: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
+	var forbiddenArray: [String] { forbidden.split(separator: ",").map(String.init)}
 	var digits: Int { dashes.reduce(0) { $0 + $1 } }
 
 	// swiftlint:disable:next empty_count
@@ -129,8 +131,17 @@ class ENATanInput: UIControl, UIKeyInput {
 		for character in text {
 			guard !isValid else { return }
 			let label = labels[count]
-			label.text = "\(character)"
-			self.text += "\(character)"
+
+			label.text = "\(character.uppercased())"
+			self.text += "\(character.uppercased())"
+			if let enaInputLabel = label as? ENATanInputLabel {
+				if forbiddenArray.contains(String(character.uppercased())) {
+					enaInputLabel.isValid = false
+				} else {
+					enaInputLabel.isValid = true
+				}
+			}
+
 		}
 		delegate?.tanChanged(isValid: isValid)
 	}
@@ -140,6 +151,9 @@ class ENATanInput: UIControl, UIKeyInput {
 		text = String(text[..<text.index(before: text.endIndex)])
 		let label = labels[count]
 		label.text = ""
+		if let enaInputLabel = label as? ENATanInputLabel {
+			enaInputLabel.isValid = true
+		}
 		delegate?.tanChanged(isValid: isValid)
 	}
 
@@ -154,7 +168,18 @@ private class ENATanInputLabel: UILabel {
 
 	var isValid: Bool = true { didSet { setNeedsDisplay() } }
 
-	var color: UIColor { isValid ? .enaColor(for: .hairline) : .enaColor(for: .textSemanticRed) }
+	var color: UIColor {
+		if isValid {
+			if self.text?.isEmpty == nil || self.text == "" {
+				return .enaColor(for: .hairline)
+			} else {
+				return UIColor.clear
+			}
+		} else {
+			return .enaColor(for: .textSemanticRed)
+		}
+
+	}
 
 	override func draw(_ rect: CGRect) {
 		super.draw(rect)
