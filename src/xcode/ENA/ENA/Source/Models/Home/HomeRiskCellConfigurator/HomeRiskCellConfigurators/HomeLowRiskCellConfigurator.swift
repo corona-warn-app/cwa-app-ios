@@ -38,7 +38,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		super.init(
 			isLoading: false,
 			isButtonEnabled: true,
-			isButtonHidden: false,
+			isButtonHidden: true,
 			isCounterLabelHidden: true,
 			startDate: startDate,
 			releaseDate: releaseDate,

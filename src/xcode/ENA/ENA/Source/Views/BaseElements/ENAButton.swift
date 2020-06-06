@@ -65,7 +65,10 @@ class ENAButton: DynamicTypeButton {
 		cornerRadius = 8
 
 		contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-		heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+		let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+		// TODO temporary fix for auto layout warnings on home screen
+		heightConstraint.priority = .init(999)
+		heightConstraint.isActive = true
 
 		titleLabel?.font = .preferredFont(forTextStyle: .body)
 		dynamicTypeSize = 17
