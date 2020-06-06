@@ -33,13 +33,9 @@ extension ExposureDetectionViewController {
 		var isTracingEnabled: Bool { exposureManagerState.enabled }
 		var isLoading: Bool = false
 
-		var risk: Risk?
-
-		var riskLevel: RiskLevel {
-			risk?.level ?? .unknownInitial
-		}
-
+		var riskLevel: RiskLevel = .unknownInitial
 		var nextRefresh: Date?
+		var summary: ExposureDetectionViewController.Summary?
 
 		var actualRiskText: String {
 			riskLevel.text

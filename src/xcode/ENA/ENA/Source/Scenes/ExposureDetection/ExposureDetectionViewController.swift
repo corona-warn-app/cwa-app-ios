@@ -19,7 +19,7 @@ import ExposureNotification
 import Foundation
 import UIKit
 
-final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
+final class ExposureDetectionViewController: DynamicTableViewController {
 	// MARK: Properties
 
 	@IBOutlet var closeImage: UIImageView!
@@ -32,8 +32,6 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 	var state: State
 	private weak var delegate: ExposureDetectionViewControllerDelegate?
 	private weak var refreshTimer: Timer?
-
-	private let consumer = RiskConsumer()
 
 	// MARK: Creating an Exposure Detection View Controller
 
@@ -56,21 +54,12 @@ extension ExposureDetectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		consumer.didCalculateRisk = { risk in
-			self.state.risk = risk
-			self.updateUI()
-		}
-
-		consumer.nextExposureDetectionDateDidChange = { date in
-
-		}
-
-		riskProvider.observeRisk(consumer)
 		updateUI()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
 		updateUI()
 	}
 
@@ -126,19 +115,21 @@ private extension ExposureDetectionViewController {
 	}
 
 	@IBAction private func tappedBottomButton() {
-		guard state.isTracingEnabled else {
+		log(message: "Starting exposure detection ...")
+
+		if state.isTracingEnabled {
+			delegate?.exposureDetectionViewControllerStartTransaction(self)
+		} else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
 				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
 			}
-			return
 		}
-		riskProvider.requestRisk()
 	}
 }
 
 extension ExposureDetectionViewController: ExposureStateUpdating {
-	func updateExposureState(_ exposureManagerState: ExposureManagerState) {
-		state.exposureManagerState = exposureManagerState
+	func updateExposureState(_ emState: ExposureManagerState) {
+		state.exposureManagerState = emState
 		updateUI()
 	}
 }

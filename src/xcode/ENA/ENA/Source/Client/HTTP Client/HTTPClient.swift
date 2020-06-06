@@ -53,7 +53,7 @@ final class HTTPClient: Client {
 					completion(nil)
 					return
 				}
-				
+
 				completion(try? SAP_ApplicationConfiguration(serializedData: package.bin))
 			case .failure:
 				completion(nil)

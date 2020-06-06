@@ -158,14 +158,14 @@ final class OnboardingInfoViewController: UIViewController {
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
-
+		
 		if pageType == .enableLoggingOfContactsPage {
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
-				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText
 			)
 		}
-
+		
 	}
 
 	func setupAccessibility() {
@@ -215,6 +215,7 @@ final class OnboardingInfoViewController: UIViewController {
 				log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
 			case .apiMisuse:
 				// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
+				completion?()
 				return false
 			default:
 				break
@@ -273,11 +274,9 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	@IBAction func didTapNextButton(_: Any) {
-		nextButton.isUserInteractionEnabled = false
 		runActionForPageType(
-			completion: { [weak self] in
-				self?.gotoNextScreen()
-				self?.nextButton.isUserInteractionEnabled = true
+			completion: {
+				self.gotoNextScreen()
 			}
 		)
 	}

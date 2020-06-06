@@ -17,15 +17,16 @@
 
 import UIKit
 
-final class DMConfigurationViewController: UITableViewController, RequiresAppDependencies {
+final class DMConfigurationViewController: UITableViewController {
 	// MARK: Creating a Configuration View Controller
 
-	init(distributionURL: String?, submissionURL: String?, verificationURL: String?) {
+	init(distributionURL: String?, submissionURL: String?, verificationURL: String?, store: Store) {
 		self.distributionURL = distributionURL
 		self.submissionURL = submissionURL
 		self.verificationURL = verificationURL
+		self.store = store
 		super.init(style: .plain)
-		title = "⚙️ Configuration"
+		title = "Configuration"
 	}
 
 	required init?(coder _: NSCoder) {
@@ -37,6 +38,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 	private let distributionURL: String?
 	private let submissionURL: String?
 	private let verificationURL: String?
+	private let store: Store
 
 	// MARK: UIViewController
 
@@ -70,9 +72,6 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		case 2:
 			title = "Verification URL"
 			subtitle = verificationURL ?? "<none>"
-		case 3:
-			title = "Last Risk Calculation"
-			subtitle = lastRiskCalculation
 		default:
 			title = nil
 			subtitle = nil
@@ -84,12 +83,11 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 	}
 
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-		4
+		3
 	}
 
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		let footerView = UIView()
-		footerView.backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
 
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +98,8 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		footerView.addSubview(label)
 		label.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 15).isActive = true
 		label.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
-		label.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
+		label.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 15).isActive = true
+		label.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 15).isActive = true
 
 		let toggle = UISwitch()
 		toggle.translatesAutoresizingMaskIntoConstraints = false
@@ -109,9 +108,8 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 
 		footerView.addSubview(toggle)
 		toggle.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
-		toggle.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
-
-		footerView.sizeToFit()
+		toggle.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 15).isActive = true
+		toggle.bottomAnchor.constraint(equalTo: footerView.bottomAnchor, constant: 15).isActive = true
 
 		return footerView
 	}

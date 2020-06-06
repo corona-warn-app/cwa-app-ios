@@ -96,18 +96,15 @@ private extension DynamicCell {
 	static func riskContacts(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
-			let risk = state.risk
-			cell.textLabel?.text = String(format: text, risk?.details.numberOfExposures ?? 0)
+			cell.textLabel?.text = String(format: text, state.summary?.numberOfContacts ?? 0)
 			cell.imageView?.image = image
 		}
 	}
 
 	static func riskLastExposure(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
-			let exposureDetectionDate = viewController.state.risk?.details.exposureDetectionDate ?? Date()
-			let calendar = Calendar.current
-			let daysSinceLastExposure = calendar.dateComponents([.day], from: exposureDetectionDate, to: Date()).day ?? 0
-			cell.textLabel?.text = String(format: text, daysSinceLastExposure)
+			let state = viewController.state
+			cell.textLabel?.text = String(format: text, state.summary?.daysSinceLastExposure ?? 0)
 			cell.imageView?.image = image
 		}
 	}
@@ -115,7 +112,7 @@ private extension DynamicCell {
 	static func riskStored(text: String, imageName: String) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
-			var numberOfDaysStored = state.risk?.details.numberOfDaysWithActiveTracing ?? 0
+			var numberOfDaysStored = state.summary?.numberOfDaysStored ?? 0
 			cell.textLabel?.text = String(format: text, numberOfDaysStored)
 			if numberOfDaysStored < 0 { numberOfDaysStored = 0 }
 			if numberOfDaysStored > 13 {
@@ -128,8 +125,9 @@ private extension DynamicCell {
 
 	static func riskRefreshed(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
+			let state = viewController.state
 			var valueText: String
-			if let date: Date = viewController.state.risk?.details.exposureDetectionDate {
+			if let date: Date = state.summary?.lastRefreshDate {
 				let dateFormatter = DateFormatter(); dateFormatter.dateStyle = .short
 				let timeFormatter = DateFormatter(); timeFormatter.timeStyle = .short
 

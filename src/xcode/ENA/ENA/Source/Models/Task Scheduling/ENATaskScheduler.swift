@@ -24,10 +24,10 @@ enum ENATaskIdentifier: String, CaseIterable {
 	case detectExposures = "exposure-notification" // detect-exposures.exposure-notification"
 	case fetchTestResults = "fetch-test-results"
 
-	var backgroundTaskScheduleInterval: TimeInterval? {
+	var backgroundTaskScheduleInterval: TimeInterval {
 		switch self {
-		// set to trigger at the earliest begin time possible
-		case .detectExposures: return nil
+		// set to trigger every 2 hours
+		case .detectExposures: return 2 * 60 * 60
 		// set to trigger every 2 hours
 		case .fetchTestResults: return 2 * 60 * 60
 		}
@@ -76,14 +76,11 @@ final class ENATaskScheduler {
 
 	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
 
+		let earliestBeginDate = Date(timeIntervalSinceNow: taskIdentifier.backgroundTaskScheduleInterval)
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
 		taskRequest.requiresExternalPower = false
-		if let interval = taskIdentifier.backgroundTaskScheduleInterval {
-			taskRequest.earliestBeginDate = Date(timeIntervalSinceNow: interval)
-		} else {
-			taskRequest.earliestBeginDate = nil
-		}
+		taskRequest.earliestBeginDate = earliestBeginDate
 
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)

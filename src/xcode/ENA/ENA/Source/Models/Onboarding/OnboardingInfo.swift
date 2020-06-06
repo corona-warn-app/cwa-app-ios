@@ -52,7 +52,7 @@ extension OnboardingInfo {
 			imageName: "Illu_Onboarding_Risikoerekennung",
 			boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
-			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
+			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate
 		)
 

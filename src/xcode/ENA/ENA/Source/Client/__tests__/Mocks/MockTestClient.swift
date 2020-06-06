@@ -18,7 +18,7 @@
 @testable import ENA
 import ExposureNotification
 
-final class ClientMock {
+final class MockTestClient {
 	// MARK: Creating a Mock Client
 	init(submissionError: SubmissionError?) {
 		self.submissionError = submissionError
@@ -26,14 +26,9 @@ final class ClientMock {
 
 	// MARK: Properties
 	let submissionError: SubmissionError?
-	var onAppConfiguration: (AppConfigurationCompletion) -> Void = { $0(nil) }
 }
 
-extension ClientMock: Client {
-	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
-		onAppConfiguration(completion)
-	}
-
+extension MockTestClient: Client {
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
 		completion(.success([]))
 	}

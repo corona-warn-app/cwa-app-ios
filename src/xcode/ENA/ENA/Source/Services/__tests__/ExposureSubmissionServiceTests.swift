@@ -27,7 +27,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func testSubmitExpousure_Success() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock(submissionError: nil)
+		let client = MockTestClient(submissionError: nil)
 		let store = MockTestStore()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
@@ -49,7 +49,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func testSubmitExpousure_NoKeys() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
-		let client = ClientMock(submissionError: nil)
+		let client = MockTestClient(submissionError: nil)
 		let store = MockTestStore()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
@@ -74,7 +74,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func testSubmitExpousure_EmptyKeys() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (nil, nil))
-		let client = ClientMock(submissionError: nil)
+		let client = MockTestClient(submissionError: nil)
 		let store = MockTestStore()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
@@ -99,7 +99,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 	func testSubmitExpousure_OtherError() {
 		// Arrange
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock(submissionError: .invalidPayloadOrHeaders)
+		let client = MockTestClient(submissionError: .invalidPayloadOrHeaders)
 		let store = MockTestStore()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
@@ -125,7 +125,7 @@ class ExposureSubmissionServiceTests: XCTestCase {
 		// Arrange
 
 		let keyRetrieval = MockDiagnosisKeysRetrieval(diagnosisKeysResult: (keys, nil))
-		let client = ClientMock(submissionError: .invalidTan)
+		let client = MockTestClient(submissionError: .invalidTan)
 		let store = MockTestStore()
 
 		let service = ENAExposureSubmissionService(diagnosiskeyRetrieval: keyRetrieval, client: client, store: store)
