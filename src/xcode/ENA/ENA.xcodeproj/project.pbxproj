@@ -25,7 +25,7 @@
 		134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0F2B2475793400D88934 /* SnapshotHelper.swift */; };
 		134F0F2D2475794900D88934 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0F247466BD00D82D14 /* Accessibility.swift */; };
 		134FFA11247466BD00D82D14 /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134FFA0F247466BD00D82D14 /* Accessibility.swift */; };
-		13722044247AEEAD00152764 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13722043247AEEAD00152764 /* LocalNotificationManager.swift */; };
+		13722044247AEEAD00152764 /* UNUserNotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13722043247AEEAD00152764 /* UNUserNotificationCenter+Extension.swift */; };
 		137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */; };
 		138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138910C4247A909000D739F6 /* ENATaskScheduler.swift */; };
 		13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */; };
@@ -180,6 +180,7 @@
 		B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FD5F3246EAC1700E9D7F2 /* AppleFilesWriter.swift */; };
 		B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */; };
 		B112545A246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1125459246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift */; };
+		B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1175215248A9F9600C3325C /* ConvertingKeysTests.swift */; };
 		B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */; };
 		B11E619C246EE4E9004A056A /* UIFont+DynamicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */; };
 		B13FF409247EC67F00535F37 /* HomeViewController+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13FF408247EC67F00535F37 /* HomeViewController+State.swift */; };
@@ -327,7 +328,7 @@
 		134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Extensions.swift"; sourceTree = "<group>"; };
 		134F0F2B2475793400D88934 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = ../../fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
 		134FFA0F247466BD00D82D14 /* Accessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
-		13722043247AEEAD00152764 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
+		13722043247AEEAD00152764 /* UNUserNotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNUserNotificationCenter+Extension.swift"; sourceTree = "<group>"; };
 		137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingInfoViewController+Extension.swift"; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
 		13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
@@ -499,6 +500,7 @@
 		B10FD5F3246EAC1700E9D7F2 /* AppleFilesWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleFilesWriter.swift; sourceTree = "<group>"; };
 		B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		B1125459246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENTemporaryExposureKey+Convert.swift"; sourceTree = "<group>"; };
+		B1175215248A9F9600C3325C /* ConvertingKeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertingKeysTests.swift; sourceTree = "<group>"; };
 		B12995E8246C344100854AD0 /* HTTPClient+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+Configuration.swift"; sourceTree = "<group>"; };
 		B13FF408247EC67F00535F37 /* HomeViewController+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+State.swift"; sourceTree = "<group>"; };
 		B14D0CDA246E968C00D5BEBC /* String+Today.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Today.swift"; sourceTree = "<group>"; };
@@ -649,7 +651,7 @@
 			isa = PBXGroup;
 			children = (
 				138910C4247A909000D739F6 /* ENATaskScheduler.swift */,
-				13722043247AEEAD00152764 /* LocalNotificationManager.swift */,
+				13722043247AEEAD00152764 /* UNUserNotificationCenter+Extension.swift */,
 			);
 			path = "Task Scheduling";
 			sourceTree = "<group>";
@@ -1260,9 +1262,18 @@
 		B1125458246F2C2100AB5036 /* Converting Keys */ = {
 			isa = PBXGroup;
 			children = (
+				B1175214248A9F8300C3325C /* __tests__ */,
 				B1125459246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift */,
 			);
 			path = "Converting Keys";
+			sourceTree = "<group>";
+		};
+		B1175214248A9F8300C3325C /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				B1175215248A9F9600C3325C /* ConvertingKeysTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		B13FF407247EC66500535F37 /* Model */ = {
@@ -1900,7 +1911,7 @@
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
 				2F785753248506BD00323A9C /* HomeTestResultCell.swift in Sources */,
-				13722044247AEEAD00152764 /* LocalNotificationManager.swift in Sources */,
+				13722044247AEEAD00152764 /* UNUserNotificationCenter+Extension.swift in Sources */,
 				B10FD5ED246EAADC00E9D7F2 /* AppInformationDetailViewController.swift in Sources */,
 				CDCE11D9247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift in Sources */,
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
@@ -1981,6 +1992,7 @@
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
 				B1A76EA224714F7900EA5208 /* ClientModeTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
+				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
@@ -2140,7 +2152,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 830;
+				CURRENT_PROJECT_VERSION = 840;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2155,7 +2167,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2355,7 +2367,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 830;
+				CURRENT_PROJECT_VERSION = 840;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2369,7 +2381,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2394,7 +2406,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 830;
+				CURRENT_PROJECT_VERSION = 840;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2404,7 +2416,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2595,7 +2607,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 830;
+				CURRENT_PROJECT_VERSION = 840;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2605,7 +2617,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
