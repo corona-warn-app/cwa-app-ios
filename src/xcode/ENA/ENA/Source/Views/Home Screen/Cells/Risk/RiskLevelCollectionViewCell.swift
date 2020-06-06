@@ -113,7 +113,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 			updateButton.layoutIfNeeded()
 		}
 		updateButton.isEnabled = isEnabled
-		updateButton.isHidden = isHidden
+		updateButton.isHidden = true  // TODO: Use isHidden again
 		stackView.addArrangedSubview(updateButton)
 	}
 
