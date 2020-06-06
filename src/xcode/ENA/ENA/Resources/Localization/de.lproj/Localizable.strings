@@ -157,6 +157,8 @@
 
 "Onboarding_Continue_actionText" = "Weiter";
 
+"Onboarding_EnableLogging_actionText" = "Risiko-Ermittlung aktivieren";
+
 "Onboarding_doNotAllow_actionText" = "Nicht erlauben";
 
 "Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
@@ -185,9 +187,9 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.\n\nDie verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Datenschutz";
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Einwilligungserklärung";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Ja, ich willige in die Nutzung meiner Tracing-Funktionalität für meine Corona-Warn-App ein. Ich möchte damit einen wichtigen Beitrag zur Unterbrechung von Infektionsketten und der Eindämmung des Coronavirus in Deutschland leisten. Mit dem Contact-Tracing können Kontakte nachverfolgt werden, um später auf das Coronavirus positiv getestete Kontakte zu identifizieren.\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Weitere Informationen finden Sie in unseren Datenschutzhinweisen.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Um zu erfahren, ob Sie Kontakt mit einer infizierten Person hatten und für Sie ein Infektionsrisiko besteht, müssen Sie die Funktion Risiko-Ermittlung in der App aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung stimmen Sie mit Antippen des Buttons: Risiko-Ermittlung aktivieren zu.\n\n\nUm die Risiko-Ermittlung nutzen zu können müssen Sie zudem auf Ihrem iPhone die von Apple “ aktivieren und für die Corona-Warn-App freigeben.\n\n\nIhr iPhone erzeugt und versendet bei aktivierter Kontaktaufzeichnung kontinuierlich Zufalls-IDs per Bluetooth, die von anderen Apple- und Android-Smartphones mit ebenfalls aktivierter Kontaktaufzeichnung in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs der anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden im COVID-19-Kontaktprotokoll aufgezeichnet und dort für 14 Tage gespeichert.\n\n\nZur Ermittlung Ihres Infektionsrisikos lädt die App mehrmals täglich oder auf Abfrage eine Liste mit den Zufalls-IDs aller Nutzer, die Ihre Infektion mit dem Corona-Virus in der App geteilt haben. Diese Liste wird dann mit den im COVID-19-Kontaktprotokoll gespeicherten Zufalls-IDs verglichen. Wenn die App dabei feststellt, dass Sie möglicherweise Kontakt zu einem infizierten Nutzer gehabt haben, werden Sie von der App informiert, dass Sie mit einer infizierten Person in Kontakt waren und insoweit ein Infektionsrisiko besteht. In diesem Fall erhält die App außerdem Zugriff auf weitere im COVID-19-Kontaktprotokoll Ihres iPhone gespeicherte Daten (Datum und Dauer sowie Bluetooth-Signalstärke des Kontakts).\n\nAus der Bluetooth-Signalstärke wird der räumliche Abstand abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Gesundheitsrisiko durch eine Infektion mit dem Corona-Virus abzuschätzen und Ihnen Empfehlungen für die nächsten Schritte zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt. Außer Ihnen erfährt niemand (auch nicht das RKI), ob Sie mit einer infizierten Person Kontakt hatten und welches Risiko für Sie ermittelt wird.\n\nZum Widerruf Ihrer Einwilligung in die Risiko-Ermittlung können Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Kontakt zu einem infizierten Nutzer gehabt haben. Um auch die Aussendung und den Empfang der Zufalls-IDs anzuhalten, müssen Sie das COVID-19-Kontaktprotokoll in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die im COVID-19-Kontaktprotokoll aufgezeichneten fremden und eigenen Zufalls-Kennungen nicht in der App gelöscht werden. Die im COVID-19-Kontaktprotokoll gespeicherten Daten können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\n\nDie Datenschutzhinweise der App (einschließlich Informationen zur Datenverarbeitung für die Risiko-Ermittlung) finden Sie unter dem Menüpunkt „Datenschutzinformation“.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie positiv getestet werden ...";
 
@@ -467,6 +469,11 @@
 "ExposureNotificationSetting_AccLabel_BluetoothOff" = "Eine Person hat Bluetooth auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
 "ExposureNotificationSetting_AccLabel_InternetOff" = "Eine Person hat die Internetverbindung ihres Smartphones ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
 
+/* Home Navigation Bar */
+"Home_LeftBarButton_description" = "Corona Warn App Logo";
+
+"Home_RightBarButton_description" = "Info";
+
 /* Home Active card */
 "Home_Activate_Card_On_Title" = "Risiko-Ermittlung aktiv";
 
@@ -604,6 +611,8 @@
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
 
+"App_Information_About_ImageDescription" = "";
+
 "App_Information_About_Title" = "Gemeinsam Corona bekämpfen";
 
 "App_Information_About_Description" = "Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App für die gesamte Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.";
@@ -617,6 +626,8 @@
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Technische Hotline";
+
+"App_Information_Contact_ImageDescription" = "Ein Mann nutzt ein Headset zum Telefonieren";
 
 "App_Information_Contact_Title" = "Wie können wir Ihnen helfen?";
 
@@ -635,27 +646,33 @@
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
 
+"App_Information_Imprint_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Paragraphenzeichen als Symbol für das Impressum.";
+
 "App_Information_Imprint_Section1_Title" = "Herausgeber";
 
-"App_Information_Imprint_Section1_Text" = "Robert Koch-Institut\nNordufer 20\n13353 Berlin\nVertreten durch den Präsidenten\nVerantwortlich i. S. d.\nRundfunkstaatsvertrages\nN.N.";
+"App_Information_Imprint_Section1_Text" = "(verantwortlich nach § 5 Abs. 1 TMG, § 55 Abs. 1 RStV, DS-GVO, BDSG)";
 
-"App_Information_Imprint_Section2_Title" = "Umsatzsteueridentifikationsnummer";
+"App_Information_Imprint_Section2_Title" = "Robert Koch-Institut";
 
-"App_Information_Imprint_Section2_Text" = "Chef des Presse- und Informationsamtes der Bundesregierung";
+"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin\nvertreten durch den Präsidenten";
 
 "App_Information_Imprint_Section3_Title" = "Kontakt";
 
-"App_Information_Imprint_Section3_Text" = "E-Mail: N.N.\nTelefon: N.N.";
+"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelefon: 030 18754 – 5100";
 
-"App_Information_Imprint_Section4_Title" = "Design, technische Umsetzung und Hosting";
+"App_Information_Imprint_Section4_Title" = "Umsatzsteueridentifikationsnummer";
 
-"App_Information_Imprint_Section4_Text" = "Strato";
+"App_Information_Imprint_Section4_Text" = "DE 165 893 430";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
+"App_Information_Legal_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist eine Balkenwaage als Symbol für rechtliche Hinweise.";
+
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Datenschutz";
+
+"App_Information_Privacy_ImageDescription" = "";
 
 "App_Information_Privacy_Title" = "Datenschutz";
 
@@ -665,6 +682,8 @@
 
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "Nutzungsbedingungen";
+
+"App_Information_Terms_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Haken als Symbol für akzeptierte Nutzungsbedingungen.";
 
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
 

@@ -17,16 +17,13 @@
 
 import UserNotifications
 
-enum LocalNotificationAction: String {
+public enum UserNotificationAction: String {
 	case openExposureDetectionResults = "View_Exposure_Detection_Results"
 	case openTestResults = "View_Test_Results"
 	case ignore = "Ignore"
 }
 
-class LocalNotificationManager {
-	static let shared = LocalNotificationManager()
-
-	let notificationCenter = UNUserNotificationCenter.current()
+extension UNUserNotificationCenter {
 
 	func presentNotification(
 		title: String,
@@ -45,7 +42,7 @@ class LocalNotificationManager {
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
 		let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
 
-		notificationCenter.add(request) { error in
+		add(request) { error in
 			if let error = error {
 				logError(message: error.localizedDescription)
 			}
@@ -53,12 +50,12 @@ class LocalNotificationManager {
 
 		// conditionally add actions
 		if let taskId = ENATaskIdentifier(rawValue: identifier) {
-			let openActionIdentifier: LocalNotificationAction
+			let openActionIdentifier: UserNotificationAction
 			switch taskId {
 			case .detectExposures:
-				openActionIdentifier = LocalNotificationAction.openExposureDetectionResults
+				openActionIdentifier = UserNotificationAction.openExposureDetectionResults
 			case .fetchTestResults:
-				openActionIdentifier = LocalNotificationAction.openTestResults
+				openActionIdentifier = UserNotificationAction.openTestResults
 			}
 
 			let viewAction = UNNotificationAction(
@@ -68,8 +65,8 @@ class LocalNotificationManager {
 			)
 
 			let deleteAction = UNNotificationAction(
-				identifier: LocalNotificationAction.ignore.rawValue,
-				title: LocalNotificationAction.ignore.rawValue,
+				identifier: UserNotificationAction.ignore.rawValue,
+				title: UserNotificationAction.ignore.rawValue,
 				options: [.destructive]
 			)
 
@@ -80,7 +77,7 @@ class LocalNotificationManager {
 				options: []
 			)
 
-			notificationCenter.setNotificationCategories([category])
+			setNotificationCategories([category])
 		}
 	}
 }
