@@ -38,13 +38,13 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 		super.init(coder: coder)
 
+//!		homeInteractor = HomeInteractor(
+//			homeViewController: self,
+//			state: .init(isLoading: false, exposureManager: .init(), risk: risk),
+//			exposureSubmissionService: exposureSubmissionService,
+//			initialEnState: initialEnState
+//		)
 
-		homeInteractor = HomeInteractor(
-			homeViewController: self,
-			state: .init(isLoading: false, exposureManager: .init(), risk: risk),
-			exposureSubmissionService: exposureSubmissionService,
-			initialEnState: initialEnState
-		)
 		addToUpdatingSetIfNeeded(homeInteractor)
 	}
 
@@ -173,54 +173,18 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func showDeveloperMenu() {
-		let developerMenuController = AppStoryboard.developerMenu.initiateInitial()
-		present(developerMenuController, animated: true, completion: nil)
+		present(
+			AppStoryboard.developerMenu.initiateInitial(),
+			animated: true,
+			completion: nil
+		)
 	}
 
 	func showInviteFriends() {
-		let vc = FriendsInviteController.initiate(for: .inviteFriends)
-		navigationController?.pushViewController(vc, animated: true)
-	}
-
-	// This method makes the exposure manager usable.
-	private func enableExposureManagerIfNeeded() {
-		func activate(then completion: @escaping () -> Void) {
-			exposureManager.activate { error in
-				if let error = error {
-					logError(message: "Failed to activate: \(error)")
-					return
-				}
-				completion()
-			}
-		}
-		func enable() {
-			exposureManager.enable { error in
-				if let error = error {
-					logError(message: "Failed to enable: \(error)")
-					return
-				}
-			}
-		}
-
-		func enableIfNeeded() {
-			guard exposureManager.preconditions().enabled else {
-				enable()
-				return
-			}
-		}
-
-		let status = exposureManager.preconditions()
-
-		guard status.authorized else {
-			log(message: "User declined authorization")
-			return
-		}
-
-		guard status.status == .active else {
-			activate(then: enableIfNeeded)
-			return
-		}
-		enableIfNeeded()
+		navigationController?.pushViewController(
+			FriendsInviteController.initiate(for: .inviteFriends),
+			animated: true
+		)
 	}
 
 	func showExposureNotificationSetting() {
@@ -298,6 +262,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			return
 		}
 	}
+
 	private func showScreen(at indexPath: IndexPath) {
 		guard let section = Section(rawValue: indexPath.section) else { return }
 		let row = indexPath.row
@@ -336,14 +301,11 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	private func configureHierarchy() {
 		let safeLayoutGuide = view.safeAreaLayoutGuide
-
 		view.backgroundColor = .systemGroupedBackground
-
 		collectionView = UICollectionView(
 			frame: view.bounds,
 			collectionViewLayout: UICollectionViewLayout.homeLayout(delegate: self)
 		)
-
 		collectionView.delegate = self
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.isAccessibilityElement = false
