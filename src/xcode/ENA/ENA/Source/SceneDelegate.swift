@@ -104,7 +104,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
-		appUpdateChecker = AppUpdateCheckHelper(client: client)
+		appUpdateChecker = AppUpdateCheckHelper(client: client, store: store)
 
 		exposureManager.resume(observer: self)
 

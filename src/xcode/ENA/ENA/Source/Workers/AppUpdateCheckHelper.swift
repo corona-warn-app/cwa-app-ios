@@ -29,13 +29,16 @@ enum UpdateAlertType {
 class AppUpdateCheckHelper {
 
 	let client: Client
+	let store: Store
 
     /// The retained `NotificationCenter` observer that listens for `UIApplication.didBecomeActiveNotification` notifications.
     var applicationDidBecomeActiveObserver: NSObjectProtocol?
 
-	init(client: Client) {
+	init(client: Client, store: Store) {
 		self.client = client
+		self.store = store
 	}
+
 	deinit {
 		removeObserver()
 	}
@@ -103,6 +106,7 @@ class AppUpdateCheckHelper {
 		} else {
 			let checkLatestVersion = currentVersion.compare(latestVersion, options: .numeric)
 			if checkLatestVersion == .orderedAscending {
+				store.lastCheckedVersion = latestVersion
 				return .update
 			}
 		}
