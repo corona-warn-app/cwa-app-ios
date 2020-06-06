@@ -154,6 +154,7 @@ class SQLiteKeyValueStore {
 		openDbIfNeeded()
 
 		let sqlStmt = """
+		PRAGMA journal_mode=OFF;
 		DROP TABLE kv;
 		VACUUM;
 		"""
