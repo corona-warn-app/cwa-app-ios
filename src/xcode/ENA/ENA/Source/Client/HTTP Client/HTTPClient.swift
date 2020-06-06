@@ -35,6 +35,32 @@ final class HTTPClient: Client {
 	private let configuration: Configuration
 	private let session: URLSession
 
+	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
+		session.GET(configuration.configurationURL) { result in
+			switch result {
+			case let .success(response):
+				guard let data = response.body else {
+					completion(nil)
+					return
+				}
+				guard response.hasAcceptableStatusCode else {
+					completion(nil)
+					return
+				}
+
+				guard let package = SAPDownloadedPackage(compressedData: data) else {
+					logError(message: "Failed to create signed package.")
+					completion(nil)
+					return
+				}
+				
+				completion(try? SAP_ApplicationConfiguration(serializedData: package.bin))
+			case .failure:
+				completion(nil)
+			}
+		}
+	}
+
 	func exposureConfiguration(
 		completion: @escaping ExposureConfigurationCompletionHandler
 	) {

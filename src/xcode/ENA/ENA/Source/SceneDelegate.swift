@@ -41,7 +41,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		didSet {
 			homeController?.homeInteractor.state = .init(
 				isLoading: false,
-				summary: state.summary,
 				exposureManager: state.exposureManager
 			)
 		}
@@ -390,7 +389,6 @@ extension SceneDelegate {
 
 extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
-		homeController?.homeInteractor.state.summary = self.state.summary
 		homeController?.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
 	}
