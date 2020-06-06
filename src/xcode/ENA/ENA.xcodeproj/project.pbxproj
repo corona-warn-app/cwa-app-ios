@@ -128,6 +128,7 @@
 		714CD869247297F800F56450 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714CD868247297F800F56450 /* NibLoadable.swift */; };
 		7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7154EB49247D21E200A467FF /* ExposureDetectionLongGuideCell.swift */; };
 		7154EB4C247E862100A467FF /* ExposureDetectionLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7154EB4B247E862100A467FF /* ExposureDetectionLoadingCell.swift */; };
+		717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717D21E8248C022E00D9717E /* DynamicTableViewHtmlCell.swift */; };
 		7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E4824810A5A00EB10F6 /* DynamicTableViewAction.swift */; };
 		71B804472484CC0800D53506 /* ENALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B804462484CC0800D53506 /* ENALabel.swift */; };
 		71B804492484D37300D53506 /* RiskLegendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B804482484D37300D53506 /* RiskLegendViewController.swift */; };
@@ -440,6 +441,7 @@
 		714CD868247297F800F56450 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		7154EB49247D21E200A467FF /* ExposureDetectionLongGuideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionLongGuideCell.swift; sourceTree = "<group>"; };
 		7154EB4B247E862100A467FF /* ExposureDetectionLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionLoadingCell.swift; sourceTree = "<group>"; };
+		717D21E8248C022E00D9717E /* DynamicTableViewHtmlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHtmlCell.swift; sourceTree = "<group>"; };
 		71AFBD922464251000F91006 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		71B8044424828A6C00D53506 /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		71B804462484CC0800D53506 /* ENALabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENALabel.swift; sourceTree = "<group>"; };
@@ -1043,6 +1045,7 @@
 				2F3218CD24800F6500A7AC0A /* DynamicTableViewStepCell.swift */,
 				71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */,
 				2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */,
+				717D21E8248C022E00D9717E /* DynamicTableViewHtmlCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1852,6 +1855,7 @@
 				B1A89F3824819C2B00DA1CEC /* HomeInteractor.swift in Sources */,
 				514C0A16247C164700F235F6 /* HomeHighRiskCellConfigurator.swift in Sources */,
 				71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */,
+				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
 				71FE1C82247AC30300851FEB /* ENATanInput.swift in Sources */,
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,

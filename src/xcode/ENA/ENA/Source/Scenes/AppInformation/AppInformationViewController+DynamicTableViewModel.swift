@@ -39,6 +39,16 @@ private extension DynamicCell {
 			cell.contentView.layoutMargins.top = 0
 		}
 	}
+
+	static func html(url: URL?) -> Self {
+		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { viewController, cell, _  in
+			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
+			cell.textView.delegate = viewController as? UITextViewDelegate
+			if let url = url {
+				cell.textView.load(from: url)
+			}
+		}
+	}
 }
 
 private extension DynamicAction {
@@ -137,15 +147,8 @@ extension AppInformationViewController {
 	private static let privacyModel = DynamicTableViewModel([
 		.section(
 			header: .image(UIImage(named: "Illu_Appinfo_Datenschutz"), height: 230),
-			footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)),
 			cells: [
-				.title2(text: "App_Information_Privacy_Title".localized),
-				.body(text: "App_Information_Privacy_Description".localized)
-			]
-		),
-		.section(
-			cells: [
-				.subheadline(text: "App_Information_Privacy_Text".localized)
+				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
 			]
 		)
 	])

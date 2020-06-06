@@ -20,15 +20,6 @@
 import Foundation
 import UIKit
 
-protocol HtmlTextViewDelegate: UITextViewDelegate { }
-
-extension HtmlTextViewDelegate where Self: UIViewController {
-	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-		WebPageHelper.openSafari(withUrl: url, from: self)
-		return false
-	}
-}
-
 class HtmlTextView: UITextView {
 	private var html: String?
 
@@ -45,8 +36,10 @@ class HtmlTextView: UITextView {
 	}
 
 	private func setup() {
-		font = .preferredFont(forTextStyle: .body)
+		isScrollEnabled = false
+		backgroundColor = nil
 		adjustsFontForContentSizeCategory = true
+		font = .preferredFont(forTextStyle: .body)
 		textContainer.lineFragmentPadding = .zero
 
 		linkTextAttributes = [

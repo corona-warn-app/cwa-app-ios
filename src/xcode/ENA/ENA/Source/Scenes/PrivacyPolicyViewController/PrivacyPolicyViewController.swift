@@ -20,7 +20,7 @@
 import Foundation
 import UIKit
 
-class PrivacyPolicyViewController: UIViewController, HtmlTextViewDelegate {
+class PrivacyPolicyViewController: UIViewController {
 	private var textView: HtmlTextView! { view as? HtmlTextView }
 
 	override func loadView() {
@@ -39,5 +39,12 @@ class PrivacyPolicyViewController: UIViewController, HtmlTextViewDelegate {
 		if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: ".html") {
 			textView.load(from: url)
 		}
+	}
+}
+
+extension PrivacyPolicyViewController: UITextViewDelegate {
+	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+		WebPageHelper.openSafari(withUrl: url, from: self)
+		return false
 	}
 }
