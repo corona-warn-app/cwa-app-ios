@@ -185,13 +185,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 
 	private func presentHomeVC() {
-		//TODO: Change the URL back to clientConfiguration.configurationURL
-		let url = URL(string: "https://www.apple.com")!
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),
 			reachabilityService: ConnectivityReachabilityService(
-//				connectivityURLs: [clientConfiguration.configurationURL]
-					connectivityURLs: [url]
+				connectivityURLs: [clientConfiguration.configurationURL]
 			),
 			delegate: self
 		)
