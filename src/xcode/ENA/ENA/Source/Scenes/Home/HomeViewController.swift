@@ -103,7 +103,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		applySnapshotFromSections()
 		configureUI()
 		homeInteractor.updateTestResults()
-
+		setupAccessibility()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -121,6 +121,15 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				leftItem.isEnabled = false
 				self.navigationItem.leftBarButtonItem = leftItem
 		}
+	}
+
+	private func setupAccessibility() {
+		self.navigationItem.leftBarButtonItem?.isAccessibilityElement = true
+		self.navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
+		self.navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
+
+		self.navigationItem.rightBarButtonItem?.isAccessibilityElement = true
+		self.navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 	}
 
 	// MARK: Actions

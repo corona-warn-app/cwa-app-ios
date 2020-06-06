@@ -322,6 +322,10 @@ enum AppStrings {
 	}
 
 	enum Home {
+		// Home Navigation
+		static let leftBarButtonDescription = NSLocalizedString("Home_LeftBarButton_description", comment: "")
+		static let rightBarButtonDescription = NSLocalizedString("Home_RightBarButton_description", comment: "")
+
 		// Activate Card
 		static let activateCardOnTitle = NSLocalizedString("Home_Activate_Card_On_Title", comment: "")
 		static let activateCardOffTitle = NSLocalizedString("Home_Activate_Card_Off_Title", comment: "")
