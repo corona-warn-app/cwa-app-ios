@@ -215,7 +215,6 @@ final class OnboardingInfoViewController: UIViewController {
 				log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
 			case .apiMisuse:
 				// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
-				completion?()
 				return false
 			default:
 				break
@@ -274,9 +273,11 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	@IBAction func didTapNextButton(_: Any) {
+		nextButton.isUserInteractionEnabled = false
 		runActionForPageType(
-			completion: {
-				self.gotoNextScreen()
+			completion: { [weak self] in
+				self?.gotoNextScreen()
+				self?.nextButton.isUserInteractionEnabled = true
 			}
 		)
 	}
