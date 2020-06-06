@@ -52,5 +52,6 @@ class MockTestStore: Store {
 		attenuationDurations: [],
 		maximumRiskScoreFullRange: 0
 	)
+	var previousSummaryDate: Date? = Date()
 	var hourlyFetchingEnabled: Bool = true
 }
