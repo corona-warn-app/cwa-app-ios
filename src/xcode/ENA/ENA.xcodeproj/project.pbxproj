@@ -165,7 +165,7 @@
 		85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85D7594C24570491008175F0 /* LaunchScreen.storyboard */; };
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
 		85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E33443247EB357006E74EC /* CircularProgressView.swift */; };
-		A128F059248B459F00EC7F6C /* CWAKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128F058248B459F00EC7F6C /* CWAKeys.swift */; };
+		A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128F058248B459F00EC7F6C /* PublicKeyStore.swift */; };
 		A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */; };
 		A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */; };
 		A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */; };
@@ -487,7 +487,7 @@
 		85D7596324570491008175F0 /* ENAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITests.swift; sourceTree = "<group>"; };
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
-		A128F058248B459F00EC7F6C /* CWAKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWAKeys.swift; sourceTree = "<group>"; };
+		A128F058248B459F00EC7F6C /* PublicKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyStore.swift; sourceTree = "<group>"; };
 		A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerUtils.swift; sourceTree = "<group>"; };
 		A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelTests.swift; sourceTree = "<group>"; };
@@ -883,6 +883,7 @@
 				A3FF84EB247BFAF00053E947 /* Hasher.swift */,
 				0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */,
 				016146902487A43E00660992 /* WebPageHelper.swift */,
+				A128F058248B459F00EC7F6C /* PublicKeyStore.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -1161,7 +1162,6 @@
 		85D7597424570615008175F0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A128F04F248AEBB200EC7F6C /* Keys */,
 				011E4B002483A35A002E6412 /* ENACommunity.entitlements */,
 				CD7F5C732466F6D400D3D03C /* ENATest.entitlements */,
 				85790F2E245C6B72003D47E1 /* ENA.entitlements */,
@@ -1211,14 +1211,6 @@
 				CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		A128F04F248AEBB200EC7F6C /* Keys */ = {
-			isa = PBXGroup;
-			children = (
-				A128F058248B459F00EC7F6C /* CWAKeys.swift */,
-			);
-			path = Keys;
 			sourceTree = "<group>";
 		};
 		A1C2B2DA24834934004A3BD5 /* __tests__ */ = {
@@ -1802,7 +1794,7 @@
 				B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */,
 				B1D7D69224766D2100E4DA5D /* apple_export.pb.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
-				A128F059248B459F00EC7F6C /* CWAKeys.swift in Sources */,
+				A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,

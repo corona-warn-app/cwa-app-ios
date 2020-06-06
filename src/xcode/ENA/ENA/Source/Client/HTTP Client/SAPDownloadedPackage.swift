@@ -52,16 +52,16 @@ extension SAPDownloadedPackage {
 	/// - Neither the .bin or .sig data is encrypted (besides in transit), but the .sig file serves the signature
 	/// - The server has signed this hash with their private key.
 	///
-	func verifySignature() throws -> Bool{
+	func verifySignature(with keystore: PublicKeyStore = ProductionPublicKeyStore()) throws -> Bool {
 		
 		guard let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature) else {
 			return false
 		}
 		
-		for signatureEntry in parsedSignatureFile.signatures{
-			let signatureData : Data = signatureEntry.signature
-			let publicKey = try P256.Signing.PublicKey(rawRepresentation: CWAKeys.getPublicKeyData(signatureEntry.signatureInfo.appBundleID))
-			let signature = try P256.Signing.ECDSASignature.init(derRepresentation: signatureData)
+		for signatureEntry in parsedSignatureFile.signatures {
+			let signatureData: Data = signatureEntry.signature
+			let publicKey = try keystore.publicKey(for: signatureEntry.signatureInfo.appBundleID)
+			let signature = try P256.Signing.ECDSASignature(derRepresentation: signatureData)
 				
 			if publicKey.isValidSignature(signature, for: self.bin) {
 				return true
