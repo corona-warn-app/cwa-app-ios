@@ -68,6 +68,9 @@ extension RiskLevel: Comparable {
 		switch (lhs, rhs) {
 		case (.unknownOutdated, .increased):
 			return true
+		// .increased should override .unknownInitial
+		case (.unknownInitial, .increased):
+				return true
 		default:
 		return lhs.rawValue < rhs.rawValue
 		}
