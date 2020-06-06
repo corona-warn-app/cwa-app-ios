@@ -17,7 +17,7 @@
 
 import UserNotifications
 
-enum UserNotificationAction: String {
+public enum UserNotificationAction: String {
 	case openExposureDetectionResults = "View_Exposure_Detection_Results"
 	case openTestResults = "View_Test_Results"
 	case ignore = "Ignore"
@@ -42,9 +42,7 @@ extension UNUserNotificationCenter {
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
 		let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
 
-		let notificationCenter = UNUserNotificationCenter.current()
-
-		notificationCenter.add(request) { error in
+		add(request) { error in
 			if let error = error {
 				logError(message: error.localizedDescription)
 			}
@@ -79,7 +77,7 @@ extension UNUserNotificationCenter {
 				options: []
 			)
 
-			notificationCenter.setNotificationCategories([category])
+			setNotificationCategories([category])
 		}
 	}
 }

@@ -19,14 +19,13 @@ import ExposureNotification
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
-	func homeViewControllerStartExposureTransaction(_ controller: HomeViewController)
 	func homeViewControllerUserDidRequestReset(_ controller: HomeViewController)
 }
 
 // swiftlint:disable:next type_body_length
 final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
-	
+
 	init?(
 		coder: NSCoder,
 		exposureManager: ExposureManager,
@@ -36,9 +35,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		self.exposureManager = exposureManager
 		self.delegate = delegate
 		self.enState = initialEnState
-
 		super.init(coder: coder)
-
 		addToUpdatingSetIfNeeded(homeInteractor)
 	}
 
@@ -59,13 +56,12 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	lazy var homeInteractor: HomeInteractor = {
 		HomeInteractor(
 			homeViewController: self,
-			store: self.store,
 			state: .init(
 				isLoading: false,
-				summary: nil,
-				exposureManager: .init()
+				exposureManager: .init(),
+                risk: risk
 			),
-			taskScheduler: self.taskScheduler,
+			exposureSubmissionService: exposureSubmissionService,
 			initialEnState: self.enState
 		)
 	}()
@@ -82,6 +78,9 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}()
 	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
 
+	private var risk: Risk?
+	private let riskConsumer = RiskConsumer()
+
 	enum Section: Int {
 		case actions
 		case infos
@@ -92,6 +91,12 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		riskConsumer.didCalculateRisk = { [weak self] risk in
+			self?.risk = risk
+			self?.updateOwnUI()
+		}
+
 		configureHierarchy()
 		configureDataSource()
 		updateSections()
@@ -142,12 +147,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	// Called by HomeInteractor
 	func setStateOfChildViewControllers(_ state: State) {
-		let riskLevel = RiskLevel(riskScore: state.summary?.maximumRiskScore)
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: state.exposureManager,
-			riskLevel: riskLevel,
-			nextRefresh: nil,
-			summary: state.summary
+			risk: risk,
+			nextRefresh: nil
 		)
 		exposureDetectionController?.state = state
 	}
@@ -215,12 +218,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func showExposureDetection() {
-		let riskLevel = RiskLevel(riskScore: homeInteractor.state.summary?.maximumRiskScore)
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManager,
-			riskLevel: riskLevel,
-			nextRefresh: nil,
-			summary: homeInteractor.state.summary
+			risk: risk,
+			nextRefresh: nil
 		)
 
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
@@ -288,6 +289,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	func reloadData() {
 		guard isViewLoaded else { return }
+		updateSections()
 		collectionView.reloadData()
 	}
 
@@ -414,12 +416,6 @@ extension HomeViewController: UICollectionViewDelegate {
 }
 
 extension HomeViewController: ExposureDetectionViewControllerDelegate {
-	func exposureDetectionViewControllerStartTransaction(
-		_: ExposureDetectionViewController
-	) {
-		delegate?.homeViewControllerStartExposureTransaction(self)
-	}
-
 	func exposureDetectionViewController(
 		_: ExposureDetectionViewController,
 		setExposureManagerEnabled enabled: Bool,
@@ -494,13 +490,5 @@ extension  HomeViewController: ENStateHandlerUpdating {
 		   anyObject is ENStateHandlerUpdating {
 			enStateUpdatingSet.add(anyObject)
 		}
-	}
-}
-
-// MARK: Working with the Delegate
-
-extension HomeViewController {
-	private func startExposureTransaction() {
-		delegate?.homeViewControllerStartExposureTransaction(self)
 	}
 }

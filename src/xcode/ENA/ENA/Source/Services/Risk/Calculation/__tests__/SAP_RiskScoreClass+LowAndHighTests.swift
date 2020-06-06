@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,13 +15,35 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import Foundation
+import XCTest
+@testable import ENA
 
-protocol ExposureDetectionViewControllerDelegate: AnyObject {
-	func exposureDetectionViewController(
-		_ controller: ExposureDetectionViewController,
-		setExposureManagerEnabled enabled: Bool,
-		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
-	)
+final class SAP_RiskScoreClass_LowAndHighTests: XCTestCase {
+    func testWithOnlyHighAndLow() {
+		let sut: [SAP_RiskScoreClass] = [
+			SAP_RiskScoreClass.with {
+				$0.label = "LOW"
+			},
+			SAP_RiskScoreClass.with {
+				$0.label = "HIGH"
+			}
+		]
+
+		XCTAssertEqual(sut.low?.label, "LOW")
+		XCTAssertEqual(sut.high?.label, "HIGH")
+	}
+
+	func testEmpty() {
+		let sut: [SAP_RiskScoreClass] = []
+		XCTAssertNil(sut.low)
+		XCTAssertNil(sut.high)
+	}
+
+	func testIgnoresEmojis() {
+		let high = SAP_RiskScoreClass.with { $0.label = "🚬" }
+		let sut: [SAP_RiskScoreClass] = [high]
+		XCTAssertNil(sut.high)
+	}
 }
