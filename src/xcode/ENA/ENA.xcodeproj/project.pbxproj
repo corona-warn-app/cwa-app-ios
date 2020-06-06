@@ -136,7 +136,6 @@
 		71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */; };
 		71B804522485272F00D53506 /* RiskLegendNumberedTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B804512485272F00D53506 /* RiskLegendNumberedTitleCell.swift */; };
 		71B804542485273C00D53506 /* RiskLegendDotBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B804532485273C00D53506 /* RiskLegendDotBodyCell.swift */; };
-		71CAB9D7248B894D00F516A5 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CAB9D6248B894D00F516A5 /* PrivacyPolicyViewController.swift */; };
 		71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */; };
 		71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 71F5418A248BEDBE006DB793 /* privacy-policy.html */; };
 		71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F54190248BF677006DB793 /* HtmlTextView.swift */; };
@@ -451,7 +450,6 @@
 		71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSpaceCell.swift; sourceTree = "<group>"; };
 		71B804512485272F00D53506 /* RiskLegendNumberedTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendNumberedTitleCell.swift; sourceTree = "<group>"; };
 		71B804532485273C00D53506 /* RiskLegendDotBodyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendDotBodyCell.swift; sourceTree = "<group>"; };
-		71CAB9D6248B894D00F516A5 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		71CC3E9C246D5D8000217F2C /* AppInformationViewController+DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+DynamicTableViewModel.swift"; sourceTree = "<group>"; };
 		71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDetailViewController.swift; sourceTree = "<group>"; };
 		71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabel.swift; sourceTree = "<group>"; };
@@ -1008,14 +1006,6 @@
 			path = RiskLegend;
 			sourceTree = "<group>";
 		};
-		71F5418F248BEEA1006DB793 /* PrivacyPolicyViewController */ = {
-			isa = PBXGroup;
-			children = (
-				71CAB9D6248B894D00F516A5 /* PrivacyPolicyViewController.swift */,
-			);
-			path = PrivacyPolicyViewController;
-			sourceTree = "<group>";
-		};
 		71F76D0E24767AF100515A01 /* DynamicTableViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1173,7 +1163,6 @@
 				858F6F71245AEC05009FFD33 /* ENSetting */,
 				51D420C224583D7B00AD70CA /* Settings */,
 				13091950247972CF0066E329 /* PrivacyProtectionViewController */,
-				71F5418F248BEEA1006DB793 /* PrivacyPolicyViewController */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -1891,7 +1880,6 @@
 				71FE1C7D247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift in Sources */,
 				EE22DB81247FB40A001B0A71 /* ENStateHandler.swift in Sources */,
 				714CD869247297F800F56450 /* NibLoadable.swift in Sources */,
-				71CAB9D7248B894D00F516A5 /* PrivacyPolicyViewController.swift in Sources */,
 				2F80CFDB247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift in Sources */,
 				2F80CFD9247ED988000F06AF /* ExposureSubmissionIntroViewController.swift in Sources */,
 				51CE1BC12460B256002CF42A /* HomeSubmitCellConfigurator.swift in Sources */,
