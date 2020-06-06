@@ -71,7 +71,6 @@ extension ExposureDetectionViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		riskProvider.requestRisk()
 		updateUI()
 	}
 

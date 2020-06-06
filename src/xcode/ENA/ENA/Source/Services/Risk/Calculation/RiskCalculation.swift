@@ -207,7 +207,7 @@ enum RiskCalculation {
 				let appDelegate = UIApplication.shared.delegate as? AppDelegate
 				appDelegate?.lastRiskCalculation.append("\n ===== Risk =====\n")
 				appDelegate?.lastRiskCalculation.append("details: \(details)\n")
-				appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary))\n")
+				appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
 			}
 
 			return Risk(
