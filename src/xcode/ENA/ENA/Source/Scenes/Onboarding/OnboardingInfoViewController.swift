@@ -273,9 +273,11 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	@IBAction func didTapNextButton(_: Any) {
+		nextButton.isUserInteractionEnabled = false
 		runActionForPageType(
-			completion: {
-				self.gotoNextScreen()
+			completion: { [weak self] in
+				self?.gotoNextScreen()
+				self?.nextButton.isUserInteractionEnabled = true
 			}
 		)
 	}
