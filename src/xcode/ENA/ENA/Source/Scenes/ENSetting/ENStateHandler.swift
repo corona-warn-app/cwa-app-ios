@@ -131,7 +131,9 @@ final class ENStateHandler {
 			return .restricted
 		case .unknown:
 			return .unknown
-		default:
+		case .authorized:
+			return .disabled
+		@unknown default:
 			fatalError("New state was added that is not being covered by ENStateHandler")
 		}
 	}
