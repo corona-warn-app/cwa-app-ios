@@ -351,7 +351,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 					RiskLevel(riskScore: newSummary.maximumRiskScore) > RiskLevel(riskScore: previousRiskScore),
 					RiskLevel(riskScore: newSummary.maximumRiskScore) == .increased {
 					// present a notification if the risk score has increased
-					self.taskScheduler.notificationManager.presentNotification(
+					UNUserNotificationCenter.current().presentNotification(
 						title: AppStrings.LocalNotifications.detectExposureTitle,
 						body: AppStrings.LocalNotifications.detectExposureBody,
 						identifier: ENATaskIdentifier.detectExposures.rawValue)
@@ -387,7 +387,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 				case .success(let testResult):
 					if testResult != .pending {
-						self.taskScheduler.notificationManager.presentNotification(
+						UNUserNotificationCenter.current().presentNotification(
 							title: AppStrings.LocalNotifications.testResultsTitle,
 							body: AppStrings.LocalNotifications.testResultsBody,
 							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
