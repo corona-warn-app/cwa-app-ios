@@ -23,8 +23,10 @@ import CryptoKit
 enum KeyError: Error {
 	/// It was not possible to create the base64 encoded data from the public key string
 	case encodingError
-	case createError
+	/// It was not possible to map the provided bundleID to a matching public key
 	case environmentError
+	/// It was not possible to read the plist containing the public keys
+	case plistError
 }
 
 protocol PublicKeyStore {
@@ -33,20 +35,20 @@ protocol PublicKeyStore {
 
 final class ProductionPublicKeyStore: PublicKeyStore {
 
-	private let nonProductionKey = "3BYTxr2HuJYQG+d7Ezu6KS8GEbFkiEvyJFg0j+C839gTjT6j7Ho0EXXZ/a07ZfvKcC2cmc1SunsrqU9Jov1J5Q=="
-	private let productionKey = "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
-
 	func publicKey(for bundleID: String) throws -> P256.Signing.PublicKey {
-		let keyData: Data?
-		switch bundleID {
-		case "de.rki.coronawarnapp":
-			keyData = Data(base64Encoded: productionKey)
-		case "de.rki.coronawarnapp-dev":
-			keyData = Data(base64Encoded: nonProductionKey)
-		default:
+		guard
+			let path = Bundle.main.path(forResource: "PublicKeys", ofType: "plist"),
+			let xml = FileManager.default.contents(atPath: path),
+			let plistDict = try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainers, format: nil) as? [String: String]
+		else {
+			logError(message: "Could not find or decode PublicKeys.plist!")
 			throw KeyError.environmentError
 		}
 
+		guard let keyString = plistDict[bundleID] else {
+			throw KeyError.environmentError
+		}
+		let keyData = Data(base64Encoded: keyString)
 		guard let data = keyData else {
 			throw KeyError.encodingError
 		}

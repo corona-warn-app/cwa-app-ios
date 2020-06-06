@@ -58,7 +58,7 @@ final class HTTPClient: Client {
 					return
 				}
 				do {
-					// Configuration File Signature must be checked by the application since it is not verified by the operation system
+					// Configuration File Signature must be checked by the application since it is not verified by the operating system
 					guard try package.verifySignature() else {
 						logError(message: "Failed to verify configuration data signature")
 						completion(nil)

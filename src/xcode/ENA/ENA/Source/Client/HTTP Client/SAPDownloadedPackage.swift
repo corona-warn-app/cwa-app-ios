@@ -63,7 +63,7 @@ extension SAPDownloadedPackage {
 			let publicKey = try keystore.publicKey(for: signatureEntry.signatureInfo.appBundleID)
 			let signature = try P256.Signing.ECDSASignature(derRepresentation: signatureData)
 				
-			if publicKey.isValidSignature(signature, for: self.bin) {
+			if publicKey.isValidSignature(signature, for: bin) {
 				return true
 			}
 		}
