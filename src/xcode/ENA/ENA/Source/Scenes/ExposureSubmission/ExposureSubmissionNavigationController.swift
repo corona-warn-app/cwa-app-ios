@@ -23,49 +23,50 @@ class ExposureSubmissionNavigationItem: UINavigationItem {
 	@IBInspectable var titleColor: UIColor?
 }
 
-protocol ExposureSubmissionNavigationControllerChild: AnyObject {
-	var bottomView: UIView? { get }
-	func didTapBottomButton()
+protocol ExposureSubmissionNavigationControllerChild: UIViewController {
+	func didTapButton()
 	func didTapSecondButton()
 }
 
 extension ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {}
+
+	/// Default handler for the button that appears at the bottom of the screen.
+	func didTapButton() {}
+
+	/// This is the handler for the second button that appears under the
+	/// button normally shown in the screens. Currently,
+	/// you can find this button used in `ExposureSubmissionHotlineViewController.swift`.
 	func didTapSecondButton() {}
 }
 
-extension ExposureSubmissionNavigationControllerChild where Self: UIViewController {
-	var bottomView: UIView? { (navigationController as? ExposureSubmissionNavigationController)?.bottomView }
-	var button: ENAButton? { (navigationController as? ExposureSubmissionNavigationController)?.button }
+extension ExposureSubmissionNavigationControllerChild {
+	var exposureSubmissionNavigationController: ExposureSubmissionNavigationController? { navigationController as? ExposureSubmissionNavigationController }
+	var exposureSubmissionNavigationItem: ExposureSubmissionNavigationItem? { navigationItem as? ExposureSubmissionNavigationItem }
+	var bottomView: UIView? { exposureSubmissionNavigationController?.bottomView }
+	var button: ENAButton? { exposureSubmissionNavigationController?.button }
 
 	func setButtonTitle(to title: String) {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.setButtonTitle(title: title)
+		exposureSubmissionNavigationController?.setButtonTitle(title: title)
 	}
 
 	func setButtonEnabled(enabled: Bool) {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.setButtonEnabled(enabled: enabled)
+		exposureSubmissionNavigationController?.setButtonEnabled(enabled: enabled)
 	}
 
 	func hideButton() {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.button.isHidden = true
+		exposureSubmissionNavigationController?.button.isHidden = true
 	}
 
 	func setSecondaryButtonTitle(to title: String) {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.setSecondaryButtonTitle(title: title)
+		exposureSubmissionNavigationController?.setSecondaryButtonTitle(title: title)
 	}
 
 	func showSecondaryButton() {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.secondaryButton.isHidden = false
+		exposureSubmissionNavigationController?.secondaryButton.isHidden = false
 	}
 
 	func hideSecondaryButton() {
-		(navigationController as? ExposureSubmissionNavigationController)?
-			.secondaryButton.isHidden = true
+		exposureSubmissionNavigationController?.secondaryButton.isHidden = true
 	}
 }
 
@@ -99,9 +100,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		self.exposureSubmissionService = exposureSubmissionService
 		self.homeViewController = homeViewController
 		self.testResult = testResult
-
-		let rootVC = getRootViewController()
-		viewControllers = [rootVC]
 	}
 
 	required init?(coder _: NSCoder) {
@@ -127,7 +125,10 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
+		let rootVC = getRootViewController()
+		setViewControllers([rootVC], animated: false)
+
 		let barButtonItem = UIBarButtonItem(
 			image: UIImage(named: "Icons - Close"),
 			style: .done, target: self, action: #selector(close)
@@ -184,7 +185,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillAppear(animated)
+		super.viewWillDisappear(animated)
 		self.homeViewController?.updateTestResultState()
 	}
 
@@ -203,13 +204,15 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	}
 
 	private func applyNavigationBarItem(of viewController: UIViewController?) {
+		let defaultColor = UINavigationBar.appearance().largeTitleTextAttributes?[NSAttributedString.Key.foregroundColor] ?? UIColor.enaColor(for: .textPrimary1)
 		if let viewController = viewController,
 			let navigationItem = viewController.navigationItem as? ExposureSubmissionNavigationItem,
 			let titleColor = navigationItem.titleColor {
-			navigationBar.largeTitleTextAttributes = [:]
-			navigationBar.largeTitleTextAttributes?[NSAttributedString.Key.foregroundColor] = titleColor
+			navigationBar.standardAppearance.titleTextAttributes[NSAttributedString.Key.foregroundColor] = defaultColor
+			navigationBar.standardAppearance.largeTitleTextAttributes[NSAttributedString.Key.foregroundColor] = titleColor
 		} else {
-			navigationBar.largeTitleTextAttributes?.removeValue(forKey: NSAttributedString.Key.foregroundColor)
+			navigationBar.standardAppearance.titleTextAttributes[NSAttributedString.Key.foregroundColor] = defaultColor
+			navigationBar.standardAppearance.largeTitleTextAttributes[NSAttributedString.Key.foregroundColor] = defaultColor
 		}
 	}
 
@@ -334,7 +337,7 @@ extension ExposureSubmissionNavigationController {
 
 	@objc
 	private func didTapButton() {
-		(topViewController as? ExposureSubmissionNavigationControllerChild)?.didTapBottomButton()
+		(topViewController as? ExposureSubmissionNavigationControllerChild)?.didTapButton()
 	}
 
 	@objc

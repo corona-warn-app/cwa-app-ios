@@ -19,17 +19,13 @@ import AVFoundation
 import Foundation
 import UIKit
 
-struct ExposureSubmissionTestResult {
-	let isPositive: Bool
-	let receivedDate: Date
-	let transmittedDate: Date?
-}
 
 class ExposureSubmissionOverviewViewController: DynamicTableViewController, SpinnerInjectable {
+
 	// MARK: - Attributes.
 
 	@IBAction func unwindToExposureSubmissionIntro(_: UIStoryboardSegue) {}
-	private var exposureSubmissionService: ExposureSubmissionService?
+	private var service: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
 
 	// MARK: - Initializers.
@@ -40,11 +36,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 
 	// MARK: - View lifecycle methods.
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-
-	}
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		dynamicTableViewModel = dynamicTableData()
@@ -54,7 +45,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		// (which is the entry point for the storyboard, and in which
 		// this controller is embedded.)
 		if let navC = navigationController as? ExposureSubmissionNavigationController {
-			exposureSubmissionService = navC.getExposureSubmissionService()
+			service = navC.getExposureSubmissionService()
 		}
 	}
 
@@ -70,20 +61,23 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		title = AppStrings.ExposureSubmissionDispatch.title
 	}
 
+	// MARK: - Segue handling.
+
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		let destination = segue.destination
 		switch Segue(segue) {
 		case .tanInput:
-			let destination = segue.destination as? ExposureSubmissionTanInputViewController
-			destination?.initialTan = sender as? String
-			destination?.exposureSubmissionService = exposureSubmissionService
+			let vc = destination as? ExposureSubmissionTanInputViewController
+			vc?.initialTan = sender as? String
+			vc?.exposureSubmissionService = service
 		case .qrScanner:
-			let destination = segue.destination as? ExposureSubmissionQRScannerNavigationController
-			destination?.scannerViewController?.delegate = self
-			destination?.exposureSubmissionService = exposureSubmissionService
+			let vc = destination as? ExposureSubmissionQRScannerNavigationController
+			vc?.scannerViewController?.delegate = self
+			vc?.exposureSubmissionService = service
 		case .labResult:
-			let destination = segue.destination as? ExposureSubmissionTestResultViewController
-			destination?.exposureSubmissionService = exposureSubmissionService
-			destination?.testResult = sender as? TestResult
+			let vc = destination as? ExposureSubmissionTestResultViewController
+			vc?.exposureSubmissionService = service
+			vc?.testResult = sender as? TestResult
 		default:
 			break
 		}
@@ -93,7 +87,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 
 	private func fetchResult() {
 		startSpinner()
-		exposureSubmissionService?.getTestResult { result in
+		service?.getTestResult { result in
 			self.stopSpinner()
 			switch result {
 			case let .failure(error):
@@ -115,9 +109,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			preferredStyle: .alert
 		)
 		let acceptAction = UIAlertAction(title: AppStrings.ExposureSubmission.dataPrivacyAcceptTitle, style: .default, handler: { _ in
-
-											self.exposureSubmissionService?.devicePairingConsentAccept = true
-											self.exposureSubmissionService?.devicePairingConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+											self.service?.acceptPairing()
 											self.performSegue(
 												withIdentifier: Segue.qrScanner,
 												sender: self
@@ -135,6 +127,8 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 	}
 }
 
+// MARK: - Segue extension.
+
 extension ExposureSubmissionOverviewViewController {
 	enum Segue: String, SegueIdentifiers {
 		case tanInput = "tanInputSegue"
@@ -142,12 +136,6 @@ extension ExposureSubmissionOverviewViewController {
 		case testDetails = "testDetailsSegue"
 		case hotline = "hotlineSegue"
 		case labResult = "labResultSegue"
-	}
-}
-
-extension ExposureSubmissionOverviewViewController {
-	enum HeaderReuseIdentifier: String, TableViewHeaderFooterReuseIdentifiers {
-		case test
 	}
 }
 
@@ -191,7 +179,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	}
 
 	private func getRegistrationToken(forKey: DeviceRegistrationKey) {
-		exposureSubmissionService?.getRegistrationToken(forKey: forKey, completion: { result in
+		service?.getRegistrationToken(forKey: forKey, completion: { result in
 			self.stopSpinner()
 			switch result {
 			case let .failure(error):
@@ -203,7 +191,12 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				self.present(alert, animated: true, completion: nil)
 
 			case let .success(token):
-				appLogger.log(message: "Received registration token: \(token)", file: #file, line: #line, function: #function)
+				appLogger.log(
+					message: "Received registration token: \(token)",
+					file: #file,
+					line: #line,
+					function: #function
+				)
 				self.fetchResult()
 			}
         })
@@ -230,6 +223,8 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		vc.dismiss(animated: true, completion: completion)
 	}
 }
+
+// MARK: Data extension for DynamicTableView.
 
 private extension ExposureSubmissionOverviewViewController {
 	func dynamicTableData() -> DynamicTableViewModel {
@@ -328,19 +323,5 @@ private extension ExposureSubmissionOverviewViewController {
 extension ExposureSubmissionOverviewViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case imageCard = "imageCardCell"
-	}
-}
-
-private extension DynamicCell {
-	static func phone(text: String, number: String) -> DynamicCell {
-		.icon(
-			action: .call(number: number),
-			DynamicIcon(
-				text: text,
-				image: UIImage(systemName: "phone.fill"),
-				backgroundColor: .preferredColor(for: .brandMagenta),
-				tintColor: .white
-			)
-		)
 	}
 }

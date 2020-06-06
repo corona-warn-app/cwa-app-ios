@@ -18,10 +18,31 @@
 //
 
 import Foundation
+import UIKit
+
+private extension DynamicCell {
+	static func legal(title: String, licensor: String, fullLicense: String) -> Self {
+		.identifier(AppInformationDetailViewController.CellReuseIdentifier.legal) { _, cell, _ in
+			guard let cell = cell as? AppInformationLegalCell else { return }
+			cell.titleLabel.text = title
+			cell.licensorLabel.text = licensor
+			cell.licenseLabel.text = fullLicense
+		}
+	}
+}
+
+
 // swiftlint:disable line_length
-extension AppInformationLegalModel {
-	static let legalEntries = AppInformationLegalModel(legalEntries: [
-		(title: "ZIPFoundation", licensor: "Thomas Zoechling", fullLicense: """
+extension AppInformationViewController {
+	static let legalModel = DynamicTableViewModel([
+		.section(
+			header: .image(UIImage(named: "Illu_Appinfo_RechtlicheHinweise"), height: 230),
+			cells: legalCells
+		)
+	])
+
+	private static let legalCells: [DynamicCell] = [
+		.legal(title: "ZIPFoundation", licensor: "Thomas Zoechling", fullLicense: """
 MIT License
 
 Copyright (c) 2017 Thomas Zoechling
@@ -32,7 +53,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """),
-		(title: "SwiftLint", licensor: "Realm Inc.", fullLicense: """
+		.legal(title: "SwiftLint", licensor: "Realm Inc.", fullLicense: """
 The MIT License (MIT)
 
 Copyright (c) 2020 Realm Inc.
@@ -43,7 +64,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """),
-		(title: "SQLCipher", licensor: "zetetic", fullLicense: """
+		.legal(title: "SQLCipher", licensor: "zetetic", fullLicense: """
 Copyright (c) 2008-2020 Zetetic LLC All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -53,7 +74,7 @@ Redistribution and use in source and binary forms, with or without modification,
 
 THIS SOFTWARE IS PROVIDED BY ZETETIC LLC ''AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ZETETIC LLC BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """),
-		(title: "fmdb", licensor: "Flying Meat Inc.", fullLicense: """
+		.legal(title: "fmdb", licensor: "Flying Meat Inc.", fullLicense: """
 If you are using FMDB in your project, I'd love to hear about it.  Let Gus know by sending an email to gus@flyingmeat.com.
 
 And if you happen to come across either Gus Mueller or Rob Ryan in a bar, you might consider purchasing a drink of their choosing if FMDB has been useful to you.
@@ -68,7 +89,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """),
-		(title: "swift-protobuf", licensor: "Apple Inc.", fullLicense: """
+		.legal(title: "swift-protobuf", licensor: "Apple Inc.", fullLicense: """
 Apache License Version 2.0,
 January 2004
 https://www.apache.org/licenses/
@@ -123,7 +144,7 @@ You may add Your own copyright statement to Your modifications and may provide a
 
 9. Accepting Warranty or Additional Liability. While redistributing the Work or Derivative Works thereof, You may choose to offer, and charge a fee for, acceptance of support, warranty, indemnity, or other liability obligations and/or rights consistent with this License. However, in accepting such obligations, You may act only on Your own behalf and on Your sole responsibility, not on behalf of any other Contributor, and only if You agree to indemnify, defend, and hold each Contributor harmless for any liability incurred by, or claims asserted against, such Contributor by reason of your accepting any such warranty or additional liability.
 """),
-		(title: "Connectivity.swift", licensor: "Ross Butler", fullLicense: """
+		.legal(title: "Connectivity.swift", licensor: "Ross Butler", fullLicense: """
 Copyright (c) 2017 - 2018 Ross Butler
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -144,7 +165,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """)
-	])
-
+	]
 }
 // swiftlint:enable line_length
