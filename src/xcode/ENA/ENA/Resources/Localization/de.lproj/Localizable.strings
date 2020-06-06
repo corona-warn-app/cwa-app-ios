@@ -476,6 +476,11 @@
 
 "Home_Activate_Card_Internet_Off_Title" = "Keine Internetverbindung";
 
+/* Home common card */
+
+"Home_Risk_Date_Item_Title" = "Aktualisiert: %@";
+"Home_Risk_No_Date_Title" = "Unbekannt";
+
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 
@@ -484,29 +489,26 @@
 "Home_RiskCard_Unknown_Button" = "Aktualisieren";
 
 /* Home Inactive card */
-"Home_Risk_Inactive_Title" = "Keine Risikoprüfung";
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Risiko-Ermittlung gestoppt";
+"Home_Risk_Inactive_Outdated_Results_Title" = "Risiko-Ermittlung nicht möglich";
 
-"Home_Risk_Inactive_Body" = "Aktivieren Sie die Risiko-Ermittlung, um Ihr Risiko zu aktualisieren.";
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Aktivieren Sie die Risiko-Ermittlung, um Ihre heutige Risiko-Einschätzung zu berechnen.";
+"Home_Risk_Inactive_Outdated_Results_Body" = "Ihre Risiko-Berechnung konnte seit mehr als 24 Stunden nicht aktualisiert werden.";
 
 "Home_Risk_Inactive_Activate_Item_Title" = "Letzte Ermittlung: %@";
 
-"Home_Risk_Inactive_Date_Item_Title" = "Aktualisiert: %@";
-
-"Home_Risk_Inactive_Button" = "Risiko-Ermittlung einschalten";
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Risiko-Ermittlung einschalten";
+"Home_Risk_Inactive_Outdated_Results_Button" = "Risiko-Ermittlung einschalten";
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
 "Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen aktiv";
 
-"Home_Risk_Low_Date_Item_Title" = "Aktualisiert: %@";
-
 "Home_Risk_Low_Button" = "Aktualisieren";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
-
-"Home_Risk_High_Date_Item_Title" = "Aktualisiert: %@";
 
 "Home_Risk_High_Button" = "Aktualisieren";
 
@@ -633,21 +635,21 @@
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
 
-"App_Information_Imprint_Section1_Title" = "Anbieter";
+"App_Information_Imprint_Section1_Title" = "Herausgeber";
 
-"App_Information_Imprint_Section1_Text" = "Presse- und Informationsamt der Bundesregierung\nDorotheenstraße 84\n10117 Berlin\nTelefon: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
+"App_Information_Imprint_Section1_Text" = "Robert Koch-Institut\nNordufer 20\n13353 Berlin\nVertreten durch den Präsidenten\nVerantwortlich i. S. d.\nRundfunkstaatsvertrages\nN.N.";
 
-"App_Information_Imprint_Section2_Title" = "Gesetzlicher Vertreter";
+"App_Information_Imprint_Section2_Title" = "Umsatzsteueridentifikationsnummer";
 
-"App_Information_Imprint_Section2_Text" = "Chef des Presse- und Informationsamtes der BundesRegierung";
+"App_Information_Imprint_Section2_Text" = "DE 165 893 430";
 
-"App_Information_Imprint_Section3_Title" = "";
+"App_Information_Imprint_Section3_Title" = "Kontakt";
 
-"App_Information_Imprint_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
+"App_Information_Imprint_Section3_Text" = "E-Mail: N.N.\nTelefon: N.N.";
 
-"App_Information_Imprint_Section4_Title" = "Briefanschrift";
+"App_Information_Imprint_Section4_Title" = "Design, technische Umsetzung und Hosting";
 
-"App_Information_Imprint_Section4_Text" = "...";
+"App_Information_Imprint_Section4_Text" = "Strato";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
