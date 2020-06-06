@@ -33,7 +33,7 @@ struct SAPDownloadedPackage {
 		}
 		do {
 			self = try archive.extractKeyPackage()
-			try verifyHash()
+			try verifyHash(bin)
 		} catch {
 			return nil
 		}
@@ -59,21 +59,21 @@ extension SAPDownloadedPackage {
 	/// 3. We now have the SHA256 hash of the .bin file
 	/// 4. Hash the .bin file, and compare the two.
 	/// 5. If they match, we can be sure that they have not been tampered with and originated from our server.
-	func verifyHash() throws {
+	func verifyHash(_ dataToVerify: Data) throws -> Bool{
+		
 		let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature)
-		let encryptedSignature = parsedSignatureFile?.signatures.first?.signature
-		let key = try CWAKeys.getPubSecKey(for: .development)
 
-		try encryptedSignature?.verify(bin)
-
-		guard let decryptedHash = encryptedSignature?.decrypted(with: key) else {
-			logError(message: "Package signature decryption failed!")
-			throw Archive.KeyPackageError.signatureCheckFailed
+		for signatureEntry in parsedSignatureFile!.signatures{
+			let signatureData : Data = signatureEntry.signature
+			let publicKey = try P256.Signing.PublicKey(rawRepresentation: CWAKeys.getPublicKeyData(signatureEntry.signatureInfo.appBundleID))
+			let signature = try P256.Signing.ECDSASignature.init(derRepresentation: signatureData)
+				
+			if publicKey.isValidSignature(signature, for: dataToVerify) {
+				return true
+			}
 		}
-		let stringHash = decryptedHash.compactMap { String(format: "%02x", $0) }.joined()
-		if stringHash != Hasher.sha256(bin) {
-			throw Archive.KeyPackageError.signatureCheckFailed
-		}
+		
+		return false
 	}
 }
 

@@ -25,6 +25,7 @@ enum CWAKeys {
 	enum Environment {
 		case production
 		case development
+		case unknown
 
 		var publicKeyString: String {
 			self == .production ? prodPublic : devPublic
@@ -56,12 +57,29 @@ enum CWAKeys {
 
 		return secKey
 	}
+	
+	
+	
+	static func getPublicKeyData(_ applictionBundle: String) throws -> Data {
+		let env = getEnvironmentForApplicationBundle(applictionBundle)
+		
+		guard let data = Data(base64Encoded: env.publicKeyString) else {
+			throw KeyError.encodingError
+		}
 
-	/*
-	Keys here were generated with script from raw text PEM files like so:
-	./getRawKey.sh ./keys/de.rki.coronawarnapp-prod-public.pem
-	*/
+		return data
+	}
+	
+	static private func getEnvironmentForApplicationBundle(_ applicationBundle: String) -> Environment{
+		if(applicationBundle == "de.rki.coronawarnapp"){
+			return .production
+		} else if(applicationBundle == "de.rki.coronawarnapp-dev"){
+			return .development
+		} else {
+			return .unknown
+		}
+	}
 
-	private static let devPublic = "BNwWE8a9h7iWEBvnexM7uikvBhGxZIhL8iRYNI/gvN/YE40+o+x6NBF12f2tO2X7ynAtnJnNUrp7K6lPSaL9SeU="
-	private static let prodPublic = "BHOwxLLXFCEXMpN+TmAyfef4U4N1FYbGg1yk9MyuzYRz16Ms4qRJzqdxsjVw1aWj4t3AH0JsXrhTGQCF9vugOV4="
+	private static let devPublic = "3BYTxr2HuJYQG+d7Ezu6KS8GEbFkiEvyJFg0j+C839gTjT6j7Ho0EXXZ/a07ZfvKcC2cmc1SunsrqU9Jov1J5Q=="
+	private static let prodPublic = "c7DEstcUIRcyk35OYDJ95/hTg3UVhsaDXKT0zK7NhHPXoyzipEnOp3GyNXDVpaPi3cAfQmxeuFMZAIX2+6A5Xg=="
 }
