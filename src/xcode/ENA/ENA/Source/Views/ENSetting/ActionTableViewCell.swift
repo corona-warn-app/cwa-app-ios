@@ -23,7 +23,12 @@ protocol ActionCell: ConfigurableENSettingCell {
 }
 
 protocol ActionTableViewCellDelegate: AnyObject {
-	func performAction(enable: Bool)
+	func performAction(action: SettingAction)
+}
+
+enum SettingAction {
+	case enable(Bool)
+	case askConsent
 }
 
 class ActionTableViewCell: UITableViewCell, ActionCell {
@@ -36,10 +41,9 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 
 	@IBAction func switchValueDidChange(_: Any) {
 		if askForConsent {
-			//FIXME
-			//Show Consent
+			delegate?.performAction(action: .askConsent)
 		}
-		delegate?.performAction(enable: self.actionSwitch.isOn)
+		delegate?.performAction(action: .enable(self.actionSwitch.isOn))
 	}
 
 	func turnSwitch(to on: Bool) {

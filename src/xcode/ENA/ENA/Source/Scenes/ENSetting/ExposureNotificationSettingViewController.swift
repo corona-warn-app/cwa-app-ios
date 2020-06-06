@@ -197,6 +197,17 @@ extension ExposureNotificationSettingViewController {
 }
 
 extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate {
+	func performAction(action: SettingAction) {
+		switch action {
+		case .enable(true):
+			setExposureManagerEnabled(true, then: handleErrorIfNeed)
+		case .enable(false):
+			setExposureManagerEnabled(false, then: handleErrorIfNeed)
+		case .askConsent:
+			setExposureManagerEnabled(true, then: handleErrorIfNeed)
+		}
+	}
+
 	func performAction(enable: Bool) {
 		setExposureManagerEnabled(enable, then: handleErrorIfNeed)
 	}
