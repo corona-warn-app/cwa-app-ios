@@ -18,20 +18,25 @@
 import Foundation
 import UIKit
 
-class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
+class ActionDetailTableViewCell: UITableViewCell, ActionCell {
+
 	@IBOutlet var iconImageView1: UIImageView!
 	@IBOutlet var iconImageView2: UIImageView!
 	@IBOutlet weak var actionTitleLabel: ENALabel!
 	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var actionButton: ENAButton!
 
-	@IBAction func actionButtonTapped(_: Any) {
-		guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-			return
-		}
+	weak var delegate: ActionTableViewCellDelegate?
+	var state: ENStateHandler.State?
 
-		if UIApplication.shared.canOpenURL(settingsUrl) {
-			UIApplication.shared.open(settingsUrl, completionHandler: nil)
+	@IBAction func actionButtonTapped(_: Any) {
+		if let state = self.state, state == .unknown {
+			delegate?.performAction(action: .askConsent)
+		} else {
+			if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
+				UIApplication.shared.canOpenURL(settingsUrl) {
+				UIApplication.shared.open(settingsUrl, completionHandler: nil)
+			}
 		}
 	}
 
@@ -62,8 +67,15 @@ class ActionDetailTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		case .unknown:
 			actionTitleLabel.text = "Autorisierung erforderlich"
 			descriptionLabel.text = "Bitte bestätigen Sie die Nutzung der COVID-19 Kontakt-Protokollierung"
+			actionButton.setTitle("Autorisieren", for: .normal)
 			iconImageView2.isHidden = true
 		}
+	}
+
+	func configure(for state: ENStateHandler.State, delegate: ActionTableViewCellDelegate) {
+		self.delegate = delegate
+		self.state = state
+		configure(for: state)
 	}
 
 	private func images(for state: ENStateHandler.State) -> (UIImage?, UIImage?) {
