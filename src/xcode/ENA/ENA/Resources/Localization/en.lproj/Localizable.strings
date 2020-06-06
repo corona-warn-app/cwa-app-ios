@@ -488,8 +488,6 @@
 /* Home Low card */
 "Home_Risk_Low_Title" = "Low Risk";
 
-"Home_Risk_Low_NoContact_Item_Title" = "No Risk Exposure Up To Now";
-
 "Home_Risk_Low_SaveDays_Item_Title" = "%@ of %@ days saved";
 
 "Home_Risk_Low_Date_Item_Title" = "Updated: %@";

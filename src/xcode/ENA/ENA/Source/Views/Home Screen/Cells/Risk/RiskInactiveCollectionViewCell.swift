@@ -27,10 +27,10 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 
 	weak var delegate: RiskInactiveCollectionViewCellDelegate?
 
-	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var chevronImageView: UIImageView!
-	@IBOutlet var bodyLabel: UILabel!
-	@IBOutlet var activeButton: UIButton!
+	@IBOutlet var bodyLabel: ENALabel!
+	@IBOutlet var activeButton: ENAButton!
 
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var topContainer: UIView!
@@ -77,7 +77,7 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 		viewContainer.backgroundColor = color
 	}
 
-	func configureChevron(image: UIImage?, tintColor: UIColor) {
+	func configureChevron(image: UIImage?, tintColor: UIColor?) {
 		chevronImageView.image = image
 		chevronImageView.tintColor = tintColor
 	}
@@ -91,13 +91,19 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 	}
 
 	func configureRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
+		var lastView: UIView?
 		for itemConfigurator in cellConfigurators {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
 			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? UIView {
 				stackView.addArrangedSubview(riskView)
+				stackView.setCustomSpacing(0.0, after: riskView)
 				itemConfigurator.configureAny(riskView: riskView)
+				lastView = riskView
 			}
+		}
+		if let last = lastView {
+			stackView.setCustomSpacing(15.0, after: last)
 		}
 		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
 			riskItemView.hideSeparator()

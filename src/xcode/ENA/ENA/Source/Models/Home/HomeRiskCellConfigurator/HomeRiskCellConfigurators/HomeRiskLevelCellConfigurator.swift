@@ -50,7 +50,7 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		if let lastUpdateDate = lastUpdateDate {
 			return Self.lastUpdateDateFormatter.string(from: lastUpdateDate)
 		} else {
-			return " - "
+			return AppStrings.Home.riskCardNoDateTitle
 		}
 	}
 

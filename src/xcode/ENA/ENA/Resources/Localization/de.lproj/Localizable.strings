@@ -117,7 +117,7 @@
 
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
-"Settings_Tracing_Description" = "Erlauben Sie Erfassung und Weitergabe von Covid-19-Zufallscodes.";
+"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von Covid-19-Zufallscodes.";
 
 "Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Covid-19-Risikostatus.";
 
@@ -126,27 +126,25 @@
 "Settings_NavTitle" = "Einstellungen";
 
 /* Noticiation Settings */
-"NotificationSettings_On_Title" = "Möchten Sie Benachrichtigungen zu Ihrem Covid-19-Risikostatus aktivieren?";
-
-"NotificationSettings_On_Description" = "Erlauben Sie der App hier die Mitteilungen.";
+"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem Covid-19-Risikostatus aktivieren?";
 
 "NotificationSettings_On_SectionTitle" = "Einstellung";
 
 "NotificationSettings_On_RiskChanges" = "Änderung Ihres Infektionsrisikos";
 
-"NotificationSettings_On_TestsStatus" = "Status Ihres COVID-19 Tests";
+"NotificationSettings_On_TestsStatus" = "Status Ihres Coronavirus-Tests";
 
-"NotificationSettings_Off_Title" = "Mitteilungen sind ausgestellt";
+"NotificationSettings_Off_SectionTitle" = "Einstellung";
 
-"NotificationSettings_Off_Description" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Telefoneinstellungen zulassen.";
+"NotificationSettings_Off_EnableNotifications" = "Mitteilungen";
 
-"NotificationSettings_Off_NavigateSettings" = "1. Öffnen Sie Einstellungen.";
+"NotificationSettings_Off_StatusInactive" = "Aus";
 
-"NotificationSettings_Off_PickNotifications" = "2. Wählen Sie Mitteilungen aus.";
+"NotificationSettings_Off_InfoTitle" = "Mitteilungen aktivieren";
 
-"NotificationSettings_Off_EnableNotifications" = "3. Erlauben Sie Mitteilungen.";
+"NotificationSettings_Off_InfoDescription" = "Um Mitteilungen zu aktivieren, müssen Sie Mitteilungen für die Corona-Warn-App in Ihren Geräte-Einstellungen zulassen.";
 
-"NotificationSettings_Off_OpenSettings" = "Einstellungen App öffnen";
+"NotificationSettings_Off_OpenSettings" = "App-Einstellungen öffnen";
 
 "NotificationSettings_NavTitle" = "Mitteilungen";
 
@@ -189,7 +187,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Datenschutz";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Missing Text\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Weitere Informationen finden Sie in unserer Datenschutzhinweisen.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Ja, ich willige in die Nutzung meiner Tracing-Funktionalität für meine Corona-Warn-App ein. Ich möchte damit einen wichtigen Beitrag zur Unterbrechung von Infektionsketten und der Eindämmung des Coronavirus in Deutschland leisten. Mit dem Contact-Tracing können Kontakte nachverfolgt werden, um später auf das Coronavirus positiv getestete Kontakte zu identifizieren.\n\nIch kann meine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen. Weitere Informationen finden Sie in unseren Datenschutzhinweisen.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie positiv getestet werden ...";
 
@@ -205,7 +203,7 @@
 
 /* Exposure Submission */
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
-
+"ExposureSubmission_Continue_actionText" = "Weiter";
 "ExposureSubmission_DataPrivacyDescription" = "QR-Code Datenschutztext";
 
 "ExposureSubmissionDataPrivacy_AcceptTitle" = "Erlauben";
@@ -214,7 +212,7 @@
 
 "ExposureSubmission_Submit" = "TAN eingeben";
 
-"ExposureSubmissionTanEntry_Title" = "TAN-Eingabe";
+"ExposureSubmissionTanEntry_Title" = "TAN Eingabe";
 
 "ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die Ihnen mitgeteilte TAN ein:";
 
@@ -234,9 +232,9 @@
 
 "ExposureSubmissionDispatch_QRCodeButtonTitle" = "Dokument mit QR-Code";
 
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code ihres Test-Dokuments scannen.";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Registrieren Sie Ihren Test, indem Sie den QR-Code Ihres Test-Dokuments scannen.";
 
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN-Code";
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
 
 "ExposureSubmissionDispatch_TANButtonDescription" = "Registrieren Sie Ihren Test per manueller TAN-Eingabe.";
 
@@ -248,7 +246,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 
-"ExposureSubmissionHotline_Description" = "Wir teilen Ihnen Ihren TAN-Code gerne per Telefon mit.";
+"ExposureSubmissionHotline_Description" = "Bitte halten zur TAN Anfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
@@ -262,12 +260,12 @@
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
-"ExposureSubmission_TANInputButtonTitle" = "TAN-Code eingeben";
+"ExposureSubmission_TANInputButtonTitle" = "TAN eingeben";
 
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
 
-"ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code ihres Dokuments.";
+"ExposureSubmissionQRScanner_instruction" = "Positionieren Sie den Rahmen über dem QR-Code Ihres Dokuments.";
 
 "ExposureSubmissionQRScanner_notFoundAlertTitle" = "Befund wurde nicht gefunden";
 
@@ -282,6 +280,8 @@
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank";
 
+"ExposureSubmissionSuccess_AccImageDescription" = "Eine vielfältige Gruppe begrüßt durch Jubel, dass jemand sein Testergebnis mit anderen geteilt hat.";
+
 "ExposureSubmissionSuccess_Button" = "Fertig";
 
 "ExposureSubmissionSuccess_Description" = "Dank Ihrer Mithilfe können Andere gewarnt werden und entsprechend reagieren.";
@@ -294,7 +294,7 @@
 
 "ExposureSubmissionSuccess_listItem2" = "Sie sind ansteckend. Isolieren Sie sich von anderen Personen.";
 
-"ExposureSubmissionSuccess_listItem2_1" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich ihre Krankheitszeichen entwickeln.";
+"ExposureSubmissionSuccess_listItem2_1" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich Ihre Krankheitszeichen entwickeln.";
 
 "ExposureSubmissionSuccess_listItem2_2" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten.";
 
@@ -307,9 +307,11 @@
 
 "ExposureSubmissionIntroduction_SubTitle" = "So funktioniert das Corona-Warn-System";
 
+"ExposureSubmissionIntroduction_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
+
 "ExposureSubmissionIntroduction_Usage01" = "Damit die Corona-Warn-App funktioniert, sind wir auf die Mithilfe von Corona-positiv getesteten Personen angewiesen.";
 
-"ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt  wie folgt vorgehen:";
+"ExposureSubmissionIntroduction_Usage02" = "Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt wie folgt vorgehen:";
 
 "ExposureSubmissionIntroduction_ListItem1" = "Wenn sich auf Ihrem Testdokument ein QR-Code befindet, können Sie diesen in der App scannen und den Test damit registrieren. Sobald das Ergebnis vorliegt, können Sie es in der App einsehen.";
 
@@ -380,6 +382,8 @@
 
 "ExposureSubmissionWarnOthers_title" = "Andere warnen";
 
+"ExposureSubmissionWarnOthers_AccImageDescription" = "Ein Smartphone übermittelt einen positiven Testbefund verschlüsselt ins System.";
+
 "ExposureSubmissionWarnOthers_continueButton" = "Weiter";
 
 "ExposureSubmissionWarnOthers_sectionTitle" = "Helfen Sie mit!";
@@ -397,7 +401,7 @@
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Keine Positivkennung verfügbar. Bitte versuchen Sie es morgen erneut.";
 
-"ExposureSubmissionError_InvalidTan" = "Die erzeugte TAN für die Übermittlung ist ungültig.";
+"ExposureSubmissionError_InvalidTan" = "Die erzeugte Übermittlungs TAN ist ungültig. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
 "ExposureSubmissionError_EnNotEnabled" = "Die Risiko-Ermittlung ist nicht aktiv.";
 
@@ -405,15 +409,15 @@
 
 "ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
 
-"ExposureSubmissionError_NoResponse" = "Die Antwort enthält kein Inhalt.";
+"ExposureSubmissionError_NoResponse" = "Die Antwort enthält keinen Inhalt.";
 
-"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Der QR-Code oder die TAN ist ungültig oder wurde schon verwendet. Bitte kontaktieren Sie die Hotline.";
+"ExposureSubmissionError_QRAlreadyUsed" = "Der QR-Code wurde bereits verwendet. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde bereits verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "Die TAN ist ungültig oder wurde bereits verwendet. Bitte versuchen Sie es erneut oder kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_RegTokenNotExist" = "Der verwendet Registrations-Token existiert nicht.";
+"ExposureSubmissionError_RegTokenNotExist" = "Es konnte keine Übermittlungs-TAN erstellt werden. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.";
 
-"ExposureSubmissionError_other" = "Fehler:";
+"ExposureSubmissionError_other" = "Es ist ein Verbindungsfehler aufgetreten ";
 
 "ExposureSubmissionError_otherend" = "Bitte versuchen Sie es erneut.";
 
@@ -458,6 +462,11 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Kontaktmitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie COVID-19-Kontaktmitteilungen in Ihren Systemeinstellungen.";
 
+"ExposureNotificationSetting_AccLabel_Enabled" = "Drei Personen haben die Risiko-Erkennung auf ihren Smartphones aktiviert, ihre Begegnung wird daher aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_Disabled" = "Eine Person hat die Risiko-Erkennung auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Eine Person hat Bluetooth auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_InternetOff" = "Eine Person hat die Internetverbindung ihres Smartphones ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
+
 /* Home Active card */
 "Home_Activate_Card_On_Title" = "Risiko-Ermittlung aktiv";
 
@@ -467,6 +476,11 @@
 
 "Home_Activate_Card_Internet_Off_Title" = "Keine Internetverbindung";
 
+/* Home common card */
+
+"Home_Risk_Date_Item_Title" = "Aktualisiert: %@";
+"Home_Risk_No_Date_Title" = "Unbekannt";
+
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
 
@@ -475,31 +489,26 @@
 "Home_RiskCard_Unknown_Button" = "Aktualisieren";
 
 /* Home Inactive card */
-"Home_Risk_Inactive_Title" = "Keine Risiko-Überprüfung";
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Risiko-Ermittlung gestoppt";
+"Home_Risk_Inactive_Outdated_Results_Title" = "Risiko-Ermittlung nicht möglich";
 
-"Home_Risk_Inactive_Body" = "Aktivieren Sie die Risiko-Ermittlung, um Ihren Risikostatus zu aktualisieren.";
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Aktivieren Sie die Risiko-Ermittlung, um Ihre heutige Risiko-Einschätzung zu berechnen.";
+"Home_Risk_Inactive_Outdated_Results_Body" = "Ihre Risiko-Berechnung konnte seit mehr als 24 Stunden nicht aktualisiert werden.";
 
 "Home_Risk_Inactive_Activate_Item_Title" = "Letzte Risiko-Ermittlung: %@";
 
-"Home_Risk_Inactive_Date_Item_Title" = "Aktualisiert: %@";
-
-"Home_Risk_Inactive_Button" = "Risiko-Ermittlung einschalten";
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Risiko-Ermittlung einschalten";
+"Home_Risk_Inactive_Outdated_Results_Button" = "Risiko-Ermittlung einschalten";
 
 /* Home Low card */
 "Home_Risk_Low_Title" = "Niedriges Risiko";
 
-"Home_Risk_Low_NoContact_Item_Title" = "Bisher keine Risiko-Begegnung";
-
-"Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen gespeichert";
-
-"Home_Risk_Low_Date_Item_Title" = "Aktualisiert: %@";
+"Home_Risk_Low_SaveDays_Item_Title" = "%@ von %@ Tagen aktiv";
 
 "Home_Risk_Low_Button" = "Aktualisieren";
 
 /* Home High card */
 "Home_Risk_High_Title" = "Erhöhtes Risiko";
-
-"Home_Risk_High_Date_Item_Title" = "Aktualisiert: %@";
 
 "Home_Risk_High_Button" = "Aktualisieren";
 
@@ -523,7 +532,7 @@
 
 "Home_Thank_You_Card_Further_Info_Item_Title" = "Weitere Infos:";
 
-"Home_Thank_You_Card_14Days_Item_Title" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich ihre Krankheitszeichen entwickeln.";
+"Home_Thank_You_Card_14Days_Item_Title" = "Ihre Quarantänezeit beträgt im Regelfall 14 Tage. Beobachten und erfassen Sie genau, wie sich Ihre Krankheitszeichen entwickeln.";
 
 "Home_Thank_You_Card_Contacts_Item_Title" = "Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten.";
 
@@ -626,21 +635,21 @@
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
 
-"App_Information_Imprint_Section1_Title" = "Anbieter";
+"App_Information_Imprint_Section1_Title" = "Herausgeber";
 
-"App_Information_Imprint_Section1_Text" = "Presse- und Informationsamt der Bundesregierung\nDorotheenstraße 84\n10117 Berlin\nTelefon: 030 18 272-0\nFax: 030 18 272-2555\ninternetpost@bundesregierung.de";
+"App_Information_Imprint_Section1_Text" = "Robert Koch-Institut\nNordufer 20\n13353 Berlin\nVertreten durch den Präsidenten\nVerantwortlich i. S. d.\nRundfunkstaatsvertrages\nN.N.";
 
-"App_Information_Imprint_Section2_Title" = "Gesetzlicher Vertreter";
+"App_Information_Imprint_Section2_Title" = "Umsatzsteueridentifikationsnummer";
 
 "App_Information_Imprint_Section2_Text" = "Chef des Presse- und Informationsamtes der Bundesregierung";
 
-"App_Information_Imprint_Section3_Title" = "";
+"App_Information_Imprint_Section3_Title" = "Kontakt";
 
-"App_Information_Imprint_Section3_Text" = "Das Infotelefon der Bundesregierung erreich Sie Montag bis Freitag von 8 bis 18 Uhr unter:\n030 18 272-2720";
+"App_Information_Imprint_Section3_Text" = "E-Mail: N.N.\nTelefon: N.N.";
 
-"App_Information_Imprint_Section4_Title" = "Briefanschrift";
+"App_Information_Imprint_Section4_Title" = "Design, technische Umsetzung und Hosting";
 
-"App_Information_Imprint_Section4_Text" = "...";
+"App_Information_Imprint_Section4_Text" = "Strato";
 
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
