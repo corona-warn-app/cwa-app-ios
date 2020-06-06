@@ -593,8 +593,6 @@
 /* App Information - About */
 "App_Information_About_Navigation" = "About the App";
 
-"App_Information_About_ImageDescription" = "";
-
 "App_Information_About_Title" = "Let's fight corona virus together.";
 
 "App_Information_About_Description" = "The Robert Koch Institute (RKI) is the central body for the federal state in the field of public health. The RKI is publishing the Corona-Warn-App for the federal government. The app represents the digital extension to the public health measures already introduced: social distancing, hygiene behavior, and face masks.";
@@ -608,8 +606,6 @@
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Technical hotline";
-
-"App_Information_Contact_ImageDescription" = "A man uses a headset to make calls";
 
 "App_Information_Contact_Title" = "How can we help you?";
 
@@ -647,12 +643,8 @@
 /* App Information - Legal */
 "App_Information_Legal_Navigation" = "Legal Notes";
 
-"App_Information_Legal_ImageDescription" = "One hand holds a smartphone with a lot of text, next to it is a beam scale as a symbol for legal information.";
-
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "Data Protection";
-
-"App_Information_Privacy_ImageDescription" = "";
 
 "App_Information_Privacy_Title" = "Data Protection";
 
@@ -663,18 +655,11 @@
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "Terms of Use";
 
-"App_Information_Terms_ImageDescription" = "A hand holds a smartphone with a lot of text, next to it is a checkmark as a symbol for accepted terms of use.";
-
 "App_Information_Terms_Title" = "Terms of Use";
 
 "App_Information_Terms_Description" = "The following terms of use apply for the app and are accepted when you call or use the app, or one of its features. ";
 
 "App_Information_Terms_Text" = "...";
-
-"App_Information_Terms_Image1_AccLabel" = "A hand holds a smartphone with a lot of text, next to it is a checkmark as a symbol for accepted terms of use.";
-
-/* App Information - Tracing */
-"App_Information_Tracing_Navigation" = "How does tracing work?";
 
 /* Risk View */
 "unknown_risk" = "Risk Unknown";
@@ -740,11 +725,6 @@
 
 /* Local Notifications */
 "local_notifications_viewResults" = "Display Results";
-
-/* App Information - Legal */
-"App_Information_Imprint_Navigation" = "Imprint";
-
-"App_Information_Imprint_ImageDescription" = "A hand holds a smartphone with a lot of text, next to it is a paragraph symbol as a symbol for the imprint.";
 
 "local_notifications_ignore" = "Ignore";
 
