@@ -42,14 +42,14 @@ class AppUpdateCheckHelper {
 
 	func checkAppVersionDialog(for vc: UIViewController?) {
 		client.appConfiguration { result in
-			guard let versionInfo: SAP_ApplicationVersionConfiguration = result?.appVersion else {
+			/*guard let versionInfo: SAP_ApplicationVersionConfiguration = result?.appVersion else {
 				return
-			}
+			}*/
 			guard let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
 				return
 			}
-			let minVersion = "\(versionInfo.ios.min.major).\(versionInfo.ios.min.minor).\(versionInfo.ios.min.patch)"
-			let latestVersion = "\(versionInfo.ios.latest.major).\(versionInfo.ios.latest.minor).\(versionInfo.ios.latest.patch)"
+			let minVersion = "0.1.0"// "\(versionInfo.ios.min.major).\(versionInfo.ios.min.minor).\(versionInfo.ios.min.patch)"
+			let latestVersion = "1.0.0"// "\(versionInfo.ios.latest.major).\(versionInfo.ios.latest.minor).\(versionInfo.ios.latest.patch)"
 			guard let alert = self.createAlert(self.compareVersion(currentVersion: appVersion, minVersion: minVersion, latestVersion: latestVersion), vc: vc) else {
 				return
 			}
@@ -82,11 +82,11 @@ class AppUpdateCheckHelper {
 		switch type {
 		case .update:
 			alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionLater, comment: ""), style: .default, handler: { _ in
-				self.setObserver(vc: vc)
 				//Do nothing
 			}))
 		case .forceUpdate:
 			alert.message = AppStrings.UpdateMessage.textForce
+			self.setObserver(vc: vc)
 		case .none:
 			return nil
 		}
