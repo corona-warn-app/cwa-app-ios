@@ -86,7 +86,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 			// Our landscape has a certificate chain with three certificates.
 			// We want to get the intermediate certificate, in our case the second.
 			guard
-				SecTrustGetCertificateCount(trust) >= 1,
+				SecTrustGetCertificateCount(trust) >= 2,
 				let remoteCertificate = SecTrustGetCertificateAtIndex(trust, 1)
 			else {
 				logError(message: "Could not get intermediate certificate, rejecting!")
