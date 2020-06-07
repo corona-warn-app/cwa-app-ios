@@ -20,13 +20,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="360" height="220"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDq-GM-tua">
-                                <rect key="frame" x="16" y="16" width="328" height="130"/>
+                                <rect key="frame" x="16" y="16" width="328" height="147"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lO7-EV-Ky9">
-                                        <rect key="frame" x="0.0" y="0.0" width="208" height="130"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="208" height="147"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="755" insetsLayoutMarginsFromSafeArea="NO" text="Title " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pu9-ea-uYq" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="208" height="26.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="208" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -35,7 +35,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="755" insetsLayoutMarginsFromSafeArea="NO" text="Result Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIr-0f-HEm" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="34.5" width="208" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="28.5" width="208" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Risk Low Color"/>
                                                 <nil key="highlightedColor"/>
@@ -44,7 +44,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5o-e9-Zf2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="63" width="208" height="67"/>
+                                                <rect key="frame" x="0.0" y="57" width="208" height="90"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                                         </subviews>
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Illu_Hand_with_phone-initial" translatesAutoresizingMaskIntoConstraints="NO" id="2MF-0K-j40">
-                                        <rect key="frame" x="208" y="0.0" width="120" height="130"/>
+                                        <rect key="frame" x="208" y="0.0" width="120" height="147"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="SdW-cT-815"/>
                                         </constraints>
@@ -63,7 +63,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Eol-wD-qBB" customClass="DynamicTypeSymbolImageView" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="325" y="22.5" width="10" height="13.5"/>
+                                <rect key="frame" x="324" y="14" width="12.5" height="16.5"/>
                                 <color key="tintColor" name="ENA Chevron Color"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
@@ -73,7 +73,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="736-dz-fBH" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="16" y="154" width="328" height="50"/>
+                                <rect key="frame" x="16" y="171" width="328" height="33"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <state key="normal" title="Submit"/>
