@@ -23,6 +23,9 @@ import Foundation
 struct RiskProvidingConfiguration {
 	/// The duration a conducted exposure detection is considered valid.
 	var exposureDetectionValidityDuration: DateComponents
+	
+	/// The mode of operation
+	var detectionMode: DetectionMode = DetectionMode.default
 }
 
 extension RiskProvidingConfiguration {

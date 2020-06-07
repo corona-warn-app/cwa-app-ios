@@ -72,6 +72,14 @@ private extension RiskConsumer {
 }
 
 
+extension RiskProvider {
+	enum RequestType {
+		case userInitiated
+		case userInterface
+		case background
+	}
+}
+
 extension RiskProvider: RiskProviding {
 	func observeRisk(_ consumer: RiskConsumer) {
 		queue.async {
@@ -109,20 +117,34 @@ extension RiskProvider: RiskProviding {
 		queue.async(execute: _requestRiskLevel)
 	}
 
+	private struct Summaries {
+		var previous: ENExposureDetectionSummaryContainer?
+		var current: ENExposureDetectionSummaryContainer?
+	}
+
 	private func _requestRiskLevel() {
-		let exposureDetectionIsInvalid = !configuration.exposureDetectionIsValid(lastExposureDetectionDate: store.dateLastExposureDetection)
+
+
+		func summaries(completion: (Summaries) -> Void) {
+			if configuration.detectionMode == .manual {
+//				completion(.init(previous: <#T##ENExposureDetectionSummaryContainer?#>, current: <#T##ENExposureDetectionSummaryContainer?#>))
+//				completion(store.previ)
+				return
+			}
+		}
+
 
 		var newSummary: ENExposureDetectionSummaryContainer?
 		let group = DispatchGroup()
 
-		if exposureDetectionIsInvalid {
-			group.enter()
-			exposureSummaryProvider.detectExposure { detectedSummary in
-				defer { group.leave() }
-				guard let detectedSummary = detectedSummary else { return }
-				newSummary = ENExposureDetectionSummaryContainer(with: detectedSummary)
-			}
-		}
+//		if exposureDetectionIsInvalid {
+//			group.enter()
+//			exposureSummaryProvider.detectExposure { detectedSummary in
+//				defer { group.leave() }
+//				guard let detectedSummary = detectedSummary else { return }
+//				newSummary = ENExposureDetectionSummaryContainer(with: detectedSummary)
+//			}
+//		}
 
 		var appConfiguration: SAP_ApplicationConfiguration?
 		group.enter()
@@ -135,7 +157,7 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 		
-		let summary = newSummary ?? store.previousSummary
+		let summary = newSummary ?? store.summary
 
 		guard let _appConfiguration = appConfiguration else {
 			return
@@ -151,14 +173,14 @@ extension RiskProvider: RiskProviding {
 				numberOfTracingActiveHours: numberOfEnabledHours,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
-				previousSummary: store.previousSummary
+				previousSummary: store.summary
 			) else {
 				print("send email to christopher")
 				return
 		}
 
-        store.previousSummary = summary
-        store.previousSummaryDate = Date()
+        store.summary = summary
+        store.summaryDate = Date()
 
 		for consumer in consumers.allObjects {
 			_provideRisk(risk, to: consumer)

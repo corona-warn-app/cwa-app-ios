@@ -249,7 +249,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	func taskScheduler(_ scheduler: ENATaskScheduler, didScheduleTasksSuccessfully success: Bool) {
 		guard let scene = UIApplication.shared.connectedScenes.first else { return }
 		guard let delegate = scene.delegate as? SceneDelegate else { return }
-		delegate.state.detectionMode = success ? .automatic : .manual
+		let mode: DetectionMode = success ? .automatic : .manual
+		delegate.state.detectionMode = mode
+		riskProvider.configuration.detectionMode = mode
 	}
 
 	func executeExposureDetectionRequest(task: BGTask) {

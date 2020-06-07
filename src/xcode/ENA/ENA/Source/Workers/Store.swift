@@ -39,8 +39,8 @@ protocol Store: AnyObject {
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
-	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
-	var previousSummaryDate: Date? { get set }
+	var summary: ENExposureDetectionSummaryContainer? { get set }
+	var summaryDate: Date? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
@@ -70,7 +70,7 @@ protocol Store: AnyObject {
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
 	func clearAll()
-	}
+}
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
@@ -225,12 +225,12 @@ final class SecureStore: Store {
 		}
 	}
 
-	var previousSummary: ENExposureDetectionSummaryContainer? {
+	var summary: ENExposureDetectionSummaryContainer? {
 		get { kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil }
 		set { kvStore["previousSummary"] = newValue }
 	}
 
-	var previousSummaryDate: Date? {
+	var summaryDate: Date? {
 		get { kvStore["previousSummaryDate"] as Date? ?? nil }
 		set { kvStore["previousSummaryDate"] = newValue }
 	}
