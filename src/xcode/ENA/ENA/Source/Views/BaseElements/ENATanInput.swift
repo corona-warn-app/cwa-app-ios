@@ -130,7 +130,7 @@ class ENATanInput: UIControl, UIKeyInput {
 	}
 
 	func insertText(_ text: String) {
-		guard !inputBlocked else {return}
+		guard !inputBlocked else { return }
 		for character in text {
 			guard !isValid else { return }
 			let label = labels[count]
@@ -149,9 +149,7 @@ class ENATanInput: UIControl, UIKeyInput {
 			}
 
 		}
-		delegate?.tanChanged(isValid: isValid,
-							 checksumIsValid: verifyChecksum(input: self.text),
-							 isBlocked: inputBlocked
+		delegate?.tanChanged(isValid: isValid, checksumIsValid: verifyChecksum(input: self.text), isBlocked: inputBlocked
 		)
 	}
 
@@ -164,10 +162,7 @@ class ENATanInput: UIControl, UIKeyInput {
 		if let enaInputLabel = label as? ENATanInputLabel {
 			enaInputLabel.isValid = true
 		}
-		delegate?.tanChanged(isValid: isValid,
-							 checksumIsValid: false,
-							 isBlocked: inputBlocked
-		)
+		delegate?.tanChanged(isValid: isValid, checksumIsValid: false, isBlocked: inputBlocked)
 	}
 
 	func clear() {
@@ -175,19 +170,28 @@ class ENATanInput: UIControl, UIKeyInput {
 		text = ""
 	}
 	
-	func verifyChecksum(input:String) -> Bool {
-		guard isValid else { return false}
+	func verifyChecksum(input: String) -> Bool {
+		guard isValid else {
+			return false
+
+		}
 		let start = input.index(input.startIndex, offsetBy: 0)
-		let end = input.index(input.startIndex, offsetBy: input.count-2)
+		let end = input.index(input.startIndex, offsetBy: input.count - 2)
 		let testString = String(input[start...end])
 		return input.last == calculateChecksum(input: testString)
 	}
 	
-	func calculateChecksum(input:String) -> Character {
+	func calculateChecksum(input: String) -> Character {
 		let hash = Hasher.sha256(input)
 		var checksum = hash[hash.startIndex].uppercased()
-		if (checksum == "0") { checksum = "G" }
-		else if (checksum == "1") { checksum = "H" }
+		if checksum == "0" {
+			checksum = "G"
+
+		} else if checksum == "1" {
+			checksum = "H"
+
+		}
+		// swiftlint:disable:next force_unwrapping
 		return checksum.first!
 	}
 }
