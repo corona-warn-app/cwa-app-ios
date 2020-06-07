@@ -197,8 +197,8 @@ enum RiskCalculation {
 			if
 				let summary = summary,
 				let previousSummary = previousSummary,
-				RiskLevel(riskScore: summary.maximumRiskScore) == .increased,
-				RiskLevel(riskScore: summary.maximumRiskScore) > RiskLevel(riskScore: previousSummary.maximumRiskScore) {
+				(RiskLevel(riskScore: summary.maximumRiskScore) == .low || RiskLevel(riskScore: summary.maximumRiskScore) == .increased),
+				RiskLevel(riskScore: summary.maximumRiskScore) != RiskLevel(riskScore: previousSummary.maximumRiskScore) {
 				riskLevelHasIncreased = true
 			}
 
