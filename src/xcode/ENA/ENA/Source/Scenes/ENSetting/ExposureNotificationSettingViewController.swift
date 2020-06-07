@@ -99,7 +99,7 @@ extension ExposureNotificationSettingViewController {
 		case .exposureNotificationUnavailable:
 			logError(message: "Failed to enable")
 			if alert {
-				alertError(message: "ExposureNotification is not availabe due to the sytem policy", title: "Error")
+				alertError(message: "ExposureNotification is not available due to the system policy", title: "Error")
 			}
 		case .apiMisuse:
 			logError(message: "APIMisuse")

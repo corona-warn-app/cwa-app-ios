@@ -204,7 +204,7 @@ final class OnboardingInfoViewController: UIViewController {
 			return
 		}
 		store.dateOfAcceptedPrivacyNotice = Date()
-		log(message: "Persist that user acccepted the privacy terms on \(Date())", level: .info)
+		log(message: "Persist that user accepted the privacy terms on \(Date())", level: .info)
 		completion?()
 	}
 
