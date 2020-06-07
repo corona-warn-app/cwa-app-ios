@@ -188,6 +188,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			ExposureNotificationSettingViewController(
 					coder: coder,
 					initialEnState: self.enState,
+					store: self.store,
 					delegate: self
 			)
 		}

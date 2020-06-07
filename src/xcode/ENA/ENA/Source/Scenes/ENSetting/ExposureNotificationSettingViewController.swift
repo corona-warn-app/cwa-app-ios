@@ -35,16 +35,18 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 	private var lastActionCell: ActionCell?
 
 	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
-	let numberRiskContacts = 10
+	let store: Store
 	var enState: ENStateHandler.State
 
 	init?(
 		coder: NSCoder,
 		initialEnState: ENStateHandler.State,
+		store: Store,
 		delegate: ExposureNotificationSettingViewControllerDelegate
 	) {
 		self.delegate = delegate
-		self.enState = initialEnState
+		self.store = store
+		enState = initialEnState
 		super.init(coder: coder)
 	}
 
@@ -207,7 +209,8 @@ extension ExposureNotificationSettingViewController {
 						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
 							(UIColor.preferredColor(for: .tint), UIColor.preferredColor(for: .textPrimary3)) :
 							(UIColor.preferredColor(for: .textPrimary2), UIColor.preferredColor(for: .textPrimary3))
-						
+
+						let numberRiskContacts = store.tracingStatusHistory.countEnabledDays()
 						tracingCell.configure(
 							progress: CGFloat(numberRiskContacts),
 							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberRiskContacts),
@@ -273,9 +276,9 @@ private extension ENSettingModel.Content {
 
 // MARK: ENStateHandler Updating
 extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
-	func updateEnState(_ state: ENStateHandler.State) {
-		log(message: "Get the new state: \(state)")
-		self.enState = state
+	func updateEnState(_ enState: ENStateHandler.State) {
+		log(message: "Get the new state: \(enState)")
+		self.enState = enState
 		lastActionCell?.configure(for: enState, delegate: self)
 		self.tableView.reloadData()
 	}
