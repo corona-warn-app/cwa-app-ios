@@ -69,8 +69,9 @@ protocol Store: AnyObject {
 
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
-	func clearAll()
-	}
+	func clearAll(key: String?)
+}
+
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
@@ -78,24 +79,17 @@ final class SecureStore: Store {
 	private let fileURL: URL
 	private let kvStore: SQLiteKeyValueStore
 
-	init() {
-		do {
-			fileURL = try FileManager.default
-				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("secureStore.sqlite")
-		} catch {
-			// swiftlint:disable:next force_unwrapping
-			fileURL = URL(string: ":memory:")!
-		}
-		kvStore = SQLiteKeyValueStore(with: fileURL)
+	init(at fileURL: URL, key: String) {
+		self.fileURL = fileURL
+		kvStore = SQLiteKeyValueStore(with: fileURL, key: key)
 	}
 
 	func flush() {
 		kvStore.flush()
 	}
 
-	func clearAll() {
-		kvStore.clearAll()
+	func clearAll(key: String?) {
+		kvStore.clearAll(key: key)
 	}
 
 	var testResultReceivedTimeStamp: Int64? {
