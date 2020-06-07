@@ -112,15 +112,13 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 
 	func tanChanged(isValid: Bool, checksumIsValid: Bool, isBlocked: Bool) {
 		setButtonEnabled(enabled: (isValid && checksumIsValid))
-		if (isValid && !checksumIsValid) {
+		if isValid && !checksumIsValid {
 			errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidError
 			errorLabel.isHidden = false
-		}
-		else if (isBlocked) {
+		} else if isBlocked {
 			errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidCharacterError
 			errorLabel.isHidden = false
-		}
-		else {
+		} else {
 			errorLabel.isHidden = true
 		}
 	}
