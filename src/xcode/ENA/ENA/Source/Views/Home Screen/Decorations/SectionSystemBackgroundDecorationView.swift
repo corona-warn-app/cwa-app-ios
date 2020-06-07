@@ -20,7 +20,7 @@ import UIKit
 class SectionSystemBackgroundDecorationView: UICollectionReusableView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		configure(with: .systemGroupedBackground)
+		configure(with: .enaColor(for: .separator))
 	}
 
 	required init?(coder _: NSCoder) {
