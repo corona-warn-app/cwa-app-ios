@@ -175,7 +175,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 		exposureDetection = nil
 		switch result {
 		case .success(let summary):
-			store.summaryDate = Date()
+			store.summary = SummaryMetadata(detectionSummary: summary)
 			NotificationCenter.default.post(
 				name: .didDetectExposureDetectionSummary,
 				object: nil,
