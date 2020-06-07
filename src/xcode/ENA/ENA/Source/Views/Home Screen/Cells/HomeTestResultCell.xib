@@ -109,7 +109,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="Illu_Hand_with_phone-initial" width="128" height="120"/>
+        <image name="Illu_Hand_with_phone-initial" width="116" height="108"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <namedColor name="textPrimary2">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
