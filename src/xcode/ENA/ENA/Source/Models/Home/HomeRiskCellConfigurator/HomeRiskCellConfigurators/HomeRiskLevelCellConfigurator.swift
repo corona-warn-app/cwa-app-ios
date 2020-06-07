@@ -79,19 +79,6 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		isButtonEnabled = enabled
 	}
 
-	func configureCounter(buttonTitle: String, cell: RiskLevelCollectionViewCell) {
-		cell.configureDetectionIntervalLabel(
-			text: "Aktualisierung alle 24 Stunden",
-			isHidden: detectionIntervalLabelHidden
-		)
-		cell.configureUpdateButton(
-			title: buttonTitle,
-			isEnabled: isButtonEnabled,
-			isHidden: isButtonHidden
-		)
-
-	}
-
 	// MARK: Configuration
 
 	func configure(cell _: RiskLevelCollectionViewCell) {
