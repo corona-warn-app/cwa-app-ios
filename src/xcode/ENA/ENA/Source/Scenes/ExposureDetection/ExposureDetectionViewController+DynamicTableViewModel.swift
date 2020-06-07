@@ -162,7 +162,7 @@ private extension DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskRefresh) { viewController, cell, _ in
 			let state = viewController.state
 			cell.backgroundColor = state.riskTintColor
-			cell.textLabel?.text = "foobar"
+			cell.textLabel?.text = "Aktualisierung alle 24 Stunden"
 		}
 	}
 
