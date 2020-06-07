@@ -304,7 +304,7 @@ private extension ExposureSubmissionTestResultViewController {
 				),
 				.stepCellWith(
 					title: nil,
-					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
+					text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain,
 					image: UIImage(named: "Icons_Dark_Dot"),
 					hasSeparators: false
 				)

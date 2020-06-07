@@ -25,14 +25,11 @@ protocol HomeViewControllerDelegate: AnyObject {
 // swiftlint:disable:next type_body_length
 final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
-
 	init?(
 		coder: NSCoder,
-		exposureManager: ExposureManager,
 		delegate: HomeViewControllerDelegate,
 		initialEnState: ENStateHandler.State
 	) {
-		self.exposureManager = exposureManager
 		self.delegate = delegate
 		self.enState = initialEnState
 		super.init(coder: coder)
@@ -49,7 +46,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Properties
 
 	private var sections: HomeInteractor.SectionConfiguration = []
-	private let exposureManager: ExposureManager
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
 	private var enState: ENStateHandler.State
@@ -61,7 +57,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				exposureManager: .init(),
                 risk: risk
 			),
-			exposureSubmissionService: exposureSubmissionService,
+			exposureSubmissionService: self.exposureSubmissionService,
 			initialEnState: self.enState
 		)
 	}()
@@ -110,7 +106,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		super.viewWillAppear(animated)
 		updateOwnUI()
 		navigationItem.largeTitleDisplayMode = .never
-		homeInteractor.developerMenuEnableIfAllowed()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -124,12 +119,11 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func setupAccessibility() {
-		self.navigationItem.leftBarButtonItem?.isAccessibilityElement = true
-		self.navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
-		self.navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
-
-		self.navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-		self.navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
+		navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
+		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
+		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
+		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 	}
 
 	// MARK: Actions
@@ -332,7 +326,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			RiskInactiveCollectionViewCell.self,
 			RiskFindingPositiveCollectionViewCell.self,
 			RiskThankYouCollectionViewCell.self,
-			InfoCollectionViewCell.self
+			InfoCollectionViewCell.self,
+			HomeTestResultLoadingCell.self
 		]
 
 		collectionView.register(cellTypes: cellTypes)

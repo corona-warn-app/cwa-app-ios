@@ -17,6 +17,7 @@
 
 import UIKit
 import UserNotifications
+import ExposureNotification
 
 enum OnboardingPageType: Int, CaseIterable {
 	case togetherAgainstCoronaPage = 0
@@ -224,6 +225,7 @@ final class OnboardingInfoViewController: UIViewController {
 				log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
 			case .exposureNotificationAuthorization:
 				log(message: "Encourage the user to authorize this application", level: .warning)
+				print("Encourage the user to authorize this application: \(ENManager.authorizationStatus)")
 			case .exposureNotificationUnavailable:
 				log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
 			case .apiMisuse:
