@@ -54,7 +54,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	private func setupView() {
 		setupDynamicTableView()
 		setupNavigationBar()
-		timeStamp = exposureSubmissionService?.devicePairingConsentAcceptTimestamp
+		timeStamp = exposureSubmissionService?.devicePairingSuccessfulTimestamp
 	}
 
 	private func setupButtons() {
