@@ -32,7 +32,6 @@ enum ENATaskIdentifier: String, CaseIterable {
 		case .fetchTestResults: return 2 * 60 * 60
 		}
 	}
-
 	var backgroundTaskSchedulerIdentifier: String {
 		"\(Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp").\(rawValue)"
 	}
@@ -45,11 +44,13 @@ protocol ENATaskExecutionDelegate: AnyObject {
 
 final class ENATaskScheduler {
 	static let shared = ENATaskScheduler()
+
 	private init() {
 		registerTasks()
 	}
 
 	weak var taskDelegate: ENATaskExecutionDelegate?
+
 	typealias CompletionHandler = (() -> Void)
 
 	private func registerTasks() {

@@ -125,10 +125,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		showPrivacyProtectionWindow()
 	}
 
-	func sceneDidEnterBackground(_ scene: UIScene) {
-		taskScheduler.scheduleTasks()
-	}
-
 	// MARK: Helper
 
 	func requestUpdatedExposureState() {

@@ -118,6 +118,7 @@ final class OnboardingInfoViewController: UIViewController {
 			askExposureNotificationsPermissions(completion: {
 				handleBluetooth {
 					completion()
+					(UIApplication.shared.delegate as? AppDelegate)?.taskScheduler.scheduleTasks()
 				}
 			})
 
