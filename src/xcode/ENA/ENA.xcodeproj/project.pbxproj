@@ -19,6 +19,7 @@
 		0DFCC2722484DC8400E2811D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1309194E247972C40066E329 /* PrivacyProtectionViewController.swift */; };
 		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
+		13156CFD248C19D000AFC472 /* usage.html in Resources */ = {isa = PBXBuildFile; fileRef = 13156CFF248C19D000AFC472 /* usage.html */; };
 		134F0DBC247578FF00D88934 /* ENAUITestsHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0DB9247578FF00D88934 /* ENAUITestsHome.swift */; };
 		134F0DBD247578FF00D88934 /* ENAUITests-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */; };
 		134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F0F2B2475793400D88934 /* SnapshotHelper.swift */; };
@@ -346,6 +347,8 @@
 		0DFCC2712484DC8400E2811D /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
 		1309194E247972C40066E329 /* PrivacyProtectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyProtectionViewController.swift; sourceTree = "<group>"; };
 		130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsOnboarding.swift; sourceTree = "<group>"; };
+		13156CFE248C19D000AFC472 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/usage.html; sourceTree = "<group>"; };
+		13156D00248CDECC00AFC472 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/usage.html; sourceTree = "<group>"; };
 		134F0DB9247578FF00D88934 /* ENAUITestsHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENAUITestsHome.swift; sourceTree = "<group>"; };
 		134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENAUITests-Extensions.swift"; sourceTree = "<group>"; };
 		134F0F2B2475793400D88934 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = ../../fastlane/SnapshotHelper.swift; sourceTree = "<group>"; };
@@ -1680,6 +1683,7 @@
 		EE70C239245B09E900AC9B2F /* Localization */ = {
 			isa = PBXGroup;
 			children = (
+				13156CFF248C19D000AFC472 /* usage.html */,
 				71F5418A248BEDBE006DB793 /* privacy-policy.html */,
 				EE70C23A245B09E900AC9B2F /* Localizable.strings */,
 				EE92A340245D96DA006B97B0 /* Localizable.stringsdict */,
@@ -1848,6 +1852,7 @@
 			files = (
 				514E813024618E3D00636861 /* ExposureDetection.storyboard in Resources */,
 				51486DA32485101500FCE216 /* RiskInactiveCollectionViewCell.xib in Resources */,
+				13156CFD248C19D000AFC472 /* usage.html in Resources */,
 				51486DA72485237200FCE216 /* RiskThankYouCollectionViewCell.xib in Resources */,
 				2F785752248506BD00323A9C /* HomeTestResultCell.xib in Resources */,
 				51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
@@ -2211,6 +2216,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		13156CFF248C19D000AFC472 /* usage.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13156CFE248C19D000AFC472 /* de */,
+				13156D00248CDECC00AFC472 /* en */,
+			);
+			name = usage.html;
+			sourceTree = "<group>";
+		};
 		71F5418A248BEDBE006DB793 /* privacy-policy.html */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2318,7 +2332,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1226;
+				CURRENT_PROJECT_VERSION = 1250;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2333,7 +2347,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2533,7 +2547,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1226;
+				CURRENT_PROJECT_VERSION = 1250;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2547,7 +2561,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2572,7 +2586,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1226;
+				CURRENT_PROJECT_VERSION = 1250;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2582,7 +2596,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2773,7 +2787,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1226;
+				CURRENT_PROJECT_VERSION = 1250;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2783,7 +2797,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",

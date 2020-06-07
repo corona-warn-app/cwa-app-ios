@@ -81,7 +81,7 @@ extension AppInformationViewController {
 		),
 		.terms: (
 			text: AppStrings.AppInformation.termsNavigation,
-			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsNavigation)
+			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsTitle)
 		),
 		.privacy: (
 			text: AppStrings.AppInformation.privacyNavigation,
@@ -169,9 +169,7 @@ extension AppInformationViewController {
 						   accessibilityLabel: AppStrings.AppInformation.termsImageDescription,
 						   height: 230),
 			cells: [
-				.title2(text: AppStrings.AppInformation.termsTitle),
-				.body(text: AppStrings.AppInformation.termsDescription),
-				.body(text: AppStrings.AppInformation.termsText)
+				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
 			]
 		)
 	])
