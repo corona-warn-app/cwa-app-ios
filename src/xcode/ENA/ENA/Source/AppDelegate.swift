@@ -142,14 +142,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 				.appendingPathComponent("secureStore.sqlite")
 			if !fileManager.fileExists(atPath: directoryURL.path) {
-				guard let key = generateDatabaseKey() else {
+				guard let key = KeychainHelper.generateDatabaseKey() else {
 					logError(message: "Creating the Database failed")
 					return SecureStore(at: URL(staticString: ":memory:"), key: "")
 				}
 				return SecureStore(at: directoryURL, key: key)
 			} else {
-				guard let keyData = loadFromKeychain(key: "secureStoreDatabaseKey") else {
-					guard let key = generateDatabaseKey() else {
+				guard let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") else {
+					guard let key = KeychainHelper.generateDatabaseKey() else {
 						logError(message: "Creating the Database failed")
 						return SecureStore(at: URL(staticString: ":memory:"), key: "")
 					}
@@ -483,51 +483,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	}
 }
 
-/// Keychain Extension for storing and loading the Database Key in the Keychain
-extension AppDelegate {
-
-	static func saveToKeychain(key: String, data: Data) -> OSStatus {
-		let query = [
-			kSecClass as String: kSecClassGenericPassword as String,
-			kSecAttrAccount as String: key,
-			kSecValueData as String: data ] as [String: Any]
-
-		SecItemDelete(query as CFDictionary)
-		return SecItemAdd(query as CFDictionary, nil)
-	}
-
-	static func loadFromKeychain(key: String) -> Data? {
-		let query = [
-			kSecClass as String: kSecClassGenericPassword,
-			kSecAttrAccount as String: key,
-			kSecReturnData as String: kCFBooleanTrue as Any,
-			kSecMatchLimit as String: kSecMatchLimitOne
-			] as [String: Any]
-
-		var dataTypeRef: AnyObject?
-		let status: OSStatus = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
-		if status == noErr {
-			return dataTypeRef as? Data ?? nil
-		} else {
-			return nil
-		}
-	}
-
-	static func generateDatabaseKey() -> String? {
-		var bytes = [UInt8](repeating: 0, count: 32)
-		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-		guard result == errSecSuccess else {
-			logError(message: "Error creating random bytes.")
-			return nil
-		}
-		let key = "x'\(Data(bytes).hexEncodedString())'"
-		if saveToKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) != noErr {
-			logError(message: "Unable to save Key to Keychain")
-			return nil
-		}
-		return key
-	}
-}
 private extension URL {
 	init(staticString: StaticString) {
 		// swiftlint:disable:next force_unwrapping

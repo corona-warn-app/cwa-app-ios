@@ -331,7 +331,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 extension SceneDelegate: HomeViewControllerDelegate {
 	/// Resets all stores and notifies the Onboarding.
 	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
-		let newKey = generateDatabaseKey()
+		let newKey = KeychainHelper.generateDatabaseKey()
 		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
@@ -395,32 +395,5 @@ extension SceneDelegate: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		log(message: "SceneDelegate got EnState update: \(state)")
 		homeController?.updateEnState(state)
-	}
-}
-
-extension SceneDelegate {
-	func generateDatabaseKey() -> String? {
-		var bytes = [UInt8](repeating: 0, count: 32)
-		let result = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-		guard result == errSecSuccess else {
-			logError(message: "Error creating random bytes.")
-			return nil
-		}
-		let key = "x'\(Data(bytes).hexEncodedString())'"
-		if saveToKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) != noErr {
-			logError(message: "Unable to save Key to Keychain")
-			return nil
-		}
-		return key
-	}
-
-	func saveToKeychain(key: String, data: Data) -> OSStatus {
-		let query = [
-			kSecClass as String: kSecClassGenericPassword as String,
-			kSecAttrAccount as String: key,
-			kSecValueData as String: data ] as [String: Any]
-
-		SecItemDelete(query as CFDictionary)
-		return SecItemAdd(query as CFDictionary, nil)
 	}
 }
