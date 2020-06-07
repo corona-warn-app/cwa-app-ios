@@ -145,8 +145,8 @@ extension ExposureNotificationSettingViewController {
 				fatalError("Not all cases of actions covered when handling the bluetooth")
 			}
 		}
-		alert.addAction(UIAlertAction(title: "Aktivieren", style: .default, handler: { action in completionHandler(action) }))
-		alert.addAction(UIAlertAction(title: "Abbrechen", style: .cancel, handler: { action in completionHandler(action) }))
+		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentActivateAction, style: .default, handler: { action in completionHandler(action) }))
+		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentDismissAction, style: .cancel, handler: { action in completionHandler(action) }))
 		self.present(alert, animated: true, completion: nil)
 	}
 }

@@ -498,6 +498,8 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureNotificationSetting_AccLabel_InternetOff" = "Eine Person hat die Internetverbindung ihres Smartphones ausgeschaltet, eine Bestimmung der letzten Begegnungen kann dadurch nicht ausgeführt werden.";
 
+"ExposureNotificationSetting_Activate_Action" = "Akzeptieren";
+"ExposureNotificationSetting_Dismiss_Action" = "Abbrechen";
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona Warn App Logo";
 
