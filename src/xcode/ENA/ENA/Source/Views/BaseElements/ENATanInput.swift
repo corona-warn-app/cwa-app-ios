@@ -29,7 +29,7 @@ class ENATanInput: UIControl, UIKeyInput {
 
 	@IBInspectable var fontSize: CGFloat = 30
 	@IBInspectable var groups: String = "3,3,4"
-	@IBInspectable var forbidden: String = "1,0,I,O,L"
+	@IBInspectable var forbidden: String = "1,0,I,O,L,Ä,Ö,Ü, ,-,/,:,;,(,),€,&,@,\""
 
 	@IBInspectable var spacing: CGFloat = 3
 	@IBInspectable var cornerRadius: CGFloat = 4
@@ -52,7 +52,8 @@ class ENATanInput: UIControl, UIKeyInput {
 
 	override var canBecomeFirstResponder: Bool { true }
 
-	var keyboardType: UIKeyboardType = .namePhonePad
+	var keyboardType: UIKeyboardType = .asciiCapable
+	var textContentType: UITextContentType = .oneTimeCode
 
 	var hasText: Bool { !text.isEmpty }
 
