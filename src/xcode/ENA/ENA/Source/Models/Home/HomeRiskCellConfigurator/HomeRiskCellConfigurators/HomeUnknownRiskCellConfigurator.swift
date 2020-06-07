@@ -20,6 +20,30 @@ import UIKit
 final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Configuration
 
+	//This interval is 24
+	private let detectionInterval: Int
+
+
+	init(isLoading: Bool,
+		isButtonEnabled: Bool,
+		isButtonHidden: Bool,
+		detectionIntervalLabelHidden: Bool,
+		lastUpdateDate: Date?,
+		detectionInterval: Int) {
+		self.detectionInterval = detectionInterval
+
+		super.init(
+				isLoading: isLoading,
+				isButtonEnabled: isButtonEnabled,
+				isButtonHidden: isButtonHidden,
+				detectionIntervalLabelHidden: detectionIntervalLabelHidden,
+				lastUpdateDate: lastUpdateDate
+		)
+
+	}
+
+
+
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
 
@@ -44,8 +68,8 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardUnknownButton
 
-		let interval = "\(24)"
-		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, interval)
+		let intervalString = "\(detectionInterval)"
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
 		cell.configureDetectionIntervalLabel(
 			text: intervalTitle,
 			isHidden: detectionIntervalLabelHidden
