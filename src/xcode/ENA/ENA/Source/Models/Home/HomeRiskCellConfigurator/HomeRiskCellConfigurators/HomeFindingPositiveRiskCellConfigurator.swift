@@ -72,7 +72,23 @@ final class HomeFindingPositiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		let backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
 		cell.configureBackgroundColor(color: backgroundColor)
+
+		setupAccessibility(cell)
 	}
+
+	func setupAccessibility(_ cell: RiskFindingPositiveCollectionViewCell) {
+		cell.titleLabel.isAccessibilityElement = false
+		cell.chevronImageView.isAccessibilityElement = false
+		cell.viewContainer.isAccessibilityElement = false
+		cell.stackView.isAccessibilityElement = false
+
+		cell.topContainer.isAccessibilityElement = true
+
+		let topContainerText = cell.titleLabel.text ?? ""
+		cell.topContainer.accessibilityLabel = topContainerText
+		cell.topContainer.accessibilityTraits = [.button, .header]
+	}
+
 }
 
 extension HomeFindingPositiveRiskCellConfigurator: RiskFindingPositiveCollectionViewCellDelegate {

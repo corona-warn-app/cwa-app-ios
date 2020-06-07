@@ -65,5 +65,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardHighButton
 
 		configureCounter(buttonTitle: buttonTitle, cell: cell)
+
+		setupAccessibility(cell)
 	}
 }

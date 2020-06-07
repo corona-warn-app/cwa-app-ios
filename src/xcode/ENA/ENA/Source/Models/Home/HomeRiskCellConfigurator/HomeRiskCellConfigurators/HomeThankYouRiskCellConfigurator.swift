@@ -68,5 +68,17 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		let backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
 		cell.configureBackgroundColor(color: backgroundColor)
+
+		setupAccessibility(cell)
 	}
+
+	func setupAccessibility(_ cell: RiskThankYouCollectionViewCell) {
+		cell.titleLabel.isAccessibilityElement = true
+		cell.viewContainer.isAccessibilityElement = false
+		cell.stackView.isAccessibilityElement = false
+		cell.bodyLabel.isAccessibilityElement = true
+
+		cell.titleLabel.accessibilityTraits = .header
+	}
+
 }
