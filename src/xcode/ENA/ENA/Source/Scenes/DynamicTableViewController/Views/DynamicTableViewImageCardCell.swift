@@ -131,9 +131,9 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		chevron.centerYAnchor.constraint(equalTo: title.centerYAnchor).isActive = true
 
 		body.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
-		body.trailingAnchor.constraint(equalTo: cellImage.leadingAnchor, constant: -16).isActive = true
+		body.trailingAnchor.constraint(equalTo: cellImage.leadingAnchor).isActive = true
 		body.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 21).isActive = true
-		body.bottomAnchor.constraint(equalTo: insetView.bottomAnchor, constant: -16).isActive = true
+		body.bottomAnchor.constraint(lessThanOrEqualTo: insetView.bottomAnchor, constant: -16).isActive = true
 
 		cellImage.trailingAnchor.constraint(equalTo: insetView.trailingAnchor).isActive = true
 		cellImage.bottomAnchor.constraint(equalTo: insetView.bottomAnchor).isActive = true
