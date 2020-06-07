@@ -64,7 +64,6 @@ final class RiskProviderTests: XCTestCase {
 			exposureDetectionInterval: duration,
 			detectionMode: .automatic
 		)
-
 		let exposureSummaryProvider = ExposureSummaryProviderMock()
 
 		let expectThatSummaryIsRequested = expectation(description: "expectThatSummaryIsRequested")
