@@ -297,7 +297,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	private func configureHierarchy() {
 		let safeLayoutGuide = view.safeAreaLayoutGuide
-		view.backgroundColor = .systemGroupedBackground
 		collectionView = UICollectionView(
 			frame: view.bounds,
 			collectionViewLayout: UICollectionViewLayout.homeLayout(delegate: self)
@@ -311,10 +310,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 		NSLayoutConstraint.activate(
 			[
+				collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 				collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-				collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-				collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+				collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor)
 			]
 		)
 
@@ -357,7 +356,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func configureUI() {
-		collectionView.backgroundColor = .systemGroupedBackground
+		collectionView.backgroundColor = .clear
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
 			image: infoImage,

@@ -28,8 +28,10 @@ extension UICollectionViewLayout {
 			let section = layoutSection(for: homeSection, layoutEnvironment: layoutEnvironment)
 			return section
 		}
+
 		let config = UICollectionViewCompositionalLayoutConfiguration()
 		config.interSectionSpacing = 32.0
+
 		let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: config)
 		layout.register(SectionSystemBackgroundDecorationView.self, forDecorationViewOfKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
 
@@ -48,16 +50,15 @@ extension UICollectionViewLayout {
 	}
 
 	private static func mainSection() -> NSCollectionLayoutSection {
-		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(500.0))
+		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(300.0))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
-		item.edgeSpacing = .init(leading: .none, top: .fixed(16.0), trailing: .none, bottom: .none)
 
-		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1500.0))
+		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1000.0))
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
 		let section = NSCollectionLayoutSection(group: group)
-		let insets: CGFloat = 16.0
-		section.contentInsets = .init(top: 0.0, leading: insets, bottom: 0.0, trailing: insets)
+		section.contentInsets = .init(top: 32.0, leading: 16.0, bottom: 0.0, trailing: 16.0)
+		section.interGroupSpacing = 32.0
 
 		let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
 		section.decorationItems = [sectionBackgroundDecoration]
@@ -71,9 +72,8 @@ extension UICollectionViewLayout {
 
 		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100.0))
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+
 		let section = NSCollectionLayoutSection(group: group)
-		let insets: CGFloat = 0.0
-		section.contentInsets = .init(top: insets, leading: insets, bottom: 0.0, trailing: insets)
 
 		return section
 	}
@@ -84,9 +84,8 @@ extension UICollectionViewLayout {
 
 		let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(50.0))
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+
 		let section = NSCollectionLayoutSection(group: group)
-		let insets: CGFloat = 0.0
-		section.contentInsets = .init(top: insets, leading: insets, bottom: 0.0, trailing: insets)
 
 		return section
 	}
