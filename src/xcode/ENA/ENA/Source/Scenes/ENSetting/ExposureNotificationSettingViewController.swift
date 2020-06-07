@@ -35,16 +35,16 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 	private var lastActionCell: ActionCell?
 
 	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
-	let numberRiskContacts = 10
-	var enState: ENStateHandler.State
+	var state: State
 
 	init?(
 		coder: NSCoder,
 		initialEnState: ENStateHandler.State,
+		tracingHistory: TracingStatusHistory,
 		delegate: ExposureNotificationSettingViewControllerDelegate
 	) {
 		self.delegate = delegate
-		self.enState = initialEnState
+		self.state = State(enState: initialEnState, tracingHistory: tracingHistory)
 		super.init(coder: coder)
 	}
 
@@ -178,24 +178,25 @@ extension ExposureNotificationSettingViewController {
 		if let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell {
 			switch content {
 			case .banner:
-				cell.configure(for: enState)
+				cell.configure(for: state.enState)
 			case .actionCell:
 				if let lastActionCell = lastActionCell {
 					return lastActionCell
 				}
 				if let cell = cell as? ActionCell {
-					cell.configure(for: enState, delegate: self)
+					cell.configure(for: state.enState, delegate: self)
 					lastActionCell = cell
 				}
 			case .tracingCell, .actionDetailCell:
-				switch enState {
+				switch state.enState {
 				case .enabled, .disabled:
 					let tracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
 					if let tracingCell = tracingCell as? TracingHistoryTableViewCell {
-						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
+						let colorConfig: (UIColor, UIColor) = (self.state.enState == .enabled) ?
 							(UIColor.preferredColor(for: .tint), UIColor.preferredColor(for: .textPrimary3)) :
 							(UIColor.preferredColor(for: .textPrimary2), UIColor.preferredColor(for: .textPrimary3))
-						
+
+						let numberRiskContacts = state.tracingHistory.countEnabledDays()
 						tracingCell.configure(
 							progress: CGFloat(numberRiskContacts),
 							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberRiskContacts),
@@ -205,11 +206,11 @@ extension ExposureNotificationSettingViewController {
 					}
 				case .bluetoothOff, .internetOff, .restricted, .notAuthorized, .unknown:
 					if let cell = cell as? ActionCell {
-						cell.configure(for: enState, delegate: self)
+						cell.configure(for: state.enState, delegate: self)
 					}
 				}
 			case .descriptionCell:
-				cell.configure(for: enState)
+				cell.configure(for: state.enState)
 			}
 			return cell
 		} else {
@@ -261,9 +262,9 @@ private extension ENSettingModel.Content {
 
 // MARK: ENStateHandler Updating
 extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
-	func updateEnState(_ state: ENStateHandler.State) {
+	func updateEnState(_ enState: ENStateHandler.State) {
 		log(message: "Get the new state: \(state)")
-		self.enState = state
+		self.state.enState = enState
 		lastActionCell?.configure(for: enState, delegate: self)
 		self.tableView.reloadData()
 	}
