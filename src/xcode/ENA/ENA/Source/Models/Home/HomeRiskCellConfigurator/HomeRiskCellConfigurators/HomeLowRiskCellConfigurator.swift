@@ -78,7 +78,18 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureChevron(image: UIImage(named: "Icons_Chevron_White"), tintColor: nil)
 
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardLowButton
+
+		let interval = "\(48)"
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, interval)
+		cell.configureDetectionIntervalLabel(
+			text: intervalTitle,
+			isHidden: detectionIntervalLabelHidden
+		)
 		
-		configureCounter(buttonTitle: buttonTitle, cell: cell)
+		cell.configureUpdateButton(
+			title: buttonTitle,
+			isEnabled: isButtonEnabled,
+			isHidden: isButtonHidden
+		)
 	}
 }

@@ -46,6 +46,17 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardUnknownButton
 
-		configureCounter(buttonTitle: buttonTitle, cell: cell)
+		let interval = "\(48)"
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, interval)
+		cell.configureDetectionIntervalLabel(
+			text: intervalTitle,
+			isHidden: detectionIntervalLabelHidden
+		)
+		
+		cell.configureUpdateButton(
+			title: buttonTitle,
+			isEnabled: isButtonEnabled,
+			isHidden: isButtonHidden
+		)
 	}
 }
