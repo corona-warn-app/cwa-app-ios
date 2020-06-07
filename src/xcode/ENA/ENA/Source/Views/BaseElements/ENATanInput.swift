@@ -29,7 +29,7 @@ class ENATanInput: UIControl, UIKeyInput {
 
 	@IBInspectable var fontSize: CGFloat = 30
 	@IBInspectable var groups: String = "3,3,4"
-	@IBInspectable var forbidden: String = "1,0,I,O,L,Ä,Ö,Ü, ,-,/,:,;,(,),€,&,@,\""
+	@IBInspectable var whiteList: String = "2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,J,K,M,N,P,Q,R,S,T,U,V,W,X,Y,Z"
 
 	@IBInspectable var spacing: CGFloat = 3
 	@IBInspectable var cornerRadius: CGFloat = 4
@@ -40,7 +40,7 @@ class ENATanInput: UIControl, UIKeyInput {
 	var count: Int { text.count }
 
 	var dashes: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
-	var forbiddenArray: [String] { forbidden.split(separator: ",").map(String.init) }
+	var whiteListArray: [String] { whiteList.split(separator: ",").map(String.init) }
 	var digits: Int { dashes.reduce(0) { $0 + $1 } }
 
 	// swiftlint:disable:next empty_count
@@ -138,13 +138,13 @@ class ENATanInput: UIControl, UIKeyInput {
 			label.text = "\(character.uppercased())"
 			self.text += "\(character.uppercased())"
 			if let enaInputLabel = label as? ENATanInputLabel {
-				if forbiddenArray.contains(String(character.uppercased())) {
+				if whiteListArray.contains(String(character.uppercased())) {
+					enaInputLabel.isValid = true
+					enaInputLabel.textColor = labelTextColor
+				} else {
 					enaInputLabel.isValid = false
 					enaInputLabel.textColor = .enaColor(for: .textSemanticRed)
 					inputBlocked = true
-				} else {
-					enaInputLabel.isValid = true
-					enaInputLabel.textColor = labelTextColor
 				}
 			}
 
