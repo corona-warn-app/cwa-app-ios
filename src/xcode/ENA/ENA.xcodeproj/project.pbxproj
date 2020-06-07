@@ -856,6 +856,7 @@
 		51CE1B75246078B6002CF42A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				51B5B419246E058100DC5D3E /* Risk */,
 				A328424C248B91E0006B1F09 /* HomeTestResultLoadingCell.swift */,
 				A328424B248B91E0006B1F09 /* HomeTestResultLoadingCell.xib */,
 				2F785750248506BD00323A9C /* HomeTestResultCell.swift */,
@@ -863,7 +864,6 @@
 				51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */,
 				51CE1B78246078B6002CF42A /* ActivateCollectionViewCell.swift */,
 				51CE1B76246078B6002CF42A /* ActivateCollectionViewCell.xib */,
-				51B5B419246E058100DC5D3E /* Risk */,
 				51CE1B77246078B6002CF42A /* SubmitCollectionViewCell.swift */,
 				51CE1B7E246078B6002CF42A /* SubmitCollectionViewCell.xib */,
 				51CE1B7C246078B6002CF42A /* InfoCollectionViewCell.swift */,
