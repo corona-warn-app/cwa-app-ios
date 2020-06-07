@@ -322,6 +322,8 @@ enum AppStrings {
 		static let authorizationRequiredENSetting = NSLocalizedString("ExposureNotificationSetting_AuthorizationRequired_OSENSetting", comment: "")
 		static let authorizationRequiredENSettingDescription = NSLocalizedString("ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description", comment: "")
 		static let authorizationButtonTitle = NSLocalizedString("ExposureNotificationSetting_AuthorizationRequired_ActionTitle", comment: "")
+		static let privacyConsentActivateAction = NSLocalizedString("ExposureNotificationSetting_Activate_Action", comment: "")
+		static let privacyConsentDismissAction = NSLocalizedString("ExposureNotificationSetting_Dismiss_Action", comment: "")
 
 		static let accLabelEnabled = NSLocalizedString("ExposureNotificationSetting_AccLabel_Enabled", comment: "")
 		static let accLabelDisabled = NSLocalizedString("ExposureNotificationSetting_AccLabel_Disabled", comment: "")

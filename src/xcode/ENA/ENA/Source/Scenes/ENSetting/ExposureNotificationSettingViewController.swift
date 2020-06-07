@@ -35,16 +35,18 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 	private var lastActionCell: ActionCell?
 
 	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
-	let numberRiskContacts = 10
+	let store: Store
 	var enState: ENStateHandler.State
 
 	init?(
 		coder: NSCoder,
 		initialEnState: ENStateHandler.State,
+		store: Store,
 		delegate: ExposureNotificationSettingViewControllerDelegate
 	) {
 		self.delegate = delegate
-		self.enState = initialEnState
+		self.store = store
+		enState = initialEnState
 		super.init(coder: coder)
 	}
 
@@ -59,16 +61,6 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		tableView.sectionFooterHeight = 0.0
 
 	}
-//
-//	private func tryEnManager() {
-//		let enManager = ENManager()
-//		enManager.activate { error in
-//			if let error = error {
-//				print("Cannot activate the enmanager.")
-//				return
-//			}
-//		}
-//	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -137,6 +129,28 @@ extension ExposureNotificationSettingViewController {
 			tableView.reloadData()
 		}
 	}
+
+	private func askConsentToUser() {
+		let alert = UIAlertController(
+			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
+			message: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody,
+			preferredStyle: .alert
+		)
+		let completionHandler: (UIAlertAction) -> Void = { action in
+			switch action.style {
+			case .default:
+				self.setExposureManagerEnabled(true, then: self.silentErrorIfNeed)
+			case .cancel, .destructive:
+				self.lastActionCell?.configure(for: self.enState, delegate: self)
+				self.tableView.reloadData()
+			@unknown default:
+				fatalError("Not all cases of actions covered when handling the bluetooth")
+			}
+		}
+		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentActivateAction, style: .default, handler: { action in completionHandler(action) }))
+		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentDismissAction, style: .cancel, handler: { action in completionHandler(action) }))
+		self.present(alert, animated: true, completion: nil)
+	}
 }
 
 extension ExposureNotificationSettingViewController {
@@ -195,7 +209,8 @@ extension ExposureNotificationSettingViewController {
 						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
 							(UIColor.preferredColor(for: .tint), UIColor.preferredColor(for: .textPrimary3)) :
 							(UIColor.preferredColor(for: .textPrimary2), UIColor.preferredColor(for: .textPrimary3))
-						
+
+						let numberRiskContacts = store.tracingStatusHistory.countEnabledDays()
 						tracingCell.configure(
 							progress: CGFloat(numberRiskContacts),
 							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberRiskContacts),
@@ -226,7 +241,7 @@ extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate
 		case .enable(false):
 			setExposureManagerEnabled(false, then: handleErrorIfNeed)
 		case .askConsent:
-			setExposureManagerEnabled(true, then: silentErrorIfNeed)
+			askConsentToUser()
 		}
 	}
 }
@@ -261,9 +276,9 @@ private extension ENSettingModel.Content {
 
 // MARK: ENStateHandler Updating
 extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
-	func updateEnState(_ state: ENStateHandler.State) {
-		log(message: "Get the new state: \(state)")
-		self.enState = state
+	func updateEnState(_ enState: ENStateHandler.State) {
+		log(message: "Get the new state: \(enState)")
+		self.enState = enState
 		lastActionCell?.configure(for: enState, delegate: self)
 		self.tableView.reloadData()
 	}
