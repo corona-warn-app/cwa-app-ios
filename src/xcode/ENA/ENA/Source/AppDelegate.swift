@@ -116,12 +116,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	#if targetEnvironment(simulator) || COMMUNITY
 	// Enable third party contributors that do not have the required
 	// entitlements to also use the app
-	private let exposureManager: ExposureManager = {
+	let exposureManager: ExposureManager = {
 		let keys = [ENTemporaryExposureKey()]
 		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
 	}()
 	#else
-	internal let exposureManager: ExposureManager = ENAExposureManager()
+	let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
 
 
