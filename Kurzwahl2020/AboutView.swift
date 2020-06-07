@@ -26,10 +26,11 @@ struct AboutView: View {
             VStack{
                 Text("Call by Color 36")
                     .font(.title)
-                Text("Version 1.0")
-                    .fontWeight(.medium)
+                //Text("Version 1.0")
+                Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)")
+                    .fontWeight(.regular)
                 Text("Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)")
-                    .fontWeight(.medium)
+                    .fontWeight(.light)
                 
                 Image("Icon1024").resizable().frame(width: 120, height: 120).cornerRadius(20)
                     Spacer()
