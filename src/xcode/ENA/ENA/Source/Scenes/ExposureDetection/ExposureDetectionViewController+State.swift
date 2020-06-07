@@ -29,7 +29,9 @@ extension ExposureDetectionViewController {
 		var isLoading: Bool = false
 
 		var risk: Risk?
-		var riskLevel: RiskLevel { risk?.level ?? .unknownInitial }
+		var riskLevel: RiskLevel {
+			risk?.level ?? .unknownInitial
+		}
 		var actualRiskText: String { riskLevel.text }
 
 		var riskText: String {

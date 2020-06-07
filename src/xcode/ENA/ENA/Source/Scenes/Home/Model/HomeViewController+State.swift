@@ -20,6 +20,7 @@ import Foundation
 
 extension HomeViewController {
 	struct State {
+		var risk: Risk?
 		var detectionMode: DetectionMode = DetectionMode.default
 	}
 }

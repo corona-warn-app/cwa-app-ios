@@ -37,6 +37,7 @@ final class HomeInteractor: RequiresAppDependencies {
 		sections = initialCellConfigurators()
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
+			self?.homeViewController.state.risk = risk
 		}
 		riskProvider.observeRisk(riskConsumer)
 	}

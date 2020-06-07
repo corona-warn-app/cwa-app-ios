@@ -81,7 +81,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}()
 	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
 
-	private var risk: Risk?
+	private var risk: Risk? { state.risk }
 	private let riskConsumer = RiskConsumer()
 
 	enum Section: Int {
@@ -96,7 +96,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		super.viewDidLoad()
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
-			self?.risk = risk
+			self?.state.risk = risk
 			self?.updateOwnUI()
 		}
 

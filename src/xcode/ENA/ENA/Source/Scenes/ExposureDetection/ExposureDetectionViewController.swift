@@ -65,10 +65,6 @@ extension ExposureDetectionViewController {
 			self.updateUI()
 		}
 
-		consumer.nextExposureDetectionDateDidChange = { date in
-
-		}
-
 		riskProvider.observeRisk(consumer)
 		updateUI()
 	}
