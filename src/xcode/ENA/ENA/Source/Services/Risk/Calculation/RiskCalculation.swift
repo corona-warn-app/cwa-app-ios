@@ -193,13 +193,13 @@ enum RiskCalculation {
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
 
-			var riskLevelHasIncreased = false
+			var riskLevelHasChanged = false
 			if
 				let summary = summary,
 				let previousSummary = previousSummary,
 				(RiskLevel(riskScore: summary.maximumRiskScore) == .low || RiskLevel(riskScore: summary.maximumRiskScore) == .increased),
 				RiskLevel(riskScore: summary.maximumRiskScore) != RiskLevel(riskScore: previousSummary.maximumRiskScore) {
-				riskLevelHasIncreased = true
+				riskLevelHasChanged = true
 			}
 
 			DispatchQueue.main.async {
@@ -213,7 +213,7 @@ enum RiskCalculation {
 			return Risk(
 				level: level,
 				details: details,
-				riskLevelHasIncreased: riskLevelHasIncreased
+				riskLevelHasChanged: riskLevelHasChanged
 			)
 		case .failure:
 			return nil
