@@ -39,6 +39,16 @@ private extension DynamicCell {
 			cell.contentView.layoutMargins.top = 0
 		}
 	}
+
+	static func html(url: URL?) -> Self {
+		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { viewController, cell, _  in
+			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
+			cell.textView.delegate = viewController as? UITextViewDelegate
+			if let url = url {
+				cell.textView.load(from: url)
+			}
+		}
+	}
 }
 
 private extension DynamicAction {
@@ -71,7 +81,7 @@ extension AppInformationViewController {
 		),
 		.terms: (
 			text: AppStrings.AppInformation.termsNavigation,
-			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsNavigation)
+			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsTitle)
 		),
 		.privacy: (
 			text: AppStrings.AppInformation.privacyNavigation,
@@ -147,15 +157,8 @@ extension AppInformationViewController {
 						   // TODO: get the accessibility content for this image
 						   //accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
 						   height: 230),
-			footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)),
 			cells: [
-				.title2(text: AppStrings.AppInformation.privacyTitle),
-				.body(text: AppStrings.AppInformation.privacyDescription)
-			]
-		),
-		.section(
-			cells: [
-				.subheadline(text: AppStrings.AppInformation.privacyText)
+				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
 			]
 		)
 	])
@@ -166,9 +169,7 @@ extension AppInformationViewController {
 						   accessibilityLabel: AppStrings.AppInformation.termsImageDescription,
 						   height: 230),
 			cells: [
-				.title2(text: AppStrings.AppInformation.termsTitle),
-				.body(text: AppStrings.AppInformation.termsDescription),
-				.body(text: AppStrings.AppInformation.termsText)
+				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
 			]
 		)
 	])

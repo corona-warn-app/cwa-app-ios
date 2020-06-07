@@ -40,6 +40,7 @@ protocol Store: AnyObject {
 	var allowTestsStatusNotification: Bool { get set }
 
 	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
+	var previousSummaryDate: Date? { get set }
 
 	var previousRisk: Risk? { get set }
 
@@ -213,7 +214,7 @@ final class SecureStore: Store {
 		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }
 		set { kvStore["allowTestsStatusNotification"] = newValue }
 	}
-	
+
 	var tracingStatusHistory: TracingStatusHistory {
 		get {
 			guard let historyData = kvStore["tracingStatusHistory"] else {
@@ -229,6 +230,11 @@ final class SecureStore: Store {
 	var previousSummary: ENExposureDetectionSummaryContainer? {
 		get { kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil }
 		set { kvStore["previousSummary"] = newValue }
+	}
+
+	var previousSummaryDate: Date? {
+		get { kvStore["previousSummaryDate"] as Date? ?? nil }
+		set { kvStore["previousSummaryDate"] = newValue }
 	}
 
 	var previousRisk: Risk? {

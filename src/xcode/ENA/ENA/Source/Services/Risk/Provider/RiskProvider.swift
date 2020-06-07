@@ -49,7 +49,11 @@ final class RiskProvider {
 	private let store: Store
 	private let exposureSummaryProvider: ExposureSummaryProvider
 	private let appConfigurationProvider: AppConfigurationProviding
-	private let exposureManagerState: ExposureManagerState
+	var exposureManagerState: ExposureManagerState {
+		didSet {
+			requestRisk()
+		}
+	}
 	var configuration: RiskProvidingConfiguration
 }
 
@@ -139,13 +143,13 @@ extension RiskProvider: RiskProviding {
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
 			return
 		}
-		
+
 		let summary = newSummary ?? store.previousSummary
 
 		guard let _appConfiguration = appConfiguration else {
 			return
 		}
-		
+
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.countEnabledHours()
 		guard
@@ -166,6 +170,8 @@ extension RiskProvider: RiskProviding {
 			_provideRisk(risk, to: consumer)
 		}
 		store.previousRisk = risk
+		store.previousSummary = summary
+		store.previousSummaryDate = Date()
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
