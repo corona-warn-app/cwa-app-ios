@@ -125,8 +125,10 @@
 
 "Settings_NavTitle" = "Settings";
 
-/* Noticiation Settings */
+/* Notificiation Settings */
 "NotificationSettings_On_Title" = "Do you want to activate notifications of your COVID-19 risk status?";
+
+"NotificationSettings_On_Description" = "Allow notifications for the app here.";
 
 "NotificationSettings_On_SectionTitle" = "Setting";
 
@@ -134,13 +136,23 @@
 
 "NotificationSettings_On_TestsStatus" = "Status of your COVID-19 test";
 
+"NotificationSettings_Off_Title" = "Notifications will be issued";
+
 "NotificationSettings_Off_SectionTitle" = "Setting";
+
+"NotificationSettings_Off_Description" = "To activate notifications, you have to allow notifications for the Corona-Warn-App in your device settings.";
 
 "NotificationSettings_Off_EnableNotifications" = "Notifications";
 
+"NotificationSettings_Off_NavigateSettings" = "1. Open Settings";
+
 "NotificationSettings_Off_StatusInactive" = "Off";
 
+"NotificationSettings_Off_PickNotifications" = "2. Choose Notifications";
+
 "NotificationSettings_Off_InfoTitle" = "Activate Notifications";
+
+"NotificationSettings_Off_EnableNotifications" = "3. Allow Notifications";
 
 "NotificationSettings_Off_InfoDescription" = "To activate notifications, you have to allow notifications for the Corona-Warn-App in your device settings.";
 
@@ -413,6 +425,8 @@
 
 "ExposureSubmissionError_NoResponse" = "The response has no content.";
 
+"ExposureSubmissionError_QRTeleTanAlreadyUsed" = "Either the QR code or the TAN is invalid or has been used previously. Please contact the hotline.";
+
 "ExposureSubmissionError_QRAlreadyUsed" = "The QR code has been used already. Please contact the technical hotline via App Information -> Technical hotline.";
 
 "ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has been used already. Please try again or contact the technical hotline via App Information -> Technical hotline.";
@@ -494,6 +508,10 @@
 "Home_RiskCard_Unknown_Button" = "Update";
 
 /* Home Inactive card */
+"Home_Risk_Inactive_Title" = "No Exposure Check";
+
+"Home_Risk_Inactive_Body" = "Activate exposure logging to update your risk status.";
+
 "Home_Risk_Inactive_NoCalculation_Possible_Title" = "Risk identification stopped";
 
 "Home_Risk_Inactive_Outdated_Results_Title" = "Risk identification is not possible";
@@ -508,7 +526,13 @@
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Activate Risk Identification";
 
+"Home_Risk_Inactive_Date_Item_Title" = "Updated: %@";
+
+"Home_Risk_Inactive_Button" = "Activate Exposure Logging";
+
 /* Home Low card */
+"Home_Risk_Low_Date_Item_Title" = "Updated: %@";
+
 "Home_Risk_Low_Title" = "Low Risk";
 
 "Home_Risk_Low_SaveDays_Item_Title" = "%@ of %@ days saved";
@@ -516,7 +540,9 @@
 "Home_Risk_Low_Button" = "Update";
 
 /* Home High card */
-"Home_Risk_High_Title" = "Higher Risk";
+"Home_Risk_High_Title" = "High Risk";
+
+"Home_Risk_High_Date_Item_Title" = "Updated: %@";
 
 "Home_Risk_High_Button" = "Update";
 
@@ -695,7 +721,7 @@
 
 "low_risk_detail" = "A low risk of encounters with people diagnosed with COVID 19 was identified.";
 
-"high_risk_detail" = "A low risk of encounters with people diagnosed with COVID 19 was identified.";
+"high_risk_detail" = "A higher risk of encounters with people diagnosed with COVID 19 was identified.";
 
 "unknown_risk_detail_help" = "Risk of infection is unknown because no encounters have been logged.";
 
