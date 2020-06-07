@@ -40,6 +40,7 @@ protocol Store: AnyObject {
 	var allowTestsStatusNotification: Bool { get set }
 
 	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
+	var previousSummaryDate: Date? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
@@ -227,6 +228,11 @@ final class SecureStore: Store {
 	var previousSummary: ENExposureDetectionSummaryContainer? {
 		get { kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil }
 		set { kvStore["previousSummary"] = newValue }
+	}
+
+	var previousSummaryDate: Date? {
+		get { kvStore["previousSummaryDate"] as Date? ?? nil }
+		set { kvStore["previousSummaryDate"] = newValue }
 	}
 
 	var hourlyFetchingEnabled: Bool {

@@ -63,7 +63,15 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 	}
 
 	func setupAccessibility(for cell: InfoCollectionViewCell) {
-		cell.titleLabel.isAccessibilityElement = true
-		cell.titleLabel.accessibilityIdentifier = accessibilityIdentifier
+		cell.chevronImageView.isAccessibilityElement = false
+		cell.titleLabel.isAccessibilityElement = false
+		cell.bodyLabel.isAccessibilityElement = false
+		cell.topDividerView.isAccessibilityElement = false
+		cell.bottomDividerView.isAccessibilityElement = false
+
+		cell.isAccessibilityElement = true
+		cell.accessibilityTraits = .button
+		cell.accessibilityIdentifier = accessibilityIdentifier
+		cell.accessibilityLabel = title
 	}
 }
