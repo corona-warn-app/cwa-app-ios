@@ -19,17 +19,7 @@
 import Foundation
 
 class MockTestStore: Store {
-	var summary: SummaryMetadata? = SummaryMetadata(
-		summary: CodableExposureDetectionSummary(
-			daysSinceLastExposure: 0,
-			matchedKeyCount: 0,
-			maximumRiskScore: 0,
-			attenuationDurations: [],
-			maximumRiskScoreFullRange: 0
-		),
-		date: Date()
-	)
-
+	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
 	func clearAll() {}

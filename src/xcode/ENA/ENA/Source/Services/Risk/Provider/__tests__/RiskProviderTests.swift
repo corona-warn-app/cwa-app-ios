@@ -94,7 +94,8 @@ final class RiskProviderTests: XCTestCase {
 		}
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: false)
-		wait(for: [nextExposureDetectionDateDidChangeExpectation, expectThatSummaryIsRequested], timeout: 1.0)
+		waitForExpectations(timeout: 10000)
+//		wait(for: [nextExposureDetectionDateDidChangeExpectation, expectThatSummaryIsRequested], timeout: 10.0)
     }
 
 	// swiftlint:disable:next function_body_length
