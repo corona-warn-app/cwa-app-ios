@@ -850,8 +850,8 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 "RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
 
 /* Update Message */
-"Update_Message_Title" = "Aktualisierung verfügbar";
-"Update_Message_Text" = "Es gibt eine neue Aktualisierung für die Applikation";
-"Update_Message_Text_Force" = "Um die Applikation weiter zu nutzen müssen sie eine neue Version installieren";
-"Update_Message_Action_Update" = "Aktualisieren";
-"Update_Message_Action_Later" = "Später aktualisieren";
+"Update_Message_Title" = "Update verfügbar:";
+"Update_Message_Text" = "Es gibt ein neues Update für die Corona-Warn-App";
+"Update_Message_Text_Force" = "Bitte beachten Sie: Sie können die Corona-Warn-App erst wieder benutzen, wenn Sie das neueste Update installiert haben.";
+"Update_Message_Action_Update" = "Update";
+"Update_Message_Action_Later" = "Später";
