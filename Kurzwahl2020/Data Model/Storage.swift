@@ -37,10 +37,10 @@ import Foundation
 
 
 class storage {
-    fileprivate let numbersFileName = "CBC24numbers"
-    fileprivate let namesFileName = "CBC24names"
-    fileprivate let settingsFileName = "CBC24settings"
-    fileprivate let colorsFileName = "CBC24colors"
+    fileprivate let numbersFileName = "CBC36numbers"
+    fileprivate let namesFileName = "CBC36names"
+    fileprivate let settingsFileName = "CBC36settings"
+    fileprivate let colorsFileName = "CBC36colors"
     
     init() {
 //        self.deleteFilesFromAppgroup()

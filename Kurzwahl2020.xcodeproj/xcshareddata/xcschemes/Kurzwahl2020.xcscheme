@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "502BF532236399BB00FDE7BF"
                BuildableName = "Kurzwahl2020.app"
-               BlueprintName = "Kurzwahl2020"
+               BlueprintName = "Call by Color 36"
                ReferencedContainer = "container:Kurzwahl2020.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,7 +57,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "502BF532236399BB00FDE7BF"
             BuildableName = "Kurzwahl2020.app"
-            BlueprintName = "Kurzwahl2020"
+            BlueprintName = "Call by Color 36"
             ReferencedContainer = "container:Kurzwahl2020.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,7 +74,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "502BF532236399BB00FDE7BF"
             BuildableName = "Kurzwahl2020.app"
-            BlueprintName = "Kurzwahl2020"
+            BlueprintName = "Call by Color 36"
             ReferencedContainer = "container:Kurzwahl2020.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
