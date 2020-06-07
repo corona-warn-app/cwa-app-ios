@@ -15,12 +15,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Icon1024" translatesAutoresizingMaskIntoConstraints="NO" id="3WP-V7-dwA">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon1024" translatesAutoresizingMaskIntoConstraints="NO" id="3WP-V7-dwA">
                                 <rect key="frame" x="127" y="243" width="160" height="160"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3WP-V7-dwA" secondAttribute="bottom" constant="459" id="FSy-6Y-eWq"/>
+                            <constraint firstItem="3WP-V7-dwA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="127" id="H1p-d6-D9e"/>
+                            <constraint firstItem="3WP-V7-dwA" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Ks3-Yu-GHG"/>
+                            <constraint firstItem="3WP-V7-dwA" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="199" id="eef-sL-n9q"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <size key="freeformSize" width="414" height="896"/>
