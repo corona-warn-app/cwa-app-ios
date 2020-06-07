@@ -32,7 +32,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: ENALabel!
-	@IBOutlet var updateButton: UIButton!
+	@IBOutlet var updateButton: ENACloneButton!
 	@IBOutlet var detectionIntervalLabel: ENALabel!
 	@IBOutlet var detectionIntervalLabelContainer: UIView!
 
@@ -47,6 +47,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		super.awakeFromNib()
 		constructStackView()
 		constructCounterLabelContainer()
+		constructButton()
 		topContainer.layoutMargins = .zero
 	}
 
@@ -62,6 +63,11 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		detectionIntervalLabelContainer.layoutMargins = .init(top: 9.0, left: 16.0, bottom: 9.0, right: 16.0)
 		detectionIntervalLabelContainer.backgroundColor = UIColor.black.withAlphaComponent(0.12)
 		detectionIntervalLabel.textColor = .systemGray6
+	}
+
+	func constructButton() {
+		updateButton.isInverted = true
+		updateButton.configure()
 	}
 
 	// Ignore touches on the button when it's disabled
