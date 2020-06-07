@@ -38,7 +38,7 @@ final class ENStateHandler {
 		case restricted
 		///Not authorized. The user declined consent in onboarding.
 		case notAuthorized
-		///The user was never asked the consent before, thats why unknown.
+		///The user was never asked the consent before, that's why unknown.
 		case unknown
 	}
 

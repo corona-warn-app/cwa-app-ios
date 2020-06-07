@@ -303,7 +303,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	private func configureHierarchy() {
 		let safeLayoutGuide = view.safeAreaLayoutGuide
-		view.backgroundColor = .systemGroupedBackground
 		collectionView = UICollectionView(
 			frame: view.bounds,
 			collectionViewLayout: UICollectionViewLayout.homeLayout(delegate: self)
@@ -317,10 +316,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 		NSLayoutConstraint.activate(
 			[
+				collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 				collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-				collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-				collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+				collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor)
 			]
 		)
 
@@ -338,8 +337,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		]
 
 		collectionView.register(cellTypes: cellTypes)
-		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
-		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
 	}
 
 	private func configureDataSource() {
@@ -348,18 +345,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			configurator.configureAny(cell: cell)
 			return cell
-		}
-		dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-			let identifier = HomeFooterSupplementaryView.reusableViewIdentifier
-			guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
-				ofKind: kind,
-				withReuseIdentifier: identifier,
-				for: indexPath
-			) as? HomeFooterSupplementaryView else {
-				fatalError("Cannot create new supplementary")
-			}
-			supplementaryView.configure()
-			return supplementaryView
 		}
 	}
 
@@ -377,7 +362,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func configureUI() {
-		collectionView.backgroundColor = .systemGroupedBackground
+		collectionView.backgroundColor = .clear
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
 			image: infoImage,

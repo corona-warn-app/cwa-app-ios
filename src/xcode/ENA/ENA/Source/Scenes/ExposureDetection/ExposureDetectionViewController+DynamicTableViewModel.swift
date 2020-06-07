@@ -25,7 +25,8 @@ extension ExposureDetectionViewController {
 		}
 
 		switch riskLevel {
-		case .unknownInitial, .unknownOutdated: return unknownRiskModel
+		case .unknownInitial: return unknownRiskModel
+		case .unknownOutdated: return outdatedRiskModel
 		case .inactive: return unknownRiskModel
 		case .low: return lowRiskModel
 		case .increased: return highRiskModel
@@ -269,14 +270,14 @@ extension ExposureDetectionViewController {
 		)
 	}
 
-	private func explanationSection(text: String) -> DynamicSection {
+	private func explanationSection(text: String, isActive: Bool) -> DynamicSection {
 		.section(
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
 			cells: [
 				.header(
 					title: AppStrings.ExposureDetection.explanationTitle,
-					subtitle: AppStrings.ExposureDetection.explanationSubtitle
+					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
 				),
 				.body(text: text)
 			]
@@ -289,14 +290,31 @@ extension ExposureDetectionViewController {
 				header: .none,
 				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 16, right: 0)),
 				cells: [
-					.riskText(text: AppStrings.ExposureDetection.inactiveText),
+					.riskText(text: AppStrings.ExposureDetection.offText),
 					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
 			),
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextOff)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextOff, isActive: false)
+		])
+	}
+
+	private var outdatedRiskModel: DynamicTableViewModel {
+		DynamicTableViewModel([
+			.section(
+				header: .none,
+				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 16, right: 0)),
+				cells: [
+					.riskText(text: AppStrings.ExposureDetection.outdatedText),
+					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
+					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+				]
+			),
+			riskLoadingSection,
+			standardGuideSection,
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextOutdated, isActive: false)
 		])
 	}
 
@@ -308,7 +326,7 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextUnknown)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextUnknown, isActive: false)
 		])
 	}
 
@@ -322,7 +340,7 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextLow)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextLow, isActive: true)
 		])
 	}
 
@@ -350,7 +368,7 @@ extension ExposureDetectionViewController {
 					])
 				]
 			),
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextHigh)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextHigh, isActive: true)
 		])
 	}
 }

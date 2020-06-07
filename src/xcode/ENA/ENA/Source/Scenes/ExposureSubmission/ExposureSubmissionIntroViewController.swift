@@ -99,7 +99,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 			self.stopSpinner()
 			switch result {
 			case let .failure(error):
-				logError(message: "An error occured during result fetching: \(error)", level: .error)
+				logError(message: "An error occurred during result fetching: \(error)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
 			case let .success(testResult):
