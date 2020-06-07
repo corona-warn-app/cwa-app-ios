@@ -46,13 +46,13 @@ protocol ENATaskExecutionDelegate: AnyObject {
 final class ENATaskScheduler {
 	static let shared = ENATaskScheduler()
 	private init() {
-		registerBackgroundTaskRequests()
+		registerTasks()
 	}
 
 	weak var taskDelegate: ENATaskExecutionDelegate?
 	typealias CompletionHandler = (() -> Void)
 
-	private func registerBackgroundTaskRequests() {
+	private func registerTasks() {
 		registerTask(with: .detectExposures, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
 	}
@@ -64,19 +64,19 @@ final class ENATaskScheduler {
 		}
 	}
 
-	func scheduleBackgroundTaskRequests() {
-		scheduleBackgroundTask(for: .detectExposures, cancelExisting: true)
-		scheduleBackgroundTask(for: .fetchTestResults, cancelExisting: true)
+	func scheduleTasks() {
+		scheduleTask(for: .detectExposures, cancelExisting: true)
+		scheduleTask(for: .fetchTestResults, cancelExisting: true)
 	}
 
-	func cancelAllBackgroundTaskRequests() {
+	func cancelTasks() {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
 
-	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier, cancelExisting: Bool = false) {
+	func scheduleTask(for taskIdentifier: ENATaskIdentifier, cancelExisting: Bool = false) {
 
 		if cancelExisting {
-			cancelBackgroundTaskRequest(for: taskIdentifier)
+			cancelTask(for: taskIdentifier)
 		}
 
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
@@ -96,7 +96,7 @@ final class ENATaskScheduler {
 
 	}
 
-	func cancelBackgroundTaskRequest(for taskIdentifier: ENATaskIdentifier) {
+	func cancelTask(for taskIdentifier: ENATaskIdentifier) {
 		BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 	}
 
@@ -104,7 +104,7 @@ final class ENATaskScheduler {
 	private func executeExposureDetectionRequest(_ task: BGTask) {
 		guard let taskDelegate = taskDelegate else {
 			task.setTaskCompleted(success: false)
-			scheduleBackgroundTask(for: .detectExposures)
+			scheduleTask(for: .detectExposures)
 			return
 		}
 		taskDelegate.executeExposureDetectionRequest(task: task)
@@ -113,7 +113,7 @@ final class ENATaskScheduler {
 	private func executeFetchTestResults(_ task: BGTask) {
 		guard let taskDelegate = taskDelegate else {
 			task.setTaskCompleted(success: false)
-			scheduleBackgroundTask(for: .fetchTestResults)
+			scheduleTask(for: .fetchTestResults)
 			return
 		}
 		taskDelegate.executeFetchTestResults(task: task)

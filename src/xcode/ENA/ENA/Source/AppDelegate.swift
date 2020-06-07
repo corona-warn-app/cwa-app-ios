@@ -393,7 +393,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+			taskScheduler.scheduleTask(for: .detectExposures)
 		}
 
 		consumer.didCalculateRisk = { risk in
@@ -407,7 +407,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		}
 
 		consumer.nextExposureDetectionDateDidChange = { date in
-			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+			self.taskScheduler.scheduleTask(for: .detectExposures)
 		}
 
 		riskProvider.requestRisk()
@@ -422,7 +422,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
+			taskScheduler.scheduleTask(for: .fetchTestResults)
 		}
 
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)

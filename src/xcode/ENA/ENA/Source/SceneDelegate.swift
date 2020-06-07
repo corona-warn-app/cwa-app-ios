@@ -126,7 +126,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	func sceneDidEnterBackground(_ scene: UIScene) {
-		taskScheduler.scheduleBackgroundTaskRequests()
+		taskScheduler.scheduleTasks()
 	}
 
 	// MARK: Helper
