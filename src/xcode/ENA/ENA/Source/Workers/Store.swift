@@ -254,7 +254,14 @@ struct ENExposureDetectionSummaryContainer: Codable {
 		self.maximumRiskScoreFullRange = maximumRiskScoreFullRange
 	}
 
-	init(with summary: ENExposureDetectionSummary) {
+	init?(with summary: ENExposureDetectionSummary?) {
+		guard let summary = summary else {
+			return nil
+		}
+		self.init(with: summary)
+	}
+
+	init?(with summary: ENExposureDetectionSummary) {
 		self.daysSinceLastExposure = summary.daysSinceLastExposure
 		self.matchedKeyCount = summary.matchedKeyCount
 		self.maximumRiskScore = summary.maximumRiskScore

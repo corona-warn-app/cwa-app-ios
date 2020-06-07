@@ -85,31 +85,17 @@ extension RiskProvider: RiskProviding {
 
 	private func _observeRisk(_ consumer: RiskConsumer) {
 		consumers.add(consumer)
-
-		let exposureDetectionValidityDuration = configuration.exposureDetectionValidityDuration
-		// Using .distantPast here simplifies the algorithm a bit
-		let lastExposureDetectionDate = store.summaryDate ?? .distantPast
-
-		let nextExposureDetectionDate: Date = {
-			let now = Date()
-			// `proposedDate` can be way back in the past (because of `.distantPast` (see above)).
-			// But the next exposure detection date should always be between:
-			// `now` and `now + exposureDetectionValidityDuration`. That is why we ignore the past
-			// and cut the proposed date off at `now`.
-			let proposedDate = Calendar.current.date(
-				byAdding: exposureDetectionValidityDuration,
-				to: lastExposureDetectionDate,
-				wrappingComponents: false
-				) ?? now
-
-			return proposedDate < now ? now : proposedDate
-		}()
-
+		let nextExposureDetectionDate = configuration.nextExposureDetectionDate(
+			lastExposureDetectionDate: store.summaryDate
+		)
 		consumer.nextExposureDetectionDateDidChange?(nextExposureDetectionDate)
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRisk() {
+		print("🧏‍♂️ Requesting risk…")
+		print("🧏‍♂️   - last detection: \(String(describing: store.summaryDate))")
+
 		queue.async(execute: _requestRiskLevel)
 	}
 
@@ -135,39 +121,34 @@ extension RiskProvider: RiskProviding {
 				return
 			}
 			// Here we are in automatic mode and thus we have to check the validity of the current summary
-			let exposureDetectionIsValid = configuration.exposureDetectionIsValid(lastExposureDetectionDate: store.summaryDate)
-			if exposureDetectionIsValid {
+			let shouldPerformDetection = configuration.shouldPerformExposureDetection(lastExposureDetectionDate: store.summaryDate)
+			if shouldPerformDetection == false {
 				completion(
 					.init(
 						previous: nil,
 						current: store.summary,
-						currentDate:
-						store.summaryDate
+						currentDate: store.summaryDate
 					)
 				)
 				return
 			}
 
 			// The summary is outdated + we are in automatic mode: do a exposure detection
+			print("🧏‍♂️ Detecting exposures…")
+
+			let previous = store.summary
+			let previousDate = store.summaryDate
+
 			exposureSummaryProvider.detectExposure { detectedSummary in
-				guard let detectedSummary = detectedSummary else { return }
-				let current = ENExposureDetectionSummaryContainer(with: detectedSummary)
-
-//				self.store.beginTransaction()
-				let previous = self.store.summary
-				let previousDate = self.store.summaryDate
-//				self.store.commit()
-
-//				self.store.beginTransaction()
-				self.store.summary = current
-				///
+				print("🧏‍♂️ Got new summary detectedSummary…: \(detectedSummary)")
+				self.store.summary = ENExposureDetectionSummaryContainer(with: detectedSummary)
 				self.store.summaryDate = Date()
-//				self.store.commit()
+
 				completion(
 					.init(
 						previous: previous,
 						previousDate: previousDate,
-						current: current,
+						current: self.store.summary,
 						currentDate: self.store.summaryDate
 					)
 				)
@@ -194,7 +175,6 @@ extension RiskProvider: RiskProviding {
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
 			return
 		}
-
 
 		guard let _appConfiguration = appConfiguration else {
 			return

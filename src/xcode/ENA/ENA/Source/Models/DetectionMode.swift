@@ -23,5 +23,5 @@ enum DetectionMode {
 	case automatic
 	case manual
 
-	static let `default` = DetectionMode.automatic
+	static let `default` = DetectionMode.manual
 }
