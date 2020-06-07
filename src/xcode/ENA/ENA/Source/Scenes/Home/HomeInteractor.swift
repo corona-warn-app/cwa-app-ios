@@ -187,11 +187,11 @@ extension HomeInteractor {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
-				isButtonEnabled: true,
-				isButtonHidden: detectionIsAutomatic,
 				detectionIntervalLabelHidden: false,
 				lastUpdateDate: nil,
-				detectionInterval: detectionInterval
+				detectionInterval: detectionInterval,
+				detectionMode: detectionMode,
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState
 			)
 		case .inactive:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(

@@ -20,29 +20,29 @@ import UIKit
 final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Configuration
 
-	//This interval is 24
+	// This interval is 24
 	private let detectionInterval: Int
 
-
-	init(isLoading: Bool,
-		isButtonEnabled: Bool,
-		isButtonHidden: Bool,
+	// MARK: Creating a unknown Risk cell
+	init(
+		isLoading: Bool,
 		detectionIntervalLabelHidden: Bool,
 		lastUpdateDate: Date?,
-		detectionInterval: Int) {
+		detectionInterval: Int,
+		detectionMode: DetectionMode,
+		manualExposureDetectionState: ManualExposureDetectionState
+	) {
 		self.detectionInterval = detectionInterval
 
 		super.init(
-				isLoading: isLoading,
-				isButtonEnabled: isButtonEnabled,
-				isButtonHidden: isButtonHidden,
-				detectionIntervalLabelHidden: detectionIntervalLabelHidden,
-				lastUpdateDate: lastUpdateDate
+			isLoading: isLoading,
+			isButtonEnabled: detectionMode == .manual && manualExposureDetectionState == .possible,
+			isButtonHidden: detectionMode == .automatic,
+			detectionIntervalLabelHidden: detectionIntervalLabelHidden,
+			lastUpdateDate: lastUpdateDate
 		)
 
 	}
-
-
 
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
