@@ -38,8 +38,7 @@ protocol Store: AnyObject {
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
-	var summary: ENExposureDetectionSummaryContainer? { get set }
-	var summaryDate: Date? { get set }
+	var summary: SummaryMetadata? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
@@ -219,14 +218,9 @@ final class SecureStore: Store {
 		}
 	}
 
-	var summary: ENExposureDetectionSummaryContainer? {
-		get { kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil }
-		set { kvStore["previousSummary"] = newValue }
-	}
-
-	var summaryDate: Date? {
-		get { kvStore["previousSummaryDate"] as Date? ?? nil }
-		set { kvStore["previousSummaryDate"] = newValue }
+	var summary: SummaryMetadata? {
+		get { kvStore["previousSummaryMetadata"] as SummaryMetadata? ?? nil }
+		set { kvStore["previousSummaryMetadata"] = newValue }
 	}
 
 	var hourlyFetchingEnabled: Bool {
