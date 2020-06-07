@@ -19,7 +19,7 @@ import Foundation
 import UIKit
 
 protocol ENATanInputDelegate: AnyObject {
-	func tanChanged(isValid: Bool, checksumIsValid: Bool)
+	func tanChanged(isValid: Bool, checksumIsValid: Bool, isBlocked: Bool)
 }
 
 @IBDesignable
@@ -148,7 +148,10 @@ class ENATanInput: UIControl, UIKeyInput {
 			}
 
 		}
-		delegate?.tanChanged(isValid: isValid, checksumIsValid: verifyChecksum(input: self.text))
+		delegate?.tanChanged(isValid: isValid,
+							 checksumIsValid: verifyChecksum(input: self.text),
+							 isBlocked: inputBlocked
+		)
 	}
 
 	func deleteBackward() {
@@ -160,7 +163,10 @@ class ENATanInput: UIControl, UIKeyInput {
 		if let enaInputLabel = label as? ENATanInputLabel {
 			enaInputLabel.isValid = true
 		}
-		delegate?.tanChanged(isValid: isValid, checksumIsValid: false)
+		delegate?.tanChanged(isValid: isValid,
+							 checksumIsValid: false,
+							 isBlocked: inputBlocked
+		)
 	}
 
 	func clear() {

@@ -43,6 +43,15 @@
                                             <constraint firstAttribute="height" constant="65" id="vzo-SC-HoE"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cr3-k4-b2N" userLabel="Description" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="166" width="374" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="ENA Text Semantic Red Color"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -60,6 +69,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="AYD-2B-lci" id="X5A-Uu-IdA"/>
+                        <outlet property="errorLabel" destination="Cr3-k4-b2N" id="QWm-70-hFb"/>
                         <outlet property="infoLabel" destination="IqH-g9-vGO" id="MYp-2l-zi4"/>
                         <outlet property="tanInput" destination="pJo-7q-izL" id="L25-fC-HNa"/>
                         <segue destination="JPa-EJ-yrk" kind="show" identifier="sentSegue" id="HlT-ix-3R2"/>
@@ -168,7 +178,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="62" y="145.5" width="290" height="42.5"/>
+                                <rect key="frame" x="62" y="147" width="290" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -328,11 +338,14 @@
         <segue reference="HlT-ix-3R2"/>
         <segue reference="aeq-iH-Hkk"/>
         <segue reference="n8Y-d3-Pny"/>
-        <segue reference="TMI-YH-9ne"/>
+        <segue reference="zPx-Mo-iVD"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bolt" catalog="system" width="101" height="128"/>
         <image name="bolt.fill" catalog="system" width="101" height="128"/>
+        <namedColor name="ENA Text Semantic Red Color">
+            <color red="0.75300002098083496" green="0.059000000357627869" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

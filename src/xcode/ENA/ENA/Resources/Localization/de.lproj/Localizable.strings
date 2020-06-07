@@ -227,6 +227,10 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Weiter";
 
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Ungültige Eingabe, bitte überprüfen Sie das Zeichen.";
+
+"ExposureSubmissionTanEntry_InvalidError" = "Ungültige TAN, bitte überprüfen Sie Ihre Eingabe.";
+
 "ExposureSubmission_NavTitle" = "Positivkennung senden";
 
 "ExposureSubmissionConfirmation_Title" = "Positive Diagnose";
