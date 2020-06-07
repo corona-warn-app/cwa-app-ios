@@ -179,11 +179,6 @@ extension AppDelegate: CoronaWarnAppDelegate {
 		switch result {
 		case .success(let summary):
 			store.summary = SummaryMetadata(detectionSummary: summary)
-			NotificationCenter.default.post(
-				name: .didDetectExposureDetectionSummary,
-				object: nil,
-				userInfo: ["summary": summary]
-			)
 		case .failure(let reason):
 			logError(message: "Exposure transaction failed: \(reason)")
 
