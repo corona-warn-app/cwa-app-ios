@@ -174,3 +174,11 @@ extension AppInformationViewController {
 		)
 	])
 }
+
+
+extension AppInformationViewController: UITextViewDelegate {
+	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+		WebPageHelper.openSafari(withUrl: url, from: self)
+		return false
+	}
+}
