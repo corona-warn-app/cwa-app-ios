@@ -53,6 +53,7 @@ final class HomeInteractor: RequiresAppDependencies {
 		didSet {
 			homeViewController.setStateOfChildViewControllers(
 				.init(
+					exposureManagerState: state.exposureManager,
 					detectionMode: state.detectionMode
 				)
 			)

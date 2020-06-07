@@ -100,13 +100,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
 		let state = exposureManager.preconditions()
-		let newState = ExposureManagerState(
-				authorized: ENManager.authorizationStatus == .authorized,
-				enabled: state.enabled,
-				status: state.status
-		)
-		updateExposureState(newState)
-		taskScheduler.scheduleBackgroundTaskRequests()
+		updateExposureState(state)
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
@@ -122,17 +116,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func requestUpdatedExposureState() {
 		let state = exposureManager.preconditions()
-		let newState = ExposureManagerState(
-				authorized: ENManager.authorizationStatus == .authorized,
-				enabled: state.enabled,
-				status: state.status
-		)
-		updateExposureState(newState)
+		updateExposureState(state)
 	}
 
 	private func setupUI() {
 		setupNavigationBarAppearance()
-
 		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else if !store.isOnboarded {
@@ -315,10 +303,6 @@ extension SceneDelegate: HomeViewControllerDelegate {
 		store.clearAll()
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
-	}
-
-	func homeViewControllerStartExposureTransaction(_: HomeViewController) {
-		UIApplication.coronaWarnDelegate().appStartExposureDetectionTransaction()
 	}
 }
 

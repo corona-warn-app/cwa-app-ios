@@ -46,8 +46,7 @@ extension RiskProvidingConfiguration {
 			to: lastExposureDetectionDate ?? .distantPast,
 			wrappingComponents: false
 		) ?? .distantPast
-		
-		return potentialDate < Date() ? Date() : potentialDate
+		return potentialDate > Date() ? Date() : potentialDate
 	}
 
 	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast) -> Bool {
@@ -55,6 +54,9 @@ extension RiskProvidingConfiguration {
 	}
 
 	func shouldPerformExposureDetection(lastExposureDetectionDate: Date?) -> Bool {
-		nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate) < Date()
+		let next = nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate)
+		let today = Date()
+		let result = next < today
+		return result
 	}
 }

@@ -26,6 +26,7 @@ protocol RiskProviding: AnyObject {
 	func requestRisk(userInitiated: Bool)
 
 	var configuration: RiskProvidingConfiguration { get set }
+	func nextExposureDetectionDate() -> Date
 }
 
 enum ManualExposureDetectionState {

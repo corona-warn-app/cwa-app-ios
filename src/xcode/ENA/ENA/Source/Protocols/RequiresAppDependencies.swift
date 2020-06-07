@@ -42,10 +42,6 @@ extension RequiresAppDependencies {
 		UIApplication.coronaWarnDelegate().store
 	}
 
-	var taskScheduler: ENATaskScheduler {
-		UIApplication.coronaWarnDelegate().taskScheduler
-	}
-
 	var riskProvider: RiskProvider {
 		UIApplication.coronaWarnDelegate().riskProvider
 	}
@@ -56,5 +52,9 @@ extension RequiresAppDependencies {
 
 	var exposureManager: ExposureManager {
 		UIApplication.coronaWarnDelegate().exposureManager
+	}
+
+	var taskScheduler: ENATaskScheduler {
+		UIApplication.coronaWarnDelegate().taskScheduler
 	}
 }

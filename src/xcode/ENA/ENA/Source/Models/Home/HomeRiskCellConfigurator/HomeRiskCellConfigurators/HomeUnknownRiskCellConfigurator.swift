@@ -41,7 +41,6 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			detectionIntervalLabelHidden: detectionIntervalLabelHidden,
 			lastUpdateDate: lastUpdateDate
 		)
-
 	}
 
 	override func configure(cell: RiskLevelCollectionViewCell) {

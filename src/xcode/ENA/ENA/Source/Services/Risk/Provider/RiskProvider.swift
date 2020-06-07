@@ -58,8 +58,8 @@ private extension RiskConsumer {
 		targetQueue.async { [weak self] in
 			self?.didCalculateRisk?(risk)
 		}
-
 	}
+	
 	func provideNextExposureDetectionDate(_ date: Date) {
 		targetQueue.async { [weak self] in
 			self?.nextExposureDetectionDateDidChange?(date)
@@ -83,12 +83,15 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func _observeRisk(_ consumer: RiskConsumer) {
-		consumers.add(consumer)
-		let nextExposureDetectionDate = configuration.nextExposureDetectionDate(
+	func nextExposureDetectionDate() -> Date {
+		configuration.nextExposureDetectionDate(
 			lastExposureDetectionDate: store.summary?.date
 		)
-		consumer.nextExposureDetectionDateDidChange?(nextExposureDetectionDate)
+	}
+
+	private func _observeRisk(_ consumer: RiskConsumer) {
+		consumers.add(consumer)
+		consumer.nextExposureDetectionDateDidChange?(self.nextExposureDetectionDate())
 		consumer.manualExposureDetectionStateDidChange?(manualExposureDetectionState)
 	}
 
@@ -101,6 +104,10 @@ extension RiskProvider: RiskProviding {
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRisk(userInitiated: Bool) {
+		print("🧬 Requesting risk – requested by \(userInitiated ? "👩‍🔧" : "🖥")")
+		print("🧬     - manualExposureDetectionState: \(manualExposureDetectionState)")
+
+
 		queue.async {
 			self._requestRiskLevel(userInitiated: userInitiated)
 		}
@@ -111,69 +118,81 @@ extension RiskProvider: RiskProviding {
 		var current: SummaryMetadata?
 	}
 
-	private func _requestRiskLevel(userInitiated: Bool) {
-		func determineSummaries(completion: @escaping (Summaries) -> Void) {
-			// Here we are in automatic mode and thus we have to check the validity of the current summary
-			let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
-				lastExposureDetectionDate: store.summary?.date
+	private func determineSummaries(
+		userInitiated: Bool,
+		completion: @escaping (Summaries) -> Void
+	) {
+		// Here we are in automatic mode and thus we have to check the validity of the current summary
+		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
+			lastExposureDetectionDate: store.summary?.date
+		)
+
+		print("🧬 determineSummaries:")
+		print("🧬    - enoughTimeHasPassed: \(enoughTimeHasPassed)")
+		print("🧬    - store.summary.date: \(String(describing: store.summary?.date))")
+		print("🧬    - self.exposureManagerState: \(exposureManagerState)")
+
+		if enoughTimeHasPassed == false || self.exposureManagerState.isGood == false {
+			completion(
+				.init(
+					previous: nil,
+					current: store.summary
+				)
 			)
-
-			if enoughTimeHasPassed == false || self.exposureManagerState.isGood == false {
-				completion(
-					.init(
-						previous: nil,
-						current: store.summary
-					)
-				)
-				return
-			}
-
-			// Enough time has passed.
-			let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
-
-			if shouldDetectExposures == false {
-				completion(
-					.init(
-						previous: nil,
-						current: store.summary
-					)
-				)
-				return
-			}
-
-			// The summary is outdated + we are in automatic mode: do a exposure detection
-			let previousSummary = store.summary
-
-			exposureSummaryProvider.detectExposure { detectedSummary in
-				if let detectedSummary = detectedSummary {
-					self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
-				} else {
-					self.store.summary = nil
-				}
-				completion(
-					.init(
-						previous: previousSummary,
-						current: self.store.summary
-					)
-				)
-			}
+			return
 		}
 
+		// Enough time has passed.
+		let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
+
+		if shouldDetectExposures == false {
+			completion(
+				.init(
+					previous: nil,
+					current: store.summary
+				)
+			)
+			return
+		}
+
+		// The summary is outdated + we are in automatic mode: do a exposure detection
+		let previousSummary = store.summary
+
+		print("🧬🧬🧬🧬 detecting exposured…")
+		exposureSummaryProvider.detectExposure { detectedSummary in
+			print("🧬🧬🧬🧬🧬 detectedSummary: \(String(describing: detectedSummary))")
+
+			if let detectedSummary = detectedSummary {
+				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
+			} else {
+				self.store.summary = nil
+			}
+			completion(
+				.init(
+					previous: previousSummary,
+					current: self.store.summary
+				)
+			)
+		}
+	}
+
+	private func _requestRiskLevel(userInitiated: Bool) {
 		let group = DispatchGroup()
 
 		var summaries: Summaries?
 
+
 		group.enter()
-		determineSummaries {
-			defer { group.leave() }
+		determineSummaries(userInitiated: userInitiated) {
 			summaries = $0
+			group.leave()
 		}
 
 		var appConfiguration: SAP_ApplicationConfiguration?
 		group.enter()
 		appConfigurationProvider.appConfiguration { configuration in
-			defer { group.leave() }
 			appConfiguration = configuration
+			group.leave()
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {

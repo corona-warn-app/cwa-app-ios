@@ -21,16 +21,14 @@ import FMDB
 import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
-	func appStartExposureDetectionTransaction()
 	var client: Client { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
-	var taskScheduler: ENATaskScheduler { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
+	var taskScheduler: ENATaskScheduler { get }
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 }
-
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
@@ -49,17 +47,19 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	private let consumer = RiskConsumer()
-	let taskScheduler = ENATaskScheduler.shared
+	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+
 	lazy var riskProvider: RiskProvider = {
 		var validityDuration = DateComponents()
 		validityDuration.day = 2
 
 		var detectionInterval = DateComponents()
-		detectionInterval.day = 1
+		detectionInterval.second = 10
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: validityDuration,
-			exposureDetectionInterval: detectionInterval
+			exposureDetectionInterval: detectionInterval,
+			detectionMode: .default
 		)
 
 		return RiskProvider(
@@ -153,6 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.taskDelegate = self
+
 		riskProvider.observeRisk(consumer)
 
 		return true
@@ -243,7 +244,6 @@ extension AppDelegate: CoronaWarnAppDelegate {
 	}
 }
 
-
 extension AppDelegate: ENATaskExecutionDelegate {
 	func taskScheduler(_ scheduler: ENATaskScheduler, didScheduleTasksSuccessfully success: Bool) {
 		guard let scene = UIApplication.shared.connectedScenes.first else { return }
@@ -288,7 +288,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			task.setTaskCompleted(success: success)
 			taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
 		}
-
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
@@ -296,7 +295,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				switch result {
 				case .failure(let error):
 					logError(message: error.localizedDescription)
-
 				case .success(let testResult):
 					if testResult != .pending {
 						UNUserNotificationCenter.current().presentNotification(

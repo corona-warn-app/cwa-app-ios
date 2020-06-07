@@ -48,7 +48,13 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 	// MARK: Properties
 
-	var state: State
+	var state: State {
+		didSet {
+			homeInteractor.state.exposureManager = state.exposureManagerState
+			homeInteractor.state.risk = state.risk
+			homeInteractor.state.detectionMode = state.detectionMode
+		}
+	}
 	private var sections: HomeInteractor.SectionConfiguration = []
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
@@ -58,7 +64,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			homeViewController: self,
 			state: .init(
 				isLoading: false,
-				exposureManager: .init(),
+				exposureManager: state.exposureManagerState,
                 risk: risk
 			),
 			exposureSubmissionService: self.exposureSubmissionService,
@@ -97,6 +103,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			self?.updateOwnUI()
 		}
 
+		riskProvider.observeRisk(riskConsumer)
+
 		configureHierarchy()
 		configureDataSource()
 		updateSections()
@@ -108,6 +116,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		riskProvider.requestRisk(userInitiated: false)
 		updateOwnUI()
 	}
 
@@ -145,6 +154,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// Called by HomeInteractor
 	func setStateOfChildViewControllers(_ state: State) {
 		let state = ExposureDetectionViewController.State(
+			exposureManagerState: state.exposureManagerState,
 			detectionMode: state.detectionMode,
 			risk: risk
 		)
@@ -216,7 +226,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	func showExposureDetection() {
 		let state = ExposureDetectionViewController.State(
-			exposureManagerState: homeInteractor.state.exposureManager,
+			exposureManagerState: self.state.exposureManagerState,
 			detectionMode: self.state.detectionMode,
 			risk: risk
 		)
@@ -228,7 +238,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				delegate: self
 			)
 		}
-		addToUpdatingSetIfNeeded(vc)
+//		addToUpdatingSetIfNeeded(vc)
 		exposureDetectionController = vc as? ExposureDetectionViewController
 		present(vc, animated: true)
 	}
@@ -445,6 +455,7 @@ private extension HomeViewController {
 
 extension HomeViewController: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
+		self.state.exposureManagerState = state
 		updateOwnUI()
 		exposureDetectionController?.updateUI()
 		settingsController?.updateExposureState(state)
