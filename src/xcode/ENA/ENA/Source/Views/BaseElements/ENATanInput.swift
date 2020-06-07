@@ -24,7 +24,7 @@ protocol ENATanInputDelegate: AnyObject {
 
 @IBDesignable
 class ENATanInput: UIControl, UIKeyInput {
-	@IBInspectable var textColor: UIColor = .enaColor(for: .textPrimary1)
+	@IBInspectable var labelTextColor: UIColor = .enaColor(for: .textPrimary1)
 	@IBInspectable var boxColor: UIColor = .enaColor(for: .separator)
 
 	@IBInspectable var fontSize: CGFloat = 30
@@ -40,7 +40,7 @@ class ENATanInput: UIControl, UIKeyInput {
 	var count: Int { text.count }
 
 	var dashes: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
-	var forbiddenArray: [String] { forbidden.split(separator: ",").map(String.init)}
+	var forbiddenArray: [String] { forbidden.split(separator: ",").map(String.init) }
 	var digits: Int { dashes.reduce(0) { $0 + $1 } }
 
 	// swiftlint:disable:next empty_count
@@ -98,7 +98,7 @@ class ENATanInput: UIControl, UIKeyInput {
 			if index > 0 {
 				let label = UILabel()
 				label.textAlignment = .center
-				label.textColor = textColor
+				label.textColor = labelTextColor
 				label.font = font
 				label.text = "-"
 				stackView.addArrangedSubview(label)
@@ -110,7 +110,7 @@ class ENATanInput: UIControl, UIKeyInput {
 				label.backgroundColor = boxColor
 				label.layer.cornerRadius = cornerRadius
 				label.textAlignment = .center
-				label.textColor = textColor
+				label.textColor = labelTextColor
 				label.font = font
 				stackView.addArrangedSubview(label)
 			}
@@ -137,8 +137,10 @@ class ENATanInput: UIControl, UIKeyInput {
 			if let enaInputLabel = label as? ENATanInputLabel {
 				if forbiddenArray.contains(String(character.uppercased())) {
 					enaInputLabel.isValid = false
+					enaInputLabel.textColor = .enaColor(for: .textSemanticRed)
 				} else {
 					enaInputLabel.isValid = true
+					enaInputLabel.textColor = labelTextColor
 				}
 			}
 
