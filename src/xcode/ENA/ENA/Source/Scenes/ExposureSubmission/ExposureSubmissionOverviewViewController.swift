@@ -145,10 +145,16 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError) {
 		switch error {
 		case .cameraPermissionDenied:
-			let alert = ExposureSubmissionViewUtils.setupErrorAlert(error) {
-				self.dismissQRCodeScannerView(viewController, completion: nil)
+
+			// The error handler could have been invoked on a non-main thread which causes
+			// issues (crash) when updating the UI.
+			DispatchQueue.main.async {
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error) {
+					self.dismissQRCodeScannerView(viewController, completion: nil)
+				}
+
+				viewController.present(alert, animated: true, completion: nil)
 			}
-			viewController.present(alert, animated: true, completion: nil)
 		default:
 			logError(message: "QRScannerError.other occured.", level: .error)
 		}
