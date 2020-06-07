@@ -169,6 +169,7 @@
 		A128F04E2489ABEE00EC7F6C /* RiskCalculationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128F04C2489ABE700EC7F6C /* RiskCalculationTests.swift */; };
 		A16714AD248C91570031B111 /* PublicKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A16714AC248C91570031B111 /* PublicKeys.plist */; };
 		A16714AF248CA1B70031B111 /* Bundle+ReadPlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */; };
+		A16714B1248CFF020031B111 /* HostWhitelist.plist in Resources */ = {isa = PBXBuildFile; fileRef = A16714B0248CFF020031B111 /* HostWhitelist.plist */; };
 		A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */; };
 		A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */; };
 		A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */; };
@@ -513,6 +514,7 @@
 		A128F04C2489ABE700EC7F6C /* RiskCalculationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskCalculationTests.swift; sourceTree = "<group>"; };
 		A16714AC248C91570031B111 /* PublicKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PublicKeys.plist; sourceTree = "<group>"; };
 		A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+ReadPlist.swift"; sourceTree = "<group>"; };
+		A16714B0248CFF020031B111 /* HostWhitelist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = HostWhitelist.plist; sourceTree = "<group>"; };
 		A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerUtils.swift; sourceTree = "<group>"; };
 		A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelTests.swift; sourceTree = "<group>"; };
@@ -1214,6 +1216,7 @@
 				B1E8C99A2479D239006DC678 /* Info_AppStore.plist */,
 				85D75976245706BD008175F0 /* Assets */,
 				85D75975245706B0008175F0 /* Storyboards */,
+				A16714B0248CFF020031B111 /* HostWhitelist.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1850,6 +1853,7 @@
 				51486DA72485237200FCE216 /* RiskThankYouCollectionViewCell.xib in Resources */,
 				2F785752248506BD00323A9C /* HomeTestResultCell.xib in Resources */,
 				51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
+				A16714B1248CFF020031B111 /* HostWhitelist.plist in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				713FD5672482811A00C1F6DD /* colors.xcassets in Resources */,
 				EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */,

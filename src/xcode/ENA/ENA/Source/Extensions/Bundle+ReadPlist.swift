@@ -23,7 +23,7 @@ extension Bundle {
 	/// Read the Plist with the specified name as a `[String: String]` dictionary
 	///
 	/// - returns: Dictionary with `String` K/V pairs, nil if the plist was not found in the Bundle
-	func readPlistStringDict(name: String) -> [String: String]? {
+	func readPlistDict(name: String) -> [String: String]? {
 		guard
 			let path = Bundle.main.path(forResource: name, ofType: "plist"),
 			let xml = FileManager.default.contents(atPath: path),
@@ -33,5 +33,20 @@ extension Bundle {
 		}
 
 		return plistDict
+	}
+
+	/// Read the Plist with the specified name as a `[String]` array
+	///
+	/// - returns:`String` Array of the plist contents
+	func readPlistAsArr(name: String) -> [String]? {
+		guard
+			let path = Bundle.main.path(forResource: name, ofType: "plist"),
+			let xml = FileManager.default.contents(atPath: path),
+			let plistArr = try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainers, format: nil) as? [String]
+		else {
+			return nil
+		}
+
+		return plistArr
 	}
 }

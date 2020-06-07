@@ -25,14 +25,20 @@ final class CoronaWarnURLSessionDelegate: NSObject {
 	// MARK: Known Public Key Storage
 	/// A dictionary containing a mapping of the host to the SHA256 public key string
 	private let domainPublicKeyHashes: [String: String]
+	/// Whitelist of domains we do not pin the public key for. Currently just the distribution URL
+	private let whitelist: [String]
 
 	// MARK: Creating a Delegate
 	override init() {
-		guard let plistDict = Bundle.main.readPlistStringDict(name: "PublicKeys") else {
+		guard
+			let publicKeyDict = Bundle.main.readPlistDict(name: "PublicKeys"),
+			let hostWhitelist = Bundle.main.readPlistAsArr(name: "HostWhitelist")
+		else {
 			preconditionFailure("Could not load PublicKeys.plist for public key pinning!")
 		}
 
-		domainPublicKeyHashes = plistDict
+		domainPublicKeyHashes = publicKeyDict
+		whitelist = hostWhitelist
 	}
 }
 
@@ -43,14 +49,16 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
 		func reject() { completionHandler(.cancelAuthenticationChallenge, /* credential */ nil) }
-		func keyForHost(_ host: String) -> String? {
-			domainPublicKeyHashes.first(where: { challenge.protectionSpace.host.contains($0.key) })?.value
+
+		guard !checkWhitelist(for: challenge.protectionSpace.host) else {
+			completionHandler(.performDefaultHandling, nil)
+			return
 		}
 
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
 		guard
 			let trust = challenge.protectionSpace.serverTrust,
-			let localPublicKey = keyForHost(challenge.protectionSpace.host),
+			let localPublicKey = key(for: challenge.protectionSpace.host),
 			!localPublicKey.isEmpty
 		else {
 			// Reject all requests that we do not have a public key to pin for
@@ -75,16 +83,13 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 				return
 			}
 
-			guard SecTrustGetCertificateCount(trust) >= 1 else {
-				logError(message: "More than one certificate, rejecting!")
-				reject()
-				return
-			}
-
 			// Our landscape has a certificate chain with three certificates.
 			// We want to get the intermediate certificate, in our case the second.
-			guard let remoteCertificate = SecTrustGetCertificateAtIndex(trust, 1) else {
-				logError(message: "Could not get first certificate, rejecting!")
+			guard
+				SecTrustGetCertificateCount(trust) >= 1,
+				let remoteCertificate = SecTrustGetCertificateAtIndex(trust, 1)
+			else {
+				logError(message: "Could not get intermediate certificate, rejecting!")
 				reject()
 				return
 			}
@@ -108,6 +113,14 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 
 			accept()
 		}
+	}
+
+	func key(for host: String) -> String? {
+		domainPublicKeyHashes.first(where: { host.contains($0.key) })?.value
+	}
+
+	func checkWhitelist(for host: String) -> Bool {
+		whitelist.contains(where: { host.contains($0) })
 	}
 }
 
