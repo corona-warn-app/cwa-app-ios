@@ -73,7 +73,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Separator.
 
-		separator.backgroundColor = .preferredColor(for: .textPrimary2)
+		separator.backgroundColor = .preferredColor(for: .hairline)
 		separator.isHidden = !hasSeparators
 	}
 
