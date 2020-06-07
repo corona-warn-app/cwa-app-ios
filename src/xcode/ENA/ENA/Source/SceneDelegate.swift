@@ -340,8 +340,6 @@ extension SceneDelegate: HomeViewControllerDelegate {
 	func homeViewControllerStartExposureTransaction(_: HomeViewController) {
 		UIApplication.coronaWarnDelegate().appStartExposureDetectionTransaction()
 	}
-
-
 }
 
 extension SceneDelegate: UNUserNotificationCenterDelegate {
