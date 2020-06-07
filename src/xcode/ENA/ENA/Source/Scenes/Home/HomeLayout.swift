@@ -30,9 +30,6 @@ extension UICollectionViewLayout {
 		}
 		let config = UICollectionViewCompositionalLayoutConfiguration()
 		config.interSectionSpacing = 32.0
-		let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150.0))
-		let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-		config.boundarySupplementaryItems = [header]
 		let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider, configuration: config)
 		layout.register(SectionSystemBackgroundDecorationView.self, forDecorationViewOfKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)
 

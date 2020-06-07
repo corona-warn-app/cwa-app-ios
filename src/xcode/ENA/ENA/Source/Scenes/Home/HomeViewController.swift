@@ -332,8 +332,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		]
 
 		collectionView.register(cellTypes: cellTypes)
-		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
-		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
 	}
 
 	private func configureDataSource() {
@@ -342,18 +340,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			configurator.configureAny(cell: cell)
 			return cell
-		}
-		dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-			let identifier = HomeFooterSupplementaryView.reusableViewIdentifier
-			guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
-				ofKind: kind,
-				withReuseIdentifier: identifier,
-				for: indexPath
-			) as? HomeFooterSupplementaryView else {
-				fatalError("Cannot create new supplementary")
-			}
-			supplementaryView.configure()
-			return supplementaryView
 		}
 	}
 
