@@ -62,8 +62,9 @@ extension ExposureDetectionViewController {
 private extension RiskLevel {
 	var text: String {
 		switch self {
-		case .unknownInitial, .unknownOutdated: return AppStrings.ExposureDetection.unknown
-		case .inactive: return AppStrings.ExposureDetection.inactive
+		case .unknownInitial: return AppStrings.ExposureDetection.unknown
+		case .unknownOutdated: return AppStrings.ExposureDetection.outdated
+		case .inactive: return AppStrings.ExposureDetection.unknown
 		case .low: return AppStrings.ExposureDetection.low
 		case .increased: return AppStrings.ExposureDetection.high
 		}
@@ -80,10 +81,11 @@ private extension RiskLevel {
 
 	var contrastColor: UIColor {
 		switch self {
-		case .unknownInitial, .unknownOutdated: return .white
-		case .inactive: return .white
-		case .low: return .white
-		case .increased: return .white
+		case .unknownInitial: return .enaColor(for: .textContrast)
+		case .unknownOutdated: return .enaColor(for: .textPrimary1)
+		case .inactive: return .enaColor(for: .textContrast)
+		case .low: return .enaColor(for: .textContrast)
+		case .increased: return .enaColor(for: .textContrast)
 		}
 	}
 }
