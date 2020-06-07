@@ -148,9 +148,9 @@ class DynamicTableViewStepCell: UITableViewCell {
 		body.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
 
 		if reducedSpacing {
-			body.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -8).isActive = true
+			bottomAnchor.constraint(greaterThanOrEqualTo: body.bottomAnchor, constant: 8).isActive = true
 		} else {
-			body.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -35).isActive = true
+			bottomAnchor.constraint(greaterThanOrEqualTo: body.bottomAnchor, constant: 35).isActive = true
 		}
 
 		cellIcon.layer.cornerRadius = 16
