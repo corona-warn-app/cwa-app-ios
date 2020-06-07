@@ -63,11 +63,11 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Eol-wD-qBB" customClass="DynamicTypeSymbolImageView" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="322.5" y="21" width="13" height="17"/>
+                                <rect key="frame" x="325" y="22.5" width="10" height="13.5"/>
                                 <color key="tintColor" name="ENA Chevron Color"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                        <real key="value" value="17"/>
+                                        <real key="value" value="13"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
                                 </userDefinedRuntimeAttributes>
@@ -84,13 +84,13 @@
                         </subviews>
                         <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Eol-wD-qBB" secondAttribute="centerX" constant="15" id="3Qg-4W-ayZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Eol-wD-qBB" secondAttribute="centerX" constant="14" id="3Qg-4W-ayZ"/>
                             <constraint firstItem="736-dz-fBH" firstAttribute="trailing" secondItem="mUW-aW-2Ou" secondAttribute="trailingMargin" id="3xS-8I-Cy7"/>
                             <constraint firstItem="rDq-GM-tua" firstAttribute="top" secondItem="mUW-aW-2Ou" secondAttribute="topMargin" id="8vc-xW-aU1"/>
                             <constraint firstItem="rDq-GM-tua" firstAttribute="leading" secondItem="mUW-aW-2Ou" secondAttribute="leadingMargin" id="EaO-3X-p6a"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rDq-GM-tua" secondAttribute="trailing" id="FAk-fx-waN"/>
                             <constraint firstItem="736-dz-fBH" firstAttribute="leading" secondItem="mUW-aW-2Ou" secondAttribute="leadingMargin" id="LKR-kp-IZ9"/>
-                            <constraint firstItem="Eol-wD-qBB" firstAttribute="centerY" secondItem="Pu9-ea-uYq" secondAttribute="centerY" id="e8R-ic-grc"/>
+                            <constraint firstItem="Eol-wD-qBB" firstAttribute="bottom" secondItem="Pu9-ea-uYq" secondAttribute="firstBaseline" id="e8R-ic-grc"/>
                             <constraint firstItem="736-dz-fBH" firstAttribute="top" secondItem="rDq-GM-tua" secondAttribute="bottom" constant="8" id="fH7-wh-S3H"/>
                             <constraint firstAttribute="bottomMargin" secondItem="736-dz-fBH" secondAttribute="bottom" id="lQr-IA-Sxe"/>
                         </constraints>
