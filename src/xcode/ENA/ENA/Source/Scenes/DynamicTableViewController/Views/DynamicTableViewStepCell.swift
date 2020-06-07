@@ -116,7 +116,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 	// MARK: - Constraint handling.
 
 	var heightConstraint: NSLayoutConstraint?
-	private func setConstraints() {
+	private func setConstraints(reducedSpacing: Bool = false) {
 
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [
 			body,
@@ -142,11 +142,14 @@ class DynamicTableViewStepCell: UITableViewCell {
 		} else {
 			body.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
 		}
-
-		bottomAnchor.constraint(equalTo: body.bottomAnchor, constant: 8).isActive = true
-
 		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
 		body.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+
+		if reducedSpacing {
+			body.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -8).isActive = true
+		} else {
+			body.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -35).isActive = true
+		}
 
 		cellIcon.layer.cornerRadius = 16
 		cellIcon.clipsToBounds = true
@@ -212,6 +215,14 @@ class DynamicTableViewStepCell: UITableViewCell {
 		)
 		
 		setConstraints()
+	}
+
+	/// This specific configurator is necessary, as we have certain cells which designs do NOT
+	/// have spacing inbetween the elements. For example, on the `ExposureSubmissionIntroViewController.swift`.
+	func configureBulletPointCell(text: String) {
+		setUpView(nil, text, UIImage(named: "Icons_Dark_Dot"), false, true)
+		setConstraints(reducedSpacing: true)
+
 	}
 
 }
