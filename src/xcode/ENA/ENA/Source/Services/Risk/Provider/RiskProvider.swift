@@ -86,7 +86,7 @@ extension RiskProvider: RiskProviding {
 	private func _observeRisk(_ consumer: RiskConsumer) {
 		consumers.add(consumer)
 		let nextExposureDetectionDate = configuration.nextExposureDetectionDate(
-			lastExposureDetectionDate: store.summaryDate
+			lastExposureDetectionDate: store.summary?.date
 		)
 		consumer.nextExposureDetectionDateDidChange?(nextExposureDetectionDate)
 	}
@@ -94,17 +94,14 @@ extension RiskProvider: RiskProviding {
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRisk() {
 		print("🧏‍♂️ Requesting risk…")
-		print("🧏‍♂️   - last detection: \(String(describing: store.summaryDate))")
+		print("🧏‍♂️   - last detection: \(String(describing: store.summary?.date))")
 
 		queue.async(execute: _requestRiskLevel)
 	}
 
 	private struct Summaries {
-		var previous: ENExposureDetectionSummaryContainer?
-		var previousDate: Date?
-
-		var current: ENExposureDetectionSummaryContainer?
-		var currentDate: Date?
+		var previous: SummaryMetadata?
+		var current: SummaryMetadata?
 	}
 
 	private func _requestRiskLevel() {
@@ -113,21 +110,22 @@ extension RiskProvider: RiskProviding {
 				completion(
 					.init(
 						previous: nil,
-						current: store.summary,
-						currentDate:
-						store.summaryDate
+						current: store.summary
 					)
 				)
 				return
 			}
+
 			// Here we are in automatic mode and thus we have to check the validity of the current summary
-			let shouldPerformDetection = configuration.shouldPerformExposureDetection(lastExposureDetectionDate: store.summaryDate)
+			let shouldPerformDetection = configuration.shouldPerformExposureDetection(
+				lastExposureDetectionDate: store.summary?.date
+			)
+
 			if shouldPerformDetection == false {
 				completion(
 					.init(
 						previous: nil,
-						current: store.summary,
-						currentDate: store.summaryDate
+						current: store.summary
 					)
 				)
 				return
@@ -136,20 +134,21 @@ extension RiskProvider: RiskProviding {
 			// The summary is outdated + we are in automatic mode: do a exposure detection
 			print("🧏‍♂️ Detecting exposures…")
 
-			let previous = store.summary
-			let previousDate = store.summaryDate
+			let previousSummary = store.summary
 
 			exposureSummaryProvider.detectExposure { detectedSummary in
-				print("🧏‍♂️ Got new summary detectedSummary…: \(detectedSummary)")
-				self.store.summary = ENExposureDetectionSummaryContainer(with: detectedSummary)
-				self.store.summaryDate = Date()
+				print("🧏‍♂️ Got new summary detectedSummary…: \(String(describing: detectedSummary))")
+
+				if let detectedSummary = detectedSummary {
+					self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
+				} else {
+					self.store.summary = nil
+				}
 
 				completion(
 					.init(
-						previous: previous,
-						previousDate: previousDate,
-						current: self.store.summary,
-						currentDate: self.store.summaryDate
+						previous: previousSummary,
+						current: self.store.summary
 					)
 				)
 			}
@@ -185,13 +184,13 @@ extension RiskProvider: RiskProviding {
 
 		guard
 			let risk = RiskCalculation.risk(
-				summary: summaries?.current,
+				summary: summaries?.current?.summary,
 				configuration: _appConfiguration,
-				dateLastExposureDetection: summaries?.currentDate,
+				dateLastExposureDetection: summaries?.current?.date,
 				numberOfTracingActiveHours: numberOfEnabledHours,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
-				previousSummary: store.summary
+				previousSummary: summaries?.previous?.summary
 			) else {
 				print("send email to christopher")
 				return

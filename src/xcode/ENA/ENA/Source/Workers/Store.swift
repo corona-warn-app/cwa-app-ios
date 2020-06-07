@@ -229,7 +229,7 @@ final class SecureStore: Store {
 	}
 }
 
-struct ENExposureDetectionSummaryContainer: Codable {
+struct CodableExposureDetectionSummary: Codable {
 	let daysSinceLastExposure: Int
 	let matchedKeyCount: UInt64
 	let maximumRiskScore: ENRiskScore
@@ -240,7 +240,13 @@ struct ENExposureDetectionSummaryContainer: Codable {
 	/// - see also: [Apple Documentation](https://developer.apple.com/documentation/exposurenotification/enexposuredetectionsummary/3586324-metadata)
 	let configuredAttenuationDurations: [Double]
 
-	init(daysSinceLastExposure: Int, matchedKeyCount: UInt64, maximumRiskScore: ENRiskScore, attenuationDurations: [Double], maximumRiskScoreFullRange: Int) {
+	init(
+		daysSinceLastExposure: Int,
+		matchedKeyCount: UInt64,
+		maximumRiskScore: ENRiskScore,
+		attenuationDurations: [Double],
+		maximumRiskScoreFullRange: Int
+	) {
 		self.daysSinceLastExposure = daysSinceLastExposure
 		self.matchedKeyCount = matchedKeyCount
 		self.maximumRiskScore = maximumRiskScore
@@ -255,7 +261,7 @@ struct ENExposureDetectionSummaryContainer: Codable {
 		self.init(with: summary)
 	}
 
-	init?(with summary: ENExposureDetectionSummary) {
+	init(with summary: ENExposureDetectionSummary) {
 		self.daysSinceLastExposure = summary.daysSinceLastExposure
 		self.matchedKeyCount = summary.matchedKeyCount
 		self.maximumRiskScore = summary.maximumRiskScore

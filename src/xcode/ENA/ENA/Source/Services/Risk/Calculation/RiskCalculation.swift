@@ -56,7 +56,7 @@ enum RiskCalculation {
 		- currentDate: The current `Date` to use in checks. Defaults to `Date()`
 	*/
 	private static func riskLevel(
-		summary: ENExposureDetectionSummaryContainer?,
+		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		numberOfTracingActiveHours: Int, // Get this from the `TracingStatusHistory`
@@ -136,7 +136,7 @@ enum RiskCalculation {
 	/// Performs the raw risk calculation without checking any preconditions
 	/// - returns: weighted risk score
 	static func calculateRawRisk(
-		summary: ENExposureDetectionSummaryContainer,
+		summary: CodableExposureDetectionSummary,
 		configuration: SAP_ApplicationConfiguration
 	) -> Double {
 		let maximumRisk = summary.maximumRiskScoreFullRange
@@ -170,13 +170,13 @@ enum RiskCalculation {
 	}
 
 	static func risk(
-		summary: ENExposureDetectionSummaryContainer?,
+		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		numberOfTracingActiveHours: Int,
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date(),
-		previousSummary: ENExposureDetectionSummaryContainer?
+		previousSummary: CodableExposureDetectionSummary?
 	) -> Risk? {
 		switch riskLevel(
 			summary: summary,

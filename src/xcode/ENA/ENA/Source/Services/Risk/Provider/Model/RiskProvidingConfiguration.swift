@@ -48,7 +48,7 @@ extension RiskProvidingConfiguration {
 		) ?? .distantPast
 	}
 
-	func exposureDetectionIsValid(lastExposureDetectionDate: Date?) -> Bool {
+	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast) -> Bool {
 		Date() > exposureDetectionValidUntil(lastExposureDetectionDate: lastExposureDetectionDate)
 	}
 

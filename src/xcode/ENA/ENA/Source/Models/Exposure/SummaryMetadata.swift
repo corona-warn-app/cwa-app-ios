@@ -21,13 +21,13 @@ import Foundation
 import ExposureNotification
 
 struct SummaryMetadata: Codable {
-	let summary: ENExposureDetectionSummaryContainer
+	let summary: CodableExposureDetectionSummary
 	let date: Date
 }
 
 extension SummaryMetadata {
 	init(detectionSummary: ENExposureDetectionSummary, date: Date = Date()) {
-		self.summary = ENExposureDetectionSummaryContainer(with: detectionSummary)
+		self.summary = CodableExposureDetectionSummary(with: detectionSummary)
 		self.date = date
 	}
 }
