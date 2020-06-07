@@ -30,7 +30,7 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.removeAllArrangedSubviews()
 
 		let title = AppStrings.Home.thankYouCardTitle
-		let titleColor: UIColor = UIColor.black
+		let titleColor: UIColor = .enaColor(for: .textPrimary1)
 		cell.configureTitle(title: title, titleColor: titleColor)
 
 		let imageName = "Illu_Submission_VielenDank"
@@ -42,7 +42,7 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 		let noteTitle = AppStrings.Home.thankYouCardNoteTitle
 		cell.configureNoteLabel(title: noteTitle)
 
-		let iconColor: UIColor = .preferredColor(for: .brandRed)
+		let iconColor: UIColor = .enaColor(for: .riskHigh)
 		let phoneTitle = AppStrings.Home.thankYouCardPhoneItemTitle
 		let phoneItem = HomeRiskImageItemViewConfigurator(title: phoneTitle, titleColor: titleColor, iconImageName: "Icons - Hotline", iconTintColor: iconColor, color: .clear, separatorColor: .clear)
 		phoneItem.containerInsets = .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
@@ -66,7 +66,7 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 		let info4 = HomeRiskListItemViewConfigurator(text: info4Text, titleColor: titleColor)
 		cell.configureFurtherInfoRiskViews(cellConfigurators: [info1, info2, info3, info4])
 
-		let backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
+		let backgroundColor = UIColor.enaColor(for: .background)
 		cell.configureBackgroundColor(color: backgroundColor)
 
 		setupAccessibility(cell)

@@ -34,19 +34,18 @@ final class HomeFindingPositiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.removeAllArrangedSubviews()
 
 		let title = AppStrings.Home.findingPositiveCardTitle
-		let titleColor: UIColor = UIColor.preferredColor(for: .textPrimary1)
+		let titleColor: UIColor = .enaColor(for: .textPrimary1)
 		cell.configureTitle(title: title, titleColor: titleColor)
-		cell.configureChevron(image: UIImage(systemName: "chevron.right"), tintColor: .preferredColor(for: .chevron))
-		
+
 		let statusTitle = AppStrings.Home.findingPositiveCardStatusTitle
 		let statusSubtitle = AppStrings.Home.findingPositiveCardStatusSubtitle
 		let statusImageName = "Illu_Home_PositivTestErgebnis"
-		cell.configureStatus(title: statusTitle, subtitle: statusSubtitle, titleColor: titleColor, lineColor: .preferredColor(for: .brandRed), imageName: statusImageName)
+		cell.configureStatus(title: statusTitle, subtitle: statusSubtitle, titleColor: titleColor, lineColor: .enaColor(for: .riskHigh), imageName: statusImageName)
 
 		let noteTitle = AppStrings.Home.findingPositiveCardNoteTitle
 		cell.configureNoteLabel(title: noteTitle)
 
-		let iconColor: UIColor = .preferredColor(for: .brandRed)
+		let iconColor: UIColor = .enaColor(for: .riskHigh)
 		let phoneTitle = AppStrings.Home.findingPositivePhoneItemTitle
 		let phoneItem = HomeRiskImageItemViewConfigurator(title: phoneTitle, titleColor: titleColor, iconImageName: "Icons - Hotline", iconTintColor: iconColor, color: .clear, separatorColor: .clear)
 		phoneItem.containerInsets = .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
@@ -61,16 +60,11 @@ final class HomeFindingPositiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		cell.configureNotesRiskViews(cellConfigurators: [phoneItem, homeItem, shareItem])
 
-
 		let buttonTitle = AppStrings.Home.findingPositiveCardButton
 
-		cell.configureNextButton(
-			title: buttonTitle,
-			color: .white,
-			backgroundColor: .preferredColor(for: .tint)
-		)
+		cell.configureNextButton(title: buttonTitle)
 
-		let backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
+		let backgroundColor: UIColor = .enaColor(for: .background)
 		cell.configureBackgroundColor(color: backgroundColor)
 
 		setupAccessibility(cell)
