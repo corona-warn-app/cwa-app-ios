@@ -101,9 +101,6 @@ extension RiskProvider: RiskProviding {
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRisk(userInitiated: Bool) {
-		print("⚠️ Requesting risk… – initiated by: (\(userInitiated ? "👩‍🔧" : "🖥")")
-		print("⚠️   - last detection: \(String(describing: store.summary?.date))")
-
 		queue.async {
 			self._requestRiskLevel(userInitiated: userInitiated)
 		}
@@ -145,19 +142,14 @@ extension RiskProvider: RiskProviding {
 			}
 
 			// The summary is outdated + we are in automatic mode: do a exposure detection
-			print("⚠️ Detecting exposures…")
-
 			let previousSummary = store.summary
 
 			exposureSummaryProvider.detectExposure { detectedSummary in
-				print("⚠️ Got new summary detectedSummary…: \(String(describing: detectedSummary))")
-
 				if let detectedSummary = detectedSummary {
 					self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
 				} else {
 					self.store.summary = nil
 				}
-
 				completion(
 					.init(
 						previous: previousSummary,

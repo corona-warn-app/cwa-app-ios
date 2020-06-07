@@ -35,6 +35,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		self.enState = initialEnState
 		self.state = state
 		super.init(coder: coder)
+		navigationItem.largeTitleDisplayMode = .never
 		addToUpdatingSetIfNeeded(homeInteractor)
 	}
 
@@ -47,11 +48,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 	// MARK: Properties
 
-	var state: State {
-		didSet {
-
-		}
-	}
+	var state: State
 	private var sections: HomeInteractor.SectionConfiguration = []
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
@@ -112,7 +109,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		updateOwnUI()
-		navigationItem.largeTitleDisplayMode = .never
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

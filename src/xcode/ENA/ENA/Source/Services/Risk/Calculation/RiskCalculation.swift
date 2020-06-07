@@ -64,9 +64,8 @@ enum RiskCalculation {
 		currentDate: Date = Date()
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
 		var riskLevel = RiskLevel.low
-
 		DispatchQueue.main.async {
-			let appDelegate = UIApplication.shared.delegate as? AppDelegate  // TODO: Remove
+			let appDelegate = UIApplication.shared.delegate as? AppDelegate // TODO: Remove
 			appDelegate?.lastRiskCalculation = ""  // Reset; Append from here on
 			appDelegate?.lastRiskCalculation.append("configuration: \(configuration)\n")
 			appDelegate?.lastRiskCalculation.append("numberOfTracingActiveHours: \(numberOfTracingActiveHours)\n")

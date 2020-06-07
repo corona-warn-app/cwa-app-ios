@@ -174,14 +174,11 @@ extension HomeInteractor {
 		let detectionIsAutomatic = detectionMode == .automatic
 
 		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
-		print("riskLevel: \(riskLevel)")
 
 		riskLevelConfigurator = nil
 		inactiveConfigurator = nil
 
-
 		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
-
 
 		switch riskLevel {
 		case .unknownInitial:
