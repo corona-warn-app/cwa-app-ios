@@ -208,7 +208,7 @@ enum RiskCalculation {
 				appDelegate?.lastRiskCalculation.append("details: \(details)\n")
 				appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
 			}
-
+			
 			return Risk(
 				level: level,
 				details: details,

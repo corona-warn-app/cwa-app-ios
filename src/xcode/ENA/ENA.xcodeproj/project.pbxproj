@@ -255,7 +255,6 @@
 		B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DE248821E000D012E5 /* RiskProvider.swift */; };
 		B1FE13EC24891CFE00D012E5 /* RiskProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DC248821CB00D012E5 /* RiskProviding.swift */; };
 		B1FE13ED24891D0400D012E5 /* RiskProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13E1248824E900D012E5 /* RiskProviderTests.swift */; };
-		B1FE13EE24891D0900D012E5 /* RiskProvidingConfigurationUpdateMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13DA2488217300D012E5 /* RiskProvidingConfigurationUpdateMode.swift */; };
 		B1FE13EF24891D0C00D012E5 /* RiskProvidingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13E52488255900D012E5 /* RiskProvidingConfiguration.swift */; };
 		B1FE13F024891D1500D012E5 /* RiskCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13D72487DEED00D012E5 /* RiskCalculation.swift */; };
 		B1FE13F224893CCE00D012E5 /* app_config.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FE13F124893CCE00D012E5 /* app_config.pb.swift */; };
@@ -588,7 +587,6 @@
 		B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "api-response-day-2020-05-16"; sourceTree = "<group>"; };
 		B1F8AE4B2479C1C20093A588 /* de-config */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config"; sourceTree = "<group>"; };
 		B1FE13D72487DEED00D012E5 /* RiskCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCalculation.swift; sourceTree = "<group>"; };
-		B1FE13DA2488217300D012E5 /* RiskProvidingConfigurationUpdateMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskProvidingConfigurationUpdateMode.swift; sourceTree = "<group>"; };
 		B1FE13DC248821CB00D012E5 /* RiskProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskProviding.swift; sourceTree = "<group>"; };
 		B1FE13DE248821E000D012E5 /* RiskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskProvider.swift; sourceTree = "<group>"; };
 		B1FE13E1248824E900D012E5 /* RiskProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskProviderTests.swift; sourceTree = "<group>"; };
@@ -1571,7 +1569,6 @@
 		B1FE13E32488253200D012E5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B1FE13DA2488217300D012E5 /* RiskProvidingConfigurationUpdateMode.swift */,
 				B1FE13E52488255900D012E5 /* RiskProvidingConfiguration.swift */,
 			);
 			path = Model;
@@ -1977,7 +1974,6 @@
 				A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */,
 				B1A89F3824819C2B00DA1CEC /* HomeInteractor.swift in Sources */,
 				514C0A16247C164700F235F6 /* HomeHighRiskCellConfigurator.swift in Sources */,
-				B1FE13EE24891D0900D012E5 /* RiskProvidingConfigurationUpdateMode.swift in Sources */,
 				71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */,
 				717D21E9248C022E00D9717E /* DynamicTableViewHtmlCell.swift in Sources */,
 				71FE1C82247AC30300851FEB /* ENATanInput.swift in Sources */,

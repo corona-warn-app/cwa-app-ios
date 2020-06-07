@@ -101,7 +101,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		duration.day = 2
 
 		let config = RiskProvidingConfiguration(
-			updateMode: .automatic,
 			exposureDetectionValidityDuration: duration
 		)
 		return RiskProvider(

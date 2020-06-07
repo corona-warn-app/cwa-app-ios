@@ -110,26 +110,17 @@ extension RiskProvider: RiskProviding {
 	}
 
 	private func _requestRiskLevel() {
-		let exposureDetectionValidUntil: Date = {
-			let lastRunDate = self.store.dateLastExposureDetection ?? .distantPast
-			return Calendar.current.date(
-				byAdding: self.configuration.exposureDetectionValidityDuration,
-				to: lastRunDate,
-				wrappingComponents: false
-				) ?? .distantPast
-		}()
+		let exposureDetectionIsInvalid = !configuration.exposureDetectionIsValid(lastExposureDetectionDate: store.dateLastExposureDetection)
 
-		let requiresExposureDetectionRun = Date() > exposureDetectionValidUntil
 		var newSummary: ENExposureDetectionSummaryContainer?
 		let group = DispatchGroup()
 
-		if requiresExposureDetectionRun {
+		if exposureDetectionIsInvalid {
 			group.enter()
-			exposureSummaryProvider.detectExposure {
+			exposureSummaryProvider.detectExposure { detectedSummary in
 				defer { group.leave() }
-				if let detectedSummary = $0 {
-					newSummary = ENExposureDetectionSummaryContainer(with: detectedSummary)
-				}
+				guard let detectedSummary = detectedSummary else { return }
+				newSummary = ENExposureDetectionSummaryContainer(with: detectedSummary)
 			}
 		}
 

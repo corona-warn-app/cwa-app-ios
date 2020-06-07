@@ -55,11 +55,11 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b20-mf-cB4">
                                         <rect key="frame" x="0.0" y="223" width="627" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="nce-lS-GX6"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <state key="normal" title="Button"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isInverted" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="updateButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="WC5-CV-Zky"/>
                                         </connections>

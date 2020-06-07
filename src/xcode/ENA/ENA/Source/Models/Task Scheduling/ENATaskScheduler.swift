@@ -61,10 +61,9 @@ final class ENATaskScheduler {
 
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
-		let success = BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
+		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
 			taskHander(task)
 		}
-		print("fuck \(success)")
 	}
 
 	func scheduleBackgroundTaskRequests() {
