@@ -101,6 +101,19 @@ final class ENATaskScheduler {
 		BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 	}
 
+	func getPendingRequest(for taskIdentifier: ENATaskIdentifier, completion: @escaping ((BGTaskRequest?) -> Void)) {
+		BGTaskScheduler.shared.getPendingTaskRequests { requests in
+			let request = requests.first(where: { $0.identifier == taskIdentifier.backgroundTaskSchedulerIdentifier })
+			completion(request)
+		}
+	}
+
+	func getPendingDate(for taskIdentifier: ENATaskIdentifier, completion: @escaping ((Date?) -> Void)) {
+		getPendingRequest(for: taskIdentifier) { request in
+			completion(request?.earliestBeginDate)
+		}
+	}
+
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
 		guard let taskDelegate = taskDelegate else {
