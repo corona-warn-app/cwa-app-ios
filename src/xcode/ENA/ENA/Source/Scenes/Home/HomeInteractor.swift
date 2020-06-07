@@ -233,15 +233,19 @@ extension HomeInteractor {
 		riskLevelConfigurator?.buttonAction = riskProvider.requestRisk
 
 
-		if let risk = riskLevelConfigurator {
-			riskLevelConfigurator = risk
-			return risk
-		}
+		if riskLevelConfigurator != nil { return riskLevelConfigurator }
+		if inactiveConfigurator != nil { return inactiveConfigurator }
 
-		if let inactive = inactiveConfigurator {
-			inactiveConfigurator = inactive
-			return inactive
-		}
+//		if let risk = riskLevelConfigurator {
+//			riskLevelConfigurator = risk
+//			return risk
+//		}
+//
+//
+//		if let inactive = inactiveConfigurator {
+//			inactiveConfigurator = inactive
+//			return inactive
+//		}
 
 		return nil
 	}
