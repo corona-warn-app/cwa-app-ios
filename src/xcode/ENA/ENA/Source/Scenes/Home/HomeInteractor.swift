@@ -181,7 +181,7 @@ extension HomeInteractor {
 
 
 		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
-		let detectionValidityDuration = (riskProvider.configuration.exposureDetectionValidityDuration.day ?? 2) * 24
+
 
 		switch riskLevel {
 		case .unknownInitial:
@@ -212,19 +212,18 @@ extension HomeInteractor {
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection,
 				isButtonHidden: detectionIsAutomatic,
-				validityDuration: detectionValidityDuration,
 				detectionMode: detectionMode,
-				manualExposureDetectionState: riskProvider.manualExposureDetectionState
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
+				detectionInterval: detectionInterval
 			)
 		case .increased:
-			print("riskProvider.manualExposureDetectionState: \(riskProvider.manualExposureDetectionState)")
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
 				numberRiskContacts: state.numberRiskContacts,
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionMode: detectionMode,
-				validityDuration: detectionValidityDuration
+				validityDuration: detectionInterval
 			)
 		}
 		riskLevelConfigurator?.buttonAction = {
