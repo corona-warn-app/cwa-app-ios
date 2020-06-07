@@ -196,7 +196,7 @@ extension ExposureDetectionViewController {
 		case .manual:
 			footerView.isHidden = false
 			checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
-			checkButton.isEnabled = riskProvider.manualExposureDetectionState == .waiting
+			checkButton.isEnabled = riskProvider.manualExposureDetectionState == .possible
 		}
 	}
 }
