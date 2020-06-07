@@ -77,12 +77,12 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 
 	private func setExposureManagerEnabled(
 		_ enabled: Bool,
-		then _: ExposureNotificationSettingViewControllerDelegate.Completion
+		then completion: @escaping ExposureNotificationSettingViewControllerDelegate.Completion
 	) {
 		delegate?.exposureNotificationSettingViewController(
 			self,
 			setExposureManagerEnabled: enabled,
-			then: handleErrorIfNeed
+			then: completion
 		)
 	}
 }
@@ -92,27 +92,47 @@ extension ExposureNotificationSettingViewController {
 		title = AppStrings.ExposureNotificationSetting.title
 	}
 
-	private func handleEnableError(_ error: ExposureNotificationError) {
+	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
 		switch error {
 		case .exposureNotificationAuthorization:
 			logError(message: "Failed to enable exposureNotificationAuthorization")
-			alertError(message: "Failed to enable: exposureNotificationAuthorization", title: "Error")
+			if alert {
+				alertError(message: "Failed to enable: exposureNotificationAuthorization", title: "Error")
+			}
 		case .exposureNotificationRequired:
 			logError(message: "Failed to enable")
-			alertError(message: "exposureNotificationAuthorization", title: "Error")
+			if alert {
+				alertError(message: "exposureNotificationAuthorization", title: "Error")
+			}
 		case .exposureNotificationUnavailable:
 			logError(message: "Failed to enable")
-			alertError(message: "ExposureNotification is not availabe due to the sytem policy", title: "Error")
+			if alert {
+				alertError(message: "ExposureNotification is not availabe due to the sytem policy", title: "Error")
+			}
 		case .apiMisuse:
+			logError(message: "APIMisuse")
 			// This error should not happen as we toggle the enabled status on off - we can not enable without disabling first
-			alertError(message: "ExposureNotification is already enabled", title: "Note")
+			if alert {
+				alertError(message: "ExposureNotification is already enabled", title: "Note")
+			}
+		}
+		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+			mySceneDelegate.requestUpdatedExposureState()
 		}
 		tableView.reloadData()
 	}
 
 	private func handleErrorIfNeed(_ error: ExposureNotificationError?) {
 		if let error = error {
-			handleEnableError(error)
+			handleEnableError(error, alert: true)
+		} else {
+			tableView.reloadData()
+		}
+	}
+
+	private func silentErrorIfNeed(_ error: ExposureNotificationError?) {
+		if let error = error {
+			handleEnableError(error, alert: false)
 		} else {
 			tableView.reloadData()
 		}
@@ -183,8 +203,10 @@ extension ExposureNotificationSettingViewController {
 						)
 						return tracingCell
 					}
-				case .bluetoothOff, .internetOff, .restricted:
-					cell.configure(for: enState)
+				case .bluetoothOff, .internetOff, .restricted, .notAuthorized, .unknown:
+					if let cell = cell as? ActionCell {
+						cell.configure(for: enState, delegate: self)
+					}
 				}
 			case .descriptionCell:
 				cell.configure(for: enState)
@@ -197,8 +219,15 @@ extension ExposureNotificationSettingViewController {
 }
 
 extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate {
-	func performAction(enable: Bool) {
-		setExposureManagerEnabled(enable, then: handleErrorIfNeed)
+	func performAction(action: SettingAction) {
+		switch action {
+		case .enable(true):
+			setExposureManagerEnabled(true, then: handleErrorIfNeed)
+		case .enable(false):
+			setExposureManagerEnabled(false, then: handleErrorIfNeed)
+		case .askConsent:
+			setExposureManagerEnabled(true, then: silentErrorIfNeed)
+		}
 	}
 }
 

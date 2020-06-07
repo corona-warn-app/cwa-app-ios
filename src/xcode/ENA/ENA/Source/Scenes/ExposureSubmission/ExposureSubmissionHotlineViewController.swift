@@ -40,6 +40,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		title = AppStrings.ExposureSubmissionHotline.title
 		setupButtons()
 		setupTableView()
+		setupBackButton()
 	}
 
 	private func setupButtons() {

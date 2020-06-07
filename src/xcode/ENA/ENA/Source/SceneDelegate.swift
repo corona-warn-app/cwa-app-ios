@@ -141,6 +141,16 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	// MARK: Helper
 
+	func requestUpdatedExposureState() {
+		let state = exposureManager.preconditions()
+		let newState = ExposureManagerState(
+				authorized: ENManager.authorizationStatus == .authorized,
+				enabled: state.enabled,
+				status: state.status
+		)
+		updateExposureState(newState)
+	}
+
 	private func setupUI() {
 		setupNavigationBarAppearance()
 
@@ -185,10 +195,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 
 	private func presentHomeVC() {
+		//TODO: Change the URL back to clientConfiguration.configurationURL
+		let url = URL(string: "https://www.apple.com")!
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),
 			reachabilityService: ConnectivityReachabilityService(
-				connectivityURLs: [clientConfiguration.configurationURL]
+//				connectivityURLs: [clientConfiguration.configurationURL]
+					connectivityURLs: [url]
 			),
 			delegate: self
 		)
@@ -319,6 +332,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		Authorized: \(newState.authorized)
 		enabled: \(newState.enabled)
 		status: \(newState.status)
+		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
 		log(message: message)
 

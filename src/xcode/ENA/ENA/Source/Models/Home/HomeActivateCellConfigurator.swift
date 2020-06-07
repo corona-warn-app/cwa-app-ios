@@ -38,7 +38,7 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 			iconImage = UIImage(named: "Icons_Risikoermittlung")
 			cell.titleLabel.text = AppStrings.Home.activateCardOnTitle
 			cell.iconImageView.tintColor = UIColor.preferredColor(for: .tint)
-		case .disabled, .restricted:
+		case .disabled, .restricted, .notAuthorized, .unknown:
 			iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
 			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negativeRisk)
 			cell.titleLabel.text = AppStrings.Home.activateCardOffTitle
