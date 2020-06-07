@@ -116,12 +116,21 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 		}
 	}
 
+	/// Query the well-known host:key dictionary for the public key of the specfied host
+	///
+	/// - parameter host: String host, ex. "apple.com"
+	/// - returns: SHA256 hash of the public key as defined in the plist
+	/// - note: Does a contains substring check, does not match exactly.
 	func key(for host: String) -> String? {
 		domainPublicKeyHashes.first(where: { host.contains($0.key) })?.value
 	}
 
+	/// Check the array of whitelisted hosts for who public key pinning should not occur.
+	///
+	/// - parameter host: String host, ex. "apple.com"
+	/// - returns: Bool if the host was found in the list or not. Host strings are treated as regular expressions.
 	func checkWhitelist(for host: String) -> Bool {
-		whitelist.contains(where: { host.contains($0) })
+		whitelist.contains(where: { host.range(of: $0, options: .regularExpression) != nil })
 	}
 }
 

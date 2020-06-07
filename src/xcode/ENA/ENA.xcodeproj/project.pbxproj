@@ -170,6 +170,7 @@
 		A16714AD248C91570031B111 /* PublicKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A16714AC248C91570031B111 /* PublicKeys.plist */; };
 		A16714AF248CA1B70031B111 /* Bundle+ReadPlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */; };
 		A16714B1248CFF020031B111 /* HostWhitelist.plist in Resources */ = {isa = PBXBuildFile; fileRef = A16714B0248CFF020031B111 /* HostWhitelist.plist */; };
+		A16714C0248D53F60031B111 /* CoronaWarnURLSessionDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16714BE248D53F00031B111 /* CoronaWarnURLSessionDelegateTests.swift */; };
 		A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */; };
 		A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */; };
 		A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */; };
@@ -515,6 +516,7 @@
 		A16714AC248C91570031B111 /* PublicKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PublicKeys.plist; sourceTree = "<group>"; };
 		A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+ReadPlist.swift"; sourceTree = "<group>"; };
 		A16714B0248CFF020031B111 /* HostWhitelist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = HostWhitelist.plist; sourceTree = "<group>"; };
+		A16714BE248D53F00031B111 /* CoronaWarnURLSessionDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaWarnURLSessionDelegateTests.swift; sourceTree = "<group>"; };
 		A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerUtils.swift; sourceTree = "<group>"; };
 		A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelTests.swift; sourceTree = "<group>"; };
@@ -1270,6 +1272,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		A16714BC248D53BF0031B111 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				A16714BE248D53F00031B111 /* CoronaWarnURLSessionDelegateTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		A1C2B2DA24834934004A3BD5 /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
@@ -1491,6 +1501,7 @@
 		B1CD333F2486AA5F00B06E9B /* Security */ = {
 			isa = PBXGroup;
 			children = (
+				A16714BC248D53BF0031B111 /* __tests__ */,
 				B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */,
 			);
 			path = Security;
@@ -2149,6 +2160,7 @@
 				B1A76EA224714F7900EA5208 /* ClientModeTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
 				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
+				A16714C0248D53F60031B111 /* CoronaWarnURLSessionDelegateTests.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
