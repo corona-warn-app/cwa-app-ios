@@ -41,11 +41,13 @@ extension RiskProvidingConfiguration {
 	}
 
 	func nextExposureDetectionDate(lastExposureDetectionDate: Date?) -> Date {
-		Calendar.current.date(
+		let potentialDate = Calendar.current.date(
 			byAdding: exposureDetectionInterval,
 			to: lastExposureDetectionDate ?? .distantPast,
 			wrappingComponents: false
 		) ?? .distantPast
+		
+		return potentialDate < Date() ? Date() : potentialDate
 	}
 
 	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast) -> Bool {
