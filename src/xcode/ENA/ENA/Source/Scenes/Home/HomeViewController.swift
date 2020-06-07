@@ -61,7 +61,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				exposureManager: .init(),
                 risk: risk
 			),
-			exposureSubmissionService: exposureSubmissionService,
+			exposureSubmissionService: self.exposureSubmissionService,
 			initialEnState: self.enState
 		)
 	}()
@@ -332,7 +332,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			RiskInactiveCollectionViewCell.self,
 			RiskFindingPositiveCollectionViewCell.self,
 			RiskThankYouCollectionViewCell.self,
-			InfoCollectionViewCell.self
+			InfoCollectionViewCell.self,
+			HomeTestResultLoadingCell.self
 		]
 
 		collectionView.register(cellTypes: cellTypes)

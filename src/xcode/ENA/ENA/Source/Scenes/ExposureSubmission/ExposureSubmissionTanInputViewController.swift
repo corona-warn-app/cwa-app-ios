@@ -33,6 +33,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupView()
+		setupBackButton()
 		fetchService()
 	}
 
