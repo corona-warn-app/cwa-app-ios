@@ -180,8 +180,8 @@ extension HomeInteractor {
 		inactiveConfigurator = nil
 
 
-		let detectionInterval = riskProvider.configuration.exposureDetectionInterval.day ?? 1 * 24
-		let detectionValidityDuration = riskProvider.configuration.exposureDetectionValidityDuration.day ?? 2 * 24
+		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
+		let detectionValidityDuration = (riskProvider.configuration.exposureDetectionValidityDuration.day ?? 2) * 24
 
 		switch riskLevel {
 		case .unknownInitial:
