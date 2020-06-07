@@ -52,19 +52,13 @@ final class HomeInteractor: RequiresAppDependencies {
 		didSet {
 			homeViewController.setStateOfChildViewControllers(
 				.init(
-					exposureManager: state.exposureManager
+					detectionMode: state.detectionMode
 				)
 			)
 			sections = initialCellConfigurators()
 			homeViewController.reloadData()
 		}
 	}
-
-	// not needed?
-//	self.riskLevelConfigurator?.stopLoading()
-//	guard let indexPath = self.indexPathForRiskCell() else { return }
-//	self.homeViewController.updateSections()
-//	self.homeViewController.reloadCell(at: indexPath)
 
 	private unowned var homeViewController: HomeViewController
 	private var exposureSubmissionService: ExposureSubmissionService?

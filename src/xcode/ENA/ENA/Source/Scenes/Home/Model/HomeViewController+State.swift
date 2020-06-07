@@ -20,7 +20,6 @@ import Foundation
 
 extension HomeViewController {
 	struct State {
-		var exposureManager: ExposureManagerState
-		var summary: ENExposureDetectionSummary?
+		var detectionMode: DetectionMode = DetectionMode.default
 	}
 }

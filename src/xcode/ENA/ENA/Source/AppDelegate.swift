@@ -321,6 +321,5 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
 			complete(success: false)
 		}
-
 	}
 }

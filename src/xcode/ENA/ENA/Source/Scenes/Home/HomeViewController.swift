@@ -28,10 +28,12 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	init?(
 		coder: NSCoder,
 		delegate: HomeViewControllerDelegate,
-		initialEnState: ENStateHandler.State
+		initialEnState: ENStateHandler.State,
+		state: State
 	) {
 		self.delegate = delegate
 		self.enState = initialEnState
+		self.state = state
 		super.init(coder: coder)
 		addToUpdatingSetIfNeeded(homeInteractor)
 	}
@@ -45,6 +47,11 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 	// MARK: Properties
 
+	var state: State {
+		didSet {
+
+		}
+	}
 	private var sections: HomeInteractor.SectionConfiguration = []
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView!
@@ -142,9 +149,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// Called by HomeInteractor
 	func setStateOfChildViewControllers(_ state: State) {
 		let state = ExposureDetectionViewController.State(
-			exposureManagerState: state.exposureManager,
-			risk: risk,
-			nextRefresh: nil
+			detectionMode: state.detectionMode,
+			risk: risk
 		)
 		exposureDetectionController?.state = state
 	}
@@ -215,8 +221,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	func showExposureDetection() {
 		let state = ExposureDetectionViewController.State(
 			exposureManagerState: homeInteractor.state.exposureManager,
-			risk: risk,
-			nextRefresh: nil
+			detectionMode: self.state.detectionMode,
+			risk: risk
 		)
 
 		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
@@ -382,7 +388,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		let image = UIImage(named: "Corona-Warn-App")
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
-		self.navigationItem.leftBarButtonItem = leftItem
+		navigationItem.leftBarButtonItem = leftItem
 	}
 
 }

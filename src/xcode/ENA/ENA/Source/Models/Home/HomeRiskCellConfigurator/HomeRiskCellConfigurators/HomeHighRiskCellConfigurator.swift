@@ -72,7 +72,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardHighButton
 
-		let interval = "\(48)"
+		let interval = "\(24)"
 		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, interval)
 		cell.configureDetectionIntervalLabel(
 			text: intervalTitle,

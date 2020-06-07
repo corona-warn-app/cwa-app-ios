@@ -29,6 +29,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private var homeController: HomeViewController?
 	var state = State(exposureManager: .init()) {
 		didSet {
+			homeController?.state = .init(detectionMode: state.detectionMode)
 			homeController?.homeInteractor.state = .init(
 				detectionMode: state.detectionMode,
 				isLoading: false,
@@ -189,7 +190,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			HomeViewController(
 				coder: coder,
 				delegate: self,
-				initialEnState: enStateHandler.state
+				initialEnState: enStateHandler.state,
+				state: .init(detectionMode: self.state.detectionMode)
 			)
 		}
 
