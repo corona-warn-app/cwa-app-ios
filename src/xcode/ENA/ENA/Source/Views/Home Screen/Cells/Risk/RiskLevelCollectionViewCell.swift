@@ -32,7 +32,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: ENALabel!
-	@IBOutlet var updateButton: ENAButton!
+	@IBOutlet var updateButton: UIButton!
 	@IBOutlet var detectionIntervalLabel: ENALabel!
 	@IBOutlet var detectionIntervalLabelContainer: UIView!
 
@@ -109,7 +109,6 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 
 	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool) {
 		updateButton.setTitle(title, for: .normal)
-		updateButton.setNeedsLayout()
 		updateButton.isEnabled = isEnabled
 		updateButton.isHidden = isHidden
 		stackView.addArrangedSubview(updateButton)
