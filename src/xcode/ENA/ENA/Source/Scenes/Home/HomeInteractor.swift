@@ -189,18 +189,20 @@ extension HomeInteractor {
 	// swiftlint:disable:next function_body_length
 	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
 
-//		let isButtonHidden = detectionMode == .automatic
+		let detectionIsAutomatic = detectionMode == .automatic
 
 		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
 		print("riskLevel: \(riskLevel)")
+
 		riskLevelConfigurator = nil
 		inactiveConfigurator = nil
+
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
 				isButtonEnabled: true,
-				isButtonHidden: true,
+				isButtonHidden: detectionIsAutomatic,
 				detectionIntervalLabelHidden: false,
 				lastUpdateDate: nil
 			)

@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let taskScheduler = ENATaskScheduler.shared
 	lazy var riskProvider: RiskProvider = {
 		var duration = DateComponents()
-		duration.day = 1
+		duration.day = 2
 
 		let config = RiskProvidingConfiguration(
 			updateMode: .automatic,

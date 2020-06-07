@@ -34,7 +34,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		super.init(
 			isLoading: false,
 			isButtonEnabled: true,
-			isButtonHidden: false, //detectionMode == .automatic,
+			isButtonHidden: detectionMode == .automatic,
 			// we never want to hide the detection interval label
 			detectionIntervalLabelHidden: false,
 			lastUpdateDate: lastUpdateDate
