@@ -21,7 +21,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private var numberRiskContacts: Int
 	private var numberDays: Int
 	private var totalDays: Int
-	private let validityDuration: Int
+	private let detectionInterval: Int
 
 	// MARK: Creating a Home Risk Cell Configurator
 
@@ -31,12 +31,12 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		totalDays: Int,
 		lastUpdateDate: Date?,
 		isButtonHidden: Bool,
-		validityDuration: Int
+		detectionInterval: Int
 	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.numberDays = numberDays
 		self.totalDays = totalDays
-		self.validityDuration = validityDuration
+		self.detectionInterval = detectionInterval
 		super.init(
 			isLoading: false,
 			isButtonEnabled: true,
@@ -80,7 +80,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardLowButton
 
-		let intervalString = "\(validityDuration)"
+		let intervalString = "\(detectionInterval)"
 		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
 		cell.configureDetectionIntervalLabel(
 			text: intervalTitle,
