@@ -36,26 +36,23 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 		switch state {
 		case .enabled:
 			iconImage = UIImage(named: "Icons_Risikoermittlung")
-			cell.titleTextView.text = AppStrings.Home.activateCardOnTitle
+			cell.titleLabel.text = AppStrings.Home.activateCardOnTitle
 			cell.iconImageView.tintColor = UIColor.preferredColor(for: .tint)
 		case .disabled, .restricted, .notAuthorized, .unknown:
 			iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
 			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negativeRisk)
-			cell.titleTextView.text = AppStrings.Home.activateCardOffTitle
+			cell.titleLabel.text = AppStrings.Home.activateCardOffTitle
 		case .bluetoothOff:
 			iconImage = UIImage(named: "Icons_Bluetooth_aus")
 			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negativeRisk)
-			cell.titleTextView.text = AppStrings.Home.activateCardBluetoothOffTitle
+			cell.titleLabel.text = AppStrings.Home.activateCardBluetoothOffTitle
 		case .internetOff:
 			iconImage = UIImage(systemName: "wifi.slash")
 			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negativeRisk)
-			cell.titleTextView.text = AppStrings.Home.activateCardInternetOffTitle
+			cell.titleLabel.text = AppStrings.Home.activateCardInternetOffTitle
 		}
 
 		cell.iconImageView.image = iconImage
-
-		let chevronImage = UIImage(systemName: "chevron.right")
-		cell.chevronImageView.image = chevronImage
 
 		setupAccessibility(for: cell)
 	}

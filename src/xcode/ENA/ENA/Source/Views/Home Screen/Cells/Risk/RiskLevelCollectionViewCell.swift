@@ -97,11 +97,6 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		viewContainer.backgroundColor = color
 	}
 
-	func configureChevron(image: UIImage?, tintColor: UIColor?) {
-		chevronImageView.image = image
-		chevronImageView.tintColor = tintColor
-	}
-
 	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool) {
 		updateButton.setTitle(title, for: .normal)
 		updateButton.isEnabled = isEnabled
@@ -126,8 +121,10 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 				itemConfigurator.configureAny(riskView: riskView)
 			}
 		}
-
-		if let riskItemView = riskViewStackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
+		if let last = lastView {
+			stackView.setCustomSpacing(16.0, after: last)
+		}
+		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
 			riskItemView.hideSeparator()
 		}
 

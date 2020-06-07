@@ -47,12 +47,12 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.delegate = self
 
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardHighTitle
-		let titleColor: UIColor = .white
+		let titleColor: UIColor = .enaColor(for: .textContrast)
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
 
-		let color = UIColor.preferredColor(for: .negativeRisk)
-		let separatorColor = UIColor.white.withAlphaComponent(0.15)
+		let color: UIColor = .enaColor(for: .riskHigh)
+		let separatorColor: UIColor = .enaColor(for: .hairlineContrast)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 		if isLoading {
 			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
@@ -70,8 +70,6 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		cell.configureChevron(image: UIImage(named: "Icons_Chevron_White"), tintColor: nil)
-
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardHighButton
 
 		let interval = "\(48)"
@@ -86,5 +84,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			isEnabled: isButtonEnabled,
 			isHidden: isButtonHidden
 		)
+
+		setupAccessibility(cell)
 	}
 }

@@ -91,6 +91,7 @@ final class SettingsViewController: UITableViewController {
 		let vc = ExposureNotificationSettingViewController(
 				coder: coder,
 				initialEnState: enState,
+				store: store,
 				delegate: self
 		)
 		notificationSettingsController = vc

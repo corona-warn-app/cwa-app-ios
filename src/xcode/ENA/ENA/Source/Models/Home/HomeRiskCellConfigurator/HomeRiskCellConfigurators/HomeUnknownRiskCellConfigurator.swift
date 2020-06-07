@@ -24,12 +24,12 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.delegate = self
 
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
-		let titleColor: UIColor = .white
+		let titleColor: UIColor = .enaColor(for: .textContrast)
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
 
-		let color = UIColor.preferredColor(for: .unknownRisk)
-		let separatorColor = UIColor.white.withAlphaComponent(0.15)
+		let color: UIColor = .enaColor(for: .riskNeutral)
+		let separatorColor: UIColor = .enaColor(for: .hairlineContrast)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 		if isLoading {
 			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
@@ -42,11 +42,9 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		cell.configureBackgroundColor(color: color)
 
-		cell.configureChevron(image: UIImage(named: "Icons_Chevron_White"), tintColor: nil)
-
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardUnknownButton
 
-		let interval = "\(48)"
+		let interval = "\(24)"
 		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, interval)
 		cell.configureDetectionIntervalLabel(
 			text: intervalTitle,
@@ -58,5 +56,7 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			isEnabled: isButtonEnabled,
 			isHidden: isButtonHidden
 		)
+
+		setupAccessibility(cell)
 	}
 }

@@ -61,11 +61,11 @@ class SQLiteKeyValueStore {
 			}
 		}
 		let dbhandle = OpaquePointer(db.sqliteHandle)
-		guard sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
-			logError(message: "Unable to set Key")
-			db.close()
-			return
-		}
+//		guard sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
+//			logError(message: "Unable to set Key")
+//			db.close()
+//			return
+//		}
 		let sqlStmt = """
 		PRAGMA auto_vacuum=2;
 

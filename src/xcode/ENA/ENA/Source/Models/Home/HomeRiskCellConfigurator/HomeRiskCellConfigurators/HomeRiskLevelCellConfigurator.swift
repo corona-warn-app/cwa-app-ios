@@ -84,6 +84,23 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	func configure(cell _: RiskLevelCollectionViewCell) {
 		fatalError("implement this method in children")
 	}
+
+	func setupAccessibility(_ cell: RiskLevelCollectionViewCell) {
+		cell.titleLabel.isAccessibilityElement = false
+		cell.chevronImageView.isAccessibilityElement = false
+		cell.detectionIntervalLabel.isAccessibilityElement = false
+		cell.detectionIntervalLabel.isAccessibilityElement = false
+		cell.viewContainer.isAccessibilityElement = false
+		cell.stackView.isAccessibilityElement = false
+
+		cell.topContainer.isAccessibilityElement = true
+		cell.bodyLabel.isAccessibilityElement = true
+		cell.updateButton.isAccessibilityElement = true
+
+		let topContainerText = cell.titleLabel.text ?? ""
+		cell.topContainer.accessibilityLabel = topContainerText
+		cell.topContainer.accessibilityTraits = [.button, .header]
+	}
 }
 
 extension HomeRiskLevelCellConfigurator: RiskLevelCollectionViewCellDelegate {
