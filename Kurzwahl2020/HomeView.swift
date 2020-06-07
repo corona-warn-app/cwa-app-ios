@@ -86,16 +86,16 @@ struct HomeView: View {
             }.tag(1)
 
             // 3nd screen
-                GeometryReader { geometry in
-                    VStack(spacing: self.vspacing()) {
-                        ForEach((2*globalNumberOfRows...(3*globalNumberOfRows-1)), id: \.self) {
-                            self.hstackTiles($0, geometry)
-                        }
-                    }
-                }
-                .tabItem {
-                    Image(systemName: appState.selectedTab == 2 ? "3.square.fill" : "3.square")
-                }.tag(2)
+//                GeometryReader { geometry in
+//                    VStack(spacing: self.vspacing()) {
+//                        ForEach((2*globalNumberOfRows...(3*globalNumberOfRows-1)), id: \.self) {
+//                            self.hstackTiles($0, geometry)
+//                        }
+//                    }
+//                }
+//                .tabItem {
+//                    Image(systemName: appState.selectedTab == 2 ? "3.square.fill" : "3.square")
+//                }.tag(2)
             
             // 4nd screen
 //            GeometryReader { geometry in
