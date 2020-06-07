@@ -25,16 +25,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	var window: UIWindow?
 
-	#if targetEnvironment(simulator) || COMMUNITY
-	// Enable third party contributors that do not have the required
-	// entitlements to also use the app
-	private let exposureManager: ExposureManager = {
-		let keys = [ENTemporaryExposureKey()]
-		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
-	}()
-	#else
-	private let exposureManager: ExposureManager = ENAExposureManager()
-	#endif
 	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {
@@ -195,13 +185,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 
 	private func presentHomeVC() {
-		//TODO: Change the URL back to clientConfiguration.configurationURL
-		let url = URL(string: "https://www.apple.com")!
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),
 			reachabilityService: ConnectivityReachabilityService(
-//				connectivityURLs: [clientConfiguration.configurationURL]
-					connectivityURLs: [url]
+				connectivityURLs: [clientConfiguration.configurationURL]
 			),
 			delegate: self
 		)
@@ -213,7 +200,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
-				exposureManager: self.exposureManager,
 				delegate: self,
 				initialEnState: enStateHandler.state
 			)

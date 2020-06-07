@@ -80,8 +80,6 @@ final class HomeInteractor: RequiresAppDependencies {
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
 	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
 
-	func developerMenuEnableIfAllowed() {}
-
 	private let userLoadingMode = UserLoadingMode.manual // !
 
 	private var isUpdateTaskRunning: Bool = false
