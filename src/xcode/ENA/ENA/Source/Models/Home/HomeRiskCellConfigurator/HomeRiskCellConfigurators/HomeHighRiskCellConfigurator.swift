@@ -27,13 +27,14 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		numberRiskContacts: Int,
 		daysSinceLastExposure: Int?,
 		lastUpdateDate: Date?,
+		manualExposureDetectionState: ManualExposureDetectionState,
 		detectionMode: DetectionMode
 	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.daysSinceLastExposure = daysSinceLastExposure
 		super.init(
 			isLoading: false,
-			isButtonEnabled: true,
+			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
 			// we never want to hide the detection interval label
 			detectionIntervalLabelHidden: false,

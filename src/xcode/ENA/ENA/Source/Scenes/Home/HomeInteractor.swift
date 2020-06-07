@@ -206,13 +206,15 @@ extension HomeInteractor {
 				numberDays: state.risk?.details.numberOfDaysWithActiveTracing ?? 0,
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection,
-				isButtonHidden: detectionMode == .automatic
+				isButtonHidden: detectionIsAutomatic
 			)
 		case .increased:
+			print("riskProvider.manualExposureDetectionState: \(riskProvider.manualExposureDetectionState)")
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
 				numberRiskContacts: state.numberRiskContacts,
 				daysSinceLastExposure: state.daysSinceLastExposure,
 				lastUpdateDate: dateLastExposureDetection,
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionMode: detectionMode
 			)
 		}

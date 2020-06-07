@@ -28,6 +28,11 @@ protocol RiskProviding: AnyObject {
 	var configuration: RiskProvidingConfiguration { get set }
 }
 
+enum ManualExposureDetectionState {
+	case possible
+	case waiting
+}
+
 final class RiskConsumer: NSObject {
 	// MARK: Creating a Consumer
 	init(targetQueue: DispatchQueue = .main) {
@@ -39,6 +44,9 @@ final class RiskConsumer: NSObject {
 
 	/// Called when the risk level changed
 	var didCalculateRisk: ((Risk) -> Void)?
+
+	/// Called when the risk level changed
+	var manualExposureDetectionStateDidChange: ((ManualExposureDetectionState) -> Void)?
 
 	/// Called when the date of the next exposure detection changed
 	var nextExposureDetectionDateDidChange: ((Date) -> Void)?

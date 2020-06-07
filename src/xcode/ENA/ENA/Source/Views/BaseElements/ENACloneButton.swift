@@ -22,91 +22,52 @@ import UIKit
 
 /// A simplified clone of the ENAButton. Note that this introduces code duplication and should only be considered a temporary fix.
 class ENACloneButton: UIButton {
-
-	// MARK: - Attributes.
-	var isTransparent = false
-	var isInverted = false
-	var color: UIColor?
-
-	func configure() {
-		setupView()
-		applyStyle()
+	// MARK: Creating a ENA Button
+	init() {
+		super.init(frame: .zero)
+		setup()
 	}
 
-	private func setupView() {
-		// Style label.
-		self.titleLabel?.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
-		self.titleLabel?.adjustsFontForContentSizeCategory = true
-		self.titleLabel?
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+		setup()
+	}
+
+	private func setup() {
+		// disabled state
+		setBackgroundImage(.filled(with: .enaColor(for: .separator)), for: .disabled)
+		setTitleColor(UIColor.enaColor(for: .textPrimary1).withAlphaComponent(0.5), for: .disabled)
+
+		// normal state
+		setBackgroundImage(.filled(with:.enaColor(for: .buttonPrimary)), for: .normal)
+		setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
+
+		// Title & Corners
+		titleLabel?.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
+		titleLabel?.adjustsFontForContentSizeCategory = true
+		titleLabel?
 			.lineBreakMode = .byWordWrapping
 
 		// Style button.
-		self.layer.cornerRadius = 8
-		self.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-	}
-
-	private func applyStyle() {
-		let style: Style
-		if isTransparent {
-			style = .transparent
-		} else if isInverted {
-			style = .contrast
-		} else {
-			style = .emphasized(color: color)
-		}
-
-		if isEnabled {
-			backgroundColor = style.backgroundColor
-			setTitleColor(style.foregroundColor, for: .normal)
-		} else {
-			backgroundColor = style.disabledBackgroundColor
-			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
-		}
+		clipsToBounds = true
+		layer.cornerRadius = 8
+		layer.maskedCorners = [
+			.layerMinXMinYCorner,
+			.layerMinXMaxYCorner,
+			.layerMaxXMinYCorner,
+			.layerMaxXMaxYCorner
+		]
+		contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 	}
 }
 
-private extension ENACloneButton {
-	enum Style {
-		case transparent
-		case emphasized(color: UIColor?)
-		case contrast
-	}
-}
-
-private extension ENACloneButton.Style {
-	var highlightColor: UIColor {
-		.enaColor(for: .buttonHighlight)
-	}
-
-	var backgroundColor: UIColor {
-		switch self {
-		case .transparent: return .clear
-		case .emphasized(let color): return color ?? .enaColor(for: .buttonPrimary)
-		case .contrast: return .enaColor(for: .background)
-		}
-	}
-
-	var foregroundColor: UIColor {
-		switch self {
-		case .transparent: return .enaColor(for: .textTint)
-		case .emphasized: return .enaColor(for: .textContrast)
-		case .contrast: return .enaColor(for: .textPrimary1)
-		}
-	}
-
-	var disabledBackgroundColor: UIColor {
-		switch self {
-		case .transparent: return .clear
-		case .emphasized: return .enaColor(for: .separator)
-		case .contrast: return .enaColor(for: .separator)
-		}
-	}
-
-	var disabledForegroundColor: UIColor {
-		switch self {
-		case .transparent: return .enaColor(for: .textTint)
-		case .emphasized: return .enaColor(for: .textPrimary1)
-		case .contrast: return .enaColor(for: .textPrimary1)
+private extension UIImage {
+	class func filled(with color: UIColor) -> UIImage {
+		let size = CGSize(width: 1.0, height: 1.0)
+		let renderer = UIGraphicsImageRenderer(size: size)
+		return renderer.image { context in
+			color.setFill()
+			context.fill(.init(origin: .zero, size: size))
 		}
 	}
 }

@@ -89,6 +89,14 @@ extension RiskProvider: RiskProviding {
 			lastExposureDetectionDate: store.summary?.date
 		)
 		consumer.nextExposureDetectionDateDidChange?(nextExposureDetectionDate)
+		consumer.manualExposureDetectionStateDidChange?(manualExposureDetectionState)
+	}
+
+	var manualExposureDetectionState: ManualExposureDetectionState {
+		let shouldPerformDetection = configuration.shouldPerformExposureDetection(
+			lastExposureDetectionDate: store.summary?.date
+			) && configuration.detectionMode == .manual
+		return shouldPerformDetection ? .possible : .waiting
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
