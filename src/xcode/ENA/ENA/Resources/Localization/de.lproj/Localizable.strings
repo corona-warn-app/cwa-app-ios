@@ -30,31 +30,33 @@
 /* Exposure Detection */
 "ExposureDetection_Off" = "Risiko-Ermittlung gestoppt";
 
-"ExposureDetection_Unknown" = "Unbekanntes Risiko";
+"ExposureDetection_Outdated" = "Risiko-Ermittlung nicht möglich";
 
-"ExposureDetection_Inactive" = "Kein erhöhtes Risiko";
+"ExposureDetection_Unknown" = "Unbekanntes Risiko";
 
 "ExposureDetection_Low" = "Geringes Risiko";
 
 "ExposureDetection_High" = "Erhöhtes Risiko";
 
-"ExposureDetection_Loading" = "Prüfung läuft ...";
+"ExposureDetection_Loading" = "Prüfung läuft...";
 
-"ExposureDetection_NumberOfDaysStored" = "%d von 14 Tagen gespeichert";
+"ExposureDetection_NumberOfDaysStored" = "%d von 14 Tagen aktiv";
 
 "ExposureDetection_Refreshed" = "Aktualisiert: %@";
 
-"ExposureDetection_Refreshed_Never" = "Noch nie";
+"ExposureDetection_Refreshed_Never" = "Unbekannt";
 
 "ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d Minuten";
 
 "ExposureDetection_LastRiskLevel" = "Letzte Ermittlung: %@";
 
-"ExposureDetection_UnknownText" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
+"ExposureDetection_OffText" = "Aktivieren Sie die Risiko-Ermittlung, um Ihre heutige Risiko-Einschätzung zu berechnen.";
 
-"ExposureDetection_InactiveText" = "Schalten Sie die Risiko-Ermittlung ein, um Ihr Risiko zu aktualisieren.";
+"ExposureDetection_OutdatedText" = "Ihre Risiko-Berechnung konnte seit mehr als 48 Stunden nicht aktualisiert werden.";
 
-"ExposureDetection_LoadingText" = "Es werden aktuelle Daten heruntergeladen und geprüft.\nDies kann mehrere Minuten dauern.";
+"ExposureDetection_UnknownText" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
+
+"ExposureDetection_LoadingText" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 
 "ExposureDetection_Behavior_Title" = "Verhalten";
 
@@ -62,39 +64,35 @@
 
 "ExposureDetection_Guide_Hands" = "Waschen Sie Ihre Hände regelmäßig.";
 
-"ExposureDetection_Guide_Mask" = "Tragen Sie einen Mundschutz bei Begegnungen mit anderen Personen.";
+"ExposureDetection_Guide_Mask" = "Tragen Sie einen Mundschutz bei Kontakt mit anderen Personen.";
 
 "ExposureDetection_Guide_Distance" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
 "ExposureDetection_Guide_Sneeze" = "Niesen oder husten Sie in die Armbeuge oder in ein Taschentuch.";
 
-"ExposureDetection_Guide_Home" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
+"ExposureDetection_Guide_Home" = "Begeben Sie sich umgehend nach Hause bzw. bleiben Sie zu Hause.";
 
-"ExposureDetection_Guide_Hotline1" = "Für Fragen zu auftretenden Symptomen, Testmöglichkeiten und weiteren Absonderungsmaßnahmen, wenden Sie sich bitte an eine der folgenden Stellen:";
+"ExposureDetection_Guide_Hotline1" = "Für Fragen zu auftretenden Symptomen, Testmöglichkeiten und weiteren Isolationsmaßnahmen wenden Sie sich bitte an eine der folgenden Stellen:";
 
-"ExposureDetection_Guide_Hotline2" = "Ihren Hausarzt/Ihre Hausärztin";
+"ExposureDetection_Guide_Hotline2" = "Ihre Hausärztin/Ihren Hausarzt";
 
-"ExposureDetection_Guide_Hotline3" = "Den Kassenärztlichen Notdienst unter der Telefonnummer: 116117";
+"ExposureDetection_Guide_Hotline3" = "Den Kassenärztlichen Bereitschaftsdienst unter der Telefonnummer: 116117";
 
 "ExposureDetection_Guide_Hotline4" = "Ihr Gesundheitsamt";
 
 "ExposureDetection_Explanation_Title" = "Infektionsrisiko";
 
-"ExposureDetection_Explanation_Subtitle" = "So wird Ihr Risiko ermittelt";
+"ExposureDetection_Explanation_Subtitle_Active" = "So wurde Ihr Risiko ermittelt";
+"ExposureDetection_Explanation_Subtitle_Inactive" = "So wird Ihr Risiko ermittelt";
 
-"ExposureDetection_Explanation_Text_Off" = "Lorem Ipsum..";
+"ExposureDetection_Explanation_Text_Off" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Unknown" = "Sie haben ein unbekanntes Infektionsrisiko.";
+"ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko- Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Inactive" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDie Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona- positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDie Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
-
-"ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.\n\nDie Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\n\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
-
-"ExposureDetection_MoreInformation" = "Mehr Info";
-
-"ExposureDetection_MoreInformation_URL" = "https://www.google.de";
+"ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer- Corona positiv-getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.
+";
 
 "ExposureDetection_Hotline_Number" = "+498007540002";
 
