@@ -121,9 +121,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 				itemConfigurator.configureAny(riskView: riskView)
 			}
 		}
-		if let last = lastView {
-			stackView.setCustomSpacing(16.0, after: last)
-		}
+	
 		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
 			riskItemView.hideSeparator()
 		}
