@@ -49,11 +49,7 @@ final class RiskProvider {
 	private let store: Store
 	private let exposureSummaryProvider: ExposureSummaryProvider
 	private let appConfigurationProvider: AppConfigurationProviding
-	var exposureManagerState: ExposureManagerState {
-		didSet {
-			requestRisk()
-		}
-	}
+	var exposureManagerState: ExposureManagerState
 	var configuration: RiskProvidingConfiguration
 }
 
@@ -92,7 +88,7 @@ extension RiskProvider: RiskProviding {
 
 		let exposureDetectionValidityDuration = configuration.exposureDetectionValidityDuration
 		// Using .distantPast here simplifies the algorithm a bit
-		let lastExposureDetectionDate = store.dateLastExposureDetection ?? .distantPast
+		let lastExposureDetectionDate = store.summaryDate ?? .distantPast
 
 		let nextExposureDetectionDate: Date = {
 			let now = Date()
@@ -119,45 +115,86 @@ extension RiskProvider: RiskProviding {
 
 	private struct Summaries {
 		var previous: ENExposureDetectionSummaryContainer?
+		var previousDate: Date?
+
 		var current: ENExposureDetectionSummaryContainer?
+		var currentDate: Date?
 	}
 
 	private func _requestRiskLevel() {
-
-
-		func summaries(completion: (Summaries) -> Void) {
+		func determineSummaries(completion: @escaping (Summaries) -> Void) {
 			if configuration.detectionMode == .manual {
-//				completion(.init(previous: <#T##ENExposureDetectionSummaryContainer?#>, current: <#T##ENExposureDetectionSummaryContainer?#>))
-//				completion(store.previ)
+				completion(
+					.init(
+						previous: nil,
+						current: store.summary,
+						currentDate:
+						store.summaryDate
+					)
+				)
 				return
+			}
+			// Here we are in automatic mode and thus we have to check the validity of the current summary
+			let exposureDetectionIsValid = configuration.exposureDetectionIsValid(lastExposureDetectionDate: store.summaryDate)
+			if exposureDetectionIsValid {
+				completion(
+					.init(
+						previous: nil,
+						current: store.summary,
+						currentDate:
+						store.summaryDate
+					)
+				)
+				return
+			}
+
+			// The summary is outdated + we are in automatic mode: do a exposure detection
+			exposureSummaryProvider.detectExposure { detectedSummary in
+				guard let detectedSummary = detectedSummary else { return }
+				let current = ENExposureDetectionSummaryContainer(with: detectedSummary)
+
+//				self.store.beginTransaction()
+				let previous = self.store.summary
+				let previousDate = self.store.summaryDate
+//				self.store.commit()
+
+//				self.store.beginTransaction()
+				self.store.summary = current
+				///
+				self.store.summaryDate = Date()
+//				self.store.commit()
+				completion(
+					.init(
+						previous: previous,
+						previousDate: previousDate,
+						current: current,
+						currentDate: self.store.summaryDate
+					)
+				)
 			}
 		}
 
-
-		var newSummary: ENExposureDetectionSummaryContainer?
 		let group = DispatchGroup()
 
-//		if exposureDetectionIsInvalid {
-//			group.enter()
-//			exposureSummaryProvider.detectExposure { detectedSummary in
-//				defer { group.leave() }
-//				guard let detectedSummary = detectedSummary else { return }
-//				newSummary = ENExposureDetectionSummaryContainer(with: detectedSummary)
-//			}
-//		}
+		var summaries: Summaries?
+
+		group.enter()
+		determineSummaries {
+			defer { group.leave() }
+			summaries = $0
+		}
 
 		var appConfiguration: SAP_ApplicationConfiguration?
 		group.enter()
 		appConfigurationProvider.appConfiguration { configuration in
+			defer { group.leave() }
 			appConfiguration = configuration
-			group.leave()
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
 			return
 		}
-		
-		let summary = newSummary ?? store.summary
+
 
 		guard let _appConfiguration = appConfiguration else {
 			return
@@ -165,11 +202,12 @@ extension RiskProvider: RiskProviding {
 		
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.countEnabledHours()
+
 		guard
 			let risk = RiskCalculation.risk(
-				summary: summary,
+				summary: summaries?.current,
 				configuration: _appConfiguration,
-				dateLastExposureDetection: store.dateLastExposureDetection,
+				dateLastExposureDetection: summaries?.currentDate,
 				numberOfTracingActiveHours: numberOfEnabledHours,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
@@ -179,13 +217,9 @@ extension RiskProvider: RiskProviding {
 				return
 		}
 
-        store.summary = summary
-        store.summaryDate = Date()
-
 		for consumer in consumers.allObjects {
 			_provideRisk(risk, to: consumer)
 		}
-
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {

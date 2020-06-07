@@ -20,7 +20,6 @@ import ExposureNotification
 
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
-	var dateLastExposureDetection: Date? { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
 	var developerSubmissionBaseURLOverride: String? { get set }
 	var developerDistributionBaseURLOverride: String? { get set }
@@ -161,22 +160,17 @@ final class SecureStore: Store {
 	var devicePairingSuccessfulTimestamp: Int64? {
 		get { kvStore["devicePairingSuccessfulTimestamp"] as Int64? ?? 0 }
 		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue }
-		}
+	}
 
 	var isAllowedToSubmitDiagnosisKeys: Bool {
 		get { kvStore["isAllowedToSubmitDiagnosisKeys"] as Bool? ?? false }
 		set { kvStore["isAllowedToSubmitDiagnosisKeys"] = newValue }
-		}
+	}
 
 	var isOnboarded: Bool {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
 		set { kvStore["isOnboarded"] = newValue }
-		}
-
-	var dateLastExposureDetection: Date? {
-		get { kvStore["dateLastExposureDetection"] as Date? ?? nil }
-		set { kvStore["dateLastExposureDetection"] = newValue }
-		}
+	}
 
 	var dateOfAcceptedPrivacyNotice: Date? {
 		get { kvStore["dateOfAcceptedPrivacyNotice"] as Date? ?? nil }
@@ -191,7 +185,7 @@ final class SecureStore: Store {
 	var developerSubmissionBaseURLOverride: String? {
 		get { kvStore["developerSubmissionBaseURLOverride"] as String? ?? nil }
 		set { kvStore["developerSubmissionBaseURLOverride"] = newValue }
-		}
+	}
 
 	var developerDistributionBaseURLOverride: String? {
 		get { kvStore["developerDistributionBaseURLOverride"] as String? ?? nil }
@@ -201,12 +195,12 @@ final class SecureStore: Store {
 	var developerVerificationBaseURLOverride: String? {
 		get { kvStore["developerVerificationBaseURLOverride"] as String? ?? nil }
 		set { kvStore["developerVerificationBaseURLOverride"] = newValue }
-		}
+	}
 
 	var allowRiskChangesNotification: Bool {
 		get { kvStore["allowRiskChangesNotification"] as Bool? ?? true }
 		set { kvStore["allowRiskChangesNotification"] = newValue }
-		}
+	}
 
 	var allowTestsStatusNotification: Bool {
 		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }

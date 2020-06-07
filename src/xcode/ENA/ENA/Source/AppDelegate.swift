@@ -170,7 +170,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 		exposureDetection = nil
 		switch result {
 		case .success(let summary):
-			store.dateLastExposureDetection = Date()
+			store.summaryDate = Date()
 			NotificationCenter.default.post(
 				name: .didDetectExposureDetectionSummary,
 				object: nil,
