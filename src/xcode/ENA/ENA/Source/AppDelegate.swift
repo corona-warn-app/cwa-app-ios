@@ -31,46 +31,6 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 }
 
-protocol RequiresAppDependencies {
-	var client: Client { get }
-	var store: Store { get }
-	var taskScheduler: ENATaskScheduler { get }
-	var downloadedPackagesStore: DownloadedPackagesStore { get }
-	var riskProvider: RiskProvider { get }
-	var exposureManager: ExposureManager { get }
-	var lastRiskCalculation: String { get }  // TODO: REMOVE ME
-}
-
-extension RequiresAppDependencies {
-	var client: Client {
-		UIApplication.coronaWarnDelegate().client
-	}
-
-	var downloadedPackagesStore: DownloadedPackagesStore {
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore
-	}
-
-	var store: Store {
-		UIApplication.coronaWarnDelegate().store
-	}
-
-	var taskScheduler: ENATaskScheduler {
-		UIApplication.coronaWarnDelegate().taskScheduler
-	}
-
-	var riskProvider: RiskProvider {
-		UIApplication.coronaWarnDelegate().riskProvider
-	}
-
-	var lastRiskCalculation: String {
-		UIApplication.coronaWarnDelegate().lastRiskCalculation
-	}
-
-	var exposureManager: ExposureManager {
-		UIApplication.coronaWarnDelegate().exposureManager
-	}
-}
-
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {

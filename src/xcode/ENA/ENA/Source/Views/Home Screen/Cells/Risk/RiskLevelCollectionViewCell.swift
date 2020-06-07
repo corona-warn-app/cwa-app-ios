@@ -39,6 +39,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var topContainer: UIView!
 	@IBOutlet var stackView: UIStackView!
+	@IBOutlet var riskViewStackView: UIStackView!
 
 	// MARK: Nib Loading
 
@@ -81,21 +82,15 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 
 	// MARK: Configuring the UI
 
-	func removeAllArrangedSubviews() {
-		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-	}
-
 	func configureTitle(title: String, titleColor: UIColor) {
 		titleLabel.text = title
 		titleLabel.textColor = titleColor
-		stackView.addArrangedSubview(topContainer)
 	}
 
 	func configureBody(text: String, bodyColor: UIColor, isHidden: Bool) {
 		bodyLabel.text = text
 		bodyLabel.textColor = bodyColor
 		bodyLabel.isHidden = isHidden
-		stackView.addArrangedSubview(bodyLabel)
 	}
 
 	func configureBackgroundColor(color: UIColor) {
@@ -111,33 +106,31 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		updateButton.setTitle(title, for: .normal)
 		updateButton.isEnabled = isEnabled
 		updateButton.isHidden = isHidden
-		stackView.addArrangedSubview(updateButton)
 	}
 
 	func configureDetectionIntervalLabel(text: String, isHidden: Bool) {
 		detectionIntervalLabel.text = text
 		detectionIntervalLabel.isHidden = isHidden
 		detectionIntervalLabelContainer.isHidden = isHidden
-		stackView.addArrangedSubview(detectionIntervalLabelContainer)
 	}
 
 	func configureRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
-		var lastView: UIView?
+
+		riskViewStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
 		for itemConfigurator in cellConfigurators {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
 			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? UIView {
-				stackView.addArrangedSubview(riskView)
-				stackView.setCustomSpacing(0.0, after: riskView)
+				riskViewStackView.addArrangedSubview(riskView)
 				itemConfigurator.configureAny(riskView: riskView)
-				lastView = riskView
 			}
 		}
-		if let last = lastView {
-			stackView.setCustomSpacing(15.0, after: last)
-		}
-		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
+
+		if let riskItemView = riskViewStackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
 			riskItemView.hideSeparator()
 		}
+
+		riskViewStackView.isHidden = cellConfigurators.isEmpty
 	}
 }
