@@ -46,13 +46,15 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		subTitleLabel.text = AppStrings.ExposureSubmissionResult.card_subtitle
 		titleLabel.text = localizedString(for: testResult)
 		barView.layer.backgroundColor = color(for: testResult).cgColor
-		let formatter = DateFormatter()
-		formatter.dateStyle = .medium
-		formatter.timeStyle = .none
+
 		if let timeStamp = timeStamp {
-			timeLabel.text = "Registriert am " + formatter.string(from: Date(timeIntervalSince1970: TimeInterval(timeStamp) ))
+			let formatter = DateFormatter()
+			formatter.dateStyle = .medium
+			formatter.timeStyle = .none
+			let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
+			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDate) \(formatter.string(from: date))"
 		} else {
-			timeLabel.text = "Registrieungsdatum unbekannt."
+			timeLabel.text = AppStrings.ExposureSubmissionResult.registrationDateUnknown
 		}
 	}
 
@@ -60,10 +62,6 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// swiftlint:disable:next function_body_length
 	private func setupView(_ result: TestResult) {
-
-		let heightConstraint = heightAnchor.constraint(equalToConstant: 158)
-		heightConstraint.priority = UILayoutPriority(999)
-		heightConstraint.isActive = true
 
 		self.backgroundView = {
 			let view = UIView()
@@ -77,18 +75,20 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		addSubview(baseView)
 
 		baseView.widthAnchor.constraint(equalTo: widthAnchor, constant: -32).isActive = true
-		baseView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-		baseView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+		baseView.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
+		baseView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
 		baseView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 
 		barView = UIView()
 		barView.layer.cornerRadius = 2
 		barView.translatesAutoresizingMaskIntoConstraints = false
 		baseView.addSubview(barView)
+
 		barView.widthAnchor.constraint(equalToConstant: 4).isActive = true
 		barView.heightAnchor.constraint(equalToConstant: 120).isActive = true
 		barView.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
 		barView.leftAnchor.constraint(equalTo: baseView.leftAnchor, constant: 14).isActive = true
+		barView.topAnchor.constraint(equalTo: baseView.topAnchor, constant: 16).isActive = true
 
 		column = UIView()
 		column.translatesAutoresizingMaskIntoConstraints = false
@@ -122,7 +122,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		timeLabel.translatesAutoresizingMaskIntoConstraints = false
 		column.addSubview(timeLabel)
 		timeLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
-		timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
+		timeLabel.bottomAnchor.constraint(equalTo: baseView.bottomAnchor, constant: -16).isActive = true
 
 		imageView = UIImageView(image: image(for: result))
 		imageView.translatesAutoresizingMaskIntoConstraints = false
