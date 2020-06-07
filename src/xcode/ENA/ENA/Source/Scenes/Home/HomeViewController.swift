@@ -116,10 +116,10 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-				let image = UIImage(named: "Corona-Warn-App")
-				let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
-				leftItem.isEnabled = false
-				self.navigationItem.leftBarButtonItem = leftItem
+			let image = UIImage(named: "Corona-Warn-App")
+			let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
+			leftItem.isEnabled = false
+			self.navigationItem.leftBarButtonItem = leftItem
 		}
 	}
 
@@ -389,6 +389,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		leftItem.isEnabled = false
 		self.navigationItem.leftBarButtonItem = leftItem
 	}
+
 }
 
 // MARK: - Update test state.
