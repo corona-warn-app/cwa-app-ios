@@ -223,7 +223,7 @@
 
 "ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die Ihnen mitgeteilte TAN ein:";
 
-"ExposureSubmissionTanEntry_Description" = "Die TAN ist 10-stellig und Groß- und Kleinschreibung muss nicht beachtet werden.";
+"ExposureSubmissionTanEntry_Description" = "Geben Sie bitte die 10 Stellen der TAN ein, die Ihnen mitgeteilt wurde.";
 
 "ExposureSubmissionTanEntry_Submit" = "Weiter";
 
