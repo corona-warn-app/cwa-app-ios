@@ -20,6 +20,7 @@ import UIKit
 final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private var numberRiskContacts: Int
 	private var daysSinceLastExposure: Int?
+	private let validityDuration: Int
 
 	// MARK: Creating a Home Risk Cell Configurator
 
@@ -28,10 +29,12 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		daysSinceLastExposure: Int?,
 		lastUpdateDate: Date?,
 		manualExposureDetectionState: ManualExposureDetectionState,
-		detectionMode: DetectionMode
+		detectionMode: DetectionMode,
+		validityDuration: Int
 	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.daysSinceLastExposure = daysSinceLastExposure
+		self.validityDuration = validityDuration
 		super.init(
 			isLoading: false,
 			isButtonEnabled: manualExposureDetectionState == .possible,
@@ -72,9 +75,8 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureBackgroundColor(color: color)
 
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardHighButton
-
-		let interval = "\(24)"
-		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, interval)
+		let intervalString = "\(validityDuration)"
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
 		cell.configureDetectionIntervalLabel(
 			text: intervalTitle,
 			isHidden: detectionIntervalLabelHidden
