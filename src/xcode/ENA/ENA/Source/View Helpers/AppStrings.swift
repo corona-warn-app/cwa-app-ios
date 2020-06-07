@@ -34,6 +34,7 @@ enum AppStrings {
 		static let alertDescriptionBluetoothOff = NSLocalizedString("Alert_BluetoothOff_Description", comment: "")
 		static let alertActionLater = NSLocalizedString("Alert_CancelAction_Later", comment: "")
 		static let alertActionOpenSettings = NSLocalizedString("Alert_DefaultAction_OpenSettings", comment: "")
+		static let general_BackButtonTitle = NSLocalizedString("General_BackButtonTitle", comment: "")
 	}
 
 	enum ExposureSubmission {
@@ -99,6 +100,7 @@ enum AppStrings {
 		static let furtherInfos_ListItem2 = NSLocalizedString("ExposureSubmissionResult_testNegative_furtherInfos_listItem2", comment: "")
 		static let furtherInfos_ListItem3 = NSLocalizedString("ExposureSubmissionResult_testNegative_furtherInfos_listItem3", comment: "")
 		static let furtherInfos_Hint = NSLocalizedString("ExposureSubmissionResult_testNegative_furtherInfos_hint", comment: "")
+		static let furtherInfos_TestAgain = NSLocalizedString("ExposureSubmissionResult_furtherInfos_hint_testAgain", comment: "")
 		static let removeAlert_Title = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Title", comment: "")
 		static let removeAlert_Text = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Text", comment: "")
 	}
@@ -287,6 +289,7 @@ enum AppStrings {
 		static let onboardingInfo_enableLoggingOfContactsPage_normalText = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_normalText", comment: "")
 		static let onboardingInfo_enableLoggingOfContactsPage_panelTitle = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_panelTitle", comment: "")
 		static let onboardingInfo_enableLoggingOfContactsPage_panelBody = NSLocalizedString("OnboardingInfo_enableLoggingOfContactsPage_panelBody", comment: "")
+		static let onboardingInfo_enableLoggingOfContactsPage_button = NSLocalizedString("Onboarding_EnableLogging_actionText", comment: "")
 		static let onboardingInfo_howDoesDataExchangeWorkPage_title = NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_title", comment: "")
 		static let onboardingInfo_howDoesDataExchangeWorkPage_boldText = NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_boldText", comment: "")
 		static let onboardingInfo_howDoesDataExchangeWorkPage_normalText = NSLocalizedString("OnboardingInfo_howDoesDataExchangeWorkPage_normalText", comment: "")
@@ -314,6 +317,11 @@ enum AppStrings {
 		static let tracingHistoryDescription = NSLocalizedString("ENSetting_Tracing_History", comment: "")
 		static let activateOSENSetting = NSLocalizedString("ExposureNotificationSetting_Activate_OSENSetting", comment: "")
 		static let activateOSENSettingDescription = NSLocalizedString("ExposureNotificationSetting_Activate_OSENSetting_Description", comment: "")
+		static let activateParentalControlENSetting = NSLocalizedString("ExposureNotificationSetting_ParentalControls_OSENSetting", comment: "")
+		static let activateParentalControlENSettingDescription = NSLocalizedString("ExposureNotificationSetting_ParentalControls_OSENSetting_Description", comment: "")
+		static let authorizationRequiredENSetting = NSLocalizedString("ExposureNotificationSetting_AuthorizationRequired_OSENSetting", comment: "")
+		static let authorizationRequiredENSettingDescription = NSLocalizedString("ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description", comment: "")
+		static let authorizationButtonTitle = NSLocalizedString("ExposureNotificationSetting_AuthorizationRequired_ActionTitle", comment: "")
 
 		static let accLabelEnabled = NSLocalizedString("ExposureNotificationSetting_AccLabel_Enabled", comment: "")
 		static let accLabelDisabled = NSLocalizedString("ExposureNotificationSetting_AccLabel_Disabled", comment: "")
@@ -322,6 +330,10 @@ enum AppStrings {
 	}
 
 	enum Home {
+		// Home Navigation
+		static let leftBarButtonDescription = NSLocalizedString("Home_LeftBarButton_description", comment: "")
+		static let rightBarButtonDescription = NSLocalizedString("Home_RightBarButton_description", comment: "")
+
 		// Activate Card
 		static let activateCardOnTitle = NSLocalizedString("Home_Activate_Card_On_Title", comment: "")
 		static let activateCardOffTitle = NSLocalizedString("Home_Activate_Card_Off_Title", comment: "")
@@ -403,6 +415,8 @@ enum AppStrings {
 		// Test Result States
 		static let resultCardResultAvailableTitle = NSLocalizedString("Home_resultCard_ResultAvailableTitle", comment: "")
 		static let resultCardResultUnvailableTitle = NSLocalizedString("Home_resultCard_ResultUnvailableTitle", comment: "")
+		static let resultCardLoadingBody = NSLocalizedString("Home_resultCard_LoadingBody", comment: "")
+		static let resultCardLoadingTitle = NSLocalizedString("Home_resultCard_LoadingTitle", comment: "")
 		static let resultCardShowResultButton = NSLocalizedString("Home_resultCard_ShowResultButton", comment: "")
 		static let resultCardNegativeTitle = NSLocalizedString("Home_resultCard_NegativeTitle", comment: "")
 		static let resultCardNegativeDesc = NSLocalizedString("Home_resultCard_NegativeDesc", comment: "")
@@ -492,4 +506,52 @@ enum AppStrings {
 		static let randomText = NSLocalizedString("RiskLegend_Random_Text", comment: "")
 		static let titleImageAccLabel = NSLocalizedString("RiskLegend_Image1_AccLabel", comment: "")
 	}
+
+	enum AppInformation {
+		static let aboutNavigation = NSLocalizedString("App_Information_About_Navigation", comment: "")
+		static let aboutImageDescription = NSLocalizedString("App_Information_About_ImageDescription", comment: "")
+		static let aboutTitle = NSLocalizedString("App_Information_About_Title", comment: "")
+		static let aboutDescription = NSLocalizedString("App_Information_About_Description", comment: "")
+		static let aboutText = NSLocalizedString("App_Information_About_Text", comment: "")
+
+		static let faqNavigation = NSLocalizedString("App_Information_FAQ_Navigation", comment: "")
+		static let faqTitle = NSLocalizedString("App_Information_FAQ_Title", comment: "")
+
+		static let contactNavigation = NSLocalizedString("App_Information_Contact_Navigation", comment: "")
+		static let contactImageDescription = NSLocalizedString("App_Information_Contact_ImageDescription", comment: "")
+		static let contactTitle = NSLocalizedString("App_Information_Contact_Title", comment: "")
+		static let contactDescription = NSLocalizedString("App_Information_Contact_Description", comment: "")
+		static let contactHotlineTitle = NSLocalizedString("App_Information_Contact_Hotline_Title", comment: "")
+		static let contactHotlineText = NSLocalizedString("App_Information_Contact_Hotline_Text", comment: "")
+		static let contactHotlineNumber = NSLocalizedString("App_Information_Contact_Hotline_Number", comment: "")
+		static let contactHotlineDescription = NSLocalizedString("App_Information_Contact_Hotline_Description", comment: "")
+		static let contactHotlineTerms = NSLocalizedString("App_Information_Contact_Hotline_Terms", comment: "")
+
+		static let imprintNavigation = NSLocalizedString("App_Information_Imprint_Navigation", comment: "")
+		static let imprintImageDescription = NSLocalizedString("App_Information_Imprint_ImageDescription", comment: "")
+		static let imprintSection1Title = NSLocalizedString("App_Information_Imprint_Section1_Title", comment: "")
+		static let imprintSection1Text = NSLocalizedString("App_Information_Imprint_Section1_Text", comment: "")
+		static let imprintSection2Title = NSLocalizedString("App_Information_Imprint_Section2_Title", comment: "")
+		static let imprintSection2Text = NSLocalizedString("App_Information_Imprint_Section2_Text", comment: "")
+		static let imprintSection3Title = NSLocalizedString("App_Information_Imprint_Section3_Title", comment: "")
+		static let imprintSection3Text = NSLocalizedString("App_Information_Imprint_Section3_Text", comment: "")
+		static let imprintSection4Title = NSLocalizedString("App_Information_Imprint_Section4_Title", comment: "")
+		static let imprintSection4Text = NSLocalizedString("App_Information_Imprint_Section4_Text", comment: "")
+
+		static let legalNavigation = NSLocalizedString("App_Information_Legal_Navigation", comment: "")
+		static let legalImageDescription = NSLocalizedString("App_Information_Legal_ImageDescription", comment: "")
+
+		static let privacyNavigation = NSLocalizedString("App_Information_Privacy_Navigation", comment: "")
+		static let privacyImageDescription = NSLocalizedString("App_Information_Privacy_ImageDescription", comment: "")
+		static let privacyTitle = NSLocalizedString("App_Information_Privacy_Title", comment: "")
+		static let privacyDescription = NSLocalizedString("App_Information_Privacy_Description", comment: "")
+		static let privacyText = NSLocalizedString("App_Information_Privacy_Text", comment: "")
+
+		static let termsNavigation = NSLocalizedString("App_Information_Terms_Navigation", comment: "")
+		static let termsImageDescription = NSLocalizedString("App_Information_Terms_ImageDescription", comment: "")
+		static let termsTitle = NSLocalizedString("App_Information_Terms_Title", comment: "")
+		static let termsDescription = NSLocalizedString("App_Information_Terms_Description", comment: "")
+		static let termsText = NSLocalizedString("App_Information_Terms_Text", comment: "")
+	}
+
 }

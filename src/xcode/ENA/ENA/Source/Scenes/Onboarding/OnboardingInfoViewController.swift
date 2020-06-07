@@ -17,6 +17,7 @@
 
 import UIKit
 import UserNotifications
+import ExposureNotification
 
 enum OnboardingPageType: Int, CaseIterable {
 	case togetherAgainstCoronaPage = 0
@@ -158,14 +159,25 @@ final class OnboardingInfoViewController: UIViewController {
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
-		
-		if pageType == .enableLoggingOfContactsPage {
+
+		switch pageType {
+		case .enableLoggingOfContactsPage:
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
-				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
 			)
+		case .privacyPage:
+			stackView.arrangedSubviews.last?.isHidden = true
+			let textView = HtmlTextView()
+			textView.delegate = self
+			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
+				textView.load(from: url)
+			}
+			stackView.addArrangedSubview(textView)
+		default:
+			break
 		}
-		
+
 	}
 
 	func setupAccessibility() {
@@ -176,6 +188,8 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isAccessibilityElement = true
 		ignoreButton.isAccessibilityElement = true
 
+		titleLabel.accessibilityTraits = .header
+		
 		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
 		nextButton.accessibilityIdentifier = Accessibility.Button.next
 		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
@@ -211,11 +225,11 @@ final class OnboardingInfoViewController: UIViewController {
 				log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
 			case .exposureNotificationAuthorization:
 				log(message: "Encourage the user to authorize this application", level: .warning)
+				print("Encourage the user to authorize this application: \(ENManager.authorizationStatus)")
 			case .exposureNotificationUnavailable:
 				log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
 			case .apiMisuse:
 				// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
-				completion?()
 				return false
 			default:
 				break
@@ -274,9 +288,11 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	@IBAction func didTapNextButton(_: Any) {
+		nextButton.isUserInteractionEnabled = false
 		runActionForPageType(
-			completion: {
-				self.gotoNextScreen()
+			completion: { [weak self] in
+				self?.gotoNextScreen()
+				self?.nextButton.isUserInteractionEnabled = true
 			}
 		)
 	}
@@ -315,4 +331,11 @@ final class OnboardingInfoViewController: UIViewController {
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
+}
+
+extension OnboardingInfoViewController: UITextViewDelegate {
+	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+		WebPageHelper.openSafari(withUrl: url, from: self)
+		return false
+	}
 }
