@@ -266,7 +266,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 		consumer.didCalculateRisk = { risk in
 			// present a notification if the risk score has increased
-			if risk.riskLevelHasIncreased {
+			if risk.riskLevelHasChanged {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.detectExposureTitle,
 					body: AppStrings.LocalNotifications.detectExposureBody,
