@@ -62,11 +62,11 @@ extension ExposureSubmissionNavigationControllerChild {
 	}
 
 	func showSecondaryButton() {
-		exposureSubmissionNavigationController?.secondaryButton.isHidden = false
+		exposureSubmissionNavigationController?.showSecondaryButton()
 	}
 
 	func hideSecondaryButton() {
-		exposureSubmissionNavigationController?.secondaryButton.isHidden = true
+		exposureSubmissionNavigationController?.hideSecondaryButton()
 	}
 }
 
@@ -236,6 +236,16 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		bottomView.layoutIfNeeded()
 
 		if animated { CATransaction.commit() }
+	}
+
+	func showSecondaryButton() {
+		self.secondaryButton.isHidden = false
+		updateBottomSafeAreaInset()
+	}
+
+	func hideSecondaryButton() {
+		self.secondaryButton.isHidden = true
+		updateBottomSafeAreaInset()
 	}
 
 	private func updateBottomSafeAreaInset(animated: Bool = false) {

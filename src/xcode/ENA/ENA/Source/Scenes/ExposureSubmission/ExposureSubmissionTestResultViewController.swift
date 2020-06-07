@@ -30,7 +30,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		setupButton()
+		setupButtons()
 	}
 	
 
@@ -57,7 +57,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 		timeStamp = exposureSubmissionService?.devicePairingConsentAcceptTimestamp
 	}
 
-	private func setupButton() {
+	private func setupButtons() {
 		guard let result = testResult else { return }
 		switch result {
 		case .positive:
