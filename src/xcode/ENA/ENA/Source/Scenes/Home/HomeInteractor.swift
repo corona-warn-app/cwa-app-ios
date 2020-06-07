@@ -212,7 +212,9 @@ extension HomeInteractor {
 				totalDays: 14,
 				lastUpdateDate: dateLastExposureDetection,
 				isButtonHidden: detectionIsAutomatic,
-				validityDuration: detectionValidityDuration
+				validityDuration: detectionValidityDuration,
+				detectionMode: detectionMode,
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState
 			)
 		case .increased:
 			print("riskProvider.manualExposureDetectionState: \(riskProvider.manualExposureDetectionState)")

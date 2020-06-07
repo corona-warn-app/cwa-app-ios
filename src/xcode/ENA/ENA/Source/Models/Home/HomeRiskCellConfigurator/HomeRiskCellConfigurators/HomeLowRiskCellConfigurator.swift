@@ -31,7 +31,9 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		totalDays: Int,
 		lastUpdateDate: Date?,
 		isButtonHidden: Bool,
-		validityDuration: Int
+		validityDuration: Int,
+		detectionMode: DetectionMode,
+		manualExposureDetectionState: ManualExposureDetectionState
 	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.numberDays = numberDays
@@ -39,7 +41,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		self.validityDuration = validityDuration
 		super.init(
 			isLoading: false,
-			isButtonEnabled: true,
+			isButtonEnabled: detectionMode == .manual && manualExposureDetectionState == .possible,
 			isButtonHidden: isButtonHidden,
 			detectionIntervalLabelHidden: false,
 			lastUpdateDate: lastUpdateDate
