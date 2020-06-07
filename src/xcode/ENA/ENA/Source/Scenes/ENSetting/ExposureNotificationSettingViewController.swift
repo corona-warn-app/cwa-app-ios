@@ -59,16 +59,6 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		tableView.sectionFooterHeight = 0.0
 
 	}
-//
-//	private func tryEnManager() {
-//		let enManager = ENManager()
-//		enManager.activate { error in
-//			if let error = error {
-//				print("Cannot activate the enmanager.")
-//				return
-//			}
-//		}
-//	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -136,6 +126,28 @@ extension ExposureNotificationSettingViewController {
 		} else {
 			tableView.reloadData()
 		}
+	}
+
+	private func askConsentToUser() {
+		let alert = UIAlertController(
+			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
+			message: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody,
+			preferredStyle: .alert
+		)
+		let completionHandler: (UIAlertAction) -> Void = { action in
+			switch action.style {
+			case .default:
+				self.setExposureManagerEnabled(true, then: self.silentErrorIfNeed)
+			case .cancel, .destructive:
+				self.lastActionCell?.configure(for: self.enState, delegate: self)
+				self.tableView.reloadData()
+			@unknown default:
+				fatalError("Not all cases of actions covered when handling the bluetooth")
+			}
+		}
+		alert.addAction(UIAlertAction(title: "Aktivieren", style: .default, handler: { action in completionHandler(action) }))
+		alert.addAction(UIAlertAction(title: "Abbrechen", style: .cancel, handler: { action in completionHandler(action) }))
+		self.present(alert, animated: true, completion: nil)
 	}
 }
 
@@ -226,7 +238,7 @@ extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate
 		case .enable(false):
 			setExposureManagerEnabled(false, then: handleErrorIfNeed)
 		case .askConsent:
-			setExposureManagerEnabled(true, then: silentErrorIfNeed)
+			askConsentToUser()
 		}
 	}
 }
