@@ -53,6 +53,6 @@ extension RiskProvidingConfiguration {
 	}
 
 	func shouldPerformExposureDetection(lastExposureDetectionDate: Date?) -> Bool {
-		nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate) > Date()
+		nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate) < Date()
 	}
 }

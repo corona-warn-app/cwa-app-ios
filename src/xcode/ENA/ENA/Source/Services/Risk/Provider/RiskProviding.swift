@@ -23,7 +23,7 @@ protocol RiskProviding: AnyObject {
 	typealias Completion = (Result<Risk, Error>) -> Void
 
 	func observeRisk(_ consumer: RiskConsumer)
-	func requestRisk()
+	func requestRisk(userInitiated: Bool)
 
 	var configuration: RiskProvidingConfiguration { get set }
 }

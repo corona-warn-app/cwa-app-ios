@@ -363,7 +363,7 @@ extension SceneDelegate {
 extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		riskProvider.exposureManagerState = state
-		riskProvider.requestRisk()
+		riskProvider.requestRisk(userInitiated: false)
 		homeController?.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
 	}

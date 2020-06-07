@@ -82,19 +82,6 @@ final class HomeInteractor: RequiresAppDependencies {
 	private var isUpdateTaskRunning: Bool = false
 	private(set) var testResult: TestResult?
 
-	private func startCheckRisk() {
-//		riskProvider.requestRisk()
-		guard let indexPath = indexPathForRiskCell() else { return }
-		riskLevelConfigurator?.startLoading()
-		homeViewController.updateSections()
-		homeViewController.reloadCell(at: indexPath)
-
-		riskProvider.requestRisk()
-//		riskCellTask {
-
-//		}
-	}
-
 	func updateActiveCell() {
 		guard let indexPath = indexPathForActiveCell() else { return }
 		homeViewController.updateSections()
@@ -234,7 +221,9 @@ extension HomeInteractor {
 				detectionMode: detectionMode
 			)
 		}
-		riskLevelConfigurator?.buttonAction = riskProvider.requestRisk
+		riskLevelConfigurator?.buttonAction = {
+			self.riskProvider.requestRisk(userInitiated: true)
+		}
 		return riskLevelConfigurator ?? inactiveConfigurator
 	}
 

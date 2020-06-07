@@ -92,11 +92,13 @@ extension RiskProvider: RiskProviding {
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
-	func requestRisk() {
-		print("🧏‍♂️ Requesting risk…")
-		print("🧏‍♂️   - last detection: \(String(describing: store.summary?.date))")
+	func requestRisk(userInitiated: Bool) {
+		print("⚠️ Requesting risk… – initiated by: (\(userInitiated ? "👩‍🔧" : "🖥")")
+		print("⚠️   - last detection: \(String(describing: store.summary?.date))")
 
-		queue.async(execute: _requestRiskLevel)
+		queue.async {
+			self._requestRiskLevel(userInitiated: userInitiated)
+		}
 	}
 
 	private struct Summaries {
@@ -104,9 +106,14 @@ extension RiskProvider: RiskProviding {
 		var current: SummaryMetadata?
 	}
 
-	private func _requestRiskLevel() {
+	private func _requestRiskLevel(userInitiated: Bool) {
 		func determineSummaries(completion: @escaping (Summaries) -> Void) {
-			if configuration.detectionMode == .manual {
+			// Here we are in automatic mode and thus we have to check the validity of the current summary
+			let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
+				lastExposureDetectionDate: store.summary?.date
+			)
+
+			if enoughTimeHasPassed == false || self.exposureManagerState.isGood == false {
 				completion(
 					.init(
 						previous: nil,
@@ -116,12 +123,10 @@ extension RiskProvider: RiskProviding {
 				return
 			}
 
-			// Here we are in automatic mode and thus we have to check the validity of the current summary
-			let shouldPerformDetection = configuration.shouldPerformExposureDetection(
-				lastExposureDetectionDate: store.summary?.date
-			)
+			// Enough time has passed.
+			let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
 
-			if shouldPerformDetection == false {
+			if shouldDetectExposures == false {
 				completion(
 					.init(
 						previous: nil,
@@ -132,12 +137,12 @@ extension RiskProvider: RiskProviding {
 			}
 
 			// The summary is outdated + we are in automatic mode: do a exposure detection
-			print("🧏‍♂️ Detecting exposures…")
+			print("⚠️ Detecting exposures…")
 
 			let previousSummary = store.summary
 
 			exposureSummaryProvider.detectExposure { detectedSummary in
-				print("🧏‍♂️ Got new summary detectedSummary…: \(String(describing: detectedSummary))")
+				print("⚠️ Got new summary detectedSummary…: \(String(describing: detectedSummary))")
 
 				if let detectedSummary = detectedSummary {
 					self.store.summary = .init(detectionSummary: detectedSummary, date: Date())

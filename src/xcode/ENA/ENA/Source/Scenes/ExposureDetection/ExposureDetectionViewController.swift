@@ -132,7 +132,7 @@ private extension ExposureDetectionViewController {
 			}
 			return
 		}
-		riskProvider.requestRisk()
+		riskProvider.requestRisk(userInitiated: true)
 	}
 }
 

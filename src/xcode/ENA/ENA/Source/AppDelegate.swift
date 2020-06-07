@@ -34,12 +34,6 @@ protocol CoronaWarnAppDelegate: AnyObject {
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
-		let exposureDetectionExecutor = ExposureDetectionExecutor(
-			client: client,
-			downloadedPackagesStore: downloadedPackagesStore,
-			store: store,
-			exposureDetector: exposureManager
-		)
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
 		exposureDetection?.start { result in
 			switch result {
@@ -143,6 +137,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	// TODO: REMOVE ME
 	var lastRiskCalculation: String = ""
 
+	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
+		ExposureDetectionExecutor(
+			client: self.client,
+			downloadedPackagesStore: self.downloadedPackagesStore,
+			store: self.store,
+			exposureDetector: self.exposureManager
+		)
+	}()
+
 	func application(
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
@@ -236,15 +239,11 @@ extension AppDelegate: CoronaWarnAppDelegate {
 			exposureDetection == nil,
 			"An Exposure Transaction is currently already running. This should never happen."
 		)
-		let exposureDetectionExecutor = ExposureDetectionExecutor(
-			client: client,
-			downloadedPackagesStore: downloadedPackagesStore,
-			store: store,
-			exposureDetector: exposureManager)
 
 		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor
 		)
+
 		exposureDetection?.start(completion: useSummaryDetectionResult)
 	}
 }
@@ -281,7 +280,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
-		riskProvider.requestRisk()
+		riskProvider.requestRisk(userInitiated: false)
 
 		task.expirationHandler = {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))

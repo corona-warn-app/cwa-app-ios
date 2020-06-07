@@ -205,7 +205,9 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Wrapper for `ENManager.detectExposures`
 	/// `ExposureManager` needs to be activated and enabled
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
-		manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs, completionHandler: completionHandler)
+		manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { summary, error in
+			completionHandler(summary, error)
+		}
 	}
 
 	// MARK: Diagnosis Keys
