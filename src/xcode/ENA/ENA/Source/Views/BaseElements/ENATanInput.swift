@@ -19,7 +19,7 @@ import Foundation
 import UIKit
 
 protocol ENATanInputDelegate: AnyObject {
-	func tanChanged(isValid: Bool)
+	func tanChanged(isValid: Bool, checksumIsValid: Bool)
 }
 
 @IBDesignable
@@ -29,7 +29,7 @@ class ENATanInput: UIControl, UIKeyInput {
 
 	@IBInspectable var fontSize: CGFloat = 30
 	@IBInspectable var groups: String = "3,3,4"
-	@IBInspectable var forbidden: String = "1,0"
+	@IBInspectable var forbidden: String = "1,0,I,O,L"
 
 	@IBInspectable var spacing: CGFloat = 3
 	@IBInspectable var cornerRadius: CGFloat = 4
@@ -145,7 +145,7 @@ class ENATanInput: UIControl, UIKeyInput {
 			}
 
 		}
-		delegate?.tanChanged(isValid: isValid)
+		delegate?.tanChanged(isValid: isValid, checksumIsValid: verifyChecksum(input: self.text))
 	}
 
 	func deleteBackward() {
@@ -156,12 +156,28 @@ class ENATanInput: UIControl, UIKeyInput {
 		if let enaInputLabel = label as? ENATanInputLabel {
 			enaInputLabel.isValid = true
 		}
-		delegate?.tanChanged(isValid: isValid)
+		delegate?.tanChanged(isValid: isValid, checksumIsValid: false)
 	}
 
 	func clear() {
 		labels.forEach { $0.text = "" }
 		text = ""
+	}
+	
+	func verifyChecksum(input:String) -> Bool {
+		guard isValid else { return false}
+		let start = input.index(input.startIndex, offsetBy: 0)
+		let end = input.index(input.startIndex, offsetBy: input.count-2)
+		let testString = String(input[start...end])
+		return input.last == calculateChecksum(input: testString)
+	}
+	
+	func calculateChecksum(input:String) -> Character {
+		let hash = Hasher.sha256(input)
+		var checksum = hash[hash.startIndex].uppercased()
+		if (checksum == "0") { checksum = "G" }
+		else if (checksum == "1") { checksum = "H" }
+		return checksum.first!
 	}
 }
 

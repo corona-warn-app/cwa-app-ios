@@ -109,8 +109,8 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 
 	// MARK: - ENATanInputDelegate
 
-	func tanChanged(isValid: Bool) {
-		setButtonEnabled(enabled: isValid)
+	func tanChanged(isValid: Bool, checksumIsValid: Bool) {
+		setButtonEnabled(enabled: (isValid && checksumIsValid))
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
