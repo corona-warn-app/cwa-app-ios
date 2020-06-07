@@ -475,8 +475,9 @@
 
 "ExposureNotificationSetting_AccLabel_InternetOff" = "Eine Person hat die Risiko-Erkennung auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
 
-/* Home Navigation Bar */
+/* Home Navigation */
 "Home_LeftBarButton_description" = "Corona Warn App Logo";
+
 "Home_RightBarButton_description" = "Info";
 
 /* Home Active card */
@@ -820,4 +821,3 @@
 "RiskLegend_Random_Text" = "Die Zufallscodes sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufallskennungen lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufallscodes der letzten bis zu 14 Tage freiwillig mit anderen CWA-Nutzern teilen.";
 
 "RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
-
