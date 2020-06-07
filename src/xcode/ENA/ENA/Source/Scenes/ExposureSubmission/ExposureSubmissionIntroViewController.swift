@@ -19,7 +19,8 @@ import UIKit
 
 class ExposureSubmissionIntroViewController: DynamicTableViewController, ExposureSubmissionNavigationControllerChild, SpinnerInjectable {
 
-
+	// MARK: - Attributes.
+	
 	private var exposureSubmissionService: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
 
@@ -43,6 +44,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
+		setupBackButton()
 
 		// Grab ExposureSubmissionService from the navigation controller
 		// (which is the entry point for the storyboard, and in which

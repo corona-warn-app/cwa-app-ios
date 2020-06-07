@@ -32,6 +32,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	) {
 		self.homeViewController = homeViewController
 		self.state = state
+		self.exposureSubmissionService = exposureSubmissionService
 		self.enState = initialEnState
 		sections = initialCellConfigurators()
 		riskConsumer.didCalculateRisk = { [weak self] risk in
@@ -281,7 +282,17 @@ extension HomeInteractor {
 			// This is shown when we registered a test.
 			// Note that the `positive` state has a custom cell and the risk cell will not be shown once the user was tested positive.
 
-			switch testResult {
+			switch self.testResult {
+			case .none:
+				// Risk card.
+				if let risk = setupRiskConfigurator() {
+					actionsConfigurators.append(risk)
+				}
+
+				// Loading card.
+				let testResultLoadingCellConfigurator = HomeTestResultLoadingCellConfigurator()
+				actionsConfigurators.append(testResultLoadingCellConfigurator)
+
 			case .positive:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
@@ -360,13 +371,25 @@ extension HomeInteractor {
 	func updateTestResults() {
 		guard store.registrationToken != nil else { return }
 
+		// Make sure to make the loading cell appear for at least `minRequestTime`.
+		// This avoids an ugly flickering when the cell is only shown for the fraction of a second.
+		// Make sure to only trigger this additional delay when no other test result is present already.
+		let requestStart = Date()
+		let minRequestTime: TimeInterval = 2.0
+
 		self.exposureSubmissionService?.getTestResult { [weak self] result in
 			switch result {
 			case .failure:
+				// TODO: initiate retry?
 				self?.testResult = nil
 			case .success(let result):
-				self?.testResult = result
-				self?.reloadTestResult(with: result)
+				let requestTime = Date().timeIntervalSince(requestStart)
+				let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
+				DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+					self?.testResult = result
+					self?.reloadTestResult(with: result)
+				}
+
 			}
 		}
 	}

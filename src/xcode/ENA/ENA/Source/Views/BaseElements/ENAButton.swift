@@ -149,9 +149,9 @@ extension ENAButton.Style {
 
 	var disabledForegroundColor: UIColor {
 		switch self {
-		case .transparent: return .preferredColor(for: .tint)
-		case .emphasized: return .preferredColor(for: .textPrimary1)
-		case .contrast: return .preferredColor(for: .textPrimary1)
+		case .transparent: return .enaColor(for: .textTint)
+		case .emphasized: return .enaColor(for: .textPrimary1)
+		case .contrast: return .enaColor(for: .textPrimary1)
 		}
 	}
 }
