@@ -21,6 +21,8 @@ import Foundation
 import UIKit
 
 class AppNavigationController: UINavigationController {
+	private var scrollViewObserver: NSKeyValueObservation?
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -28,5 +30,70 @@ class AppNavigationController: UINavigationController {
 		navigationBar.prefersLargeTitles = true
 
 		view.backgroundColor = .enaColor(for: .separator)
+
+		delegate = self
 	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+
+		if let opacityDelegate = topViewController as? NavigationBarOpacityDelegate {
+			navigationBar.backgroundAlpha = opacityDelegate.backgroundAlpha
+		}
+	}
+}
+
+extension AppNavigationController: UINavigationControllerDelegate {
+	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+		scrollViewObserver?.invalidate()
+
+		var navigationBackgroundAlpha: CGFloat = 1.0
+
+		if let opacityDelegate = viewController as? NavigationBarOpacityDelegate {
+			navigationBackgroundAlpha = opacityDelegate.backgroundAlpha
+
+			if let scrollView = viewController.view as? UIScrollView ?? viewController.view.subviews.first(ofType: UIScrollView.self) {
+				scrollViewObserver = scrollView.observe(\.contentOffset) { [weak self] _, _ in
+					guard let self = self else { return }
+					guard viewController == self.topViewController else { return }
+					self.navigationBar.backgroundAlpha = opacityDelegate.backgroundAlpha
+				}
+			}
+		}
+
+		transitionCoordinator?.animate(alongsideTransition: { _ in
+			self.navigationBar.backgroundAlpha = navigationBackgroundAlpha
+		})
+	}
+}
+
+extension UINavigationBar {
+	var backgroundView: UIView? { subviews.first }
+	var shadowView: UIImageView? { backgroundView?.subviews.first(ofType: UIVisualEffectView.self)?.subviews.first(ofType: UIImageView.self) }
+	var visualEffectView: UIVisualEffectView? { backgroundView?.subviews.last(ofType: UIVisualEffectView.self) }
+
+	var backgroundAlpha: CGFloat {
+		get { backgroundView?.alpha ?? 0 }
+		set {
+			backgroundView?.alpha = newValue
+		}
+	}
+}
+
+private extension Array {
+	func first<T>(ofType _: T.Type) -> T? {
+		first(where: { $0 is T }) as? T
+	}
+
+	func last<T>(ofType _: T.Type) -> T? {
+		last(where: { $0 is T }) as? T
+	}
+}
+
+protocol NavigationBarOpacityDelegate: class {
+	var preferredNavigationBarOpacity: CGFloat { get }
+}
+
+private extension NavigationBarOpacityDelegate {
+	var backgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
 }
