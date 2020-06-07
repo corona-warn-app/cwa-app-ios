@@ -103,6 +103,8 @@ enum AppStrings {
 		static let furtherInfos_TestAgain = NSLocalizedString("ExposureSubmissionResult_furtherInfos_hint_testAgain", comment: "")
 		static let removeAlert_Title = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Title", comment: "")
 		static let removeAlert_Text = NSLocalizedString("ExposureSubmissionResult_RemoveAlert_Text", comment: "")
+		static let registrationDateUnknown = NSLocalizedString("ExposureSubmissionResult_RegistrationDateUnknown", comment: "")
+		static let registrationDate = NSLocalizedString("ExposureSubmissionResult_RegistrationDate", comment: "")
 	}
 
 	enum ExposureSubmissionDispatch {

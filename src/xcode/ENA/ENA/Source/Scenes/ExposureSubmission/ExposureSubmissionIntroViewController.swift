@@ -127,11 +127,8 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem1,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: false
+						cell.configureBulletPointCell(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem1
 						)
 				}
 				),
@@ -140,12 +137,8 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem2,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
+						cell.configureBulletPointCell(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem2
 						)
 				}
 				),
@@ -154,12 +147,8 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem3,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
+						cell.configureBulletPointCell(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem3
 						)
 				}
 				),
@@ -168,16 +157,11 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem4,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
+						cell.configureBulletPointCell(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem4
 						)
 				}
 				)
-
 			]
 		)
 	])

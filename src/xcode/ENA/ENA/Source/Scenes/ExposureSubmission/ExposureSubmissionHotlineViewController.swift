@@ -25,7 +25,8 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		setUpView()
 	}
 
-	override func viewWillAppear(_: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		setupButtons()
 	}
 
