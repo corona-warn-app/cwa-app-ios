@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,15 +15,23 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 
-extension URLSession {
-	class func coronaWarnSession() -> URLSession {
-		URLSession(
-			configuration: .coronaWarnSessionConfiguration(),
-			delegate: CoronaWarnURLSessionDelegate(),
-			delegateQueue: .main
-		)
+extension Bundle {
+	/// Read the Plist with the specified name as a `[String: String]` dictionary
+	///
+	/// - returns: Dictionary with `String` K/V pairs, nil if the plist was not found in the Bundle
+	func readPlistStringDict(name: String) -> [String: String]? {
+		guard
+			let path = Bundle.main.path(forResource: name, ofType: "plist"),
+			let xml = FileManager.default.contents(atPath: path),
+			let plistDict = try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainers, format: nil) as? [String: String]
+		else {
+			return nil
+		}
+
+		return plistDict
 	}
 }

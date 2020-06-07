@@ -18,19 +18,22 @@
 //
 
 import Foundation
+import CommonCrypto
+import CryptoKit
 
 final class CoronaWarnURLSessionDelegate: NSObject {
-	// MARK: Creating a Delegate
-	init(certificateData: Data) {
-		precondition(
-			!certificateData.isEmpty,
-			"Certificate pinning requires a data blob that at least looks like a valid certificate."
-		)
-		self.certificateData = certificateData
-	}
+	// MARK: Known Public Key Storage
+	/// A dictionary containing a mapping of the host to the SHA256 public key string
+	private let domainPublicKeyHashes: [String: String]
 
-	// MARK: Properties
-	private let certificateData: Data
+	// MARK: Creating a Delegate
+	override init() {
+		guard let plistDict = Bundle.main.readPlistStringDict(name: "PublicKeys") else {
+			preconditionFailure("Could not load PublicKeys.plist for public key pinning!")
+		}
+
+		domainPublicKeyHashes = plistDict
+	}
 }
 
 extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
@@ -40,9 +43,17 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
 		func reject() { completionHandler(.cancelAuthenticationChallenge, /* credential */ nil) }
+		func keyForHost(_ host: String) -> String? {
+			domainPublicKeyHashes.first(where: { challenge.protectionSpace.host.contains($0.key) })?.value
+		}
 
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
-		guard let trust = challenge.protectionSpace.serverTrust else {
+		guard
+			let trust = challenge.protectionSpace.serverTrust,
+			let localPublicKey = keyForHost(challenge.protectionSpace.host),
+			!localPublicKey.isEmpty
+		else {
+			// Reject all requests that we do not have a public key to pin for
 			reject()
 			return
 		}
@@ -53,27 +64,44 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 			func accept() { completionHandler(.useCredential, URLCredential(trust: trust)) }
 
 			guard isValid else {
+				logError(message: "Server certificate is not valid. Rejecting challenge!")
 				reject()
 				return
 			}
 
 			guard error == nil else {
+				logError(message: "Encountered error when evaluating server trust challenge, rejecting!")
 				reject()
 				return
 			}
 
 			guard SecTrustGetCertificateCount(trust) >= 1 else {
+				logError(message: "More than one certificate, rejecting!")
 				reject()
 				return
 			}
 
-			guard let remoteCertificate = SecTrustGetCertificateAtIndex(trust, 0) else {
+			// Our landscape has a certificate chain with three certificates.
+			// We want to get the intermediate certificate, in our case the second.
+			guard let remoteCertificate = SecTrustGetCertificateAtIndex(trust, 1) else {
+				logError(message: "Could not get first certificate, rejecting!")
 				reject()
 				return
 			}
 
-			let remoteCertificateData = SecCertificateCopyData(remoteCertificate) as Data
-			guard remoteCertificateData == self.certificateData else {
+			guard
+				let remotePublicKey = SecCertificateCopyKey(remoteCertificate),
+				let remotePublicKeyData = SecKeyCopyExternalRepresentation(remotePublicKey, nil) as Data?
+			else {
+				logError(message: "Failed to get the remote server's public key!")
+				reject()
+				return
+			}
+
+			let hashedRemotePublicKey = self.sha256ForRSA2048(data: remotePublicKeyData)
+			// We simply compare the two hashed keys, and reject the challenge if they do not match
+			guard hashedRemotePublicKey == localPublicKey else {
+				logError(message: "The server's public key did not match what we expected!")
 				reject()
 				return
 			}
@@ -84,3 +112,19 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 }
 
 // [0] https://developer.apple.com/documentation/security/certificate_key_and_trust_services/trust/evaluating_a_trust_and_parsing_the_result
+
+extension CoronaWarnURLSessionDelegate {
+	var rsa2048Asn1HeaderBytes: [UInt8] { [
+		0x30, 0x82, 0x01, 0x22, 0x30, 0x0d, 0x06, 0x09,
+		0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
+		0x01, 0x05, 0x00, 0x03, 0x82, 0x01, 0x0f, 0x00
+	] }
+
+	private func sha256ForRSA2048(data: Data) -> String {
+		var keyWithHeader = Data(rsa2048Asn1HeaderBytes)
+		keyWithHeader.append(data)
+
+		let hash = SHA256.hash(data: keyWithHeader)
+		return Data(hash).base64EncodedString()
+	}
+}
