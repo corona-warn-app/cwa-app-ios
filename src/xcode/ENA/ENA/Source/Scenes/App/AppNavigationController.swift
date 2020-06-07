@@ -34,6 +34,12 @@ class AppNavigationController: UINavigationController {
 		delegate = self
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		scrollViewObserver?.invalidate()
+	}
+
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
