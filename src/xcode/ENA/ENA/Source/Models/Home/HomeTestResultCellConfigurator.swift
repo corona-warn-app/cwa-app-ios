@@ -49,7 +49,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		cell.imageView.image = UIImage(named: "Illu_Hand_with_phone-negativ")
 		cell.titleLabel.text = AppStrings.Home.resultCardResultAvailableTitle
 		cell.resultLabel.text = AppStrings.Home.resultCardNegativeTitle
-		cell.resultLabel.textColor = .preferredColor(for: .positiveRisk)
+		cell.resultLabel.textColor = .enaColor(for: .riskLow)
 		cell.bodyLabel.text = AppStrings.Home.resultCardNegativeDesc
 		configureResultsButton(for: cell)
 	}
@@ -58,7 +58,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		cell.imageView.image = UIImage(named: "Illu_Hand_with_phone-error")
 		cell.titleLabel.text = AppStrings.Home.resultCardResultAvailableTitle
 		cell.resultLabel.text = AppStrings.Home.resultCardInvalidTitle
-		cell.resultLabel.textColor = .preferredColor(for: .separator)
+		cell.resultLabel.textColor = .enaColor(for: .textPrimary2)
 		cell.bodyLabel.text = AppStrings.Home.resultCardInvalidDesc
 		configureResultsButton(for: cell)
 	}
@@ -67,7 +67,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		cell.imageView.image = UIImage(named: "Illu_Hand_with_phone-pending")
 		cell.titleLabel.text = AppStrings.Home.resultCardResultUnvailableTitle
 		cell.resultLabel.text = ""
-		cell.resultLabel.textColor = .preferredColor(for: .chevron)
+		cell.resultLabel.textColor = .enaColor(for: .textPrimary2)
 		cell.bodyLabel.text = AppStrings.Home.resultCardPendingDesc
 		configureResultsButton(for: cell)
 	}
