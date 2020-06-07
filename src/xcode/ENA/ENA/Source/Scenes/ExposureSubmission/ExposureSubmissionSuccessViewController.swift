@@ -70,7 +70,8 @@ private extension DynamicTableViewModel {
 							image: UIImage(named: "Icons - Hotline"),
 							hasSeparators: false,
 							isCircle: true,
-							iconTintColor: .preferredColor(for: .negativeRisk)
+							iconTintColor: .preferredColor(for: .negativeRisk),
+							iconCentered: true
 						)
 					}
 				),
@@ -83,7 +84,8 @@ private extension DynamicTableViewModel {
 							text: AppStrings.ExposureSubmissionSuccess.listItem2,
 							image: UIImage(named: "Icons - Home"),
 							isCircle: true,
-							iconTintColor: .preferredColor(for: .negativeRisk)
+							iconTintColor: .preferredColor(for: .negativeRisk),
+							iconCentered: true
 						)
 					}
 				),

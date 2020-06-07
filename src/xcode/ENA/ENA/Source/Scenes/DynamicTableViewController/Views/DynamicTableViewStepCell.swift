@@ -116,7 +116,11 @@ class DynamicTableViewStepCell: UITableViewCell {
 	// MARK: - Constraint handling.
 
 	var heightConstraint: NSLayoutConstraint?
-	private func setConstraints(reducedSpacing: Bool = false) {
+	
+	private func setConstraints(
+		reducedSpacing: Bool = false,
+		iconCentered: Bool = false
+	) {
 
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [
 			body,
@@ -130,8 +134,6 @@ class DynamicTableViewStepCell: UITableViewCell {
 		setConstraint(for: cellIcon.widthAnchor, equalTo: 32)
 		setConstraint(for: cellIcon.heightAnchor, equalTo: 32)
 		setConstraint(for: separator.widthAnchor, equalTo: 1)
-		cellIcon.topAnchor.constraint(equalTo: topAnchor).isActive = true
-		cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
 
 		head.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
 		head.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
@@ -154,9 +156,17 @@ class DynamicTableViewStepCell: UITableViewCell {
 		cellIcon.layer.cornerRadius = 16
 		cellIcon.clipsToBounds = true
 
-		separator.topAnchor.constraint(equalTo: cellIcon.bottomAnchor).isActive = true
-		separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-		separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
+		if !iconCentered {
+			cellIcon.topAnchor.constraint(equalTo: topAnchor).isActive = true
+			cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+			separator.topAnchor.constraint(equalTo: cellIcon.bottomAnchor).isActive = true
+			separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+			separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
+		} else {
+			separator.removeFromSuperview()
+			cellIcon.centerYAnchor.constraint(equalTo: body.centerYAnchor).isActive = true
+			cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+		}
 	}
 
 	/// Default configurator for a DynamicStepCell.
@@ -170,6 +180,9 @@ class DynamicTableViewStepCell: UITableViewCell {
 	///   - isCircle: boolean indicating whether the icon of the cell is circular or not.
 	///   - iconTintColor: tintColor for the icon of the cell.
 	///   - iconBackgroundColor: background color for the icon of the cell.
+	///   - iconCentered: A flag that says whether the icon was aligned
+	///   	with the centerYanchor of the text. We need these cells in the
+	/// 	`ExposureSubmissionSuccessViewController`.
 	func configure(
 		title: String? = nil,
 		text: String,
@@ -177,10 +190,11 @@ class DynamicTableViewStepCell: UITableViewCell {
 		hasSeparators: Bool = false,
 		isCircle: Bool = false,
 		iconTintColor: UIColor? = nil,
-		iconBackgroundColor: UIColor? = nil
+		iconBackgroundColor: UIColor? = nil,
+		iconCentered: Bool = false
 	) {
 		setUpView(title, text, image, hasSeparators, isCircle, iconTintColor, iconBackgroundColor)
-		setConstraints()
+		setConstraints(reducedSpacing: false, iconCentered: iconCentered)
 	}
 
 	/// Configurator for a DynamicStepCell that supports NSAttributedStrings.
