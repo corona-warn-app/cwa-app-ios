@@ -49,7 +49,11 @@ final class RiskProvider {
 	private let store: Store
 	private let exposureSummaryProvider: ExposureSummaryProvider
 	private let appConfigurationProvider: AppConfigurationProviding
-	var exposureManagerState: ExposureManagerState
+	var exposureManagerState: ExposureManagerState {
+		didSet {
+			requestRisk()
+		}
+	}
 	var configuration: RiskProvidingConfiguration
 }
 
@@ -162,9 +166,13 @@ extension RiskProvider: RiskProviding {
 				return
 		}
 
+        store.previousSummary = summary
+        store.previousSummaryDate = Date()
+
 		for consumer in consumers.allObjects {
 			_provideRisk(risk, to: consumer)
 		}
+
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {

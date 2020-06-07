@@ -35,7 +35,14 @@ class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
 		buttonLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
 		buttonLabel.adjustsFontForContentSizeCategory = true
 		buttonLabel.lineBreakMode = .byWordWrapping
+
+		setupAccessibility(cell)
 	}
+
+	func setupAccessibility(_ cell: SubmitCollectionViewCell) {
+		cell.titleLabel.accessibilityTraits = .header
+	}
+
 }
 
 extension HomeSubmitCellConfigurator: HomeCardCellButtonDelegate {

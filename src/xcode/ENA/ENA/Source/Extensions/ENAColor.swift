@@ -99,6 +99,8 @@ public enum ENAColor: String, CaseIterable {
 	case buttonPrimary = "ENA Button Primary Color"
 
 	// MARK: - Miscellaneous Colors
+	case chevron = "ENA Chevron Color"
+	case shadow = "ENA Shadow Color"
 	case tint = "ENA Tint Color"
 
 	// MARK: - Risk Colors
@@ -130,10 +132,13 @@ public extension UIColor {
 	#if TARGET_INTERFACE_BUILDER
 	static func enaColor(for style: ENAColor, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
 		switch style {
-		case .tint: return UIColor(red: 0 / 255.0, green: 127 / 255.0, blue: 173 / 255.0, alpha: 1)
-		case .separator: return UIColor(red: 245 / 255.0, green: 245 / 255.0, blue: 245 / 255.0, alpha: 1)
-		case .textPrimary1: return UIColor(red: 23 / 255.0, green: 25 / 255.0, blue: 26 / 255.0, alpha: 1)
-		case .background: return UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
+		case .background: return UIColor(rgb: 0xFFFFFF, alpha: 1.0)
+		case .buttonPrimary: return UIColor(rgb: 0x007FAD, alpha: 1.0)
+		case .buttonHighlight: return UIColor(rgb: 0x17191A, alpha: 0.1)
+		case .separator: return UIColor(rgb: 0xF5F5F5, alpha: 1.0)
+		case .textContrast: return UIColor(rgb: 0xFFFFFF, alpha: 1.0)
+		case .textPrimary1: return UIColor(rgb: 0x17191A, alpha: 1.0)
+		case .textTint: return UIColor(rgb: 0x007FAD, alpha: 1.0)
 		default:
 			fatalError("Requested color is not available in interface builder: " + style.rawValue)
 		}
@@ -147,4 +152,16 @@ public extension UIColor {
 		}
 	}
 	#endif
+}
+
+
+private extension UIColor {
+	convenience init(rgb: UInt32, alpha: CGFloat) {
+		self.init(
+			red: CGFloat((rgb >> 16) & 0xFF) / 255.0,
+			green: CGFloat((rgb >> 8) & 0xFF) / 255.0,
+			blue: CGFloat(rgb & 0xFF) / 255.0,
+			alpha: alpha
+		)
+	}
 }

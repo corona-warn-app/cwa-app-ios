@@ -25,7 +25,6 @@ protocol HomeViewControllerDelegate: AnyObject {
 // swiftlint:disable:next type_body_length
 final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
-
 	init?(
 		coder: NSCoder,
 		delegate: HomeViewControllerDelegate,
@@ -58,7 +57,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				exposureManager: .init(),
                 risk: risk
 			),
-			exposureSubmissionService: exposureSubmissionService,
+			exposureSubmissionService: self.exposureSubmissionService,
 			initialEnState: self.enState
 		)
 	}()
@@ -327,7 +326,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			RiskInactiveCollectionViewCell.self,
 			RiskFindingPositiveCollectionViewCell.self,
 			RiskThankYouCollectionViewCell.self,
-			InfoCollectionViewCell.self
+			InfoCollectionViewCell.self,
+			HomeTestResultLoadingCell.self
 		]
 
 		collectionView.register(cellTypes: cellTypes)

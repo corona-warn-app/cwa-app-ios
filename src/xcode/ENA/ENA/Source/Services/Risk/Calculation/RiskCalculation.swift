@@ -63,7 +63,6 @@ enum RiskCalculation {
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date()
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
-		return .success(.increased)
 		var riskLevel = RiskLevel.low
 
 		DispatchQueue.main.async {

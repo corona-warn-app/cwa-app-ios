@@ -124,7 +124,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let exposureManager: ExposureManager = ENAExposureManager()
 	#endif
 
-
 	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
 
