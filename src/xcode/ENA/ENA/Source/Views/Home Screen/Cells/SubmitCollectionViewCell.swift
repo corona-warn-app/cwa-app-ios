@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,15 +15,16 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
+import Foundation
 import UIKit
 
 class SubmitCollectionViewCell: HomeCardCollectionViewCell {
-	@IBOutlet var iconImageView: UIImageView!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var bodyLabel: UILabel!
+	@IBOutlet var imageView: UIImageView!
 	@IBOutlet var contactButton: UIButton!
-
 	weak var delegate: HomeCardCellButtonDelegate?
 
 	@IBAction func submitButtonTapped(_: UIButton) {

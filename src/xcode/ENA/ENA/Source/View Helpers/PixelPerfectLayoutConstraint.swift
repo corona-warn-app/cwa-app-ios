@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,21 +15,34 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
+import Foundation
 import UIKit
 
-final class RiskTextItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
-	@IBOutlet var titleLabel: ENALabel!
-	@IBOutlet var separatorView: UIView!
+@IBDesignable
+class PixelPerfectLayoutConstraint: NSLayoutConstraint {
+	@IBInspectable var pixelPerfectConstant: CGFloat = -1
 
-	private let titleTopPadding: CGFloat = 8.0
+	override func prepareForInterfaceBuilder() {
+		super.prepareForInterfaceBuilder()
+		applyPixelPerfectConstant()
+	}
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		layoutMargins = .init(top: titleTopPadding, left: 0, bottom: titleTopPadding, right: 0)
+		applyPixelPerfectConstant()
 	}
 
-	func hideSeparator() {
-		separatorView.isHidden = true
+	private func applyPixelPerfectConstant() {
+		if pixelPerfectConstant > 0 {
+			constant = pixelPerfectConstant
+		}
+
+		if let window = (firstItem as? UIView)?.window {
+			constant /= window.screen.scale
+		} else {
+			constant /= UIScreen.main.scale
+		}
 	}
 }

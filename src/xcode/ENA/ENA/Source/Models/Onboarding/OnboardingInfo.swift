@@ -20,6 +20,7 @@ import Foundation
 struct OnboardingInfo {
 	var title: String
 	var imageName: String
+	var imageDescription: String
 	var boldText: String
 	var text: String
 	var actionText: String
@@ -29,9 +30,9 @@ struct OnboardingInfo {
 extension OnboardingInfo {
 	static func testData() -> [Self] {
 		let info1 = OnboardingInfo(
-			title:
-			AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title,
+			title: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title,
 			imageName: "Illu_Onboarding_GemeinsamCoronabekaempfen",
+			imageDescription: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_imageDescription,
 			boldText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingLetsGo,
@@ -41,6 +42,7 @@ extension OnboardingInfo {
 		let info2 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_privacyPage_title,
 			imageName: "Illu_Onboarding_Datenschutz",
+			imageDescription: AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription,
 			boldText: AppStrings.Onboarding.onboardingInfo_privacyPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_privacyPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
@@ -50,6 +52,7 @@ extension OnboardingInfo {
 		let info3 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_title,
 			imageName: "Illu_Onboarding_Risikoerekennung",
+			imageDescription: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_imageDescription,
 			boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
@@ -59,6 +62,7 @@ extension OnboardingInfo {
 		let info4 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title,
 			imageName: "Illu_Onboarding_Getestet",
+			imageDescription: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_imageDescription,
 			boldText: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
@@ -68,6 +72,7 @@ extension OnboardingInfo {
 		let info5 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_title,
 			imageName: "Illu_Onboarding_Mitteilungen",
+			imageDescription: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_imageDescription,
 			boldText: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,

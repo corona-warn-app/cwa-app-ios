@@ -182,12 +182,14 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	func setupAccessibility() {
-		imageView.isAccessibilityElement = false
+		imageView.isAccessibilityElement = true
 		titleLabel.isAccessibilityElement = true
 		boldLabel.isAccessibilityElement = true
 		textLabel.isAccessibilityElement = true
 		nextButton.isAccessibilityElement = true
 		ignoreButton.isAccessibilityElement = true
+
+		imageView.accessibilityLabel = onboardingInfo?.imageDescription
 
 		titleLabel.accessibilityTraits = .header
 		
