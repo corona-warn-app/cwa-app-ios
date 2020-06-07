@@ -141,6 +141,16 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	// MARK: Helper
 
+	func requestUpdatedExposureState() {
+		let state = exposureManager.preconditions()
+		let newState = ExposureManagerState(
+				authorized: ENManager.authorizationStatus == .authorized,
+				enabled: state.enabled,
+				status: state.status
+		)
+		updateExposureState(newState)
+	}
+
 	private func setupUI() {
 		setupNavigationBarAppearance()
 
@@ -322,6 +332,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		Authorized: \(newState.authorized)
 		enabled: \(newState.enabled)
 		status: \(newState.status)
+		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
 		log(message: message)
 

@@ -262,18 +262,18 @@ extension DynamicTableViewController {
 }
 
 private extension UITableViewCell {
-	enum SeparatorLocation {
-		case top
-		case bottom
-		case inset
-		case clear
+	enum SeparatorLocation: Int {
+		case top = 100_001
+		case bottom = 100_002
+		case inset = 100_003
+		case clear = 100_004
 	}
 
 	func addSeparator(_ location: SeparatorLocation) {
 		if location == .clear {
-			contentView.viewWithTag(100_001)?.removeFromSuperview()
-			contentView.viewWithTag(100_002)?.removeFromSuperview()
-			contentView.viewWithTag(100_003)?.removeFromSuperview()
+			contentView.viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
+			contentView.viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
+			contentView.viewWithTag(SeparatorLocation.inset.rawValue)?.removeFromSuperview()
 			return
 		}
 
@@ -286,15 +286,15 @@ private extension UITableViewCell {
 
 		switch location {
 		case .top:
-			separator.tag = 100_001
+			separator.tag = SeparatorLocation.top.rawValue
 			separator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
 			separator.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
 		case .bottom:
-			separator.tag = 100_002
+			separator.tag = SeparatorLocation.bottom.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 			separator.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
 		case .inset:
-			separator.tag = 100_002
+			separator.tag = SeparatorLocation.inset.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 			separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
 		default:

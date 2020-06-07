@@ -16,6 +16,7 @@
 // under the License.
 
 import Foundation
+import ExposureNotification
 
 protocol ENStateHandlerUpdating: AnyObject {
 	func updateEnState(_ state: ENStateHandler.State)
@@ -33,10 +34,12 @@ final class ENStateHandler {
 		case bluetoothOff
 		/// Internet is off.
 		case internetOff
-		/// Restricted Mode.
+		/// Restricted Mode due to parental controls.
 		case restricted
-		//FIXME: NOT YET DONE.
-		//case notAuthorized
+		///Not authorized. The user declined consent in onboarding.
+		case notAuthorized
+		///The user was never asked the consent before, thats why unknown.
+		case unknown
 	}
 
 	private var currentState: State! {
@@ -76,7 +79,7 @@ final class ENStateHandler {
 		}
 
 		switch currentState {
-		case .disabled, .bluetoothOff, .restricted:
+		case .disabled, .bluetoothOff, .restricted, .notAuthorized, .unknown:
 			return
 		case .enabled:
 			if !isReachable {
@@ -112,8 +115,23 @@ final class ENStateHandler {
 		case .disabled:
 			return .disabled
 		case .restricted:
+			return differentiateRestrictedCase()
+		case .unknown:
+			return .disabled
+		@unknown default:
+			fatalError("New state was added that is not being covered by ENStateHandler")
+		}
+	}
+
+	private func differentiateRestrictedCase() -> State {
+		switch ENManager.authorizationStatus {
+		case .notAuthorized:
+			return .notAuthorized
+		case .restricted:
 			return .restricted
 		case .unknown:
+			return .unknown
+		case .authorized:
 			return .disabled
 		@unknown default:
 			fatalError("New state was added that is not being covered by ENStateHandler")

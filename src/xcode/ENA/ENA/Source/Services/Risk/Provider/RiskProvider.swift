@@ -165,6 +165,8 @@ extension RiskProvider: RiskProviding {
 		for consumer in consumers.allObjects {
 			_provideRisk(risk, to: consumer)
 		}
+		store.previousSummary = summary
+		store.previousSummaryDate = Date()
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
