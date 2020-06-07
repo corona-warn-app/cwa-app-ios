@@ -27,7 +27,7 @@ enum ENATaskIdentifier: String, CaseIterable {
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
 		// set to trigger at the earliest begin time possible
-		case .detectExposures: return nil
+		case .detectExposures: return 2 * 60 * 60
 		// set to trigger every 2 hours
 		case .fetchTestResults: return 2 * 60 * 60
 		}
@@ -65,16 +65,19 @@ final class ENATaskScheduler {
 	}
 
 	func scheduleBackgroundTaskRequests() {
-		cancelAllBackgroundTaskRequests()
-		scheduleBackgroundTask(for: .detectExposures)
-		scheduleBackgroundTask(for: .fetchTestResults)
+		scheduleBackgroundTask(for: .detectExposures, cancelExisting: true)
+		scheduleBackgroundTask(for: .fetchTestResults, cancelExisting: true)
 	}
 
 	func cancelAllBackgroundTaskRequests() {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
 
-	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
+	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier, cancelExisting: Bool = false) {
+
+		if cancelExisting {
+			cancelBackgroundTaskRequest(for: taskIdentifier)
+		}
 
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
@@ -90,6 +93,11 @@ final class ENATaskScheduler {
 		} catch {
 			logError(message: error.localizedDescription)
 		}
+
+	}
+
+	func cancelBackgroundTaskRequest(for taskIdentifier: ENATaskIdentifier) {
+		BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 	}
 
 	// Task Handlers:

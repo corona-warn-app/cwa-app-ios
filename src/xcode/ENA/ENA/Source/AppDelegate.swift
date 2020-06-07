@@ -373,13 +373,13 @@ private extension DownloadedPackagesStore {
 
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask) {
+
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
 			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
 		}
 
 		consumer.didCalculateRisk = { risk in
-			// present a notification if the risk score has increased
 			if risk.riskLevelHasIncreased {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.detectExposureTitle,
@@ -402,6 +402,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	}
 
 	func executeFetchTestResults(task: BGTask) {
+
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
 			taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
