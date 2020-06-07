@@ -46,6 +46,7 @@ class ENATanInput: UIControl, UIKeyInput {
 	// swiftlint:disable:next empty_count
 	var isEmpty: Bool { count == 0 }
 	var isValid: Bool { count == digits }
+	var inputBlocked: Bool = false
 
 	private var labels: [UILabel] { stackView.arrangedSubviews.compactMap({ $0 as? ENATanInputLabel }) }
 
@@ -128,6 +129,7 @@ class ENATanInput: UIControl, UIKeyInput {
 	}
 
 	func insertText(_ text: String) {
+		guard !inputBlocked else {return}
 		for character in text {
 			guard !isValid else { return }
 			let label = labels[count]
@@ -138,6 +140,7 @@ class ENATanInput: UIControl, UIKeyInput {
 				if forbiddenArray.contains(String(character.uppercased())) {
 					enaInputLabel.isValid = false
 					enaInputLabel.textColor = .enaColor(for: .textSemanticRed)
+					inputBlocked = true
 				} else {
 					enaInputLabel.isValid = true
 					enaInputLabel.textColor = labelTextColor
@@ -150,6 +153,7 @@ class ENATanInput: UIControl, UIKeyInput {
 
 	func deleteBackward() {
 		guard !isEmpty else { return }
+		inputBlocked = false
 		text = String(text[..<text.index(before: text.endIndex)])
 		let label = labels[count]
 		label.text = ""
