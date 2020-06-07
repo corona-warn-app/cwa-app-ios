@@ -312,6 +312,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 	) {
 		// Add the new state to the history
 		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
+		riskProvider.exposureManagerState = newState
 
 		let message = """
 		New status of EN framework:
@@ -321,11 +322,7 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
 		log(message: message)
-
-		if newState.isGood {
-			log(message: "Enabled")
-		}
-
+		
 		state.exposureManager = newState
 		updateExposureState(newState)
 	}
