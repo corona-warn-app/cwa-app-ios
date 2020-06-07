@@ -192,6 +192,8 @@ extension HomeInteractor {
 
 		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
 		print("riskLevel: \(riskLevel)")
+		riskLevelConfigurator = nil
+		inactiveConfigurator = nil
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
@@ -229,25 +231,8 @@ extension HomeInteractor {
 				detectionMode: detectionMode
 			)
 		}
-		
 		riskLevelConfigurator?.buttonAction = riskProvider.requestRisk
-
-
-		if riskLevelConfigurator != nil { return riskLevelConfigurator }
-		if inactiveConfigurator != nil { return inactiveConfigurator }
-
-//		if let risk = riskLevelConfigurator {
-//			riskLevelConfigurator = risk
-//			return risk
-//		}
-//
-//
-//		if let inactive = inactiveConfigurator {
-//			inactiveConfigurator = inactive
-//			return inactive
-//		}
-
-		return nil
+		return riskLevelConfigurator ?? inactiveConfigurator
 	}
 
 	private func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
