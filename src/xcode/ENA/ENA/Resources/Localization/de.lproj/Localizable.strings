@@ -412,6 +412,9 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureSubmissionResult_RemoveAlert_Text" = "Der Test wird endgültig aus der Corona-Warn-App entfernt und kann nicht wieder hinzugefügt werden. Dieser Vorgang kann nicht widerrufen werden.";
 
+"ExposureSubmissionResult_RegistrationDateUnknown" = "Registrierungsdatum unbekannt.";
+"ExposureSubmissionResult_RegistrationDate" = "Registriert am";
+
 /* Exposure Submission */
 "ExposureSubmissionError_NoKeys" = "Keine Positivkennung verfügbar. Bitte versuchen Sie es morgen erneut.";
 

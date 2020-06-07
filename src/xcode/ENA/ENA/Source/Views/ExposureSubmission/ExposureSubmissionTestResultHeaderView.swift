@@ -46,13 +46,15 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		subTitleLabel.text = AppStrings.ExposureSubmissionResult.card_subtitle
 		titleLabel.text = localizedString(for: testResult)
 		barView.layer.backgroundColor = color(for: testResult).cgColor
-		let formatter = DateFormatter()
-		formatter.dateStyle = .medium
-		formatter.timeStyle = .none
+
 		if let timeStamp = timeStamp {
-			timeLabel.text = "Registriert am " + formatter.string(from: Date(timeIntervalSince1970: TimeInterval(timeStamp) ))
+			let formatter = DateFormatter()
+			formatter.dateStyle = .medium
+			formatter.timeStyle = .none
+			let date = Date(timeIntervalSince1970: TimeInterval(timeStamp))
+			timeLabel.text = "\(AppStrings.ExposureSubmissionResult.registrationDate) \(formatter.string(from: date))"
 		} else {
-			timeLabel.text = "Registrieungsdatum unbekannt."
+			timeLabel.text = AppStrings.ExposureSubmissionResult.registrationDateUnknown
 		}
 	}
 
