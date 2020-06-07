@@ -646,7 +646,7 @@
         <image name="Icons - Close" width="30" height="30"/>
         <image name="Icons - Home" width="32" height="32"/>
         <image name="Icons_Dot" width="32" height="32"/>
-        <image name="Icons_RisikoBegegnung" width="20" height="20"/>
+        <image name="Icons_RisikoBegegnung" width="32" height="32"/>
         <image name="Illu_Appinfo_Kontakt" width="375" height="229"/>
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
