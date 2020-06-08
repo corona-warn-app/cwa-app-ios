@@ -378,7 +378,7 @@ extension SceneDelegate {
 }
 
 private var currentDetectionMode: DetectionMode {
-	let newState = UIApplication.shared.backgroundRefreshStatus
-	let detectionMode: DetectionMode = newState == .available ? .automatic : .manual
+	let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+	let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
 	return detectionMode
 }
