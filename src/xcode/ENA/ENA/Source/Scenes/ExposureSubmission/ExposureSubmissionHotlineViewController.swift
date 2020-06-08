@@ -94,7 +94,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 	private func getAttributedStrings() -> [NSAttributedString] {
 		let font: UIFont = .preferredFont(forTextStyle: .body)
 		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
-		let color: UIColor = .preferredColor(for: .tint)
+		let color: UIColor = .enaColor(for: .textTint)
 		let attr1: [NSAttributedString.Key: Any] = [.font: boldFont, .foregroundColor: color]
 		let word = NSAttributedString(
 			string: AppStrings.ExposureSubmissionHotline.phoneNumber,
