@@ -189,6 +189,15 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			self.stopSpinner()
 			switch result {
 			case let .failure(error):
+
+				// Note: In the case the QR Code was already used, retrying will result
+				// in an endless loop.
+				if case .qRAlreadyUsed = error {
+					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, completion: nil)
+					self.present(alert, animated: true, completion: nil)
+					return
+				}
+
 				logError(message: "Error while getting registration token: \(error)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, retry: true, retryActionHandler: {
 					self.startSpinner()
