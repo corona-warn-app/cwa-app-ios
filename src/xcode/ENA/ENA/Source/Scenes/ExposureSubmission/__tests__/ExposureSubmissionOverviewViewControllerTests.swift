@@ -21,7 +21,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-private extension TimeInterval {
+extension TimeInterval {
 	static let short = 1.0
 	static let long = 3.0
 }

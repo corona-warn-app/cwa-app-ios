@@ -11,7 +11,7 @@
         <!--Tan Input-->
         <scene sceneID="xja-bU-byS">
             <objects>
-                <viewController id="aFo-WD-gEN" customClass="ExposureSubmissionTanInputViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExposureSubmissionTanInputViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aFo-WD-gEN" customClass="ExposureSubmissionTanInputViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" id="qXS-zI-pkU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
