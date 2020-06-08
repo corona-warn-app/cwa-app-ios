@@ -21,6 +21,11 @@ platform :ios do
     setup_circle_ci
   end
 
+  desc "Update license file"
+  lane :update_licenses do
+    update_third_party_notice()
+  end
+
   desc "Build project"
   lane :build do
     build_ios_app(
