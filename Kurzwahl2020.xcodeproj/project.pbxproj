@@ -85,6 +85,7 @@
 		7E5C786323E8AA3200E25902 /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
 		7E8262882413920A008E141C /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		7E88253C248C068200E9F650 /* App Store Description.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "App Store Description.md"; sourceTree = "<group>"; };
+		7E90C413248ECE0F00C738C2 /* Promo Codes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Promo Codes.md"; sourceTree = "<group>"; };
 		7E9EEEA024812B1800990D38 /* iPhone Screen Sizes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "iPhone Screen Sizes.md"; sourceTree = "<group>"; };
 		7E9EEEA124812C4B00990D38 /* Launch Screen 2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen 2.storyboard"; sourceTree = "<group>"; };
 		7EC1B80223C100E8004B7396 /* editView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editView.swift; sourceTree = "<group>"; };
@@ -152,6 +153,7 @@
 				502BF544236399BD00FDE7BF /* Info.plist */,
 				502BF53E236399BD00FDE7BF /* Preview Content */,
 				5094A7A52365E324004D0932 /* Notizen.rtf */,
+				7E90C413248ECE0F00C738C2 /* Promo Codes.md */,
 				7EC8F975248D3308004A810F /* update_build_bumber.sh */,
 				7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */,
 				7E88253C248C068200E9F650 /* App Store Description.md */,
