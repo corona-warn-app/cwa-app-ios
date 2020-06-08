@@ -480,12 +480,12 @@
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="759" text="# Aus" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jns-eD-7In" userLabel="State Label" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                                                    <rect key="frame" x="363.5" y="14.5" width="34.5" height="16"/>
+                                                                                    <rect key="frame" x="354.5" y="12" width="43.5" height="20.5"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                     <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                     <userDefinedRuntimeAttributes>
-                                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="footnote"/>
+                                                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                                                                     </userDefinedRuntimeAttributes>
                                                                                 </label>
                                                                             </subviews>
