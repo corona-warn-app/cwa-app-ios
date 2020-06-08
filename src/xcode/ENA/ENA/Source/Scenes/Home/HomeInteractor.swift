@@ -42,14 +42,14 @@ final class HomeInteractor: RequiresAppDependencies {
 		}
 		riskProvider.observeRisk(riskConsumer)
 
-		NotificationCenter.default.addObserver(self,
-				selector: #selector(backgroundRefreshStatusDidChange),
-				name: UIApplication.backgroundRefreshStatusDidChangeNotification,
-				object: nil)
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(backgroundRefreshStatusDidChange),
+			name: UIApplication.backgroundRefreshStatusDidChangeNotification,
+			object: nil
+		)
 	}
-
-
-
+	
 	// MARK: Properties
 	private var enState: ENStateHandler.State
 	private let riskConsumer = RiskConsumer()
