@@ -20,7 +20,6 @@ import Foundation
 
 /// Basic SQLite Key/Value store with Keys as `TEXT` and Values stored as `BLOB`
 class SQLiteKeyValueStore {
-//	private let db: FMDatabase
 	private let databaseQueue: FMDatabaseQueue?
 	private let fileURL: URL
 
@@ -69,7 +68,7 @@ class SQLiteKeyValueStore {
 	///Open Database Connection, set the Key and check if the Key/Value Table already exits.
 	/// This retries the init steps, in case there was an issue
 	private func openDbIfNeeded() {
-		databaseQueue?.inDatabase {db in
+		databaseQueue?.inDatabase { db in
 			if !db.isOpen {
 				db.open()
 			}
@@ -80,8 +79,8 @@ class SQLiteKeyValueStore {
 	private func getData(for key: String) -> Data? {
 		openDbIfNeeded()
 
-		var dataToReturn:Data?
-		databaseQueue?.inDatabase {db in
+		var dataToReturn: Data?
+		databaseQueue?.inDatabase { db in
 			do {
 				let query = "SELECT value FROM kv WHERE key = ?;"
 				let result = try db.executeQuery(query, values: [key])
@@ -109,7 +108,7 @@ class SQLiteKeyValueStore {
 	/// - attention: Passing `nil` to the data param causes the key/value pair to be deleted from the DB
 	private func setData(_ data: Data?, for key: String) {
 		openDbIfNeeded()
-		databaseQueue?.inDatabase {db in
+		databaseQueue?.inDatabase { db in
 			guard let data = data else {
 				let deleteStmt = "DELETE FROM kv WHERE key = ?;"
 				do {
@@ -134,7 +133,7 @@ class SQLiteKeyValueStore {
 	/// Removes all key/value pairs from the Store
 	func clearAll(key: String?) {
 		openDbIfNeeded()
-		databaseQueue?.inDatabase {db in
+		databaseQueue?.inDatabase { db in
 			let sqlStmt = """
 			PRAGMA journal_mode=OFF;
 			DROP TABLE kv;
@@ -168,7 +167,7 @@ class SQLiteKeyValueStore {
 	/// - `developerVerificationBaseURLOverride`
 	func flush() {
 		openDbIfNeeded()
-		databaseQueue?.inDatabase {db in
+		databaseQueue?.inDatabase { db in
 			let deleteStmt = "DELETE FROM kv WHERE key NOT IN('developerSubmissionBaseURLOverride','developerDistributionBaseURLOverride','developerVerificationBaseURLOverride');"
 			do {
 				try db.executeUpdate(deleteStmt, values: [])
