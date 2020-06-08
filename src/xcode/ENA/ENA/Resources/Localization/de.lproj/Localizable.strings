@@ -48,6 +48,8 @@
 
 "ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d Minuten";
 
+"ExposureDetection_Refresh_24h" = "Aktualisierung alle 24 Stunden";
+
 "ExposureDetection_LastRiskLevel" = "Letzte Ermittlung: %@";
 
 "ExposureDetection_OffText" = "Aktivieren Sie die Risiko-Ermittlung, um Ihre heutige Risiko-Einschätzung zu berechnen.";
@@ -86,6 +88,8 @@
 "ExposureDetection_Explanation_Subtitle_Inactive" = "So wird Ihr Risiko ermittelt";
 
 "ExposureDetection_Explanation_Text_Off" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+
+"ExposureDetection_Explanation_Text_Outdated" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko- Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
 "ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko- Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
