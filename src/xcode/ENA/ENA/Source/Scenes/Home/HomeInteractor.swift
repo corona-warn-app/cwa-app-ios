@@ -195,6 +195,8 @@ extension HomeInteractor {
 				lastInvestigation: "Geringes Risiko",
 				lastUpdateDate: dateLastExposureDetection
 			)
+			inactiveConfigurator?.activeAction = inActiveCellActionHandler
+
 		case .unknownOutdated:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				incativeType: .outdatedResults,
@@ -393,5 +395,11 @@ extension HomeInteractor: ENStateHandlerUpdating {
 		self.state.enState = state
 		activeConfigurator.updateEnState(state)
 		updateActiveCell()
+	}
+}
+
+extension HomeInteractor {
+	private func inActiveCellActionHandler() {
+		homeViewController.showExposureNotificationSetting()
 	}
 }
