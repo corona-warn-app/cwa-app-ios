@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,12 +11,13 @@
         <scene sceneID="0T4-Ob-oWE">
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" id="nDx-eK-JR9" customClass="HomeViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="id3-0g-rA2">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="KGl-DR-CRT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="ENA Background Color"/>
-                        <viewLayoutGuide key="safeArea" id="H5b-9H-Duq"/>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" name="ENA Separator Color"/>
+                        <collectionViewLayout key="collectionViewLayout" id="RLB-nP-3jY" customClass="Home"/>
+                        <cells/>
+                    </collectionView>
                     <navigationItem key="navigationItem" id="Dij-1A-sIJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A19-MT-Age" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -26,8 +26,8 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="ENA Background Color">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="ENA Separator Color">
+            <color red="0.96100002527236938" green="0.96100002527236938" blue="0.96100002527236938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
