@@ -40,4 +40,4 @@ workflows:
         - grab-screenshots:
           filters:
             branches:
-              only: /^master$/
+              ignore: ^(?!master)
