@@ -141,10 +141,11 @@
         <!--Exposure SubmissionQR Scanner Navigation Controller-->
         <scene sceneID="HrB-NV-jDk">
             <objects>
-                <navigationController interfaceStyle="dark" id="BYY-Kq-aHb" customClass="ExposureSubmissionQRScannerNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="testD" modalPresentationStyle="fullScreen" interfaceStyle="dark" id="BYY-Kq-aHb" customClass="ExposureSubmissionQRScannerNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="aXv-uE-SC5"/>
+                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iPc-CN-Pgt">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -160,60 +161,61 @@
             <objects>
                 <viewController id="G7e-Tz-9aM" customClass="ExposureSubmissionQRScannerViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1rF-Kc-jE8">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R79-KI-RLB" customClass="ExposureSubmissionQRScannerFocusView" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="62" y="228" width="290" height="386"/>
+                                <rect key="frame" x="20.5" y="224" width="373" height="448"/>
                                 <color key="tintColor" name="ENA Text Contrast Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="R79-KI-RLB" secondAttribute="height" multiplier="0.75" id="ozk-hw-CKO"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="20"/>
+                                        <real key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="5"/>
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="backdropOpacity">
+                                        <real key="value" value="0.20000000000000001"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="62" y="147" width="290" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="999" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="52" y="151" width="310.5" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" name="ENA Text Contrast Color"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
-                                        <real key="value" value="17"/>
-                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="R79-KI-RLB" secondAttribute="bottom" id="2GO-5C-F0I"/>
+                            <constraint firstItem="aTI-P6-3Zh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="SS3-oV-R9m" secondAttribute="top" constant="32" id="9nw-Pu-4mr"/>
                             <constraint firstItem="R79-KI-RLB" firstAttribute="centerX" secondItem="1rF-Kc-jE8" secondAttribute="centerX" id="HIc-Km-GCl"/>
-                            <constraint firstItem="R79-KI-RLB" firstAttribute="centerY" secondItem="1rF-Kc-jE8" secondAttribute="centerY" id="INA-GV-JcS"/>
-                            <constraint firstItem="R79-KI-RLB" firstAttribute="width" secondItem="1rF-Kc-jE8" secondAttribute="width" multiplier="0.7" id="V1e-cq-m2y"/>
-                            <constraint firstItem="aTI-P6-3Zh" firstAttribute="width" secondItem="R79-KI-RLB" secondAttribute="width" id="kwW-lJ-oPc"/>
-                            <constraint firstItem="aTI-P6-3Zh" firstAttribute="bottom" secondItem="R79-KI-RLB" secondAttribute="top" constant="-40" id="nCL-Dc-LAj"/>
+                            <constraint firstItem="R79-KI-RLB" firstAttribute="centerY" secondItem="1rF-Kc-jE8" secondAttribute="centerY" priority="900" id="INA-GV-JcS"/>
+                            <constraint firstItem="R79-KI-RLB" firstAttribute="width" secondItem="1rF-Kc-jE8" secondAttribute="width" multiplier="0.9" priority="999" id="V1e-cq-m2y"/>
+                            <constraint firstItem="R79-KI-RLB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1rF-Kc-jE8" secondAttribute="leadingMargin" id="hJX-27-e8f"/>
+                            <constraint firstItem="aTI-P6-3Zh" firstAttribute="width" secondItem="SS3-oV-R9m" secondAttribute="width" multiplier="0.75" id="kwW-lJ-oPc"/>
+                            <constraint firstItem="R79-KI-RLB" firstAttribute="top" secondItem="aTI-P6-3Zh" secondAttribute="bottom" constant="32" id="nCL-Dc-LAj"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="R79-KI-RLB" secondAttribute="trailing" id="oZz-FW-hYH"/>
+                            <constraint firstItem="R79-KI-RLB" firstAttribute="height" secondItem="1rF-Kc-jE8" secondAttribute="height" multiplier="0.5" priority="999" id="uqD-w0-C0m"/>
                             <constraint firstItem="aTI-P6-3Zh" firstAttribute="centerX" secondItem="1rF-Kc-jE8" secondAttribute="centerX" id="whd-Ii-ypq"/>
                         </constraints>
+                        <edgeInsets key="layoutMargins" top="32" left="16" bottom="32" right="16"/>
                         <viewLayoutGuide key="safeArea" id="SS3-oV-R9m"/>
                     </view>
                     <navigationItem key="navigationItem" title="QR-Code Scan" largeTitleDisplayMode="never" id="Mky-1g-CYO">
-                        <barButtonItem key="leftBarButtonItem" title="Schließen" id="YEe-QI-wZs">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="YEe-QI-wZs">
                             <connections>
                                 <action selector="close" destination="G7e-Tz-9aM" id="RPm-4y-q6C"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="mLH-hK-j6V">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6dT-1D-1p0">
-                                <rect key="frame" x="374" y="14" width="20" height="28"/>
+                                <rect key="frame" x="374" y="8" width="20" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="bolt" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
