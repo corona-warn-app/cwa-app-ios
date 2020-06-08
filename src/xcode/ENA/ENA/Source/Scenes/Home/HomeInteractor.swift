@@ -44,7 +44,6 @@ final class HomeInteractor: RequiresAppDependencies {
 		risk: nil
 	) {
 		didSet {
-			print("STATE CHANGED !!!!!! - HomeInteractor")
 			homeViewController.setStateOfChildViewControllers()
 			sections = initialCellConfigurators()
 			homeViewController.reloadData()
@@ -179,7 +178,6 @@ extension HomeInteractor {
 		inactiveConfigurator = nil
 
 		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
-
 
 		switch riskLevel {
 		case .unknownInitial:

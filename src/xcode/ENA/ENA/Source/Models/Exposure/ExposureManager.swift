@@ -174,12 +174,6 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	}
 
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
-//		print("The status of exposure manager is \(manager.exposureNotificationStatus)")
-//		print("The status of authorizationStatus \(ENManager.authorizationStatus)")
-//		if ENManager.authorizationStatus == .notAuthorized {
-//			//TODO:
-//		}
-
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
 				logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
