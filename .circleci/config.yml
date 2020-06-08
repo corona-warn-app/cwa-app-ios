@@ -4,6 +4,9 @@ jobs:
   build-and-test:
     macos:
       xcode: 11.5.0
+    environment:
+      LC_ALL: de_DE
+      LANG: de_DE
 
     steps:
       - checkout
