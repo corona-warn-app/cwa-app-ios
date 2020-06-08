@@ -21,12 +21,11 @@ import Foundation
 import UIKit
 
 class HomeTestResultCell: HomeCardCollectionViewCell {
-
-	@IBOutlet weak var title: UILabel!
-	@IBOutlet weak var result: UILabel!
-	@IBOutlet weak var image: UIImageView!
-	@IBOutlet weak var body: UILabel!
-	@IBOutlet weak var button: ENAButton!
+	@IBOutlet var titleLabel: ENALabel!
+	@IBOutlet var resultLabel: ENALabel!
+	@IBOutlet var bodyLabel: ENALabel!
+	@IBOutlet var imageView: UIImageView!
+	@IBOutlet var button: ENAButton!
 	weak var delegate: HomeCardCellButtonDelegate?
 
 	@IBAction func buttonTapped(_: UIButton) {

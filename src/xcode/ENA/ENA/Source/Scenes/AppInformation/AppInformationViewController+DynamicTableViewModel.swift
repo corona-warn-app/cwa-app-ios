@@ -20,10 +20,12 @@ import UIKit
 
 private extension DynamicCell {
 	static func phone(text: String, number: String) -> Self {
-		.icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
+		var cell: DynamicCell = .icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
 			cell.textLabel?.textColor = .enaColor(for: .textTint)
 			(cell.textLabel as? ENALabel)?.style = .title2
 		}
+		cell.tag = "phone"
+		return cell
 	}
 
 	static func headlineWithoutBottomInset(text: String) -> Self {

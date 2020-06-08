@@ -181,12 +181,14 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	func setupAccessibility() {
-		imageView.isAccessibilityElement = false
+		imageView.isAccessibilityElement = true
 		titleLabel.isAccessibilityElement = true
 		boldLabel.isAccessibilityElement = true
 		textLabel.isAccessibilityElement = true
 		nextButton.isAccessibilityElement = true
 		ignoreButton.isAccessibilityElement = true
+
+		imageView.accessibilityLabel = onboardingInfo?.imageDescription
 
 		titleLabel.accessibilityTraits = .header
 		
@@ -202,7 +204,7 @@ final class OnboardingInfoViewController: UIViewController {
 			return
 		}
 		store.dateOfAcceptedPrivacyNotice = Date()
-		log(message: "Persist that user acccepted the privacy terms on \(Date())", level: .info)
+		log(message: "Persist that user accepted the privacy terms on \(Date())", level: .info)
 		completion?()
 	}
 

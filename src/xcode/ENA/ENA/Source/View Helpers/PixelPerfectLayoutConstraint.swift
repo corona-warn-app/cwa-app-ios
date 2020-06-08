@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,14 +15,34 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
+import Foundation
 import UIKit
 
-class HomeFooterSupplementaryView: UICollectionReusableView {
-	@IBOutlet var containerView: UIView!
-	@IBOutlet var imageView: UIImageView!
+@IBDesignable
+class PixelPerfectLayoutConstraint: NSLayoutConstraint {
+	@IBInspectable var pixelPerfectConstant: CGFloat = -1
 
-	func configure() {
-		containerView.backgroundColor = .clear
+	override func prepareForInterfaceBuilder() {
+		super.prepareForInterfaceBuilder()
+		applyPixelPerfectConstant()
+	}
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		applyPixelPerfectConstant()
+	}
+
+	private func applyPixelPerfectConstant() {
+		if pixelPerfectConstant > 0 {
+			constant = pixelPerfectConstant
+		}
+
+		if let window = (firstItem as? UIView)?.window {
+			constant /= window.screen.scale
+		} else {
+			constant /= UIScreen.main.scale
+		}
 	}
 }

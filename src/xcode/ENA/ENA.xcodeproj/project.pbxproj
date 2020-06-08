@@ -16,6 +16,7 @@
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
+		0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD260FE248D549B007C3B2C /* KeychainHelper.swift */; };
 		0DFCC2722484DC8400E2811D /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DFCC2702484DC8400E2811D /* sqlite3.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		1309194F247972C40066E329 /* PrivacyProtectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1309194E247972C40066E329 /* PrivacyProtectionViewController.swift */; };
 		130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130CB19B246D92F800ADE602 /* ENAUITestsOnboarding.swift */; };
@@ -88,8 +89,6 @@
 		51CE1B8A246078B6002CF42A /* InfoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B7B246078B6002CF42A /* InfoCollectionViewCell.xib */; };
 		51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B7C246078B6002CF42A /* InfoCollectionViewCell.swift */; };
 		51CE1B8D246078B6002CF42A /* SubmitCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B7E246078B6002CF42A /* SubmitCollectionViewCell.xib */; };
-		51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CE1B81246078B6002CF42A /* HomeFooterSupplementaryView.xib */; };
-		51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B82246078B6002CF42A /* HomeFooterSupplementaryView.swift */; };
 		51CE1B91246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1B84246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift */; };
 		51CE1BB52460AC83002CF42A /* UICollectionView+Dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */; };
 		51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BB92460AFD8002CF42A /* HomeActivateCellConfigurator.swift */; };
@@ -136,6 +135,8 @@
 		71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */; };
 		71B804522485272F00D53506 /* RiskLegendNumberedTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B804512485272F00D53506 /* RiskLegendNumberedTitleCell.swift */; };
 		71B804542485273C00D53506 /* RiskLegendDotBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B804532485273C00D53506 /* RiskLegendDotBodyCell.swift */; };
+		71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CAB9D1248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift */; };
+		71CAB9D4248AB33500F516A5 /* DynamicTypeSymbolImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CAB9D3248AB33500F516A5 /* DynamicTypeSymbolImageView.swift */; };
 		71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */; };
 		71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 71F5418A248BEDBE006DB793 /* privacy-policy.html */; };
 		71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F54190248BF677006DB793 /* HtmlTextView.swift */; };
@@ -341,6 +342,7 @@
 		01F5F7212487B9C000229720 /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
 		0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStore.swift; sourceTree = "<group>"; };
 		0D5611B7247FD36F00B5B094 /* PersistedAndPublished.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistedAndPublished.swift; sourceTree = "<group>"; };
+		0DD260FE248D549B007C3B2C /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		0DFCC2692484D7A700E2811D /* ENA-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ENA-Bridging-Header.h"; sourceTree = "<group>"; };
 		0DFCC26F2484DC8200E2811D /* ENATests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ENATests-Bridging-Header.h"; sourceTree = "<group>"; };
 		0DFCC2702484DC8400E2811D /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
@@ -420,8 +422,6 @@
 		51CE1B7B246078B6002CF42A /* InfoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCollectionViewCell.xib; sourceTree = "<group>"; };
 		51CE1B7C246078B6002CF42A /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		51CE1B7E246078B6002CF42A /* SubmitCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitCollectionViewCell.xib; sourceTree = "<group>"; };
-		51CE1B81246078B6002CF42A /* HomeFooterSupplementaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeFooterSupplementaryView.xib; sourceTree = "<group>"; };
-		51CE1B82246078B6002CF42A /* HomeFooterSupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFooterSupplementaryView.swift; sourceTree = "<group>"; };
 		51CE1B84246078B6002CF42A /* SectionSystemBackgroundDecorationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionSystemBackgroundDecorationView.swift; sourceTree = "<group>"; };
 		51CE1BB42460AC82002CF42A /* UICollectionView+Dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Dequeue.swift"; sourceTree = "<group>"; };
 		51CE1BB92460AFD8002CF42A /* HomeActivateCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeActivateCellConfigurator.swift; sourceTree = "<group>"; };
@@ -473,6 +473,8 @@
 		71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSpaceCell.swift; sourceTree = "<group>"; };
 		71B804512485272F00D53506 /* RiskLegendNumberedTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendNumberedTitleCell.swift; sourceTree = "<group>"; };
 		71B804532485273C00D53506 /* RiskLegendDotBodyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendDotBodyCell.swift; sourceTree = "<group>"; };
+		71CAB9D1248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelPerfectLayoutConstraint.swift; sourceTree = "<group>"; };
+		71CAB9D3248AB33500F516A5 /* DynamicTypeSymbolImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeSymbolImageView.swift; sourceTree = "<group>"; };
 		71CC3E9C246D5D8000217F2C /* AppInformationViewController+DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+DynamicTableViewModel.swift"; sourceTree = "<group>"; };
 		71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDetailViewController.swift; sourceTree = "<group>"; };
 		71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabel.swift; sourceTree = "<group>"; };
@@ -848,7 +850,6 @@
 			isa = PBXGroup;
 			children = (
 				51CE1B75246078B6002CF42A /* Cells */,
-				51CE1B80246078B6002CF42A /* Footers */,
 				51CE1B83246078B6002CF42A /* Decorations */,
 			);
 			path = "Home Screen";
@@ -857,6 +858,7 @@
 		51CE1B75246078B6002CF42A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				51B5B419246E058100DC5D3E /* Risk */,
 				A328424C248B91E0006B1F09 /* HomeTestResultLoadingCell.swift */,
 				A328424B248B91E0006B1F09 /* HomeTestResultLoadingCell.xib */,
 				2F785750248506BD00323A9C /* HomeTestResultCell.swift */,
@@ -864,22 +866,12 @@
 				51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */,
 				51CE1B78246078B6002CF42A /* ActivateCollectionViewCell.swift */,
 				51CE1B76246078B6002CF42A /* ActivateCollectionViewCell.xib */,
-				51B5B419246E058100DC5D3E /* Risk */,
 				51CE1B77246078B6002CF42A /* SubmitCollectionViewCell.swift */,
 				51CE1B7E246078B6002CF42A /* SubmitCollectionViewCell.xib */,
 				51CE1B7C246078B6002CF42A /* InfoCollectionViewCell.swift */,
 				51CE1B7B246078B6002CF42A /* InfoCollectionViewCell.xib */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		51CE1B80246078B6002CF42A /* Footers */ = {
-			isa = PBXGroup;
-			children = (
-				51CE1B81246078B6002CF42A /* HomeFooterSupplementaryView.xib */,
-				51CE1B82246078B6002CF42A /* HomeFooterSupplementaryView.swift */,
-			);
-			path = Footers;
 			sourceTree = "<group>";
 		};
 		51CE1B83246078B6002CF42A /* Decorations */ = {
@@ -938,6 +930,7 @@
 				0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */,
 				016146902487A43E00660992 /* WebPageHelper.swift */,
 				A128F058248B459F00EC7F6C /* PublicKeyStore.swift */,
+				0DD260FE248D549B007C3B2C /* KeychainHelper.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -1132,6 +1125,7 @@
 				71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */,
 				713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */,
 				85E33443247EB357006E74EC /* CircularProgressView.swift */,
+				71CAB9D3248AB33500F516A5 /* DynamicTypeSymbolImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1629,6 +1623,7 @@
 				CD99A3C92461A47C00BF12AF /* AppStrings.swift */,
 				134FFA0F247466BD00D82D14 /* Accessibility.swift */,
 				714CD868247297F800F56450 /* NibLoadable.swift */,
+				71CAB9D1248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift */,
 			);
 			path = "View Helpers";
 			sourceTree = "<group>";
@@ -1856,7 +1851,6 @@
 				13156CFD248C19D000AFC472 /* usage.html in Resources */,
 				51486DA72485237200FCE216 /* RiskThankYouCollectionViewCell.xib in Resources */,
 				2F785752248506BD00323A9C /* HomeTestResultCell.xib in Resources */,
-				51CE1B8F246078B6002CF42A /* HomeFooterSupplementaryView.xib in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				713FD5672482811A00C1F6DD /* colors.xcassets in Resources */,
 				EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */,
@@ -2012,6 +2006,7 @@
 				514C0A14247C163800F235F6 /* HomeLowRiskCellConfigurator.swift in Sources */,
 				51C779122486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift in Sources */,
 				B1741B4E2462C21F006275D9 /* DMViewController.swift in Sources */,
+				71CAB9D4248AB33500F516A5 /* DynamicTypeSymbolImageView.swift in Sources */,
 				EE22DB8C247FB43A001B0A71 /* DescriptionTableViewCell.swift in Sources */,
 				2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */,
 				B1741B4C2462C21F006275D9 /* DMDeveloperMenu.swift in Sources */,
@@ -2072,13 +2067,13 @@
 				13722044247AEEAD00152764 /* UNNotificationCenter+Extension.swift in Sources */,
 				B10FD5ED246EAADC00E9D7F2 /* AppInformationDetailViewController.swift in Sources */,
 				CDCE11D9247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift in Sources */,
+				0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */,
 				2FF1D63024880FCF00381FFB /* DynamicTableViewRoundedCell.swift in Sources */,
 				85D7593F2457048F008175F0 /* AppDelegate.swift in Sources */,
 				CDD87C56247556DE007CE6CA /* MainSettingsTableViewCell.swift in Sources */,
 				B153096C24706F2400A4A1BD /* URLSessionConfiguration+Default.swift in Sources */,
 				B1BD9E7E24898A2300BD3930 /* ExposureDetectionViewController+DynamicTableViewModel.swift in Sources */,
 				0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */,
-				51CE1B90246078B6002CF42A /* HomeFooterSupplementaryView.swift in Sources */,
 				71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */,
 				CD99A3C7246155C300BF12AF /* Logger.swift in Sources */,
 				85D759412457048F008175F0 /* SceneDelegate.swift in Sources */,
@@ -2102,6 +2097,7 @@
 				01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */,
 				B10FD5F1246EAB1000E9D7F2 /* AppInformationViewController+DynamicTableViewModel.swift in Sources */,
 				51C7790E24867F22004582F8 /* RiskListItemView.swift in Sources */,
+				71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */,
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
@@ -2333,7 +2329,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1226;
+				CURRENT_PROJECT_VERSION = 1290;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2348,7 +2344,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2548,7 +2544,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1226;
+				CURRENT_PROJECT_VERSION = 1290;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2562,7 +2558,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2587,7 +2583,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1226;
+				CURRENT_PROJECT_VERSION = 1290;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2597,7 +2593,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2788,7 +2784,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1226;
+				CURRENT_PROJECT_VERSION = 1290;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2798,7 +2794,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
