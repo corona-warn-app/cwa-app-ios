@@ -162,8 +162,7 @@ private extension DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskRefresh) { viewController, cell, _ in
 			let state = viewController.state
 			cell.backgroundColor = state.riskTintColor
-			let components = Calendar.current.dateComponents([.minute, .second], from: Date(), to: state.nextRefresh ?? Date())
-			cell.textLabel?.text = String(format: text, components.minute ?? 0, components.second ?? 0)
+			cell.textLabel?.text = AppStrings.ExposureDetection.refresh24h
 		}
 	}
 
@@ -307,13 +306,13 @@ extension ExposureDetectionViewController {
 		DynamicTableViewModel([
 			.section(
 				header: .none,
-				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 16, right: 0)),
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.outdatedText),
 					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
 			),
+			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
 			explanationSection(text: AppStrings.ExposureDetection.explanationTextOutdated, isActive: false)
