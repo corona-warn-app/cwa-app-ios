@@ -134,3 +134,13 @@ final class ENATaskScheduler {
 	}
 
 }
+
+extension ENATaskScheduler: ExposureStateUpdating {
+	func updateExposureState(_ state: ExposureManagerState) {
+		if state.isGood {
+			scheduleTasks()
+		} else {
+			cancelTasks()
+		}
+	}
+}
