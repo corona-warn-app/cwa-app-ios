@@ -26,7 +26,14 @@ class SQLiteKeyValueStore {
 	/// - parameter url: URL on disk where the FMDB should be initialized
 	/// If any part of the init fails no Datbase will be created
 	/// If the Database can't be accessed with the key the currentFile will be reset
-	init(with url: URL, key: String) {
+	init(with url: URL?, key: String) {
+		guard let url = url else {
+			self.directoryURL = URL(string: ":memory:")!
+			let fileURL = directoryURL
+			databaseQueue = FMDatabaseQueue(url: fileURL)
+			initDatabase(key, retry: false)
+			return
+		}
 		self.directoryURL = url
 		let fileURL = directoryURL.appendingPathComponent("secureStore.sqlite")
 		databaseQueue = FMDatabaseQueue(url: fileURL)

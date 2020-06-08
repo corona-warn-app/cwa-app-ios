@@ -146,14 +146,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				guard let key = KeychainHelper.generateDatabaseKey() else {
 					logError(message: "Creating the Database failed")
-					return SecureStore(at: URL(staticString: ":memory:"), key: "")
+					return SecureStore(at: nil, key: "")
 				}
 				return SecureStore(at: directoryURL, key: key)
 			} else {
 				guard let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") else {
 					guard let key = KeychainHelper.generateDatabaseKey() else {
 						logError(message: "Creating the Database failed")
-						return SecureStore(at: URL(staticString: ":memory:"), key: "")
+						return SecureStore(at: nil, key: "")
 					}
 					return SecureStore(at: directoryURL, key: key)
 				}
@@ -162,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			}
 		} catch {
 			logError(message: "Creating the Database failed")
-			return SecureStore(at: URL(staticString: ":memory:"), key: "")
+			return SecureStore(at: nil, key: "")
 		}
 	}()
 

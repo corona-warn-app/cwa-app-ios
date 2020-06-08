@@ -24,6 +24,8 @@ import XCTest
 final class SQLiteKeyValueStoreTests: XCTestCase {
 
 	private var kvStore: SQLiteKeyValueStore!
+	let group = DispatchGroup()
+
 
 	let rawMockData: [(key: String, data: Data)] = [
 		// swiftlint:disable force_unwrapping
@@ -38,7 +40,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 	override func setUp() {
 		super.setUp()
 		// Old DB is deinited and hence connection closed at every setUp() call
-		kvStore = SQLiteKeyValueStore(with: URL(staticString: ":memory:"), key: "password")
+		kvStore = SQLiteKeyValueStore(with: nil, key: "password")
 	}
 
 	// MARK: - Positive Tests
@@ -121,6 +123,26 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 	func testDecodingError_ReturnNil() {
 		kvStore["someCodable"] = SomeCodable(someDouble: 1.1)
 		XCTAssertNil(kvStore["someCodable"] as SomeOtherCodable?)
+	}
+
+	func testThreadSafety() {
+		for _ in 0...1000 {
+			group.enter()
+
+			DispatchQueue.global().async {
+				let sleepVal = arc4random() % 1000
+				usleep(sleepVal)
+				
+				self.kvStore[self.rawMockData[0].key] = self.rawMockData[0].data
+				self.kvStore[self.rawMockData[0].key] = nil
+				self.kvStore[self.rawMockData[0].key] = self.rawMockData[0].data
+				self.group.leave()
+			}
+		}
+
+		let result = group.wait(timeout: DispatchTime.now() + 5)
+		XCTAssert(result == .success)
+
 	}
 }
 
