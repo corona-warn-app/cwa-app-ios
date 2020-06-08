@@ -20,10 +20,31 @@ import UIKit
 final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Configuration
 
+	// This interval is 24
+	private let detectionInterval: Int
+
+	// MARK: Creating a unknown Risk cell
+	init(
+		isLoading: Bool,
+		detectionIntervalLabelHidden: Bool,
+		lastUpdateDate: Date?,
+		detectionInterval: Int,
+		detectionMode: DetectionMode,
+		manualExposureDetectionState: ManualExposureDetectionState
+	) {
+		self.detectionInterval = detectionInterval
+
+		super.init(
+			isLoading: isLoading,
+			isButtonEnabled: detectionMode == .manual && manualExposureDetectionState == .possible,
+			isButtonHidden: detectionMode == .automatic,
+			detectionIntervalLabelHidden: detectionIntervalLabelHidden,
+			lastUpdateDate: lastUpdateDate
+		)
+	}
+
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
-
-		cell.removeAllArrangedSubviews()
 
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
 		let titleColor: UIColor = .enaColor(for: .textContrast)
@@ -46,9 +67,19 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardUnknownButton
 
-		configureCounter(buttonTitle: buttonTitle, cell: cell)
+		let intervalString = "\(detectionInterval)"
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
+		cell.configureDetectionIntervalLabel(
+			text: intervalTitle,
+			isHidden: detectionIntervalLabelHidden
+		)
+		
+		cell.configureUpdateButton(
+			title: buttonTitle,
+			isEnabled: isButtonEnabled,
+			isHidden: isButtonHidden
+		)
 
 		setupAccessibility(cell)
 	}
-
 }

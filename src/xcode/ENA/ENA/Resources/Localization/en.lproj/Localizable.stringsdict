@@ -149,13 +149,16 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Exposure logging has been active for less than one day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<string>Risk identification has been active for less than one day.
+An exposure check can only be reliable if risk identification is permanently activated.</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Exposure logging has been active for %u day. The exposure check is only reliable if exposure logging is permanently activated.</string>
+			<string>Risk identification has been active for %u day.
+The exposure check is only reliable if risk identification is permanently activated.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<string>Risk identification has been active for %u days.
+An exposure check can only be reliable if risk identification is permanently activated.</string>
 		</dict>
 	</dict>
 </dict>

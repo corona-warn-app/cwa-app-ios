@@ -25,23 +25,25 @@ final class DownloadedPackagesSQLLiteStore {
 		self.database = database
 	}
 
-	private func beginTransaction() {
+	private func _beginTransaction() {
 		database.beginExclusiveTransaction()
 	}
 
-	private func commit() {
+	private func _commit() {
 		database.commit()
 	}
 
 	// MARK: Properties
-
+	private let queue = DispatchQueue(label: "com.sap.DownloadedPackagesSQLLiteStore")
 	private let database: FMDatabase
 }
 
 extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 	func open() {
-		database.open()
-		database.executeStatements(
+		_ = queue.sync {
+
+			self.database.open()
+			self.database.executeStatements(
 			"""
 			    PRAGMA locking_mode=EXCLUSIVE;
 			    PRAGMA auto_vacuum=2;
@@ -60,10 +62,13 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			    );
 			"""
 		)
+		}
 	}
 
 	func close() {
-		database.close()
+		_ = queue.sync {
+			self.database.close()
+		}
 	}
 
 	// swiftlint:disable:next function_body_length
@@ -116,94 +121,105 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			)
 		}
 
-		beginTransaction()
+		queue.sync {
+			self._beginTransaction()
 
-		guard deleteHours() else {
-			database.rollback()
-			return
-		}
-		guard insertDay() else {
-			database.rollback()
-			return
+			guard deleteHours() else {
+				self.database.rollback()
+				return
+			}
+			guard insertDay() else {
+				self.database.rollback()
+				return
+			}
+
+			self._commit()
 		}
 
-		database.commit()
 	}
 
 	func set(hour: Int, day: String, package: SAPDownloadedPackage) {
-		let sql = """
-		    INSERT INTO Z_DOWNLOADED_PACKAGE(
-		        Z_BIN,
-		        Z_SIGNATURE,
-		        Z_DAY,
-		        Z_HOUR
-		    )
-		    VALUES (
-		        :bin,
-		        :signature,
-		        :day,
-		        :hour
-		    )
-		    ON CONFLICT(
-		        Z_DAY,
-		        Z_HOUR
-		    )
-		    DO UPDATE SET
-		        Z_BIN = :bin,
-		        Z_SIGNATURE = :signature
-		    ;
-		"""
-		let parameters: [String: Any] = [
-			"bin": package.bin,
-			"signature": package.signature,
-			"day": day,
-			"hour": hour
-		]
-		database.executeUpdate(sql, withParameterDictionary: parameters)
+		queue.sync {
+			let sql = """
+				INSERT INTO Z_DOWNLOADED_PACKAGE(
+					Z_BIN,
+					Z_SIGNATURE,
+					Z_DAY,
+					Z_HOUR
+				)
+				VALUES (
+					:bin,
+					:signature,
+					:day,
+					:hour
+				)
+				ON CONFLICT(
+					Z_DAY,
+					Z_HOUR
+				)
+				DO UPDATE SET
+					Z_BIN = :bin,
+					Z_SIGNATURE = :signature
+				;
+			"""
+			let parameters: [String: Any] = [
+				"bin": package.bin,
+				"signature": package.signature,
+				"day": day,
+				"hour": hour
+			]
+			self.database.executeUpdate(sql, withParameterDictionary: parameters)
+		}
 	}
 
 	func package(for day: String) -> SAPDownloadedPackage? {
-		let sql = """
-		    SELECT
-		        Z_BIN,
-		        Z_SIGNATURE
-		    FROM Z_DOWNLOADED_PACKAGE
-		    WHERE
-		        Z_DAY = :day AND
-		        Z_HOUR IS NULL
-		    ;
-		"""
-		guard let result = database.execute(query: sql, parameters: ["day": day]) else {
-			return nil
-		}
+		queue.sync {
+			let sql = """
+				SELECT
+					Z_BIN,
+					Z_SIGNATURE
+				FROM Z_DOWNLOADED_PACKAGE
+				WHERE
+					Z_DAY = :day AND
+					Z_HOUR IS NULL
+				;
+			"""
+			guard let result = self.database.execute(query: sql, parameters: ["day": day]) else {
+				return nil
+			}
 
-		defer { result.close() }
-		return result
-			.map { $0.downloadedPackage() }
-			.compactMap { $0 }
-			.first
+			defer { result.close() }
+			return result
+				.map { $0.downloadedPackage() }
+				.compactMap { $0 }
+				.first
+		}
 	}
 
 	func hourlyPackages(for day: String) -> [SAPDownloadedPackage] {
-		let sql = "SELECT Z_BIN, Z_SIGNATURE, Z_HOUR FROM Z_DOWNLOADED_PACKAGE WHERE Z_DAY = :day AND Z_HOUR IS NOT NULL ORDER BY Z_HOUR DESC;"
-		guard let result = database.execute(query: sql, parameters: ["day": day]) else {
-			return []
+		queue.sync {
+			let sql = "SELECT Z_BIN, Z_SIGNATURE, Z_HOUR FROM Z_DOWNLOADED_PACKAGE WHERE Z_DAY = :day AND Z_HOUR IS NOT NULL ORDER BY Z_HOUR DESC;"
+			guard let result = self.database.execute(query: sql, parameters: ["day": day]) else {
+				return []
+			}
+			defer { result.close() }
+			return result
+				.map { $0.downloadedPackage() }
+				.compactMap { $0 }
 		}
-		defer { result.close() }
-		return result
-			.map { $0.downloadedPackage() }
-			.compactMap { $0 }
 	}
 
 	func allDays() -> [String] {
-		let sql = "SELECT Z_DAY FROM Z_DOWNLOADED_PACKAGE WHERE Z_HOUR IS NULL;"
-		guard let result = database.execute(query: sql) else {
-			return []
+		queue.sync {
+			let sql = "SELECT Z_DAY FROM Z_DOWNLOADED_PACKAGE WHERE Z_HOUR IS NULL;"
+			guard let result = self.database.execute(query: sql) else {
+				return []
+			}
+			defer { result.close() }
+			return result
+				.map { $0.string(forColumn: "Z_DAY") }
+				.compactMap { $0 }
 		}
-		defer { result.close() }
-		return result
-			.map { $0.string(forColumn: "Z_DAY") }
-			.compactMap { $0 }
 	}
 
 	func hours(for day: String) -> [Int] {
@@ -217,21 +233,26 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 			        Z_HOUR IS NOT NULL AND Z_DAY = :day
 			    ;
 			"""
-		guard let result = database.execute(query: sql, parameters: ["day": day]) else {
-			return []
+		return queue.sync {
+			guard let result = self.database.execute(query: sql, parameters: ["day": day]) else {
+				return []
+			}
+			defer { result.close() }
+			return result.map { Int($0.int(forColumn: "Z_HOUR")) }
 		}
-		defer { result.close() }
-		return result.map { Int($0.int(forColumn: "Z_HOUR")) }
 	}
 
 	func reset() {
-		database.executeStatements(
-			"""
-			    PRAGMA journal_mode=OFF;
-			    DROP TABLE Z_DOWNLOADED_PACKAGE;
-			"""
-		)
-		close()
+		_ = queue.sync {
+			self.database.executeStatements(
+				"""
+					PRAGMA journal_mode=OFF;
+					DROP TABLE Z_DOWNLOADED_PACKAGE;
+				"""
+			)
+			self.close()
+		}
+
 	}
 }
 
