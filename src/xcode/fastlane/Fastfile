@@ -61,10 +61,10 @@ platform :ios do
     )
 
     # UI Tests
-    #run_tests(
-    #  scheme: "ENAUITests",
-    #  devices: ["iPhone 11"]
-    #)
+    run_tests(
+      scheme: "ENAUITests",
+      devices: ["iPhone 11"]
+    )
   end
 
 end
