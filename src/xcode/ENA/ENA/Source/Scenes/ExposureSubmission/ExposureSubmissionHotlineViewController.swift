@@ -92,16 +92,20 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 
 	/// Gets the attributed string that makes the phone number blue and bold.
 	private func getAttributedStrings() -> [NSAttributedString] {
-		let font: UIFont = .preferredFont(forTextStyle: .body)
-		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
-		let color: UIColor = .enaColor(for: .textTint)
-		let attr1: [NSAttributedString.Key: Any] = [.font: boldFont, .foregroundColor: color]
+		let attr1: [NSAttributedString.Key: Any] = [
+			.font: UIFont.enaFont(for: .headline),
+			.foregroundColor: UIColor.enaColor(for: .textTint)
+		]
+
 		let word = NSAttributedString(
 			string: AppStrings.ExposureSubmissionHotline.phoneNumber,
 			attributes: attr1
 		)
 
-		let attr2: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .footnote)]
+		let attr2: [NSAttributedString.Key: Any] = [
+			.font: UIFont.enaFont(for: .footnote)
+		]
+
 		let description = NSAttributedString(
 			string: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
 			attributes: attr2
