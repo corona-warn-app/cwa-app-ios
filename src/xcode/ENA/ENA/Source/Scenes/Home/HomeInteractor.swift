@@ -180,7 +180,7 @@ extension HomeInteractor {
 
 		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
 
-		print(" 🐶 The detection mode is \(detectionMode)")
+
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
@@ -197,6 +197,8 @@ extension HomeInteractor {
 				lastInvestigation: "Geringes Risiko",
 				lastUpdateDate: dateLastExposureDetection
 			)
+			inactiveConfigurator?.activeAction = inActiveCellActionHandler
+
 		case .unknownOutdated:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				incativeType: .outdatedResults,
@@ -395,5 +397,11 @@ extension HomeInteractor: ENStateHandlerUpdating {
 		self.state.enState = state
 		activeConfigurator.updateEnState(state)
 		updateActiveCell()
+	}
+}
+
+extension HomeInteractor {
+	private func inActiveCellActionHandler() {
+		homeViewController.showExposureNotificationSetting()
 	}
 }
