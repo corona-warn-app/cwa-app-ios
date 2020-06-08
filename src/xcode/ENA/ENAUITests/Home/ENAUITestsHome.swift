@@ -19,7 +19,7 @@
 
 import XCTest
 
-class ENAUITestsHome: XCTestCase {
+class ENAUITests_01_Home: XCTestCase {
 	var app: XCUIApplication!
 
 	override func setUpWithError() throws {
@@ -27,7 +27,7 @@ class ENAUITestsHome: XCTestCase {
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
-		app.launchArguments = ["-isOnboarded", "YES"]
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
 		app.launchArguments.append(contentsOf: ["-AppleLocale", "de"])
 	}
 
@@ -40,7 +40,7 @@ class ENAUITestsHome: XCTestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertNotNil(app.staticTexts[app.localized(AppStrings.Home.infoCardAboutTitle)])
+		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
@@ -56,7 +56,7 @@ class ENAUITestsHome: XCTestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertNotNil(app.staticTexts[app.localized(AppStrings.Home.infoCardAboutTitle)])
+		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
@@ -72,7 +72,7 @@ class ENAUITestsHome: XCTestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssertNotNil(app.staticTexts[app.localized(AppStrings.Home.infoCardAboutTitle)])
+		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		app.swipeUp()
