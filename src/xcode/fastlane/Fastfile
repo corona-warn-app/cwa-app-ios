@@ -13,6 +13,11 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+# A list of supported languages
+
+ENV["LC_ALL"] = "de_DE"
+ENV["LANG"] = "de_DE"
+
 default_platform(:ios)
 
 platform :ios do
