@@ -20,7 +20,6 @@ import ExposureNotification
 
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
-	var dateLastExposureDetection: Date? { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
 	var developerSubmissionBaseURLOverride: String? { get set }
 	var developerDistributionBaseURLOverride: String? { get set }
@@ -39,8 +38,7 @@ protocol Store: AnyObject {
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
-	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
-	var previousSummaryDate: Date? { get set }
+	var summary: SummaryMetadata? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
@@ -155,22 +153,17 @@ final class SecureStore: Store {
 	var devicePairingSuccessfulTimestamp: Int64? {
 		get { kvStore["devicePairingSuccessfulTimestamp"] as Int64? ?? 0 }
 		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue }
-		}
+	}
 
 	var isAllowedToSubmitDiagnosisKeys: Bool {
 		get { kvStore["isAllowedToSubmitDiagnosisKeys"] as Bool? ?? false }
 		set { kvStore["isAllowedToSubmitDiagnosisKeys"] = newValue }
-		}
+	}
 
 	var isOnboarded: Bool {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
 		set { kvStore["isOnboarded"] = newValue }
-		}
-
-	var dateLastExposureDetection: Date? {
-		get { kvStore["dateLastExposureDetection"] as Date? ?? nil }
-		set { kvStore["dateLastExposureDetection"] = newValue }
-		}
+	}
 
 	var dateOfAcceptedPrivacyNotice: Date? {
 		get { kvStore["dateOfAcceptedPrivacyNotice"] as Date? ?? nil }
@@ -185,7 +178,7 @@ final class SecureStore: Store {
 	var developerSubmissionBaseURLOverride: String? {
 		get { kvStore["developerSubmissionBaseURLOverride"] as String? ?? nil }
 		set { kvStore["developerSubmissionBaseURLOverride"] = newValue }
-		}
+	}
 
 	var developerDistributionBaseURLOverride: String? {
 		get { kvStore["developerDistributionBaseURLOverride"] as String? ?? nil }
@@ -195,12 +188,12 @@ final class SecureStore: Store {
 	var developerVerificationBaseURLOverride: String? {
 		get { kvStore["developerVerificationBaseURLOverride"] as String? ?? nil }
 		set { kvStore["developerVerificationBaseURLOverride"] = newValue }
-		}
+	}
 
 	var allowRiskChangesNotification: Bool {
 		get { kvStore["allowRiskChangesNotification"] as Bool? ?? true }
 		set { kvStore["allowRiskChangesNotification"] = newValue }
-		}
+	}
 
 	var allowTestsStatusNotification: Bool {
 		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }
@@ -219,14 +212,9 @@ final class SecureStore: Store {
 		}
 	}
 
-	var previousSummary: ENExposureDetectionSummaryContainer? {
-		get { kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil }
-		set { kvStore["previousSummary"] = newValue }
-	}
-
-	var previousSummaryDate: Date? {
-		get { kvStore["previousSummaryDate"] as Date? ?? nil }
-		set { kvStore["previousSummaryDate"] = newValue }
+	var summary: SummaryMetadata? {
+		get { kvStore["previousSummaryMetadata"] as SummaryMetadata? ?? nil }
+		set { kvStore["previousSummaryMetadata"] = newValue }
 	}
 
 	var hourlyFetchingEnabled: Bool {
@@ -235,7 +223,7 @@ final class SecureStore: Store {
 	}
 }
 
-struct ENExposureDetectionSummaryContainer: Codable {
+struct CodableExposureDetectionSummary: Codable {
 	let daysSinceLastExposure: Int
 	let matchedKeyCount: UInt64
 	let maximumRiskScore: ENRiskScore
@@ -246,12 +234,25 @@ struct ENExposureDetectionSummaryContainer: Codable {
 	/// - see also: [Apple Documentation](https://developer.apple.com/documentation/exposurenotification/enexposuredetectionsummary/3586324-metadata)
 	let configuredAttenuationDurations: [Double]
 
-	init(daysSinceLastExposure: Int, matchedKeyCount: UInt64, maximumRiskScore: ENRiskScore, attenuationDurations: [Double], maximumRiskScoreFullRange: Int) {
+	init(
+		daysSinceLastExposure: Int,
+		matchedKeyCount: UInt64,
+		maximumRiskScore: ENRiskScore,
+		attenuationDurations: [Double],
+		maximumRiskScoreFullRange: Int
+	) {
 		self.daysSinceLastExposure = daysSinceLastExposure
 		self.matchedKeyCount = matchedKeyCount
 		self.maximumRiskScore = maximumRiskScore
 		self.configuredAttenuationDurations = attenuationDurations
 		self.maximumRiskScoreFullRange = maximumRiskScoreFullRange
+	}
+
+	init?(with summary: ENExposureDetectionSummary?) {
+		guard let summary = summary else {
+			return nil
+		}
+		self.init(with: summary)
 	}
 
 	init(with summary: ENExposureDetectionSummary) {
