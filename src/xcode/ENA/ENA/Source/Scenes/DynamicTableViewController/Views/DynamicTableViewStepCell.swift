@@ -144,7 +144,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 		} else {
 			body.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
 		}
-		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
+		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 16).isActive = true
 		body.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
 
 		if reducedSpacing {
