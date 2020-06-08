@@ -21,9 +21,9 @@ import UIKit
 class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 	// MARK: Attributes.
 
-	private var titleLabel: UILabel!
-	private var subTitleLabel: UILabel!
-	private var timeLabel: UILabel!
+	private var titleLabel: ENALabel!
+	private var subTitleLabel: ENALabel!
+	private var timeLabel: ENALabel!
 
 	private var imageView: UIImageView!
 	private var barView: UIView!
@@ -45,7 +45,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		setupView(testResult)
 		subTitleLabel.text = AppStrings.ExposureSubmissionResult.card_subtitle
 		titleLabel.text = localizedString(for: testResult)
-		barView.layer.backgroundColor = color(for: testResult).cgColor
+		barView.backgroundColor = testResult.color
 
 		if let timeStamp = timeStamp {
 			let formatter = DateFormatter()
@@ -62,14 +62,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 
 	// swiftlint:disable:next function_body_length
 	private func setupView(_ result: TestResult) {
-
-		self.backgroundView = {
-			let view = UIView()
-			view.tintColor = UIColor.preferredColor(for: .backgroundSecondary)
-			return view
-		}()
-
-		baseView.backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
+		baseView.backgroundColor = UIColor.enaColor(for: .separator)
 		baseView.layer.cornerRadius = 14
 		baseView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(baseView)
@@ -98,27 +91,31 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		column.centerYAnchor.constraint(equalTo: baseView.centerYAnchor).isActive = true
 		column.leftAnchor.constraint(equalTo: barView.rightAnchor, constant: 25).isActive = true
 
-		subTitleLabel = UILabel()
-		subTitleLabel.text = "subTitle"
-		subTitleLabel.font = UIFont.systemFont(ofSize: 13)
+		subTitleLabel = ENALabel()
+		subTitleLabel.text = "Footnote"
+		subTitleLabel.numberOfLines = 0
+		subTitleLabel.style = .footnote
+		subTitleLabel.textColor = .enaColor(for: .textPrimary2)
 		subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 		column.addSubview(subTitleLabel)
 		subTitleLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
 		subTitleLabel.topAnchor.constraint(equalTo: barView.topAnchor).isActive = true
 
-		titleLabel = UILabel()
-		titleLabel.text = "title"
+		titleLabel = ENALabel()
+		titleLabel.text = "Title 2"
 		titleLabel.numberOfLines = 0
-		titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
+		titleLabel.style = .title2
+		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
 		column.addSubview(titleLabel)
 		titleLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
 		titleLabel.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 5).isActive = true
 		titleLabel.widthAnchor.constraint(equalTo: column.widthAnchor).isActive = true
 
-		timeLabel = UILabel()
+		timeLabel = ENALabel()
 		timeLabel.text = "timelabel"
-		timeLabel.font = UIFont.systemFont(ofSize: 13)
+		timeLabel.style = .footnote
+		timeLabel.textColor = .enaColor(for: .textPrimary1)
 		timeLabel.translatesAutoresizingMaskIntoConstraints = false
 		column.addSubview(timeLabel)
 		timeLabel.leftAnchor.constraint(equalTo: column.leftAnchor, constant: 5).isActive = true
@@ -147,19 +144,6 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		}
 	}
 
-	private func color(for testResult: TestResult) -> UIColor {
-		switch testResult {
-		case .positive:
-			return UIColor.preferredColor(for: .negativeRisk)
-		case .negative:
-			return UIColor.preferredColor(for: .positiveRisk)
-		case .invalid:
-			return UIColor.preferredColor(for: .chevron)
-		case .pending:
-			return UIColor.preferredColor(for: .chevron)
-		}
-	}
-
 	private func image(for result: TestResult) -> UIImage? {
 		switch result {
 		case .positive:
@@ -170,6 +154,17 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 			return UIImage(named: "Illu_Submission_FehlerhaftesTestErgebnis")
 		case .pending:
 			return UIImage(named: "Illu_Submission_PendingTestErgebnis")
+		}
+	}
+}
+
+private extension TestResult {
+	var color: UIColor {
+		switch self {
+		case .positive: return .enaColor(for: .riskHigh)
+		case .negative: return .enaColor(for: .riskLow)
+		case .invalid: return .enaColor(for: .riskNeutral)
+		case .pending: return .enaColor(for: .riskNeutral)
 		}
 	}
 }

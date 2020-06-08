@@ -17,28 +17,29 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="nFg-zD-itB">
-                                <rect key="frame" x="20" y="20" width="374" height="146"/>
+                                <rect key="frame" x="20" y="20" width="374" height="268"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYD-2B-lci" userLabel="Description" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYD-2B-lci" userLabel="Description" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IqH-g9-vGO" userLabel="Info" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="40.5" width="374" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IqH-g9-vGO" userLabel="Info" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="40.5" width="374" height="142.5"/>
+                                        <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pJo-7q-izL" customClass="ENATanInput" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="81" width="374" height="65"/>
+                                        <rect key="frame" x="0.0" y="203" width="374" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="vzo-SC-HoE"/>
                                         </constraints>
@@ -46,7 +47,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
                             <constraint firstItem="nFg-zD-itB" firstAttribute="leading" secondItem="qXS-zI-pkU" secondAttribute="leading" constant="20" id="B0X-Aa-4pm"/>
                             <constraint firstItem="nFg-zD-itB" firstAttribute="width" secondItem="qXS-zI-pkU" secondAttribute="width" constant="-40" id="NP4-Ts-Jat"/>
@@ -78,13 +79,18 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="gbg-tE-mnF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                         <connections>
                             <outlet property="dataSource" destination="efh-V6-b47" id="hBs-QM-9cu"/>
                             <outlet property="delegate" destination="efh-V6-b47" id="Vg9-3e-Kw3"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Testergebnis" id="ZER-NQ-eAY"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="IeT-ta-YWf" kind="show" identifier="warnOthersSegue" id="7vS-vS-v87"/>
                     </connections>
@@ -100,7 +106,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="I2D-eU-Ob2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <connections>
                             <outlet property="dataSource" destination="yc4-yu-NbP" id="P1d-vH-Sus"/>
@@ -109,6 +115,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Test Registrieren" id="M8d-ii-EG4"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="aFo-WD-gEN" kind="show" identifier="tanInputSegue" id="zPx-Mo-iVD"/>
                         <segue destination="BYY-Kq-aHb" kind="show" identifier="qrScannerSegue" id="57u-UG-VMo"/>
@@ -131,7 +142,7 @@
         <scene sceneID="HrB-NV-jDk">
             <objects>
                 <navigationController interfaceStyle="dark" id="BYY-Kq-aHb" customClass="ExposureSubmissionQRScannerNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="aXv-uE-SC5"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="aXv-uE-SC5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iPc-CN-Pgt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -154,7 +165,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R79-KI-RLB" customClass="ExposureSubmissionQRScannerFocusView" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="62" y="228" width="290" height="386"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="ENA Text Contrast Color"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="R79-KI-RLB" secondAttribute="height" multiplier="0.75" id="ozk-hw-CKO"/>
                                 </constraints>
@@ -168,9 +179,9 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="DynamicTypeLabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="62" y="145.5" width="290" height="42.5"/>
+                                <rect key="frame" x="62" y="147" width="290" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" name="ENA Text Contrast Color"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="bold"/>
@@ -247,9 +258,14 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="qAy-a1-zcN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                     </tableView>
                     <navigationItem key="navigationItem" id="T7L-wJ-1am"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="JPa-EJ-yrk" kind="show" identifier="sentSegue" id="5YR-5A-F8h"/>
                     </connections>
@@ -265,7 +281,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="HD9-Sn-JvJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                         <connections>
                             <outlet property="dataSource" destination="JPa-EJ-yrk" id="DbL-Ed-TSp"/>
                             <outlet property="delegate" destination="JPa-EJ-yrk" id="KPx-jr-z1H"/>
@@ -274,6 +290,11 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="pUU-DO-TYc" userLabel="Navigation Item"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="rcw-oT-76I" kind="unwind" identifier="overviewSegue" unwindAction="unwindToExposureSubmissionIntro:" id="i3b-od-C0r"/>
                     </connections>
@@ -290,12 +311,17 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="TW3-hM-Edc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </tableView>
                     <navigationItem key="navigationItem" title="Intro" largeTitleDisplayMode="always" id="O7Z-9o-aZy"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="yc4-yu-NbP" kind="show" identifier="overviewSegue" id="lCb-cl-Yp4"/>
                         <segue destination="efh-V6-b47" kind="show" identifier="labResultSegue" id="F8Z-7e-umN"/>
@@ -312,9 +338,14 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="Bij-4W-Ok4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                     </tableView>
                     <navigationItem key="navigationItem" id="esH-XN-Att"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
+                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="aFo-WD-gEN" kind="show" identifier="tanInputSegue" id="TMI-YH-9ne"/>
                     </connections>
@@ -325,16 +356,22 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="HlT-ix-3R2"/>
-        <segue reference="aeq-iH-Hkk"/>
+        <segue reference="5YR-5A-F8h"/>
+        <segue reference="7vS-vS-v87"/>
         <segue reference="n8Y-d3-Pny"/>
         <segue reference="TMI-YH-9ne"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bolt" catalog="system" width="101" height="128"/>
         <image name="bolt.fill" catalog="system" width="101" height="128"/>
-        <namedColor name="background">
+        <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Contrast Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 1 Color">
+            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

@@ -152,7 +152,6 @@
 		71FE1C80247AC2B500851FEB /* ExposureSubmissionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C79247AC2B500851FEB /* ExposureSubmissionNavigationController.swift */; };
 		71FE1C82247AC30300851FEB /* ENATanInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C81247AC30300851FEB /* ENATanInput.swift */; };
 		71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */; };
-		71FE1C87247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FE1C85247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib */; };
 		71FE1C8C247AC79D00851FEB /* DynamicTableViewIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */; };
 		71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */; };
 		85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85142500245DA0B3009D2791 /* UIViewController+Alert.swift */; };
@@ -491,7 +490,6 @@
 		71FE1C79247AC2B500851FEB /* ExposureSubmissionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionNavigationController.swift; sourceTree = "<group>"; };
 		71FE1C81247AC30300851FEB /* ENATanInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENATanInput.swift; sourceTree = "<group>"; };
 		71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultHeaderView.swift; sourceTree = "<group>"; };
-		71FE1C85247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExposureSubmissionTestResultHeaderView.xib; sourceTree = "<group>"; };
 		71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTableViewIconCell.swift; sourceTree = "<group>"; };
 		71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DynamicTableViewIconCell.xib; sourceTree = "<group>"; };
 		85142500245DA0B3009D2791 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
@@ -1077,7 +1075,6 @@
 			isa = PBXGroup;
 			children = (
 				71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */,
-				71FE1C85247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib */,
 			);
 			path = ExposureSubmission;
 			sourceTree = "<group>";
@@ -1847,7 +1844,6 @@
 				71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */,
 				51CE1B8D246078B6002CF42A /* SubmitCollectionViewCell.xib in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
-				71FE1C87247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
 				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,

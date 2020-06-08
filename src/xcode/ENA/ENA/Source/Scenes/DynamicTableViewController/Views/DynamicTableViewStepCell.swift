@@ -41,13 +41,13 @@ class DynamicTableViewStepCell: UITableViewCell {
 		// MARK: - Cell related changes.
 
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		backgroundColor = .enaColor(for: .background)
 
 		// MARK: - Head.
 
 		if let title = title {
 			head.style = .headline
-			head.textColor = .preferredColor(for: .textPrimary1)
+			head.textColor = .enaColor(for: .textPrimary1)
 			head.numberOfLines = 0
 			head.lineBreakMode = .byWordWrapping
 			head.text = title
@@ -55,7 +55,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Body.
 
-		body.textColor = .preferredColor(for: .textPrimary1)
+		body.textColor = .enaColor(for: .textPrimary1)
 		body.style = .body
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
@@ -73,7 +73,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Separator.
 
-		separator.backgroundColor = .preferredColor(for: .hairline)
+		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.isHidden = !hasSeparators
 	}
 
@@ -88,11 +88,10 @@ class DynamicTableViewStepCell: UITableViewCell {
 		// MARK: - Cell related changes.
 
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		backgroundColor = .enaColor(for: .background)
 
 		// MARK: - Body.
 
-		body.font = .preferredFont(forTextStyle: .body)
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
 		body.attributedText = attributedText
@@ -109,7 +108,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Separator.
 
-		separator.backgroundColor = .preferredColor(for: .textPrimary2)
+		separator.backgroundColor = .enaColor(for: .textPrimary1)
 		separator.isHidden = !hasSeparators
 	}
 

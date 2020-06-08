@@ -24,8 +24,8 @@ protocol ENATanInputDelegate: AnyObject {
 
 @IBDesignable
 class ENATanInput: UIControl, UIKeyInput {
-	@IBInspectable var textColor: UIColor = UIColor.preferredColor(for: .textPrimary1)
-	@IBInspectable var boxColor: UIColor = UIColor.preferredColor(for: .backgroundSecondary)
+	@IBInspectable var textColor: UIColor = .enaColor(for: .textPrimary1)
+	@IBInspectable var boxColor: UIColor = .enaColor(for: .separator)
 
 	@IBInspectable var fontSize: CGFloat = 30
 	@IBInspectable var digits: Int = 7
@@ -51,7 +51,7 @@ class ENATanInput: UIControl, UIKeyInput {
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
 
-		backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
+		backgroundColor = UIColor.enaColor(for: .separator)
 
 		let label = UILabel(frame: .zero)
 		label.text = String(describing: ENATanInput.self)
