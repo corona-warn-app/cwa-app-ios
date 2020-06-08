@@ -27,51 +27,38 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	init(
 		homeViewController: HomeViewController,
-		state: State,
-		exposureSubmissionService: ExposureSubmissionService? = nil,
-		initialEnState: ENStateHandler.State
+		state: State
 	) {
 		self.homeViewController = homeViewController
 		self.state = state
-		self.exposureSubmissionService = exposureSubmissionService
-		self.enState = initialEnState
 		sections = initialCellConfigurators()
-		riskConsumer.didCalculateRisk = { [weak self] risk in
-			self?.state.risk = risk
-			self?.homeViewController.state.risk = risk
-		}
-		riskProvider.observeRisk(riskConsumer)
-
-		NotificationCenter.default.addObserver(
-			self,
-			selector: #selector(backgroundRefreshStatusDidChange),
-			name: UIApplication.backgroundRefreshStatusDidChangeNotification,
-			object: nil
-		)
 	}
-	
+
 	// MARK: Properties
-	private var enState: ENStateHandler.State
-	private let riskConsumer = RiskConsumer()
+	// private var enState: ENStateHandler.State
 
 	var state = HomeInteractor.State(
-		isLoading: false,
-		exposureManagerState: .init()
+		detectionMode: .default,
+		exposureManagerState: .init(),
+		enState: .unknown,
+		risk: nil
 	) {
 		didSet {
-			homeViewController.setStateOfChildViewControllers(
-				.init(
-					exposureManagerState: state.exposureManagerState,
-					detectionMode: state.detectionMode
-				)
-			)
+			print("STATE CHANGED !!!!!! - HomeInteractor")
+			homeViewController.setStateOfChildViewControllers()
 			sections = initialCellConfigurators()
 			homeViewController.reloadData()
 		}
 	}
 
 	private unowned var homeViewController: HomeViewController
-	private var exposureSubmissionService: ExposureSubmissionService?
+	lazy var exposureSubmissionService: ExposureSubmissionService = {
+		ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: self.exposureManager,
+			client: self.client,
+			store: self.store
+		)
+	}()
 	var enStateHandler: ENStateHandler?
 
 	private var riskLevel: RiskLevel { state.riskLevel }
@@ -83,7 +70,6 @@ final class HomeInteractor: RequiresAppDependencies {
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
 	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
 
-	private var isUpdateTaskRunning: Bool = false
 	private(set) var testResult: TestResult?
 
 	func updateActiveCell() {
@@ -93,19 +79,25 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	private func updateRiskLoading() {
-		isUpdateTaskRunning ? riskLevelConfigurator?.startLoading() : riskLevelConfigurator?.stopLoading()
+		// isUpdateTaskRunning ? riskLevelConfigurator?.startLoading() : riskLevelConfigurator?.stopLoading()
 	}
 
-	private func updateRiskButton() {
-		riskLevelConfigurator?.updateButtonEnabled(!isUpdateTaskRunning)
+	private func updateRiskButton(isEnabled: Bool) {
+		riskLevelConfigurator?.updateButtonEnabled(isEnabled)
+	}
+
+	private func updateRiskButton(isHidden: Bool) {
+		riskLevelConfigurator?.updateButtonHidden(isHidden)
 	}
 
 	private func reloadRiskCell() {
 		guard let indexPath = indexPathForRiskCell() else { return }
-		updateRiskLoading()
-		updateRiskButton()
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
+	}
+
+	func requestRisk(userInitiated: Bool) {
+		riskProvider.requestRisk(userInitiated: userInitiated)
 	}
 
 	private func initialCellConfigurators() -> SectionConfiguration {
@@ -258,7 +250,7 @@ extension HomeInteractor {
 	}
 
 	func setupActiveConfigurator() -> HomeActivateCellConfigurator {
-		return HomeActivateCellConfigurator(state: enState)
+		return HomeActivateCellConfigurator(state: state.enState)
 	}
 
 	func setupActionConfigurators() -> [CollectionViewCellConfiguratorAny] {
@@ -379,7 +371,7 @@ extension HomeInteractor {
 		let requestStart = Date()
 		let minRequestTime: TimeInterval = 2.0
 
-		self.exposureSubmissionService?.getTestResult { [weak self] result in
+		self.exposureSubmissionService.getTestResult { [weak self] result in
 			switch result {
 			case .failure:
 				// TODO: initiate retry?
@@ -397,19 +389,10 @@ extension HomeInteractor {
 	}
 }
 
-// MARK: Background Task
-extension HomeInteractor {
-	@objc func backgroundRefreshStatusDidChange() {
-		let newState = UIApplication.shared.backgroundRefreshStatus
-		print("New background state is \(newState.rawValue)")
-		riskLevelConfigurator?.isButtonHidden = (newState == .available)
-	}
-}
-
 // MARK: The ENStateHandler updating
 extension HomeInteractor: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
-		enState = state
+		self.state.enState = state
 		activeConfigurator.updateEnState(state)
 		updateActiveCell()
 	}

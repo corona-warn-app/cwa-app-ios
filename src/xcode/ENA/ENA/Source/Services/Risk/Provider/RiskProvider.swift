@@ -103,7 +103,7 @@ extension RiskProvider: RiskProviding {
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
-	func requestRisk(userInitiated: Bool) {
+	func requestRisk(userInitiated: Bool, completion: Completion? = nil) {
 		print("🧬 Requesting risk – requested by \(userInitiated ? "👩‍🔧" : "🖥")")
 		print("🧬     - manualExposureDetectionState: \(manualExposureDetectionState)")
 
@@ -176,7 +176,7 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
-	private func _requestRiskLevel(userInitiated: Bool) {
+	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
 		let group = DispatchGroup()
 
 		var summaries: Summaries?
@@ -196,10 +196,12 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
+			completion?(nil)
 			return
 		}
 
 		guard let _appConfiguration = appConfiguration else {
+			completion?(nil)
 			return
 		}
 		
@@ -217,12 +219,15 @@ extension RiskProvider: RiskProviding {
 				previousSummary: summaries?.previous?.summary
 			) else {
 				print("send email to christopher")
+				completion?(nil)
 				return
 		}
 
 		for consumer in consumers.allObjects {
 			_provideRisk(risk, to: consumer)
 		}
+
+		completion?(risk)
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
