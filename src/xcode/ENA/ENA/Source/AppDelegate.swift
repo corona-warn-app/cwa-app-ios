@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		validityDuration.day = 2
 
 		var detectionInterval = DateComponents()
-		detectionInterval.second = 10
+		detectionInterval.day = 1
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: validityDuration,
