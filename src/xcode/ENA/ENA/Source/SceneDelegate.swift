@@ -331,7 +331,8 @@ extension SceneDelegate: ENAExposureManagerObserver {
 extension SceneDelegate: HomeViewControllerDelegate {
 	/// Resets all stores and notifies the Onboarding.
 	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
-		store.clearAll()
+		let newKey = KeychainHelper.generateDatabaseKey()
+		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
