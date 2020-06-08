@@ -75,7 +75,8 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 										cell.configure(
 											text: AppStrings.ExposureSubmissionHotline.sectionDescription1,
 											attributedText: self.getAttributedStrings(),
-											image: UIImage(named: "Icons_Grey_1")
+											image: UIImage(named: "Icons_Grey_1"),
+											hasSeparators: true
 										)
                         }),
 						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
