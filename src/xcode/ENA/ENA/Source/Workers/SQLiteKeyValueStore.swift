@@ -21,14 +21,15 @@ import Foundation
 /// Basic SQLite Key/Value store with Keys as `TEXT` and Values stored as `BLOB`
 class SQLiteKeyValueStore {
 	private let databaseQueue: FMDatabaseQueue?
-	private let fileURL: URL
+	private let directoryURL: URL
 
 	/// - parameter url: URL on disk where the FMDB should be initialized
 	/// If any part of the init fails no Datbase will be created
 	/// If the Database can't be accessed with the key the currentFile will be reset
 	init(with url: URL, key: String) {
-		self.fileURL = url
-		databaseQueue = FMDatabaseQueue(url: url)
+		self.directoryURL = url
+		let fileURL = directoryURL.appendingPathComponent("secureStore.sqlite")
+		databaseQueue = FMDatabaseQueue(url: fileURL)
 		initDatabase(key, retry: false)
 	}
 
@@ -59,7 +60,7 @@ class SQLiteKeyValueStore {
 			}
 		}
 		if noDatabaseAccess && !retry {
-			removeDatabase()
+			resetDatabase()
 			initDatabase(key, retry: true)
 		}
 
@@ -141,7 +142,7 @@ class SQLiteKeyValueStore {
 			"""
 			db.executeStatements(sqlStmt)
 		}
-		removeDatabase()
+		resetDatabase()
 		guard let key = key else {
 			return
 		}
@@ -150,10 +151,11 @@ class SQLiteKeyValueStore {
 	}
 
 	/// Removes the Database File to clear everything
-	private func removeDatabase() {
+	private func resetDatabase() {
 		databaseQueue?.close()
 		do {
-			try FileManager.default.removeItem(at: fileURL)
+			try FileManager.default.removeItem(at: directoryURL)
+			try FileManager.default.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 		} catch {
 			logError(message: "Failed to delete database file")
 		}

@@ -140,8 +140,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			let fileManager = FileManager.default
 			let directoryURL = try fileManager
 				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("secureStore.sqlite")
+				.appendingPathComponent("database")
+
 			if !fileManager.fileExists(atPath: directoryURL.path) {
+				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				guard let key = KeychainHelper.generateDatabaseKey() else {
 					logError(message: "Creating the Database failed")
 					return SecureStore(at: URL(staticString: ":memory:"), key: "")

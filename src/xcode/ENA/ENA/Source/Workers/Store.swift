@@ -76,12 +76,12 @@ protocol Store: AnyObject {
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
-	private let fileURL: URL
+	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
 
-	init(at fileURL: URL, key: String) {
-		self.fileURL = fileURL
-		kvStore = SQLiteKeyValueStore(with: fileURL, key: key)
+	init(at directoryURL: URL, key: String) {
+		self.directoryURL = directoryURL
+		kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
 
 	func flush() {
