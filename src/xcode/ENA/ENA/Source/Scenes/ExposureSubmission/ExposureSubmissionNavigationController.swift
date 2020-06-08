@@ -298,7 +298,7 @@ extension ExposureSubmissionNavigationController {
 extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
 		let view = UIView()
-		view.backgroundColor = .preferredColor(for: .backgroundPrimary)
+		view.backgroundColor = .enaColor(for: .background)
 		view.insetsLayoutMarginsFromSafeArea = true
 		view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
