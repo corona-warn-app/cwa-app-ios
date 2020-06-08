@@ -76,6 +76,7 @@ public extension UIColor {
 		case .textContrast: return UIColor(rgb: 0xFFFFFF, alpha: 1.0)
 		case .textPrimary1: return UIColor(rgb: 0x17191A, alpha: 1.0)
 		case .textTint: return UIColor(rgb: 0x007FAD, alpha: 1.0)
+		case .tint: return UIColor(rgb: 0x007FAD, alpha: 1.0)
 		default:
 			fatalError("Requested color is not available in interface builder: " + style.rawValue)
 		}
