@@ -13,13 +13,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Heute, %%1$@</string>
+			<string>Heute, %%1$@ Uhr</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Gestern, %%1$@</string>
+			<string>Gestern, %%1$@ Uhr</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%%2$@, %%1$@</string>
+			<string>%%2$@, %%1$@ Uhr</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_NumberOfContacts</key>
@@ -34,10 +34,10 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Bisher keine Risiko-Begegnung</string>
+			<string>Bisher keine Risiko-Begegnungen</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>%u Risiko-Begegnung</string>
+			<string>Eine Risiko-Begegnung</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
 			<string>%u Risiko-Begegnungen</string>
@@ -55,13 +55,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Letzte Begegnung: Heute</string>
+			<string>%u Tage seit letzter Risiko-Begegnung</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Letzte Begegnung: Gestern</string>
+			<string>%u Tag seit letzter Risiko-Begegnung</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u Tage seit letzter Begegnung</string>
+			<string>%u Tage seit letzter Risiko-Begegnung</string>
 		</dict>
 	</dict>
     <key>Home_Risk_Number_Contacts_Item_Title</key>

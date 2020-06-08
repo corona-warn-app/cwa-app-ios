@@ -36,18 +36,6 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var topContainer: UIView!
 	@IBOutlet var stackView: UIStackView!
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		constructStackView()
-		topContainer.layoutMargins = .zero
-	}
-
-	private func constructStackView() {
-		let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
-		stackView.layoutMargins = containerInsets
-		stackView.isLayoutMarginsRelativeArrangement = true
-	}
-
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
 		activeButton.titleLabel?.lineBreakMode = traitCollection.preferredContentSizeCategory >= .accessibilityMedium ? .byTruncatingMiddle : .byWordWrapping
@@ -77,11 +65,6 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 		viewContainer.backgroundColor = color
 	}
 
-	func configureChevron(image: UIImage?, tintColor: UIColor?) {
-		chevronImageView.image = image
-		chevronImageView.tintColor = tintColor
-	}
-
 	func configureActiveButton(title: String) {
 		UIView.performWithoutAnimation {
 			activeButton.setTitle(title, for: .normal)
@@ -103,7 +86,7 @@ final class RiskInactiveCollectionViewCell: HomeCardCollectionViewCell {
 			}
 		}
 		if let last = lastView {
-			stackView.setCustomSpacing(15.0, after: last)
+			stackView.setCustomSpacing(16.0, after: last)
 		}
 		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
 			riskItemView.hideSeparator()

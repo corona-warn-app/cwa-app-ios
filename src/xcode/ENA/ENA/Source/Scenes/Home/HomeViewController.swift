@@ -47,7 +47,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	private var sections: HomeInteractor.SectionConfiguration = []
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
-	private var collectionView: UICollectionView!
+	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var enState: ENStateHandler.State
 	lazy var homeInteractor: HomeInteractor = {
 		HomeInteractor(
@@ -93,7 +93,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			self?.updateOwnUI()
 		}
 
-		configureHierarchy()
+		configureCollectionView()
 		configureDataSource()
 		updateSections()
 		applySnapshotFromSections()
@@ -295,28 +295,14 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 
-	private func configureHierarchy() {
-		let safeLayoutGuide = view.safeAreaLayoutGuide
-		view.backgroundColor = .systemGroupedBackground
-		collectionView = UICollectionView(
-			frame: view.bounds,
-			collectionViewLayout: UICollectionViewLayout.homeLayout(delegate: self)
-		)
+	private func configureCollectionView() {
+		collectionView.collectionViewLayout = .homeLayout(delegate: self)
 		collectionView.delegate = self
-		collectionView.translatesAutoresizingMaskIntoConstraints = false
+
+		collectionView.contentInset = UIEdgeInsets(top: 32.0, left: 0, bottom: 32.0, right: 0)
+
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
-		collectionView.alwaysBounceVertical = true
-		view.addSubview(collectionView)
-
-		NSLayoutConstraint.activate(
-			[
-				collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-				collectionView.topAnchor.constraint(equalTo: safeLayoutGuide.topAnchor),
-				collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor),
-				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-			]
-		)
 
 		let cellTypes: [UICollectionViewCell.Type] = [
 			ActivateCollectionViewCell.self,
@@ -332,8 +318,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		]
 
 		collectionView.register(cellTypes: cellTypes)
-		let nib6 = UINib(nibName: HomeFooterSupplementaryView.reusableViewIdentifier, bundle: nil)
-		collectionView.register(nib6, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HomeFooterSupplementaryView.reusableViewIdentifier)
 	}
 
 	private func configureDataSource() {
@@ -342,18 +326,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
 			configurator.configureAny(cell: cell)
 			return cell
-		}
-		dataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-			let identifier = HomeFooterSupplementaryView.reusableViewIdentifier
-			guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
-				ofKind: kind,
-				withReuseIdentifier: identifier,
-				for: indexPath
-			) as? HomeFooterSupplementaryView else {
-				fatalError("Cannot create new supplementary")
-			}
-			supplementaryView.configure()
-			return supplementaryView
 		}
 	}
 
@@ -371,7 +343,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	private func configureUI() {
-		collectionView.backgroundColor = .systemGroupedBackground
+		collectionView.backgroundColor = .clear
 		let infoImage = UIImage(systemName: "info.circle")
 		navigationItem.rightBarButtonItem = UIBarButtonItem(
 			image: infoImage,
@@ -487,5 +459,12 @@ extension  HomeViewController: ENStateHandlerUpdating {
 		   anyObject is ENStateHandlerUpdating {
 			enStateUpdatingSet.add(anyObject)
 		}
+	}
+}
+
+extension HomeViewController: NavigationBarOpacityDelegate {
+	var preferredNavigationBarOpacity: CGFloat {
+		let alpha = (collectionView.adjustedContentInset.top + collectionView.contentOffset.y) / collectionView.contentInset.top
+		return max(0, min(alpha, 1))
 	}
 }

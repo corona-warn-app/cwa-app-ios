@@ -176,7 +176,7 @@ final class RiskCalculationTests: XCTestCase {
 
 	func testCalculateRisk_OutsideRangeError_TooLow() {
 		// Test the case where preconditions pass and there is increased risk
-		// Values below are hand-picked to result in a raw risk score of 0.85 - outside of the botton bound of the config
+		// Values below are hand-picked to result in a raw risk score of 0.85 - outside of the bottom bound of the config
 		let summary = makeExposureSummaryContainer(maxRiskScoreFullRange: 64, ad_low: 10, ad_mid: 10, ad_high: 10)
 		let risk = RiskCalculation.risk(
 			summary: summary,

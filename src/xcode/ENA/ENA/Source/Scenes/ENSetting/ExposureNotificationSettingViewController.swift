@@ -99,7 +99,7 @@ extension ExposureNotificationSettingViewController {
 		case .exposureNotificationUnavailable:
 			logError(message: "Failed to enable")
 			if alert {
-				alertError(message: "ExposureNotification is not availabe due to the sytem policy", title: "Error")
+				alertError(message: "ExposureNotification is not available due to the system policy", title: "Error")
 			}
 		case .apiMisuse:
 			logError(message: "APIMisuse")
@@ -139,6 +139,7 @@ extension ExposureNotificationSettingViewController {
 		let completionHandler: (UIAlertAction) -> Void = { action in
 			switch action.style {
 			case .default:
+				self.persistForDPP(accepted: true)
 				self.setExposureManagerEnabled(true, then: self.silentErrorIfNeed)
 			case .cancel, .destructive:
 				self.lastActionCell?.configure(for: self.enState, delegate: self)
@@ -150,6 +151,11 @@ extension ExposureNotificationSettingViewController {
 		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentActivateAction, style: .default, handler: { action in completionHandler(action) }))
 		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentDismissAction, style: .cancel, handler: { action in completionHandler(action) }))
 		self.present(alert, animated: true, completion: nil)
+	}
+
+	func persistForDPP(accepted: Bool) {
+		self.store.exposureActivationConsentAccept = accepted
+		self.store.exposureActivationConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
 	}
 }
 

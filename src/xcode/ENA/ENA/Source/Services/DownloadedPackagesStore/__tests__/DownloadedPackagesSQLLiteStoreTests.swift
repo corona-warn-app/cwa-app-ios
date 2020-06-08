@@ -51,7 +51,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(packageOut?.bin, keysBin)
 	}
 
-	// Add a package for a given hour on a given day, try to get it and asssert that it matches whatever we put inside
+	// Add a package for a given hour on a given day, try to get it and assert that it matches whatever we put inside
 	func testSettingHoursForDay() throws {
 		store.open()
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12").isEmpty)
@@ -70,7 +70,7 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertFalse(hourlyPackages.isEmpty)
 	}
 
-	// Add a package for a given hour on a given day, try to get it and asssert that it matches whatever we put inside
+	// Add a package for a given hour on a given day, try to get it and assert that it matches whatever we put inside
 	func testHoursAreDeletedIfDayIsAdded() throws {
 		store.open()
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12").isEmpty)

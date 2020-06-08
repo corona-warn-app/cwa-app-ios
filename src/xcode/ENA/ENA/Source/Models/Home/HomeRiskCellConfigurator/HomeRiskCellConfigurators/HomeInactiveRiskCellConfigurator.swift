@@ -65,18 +65,18 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.removeAllArrangedSubviews()
 
 		let title: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
-		let titleColor: UIColor = .black
+		let titleColor: UIColor = .enaColor(for: .textPrimary1)
 		cell.configureTitle(title: title, titleColor: titleColor)
 
 		let bodyText: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleBody : AppStrings.Home.riskCardInactiveOutdatedResultsBody
 		cell.configureBody(text: bodyText, bodyColor: titleColor)
 
-		let color = UIColor.white
-		let separatorColor = UIColor.systemGray5
+		let color: UIColor = .enaColor(for: .background)
+		let separatorColor: UIColor = .enaColor(for: .hairline)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 
 		let lastInvestigationTitle = String(format: AppStrings.Home.riskCardInactiveActivateItemTitle, lastInvestigation)
-		let iconTintColor = UIColor(red: 93.0 / 255.0, green: 111.0 / 255.0, blue: 128.0 / 255.0, alpha: 1.0)
+		let iconTintColor: UIColor = .enaColor(for: .riskNeutral)
 		let item1 = HomeRiskImageItemViewConfigurator(title: lastInvestigationTitle, titleColor: titleColor, iconImageName: "Icons_LetzteErmittlung-Light", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
 		let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
 		let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
@@ -84,9 +84,6 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
-
-		let chevronImage = UIImage(systemName: "chevron.right")
-		cell.configureChevron(image: chevronImage, tintColor: .lightGray)
 
 		let buttonTitle: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
 
