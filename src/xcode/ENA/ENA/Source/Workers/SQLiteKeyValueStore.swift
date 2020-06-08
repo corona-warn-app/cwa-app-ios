@@ -43,7 +43,7 @@ class SQLiteKeyValueStore {
 	private func initDatabase() {
 		var key: String
 
-		if checkInitalSetup() {
+		if checkInitialSetup() {
 			guard let generatedKey = generateDatabaseKey() else {
 				db.close()
 				return
@@ -79,9 +79,9 @@ class SQLiteKeyValueStore {
 		}
 	}
 
-	/// Checks if is the inital Setup of the Database
-	/// This determins if a new Key should be generated or not
-	private func checkInitalSetup() -> Bool {
+	/// Checks if is the initial Setup of the Database
+	/// This determines if a new Key should be generated or not
+	private func checkInitialSetup() -> Bool {
 		do {
 			let query = "SELECT count(*) FROM sqlite_master;;"
 			 let result = try db.executeQuery(query, values: [])
