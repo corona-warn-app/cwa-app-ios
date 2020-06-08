@@ -29,6 +29,7 @@ protocol ExposureSummaryProvider: AnyObject {
 final class RiskProvider {
 	private let consumers = NSHashTable<RiskConsumer>.weakObjects()
 	private let queue = DispatchQueue(label: "com.sap.RiskLevelProvider")
+	private let targetQueue: DispatchQueue
 
 	// MARK: Creating a Risk Level Provider
 	init(
@@ -36,13 +37,15 @@ final class RiskProvider {
 		store: Store,
 		exposureSummaryProvider: ExposureSummaryProvider,
 		appConfigurationProvider: AppConfigurationProviding,
-		exposureManagerState: ExposureManagerState
+		exposureManagerState: ExposureManagerState,
+		targetQueue: DispatchQueue = .main
 	) {
 		self.configuration = configuration
 		self.store = store
 		self.exposureSummaryProvider = exposureSummaryProvider
 		self.appConfigurationProvider = appConfigurationProvider
 		self.exposureManagerState = exposureManagerState
+		self.targetQueue = targetQueue
 	}
 
 	// MARK: Properties
@@ -168,7 +171,6 @@ extension RiskProvider: RiskProviding {
 
 		var summaries: Summaries?
 
-
 		group.enter()
 		determineSummaries(userInitiated: userInitiated) {
 			summaries = $0
@@ -182,13 +184,19 @@ extension RiskProvider: RiskProviding {
 			group.leave()
 		}
 
+		func completeOnTargetQueue(risk: Risk?) {
+			targetQueue.async {
+				completion?(risk)
+			}
+		}
+
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
-			completion?(nil)
+			completeOnTargetQueue(risk: nil)
 			return
 		}
 
 		guard let _appConfiguration = appConfiguration else {
-			completion?(nil)
+			completeOnTargetQueue(risk: nil)
 			return
 		}
 		
@@ -206,7 +214,7 @@ extension RiskProvider: RiskProviding {
 				previousSummary: summaries?.previous?.summary
 			) else {
 				logError(message: "Serious error during risk calculation")
-				completion?(nil)
+				completeOnTargetQueue(risk: nil)
 				return
 		}
 
@@ -214,7 +222,7 @@ extension RiskProvider: RiskProviding {
 			_provideRisk(risk, to: consumer)
 		}
 
-		completion?(risk)
+		completeOnTargetQueue(risk: risk)
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {

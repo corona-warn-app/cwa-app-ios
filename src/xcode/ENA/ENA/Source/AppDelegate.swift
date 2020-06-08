@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	lazy var riskProvider: RiskProvider = {
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: DateComponents(day: 2),
-			exposureDetectionInterval: DateComponents(hour: 24),
+			exposureDetectionInterval: DateComponents(second: 10),
 			detectionMode: .default
 		)
 
