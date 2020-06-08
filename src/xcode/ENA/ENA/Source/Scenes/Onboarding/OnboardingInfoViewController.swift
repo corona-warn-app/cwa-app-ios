@@ -105,8 +105,10 @@ final class OnboardingInfoViewController: UIViewController {
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		scrollView.contentInset.bottom = footerView.frame.height
-		scrollView.verticalScrollIndicatorInsets.bottom = footerView.frame.height
+
+		let bottomInset = footerView.frame.height - footerView.safeAreaInsets.bottom
+		scrollView.contentInset.bottom = bottomInset
+		scrollView.verticalScrollIndicatorInsets.bottom = bottomInset
 	}
 
 	func runActionForPageType(completion: @escaping () -> Void) {
