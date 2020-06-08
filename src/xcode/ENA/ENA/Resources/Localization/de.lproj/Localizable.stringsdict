@@ -149,15 +149,15 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Risiko-Ermittlung ist seit weniger als 1 Tag aktiv.
+			<string>Risiko-Ermittlung ist seit weniger als 1&#x00a0;Tag aktiv.
 Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Risiko-Ermittlung ist seit %u Tag aktiv.
+			<string>Risiko-Ermittlung ist seit %u&#x00a0;Tag aktiv.
 Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>Risiko-Ermittlung ist seit %u Tagen aktiv.
+			<string>Risiko-Ermittlung ist seit %u&#x00a0;Tagen aktiv.
 Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
 		</dict>
 	</dict>
