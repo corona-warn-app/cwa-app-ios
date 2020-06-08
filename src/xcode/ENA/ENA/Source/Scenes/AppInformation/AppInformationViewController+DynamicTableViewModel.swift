@@ -82,8 +82,8 @@ extension AppInformationViewController {
 			action: .safari
 		),
 		.terms: (
-			text: AppStrings.AppInformation.termsNavigation,
-			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsTitle)
+			text: AppStrings.AppInformation.termsTitle,
+			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsNavigation)
 		),
 		.privacy: (
 			text: AppStrings.AppInformation.privacyNavigation,
@@ -160,6 +160,7 @@ extension AppInformationViewController {
 						   //accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
 						   height: 230),
 			cells: [
+				.title2(text: AppStrings.AppInformation.privacyTitle),
 				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
 			]
 		)
@@ -171,6 +172,7 @@ extension AppInformationViewController {
 						   accessibilityLabel: AppStrings.AppInformation.termsImageDescription,
 						   height: 230),
 			cells: [
+				.title2(text: AppStrings.AppInformation.termsTitle),
 				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
 			]
 		)
