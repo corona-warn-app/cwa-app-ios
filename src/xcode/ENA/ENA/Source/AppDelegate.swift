@@ -27,6 +27,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var riskProvider: RiskProvider { get }
+	var exposureManager: ExposureManager { get }
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 }
 
@@ -36,6 +37,7 @@ protocol RequiresAppDependencies {
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var riskProvider: RiskProvider { get }
+	var exposureManager: ExposureManager { get }
 	var lastRiskCalculation: String { get }  // TODO: REMOVE ME
 }
 
@@ -62,6 +64,10 @@ extension RequiresAppDependencies {
 
 	var lastRiskCalculation: String {
 		UIApplication.coronaWarnDelegate().lastRiskCalculation
+	}
+
+	var exposureManager: ExposureManager {
+		UIApplication.coronaWarnDelegate().exposureManager
 	}
 }
 
@@ -99,7 +105,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			exposureManagerState: self.exposureManager.preconditions()
 		)
 	}()
-	private var exposureManager: ExposureManager = ENAExposureManager()
+
+	#if targetEnvironment(simulator) || COMMUNITY
+	// Enable third party contributors that do not have the required
+	// entitlements to also use the app
+	let exposureManager: ExposureManager = {
+		let keys = [ENTemporaryExposureKey()]
+		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+	}()
+	#else
+	let exposureManager: ExposureManager = ENAExposureManager()
+	#endif
+
 	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
 
@@ -118,7 +135,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return store
 	}()
 
-	let store: Store = SecureStore()
+	let store: Store = {
+		do {
+			let fileManager = FileManager.default
+			let directoryURL = try fileManager
+				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+				.appendingPathComponent("database")
+
+			if !fileManager.fileExists(atPath: directoryURL.path) {
+				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
+				guard let key = KeychainHelper.generateDatabaseKey() else {
+					logError(message: "Creating the Database failed")
+					return SecureStore(at: nil, key: "")
+				}
+				return SecureStore(at: directoryURL, key: key)
+			} else {
+				guard let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") else {
+					guard let key = KeychainHelper.generateDatabaseKey() else {
+						logError(message: "Creating the Database failed")
+						return SecureStore(at: nil, key: "")
+					}
+					return SecureStore(at: directoryURL, key: key)
+				}
+				let key = String(decoding: keyData, as: UTF8.self)
+				return SecureStore(at: directoryURL, key: key)
+			}
+		} catch {
+			logError(message: "Creating the Database failed")
+			return SecureStore(at: nil, key: "")
+		}
+	}()
+
 	lazy var client: Client = {
 		// We disable app store checks to make testing easier.
 		//        #if APP_STORE
@@ -380,7 +427,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 		consumer.didCalculateRisk = { risk in
 			// present a notification if the risk score has increased
-			if risk.riskLevelHasIncreased {
+			if risk.riskLevelHasChanged {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.detectExposureTitle,
 					body: AppStrings.LocalNotifications.detectExposureBody,
@@ -435,5 +482,12 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			complete(success: false)
 		}
 
+	}
+}
+
+private extension URL {
+	init(staticString: StaticString) {
+		// swiftlint:disable:next force_unwrapping
+		self.init(string: "\(staticString)")!
 	}
 }

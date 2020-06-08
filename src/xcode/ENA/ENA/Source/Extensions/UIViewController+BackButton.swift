@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,14 +15,21 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import UIKit
 
-class HomeFooterSupplementaryView: UICollectionReusableView {
-	@IBOutlet var containerView: UIView!
-	@IBOutlet var imageView: UIImageView!
+extension UIViewController {
 
-	func configure() {
-		containerView.backgroundColor = .clear
+	/// Convenience method to set the back button to "Back" / "Zurück".
+	func setupBackButton() {
+		let backButton = UIBarButtonItem(
+			title: AppStrings.Common.general_BackButtonTitle,
+			style: .plain,
+			target: nil,
+			action: nil
+		)
+
+		navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
 	}
 }

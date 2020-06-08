@@ -22,7 +22,7 @@ import Foundation
 struct Risk {
 	let level: RiskLevel
 	let details: Details
-	let riskLevelHasIncreased: Bool
+	let riskLevelHasChanged: Bool
 }
 
 extension Risk {

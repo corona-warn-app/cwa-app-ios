@@ -4,58 +4,63 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ActivateCollectionViewCell" id="gTV-IL-0wX" customClass="ActivateCollectionViewCell" customModule="ENA" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="829" height="285"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="ActivateCollectionViewCell" id="gTV-IL-0wX" customClass="ActivateCollectionViewCell" customModule="ENA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="356" height="59"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="829" height="285"/>
+                <rect key="frame" x="0.0" y="0.0" width="356" height="59"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="omf-Yc-Mgx" userLabel="Container View">
-                        <rect key="frame" x="0.0" y="0.0" width="829" height="285"/>
+                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omf-Yc-Mgx" userLabel="Container View">
+                        <rect key="frame" x="0.0" y="0.0" width="356" height="59"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet." adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ad-Mo-axK">
-                                <rect key="frame" x="8" y="52" width="789" height="191"/>
-                                <color key="textColor" name="textPrimary1"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="260" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" translatesAutoresizingMaskIntoConstraints="NO" id="E8I-Ui-O6H">
-                                <rect key="frame" x="8" y="52" width="24" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="2aY-fh-yDd"/>
-                                    <constraint firstAttribute="width" constant="24" id="m5l-Ad-PW0"/>
-                                </constraints>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2Cb-Bg-07B">
-                                <rect key="frame" x="805" y="134" width="16" height="17"/>
-                                <color key="tintColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="BJv-SB-haE"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="uvD-1r-dPb"/>
-                                </constraints>
-                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                </preferredSymbolConfiguration>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dHq-FZ-5U7">
+                                <rect key="frame" x="16" y="16" width="305" height="27"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8I-Ui-O6H">
+                                        <rect key="frame" x="0.0" y="1.5" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="2aY-fh-yDd"/>
+                                            <constraint firstAttribute="width" constant="24" id="m5l-Ad-PW0"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="os7-5B-ds1" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                        <rect key="frame" x="32" y="3.5" width="273" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="headline"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2Cb-Bg-07B" customClass="DynamicTypeSymbolImageView" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="321" y="23" width="10" height="13.5"/>
+                                <color key="tintColor" name="ENA Chevron Color"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
+                                        <real key="value" value="13"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="dynamicTypeWeight" value="semibold"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="2Cb-Bg-07B" secondAttribute="trailing" id="EYh-RK-ZNd"/>
-                            <constraint firstItem="E8I-Ui-O6H" firstAttribute="leading" secondItem="9Ad-Mo-axK" secondAttribute="leading" id="NSe-p5-SkN"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="9Ad-Mo-axK" secondAttribute="bottom" id="SLS-YN-7Sb"/>
-                            <constraint firstItem="E8I-Ui-O6H" firstAttribute="top" secondItem="9Ad-Mo-axK" secondAttribute="top" id="aLN-Te-E8K"/>
-                            <constraint firstItem="9Ad-Mo-axK" firstAttribute="leading" secondItem="omf-Yc-Mgx" secondAttribute="leadingMargin" id="dzr-UO-NB8"/>
+                            <constraint firstItem="2Cb-Bg-07B" firstAttribute="leadingMargin" secondItem="dHq-FZ-5U7" secondAttribute="trailing" constant="8" id="3v3-PS-a4e"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2Cb-Bg-07B" secondAttribute="centerX" constant="14" id="EYh-RK-ZNd"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="dHq-FZ-5U7" secondAttribute="bottom" id="KlE-pr-nVo"/>
+                            <constraint firstItem="dHq-FZ-5U7" firstAttribute="leading" secondItem="omf-Yc-Mgx" secondAttribute="leadingMargin" id="mdS-bt-G2w"/>
+                            <constraint firstItem="dHq-FZ-5U7" firstAttribute="top" secondItem="omf-Yc-Mgx" secondAttribute="topMargin" id="nLa-r2-4L9"/>
                             <constraint firstItem="2Cb-Bg-07B" firstAttribute="centerY" secondItem="omf-Yc-Mgx" secondAttribute="centerY" id="nui-9h-GHu"/>
-                            <constraint firstItem="9Ad-Mo-axK" firstAttribute="top" secondItem="omf-Yc-Mgx" secondAttribute="topMargin" id="ufe-O0-Dm8"/>
-                            <constraint firstItem="2Cb-Bg-07B" firstAttribute="leading" secondItem="9Ad-Mo-axK" secondAttribute="trailing" constant="8" symbolic="YES" id="y5a-UX-FdC"/>
                         </constraints>
+                        <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                     </view>
                 </subviews>
             </view>
@@ -65,21 +70,24 @@
                 <constraint firstItem="omf-Yc-Mgx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="vvI-ZB-Bhw"/>
                 <constraint firstItem="omf-Yc-Mgx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="y2C-wC-bhL"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="829" height="285"/>
+            <size key="customSize" width="356" height="59"/>
             <connections>
-                <outlet property="chevronImageView" destination="2Cb-Bg-07B" id="xV3-KK-Tn8"/>
-                <outlet property="constraint" destination="aLN-Te-E8K" id="B6d-WF-cs2"/>
                 <outlet property="iconImageView" destination="E8I-Ui-O6H" id="jTY-MM-ym1"/>
-                <outlet property="titleTextView" destination="9Ad-Mo-axK" id="nuh-3w-Cun"/>
+                <outlet property="titleLabel" destination="os7-5B-ds1" id="DcG-rL-pMw"/>
                 <outlet property="viewContainer" destination="omf-Yc-Mgx" id="F5p-f7-buP"/>
             </connections>
-            <point key="canvasLocation" x="64.492753623188406" y="-62.611607142857139"/>
+            <point key="canvasLocation" x="-214" y="-136"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
-        <namedColor name="textPrimary1">
+        <namedColor name="ENA Background Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Chevron Color">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ENA Text Primary 1 Color">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>

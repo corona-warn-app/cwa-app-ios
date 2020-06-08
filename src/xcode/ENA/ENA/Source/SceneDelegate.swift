@@ -25,16 +25,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	var window: UIWindow?
 
-	#if targetEnvironment(simulator) || COMMUNITY
-	// Enable third party contributors that do not have the required
-	// entitlements to also use the app
-	private let exposureManager: ExposureManager = {
-		let keys = [ENTemporaryExposureKey()]
-		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
-	}()
-	#else
-	private let exposureManager: ExposureManager = ENAExposureManager()
-	#endif
 	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
 	var state = State(summary: nil, exposureManager: .init()) {
@@ -141,6 +131,16 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	// MARK: Helper
 
+	func requestUpdatedExposureState() {
+		let state = exposureManager.preconditions()
+		let newState = ExposureManagerState(
+				authorized: ENManager.authorizationStatus == .authorized,
+				enabled: state.enabled,
+				status: state.status
+		)
+		updateExposureState(newState)
+	}
+
 	private func setupUI() {
 		setupNavigationBarAppearance()
 
@@ -200,7 +200,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
-				exposureManager: self.exposureManager,
 				delegate: self,
 				initialEnState: enStateHandler.state
 			)
@@ -313,19 +312,17 @@ extension SceneDelegate: ENAExposureManagerObserver {
 	) {
 		// Add the new state to the history
 		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
+		riskProvider.exposureManagerState = newState
 
 		let message = """
 		New status of EN framework:
 		Authorized: \(newState.authorized)
 		enabled: \(newState.enabled)
 		status: \(newState.status)
+		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
 		log(message: message)
-
-		if newState.isGood {
-			log(message: "Enabled")
-		}
-
+		
 		state.exposureManager = newState
 		updateExposureState(newState)
 	}
@@ -334,7 +331,8 @@ extension SceneDelegate: ENAExposureManagerObserver {
 extension SceneDelegate: HomeViewControllerDelegate {
 	/// Resets all stores and notifies the Onboarding.
 	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
-		store.clearAll()
+		let newKey = KeychainHelper.generateDatabaseKey()
+		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}

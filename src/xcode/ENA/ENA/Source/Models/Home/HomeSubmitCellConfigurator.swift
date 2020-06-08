@@ -26,7 +26,7 @@ class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
 
 	func configure(cell: SubmitCollectionViewCell) {
 		cell.delegate = self
-		cell.iconImageView.image = UIImage(named: "Illu_Hand_with_phone-initial")
+		cell.imageView.image = UIImage(named: "Illu_Hand_with_phone-initial")
 		cell.titleLabel.text = AppStrings.Home.submitCardTitle
 		cell.bodyLabel.text = AppStrings.Home.submitCardBody
 		let buttonTitle = AppStrings.Home.submitCardButton
@@ -35,7 +35,14 @@ class HomeSubmitCellConfigurator: CollectionViewCellConfigurator {
 		buttonLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
 		buttonLabel.adjustsFontForContentSizeCategory = true
 		buttonLabel.lineBreakMode = .byWordWrapping
+
+		setupAccessibility(cell)
 	}
+
+	func setupAccessibility(_ cell: SubmitCollectionViewCell) {
+		cell.titleLabel.accessibilityTraits = .header
+	}
+
 }
 
 extension HomeSubmitCellConfigurator: HomeCardCellButtonDelegate {

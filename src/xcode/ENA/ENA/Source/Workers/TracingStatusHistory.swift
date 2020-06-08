@@ -138,13 +138,13 @@ extension Array where Element == TracingStatusEntry {
 
 	// MARK: - Constants for Tracing
 
-	/// The minumum count of hours tracing must have been active for risk calculation to work
+	/// The minimum count of hours tracing must have been active for risk calculation to work
 	static let minimumActiveHours = 24
-	/// The minumum count of seconds tracing must have been active for risk calculation to work
+	/// The minimum count of seconds tracing must have been active for risk calculation to work
 	static var minimumActiveSeconds: TimeInterval { TimeInterval(minimumActiveHours * 60 * 60) }
 	/// The maximum count of days to keep tracing history for
 	static let maxStoredDays = 14
-	/// The minumum count of seconds to keep tracing history for
+	/// The maximum count of seconds to keep tracing history for
 	static var maxStoredSeconds: TimeInterval { TimeInterval(maxStoredDays * 24 * 60 * 60) }
 
 }

@@ -26,7 +26,7 @@ class AppInformationDetailViewController: DynamicTableViewController {
 
 		tableView.backgroundColor = .enaColor(for: .background)
 		tableView.separatorColor = .enaColor(for: .hairline)
-		tableView.allowsSelection = false
+		tableView.allowsSelection = true
 		tableView.separatorStyle = separatorStyle
 
 		tableView.register(AppInformationLegalCell.self, forCellReuseIdentifier: CellReuseIdentifier.legal.rawValue)
@@ -36,6 +36,13 @@ class AppInformationDetailViewController: DynamicTableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
 		cell.backgroundColor = .clear
+
+		if dynamicTableViewModel.cell(at: indexPath).tag == "phone" {
+			cell.selectionStyle = .default
+		} else {
+			cell.selectionStyle = .none
+		}
+
 		return cell
 	}
 }

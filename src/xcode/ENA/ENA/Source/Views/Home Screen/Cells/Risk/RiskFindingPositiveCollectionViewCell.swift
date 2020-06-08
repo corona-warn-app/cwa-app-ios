@@ -43,16 +43,6 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 
 	weak var delegate: RiskFindingPositiveCollectionViewCellDelegate?
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		constructStackView()
-		constructNextButton()
-		topContainer.layoutMargins = .zero
-		statusContainer.layoutMargins = .init(top: 0, left: 12.0, bottom: 0.0, right: 12.0)
-		statusLineView.layer.cornerRadius = 2.0
-		statusLineView.layer.masksToBounds = true
-	}
-
 	@IBAction func nextButtonTapped(_: UIButton) {
 		delegate?.nextButtonTapped(cell: self)
 	}
@@ -71,12 +61,6 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 		}
 	}
 
-	private func constructStackView() {
-		let containerInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
-		stackView.layoutMargins = containerInsets
-		stackView.isLayoutMarginsRelativeArrangement = true
-	}
-
 	func removeAllArrangedSubviews() {
 		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 	}
@@ -88,13 +72,7 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 		stackView.setCustomSpacing(32.0, after: topContainer)
 	}
 
-	func configureChevron(image: UIImage?, tintColor: UIColor) {
-		chevronImageView.image = image
-		chevronImageView.tintColor = tintColor
-	}
-
 	func configureStatus(title: String, subtitle: String, titleColor: UIColor, lineColor: UIColor, imageName: String) {
-
 		statusTitleLabel.text = title
 		statusSubtitleLabel.text = subtitle
 
@@ -115,22 +93,11 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 		stackView.setCustomSpacing(8.0, after: noteLabel)
 	}
 
-	private func constructNextButton() {
-		nextButton.titleLabel?.adjustsFontForContentSizeCategory = true
-		nextButton.titleLabel?.lineBreakMode = .byWordWrapping
-		nextButton.layer.cornerRadius = 10.0
-		nextButton.layer.masksToBounds = true
-		nextButton.contentEdgeInsets = .init(top: 14.0, left: 8.0, bottom: 14.0, right: 8.0)
-	}
-
-	func configureNextButton(title: String, color: UIColor, backgroundColor: UIColor) {
+	func configureNextButton(title: String) {
 		UIView.performWithoutAnimation {
 			nextButton.setTitle(title, for: .normal)
 			nextButton.layoutIfNeeded()
 		}
-		nextButton.setTitleColor(color, for: .normal)
-		nextButton.setTitleColor(color.withAlphaComponent(0.3), for: .disabled)
-		nextButton.backgroundColor = backgroundColor
 		stackView.addArrangedSubview(nextButton)
 	}
 
@@ -155,8 +122,7 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 			}
 		}
 		if let last = lastView {
-			stackView.setCustomSpacing(22.0, after: last)
+			stackView.setCustomSpacing(32.0, after: last)
 		}
 	}
-
 }

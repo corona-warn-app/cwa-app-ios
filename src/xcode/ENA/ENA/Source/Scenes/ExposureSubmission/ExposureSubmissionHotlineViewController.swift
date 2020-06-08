@@ -25,7 +25,8 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		setUpView()
 	}
 
-	override func viewWillAppear(_: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		setupButtons()
 	}
 
@@ -40,6 +41,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		title = AppStrings.ExposureSubmissionHotline.title
 		setupButtons()
 		setupTableView()
+		setupBackButton()
 	}
 
 	private func setupButtons() {

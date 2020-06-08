@@ -40,6 +40,7 @@ protocol Store: AnyObject {
 	var allowTestsStatusNotification: Bool { get set }
 
 	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
+	var previousSummaryDate: Date? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
@@ -68,33 +69,27 @@ protocol Store: AnyObject {
 
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
-	func clearAll()
-	}
+	func clearAll(key: String?)
+}
+
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
-	private let fileURL: URL
+	private let directoryURL: URL?
 	private let kvStore: SQLiteKeyValueStore
 
-	init() {
-		do {
-			fileURL = try FileManager.default
-				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("secureStore.sqlite")
-		} catch {
-			// swiftlint:disable:next force_unwrapping
-			fileURL = URL(string: ":memory:")!
-		}
-		kvStore = SQLiteKeyValueStore(with: fileURL)
+	init(at directoryURL: URL?, key: String) {
+		self.directoryURL = directoryURL
+		kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
 
 	func flush() {
 		kvStore.flush()
 	}
 
-	func clearAll() {
-		kvStore.clearAll()
+	func clearAll(key: String?) {
+		kvStore.clearAll(key: key)
 	}
 
 	var testResultReceivedTimeStamp: Int64? {
@@ -227,6 +222,11 @@ final class SecureStore: Store {
 	var previousSummary: ENExposureDetectionSummaryContainer? {
 		get { kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil }
 		set { kvStore["previousSummary"] = newValue }
+	}
+
+	var previousSummaryDate: Date? {
+		get { kvStore["previousSummaryDate"] as Date? ?? nil }
+		set { kvStore["previousSummaryDate"] = newValue }
 	}
 
 	var hourlyFetchingEnabled: Bool {

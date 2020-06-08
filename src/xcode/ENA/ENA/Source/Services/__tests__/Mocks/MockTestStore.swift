@@ -21,7 +21,7 @@ import Foundation
 class MockTestStore: Store {
 	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
-	func clearAll() {}
+	func clearAll(key: String?) {}
 	var hasSeenSubmissionExposureTutorial: Bool = false
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
 	var numberOfSuccesfulSubmissions: Int64?
@@ -45,6 +45,7 @@ class MockTestStore: Store {
 	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
+	var previousSummaryDate: Date? = Date()
 	var previousSummary: ENExposureDetectionSummaryContainer? = ENExposureDetectionSummaryContainer(
 		daysSinceLastExposure: 0,
 		matchedKeyCount: 0,
