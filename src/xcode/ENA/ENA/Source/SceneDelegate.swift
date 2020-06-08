@@ -144,13 +144,19 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private func setupUI() {
 		setupNavigationBarAppearance()
 
-		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
-			showOnboarding()
-		} else if !store.isOnboarded {
+		#if UITESTING
+		if UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else {
 			showHome()
 		}
+		#else
+		if !store.isOnboarded {
+			showOnboarding()
+		} else {
+			showHome()
+		}
+		#endif
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
@@ -331,7 +337,8 @@ extension SceneDelegate: ENAExposureManagerObserver {
 extension SceneDelegate: HomeViewControllerDelegate {
 	/// Resets all stores and notifies the Onboarding.
 	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
-		store.clearAll()
+		let newKey = KeychainHelper.generateDatabaseKey()
+		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
