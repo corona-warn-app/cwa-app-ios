@@ -18,10 +18,22 @@
 //
 
 import Foundation
+import UIKit
 
 enum DetectionMode {
 	case automatic
 	case manual
 
 	static let `default` = DetectionMode.manual
+}
+
+extension DetectionMode {
+	static func from(backgroundStatus:UIBackgroundRefreshStatus) -> DetectionMode {
+		switch backgroundStatus {
+		case .restricted, .denied:
+			return .manual
+		case .available:
+			return .automatic
+		}
+	}
 }

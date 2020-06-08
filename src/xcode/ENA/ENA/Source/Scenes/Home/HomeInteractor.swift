@@ -17,6 +17,7 @@
 
 import ExposureNotification
 import Foundation
+import UIKit
 
 final class HomeInteractor: RequiresAppDependencies {
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
@@ -40,7 +41,14 @@ final class HomeInteractor: RequiresAppDependencies {
 			self?.homeViewController.state.risk = risk
 		}
 		riskProvider.observeRisk(riskConsumer)
+
+		NotificationCenter.default.addObserver(self,
+				selector: #selector(backgroundRefreshStatusDidChange),
+				name: UIApplication.backgroundRefreshStatusDidChangeNotification,
+				object: nil)
 	}
+
+
 
 	// MARK: Properties
 	private var enState: ENStateHandler.State
@@ -173,7 +181,6 @@ extension HomeInteractor {
 	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
 
 		let detectionIsAutomatic = detectionMode == .automatic
-
 		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
 
 		riskLevelConfigurator = nil
@@ -390,7 +397,14 @@ extension HomeInteractor {
 	}
 }
 
-
+// MARK: Background Task
+extension HomeInteractor {
+	@objc func backgroundRefreshStatusDidChange() {
+		let newState = UIApplication.shared.backgroundRefreshStatus
+		print("New background state is \(newState.rawValue)")
+		riskLevelConfigurator?.isButtonHidden = (newState == .available)
+	}
+}
 
 // MARK: The ENStateHandler updating
 extension HomeInteractor: ENStateHandlerUpdating {
