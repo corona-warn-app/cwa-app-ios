@@ -95,8 +95,7 @@
 
 "ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona- positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer- Corona positiv-getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.
-";
+"ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer- Corona positiv-getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
 "ExposureDetection_Hotline_Number" = "+498007540002";
 
