@@ -57,7 +57,7 @@ extension UICollectionViewLayout {
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
 		let section = NSCollectionLayoutSection(group: group)
-		section.contentInsets = .init(top: 32.0, leading: 16.0, bottom: 0.0, trailing: 16.0)
+		section.contentInsets = .init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0)
 		section.interGroupSpacing = 32.0
 
 		let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionSystemBackgroundDecorationView.reusableViewIdentifier)

@@ -26,6 +26,7 @@ struct DynamicCell {
 	let action: DynamicAction
 	let accessoryAction: DynamicAction
 	private let configure: CellConfigurator?
+	var tag: String?
 
 	func configure(cell: UITableViewCell, at indexPath: IndexPath, for viewController: DynamicTableViewController) {
 		configure?(viewController, cell, indexPath)
@@ -44,7 +45,8 @@ extension DynamicCell {
 			cellReuseIdentifier: identifier,
 			action: action,
 			accessoryAction: accessoryAction,
-			configure: configure
+			configure: configure,
+			tag: nil
 		)
 	}
 

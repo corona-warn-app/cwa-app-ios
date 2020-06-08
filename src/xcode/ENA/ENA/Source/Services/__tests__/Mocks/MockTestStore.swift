@@ -22,7 +22,7 @@ class MockTestStore: Store {
 	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
-	func clearAll() {}
+	func clearAll(key: String?) {}
 	var hasSeenSubmissionExposureTutorial: Bool = false
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
 	var numberOfSuccesfulSubmissions: Int64?
