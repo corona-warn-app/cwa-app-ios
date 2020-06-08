@@ -151,19 +151,19 @@
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Rfr-Aw-XC1">
                                             <rect key="frame" x="16" y="16" width="382" height="108"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="wkA-Dj-yfV" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
-                                            <state key="normal" title="Daten zurücksetzen"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                    <color key="value" name="ENA Button Destructive Color"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
-                                            </connections>
-                                        </button>
+                                                    <state key="normal" title="Daten zurücksetzen"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                            <color key="value" name="ENA Button Destructive Color"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="resetData:" destination="uYn-mg-qmD" eventType="touchUpInside" id="vy7-q8-NeM"/>
+                                                    </connections>
+                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nx1-Do-hf7" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="58" width="382" height="50"/>
                                                     <state key="normal" title="Abbrechen"/>
@@ -200,7 +200,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DEG-xR-O81"/>
                     </view>
-                    <navigationItem key="navigationItem" title="# Anwendung zurücksetzen" largeTitleDisplayMode="always" id="mPv-pG-gEC"/>
+                    <navigationItem key="navigationItem" title="# Anwendung zurücksetzen" largeTitleDisplayMode="always" id="mPv-pG-gEC">
+                        <barButtonItem key="rightBarButtonItem" image="Icons - Close" id="8oP-Eo-jxM">
+                            <connections>
+                                <action selector="discard:" destination="uYn-mg-qmD" id="eXE-Xa-1yx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="description1Label" destination="fZN-uX-w1I" id="7Sm-n7-1fm"/>
                         <outlet property="discardButton" destination="Nx1-Do-hf7" id="Vtr-sD-lMk"/>

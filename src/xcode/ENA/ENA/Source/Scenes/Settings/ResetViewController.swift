@@ -58,10 +58,6 @@ final class ResetViewController: UIViewController {
 	private func setupView() {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
 
-		let barButtonItem = UIBarButtonItem(image: UIImage(named: "Icons - Close"), style: .done, target: self, action: #selector(discard)
-		)
-		navigationItem.rightBarButtonItem = barButtonItem
-
 		subtitleLabel.text = AppStrings.Reset.subtitle
 
 		header1Label.text = AppStrings.Reset.header1
@@ -77,5 +73,11 @@ final class ResetViewController: UIViewController {
 		if let resetButton = resetButton, let titleLabel = resetButton.titleLabel {
 			resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
 		}
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		navigationItem.rightBarButtonItem?.image = UIImage(named: "Icons - Close")
 	}
 }
