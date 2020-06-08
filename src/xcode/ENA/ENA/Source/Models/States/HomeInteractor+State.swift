@@ -6,9 +6,12 @@
 import Foundation
 extension HomeInteractor {
 	struct State {
-		var detectionMode = DetectionMode.default
-		var isLoading = false
+		var detectionMode: DetectionMode
 		var exposureManagerState: ExposureManagerState
+		var enState: ENStateHandler.State
+
+		var risk: Risk?
+		var riskLevel: RiskLevel { risk?.level ?? .unknownInitial }
 		var numberRiskContacts: Int {
 			risk?.details.numberOfExposures ?? 0
 		}
@@ -20,7 +23,11 @@ extension HomeInteractor {
 			return Calendar.current.dateComponents([.day], from: date, to: Date()).day
 		}
 
-		var risk: Risk?
-		var riskLevel: RiskLevel { risk?.level ?? .unknownInitial }
+		init(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, enState: ENStateHandler.State, risk: Risk?) {
+			self.detectionMode = detectionMode
+			self.exposureManagerState = exposureManagerState
+			self.enState = enState
+			self.risk = risk
+		}
 	}
 }
