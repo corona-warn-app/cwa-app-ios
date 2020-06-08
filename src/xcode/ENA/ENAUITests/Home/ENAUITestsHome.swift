@@ -44,10 +44,10 @@ class ENAUITestsHome: XCTestCase {
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].exists)
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].exists)
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
-		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].waitForExistence(timeout: 5.0))
 		//snapshot("ScreenShot_\(#function)")
 	}
 
@@ -60,10 +60,10 @@ class ENAUITestsHome: XCTestCase {
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].exists)
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].exists)
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
-		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].waitForExistence(timeout: 5.0))
 		//snapshot("ScreenShot_\(#function)")
 	}
 
@@ -77,11 +77,11 @@ class ENAUITestsHome: XCTestCase {
 		app.swipeUp()
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].exists)
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].waitForExistence(timeout: 5.0))
 		app.swipeUp()
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
-		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].waitForExistence(timeout: 5.0))
 		//snapshot("ScreenShot_\(#function)")
 	}
 }
