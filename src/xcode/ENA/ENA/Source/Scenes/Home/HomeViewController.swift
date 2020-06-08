@@ -57,7 +57,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 	private var sections: HomeInteractor.SectionConfiguration = []
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
-	private var collectionView: UICollectionView!
+	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var enState: ENStateHandler.State
 	lazy var homeInteractor: HomeInteractor = {
 		HomeInteractor(
@@ -105,7 +105,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 		riskProvider.observeRisk(riskConsumer)
 
-		configureHierarchy()
+		configureCollectionView()
 		configureDataSource()
 		updateSections()
 		applySnapshotFromSections()
@@ -307,27 +307,14 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 
-	private func configureHierarchy() {
-		let safeLayoutGuide = view.safeAreaLayoutGuide
-		collectionView = UICollectionView(
-			frame: view.bounds,
-			collectionViewLayout: UICollectionViewLayout.homeLayout(delegate: self)
-		)
+	private func configureCollectionView() {
+		collectionView.collectionViewLayout = .homeLayout(delegate: self)
 		collectionView.delegate = self
-		collectionView.translatesAutoresizingMaskIntoConstraints = false
+
+		collectionView.contentInset = UIEdgeInsets(top: 32.0, left: 0, bottom: 32.0, right: 0)
+
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
-		collectionView.alwaysBounceVertical = true
-		view.addSubview(collectionView)
-
-		NSLayoutConstraint.activate(
-			[
-				collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-				collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-				collectionView.leadingAnchor.constraint(equalTo: safeLayoutGuide.leadingAnchor),
-				collectionView.trailingAnchor.constraint(equalTo: safeLayoutGuide.trailingAnchor)
-			]
-		)
 
 		let cellTypes: [UICollectionViewCell.Type] = [
 			ActivateCollectionViewCell.self,
@@ -485,5 +472,12 @@ extension  HomeViewController: ENStateHandlerUpdating {
 		   anyObject is ENStateHandlerUpdating {
 			enStateUpdatingSet.add(anyObject)
 		}
+	}
+}
+
+extension HomeViewController: NavigationBarOpacityDelegate {
+	var preferredNavigationBarOpacity: CGFloat {
+		let alpha = (collectionView.adjustedContentInset.top + collectionView.contentOffset.y) / collectionView.contentInset.top
+		return max(0, min(alpha, 1))
 	}
 }
