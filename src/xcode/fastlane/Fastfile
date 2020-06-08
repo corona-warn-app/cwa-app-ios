@@ -45,6 +45,12 @@ platform :ios do
 
   desc "Run tests"
   lane :test do
+    # UI Tests
+    run_tests(
+      scheme: "ENAUITests",
+      devices: ["iPhone 11"]
+    )
+
     # Unit Tests
     run_tests(
       scheme: "ENATests",
@@ -59,12 +65,6 @@ platform :ios do
       html_report: false,
       output_directory: "fastlane/test_output"
     )
-
-    # UI Tests
-    #run_tests(
-    #  scheme: "ENAUITests",
-    #  devices: ["iPhone 11"]
-    #)
   end
 
 end

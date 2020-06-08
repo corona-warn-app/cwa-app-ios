@@ -104,10 +104,6 @@ extension RiskProvider: RiskProviding {
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRisk(userInitiated: Bool, completion: Completion? = nil) {
-		print("🧬 Requesting risk – requested by \(userInitiated ? "👩‍🔧" : "🖥")")
-		print("🧬     - manualExposureDetectionState: \(manualExposureDetectionState)")
-
-
 		queue.async {
 			self._requestRiskLevel(userInitiated: userInitiated, completion: completion)
 		}
@@ -126,12 +122,6 @@ extension RiskProvider: RiskProviding {
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
 			lastExposureDetectionDate: store.summary?.date
 		)
-
-		print("🧬 determineSummaries:")
-		print("🧬    - enoughTimeHasPassed: \(enoughTimeHasPassed)")
-		print("🧬    - store.summary.date: \(String(describing: store.summary?.date))")
-		print("🧬    - self.exposureManagerState: \(exposureManagerState)")
-
 		if enoughTimeHasPassed == false || self.exposureManagerState.isGood == false {
 			completion(
 				.init(
@@ -158,10 +148,7 @@ extension RiskProvider: RiskProviding {
 		// The summary is outdated + we are in automatic mode: do a exposure detection
 		let previousSummary = store.summary
 
-		print("🧬🧬🧬🧬 detecting exposured…")
 		exposureSummaryProvider.detectExposure { detectedSummary in
-			print("🧬🧬🧬🧬🧬 detectedSummary: \(String(describing: detectedSummary))")
-
 			if let detectedSummary = detectedSummary {
 				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
 			} else {
@@ -218,7 +205,7 @@ extension RiskProvider: RiskProviding {
 				currentDate: Date(),
 				previousSummary: summaries?.previous?.summary
 			) else {
-				print("send email to christopher")
+				logError(message: "Serious error during risk calculation")
 				completion?(nil)
 				return
 		}

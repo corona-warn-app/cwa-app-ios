@@ -127,13 +127,20 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private func setupUI() {
 		setupNavigationBarAppearance()
-		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
-			showOnboarding()
-		} else if !store.isOnboarded {
+
+		#if UITESTING
+		if UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else {
 			showHome()
 		}
+		#else
+		if !store.isOnboarded {
+			showOnboarding()
+		} else {
+			showHome()
+		}
+		#endif
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
@@ -354,6 +361,7 @@ extension SceneDelegate: ExposureStateUpdating {
 		riskProvider.requestRisk(userInitiated: false)
 		homeController?.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
+		taskScheduler.updateExposureState(state)
 	}
 }
 
@@ -369,7 +377,6 @@ extension SceneDelegate {
 	@objc
 	func backgroundRefreshStatusDidChange() {
 		let detectionMode: DetectionMode = currentDetectionMode
-		print("detectionMode: \(detectionMode)")
 		state.detectionMode = detectionMode
 	}
 }

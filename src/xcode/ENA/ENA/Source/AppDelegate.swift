@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	lazy var riskProvider: RiskProvider = {
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: DateComponents(day: 2),
-			exposureDetectionInterval: DateComponents(second: 10),
+			exposureDetectionInterval: DateComponents(hour: 24),
 			detectionMode: .default
 		)
 
@@ -269,23 +269,17 @@ extension AppDelegate: CoronaWarnAppDelegate {
 }
 
 extension AppDelegate: ENATaskExecutionDelegate {
-	func taskScheduler(_ scheduler: ENATaskScheduler, didScheduleTasksSuccessfully success: Bool) {
-		guard let scene = UIApplication.shared.connectedScenes.first else { return }
-		guard let delegate = scene.delegate as? SceneDelegate else { return }
-		let mode: DetectionMode = success ? .automatic : .manual
-		delegate.state.detectionMode = mode
-		riskProvider.configuration.detectionMode = mode
-	}
-
 	func executeExposureDetectionRequest(task: BGTask) {
+
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+			taskScheduler.scheduleTask(for: .detectExposures)
 		}
 
-		consumer.didCalculateRisk = { risk in
+		riskProvider.requestRisk(userInitiated: false) { risk in
 			// present a notification if the risk score has increased
-			if risk.riskLevelHasChanged {
+			if let risk = risk,
+				risk.riskLevelHasChanged {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.detectExposureTitle,
 					body: AppStrings.LocalNotifications.detectExposureBody,
@@ -295,12 +289,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			complete(success: true)
 		}
 
-		consumer.nextExposureDetectionDateDidChange = { date in
-			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
-		}
-
-		riskProvider.requestRisk(userInitiated: false)
-
 		task.expirationHandler = {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
 			complete(success: false)
@@ -308,9 +296,10 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	}
 
 	func executeFetchTestResults(task: BGTask) {
+
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
+			taskScheduler.scheduleTask(for: .fetchTestResults)
 		}
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 

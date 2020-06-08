@@ -138,6 +138,7 @@ enum RiskCalculation {
 		summary: CodableExposureDetectionSummary,
 		configuration: SAP_ApplicationConfiguration
 	) -> Double {
+
 		let maximumRisk = summary.maximumRiskScoreFullRange
 		let adWeights = configuration.attenuationDuration.weights
 		let attenuationDurationsInMin = summary.configuredAttenuationDurations.map { $0 / Double(60.0) }
