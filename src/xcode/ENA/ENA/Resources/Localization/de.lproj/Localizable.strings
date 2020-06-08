@@ -48,7 +48,7 @@
 
 "ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d Minuten";
 
-"ExposureDetection_LastRiskLevel" = "Letzte Ermittlung: %@";
+"ExposureDetection_LastRiskLevel" = "Letzte Risiko-Ermittlung: %@";
 
 "ExposureDetection_UnknownText" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.";
 
@@ -70,7 +70,7 @@
 
 "ExposureDetection_Guide_Home" = "Halten Sie mindestens 1,5 Meter Abstand zu anderen Personen.";
 
-"ExposureDetection_Guide_Hotline1" = "Für Fragen zu auftretenden Symptomen, Testmöglichkeiten und weiteren Absonderungsmaßnahmen, wenden Sie sich bitte an eine der folgenden Stellen:";
+"ExposureDetection_Guide_Hotline1" = "Für Fragen zu auftretenden Symptomen, Testmöglichkeiten und weiteren Isolationsmaßnahmen, wenden Sie sich bitte an eine der folgenden Stellen:";
 
 "ExposureDetection_Guide_Hotline2" = "Ihren Hausarzt/Ihre Hausärztin";
 
@@ -128,13 +128,13 @@
 "Settings_NavTitle" = "Einstellungen";
 
 /* Noticiation Settings */
-"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem Covid-19 Risikostatus aktivieren?";
+"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem Covid-19-Risikostatus aktivieren?";
 
 "NotificationSettings_On_SectionTitle" = "Einstellung";
 
 "NotificationSettings_On_RiskChanges" = "Änderung Ihres Infektionsrisikos";
 
-"NotificationSettings_On_TestsStatus" = "Status Ihres COVID-19 Tests";
+"NotificationSettings_On_TestsStatus" = "Status Ihres COVID-19-Tests";
 
 "NotificationSettings_Off_SectionTitle" = "Einstellung";
 
@@ -179,7 +179,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Machen Sie Ihr Smartphone zum Corona-Warn-System. Überblicken Sie Ihren Risikostatus und erfahren Sie, ob in den letzten 14 Tagen Corona-positiv getestete Personen in ihrer Nähe waren.\n\nDie App merkt sich Begegnungen zwischen Menschen, indem ihre Smartphones verschlüsselte Zufallscodes austauschen. Und zwar ohne dabei auf persönliche Daten zuzugreifen.";
 
-"OnboardingInfo_privacyPage_imageDescription" = "Eine Frau benutzt die Corona-Warn-App und ein als Datenverschlüsselungssymbol ist zu sehen.";
+"OnboardingInfo_privacyPage_imageDescription" = "Eine Frau benutzt die Corona-Warn-App und ein Vorhängeschloss auf einem Schild steht als Symbol für verschlüsselte Daten.";
 
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
 
@@ -187,7 +187,7 @@
 
 "OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
 
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Drei Personen haben ihre Risikoerkennung an ihren Smartphones aktiviert und können sich daher erkennen.";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Drei Personen haben ihre Risiko-Ermittlung an ihren Smartphones aktiviert und können sich daher erkennen.";
 
 "OnboardingInfo_enableLoggingOfContactsPage_title" = "Wie Sie die Risiko-Ermittlung ermöglichen";
 
@@ -207,7 +207,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufallscodes Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.";
 
-"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Eine Frau erhält eine Benachrichtigung von ihrer Corona-Warn-App.";
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "Warnungen erhalten, Risiken kennen";
 
@@ -262,7 +262,7 @@
 
 "ExposureSubmissionHotline_Title" = "TAN anfragen";
 
-"ExposureSubmissionHotline_Description" = "Bitte halten zur TAN Anfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
+"ExposureSubmissionHotline_Description" = "Bitte halten zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.";
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
@@ -270,9 +270,9 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 (0)800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: 00:00 - 24:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch\n\nErreichbarkeit:\nMo - So: 00:00 - 24:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
 
-"ExposureSubmission_SectionDescription2" = "Ihren Test per TAN-Eingabe in der App registrieren";
+"ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 
 "ExposureSubmission_CallButtonTitle" = "Anrufen";
 
@@ -382,8 +382,7 @@
 
 "ExposureSubmissionResult_testNegative_furtherInfos_hint" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteres SARS-
-CoV-2-Tests bestehen.";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteres SARS-CoV-2-Tests bestehen.";
 
 "ExposureSubmissionResult_testInvalid" = "Test fehlerhaft";
 
@@ -409,13 +408,7 @@ CoV-2-Tests bestehen.";
 
 "ExposureSubmissionWarnOthers_description" = "Als Nächstes können Sie dafür sorgen, dass das Corona-Warn-System Ihre lokal gespeicherten Zufallscodes der letzten 14 Tage an andere verteilt. So können Sie Ihre Mitmenschen warnen und helfen, die Infektionskette zu unterbrechen.\n\nDa nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Durch Antippen von „Einverstanden“ willigen Sie ein, dass die App Ihr positives Testergebnis zusammen mit Ihren Zufalls-IDs der letzten 14 Tage an das Serversystem der App übermittelt, damit andere App-Nutzer mit aktivierter Risiko-Ermittlung automatisch informiert werden können, dass sie möglicherweise einem Infektionsrisiko ausgesetzt waren. Die übermittelten Zufalls-IDs enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.
-
-Die Übermittlung Ihres Testergebnisses per App ist freiwillig. Wenn Sie Ihr Testergebnis nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen niemand, ob Sie eine Infektion übermittelt haben.
-
-Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformation“.
-
-";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Durch Antippen von „Einverstanden“ willigen Sie ein, dass die App Ihr positives Testergebnis zusammen mit Ihren Zufalls-IDs der letzten 14 Tage an das Serversystem der App übermittelt, damit andere App-Nutzer mit aktivierter Risiko-Ermittlung automatisch informiert werden können, dass sie möglicherweise einem Infektionsrisiko ausgesetzt waren. Die übermittelten Zufalls-IDs enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.\n\nDie Übermittlung Ihres Testergebnisses per App ist freiwillig. Wenn Sie Ihr Testergebnis nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen niemand, ob Sie eine Infektion übermittelt haben.\n\nSie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformation“.\n\n";
 
 "ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
 
@@ -483,32 +476,34 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "ExposureNotificationSetting_Detail_Action_Button" = "Geräte-Einstellungen öffnen";
 
-"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19-Kontaktmitteilungen aktivieren";
+"ExposureNotificationSetting_Activate_OSENSetting" = "COVID-19-Kontaktprotokoll und -Mitteilungen aktivieren ";
 
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Kontaktmitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie COVID-19-Kontaktmitteilungen in Ihren Systemeinstellungen.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt aktivierte COVID-19-Kontaktprotokoll und -Mitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie COVID-19-Kontaktprotokoll und -Mitteilungen in Ihren Systemeinstellungen.";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Kindersicherung / Bildschirmzeit aktiviert";
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Kindersicherung/Bildschirmzeit aktiviert";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Die aktivierte Kindersicherung verhindert die Aktivierung der Risikoermittlung. Bitte deaktivieren Sie die Beschränkung dieser App unter Einstellungen -> Bildschirmzeit";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Die aktivierte Kindersicherung verhindert die Aktivierung der Risiko-Ermittlung. Bitte deaktivieren Sie die Beschränkung dieser App unter Einstellungen -> Bildschirmzeit.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Autorisierung erforderlich";
 
-"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Bitte bestätigen Sie die Nutzung der COVID-19 Kontakt-Protokollierung.";
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Bitte bestätigen Sie die Nutzung des COVID-19-Kontakt-Protokolls.";
 
 "ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Autorisieren";
 
-"ExposureNotificationSetting_AccLabel_Enabled" = "Drei Personen haben die Risiko-Erkennung auf ihren Smartphones aktiviert, ihre Begegnung wird daher aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Drei Personen haben die Risiko-Ermittlung auf ihren Smartphones aktiviert, ihre Begegnung wird daher aufgezeichnet.";
 
-"ExposureNotificationSetting_AccLabel_Disabled" = "Eine Person hat die Risiko-Erkennung auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
+"ExposureNotificationSetting_AccLabel_Disabled" = "Eine Person hat die Risiko-Ermittlung auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
 
 "ExposureNotificationSetting_AccLabel_BluetoothOff" = "Eine Person hat Bluetooth auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.";
 
-"ExposureNotificationSetting_AccLabel_InternetOff" = "Eine Person hat die Internetverbindung ihres Smartphones ausgeschaltet, eine Bestimmung der letzten Begegnungen kann dadurch nicht ausgeführt werden.";
+"ExposureNotificationSetting_AccLabel_InternetOff" = "Eine Person hat die Internetverbindung ihres Smartphones ausgeschaltet, eine Ermittlung der letzten Begegnungen kann dadurch nicht ausgeführt werden.";
 
 "ExposureNotificationSetting_Activate_Action" = "Akzeptieren";
+
 "ExposureNotificationSetting_Dismiss_Action" = "Abbrechen";
+
 /* Home Navigation Bar */
-"Home_LeftBarButton_description" = "Corona Warn App Logo";
+"Home_LeftBarButton_description" = "Corona-Warn-App Logo";
 
 "Home_RightBarButton_description" = "Info";
 
@@ -538,7 +533,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "Home_Risk_Inactive_Outdated_Results_Title" = "Risiko-Ermittlung nicht möglich";
 
-"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Aktivieren Sie die Risiko-Ermittlung, um Ihre heutigen Risikostatus zu berechnen.";
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Aktivieren Sie die Risiko-Ermittlung, um Ihren heutigen Risikostatus zu berechnen.";
 
 "Home_Risk_Inactive_Outdated_Results_Body" = "Ihre Risiko-Ermittlung konnte seit mehr als 24 Stunden nicht aktualisiert werden.";
 
@@ -589,7 +584,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 "Home_Thank_You_Card_NoSymptoms_Item_Title" = "Auch wenn Sie keine Krankheitszeichen mehr haben und sich wieder gesund fühlen, könnten Sie noch ansteckend sein.";
 
 /* Home Finding positive */
-"Home_Finding_Positive_Card_Title" = "Befund Positiv";
+"Home_Finding_Positive_Card_Title" = "Befund positiv";
 
 "Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2-positiv";
 
@@ -608,7 +603,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 /* Home Submit card */
 "Home_SubmitCard_Title" = "Wurden Sie getestet?";
 
-"Home_SubmitCard_Body" = "Helfen Sie, die Ausbreitung des Virus zu verlangsamen.";
+"Home_SubmitCard_Body" = "Helfen Sie mit, die Infektionskette zu durchbrechen und warnen Sie Andere.";
 
 "Home_SubmitCard_Button" = "Informieren & mitmachen";
 
@@ -633,13 +628,13 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "Home_resultCard_ShowResultButton" = "Test anzeigen";
 
-"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
+"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 
 "Home_resultCard_LoadingTitle" = "Aktualisierung läuft...";
 
-"Home_resultCard_NegativeTitle" = "Befund Negativ";
+"Home_resultCard_NegativeTitle" = "Befund negativ";
 
-"Home_resultCard_NegativeDesc" = "Das Virus SARS-CoV-2 konnte bei Ihnen nicht nachgewiesen werden.";
+"Home_resultCard_NegativeDesc" = "Sie wurden negativ auf SARS-CoV-2 getestet.";
 
 "Home_resultCard_PositiveTitle" = "Befund positiv";
 
@@ -647,7 +642,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "Home_resultCard_PendingTitle" = "Ergebnis liegt noch nicht vor";
 
-"Home_resultCard_PendingDesc" = "Die Auswertung Ihres Tests ist noch nicht abgeschlossen.";
+"Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tagen.";
 
 "Home_resultCard_InvalidTitle" = "Befund ungültig";
 
@@ -672,7 +667,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Technische Hotline";
 
-"App_Information_Contact_ImageDescription" = "Ein Mann nutzt ein Headset zum Telefonieren";
+"App_Information_Contact_ImageDescription" = "Ein Mann nutzt ein Headset zum Telefonieren.";
 
 "App_Information_Contact_Title" = "Wie können wir Ihnen helfen?";
 
@@ -703,7 +698,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "App_Information_Imprint_Section3_Title" = "Kontakt";
 
-"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelefon: 030 18754 – 5100";
+"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelefon: XXXXXXX";
 
 "App_Information_Imprint_Section4_Title" = "Umsatzsteueridentifikationsnummer";
 
@@ -728,7 +723,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "App_Information_Terms_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Haken als Symbol für akzeptierte Nutzungsbedingungen.";
 
-"App_Information_Terms_Title" = "Nutzung";
+"App_Information_Terms_Title" = "Nutzungsbedingungen";
 
 "App_Information_Terms_Description" = "Die nachfolgenden Nutzungsbedingungen gelten für die Nutzung der App und werden duch Aufruf oder Nutzung des Angebots oder einer einzelnen Funktion akzeptiert.";
 
@@ -749,7 +744,7 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 "low_risk_detail" = "Es wurde ein geringes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.";
 
-"high_risk_detail" = "Es wurde ein hohes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.";
+"high_risk_detail" = "Es wurde ein erhöhtes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.";
 
 "unknown_risk_detail_help" = "Das Infektionsrisiko ist unbekannt, da bisher noch keine Begegnungen aufgezeichnet wurden.";
 
