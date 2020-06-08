@@ -36,12 +36,21 @@ class ENACloneButton: UIButton {
 	private func setup() {
 		// disabled state
 		setBackgroundImage(.filled(with: .white), for: .disabled)
-		setTitleColor(UIColor.enaColor(for: .textPrimary1).withAlphaComponent(0.3), for: .disabled)
+		setTitleColor(
+			UIColor {
+				($0.userInterfaceStyle == .light ? UIColor.enaColor(for: .textPrimary1) : .gray).withAlphaComponent(0.3)
+			},
+			for: .disabled
+		)
 
 		// normal state
 		setBackgroundImage(.filled(with: .white), for: .normal)
-		setTitleColor(.enaColor(for: .textPrimary1), for: .normal)
-
+		setTitleColor(
+			UIColor {
+				($0.userInterfaceStyle == .light ? UIColor.enaColor(for: .textPrimary1) : .black)
+			},
+			for: .normal
+		)
 		// Title & Corners
 		titleLabel?.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
 		titleLabel?.adjustsFontForContentSizeCategory = true

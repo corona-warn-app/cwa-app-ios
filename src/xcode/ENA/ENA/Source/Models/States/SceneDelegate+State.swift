@@ -12,4 +12,3 @@ extension SceneDelegate {
 		var risk: Risk?
 	}
 }
-

@@ -380,7 +380,6 @@ extension SceneDelegate {
 	@objc
 	func backgroundRefreshStatusDidChange() {
 		let detectionMode: DetectionMode = currentDetectionMode
-		print("detectionMode: \(detectionMode)")
 		state.detectionMode = detectionMode
 	}
 }
