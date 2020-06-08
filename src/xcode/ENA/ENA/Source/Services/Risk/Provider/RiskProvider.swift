@@ -49,11 +49,7 @@ final class RiskProvider {
 	private let store: Store
 	private let exposureSummaryProvider: ExposureSummaryProvider
 	private let appConfigurationProvider: AppConfigurationProviding
-	var exposureManagerState: ExposureManagerState {
-		didSet {
-			requestRisk()
-		}
-	}
+	var exposureManagerState: ExposureManagerState
 	var configuration: RiskProvidingConfiguration
 }
 
@@ -62,8 +58,8 @@ private extension RiskConsumer {
 		targetQueue.async { [weak self] in
 			self?.didCalculateRisk?(risk)
 		}
-
 	}
+	
 	func provideNextExposureDetectionDate(_ date: Date) {
 		targetQueue.async { [weak self] in
 			self?.nextExposureDetectionDateDidChange?(date)
@@ -72,6 +68,14 @@ private extension RiskConsumer {
 }
 
 
+extension RiskProvider {
+	enum RequestType {
+		case userInitiated
+		case userInterface
+		case background
+	}
+}
+
 extension RiskProvider: RiskProviding {
 	func observeRisk(_ consumer: RiskConsumer) {
 		queue.async {
@@ -79,58 +83,96 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
+	func nextExposureDetectionDate() -> Date {
+		configuration.nextExposureDetectionDate(
+			lastExposureDetectionDate: store.summary?.date
+		)
+	}
+
 	private func _observeRisk(_ consumer: RiskConsumer) {
 		consumers.add(consumer)
+		consumer.nextExposureDetectionDateDidChange?(self.nextExposureDetectionDate())
+		consumer.manualExposureDetectionStateDidChange?(manualExposureDetectionState)
+	}
 
-		let exposureDetectionValidityDuration = configuration.exposureDetectionValidityDuration
-		// Using .distantPast here simplifies the algorithm a bit
-		let lastExposureDetectionDate = store.dateLastExposureDetection ?? .distantPast
-
-		let nextExposureDetectionDate: Date = {
-			let now = Date()
-			// `proposedDate` can be way back in the past (because of `.distantPast` (see above)).
-			// But the next exposure detection date should always be between:
-			// `now` and `now + exposureDetectionValidityDuration`. That is why we ignore the past
-			// and cut the proposed date off at `now`.
-			let proposedDate = Calendar.current.date(
-				byAdding: exposureDetectionValidityDuration,
-				to: lastExposureDetectionDate,
-				wrappingComponents: false
-				) ?? now
-
-			return proposedDate < now ? now : proposedDate
-		}()
-
-		consumer.nextExposureDetectionDateDidChange?(nextExposureDetectionDate)
+	var manualExposureDetectionState: ManualExposureDetectionState {
+		let shouldPerformDetection = configuration.shouldPerformExposureDetection(
+			lastExposureDetectionDate: store.summary?.date
+			) && configuration.detectionMode == .manual
+		return shouldPerformDetection ? .possible : .waiting
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
-	func requestRisk() {
-		queue.async(execute: _requestRiskLevel)
+	func requestRisk(userInitiated: Bool, completion: Completion? = nil) {
+		queue.async {
+			self._requestRiskLevel(userInitiated: userInitiated)
+		}
 	}
 
-	private func _requestRiskLevel() {
-		let exposureDetectionValidUntil: Date = {
-			let lastRunDate = self.store.dateLastExposureDetection ?? .distantPast
-			return Calendar.current.date(
-				byAdding: self.configuration.exposureDetectionValidityDuration,
-				to: lastRunDate,
-				wrappingComponents: false
-				) ?? .distantPast
-		}()
+	private struct Summaries {
+		var previous: SummaryMetadata?
+		var current: SummaryMetadata?
+	}
 
-		let requiresExposureDetectionRun = Date() > exposureDetectionValidUntil
-		var newSummary: ENExposureDetectionSummaryContainer?
+	private func determineSummaries(
+		userInitiated: Bool,
+		completion: @escaping (Summaries) -> Void
+	) {
+		// Here we are in automatic mode and thus we have to check the validity of the current summary
+		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
+			lastExposureDetectionDate: store.summary?.date
+		)
+		if enoughTimeHasPassed == false || self.exposureManagerState.isGood == false {
+			completion(
+				.init(
+					previous: nil,
+					current: store.summary
+				)
+			)
+			return
+		}
+
+		// Enough time has passed.
+		let shouldDetectExposures = (configuration.detectionMode == .manual && userInitiated) || configuration.detectionMode == .automatic
+
+		if shouldDetectExposures == false {
+			completion(
+				.init(
+					previous: nil,
+					current: store.summary
+				)
+			)
+			return
+		}
+
+		// The summary is outdated + we are in automatic mode: do a exposure detection
+		let previousSummary = store.summary
+
+		exposureSummaryProvider.detectExposure { detectedSummary in
+			if let detectedSummary = detectedSummary {
+				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
+			} else {
+				self.store.summary = nil
+			}
+			completion(
+				.init(
+					previous: previousSummary,
+					current: self.store.summary
+				)
+			)
+		}
+	}
+
+	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
 		let group = DispatchGroup()
 
-		if requiresExposureDetectionRun {
-			group.enter()
-			exposureSummaryProvider.detectExposure {
-				defer { group.leave() }
-				if let detectedSummary = $0 {
-					newSummary = ENExposureDetectionSummaryContainer(with: detectedSummary)
-				}
-			}
+		var summaries: Summaries?
+
+
+		group.enter()
+		determineSummaries(userInitiated: userInitiated) {
+			summaries = $0
+			group.leave()
 		}
 
 		var appConfiguration: SAP_ApplicationConfiguration?
@@ -141,36 +183,38 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
+			completion?(nil)
 			return
 		}
-		
-		let summary = newSummary ?? store.previousSummary
 
 		guard let _appConfiguration = appConfiguration else {
+			completion?(nil)
 			return
 		}
 		
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.countEnabledHours()
+
 		guard
 			let risk = RiskCalculation.risk(
-				summary: summary,
+				summary: summaries?.current?.summary,
 				configuration: _appConfiguration,
-				dateLastExposureDetection: store.dateLastExposureDetection,
+				dateLastExposureDetection: summaries?.current?.date,
 				numberOfTracingActiveHours: numberOfEnabledHours,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
-				previousSummary: store.previousSummary
+				previousSummary: summaries?.previous?.summary
 			) else {
-				print("send email to christopher")
+				logError(message: "Serious error during risk calculation")
+				completion?(nil)
 				return
 		}
 
 		for consumer in consumers.allObjects {
 			_provideRisk(risk, to: consumer)
 		}
-		store.previousSummary = summary
-		store.previousSummaryDate = Date()
+
+		completion?(risk)
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {

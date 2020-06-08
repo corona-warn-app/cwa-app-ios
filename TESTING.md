@@ -22,7 +22,7 @@ Alternatively you can execute the tests by hitting ⌘U within Xcode.
 ### Rationale
 In order to keep things simple we use [XCTest](https://developer.apple.com/documentation/xctest) as the basis for our tests. Tests are put into directories called `__tests__`. We want to have to tests as close as possible to the code they actually test. 
 
-Once things have stabilized we would like to split the *app target* up into multiple smaller frameworks. Each framework would then have it's own test target. By having multiple *local* `__tests__`-directories we accomentate this forseeing change to some extent today.
+Once things have stabilized we would like to split the *app target* up into multiple smaller frameworks. Each framework would then have it's own test target. By having multiple *local* `__tests__`-directories we accomentate this foreseeing change to some extent today.
 
 Having multiple local `__tests__`-directories also makes it easier to see where tests are still missing.
 
