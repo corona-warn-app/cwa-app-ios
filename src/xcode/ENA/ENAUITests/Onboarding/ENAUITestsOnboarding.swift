@@ -26,6 +26,7 @@ class ENAUITestsOnboarding: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
+		app.launchArguments.append(contentsOf: ["-AppleLocale", "de"])
 	}
 
 	override func tearDownWithError() throws {
@@ -37,22 +38,27 @@ class ENAUITestsOnboarding: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
+		XCTAssertNotNil(app.staticTexts[app.localized(AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title)])
 
 		// tap through the onboarding screens
-		snapshot("ScreenShot_\(#function)_0000")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0001")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0002")
-		app.buttons[Accessibility.Button.ignore].tap()
-		snapshot("ScreenShot_\(#function)_0003")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0004")
-		app.buttons[Accessibility.Button.ignore].tap()
+		//snapshot("ScreenShot_\(#function)_0000")
+		app.buttons[app.localized(AppStrings.Onboarding.onboardingLetsGo)].tap()
+		wait()
+		//snapshot("ScreenShot_\(#function)_0001")
+		app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].tap()
+		wait()
+		//snapshot("ScreenShot_\(#function)_0002")
+		app.buttons[app.localized(AppStrings.Onboarding.onboardingDoNotActivate)].tap()
+		wait()
+		//snapshot("ScreenShot_\(#function)_0003")
+		app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].tap()
+		wait()
+		//snapshot("ScreenShot_\(#function)_0004")
+		app.buttons[app.localized(AppStrings.Onboarding.onboardingDoNotAllow)].tap()
+		wait()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+		XCTAssertNotNil(app.staticTexts[app.localized(AppStrings.Home.appInformationCardTitle)])
 	}
 
 	func test_0001_OnboardingFlow_EnablePermissions_normal_XS() throws {
@@ -60,22 +66,27 @@ class ENAUITestsOnboarding: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.staticTexts[Accessibility.StaticText.onboardingTitle].exists)
+		XCTAssertNotNil(app.staticTexts[app.localized(AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title)])
 
 		// tap through the onboarding screens
-		snapshot("ScreenShot_\(#function)_0000")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0001")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0002")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0003")
-		app.buttons[Accessibility.Button.next].tap()
-		snapshot("ScreenShot_\(#function)_0004")
-		app.buttons[Accessibility.Button.next].tap()
+		//snapshot("ScreenShot_\(#function)_0000")
+		app.buttons[app.localized(AppStrings.Onboarding.onboardingLetsGo)].tap()
+		wait()
+		//snapshot("ScreenShot_\(#function)_0001")
+		app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].tap()
+		wait()
+		//snapshot("ScreenShot_\(#function)_0002")
+		app.buttons[app.localized(AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button)].tap()
+		wait()
+		//snapshot("ScreenShot_\(#function)_0003")
+		app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].tap()
+		wait()
+		//snapshot("ScreenShot_\(#function)_0004")
+		app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].tap()
+		wait()
 
-		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+	// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
+	XCTAssertNotNil(app.staticTexts[app.localized(AppStrings.Home.appInformationCardTitle)])
 	}
 
 }

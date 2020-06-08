@@ -21,25 +21,125 @@ import XCTest
 
 class ENAUITestsAppInformation: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+	var app: XCUIApplication!
 
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
+	override func setUpWithError() throws {
+		continueAfterFailure = false
+		app = XCUIApplication()
+		setupSnapshot(app)
+		app.setDefaults()
+		app.launchArguments = ["-isOnboarded", "YES"]
+		app.launchArguments.append(contentsOf: ["-AppleLocale", "de"])
+	}
 
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
+	override func tearDownWithError() throws {
+		// Put teardown code here. This method is called after the invocation of each test method in the class.
+	}
 
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
+	func test_0020_AppInformationFlow() throws {
+		app.launch()
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+		// only run if onboarding screen is present
+		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].exists)
 
-    func testExample() throws {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+		app.swipeUp()
+		// assert cells
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
+		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.aboutNavigation)].exists)
+
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.aboutNavigation)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.faqNavigation)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.contactNavigation)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.privacyNavigation)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.termsNavigation)].exists)
+
+	}
+
+	func test_0021_AppInformationFlow_about() throws {
+		app.launch()
+
+		// only run if onboarding screen is present
+		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].exists)
+
+		app.swipeUp()
+		// assert cells
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
+		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.aboutNavigation)].exists)
+		app.cells[app.localized(AppStrings.AppInformation.aboutNavigation)].tap()
+
+		XCTAssert(app.staticTexts[app.localized(AppStrings.AppInformation.aboutTitle)].exists)
+	}
+
+	func test_0022_AppInformationFlow_faq() throws {
+		app.launch()
+
+		// only run if onboarding screen is present
+		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].exists)
+
+		app.swipeUp()
+		// assert cells
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
+		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.faqNavigation)].exists)
+		app.cells[app.localized(AppStrings.AppInformation.faqNavigation)].tap()
+
+		XCTAssert(app.staticTexts["Done"].exists)
+	}
+
+	func test_0023_AppInformationFlow_contact() throws {
+		app.launch()
+
+		// only run if onboarding screen is present
+		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].exists)
+
+		app.swipeUp()
+		// assert cells
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
+		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.contactNavigation)].exists)
+		app.cells[app.localized(AppStrings.AppInformation.contactNavigation)].tap()
+
+		XCTAssert(app.staticTexts[app.localized(AppStrings.AppInformation.contactTitle)].exists)
+	}
+
+	func test_0024_AppInformationFlow_privacy() throws {
+		app.launch()
+
+		// only run if onboarding screen is present
+		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].exists)
+
+		app.swipeUp()
+		// assert cells
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
+		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.privacyNavigation)].exists)
+		app.cells[app.localized(AppStrings.AppInformation.privacyNavigation)].tap()
+
+		XCTAssert(app.staticTexts[app.localized(AppStrings.AppInformation.privacyTitle)].exists)
+	}
+
+	func test_0025_AppInformationFlow_terms() throws {
+		app.launch()
+
+		// only run if onboarding screen is present
+		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].exists)
+
+		app.swipeUp()
+		// assert cells
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
+		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+
+		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.termsNavigation)].exists)
+		app.cells[app.localized(AppStrings.AppInformation.termsNavigation)].tap()
+
+		XCTAssert(app.staticTexts[app.localized(AppStrings.AppInformation.termsTitle)].exists)
+	}
 
 }

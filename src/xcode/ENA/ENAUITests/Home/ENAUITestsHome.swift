@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,6 +15,7 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import XCTest
 
@@ -26,6 +28,7 @@ class ENAUITestsHome: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments = ["-isOnboarded", "YES"]
+		app.launchArguments.append(contentsOf: ["-AppleLocale", "de"])
 	}
 
 	override func tearDownWithError() throws {
@@ -36,49 +39,49 @@ class ENAUITestsHome: XCTestCase {
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .XS)
 		app.launch()
 
-		// only run if onboarding screen is present
-		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+		// only run if home screen is present
+		XCTAssertNotNil(app.staticTexts[app.localized(AppStrings.Home.infoCardAboutTitle)])
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[Accessibility.Cell.infoCardShareTitle].exists)
-		XCTAssert(app.cells[Accessibility.Cell.infoCardAboutTitle].exists)
-		XCTAssert(app.cells[Accessibility.Cell.appInformationCardTitle].exists)
-		XCTAssert(app.cells[Accessibility.Cell.settingsCardTitle].exists)
-		snapshot("ScreenShot_\(#function)")
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].exists)
+		//snapshot("ScreenShot_\(#function)")
 	}
 
 	func test_0011_HomeFlow_extrasmall() throws {
 		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
 		app.launch()
 
-		// only run if onboarding screen is present
-		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+		// only run if home screen is present
+		XCTAssertNotNil(app.staticTexts[app.localized(AppStrings.Home.infoCardAboutTitle)])
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[Accessibility.Cell.infoCardShareTitle].exists)
-		XCTAssert(app.cells[Accessibility.Cell.infoCardAboutTitle].exists)
-		XCTAssert(app.cells[Accessibility.Cell.appInformationCardTitle].exists)
-		XCTAssert(app.cells[Accessibility.Cell.settingsCardTitle].exists)
-		snapshot("ScreenShot_\(#function)")
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].exists)
+		//snapshot("ScreenShot_\(#function)")
 	}
 
 	func test_0013_HomeFlow_extralarge() throws {
 		app.setPreferredContentSizeCategory(accessibililty: .accessibility, size: .XL)
 		app.launch()
 
-		// only run if onboarding screen is present
-		XCTAssertNotNil(app.staticTexts[Accessibility.StaticText.homeActivateTitle])
+		// only run if home screen is present
+		XCTAssertNotNil(app.staticTexts[app.localized(AppStrings.Home.infoCardAboutTitle)])
 
 		app.swipeUp()
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[Accessibility.Cell.infoCardShareTitle].exists)
-		XCTAssert(app.cells[Accessibility.Cell.infoCardAboutTitle].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].exists)
 		app.swipeUp()
-		XCTAssert(app.cells[Accessibility.Cell.appInformationCardTitle].exists)
-		XCTAssert(app.cells[Accessibility.Cell.settingsCardTitle].exists)
-		snapshot("ScreenShot_\(#function)")
+		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].exists)
+		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].exists)
+		//snapshot("ScreenShot_\(#function)")
 	}
 }
