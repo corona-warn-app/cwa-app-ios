@@ -57,7 +57,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			),
 			forHeaderFooterViewReuseIdentifier: "test"
 		)
-		tableView.register(DynamicTableViewImageCardCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue)
+		tableView.register(UINib(nibName: String(describing: ExposureSubmissionImageCardCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue)
 		title = AppStrings.ExposureSubmissionDispatch.title
 	}
 
@@ -232,6 +232,15 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 // MARK: Data extension for DynamicTableView.
 
+private extension DynamicCell {
+	static func imageCard(title: String, description: String, image: UIImage?, action: DynamicAction) -> Self {
+		.identifier(ExposureSubmissionOverviewViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
+			guard let cell = cell as? ExposureSubmissionImageCardCell else { return }
+			cell.configure(title: title, description: description, image: image)
+		}
+	}
+}
+
 private extension ExposureSubmissionOverviewViewController {
 	func dynamicTableData() -> DynamicTableViewModel {
 		var data = DynamicTableViewModel([])
@@ -249,44 +258,23 @@ private extension ExposureSubmissionOverviewViewController {
 		)
 
 		data.add(DynamicSection.section(cells: [
-			.identifier(
-				CustomCellReuseIdentifiers.imageCard,
-				action: .execute(block: { _ in
-					self.showDisclaimer()
-				}),
-				configure: { _, cell, _ in
-					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
-					cell.configure(
-						title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
-						image: UIImage(named: "Illu_Submission_QRCode"),
-						body: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription
-					)
-				}
+			.imageCard(
+				title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
+				description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				image: UIImage(named: "Illu_Submission_QRCode"),
+				action: .execute(block: { _ in self.showDisclaimer() })
 			),
-			.identifier(
-				CustomCellReuseIdentifiers.imageCard,
-				action: .perform(segue: Segue.tanInput),
-				configure: { _, cell, _ in
-					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
-					cell.configure(
-						title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
-						image: UIImage(named: "Illu_Submission_TAN"),
-						body: AppStrings.ExposureSubmissionDispatch.tanButtonDescription
-					)
-				}
+			.imageCard(
+				title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
+				description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
+				image: UIImage(named: "Illu_Submission_TAN"),
+				action: .perform(segue: Segue.tanInput)
 			),
-			.identifier(
-				CustomCellReuseIdentifiers.imageCard,
-				action: .perform(segue: Segue.hotline),
-				configure: { _, cell, _ in
-					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
-					cell.configure(
-						title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
-						image: UIImage(named: "Illu_Submission_Anruf"),
-						body: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
-						attributedStrings: self.getAttributedStrings()
-					)
-				}
+			.imageCard(
+				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
+				description: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
+				image: UIImage(named: "Illu_Submission_Anruf"),
+				action: .perform(segue: Segue.hotline)
 			)
 		]))
 
