@@ -41,27 +41,27 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.staticTexts[app.localized(AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
 
 		// tap through the onboarding screens
 		//snapshot("ScreenShot_\(#function)_0000")
-		XCTAssertTrue(app.buttons[app.localized(AppStrings.Onboarding.onboardingLetsGo)].waitForExistence(timeout: 5.0))
-		app.buttons[app.localized(AppStrings.Onboarding.onboardingLetsGo)].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
 		//snapshot("ScreenShot_\(#function)_0001")
-		XCTAssertTrue(app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].waitForExistence(timeout: 5.0))
-		app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 		//snapshot("ScreenShot_\(#function)_0002")
-		XCTAssertTrue(app.buttons[app.localized(AppStrings.Onboarding.onboardingDoNotActivate)].waitForExistence(timeout: 5.0))
-		app.buttons[app.localized(AppStrings.Onboarding.onboardingDoNotActivate)].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingDoNotActivate"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingDoNotActivate"].tap()
 		//snapshot("ScreenShot_\(#function)_0003")
-		XCTAssertTrue(app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].waitForExistence(timeout: 5.0))
-		app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 		//snapshot("ScreenShot_\(#function)_0004")
-		XCTAssertTrue(app.buttons[app.localized(AppStrings.Onboarding.onboardingDoNotAllow)].waitForExistence(timeout: 5.0))
-		app.buttons[app.localized(AppStrings.Onboarding.onboardingDoNotAllow)].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].tap()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 	}
 
 	func test_0001_OnboardingFlow_EnablePermissions_normal_XS() throws {
@@ -69,27 +69,27 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.staticTexts[app.localized(AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
 
 		// tap through the onboarding screens
 		//snapshot("ScreenShot_\(#function)_0000")
-		XCTAssertTrue(app.buttons[app.localized(AppStrings.Onboarding.onboardingLetsGo)].waitForExistence(timeout: 5.0))
-		app.buttons[app.localized(AppStrings.Onboarding.onboardingLetsGo)].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
 		//snapshot("ScreenShot_\(#function)_0001")
-		XCTAssertTrue(app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].waitForExistence(timeout: 5.0))
-		app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 		//snapshot("ScreenShot_\(#function)_0002")
-		XCTAssertTrue(app.buttons[app.localized(AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button)].waitForExistence(timeout: 5.0))
-		app.buttons[app.localized(AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button)].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
 		//snapshot("ScreenShot_\(#function)_0003")
-		XCTAssertTrue(app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].waitForExistence(timeout: 5.0))
-		app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 		//snapshot("ScreenShot_\(#function)_0004")
-		XCTAssertTrue(app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].waitForExistence(timeout: 5.0))
-		app.buttons[app.localized(AppStrings.Onboarding.onboardingContinue)].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 
 		// check that the homescreen element AppStrings.home.activateTitle is visible onscreen
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 	}
 
 }
