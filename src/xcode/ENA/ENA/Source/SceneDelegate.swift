@@ -18,7 +18,7 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
-import Reachability
+
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
