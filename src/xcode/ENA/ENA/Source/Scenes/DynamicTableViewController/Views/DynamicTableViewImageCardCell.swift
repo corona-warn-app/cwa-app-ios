@@ -47,32 +47,32 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 	private func setup() {
 		// MARK: - General cell setup.
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		backgroundColor = .enaColor(for: .background)
 
 		// MARK: - Add inset view
 
-		insetView.backgroundColor = .preferredColor(for: .backgroundSecondary)
+		insetView.backgroundColor = .enaColor(for: .separator)
 		insetView.layer.cornerRadius = 16.0
 		insetView.clipsToBounds = true
 
 		// MARK: - Title adjustment.
 
 		title.style = .title2
-		title.textColor = .preferredColor(for: .textPrimary1)
+		title.textColor = .enaColor(for: .textPrimary1)
 		title.lineBreakMode = .byWordWrapping
 		title.numberOfLines = 0
 
 		// MARK: - Body adjustment.
 
 		body.style = .body
-		body.textColor = .preferredColor(for: .textPrimary1)
+		body.textColor = .enaColor(for: .textPrimary1)
 		body.lineBreakMode = .byWordWrapping
 		body.numberOfLines = 0
 
 		// MARK: - Chevron adjustment.
 
 		chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
-		chevron.tintColor = UIColor.preferredColor(for: .textPrimary2)
+		chevron.tintColor = UIColor.enaColor(for: .chevron)
 
 		// MARK: - Image adjustment.
 
