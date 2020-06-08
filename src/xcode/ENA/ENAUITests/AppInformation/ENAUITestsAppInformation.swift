@@ -28,7 +28,8 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments.append(contentsOf: ["-AppleLocale", "de"])
+		app.launchArguments += ["-AppleLanguages", "(de)"]
+		app.launchArguments += ["-AppleLocale", "de_DE"]
 	}
 
 	override func tearDownWithError() throws {
