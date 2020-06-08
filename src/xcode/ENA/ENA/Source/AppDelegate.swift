@@ -58,6 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			detectionMode: .default
 		)
 
+
 		return RiskProvider(
 			configuration: config,
 			store: self.store,
