@@ -27,6 +27,7 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var riskProvider: RiskProvider { get }
+	var exposureManager: ExposureManager { get }
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 }
 
@@ -36,6 +37,7 @@ protocol RequiresAppDependencies {
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var riskProvider: RiskProvider { get }
+	var exposureManager: ExposureManager { get }
 	var lastRiskCalculation: String { get }  // TODO: REMOVE ME
 }
 
@@ -62,6 +64,10 @@ extension RequiresAppDependencies {
 
 	var lastRiskCalculation: String {
 		UIApplication.coronaWarnDelegate().lastRiskCalculation
+	}
+
+	var exposureManager: ExposureManager {
+		UIApplication.coronaWarnDelegate().exposureManager
 	}
 }
 
@@ -99,7 +105,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			exposureManagerState: self.exposureManager.preconditions()
 		)
 	}()
-	private var exposureManager: ExposureManager = ENAExposureManager()
+
+	#if targetEnvironment(simulator) || COMMUNITY
+	// Enable third party contributors that do not have the required
+	// entitlements to also use the app
+	let exposureManager: ExposureManager = {
+		let keys = [ENTemporaryExposureKey()]
+		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+	}()
+	#else
+	let exposureManager: ExposureManager = ENAExposureManager()
+	#endif
+
 	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
 
@@ -380,7 +397,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 		consumer.didCalculateRisk = { risk in
 			// present a notification if the risk score has increased
-			if risk.riskLevelHasIncreased {
+			if risk.riskLevelHasChanged {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.detectExposureTitle,
 					body: AppStrings.LocalNotifications.detectExposureBody,

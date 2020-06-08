@@ -23,6 +23,7 @@ import XCTest
 class DynamicTableViewControllerRowsTests: XCTestCase {
 	
 	var sut: DynamicTableViewController!
+	var window: UIWindow!
 	
 	override func setUpWithError() throws {
 		// The fake storyboard is needed here to instantiate an instance of
@@ -38,12 +39,17 @@ class DynamicTableViewControllerRowsTests: XCTestCase {
 				return
 		}
 		sut = viewController
+		
 		// trigger viewDidLoad
 		sut.loadViewIfNeeded()
+		
+		window = UIWindow(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+		window.makeKeyAndVisible()
 	}
 	
 	override func tearDownWithError() throws {
 		sut = nil
+		window = nil
 	}
 }
 
@@ -73,15 +79,152 @@ extension DynamicTableViewControllerRowsTests {
 		let expectedText = "Foo"
 		let section = DynamicSection.section(cells: [.body(text: expectedText)])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
-		// Set up window and set root view controller because otherwise cellForRow
-		// returns nil.
-		let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
-		window.makeKeyAndVisible()
-
+		
 		let indexPath = IndexPath(row: 0, section: 0)
 		let cell = sut.tableView.cellForRow(at: indexPath)
 		
 		XCTAssertEqual(cell?.textLabel?.text, expectedText)
+	}
+	
+	func testCellForRowAt_whenSectionIsHidden_returnsIsPlainUITableViewCell() {
+		let section = DynamicSection.section(isHidden: { _ in return true }, cells: [.body(text: "Foo")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
+		window.rootViewController = sut
+		
+		let indexPath = IndexPath(row: 0, section: 0)
+		let cell = sut.tableView.cellForRow(at: indexPath)
+		
+		guard let unwrappedCell = cell else {
+			return XCTFail("cell should not be nil")
+		}
+		XCTAssert(type(of: unwrappedCell) == UITableViewCell.self, "Got \(type(of: unwrappedCell)), expected \(UITableViewCell.self)")
+	}
+	
+	func testCellForRowAt_whenSectionHasSeparators_addsTopSeparatorToFirstCell() {
+		let section = DynamicSection.section(separators: true, cells: [.body(text: "Foo"), .body(text: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
+		window.rootViewController = sut
+
+		let indexPath = IndexPath(row: 0, section: 0)
+		let cell = sut.tableView.cellForRow(at: indexPath)
+		
+		guard let unwrappedCell = cell else {
+			return XCTFail("cell should not be nil")
+		}
+		let topSeparator = unwrappedCell.contentView.viewWithTag(100_001)
+		let topSeparatorIsSubview = topSeparator?.isDescendant(of: unwrappedCell)
+		XCTAssertEqual(topSeparatorIsSubview, true)
+	}
+	
+	func testCellForRowAt_whenSectionHasSeparators_NotAddsTopSeparatorToSecondCell() {
+		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar")]
+		let section = DynamicSection.section(separators: true, cells: cells)
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
+		window.rootViewController = sut
+
+		let indexPath = IndexPath(row: 1, section: 0)
+		let cell = sut.tableView.cellForRow(at: indexPath)
+		
+		guard let unwrappedCell = cell else {
+			return XCTFail("cell should not be nil")
+		}
+		let topSeparator = unwrappedCell.contentView.viewWithTag(100_001)
+		XCTAssertNil(topSeparator)
+	}
+	
+	func testCellForRowAt_whenSectionHasSeparators_addsBottomSeparatorToLastCell() {
+		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar")]
+		let section = DynamicSection.section(separators: true, cells: cells)
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
+		window.rootViewController = sut
+
+		let rowOfLastCell = cells.count - 1
+		let indexPath = IndexPath(row: rowOfLastCell, section: 0)
+		let cell = sut.tableView.cellForRow(at: indexPath)
+		
+		guard let unwrappedCell = cell else {
+			return XCTFail("cell should not be nil")
+		}
+		let bottomSeparator = unwrappedCell.contentView.viewWithTag(100_002)
+		let isSubview = bottomSeparator?.isDescendant(of: unwrappedCell)
+		XCTAssertEqual(isSubview, true)
+	}
+	
+	func testCellForRowAt_whenSectionHasSeparators_notAddsBottomSeparatorToFirstCell() {
+		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar")]
+		let section = DynamicSection.section(separators: true, cells: cells)
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
+		window.rootViewController = sut
+
+		let indexPath = IndexPath(row: 0, section: 0)
+		let cell = sut.tableView.cellForRow(at: indexPath)
+		
+		guard let unwrappedCell = cell else {
+			return XCTFail("cell should not be nil")
+		}
+		let bottomSeparator = unwrappedCell.contentView.viewWithTag(100_002)
+		XCTAssertNil(bottomSeparator)
+	}
+	
+	func testCellForRowAt_whenSectionHasSeparators_addsInsetSeparatorToFirstCell() {
+		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar"), .body(text: "Baz")]
+		let section = DynamicSection.section(separators: true, cells: cells)
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
+		window.rootViewController = sut
+
+		let indexPath = IndexPath(row: 0, section: 0)
+		let cell = sut.tableView.cellForRow(at: indexPath)
+		
+		guard let unwrappedCell = cell else {
+			return XCTFail("cell should not be nil")
+		}
+		let insetSeparator = unwrappedCell.contentView.viewWithTag(100_003)
+		let isSubview = insetSeparator?.isDescendant(of: unwrappedCell)
+		XCTAssertEqual(isSubview, true)
+	}
+	
+	func testCellForRowAt_whenSectionHasSeparators_addsInsetSeparatorToIntermediateCells() {
+		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar"), .body(text: "Baz")]
+		let section = DynamicSection.section(separators: true, cells: cells)
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
+		window.rootViewController = sut
+
+		let rowOfSecondToLastCell = cells.count - 2
+		let indexPath = IndexPath(row: rowOfSecondToLastCell, section: 0)
+		let cell = sut.tableView.cellForRow(at: indexPath)
+		
+		guard let unwrappedCell = cell else {
+			return XCTFail("cell should not be nil")
+		}
+		let insetSeparator = unwrappedCell.contentView.viewWithTag(100_003)
+		let isSubview = insetSeparator?.isDescendant(of: unwrappedCell)
+		XCTAssertEqual(isSubview, true)
+	}
+	
+	func testCellForRowAt_whenSectionHasSeparators_notAddsInsetSeparatorToLastCell() {
+		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar"), .body(text: "Baz")]
+		let section = DynamicSection.section(separators: true, cells: cells)
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
+		window.rootViewController = sut
+
+		let rowOfLastCell = cells.count - 1
+		let indexPath = IndexPath(row: rowOfLastCell, section: 0)
+		let cell = sut.tableView.cellForRow(at: indexPath)
+		
+		guard let unwrappedCell = cell else {
+			return XCTFail("cell should not be nil")
+		}
+		let insetSeparator = unwrappedCell.contentView.viewWithTag(100_003)
+		XCTAssertNil(insetSeparator)
 	}
 }

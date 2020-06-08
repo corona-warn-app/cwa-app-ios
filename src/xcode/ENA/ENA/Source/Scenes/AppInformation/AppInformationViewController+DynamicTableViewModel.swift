@@ -20,10 +20,12 @@ import UIKit
 
 private extension DynamicCell {
 	static func phone(text: String, number: String) -> Self {
-		.icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
+		var cell: DynamicCell = .icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
 			cell.textLabel?.textColor = .enaColor(for: .textTint)
 			(cell.textLabel as? ENALabel)?.style = .title2
 		}
+		cell.tag = "phone"
+		return cell
 	}
 
 	static func headlineWithoutBottomInset(text: String) -> Self {
@@ -81,7 +83,7 @@ extension AppInformationViewController {
 		),
 		.terms: (
 			text: AppStrings.AppInformation.termsNavigation,
-			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsNavigation)
+			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsTitle)
 		),
 		.privacy: (
 			text: AppStrings.AppInformation.privacyNavigation,
@@ -169,9 +171,7 @@ extension AppInformationViewController {
 						   accessibilityLabel: AppStrings.AppInformation.termsImageDescription,
 						   height: 230),
 			cells: [
-				.title2(text: AppStrings.AppInformation.termsTitle),
-				.body(text: AppStrings.AppInformation.termsDescription),
-				.body(text: AppStrings.AppInformation.termsText)
+				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
 			]
 		)
 	])
