@@ -32,4 +32,10 @@ class HomeCardCollectionViewCell: UICollectionViewCell {
 		layer.shadowRadius = 36.0
 		layer.shadowOpacity = 1
 	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
+	}
 }
