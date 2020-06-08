@@ -21,10 +21,37 @@ import Foundation
 import XCTest
 @testable import ENA
 
+private extension TimeInterval {
+	static let short = 1.0
+	static let long = 3.0
+}
+
 class ExposureSubmissionOverviewViewControllerTests: XCTestCase {
+
+	var service: MockExposureSubmissionService!
+	var qrScannerViewController: MockExposureSubmissionQRScannerViewController!
 
 	override func setUp() {
 		super.setUp()
+		service = MockExposureSubmissionService()
+		qrScannerViewController = MockExposureSubmissionQRScannerViewController()
+	}
+
+	func testQRCodeScanSuccess() {
+		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self)
+		vc.service = service
+
+		let expectation = self.expectation(description: "Call getRegistration service method.")
+		service.getRegistrationTokenCallback = { deviceRegistrationKey, completion in
+			expectation.fulfill()
+			completion(.success(""))
+		}
+
+		qrScannerViewController.dismissCallback = { _, callback in callback?() }
+
+		let scanResult = "https://example.org/?50C707FB-2DC4-4252-9C21-7B0DF0F30ED5"
+		vc.qrScanner(qrScannerViewController, didScan: scanResult)
+		waitForExpectations(timeout: .short)
 	}
 
 	func testQRCodeSanitization() {

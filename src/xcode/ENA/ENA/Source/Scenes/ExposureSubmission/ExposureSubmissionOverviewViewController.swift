@@ -25,7 +25,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 	// MARK: - Attributes.
 
 	@IBAction func unwindToExposureSubmissionIntro(_: UIStoryboardSegue) {}
-	private var service: ExposureSubmissionService?
+	var service: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
 
 	// MARK: - Initializers.
@@ -142,7 +142,7 @@ extension ExposureSubmissionOverviewViewController {
 // MARK: - ExposureSubmissionQRScannerDelegate methods.
 
 extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerDelegate {
-	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError) {
+	func qrScanner(_ viewController: QRScannerViewController, error: QRScannerError) {
 		switch error {
 		case .cameraPermissionDenied:
 
@@ -152,7 +152,6 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error) {
 					self.dismissQRCodeScannerView(viewController, completion: nil)
 				}
-
 				viewController.present(alert, animated: true, completion: nil)
 			}
 		default:
@@ -160,7 +159,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		}
 	}
 
-	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
+	func qrScanner(_ vc: QRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
 			vc.delegate = nil
 			let alert = ExposureSubmissionViewUtils.setupAlert(
@@ -233,7 +232,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		return candidate
 	}
 
-	private func dismissQRCodeScannerView(_ vc: ExposureSubmissionQRScannerViewController, completion: (() -> Void)?) {
+	private func dismissQRCodeScannerView(_ vc: QRScannerViewController, completion: (() -> Void)?) {
 		vc.delegate = nil
 		vc.dismiss(animated: true, completion: completion)
 	}

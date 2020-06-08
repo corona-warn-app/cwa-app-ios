@@ -36,8 +36,14 @@ extension QRScannerError: LocalizedError {
 }
 
 protocol ExposureSubmissionQRScannerDelegate: AnyObject {
-	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String)
-	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError)
+	func qrScanner(_ viewController: QRScannerViewController, didScan code: String)
+	func qrScanner(_ viewController: QRScannerViewController, error: QRScannerError)
+}
+
+protocol QRScannerViewController: class {
+	var delegate: ExposureSubmissionQRScannerDelegate? { get set }
+	func dismiss(animated: Bool, completion: (() -> Void)?)
+	func present(_: UIViewController, animated: Bool, completion: (() -> Void)?)
 }
 
 final class ExposureSubmissionQRScannerNavigationController: UINavigationController {
@@ -53,7 +59,7 @@ final class ExposureSubmissionQRScannerNavigationController: UINavigationControl
 	}
 }
 
-final class ExposureSubmissionQRScannerViewController: UIViewController {
+final class ExposureSubmissionQRScannerViewController: UIViewController, QRScannerViewController {
 	@IBOutlet var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet var flashButton: UIButton!
 	@IBOutlet weak var navigationTitle: UINavigationItem!
