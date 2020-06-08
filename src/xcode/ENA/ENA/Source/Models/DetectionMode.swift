@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,16 +15,27 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
+import UIKit
 
-protocol ExposureDetectionViewControllerDelegate: AnyObject {
-	func exposureDetectionViewController(
-		_ controller: ExposureDetectionViewController,
-		setExposureManagerEnabled enabled: Bool,
-		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
-	)
+enum DetectionMode {
+	case automatic
+	case manual
 
-	func didStartLoading(exposureDetectionViewController: ExposureDetectionViewController)
-	func didFinishLoading(exposureDetectionViewController: ExposureDetectionViewController)
+	static let `default` = DetectionMode.manual
+}
+
+extension DetectionMode {
+	static func from(backgroundStatus: UIBackgroundRefreshStatus) -> DetectionMode {
+		switch backgroundStatus {
+		case .restricted, .denied:
+			return .manual
+		case .available:
+			return .automatic
+		default:
+			return .manual
+		}
+	}
 }
