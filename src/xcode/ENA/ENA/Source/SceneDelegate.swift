@@ -91,13 +91,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		exposureManager.resume(observer: self)
 
-		// is right place for it? ---
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
 		}
 		riskProvider.observeRisk(riskConsumer)
-		// ---
-
 
 		UNUserNotificationCenter.current().delegate = self
 

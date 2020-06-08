@@ -20,6 +20,7 @@ import Foundation
 import UIKit
 
 final class HomeInteractor: RequiresAppDependencies {
+
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
 
@@ -44,7 +45,6 @@ final class HomeInteractor: RequiresAppDependencies {
 		risk: nil
 	) {
 		didSet {
-			print("STATE CHANGED !!!!!! - HomeInteractor")
 			homeViewController.setStateOfChildViewControllers()
 			sections = initialCellConfigurators()
 			homeViewController.reloadData()
@@ -72,14 +72,14 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	private(set) var testResult: TestResult?
 
-	func updateActiveCell() {
+	private func updateActiveCell() {
 		guard let indexPath = indexPathForActiveCell() else { return }
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 	}
 
 	private func updateRiskLoading() {
-		// isUpdateTaskRunning ? riskLevelConfigurator?.startLoading() : riskLevelConfigurator?.stopLoading()
+		isRequestRiskRunning ? riskLevelConfigurator?.startLoading() : riskLevelConfigurator?.stopLoading()
 	}
 
 	private func updateRiskButton(isEnabled: Bool) {
@@ -96,8 +96,25 @@ final class HomeInteractor: RequiresAppDependencies {
 		homeViewController.reloadCell(at: indexPath)
 	}
 
+	private(set) var isRequestRiskRunning = false
+
+	func updateAndReloadRiskLoading(isRequestRiskRunning: Bool) {
+		self.isRequestRiskRunning = isRequestRiskRunning
+		updateRiskLoading()
+		reloadRiskCell()
+	}
+
 	func requestRisk(userInitiated: Bool) {
-		riskProvider.requestRisk(userInitiated: userInitiated)
+
+		if userInitiated {
+			updateAndReloadRiskLoading(isRequestRiskRunning: true)
+			riskProvider.requestRisk(userInitiated: userInitiated) { _ in
+				self.updateAndReloadRiskLoading(isRequestRiskRunning: false)
+			}
+		} else {
+			riskProvider.requestRisk(userInitiated: userInitiated)
+		}
+
 	}
 
 	private func initialCellConfigurators() -> SectionConfiguration {
@@ -225,7 +242,7 @@ extension HomeInteractor {
 			)
 		}
 		riskLevelConfigurator?.buttonAction = {
-			self.riskProvider.requestRisk(userInitiated: true)
+			self.requestRisk(userInitiated: true)
 		}
 		return riskLevelConfigurator ?? inactiveConfigurator
 	}
