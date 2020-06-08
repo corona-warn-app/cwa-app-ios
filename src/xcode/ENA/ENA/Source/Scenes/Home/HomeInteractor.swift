@@ -48,12 +48,12 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	var state = HomeInteractor.State(
 		isLoading: false,
-		exposureManager: .init()
+		exposureManagerState: .init()
 	) {
 		didSet {
 			homeViewController.setStateOfChildViewControllers(
 				.init(
-					exposureManagerState: state.exposureManager,
+					exposureManagerState: state.exposureManagerState,
 					detectionMode: state.detectionMode
 				)
 			)
@@ -181,6 +181,7 @@ extension HomeInteractor {
 
 		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
 
+		print(" 🐶 The detection mode is \(detectionMode)")
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
@@ -389,26 +390,7 @@ extension HomeInteractor {
 	}
 }
 
-extension HomeInteractor {
-	struct State {
-		var detectionMode = DetectionMode.default
-		var isLoading = false
-		var exposureManager: ExposureManagerState
-		var numberRiskContacts: Int {
-			risk?.details.numberOfExposures ?? 0
-		}
 
-		var daysSinceLastExposure: Int? {
-			guard let date = risk?.details.exposureDetectionDate else {
-				return nil
-			}
-			return Calendar.current.dateComponents([.day], from: date, to: Date()).day
-		}
-
-		var risk: Risk?
-		var riskLevel: RiskLevel { risk?.level ?? .unknownInitial }
-	}
-}
 
 // MARK: The ENStateHandler updating
 extension HomeInteractor: ENStateHandlerUpdating {

@@ -50,7 +50,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	var state: State {
 		didSet {
-			homeInteractor.state.exposureManager = state.exposureManagerState
+			homeInteractor.state.exposureManagerState = state.exposureManagerState
 			homeInteractor.state.risk = state.risk
 			homeInteractor.state.detectionMode = state.detectionMode
 		}
@@ -64,7 +64,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			homeViewController: self,
 			state: .init(
 				isLoading: false,
-				exposureManager: state.exposureManagerState,
+				exposureManagerState: state.exposureManagerState,
                 risk: risk
 			),
 			exposureSubmissionService: self.exposureSubmissionService,

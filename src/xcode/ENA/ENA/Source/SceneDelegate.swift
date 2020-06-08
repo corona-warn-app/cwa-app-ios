@@ -33,7 +33,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			homeController?.homeInteractor.state = .init(
 				detectionMode: state.detectionMode,
 				isLoading: false,
-				exposureManager: state.exposureManager
+				exposureManagerState: state.exposureManager
 			)
 		}
 	}
@@ -184,7 +184,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		}
 
 		homeController = vc // strong ref needed
-		homeController?.homeInteractor.state.exposureManager = state.exposureManager
+		homeController?.homeInteractor.state.exposureManagerState = state.exposureManager
 		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.navigationController.setViewControllers([vc], animated: false)
 		})
@@ -339,12 +339,6 @@ private extension Array where Element == URLQueryItem {
 	}
 }
 
-extension SceneDelegate {
-	struct State {
-		var exposureManager: ExposureManagerState
-		var detectionMode: DetectionMode = .automatic
-	}
-}
 
 extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
