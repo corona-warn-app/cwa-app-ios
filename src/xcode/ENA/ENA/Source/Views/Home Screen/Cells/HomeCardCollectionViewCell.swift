@@ -22,7 +22,7 @@ class HomeCardCollectionViewCell: UICollectionViewCell {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		
+
 		clipsToBounds = false
 		contentView.clipsToBounds = true
 		contentView.layer.cornerRadius = cornerRadius
