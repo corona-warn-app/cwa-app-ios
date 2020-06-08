@@ -47,6 +47,9 @@ public enum ENAColor: String, CaseIterable {
 	case riskMedium = "ENA Risk Medium Color"
 	case riskNeutral = "ENA Risk Neutral Color"
 
+	// MARK: - Tap States Colors
+	case listHighlight = "ENA List Highlight Color"
+
 	// MARK: - Text Colors
 	case textContrast = "ENA Text Contrast Color"
 	case textPrimary1 = "ENA Text Primary 1 Color"
