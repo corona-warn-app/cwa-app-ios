@@ -89,13 +89,13 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		let footerView = UIView()
-		footerView.backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
+		footerView.backgroundColor = .enaColor(for: .background)
 
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.text = "Hourly Fetching:"
 		label.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular)
-		label.textColor = UIColor.preferredColor(for: .textPrimary1)
+		label.textColor = .enaColor(for: .textPrimary1)
 
 		footerView.addSubview(label)
 		label.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 15).isActive = true
