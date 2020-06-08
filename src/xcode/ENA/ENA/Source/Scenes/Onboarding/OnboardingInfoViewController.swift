@@ -35,6 +35,10 @@ enum OnboardingPageType: Int, CaseIterable {
 	}
 }
 
+extension OnboardingInfoViewController: RequiresAppDependencies {
+
+}
+
 final class OnboardingInfoViewController: UIViewController {
 	// MARK: Creating a Onboarding View Controller
 
@@ -118,7 +122,7 @@ final class OnboardingInfoViewController: UIViewController {
 			askExposureNotificationsPermissions(completion: {
 				handleBluetooth {
 					completion()
-					(UIApplication.shared.delegate as? AppDelegate)?.taskScheduler.scheduleTasks()
+					self.taskScheduler.scheduleTasks()
 				}
 			})
 
