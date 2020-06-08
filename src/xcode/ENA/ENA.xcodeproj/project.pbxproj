@@ -29,6 +29,7 @@
 		137846492488027600A50AB8 /* OnboardingInfoViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */; };
 		138910C5247A909000D739F6 /* ENATaskScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138910C4247A909000D739F6 /* ENATaskScheduler.swift */; };
 		13BAE9B12472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */; };
+		13E50469248E3CD20086641C /* ENAUITests-AppInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E50468248E3CD20086641C /* ENAUITests-AppInformation.swift */; };
 		2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */; };
 		2F3218CE24800F6500A7AC0A /* DynamicTableViewStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CD24800F6500A7AC0A /* DynamicTableViewStepCell.swift */; };
 		2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */; };
@@ -355,6 +356,7 @@
 		137846482488027500A50AB8 /* OnboardingInfoViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingInfoViewController+Extension.swift"; sourceTree = "<group>"; };
 		138910C4247A909000D739F6 /* ENATaskScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENATaskScheduler.swift; sourceTree = "<group>"; };
 		13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
+		13E50468248E3CD20086641C /* ENAUITests-AppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENAUITests-AppInformation.swift"; sourceTree = "<group>"; };
 		2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+BackButton.swift"; sourceTree = "<group>"; };
 		2F3218CD24800F6500A7AC0A /* DynamicTableViewStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewStepCell.swift; sourceTree = "<group>"; };
 		2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
@@ -699,6 +701,14 @@
 				138910C4247A909000D739F6 /* ENATaskScheduler.swift */,
 			);
 			path = "Task Scheduling";
+			sourceTree = "<group>";
+		};
+		13E5046A248E3CE60086641C /* AppInformation */ = {
+			isa = PBXGroup;
+			children = (
+				13E50468248E3CD20086641C /* ENAUITests-AppInformation.swift */,
+			);
+			path = AppInformation;
 			sourceTree = "<group>";
 		};
 		3DD767442483D3E2002DD2B3 /* ReachabilityService */ = {
@@ -1173,8 +1183,9 @@
 			isa = PBXGroup;
 			children = (
 				134F0DBA247578FF00D88934 /* ENAUITests-Extensions.swift */,
-				134F0DB8247578FF00D88934 /* Home */,
 				130CB19A246D92F800ADE602 /* Onboarding */,
+				134F0DB8247578FF00D88934 /* Home */,
+				13E5046A248E3CE60086641C /* AppInformation */,
 				85D7596324570491008175F0 /* ENAUITests.swift */,
 				134F0F2B2475793400D88934 /* SnapshotHelper.swift */,
 				85D7596524570491008175F0 /* Info.plist */,
@@ -2179,6 +2190,7 @@
 				134F0F2D2475794900D88934 /* Accessibility.swift in Sources */,
 				134F0DBD247578FF00D88934 /* ENAUITests-Extensions.swift in Sources */,
 				85D7596424570491008175F0 /* ENAUITests.swift in Sources */,
+				13E50469248E3CD20086641C /* ENAUITests-AppInformation.swift in Sources */,
 				130CB19C246D92F800ADE602 /* ENAUITestsOnboarding.swift in Sources */,
 				134F0F2C2475793400D88934 /* SnapshotHelper.swift in Sources */,
 			);
