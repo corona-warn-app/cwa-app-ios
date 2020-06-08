@@ -254,7 +254,6 @@ private extension ExposureSubmissionTestResultViewController {
 		)
 	}
 
-	// swiftlint:disable:next function_body_length
 	private func negativeTestResultSection() -> DynamicSection {
 		.section(
 			header: .identifier(

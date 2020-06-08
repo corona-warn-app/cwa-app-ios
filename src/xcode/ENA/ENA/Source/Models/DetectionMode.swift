@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,13 +15,27 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
+import UIKit
 
-private func _withPrefix(_ name: String) -> Notification.Name {
-	Notification.Name("com.sap.ena.\(name)")
+enum DetectionMode {
+	case automatic
+	case manual
+
+	static let `default` = DetectionMode.manual
 }
 
-extension Notification.Name {
-	static let isOnboardedDidChange = _withPrefix("isOnboardedDidChange")
+extension DetectionMode {
+	static func from(backgroundStatus: UIBackgroundRefreshStatus) -> DetectionMode {
+		switch backgroundStatus {
+		case .restricted, .denied:
+			return .manual
+		case .available:
+			return .automatic
+		default:
+			return .manual
+		}
+	}
 }

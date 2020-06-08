@@ -236,6 +236,10 @@
 
 "ExposureSubmissionTanEntry_Submit" = "Next";
 
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Invalid input, please check the character.";
+
+"ExposureSubmissionTanEntry_InvalidError" = "Invalid TAN, please check you input.";
+
 "ExposureSubmission_NavTitle" = "Send Diagnosis Key";
 
 "ExposureSubmissionConfirmation_Title" = "Positive Diagnosis";
