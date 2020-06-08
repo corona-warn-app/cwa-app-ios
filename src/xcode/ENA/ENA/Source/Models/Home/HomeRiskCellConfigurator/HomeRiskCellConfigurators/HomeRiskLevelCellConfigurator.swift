@@ -79,6 +79,10 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		isButtonEnabled = enabled
 	}
 
+	func updateButtonHidden(_ hidden: Bool) {
+		isButtonHidden = hidden
+	}
+
 	// MARK: Configuration
 
 	func configure(cell _: RiskLevelCollectionViewCell) {

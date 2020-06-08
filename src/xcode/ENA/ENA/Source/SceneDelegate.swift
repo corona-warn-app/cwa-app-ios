@@ -19,7 +19,6 @@ import BackgroundTasks
 import ExposureNotification
 import UIKit
 
-
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
 
@@ -27,14 +26,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
-	var state = State(exposureManager: .init()) {
+
+	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil) {
 		didSet {
-			homeController?.state = .init(detectionMode: state.detectionMode)
-			homeController?.homeInteractor.state = .init(
+			homeController?.updateState(
 				detectionMode: state.detectionMode,
-				isLoading: false,
-				exposureManagerState: state.exposureManager
-			)
+				exposureManagerState: state.exposureManager,
+				risk: state.risk)
 		}
 	}
 
@@ -84,6 +82,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	// MARK: UISceneDelegate
 
+	private let riskConsumer = RiskConsumer()
+
 	func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: windowScene)
@@ -91,11 +91,20 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		exposureManager.resume(observer: self)
 
+		// is right place for it? ---
+		riskConsumer.didCalculateRisk = { [weak self] risk in
+			self?.state.risk = risk
+		}
+		riskProvider.observeRisk(riskConsumer)
+		// ---
+
+
 		UNUserNotificationCenter.current().delegate = self
 
 		setupUI()
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 	}
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
@@ -178,13 +187,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			HomeViewController(
 				coder: coder,
 				delegate: self,
+				detectionMode: self.state.detectionMode,
+				exposureManagerState: self.state.exposureManager,
 				initialEnState: enStateHandler.state,
-				state: .init(detectionMode: self.state.detectionMode)
+				risk: self.state.risk
 			)
 		}
 
 		homeController = vc // strong ref needed
-		homeController?.homeInteractor.state.exposureManagerState = state.exposureManager
 		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.navigationController.setViewControllers([vc], animated: false)
 		})
@@ -354,4 +364,20 @@ extension SceneDelegate: ENStateHandlerUpdating {
 		log(message: "SceneDelegate got EnState update: \(state)")
 		homeController?.updateEnState(state)
 	}
+}
+
+// MARK: Background Task
+extension SceneDelegate {
+	@objc
+	func backgroundRefreshStatusDidChange() {
+		let detectionMode: DetectionMode = currentDetectionMode
+		print("detectionMode: \(detectionMode)")
+		state.detectionMode = detectionMode
+	}
+}
+
+private var currentDetectionMode: DetectionMode {
+	let newState = UIApplication.shared.backgroundRefreshStatus
+	let detectionMode: DetectionMode = newState == .available ? .automatic : .manual
+	return detectionMode
 }
