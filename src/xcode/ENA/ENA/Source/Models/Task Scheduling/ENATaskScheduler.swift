@@ -27,12 +27,11 @@ enum ENATaskIdentifier: String, CaseIterable {
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
 		// set to trigger at the earliest begin time possible
-		case .detectExposures: return nil
+		case .detectExposures: return 2 * 60 * 60
 		// set to trigger every 2 hours
 		case .fetchTestResults: return 2 * 60 * 60
 		}
 	}
-
 	var backgroundTaskSchedulerIdentifier: String {
 		"\(Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp").\(rawValue)"
 	}
@@ -45,14 +44,16 @@ protocol ENATaskExecutionDelegate: AnyObject {
 
 final class ENATaskScheduler {
 	static let shared = ENATaskScheduler()
+
 	private init() {
-		registerBackgroundTaskRequests()
+		registerTasks()
 	}
 
 	weak var taskDelegate: ENATaskExecutionDelegate?
+
 	typealias CompletionHandler = (() -> Void)
 
-	private func registerBackgroundTaskRequests() {
+	private func registerTasks() {
 		registerTask(with: .detectExposures, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
 	}
@@ -64,17 +65,20 @@ final class ENATaskScheduler {
 		}
 	}
 
-	func scheduleBackgroundTaskRequests() {
-		cancelAllBackgroundTaskRequests()
-		scheduleBackgroundTask(for: .detectExposures)
-		scheduleBackgroundTask(for: .fetchTestResults)
+	func scheduleTasks() {
+		scheduleTask(for: .detectExposures, cancelExisting: true)
+		scheduleTask(for: .fetchTestResults, cancelExisting: true)
 	}
 
-	func cancelAllBackgroundTaskRequests() {
+	func cancelTasks() {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
 
-	func scheduleBackgroundTask(for taskIdentifier: ENATaskIdentifier) {
+	func scheduleTask(for taskIdentifier: ENATaskIdentifier, cancelExisting: Bool = false) {
+
+		if cancelExisting {
+			cancelTask(for: taskIdentifier)
+		}
 
 		let taskRequest = BGProcessingTaskRequest(identifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
 		taskRequest.requiresNetworkConnectivity = true
@@ -90,13 +94,31 @@ final class ENATaskScheduler {
 		} catch {
 			logError(message: error.localizedDescription)
 		}
+
+	}
+
+	func cancelTask(for taskIdentifier: ENATaskIdentifier) {
+		BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
+	}
+
+	func getPendingRequest(for taskIdentifier: ENATaskIdentifier, completion: @escaping ((BGTaskRequest?) -> Void)) {
+		BGTaskScheduler.shared.getPendingTaskRequests { requests in
+			let request = requests.first(where: { $0.identifier == taskIdentifier.backgroundTaskSchedulerIdentifier })
+			completion(request)
+		}
+	}
+
+	func getPendingDate(for taskIdentifier: ENATaskIdentifier, completion: @escaping ((Date?) -> Void)) {
+		getPendingRequest(for: taskIdentifier) { request in
+			completion(request?.earliestBeginDate)
+		}
 	}
 
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
 		guard let taskDelegate = taskDelegate else {
 			task.setTaskCompleted(success: false)
-			scheduleBackgroundTask(for: .detectExposures)
+			scheduleTask(for: .detectExposures)
 			return
 		}
 		taskDelegate.executeExposureDetectionRequest(task: task)
@@ -105,10 +127,20 @@ final class ENATaskScheduler {
 	private func executeFetchTestResults(_ task: BGTask) {
 		guard let taskDelegate = taskDelegate else {
 			task.setTaskCompleted(success: false)
-			scheduleBackgroundTask(for: .fetchTestResults)
+			scheduleTask(for: .fetchTestResults)
 			return
 		}
 		taskDelegate.executeFetchTestResults(task: task)
 	}
 
+}
+
+extension ENATaskScheduler: ExposureStateUpdating {
+	func updateExposureState(_ state: ExposureManagerState) {
+		if state.isGood {
+			scheduleTasks()
+		} else {
+			cancelTasks()
+		}
+	}
 }

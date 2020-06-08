@@ -19,6 +19,7 @@
 import Foundation
 
 class MockTestStore: Store {
+	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
 	func clearAll(key: String?) {}
@@ -29,7 +30,6 @@ class MockTestStore: Store {
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
-	var dateLastExposureDetection: Date?
 	var dateOfAcceptedPrivacyNotice: Date?
 	var allowsCellularUse: Bool = false
 	var developerSubmissionBaseURLOverride: String?
@@ -45,13 +45,5 @@ class MockTestStore: Store {
 	var registrationToken: String?
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
-	var previousSummaryDate: Date? = Date()
-	var previousSummary: ENExposureDetectionSummaryContainer? = ENExposureDetectionSummaryContainer(
-		daysSinceLastExposure: 0,
-		matchedKeyCount: 0,
-		maximumRiskScore: 0,
-		attenuationDurations: [],
-		maximumRiskScoreFullRange: 0
-	)
 	var hourlyFetchingEnabled: Bool = true
 }
