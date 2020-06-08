@@ -37,3 +37,10 @@ workflows:
     default:
       jobs:
         - build-and-test
+    release:
+      jobs:
+        - grab-screenshots:
+          filters:
+            branches:
+              only:
+                - master
