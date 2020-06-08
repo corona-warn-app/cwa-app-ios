@@ -83,6 +83,10 @@ extension AppInformationViewController {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
 		cell.accessoryType = .disclosureIndicator
 		cell.selectionStyle = .default
+
+		cell.isAccessibilityElement = true
+		cell.accessibilityLabel = cell.textLabel?.text
+
 		return cell
 	}
 
