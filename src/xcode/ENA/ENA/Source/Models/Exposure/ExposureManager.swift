@@ -263,8 +263,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	// MARK: User Notifications
 
 	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
-		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
 		let notificationCenter = UNUserNotificationCenter.current()
+		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
 		notificationCenter.requestAuthorization(options: options) { _, error in
 			if let error = error {
 				// handle error

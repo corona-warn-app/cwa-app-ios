@@ -78,8 +78,8 @@ extension MockExposureManager: ExposureManager {
 
 	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void)) {
 		#if COMMUNITY
-		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
 		let notificationCenter = UNUserNotificationCenter.current()
+		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
 		notificationCenter.requestAuthorization(options: options) { _, error in
 			if let error = error {
 				// handle error

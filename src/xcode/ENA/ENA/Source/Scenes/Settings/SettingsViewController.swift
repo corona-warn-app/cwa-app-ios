@@ -135,9 +135,9 @@ final class SettingsViewController: UITableViewController {
 	}
 
 	private func notificationSettings() {
-		let currentCenter = UNUserNotificationCenter.current()
-
-		currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
+		let notificationCenter = UNUserNotificationCenter.current()
+		let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+		notificationCenter.requestAuthorization(options: options) { [weak self] granted, error in
 			guard let self = self else { return }
 
 			if let error = error {

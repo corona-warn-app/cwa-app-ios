@@ -85,9 +85,8 @@ class NotificationSettingsViewController: UIViewController {
 	}
 
 	private func notificationSettings() {
-		let center = UNUserNotificationCenter.current()
-
-		center.getNotificationSettings { [weak self] settings in
+		let notificationCenter = UNUserNotificationCenter.current()		
+		notificationCenter.getNotificationSettings { [weak self] settings in
 			guard let self = self else { return }
 
 			let authorized = (settings.authorizationStatus == .authorized) || (settings.authorizationStatus == .provisional)
