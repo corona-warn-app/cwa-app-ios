@@ -73,7 +73,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Separator.
 
-		separator.backgroundColor = .enaColor(for: .hairline)
+		separator.backgroundColor = .enaColor(for: .separator)
 		separator.isHidden = !hasSeparators
 	}
 
@@ -109,7 +109,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Separator.
 
-		separator.backgroundColor = .enaColor(for: .hairline)
+		separator.backgroundColor = .enaColor(for: .separator)
 		separator.isHidden = !hasSeparators
 	}
 
