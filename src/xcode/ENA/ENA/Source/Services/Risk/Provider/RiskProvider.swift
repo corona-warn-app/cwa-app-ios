@@ -109,7 +109,7 @@ extension RiskProvider: RiskProviding {
 
 
 		queue.async {
-			self._requestRiskLevel(userInitiated: userInitiated)
+			self._requestRiskLevel(userInitiated: userInitiated, completion: completion)
 		}
 	}
 
