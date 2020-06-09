@@ -629,8 +629,6 @@
 
 "Home_resultCard_NegativeDesc" = "Sie wurden negativ auf SARS-CoV-2 getestet.";
 
-"Home_resultCard_PositiveTitle" = "Befund positiv";
-
 "Home_resultCard_PositiveDesc" = "Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.";
 
 "Home_resultCard_PendingTitle" = "Ergebnis liegt noch nicht vor";
@@ -721,31 +719,6 @@
 "App_Information_Terms_Description" = "Die nachfolgenden Nutzungsbedingungen gelten für die Nutzung der App und werden duch Aufruf oder Nutzung des Angebots oder einer einzelnen Funktion akzeptiert.";
 
 "App_Information_Terms_Text" = "...";
-
-/* Risk View */
-"unknown_risk" = "Unbekanntes Risiko";
-
-"inactive_risk" = "Keine Risiko-Überprüfung";
-
-"low_risk" = "Geringes Risiko";
-
-"high_risk" = "Erhöhtes Risiko";
-
-"unknown_risk_detail" = "Es wurde keine Begegnung mit Corona-positiv getesteten Personen erkannt.";
-
-"inactive_risk_detail" = "inactive";
-
-"low_risk_detail" = "Es wurde ein geringes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.";
-
-"high_risk_detail" = "Es wurde ein erhöhtes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.";
-
-"unknown_risk_detail_help" = "Das Infektionsrisiko ist unbekannt, da bisher noch keine Begegnungen aufgezeichnet wurden.";
-
-"inactive_risk_detail_help" = "inactive";
-
-"low_risk_detail_help" = "Das Infektionsrisiko ist gering, da eine Begegnung mit Corona-positiv getesteten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
-
-"high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da eine Begegnung mit Corona-positiv getesteten Personen aufgezeichnet wurde.";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Teilen";

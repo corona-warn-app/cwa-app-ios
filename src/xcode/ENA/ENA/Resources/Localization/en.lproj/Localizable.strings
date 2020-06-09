@@ -622,8 +622,6 @@
 
 "Home_resultCard_NegativeDesc" = "You have been diagnosed negative for SARS-CoV-2.";
 
-"Home_resultCard_PositiveTitle" = "Positive Diagnosis";
-
 "Home_resultCard_PositiveDesc" = "You have been diagnosed with the SARS-CoV-2 virus.";
 
 "Home_resultCard_PendingTitle" = "Your result is not yet available";
@@ -714,31 +712,6 @@
 "App_Information_Terms_Description" = "The following terms of use apply for the app and are accepted when you call or use the app, or one of its features. ";
 
 "App_Information_Terms_Text" = "...";
-
-/* Risk View */
-"unknown_risk" = "Risk Unknown";
-
-"inactive_risk" = "No Exposure Check";
-
-"low_risk" = "Low Risk";
-
-"high_risk" = "Higher Risk";
-
-"unknown_risk_detail" = "No encounters with people diagnosed with COVID-19 were identified.";
-
-"inactive_risk_detail" = "Inactive";
-
-"low_risk_detail" = "A low risk of encounters with people diagnosed with COVID 19 was identified.";
-
-"high_risk_detail" = "A higher risk of encounters with people diagnosed with COVID-19 was identified.";
-
-"unknown_risk_detail_help" = "Your risk of infection is unknown because no encounters have been logged.";
-
-"inactive_risk_detail_help" = "Inactive";
-
-"low_risk_detail_help" = "Your risk of infection is low because no encounters with people diagnosed with COVID-19 have been logged at all, or encounters were logged only for a very short time.";
-
-"high_risk_detail_help" = "Your risk of infection is higher because encounters with people diagnosed with COVID-19 were logged.";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Share";
