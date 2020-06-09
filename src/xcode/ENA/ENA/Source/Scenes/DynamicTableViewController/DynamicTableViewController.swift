@@ -30,9 +30,21 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 			super.loadView()
 		} else {
 			view = UITableView(frame: .zero, style: .grouped)
-			tableView.delegate = self
-			tableView.dataSource = self
 		}
+
+		if nil == tableView {
+			fatalError("\(String(describing: Self.self)) must be provided with a \(String(describing: UITableView.self)).")
+		}
+
+		tableView.delegate = self
+		tableView.dataSource = self
+
+		tableView.rowHeight = UITableView.automaticDimension
+		tableView.estimatedRowHeight = UITableView.automaticDimension
+		tableView.sectionHeaderHeight = UITableView.automaticDimension
+		tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
+		tableView.sectionFooterHeight = UITableView.automaticDimension
+		tableView.estimatedSectionFooterHeight = UITableView.automaticDimension
 	}
 
 	override func viewDidLoad() {
