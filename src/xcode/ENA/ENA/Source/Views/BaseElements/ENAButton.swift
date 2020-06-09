@@ -24,12 +24,13 @@ class ENAButton: DynamicTypeButton {
 
 	@IBInspectable var isTransparent: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
+	@IBInspectable var isLoading: Bool = false { didSet { isEnabled = !isLoading } }
 
 	override var isEnabled: Bool { didSet { applyStyle() } }
 	override var isHighlighted: Bool { didSet { applyHighlight() } }
 
 	private var highlightView: UIView!
-	private var spinner: UIActivityIndicatorView!
+	private var activityIndicator: UIActivityIndicatorView!
 
 	override var intrinsicContentSize: CGSize {
 		var size = super.intrinsicContentSize
@@ -82,16 +83,17 @@ class ENAButton: DynamicTypeButton {
 		addSubview(highlightView)
 
 		// MARK: - Add spinner for loading state.
-		
-		spinner = UIActivityIndicatorView(style: .medium)
-		spinner.translatesAutoresizingMaskIntoConstraints = false
-		spinner.isUserInteractionEnabled = false
-        spinner.isExclusiveTouch = false
-		addSubview(spinner)
+		activityIndicator = UIActivityIndicatorView(style: .medium)
+		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+		activityIndicator.isUserInteractionEnabled = false
+		addSubview(activityIndicator)
 		if let title = titleLabel {
-			spinner.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8).isActive = true
-			title.leadingAnchor.constraint(greaterThanOrEqualTo: spinner.trailingAnchor, constant: 8).isActive = true
-			spinner.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8).isActive = true
+			title.leadingAnchor.constraint(equalTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
+			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+		} else {
+			activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 		}
 
 		applyStyle()
@@ -116,23 +118,18 @@ class ENAButton: DynamicTypeButton {
 			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
 		}
 
+		if isLoading {
+			activityIndicator.color = style.disabledForegroundColor.withAlphaComponent(0.5)
+			activityIndicator.startAnimating()
+		} else {
+			activityIndicator.stopAnimating()
+		}
+
 		highlightView?.backgroundColor = style.highlightColor
 	}
 
 	private func applyHighlight() {
 		highlightView.isHidden = !isHighlighted
-	}
-
-	func startSpinner() {
-		isEnabled = false
-		spinner.startAnimating()
-		applyStyle()
-	}
-
-	func stopSpinner() {
-		isEnabled = true
-		spinner.stopAnimating()
-		applyStyle()
 	}
 }
 

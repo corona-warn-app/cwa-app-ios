@@ -53,11 +53,11 @@ extension ExposureSubmissionNavigationControllerChild {
 	}
 
 	func startButtonSpinner() {
-		exposureSubmissionNavigationController?.button.startSpinner()
+		exposureSubmissionNavigationController?.button.isLoading = true
 	}
 
 	func stopButtonSpinner() {
-		exposureSubmissionNavigationController?.button.stopSpinner()
+		exposureSubmissionNavigationController?.button.isLoading = false
 	}
 
 	func setSecondaryButtonTitle(to title: String) {

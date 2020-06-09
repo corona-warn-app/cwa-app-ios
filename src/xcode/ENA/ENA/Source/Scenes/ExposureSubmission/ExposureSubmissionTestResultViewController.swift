@@ -127,7 +127,6 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController {
 	}
 
 	private func refreshTest() {
-
 		startButtonSpinner()
 		exposureSubmissionService?
 			.getTestResult { result in
