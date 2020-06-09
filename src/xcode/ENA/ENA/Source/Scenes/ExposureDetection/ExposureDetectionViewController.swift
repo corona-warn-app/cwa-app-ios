@@ -173,14 +173,6 @@ extension ExposureDetectionViewController {
 		tableView.reloadData()
 	}
 
-	private func updateRefreshCell() {
-		let indexPath = IndexPath(row: 0, section: 1)
-		if let cell = tableView.cellForRow(at: indexPath) {
-			dynamicTableViewModel.cell(at: indexPath).configure(cell: cell, at: indexPath, for: self)
-			cell.setNeedsLayout()
-		}
-	}
-
 	private func updateCheckButton() {
 		if !state.isTracingEnabled {
 			footerView.isHidden = false
