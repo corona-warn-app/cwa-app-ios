@@ -59,9 +59,9 @@ extension ExposureDetectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		consumer.didCalculateRisk = { risk in
-			self.state.risk = risk
-			self.updateUI()
+		consumer.didCalculateRisk = { [weak self] risk in
+			self?.state.risk = risk
+			self?.updateUI()
 		}
 
 		riskProvider.observeRisk(consumer)
@@ -99,6 +99,8 @@ extension ExposureDetectionViewController {
 
 		return cell
 	}
+
+
 }
 
 extension ExposureDetectionViewController {
@@ -125,7 +127,12 @@ private extension ExposureDetectionViewController {
 			}
 			return
 		}
-		riskProvider.requestRisk(userInitiated: true)
+		state.isLoading = true
+		self.delegate?.didStartLoading(exposureDetectionViewController: self)
+		riskProvider.requestRisk(userInitiated: true) { _ in
+			self.state.isLoading = false
+			self.delegate?.didFinishLoading(exposureDetectionViewController: self)
+		}
 	}
 }
 

@@ -6,6 +6,7 @@
     <a href="https://github.com/corona-warn-app/cwa-app-ios/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/corona-warn-app/cwa-app-ios?style=flat"></a>
     <a href="https://github.com/corona-warn-app/cwa-app-ios/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios?style=flat"></a>
     <a href="https://circleci.com/gh/corona-warn-app/cwa-app-ios" title="Build Status"><img src="https://circleci.com/gh/corona-warn-app/cwa-app-ios.png?circle-token=656940b0df758209128b0d782c5f8885ddceb7a8&style=shield"></a>
+   <a href="https://sonarcloud.io/component_measures?id=corona-warn-app_cwa-app-ios&metric=Coverage&view=list" title="Coverage"><img src="https://sonarcloud.io/api/project_badges/measure?project=corona-warn-app_cwa-app-ios&metric=coverage"></a>
     <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg"></a>
 </p>
 
@@ -46,12 +47,10 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
    ```console
    xcode-select --install
    ```
-   Install _fastlane_ using
+   Install _fastlane_ using [Bundler](https://bundler.io/)
    ```console
-   [sudo] gem install fastlane -NV
-   [sudo] gem install xcov
+   cd src/xcode && bundle install
    ```
-   or alternatively using `brew install fastlane`
 
 
 ### Build
@@ -61,8 +60,8 @@ After setting up your environment as stated in [Setup](#Setup), you should be ab
 If you want to use fastlane instead, you can do so by running the following commands:
 
 ```console
-cd src/xcode && fastlane build_community
-cd src/xcode && fastlane test
+cd src/xcode && bundle exec fastlane build_community
+cd src/xcode && bundle exec fastlane test
 ```
 
 ### Run
