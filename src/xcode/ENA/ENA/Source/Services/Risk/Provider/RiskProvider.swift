@@ -202,7 +202,7 @@ extension RiskProvider: RiskProviding {
 				numberOfTracingActiveHours: numberOfEnabledHours,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
-				previousSummary: summaries?.previous?.summary
+				store: store
 			) else {
 				logError(message: "Serious error during risk calculation")
 				completeOnTargetQueue(risk: nil)
