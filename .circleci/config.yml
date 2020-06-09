@@ -33,7 +33,7 @@ jobs:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
   assess:
-      - test
+    steps:
       - run:
           name: Convert coverage information to SonarCloud format
           command: |
@@ -76,5 +76,6 @@ workflows:
     # Run only on pull requests
     pull_request:
       jobs:
+        - test
         - assess:
            context: SonarCloud
