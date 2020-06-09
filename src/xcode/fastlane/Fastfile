@@ -71,6 +71,7 @@ platform :ios do
       scheme: "ENATests",
       markdown_report: true,
       html_report: false,
+      json_report: true,
       output_directory: "fastlane/test_output"
     )
   end

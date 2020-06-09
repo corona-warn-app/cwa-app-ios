@@ -33,15 +33,17 @@ jobs:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
       - persist_to_workspace:
-          root: ~/
-          paths: src/xcode/
+          root: src/xcode/
+          paths:
+            - swiftlint.result.json
+            - fastlane/test_output/
   assess:
     macos:
       xcode: 11.5.0
     shell: zsh
     steps:
       - attach_workspace:
-          at: ~/project
+          at: ~/project/src/xcode/
       - run:
           name: Convert coverage information to SonarCloud format
           command: |
