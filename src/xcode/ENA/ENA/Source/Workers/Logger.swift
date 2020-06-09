@@ -17,24 +17,32 @@
 
 import Foundation
 
-let appLogger = Logger()
-
-func log(message: String, level: LogLevel = .info, file: String = #file, line: UInt = #line, function: String = #function) {
-	#if DEBUG
+func log(
+	message: String,
+	level: LogLevel = .info,
+	file: String = #file,
+	line: UInt = #line,
+	function: String = #function
+) {
+	#if !APP_STORE
 	print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
 	#endif
 }
 
-func logError(message: String, level: LogLevel = .error, file: String = #file, line: UInt = #line, function: String = #function) {
-	log(message: message, level: .error, file: file, line: line, function: function)
-}
-
-class Logger {
-	func log(message _: String, level _: LogLevel = .info, file _: String, line _: UInt, function _: String) {}
-
-	func getLoggedData() -> Data? {
-		Data()
-	}
+func logError(
+	message: String,
+	level: LogLevel = .error,
+	file: String = #file,
+	line: UInt = #line,
+	function: String = #function
+) {
+	log(
+		message: message,
+		level: .error,
+		file: file,
+		line: line,
+		function: function
+	)
 }
 
 enum LogLevel: String {
