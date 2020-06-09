@@ -2452,14 +2452,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = COMMUNITY;
@@ -2612,14 +2612,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG UITESTING";
@@ -2827,14 +2827,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
@@ -2862,14 +2862,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
@@ -3063,14 +3063,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.8.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
