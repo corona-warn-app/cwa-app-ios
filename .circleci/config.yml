@@ -33,8 +33,8 @@ jobs:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
       - persist_to_workspace:
-        root: ~/
-        paths: src/xcode/
+          root: ~/
+          paths: project/src/xcode/
   assess:
     macos:
       xcode: 11.5.0
