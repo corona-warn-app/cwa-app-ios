@@ -312,27 +312,6 @@ private extension ExposureSubmissionOverviewViewController {
 			])
 		])
 	}
-
-	private func transitionToQRScanner(_: UIViewController) {
-		// Make sure we are allowed to use the camera.
-		switch AVCaptureDevice.authorizationStatus(for: .video) {
-		case .authorized, .notDetermined:
-			performSegue(withIdentifier: Segue.qrScanner, sender: self)
-		case .denied:
-			let alert = ExposureSubmissionViewUtils.setupAlert(
-				message: AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
-			)
-			present(alert, animated: true, completion: nil)
-		case .restricted:
-			let alert = ExposureSubmissionViewUtils.setupAlert(
-				message: AppStrings.ExposureSubmissionQRScanner.cameraPermissionRestricted
-			)
-			present(alert, animated: true, completion: nil)
-        // swiftlint:disable:next switch_case_alignment
-        @unknown default:
-			log(message: "Unhandled  AVCaptureDevice state.")
-		}
-	}
 }
 
 // MARK: - Cell reuse identifiers.

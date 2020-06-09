@@ -148,7 +148,7 @@ extension ExposureSubmissionHotlineViewController: ExposureSubmissionNavigationC
 	}
 
 	private func callHotline() {
-		if let url = URL(string: "telprompt:\(AppStrings.ExposureDetection.hotlineNumber)") {
+		if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)") {
 			if UIApplication.shared.canOpenURL(url) {
 				UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			}
