@@ -114,8 +114,7 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Actions
 
-	@objc
-	private func infoButtonTapped() {
+	@IBAction private func infoButtonTapped() {
 		present(
 			AppStoryboard.riskLegend.initiateInitial(),
 			animated: true,
@@ -335,13 +334,6 @@ final class HomeViewController: UIViewController {
 
 	private func configureUI() {
 		collectionView.backgroundColor = .clear
-		let infoImage = UIImage(systemName: "info.circle")
-		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			image: infoImage,
-			style: .plain,
-			target: self,
-			action: #selector(infoButtonTapped)
-		)
 		let image = UIImage(named: "Corona-Warn-App")
 		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
 		leftItem.isEnabled = false
