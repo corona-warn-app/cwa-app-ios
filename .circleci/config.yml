@@ -83,6 +83,5 @@ workflows:
         - test
         - assess:
             requires:
-              - build
               - test
             context: SonarCloud
