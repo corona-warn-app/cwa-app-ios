@@ -223,9 +223,20 @@ extension RiskProvider: RiskProviding {
 		}
 
 		completeOnTargetQueue(risk: risk)
+
+		saveRiskIfNeeded(risk)
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
 		consumer?.provideRisk(risk)
+	}
+
+	private func saveRiskIfNeeded(_ risk: Risk) {
+		switch risk.level {
+		case .low, .increased:
+			store.previousRisk = risk
+		default:
+			break
+		}
 	}
 }
