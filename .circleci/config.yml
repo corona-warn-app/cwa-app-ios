@@ -72,13 +72,10 @@ jobs:
 orbs:
   sonarcloud: tkowark/sonarcloud3@0.1.0
 workflows:
-    # Run everytime
     default:
       jobs:
-        - build
-    # Run only on pull requests
-    pull_request:
-      jobs:
-        - test
         - assess:
-           context: SonarCloud
+            requires:
+              - build
+              - test
+            context: SonarCloud
