@@ -28,12 +28,9 @@ class SQLiteKeyValueStore {
 	/// If the Database can't be accessed with the key the currentFile will be reset
 	init(with url: URL?, key: String) {
 		guard let url = url else {
-			self.directoryURL = URL(string: ":memory:")!
-			let fileURL = directoryURL
-			databaseQueue = FMDatabaseQueue(url: fileURL)
-			initDatabase(key, retry: false)
-			return
+			fatalError("Creating the Database failed")
 		}
+
 		self.directoryURL = url
 		let fileURL = directoryURL.appendingPathComponent("secureStore.sqlite")
 		databaseQueue = FMDatabaseQueue(url: fileURL)
