@@ -71,7 +71,8 @@ final class OnboardingInfoViewController: UIViewController {
 	@IBOutlet var ignoreButton: ENAButton!
 
 	@IBOutlet var scrollView: UIScrollView!
-	@IBOutlet weak var stackView: UIStackView!
+	@IBOutlet var stackView: UIStackView!
+	@IBOutlet var innerStackView: UIStackView!
 	@IBOutlet var footerView: UIView!
 
 	private var onboardingInfos = OnboardingInfo.testData()
@@ -174,7 +175,7 @@ final class OnboardingInfoViewController: UIViewController {
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
 			)
 		case .privacyPage:
-			stackView.arrangedSubviews.last?.isHidden = true
+			innerStackView.isHidden = true
 			let textView = HtmlTextView()
 			textView.layoutMargins = .zero
 			textView.delegate = self
