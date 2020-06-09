@@ -24,7 +24,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 	private lazy var signingKey = P256.Signing.PrivateKey()
 	private lazy var publicKey = signingKey.publicKey
-	private let defaultBundleId = "de.rki.coronawarnapp"
+	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp-dev"
 
 	// MARK: Signature Verification Tests
 
@@ -52,19 +52,6 @@ final class SAPDownloadedPackageTests: XCTestCase {
 			signature: Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
 		)
 
-		XCTAssertFalse(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
-	}
-
-	func testVerifySignature_NoKeyMatchesBundleId() throws {
-		// If the package contains signatures, but no key matches keys in the key store, verification should fail
-		let data = Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
-		let signatures = [
-			try makeSignature(data: data, bundleId: "hello"),
-			try makeSignature(data: data, bundleId: "hellotwo")
-		].asList()
-
-		let package = try makePackage(bin: data, signature: signatures)
-		// When no public key to sign is found, the verification should fail
 		XCTAssertFalse(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
 	}
 

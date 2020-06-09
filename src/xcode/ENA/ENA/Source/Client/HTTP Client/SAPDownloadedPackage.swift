@@ -54,14 +54,17 @@ extension SAPDownloadedPackage {
 	///
 	func verifySignature(with keystore: PublicKeyStore = ProductionPublicKeyStore()) -> Bool {
 		
-		guard let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature) else {
+		guard
+			let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature),
+			let bundleId = Bundle.main.bundleIdentifier
+		else {
 			return false
 		}
 		
 		for signatureEntry in parsedSignatureFile.signatures {
 			let signatureData: Data = signatureEntry.signature
 			guard
-				let publicKey = try? keystore.publicKey(for: signatureEntry.signatureInfo.appBundleID),
+				let publicKey = try? keystore.publicKey(for: bundleId),
 				let signature = try? P256.Signing.ECDSASignature(derRepresentation: signatureData)
 			else {
 				logError(message: "Could not validate signature of downloaded package", level: .warning)
