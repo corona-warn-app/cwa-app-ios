@@ -54,7 +54,7 @@ class HomeTestResultLoadingCell: HomeCardCollectionViewCell {
 
 		body.style = .body
 		body.numberOfLines = 0
-		body.textColor = .preferredColor(for: .textPrimary2)
+		body.textColor = .enaColor(for: .textPrimary2)
 	}
 
 	override func prepareForReuse() {
