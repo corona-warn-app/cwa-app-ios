@@ -536,6 +536,12 @@
 
 "Home_Risk_Inactive_Activate_Item_Title" = "Letzte Risiko-Ermittlung: %@";
 
+"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Unbekanntes Risiko";
+
+"Home_Risk_Inactive_Activate_Item_Low_Title" = "Geringes Risiko";
+
+"Home_Risk_Inactive_Activate_Item_High_Title" = "Erhöhtes Risiko";
+
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Risiko-Ermittlung einschalten";
 
 "Home_Risk_Inactive_Outdated_Results_Button" = "Risiko-Ermittlung einschalten";
