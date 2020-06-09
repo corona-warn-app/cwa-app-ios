@@ -70,6 +70,8 @@ protocol Store: AnyObject {
 
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
+	var lastCheckedVersion: String? { get set }
+
 	func clearAll(key: String?)
 }
 
@@ -228,6 +230,11 @@ final class SecureStore: Store {
 	var previousRisk: Risk? {
 		get { kvStore["previousRisk"] as Risk? }
 		set { kvStore["previousRisk"] = newValue }
+	}
+
+	var lastCheckedVersion: String? {
+		get { kvStore["lastCheckedVersion"] as String? ?? "0.0.0" }
+		set { kvStore["lastCheckedVersion"] = newValue }
 	}
 }
 

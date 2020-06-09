@@ -77,11 +77,3 @@ workflows:
         - test
  #       - test:
  #          context: SonarCloud
-    # Run only on master
-    release:
-      jobs:
-        - grab-screenshots:
-          filters:
-            branches:
-              only:
-                - master

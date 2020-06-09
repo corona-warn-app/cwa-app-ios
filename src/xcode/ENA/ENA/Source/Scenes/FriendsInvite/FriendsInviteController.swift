@@ -19,7 +19,7 @@ import Foundation
 import LinkPresentation
 import UIKit
 
-final class FriendsInviteController: UIViewController, UIActivityItemSource {
+final class FriendsInviteController: UIViewController {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var inviteButton: ENAButton!
@@ -28,9 +28,9 @@ final class FriendsInviteController: UIViewController, UIActivityItemSource {
 	@IBOutlet var footerView: UIView!
 	@IBOutlet weak var imageView: UIImageView!
 
-	let shareTitle = AppStrings.InviteFriends.shareTitle
+	private let shareTitle = AppStrings.InviteFriends.shareTitle
 	// swiftlint:disable:next force_unwrapping
-	let shareUrl = URL(string: AppStrings.InviteFriends.shareUrl)!
+	private let shareUrl = URL(string: AppStrings.InviteFriends.shareUrl)!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -63,8 +63,20 @@ final class FriendsInviteController: UIViewController, UIActivityItemSource {
 		present(inviteViewController, animated: true)
 	}
 
-	// MARK: UIActivityItemSource
+	// MARK: Private functions
 
+	private func appIcon() -> UIImage? {
+		if let icons = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String: Any],
+			let icon = icons["CFBundlePrimaryIcon"] as? [String: Any],
+			let iconFiles = icon["CFBundleIconFiles"] as? [String],
+			let lastIcon = iconFiles.last {
+			return UIImage(named: lastIcon)
+		}
+		return nil
+	}
+}
+
+extension FriendsInviteController: UIActivityItemSource {
 	func activityViewControllerPlaceholderItem(_: UIActivityViewController) -> Any {
 		shareTitle
 	}
@@ -89,17 +101,5 @@ final class FriendsInviteController: UIViewController, UIActivityItemSource {
 
 	func activityViewController(_: UIActivityViewController, subjectForActivityType _: UIActivity.ActivityType?) -> String {
 		shareTitle
-	}
-
-	// MARK: Private functions
-
-	private func appIcon() -> UIImage? {
-		if let icons = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String: Any],
-			let icon = icons["CFBundlePrimaryIcon"] as? [String: Any],
-			let iconFiles = icon["CFBundleIconFiles"] as? [String],
-			let lastIcon = iconFiles.last {
-			return UIImage(named: lastIcon)
-		}
-		return nil
 	}
 }

@@ -247,7 +247,7 @@ final class HomeViewController: UIViewController {
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:
-			appLogger.log(message: "Unknown cell type tapped.", file: #file, line: #line, function: #function)
+			log(message: "Unknown cell type tapped.", file: #file, line: #line, function: #function)
 			return
 		}
 	}
@@ -317,6 +317,7 @@ final class HomeViewController: UIViewController {
 		dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
 			let configurator = self.sections[indexPath.section].cellConfigurators[indexPath.row]
 			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
+			cell.unhighlight()
 			configurator.configureAny(cell: cell)
 			return cell
 		}
@@ -372,6 +373,14 @@ extension HomeViewController: HomeLayoutDelegate {
 }
 
 extension HomeViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+		collectionView.cellForItem(at: indexPath)?.highlight()
+	}
+
+	func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+		collectionView.cellForItem(at: indexPath)?.unhighlight()
+	}
+
 	func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		showScreen(at: indexPath)
 	}
@@ -468,5 +477,24 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 	var preferredNavigationBarOpacity: CGFloat {
 		let alpha = (collectionView.adjustedContentInset.top + collectionView.contentOffset.y) / collectionView.contentInset.top
 		return max(0, min(alpha, 1))
+	}
+}
+
+private extension UICollectionViewCell {
+	func highlight() {
+		let highlightView = UIView(frame: bounds)
+		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		highlightView.backgroundColor = .enaColor(for: .listHighlight)
+		highlightView.tag = 100_000
+		highlightView.clipsToBounds = true
+
+		if let homeCollectionViewCell = self as? HomeCardCollectionViewCell {
+			highlightView.layer.cornerRadius = homeCollectionViewCell.contentView.layer.cornerRadius
+		}
+		addSubview(highlightView)
+	}
+
+	func unhighlight() {
+		subviews.filter(({ $0.tag == 100_000 })).forEach({ $0.removeFromSuperview() })
 	}
 }
