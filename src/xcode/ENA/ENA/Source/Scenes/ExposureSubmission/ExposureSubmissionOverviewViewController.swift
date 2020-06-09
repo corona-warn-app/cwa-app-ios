@@ -243,7 +243,8 @@ private extension ExposureSubmissionOverviewViewController {
 				header: header,
 				separators: false,
 				cells: [
-					.body(text: AppStrings.ExposureSubmissionDispatch.description)
+					.body(text: AppStrings.ExposureSubmissionDispatch.description,
+						  accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.description")
 				]
 			)
 		)
@@ -259,7 +260,8 @@ private extension ExposureSubmissionOverviewViewController {
 					cell.configure(
 						title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
 						image: UIImage(named: "Illu_Submission_QRCode"),
-						body: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription
+						body: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
 					)
 				}
 			),
@@ -271,7 +273,8 @@ private extension ExposureSubmissionOverviewViewController {
 					cell.configure(
 						title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
 						image: UIImage(named: "Illu_Submission_TAN"),
-						body: AppStrings.ExposureSubmissionDispatch.tanButtonDescription
+						body: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
 					)
 				}
 			),
@@ -284,7 +287,9 @@ private extension ExposureSubmissionOverviewViewController {
 						title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
 						image: UIImage(named: "Illu_Submission_Anruf"),
 						body: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
-						attributedStrings: self.getAttributedStrings()
+						attributedStrings: self.getAttributedStrings(),
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
+
 					)
 				}
 			)

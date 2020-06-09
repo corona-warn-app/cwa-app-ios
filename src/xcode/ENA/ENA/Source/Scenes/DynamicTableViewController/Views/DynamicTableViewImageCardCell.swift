@@ -124,7 +124,8 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		cellImage.heightAnchor.constraint(equalToConstant: 130).isActive = true
 	}
 
-	func configure(title: String, image: UIImage?, body: String) {
+	// DOTO: accessibilityIdentifier
+	func configure(title: String, image: UIImage?, body: String, accessibilityIdentifier: String?) {
 		setup()
 		setupConstraints()
 		self.title.text = title
@@ -132,6 +133,7 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		if let image = image {
 			cellImage.image = image
 		}
+		self.accessibilityIdentifier = accessibilityIdentifier
 	}
 
 	/// This method builds a NSMutableAttributedString for the cell.
@@ -141,7 +143,7 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 	///   - body: The text shown below the title, which should NOT be formatted in any way.
 	///   - attributedStrings: The text that is injected into `body` with applied attributes, e.g.
 	/// 	bold text, with color.
-	func configure(title: String, image: UIImage?, body: String, attributedStrings: [NSAttributedString]) {
+	func configure(title: String, image: UIImage?, body: String, attributedStrings: [NSAttributedString], accessibilityIdentifier: String?) {
 		setup()
 		setupConstraints()
 		self.title.text = title
@@ -152,5 +154,6 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		if let image = image {
 			cellImage.image = image
 		}
+		self.accessibilityIdentifier = accessibilityIdentifier
 	}
 }

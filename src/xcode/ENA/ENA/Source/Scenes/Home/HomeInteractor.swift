@@ -123,28 +123,28 @@ final class HomeInteractor: RequiresAppDependencies {
 			title: AppStrings.Home.infoCardShareTitle,
 			body: AppStrings.Home.infoCardShareBody,
 			position: .first,
-			accessibilityIdentifier: AppStrings.Home.infoCardShareTitle
+			accessibilityIdentifier: "AppStrings.Home.infoCardShareTitle"
 		)
 
 		let info2Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardAboutTitle,
 			body: AppStrings.Home.infoCardAboutBody,
 			position: .last,
-			accessibilityIdentifier: AppStrings.Home.infoCardAboutTitle
+			accessibilityIdentifier: "AppStrings.Home.infoCardAboutTitle"
 		)
 
 		let appInformationConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.appInformationCardTitle,
 			body: nil,
 			position: .first,
-			accessibilityIdentifier: AppStrings.Home.appInformationCardTitle
+			accessibilityIdentifier: "AppStrings.Home.appInformationCardTitle"
 		)
 
 		let settingsConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.settingsCardTitle,
 			body: nil,
 			position: .last,
-			accessibilityIdentifier: AppStrings.Home.settingsCardTitle
+			accessibilityIdentifier: "AppStrings.Home.settingsCardTitle"
 		)
 
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]

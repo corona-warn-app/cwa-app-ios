@@ -270,7 +270,7 @@ extension ExposureDetectionViewController {
 		)
 	}
 
-	private func explanationSection(text: String, isActive: Bool) -> DynamicSection {
+	private func explanationSection(text: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
 		.section(
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
@@ -279,7 +279,7 @@ extension ExposureDetectionViewController {
 					title: AppStrings.ExposureDetection.explanationTitle,
 					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
 				),
-				.body(text: text)
+				.body(text: text, accessibilityIdentifier: accessibilityIdentifier)
 			]
 		)
 	}
@@ -297,7 +297,8 @@ extension ExposureDetectionViewController {
 			),
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextOff, isActive: false)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextOff, isActive: false,
+							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextOff")
 		])
 	}
 
@@ -314,7 +315,8 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextOutdated, isActive: false)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextOutdated, isActive: false,
+							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextOutdated")
 		])
 	}
 
@@ -326,7 +328,8 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextUnknown, isActive: false)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextUnknown, isActive: false,
+							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextUnknown")
 		])
 	}
 
@@ -340,7 +343,8 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextLow, isActive: true)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextLow, isActive: true,
+							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextLow")
 		])
 	}
 
@@ -368,7 +372,8 @@ extension ExposureDetectionViewController {
 					])
 				]
 			),
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextHigh, isActive: true)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextHigh, isActive: true,
+							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextHigh")
 		])
 	}
 }
