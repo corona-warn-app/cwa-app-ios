@@ -120,7 +120,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		XCTAssert(app.cells["AppStrings.AppInformation.privacyNavigation"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.AppInformation.privacyNavigation"].tap()
 
-		XCTAssert(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.images["AppStrings.AppInformation.privacyImageDescription"].waitForExistence(timeout: 5.0))
 	}
 
 	func test_0025_AppInformationFlow_terms() throws {
@@ -137,7 +137,7 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		XCTAssert(app.cells["AppStrings.AppInformation.termsNavigation"].waitForExistence(timeout: 5.0))
 		app.cells["AppStrings.AppInformation.termsNavigation"].tap()
 
-		XCTAssert(app.staticTexts["AppStrings.AppInformation.termsTitle"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.images["AppStrings.AppInformation.termsImageDescription"].waitForExistence(timeout: 5.0))
 	}
 
 }

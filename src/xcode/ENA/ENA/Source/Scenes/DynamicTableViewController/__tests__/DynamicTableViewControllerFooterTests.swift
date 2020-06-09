@@ -83,7 +83,7 @@ extension DynamicTableViewControllerFooterTests {
 			.blank,
 			.space(height: 1),
 			.separator(color: .red),
-			.image(nil),
+			.image(nil, accessibilityIdentifier: nil),
 			.view(UIView()),
 			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
 			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
@@ -143,7 +143,7 @@ extension DynamicTableViewControllerFooterTests {
 		// set up view model
 		let dynamicFooter: [DynamicHeader] = [
 			.separator(color: .red),
-			.image(nil),
+			.image(nil, accessibilityIdentifier: nil),
 			.view(UIView()),
 			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
 			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
@@ -210,7 +210,7 @@ extension DynamicTableViewControllerFooterTests {
 		// set up view model
 		let image = UIImage()
 		let height: CGFloat = 42
-		let section = DynamicSection.section(footer: .image(image, height: height), cells: [.body(text: "Bar",
+		let section = DynamicSection.section(footer: .image(image, accessibilityIdentifier: nil, height: height), cells: [.body(text: "Bar",
 																								  accessibilityIdentifier: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 

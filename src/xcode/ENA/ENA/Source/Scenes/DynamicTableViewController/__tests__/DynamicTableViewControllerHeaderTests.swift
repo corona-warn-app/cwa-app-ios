@@ -86,7 +86,7 @@ extension DynamicTableViewControllerHeaderTests {
 			.blank,
 			.space(height: 1),
 			.separator(color: .red),
-			.image(nil),
+			.image(nil, accessibilityIdentifier: nil),
 			.view(UIView()),
 			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
 			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
@@ -145,7 +145,7 @@ extension DynamicTableViewControllerHeaderTests {
 		// set up view model
 		let dynamicHeader: [DynamicHeader] = [
 			.separator(color: .red),
-			.image(nil),
+			.image(nil, accessibilityIdentifier: nil),
 			.view(UIView()),
 			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
 			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
@@ -208,7 +208,7 @@ extension DynamicTableViewControllerHeaderTests {
 		// set up view model
 		let image = UIImage()
 		let height: CGFloat = 42
-		let section = DynamicSection.section(header: .image(image, height: height), cells: [.body(text: "Bar",
+		let section = DynamicSection.section(header: .image(image, accessibilityIdentifier: nil, height: height), cells: [.body(text: "Bar",
 																								  accessibilityIdentifier: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
