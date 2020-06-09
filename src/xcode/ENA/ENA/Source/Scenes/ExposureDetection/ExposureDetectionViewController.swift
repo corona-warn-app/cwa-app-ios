@@ -59,6 +59,8 @@ extension ExposureDetectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		titleLabel.accessibilityTraits = .header
+
 		consumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
 			self?.updateUI()
