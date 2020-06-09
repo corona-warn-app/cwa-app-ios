@@ -232,8 +232,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		updateBottomSafeAreaInset(animated: animated)
 		bottomViewTopConstraint.isActive = hidden
 
-		if animated { CATransaction.begin() }
-
 		if isBottomViewHidden {
 			bottomView.frame.origin.y = view.frame.height
 			bottomView.frame.size.height = 0
@@ -243,8 +241,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		}
 
 		bottomView.layoutIfNeeded()
-
-		if animated { CATransaction.commit() }
 	}
 
 	func showSecondaryButton() {
@@ -273,11 +269,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 		additionalSafeAreaInsets.bottom = bottomInset
 
-		if animated {
-			CATransaction.begin()
-			topViewController?.view.layoutIfNeeded()
-			CATransaction.commit()
-		}
+		topViewController?.view.setNeedsLayout()
 	}
 
 	@objc

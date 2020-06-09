@@ -46,12 +46,10 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
    ```console
    xcode-select --install
    ```
-   Install _fastlane_ using
+   Install _fastlane_ using [Bundler](https://bundler.io/)
    ```console
-   [sudo] gem install fastlane -NV
-   [sudo] gem install xcov
+   cd src/xcode && bundle install
    ```
-   or alternatively using `brew install fastlane`
 
 
 ### Build
@@ -61,8 +59,8 @@ After setting up your environment as stated in [Setup](#Setup), you should be ab
 If you want to use fastlane instead, you can do so by running the following commands:
 
 ```console
-cd src/xcode && fastlane build_community
-cd src/xcode && fastlane test
+cd src/xcode && bundle exec fastlane build_community
+cd src/xcode && bundle exec fastlane test
 ```
 
 ### Run

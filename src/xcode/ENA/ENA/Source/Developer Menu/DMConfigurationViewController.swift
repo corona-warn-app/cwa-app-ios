@@ -18,6 +18,7 @@
 import UIKit
 
 final class DMConfigurationViewController: UITableViewController, RequiresAppDependencies {
+
 	// MARK: Creating a Configuration View Controller
 
 	init(distributionURL: String?, submissionURL: String?, verificationURL: String?) {

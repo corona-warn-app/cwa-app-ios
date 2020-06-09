@@ -1,7 +1,7 @@
 //
 // Corona-Warn-App
 //
-// SAP SE and all other contributors /
+// SAP SE and all other contributors
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -19,11 +19,9 @@
 
 import Foundation
 
-/// Determines how the risk level is updated
-enum RiskProvidingConfigurationUpdateMode {
-	/// The user has to manually update the risk level (e.g.: by tapping on a button)
-	case manual
-
-	/// The risk level is automatically kept up to day (background processing)
-	case automatic
+extension URL {
+	init(staticString: StaticString) {
+		// swiftlint:disable:next force_unwrapping
+		self.init(string: "\(staticString)")!
+	}
 }

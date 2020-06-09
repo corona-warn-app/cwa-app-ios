@@ -233,9 +233,13 @@
 
 "ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die Ihnen mitgeteilte TAN ein:";
 
-"ExposureSubmissionTanEntry_Description" = "Die TAN ist 7-stellig und Groß- und Kleinschreibung muss beachtet werden.";
+"ExposureSubmissionTanEntry_Description" = "Geben Sie bitte die 10 Stellen der TAN ein, die Ihnen mitgeteilt wurde.";
 
 "ExposureSubmissionTanEntry_Submit" = "Weiter";
+
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Ungültige Eingabe, bitte überprüfen Sie das Zeichen.";
+
+"ExposureSubmissionTanEntry_InvalidError" = "Ungültige TAN, bitte überprüfen Sie Ihre Eingabe.";
 
 "ExposureSubmission_NavTitle" = "Positivkennung senden";
 
@@ -526,8 +530,8 @@ Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. 
 
 /* Home common card */
 "Home_Risk_Date_Item_Title" = "Aktualisiert: %@";
-
 "Home_Risk_No_Date_Title" = "Unbekannt";
+"Home_Risk_Period_Update_Title" = "Aktualisierung alle %@ Stunden";
 
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";

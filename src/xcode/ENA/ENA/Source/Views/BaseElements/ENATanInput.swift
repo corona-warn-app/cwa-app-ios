@@ -19,18 +19,19 @@ import Foundation
 import UIKit
 
 protocol ENATanInputDelegate: AnyObject {
-	func tanChanged(isValid: Bool)
+	func tanChanged(isValid: Bool, checksumIsValid: Bool, isBlocked: Bool)
 }
 
 @IBDesignable
 class ENATanInput: UIControl, UIKeyInput {
-	@IBInspectable var textColor: UIColor = .enaColor(for: .textPrimary1)
+	@IBInspectable var labelTextColor: UIColor = .enaColor(for: .textPrimary1)
 	@IBInspectable var boxColor: UIColor = .enaColor(for: .separator)
 
-	@IBInspectable var fontSize: CGFloat = 30
-	@IBInspectable var digits: Int = 7
+	@IBInspectable var fontSize: CGFloat = 28
+	@IBInspectable var groups: String = "3,3,4"
+	@IBInspectable var whiteList: String = "2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,J,K,M,N,P,Q,R,S,T,U,V,W,X,Y,Z"
 
-	@IBInspectable var spacing: CGFloat = 8
+	@IBInspectable var spacing: CGFloat = 3
 	@IBInspectable var cornerRadius: CGFloat = 4
 
 	private weak var stackView: UIStackView!
@@ -38,13 +39,21 @@ class ENATanInput: UIControl, UIKeyInput {
 	private(set) var text = ""
 	var count: Int { text.count }
 
+	var dashes: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
+	var whiteListArray: [String] { whiteList.split(separator: ",").map(String.init) }
+	var digits: Int { dashes.reduce(0) { $0 + $1 } }
+
 	// swiftlint:disable:next empty_count
 	var isEmpty: Bool { count == 0 }
 	var isValid: Bool { count == digits }
+	var inputBlocked: Bool = false
+
+	private var labels: [UILabel] { stackView.arrangedSubviews.compactMap({ $0 as? ENATanInputLabel }) }
 
 	override var canBecomeFirstResponder: Bool { true }
 
-	var keyboardType: UIKeyboardType = .namePhonePad
+	var keyboardType: UIKeyboardType = .asciiCapable
+	var textContentType: UITextContentType = .oneTimeCode
 
 	var hasText: Bool { !text.isEmpty }
 
@@ -82,18 +91,35 @@ class ENATanInput: UIControl, UIKeyInput {
 		stackView.isUserInteractionEnabled = false
 		stackView.spacing = spacing
 		stackView.axis = .horizontal
-		stackView.distribution = .fillEqually
+		stackView.distribution = .fill
 		stackView.alignment = .fill
 
 		let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: fontSize, weight: .bold)
-		for _ in 0 ..< digits {
-			let label = UILabel()
-			label.clipsToBounds = true
-			label.backgroundColor = boxColor
-			label.layer.cornerRadius = cornerRadius
-			label.textAlignment = .center
-			label.font = font
-			stackView.addArrangedSubview(label)
+
+		for (index, digits) in dashes.enumerated() {
+			if index > 0 {
+				let label = UILabel()
+				label.textAlignment = .center
+				label.textColor = labelTextColor
+				label.font = font
+				label.text = "-"
+				stackView.addArrangedSubview(label)
+			}
+
+			for _ in 0..<digits {
+				let label = ENATanInputLabel()
+				label.clipsToBounds = true
+				label.backgroundColor = boxColor
+				label.layer.cornerRadius = cornerRadius
+				label.textAlignment = .center
+				label.textColor = labelTextColor
+				label.font = font
+				stackView.addArrangedSubview(label)
+			}
+		}
+
+		if let firstLabel = labels.first {
+			labels[1...].forEach { firstLabel.widthAnchor.constraint(equalTo: $0.widthAnchor).isActive = true }
 		}
 
 		addSubview(stackView)
@@ -104,27 +130,98 @@ class ENATanInput: UIControl, UIKeyInput {
 	}
 
 	func insertText(_ text: String) {
+		guard !inputBlocked else { return }
 		for character in text {
 			guard !isValid else { return }
-			let label = stackView.arrangedSubviews[count] as? UILabel
-			label?.text = "\(character)"
-			self.text += "\(character)"
+			let label = labels[count]
+
+			label.text = "\(character.uppercased())"
+			self.text += "\(character.uppercased())"
+			if let enaInputLabel = label as? ENATanInputLabel {
+				if whiteListArray.contains(String(character.uppercased())) {
+					enaInputLabel.isValid = true
+					enaInputLabel.textColor = labelTextColor
+				} else {
+					enaInputLabel.isValid = false
+					enaInputLabel.textColor = .enaColor(for: .textSemanticRed)
+					inputBlocked = true
+				}
+			}
+
 		}
-		delegate?.tanChanged(isValid: isValid)
+		delegate?.tanChanged(isValid: isValid, checksumIsValid: verifyChecksum(input: self.text), isBlocked: inputBlocked
+		)
 	}
 
 	func deleteBackward() {
 		guard !isEmpty else { return }
+		inputBlocked = false
 		text = String(text[..<text.index(before: text.endIndex)])
-		let label = stackView.arrangedSubviews[count] as? UILabel
-		label?.text = ""
-		delegate?.tanChanged(isValid: isValid)
+		let label = labels[count]
+		label.text = ""
+		if let enaInputLabel = label as? ENATanInputLabel {
+			enaInputLabel.isValid = true
+		}
+		delegate?.tanChanged(isValid: isValid, checksumIsValid: false, isBlocked: inputBlocked)
 	}
 
 	func clear() {
-		for i in 0 ..< text.count {
-			(stackView.arrangedSubviews[i] as? UILabel)?.text = ""
-		}
+		labels.forEach { $0.text = "" }
 		text = ""
+	}
+	
+	func verifyChecksum(input: String) -> Bool {
+		guard isValid else {
+			return false
+
+		}
+		let start = input.index(input.startIndex, offsetBy: 0)
+		let end = input.index(input.startIndex, offsetBy: input.count - 2)
+		let testString = String(input[start...end])
+		return input.last == calculateChecksum(input: testString)
+	}
+	
+	func calculateChecksum(input: String) -> Character {
+		let hash = Hasher.sha256(input)
+		var checksum = hash[hash.startIndex].uppercased()
+		if checksum == "0" {
+			checksum = "G"
+
+		} else if checksum == "1" {
+			checksum = "H"
+
+		}
+		// swiftlint:disable:next force_unwrapping
+		return checksum.first!
+	}
+}
+
+private class ENATanInputLabel: UILabel {
+	private let lineWidth: CGFloat = 3
+
+	var isValid: Bool = true { didSet { setNeedsDisplay() } }
+
+	var color: UIColor {
+		if isValid {
+			if self.text?.isEmpty == nil || self.text == "" {
+				return .enaColor(for: .hairline)
+			} else {
+				return UIColor.clear
+			}
+		} else {
+			return .enaColor(for: .textSemanticRed)
+		}
+
+	}
+
+	override func draw(_ rect: CGRect) {
+		super.draw(rect)
+
+		guard let context = UIGraphicsGetCurrentContext() else { return }
+		context.setLineWidth(lineWidth)
+		context.setStrokeColor(color.cgColor)
+		context.move(to: CGPoint(x: 0, y: bounds.height - lineWidth / 2))
+		context.addLine(to: CGPoint(x: bounds.width, y: bounds.height - lineWidth / 2))
+		context.strokePath()
 	}
 }

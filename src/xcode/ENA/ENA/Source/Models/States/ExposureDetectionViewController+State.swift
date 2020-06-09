@@ -20,30 +20,19 @@ import Foundation
 import UIKit
 
 extension ExposureDetectionViewController {
-	enum RefreshMode {
-		case automatic
-		case manual
-	}
-
 	struct State {
 		var exposureManagerState: ExposureManagerState = .init()
 
-		var mode: RefreshMode = .manual
+		var detectionMode: DetectionMode = DetectionMode.default
 
 		var isTracingEnabled: Bool { exposureManagerState.enabled }
 		var isLoading: Bool = false
 
 		var risk: Risk?
-
 		var riskLevel: RiskLevel {
 			risk?.level ?? .unknownInitial
 		}
-
-		var nextRefresh: Date?
-
-		var actualRiskText: String {
-			riskLevel.text
-		}
+		var actualRiskText: String { riskLevel.text }
 
 		var riskText: String {
 			isTracingEnabled ? riskLevel.text : AppStrings.ExposureDetection.off

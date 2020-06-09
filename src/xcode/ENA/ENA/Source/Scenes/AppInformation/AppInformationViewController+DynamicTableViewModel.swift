@@ -155,10 +155,12 @@ extension AppInformationViewController {
 
 	private static let privacyModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Datenschutz"),
-						   // TODO: get the accessibility content for this image
-						   //accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
-						   height: 230),
+			header: .image(
+				UIImage(named: "Illu_Appinfo_Datenschutz"),
+				// TODO: get the accessibility content for this image
+				//accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
+				height: 230
+			),
 			cells: [
 				.title2(text: AppStrings.AppInformation.privacyTitle),
 				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
