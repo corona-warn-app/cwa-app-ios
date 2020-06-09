@@ -128,6 +128,8 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			image: UIImage(named: "Icons - Close"),
 			style: .done, target: self, action: #selector(close)
 		)
+		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		barButtonItem.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
 		navigationItem.rightBarButtonItem = barButtonItem
 
 		setupBottomView()

@@ -19,6 +19,10 @@
 
 "General_BackButtonTitle" = "Zurück";
 
+/* Accessibility */
+
+"AccessibilityLabel_Close" = "Schließen";
+
 /* Exposure Detection */
 "ExposureDetection_Off" = "Risiko-Ermittlung gestoppt";
 
