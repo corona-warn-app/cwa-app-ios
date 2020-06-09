@@ -33,6 +33,9 @@ jobs:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
   assess:
+    macos:
+      xcode: 11.5.0
+    shell: zsh
     steps:
       - run:
           name: Convert coverage information to SonarCloud format
