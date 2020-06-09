@@ -25,7 +25,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 	// MARK: - Attributes.
 
 	@IBAction func unwindToExposureSubmissionIntro(_: UIStoryboardSegue) {}
-	private var service: ExposureSubmissionService?
+	var service: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
 
 	// MARK: - Initializers.
@@ -142,7 +142,7 @@ extension ExposureSubmissionOverviewViewController {
 // MARK: - ExposureSubmissionQRScannerDelegate methods.
 
 extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerDelegate {
-	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError) {
+	func qrScanner(_ viewController: QRScannerViewController, error: QRScannerError) {
 		switch error {
 		case .cameraPermissionDenied:
 
@@ -152,7 +152,6 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error) {
 					self.dismissQRCodeScannerView(viewController, completion: nil)
 				}
-
 				viewController.present(alert, animated: true, completion: nil)
 			}
 		default:
@@ -160,7 +159,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		}
 	}
 
-	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
+	func qrScanner(_ vc: QRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
 			vc.delegate = nil
 			let alert = ExposureSubmissionViewUtils.setupAlert(
@@ -189,6 +188,15 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			self.stopSpinner()
 			switch result {
 			case let .failure(error):
+
+				// Note: In the case the QR Code was already used, retrying will result
+				// in an endless loop.
+				if case .qRAlreadyUsed = error {
+					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, completion: nil)
+					self.present(alert, animated: true, completion: nil)
+					return
+				}
+
 				logError(message: "Error while getting registration token: \(error)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, retry: true, retryActionHandler: {
 					self.startSpinner()
@@ -213,7 +221,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	/// - starts with https://
 	/// - contains only alphanumeric characters
 	/// - is not empty
-	private func sanitizeAndExtractGuid(_ input: String) -> String? {
+	func sanitizeAndExtractGuid(_ input: String) -> String? {
 		guard input.count <= 150 else { return nil }
 		guard let regex = try? NSRegularExpression(pattern: "^.*\\?(?<GUID>[A-Z,a-z,0-9,-]*)") else { return nil }
 		guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count)) else { return nil }
@@ -224,7 +232,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		return candidate
 	}
 
-	private func dismissQRCodeScannerView(_ vc: ExposureSubmissionQRScannerViewController, completion: (() -> Void)?) {
+	private func dismissQRCodeScannerView(_ vc: QRScannerViewController, completion: (() -> Void)?) {
 		vc.delegate = nil
 		vc.dismiss(animated: true, completion: completion)
 	}
