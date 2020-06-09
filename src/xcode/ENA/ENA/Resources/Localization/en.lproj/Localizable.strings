@@ -1,21 +1,13 @@
 /* General */
 "Alert_TitleGeneral" = "An error occurred.";
 
-"Alert_MessageGeneral" = "Please try again.";
-
 "Alert_ActionOk" = "OK";
-
-"Alert_ActionNo" = "No";
 
 "Alert_ActionRetry" = "Repeat";
 
 "Alert_ActionCancel" = "Cancel";
 
 "Alert_ActionRemove" = "Remove";
-
-"Alert_TitleKeySubmit" = "TAN Generation";
-
-"Alert_DescriptionKeySubmit" = "Do you consent to your TAN being generated?";
 
 "Alert_BluetoothOff_Title" = "Turn on Bluetooth";
 
@@ -37,8 +29,6 @@
 "ExposureDetection_Low" = "Low Risk";
 
 "ExposureDetection_High" = "Higher Risk";
-
-"ExposureDetection_Loading" = "Check is running...";
 
 "ExposureDetection_NumberOfDaysStored" = "%d of 14 days saved";
 
@@ -98,8 +88,6 @@
 
 "ExposureDetection_Button_Refresh" = "Update";
 
-"ExposureDetection_Button_RefreshingIn" = "Update (%02d:%02d)";
-
 /* Settings */
 "Settings_StatusActive" = "On";
 
@@ -147,10 +135,6 @@
 "NotificationSettings_NavTitle" = "Notifications";
 
 /* Onboarding */
-"Onboarding_Next" = "Next";
-
-"Onboarding_Finish" = "That’s it!";
-
 "Onboarding_LetsGo_actionText" = "Let’s get started";
 
 "Onboarding_Continue_actionText" = "Next";
@@ -160,8 +144,6 @@
 "Onboarding_doNotAllow_actionText" = "Do Not Allow";
 
 "Onboarding_DoNotActivate_actionText" = "Do Not Activate";
-
-"Onboarding_Back_actionText" = "Back";
 
 "Onboarding_DeactivateExposureConfirmation_title" = "This means the Corona-Warn-App cannot send or receive notifications about your COVID-19 risk status.";
 
@@ -371,8 +353,6 @@
 "ExposureSubmissionResult_testNegative" = "Negative Diagnosis";
 
 "ExposureSubmissionResult_testNegativeDesc" = "The laboratory result indicates no verification that you have corona virus SARS-CoV-2.";
-
-"ExposureSubmissionResult_removeNote" = "Please delete the test from the Corona-Warn-App, so that you can save a new test code here if necessary.";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Other information:";
 
