@@ -95,15 +95,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			if !fileManager.fileExists(atPath: directoryURL.path) {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				guard let key = KeychainHelper.generateDatabaseKey() else {
-					logError(message: "Creating the Database failed")
-					return SecureStore(at: nil, key: "")
+					fatalError("Creating the Database failed")
 				}
 				return SecureStore(at: directoryURL, key: key)
 			} else {
 				guard let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") else {
 					guard let key = KeychainHelper.generateDatabaseKey() else {
-						logError(message: "Creating the Database failed")
-						return SecureStore(at: nil, key: "")
+						fatalError("Creating the Database failed")
 					}
 					return SecureStore(at: directoryURL, key: key)
 				}
@@ -111,8 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				return SecureStore(at: directoryURL, key: key)
 			}
 		} catch {
-			logError(message: "Creating the Database failed")
-			return SecureStore(at: nil, key: "")
+			fatalError("Creating the Database failed")
 		}
 	}()
 

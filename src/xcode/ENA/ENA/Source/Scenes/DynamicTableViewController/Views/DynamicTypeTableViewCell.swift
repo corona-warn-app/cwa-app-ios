@@ -74,4 +74,10 @@ class DynamicTypeTableViewCell: UITableViewCell {
 		textLabel?.text = text
 		textLabel?.textColor = color ?? .enaColor(for: .textPrimary1)
 	}
+
+	func configureAccessibility(label: String? = nil, identifier: String?  = nil) {
+		textLabel?.accessibilityLabel = label
+		textLabel?.accessibilityIdentifier = identifier
+	}
+
 }

@@ -100,7 +100,6 @@ final class RiskProviderTests: XCTestCase {
 //		wait(for: [nextExposureDetectionDateDidChangeExpectation, expectThatSummaryIsRequested], timeout: 10.0)
     }
 
-	// swiftlint:disable:next function_body_length
     func testExample() throws {
 		var duration = DateComponents()
 		duration.day = 1

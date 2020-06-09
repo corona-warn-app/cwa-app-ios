@@ -64,19 +64,40 @@ extension XCUIApplication {
 		launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)"]
 	}
 
-	func tapDontAllow(for alertIdentifier: String) {
-		let alert = alerts[alertIdentifier]
-		let exposureNotificationAlertExists = alert.waitForExistence(timeout: 5.0)
-		XCTAssertTrue(exposureNotificationAlertExists, "Missing alert")
-		alert.scrollViews.otherElements.buttons[Accessibility.Alert.dontAllowButton].tap()
+	// string localization
+	func getLocale(str: String) -> String {
+		if str.count == 2 {
+			return str
+		}
+		let start = str.index(str.startIndex, offsetBy: 1)
+		let end = str.index(start, offsetBy: 2)
+		let range = start..<end
+
+		let locale = str[range]
+		if locale == "en" {
+			return "Base"
+		}
+		return String(locale)
 	}
 
-	func tapAllow(for alertIdentifier: String) {
-		let alert = alerts[alertIdentifier]
-		let exposureNotificationAlertExists = alert.waitForExistence(timeout: 5.0)
-		XCTAssertTrue(exposureNotificationAlertExists, "Missing alert")
-		alert.scrollViews.otherElements.buttons[Accessibility.Alert.allowButton].tap()
+	func localized(_ key: String) -> String {
+		guard let localeArgIdx = launchArguments.firstIndex(of: "-AppleLocale") else {
+			return ""
+		}
+		if localeArgIdx >= launchArguments.count {
+			return ""
+		}
+		let str = launchArguments[localeArgIdx + 1]
+		let locale = getLocale(str: str)
+		let testBundle = Bundle(for: Snapshot.self)
+		if let testBundlePath = testBundle.path(forResource: locale, ofType: "lproj") ?? testBundle.path(forResource: locale, ofType: "lproj"),
+			let localizedBundle = Bundle(path: testBundlePath) {
+			return NSLocalizedString(key, bundle: localizedBundle, comment: "")
+		}
+		return ""
 	}
+
+
 }
 
 extension XCTestCase {
@@ -94,67 +115,7 @@ extension XCTestCase {
 		return (langCode, localeCode)
 	}
 
-	func tapAllowOnAllDialogs() -> NSObjectProtocol {
-		addUIInterruptionMonitor(withDescription: "UIAlert") {
-			(alert) -> Bool in
-			let okButton = alert.buttons[Accessibility.Alert.allowButton]
-			let allowButton = alert.buttons[Accessibility.Alert.okButton]
-			let firstButton = alert.buttons.element(boundBy: 1)
-			if okButton.exists {
-				okButton.tap()
-			} else if allowButton.exists {
-				allowButton.tap()
-			} else if firstButton.exists {
-				firstButton.tap()
-			}
-			return true
-		}
-	}
-
-	func tapDontAllowOnAllDialogs() -> NSObjectProtocol {
-		addUIInterruptionMonitor(withDescription: "UIAlert") {
-			(alert) -> Bool in
-			let dontAllowButton = alert.buttons[Accessibility.Alert.dontAllowButton]
-			let cancelButton = alert.buttons[Accessibility.Alert.cancelButton]
-			let firstButton = alert.buttons.firstMatch
-			if dontAllowButton.exists {
-				dontAllowButton.tap()
-			} else if cancelButton.exists {
-				cancelButton.tap()
-			} else if firstButton.exists {
-				firstButton.tap()
-			}
-			return true
-		}
-	}
-
-	func tapAllowOnLocalNotificationsDialog() {
-		addUIInterruptionMonitor(withDescription: "Local Notifications") {
-			(alert) -> Bool in
-			let alertTitle = "Would Like to Send You Notifications"
-			print("#", #line, #function, alertTitle)
-			if alert.labelContains(text: alertTitle) {
-				alert.buttons["Allow"].tap()
-				return true
-			}
-			return false
-		}
-	}
-
-	func tapAllowOnCOVID19ExposureNotificationsDialog() {
-		addUIInterruptionMonitor(withDescription: "COVID-19 Exposure Notifications") {
-			(alert) -> Bool in
-			let alertTitle = "Enable COVID-19 Exposure Notifications"
-			print("#", #line, #function, alertTitle)
-			if alert.labelContains(text: alertTitle) {
-				alert.buttons["Allow"].tap()
-				return true
-			}
-			return false
-		}
-	}
-
-	func wait(for seconds: TimeInterval) {
+	func wait(for seconds: TimeInterval = 0.2) {
 		let expectation = XCTestExpectation(description: "Pause test")
 		DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { expectation.fulfill() }
 		wait(for: [expectation], timeout: seconds + 1)
