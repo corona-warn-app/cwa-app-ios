@@ -42,6 +42,7 @@ final class ResetViewController: UIViewController {
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		setupView()
 	}
 
@@ -73,6 +74,9 @@ final class ResetViewController: UIViewController {
 		if let resetButton = resetButton, let titleLabel = resetButton.titleLabel {
 			resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
 		}
+
+		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

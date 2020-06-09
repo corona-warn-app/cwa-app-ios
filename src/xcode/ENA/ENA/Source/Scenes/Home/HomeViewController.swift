@@ -108,8 +108,10 @@ final class HomeViewController: UIViewController {
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
 		navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
+		navigationItem.leftBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.leftBarButtonDescription"
 		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.rightBarButtonDescription"
 	}
 
 	// MARK: Actions
@@ -240,10 +242,8 @@ final class HomeViewController: UIViewController {
 		 	showExposureDetection()
 		case is RiskFindingPositiveCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
-		case is HomeTestResultCell:
+		case is HomeTestResultCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
-		case is SubmitCollectionViewCell:
-			showExposureSubmission()
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:
@@ -300,9 +300,8 @@ final class HomeViewController: UIViewController {
 		let cellTypes: [UICollectionViewCell.Type] = [
 			ActivateCollectionViewCell.self,
 			RiskLevelCollectionViewCell.self,
-			SubmitCollectionViewCell.self,
 			InfoCollectionViewCell.self,
-			HomeTestResultCell.self,
+			HomeTestResultCollectionViewCell.self,
 			RiskInactiveCollectionViewCell.self,
 			RiskFindingPositiveCollectionViewCell.self,
 			RiskThankYouCollectionViewCell.self,
@@ -451,7 +450,7 @@ extension HomeViewController: ExposureStateUpdating {
 	}
 }
 
-extension  HomeViewController: ENStateHandlerUpdating {
+extension HomeViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		homeInteractor.state.enState = state
 		updateAllState(state)

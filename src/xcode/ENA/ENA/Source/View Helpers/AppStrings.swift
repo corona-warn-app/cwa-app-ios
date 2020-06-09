@@ -33,6 +33,10 @@ enum AppStrings {
 		static let general_BackButtonTitle = NSLocalizedString("General_BackButtonTitle", comment: "")
 	}
 
+	enum AccessibilityLabel {
+		static let close = NSLocalizedString("AccessibilityLabel_Close", comment: "")
+	}
+
 	enum ExposureSubmission {
 		static let generalErrorTitle = NSLocalizedString("ExposureSubmission_GeneralErrorTitle", comment: "")
 		static let dataPrivacyTitle = NSLocalizedString("ExposureSubmission_DataPrivacyTitle", comment: "")
