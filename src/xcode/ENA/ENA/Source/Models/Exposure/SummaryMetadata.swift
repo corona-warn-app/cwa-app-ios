@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,13 +15,19 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import ExposureNotification
 import Foundation
+import ExposureNotification
 
-extension HomeViewController {
-	struct State {
-		var exposureManager: ExposureManagerState
-		var summary: ENExposureDetectionSummary?
+struct SummaryMetadata: Codable {
+	let summary: CodableExposureDetectionSummary
+	let date: Date
+}
+
+extension SummaryMetadata {
+	init(detectionSummary: ENExposureDetectionSummary, date: Date = Date()) {
+		self.summary = CodableExposureDetectionSummary(with: detectionSummary)
+		self.date = date
 	}
 }

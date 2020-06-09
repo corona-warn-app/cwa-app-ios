@@ -21,7 +21,7 @@ extension URLSession {
 	class func coronaWarnSession() -> URLSession {
 		URLSession(
 			configuration: .coronaWarnSessionConfiguration(),
-			delegate: nil,
+			delegate: CoronaWarnURLSessionDelegate(),
 			delegateQueue: .main
 		)
 	}
