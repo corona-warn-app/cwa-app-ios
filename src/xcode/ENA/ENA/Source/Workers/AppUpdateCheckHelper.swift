@@ -44,6 +44,7 @@ class AppUpdateCheckHelper {
 	}
 
 	func checkAppVersionDialog(for vc: UIViewController?) {
+		/**
 		client.appConfiguration { result in
 			guard let versionInfo: SAP_ApplicationVersionConfiguration = result?.appVersion else {
 				return
@@ -57,6 +58,7 @@ class AppUpdateCheckHelper {
 				return
 			}
 			vc?.present(alert, animated: true, completion: nil)
+			*/
 		}
 	}
 
