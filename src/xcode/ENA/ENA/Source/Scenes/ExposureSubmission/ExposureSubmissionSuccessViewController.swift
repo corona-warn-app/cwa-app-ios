@@ -54,12 +54,15 @@ private extension DynamicTableViewModel {
 		DynamicSection.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_VielenDank"),
-				accessibilityLabel: AppStrings.ExposureSubmissionSuccess.accImageDescription
+				accessibilityLabel: AppStrings.ExposureSubmissionSuccess.accImageDescription,
+				accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.accImageDescription"
 			),
 			separators: false,
 			cells: [
-				.body(text: AppStrings.ExposureSubmissionSuccess.description),
-				.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle),
+				.body(text: AppStrings.ExposureSubmissionSuccess.description,
+					  accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.description"),
+				.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.listTitle"),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
@@ -89,7 +92,8 @@ private extension DynamicTableViewModel {
 						)
 					}
 				),
-				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle),
+				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.subTitle"),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
