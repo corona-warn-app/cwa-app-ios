@@ -49,14 +49,20 @@ extension RiskProvidingConfiguration {
 		return potentialDate > currentDate ? currentDate : potentialDate
 	}
 
-	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast) -> Bool {
-		Date() > exposureDetectionValidUntil(lastExposureDetectionDate: lastExposureDetectionDate)
+	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast, currentDate: Date = Date()) -> Bool {
+		// It is not valid to have a future exposure detection date
+		guard lastExposureDetectionDate <= currentDate else { return false }
+
+		return currentDate < exposureDetectionValidUntil(lastExposureDetectionDate: lastExposureDetectionDate)
 	}
 
-	func shouldPerformExposureDetection(lastExposureDetectionDate: Date?) -> Bool {
-		let next = nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate)
-		let today = Date()
-		let result = next < today
+	func shouldPerformExposureDetection(lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
+		if let lastExposureDetectionDate = lastExposureDetectionDate, lastExposureDetectionDate > currentDate {
+			// It is not valid to have a future exposure detection date.
+			return true
+		}
+		let next = nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate, currentDate: currentDate)
+		let result = next < currentDate
 		return result
 	}
 }
