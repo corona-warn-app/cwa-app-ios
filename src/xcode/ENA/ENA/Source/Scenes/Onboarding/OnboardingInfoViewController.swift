@@ -63,6 +63,7 @@ final class OnboardingInfoViewController: UIViewController {
 	var pageType: OnboardingPageType
 	var exposureManager: ExposureManager
 	var store: Store
+
 	@IBOutlet var imageView: UIImageView!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var boldLabel: UILabel!
@@ -88,20 +89,6 @@ final class OnboardingInfoViewController: UIViewController {
 		view.layoutMargins = .zero
 		updateUI()
 		setupAccessibility()
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		if pageType == .togetherAgainstCoronaPage {
-			navigationController?.setNavigationBarHidden(true, animated: true)
-		} else {
-			navigationController?.navigationBar.shadowImage = UIImage()
-		}
-	}
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		navigationController?.setNavigationBarHidden(false, animated: true)
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -348,5 +335,12 @@ extension OnboardingInfoViewController: UITextViewDelegate {
 	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
 		WebPageHelper.openSafari(withUrl: url, from: self)
 		return false
+	}
+}
+
+extension OnboardingInfoViewController: NavigationBarOpacityDelegate {
+	var preferredNavigationBarOpacity: CGFloat {
+		let alpha = (scrollView.adjustedContentInset.top + scrollView.contentOffset.y) / scrollView.adjustedContentInset.top
+		return max(0, min(alpha, 1))
 	}
 }

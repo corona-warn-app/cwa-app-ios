@@ -154,7 +154,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CRv-wa-5iJ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="4Ft-pZ-AFP"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Qrf-NY-PRN"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="boldLabel" destination="iX7-JF-1ms" id="Msl-h4-7Vz"/>
                         <outlet property="footerView" destination="0oH-fF-RI6" id="zbC-b2-CdY"/>
