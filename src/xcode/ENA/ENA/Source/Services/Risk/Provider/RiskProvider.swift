@@ -70,7 +70,6 @@ private extension RiskConsumer {
 	}
 }
 
-
 extension RiskProvider {
 	enum RequestType {
 		case userInitiated
