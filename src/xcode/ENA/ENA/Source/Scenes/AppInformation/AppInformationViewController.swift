@@ -102,5 +102,8 @@ extension AppInformationViewController {
 			self.execute(action: action)
 		}
 	}
+}
 
+extension AppInformationViewController: NavigationBarOpacityDelegate {
+	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { .systemChromeMaterial }
 }

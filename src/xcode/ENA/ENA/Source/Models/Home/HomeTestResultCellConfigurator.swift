@@ -41,7 +41,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		case .negative:
 			configureTestResultNegative(cell: cell)
 		default:
-			appLogger.log(message: "Unsupported state", file: #file, line: #line, function: #function)
+			log(message: "Unsupported state", file: #file, line: #line, function: #function)
 		}
 	}
 
