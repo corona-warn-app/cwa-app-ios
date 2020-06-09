@@ -71,6 +71,8 @@ jobs:
             chmod +x $SCANNERDIR/bin/sonar-scanner
             chmod +x $SCANNERDIR/jre/bin/java
             $SCANNERDIR/bin/sonar-scanner
+          environment:
+            SONARQUBE_SCANNER_PARAMS: '{"sonar.host.url":"https://sonarcloud.io"}'
       - save_cache:
           key: sonar-cloud-v1
           paths:
