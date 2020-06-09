@@ -139,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			country: "DE",
 			endpoints: HTTPClient.Configuration.Endpoints(
 				distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-				submission: .init(baseURL: submissionURL, requiresTrailingSlash: true),
+				submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
 				verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
 			)
 		)
