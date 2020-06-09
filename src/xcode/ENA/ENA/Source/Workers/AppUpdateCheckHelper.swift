@@ -58,8 +58,8 @@ class AppUpdateCheckHelper {
 				return
 			}
 			vc?.present(alert, animated: true, completion: nil)
-			*/
-		}
+
+		}*/
 	}
 
 	private func setObserver(vc: UIViewController?, alertType: UpdateAlertType) {
