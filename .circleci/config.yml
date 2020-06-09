@@ -46,7 +46,7 @@ jobs:
       - run:
           name: Abort if external pull request
           command: |
-            if [ -v "${CIRCLE_PR_REPONAME}" ]; then
+            if [ -v CIRCLE_PR_REPONAME ]; then
               circleci-agent step halt
             fi
       - checkout
