@@ -107,47 +107,47 @@ final class SecureStore: Store {
 		get { kvStore["isAllowedToSubmitDiagnosisKeys"] as Bool? ?? false }
 		set { kvStore["isAllowedToSubmitDiagnosisKeys"] = newValue }
 	}
-	
+
 	var isOnboarded: Bool {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
 		set { kvStore["isOnboarded"] = newValue }
 	}
-	
+
 	var dateOfAcceptedPrivacyNotice: Date? {
 		get { kvStore["dateOfAcceptedPrivacyNotice"] as Date? ?? nil }
 		set { kvStore["dateOfAcceptedPrivacyNotice"] = newValue }
 	}
-	
+
 	var hasSeenSubmissionExposureTutorial: Bool {
 		get { kvStore["hasSeenSubmissionExposureTutorial"] as Bool? ?? false }
 		set { kvStore["hasSeenSubmissionExposureTutorial"] = newValue }
 	}
-	
+
 	var developerSubmissionBaseURLOverride: String? {
 		get { kvStore["developerSubmissionBaseURLOverride"] as String? ?? nil }
 		set { kvStore["developerSubmissionBaseURLOverride"] = newValue }
 	}
-	
+
 	var developerDistributionBaseURLOverride: String? {
 		get { kvStore["developerDistributionBaseURLOverride"] as String? ?? nil }
 		set { kvStore["developerDistributionBaseURLOverride"] = newValue }
 	}
-	
+
 	var developerVerificationBaseURLOverride: String? {
 		get { kvStore["developerVerificationBaseURLOverride"] as String? ?? nil }
 		set { kvStore["developerVerificationBaseURLOverride"] = newValue }
 	}
-	
+
 	var allowRiskChangesNotification: Bool {
 		get { kvStore["allowRiskChangesNotification"] as Bool? ?? true }
 		set { kvStore["allowRiskChangesNotification"] = newValue }
 	}
-	
+
 	var allowTestsStatusNotification: Bool {
 		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }
 		set { kvStore["allowTestsStatusNotification"] = newValue }
 	}
-	
+
 	var tracingStatusHistory: TracingStatusHistory {
 		get {
 			guard let historyData = kvStore["tracingStatusHistory"] else {
@@ -159,17 +159,17 @@ final class SecureStore: Store {
 			kvStore["tracingStatusHistory"] = try? newValue.JSONData()
 		}
 	}
-	
+
 	var summary: SummaryMetadata? {
 		get { kvStore["previousSummaryMetadata"] as SummaryMetadata? ?? nil }
 		set { kvStore["previousSummaryMetadata"] = newValue }
 	}
-	
+
 	var hourlyFetchingEnabled: Bool {
 		get { kvStore["hourlyFetchingEnabled"] as Bool? ?? false }
 		set { kvStore["hourlyFetchingEnabled"] = newValue }
 	}
-	
+
 	var lastCheckedVersion: String? {
 		get { kvStore["lastCheckedVersion"] as String? ?? "0.0.0" }
 		set { kvStore["lastCheckedVersion"] = newValue }

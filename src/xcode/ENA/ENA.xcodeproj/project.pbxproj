@@ -592,7 +592,7 @@
 		B1741B432461C257006275D9 /* DMDeveloperMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMDeveloperMenu.swift; sourceTree = "<group>"; };
 		B1741B482462C207006275D9 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		B17A44A12464906A00CB195E /* KeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTests.swift; sourceTree = "<group>"; };
-		B184A37F248FFCBE007180F6 /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
+		B184A37F248FFCBE007180F6 /* SecureStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		B184A382248FFCE2007180F6 /* CodableExposureDetectionSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExposureDetectionSummary.swift; sourceTree = "<group>"; };
 		B18C411C246DB30000B8D8CB /* URL+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Helper.swift"; sourceTree = "<group>"; };
 		B18CADAD24782FA4006F53F0 /* ExposureStateUpdating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureStateUpdating.swift; sourceTree = "<group>"; };
