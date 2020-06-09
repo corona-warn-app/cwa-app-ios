@@ -82,20 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
 
-	let downloadedPackagesStore: DownloadedPackagesStore = {
-		let fileManager = FileManager()
-		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-			fatalError("unable to determine document dir")
-		}
-		let storeURL = documentDir
-			.appendingPathComponent("packages")
-			.appendingPathExtension("sqlite3")
+	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-		let db = FMDatabase(url: storeURL)
-		let store = DownloadedPackagesSQLLiteStore(database: db)
-		store.open()
-		return store
-	}()
 
 	let store: Store = {
 		do {
@@ -200,6 +188,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
+
 	private func useSummaryDetectionResult(
 		_ result: Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>
 	) {
