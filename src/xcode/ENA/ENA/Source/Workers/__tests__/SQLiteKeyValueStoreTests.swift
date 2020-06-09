@@ -37,7 +37,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 	override func setUp() {
 		super.setUp()
 		// Old DB is deinited and hence connection closed at every setUp() call
-		kvStore = SQLiteKeyValueStore(with: nil, key: "password")
+		kvStore = SQLiteKeyValueStore(with: URL(staticString:":memory:"), key: "password")
 	}
 
 	// MARK: - Positive Tests
