@@ -151,7 +151,7 @@
         <!--Exposure SubmissionQR Scanner Navigation Controller-->
         <scene sceneID="HrB-NV-jDk">
             <objects>
-                <navigationController storyboardIdentifier="testD" modalPresentationStyle="fullScreen" interfaceStyle="dark" id="BYY-Kq-aHb" customClass="ExposureSubmissionQRScannerNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="fullScreen" interfaceStyle="dark" id="BYY-Kq-aHb" customClass="ExposureSubmissionQRScannerNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="aXv-uE-SC5"/>
                     <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iPc-CN-Pgt">
