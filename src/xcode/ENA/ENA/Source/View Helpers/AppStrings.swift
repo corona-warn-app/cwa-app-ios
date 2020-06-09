@@ -345,6 +345,9 @@ enum AppStrings {
 		static let riskCardInactiveNoCalculationPossibleBody = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Body", comment: "")
 		static let riskCardInactiveOutdatedResultsBody = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Body", comment: "")
 		static let riskCardInactiveActivateItemTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Title", comment: "")
+		static let riskCardInactiveActiveItemUnknownTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Unknown_Title", comment: "")
+		static let riskCardInactiveActiveItemLowTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Low_Title", comment: "")
+		static let riskCardInactiveActiveItemHighTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_High_Title", comment: "")
 		static let riskCardInactiveNoCalculationPossibleButton = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Button", comment: "")
 		static let riskCardInactiveOutdatedResultsButton = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Button", comment: "")
 
