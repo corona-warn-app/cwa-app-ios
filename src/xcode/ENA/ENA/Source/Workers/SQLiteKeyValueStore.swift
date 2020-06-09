@@ -28,14 +28,14 @@ class SQLiteKeyValueStore {
 	/// If the Database can't be accessed with the key the currentFile will be reset
 	init(with url: URL?, key: String) {
 		guard let url = url else {
-			self.directoryURL = URL(string: ":memory:")!
-			let fileURL = directoryURL
-			databaseQueue = FMDatabaseQueue(url: fileURL)
-			initDatabase(key, retry: false)
-			return
+			fatalError("Creating the Database failed")
 		}
+
 		self.directoryURL = url
-		let fileURL = directoryURL.appendingPathComponent("secureStore.sqlite")
+		var fileURL = directoryURL
+		if directoryURL.absoluteString.compare(":memory:") != .orderedSame {
+			fileURL = fileURL.appendingPathComponent("secureStore.sqlite")
+		}
 		databaseQueue = FMDatabaseQueue(url: fileURL)
 		initDatabase(key, retry: false)
 	}
@@ -224,13 +224,7 @@ class SQLiteKeyValueStore {
 
 /// Extensions for Hexencoding when generating key
 extension Data {
-	struct HexEncodingOptions: OptionSet {
-		let rawValue: Int
-		static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
-	}
-
-	func hexEncodedString(options: HexEncodingOptions = []) -> String {
-		let format = "%02hhX"
-		return map { String(format: format, $0) }.joined()
+	func hexEncodedString() -> String {
+		map { String(format: "%02hhX", $0) }.joined()
 	}
 }

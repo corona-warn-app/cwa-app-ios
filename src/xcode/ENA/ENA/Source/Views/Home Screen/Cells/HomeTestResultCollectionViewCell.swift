@@ -20,59 +20,51 @@
 import Foundation
 import UIKit
 
-@IBDesignable
-class ExposureSubmissionImageCardCell: UITableViewCell {
-	@IBOutlet var cardView: UIView!
+protocol HomeTestResultCollectionViewCellDelegate: class {
+	func testResultCollectionViewCellPrimaryActionTriggered(_ collectionViewCell: HomeTestResultCollectionViewCell)
+}
+
+class HomeTestResultCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var titleLabel: ENALabel!
+	@IBOutlet var subtitleLabel: ENALabel!
 	@IBOutlet var descriptionLabel: ENALabel!
 	@IBOutlet var illustrationView: UIImageView!
+	@IBOutlet var button: ENAButton!
+	@IBOutlet var stackView: UIStackView!
 
-	private var highlightView: UIView!
-
-	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-		super.setHighlighted(highlighted, animated: animated)
-
-		highlightView?.isHidden = !highlighted
-	}
+	weak var delegate: HomeTestResultCollectionViewCellDelegate?
 
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
-
-		guard nil != cardView else { return }
 		setup()
 	}
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-
 		setup()
 	}
 
 	private func setup() {
-		selectionStyle = .none
-
-		cardView.layer.cornerRadius = 16
-
-		highlightView?.removeFromSuperview()
-		highlightView = UIView(frame: bounds)
-		highlightView.isHidden = !isHighlighted
-		highlightView.backgroundColor = .enaColor(for: .listHighlight)
-		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		cardView.addSubview(highlightView)
-
+		subtitleLabel.textColor = tintColor
 		updateIllustration(for: traitCollection)
 	}
 
-	func configure(title: String, description: String, attributedDescription: NSAttributedString? = nil, image: UIImage?, accessibilityIdentifier: String?) {
+	func configure(title: String, subtitle: String? = nil, description: String, button buttonTitle: String, image: UIImage?, tintColor: UIColor = .enaColor(for: .textPrimary1)) {
 		titleLabel.text = title
+		subtitleLabel.text = subtitle
 		descriptionLabel.text = description
 		illustrationView?.image = image
 
-		if let attributedDescription = attributedDescription {
-			let attributedText = NSMutableAttributedString(attributedString: attributedDescription)
-			descriptionLabel.attributedText = attributedText
-		}
-		self.accessibilityIdentifier = accessibilityIdentifier
+		button.setTitle(buttonTitle, for: .normal)
+
+		subtitleLabel.isHidden = (nil == subtitle)
+
+		self.tintColor = tintColor
+	}
+
+	override func tintColorDidChange() {
+		super.tintColorDidChange()
+		subtitleLabel.textColor = tintColor
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -86,5 +78,9 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 		} else {
 			illustrationView.superview?.isHidden = false
 		}
+	}
+
+	@IBAction func primaryActionTriggered() {
+		delegate?.testResultCollectionViewCellPrimaryActionTriggered(self)
 	}
 }

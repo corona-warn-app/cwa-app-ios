@@ -195,11 +195,12 @@ final class OnboardingInfoViewController: UIViewController {
 
 		imageView.accessibilityLabel = onboardingInfo?.imageDescription
 
+		titleLabel.accessibilityIdentifier = onboardingInfo?.titleAccessibilityIdentifier
+		imageView.accessibilityIdentifier = onboardingInfo?.imageAccessibilityIdentifier
+		nextButton.accessibilityIdentifier = onboardingInfo?.actionTextAccessibilityIdentifier
+		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
+
 		titleLabel.accessibilityTraits = .header
-		
-		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
-		nextButton.accessibilityIdentifier = Accessibility.Button.next
-		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
 	}
 
 	private func persistTimestamp(completion: (() -> Void)?) {
