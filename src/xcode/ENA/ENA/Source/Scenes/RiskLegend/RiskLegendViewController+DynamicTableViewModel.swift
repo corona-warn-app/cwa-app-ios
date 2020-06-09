@@ -47,13 +47,13 @@ extension RiskLegendViewController {
 					.headline(text: AppStrings.RiskLegend.legend2RiskLevels,
 							  accessibilityIdentifier: "AppStrings.RiskLegend.legend2RiskLevels"),
 					.space(height: 8),
-					.dotBodyCell(color: .preferredColor(for: .negativeRisk), text: AppStrings.RiskLegend.legend2High),
-					.dotBodyCell(color: .preferredColor(for: .positiveRisk), text: AppStrings.RiskLegend.legend2Low),
-					.dotBodyCell(color: .preferredColor(for: .unknownRisk), text: AppStrings.RiskLegend.legend2Unknown)
+					.dotBodyCell(color: .enaColor(for: .riskHigh), text: AppStrings.RiskLegend.legend2High),
+					.dotBodyCell(color: .enaColor(for: .riskLow), text: AppStrings.RiskLegend.legend2Low),
+					.dotBodyCell(color: .enaColor(for: .riskNeutral), text: AppStrings.RiskLegend.legend2Unknown)
 				]
 			),
 			.section(
-				footer: .separator(color: .preferredColor(for: .separator), insets: UIEdgeInsets(top: 32, left: 0, bottom: 32, right: 0)),
+				footer: .separator(color: .enaColor(for: .hairline), insets: UIEdgeInsets(top: 32, left: 0, bottom: 32, right: 0)),
 				cells: [
 					.iconTitle(number: 3, text: AppStrings.RiskLegend.legend3Title),
 					.body(text: AppStrings.RiskLegend.legend3Text,
