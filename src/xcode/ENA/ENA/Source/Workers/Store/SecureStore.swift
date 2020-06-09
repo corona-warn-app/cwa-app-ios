@@ -24,85 +24,85 @@ import Foundation
 final class SecureStore: Store {
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
-	
+
 	init(at directoryURL: URL, key: String) {
 		self.directoryURL = directoryURL
 		kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
-	
+
 	func flush() {
 		kvStore.flush()
 	}
-	
+
 	func clearAll(key: String?) {
 		kvStore.clearAll(key: key)
 	}
-	
+
 	var testResultReceivedTimeStamp: Int64? {
 		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
 	}
-	
+
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64? {
 		get { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] as Int64? }
 		set { kvStore["lastSuccessfulSubmitDiagnosisKeyTimestamp"] = newValue }
 	}
-	
+
 	var numberOfSuccesfulSubmissions: Int64? {
 		get { kvStore["numberOfSuccesfulSubmissions"] as Int64? ?? 0 }
 		set { kvStore["numberOfSuccesfulSubmissions"] = newValue }
 	}
-	
+
 	var initialSubmitCompleted: Bool {
 		get { kvStore["initialSubmitCompleted"] as Bool? ?? false }
 		set { kvStore["initialSubmitCompleted"] = newValue }
 	}
-	
+
 	var exposureActivationConsentAcceptTimestamp: Int64? {
 		get { kvStore["exposureActivationConsentAcceptTimestamp"] as Int64? ?? 0 }
 		set { kvStore["exposureActivationConsentAcceptTimestamp"] = newValue }
 	}
-	
+
 	var exposureActivationConsentAccept: Bool {
 		get { kvStore["exposureActivationConsentAccept"] as Bool? ?? false }
 		set { kvStore["exposureActivationConsentAccept"] = newValue }
 	}
-	
+
 	var registrationToken: String? {
 		get { kvStore["registrationToken"] as String? }
 		set { kvStore["registrationToken"] = newValue }
 	}
-	
+
 	var teleTan: String? {
 		get { kvStore["teleTan"] as String? ?? "" }
 		set { kvStore["teleTan"] = newValue }
 	}
-	
+
 	var tan: String? {
 		get { kvStore["tan"] as String? ?? "" }
 		set { kvStore["tan"] = newValue }
 	}
-	
+
 	var testGUID: String? {
 		get { kvStore["testGUID"] as String? ?? "" }
 		set { kvStore["testGUID"] = newValue }
 	}
-	
+
 	var devicePairingConsentAccept: Bool {
 		get { kvStore["devicePairingConsentAccept"] as Bool? ?? false }
 		set { kvStore["devicePairingConsentAccept"] = newValue }
 	}
-	
+
 	var devicePairingConsentAcceptTimestamp: Int64? {
 		get { kvStore["devicePairingConsentAcceptTimestamp"] as Int64? ?? 0 }
 		set { kvStore["devicePairingConsentAcceptTimestamp"] = newValue }
 	}
-	
+
 	var devicePairingSuccessfulTimestamp: Int64? {
 		get { kvStore["devicePairingSuccessfulTimestamp"] as Int64? ?? 0 }
 		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue }
 	}
-	
+
 	var isAllowedToSubmitDiagnosisKeys: Bool {
 		get { kvStore["isAllowedToSubmitDiagnosisKeys"] as Bool? ?? false }
 		set { kvStore["isAllowedToSubmitDiagnosisKeys"] = newValue }
