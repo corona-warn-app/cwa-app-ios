@@ -20,6 +20,15 @@ jobs:
     shell: zsh
     steps:
       - run:
+          name: Abort if no pull request
+          command: |
+            if [ -z "${CIRCLE_PULL_REQUEST}" ]; then
+              circleci-agent step halt
+            fi
+      - run:
+          name: Install dependencies
+          command: brew install swiftlint && cd src/xcode && bundle install
+      - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
       - run:
@@ -65,7 +74,7 @@ workflows:
     pull_request:
       jobs:
         - test:
-          context: SonarCloud
+            context: SonarCloud
     # Run only on master
     release:
       jobs:
