@@ -242,10 +242,8 @@ final class HomeViewController: UIViewController {
 		 	showExposureDetection()
 		case is RiskFindingPositiveCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
-		case is HomeTestResultCell:
+		case is HomeTestResultCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
-		case is SubmitCollectionViewCell:
-			showExposureSubmission()
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:
@@ -302,9 +300,8 @@ final class HomeViewController: UIViewController {
 		let cellTypes: [UICollectionViewCell.Type] = [
 			ActivateCollectionViewCell.self,
 			RiskLevelCollectionViewCell.self,
-			SubmitCollectionViewCell.self,
 			InfoCollectionViewCell.self,
-			HomeTestResultCell.self,
+			HomeTestResultCollectionViewCell.self,
 			RiskInactiveCollectionViewCell.self,
 			RiskFindingPositiveCollectionViewCell.self,
 			RiskThankYouCollectionViewCell.self,

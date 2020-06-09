@@ -73,8 +73,9 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle,
 								accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.sectionTitle"),
 						.identifier(CustomCellReuseIdentifiers.stepCell,
-									action: .execute { _ in self.callHotline() },
-									configure: { _, cell, _ in
+									action: .execute { [weak self] _ in self?.callHotline() },
+									configure: { [weak self] _, cell, _ in
+										guard let self = self else { return }
 										guard let cell = cell as? DynamicTableViewStepCell else { return }
 										cell.configure(
 											text: AppStrings.ExposureSubmissionHotline.sectionDescription1,

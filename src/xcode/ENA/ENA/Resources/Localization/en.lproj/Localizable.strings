@@ -1,21 +1,13 @@
 /* General */
 "Alert_TitleGeneral" = "An error occurred.";
 
-"Alert_MessageGeneral" = "Please try again.";
-
 "Alert_ActionOk" = "OK";
-
-"Alert_ActionNo" = "No";
 
 "Alert_ActionRetry" = "Repeat";
 
 "Alert_ActionCancel" = "Cancel";
 
 "Alert_ActionRemove" = "Remove";
-
-"Alert_TitleKeySubmit" = "TAN Generation";
-
-"Alert_DescriptionKeySubmit" = "Do you consent to your TAN being generated?";
 
 "Alert_BluetoothOff_Title" = "Turn on Bluetooth";
 
@@ -37,8 +29,6 @@
 "ExposureDetection_Low" = "Low Risk";
 
 "ExposureDetection_High" = "Higher Risk";
-
-"ExposureDetection_Loading" = "Check is running...";
 
 "ExposureDetection_NumberOfDaysStored" = "%d of 14 days saved";
 
@@ -98,8 +88,6 @@
 
 "ExposureDetection_Button_Refresh" = "Update";
 
-"ExposureDetection_Button_RefreshingIn" = "Update (%02d:%02d)";
-
 /* Settings */
 "Settings_StatusActive" = "On";
 
@@ -147,10 +135,6 @@
 "NotificationSettings_NavTitle" = "Notifications";
 
 /* Onboarding */
-"Onboarding_Next" = "Next";
-
-"Onboarding_Finish" = "That’s it!";
-
 "Onboarding_LetsGo_actionText" = "Let’s get started";
 
 "Onboarding_Continue_actionText" = "Next";
@@ -160,8 +144,6 @@
 "Onboarding_doNotAllow_actionText" = "Do Not Allow";
 
 "Onboarding_DoNotActivate_actionText" = "Do Not Activate";
-
-"Onboarding_Back_actionText" = "Back";
 
 "Onboarding_DeactivateExposureConfirmation_title" = "This means the Corona-Warn-App cannot send or receive notifications about your COVID-19 risk status.";
 
@@ -371,8 +353,6 @@
 "ExposureSubmissionResult_testNegative" = "Negative Diagnosis";
 
 "ExposureSubmissionResult_testNegativeDesc" = "The laboratory result indicates no verification that you have corona virus SARS-CoV-2.";
-
-"ExposureSubmissionResult_removeNote" = "Please delete the test from the Corona-Warn-App, so that you can save a new test code here if necessary.";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Other information:";
 
@@ -642,12 +622,6 @@
 
 "Home_resultCard_NegativeDesc" = "You have been diagnosed negative for SARS-CoV-2.";
 
-"Home_resultCard_PositiveTitle" = "Positive Diagnosis";
-
-"Home_resultCard_PositiveDesc" = "You have been diagnosed with the SARS-CoV-2 virus.";
-
-"Home_resultCard_PendingTitle" = "Your result is not yet available";
-
 "Home_resultCard_PendingDesc" = "The evaluation takes between one and three days.";
 
 "Home_resultCard_InvalidTitle" = "Invalid Diagnosis";
@@ -734,31 +708,6 @@
 "App_Information_Terms_Description" = "The following terms of use apply for the app and are accepted when you call or use the app, or one of its features. ";
 
 "App_Information_Terms_Text" = "...";
-
-/* Risk View */
-"unknown_risk" = "Risk Unknown";
-
-"inactive_risk" = "No Exposure Check";
-
-"low_risk" = "Low Risk";
-
-"high_risk" = "Higher Risk";
-
-"unknown_risk_detail" = "No encounters with people diagnosed with COVID-19 were identified.";
-
-"inactive_risk_detail" = "Inactive";
-
-"low_risk_detail" = "A low risk of encounters with people diagnosed with COVID 19 was identified.";
-
-"high_risk_detail" = "A higher risk of encounters with people diagnosed with COVID-19 was identified.";
-
-"unknown_risk_detail_help" = "Your risk of infection is unknown because no encounters have been logged.";
-
-"inactive_risk_detail_help" = "Inactive";
-
-"low_risk_detail_help" = "Your risk of infection is low because no encounters with people diagnosed with COVID-19 have been logged at all, or encounters were logged only for a very short time.";
-
-"high_risk_detail_help" = "Your risk of infection is higher because encounters with people diagnosed with COVID-19 were logged.";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Share";

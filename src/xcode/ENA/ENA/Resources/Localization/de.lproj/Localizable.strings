@@ -1,21 +1,13 @@
 /* General */
 "Alert_TitleGeneral" = "Ein Fehler ist aufgetreten.";
 
-"Alert_MessageGeneral" = "Bitte versuchen Sie es erneut.";
-
 "Alert_ActionOk" = "OK";
-
-"Alert_ActionNo" = "Nein";
 
 "Alert_ActionRetry" = "Wiederholen";
 
 "Alert_ActionCancel" = "Abbrechen";
 
 "Alert_ActionRemove" = "Entfernen";
-
-"Alert_TitleKeySubmit" = "TAN-Generierung";
-
-"Alert_DescriptionKeySubmit" = "Sind Sie damit einverstanden, Ihre TAN generieren zu lassen?";
 
 "Alert_BluetoothOff_Title" = "Bluetooth aktivieren";
 
@@ -37,8 +29,6 @@
 "ExposureDetection_Low" = "Geringes Risiko";
 
 "ExposureDetection_High" = "Erhöhtes Risiko";
-
-"ExposureDetection_Loading" = "Prüfung läuft…";
 
 "ExposureDetection_NumberOfDaysStored" = "%d von 14 Tagen gespeichert";
 
@@ -104,8 +94,6 @@
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
-"ExposureDetection_Button_RefreshingIn" = "Aktualisieren (%02d:%02d)";
-
 /* Settings */
 "Settings_StatusActive" = "An";
 
@@ -153,9 +141,6 @@
 "NotificationSettings_NavTitle" = "Mitteilungen";
 
 /* Onboarding */
-"Onboarding_Next" = "Weiter";
-
-"Onboarding_Finish" = "Fertig";
 
 "Onboarding_LetsGo_actionText" = "Los geht’s";
 
@@ -166,8 +151,6 @@
 "Onboarding_doNotAllow_actionText" = "Nicht erlauben";
 
 "Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
-
-"Onboarding_Back_actionText" = "Zurück";
 
 "Onboarding_DeactivateExposureConfirmation_title" = "Corona-Warn-App kann dadurch keine Benachrichtigungen zum COVID-19-Risikostatus versenden und empfangen.";
 
@@ -377,8 +360,6 @@
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
 
 "ExposureSubmissionResult_testNegativeDesc" = "Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.";
-
-"ExposureSubmissionResult_removeNote" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_title" = "Weitere Infos:";
 
@@ -648,12 +629,6 @@
 
 "Home_resultCard_NegativeDesc" = "Sie wurden negativ auf SARS-CoV-2 getestet.";
 
-"Home_resultCard_PositiveTitle" = "Befund positiv";
-
-"Home_resultCard_PositiveDesc" = "Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.";
-
-"Home_resultCard_PendingTitle" = "Ergebnis liegt noch nicht vor";
-
 "Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tagen.";
 
 "Home_resultCard_InvalidTitle" = "Befund ungültig";
@@ -740,31 +715,6 @@
 "App_Information_Terms_Description" = "Die nachfolgenden Nutzungsbedingungen gelten für die Nutzung der App und werden duch Aufruf oder Nutzung des Angebots oder einer einzelnen Funktion akzeptiert.";
 
 "App_Information_Terms_Text" = "...";
-
-/* Risk View */
-"unknown_risk" = "Unbekanntes Risiko";
-
-"inactive_risk" = "Keine Risiko-Überprüfung";
-
-"low_risk" = "Geringes Risiko";
-
-"high_risk" = "Erhöhtes Risiko";
-
-"unknown_risk_detail" = "Es wurde keine Begegnung mit Corona-positiv getesteten Personen erkannt.";
-
-"inactive_risk_detail" = "inactive";
-
-"low_risk_detail" = "Es wurde ein geringes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.";
-
-"high_risk_detail" = "Es wurde ein erhöhtes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.";
-
-"unknown_risk_detail_help" = "Das Infektionsrisiko ist unbekannt, da bisher noch keine Begegnungen aufgezeichnet wurden.";
-
-"inactive_risk_detail_help" = "inactive";
-
-"low_risk_detail_help" = "Das Infektionsrisiko ist gering, da eine Begegnung mit Corona-positiv getesteten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.";
-
-"high_risk_detail_help" = "Es besteht hohes Infektionsrisiko, da eine Begegnung mit Corona-positiv getesteten Personen aufgezeichnet wurde.";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Teilen";
@@ -865,3 +815,9 @@
 
 "RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
 
+/* Update Message */
+"Update_Message_Title" = "Update verfügbar:";
+"Update_Message_Text" = "Es gibt ein neues Update für die Corona-Warn-App";
+"Update_Message_Text_Force" = "Bitte beachten Sie: Sie können die Corona-Warn-App erst wieder benutzen, wenn Sie das neueste Update installiert haben.";
+"Update_Message_Action_Update" = "Update";
+"Update_Message_Action_Later" = "Später";
