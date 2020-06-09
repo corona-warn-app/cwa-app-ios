@@ -448,7 +448,7 @@ extension HomeViewController: ExposureStateUpdating {
 	}
 }
 
-extension  HomeViewController: ENStateHandlerUpdating {
+extension HomeViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		homeInteractor.state.enState = state
 		updateAllState(state)
