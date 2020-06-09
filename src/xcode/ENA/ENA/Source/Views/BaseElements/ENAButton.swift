@@ -29,6 +29,7 @@ class ENAButton: DynamicTypeButton {
 	override var isHighlighted: Bool { didSet { applyHighlight() } }
 
 	private var highlightView: UIView!
+	private var spinner: UIActivityIndicatorView!
 
 	override var intrinsicContentSize: CGSize {
 		var size = super.intrinsicContentSize
@@ -80,6 +81,19 @@ class ENAButton: DynamicTypeButton {
 		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		addSubview(highlightView)
 
+		// MARK: - Add spinner for loading state.
+		
+		spinner = UIActivityIndicatorView(style: .medium)
+		spinner.translatesAutoresizingMaskIntoConstraints = false
+		spinner.isUserInteractionEnabled = false
+        spinner.isExclusiveTouch = false
+		addSubview(spinner)
+		if let title = titleLabel {
+			spinner.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8).isActive = true
+			title.leadingAnchor.constraint(greaterThanOrEqualTo: spinner.trailingAnchor, constant: 8).isActive = true
+			spinner.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+		}
+
 		applyStyle()
 		applyHighlight()
 	}
@@ -107,6 +121,18 @@ class ENAButton: DynamicTypeButton {
 
 	private func applyHighlight() {
 		highlightView.isHidden = !isHighlighted
+	}
+
+	func startSpinner() {
+		isEnabled = false
+		spinner.startAnimating()
+		applyStyle()
+	}
+
+	func stopSpinner() {
+		isEnabled = true
+		spinner.stopAnimating()
+		applyStyle()
 	}
 }
 
