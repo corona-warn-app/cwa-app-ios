@@ -41,13 +41,13 @@ class DynamicTableViewStepCell: UITableViewCell {
 		// MARK: - Cell related changes.
 
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		backgroundColor = .enaColor(for: .background)
 
 		// MARK: - Head.
 
 		if let title = title {
 			head.style = .headline
-			head.textColor = .preferredColor(for: .textPrimary1)
+			head.textColor = .enaColor(for: .textPrimary1)
 			head.numberOfLines = 0
 			head.lineBreakMode = .byWordWrapping
 			head.text = title
@@ -55,7 +55,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Body.
 
-		body.textColor = .preferredColor(for: .textPrimary1)
+		body.textColor = .enaColor(for: .textPrimary1)
 		body.style = .body
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
@@ -73,7 +73,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Separator.
 
-		separator.backgroundColor = .preferredColor(for: .hairline)
+		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.isHidden = !hasSeparators
 	}
 
@@ -88,13 +88,13 @@ class DynamicTableViewStepCell: UITableViewCell {
 		// MARK: - Cell related changes.
 
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		backgroundColor = .enaColor(for: .background)
 
 		// MARK: - Body.
 
-		body.font = .preferredFont(forTextStyle: .body)
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
+		body.font = .preferredFont(forTextStyle: .body)
 		body.attributedText = attributedText
 
 		// MARK: - Cell Icon.
@@ -109,7 +109,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Separator.
 
-		separator.backgroundColor = .preferredColor(for: .textPrimary2)
+		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.isHidden = !hasSeparators
 	}
 
@@ -135,7 +135,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 		setConstraint(for: cellIcon.heightAnchor, equalTo: 32)
 		setConstraint(for: separator.widthAnchor, equalTo: 1)
 
-		head.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
+		head.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 16).isActive = true
 		head.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
 
 		if head.text != nil {
@@ -144,7 +144,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 		} else {
 			body.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
 		}
-		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
+		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 16).isActive = true
 		body.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
 
 		if reducedSpacing {
@@ -158,14 +158,14 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		if !iconCentered {
 			cellIcon.topAnchor.constraint(equalTo: topAnchor).isActive = true
-			cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+			cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
 			separator.topAnchor.constraint(equalTo: cellIcon.bottomAnchor).isActive = true
 			separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 			separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
 		} else {
 			separator.removeFromSuperview()
 			cellIcon.centerYAnchor.constraint(equalTo: body.centerYAnchor).isActive = true
-			cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+			cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
 		}
 	}
 
