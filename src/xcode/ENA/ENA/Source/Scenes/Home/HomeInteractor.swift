@@ -249,13 +249,13 @@ extension HomeInteractor {
 	}
 
 	private func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
-		testResultConfigurator.buttonAction = homeViewController.showTestResultScreen
+		testResultConfigurator.primaryAction = homeViewController.showTestResultScreen
 		return testResultConfigurator
 	}
 
-	func setupSubmitConfigurator() -> HomeSubmitCellConfigurator {
-		let submitConfigurator = HomeSubmitCellConfigurator()
-		submitConfigurator.submitAction = homeViewController.showExposureSubmissionWithoutResult
+	func setupSubmitConfigurator() -> HomeTestResultCellConfigurator {
+		let submitConfigurator = HomeTestResultCellConfigurator()
+		submitConfigurator.primaryAction = homeViewController.showExposureSubmissionWithoutResult
 		return submitConfigurator
 	}
 
