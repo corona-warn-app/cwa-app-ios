@@ -246,18 +246,6 @@ extension AppDelegate: CoronaWarnAppDelegate {
 			}
 		}
 	}
-	func appStartExposureDetectionTransaction() {
-		precondition(
-			exposureDetection == nil,
-			"An Exposure Transaction is currently already running. This should never happen."
-		)
-
-		exposureDetection = ExposureDetection(
-			delegate: exposureDetectionExecutor
-		)
-
-		exposureDetection?.start(completion: useSummaryDetectionResult)
-	}
 }
 
 extension AppDelegate: ENATaskExecutionDelegate {

@@ -15,20 +15,5 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import Foundation
 
-extension URLSession {
-	class func coronaWarnSession() -> URLSession {
-		#if DISABLE_CERTIFICATE_PINNING
-		let coronaWarnURLSessionDelegate = nil
-		#else
-		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate()
-		#endif
-		return URLSession(
-			configuration: .coronaWarnSessionConfiguration(),
-			delegate: coronaWarnURLSessionDelegate,
-			delegateQueue: .main
-		)
-		
-	}
-}
+"NSCameraUsageDescription" ="Erlaube der App QR-Codes mit Hilfe der Kamera zu scannen";
