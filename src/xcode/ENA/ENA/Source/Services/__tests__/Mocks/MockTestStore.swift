@@ -19,59 +19,33 @@
 import Foundation
 
 class MockTestStore: Store {
+	var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
-
 	var testResultReceivedTimeStamp: Int64?
-	
-	func clearAll() {}
-
+	func clearAll(key: String?) {}
 	var hasSeenSubmissionExposureTutorial: Bool = false
-
 	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
-
 	var numberOfSuccesfulSubmissions: Int64?
-
 	var initialSubmitCompleted: Bool = false
-
 	var exposureActivationConsentAcceptTimestamp: Int64?
-
 	var exposureActivationConsentAccept: Bool = false
-
 	var isOnboarded: Bool = false
-
-	var dateLastExposureDetection: Date?
-
 	var dateOfAcceptedPrivacyNotice: Date?
-
 	var allowsCellularUse: Bool = false
-
 	var developerSubmissionBaseURLOverride: String?
-
 	var developerDistributionBaseURLOverride: String?
-
 	var developerVerificationBaseURLOverride: String?
-
 	var teleTan: String?
-
 	var tan: String?
-
 	var testGUID: String?
-
 	var devicePairingConsentAccept: Bool = false
-
 	var devicePairingConsentAcceptTimestamp: Int64?
-
 	var devicePairingSuccessfulTimestamp: Int64?
-
 	var isAllowedToSubmitDiagnosisKeys: Bool = false
-
 	var registrationToken: String?
-
 	var allowRiskChangesNotification: Bool = true
-
 	var allowTestsStatusNotification: Bool = true
-
-	var previousSummary: ENExposureDetectionSummaryContainer? = ENExposureDetectionSummaryContainer(daysSinceLastExposure: 0, matchedKeyCount: 0, maximumRiskScore: 0)
-
 	var hourlyFetchingEnabled: Bool = true
+	var lastCheckedVersion: String?
 }

@@ -18,7 +18,7 @@
 @testable import ENA
 import ExposureNotification
 
-final class MockTestClient {
+final class ClientMock {
 	// MARK: Creating a Mock Client
 	init(submissionError: SubmissionError?) {
 		self.submissionError = submissionError
@@ -26,9 +26,14 @@ final class MockTestClient {
 
 	// MARK: Properties
 	let submissionError: SubmissionError?
+	var onAppConfiguration: (AppConfigurationCompletion) -> Void = { $0(nil) }
 }
 
-extension MockTestClient: Client {
+extension ClientMock: Client {
+	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
+		onAppConfiguration(completion)
+	}
+
 	func availableDays(completion: @escaping AvailableDaysCompletionHandler) {
 		completion(.success([]))
 	}
@@ -59,5 +64,9 @@ extension MockTestClient: Client {
 
 	func getTANForExposureSubmit(forDevice device: String, completion completeWith: @escaping TANHandler) {
 		completeWith(.success("dummyTan"))
+	}
+
+	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
+		completion(SAP_ApplicationConfiguration())
 	}
 }

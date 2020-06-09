@@ -24,7 +24,6 @@ protocol ExposureDetectionViewControllerDelegate: AnyObject {
 		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
 	)
 
-	func exposureDetectionViewControllerStartTransaction(
-		_ controller: ExposureDetectionViewController
-	)
+	func didStartLoading(exposureDetectionViewController: ExposureDetectionViewController)
+	func didFinishLoading(exposureDetectionViewController: ExposureDetectionViewController)
 }

@@ -38,11 +38,7 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testAvailableDays_Success() {
-		let responseString =
-			"""
-			["2020-05-01", "2020-05-02"]
-			"""
-		let responseData = responseString.data(using: .utf8)
+		let responseData = Data("[\"2020-05-01\", \"2020-05-02\"]".utf8)
 
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
@@ -77,11 +73,11 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testAvailableDays_StatusCodeNotAccepted() {
-		let responseString =
+		let responseData = Data(
 			"""
 			["2020-05-01", "2020-05-02"]
-			"""
-		let responseData = responseString.data(using: .utf8)
+			""".utf8
+		)
 
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
@@ -114,11 +110,11 @@ final class HTTPClientTests: XCTestCase {
 
 	// The hours of a given day can be missing
 	func testAvailableHours_NotFound() {
-		let responseString =
+		let responseData = Data(
 			"""
 			[1,2,3,4,5]
-			"""
-		let responseData = responseString.data(using: .utf8)
+			""".utf8
+		)
 
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
@@ -153,11 +149,11 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testAvailableHours_Success() {
-		let responseString =
+		let responseData = Data(
 			"""
 			[1,2,3,4,5]
-			"""
-		let responseData = responseString.data(using: .utf8)
+			""".utf8
+		)
 
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,
@@ -192,7 +188,7 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testFetchHour_InvalidPayload() throws {
-		let responseData = "hello world".data(using: .utf8)
+		let responseData = Data("hello world".utf8)
 
 		let mockResponse = HTTPURLResponse(
 			url: mockUrl,

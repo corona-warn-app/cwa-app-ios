@@ -21,61 +21,98 @@ import FMDB
 import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
-	func appStartExposureDetectionTransaction()
 	var client: Client { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
+	var riskProvider: RiskProvider { get }
+	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
+	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 }
 
-protocol RequiresAppDependencies {
-	var client: Client { get }
-	var store: Store { get }
-	var taskScheduler: ENATaskScheduler { get }
-	var downloadedPackagesStore: DownloadedPackagesStore { get }
-}
-
-extension RequiresAppDependencies {
-	var client: Client {
-		UIApplication.coronaWarnDelegate().client
-	}
-
-	var downloadedPackagesStore: DownloadedPackagesStore {
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore
-	}
-
-	var store: Store {
-		UIApplication.coronaWarnDelegate().store
-	}
-
-	var taskScheduler: ENATaskScheduler {
-		UIApplication.coronaWarnDelegate().taskScheduler
+extension AppDelegate: ExposureSummaryProvider {
+	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
+		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
+		exposureDetection?.start { result in
+			switch result {
+			case .success(let summary):
+				completion(summary)
+			case .failure:
+				completion(nil)
+			}
+		}
 	}
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	let taskScheduler = ENATaskScheduler.shared
-	private var exposureManager: ExposureManager = ENAExposureManager()
+	private let consumer = RiskConsumer()
+	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+
+	lazy var riskProvider: RiskProvider = {
+		let exposureDetectionInterval = self.store.hourlyFetchingEnabled ? DateComponents(minute: 45) : DateComponents(hour: 24)
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: DateComponents(day: 2),
+			exposureDetectionInterval: exposureDetectionInterval,
+			detectionMode: .default
+		)
+
+
+		return RiskProvider(
+			configuration: config,
+			store: self.store,
+			exposureSummaryProvider: self,
+			appConfigurationProvider: CachedAppConfiguration(client: self.client),
+			exposureManagerState: self.exposureManager.preconditions()
+		)
+	}()
+
+	#if targetEnvironment(simulator) || COMMUNITY
+	// Enable third party contributors that do not have the required
+	// entitlements to also use the app
+	let exposureManager: ExposureManager = {
+		let keys = [ENTemporaryExposureKey()]
+		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
+	}()
+	#else
+	let exposureManager: ExposureManager = ENAExposureManager()
+	#endif
+
 	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
 
-	let downloadedPackagesStore: DownloadedPackagesStore = {
-		let fileManager = FileManager()
-		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-			fatalError("unable to determine document dir")
-		}
-		let storeURL = documentDir
-			.appendingPathComponent("packages")
-			.appendingPathExtension("sqlite3")
+	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-		let db = FMDatabase(url: storeURL)
-		let store = DownloadedPackagesSQLLiteStore(database: db)
-		store.open()
-		return store
+
+	let store: Store = {
+		do {
+			let fileManager = FileManager.default
+			let directoryURL = try fileManager
+				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+				.appendingPathComponent("database")
+
+			if !fileManager.fileExists(atPath: directoryURL.path) {
+				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
+				guard let key = KeychainHelper.generateDatabaseKey() else {
+					fatalError("Creating the Database failed")
+				}
+				return SecureStore(at: directoryURL, key: key)
+			} else {
+				guard let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") else {
+					guard let key = KeychainHelper.generateDatabaseKey() else {
+						fatalError("Creating the Database failed")
+					}
+					return SecureStore(at: directoryURL, key: key)
+				}
+				let key = String(decoding: keyData, as: UTF8.self)
+				return SecureStore(at: directoryURL, key: key)
+			}
+		} catch {
+			fatalError("Creating the Database failed")
+		}
 	}()
 
-	let store: Store = SecureStore()
 	lazy var client: Client = {
 		// We disable app store checks to make testing easier.
 		//        #if APP_STORE
@@ -109,6 +146,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return HTTPClient(configuration: config)
 	}()
 
+	// TODO: REMOVE ME
+	var lastRiskCalculation: String = ""
+
+	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
+		ExposureDetectionExecutor(
+			client: self.client,
+			downloadedPackagesStore: self.downloadedPackagesStore,
+			store: self.store,
+			exposureDetector: self.exposureManager
+		)
+	}()
+
 	func application(
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
@@ -116,6 +165,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.taskDelegate = self
+
+		riskProvider.observeRisk(consumer)
+
 		return true
 	}
 
@@ -132,103 +184,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
 }
 
-extension AppDelegate: ExposureDetectionDelegate {
-	func exposureDetection(_ detection: ExposureDetection, determineAvailableData completion: @escaping (DaysAndHours?) -> Void) {
-		client.availableDaysAndHoursUpUntil(.formattedToday()) { result in
-			let mappedResult = result.map { DaysAndHours(days: $0.days, hours: $0.hours) }
-			switch mappedResult {
-			case .success(let daysAndHours):
-				completion(daysAndHours)
-			case .failure:
-				completion(nil)
-			}
-		}
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
-		let delta = DeltaCalculationResult(
-			remoteDays: Set(remote.days),
-			remoteHours: Set(remote.hours),
-			localDays: Set(downloadedPackagesStore.allDays()),
-			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
-		)
-		return (
-			days: Array(delta.missingDays),
-			hours: Array(delta.missingHours)
-		)
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
-		func storeDaysAndHours(_ fetchedDaysAndHours: FetchedDaysAndHours) {
-			downloadedPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
-			completion(nil)
-		}
-		client.fetchDays(
-			delta.days,
-			hours: delta.hours,
-			of: .formattedToday(),
-			completion: storeDaysAndHours
-		)
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void) {
-		client.exposureConfiguration(completion: completion)
-	}
-
-	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages? {
-		let fileManager = FileManager()
-		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-		do {
-			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), onlyHours: store.hourlyFetchingEnabled)
-			let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
-			return writer.writeAllPackages()
-		} catch {
-			return nil
-		}
-	}
-
-	func exposureDetection(
-		_ detection: ExposureDetection,
-		detectSummaryWithConfiguration
-		configuration: ENExposureConfiguration,
-		writtenPackages: WrittenPackages,
-		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void
-	) {
-		func withResultFrom(
-			summary: ENExposureDetectionSummary?,
-			error: Error?
-		) -> Result<ENExposureDetectionSummary, Error> {
-			if let error = error {
-				return .failure(error)
-			}
-			if let summary = summary {
-				return .success(summary)
-			}
-			fatalError("invalid state")
-		}
-		_ = exposureManager.detectExposures(
-			configuration: configuration,
-			diagnosisKeyURLs: writtenPackages.urls
-		) { summary, error in
-			completion(withResultFrom(summary: summary, error: error))
-		}
-	}
-}
-
 extension AppDelegate: CoronaWarnAppDelegate {
+
 	private func useSummaryDetectionResult(
 		_ result: Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>
 	) {
 		exposureDetection = nil
 		switch result {
 		case .success(let summary):
-			store.dateLastExposureDetection = Date()
-			NotificationCenter.default.post(
-				name: .didDetectExposureDetectionSummary,
-				object: nil,
-				userInfo: ["summary": summary]
-			)
+			store.summary = SummaryMetadata(detectionSummary: summary)
 		case .failure(let reason):
 			logError(message: "Exposure transaction failed: \(reason)")
 
@@ -279,89 +243,26 @@ extension AppDelegate: CoronaWarnAppDelegate {
 			}
 		}
 	}
-	func appStartExposureDetectionTransaction() {
-		precondition(
-			exposureDetection == nil,
-			"An Exposure Transaction is currently already running. This should never happen."
-		)
-		exposureDetection = ExposureDetection(
-			delegate: self
-		)
-		exposureDetection?.start(completion: useSummaryDetectionResult)
-	}
-}
-
-extension DownloadedPackagesStore {
-	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
-		let days = daysAndHours.days
-		days.bucketsByDay.forEach { day, bucket in
-			self.set(day: day, package: bucket)
-		}
-
-		let hours = daysAndHours.hours
-		hours.bucketsByHour.forEach { hour, bucket in
-			self.set(hour: hour, day: hours.day, package: bucket)
-		}
-	}
-}
-
-private extension DownloadedPackagesStore {
-	func allPackages(for day: String, onlyHours: Bool) -> [SAPDownloadedPackage] {
-		var packages = [SAPDownloadedPackage]()
-
-		if onlyHours {  // Testing only: Feed last three hours into framework
-			let allHoursForToday = hourlyPackages(for: .formattedToday())
-			packages.append(contentsOf: Array(allHoursForToday.prefix(3)))
-		} else {
-			let fullDays = allDays()
-			packages.append(
-				contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
-			)
-		}
-
-		return packages
-	}
 }
 
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask) {
+
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
+			taskScheduler.scheduleTask(for: .detectExposures)
 		}
 
-		guard
-			exposureDetection == nil,
-			exposureManager.preconditions().authorized,
-			UIApplication.shared.backgroundRefreshStatus == .available
-			else {
-			complete(success: false)
-			return
-		}
-
-		exposureDetection = ExposureDetection(delegate: self)
-
-		self.exposureDetection?.start { result in
-			defer { complete(success: true) }
-			if case let .success(newSummary) = result {
-
-				// get the previous risk score from the store
-				// check if the risk score has escalated since the last summary
-				if let previousRiskScore = self.store.previousSummary?.maximumRiskScore,
-					RiskLevel(riskScore: newSummary.maximumRiskScore) > RiskLevel(riskScore: previousRiskScore),
-					RiskLevel(riskScore: newSummary.maximumRiskScore) == .increased {
-					// present a notification if the risk score has increased
-					self.taskScheduler.notificationManager.presentNotification(
-						title: AppStrings.LocalNotifications.detectExposureTitle,
-						body: AppStrings.LocalNotifications.detectExposureBody,
-						identifier: ENATaskIdentifier.detectExposures.rawValue)
-				}
-
-				// persist the previous risk score to the store
-				self.store.previousSummary = ENExposureDetectionSummaryContainer(with: newSummary)
-
+		riskProvider.requestRisk(userInitiated: false) { risk in
+			// present a notification if the risk score has increased
+			if let risk = risk,
+				risk.riskLevelHasChanged {
+				UNUserNotificationCenter.current().presentNotification(
+					title: AppStrings.LocalNotifications.detectExposureTitle,
+					body: AppStrings.LocalNotifications.detectExposureBody,
+					identifier: ENATaskIdentifier.detectExposures.rawValue
+				)
 			}
-
 			complete(success: true)
 		}
 
@@ -372,11 +273,11 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	}
 
 	func executeFetchTestResults(task: BGTask) {
+
 		func complete(success: Bool) {
 			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
+			taskScheduler.scheduleTask(for: .fetchTestResults)
 		}
-
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
@@ -384,10 +285,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				switch result {
 				case .failure(let error):
 					logError(message: error.localizedDescription)
-
 				case .success(let testResult):
 					if testResult != .pending {
-						self.taskScheduler.notificationManager.presentNotification(
+						UNUserNotificationCenter.current().presentNotification(
 							title: AppStrings.LocalNotifications.testResultsTitle,
 							body: AppStrings.LocalNotifications.testResultsBody,
 							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
@@ -404,6 +304,5 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
 			complete(success: false)
 		}
-
 	}
 }

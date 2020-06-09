@@ -25,7 +25,8 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		setUpView()
 	}
 
-	override func viewWillAppear(_: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		setupButtons()
 	}
 
@@ -40,6 +41,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		title = AppStrings.ExposureSubmissionHotline.title
 		setupButtons()
 		setupTableView()
+		setupBackButton()
 	}
 
 	private func setupButtons() {
@@ -58,22 +60,28 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		dynamicTableViewModel = DynamicTableViewModel(
 			[
 				.section(
-					header: .image(UIImage(named: "Illu_Submission_Kontakt"), accessibilityLabel: nil),
+					header: .image(UIImage(named: "Illu_Submission_Kontakt"),
+								   accessibilityLabel: nil,
+								   accessibilityIdentifier: nil),
 					cells: [
-						.body(text: AppStrings.ExposureSubmissionHotline.description)
+						.body(text: AppStrings.ExposureSubmissionHotline.description,
+							  accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.description")
 					]
 				),
 				DynamicSection.section(
 					cells: [
-						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
+						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle,
+								accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.sectionTitle"),
 						.identifier(CustomCellReuseIdentifiers.stepCell,
-									action: .execute { _ in self.callHotline() },
-									configure: { _, cell, _ in
+									action: .execute { [weak self] _ in self?.callHotline() },
+									configure: { [weak self] _, cell, _ in
+										guard let self = self else { return }
 										guard let cell = cell as? DynamicTableViewStepCell else { return }
 										cell.configure(
 											text: AppStrings.ExposureSubmissionHotline.sectionDescription1,
 											attributedText: self.getAttributedStrings(),
-											image: UIImage(named: "Icons_Grey_1")
+											image: UIImage(named: "Icons_Grey_1"),
+											hasSeparators: true
 										)
                         }),
 						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
@@ -90,16 +98,20 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 
 	/// Gets the attributed string that makes the phone number blue and bold.
 	private func getAttributedStrings() -> [NSAttributedString] {
-		let font: UIFont = .preferredFont(forTextStyle: .body)
-		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
-		let color: UIColor = .preferredColor(for: .tint)
-		let attr1: [NSAttributedString.Key: Any] = [.font: boldFont, .foregroundColor: color]
+		let attr1: [NSAttributedString.Key: Any] = [
+			.font: UIFont.enaFont(for: .headline),
+			.foregroundColor: UIColor.enaColor(for: .textTint)
+		]
+
 		let word = NSAttributedString(
 			string: AppStrings.ExposureSubmissionHotline.phoneNumber,
 			attributes: attr1
 		)
 
-		let attr2: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .footnote)]
+		let attr2: [NSAttributedString.Key: Any] = [
+			.font: UIFont.enaFont(for: .footnote)
+		]
+
 		let description = NSAttributedString(
 			string: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
 			attributes: attr2
@@ -137,7 +149,7 @@ extension ExposureSubmissionHotlineViewController: ExposureSubmissionNavigationC
 	}
 
 	private func callHotline() {
-		if let url = URL(string: "telprompt:\(AppStrings.ExposureDetection.hotlineNumber)") {
+		if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)") {
 			if UIApplication.shared.canOpenURL(url) {
 				UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			}

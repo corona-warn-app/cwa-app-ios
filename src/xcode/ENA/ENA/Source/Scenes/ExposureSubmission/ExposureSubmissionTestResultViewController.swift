@@ -30,7 +30,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		setupButton()
+		setupButtons()
 	}
 	
 
@@ -54,16 +54,18 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	private func setupView() {
 		setupDynamicTableView()
 		setupNavigationBar()
-		timeStamp = exposureSubmissionService?.devicePairingConsentAcceptTimestamp
+		timeStamp = exposureSubmissionService?.devicePairingSuccessfulTimestamp
 	}
 
-	private func setupButton() {
+	private func setupButtons() {
 		guard let result = testResult else { return }
 		switch result {
 		case .positive:
 			setButtonTitle(to: AppStrings.ExposureSubmissionResult.continueButton)
+			hideSecondaryButton()
 		case .negative, .invalid:
 			setButtonTitle(to: AppStrings.ExposureSubmissionResult.deleteButton)
+			hideSecondaryButton()
 		case .pending:
 			setButtonTitle(to: AppStrings.ExposureSubmissionResult.refreshButton)
 			setSecondaryButtonTitle(to: AppStrings.ExposureSubmissionResult.deleteButton)
@@ -135,10 +137,16 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 					self.present(alert, animated: true, completion: nil)
 				case let .success(testResult):
-					self.dynamicTableViewModel = self.dynamicTableViewModel(for: testResult)
-					self.tableView.reloadData()
+					self.refreshView(for: testResult)
 				}
 			}
+	}
+
+	private func refreshView(for result: TestResult) {
+		self.testResult = result
+		self.dynamicTableViewModel = self.dynamicTableViewModel(for: result)
+		self.tableView.reloadData()
+		self.setupButtons()
 	}
 
 	/// Only show the "warn others" screen if the ENManager is enabled correctly,
@@ -233,7 +241,8 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -254,7 +263,6 @@ private extension ExposureSubmissionTestResultViewController {
 		)
 	}
 
-	// swiftlint:disable:next function_body_length
 	private func negativeTestResultSection() -> DynamicSection {
 		.section(
 			header: .identifier(
@@ -265,7 +273,8 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -283,31 +292,12 @@ private extension ExposureSubmissionTestResultViewController {
 					image: nil,
 					hasSeparators: false
 				),
-				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
-				.stepCellWith(
-					title: nil,
-					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1,
-					image: UIImage(named: "Icons_Dark_Dot"),
-					hasSeparators: false
-				),
-				.stepCellWith(
-					title: nil,
-					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2,
-					image: UIImage(named: "Icons_Dark_Dot"),
-					hasSeparators: false
-				),
-				.stepCellWith(
-					title: nil,
-					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3,
-					image: UIImage(named: "Icons_Dark_Dot"),
-					hasSeparators: false
-				),
-				.stepCellWith(
-					title: nil,
-					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
-					image: UIImage(named: "Icons_Dark_Dot"),
-					hasSeparators: false
-				)
+				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.furtherInfos_Title"),
+				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1),
+				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2),
+				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3),
+				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain)
 			]
 		)
 	}
@@ -322,7 +312,8 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -347,7 +338,8 @@ private extension ExposureSubmissionTestResultViewController {
 				}
 			),
 			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -377,6 +369,16 @@ private extension DynamicCell {
 					hasSeparators: hasSeparators,
 					isCircle: true
 				)
+			}
+		)
+	}
+
+	static func bulletPointCellWith(text: String) -> DynamicCell {
+		return .identifier(
+			DynamicTableViewStepCell.tableViewCellReuseIdentifier,
+			configure: { _, cell, _ in
+				guard let cell = cell as? DynamicTableViewStepCell else { return }
+				cell.configureBulletPointCell(text: text)
 			}
 		)
 	}

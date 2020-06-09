@@ -65,7 +65,10 @@ class ENAButton: DynamicTypeButton {
 		cornerRadius = 8
 
 		contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-		heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+		let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+		// TODO temporary fix for auto layout warnings on home screen
+		heightConstraint.priority = .init(999)
+		heightConstraint.isActive = true
 
 		titleLabel?.font = .preferredFont(forTextStyle: .body)
 		dynamicTypeSize = 17
@@ -146,9 +149,9 @@ extension ENAButton.Style {
 
 	var disabledForegroundColor: UIColor {
 		switch self {
-		case .transparent: return .preferredColor(for: .tint)
-		case .emphasized: return .preferredColor(for: .textPrimary1)
-		case .contrast: return .preferredColor(for: .textPrimary1)
+		case .transparent: return .enaColor(for: .textTint)
+		case .emphasized: return .enaColor(for: .textPrimary1)
+		case .contrast: return .enaColor(for: .textPrimary1)
 		}
 	}
 }

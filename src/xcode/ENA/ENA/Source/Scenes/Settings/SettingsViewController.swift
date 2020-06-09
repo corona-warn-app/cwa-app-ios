@@ -65,7 +65,7 @@ final class SettingsViewController: UITableViewController {
 
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.separatorColor = .preferredColor(for: .hairline)
+		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.title = AppStrings.Settings.navigationBarTitle
 		navigationController?.navigationBar.prefersLargeTitles = true
@@ -91,6 +91,7 @@ final class SettingsViewController: UITableViewController {
 		let vc = ExposureNotificationSettingViewController(
 				coder: coder,
 				initialEnState: enState,
+				store: store,
 				delegate: self
 		)
 		notificationSettingsController = vc
@@ -297,4 +298,6 @@ extension SettingsViewController: ENStateHandlerUpdating {
 	}
 }
 
-
+extension SettingsViewController: NavigationBarOpacityDelegate {
+	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { .systemChromeMaterial }
+}

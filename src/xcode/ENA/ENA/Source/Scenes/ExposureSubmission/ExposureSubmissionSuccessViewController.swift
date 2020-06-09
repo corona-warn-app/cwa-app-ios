@@ -54,12 +54,15 @@ private extension DynamicTableViewModel {
 		DynamicSection.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_VielenDank"),
-				accessibilityLabel: AppStrings.ExposureSubmissionSuccess.accImageDescription
+				accessibilityLabel: AppStrings.ExposureSubmissionSuccess.accImageDescription,
+				accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.accImageDescription"
 			),
 			separators: false,
 			cells: [
-				.body(text: AppStrings.ExposureSubmissionSuccess.description),
-				.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle),
+				.body(text: AppStrings.ExposureSubmissionSuccess.description,
+					  accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.description"),
+				.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.listTitle"),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
@@ -70,7 +73,8 @@ private extension DynamicTableViewModel {
 							image: UIImage(named: "Icons - Hotline"),
 							hasSeparators: false,
 							isCircle: true,
-							iconTintColor: .preferredColor(for: .negativeRisk)
+							iconTintColor: .enaColor(for: .riskHigh),
+							iconCentered: true
 						)
 					}
 				),
@@ -83,23 +87,19 @@ private extension DynamicTableViewModel {
 							text: AppStrings.ExposureSubmissionSuccess.listItem2,
 							image: UIImage(named: "Icons - Home"),
 							isCircle: true,
-							iconTintColor: .preferredColor(for: .negativeRisk)
+							iconTintColor: .enaColor(for: .riskHigh),
+							iconCentered: true
 						)
 					}
 				),
-				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle),
+				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.subTitle"),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionSuccess.listItem2_1,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
-						)
+						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_1)
 				}
 				),
 				.identifier(
@@ -107,13 +107,7 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionSuccess.listItem2_2,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
-						)
+						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_2)
 				}
 				),
 				.identifier(
@@ -121,13 +115,7 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionSuccess.listItem2_3,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
-						)
+						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_3)
 				}
 				),
 				.identifier(
@@ -135,13 +123,7 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionSuccess.listItem2_4,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
-						)
+						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_4)
 				}
 				)
 			]

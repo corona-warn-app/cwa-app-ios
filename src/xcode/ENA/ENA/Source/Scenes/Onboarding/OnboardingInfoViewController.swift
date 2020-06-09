@@ -17,6 +17,7 @@
 
 import UIKit
 import UserNotifications
+import ExposureNotification
 
 enum OnboardingPageType: Int, CaseIterable {
 	case togetherAgainstCoronaPage = 0
@@ -32,6 +33,10 @@ enum OnboardingPageType: Int, CaseIterable {
 	func isLast() -> Bool {
 		(self == OnboardingPageType.allCases.last)
 	}
+}
+
+extension OnboardingInfoViewController: RequiresAppDependencies {
+
 }
 
 final class OnboardingInfoViewController: UIViewController {
@@ -117,6 +122,7 @@ final class OnboardingInfoViewController: UIViewController {
 			askExposureNotificationsPermissions(completion: {
 				handleBluetooth {
 					completion()
+					self.taskScheduler.scheduleTasks()
 				}
 			})
 
@@ -158,27 +164,43 @@ final class OnboardingInfoViewController: UIViewController {
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
-		
-		if pageType == .enableLoggingOfContactsPage {
+
+		switch pageType {
+		case .enableLoggingOfContactsPage:
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
-				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
 			)
+		case .privacyPage:
+			stackView.arrangedSubviews.last?.isHidden = true
+			let textView = HtmlTextView()
+			textView.delegate = self
+			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
+				textView.load(from: url)
+			}
+			stackView.addArrangedSubview(textView)
+		default:
+			break
 		}
-		
+
 	}
 
 	func setupAccessibility() {
-		imageView.isAccessibilityElement = false
+		imageView.isAccessibilityElement = true
 		titleLabel.isAccessibilityElement = true
 		boldLabel.isAccessibilityElement = true
 		textLabel.isAccessibilityElement = true
 		nextButton.isAccessibilityElement = true
 		ignoreButton.isAccessibilityElement = true
 
-		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
-		nextButton.accessibilityIdentifier = Accessibility.Button.next
-		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
+		imageView.accessibilityLabel = onboardingInfo?.imageDescription
+
+		titleLabel.accessibilityIdentifier = onboardingInfo?.titleAccessibilityIdentifier
+		imageView.accessibilityIdentifier = onboardingInfo?.imageAccessibilityIdentifier
+		nextButton.accessibilityIdentifier = onboardingInfo?.actionTextAccessibilityIdentifier
+		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
+
+		titleLabel.accessibilityTraits = .header
 	}
 
 	private func persistTimestamp(completion: (() -> Void)?) {
@@ -188,7 +210,7 @@ final class OnboardingInfoViewController: UIViewController {
 			return
 		}
 		store.dateOfAcceptedPrivacyNotice = Date()
-		log(message: "Persist that user acccepted the privacy terms on \(Date())", level: .info)
+		log(message: "Persist that user accepted the privacy terms on \(Date())", level: .info)
 		completion?()
 	}
 
@@ -215,7 +237,6 @@ final class OnboardingInfoViewController: UIViewController {
 				log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
 			case .apiMisuse:
 				// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
-				completion?()
 				return false
 			default:
 				break
@@ -274,9 +295,11 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	@IBAction func didTapNextButton(_: Any) {
+		nextButton.isUserInteractionEnabled = false
 		runActionForPageType(
-			completion: {
-				self.gotoNextScreen()
+			completion: { [weak self] in
+				self?.gotoNextScreen()
+				self?.nextButton.isUserInteractionEnabled = true
 			}
 		)
 	}
@@ -315,4 +338,11 @@ final class OnboardingInfoViewController: UIViewController {
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 
+}
+
+extension OnboardingInfoViewController: UITextViewDelegate {
+	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+		WebPageHelper.openSafari(withUrl: url, from: self)
+		return false
+	}
 }

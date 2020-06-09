@@ -41,7 +41,6 @@ extension ExposureSubmissionNavigationControllerChild {
 
 extension ExposureSubmissionNavigationControllerChild {
 	var exposureSubmissionNavigationController: ExposureSubmissionNavigationController? { navigationController as? ExposureSubmissionNavigationController }
-	var exposureSubmissionNavigationItem: ExposureSubmissionNavigationItem? { navigationItem as? ExposureSubmissionNavigationItem }
 	var bottomView: UIView? { exposureSubmissionNavigationController?.bottomView }
 	var button: ENAButton? { exposureSubmissionNavigationController?.button }
 
@@ -53,20 +52,16 @@ extension ExposureSubmissionNavigationControllerChild {
 		exposureSubmissionNavigationController?.setButtonEnabled(enabled: enabled)
 	}
 
-	func hideButton() {
-		exposureSubmissionNavigationController?.button.isHidden = true
-	}
-
 	func setSecondaryButtonTitle(to title: String) {
 		exposureSubmissionNavigationController?.setSecondaryButtonTitle(title: title)
 	}
 
 	func showSecondaryButton() {
-		exposureSubmissionNavigationController?.secondaryButton.isHidden = false
+		exposureSubmissionNavigationController?.showSecondaryButton()
 	}
 
 	func hideSecondaryButton() {
-		exposureSubmissionNavigationController?.secondaryButton.isHidden = true
+		exposureSubmissionNavigationController?.hideSecondaryButton()
 	}
 }
 
@@ -133,6 +128,8 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			image: UIImage(named: "Icons - Close"),
 			style: .done, target: self, action: #selector(close)
 		)
+		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		barButtonItem.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
 		navigationItem.rightBarButtonItem = barButtonItem
 
 		setupBottomView()
@@ -166,27 +163,27 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		applyDefaultRightBarButtonItem(to: topViewController)
 		applyNavigationBarItem(of: topViewController)
 
-		keyboardWillShowObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { notification in
-			self.isKeyboardHidden = false
-			self.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-			self.updateBottomSafeAreaInset(animated: true)
+		keyboardWillShowObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { [weak self] notification in
+			self?.isKeyboardHidden = false
+			self?.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+			self?.updateBottomSafeAreaInset(animated: true)
 		}
 
-		keyboardWillHideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { notification in
-			self.isKeyboardHidden = true
-			self.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-			self.updateBottomSafeAreaInset(animated: true)
+		keyboardWillHideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { [weak self] notification in
+			self?.isKeyboardHidden = true
+			self?.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+			self?.updateBottomSafeAreaInset(animated: true)
 		}
 
-		keyboardWillChangeFrameObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: nil) { notification in
-			self.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-			self.updateBottomSafeAreaInset(animated: true)
+		keyboardWillChangeFrameObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: nil) { [weak self] notification in
+			self?.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+			self?.updateBottomSafeAreaInset(animated: true)
 		}
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		self.homeViewController?.updateTestResultState()
+		homeViewController?.updateTestResultState()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -197,8 +194,17 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		NotificationCenter.default.removeObserver(keyboardWillChangeFrameObserver as Any, name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		navigationItem.rightBarButtonItem?.image = UIImage(named: "Icons - Close")
+		applyDefaultRightBarButtonItem(to: topViewController)
+	}
+
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
-		if let viewController = viewController, viewController.navigationItem.rightBarButtonItem == nil {
+		print(viewController?.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem)
+		if let viewController = viewController,
+			viewController.navigationItem.rightBarButtonItem == nil ||
+				viewController.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem {
 			viewController.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem
 		}
 	}
@@ -223,8 +229,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		updateBottomSafeAreaInset(animated: animated)
 		bottomViewTopConstraint.isActive = hidden
 
-		if animated { CATransaction.begin() }
-
 		if isBottomViewHidden {
 			bottomView.frame.origin.y = view.frame.height
 			bottomView.frame.size.height = 0
@@ -234,8 +238,16 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		}
 
 		bottomView.layoutIfNeeded()
+	}
 
-		if animated { CATransaction.commit() }
+	func showSecondaryButton() {
+		self.secondaryButton.isHidden = false
+		updateBottomSafeAreaInset()
+	}
+
+	func hideSecondaryButton() {
+		self.secondaryButton.isHidden = true
+		updateBottomSafeAreaInset()
 	}
 
 	private func updateBottomSafeAreaInset(animated: Bool = false) {
@@ -254,11 +266,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 		additionalSafeAreaInsets.bottom = bottomInset
 
-		if animated {
-			CATransaction.begin()
-			topViewController?.view.layoutIfNeeded()
-			CATransaction.commit()
-		}
+		topViewController?.view.setNeedsLayout()
 	}
 
 	@objc
@@ -288,9 +296,9 @@ extension ExposureSubmissionNavigationController {
 extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
 		let view = UIView()
-		view.backgroundColor = .preferredColor(for: .backgroundPrimary)
+		view.backgroundColor = .enaColor(for: .background)
 		view.insetsLayoutMarginsFromSafeArea = true
-		view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+		view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 
 		view.translatesAutoresizingMaskIntoConstraints = false
 		self.view.addSubview(view)
@@ -302,7 +310,6 @@ extension ExposureSubmissionNavigationController {
 		bottomViewTopConstraint = view.topAnchor.constraint(equalTo: self.view.bottomAnchor)
 
 		button = ENAButton(type: .custom)
-		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
 		button.setTitle("", for: .normal)
 
 		button.translatesAutoresizingMaskIntoConstraints = false
@@ -311,14 +318,11 @@ extension ExposureSubmissionNavigationController {
 		button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
 		button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
 		button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: 90).isActive = true
-		button.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
 		// by default, the secondary button is hidden.
 		secondaryButton = ENAButton(type: .custom)
-		secondaryButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .bold)
 		secondaryButton.setTitle("", for: .normal)
-		secondaryButton.backgroundColor = .clear
-		secondaryButton.setTitleColor(.preferredColor(for: .inactiveRisk), for: .normal)
+		secondaryButton.isTransparent = true
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
 		secondaryButton.isHidden = true
 		view.addSubview(secondaryButton)

@@ -49,6 +49,7 @@ protocol ExposureSubmissionService {
 	func hasRegistrationToken() -> Bool
 	func deleteTest()
 	var devicePairingConsentAcceptTimestamp: Int64? { get }
+	var devicePairingSuccessfulTimestamp: Int64? { get }
 	func preconditions() -> ExposureManagerState
 	func acceptPairing()
 }
@@ -67,6 +68,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private(set) var devicePairingConsentAcceptTimestamp: Int64? {
 		get { self.store.devicePairingConsentAcceptTimestamp }
 		set { self.store.devicePairingConsentAcceptTimestamp = newValue }
+	}
+	private(set) var devicePairingSuccessfulTimestamp: Int64? {
+		get { self.store.devicePairingSuccessfulTimestamp }
+		set { self.store.devicePairingSuccessfulTimestamp = newValue }
 	}
 
 	init(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) {

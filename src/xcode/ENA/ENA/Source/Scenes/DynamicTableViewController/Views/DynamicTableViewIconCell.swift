@@ -24,7 +24,7 @@ class DynamicTableViewIconCell: UITableViewCell {
 		imageView?.tintColor = tintColor
 	}
 
-	func configure(image: UIImage?, text: String, tintColor: UIColor?) {
+	func configure(image: UIImage?, text: String, tintColor: UIColor?, style: ENAFont = .body) {
 		if let tintColor = tintColor {
 			imageView?.tintColor = tintColor
 			imageView?.image = image?.withRenderingMode(.alwaysTemplate)
@@ -32,6 +32,7 @@ class DynamicTableViewIconCell: UITableViewCell {
 			imageView?.image = image?.withRenderingMode(.alwaysOriginal)
 		}
 
+		(textLabel as? ENALabel)?.style = style.labelStyle
 		textLabel?.text = text
 	}
 }

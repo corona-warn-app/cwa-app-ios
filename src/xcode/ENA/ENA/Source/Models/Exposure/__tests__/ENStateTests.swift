@@ -39,10 +39,6 @@ final class ENStateTests: XCTestCase {
 
 	}
 
-	override func tearDown() {
-		super.tearDown()
-	}
-
 	// MARK: Enable/Disable State Tests
 
 	// statehandler should reflect enabled state after setup
@@ -130,7 +126,19 @@ final class ENStateTests: XCTestCase {
 	func testRestrictedState() {
 		exposureManagerState = ExposureManagerState(authorized: false, enabled: false, status: .restricted)
 		stateHandler.updateExposureState(exposureManagerState)
-		XCTAssert(stateHandler.state == .restricted)
+		switch ENManager.authorizationStatus {
+		case .notAuthorized:
+			XCTAssert(stateHandler.state == .notAuthorized)
+		case .restricted:
+			XCTAssert(stateHandler.state == .restricted)
+		case .unknown:
+			XCTAssert(stateHandler.state == .unknown)
+		case .authorized:
+			XCTAssert(stateHandler.state == .disabled)
+		@unknown default:
+			fatalError("Not all cases handled by Test cases of ENStateHandler")
+		}
+
 	}
 
 	func testUnknownState() {

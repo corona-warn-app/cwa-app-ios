@@ -24,21 +24,20 @@ import XCTest
 final class SQLiteKeyValueStoreTests: XCTestCase {
 
 	private var kvStore: SQLiteKeyValueStore!
+	let group = DispatchGroup()
 
 	let rawMockData: [(key: String, data: Data)] = [
-		// swiftlint:disable force_unwrapping
-		("key", "testing".data(using: .utf8)!),
-		("key2", "testing2".data(using: .utf8)!),
-		("developerSubmissionBaseURLOverride", "testing3".data(using: .utf8)!),
-		("developerDistributionBaseURLOverride", "testing4".data(using: .utf8)!),
-		("developerVerificationBaseURLOverride", "testing5".data(using: .utf8)!)
-		// swiftlint:enable force_unwrapping
+		("key", Data("testing".utf8)),
+		("key2", Data("testing2".utf8)),
+		("developerSubmissionBaseURLOverride", Data("testing3".utf8)),
+		("developerDistributionBaseURLOverride", Data("testing4".utf8)),
+		("developerVerificationBaseURLOverride", Data("testing5".utf8))
 	]
 
 	override func setUp() {
 		super.setUp()
 		// Old DB is deinited and hence connection closed at every setUp() call
-			kvStore = SQLiteKeyValueStore(with: URL(staticString: ":memory:"))
+		kvStore = SQLiteKeyValueStore(with: URL(staticString:":memory:"), key: "password")
 	}
 
 	// MARK: - Positive Tests
@@ -56,8 +55,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 
 	func testOverwriteValue_Success() {
 		kvStore[rawMockData[0].key] = rawMockData[0].data
-		// swiftlint:disable:next force_unwrapping
-		let someOtherData = "someOtherData".data(using: .utf8)!
+		let someOtherData = Data("someOtherData".utf8)
 		kvStore[rawMockData[0].key] = someOtherData
 		XCTAssertEqual(kvStore[rawMockData[0].key], someOtherData)
 	}
@@ -66,7 +64,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 		kvStore[rawMockData[0].key] = rawMockData[0].data
 		kvStore[rawMockData[1].key] = rawMockData[1].data
 
-		kvStore.clearAll()
+		kvStore.clearAll(key: "newPassword")
 
 		XCTAssertNil(kvStore[rawMockData[0].key])
 		XCTAssertNil(kvStore[rawMockData[1].key])
@@ -121,6 +119,32 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 	func testDecodingError_ReturnNil() {
 		kvStore["someCodable"] = SomeCodable(someDouble: 1.1)
 		XCTAssertNil(kvStore["someCodable"] as SomeOtherCodable?)
+	}
+
+	func testThreadSafety() {
+		for i in 0...1000 {
+			group.enter()
+
+			DispatchQueue.global().async {
+				let sleepVal = UInt32.random(in: 0...1000)
+				usleep(sleepVal)
+				self.kvStore["key\(i)"] = Data("value\(i)".utf8)
+				if i.isMultiple(of: 2) {
+					self.kvStore["key\(i)"] = nil
+				}
+				self.group.leave()
+			}
+		}
+
+		let result = group.wait(timeout: DispatchTime.now() + 5)
+		XCTAssert(result == .success)
+		for j in 0...1000 {
+			if j.isMultiple(of: 2) {
+				XCTAssertNil(self.kvStore["key\(j)"])
+			} else {
+				XCTAssertEqual(self.kvStore["key\(j)"], Data("value\(j)".utf8))
+			}
+		}
 	}
 }
 

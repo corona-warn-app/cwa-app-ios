@@ -20,13 +20,29 @@ import UIKit
 final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private var numberRiskContacts: Int
 	private var daysSinceLastExposure: Int?
+	private let validityDuration: Int
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(startDate: Date?, releaseDate: Date?, numberRiskContacts: Int, daysSinceLastExposure: Int?, lastUpdateDate: Date?) {
+	init(
+		numberRiskContacts: Int,
+		daysSinceLastExposure: Int?,
+		lastUpdateDate: Date?,
+		manualExposureDetectionState: ManualExposureDetectionState,
+		detectionMode: DetectionMode,
+		validityDuration: Int
+	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.daysSinceLastExposure = daysSinceLastExposure
-		super.init(isLoading: false, isButtonEnabled: true, isButtonHidden: false, isCounterLabelHidden: true, startDate: startDate, releaseDate: releaseDate, lastUpdateDate: lastUpdateDate)
+		self.validityDuration = validityDuration
+		super.init(
+			isLoading: false,
+			isButtonEnabled: manualExposureDetectionState == .possible,
+			isButtonHidden: detectionMode == .automatic,
+			// we never want to hide the detection interval label
+			detectionIntervalLabelHidden: false,
+			lastUpdateDate: lastUpdateDate
+		)
 	}
 
 	// MARK: Configuration
@@ -34,15 +50,13 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
 
-		cell.removeAllArrangedSubviews()
-
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardHighTitle
-		let titleColor: UIColor = .white
+		let titleColor: UIColor = .enaColor(for: .textContrast)
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
 
-		let color = UIColor.preferredColor(for: .negativeRisk)
-		let separatorColor = UIColor.white.withAlphaComponent(0.15)
+		let color: UIColor = .enaColor(for: .riskHigh)
+		let separatorColor: UIColor = .enaColor(for: .hairlineContrast)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 		if isLoading {
 			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
@@ -60,10 +74,21 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		cell.configureChevron(image: UIImage(named: "Icons_Chevron_White"), tintColor: nil)
-
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardHighButton
+		let intervalString = "\(validityDuration)"
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
+		cell.configureDetectionIntervalLabel(
+			text: intervalTitle,
+			isHidden: detectionIntervalLabelHidden
+		)
+		
+		cell.configureUpdateButton(
+			title: buttonTitle,
+			isEnabled: isButtonEnabled,
+			isHidden: isButtonHidden,
+			accessibilityIdentifier: "AppStrings.Home.riskCardIntervalUpdateTitle"
+		)
 
-		configureCounter(buttonTitle: buttonTitle, cell: cell)
+		setupAccessibility(cell)
 	}
 }

@@ -31,13 +31,15 @@ protocol Client {
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<SAPDownloadedPackage, Failure>) -> Void
+	typealias AppConfigurationCompletion = (SAP_ApplicationConfiguration?) -> Void
 
 	// MARK: Interacting with a Client
 
+	/// Gets the app configuration
+	func appConfiguration(completion: @escaping AppConfigurationCompletion)
+
 	/// Determines days that can be downloaded.
-	func availableDays(
-		completion: @escaping AvailableDaysCompletionHandler
-	)
+	func availableDays(completion: @escaping AvailableDaysCompletionHandler)
 
 	/// Determines hours that can be downloaded for a given day.
 	func availableHours(
@@ -45,7 +47,7 @@ protocol Client {
 		completion: @escaping AvailableHoursCompletionHandler
 	)
 
-	// registersTheDevice
+	/// Gets the registration token
 	func getRegistrationToken(
 		forKey key: String,
 		withType type: String, completion completeWith: @escaping RegistrationHandler

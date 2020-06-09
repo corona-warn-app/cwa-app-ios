@@ -19,7 +19,8 @@ import UIKit
 
 class ExposureSubmissionIntroViewController: DynamicTableViewController, ExposureSubmissionNavigationControllerChild, SpinnerInjectable {
 
-
+	// MARK: - Attributes.
+	
 	private var exposureSubmissionService: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
 
@@ -43,6 +44,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
+		setupBackButton()
 
 		// Grab ExposureSubmissionService from the navigation controller
 		// (which is the entry point for the storyboard, and in which
@@ -97,7 +99,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 			self.stopSpinner()
 			switch result {
 			case let .failure(error):
-				logError(message: "An error occured during result fetching: \(error)", level: .error)
+				logError(message: "An error occurred during result fetching: \(error)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
 			case let .success(testResult):
@@ -109,27 +111,28 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
-		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle),
+		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle,
+							accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.subTitle"),
 		.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_Funktion1"),
 				accessibilityLabel: nil,
+				accessibilityIdentifier: nil,
 				height: 200
 			),
 			separators: false,
 			cells: [
-				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01),
-				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02),
+				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01,
+						  accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.usage01"),
+				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02,
+					  accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.usage02"),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem1,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: false
+						cell.configureBulletPointCell(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem1
 						)
 				}
 				),
@@ -138,12 +141,8 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem2,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
+						cell.configureBulletPointCell(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem2
 						)
 				}
 				),
@@ -152,12 +151,8 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem3,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
+						cell.configureBulletPointCell(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem3
 						)
 				}
 				),
@@ -166,16 +161,11 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem4,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
+						cell.configureBulletPointCell(
+							text: AppStrings.ExposureSubmissionIntroduction.listItem4
 						)
 				}
 				)
-
 			]
 		)
 	])

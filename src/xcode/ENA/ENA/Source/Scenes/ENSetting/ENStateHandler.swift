@@ -16,6 +16,7 @@
 // under the License.
 
 import Foundation
+import ExposureNotification
 
 protocol ENStateHandlerUpdating: AnyObject {
 	func updateEnState(_ state: ENStateHandler.State)
@@ -23,21 +24,6 @@ protocol ENStateHandlerUpdating: AnyObject {
 
 
 final class ENStateHandler {
-
-	enum State {
-		/// Exposure Notification is enabled.
-		case enabled
-		/// Exposure Notification is disabled.
-		case disabled
-		/// Bluetooth is off.
-		case bluetoothOff
-		/// Internet is off.
-		case internetOff
-		/// Restricted Mode.
-		case restricted
-		//FIXME: NOT YET DONE.
-		//case notAuthorized
-	}
 
 	private var currentState: State! {
 		didSet {
@@ -53,12 +39,12 @@ final class ENStateHandler {
 	private weak var delegate: ENStateHandlerUpdating?
 	private var internetOff = false
 	private var latestExposureManagerState: ExposureManagerState
-
+	
 	init(
-			initialExposureManagerState:ExposureManagerState,
-			reachabilityService: ReachabilityService,
-			delegate: ENStateHandlerUpdating
-	){
+		initialExposureManagerState: ExposureManagerState,
+		reachabilityService: ReachabilityService,
+		delegate: ENStateHandlerUpdating
+	) {
 		self.reachabilityService = reachabilityService
 		self.delegate = delegate
 		self.latestExposureManagerState = initialExposureManagerState
@@ -76,7 +62,7 @@ final class ENStateHandler {
 		}
 
 		switch currentState {
-		case .disabled, .bluetoothOff, .restricted:
+		case .disabled, .bluetoothOff, .restricted, .notAuthorized, .unknown:
 			return
 		case .enabled:
 			if !isReachable {
@@ -112,8 +98,23 @@ final class ENStateHandler {
 		case .disabled:
 			return .disabled
 		case .restricted:
+			return differentiateRestrictedCase()
+		case .unknown:
+			return .disabled
+		@unknown default:
+			fatalError("New state was added that is not being covered by ENStateHandler")
+		}
+	}
+
+	private func differentiateRestrictedCase() -> State {
+		switch ENManager.authorizationStatus {
+		case .notAuthorized:
+			return .notAuthorized
+		case .restricted:
 			return .restricted
 		case .unknown:
+			return .unknown
+		case .authorized:
 			return .disabled
 		@unknown default:
 			fatalError("New state was added that is not being covered by ENStateHandler")

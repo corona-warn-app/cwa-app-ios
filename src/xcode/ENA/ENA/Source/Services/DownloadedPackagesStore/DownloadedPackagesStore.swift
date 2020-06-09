@@ -16,6 +16,7 @@
 // under the License.
 
 import Foundation
+import FMDB
 
 protocol DownloadedPackagesStore: AnyObject {
 	func open()
@@ -24,7 +25,7 @@ protocol DownloadedPackagesStore: AnyObject {
 	func set(hour: Int, day: String, package: SAPDownloadedPackage)
 	func package(for day: String) -> SAPDownloadedPackage?
 	func hourlyPackages(for day: String) -> [SAPDownloadedPackage]
-	func allDays() -> [String]
+	func allDays() -> [String] // 2020-05-30
 	func hours(for day: String) -> [Int]
 	func reset()
 }

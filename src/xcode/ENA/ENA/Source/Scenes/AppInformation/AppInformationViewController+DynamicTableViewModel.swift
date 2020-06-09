@@ -19,24 +19,39 @@ import Foundation
 import UIKit
 
 private extension DynamicCell {
-	static func phone(text: String, number: String) -> Self {
-		.icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
+	static func phone(text: String, number: String, accessibilityIdentifier: String?) -> Self {
+		var cell: DynamicCell = .icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
 			cell.textLabel?.textColor = .enaColor(for: .textTint)
 			(cell.textLabel as? ENALabel)?.style = .title2
+			cell.accessibilityIdentifier = accessibilityIdentifier
 		}
+		cell.tag = "phone"
+		return cell
 	}
 
-	static func headlineWithoutBottomInset(text: String) -> Self {
-		.headline(text: text) { _, cell, _ in
+	static func headlineWithoutBottomInset(text: String, accessibilityIdentifier: String?) -> Self {
+		.headline(text: text, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.bottom = 0
+			cell.accessibilityIdentifier = accessibilityIdentifier
 		}
 	}
 
-	static func bodyWithoutTopInset(text: String) -> Self {
-		.body(text: text) { _, cell, _ in
+	static func bodyWithoutTopInset(text: String, accessibilityIdentifier: String?) -> Self {
+		.body(text: text, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.top = 0
+			cell.accessibilityIdentifier = accessibilityIdentifier
+		}
+	}
+
+	static func html(url: URL?) -> Self {
+		.identifier(AppInformationDetailViewController.CellReuseIdentifier.html) { viewController, cell, _  in
+			guard let cell = cell as? DynamicTableViewHtmlCell else { return }
+			cell.textView.delegate = viewController as? UITextViewDelegate
+			if let url = url {
+				cell.textView.load(from: url)
+			}
 		}
 	}
 }
@@ -60,34 +75,41 @@ private extension DynamicAction {
 }
 
 extension AppInformationViewController {
-	static let model: [Category: (text: String, action: DynamicAction)] = [
+	static let model: [Category: (text: String, accessibilityIdentifier: String?, action: DynamicAction)] = [
 		.about: (
-			text: "App_Information_About_Navigation".localized,
-			action: .push(model: aboutModel, withTitle:  "App_Information_About_Navigation".localized)
+			text: AppStrings.AppInformation.aboutNavigation,
+			accessibilityIdentifier: "AppStrings.AppInformation.aboutNavigation",
+			action: .push(model: aboutModel, withTitle:  AppStrings.AppInformation.aboutNavigation)
 		),
 		.faq: (
-			text: "App_Information_FAQ_Navigation".localized,
+			text: AppStrings.AppInformation.faqNavigation,
+			accessibilityIdentifier: "AppStrings.AppInformation.faqNavigation",
 			action: .safari
 		),
 		.terms: (
-			text: "App_Information_Terms_Navigation".localized,
-			action: .push(model: termsModel, withTitle:  "App_Information_Terms_Navigation".localized)
+			text: AppStrings.AppInformation.termsTitle,
+			accessibilityIdentifier: "AppStrings.AppInformation.termsNavigation",
+			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsNavigation)
 		),
 		.privacy: (
-			text: "App_Information_Privacy_Navigation".localized,
-			action: .push(model: privacyModel, withTitle:  "App_Information_Privacy_Navigation".localized)
+			text: AppStrings.AppInformation.privacyNavigation,
+			accessibilityIdentifier: "AppStrings.AppInformation.privacyNavigation",
+			action: .push(model: privacyModel, withTitle:  AppStrings.AppInformation.privacyNavigation)
 		),
 		.legal: (
-			text: "App_Information_Legal_Navigation".localized,
-			action: .push(model: legalModel, separators: true, withTitle:  "App_Information_Legal_Navigation".localized)
+			text: AppStrings.AppInformation.legalNavigation,
+			accessibilityIdentifier: "AppStrings.AppInformation.legalNavigation",
+			action: .push(model: legalModel, separators: true, withTitle:  AppStrings.AppInformation.legalNavigation)
 		),
 		.contact: (
-			text: "App_Information_Contact_Navigation".localized,
-			action: .push(model: contactModel, withTitle:  "App_Information_Contact_Navigation".localized)
+			text: AppStrings.AppInformation.contactNavigation,
+			accessibilityIdentifier: "AppStrings.AppInformation.contactNavigation",
+			action: .push(model: contactModel, withTitle:  AppStrings.AppInformation.contactNavigation)
 		),
 		.imprint: (
-			text: "App_Information_Imprint_Navigation".localized,
-			action: .push(model: imprintModel, withTitle:  "App_Information_Imprint_Navigation".localized)
+			text: AppStrings.AppInformation.imprintNavigation,
+			accessibilityIdentifier: "AppStrings.AppInformation.imprintNavigation",
+			action: .push(model: imprintModel, withTitle:  AppStrings.AppInformation.imprintNavigation)
 		)
 	]
 }
@@ -95,68 +117,99 @@ extension AppInformationViewController {
 extension AppInformationViewController {
 	private static let aboutModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_AppInfo_UeberApp"), height: 230),
+			header: .image(UIImage(named: "Illu_AppInfo_UeberApp"),
+						   accessibilityLabel: AppStrings.AppInformation.aboutImageDescription,
+						   accessibilityIdentifier: "AppStrings.AppInformation.aboutImageDescription",
+						   height: 230),
 			cells: [
-				.title2(text: "App_Information_About_Title".localized),
-				.headline(text: "App_Information_About_Description".localized),
-				.subheadline(text: "App_Information_About_Text".localized)
+				.title2(text: AppStrings.AppInformation.aboutTitle,
+						accessibilityIdentifier: "AppStrings.AppInformation.aboutTitle"),
+				.headline(text: AppStrings.AppInformation.aboutDescription,
+						  accessibilityIdentifier: "AppStrings.AppInformation.aboutDescription"),
+				.subheadline(text: AppStrings.AppInformation.aboutText,
+							 accessibilityIdentifier: "AppStrings.AppInformation.aboutText")
 			]
 		)
 	])
 
 	private static let contactModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Kontakt"), height: 230),
+			header: .image(UIImage(named: "Illu_Appinfo_Kontakt"),
+						   accessibilityLabel: AppStrings.AppInformation.contactImageDescription,
+						   accessibilityIdentifier: "AppStrings.AppInformation.contactImageDescription",
+						   height: 230),
 			cells: [
-				.title2(text: "App_Information_Contact_Title".localized),
-				.body(text: "App_Information_Contact_Description".localized),
-				.headline(text: "App_Information_Contact_Hotline_Title".localized),
-				.phone(text: "App_Information_Contact_Hotline_Text".localized, number: "App_Information_Contact_Hotline_Number".localized),
-				.footnote(text: "App_Information_Contact_Hotline_Description".localized),
-				.footnote(text: "App_Information_Contact_Hotline_Terms".localized)
+				.title2(text: AppStrings.AppInformation.contactTitle,
+						accessibilityIdentifier: "AppStrings.AppInformation.contactTitle"),
+				.body(text: AppStrings.AppInformation.contactDescription,
+					  accessibilityIdentifier: "AppStrings.AppInformation.contactDescription"),
+				.headline(text: AppStrings.AppInformation.contactHotlineTitle,
+						  accessibilityIdentifier: "AppStrings.AppInformation.contactHotlineTitle"),
+				.phone(text: AppStrings.AppInformation.contactHotlineText, number: AppStrings.AppInformation.contactHotlineNumber,
+					   accessibilityIdentifier: "AppStrings.AppInformation.contactHotlineText"),
+				.footnote(text: AppStrings.AppInformation.contactHotlineDescription,
+						  accessibilityIdentifier: "AppStrings.AppInformation.contactHotlineDescription"),
+				.footnote(text: AppStrings.AppInformation.contactHotlineTerms,
+						  accessibilityIdentifier: "AppStrings.AppInformation.contactHotlineTerms")
 			]
 		)
 	])
 
 	private static let imprintModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Impressum"), height: 230),
+			header: .image(UIImage(named: "Illu_Appinfo_Impressum"),
+						   accessibilityLabel: AppStrings.AppInformation.imprintImageDescription,
+						   accessibilityIdentifier: "AppStrings.AppInformation.imprintImageDescription",
+						   height: 230),
 			cells: [
-				.headline(text: "App_Information_Imprint_Section1_Title".localized),
-				.bodyWithoutTopInset(text: "App_Information_Imprint_Section1_Text".localized),
-				.headlineWithoutBottomInset(text: "App_Information_Imprint_Section2_Title".localized),
-				.bodyWithoutTopInset(text: "App_Information_Imprint_Section2_Text".localized),
-				.headlineWithoutBottomInset(text: "App_Information_Imprint_Section3_Title".localized),
-				.bodyWithoutTopInset(text: "App_Information_Imprint_Section3_Text".localized),
-				.headlineWithoutBottomInset(text: "App_Information_Imprint_Section4_Title".localized),
-				.bodyWithoutTopInset(text: "App_Information_Imprint_Section4_Text".localized)
+				.headline(text: AppStrings.AppInformation.imprintSection1Title,
+						  accessibilityIdentifier: "AppStrings.AppInformation.imprintSection1Title"),
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection1Text,
+									 accessibilityIdentifier: "AppStrings.AppInformation.imprintSection1Text"),
+				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection2Title,
+											accessibilityIdentifier: "AppStrings.AppInformation.imprintSection2Title"),
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection2Text,
+									 accessibilityIdentifier: "AppStrings.AppInformation.imprintSection2Text"),
+				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection3Title,
+											accessibilityIdentifier: "AppStrings.AppInformation.imprintSection3Title"),
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
+									 accessibilityIdentifier: "AppStrings.AppInformation.imprintSection3Text"),
+				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
+											accessibilityIdentifier: "AppStrings.AppInformation.imprintSection4Title"),
+				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection4Text,
+									 accessibilityIdentifier: "AppStrings.AppInformation.imprintSection4Text")
 			]
 		)
 	])
 
 	private static let privacyModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Datenschutz"), height: 230),
-			footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)),
+			header: .image(
+				UIImage(named: "Illu_Appinfo_Datenschutz"),
+				accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
+				accessibilityIdentifier: "AppStrings.AppInformation.privacyImageDescription",
+				height: 230
+			),
 			cells: [
-				.title2(text: "App_Information_Privacy_Title".localized),
-				.body(text: "App_Information_Privacy_Description".localized)
-			]
-		),
-		.section(
-			cells: [
-				.subheadline(text: "App_Information_Privacy_Text".localized)
+				.title2(
+					text: AppStrings.AppInformation.privacyTitle,
+					accessibilityIdentifier: "AppStrings.AppInformation.privacyTitle"),
+				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
 			]
 		)
 	])
 
 	private static let termsModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"), height: 230),
+			header: .image(UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"),
+						   accessibilityLabel: AppStrings.AppInformation.termsImageDescription,
+						   accessibilityIdentifier: "AppStrings.AppInformation.termsImageDescription",
+						   height: 230),
 			cells: [
-				.title2(text: "App_Information_Terms_Title".localized),
-				.body(text: "App_Information_Terms_Description".localized),
-				.body(text: "App_Information_Terms_Text".localized)
+				.title2(
+					text: AppStrings.AppInformation.termsTitle,
+					accessibilityIdentifier: "AppStrings.AppInformation.termsTitle"),
+				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
 			]
 		)
 	])

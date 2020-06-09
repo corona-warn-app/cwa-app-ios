@@ -31,7 +31,7 @@ final class DMViewController: UITableViewController {
 		self.store = store
 		self.exposureManager = exposureManager
 		super.init(style: .plain)
-		title = "Developer Menu"
+		title = "👩🏾‍💻🧑‍💻"
 	}
 
 	required init?(coder _: NSCoder) {
@@ -98,8 +98,7 @@ final class DMViewController: UITableViewController {
 		let viewController = DMConfigurationViewController(
 			distributionURL: store.developerDistributionBaseURLOverride,
 			submissionURL: store.developerSubmissionBaseURLOverride,
-			verificationURL: store.developerVerificationBaseURLOverride,
-			store: store
+			verificationURL: store.developerVerificationBaseURLOverride
 		)
 		navigationController?.pushViewController(viewController, animated: true)
 	}
@@ -247,12 +246,6 @@ private extension SAP_TemporaryExposureKey {
 extension SAP_TemporaryExposureKey: Comparable {
 	static func < (lhs: SAP_TemporaryExposureKey, rhs: SAP_TemporaryExposureKey) -> Bool {
 		lhs.rollingStartIntervalNumber > rhs.rollingStartIntervalNumber
-	}
-}
-
-private extension FetchedDaysAndHours {
-	var allBuckets: [SAPDownloadedPackage] {
-		Array(days.bucketsByDay.values) + Array(hours.bucketsByHour.values)
 	}
 }
 

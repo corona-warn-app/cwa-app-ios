@@ -35,10 +35,8 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 	// Add a package, try to get it, assert that it matches what we put inside
 	func testSettingDays() throws {
 		store.open()
-		// swiftlint:disable:next force_unwrapping
-		let keysBin = "keys".data(using: .utf8)!
-		// swiftlint:disable:next force_unwrapping
-		let signature = "sig".data(using: .utf8)!
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
 
 		let package = SAPDownloadedPackage(
 			keysBin: keysBin,
@@ -51,15 +49,13 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertEqual(packageOut?.bin, keysBin)
 	}
 
-	// Add a package for a given hour on a given day, try to get it and asssert that it matches whatever we put inside
+	// Add a package for a given hour on a given day, try to get it and assert that it matches whatever we put inside
 	func testSettingHoursForDay() throws {
 		store.open()
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12").isEmpty)
 
-		// swiftlint:disable:next force_unwrapping
-		let keysBin = "keys".data(using: .utf8)!
-		// swiftlint:disable:next force_unwrapping
-		let signature = "sig".data(using: .utf8)!
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
 
 		let package = SAPDownloadedPackage(
 			keysBin: keysBin,
@@ -70,15 +66,13 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		XCTAssertFalse(hourlyPackages.isEmpty)
 	}
 
-	// Add a package for a given hour on a given day, try to get it and asssert that it matches whatever we put inside
+	// Add a package for a given hour on a given day, try to get it and assert that it matches whatever we put inside
 	func testHoursAreDeletedIfDayIsAdded() throws {
 		store.open()
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12").isEmpty)
 
-		// swiftlint:disable:next force_unwrapping
-		let keysBin = "keys".data(using: .utf8)!
-		// swiftlint:disable:next force_unwrapping
-		let signature = "sig".data(using: .utf8)!
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
 
 		let package = SAPDownloadedPackage(
 			keysBin: keysBin,

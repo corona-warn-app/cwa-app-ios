@@ -41,13 +41,13 @@ class DynamicTableViewStepCell: UITableViewCell {
 		// MARK: - Cell related changes.
 
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		backgroundColor = .enaColor(for: .background)
 
 		// MARK: - Head.
 
 		if let title = title {
 			head.style = .headline
-			head.textColor = .preferredColor(for: .textPrimary1)
+			head.textColor = .enaColor(for: .textPrimary1)
 			head.numberOfLines = 0
 			head.lineBreakMode = .byWordWrapping
 			head.text = title
@@ -55,7 +55,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Body.
 
-		body.textColor = .preferredColor(for: .textPrimary1)
+		body.textColor = .enaColor(for: .textPrimary1)
 		body.style = .body
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
@@ -73,7 +73,7 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Separator.
 
-		separator.backgroundColor = .preferredColor(for: .textPrimary2)
+		separator.backgroundColor = .enaColor(for: .separator)
 		separator.isHidden = !hasSeparators
 	}
 
@@ -88,13 +88,13 @@ class DynamicTableViewStepCell: UITableViewCell {
 		// MARK: - Cell related changes.
 
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		backgroundColor = .enaColor(for: .background)
 
 		// MARK: - Body.
 
-		body.font = .preferredFont(forTextStyle: .body)
 		body.numberOfLines = 0
 		body.lineBreakMode = .byWordWrapping
+		body.font = .preferredFont(forTextStyle: .body)
 		body.attributedText = attributedText
 
 		// MARK: - Cell Icon.
@@ -109,14 +109,18 @@ class DynamicTableViewStepCell: UITableViewCell {
 
 		// MARK: - Separator.
 
-		separator.backgroundColor = .preferredColor(for: .textPrimary2)
+		separator.backgroundColor = .enaColor(for: .separator)
 		separator.isHidden = !hasSeparators
 	}
 
 	// MARK: - Constraint handling.
 
 	var heightConstraint: NSLayoutConstraint?
-	private func setConstraints() {
+	
+	private func setConstraints(
+		reducedSpacing: Bool = false,
+		iconCentered: Bool = false
+	) {
 
 		UIView.translatesAutoresizingMaskIntoConstraints(for: [
 			body,
@@ -130,10 +134,8 @@ class DynamicTableViewStepCell: UITableViewCell {
 		setConstraint(for: cellIcon.widthAnchor, equalTo: 32)
 		setConstraint(for: cellIcon.heightAnchor, equalTo: 32)
 		setConstraint(for: separator.widthAnchor, equalTo: 1)
-		cellIcon.topAnchor.constraint(equalTo: topAnchor).isActive = true
-		cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
 
-		head.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
+		head.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 16).isActive = true
 		head.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
 
 		if head.text != nil {
@@ -142,18 +144,29 @@ class DynamicTableViewStepCell: UITableViewCell {
 		} else {
 			body.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
 		}
-
-		bottomAnchor.constraint(equalTo: body.bottomAnchor, constant: 8).isActive = true
-
-		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 10).isActive = true
+		body.leadingAnchor.constraint(equalTo: cellIcon.trailingAnchor, constant: 16).isActive = true
 		body.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+
+		if reducedSpacing {
+			bottomAnchor.constraint(greaterThanOrEqualTo: body.bottomAnchor, constant: 8).isActive = true
+		} else {
+			bottomAnchor.constraint(greaterThanOrEqualTo: body.bottomAnchor, constant: 35).isActive = true
+		}
 
 		cellIcon.layer.cornerRadius = 16
 		cellIcon.clipsToBounds = true
 
-		separator.topAnchor.constraint(equalTo: cellIcon.bottomAnchor).isActive = true
-		separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-		separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
+		if !iconCentered {
+			cellIcon.topAnchor.constraint(equalTo: topAnchor).isActive = true
+			cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+			separator.topAnchor.constraint(equalTo: cellIcon.bottomAnchor).isActive = true
+			separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+			separator.centerXAnchor.constraint(equalTo: cellIcon.centerXAnchor).isActive = true
+		} else {
+			separator.removeFromSuperview()
+			cellIcon.centerYAnchor.constraint(equalTo: body.centerYAnchor).isActive = true
+			cellIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+		}
 	}
 
 	/// Default configurator for a DynamicStepCell.
@@ -167,6 +180,9 @@ class DynamicTableViewStepCell: UITableViewCell {
 	///   - isCircle: boolean indicating whether the icon of the cell is circular or not.
 	///   - iconTintColor: tintColor for the icon of the cell.
 	///   - iconBackgroundColor: background color for the icon of the cell.
+	///   - iconCentered: A flag that says whether the icon was aligned
+	///   	with the centerYanchor of the text. We need these cells in the
+	/// 	`ExposureSubmissionSuccessViewController`.
 	func configure(
 		title: String? = nil,
 		text: String,
@@ -174,10 +190,11 @@ class DynamicTableViewStepCell: UITableViewCell {
 		hasSeparators: Bool = false,
 		isCircle: Bool = false,
 		iconTintColor: UIColor? = nil,
-		iconBackgroundColor: UIColor? = nil
+		iconBackgroundColor: UIColor? = nil,
+		iconCentered: Bool = false
 	) {
 		setUpView(title, text, image, hasSeparators, isCircle, iconTintColor, iconBackgroundColor)
-		setConstraints()
+		setConstraints(reducedSpacing: false, iconCentered: iconCentered)
 	}
 
 	/// Configurator for a DynamicStepCell that supports NSAttributedStrings.
@@ -212,6 +229,14 @@ class DynamicTableViewStepCell: UITableViewCell {
 		)
 		
 		setConstraints()
+	}
+
+	/// This specific configurator is necessary, as we have certain cells which designs do NOT
+	/// have spacing inbetween the elements. For example, on the `ExposureSubmissionIntroViewController.swift`.
+	func configureBulletPointCell(text: String) {
+		setUpView(nil, text, UIImage(named: "Icons_Dark_Dot"), false, true)
+		setConstraints(reducedSpacing: true)
+
 	}
 
 }
