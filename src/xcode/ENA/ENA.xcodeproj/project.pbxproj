@@ -519,7 +519,7 @@
 		8539874E2467094E00D28B62 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		853D987924694A8700490DBA /* ENAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAButton.swift; sourceTree = "<group>"; };
 		853D98822469DC5000490DBA /* ExposureNotificationSetting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ExposureNotificationSetting.storyboard; sourceTree = "<group>"; };
-		853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureNotificationSettingViewController.swift; sourceTree = "<group>"; };
+		853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ExposureNotificationSettingViewController.swift; sourceTree = "<group>"; };
 		85790F2E245C6B72003D47E1 /* ENA.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENA.entitlements; sourceTree = "<group>"; };
 		858F6F6D245A103C009FFD33 /* ExposureNotification.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExposureNotification.framework; path = System/Library/Frameworks/ExposureNotification.framework; sourceTree = SDKROOT; };
 		8595BF5E246032D90056EA27 /* ENASwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENASwitch.swift; sourceTree = "<group>"; };
@@ -664,7 +664,7 @@
 		F252472E2483955B00C5556B /* DynamicTableViewControllerFake.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DynamicTableViewControllerFake.storyboard; sourceTree = "<group>"; };
 		F25247302484456800C5556B /* DynamicTableViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DynamicTableViewModelTests.swift; sourceTree = "<group>"; };
 		F2DC808D248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerRegisterCellsTests.swift; sourceTree = "<group>"; };
-		F2DC808F24898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift; sourceTree = "<group>"; };
+		F2DC808F24898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift; sourceTree = "<group>"; };
 		F2DC809124898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerHeaderTests.swift; sourceTree = "<group>"; };
 		F2DC809324898CE600EDC40A /* DynamicTableViewControllerFooterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerFooterTests.swift; sourceTree = "<group>"; };
 		FEDCE0116603B6E00FAEE632 /* ExposureDetectionExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionExecutor.swift; sourceTree = "<group>"; };

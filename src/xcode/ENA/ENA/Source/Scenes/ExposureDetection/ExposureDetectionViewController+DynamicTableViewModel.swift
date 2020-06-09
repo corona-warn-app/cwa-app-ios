@@ -241,7 +241,7 @@ extension ExposureDetectionViewController {
 				guard let state = (viewController as? ExposureDetectionViewController)?.state else { return true }
 				if state.isLoading { return true }
 				return state.detectionMode != .automatic
-		},
+			},
 			cells: [
 				.riskRefresh(text: AppStrings.ExposureDetection.refreshingIn)
 			]
