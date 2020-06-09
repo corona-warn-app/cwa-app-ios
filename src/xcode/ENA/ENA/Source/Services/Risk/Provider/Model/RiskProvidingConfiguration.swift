@@ -21,9 +21,42 @@ import Foundation
 
 /// Used to configure a `RiskLevelProvider`.
 struct RiskProvidingConfiguration {
-	/// The mode of operation – either manual or automatic.
-	var updateMode: RiskProvidingConfigurationUpdateMode
-
 	/// The duration a conducted exposure detection is considered valid.
 	var exposureDetectionValidityDuration: DateComponents
+
+	/// Time interval between exposure detections.
+	var exposureDetectionInterval: DateComponents
+
+	/// The mode of operation
+	var detectionMode: DetectionMode = DetectionMode.default
+}
+
+extension RiskProvidingConfiguration {
+	func exposureDetectionValidUntil(lastExposureDetectionDate: Date?) -> Date {
+		Calendar.current.date(
+			byAdding: exposureDetectionValidityDuration,
+			to: lastExposureDetectionDate ?? .distantPast,
+			wrappingComponents: false
+		) ?? .distantPast
+	}
+
+	func nextExposureDetectionDate(lastExposureDetectionDate: Date?) -> Date {
+		let potentialDate = Calendar.current.date(
+			byAdding: exposureDetectionInterval,
+			to: lastExposureDetectionDate ?? .distantPast,
+			wrappingComponents: false
+		) ?? .distantPast
+		return potentialDate > Date() ? Date() : potentialDate
+	}
+
+	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast) -> Bool {
+		Date() > exposureDetectionValidUntil(lastExposureDetectionDate: lastExposureDetectionDate)
+	}
+
+	func shouldPerformExposureDetection(lastExposureDetectionDate: Date?) -> Bool {
+		let next = nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate)
+		let today = Date()
+		let result = next < today
+		return result
+	}
 }

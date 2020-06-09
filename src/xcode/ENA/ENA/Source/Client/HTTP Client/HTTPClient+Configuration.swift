@@ -212,10 +212,3 @@ extension HTTPClient.Configuration {
 		let verification: Endpoint
 	}
 }
-
-private extension URL {
-	init(staticString: StaticString) {
-		// swiftlint:disable:next force_unwrapping
-		self.init(string: "\(staticString)")!
-	}
-}

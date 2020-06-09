@@ -21,6 +21,8 @@ import UIKit
 class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	var dynamicTableViewModel = DynamicTableViewModel([])
 
+	@IBInspectable var cellBackgroundColor: UIColor?
+
 	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
 
 	override func loadView() {
@@ -244,6 +246,10 @@ extension DynamicTableViewController {
 			if !isLast { cell.addSeparator(.inset) }
 		} else {
 			cell.addSeparator(.clear)
+		}
+
+		if let cellBackgroundColor = cellBackgroundColor {
+			cell.backgroundColor = cellBackgroundColor
 		}
 
 		return cell

@@ -18,7 +18,6 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
-import Reachability
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
@@ -27,12 +26,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
-	var state = State(summary: nil, exposureManager: .init()) {
+
+	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil) {
 		didSet {
-			homeController?.homeInteractor.state = .init(
-				isLoading: false,
-				exposureManager: state.exposureManager
-			)
+			homeController?.updateState(
+				detectionMode: state.detectionMode,
+				exposureManagerState: state.exposureManager,
+				risk: state.risk)
 		}
 	}
 
@@ -82,6 +82,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	// MARK: UISceneDelegate
 
+	private let riskConsumer = RiskConsumer()
+
 	func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: windowScene)
@@ -89,32 +91,23 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		exposureManager.resume(observer: self)
 
+		riskConsumer.didCalculateRisk = { [weak self] risk in
+			self?.state.risk = risk
+		}
+		riskProvider.observeRisk(riskConsumer)
+
 		UNUserNotificationCenter.current().delegate = self
 
 		setupUI()
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
-
-		NotificationCenter
-			.default
-			.addObserver(
-				self,
-				selector: #selector(exposureSummaryDidChange(_:)),
-				name: .didDetectExposureDetectionSummary,
-				object: nil
-			)
+		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
 	}
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
 		let state = exposureManager.preconditions()
-		let newState = ExposureManagerState(
-				authorized: ENManager.authorizationStatus == .authorized,
-				enabled: state.enabled,
-				status: state.status
-		)
-		updateExposureState(newState)
+		updateExposureState(state)
 	}
-
 
 	func sceneDidBecomeActive(_: UIScene) {
 		hidePrivacyProtectionWindow()
@@ -125,20 +118,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		showPrivacyProtectionWindow()
 	}
 
-	func sceneDidEnterBackground(_ scene: UIScene) {
-		taskScheduler.scheduleBackgroundTaskRequests()
-	}
-
 	// MARK: Helper
 
 	func requestUpdatedExposureState() {
 		let state = exposureManager.preconditions()
-		let newState = ExposureManagerState(
-				authorized: ENManager.authorizationStatus == .authorized,
-				enabled: state.enabled,
-				status: state.status
-		)
-		updateExposureState(newState)
+		updateExposureState(state)
 	}
 
 	private func setupUI() {
@@ -207,12 +191,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			HomeViewController(
 				coder: coder,
 				delegate: self,
-				initialEnState: enStateHandler.state
+				detectionMode: self.state.detectionMode,
+				exposureManagerState: self.state.exposureManager,
+				initialEnState: enStateHandler.state,
+				risk: self.state.risk
 			)
 		}
 
 		homeController = vc // strong ref needed
-		homeController?.homeInteractor.state.exposureManager = state.exposureManager
 		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.navigationController.setViewControllers([vc], animated: false)
 		})
@@ -239,15 +225,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	@objc
 	func isOnboardedDidChange(_: NSNotification) {
 		store.isOnboarded ? showHome() : showOnboarding()
-	}
-
-	@objc
-	func exposureSummaryDidChange(_ notification: NSNotification) {
-		guard let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary else {
-			fatalError("received invalid summary notification. this is a programmer error")
-		}
-		state.summary = summary
-		updateExposureState(state.exposureManager)
 	}
 
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -342,10 +319,6 @@ extension SceneDelegate: HomeViewControllerDelegate {
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
-
-	func homeViewControllerStartExposureTransaction(_: HomeViewController) {
-		UIApplication.coronaWarnDelegate().appStartExposureDetectionTransaction()
-	}
 }
 
 extension SceneDelegate: UNUserNotificationCenterDelegate {
@@ -381,17 +354,14 @@ private extension Array where Element == URLQueryItem {
 	}
 }
 
-extension SceneDelegate {
-	struct State {
-		var summary: ENExposureDetectionSummary?
-		var exposureManager: ExposureManagerState
-	}
-}
 
 extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
+		riskProvider.exposureManagerState = state
+		riskProvider.requestRisk(userInitiated: false)
 		homeController?.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
+		taskScheduler.updateExposureState(state)
 	}
 }
 
@@ -400,4 +370,19 @@ extension SceneDelegate: ENStateHandlerUpdating {
 		log(message: "SceneDelegate got EnState update: \(state)")
 		homeController?.updateEnState(state)
 	}
+}
+
+// MARK: Background Task
+extension SceneDelegate {
+	@objc
+	func backgroundRefreshStatusDidChange() {
+		let detectionMode: DetectionMode = currentDetectionMode
+		state.detectionMode = detectionMode
+	}
+}
+
+private var currentDetectionMode: DetectionMode {
+	let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+	let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
+	return detectionMode
 }

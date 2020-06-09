@@ -223,8 +223,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		updateBottomSafeAreaInset(animated: animated)
 		bottomViewTopConstraint.isActive = hidden
 
-		if animated { CATransaction.begin() }
-
 		if isBottomViewHidden {
 			bottomView.frame.origin.y = view.frame.height
 			bottomView.frame.size.height = 0
@@ -234,8 +232,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		}
 
 		bottomView.layoutIfNeeded()
-
-		if animated { CATransaction.commit() }
 	}
 
 	func showSecondaryButton() {
@@ -264,11 +260,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 		additionalSafeAreaInsets.bottom = bottomInset
 
-		if animated {
-			CATransaction.begin()
-			topViewController?.view.layoutIfNeeded()
-			CATransaction.commit()
-		}
+		topViewController?.view.setNeedsLayout()
 	}
 
 	@objc
@@ -298,9 +290,9 @@ extension ExposureSubmissionNavigationController {
 extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
 		let view = UIView()
-		view.backgroundColor = .preferredColor(for: .backgroundPrimary)
+		view.backgroundColor = .enaColor(for: .background)
 		view.insetsLayoutMarginsFromSafeArea = true
-		view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+		view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 
 		view.translatesAutoresizingMaskIntoConstraints = false
 		self.view.addSubview(view)
@@ -312,7 +304,6 @@ extension ExposureSubmissionNavigationController {
 		bottomViewTopConstraint = view.topAnchor.constraint(equalTo: self.view.bottomAnchor)
 
 		button = ENAButton(type: .custom)
-		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .semibold)
 		button.setTitle("", for: .normal)
 
 		button.translatesAutoresizingMaskIntoConstraints = false
@@ -321,14 +312,11 @@ extension ExposureSubmissionNavigationController {
 		button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
 		button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
 		button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: 90).isActive = true
-		button.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
 		// by default, the secondary button is hidden.
 		secondaryButton = ENAButton(type: .custom)
-		secondaryButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .bold)
 		secondaryButton.setTitle("", for: .normal)
-		secondaryButton.backgroundColor = .clear
-		secondaryButton.setTitleColor(.preferredColor(for: .inactiveRisk), for: .normal)
+		secondaryButton.isTransparent = true
 		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
 		secondaryButton.isHidden = true
 		view.addSubview(secondaryButton)
