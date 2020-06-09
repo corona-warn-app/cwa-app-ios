@@ -786,10 +786,13 @@
 "RiskLegend_Legend2_RiskLevels" = "Folgende Risikostufen können angezeigt werden:";
 
 "RiskLegend_Legend2_High" = "Erhöhtes Risiko";
+"RiskLegend_Legend2_High_Color" = "Rot";
 
 "RiskLegend_Legend2_Low" = "Niedriges Risiko";
+"RiskLegend_Legend2_Low_Color" = "Grün";
 
 "RiskLegend_Legend2_Unknown" = "Unbekanntes Risiko";
+"RiskLegend_Legend2_Unknown_Color" = "Grau";
 
 "RiskLegend_Legend3_Title" = "Benachrichtigung anderer";
 
