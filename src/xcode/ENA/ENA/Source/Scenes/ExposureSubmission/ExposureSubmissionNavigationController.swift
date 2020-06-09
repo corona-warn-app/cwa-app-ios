@@ -160,6 +160,13 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		exposureSubmissionService
 	}
 
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+
+		updateBottomSafeAreaInset()
+		view.layoutIfNeeded()
+	}
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
@@ -249,7 +256,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		var bottomInset: CGFloat = 0
 
 		if !isBottomViewHidden { bottomInset += 90 }
-		if !secondaryButton.isHidden { bottomInset += 50 }
+		if !secondaryButton.isHidden { bottomInset += secondaryButton.frame.height }
 
 		if !isKeyboardHidden {
 			if let keyboardWindowFrame = keyboardWindowFrame {
@@ -323,7 +330,6 @@ extension ExposureSubmissionNavigationController {
 
 		secondaryButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
 		secondaryButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
-		secondaryButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
 		secondaryButton.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
 		secondaryButton.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 5).isActive = true
 

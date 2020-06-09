@@ -107,9 +107,9 @@ class ENAButton: DynamicTypeButton {
 		highlightView.isHidden = !isHighlighted
 	}
 
-	func setHeight() {
+	private func setHeight() {
 		let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
-		heightConstraint.priority = .required
+		heightConstraint.priority = .defaultHigh
 		heightConstraint.isActive = true
 
 		if let titleLabel = titleLabel {
