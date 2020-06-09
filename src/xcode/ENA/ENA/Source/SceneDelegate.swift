@@ -365,7 +365,10 @@ private extension Array where Element == URLQueryItem {
 extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		riskProvider.exposureManagerState = state
-		riskProvider.requestRisk(userInitiated: false)
+		// Only fetch the config if onboarding has been completed
+		if store.isOnboarded {
+			riskProvider.requestRisk(userInitiated: false)
+		}
 		homeController?.updateExposureState(state)
 		enStateHandler?.updateExposureState(state)
 		taskScheduler.updateExposureState(state)
