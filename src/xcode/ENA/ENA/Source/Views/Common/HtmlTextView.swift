@@ -93,10 +93,8 @@ extension HtmlTextView {
 	}
 
 	private func parseHtml(_ html: String) throws -> NSAttributedString? {
-		guard let data = html.data(using: .utf8) else { return nil }
-
 		return try NSAttributedString(
-			data: data,
+			data: Data(html.utf8),
 			options: [
 				.documentType: NSAttributedString.DocumentType.html,
 				.characterEncoding: String.Encoding.utf8.rawValue

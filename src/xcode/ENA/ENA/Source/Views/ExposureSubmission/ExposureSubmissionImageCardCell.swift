@@ -63,7 +63,7 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 		updateIllustration(for: traitCollection)
 	}
 
-	func configure(title: String, description: String, attributedDescription: NSAttributedString? = nil, image: UIImage?) {
+	func configure(title: String, description: String, attributedDescription: NSAttributedString? = nil, image: UIImage?, accessibilityIdentifier: String?) {
 		titleLabel.text = title
 		descriptionLabel.text = description
 		illustrationView?.image = image
@@ -72,6 +72,7 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 			let attributedText = NSMutableAttributedString(attributedString: attributedDescription)
 			descriptionLabel.attributedText = attributedText
 		}
+		self.accessibilityIdentifier = accessibilityIdentifier
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

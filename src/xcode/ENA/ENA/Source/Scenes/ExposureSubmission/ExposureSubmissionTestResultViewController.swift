@@ -241,7 +241,8 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -272,7 +273,8 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -290,7 +292,8 @@ private extension ExposureSubmissionTestResultViewController {
 					image: nil,
 					hasSeparators: false
 				),
-				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
+				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.furtherInfos_Title"),
 				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1),
 				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2),
 				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3),
@@ -309,7 +312,8 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -334,7 +338,8 @@ private extension ExposureSubmissionTestResultViewController {
 				}
 			),
 			cells: [
-				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
