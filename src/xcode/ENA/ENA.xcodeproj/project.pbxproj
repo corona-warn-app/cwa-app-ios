@@ -143,7 +143,6 @@
 		71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F54190248BF677006DB793 /* HtmlTextView.swift */; };
 		71FD8862246EB27F00E804D0 /* ExposureDetectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */; };
 		71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C68247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift */; };
-		71FE1C6D247AA43400851FEB /* ExposureDetectionViewController+Summary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C6C247AA43400851FEB /* ExposureDetectionViewController+Summary.swift */; };
 		71FE1C71247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C70247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift */; };
 		71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */; };
 		71FE1C7B247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */; };
@@ -502,7 +501,6 @@
 		71F54190248BF677006DB793 /* HtmlTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlTextView.swift; sourceTree = "<group>"; };
 		71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewController.swift; sourceTree = "<group>"; };
 		71FE1C68247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeaderFooterView.swift; sourceTree = "<group>"; };
-		71FE1C6C247AA43400851FEB /* ExposureDetectionViewController+Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExposureDetectionViewController+Summary.swift"; sourceTree = "<group>"; };
 		71FE1C70247AA7B700851FEB /* DynamicTableViewHeaderImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeaderImageView.swift; sourceTree = "<group>"; };
 		71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionSuccessViewController.swift; sourceTree = "<group>"; };
 		71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionQRScannerViewController.swift; sourceTree = "<group>"; };
@@ -774,7 +772,6 @@
 		514E81312461946E00636861 /* ExposureDetection */ = {
 			isa = PBXGroup;
 			children = (
-				71FE1C6C247AA43400851FEB /* ExposureDetectionViewController+Summary.swift */,
 				71FD8861246EB27F00E804D0 /* ExposureDetectionViewController.swift */,
 				B1D6B001247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift */,
 				714CD8662472885900F56450 /* ExposureDetectionViewController+DynamicTableViewModel.swift */,
@@ -2081,7 +2078,6 @@
 				714194EA247A65C60072A090 /* DynamicTableViewHeaderSeparatorView.swift in Sources */,
 				2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */,
 				A16714BB248D18D20031B111 /* SummaryMetadata.swift in Sources */,
-				71FE1C6D247AA43400851FEB /* ExposureDetectionViewController+Summary.swift in Sources */,
 				51C779162486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
 				B1FE13F024891D1500D012E5 /* RiskCalculation.swift in Sources */,
