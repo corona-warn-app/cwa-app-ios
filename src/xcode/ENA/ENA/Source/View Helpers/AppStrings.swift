@@ -519,6 +519,13 @@ enum AppStrings {
 		static let titleImageAccLabel = NSLocalizedString("RiskLegend_Image1_AccLabel", comment: "")
 	}
 
+	enum UpdateMessage {
+		static let title = NSLocalizedString("Update_Message_Title", comment: "")
+		static let text = NSLocalizedString("Update_Message_Text", comment: "")
+		static let textForce = NSLocalizedString("Update_Message_Text_Force", comment: "")
+		static let actionUpdate = NSLocalizedString("Update_Message_Action_Update", comment: "")
+		static let actionLater = NSLocalizedString("Update_Message_Action_Later", comment: "")
+	}
 	enum AppInformation {
 		static let aboutNavigation = NSLocalizedString("App_Information_About_Navigation", comment: "")
 		static let aboutImageDescription = NSLocalizedString("App_Information_About_ImageDescription", comment: "")

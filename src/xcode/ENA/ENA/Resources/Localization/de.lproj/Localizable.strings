@@ -865,3 +865,9 @@
 
 "RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
 
+/* Update Message */
+"Update_Message_Title" = "Update verfügbar:";
+"Update_Message_Text" = "Es gibt ein neues Update für die Corona-Warn-App";
+"Update_Message_Text_Force" = "Bitte beachten Sie: Sie können die Corona-Warn-App erst wieder benutzen, wenn Sie das neueste Update installiert haben.";
+"Update_Message_Action_Update" = "Update";
+"Update_Message_Action_Later" = "Später";
