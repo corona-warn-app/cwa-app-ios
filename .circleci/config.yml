@@ -10,7 +10,7 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: brew install swiftlint && cd src/xcode && bundle install
+          command: cd src/xcode && bundle install
       - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build
@@ -33,17 +33,18 @@ jobs:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
       - persist_to_workspace:
-          root: src/xcode/
+          root: ~/project
           paths:
-            - swiftlint.result.json
-            - fastlane/test_output/
+            - scripts/*.sh
+            - src/xcode/swiftlint.result.json
+            - src/xcode/fastlane/test_output/
   assess:
     macos:
       xcode: 11.5.0
     shell: zsh
     steps:
       - attach_workspace:
-          at: ~/project/src/xcode/
+          at: ~/project/
       - run:
           name: Convert coverage information to SonarCloud format
           command: |
@@ -81,7 +82,6 @@ orbs:
 workflows:
     default:
       jobs:
-        - build
         - test
         - assess:
             requires:
