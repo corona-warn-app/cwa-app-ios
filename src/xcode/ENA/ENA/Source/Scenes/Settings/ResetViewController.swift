@@ -71,9 +71,5 @@ final class ResetViewController: UIViewController {
 		infoDescriptionLabel.text = AppStrings.Reset.infoDescription
 
 		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
-
-		if let resetButton = resetButton, let titleLabel = resetButton.titleLabel {
-			resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
-		}
 	}
 }
