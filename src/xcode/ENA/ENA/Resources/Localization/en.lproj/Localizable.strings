@@ -94,8 +94,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "You have an increased risk of infection because you were last exposed two days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.\n\nTherefore, your risk of infection has been ranked as increased.\nYour risk of infection is calculated from the risk identification data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\nWhen you get home, please also avoid close contact with members of your family or household.";
 
-"ExposureDetection_Hotline_Number" = "+498007540002";
-
 "ExposureDetection_Button_Enable" = "Activate Risk Identification";
 
 "ExposureDetection_Button_Refresh" = "Update";
@@ -214,6 +212,8 @@
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "You can then self-isolate to protect others and find out where you can get tested.";
 
 /* Exposure Submission */
+"ExposureSubmission_Hotline_Number" = "+498007540002";
+
 "ExposureSubmission_DataPrivacyTitle" = "Data Privacy";
 
 "ExposureSubmission_Continue_actionText" = "Next";
