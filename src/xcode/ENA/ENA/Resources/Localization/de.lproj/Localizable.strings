@@ -629,10 +629,6 @@
 
 "Home_resultCard_NegativeDesc" = "Sie wurden negativ auf SARS-CoV-2 getestet.";
 
-"Home_resultCard_PositiveDesc" = "Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.";
-
-"Home_resultCard_PendingTitle" = "Ergebnis liegt noch nicht vor";
-
 "Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tagen.";
 
 "Home_resultCard_InvalidTitle" = "Befund ungültig";

@@ -622,10 +622,6 @@
 
 "Home_resultCard_NegativeDesc" = "You have been diagnosed negative for SARS-CoV-2.";
 
-"Home_resultCard_PositiveDesc" = "You have been diagnosed with the SARS-CoV-2 virus.";
-
-"Home_resultCard_PendingTitle" = "Your result is not yet available";
-
 "Home_resultCard_PendingDesc" = "The evaluation takes between one and three days.";
 
 "Home_resultCard_InvalidTitle" = "Invalid Diagnosis";
