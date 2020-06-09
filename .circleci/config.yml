@@ -43,21 +43,27 @@ jobs:
       xcode: 11.5.0
     shell: zsh
     steps:
+      - run:
+          name: Abort if external pull request
+          command: |
+            if [ -z "${CIRCLE_PR_REPONAME}" ]; then
+              circleci-agent step halt
+            fi
       - checkout
       - restore_cache:
           key: sonar-cloud-v1
       - attach_workspace:
           at: ~/project/
-      #- run:
-      #    name: Convert coverage information to SonarCloud format
-      #    command: |
-      #      ./scripts/xcov_to_sonarqube_generic.sh src/xcode/fastlane/test_output/*.xccovarchive/ > src/xcode/fastlane/test_output/coverage.xml
-      #      sed -i "" 's|/Users/distiller/project/||' src/xcode/fastlane/test_output/coverage.xml
-      #- run:
-      #    name: Fix SwiftLint output for SonarCloud
-      #    command: |
-      #      mv src/xcode/swiftlint.result.json src/xcode/swiftlint.result.original.json
-      #      cat src/xcode/swiftlint.result.original.json | jq '.["issues"]' > src/xcode/swiftlint.result.json
+      - run:
+          name: Convert coverage information to SonarCloud format
+          command: |
+            ./scripts/xcov_to_sonarqube_generic.sh src/xcode/fastlane/test_output/*.xccovarchive/ > src/xcode/fastlane/test_output/coverage.xml
+            sed -i "" 's|/Users/distiller/project/||' src/xcode/fastlane/test_output/coverage.xml
+      - run:
+          name: Fix SwiftLint output for SonarCloud
+          command: |
+            mv src/xcode/swiftlint.result.json src/xcode/swiftlint.result.original.json
+            cat src/xcode/swiftlint.result.original.json | jq '.["issues"]' > src/xcode/swiftlint.result.json
       - run:
           name: Install Sonar Scanner
           command: |
@@ -71,8 +77,6 @@ jobs:
             chmod +x $SCANNERDIR/bin/sonar-scanner
             chmod +x $SCANNERDIR/jre/bin/java
             $SCANNERDIR/bin/sonar-scanner
-          environment:
-            SONARQUBE_SCANNER_PARAMS: '{"sonar.pullrequest.branch":"development"}'
       - save_cache:
           key: sonar-cloud-v1
           paths:
