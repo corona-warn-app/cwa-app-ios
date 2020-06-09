@@ -29,14 +29,20 @@ class DynamicTableViewModelTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		cellsSection0 = [
-			DynamicCell.body(text: "Foo",
-							 accessibilityIdentifier: "Foo"),
-			DynamicCell.body(text: "Bar",
-							 accessibilityIdentifier: "Bar")
+			DynamicCell.body(
+				text: "Foo",
+				accessibilityIdentifier: "Foo"
+			),
+			DynamicCell.body(
+				text: "Bar",
+				accessibilityIdentifier: "Bar"
+			)
 		]
 		cellsSection1 = [
-			DynamicCell.body(text: "Baz",
-							 accessibilityIdentifier: "Baz")
+			DynamicCell.body(
+				text: "Baz",
+				accessibilityIdentifier: "Baz"
+			)
 		]
 		sections = [
 			DynamicSection.section(cells: cellsSection0),
@@ -70,7 +76,6 @@ class DynamicTableViewModelTests: XCTestCase {
 			section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier,
 			DynamicCell.CellReuseIdentifier.dynamicTypeText
 		)
-
 	}
 	
 	func testCellAt_returnsInitializedCell() {
@@ -91,8 +96,10 @@ class DynamicTableViewModelTests: XCTestCase {
 	
 	func testAdd_appendsSection() {
 		
-		let cells = [DynamicCell.headline(text: "23",
-										  accessibilityIdentifier: "23")]
+		let cells = [DynamicCell.headline(
+			text: "23",
+			accessibilityIdentifier: "23")
+		]
 		sut.add(DynamicSection.section(cells: cells))
 
 		// get last section
@@ -103,12 +110,16 @@ class DynamicTableViewModelTests: XCTestCase {
 		)
 
 	}
-	
+
 	func testWith_returnsAlteredModel() {
 		
 		let model = DynamicTableViewModel.with { model in
-			let cells = [DynamicCell.headline(text: "42",
-											  accessibilityIdentifier: "42")]
+			let cells = [
+				DynamicCell.headline(
+					text: "42",
+					accessibilityIdentifier: "42"
+				)
+			]
 			model.add(DynamicSection.section(cells: cells))
 		}
 		

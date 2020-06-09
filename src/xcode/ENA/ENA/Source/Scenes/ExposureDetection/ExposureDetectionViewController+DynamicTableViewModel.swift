@@ -241,7 +241,7 @@ extension ExposureDetectionViewController {
 				guard let state = (viewController as? ExposureDetectionViewController)?.state else { return true }
 				if state.isLoading { return true }
 				return state.detectionMode != .automatic
-			},
+		},
 			cells: [
 				.riskRefresh(text: AppStrings.ExposureDetection.refreshingIn)
 			]
@@ -299,8 +299,9 @@ extension ExposureDetectionViewController {
 			),
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextOff, isActive: false,
-							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextOff")
+			explanationSection(
+				text: AppStrings.ExposureDetection.explanationTextOff, isActive: false,
+				accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextOff")
 		])
 	}
 
@@ -318,8 +319,11 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextOutdated, isActive: false,
-							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextOutdated")
+			explanationSection(
+				text: AppStrings.ExposureDetection.explanationTextOutdated,
+				isActive: false,
+				accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextOutdated"
+			)
 		])
 	}
 
@@ -331,8 +335,11 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextUnknown, isActive: false,
-							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextUnknown")
+			explanationSection(
+				text: AppStrings.ExposureDetection.explanationTextUnknown,
+				isActive: false,
+				accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextUnknown"
+			)
 		])
 	}
 
@@ -346,8 +353,11 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextLow, isActive: true,
-							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextLow")
+			explanationSection(
+				text: AppStrings.ExposureDetection.explanationTextLow,
+				isActive: true,
+				accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextLow"
+			)
 		])
 	}
 
@@ -375,8 +385,11 @@ extension ExposureDetectionViewController {
 					])
 				]
 			),
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextHigh, isActive: true,
-							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextHigh")
+			explanationSection(
+				text: AppStrings.ExposureDetection.explanationTextHigh,
+				isActive: true,
+				accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextHigh"
+			)
 		])
 	}
 }
