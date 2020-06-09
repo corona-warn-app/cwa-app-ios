@@ -67,10 +67,6 @@
 		515BBDEB2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */; };
 		51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* ENAColor.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
-		51B096F0248E470B00E48DCD /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = B10FB02F246036F3004CA11E /* SwiftProtobuf */; };
-		51B096F1248E470B00E48DCD /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = B1E8C9A4247AB869006DC678 /* ZIPFoundation */; };
-		51B096F2248E470B00E48DCD /* Connectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD767482483D6B5002DD2B3 /* Connectivity */; };
-		51B096F3248E470B00E48DCD /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = B1FE13E9248838E400D012E5 /* FMDB */; };
 		51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51B5B413246DF07300DC5D3E /* RiskImageItemView.xib */; };
 		51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */; };
 		51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BC245B349700286105 /* OnboardingInfoViewController.swift */; };
@@ -172,12 +168,11 @@
 		85D7596424570491008175F0 /* ENAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D7596324570491008175F0 /* ENAUITests.swift */; };
 		85E33444247EB357006E74EC /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E33443247EB357006E74EC /* CircularProgressView.swift */; };
 		A128F04E2489ABEE00EC7F6C /* RiskCalculationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128F04C2489ABE700EC7F6C /* RiskCalculationTests.swift */; };
-		A16714AD248C91570031B111 /* PublicKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A16714AC248C91570031B111 /* PublicKeys.plist */; };
+		A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128F058248B459F00EC7F6C /* PublicKeyStore.swift */; };
 		A16714AF248CA1B70031B111 /* Bundle+ReadPlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */; };
 		A16714B1248CFF020031B111 /* HostWhitelist.plist in Resources */ = {isa = PBXBuildFile; fileRef = A16714B0248CFF020031B111 /* HostWhitelist.plist */; };
-		A16714C0248D53F60031B111 /* CoronaWarnURLSessionDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16714BE248D53F00031B111 /* CoronaWarnURLSessionDelegateTests.swift */; };
-		A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128F058248B459F00EC7F6C /* PublicKeyStore.swift */; };
 		A16714BB248D18D20031B111 /* SummaryMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16714BA248D18D20031B111 /* SummaryMetadata.swift */; };
+		A16714C0248D53F60031B111 /* CoronaWarnURLSessionDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16714BE248D53F00031B111 /* CoronaWarnURLSessionDelegateTests.swift */; };
 		A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */; };
 		A17366552484978A006BE209 /* OnboardingInfoViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */; };
 		A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */; };
@@ -534,12 +529,11 @@
 		85D7596524570491008175F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85E33443247EB357006E74EC /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		A128F04C2489ABE700EC7F6C /* RiskCalculationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiskCalculationTests.swift; sourceTree = "<group>"; };
-		A16714AC248C91570031B111 /* PublicKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PublicKeys.plist; sourceTree = "<group>"; };
+		A128F058248B459F00EC7F6C /* PublicKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyStore.swift; sourceTree = "<group>"; };
 		A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+ReadPlist.swift"; sourceTree = "<group>"; };
 		A16714B0248CFF020031B111 /* HostWhitelist.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = HostWhitelist.plist; sourceTree = "<group>"; };
-		A16714BE248D53F00031B111 /* CoronaWarnURLSessionDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaWarnURLSessionDelegateTests.swift; sourceTree = "<group>"; };
-		A128F058248B459F00EC7F6C /* PublicKeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyStore.swift; sourceTree = "<group>"; };
 		A16714BA248D18D20031B111 /* SummaryMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryMetadata.swift; sourceTree = "<group>"; };
+		A16714BE248D53F00031B111 /* CoronaWarnURLSessionDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaWarnURLSessionDelegateTests.swift; sourceTree = "<group>"; };
 		A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStoreTests.swift; sourceTree = "<group>"; };
 		A17366542484978A006BE209 /* OnboardingInfoViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoViewControllerUtils.swift; sourceTree = "<group>"; };
 		A17DA5E12486D8E7006F310F /* RiskLevelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLevelTests.swift; sourceTree = "<group>"; };
@@ -1243,7 +1237,6 @@
 		85D7597424570615008175F0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A16714AC248C91570031B111 /* PublicKeys.plist */,
 				011E4B002483A35A002E6412 /* ENACommunity.entitlements */,
 				CD7F5C732466F6D400D3D03C /* ENATest.entitlements */,
 				85790F2E245C6B72003D47E1 /* ENA.entitlements */,
@@ -1907,6 +1900,7 @@
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */,
 				71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */,
+				A189E461248C35BF001D0996 /* PublicKeys.plist in Resources */,
 				51CE1B8D246078B6002CF42A /* SubmitCollectionViewCell.xib in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
 				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
@@ -1914,7 +1908,6 @@
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
-				A189E461248C35BF001D0996 /* PublicKeys.plist in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
 				51C779142486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib in Resources */,
 				51D420CE245869C800AD70CA /* Home.storyboard in Resources */,
@@ -1924,7 +1917,6 @@
 				85D7594B24570491008175F0 /* Assets.xcassets in Resources */,
 				51CE1B88246078B6002CF42A /* RiskLevelCollectionViewCell.xib in Resources */,
 				51D420D024586AB300AD70CA /* Settings.storyboard in Resources */,
-				A16714AD248C91570031B111 /* PublicKeys.plist in Resources */,
 				71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */,
 				01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */,
 				51CE1B8A246078B6002CF42A /* InfoCollectionViewCell.xib in Resources */,
@@ -2392,7 +2384,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1290;
+				CURRENT_PROJECT_VERSION = 1435;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2769,7 +2761,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1290;
+				CURRENT_PROJECT_VERSION = 1435;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2808,7 +2800,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1290;
+				CURRENT_PROJECT_VERSION = 1435;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -3010,7 +3002,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1290;
+				CURRENT_PROJECT_VERSION = 1435;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";

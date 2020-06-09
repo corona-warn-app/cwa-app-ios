@@ -232,7 +232,7 @@
 
 "ExposureSubmissionTanEntry_Info" = "Please enter the TAN you were given:";
 
-"ExposureSubmissionTanEntry_Description" = "The TAN has 7 characters and is case-sensitive.";
+"ExposureSubmissionTanEntry_Description" = "The TAN has 10 characters and is case-sensitive.";
 
 "ExposureSubmissionTanEntry_Submit" = "Next";
 
