@@ -297,3 +297,7 @@ extension SettingsViewController: ENStateHandlerUpdating {
 		notificationSettingsController?.updateEnState(state)
 	}
 }
+
+extension SettingsViewController: NavigationBarOpacityDelegate {
+	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { .systemChromeMaterial }
+}
