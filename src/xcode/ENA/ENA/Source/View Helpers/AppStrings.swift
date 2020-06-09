@@ -230,6 +230,8 @@ enum AppStrings {
 		static let explanationTextLow = NSLocalizedString("ExposureDetection_Explanation_Text_Low", comment: "")
 		static let explanationTextHigh = NSLocalizedString("ExposureDetection_Explanation_Text_High", comment: "")
 
+		static let hotlineNumber = NSLocalizedString("ExposureDetection_Hotline_Number", comment: "")
+
 		static let buttonEnable = NSLocalizedString("ExposureDetection_Button_Enable", comment: "")
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
 		static let buttonRefreshingIn = NSLocalizedString("ExposureDetection_Button_RefreshingIn", comment: "")
