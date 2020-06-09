@@ -53,7 +53,7 @@ class DynamicTypeTableViewCell: UITableViewCell {
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
-
+		
 		resetMargins()
 		configureDynamicType()
 		configure(text: "", color: .enaColor(for: .textPrimary1))
@@ -61,6 +61,7 @@ class DynamicTypeTableViewCell: UITableViewCell {
 
 	private func resetMargins() {
 		contentView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+		contentView.insetsLayoutMarginsFromSafeArea = false
 	}
 
 	func configureDynamicType(size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body) {
