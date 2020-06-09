@@ -67,6 +67,8 @@ protocol Store: AnyObject {
 
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
+	var lastCheckedVersion: String? { get set }
+
 	func clearAll(key: String?)
 }
 
@@ -220,6 +222,11 @@ final class SecureStore: Store {
 	var hourlyFetchingEnabled: Bool {
 		get { kvStore["hourlyFetchingEnabled"] as Bool? ?? false }
 		set { kvStore["hourlyFetchingEnabled"] = newValue }
+	}
+
+	var lastCheckedVersion: String? {
+		get { kvStore["lastCheckedVersion"] as String? ?? "0.0.0" }
+		set { kvStore["lastCheckedVersion"] = newValue }
 	}
 }
 

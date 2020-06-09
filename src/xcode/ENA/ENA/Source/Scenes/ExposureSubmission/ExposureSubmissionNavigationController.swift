@@ -41,7 +41,6 @@ extension ExposureSubmissionNavigationControllerChild {
 
 extension ExposureSubmissionNavigationControllerChild {
 	var exposureSubmissionNavigationController: ExposureSubmissionNavigationController? { navigationController as? ExposureSubmissionNavigationController }
-	var exposureSubmissionNavigationItem: ExposureSubmissionNavigationItem? { navigationItem as? ExposureSubmissionNavigationItem }
 	var bottomView: UIView? { exposureSubmissionNavigationController?.bottomView }
 	var button: ENAButton? { exposureSubmissionNavigationController?.button }
 
@@ -51,10 +50,6 @@ extension ExposureSubmissionNavigationControllerChild {
 
 	func setButtonEnabled(enabled: Bool) {
 		exposureSubmissionNavigationController?.setButtonEnabled(enabled: enabled)
-	}
-
-	func hideButton() {
-		exposureSubmissionNavigationController?.button.isHidden = true
 	}
 
 	func setSecondaryButtonTitle(to title: String) {
@@ -197,8 +192,17 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		NotificationCenter.default.removeObserver(keyboardWillChangeFrameObserver as Any, name: UIResponder.keyboardWillHideNotification, object: nil)
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		navigationItem.rightBarButtonItem?.image = UIImage(named: "Icons - Close")
+		applyDefaultRightBarButtonItem(to: topViewController)
+	}
+
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
-		if let viewController = viewController, viewController.navigationItem.rightBarButtonItem == nil {
+		print(viewController?.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem)
+		if let viewController = viewController,
+			viewController.navigationItem.rightBarButtonItem == nil ||
+				viewController.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem {
 			viewController.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem
 		}
 	}

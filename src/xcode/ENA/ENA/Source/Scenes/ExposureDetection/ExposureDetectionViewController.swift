@@ -156,7 +156,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateCloseButton() {
-		if state.isTracingEnabled {
+		if state.isTracingEnabled && state.riskLevel != .unknownOutdated {
 			closeImage.image = UIImage(named: "Icons - Close - Contrast")
 		} else {
 			closeImage.image = UIImage(named: "Icons - Close")
@@ -171,14 +171,6 @@ extension ExposureDetectionViewController {
 
 	private func updateTableView() {
 		tableView.reloadData()
-	}
-
-	private func updateRefreshCell() {
-		let indexPath = IndexPath(row: 0, section: 1)
-		if let cell = tableView.cellForRow(at: indexPath) {
-			dynamicTableViewModel.cell(at: indexPath).configure(cell: cell, at: indexPath, for: self)
-			cell.setNeedsLayout()
-		}
 	}
 
 	private func updateCheckButton() {

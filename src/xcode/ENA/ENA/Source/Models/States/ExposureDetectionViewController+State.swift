@@ -61,7 +61,8 @@ private extension RiskLevel {
 
 	var tintColor: UIColor {
 		switch self {
-		case .unknownInitial, .unknownOutdated: return .enaColor(for: .riskNeutral)
+		case .unknownInitial: return .enaColor(for: .riskNeutral)
+		case .unknownOutdated: return .enaColor(for: .background)
 		case .inactive: return .enaColor(for: .riskNeutral)
 		case .low: return .enaColor(for: .riskLow)
 		case .increased: return .enaColor(for: .riskHigh)

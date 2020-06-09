@@ -62,8 +62,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 		switch result {
 		case .positive:
 			setButtonTitle(to: AppStrings.ExposureSubmissionResult.continueButton)
+			hideSecondaryButton()
 		case .negative, .invalid:
 			setButtonTitle(to: AppStrings.ExposureSubmissionResult.deleteButton)
+			hideSecondaryButton()
 		case .pending:
 			setButtonTitle(to: AppStrings.ExposureSubmissionResult.refreshButton)
 			setSecondaryButtonTitle(to: AppStrings.ExposureSubmissionResult.deleteButton)
@@ -135,10 +137,16 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 					self.present(alert, animated: true, completion: nil)
 				case let .success(testResult):
-					self.dynamicTableViewModel = self.dynamicTableViewModel(for: testResult)
-					self.tableView.reloadData()
+					self.refreshView(for: testResult)
 				}
 			}
+	}
+
+	private func refreshView(for result: TestResult) {
+		self.testResult = result
+		self.dynamicTableViewModel = self.dynamicTableViewModel(for: result)
+		self.tableView.reloadData()
+		self.setupButtons()
 	}
 
 	/// Only show the "warn others" screen if the ENManager is enabled correctly,

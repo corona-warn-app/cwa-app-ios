@@ -44,4 +44,7 @@ class DynamicTableViewSpaceCell: UITableViewCell {
 		height = UITableView.automaticDimension
 		backgroundColor = nil
 	}
+
+	override func accessibilityElementCount() -> Int { 0 }
+
 }
