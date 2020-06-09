@@ -49,25 +49,41 @@ final class ExposureSubmissionQRScannerNavigationController: UINavigationControl
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		overrideUserInterfaceStyle = .dark
+
+		navigationBar.tintColor = .enaColor(for: .textContrast)
+		navigationBar.shadowImage = UIImage()
+		if let image = UIImage.with(color: UIColor(white: 0, alpha: 0.5)) {
+			navigationBar.setBackgroundImage(image, for: .default)
+		}
 	}
 }
 
 final class ExposureSubmissionQRScannerViewController: UIViewController {
 	@IBOutlet var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet var flashButton: UIButton!
-	@IBOutlet weak var navigationTitle: UINavigationItem!
 	@IBOutlet weak var instructionLabel: DynamicTypeLabel!
 
 	weak var delegate: ExposureSubmissionQRScannerDelegate?
 
 	private var captureDevice: AVCaptureDevice?
-	private var previewLayer: AVCaptureVideoPreviewLayer?
+	private var previewLayer: AVCaptureVideoPreviewLayer? { didSet { setNeedsPreviewMaskUpdate() } }
+
+	private var needsPreviewMaskUpdate: Bool = true
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
 		setupView()
 		prepareScanning()
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+
+		setNeedsPreviewMaskUpdate()
+		updatePreviewMaskIfNeeded()
 	}
 
 	private func setupView() {
@@ -176,13 +192,59 @@ extension ExposureSubmissionQRScannerViewController: AVCaptureMetadataOutputObje
 	}
 }
 
+extension ExposureSubmissionQRScannerViewController {
+	private func setNeedsPreviewMaskUpdate() {
+		guard needsPreviewMaskUpdate else { return }
+		needsPreviewMaskUpdate = true
+
+		DispatchQueue.main.async(execute: updatePreviewMaskIfNeeded)
+	}
+
+	private func updatePreviewMaskIfNeeded() {
+		guard needsPreviewMaskUpdate else { return }
+		needsPreviewMaskUpdate = false
+
+		guard let previewLayer = previewLayer else { return }
+		guard focusView.backdropOpacity > 0 else {
+			previewLayer.mask = nil
+			return
+		}
+		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
+
+		let focusPath = UIBezierPath(roundedRect: focusView.frame, cornerRadius: focusView.layer.cornerRadius)
+
+		let backdropPath = UIBezierPath(cgPath: focusPath.cgPath)
+		backdropPath.append(UIBezierPath(rect: view.bounds))
+
+		let backdropLayer = CAShapeLayer()
+		backdropLayer.path = UIBezierPath(rect: view.bounds).cgPath
+		backdropLayer.fillColor = backdropColor.cgColor
+
+		let backdropLayerMask = CAShapeLayer()
+		backdropLayerMask.fillRule = .evenOdd
+		backdropLayerMask.path = backdropPath.cgPath
+		backdropLayer.mask = backdropLayerMask
+
+		let throughHoleLayer = CAShapeLayer()
+		throughHoleLayer.path = UIBezierPath(cgPath: focusPath.cgPath).cgPath
+
+		previewLayer.mask = CALayer()
+		previewLayer.mask?.addSublayer(throughHoleLayer)
+		previewLayer.mask?.addSublayer(backdropLayer)
+	}
+}
+
 @IBDesignable
 final class ExposureSubmissionQRScannerFocusView: UIView {
+	@IBInspectable var backdropOpacity: CGFloat = 0
 	@IBInspectable var cornerRadius: CGFloat = 0
 	@IBInspectable var borderWidth: CGFloat = 1
 
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
+
+		backgroundColor = UIColor(white: 1, alpha: 0.5)
+
 		awakeFromNib()
 	}
 
@@ -198,5 +260,23 @@ final class ExposureSubmissionQRScannerFocusView: UIView {
 private extension Array {
 	func first<T>(ofType _: T.Type) -> T? {
 		first(where: { $0 is T }) as? T
+	}
+}
+
+private extension UIImage {
+	static func with(color: UIColor) -> UIImage? {
+		let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+
+		UIGraphicsBeginImageContext(rect.size)
+
+		if let context = UIGraphicsGetCurrentContext() {
+			context.setFillColor(color.cgColor)
+			context.fill(rect)
+		}
+
+		let image = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+
+		return image
 	}
 }

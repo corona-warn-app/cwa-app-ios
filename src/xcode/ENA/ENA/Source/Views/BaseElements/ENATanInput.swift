@@ -60,7 +60,7 @@ class ENATanInput: UIControl, UIKeyInput {
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
 
-		backgroundColor = UIColor.preferredColor(for: .backgroundSecondary)
+		backgroundColor = UIColor.enaColor(for: .separator)
 
 		let label = UILabel(frame: .zero)
 		label.text = String(describing: ENATanInput.self)

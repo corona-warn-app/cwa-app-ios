@@ -65,7 +65,7 @@ final class SettingsViewController: UITableViewController {
 
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.separatorColor = .preferredColor(for: .hairline)
+		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.title = AppStrings.Settings.navigationBarTitle
 		navigationController?.navigationBar.prefersLargeTitles = true
