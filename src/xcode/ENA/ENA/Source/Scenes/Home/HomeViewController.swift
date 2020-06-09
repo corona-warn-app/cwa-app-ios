@@ -245,7 +245,7 @@ final class HomeViewController: UIViewController {
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:
-			appLogger.log(message: "Unknown cell type tapped.", file: #file, line: #line, function: #function)
+			log(message: "Unknown cell type tapped.", file: #file, line: #line, function: #function)
 			return
 		}
 	}

@@ -39,7 +39,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		case .pending: configureTestResultPending(cell: cell)
 		case .negative: configureTestResultNegative(cell: cell)
 		default:
-			appLogger.log(message: "Unsupported state for \(String(describing: Self.self))", file: #file, line: #line, function: #function)
+			log(message: "Unsupported state for \(String(describing: Self.self))", file: #file, line: #line, function: #function)
 		}
 	}
 

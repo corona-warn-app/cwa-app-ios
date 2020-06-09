@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,39 +15,27 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
+import UIKit
+@testable import ENA
 
-func log(
-	message: String,
-	level: LogLevel = .info,
-	file: String = #file,
-	line: UInt = #line,
-	function: String = #function
-) {
-	#if !APP_STORE
-	print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
-	#endif
-}
+class MockExposureSubmissionQRScannerViewController: QRScannerViewController {
 
-func logError(
-	message: String,
-	level: LogLevel = .error,
-	file: String = #file,
-	line: UInt = #line,
-	function: String = #function
-) {
-	log(
-		message: message,
-		level: .error,
-		file: file,
-		line: line,
-		function: function
-	)
-}
+	// MARK: - Mock callbacks.
+	var dismissCallback: ((Bool, (() -> Void)?) -> Void)?
+	var presentCallback: ((UIViewController, Bool, (() -> Void)?) -> Void)?
 
-enum LogLevel: String {
-	case info
-	case warning
-	case error
+	// MARK: - QRScannerViewController methods.
+
+	weak var delegate: ExposureSubmissionQRScannerDelegate?
+
+	func dismiss(animated: Bool, completion: (() -> Void)?) {
+		dismissCallback?(animated, completion)
+	}
+
+	func present(_ vc: UIViewController, animated: Bool, completion: (() -> Void)?) {
+		presentCallback?(vc, animated, completion)
+	}
 }
