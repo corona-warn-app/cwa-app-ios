@@ -70,15 +70,6 @@ private extension RiskConsumer {
 	}
 }
 
-
-extension RiskProvider {
-	enum RequestType {
-		case userInitiated
-		case userInterface
-		case background
-	}
-}
-
 extension RiskProvider: RiskProviding {
 	func observeRisk(_ consumer: RiskConsumer) {
 		queue.async {

@@ -111,17 +111,21 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
-		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle),
+		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle,
+							accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.subTitle"),
 		.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_Funktion1"),
 				accessibilityLabel: nil,
+				accessibilityIdentifier: nil,
 				height: 200
 			),
 			separators: false,
 			cells: [
-				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01),
-				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02),
+				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01,
+						  accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.usage01"),
+				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02,
+					  accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.usage02"),
 				.identifier(
 					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
 					action: .none,

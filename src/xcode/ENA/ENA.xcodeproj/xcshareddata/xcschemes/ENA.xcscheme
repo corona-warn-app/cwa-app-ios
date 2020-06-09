@@ -55,7 +55,7 @@
       </CodeCoverageTargets>
       <Testables>
          <TestableReference
-            skipped = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "85D7595E24570491008175F0"

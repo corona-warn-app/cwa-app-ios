@@ -42,14 +42,14 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
 		//snapshot("ScreenShot_\(#function)")
 	}
 
@@ -58,14 +58,14 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
 		//snapshot("ScreenShot_\(#function)")
 	}
 
@@ -74,16 +74,16 @@ class ENAUITests_01_Home: XCTestCase {
 		app.launch()
 
 		// only run if home screen is present
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardShareTitle)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.Home.infoCardAboutTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.infoCardAboutTitle"].waitForExistence(timeout: 5.0))
 		app.swipeUp()
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.Home.settingsCardTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
 		//snapshot("ScreenShot_\(#function)")
 	}
 }

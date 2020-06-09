@@ -27,14 +27,14 @@ class AppInformationViewController: DynamicTableViewController {
 		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = "Home_AppInformationCard_Title".localized
+		navigationItem.title = AppStrings.Home.appInformationCardTitle
 
 		dynamicTableViewModel = .init([
 			.section(
 				header: .space(height: 32),
 				footer: .view(footerView()),
 				separators: false,
-				cells: Category.allCases.compactMap { Self.model[$0]?.text }.map { .body(text: $0) }
+				cells: Category.allCases.compactMap { Self.model[$0] }.map { .body(text: $0.text, accessibilityIdentifier: $0.accessibilityIdentifier) }
 			)
 		])
     }
@@ -86,6 +86,10 @@ extension AppInformationViewController {
 
 		cell.isAccessibilityElement = true
 		cell.accessibilityLabel = cell.textLabel?.text
+		if let category = Category(rawValue: indexPath.row),
+			let accessibilityIdentifier = Self.model[category]?.accessibilityIdentifier {
+			cell.accessibilityIdentifier = accessibilityIdentifier
+		}
 
 		return cell
 	}

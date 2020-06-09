@@ -249,12 +249,6 @@ extension SAP_TemporaryExposureKey: Comparable {
 	}
 }
 
-private extension FetchedDaysAndHours {
-	var allBuckets: [SAPDownloadedPackage] {
-		Array(days.bucketsByDay.values) + Array(hours.bucketsByHour.values)
-	}
-}
-
 private class KeyCell: UITableViewCell {
 	static var reuseIdentifier = "KeyCell"
 	override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {

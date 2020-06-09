@@ -282,3 +282,21 @@ private extension FMResultSet {
 		return SAPDownloadedPackage(keysBin: bin, signature: signature)
 	}
 }
+
+
+extension DownloadedPackagesSQLLiteStore {
+	convenience init(fileName: String) {
+
+		let fileManager = FileManager()
+		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+			fatalError("unable to determine document dir")
+		}
+		let storeURL = documentDir
+				.appendingPathComponent(fileName)
+				.appendingPathExtension("sqlite3")
+
+		let db = FMDatabase(url: storeURL)
+		self.init(database: db)
+		self.open()
+	}
+}

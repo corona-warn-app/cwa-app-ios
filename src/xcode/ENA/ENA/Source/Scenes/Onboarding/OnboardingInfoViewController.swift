@@ -195,6 +195,11 @@ final class OnboardingInfoViewController: UIViewController {
 
 		imageView.accessibilityLabel = onboardingInfo?.imageDescription
 
+		titleLabel.accessibilityIdentifier = onboardingInfo?.titleAccessibilityIdentifier
+		imageView.accessibilityIdentifier = onboardingInfo?.imageAccessibilityIdentifier
+		nextButton.accessibilityIdentifier = onboardingInfo?.actionTextAccessibilityIdentifier
+		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
+
 		titleLabel.accessibilityTraits = .header
 	}
 

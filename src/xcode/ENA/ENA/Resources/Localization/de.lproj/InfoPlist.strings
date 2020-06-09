@@ -1,7 +1,6 @@
-//
 // Corona-Warn-App
 //
-// SAP SE and all other contributors /
+// SAP SE and all other contributors
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -15,20 +14,6 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-//
 
-import Foundation
-import UIKit
 
-class HomeTestResultCell: HomeCardCollectionViewCell {
-	@IBOutlet var titleLabel: ENALabel!
-	@IBOutlet var resultLabel: ENALabel!
-	@IBOutlet var bodyLabel: ENALabel!
-	@IBOutlet var imageView: UIImageView!
-	@IBOutlet var button: ENAButton!
-	weak var delegate: HomeCardCellButtonDelegate?
-
-	@IBAction func buttonTapped(_: UIButton) {
-		delegate?.buttonTapped(cell: self)
-	}
-}
+"NSCameraUsageDescription" ="Erlaube der App QR-Codes mit Hilfe der Kamera zu scannen";

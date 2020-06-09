@@ -90,22 +90,14 @@ extension AppNavigationController: UINavigationControllerDelegate {
 				self.navigationBar.scrollEdgeAppearance = previousScrollEdgeAppearance
 			}
 		})
-
-		transitionCoordinator?.animate(alongsideTransition: { _ in
-		})
 	}
 }
 
 extension UINavigationBar {
 	var backgroundView: UIView? { subviews.first }
-	var shadowView: UIImageView? { backgroundView?.subviews.first(ofType: UIVisualEffectView.self)?.subviews.first(ofType: UIImageView.self) }
-	var visualEffectView: UIVisualEffectView? { backgroundView?.subviews.last(ofType: UIVisualEffectView.self) }
-
 	var backgroundAlpha: CGFloat {
 		get { backgroundView?.alpha ?? 0 }
-		set {
-			backgroundView?.alpha = newValue
-		}
+		set { backgroundView?.alpha = newValue }
 	}
 }
 
