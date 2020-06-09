@@ -61,7 +61,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		detectionIntervalLabelContainer.layer.masksToBounds = true
 		detectionIntervalLabelContainer.layoutMargins = .init(top: 9.0, left: 16.0, bottom: 9.0, right: 16.0)
 		detectionIntervalLabelContainer.backgroundColor = UIColor.black.withAlphaComponent(0.12)
-		detectionIntervalLabel.textColor = .systemGray6
+		detectionIntervalLabel.textColor = .enaColor(for: .textContrast)
 	}
 
 	// Ignore touches on the button when it's disabled
