@@ -57,7 +57,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			),
 			forHeaderFooterViewReuseIdentifier: "test"
 		)
-		tableView.register(DynamicTableViewImageCardCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue)
+		tableView.register(UINib(nibName: String(describing: ExposureSubmissionImageCardCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue)
 		title = AppStrings.ExposureSubmissionDispatch.title
 	}
 
@@ -240,6 +240,15 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 // MARK: Data extension for DynamicTableView.
 
+private extension DynamicCell {
+	static func imageCard(title: String, description: String? = nil, attributedDescription: NSAttributedString? = nil, image: UIImage?, action: DynamicAction) -> Self {
+		.identifier(ExposureSubmissionOverviewViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
+			guard let cell = cell as? ExposureSubmissionImageCardCell else { return }
+			cell.configure(title: title, description: description ?? "", attributedDescription: attributedDescription, image: image)
+		}
+	}
+}
+
 private extension ExposureSubmissionOverviewViewController {
 	func dynamicTableData() -> DynamicTableViewModel {
 		var data = DynamicTableViewModel([])
@@ -257,57 +266,35 @@ private extension ExposureSubmissionOverviewViewController {
 		)
 
 		data.add(DynamicSection.section(cells: [
-			.identifier(
-				CustomCellReuseIdentifiers.imageCard,
-				action: .execute(block: { _ in
-					self.showDisclaimer()
-				}),
-				configure: { _, cell, _ in
-					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
-					cell.configure(
-						title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
-						image: UIImage(named: "Illu_Submission_QRCode"),
-						body: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription
-					)
-				}
+			.imageCard(
+				title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
+				description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				image: UIImage(named: "Illu_Submission_QRCode"),
+				action: .execute(block: { _ in self.showDisclaimer() })
 			),
-			.identifier(
-				CustomCellReuseIdentifiers.imageCard,
-				action: .perform(segue: Segue.tanInput),
-				configure: { _, cell, _ in
-					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
-					cell.configure(
-						title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
-						image: UIImage(named: "Illu_Submission_TAN"),
-						body: AppStrings.ExposureSubmissionDispatch.tanButtonDescription
-					)
-				}
+			.imageCard(
+				title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
+				description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
+				image: UIImage(named: "Illu_Submission_TAN"),
+				action: .perform(segue: Segue.tanInput)
 			),
-			.identifier(
-				CustomCellReuseIdentifiers.imageCard,
-				action: .perform(segue: Segue.hotline),
-				configure: { _, cell, _ in
-					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
-					cell.configure(
-						title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
-						image: UIImage(named: "Illu_Submission_Anruf"),
-						body: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
-						attributedStrings: self.getAttributedStrings()
-					)
-				}
+			.imageCard(
+				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
+				attributedDescription: applyFont(style: .headline, to: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription, with: AppStrings.ExposureSubmissionDispatch.positiveWord),
+				image: UIImage(named: "Illu_Submission_Anruf"),
+				action: .perform(segue: Segue.hotline)
 			)
 		]))
 
 		return data
 	}
 
-	/// Gets the attributed string that makes the "Positive" word bold.
-	private func getAttributedStrings() -> [NSAttributedString] {
-		let font: UIFont = .preferredFont(forTextStyle: .body)
-		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
-		let attr: [NSAttributedString.Key: Any] = [.font: boldFont]
-		let word = NSAttributedString(string: AppStrings.ExposureSubmissionDispatch.positiveWord, attributes: attr)
-		return [word]
+	private func applyFont(style: ENAFont, to text: String, with content: String) -> NSAttributedString {
+		return NSMutableAttributedString.generateAttributedString(normalText: text, attributedText: [
+			NSAttributedString(string: content, attributes: [
+				NSAttributedString.Key.font: UIFont.enaFont(for: style)
+			])
+		])
 	}
 
 	private func transitionToQRScanner(_: UIViewController) {

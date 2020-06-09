@@ -28,14 +28,14 @@ extension RiskLegendViewController {
 				header: .image(UIImage(named: "Illu_Legende-Overview"), accessibilityLabel: AppStrings.RiskLegend.titleImageAccLabel, height: 200),
 				footer: .space(height: 32),
 				cells: [
-					.iconTitle(number: 1, text: AppStrings.RiskLegend.legend1Title),
+					.icon(UIImage(named: "Icons_Ueberblick_1"), text: AppStrings.RiskLegend.legend1Title, style: .title2),
 					.body(text: AppStrings.RiskLegend.legend1Text)
 				]
 			),
 			.section(
 				footer: .space(height: 32),
 				cells: [
-					.iconTitle(number: 2, text: AppStrings.RiskLegend.legend2Title),
+					.icon(UIImage(named: "Icons_Ueberblick_2"), text: AppStrings.RiskLegend.legend2Title, style: .title2),
 					.body(text: AppStrings.RiskLegend.legend2Text),
 					.space(height: 8),
 					.headline(text: AppStrings.RiskLegend.legend2RiskLevels),
@@ -48,7 +48,7 @@ extension RiskLegendViewController {
 			.section(
 				footer: .separator(color: .enaColor(for: .hairline), insets: UIEdgeInsets(top: 32, left: 0, bottom: 32, right: 0)),
 				cells: [
-					.iconTitle(number: 3, text: AppStrings.RiskLegend.legend3Title),
+					.icon(UIImage(named: "Icons_Ueberblick_3"), text: AppStrings.RiskLegend.legend3Title, style: .title2),
 					.body(text: AppStrings.RiskLegend.legend3Text)
 				]
 			),
@@ -101,14 +101,6 @@ private extension DynamicCell {
 		.headline(text: text) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.bottom = 0
-		}
-	}
-
-	static func iconTitle(number: UInt8, text: String) -> Self {
-		.identifier(RiskLegendViewController.CellReuseIdentifier.numberedTitle) { _, cell, _ in
-			guard let cell = cell as? RiskLegendNumberedTitleCell else { return }
-			cell.numberLabel.text = "\(number)"
-			cell.textLabel?.text = text
 		}
 	}
 
