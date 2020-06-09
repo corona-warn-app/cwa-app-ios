@@ -138,6 +138,9 @@ private extension ENAColor {
 		case .riskMedium: return "risk-medium"
 		case .riskNeutral: return "risk-neutral"
 
+		// MARK: - Tap States Colors
+		case .listHighlight: return "list-highlight"
+
 		// MARK: - Text Colors
 		case .textContrast: return "text-contrast"
 		case .textPrimary1: return "text-primary-1"

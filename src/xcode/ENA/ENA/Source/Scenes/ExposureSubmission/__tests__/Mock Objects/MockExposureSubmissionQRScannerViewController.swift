@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,23 +15,27 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import ExposureNotification
 import Foundation
+import UIKit
+@testable import ENA
 
-protocol ExposureDetectionViewControllerSummary {
-	var numberOfContacts: Int { get }
-	var daysSinceLastExposure: Int { get }
-	var numberOfDaysStored: Int { get }
-	var lastRefreshDate: Date { get }
-}
+class MockExposureSubmissionQRScannerViewController: QRScannerViewController {
 
-extension ExposureDetectionViewController {
-	typealias Summary = ExposureDetectionViewControllerSummary
-}
+	// MARK: - Mock callbacks.
+	var dismissCallback: ((Bool, (() -> Void)?) -> Void)?
+	var presentCallback: ((UIViewController, Bool, (() -> Void)?) -> Void)?
 
-extension ENExposureDetectionSummary: ExposureDetectionViewControllerSummary {
-	var numberOfContacts: Int { Int(matchedKeyCount) }
-	var numberOfDaysStored: Int { .random(in: 0 ... 14) } // TODO: Retrieve actual value
-	var lastRefreshDate: Date { Date() } // TODO: Retrieve actual value
+	// MARK: - QRScannerViewController methods.
+
+	weak var delegate: ExposureSubmissionQRScannerDelegate?
+
+	func dismiss(animated: Bool, completion: (() -> Void)?) {
+		dismissCallback?(animated, completion)
+	}
+
+	func present(_ vc: UIViewController, animated: Bool, completion: (() -> Void)?) {
+		presentCallback?(vc, animated, completion)
+	}
 }
