@@ -21,7 +21,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	let identifier = UUID()
 
-	private var previousRisk: Risk?
+	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	private var lastUpdateDate: Date?
 
 	enum IncativeType {
@@ -51,9 +51,13 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(incativeType: IncativeType, previousRisk: Risk?, lastUpdateDate: Date?) {
+	init(
+		incativeType: IncativeType,
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		lastUpdateDate: Date?
+	) {
 		self.incativeType = incativeType
-		self.previousRisk = previousRisk
+		self.previousRiskLevel = previousRiskLevel
 		self.lastUpdateDate = lastUpdateDate
 	}
 
@@ -76,7 +80,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 
 		let previousRiskTitle: String
-		switch previousRisk?.level {
+		switch previousRiskLevel {
 		case .low?:
 			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemLowTitle
 		case .increased?:

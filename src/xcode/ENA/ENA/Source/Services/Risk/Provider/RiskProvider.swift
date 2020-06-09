@@ -232,8 +232,10 @@ extension RiskProvider: RiskProviding {
 
 	private func saveRiskIfNeeded(_ risk: Risk) {
 		switch risk.level {
-		case .low, .increased:
-			store.previousRisk = risk
+		case .low:
+			store.previousRiskLevel = .low
+		case .increased:
+			store.previousRiskLevel = .increased
 		default:
 			break
 		}
