@@ -103,8 +103,6 @@ class ENATanInput: UIControl, UIKeyInput {
 				label.textColor = labelTextColor
 				label.font = font
 				label.text = "-"
-				label.adjustsFontSizeToFitWidth = true
-				label.minimumScaleFactor = 0.2
 				stackView.addArrangedSubview(label)
 			}
 
@@ -116,8 +114,6 @@ class ENATanInput: UIControl, UIKeyInput {
 				label.textAlignment = .center
 				label.textColor = labelTextColor
 				label.font = font
-				label.adjustsFontSizeToFitWidth = true
-				label.minimumScaleFactor = 0.2
 				stackView.addArrangedSubview(label)
 			}
 		}
