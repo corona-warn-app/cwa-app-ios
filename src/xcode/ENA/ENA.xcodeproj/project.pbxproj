@@ -233,7 +233,6 @@
 		B17F2D48248CEB4C00CAA38F /* DetectionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18E852E248C29D400CF4FB8 /* DetectionMode.swift */; };
 		B184A380248FFCBE007180F6 /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184A37F248FFCBE007180F6 /* SecureStore.swift */; };
 		B184A383248FFCE2007180F6 /* CodableExposureDetectionSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184A382248FFCE2007180F6 /* CodableExposureDetectionSummary.swift */; };
-		B184A386248FFD6D007180F6 /* SecureStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184A385248FFD6D007180F6 /* SecureStoreTests.swift */; };
 		B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18C411C246DB30000B8D8CB /* URL+Helper.swift */; };
 		B1A76E9F24714AC700EA5208 /* HTTPClient+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A76E9E24714AC700EA5208 /* HTTPClient+Configuration.swift */; };
 		B1A76EA224714F7900EA5208 /* ClientModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CF8D0F246C1F4100DBE135 /* ClientModeTests.swift */; };
@@ -595,7 +594,6 @@
 		B17A44A12464906A00CB195E /* KeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyTests.swift; sourceTree = "<group>"; };
 		B184A37F248FFCBE007180F6 /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
 		B184A382248FFCE2007180F6 /* CodableExposureDetectionSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExposureDetectionSummary.swift; sourceTree = "<group>"; };
-		B184A385248FFD6D007180F6 /* SecureStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStoreTests.swift; sourceTree = "<group>"; };
 		B18C411C246DB30000B8D8CB /* URL+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Helper.swift"; sourceTree = "<group>"; };
 		B18CADAD24782FA4006F53F0 /* ExposureStateUpdating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureStateUpdating.swift; sourceTree = "<group>"; };
 		B18E852E248C29D400CF4FB8 /* DetectionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionMode.swift; sourceTree = "<group>"; };
@@ -1549,20 +1547,11 @@
 		B184A381248FFCC3007180F6 /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				B184A384248FFD57007180F6 /* __tests__ */,
 				013DC101245DAC4E00EE58B0 /* Store.swift */,
 				B184A37F248FFCBE007180F6 /* SecureStore.swift */,
 				B184A382248FFCE2007180F6 /* CodableExposureDetectionSummary.swift */,
 			);
 			path = Store;
-			sourceTree = "<group>";
-		};
-		B184A384248FFD57007180F6 /* __tests__ */ = {
-			isa = PBXGroup;
-			children = (
-				B184A385248FFD6D007180F6 /* SecureStoreTests.swift */,
-			);
-			path = __tests__;
 			sourceTree = "<group>";
 		};
 		B18C411A246DB2F000B8D8CB /* Helper */ = {
@@ -2267,7 +2256,6 @@
 				A3284259248E7672006B1F09 /* MockExposureSubmissionQRScannerViewController.swift in Sources */,
 				A328425F248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift in Sources */,
 				A128F04E2489ABEE00EC7F6C /* RiskCalculationTests.swift in Sources */,
-				B184A386248FFD6D007180F6 /* SecureStoreTests.swift in Sources */,
 				B1A76EA224714F7900EA5208 /* ClientModeTests.swift in Sources */,
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
 				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
