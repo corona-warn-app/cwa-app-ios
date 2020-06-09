@@ -36,6 +36,7 @@ jobs:
           root: ~/project
           paths:
             - scripts/*.sh
+            - sonar-project.properties
             - src/xcode/swiftlint.result.json
             - src/xcode/fastlane/test_output/
   assess:
@@ -82,6 +83,7 @@ orbs:
 workflows:
     default:
       jobs:
+        - build
         - test
         - assess:
             requires:
