@@ -24,6 +24,8 @@ import XCTest
 final class SQLiteKeyValueStoreTests: XCTestCase {
 
 	private var kvStore: SQLiteKeyValueStore!
+	let group = DispatchGroup()
+
 
 	let rawMockData: [(key: String, data: Data)] = [
 		// swiftlint:disable force_unwrapping
@@ -38,7 +40,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 	override func setUp() {
 		super.setUp()
 		// Old DB is deinited and hence connection closed at every setUp() call
-			kvStore = SQLiteKeyValueStore(with: URL(staticString: ":memory:"))
+		kvStore = SQLiteKeyValueStore(with: nil, key: "password")
 	}
 
 	// MARK: - Positive Tests
@@ -66,7 +68,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 		kvStore[rawMockData[0].key] = rawMockData[0].data
 		kvStore[rawMockData[1].key] = rawMockData[1].data
 
-		kvStore.clearAll()
+		kvStore.clearAll(key: "newPassword")
 
 		XCTAssertNil(kvStore[rawMockData[0].key])
 		XCTAssertNil(kvStore[rawMockData[1].key])
@@ -121,6 +123,32 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 	func testDecodingError_ReturnNil() {
 		kvStore["someCodable"] = SomeCodable(someDouble: 1.1)
 		XCTAssertNil(kvStore["someCodable"] as SomeOtherCodable?)
+	}
+
+	func testThreadSafety() {
+		for i in 0...1000 {
+			group.enter()
+
+			DispatchQueue.global().async {
+				let sleepVal = UInt32.random(in: 0...1000)
+				usleep(sleepVal)
+				self.kvStore["key\(i)"] = "value\(i)".data(using: .utf8)
+				if i.isMultiple(of: 2) {
+					self.kvStore["key\(i)"] = nil
+				}
+				self.group.leave()
+			}
+		}
+
+		let result = group.wait(timeout: DispatchTime.now() + 5)
+		XCTAssert(result == .success)
+		for j in 0...1000 {
+			if j.isMultiple(of: 2) {
+				XCTAssertNil(self.kvStore["key\(j)"])
+			} else {
+				XCTAssertEqual(self.kvStore["key\(j)"], "value\(j)".data(using: .utf8))
+			}
+		}
 	}
 }
 
