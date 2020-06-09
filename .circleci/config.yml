@@ -32,11 +32,15 @@ jobs:
       - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
+      - persist_to_workspace:
+        root: ~/
+        paths: src/xcode/
   assess:
     macos:
       xcode: 11.5.0
     shell: zsh
     steps:
+      - attach_workspace
       - run:
           name: Convert coverage information to SonarCloud format
           command: |
