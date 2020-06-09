@@ -85,12 +85,12 @@ final class HomeViewController: UIViewController {
 		updateSections()
 		applySnapshotFromSections()
 		configureUI()
-		homeInteractor.updateTestResults()
 		setupAccessibility()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		homeInteractor.updateTestResults()
 		homeInteractor.requestRisk(userInitiated: false)
 	}
 
