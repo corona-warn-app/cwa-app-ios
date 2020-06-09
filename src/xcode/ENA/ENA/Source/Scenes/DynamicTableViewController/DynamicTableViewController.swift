@@ -285,7 +285,7 @@ private extension UITableViewCell {
 
 		let separator = UIView(frame: bounds)
 		contentView.addSubview(separator)
-		separator.backgroundColor = .preferredColor(for: .separator)
+		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
 		separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
 		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true

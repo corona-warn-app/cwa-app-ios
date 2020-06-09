@@ -34,11 +34,9 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 	}
 
 	func configure(cell: InfoCollectionViewCell) {
-		cell.backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
-		cell.chevronImageView.image = UIImage(systemName: "chevron.right")
+		cell.backgroundColor = .enaColor(for: .background)
 		cell.titleLabel.text = title
 		cell.bodyLabel.text = body
-		cell.bodyLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
 		cell.bodyLabel.isHidden = (body == nil)
 
 		cell.topDividerView.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(0.3)
