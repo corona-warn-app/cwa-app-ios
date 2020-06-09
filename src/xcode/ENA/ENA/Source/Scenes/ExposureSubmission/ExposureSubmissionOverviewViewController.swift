@@ -205,7 +205,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				self.present(alert, animated: true, completion: nil)
 
 			case let .success(token):
-				appLogger.log(
+				log(
 					message: "Received registration token: \(token)",
 					file: #file,
 					line: #line,
