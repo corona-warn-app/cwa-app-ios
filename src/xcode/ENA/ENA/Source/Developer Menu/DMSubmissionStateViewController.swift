@@ -116,9 +116,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 }
 
 private extension Data {
-	// swiftlint:disable:next force_unwrapping
-	static let binHeader = "EK Export v1    ".data(using: .utf8)!
-
+	static let binHeader = Data("EK Export v1    ".utf8)
 	var withoutBinHeader: Data {
 		let headerRange = startIndex ..< Data.binHeader.count
 
