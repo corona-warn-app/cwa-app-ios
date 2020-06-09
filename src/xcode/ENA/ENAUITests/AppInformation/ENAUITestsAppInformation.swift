@@ -40,18 +40,18 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+		XCTAssert(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
 
-		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.aboutNavigation)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.faqNavigation)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.contactNavigation)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.privacyNavigation)].waitForExistence(timeout: 5.0))
-		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.termsNavigation)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.AppInformation.aboutNavigation"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.AppInformation.faqNavigation"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.AppInformation.contactNavigation"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.AppInformation.privacyNavigation"].waitForExistence(timeout: 5.0))
+		XCTAssert(app.cells["AppStrings.AppInformation.termsNavigation"].waitForExistence(timeout: 5.0))
 
 	}
 
@@ -59,32 +59,32 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+		XCTAssert(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
 
-		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.aboutNavigation)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.AppInformation.aboutNavigation)].tap()
+		XCTAssert(app.cells["AppStrings.AppInformation.aboutNavigation"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.AppInformation.aboutNavigation"].tap()
 
-		XCTAssert(app.staticTexts[app.localized(AppStrings.AppInformation.aboutTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.staticTexts["AppStrings.AppInformation.aboutTitle"].waitForExistence(timeout: 5.0))
 	}
 
 	func test_0022_AppInformationFlow_faq() throws {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+		XCTAssert(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
 
-		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.faqNavigation)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.AppInformation.faqNavigation)].tap()
+		XCTAssert(app.cells["AppStrings.AppInformation.faqNavigation"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.AppInformation.faqNavigation"].tap()
 
 		XCTAssert(app.staticTexts["Done"].waitForExistence(timeout: 5.0))
 	}
@@ -93,51 +93,51 @@ class ENAUITests_02_AppInformation: XCTestCase {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+		XCTAssert(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
 
-		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.contactNavigation)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.AppInformation.contactNavigation)].tap()
+		XCTAssert(app.cells["AppStrings.AppInformation.contactNavigation"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.AppInformation.contactNavigation"].tap()
 
-		XCTAssert(app.staticTexts[app.localized(AppStrings.AppInformation.contactTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.staticTexts["AppStrings.AppInformation.contactTitle"].waitForExistence(timeout: 5.0))
 	}
 
 	func test_0024_AppInformationFlow_privacy() throws {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+		XCTAssert(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
 
-		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.privacyNavigation)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.AppInformation.privacyNavigation)].tap()
+		XCTAssert(app.cells["AppStrings.AppInformation.privacyNavigation"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.AppInformation.privacyNavigation"].tap()
 
-		XCTAssert(app.staticTexts[app.localized(AppStrings.AppInformation.privacyTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.staticTexts["AppStrings.AppInformation.privacyTitle"].waitForExistence(timeout: 5.0))
 	}
 
 	func test_0025_AppInformationFlow_terms() throws {
 		app.launch()
 
 		// only run if onboarding screen is present
-		XCTAssert(app.buttons[app.localized(AppStrings.Home.rightBarButtonDescription)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.Home.appInformationCardTitle)].tap()
+		XCTAssert(app.cells["AppStrings.Home.appInformationCardTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.appInformationCardTitle"].tap()
 
-		XCTAssert(app.cells[app.localized(AppStrings.AppInformation.termsNavigation)].waitForExistence(timeout: 5.0))
-		app.cells[app.localized(AppStrings.AppInformation.termsNavigation)].tap()
+		XCTAssert(app.cells["AppStrings.AppInformation.termsNavigation"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.AppInformation.termsNavigation"].tap()
 
-		XCTAssert(app.staticTexts[app.localized(AppStrings.AppInformation.termsTitle)].waitForExistence(timeout: 5.0))
+		XCTAssert(app.staticTexts["AppStrings.AppInformation.termsTitle"].waitForExistence(timeout: 5.0))
 	}
 
 }
