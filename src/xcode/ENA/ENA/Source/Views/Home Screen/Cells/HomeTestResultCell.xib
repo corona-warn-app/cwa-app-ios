@@ -20,13 +20,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="360" height="220"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDq-GM-tua">
-                                <rect key="frame" x="16" y="16" width="328" height="147"/>
+                                <rect key="frame" x="16" y="16" width="344" height="147"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lO7-EV-Ky9">
-                                        <rect key="frame" x="0.0" y="0.0" width="208" height="147"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="224" height="147"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="755" insetsLayoutMarginsFromSafeArea="NO" text="Title " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pu9-ea-uYq" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="208" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="224" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -35,7 +35,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="755" insetsLayoutMarginsFromSafeArea="NO" text="Result Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIr-0f-HEm" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28.5" width="208" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="28.5" width="224" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Risk Low Color"/>
                                                 <nil key="highlightedColor"/>
@@ -44,7 +44,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5o-e9-Zf2" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="57" width="208" height="90"/>
+                                                <rect key="frame" x="0.0" y="57" width="224" height="90"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 2 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                                         </subviews>
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Illu_Hand_with_phone-initial" translatesAutoresizingMaskIntoConstraints="NO" id="2MF-0K-j40">
-                                        <rect key="frame" x="208" y="0.0" width="120" height="147"/>
+                                        <rect key="frame" x="224" y="0.0" width="120" height="147"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="SdW-cT-815"/>
                                         </constraints>
@@ -88,7 +88,7 @@
                             <constraint firstItem="736-dz-fBH" firstAttribute="trailing" secondItem="mUW-aW-2Ou" secondAttribute="trailingMargin" id="3xS-8I-Cy7"/>
                             <constraint firstItem="rDq-GM-tua" firstAttribute="top" secondItem="mUW-aW-2Ou" secondAttribute="topMargin" id="8vc-xW-aU1"/>
                             <constraint firstItem="rDq-GM-tua" firstAttribute="leading" secondItem="mUW-aW-2Ou" secondAttribute="leadingMargin" id="EaO-3X-p6a"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rDq-GM-tua" secondAttribute="trailing" id="FAk-fx-waN"/>
+                            <constraint firstAttribute="trailing" secondItem="rDq-GM-tua" secondAttribute="trailing" id="FAk-fx-waN"/>
                             <constraint firstItem="736-dz-fBH" firstAttribute="leading" secondItem="mUW-aW-2Ou" secondAttribute="leadingMargin" id="LKR-kp-IZ9"/>
                             <constraint firstItem="Eol-wD-qBB" firstAttribute="bottom" secondItem="Pu9-ea-uYq" secondAttribute="firstBaseline" id="e8R-ic-grc"/>
                             <constraint firstItem="736-dz-fBH" firstAttribute="top" secondItem="rDq-GM-tua" secondAttribute="bottom" constant="8" id="fH7-wh-S3H"/>

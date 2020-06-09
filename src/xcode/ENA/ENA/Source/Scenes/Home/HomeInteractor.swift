@@ -288,7 +288,7 @@ extension HomeInteractor {
 
 			let thankYou = HomeThankYouRiskCellConfigurator()
 			actionsConfigurators.append(thankYou)
-			appLogger.log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
+			log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
 
 		} else if store.registrationToken != nil {
 			// This is shown when we registered a test.

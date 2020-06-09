@@ -250,9 +250,8 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 					DROP TABLE Z_DOWNLOADED_PACKAGE;
 				"""
 			)
-			self.close()
 		}
-
+		self.close()
 	}
 }
 

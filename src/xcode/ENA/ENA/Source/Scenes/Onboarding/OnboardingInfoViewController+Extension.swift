@@ -27,7 +27,7 @@ extension OnboardingInfoViewController {
 		titleLabel.style = .headline
 		titleLabel.text = title
 		titleLabel.translatesAutoresizingMaskIntoConstraints = false
-		titleLabel.textColor = UIColor.preferredColor(for: .textPrimary1)
+		titleLabel.textColor = .enaColor(for: .textPrimary1)
 		titleLabel.lineBreakMode = .byWordWrapping
 		titleLabel.numberOfLines = 0
 
@@ -35,7 +35,7 @@ extension OnboardingInfoViewController {
 		textLabel.style = .body
 		textLabel.text = body
 		textLabel.translatesAutoresizingMaskIntoConstraints = false
-		textLabel.textColor = UIColor.preferredColor(for: .textPrimary1)
+		textLabel.textColor = .enaColor(for: .textPrimary1)
 		textLabel.lineBreakMode = .byWordWrapping
 		textLabel.numberOfLines = 0
 
@@ -49,7 +49,7 @@ extension OnboardingInfoViewController {
 		let containerView = UIView()
 		containerView.addSubview(labelStackView)
 		containerView.layer.cornerRadius = 14.0
-		containerView.backgroundColor = UIColor.preferredColor(for: .separator)
+		containerView.backgroundColor = .enaColor(for: .separator)
 		containerView.layoutMargins = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
 		stackView.addArrangedSubview(containerView)
 
