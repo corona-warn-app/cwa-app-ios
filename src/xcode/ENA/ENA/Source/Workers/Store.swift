@@ -40,6 +40,9 @@ protocol Store: AnyObject {
 
 	var summary: SummaryMetadata? { get set }
 
+	// last successful recieved low or high risk
+	var previousRisk: Risk? { get set }
+
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
 
@@ -220,6 +223,11 @@ final class SecureStore: Store {
 	var hourlyFetchingEnabled: Bool {
 		get { kvStore["hourlyFetchingEnabled"] as Bool? ?? false }
 		set { kvStore["hourlyFetchingEnabled"] = newValue }
+	}
+
+	var previousRisk: Risk? {
+		get { kvStore["previousRisk"] as Risk? }
+		set { kvStore["previousRisk"] = newValue }
 	}
 }
 

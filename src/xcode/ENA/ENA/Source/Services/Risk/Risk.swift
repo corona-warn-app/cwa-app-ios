@@ -19,14 +19,14 @@
 
 import Foundation
 
-struct Risk {
+struct Risk: Codable {
 	let level: RiskLevel
 	let details: Details
 	let riskLevelHasChanged: Bool
 }
 
 extension Risk {
-	struct Details {
+	struct Details: Codable {
 		var numberOfExposures: Int?
 		var numberOfHoursWithActiveTracing: Int
 		var numberOfDaysWithActiveTracing: Int { numberOfHoursWithActiveTracing / 24 }
