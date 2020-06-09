@@ -19,6 +19,7 @@
 import Foundation
 
 class MockTestStore: Store {
+	var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
 	var testResultReceivedTimeStamp: Int64?
