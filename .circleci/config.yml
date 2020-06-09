@@ -25,6 +25,7 @@ jobs:
             if [ -z "${CIRCLE_PULL_REQUEST}" ]; then
               circleci-agent step halt
             fi
+      - checkout
       - run:
           name: Install dependencies
           command: brew install swiftlint && cd src/xcode && bundle install
