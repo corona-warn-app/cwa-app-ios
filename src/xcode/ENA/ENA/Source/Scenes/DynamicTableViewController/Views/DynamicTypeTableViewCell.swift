@@ -66,6 +66,6 @@ class DynamicTypeTableViewCell: UITableViewCell {
 
 	func configure(text: String, color: UIColor? = nil) {
 		textLabel?.text = text
-		textLabel?.textColor = color ?? .preferredColor(for: .textPrimary1)
+		textLabel?.textColor = color ?? .enaColor(for: .textPrimary1)
 	}
 }

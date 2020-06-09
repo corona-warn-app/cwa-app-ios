@@ -40,7 +40,7 @@ class ExposureDetectionLongGuideCell: UITableViewCell {
 			let label = DynamicTypeLabel()
 			label.translatesAutoresizingMaskIntoConstraints = false
 			label.text = text
-			label.textColor = .preferredColor(for: .textPrimary1)
+			label.textColor = .enaColor(for: .textPrimary1)
 			label.numberOfLines = 0
 			label.adjustsFontForContentSizeCategory = true
 			label.font = textLabel?.font

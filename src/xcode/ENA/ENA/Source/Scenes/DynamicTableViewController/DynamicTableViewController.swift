@@ -21,6 +21,8 @@ import UIKit
 class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	var dynamicTableViewModel = DynamicTableViewModel([])
 
+	@IBInspectable var cellBackgroundColor: UIColor?
+
 	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
 
 	override func loadView() {
@@ -246,6 +248,10 @@ extension DynamicTableViewController {
 			cell.addSeparator(.clear)
 		}
 
+		if let cellBackgroundColor = cellBackgroundColor {
+			cell.backgroundColor = cellBackgroundColor
+		}
+
 		return cell
 	}
 
@@ -279,7 +285,7 @@ private extension UITableViewCell {
 
 		let separator = UIView(frame: bounds)
 		contentView.addSubview(separator)
-		separator.backgroundColor = .preferredColor(for: .separator)
+		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
 		separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
 		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
