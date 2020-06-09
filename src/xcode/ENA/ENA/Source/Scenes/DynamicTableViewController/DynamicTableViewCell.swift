@@ -83,7 +83,6 @@ extension DynamicCell {
 			guard let cell = cell as? DynamicTableViewSpaceCell else { return }
 			cell.height = height
 			cell.backgroundColor = color
-			cell.isAccessibilityElement = false
 		}
 	}
 }
