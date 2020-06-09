@@ -298,6 +298,7 @@
 		EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB88247FB43A001B0A71 /* ActionTableViewCell.swift */; };
 		EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB8E247FB46C001B0A71 /* ENStateTests.swift */; };
 		EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22DB90247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift */; };
+		EE269508248FCB0300BAE234 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE26950A248FCB0300BAE234 /* InfoPlist.strings */; };
 		EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */; };
 		EE278B30245F2C8A008B06F9 /* FriendsInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */; };
 		EE46E5D82466AEA50057627F /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE46E5D72466AEA50057627F /* UIView.swift */; };
@@ -655,6 +656,8 @@
 		EE22DB88247FB43A001B0A71 /* ActionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionTableViewCell.swift; sourceTree = "<group>"; };
 		EE22DB8E247FB46C001B0A71 /* ENStateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENStateTests.swift; sourceTree = "<group>"; };
 		EE22DB90247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStateHandlerObserverDelegate.swift; sourceTree = "<group>"; };
+		EE269509248FCB0300BAE234 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EE26950B248FCB1600BAE234 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EE278B2C245F2BBB008B06F9 /* InviteFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InviteFriends.storyboard; sourceTree = "<group>"; };
 		EE278B2F245F2C8A008B06F9 /* FriendsInviteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsInviteController.swift; sourceTree = "<group>"; };
 		EE46E5D72466AEA50057627F /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -1751,6 +1754,7 @@
 				71F5418A248BEDBE006DB793 /* privacy-policy.html */,
 				EE70C23A245B09E900AC9B2F /* Localizable.strings */,
 				EE92A340245D96DA006B97B0 /* Localizable.stringsdict */,
+				EE26950A248FCB0300BAE234 /* InfoPlist.strings */,
 			);
 			path = Localization;
 			sourceTree = "<group>";
@@ -1930,6 +1934,7 @@
 				13156CFD248C19D000AFC472 /* usage.html in Resources */,
 				51486DA72485237200FCE216 /* RiskThankYouCollectionViewCell.xib in Resources */,
 				2F785752248506BD00323A9C /* HomeTestResultCell.xib in Resources */,
+				EE269508248FCB0300BAE234 /* InfoPlist.strings in Resources */,
 				A16714B1248CFF020031B111 /* HostWhitelist.plist in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
 				EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */,
@@ -2332,6 +2337,15 @@
 				85D7594D24570491008175F0 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		EE26950A248FCB0300BAE234 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE269509248FCB0300BAE234 /* de */,
+				EE26950B248FCB1600BAE234 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		EE70C23A245B09E900AC9B2F /* Localizable.strings */ = {

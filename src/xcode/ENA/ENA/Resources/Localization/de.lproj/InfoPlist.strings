@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  ENA
+
+  Created by Steinmetz, Conrad on 09.06.20.
+  Copyright © 2020 SAP SE. All rights reserved.
+*/
+
+
+"NSCameraUsageDescription" ="Erlaube der App QR-Codes mit Hilfe der Kamera zu scannen";
