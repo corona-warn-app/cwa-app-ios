@@ -18,6 +18,11 @@
 import Foundation
 import ExposureNotification
 
+enum EitherLowOrIncreasedRiskLevel: Int {
+	case low = 0
+	case increased = 1_000 // so that increased > low + we have enough reserved values
+}
+
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
@@ -40,8 +45,8 @@ protocol Store: AnyObject {
 
 	var summary: SummaryMetadata? { get set }
 
-	// last successful recieved low or high risk
-	var previousRisk: Risk? { get set }
+	// last successful recieved low or high risk level
+	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
@@ -227,9 +232,14 @@ final class SecureStore: Store {
 		set { kvStore["hourlyFetchingEnabled"] = newValue }
 	}
 
-	var previousRisk: Risk? {
-		get { kvStore["previousRisk"] as Risk? }
-		set { kvStore["previousRisk"] = newValue }
+	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? {
+		get {
+			guard let value = kvStore["previousRiskLevel"] as Int? else {
+				return nil
+			}
+			return EitherLowOrIncreasedRiskLevel(rawValue: value)
+		}
+		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
 	}
 
 	var lastCheckedVersion: String? {
