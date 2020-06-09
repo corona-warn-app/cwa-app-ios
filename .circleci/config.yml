@@ -37,13 +37,15 @@ jobs:
           paths:
             - scripts/*.sh
             - sonar-project.properties
-            - src/xcode/swiftlint.result.json
-            - src/xcode/fastlane/test_output/
+            - src/xcode/
   assess:
     macos:
       xcode: 11.5.0
     shell: zsh
     steps:
+      - checkout
+      - restore_cache:
+          key: sonar-cloud-v1
       - attach_workspace:
           at: ~/project/
       - run:
@@ -54,11 +56,25 @@ jobs:
       - run:
           name: Fix SwiftLint output for SonarCloud
           command: |
-                mv src/xcode/swiftlint.result.json src/xcode/swiftlint.result.original.json
-                cat src/xcode/swiftlint.result.original.json | jq '.["issues"]' > src/xcode/swiftlint.result.json
-      - sonarcloud/scan:
-          os: macosx
-          version: 4.3.0.2102
+            mv src/xcode/swiftlint.result.json src/xcode/swiftlint.result.original.json
+            cat src/xcode/swiftlint.result.original.json | jq '.["issues"]' > src/xcode/swiftlint.result.json
+      - run:
+          name: Install Sonar Scanner
+          command: |
+            SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
+            SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
+            if [[ ! -x "~/sonar/$SCANNERDIR/bin/sonar-scanner" ]]; then
+              curl -Ol https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/$SCANNER.zip
+              unzip -qq -o $SCANNER.zip -d ~/sonar/
+            fi
+
+            chmod +x $SCANNERDIR/bin/sonar-scanner
+            chmod +x $SCANNERDIR/jre/bin/java
+            $SCANNERDIR/bin/sonar-scanner
+      - save_cache:
+          key: sonar-cloud-v1
+          paths:
+            - ~/sonar/
       - store_test_results:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
@@ -78,14 +94,12 @@ jobs:
       - store_artifacts:
           path: src/xcode/screenshots
 
-orbs:
-  sonarcloud: tkowark/sonarcloud3@0.1.0
 workflows:
     default:
       jobs:
-        - build
-        - test
+#        - build
+#        - test
         - assess:
-            requires:
-              - test
+            #requires:
+            #  - test
             context: SonarCloud
