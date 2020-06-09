@@ -19,7 +19,7 @@
 			<string>Yesterday, %%1$@</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%%2$@, %%1$@</string>
+			<string>%%2$@, %%1$@ Uhr</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_NumberOfContacts</key>
@@ -34,10 +34,10 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>No exposure up to now</string>
+			<string>No exposures up to now</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>%u exposure</string>
+			<string>One exposure</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
 			<string>%u exposures</string>
@@ -55,13 +55,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Last encounter: today</string>
+			<string>%u days since last exposure</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Last encounter: yesterday</string>
+			<string>%u day since last exposure</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u days since last encounter</string>
+			<string>%u days since last exposure</string>
 		</dict>
 	</dict>
     <key>Home_Risk_Number_Contacts_Item_Title</key>
