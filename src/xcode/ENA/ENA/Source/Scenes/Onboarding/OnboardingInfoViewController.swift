@@ -176,6 +176,7 @@ final class OnboardingInfoViewController: UIViewController {
 		case .privacyPage:
 			stackView.arrangedSubviews.last?.isHidden = true
 			let textView = HtmlTextView()
+			textView.layoutMargins = .zero
 			textView.delegate = self
 			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
 				textView.load(from: url)
