@@ -191,7 +191,9 @@ extension AppInformationViewController {
 				height: 230
 			),
 			cells: [
-				.title2(text: AppStrings.AppInformation.privacyTitle),
+				.title2(
+					text: AppStrings.AppInformation.privacyTitle,
+					accessibilityIdentifier: "AppStrings.AppInformation.privacyTitle"),
 				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
 			]
 		)
@@ -204,7 +206,9 @@ extension AppInformationViewController {
 						   accessibilityIdentifier: "AppStrings.AppInformation.termsImageDescription",
 						   height: 230),
 			cells: [
-				.title2(text: AppStrings.AppInformation.termsTitle),
+				.title2(
+					text: AppStrings.AppInformation.termsTitle,
+					accessibilityIdentifier: "AppStrings.AppInformation.termsTitle"),
 				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
 			]
 		)
