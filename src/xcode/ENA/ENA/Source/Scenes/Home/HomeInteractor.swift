@@ -210,7 +210,7 @@ extension HomeInteractor {
 		case .inactive:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				incativeType: .noCalculationPossible,
-				lastInvestigation: "Geringes Risiko",
+				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
@@ -218,7 +218,7 @@ extension HomeInteractor {
 		case .unknownOutdated:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				incativeType: .outdatedResults,
-				lastInvestigation: "Geringes Risiko",
+				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
 		case .low:
