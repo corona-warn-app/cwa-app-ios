@@ -45,6 +45,7 @@
 		3DD7674E2483DE18002DD2B3 /* MockReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7674C2483DDAC002DD2B3 /* MockReachabilityService.swift */; };
 		4026C2DC24852B7600926FB4 /* AppInformationViewController+LegalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */; };
 		4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */; };
+		40D4D6BA248EBA780005A9BD /* THIRD-PARTY-LICENSE-INFO.plist in Resources */ = {isa = PBXBuildFile; fileRef = 40D4D6B9248EBA780005A9BD /* THIRD-PARTY-LICENSE-INFO.plist */; };
 		51486D9F2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51486D9E2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift */; };
 		51486DA22485101500FCE216 /* RiskInactiveCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */; };
 		51486DA32485101500FCE216 /* RiskInactiveCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51486DA12485101500FCE216 /* RiskInactiveCollectionViewCell.xib */; };
@@ -67,10 +68,6 @@
 		515BBDEB2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515BBDEA2484F8E500CDB674 /* HomeThankYouRiskCellConfigurator.swift */; };
 		51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51895EDB245E16CD0085DA38 /* ENAColor.swift */; };
 		518A69FB24687D5800444E66 /* RiskLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518A69FA24687D5800444E66 /* RiskLevel.swift */; };
-		51B096F0248E470B00E48DCD /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = B10FB02F246036F3004CA11E /* SwiftProtobuf */; };
-		51B096F1248E470B00E48DCD /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = B1E8C9A4247AB869006DC678 /* ZIPFoundation */; };
-		51B096F2248E470B00E48DCD /* Connectivity in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD767482483D6B5002DD2B3 /* Connectivity */; };
-		51B096F3248E470B00E48DCD /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = B1FE13E9248838E400D012E5 /* FMDB */; };
 		51B5B414246DF07300DC5D3E /* RiskImageItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51B5B413246DF07300DC5D3E /* RiskImageItemView.xib */; };
 		51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B5B41B246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift */; };
 		51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C737BC245B349700286105 /* OnboardingInfoViewController.swift */; };
@@ -385,6 +382,7 @@
 		3DD7674C2483DDAC002DD2B3 /* MockReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockReachabilityService.swift; sourceTree = "<group>"; };
 		4026C2DB24852B7600926FB4 /* AppInformationViewController+LegalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+LegalModel.swift"; sourceTree = "<group>"; };
 		4026C2E324854C8D00926FB4 /* AppInformationLegalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationLegalCell.swift; sourceTree = "<group>"; };
+		40D4D6B9248EBA780005A9BD /* THIRD-PARTY-LICENSE-INFO.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "THIRD-PARTY-LICENSE-INFO.plist"; sourceTree = "<group>"; };
 		5111E7622460BB1500ED6498 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		51486D9E2484FC0200FCE216 /* HomeRiskLevelCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLevelCellConfigurator.swift; sourceTree = "<group>"; };
 		51486DA02485101500FCE216 /* RiskInactiveCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskInactiveCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1243,6 +1241,7 @@
 				85D75976245706BD008175F0 /* Assets */,
 				85D75975245706B0008175F0 /* Storyboards */,
 				A189E460248C35BF001D0996 /* PublicKeys.plist */,
+				40D4D6B9248EBA780005A9BD /* THIRD-PARTY-LICENSE-INFO.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1761,6 +1760,7 @@
 				85D759382457048F008175F0 /* Frameworks */,
 				85D759392457048F008175F0 /* Resources */,
 				B102BDB924603FD600CD55A2 /* Embed Frameworks */,
+				40D4D6BB248EBE1E0005A9BD /* Update THIRD-PARTY-NOTICE file */,
 			);
 			buildRules = (
 			);
@@ -1879,6 +1879,7 @@
 				713FD5672482811A00C1F6DD /* colors.xcassets in Resources */,
 				EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */,
 				71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */,
+				40D4D6BA248EBA780005A9BD /* THIRD-PARTY-LICENSE-INFO.plist in Resources */,
 				51CE1B8D246078B6002CF42A /* SubmitCollectionViewCell.xib in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
 				71FE1C87247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.xib in Resources */,
@@ -1926,6 +1927,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		40D4D6BB248EBE1E0005A9BD /* Update THIRD-PARTY-NOTICE file */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Update THIRD-PARTY-NOTICE file";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Updating THIRD-PARTY-NOTICES\"\n$SRCROOT/ENA/Resources/Update_THIRD-PARTY-NOTICE.sh -input $SRCROOT/ENA/Resources/THIRD-PARTY-LICENSE-INFO.plist -template $SRCROOT/ENA/Resources/Update_THIRD-PARTY-NOTICE_Template.txt -output $SRCROOT/../../../THIRD-PARTY-NOTICES\n";
+		};
 		71AFBD9324642AF500F91006 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

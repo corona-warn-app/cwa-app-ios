@@ -1,0 +1,12 @@
+ThirdPartyNotices
+-----------------
+corona-warn-app/cwa-app-ios uses third-party software or other resources that
+may be distributed under licenses different from corona-warn-app/cwa-app-ios
+software.
+In the event that we overlooked to list a required notice, please bring this
+to our attention by contacting us via this email:
+corona-warn-app.opensource@sap.com
+
+
+Components:
+-----------
