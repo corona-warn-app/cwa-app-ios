@@ -41,7 +41,6 @@ extension ExposureSubmissionNavigationControllerChild {
 
 extension ExposureSubmissionNavigationControllerChild {
 	var exposureSubmissionNavigationController: ExposureSubmissionNavigationController? { navigationController as? ExposureSubmissionNavigationController }
-	var exposureSubmissionNavigationItem: ExposureSubmissionNavigationItem? { navigationItem as? ExposureSubmissionNavigationItem }
 	var bottomView: UIView? { exposureSubmissionNavigationController?.bottomView }
 	var button: ENAButton? { exposureSubmissionNavigationController?.button }
 
@@ -51,10 +50,6 @@ extension ExposureSubmissionNavigationControllerChild {
 
 	func setButtonEnabled(enabled: Bool) {
 		exposureSubmissionNavigationController?.setButtonEnabled(enabled: enabled)
-	}
-
-	func hideButton() {
-		exposureSubmissionNavigationController?.button.isHidden = true
 	}
 
 	func setSecondaryButtonTitle(to title: String) {

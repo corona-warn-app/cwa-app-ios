@@ -15,22 +15,5 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ExposureNotification
-import Foundation
 
-protocol ExposureDetectionViewControllerSummary {
-	var numberOfContacts: Int { get }
-	var daysSinceLastExposure: Int { get }
-	var numberOfDaysStored: Int { get }
-	var lastRefreshDate: Date { get }
-}
-
-extension ExposureDetectionViewController {
-	typealias Summary = ExposureDetectionViewControllerSummary
-}
-
-extension ENExposureDetectionSummary: ExposureDetectionViewControllerSummary {
-	var numberOfContacts: Int { Int(matchedKeyCount) }
-	var numberOfDaysStored: Int { .random(in: 0 ... 14) } // TODO: Retrieve actual value
-	var lastRefreshDate: Date { Date() } // TODO: Retrieve actual value
-}
+"NSCameraUsageDescription" ="Erlaube der App QR-Codes mit Hilfe der Kamera zu scannen";
