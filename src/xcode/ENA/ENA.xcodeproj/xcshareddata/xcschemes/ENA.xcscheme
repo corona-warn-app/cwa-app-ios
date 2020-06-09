@@ -37,6 +37,7 @@
       </BuildActionEntries>
    </BuildAction>
    <TestAction
+      buildConfiguration = "UITesting"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
