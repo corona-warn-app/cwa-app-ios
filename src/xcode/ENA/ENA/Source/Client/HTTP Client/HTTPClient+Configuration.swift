@@ -122,9 +122,10 @@ extension HTTPClient {
 				.appending(
 					"version",
 					apiVersion,
-					"parameters",
+					"configuration",
 					"country",
-					country
+					country,
+					"app_config"
 				)
 		}
 
@@ -209,12 +210,5 @@ extension HTTPClient.Configuration {
 		let distribution: Endpoint
 		let submission: Endpoint
 		let verification: Endpoint
-	}
-}
-
-private extension URL {
-	init(staticString: StaticString) {
-		// swiftlint:disable:next force_unwrapping
-		self.init(string: "\(staticString)")!
 	}
 }

@@ -21,8 +21,8 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 
 	// MARK: - View elements.
 
-	lazy var title = UILabel(frame: .zero)
-	lazy var body = UILabel(frame: .zero)
+	lazy var title = ENALabel(frame: .zero)
+	lazy var body = ENALabel(frame: .zero)
 	lazy var cellImage = UIImageView(frame: .zero)
 	lazy var chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
 	lazy var insetView = UIView(frame: .zero)
@@ -47,44 +47,36 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 	private func setup() {
 		// MARK: - General cell setup.
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		backgroundColor = .enaColor(for: .background)
 
 		// MARK: - Add inset view
 
-		insetView.backgroundColor = .preferredColor(for: .backgroundSecondary)
+		insetView.backgroundColor = .enaColor(for: .separator)
 		insetView.layer.cornerRadius = 16.0
+		insetView.clipsToBounds = true
 
 		// MARK: - Title adjustment.
 
-		title.font = .preferredFont(forTextStyle: .headline)
+		title.style = .title2
+		title.textColor = .enaColor(for: .textPrimary1)
 		title.lineBreakMode = .byWordWrapping
 		title.numberOfLines = 0
 
 		// MARK: - Body adjustment.
 
-		body.font = .preferredFont(forTextStyle: .body)
+		body.style = .body
+		body.textColor = .enaColor(for: .textPrimary1)
 		body.lineBreakMode = .byWordWrapping
 		body.numberOfLines = 0
 
 		// MARK: - Chevron adjustment.
 
 		chevron = UIImageView(image: UIImage(systemName: "chevron.right"))
-		chevron.tintColor = UIColor.preferredColor(for: .textPrimary2)
-	}
+		chevron.tintColor = UIColor.enaColor(for: .chevron)
 
-	override func updateConstraints() {
-		layoutIfNeeded()
-		heightConstraint?.constant = calculateHeight()
-		insetViewHeightConstraint?.constant = calculateHeight() - 32
-		super.updateConstraints()
-		layoutIfNeeded()
-	}
+		// MARK: - Image adjustment.
 
-	/// This method calculates the height for the entire cell, depending on its content.
-	private func calculateHeight() -> CGFloat {
-		body.sizeToFit()
-		title.sizeToFit()
-		return max((64 + 21 + body.frame.height + title.frame.height), 196)
+		cellImage.contentMode = .scaleAspectFit
 	}
 
 	private func setupConstraints() {
@@ -104,21 +96,18 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 			chevron
 		])
 
-		heightConstraint = contentView.heightAnchor.constraint(equalToConstant: calculateHeight())
-		heightConstraint?.isActive = true
+		let marginGuide = contentView.layoutMarginsGuide
 
-		insetViewHeightConstraint = insetView.heightAnchor.constraint(equalToConstant: calculateHeight() - 32)
-		insetViewHeightConstraint?.isActive = true
-
-		chevron.widthAnchor.constraint(equalToConstant: 15).isActive = true
-		chevron.heightAnchor.constraint(equalToConstant: 20).isActive = true
-
-		insetView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-		insetView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+		insetView.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor).isActive = true
+		insetView.topAnchor.constraint(equalTo: marginGuide.topAnchor).isActive = true
+		insetView.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor).isActive = true
+		insetView.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor).isActive = true
 
 		title.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
 		title.topAnchor.constraint(equalTo: insetView.topAnchor, constant: 16).isActive = true
 
+		chevron.widthAnchor.constraint(equalToConstant: 15).isActive = true
+		chevron.heightAnchor.constraint(equalToConstant: 20).isActive = true
 		chevron.leadingAnchor.constraint(equalTo: title.trailingAnchor).isActive = true
 		chevron.trailingAnchor.constraint(equalTo: insetView.trailingAnchor, constant: -16).isActive = true
 		chevron.centerYAnchor.constraint(equalTo: title.centerYAnchor).isActive = true
@@ -126,13 +115,13 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		body.leadingAnchor.constraint(equalTo: insetView.leadingAnchor, constant: 16).isActive = true
 		body.trailingAnchor.constraint(equalTo: cellImage.leadingAnchor, constant: -16).isActive = true
 		body.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 21).isActive = true
-		body.bottomAnchor.constraint(equalTo: insetView.bottomAnchor, constant: -16).isActive = true
+		insetView.bottomAnchor.constraint(greaterThanOrEqualTo: body.bottomAnchor, constant: 16).isActive = true
 
+		cellImage.topAnchor.constraint(greaterThanOrEqualTo: chevron.bottomAnchor).isActive = true
 		cellImage.trailingAnchor.constraint(equalTo: insetView.trailingAnchor).isActive = true
 		cellImage.bottomAnchor.constraint(equalTo: insetView.bottomAnchor).isActive = true
 		cellImage.widthAnchor.constraint(equalToConstant: 150).isActive = true
 		cellImage.heightAnchor.constraint(equalToConstant: 130).isActive = true
-		insetView.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
 	}
 
 	func configure(title: String, image: UIImage?, body: String) {
@@ -140,6 +129,26 @@ class DynamicTableViewImageCardCell: UITableViewCell {
 		setupConstraints()
 		self.title.text = title
 		self.body.text = body
+		if let image = image {
+			cellImage.image = image
+		}
+	}
+
+	/// This method builds a NSMutableAttributedString for the cell.
+	/// - Parameters:
+	///   - title: The title of the cell.
+	///   - image: The image to be displayed on the right hand of the cell.
+	///   - body: The text shown below the title, which should NOT be formatted in any way.
+	///   - attributedStrings: The text that is injected into `body` with applied attributes, e.g.
+	/// 	bold text, with color.
+	func configure(title: String, image: UIImage?, body: String, attributedStrings: [NSAttributedString]) {
+		setup()
+		setupConstraints()
+		self.title.text = title
+		self.body.attributedText = NSMutableAttributedString.generateAttributedString(
+			normalText: body,
+			attributedText: attributedStrings
+		)
 		if let image = image {
 			cellImage.image = image
 		}

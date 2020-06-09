@@ -19,7 +19,7 @@ import ExposureNotification
 import Foundation
 import UIKit
 
-final class ExposureDetectionViewController: DynamicTableViewController {
+final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
 	// MARK: Properties
 
 	@IBOutlet var closeImage: UIImageView!
@@ -27,11 +27,16 @@ final class ExposureDetectionViewController: DynamicTableViewController {
 	@IBOutlet var titleViewBottomConstraint: NSLayoutConstraint!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var footerView: UIView!
-	@IBOutlet var checkButton: UIButton!
+	@IBOutlet var checkButton: ENAButton!
 
-	var state: State
+	var state: State {
+		didSet {
+			updateUI()
+		}
+	}
 	private weak var delegate: ExposureDetectionViewControllerDelegate?
-	private weak var refreshTimer: Timer?
+
+	private let consumer = RiskConsumer()
 
 	// MARK: Creating an Exposure Detection View Controller
 
@@ -54,25 +59,24 @@ extension ExposureDetectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		consumer.didCalculateRisk = { [weak self] risk in
+			self?.state.risk = risk
+			self?.updateUI()
+		}
+
+		riskProvider.observeRisk(consumer)
 		updateUI()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
 		updateUI()
-	}
-
-	override func viewDidDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
-
-		refreshTimer?.invalidate()
 	}
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		switch state.mode {
+		switch state.detectionMode {
 		case .automatic:
 			tableView.contentInset.bottom = 0
 		case .manual:
@@ -84,17 +88,19 @@ extension ExposureDetectionViewController {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
 
 		(cell as? DynamicTypeTableViewCell)?.backgroundColor = .clear
-
+		
 		if cell.backgroundView == nil {
 			cell.backgroundView = UIView()
 		}
 
 		if cell.backgroundColor == nil || cell.backgroundColor == .clear {
-			cell.backgroundView?.backgroundColor = .preferredColor(for: .backgroundPrimary)
+			cell.backgroundView?.backgroundColor = .enaColor(for: .background)
 		}
 
 		return cell
 	}
+
+
 }
 
 extension ExposureDetectionViewController {
@@ -115,31 +121,30 @@ private extension ExposureDetectionViewController {
 	}
 
 	@IBAction private func tappedBottomButton() {
-		log(message: "Starting exposure detection ...")
-
-		if state.isTracingEnabled {
-			delegate?.exposureDetectionViewControllerStartTransaction(self)
-		} else {
+		guard state.isTracingEnabled else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
 				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
-				// TODO: handle error
 			}
+			return
+		}
+		state.isLoading = true
+		self.delegate?.didStartLoading(exposureDetectionViewController: self)
+		riskProvider.requestRisk(userInitiated: true) { _ in
+			self.state.isLoading = false
+			self.delegate?.didFinishLoading(exposureDetectionViewController: self)
 		}
 	}
 }
 
 extension ExposureDetectionViewController: ExposureStateUpdating {
-	func updateExposureState(_ emState: ExposureManagerState) {
-		state.exposureManagerState = emState
+	func updateExposureState(_ exposureManagerState: ExposureManagerState) {
+		state.exposureManagerState = exposureManagerState
 		updateUI()
 	}
 }
 
 extension ExposureDetectionViewController {
 	func updateUI() {
-		let areAnimationEnabled = UIView.areAnimationsEnabled
-		UIView.setAnimationsEnabled(false)
-
 		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, isTracingEnabled: state.isTracingEnabled)
 
 		updateCloseButton()
@@ -147,18 +152,14 @@ extension ExposureDetectionViewController {
 		updateTableView()
 		updateCheckButton()
 
-		updateTimer()
-
 		view.setNeedsLayout()
-
-		UIView.setAnimationsEnabled(areAnimationEnabled)
 	}
 
 	private func updateCloseButton() {
 		if state.isTracingEnabled {
-			closeImage.image = UIImage(named: "exposure-detection-close-contrast")
+			closeImage.image = UIImage(named: "Icons - Close - Contrast")
 		} else {
-			closeImage.image = UIImage(named: "exposure-detection-close")
+			closeImage.image = UIImage(named: "Icons - Close")
 		}
 	}
 
@@ -169,7 +170,6 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateTableView() {
-		tableView.backgroundColor = state.riskTintColor
 		tableView.reloadData()
 	}
 
@@ -185,55 +185,18 @@ extension ExposureDetectionViewController {
 		if !state.isTracingEnabled {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
-			checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
-			checkButton.setTitleColor(.white, for: .normal)
-			checkButton.backgroundColor = .preferredColor(for: .tint)
+			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
+			return
 		}
-
-		switch state.mode {
+		
+		switch state.detectionMode {
 		case .automatic:
 			footerView.isHidden = true
 			checkButton.isEnabled = true
-
 		case .manual:
 			footerView.isHidden = false
-
-			if let nextRefresh = state.nextRefresh {
-				UIView.performWithoutAnimation {
-					let components = Calendar.current.dateComponents([.minute, .second], from: Date(), to: nextRefresh)
-					checkButton.setTitle(String(format: AppStrings.ExposureDetection.buttonRefreshingIn, components.minute ?? 0, components.second ?? 0), for: .disabled)
-					checkButton.isEnabled = false
-					checkButton.layoutIfNeeded()
-				}
-			} else {
-				checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
-				checkButton.isEnabled = !state.isLoading
-			}
-		}
-	}
-
-	private func updateTimer() {
-		refreshTimer?.invalidate()
-
-		guard state.nextRefresh != nil else { return }
-
-		refreshTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
-			guard let self = self else { timer.invalidate(); return }
-			self.timerUpdateUI()
-		}
-
-		if tableView.window != nil {
-			refreshTimer?.fire()
-		}
-	}
-
-	private func timerUpdateUI() {
-		switch state.mode {
-		case .automatic:
-			updateRefreshCell()
-
-		case .manual:
-			updateCheckButton()
+			checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
+			checkButton.isEnabled = riskProvider.manualExposureDetectionState == .possible
 		}
 	}
 }

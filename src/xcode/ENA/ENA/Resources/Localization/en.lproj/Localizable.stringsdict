@@ -1,126 +1,165 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
+<dict>
+	<key>ExposureDetection_Refreshed_Format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+			<string>Today, %%1$@</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One -->
+			<string>Yesterday, %%1$@</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other -->
+			<string>%%2$@, %%1$@</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_NumberOfContacts</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+			<string>No exposure up to now</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One -->
+			<string>%u exposure</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other -->
+			<string>%u exposures</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_LastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+			<string>Last encounter: today</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One -->
+			<string>Last encounter: yesterday</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other -->
+			<string>%u days since last encounter</string>
+		</dict>
+	</dict>
+    <key>Home_Risk_Number_Contacts_Item_Title</key>
     <dict>
-        <key>ExposureDetection_Contacts</key>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
         <dict>
-            <key>NSStringLocalizedFormatKey</key>
-            <string>%#@VARIABLE@</string>
-            <key>VARIABLE</key>
-            <dict>
-                <key>NSStringFormatSpecTypeKey</key>
-                <string>NSStringPluralRuleType</string>
-                <key>NSStringFormatValueTypeKey</key>
-                <string>u</string>
-                <key>zero</key>
-                <string>Bisher keine Kontakte</string>
-                <key>one</key>
-                <string>%u Kontakt</string>
-                <key>other</key>
-                <string>%u Kontakte</string>
-            </dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+            <string>No exposure up to now</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One -->
+            <string>%u exposure</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other -->
+            <string>%u exposures</string>
         </dict>
-        <key>ExposureDetection_LastExposure</key>
-        <dict>
-            <key>NSStringLocalizedFormatKey</key>
-            <string>%#@VARIABLE@</string>
-            <key>VARIABLE</key>
-            <dict>
-                <key>NSStringFormatSpecTypeKey</key>
-                <string>NSStringPluralRuleType</string>
-                <key>NSStringFormatValueTypeKey</key>
-                <string>u</string>
-                <key>zero</key>
-                <string>Letzter Kontakt: Heute</string>
-                <key>one</key>
-                <string>Letzter Kontakt: Gestern</string>
-                <key>other</key>
-                <string>%u Tage seit letztem Kontakt</string>
-            </dict>
-        </dict>
-        <key>Home_Risk_High_Number_Contacts_Item_Title</key>
-        <dict>
-            <key>NSStringLocalizedFormatKey</key>
-            <string>%#@VARIABLE@</string>
-            <key>VARIABLE</key>
-            <dict>
-                <key>NSStringFormatSpecTypeKey</key>
-                <string>NSStringPluralRuleType</string>
-                <key>NSStringFormatValueTypeKey</key>
-                <string>u</string>
-                <key>zero</key>
-                <string>No risk encounter so far</string>
-                <key>one</key>
-                <string>%u risk contact</string>
-                <key>other</key>
-                <string>%u risk contacts</string>
-            </dict>
-        </dict>
-        <key>Home_Risk_High_Last_Contact_Item_Title</key>
-        <dict>
-            <key>NSStringLocalizedFormatKey</key>
-            <string>%#@VARIABLE@</string>
-            <key>VARIABLE</key>
-            <dict>
-                <key>NSStringFormatSpecTypeKey</key>
-                <string>NSStringPluralRuleType</string>
-                <key>NSStringFormatValueTypeKey</key>
-                <string>u</string>
-                <key>zero</key>
-                <string>Less than a day since the last contact</string>
-                <key>one</key>
-                <string>%u day since the last contact</string>
-                <key>other</key>
-                <string>%u days since the last contact</string>
-            </dict>
-        </dict>
-        <key>Home_Risk_Status_Counter_Label</key>
-        <dict>
-            <key>NSStringLocalizedFormatKey</key>
-            <string>%#@minutes@%#</string>
-            <key>minutes</key>
-            <dict>
-                <key>NSStringFormatSpecTypeKey</key>
-                <string>NSStringPluralRuleType</string>
-                <key>NSStringFormatValueTypeKey</key>
-                <string>u</string>
-                <key>zero</key>
-                <string>To update in %02u:%2$#@seconds@ seconds</string>
-                <key>one</key>
-                <string>To update in %02u:%2$#@seconds@ minute</string>
-                <key>other</key>
-                <string>To update in %02u:%2$#@seconds@ minutes</string>
-            </dict>
-            <key>seconds</key>
-            <dict>
-                <key>NSStringFormatSpecTypeKey</key>
-                <string>NSStringPluralRuleType</string>
-                <key>NSStringFormatValueTypeKey</key>
-                <string>u</string>
-                <key>other</key>
-                <string>%02u</string>
-            </dict>
-        </dict>
-        <key>ENSetting_Tracing_History</key>
-	    <dict>
-		    <key>NSStringLocalizedFormatKey</key>
-		    <string>%#@VARIABLE@</string>
-		    <key>VARIABLE</key>
-		    <dict>
-			    <key>NSStringFormatSpecTypeKey</key>
-			    <string>NSStringPluralRuleType</string>
-			    <key>NSStringFormatValueTypeKey</key>
-			    <string>u</string>
-			    <key>zero</key>
-			    <string>Risiko-Ermittlung ist seit weniger als 1 Tag aktiv.
-Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
-			    <key>one</key>
-			    <string>Risiko-Ermittlung ist seit %u Tag aktiv.
-Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen. </string>
-			    <key>other</key>
-			    <string>Risiko-Ermittlung ist seit %u Tagen aktiv.
-Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen. </string>
-		    </dict>
-	    </dict>
     </dict>
+    <key>Home_Risk_Last_Contact_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+            <string>Less than one day since last exposure</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One -->
+            <string>%u day since last exposure</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other -->
+            <string>%u days since last exposure</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_Status_Counter_Label</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@minutes@%#</string>
+        <key>minutes</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+            <string>Update in %02u:%2$#@seconds@ seconds</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One -->
+            <string>Update in %02u:%2$#@seconds@ minute</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other -->
+            <string>Update in %02u:%2$#@seconds@ minutes</string>
+        </dict>
+        <key>seconds</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other -->
+            <string>%02u</string>
+        </dict>
+    </dict>
+	<key>ENSetting_Tracing_History</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+			<string>Risk identification has been active for less than one day.
+An exposure check can only be reliable if risk identification is permanently activated.</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One -->
+			<string>Risk identification has been active for %u day.
+The exposure check is only reliable if risk identification is permanently activated.</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other -->
+			<string>Risk identification has been active for %u days.
+An exposure check can only be reliable if risk identification is permanently activated.</string>
+		</dict>
+	</dict>
+</dict>
 </plist>

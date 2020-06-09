@@ -30,10 +30,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		setupButton()
-		DispatchQueue.main.async { [weak self] in
-			self?.navigationController?.navigationBar.sizeToFit()
-		}
+		setupButtons()
 	}
 	
 
@@ -57,10 +54,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	private func setupView() {
 		setupDynamicTableView()
 		setupNavigationBar()
-		timeStamp = exposureSubmissionService?.devicePairingConsentAcceptTimestamp
+		timeStamp = exposureSubmissionService?.devicePairingSuccessfulTimestamp
 	}
 
-	private func setupButton() {
+	private func setupButtons() {
 		guard let result = testResult else { return }
 		switch result {
 		case .positive:
@@ -102,19 +99,19 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 
 	private func deleteTest() {
 		let alert = UIAlertController(
-			title: "Test entfernen?",
-			message: "Der Test wird endgültig aus der Corona-Warn-App entfernt. Dieser Vorgang kann nicht widerrufen werden.",
+			title: AppStrings.ExposureSubmissionResult.removeAlert_Title,
+			message: AppStrings.ExposureSubmissionResult.removeAlert_Text,
 			preferredStyle: .alert
 		)
 
 		let cancel = UIAlertAction(
-			title: "Abbrechen",
+			title: AppStrings.Common.alertActionCancel,
 			style: .cancel,
 			handler: { _ in alert.dismiss(animated: true, completion: nil) }
 		)
 
 		let delete = UIAlertAction(
-			title: "Entfernen",
+			title: AppStrings.Common.alertActionRemove,
 			style: .destructive,
 			handler: { _ in
 				self.exposureSubmissionService?.deleteTest()
@@ -144,8 +141,17 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 			}
 	}
 
+	/// Only show the "warn others" screen if the ENManager is enabled correctly,
+	/// otherwise, show an alert.
 	private func showWarnOthers() {
-		performSegue(withIdentifier: Segue.warnOthers, sender: self)
+		if let state = exposureSubmissionService?.preconditions() {
+			if !state.isGood {
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(.enNotEnabled)
+				self.present(alert, animated: true, completion: nil)
+				return
+			}
+			performSegue(withIdentifier: Segue.warnOthers, sender: self)
+		}
 	}
 }
 
@@ -168,7 +174,7 @@ extension ExposureSubmissionTestResultViewController {
 // MARK: ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapBottomButton() {
+	func didTapButton() {
 		guard let result = testResult else { return }
 
 		switch result {
@@ -227,7 +233,7 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -258,7 +264,7 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -276,31 +282,11 @@ private extension ExposureSubmissionTestResultViewController {
 					image: nil,
 					hasSeparators: false
 				),
-				.bigBold(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
-				.stepCellWith(
-					title: nil,
-					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1,
-					image: UIImage(named: "Icons_Dark_Dot"),
-					hasSeparators: false
-				),
-				.stepCellWith(
-					title: nil,
-					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2,
-					image: UIImage(named: "Icons_Dark_Dot"),
-					hasSeparators: false
-				),
-				.stepCellWith(
-					title: nil,
-					text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3,
-					image: UIImage(named: "Icons_Dark_Dot"),
-					hasSeparators: false
-				),
-				.stepCellWith(
-					title: nil,
-					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
-					image: UIImage(named: "Icons_Dark_Dot"),
-					hasSeparators: false
-				)
+				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title),
+				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1),
+				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2),
+				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3),
+				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain)
 			]
 		)
 	}
@@ -315,7 +301,7 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			separators: false,
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -340,7 +326,7 @@ private extension ExposureSubmissionTestResultViewController {
 				}
 			),
 			cells: [
-				.bigBold(text: AppStrings.ExposureSubmissionResult.procedure),
+				.title2(text: AppStrings.ExposureSubmissionResult.procedure),
 				.stepCellWith(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
 					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
@@ -370,6 +356,16 @@ private extension DynamicCell {
 					hasSeparators: hasSeparators,
 					isCircle: true
 				)
+			}
+		)
+	}
+
+	static func bulletPointCellWith(text: String) -> DynamicCell {
+		return .identifier(
+			DynamicTableViewStepCell.tableViewCellReuseIdentifier,
+			configure: { _, cell, _ in
+				guard let cell = cell as? DynamicTableViewStepCell else { return }
+				cell.configureBulletPointCell(text: text)
 			}
 		)
 	}

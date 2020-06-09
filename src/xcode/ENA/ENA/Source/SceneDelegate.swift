@@ -18,32 +18,21 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
-import Reachability
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
 
 	var window: UIWindow?
 
-	#if targetEnvironment(simulator) || COMMUNITY
-	// Enable third party contributors that do not have the required
-	// entitlements to also use the app
-	private let exposureManager: ExposureManager = {
-		let keys = [ENTemporaryExposureKey()]
-		return MockExposureManager(exposureNotificationError: nil, diagnosisKeysResult: (keys, nil))
-	}()
-	#else
-	private let exposureManager = ENAExposureManager()
-	#endif
-	private let navigationController: UINavigationController = .withLargeTitle()
+	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
-	var state = State(summary: nil, exposureManager: .init()) {
+
+	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil) {
 		didSet {
-			homeController?.homeInteractor.state = .init(
-				isLoading: false,
-				summary: state.summary,
-				exposureManager: state.exposureManager
-			)
+			homeController?.updateState(
+				detectionMode: state.detectionMode,
+				exposureManagerState: state.exposureManager,
+				risk: state.risk)
 		}
 	}
 
@@ -59,17 +48,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		developerMenu?.enableIfAllowed()
 	}
 
-	private(set) lazy var client: Client = {
-		// We disable app store checks to make testing easier.
-		//        #if APP_STORE
-		//        return HTTPClient(configuration: .production)
-		//        #endif
-
-		if ClientMode.default == .mock {
-			fatalError("not implemented")
-		}
-
-		let store = self.store
+	private lazy var clientConfiguration: HTTPClient.Configuration = {
 		guard
 			let distributionURLString = store.developerDistributionBaseURLOverride,
 			let submissionURLString = store.developerSubmissionBaseURLOverride,
@@ -77,10 +56,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
 			let submissionURL = URL(string: submissionURLString) else {
-			return HTTPClient(configuration: .production)
+			return .production
 		}
 
-		let config = HTTPClient.Configuration(
+		return HTTPClient.Configuration(
 			apiVersion: "v1",
 			country: "DE",
 			endpoints: HTTPClient.Configuration.Endpoints(
@@ -89,10 +68,21 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 				verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
 			)
 		)
-		return HTTPClient(configuration: config)
 	}()
 
+	private(set) lazy var client: Client = {
+		// We disable app store checks to make testing easier.
+		//        #if APP_STORE
+		//        return HTTPClient(configuration: .production)
+		//        #endif
+		return HTTPClient(configuration: self.clientConfiguration)
+	}()
+
+	private var enStateHandler: ENStateHandler?
+
 	// MARK: UISceneDelegate
+
+	private let riskConsumer = RiskConsumer()
 
 	func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
 		guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -101,42 +91,75 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 		exposureManager.resume(observer: self)
 
+		riskConsumer.didCalculateRisk = { [weak self] risk in
+			self?.state.risk = risk
+		}
+		riskProvider.observeRisk(riskConsumer)
+
 		UNUserNotificationCenter.current().delegate = self
 
 		setupUI()
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
+	}
 
-		NotificationCenter
-			.default
-			.addObserver(
-				self,
-				selector: #selector(exposureSummaryDidChange(_:)),
-				name: .didDetectExposureDetectionSummary,
-				object: nil
-			)
+	func sceneWillEnterForeground(_ scene: UIScene) {
+		let state = exposureManager.preconditions()
+		updateExposureState(state)
+	}
+
+	func sceneDidBecomeActive(_: UIScene) {
+		hidePrivacyProtectionWindow()
+		UIApplication.shared.applicationIconBadgeNumber = 0
+	}
+
+	func sceneWillResignActive(_: UIScene) {
+		showPrivacyProtectionWindow()
 	}
 
 	// MARK: Helper
 
+	func requestUpdatedExposureState() {
+		let state = exposureManager.preconditions()
+		updateExposureState(state)
+	}
+
 	private func setupUI() {
-		if (exposureManager is MockExposureManager) && UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
-			showOnboarding()
-		} else if !store.isOnboarded {
+		setupNavigationBarAppearance()
+
+		#if UITESTING
+		if UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else {
 			showHome()
 		}
-		UINavigationBar.appearance().tintColor = UIColor.preferredColor(for: .tint)
+		#else
+		if !store.isOnboarded {
+			showOnboarding()
+		} else {
+			showHome()
+		}
+		#endif
+		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 	}
 
+	private func setupNavigationBarAppearance() {
+		let appearance = UINavigationBar.appearance()
+		appearance.tintColor = .enaColor(for: .tint)
+		appearance.titleTextAttributes = [
+			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
+		appearance.largeTitleTextAttributes = [
+			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
+			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
+		]
+	}
+
 	private func showHome(animated _: Bool = false) {
-		if exposureManager.preconditions().status == .active {
-			presentHomeVC()
-		} else {
-			log(message: "ExposureManager not activate yet.")
+		if exposureManager.preconditions().status == .unknown {
 			exposureManager.activate { [weak self] error in
 				if let error = error {
 					// TODO: Error handling, if error occurs, what can we do?
@@ -145,28 +168,40 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 				}
 				self?.presentHomeVC()
 			}
+		} else {
+			presentHomeVC()
 		}
 	}
 
+
 	private func presentHomeVC() {
+		enStateHandler = ENStateHandler(
+			initialExposureManagerState: exposureManager.preconditions(),
+			reachabilityService: ConnectivityReachabilityService(
+				connectivityURLs: [clientConfiguration.configurationURL]
+			),
+			delegate: self
+		)
+		
+		guard let enStateHandler = self.enStateHandler else {
+			fatalError("It should not happen.")
+		}
+
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
-				exposureManager: self.exposureManager,
-				client: self.client,
-				store: self.store,
-				keyPackagesStore: self.downloadedPackagesStore,
 				delegate: self,
-				taskScheduler: self.taskScheduler
+				detectionMode: self.state.detectionMode,
+				exposureManagerState: self.state.exposureManager,
+				initialEnState: enStateHandler.state,
+				risk: self.state.risk
 			)
 		}
 
 		homeController = vc // strong ref needed
-		homeController?.homeInteractor.state.exposureManager = state.exposureManager
-		navigationController.setViewControllers(
-			[vc],
-			animated: true
-		)
+		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
+			self.navigationController.setViewControllers([vc], animated: false)
+		})
 		enableDeveloperMenuIfAllowed(in: vc)
 	}
 
@@ -190,15 +225,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	@objc
 	func isOnboardedDidChange(_: NSNotification) {
 		store.isOnboarded ? showHome() : showOnboarding()
-	}
-
-	@objc
-	func exposureSummaryDidChange(_ notification: NSNotification) {
-		guard let summary = notification.userInfo?["summary"] as? ENExposureDetectionSummary else {
-			fatalError("received invalid summary notification. this is a programmer error")
-		}
-		state.summary = summary
-		updateExposureState(state.exposureManager)
 	}
 
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -231,29 +257,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		
 	}
 
-	// MARK: Privacy Protection
-
-	func sceneDidBecomeActive(_: UIScene) {
-		hidePrivacyProtectionWindow()
-		UIApplication.shared.applicationIconBadgeNumber = 0
-	}
-
-	func sceneWillResignActive(_: UIScene) {
-		showPrivacyProtectionWindow()
-	}
-
-	func sceneDidEnterBackground(_ scene: UIScene) {
-		taskScheduler.scheduleBackgroundTaskRequests()
-	}
-
 	private var privacyProtectionWindow: UIWindow?
+}
 
+// MARK: Privacy Protection
+extension SceneDelegate {
 	private func showPrivacyProtectionWindow() {
 		guard
 			let windowScene = window?.windowScene,
 			store.isOnboarded == true
-		else {
-			return
+			else {
+				return
 		}
 		let privacyProtectionViewController = PrivacyProtectionViewController()
 		privacyProtectionWindow = UIWindow(windowScene: windowScene)
@@ -279,32 +293,31 @@ extension SceneDelegate: ENAExposureManagerObserver {
 		_: ENAExposureManager,
 		didChangeState newState: ExposureManagerState
 	) {
+		// Add the new state to the history
+		store.tracingStatusHistory = store.tracingStatusHistory.consumingState(newState)
+		riskProvider.exposureManagerState = newState
+
 		let message = """
 		New status of EN framework:
 		Authorized: \(newState.authorized)
 		enabled: \(newState.enabled)
 		status: \(newState.status)
+		authorizationStatus: \(ENManager.authorizationStatus)
 		"""
 		log(message: message)
-
-		if newState.isGood {
-			log(message: "Enabled")
-		}
-
+		
 		state.exposureManager = newState
 		updateExposureState(newState)
 	}
 }
 
 extension SceneDelegate: HomeViewControllerDelegate {
+	/// Resets all stores and notifies the Onboarding.
 	func homeViewControllerUserDidRequestReset(_: HomeViewController) {
-		store.isOnboarded = false
-		store.dateLastExposureDetection = nil
+		let newKey = KeychainHelper.generateDatabaseKey()
+		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
-	}
-
-	func homeViewControllerStartExposureTransaction(_: HomeViewController) {
-		UIApplication.coronaWarnDelegate().appStartExposureDetectionTransaction()
+		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
 }
 
@@ -319,9 +332,9 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 			log(message: "Handling notification for \(response.notification.request.identifier)")
 
 			switch response.actionIdentifier {
-			case LocalNotificationAction.openExposureDetectionResults.rawValue: showHome(animated: true)
-			case LocalNotificationAction.openTestResults.rawValue: showHome(animated: true)
-			case LocalNotificationAction.ignore.rawValue: break
+			case UserNotificationAction.openExposureDetectionResults.rawValue: showHome(animated: true)
+			case UserNotificationAction.openTestResults.rawValue: showHome(animated: true)
+			case UserNotificationAction.ignore.rawValue: break
 			case UNNotificationDefaultActionIdentifier: break
 			case UNNotificationDismissActionIdentifier: break
 			default: break
@@ -335,31 +348,41 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 	}
 }
 
-private extension UINavigationController {
-	class func withLargeTitle() -> UINavigationController {
-		let result = UINavigationController()
-		result.navigationBar.prefersLargeTitles = true
-		result.navigationBar.isTranslucent = true
-		return result
-	}
-}
-
 private extension Array where Element == URLQueryItem {
 	func valueFor(queryItem named: String) -> String? {
 		first(where: { $0.name == named })?.value
 	}
 }
 
-extension SceneDelegate {
-	struct State {
-		var summary: ENExposureDetectionSummary?
-		var exposureManager: ExposureManagerState
-	}
-}
 
 extension SceneDelegate: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
-		homeController?.homeInteractor.state.summary = self.state.summary
+		riskProvider.exposureManagerState = state
+		riskProvider.requestRisk(userInitiated: false)
 		homeController?.updateExposureState(state)
+		enStateHandler?.updateExposureState(state)
+		taskScheduler.updateExposureState(state)
 	}
+}
+
+extension SceneDelegate: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		log(message: "SceneDelegate got EnState update: \(state)")
+		homeController?.updateEnState(state)
+	}
+}
+
+// MARK: Background Task
+extension SceneDelegate {
+	@objc
+	func backgroundRefreshStatusDidChange() {
+		let detectionMode: DetectionMode = currentDetectionMode
+		state.detectionMode = detectionMode
+	}
+}
+
+private var currentDetectionMode: DetectionMode {
+	let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+	let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
+	return detectionMode
 }

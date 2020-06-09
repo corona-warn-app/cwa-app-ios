@@ -17,215 +17,107 @@
 
 import ExposureNotification
 import Foundation
+import UIKit
 
-// swiftlint:disable:next type_body_length
-final class HomeInteractor {
+final class HomeInteractor: RequiresAppDependencies {
 
-	enum UserLoadingMode {
-		case automatic
-		case manual
-	}
+	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
+	typealias SectionConfiguration = [SectionDefinition]
 
 	// MARK: Creating
 
 	init(
 		homeViewController: HomeViewController,
-		store: Store,
-		state: State,
-		taskScheduler: ENATaskScheduler
+		state: State
 	) {
 		self.homeViewController = homeViewController
-		self.store = store
 		self.state = state
-		self.taskScheduler = taskScheduler
-		stateHandler = ENStateHandler(state.exposureManager, delegate: self)
 		sections = initialCellConfigurators()
 	}
 
 	// MARK: Properties
+	// private var enState: ENStateHandler.State
 
 	var state = HomeInteractor.State(
-		isLoading: false,
-		summary: nil,
-		exposureManager: .init()
+		detectionMode: .default,
+		exposureManagerState: .init(),
+		enState: .unknown,
+		risk: nil
 	) {
 		didSet {
-			stateHandler.exposureManagerDidUpdate(to: state.exposureManager)
-			homeViewController.setStateOfChildViewControllers(
-				.init(
-					exposureManager: state.exposureManager,
-					summary: state.summary
-				), stateHandler: stateHandler
-			)
-			reloadRiskCell()
+			homeViewController.setStateOfChildViewControllers()
 			sections = initialCellConfigurators()
 			homeViewController.reloadData()
 		}
 	}
 
 	private unowned var homeViewController: HomeViewController
-	private let store: Store
-	var stateHandler: ENStateHandler!
-	private let taskScheduler: ENATaskScheduler
-	private var riskLevel: RiskLevel {
-		RiskLevel(riskScore: state.summary?.maximumRiskScore)
-	}
+	lazy var exposureSubmissionService: ExposureSubmissionService = {
+		ENAExposureSubmissionService(
+			diagnosiskeyRetrieval: self.exposureManager,
+			client: self.client,
+			store: self.store
+		)
+	}()
+	var enStateHandler: ENStateHandler?
 
-	private(set) var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
+	private var riskLevel: RiskLevel { state.riskLevel }
+	private var detectionMode: DetectionMode { state.detectionMode }
+	private(set) var sections: SectionConfiguration = []
 
 	private var activeConfigurator: HomeActivateCellConfigurator!
-	private var riskConfigurator: HomeRiskCellConfigurator?
+	private var testResultConfigurator = HomeTestResultCellConfigurator()
+	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
+	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
 
-	func developerMenuEnableIfAllowed() {}
+	private(set) var testResult: TestResult?
 
-	private let userLoadingMode = UserLoadingMode.manual // !
-
-	private var isUpdateTaskRunning: Bool = false
-	private var updateRiskTimer: Timer?
-	private var isTimerRunning: Bool { updateRiskTimer?.isValid ?? false }
-	private var releaseDate: Date?
-	private var startDate: Date?
-
-	private func riskCellTask(completion: @escaping (() -> Void)) {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: completion)
-	}
-
-	private func startCheckRisk() {
-		// TODO: handle state of pending scheduled tasks to determin active state for manual refresh button
-		// TODO: disable manual trigger button
-		guard let indexPath = indexPathForRiskCell() else { return }
-		riskConfigurator?.startLoading()
-		homeViewController.updateSections()
-		homeViewController.reloadCell(at: indexPath)
-
-		taskScheduler.cancelAllBackgroundTaskRequests()
-
-		riskCellTask {
-			self.riskConfigurator?.stopLoading()
-			guard let indexPath = self.indexPathForRiskCell() else { return }
-			self.homeViewController.updateSections()
-			self.homeViewController.reloadCell(at: indexPath)
-			self.taskScheduler.scheduleBackgroundTaskRequests()
-		}
-	}
-
-	private func fetchUpdateRisk() {
-		isUpdateTaskRunning = true
-		reloadRiskCell()
-		riskCellTask(completion: {
-			self.isUpdateTaskRunning = false
-			if self.userLoadingMode == .automatic, !self.isTimerRunning {
-				self.startCountdownAndUpdateRisk()
-			} else {
-				self.reloadRiskCell()
-			}
-        })
-	}
-
-	func updateActiveCell() {
+	private func updateActiveCell() {
 		guard let indexPath = indexPathForActiveCell() else { return }
-		let currentState = stateHandler.getState()
-		activeConfigurator.set(newState: currentState)
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
-	}
-
-	private func startCountdownAndUpdateRisk() {
-		startCountdown()
-		fetchUpdateRisk()
 	}
 
 	private func updateRiskLoading() {
-		isUpdateTaskRunning ? riskConfigurator?.startLoading() : riskConfigurator?.stopLoading()
+		isRequestRiskRunning ? riskLevelConfigurator?.startLoading() : riskLevelConfigurator?.stopLoading()
 	}
 
-	private func updateRiskCounter() {
-		if let releaseDate = releaseDate, isTimerRunning {
-			riskConfigurator?.updateCounter(startDate: Date(), releaseDate: releaseDate)
-		} else {
-			riskConfigurator?.removeCounter()
-		}
+	private func updateRiskButton(isEnabled: Bool) {
+		riskLevelConfigurator?.updateButtonEnabled(isEnabled)
 	}
 
-	private func updateRiskButton() {
-		riskConfigurator?.updateButtonEnabled(!isUpdateTaskRunning && !isTimerRunning)
+	private func updateRiskButton(isHidden: Bool) {
+		riskLevelConfigurator?.updateButtonHidden(isHidden)
 	}
 
 	private func reloadRiskCell() {
 		guard let indexPath = indexPathForRiskCell() else { return }
-		updateRiskLoading()
-		updateRiskButton()
-		updateRiskCounter()
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	private func initialCellConfigurators() -> [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] {
-		let currentState = stateHandler.getState()
-		activeConfigurator = HomeActivateCellConfigurator(state: currentState)
-		let dateLastExposureDetection = store.dateLastExposureDetection
+	private(set) var isRequestRiskRunning = false
 
-		let isButtonHidden = userLoadingMode == .automatic
-		let isCounterLabelHidden = !isButtonHidden
+	func updateAndReloadRiskLoading(isRequestRiskRunning: Bool) {
+		self.isRequestRiskRunning = isRequestRiskRunning
+		updateRiskLoading()
+		reloadRiskCell()
+	}
 
-		if riskLevel != .inactive, userLoadingMode == .automatic {
-			startCountdown()
-		}
+	func requestRisk(userInitiated: Bool) {
 
-		switch riskLevel {
-		case .unknownInitial, .unknownOutdated:
-			riskConfigurator = HomeUnknownRiskCellConfigurator(
-				isLoading: false,
-				isButtonEnabled: true,
-				isButtonHidden: isButtonHidden,
-				isCounterLabelHidden: isCounterLabelHidden,
-				startDate: startDate,
-				releaseDate: releaseDate,
-				lastUpdateDate: nil
-			)
-		case .inactive:
-			riskConfigurator = HomeInactiveRiskCellConfigurator(
-				isLoading: false,
-				isButtonEnabled: true,
-				lastInvestigation: "Geringes Risiko",
-				lastUpdateDate: dateLastExposureDetection
-			)
-		case .low:
-			riskConfigurator = HomeLowRiskCellConfigurator(
-				isLoading: false,
-				isButtonEnabled: true,
-				isButtonHidden: isButtonHidden,
-				isCounterLabelHidden: isCounterLabelHidden,
-				startDate: startDate,
-				releaseDate: releaseDate,
-				numberDays: 2,
-				totalDays: 14,
-				lastUpdateDate: dateLastExposureDetection
-			)
-		case .increased:
-			riskConfigurator = HomeHighRiskCellConfigurator(
-				isLoading: false,
-				isButtonEnabled: true,
-				isButtonHidden: isButtonHidden,
-				isCounterLabelHidden: isCounterLabelHidden,
-				startDate: startDate,
-				releaseDate: releaseDate,
-				numberRiskContacts: state.numberRiskContacts,
-				daysSinceLastExposure: state.daysSinceLastExposure,
-				lastUpdateDate: dateLastExposureDetection
-			)
-		}
-
-		riskConfigurator?.buttonAction = { [unowned self] in
-			if self.riskLevel == .inactive {
-				// go to settings?
-			} else {
-				self.startCountdownAndUpdateRisk()
+		if userInitiated {
+			updateAndReloadRiskLoading(isRequestRiskRunning: true)
+			riskProvider.requestRisk(userInitiated: userInitiated) { _ in
+				self.updateAndReloadRiskLoading(isRequestRiskRunning: false)
 			}
+		} else {
+			riskProvider.requestRisk(userInitiated: userInitiated)
 		}
 
-		// MARK: Configure exposure submission view.
-		let exposureSubmissionConfigurator = selectConfiguratorForExposureSubmissionCell()
+	}
+
+	private func initialCellConfigurators() -> SectionConfiguration {
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
@@ -255,58 +147,211 @@ final class HomeInteractor {
 			accessibilityIdentifier: Accessibility.Cell.settingsCardTitle
 		)
 
-		var actionsConfigurators: [CollectionViewCellConfiguratorAny] = []
-		actionsConfigurators.append(activeConfigurator)
-		if let risk = riskConfigurator {
-			actionsConfigurators.append(risk)
-		}
-
-		if let exposureSubmission = exposureSubmissionConfigurator {
-			actionsConfigurators.append(exposureSubmission)
-		}
-
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
 		let settingsConfigurators: [CollectionViewCellConfiguratorAny] = [appInformationConfigurator, settingsConfigurator]
 
-		let actionsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
-			= (.actions, actionsConfigurators)
-		let infoSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
-			= (.infos, infosConfigurators)
-		let settingsSection: (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
-			= (.settings, settingsConfigurators)
+		let actionsSection: SectionDefinition = setupActionSectionDefinition()
+		let infoSection: SectionDefinition = (.infos, infosConfigurators)
+		let settingsSection: SectionDefinition = (.settings, settingsConfigurators)
 
 		var sections: [(section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])] = []
 		sections.append(contentsOf: [actionsSection, infoSection, settingsSection])
 
 		return sections
 	}
+}
 
-	private func selectConfiguratorForExposureSubmissionCell() -> CollectionViewCellConfiguratorAny? {
-		/* Enable this once the home view refreshing is done.
+// MARK: - Test result cell methods.
+
+extension HomeInteractor {
+
+	private func reloadTestResult(with result: TestResult) {
+		testResultConfigurator.testResult = result
+		reloadActionSection()
+		guard let indexPath = indexPathForTestResultCell() else { return }
+		homeViewController.reloadCell(at: indexPath)
+	}
+
+	func reloadActionSection() {
+		sections[0] = setupActionSectionDefinition()
+		homeViewController.updateSections()
+		homeViewController.applySnapshotFromSections(animatingDifferences: true)
+		homeViewController.reloadData()
+	}
+}
+
+// MARK: - Action section setup helpers.
+
+extension HomeInteractor {
+	private var risk: Risk? { state.risk }
+	private var riskDetails: Risk.Details? { risk?.details }
+
+	// swiftlint:disable:next function_body_length
+	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
+
+		let detectionIsAutomatic = detectionMode == .automatic
+		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
+
+		riskLevelConfigurator = nil
+		inactiveConfigurator = nil
+
+		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
+
+		switch riskLevel {
+		case .unknownInitial:
+			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
+				isLoading: false,
+				detectionIntervalLabelHidden: false,
+				lastUpdateDate: nil,
+				detectionInterval: detectionInterval,
+				detectionMode: detectionMode,
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState
+			)
+		case .inactive:
+			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
+				incativeType: .noCalculationPossible,
+				lastInvestigation: "Geringes Risiko",
+				lastUpdateDate: dateLastExposureDetection
+			)
+			inactiveConfigurator?.activeAction = inActiveCellActionHandler
+
+		case .unknownOutdated:
+			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
+				incativeType: .outdatedResults,
+				lastInvestigation: "Geringes Risiko",
+				lastUpdateDate: dateLastExposureDetection
+			)
+		case .low:
+			riskLevelConfigurator = HomeLowRiskCellConfigurator(
+				numberRiskContacts: state.numberRiskContacts,
+				numberDays: state.risk?.details.numberOfDaysWithActiveTracing ?? 0,
+				totalDays: 14,
+				lastUpdateDate: dateLastExposureDetection,
+				isButtonHidden: detectionIsAutomatic,
+				detectionMode: detectionMode,
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
+				detectionInterval: detectionInterval
+			)
+		case .increased:
+			riskLevelConfigurator = HomeHighRiskCellConfigurator(
+				numberRiskContacts: state.numberRiskContacts,
+				daysSinceLastExposure: state.daysSinceLastExposure,
+				lastUpdateDate: dateLastExposureDetection,
+				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
+				detectionMode: detectionMode,
+				validityDuration: detectionInterval
+			)
+		}
+		riskLevelConfigurator?.buttonAction = {
+			self.requestRisk(userInitiated: true)
+		}
+		return riskLevelConfigurator ?? inactiveConfigurator
+	}
+
+	private func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
+		testResultConfigurator.buttonAction = homeViewController.showTestResultScreen
+		return testResultConfigurator
+	}
+
+	func setupSubmitConfigurator() -> HomeSubmitCellConfigurator {
+		let submitConfigurator = HomeSubmitCellConfigurator()
+		submitConfigurator.submitAction = homeViewController.showExposureSubmissionWithoutResult
+		return submitConfigurator
+	}
+
+	func setupFindingPositiveRiskCellConfigurator() -> HomeFindingPositiveRiskCellConfigurator {
+		let configurator = HomeFindingPositiveRiskCellConfigurator()
+		configurator.nextAction = {
+			self.homeViewController.showExposureSubmission(with: self.testResult)
+		}
+		return configurator
+	}
+
+	func setupActiveConfigurator() -> HomeActivateCellConfigurator {
+		return HomeActivateCellConfigurator(state: state.enState)
+	}
+
+	func setupActionConfigurators() -> [CollectionViewCellConfiguratorAny] {
+		var actionsConfigurators: [CollectionViewCellConfiguratorAny] = []
+
+		// MARK: - Add cards that are always shown.
+
+		// Active card.
+		activeConfigurator = setupActiveConfigurator()
+		actionsConfigurators.append(activeConfigurator)
+
+		// MARK: - Add cards depending on result state.
+
 		if store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil {
 			// This is shown when we submitted keys! (Positive test result + actually decided to submit keys.)
-			return HomeExposureSubmissionStateCellConfigurator()
+			// Once this state is reached, it cannot be left anymore.
+
+			let thankYou = HomeThankYouRiskCellConfigurator()
+			actionsConfigurators.append(thankYou)
+			appLogger.log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
+
 		} else if store.registrationToken != nil {
-
 			// This is shown when we registered a test.
-			let testResulCellConfigurator = HomeTestResultCellConfigurator()
-			testResulCellConfigurator.buttonAction = { [weak self] in
-				self?.homeViewController.showTestResult()
+			// Note that the `positive` state has a custom cell and the risk cell will not be shown once the user was tested positive.
+
+			switch self.testResult {
+			case .none:
+				// Risk card.
+				if let risk = setupRiskConfigurator() {
+					actionsConfigurators.append(risk)
+				}
+
+				// Loading card.
+				let testResultLoadingCellConfigurator = HomeTestResultLoadingCellConfigurator()
+				actionsConfigurators.append(testResultLoadingCellConfigurator)
+
+			case .positive:
+				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
+				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
+
+			default:
+				// Risk card.
+				if let risk = setupRiskConfigurator() {
+					actionsConfigurators.append(risk)
+				}
+
+				let testResultConfigurator = setupTestResultConfigurator()
+				actionsConfigurators.append(testResultConfigurator)
 			}
-			testResulCellConfigurator.didConfigureCell = { configurator, cell in
-				self.homeViewController.updateTestResultFor(cell, with: configurator)
+		} else {
+			// This is the default view that is shown when no test results are available and nothing has been submitted.
+
+			// Risk card.
+			if let risk = setupRiskConfigurator() {
+				actionsConfigurators.append(risk)
 			}
 
-			return testResulCellConfigurator
-		}*/
-
-		// This is the default view that is shown when no test results are available.
-		let submitCellConfigurator = HomeSubmitCellConfigurator()
-		submitCellConfigurator.submitAction = { [unowned self] in
-			self.homeViewController.showExposureSubmission()
+			let submitCellConfigurator = setupSubmitConfigurator()
+			actionsConfigurators.append(submitCellConfigurator)
 		}
 
-		return submitCellConfigurator
+		return actionsConfigurators
+	}
+
+	private func setupActionSectionDefinition() -> SectionDefinition {
+		return (.actions, setupActionConfigurators())
+	}
+}
+
+// MARK: - IndexPath helpers.
+
+extension HomeInteractor {
+
+	private func indexPathForRiskCell() -> IndexPath? {
+		for section in sections {
+			let index = section.cellConfigurators.firstIndex { cellConfigurator in
+				cellConfigurator === self.riskLevelConfigurator
+			}
+			guard let item = index else { return nil }
+			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+			return indexPath
+		}
+		return nil
 	}
 
 	private func indexPathForActiveCell() -> IndexPath? {
@@ -321,94 +366,58 @@ final class HomeInteractor {
 		return nil
 	}
 
-	private func indexPathForRiskCell() -> IndexPath? {
-		for section in sections {
-			let index = section.cellConfigurators.firstIndex { cellConfigurator in
-				cellConfigurator === self.riskConfigurator
-			}
-			guard let item = index else { return nil }
-			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
-			return indexPath
+	private func indexPathForTestResultCell() -> IndexPath? {
+		let section = sections.first
+		let index = section?.cellConfigurators.firstIndex { cellConfigurator in
+			cellConfigurator === self.testResultConfigurator
 		}
-		return nil
+		guard let item = index else { return nil }
+		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
+		return indexPath
+	}
 	}
 
-	// MARK: Timer
+// MARK: - Exposure submission service calls.
 
-	private func startTimer() {
-		let timer = Timer(timeInterval: 1.0, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
-		updateRiskTimer = timer
-		RunLoop.current.add(timer, forMode: .common)
-		updateRiskTimer?.tolerance = 0.1
-	}
+extension HomeInteractor {
+	func updateTestResults() {
+		guard store.registrationToken != nil else { return }
 
-	private func stopTimer() {
-		updateRiskTimer?.invalidate()
-		updateRiskTimer = nil
-	}
+		// Make sure to make the loading cell appear for at least `minRequestTime`.
+		// This avoids an ugly flickering when the cell is only shown for the fraction of a second.
+		// Make sure to only trigger this additional delay when no other test result is present already.
+		let requestStart = Date()
+		let minRequestTime: TimeInterval = 2.0
 
-	@objc
-	private func fireTimer(timer _: Timer) {
-		guard let releaseDate = releaseDate else { return }
-		let now = Date()
-		if now <= releaseDate {
-			reloadRiskCell()
-		} else {
-			stopTimer()
-			if userLoadingMode == .automatic, !isUpdateTaskRunning {
-				startCountdownAndUpdateRisk()
-			} else {
-				reloadRiskCell()
+		self.exposureSubmissionService.getTestResult { [weak self] result in
+			switch result {
+			case .failure:
+				// TODO: initiate retry?
+				self?.testResult = nil
+			case .success(let result):
+				let requestTime = Date().timeIntervalSince(requestStart)
+				let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
+				DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+					self?.testResult = result
+					self?.reloadTestResult(with: result)
+				}
+
 			}
 		}
 	}
+}
 
-	private func startCountdown() {
-		startDate = Date()
-		releaseDate = calculateReleaseDate(from: startDate)
-		startTimer()
-	}
-
-	private func calculateReleaseDate(from date: Date?) -> Date? {
-		guard let date = date else { return nil }
-		var dateComponents = DateComponents()
-		dateComponents.second = 6
-		let newDate = Calendar.current.date(byAdding: dateComponents, to: date)
-		return newDate
+// MARK: The ENStateHandler updating
+extension HomeInteractor: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		self.state.enState = state
+		activeConfigurator.updateEnState(state)
+		updateActiveCell()
 	}
 }
 
 extension HomeInteractor {
-	struct State {
-		var isLoading = false
-		var summary: ENExposureDetectionSummary?
-		var exposureManager: ExposureManagerState
-		var numberRiskContacts: Int {
-			summary?.numberOfContacts ?? 0
-		}
-
-		var daysSinceLastExposure: Int? {
-			summary?.daysSinceLastExposure
-		}
-
-		var riskLevel: RiskLevel {
-			RiskLevel(riskScore: summary?.maximumRiskScore)
-		}
-	}
-}
-
-extension HomeInteractor: StateHandlerObserverDelegate {
-	func stateDidChange(to _: RiskDetectionState) {
-		updateActiveCell()
-	}
-
-	func getLatestExposureManagerState() -> ExposureManagerState {
-		state.exposureManager
-	}
-}
-
-extension HomeInteractor: ExposureStateUpdating {
-	func updateExposureState(_ state: ExposureManagerState) {
-		stateHandler.exposureManagerDidUpdate(to: state)
+	private func inActiveCellActionHandler() {
+		homeViewController.showExposureNotificationSetting()
 	}
 }

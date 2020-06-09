@@ -20,12 +20,12 @@ import ExposureNotification
 
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
-	var dateLastExposureDetection: Date? { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
 	var developerSubmissionBaseURLOverride: String? { get set }
 	var developerDistributionBaseURLOverride: String? { get set }
 	var developerVerificationBaseURLOverride: String? { get set }
 	var teleTan: String? { get set }
+	var hourlyFetchingEnabled: Bool { get set }
 
 	// A secret allowing the client to upload the diagnosisKey set.
 	var tan: String? { get set }
@@ -38,7 +38,7 @@ protocol Store: AnyObject {
 	var allowRiskChangesNotification: Bool { get set }
 	var allowTestsStatusNotification: Bool { get set }
 
-	var previousSummary: ENExposureDetectionSummaryContainer? { get set }
+	var summary: SummaryMetadata? { get set }
 
 	var registrationToken: String? { get set }
 	var hasSeenSubmissionExposureTutorial: Bool { get set }
@@ -59,39 +59,35 @@ protocol Store: AnyObject {
 
 	// An integer value representing the timestamp when the user
 	// accepted to submit his diagnosisKeys with the CWA submission service.
-	var submitConsentAcceptTimestamp: Int64? { get set }
+	var exposureActivationConsentAcceptTimestamp: Int64? { get set }
 
 	// A boolean storing if the user has confirmed to submit
 	// his diagnosiskeys to the CWA submission service.
-	var submitConsentAccept: Bool { get set }
+	var exposureActivationConsentAccept: Bool { get set }
 
-	func clearAll()
-	}
+	var tracingStatusHistory: TracingStatusHistory { get set }
+
+	func clearAll(key: String?)
+}
+
 
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
-	private let fileURL: URL
+	private let directoryURL: URL?
 	private let kvStore: SQLiteKeyValueStore
 
-	init() {
-		do {
-			fileURL = try FileManager.default
-				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("secureStore.sqlite")
-		} catch {
-			// swiftlint:disable:next force_unwrapping
-			fileURL = URL(string: "file::memory:")!
-		}
-		kvStore = SQLiteKeyValueStore(with: fileURL)
+	init(at directoryURL: URL?, key: String) {
+		self.directoryURL = directoryURL
+		kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
 
 	func flush() {
 		kvStore.flush()
 	}
 
-	func clearAll() {
-		kvStore.clearAll()
+	func clearAll(key: String?) {
+		kvStore.clearAll(key: key)
 	}
 
 	var testResultReceivedTimeStamp: Int64? {
@@ -114,14 +110,14 @@ final class SecureStore: Store {
 		set { kvStore["initialSubmitCompleted"] = newValue }
 		}
 
-	var submitConsentAcceptTimestamp: Int64? {
-		get { kvStore["submitConsentAcceptTimestamp"] as Int64? ?? 0 }
-		set { kvStore["submitConsentAcceptTimestamp"] = newValue }
+	var exposureActivationConsentAcceptTimestamp: Int64? {
+		get { kvStore["exposureActivationConsentAcceptTimestamp"] as Int64? ?? 0 }
+		set { kvStore["exposureActivationConsentAcceptTimestamp"] = newValue }
 	}
 
-	var submitConsentAccept: Bool {
-		get { kvStore["submitConsentAccept"] as Bool? ?? false }
-		set { kvStore["submitConsentAccept"] = newValue }
+	var exposureActivationConsentAccept: Bool {
+		get { kvStore["exposureActivationConsentAccept"] as Bool? ?? false }
+		set { kvStore["exposureActivationConsentAccept"] = newValue }
 		}
 
 	var registrationToken: String? {
@@ -157,22 +153,17 @@ final class SecureStore: Store {
 	var devicePairingSuccessfulTimestamp: Int64? {
 		get { kvStore["devicePairingSuccessfulTimestamp"] as Int64? ?? 0 }
 		set { kvStore["devicePairingSuccessfulTimestamp"] = newValue }
-		}
+	}
 
 	var isAllowedToSubmitDiagnosisKeys: Bool {
 		get { kvStore["isAllowedToSubmitDiagnosisKeys"] as Bool? ?? false }
 		set { kvStore["isAllowedToSubmitDiagnosisKeys"] = newValue }
-		}
+	}
 
 	var isOnboarded: Bool {
 		get { kvStore["isOnboarded"] as Bool? ?? false }
 		set { kvStore["isOnboarded"] = newValue }
-		}
-
-	var dateLastExposureDetection: Date? {
-		get { kvStore["dateLastExposureDetection"] as Date? ?? nil }
-		set { kvStore["dateLastExposureDetection"] = newValue }
-		}
+	}
 
 	var dateOfAcceptedPrivacyNotice: Date? {
 		get { kvStore["dateOfAcceptedPrivacyNotice"] as Date? ?? nil }
@@ -187,7 +178,7 @@ final class SecureStore: Store {
 	var developerSubmissionBaseURLOverride: String? {
 		get { kvStore["developerSubmissionBaseURLOverride"] as String? ?? nil }
 		set { kvStore["developerSubmissionBaseURLOverride"] = newValue }
-		}
+	}
 
 	var developerDistributionBaseURLOverride: String? {
 		get { kvStore["developerDistributionBaseURLOverride"] as String? ?? nil }
@@ -197,38 +188,91 @@ final class SecureStore: Store {
 	var developerVerificationBaseURLOverride: String? {
 		get { kvStore["developerVerificationBaseURLOverride"] as String? ?? nil }
 		set { kvStore["developerVerificationBaseURLOverride"] = newValue }
-		}
+	}
 
 	var allowRiskChangesNotification: Bool {
 		get { kvStore["allowRiskChangesNotification"] as Bool? ?? true }
 		set { kvStore["allowRiskChangesNotification"] = newValue }
-		}
+	}
 
 	var allowTestsStatusNotification: Bool {
 		get { kvStore["allowTestsStatusNotification"] as Bool? ?? true }
 		set { kvStore["allowTestsStatusNotification"] = newValue }
 	}
+	
+	var tracingStatusHistory: TracingStatusHistory {
+		get {
+			guard let historyData = kvStore["tracingStatusHistory"] else {
+				return []
+			}
+			return (try? TracingStatusHistory.from(data: historyData)) ?? []
+		}
+		set {
+			kvStore["tracingStatusHistory"] = try? newValue.JSONData()
+		}
+	}
 
-	var previousSummary: ENExposureDetectionSummaryContainer? {
-		get { kvStore["previousSummary"] as ENExposureDetectionSummaryContainer? ?? nil }
-		set { kvStore["previousSummary"] = newValue }
+	var summary: SummaryMetadata? {
+		get { kvStore["previousSummaryMetadata"] as SummaryMetadata? ?? nil }
+		set { kvStore["previousSummaryMetadata"] = newValue }
+	}
+
+	var hourlyFetchingEnabled: Bool {
+		get { kvStore["hourlyFetchingEnabled"] as Bool? ?? false }
+		set { kvStore["hourlyFetchingEnabled"] = newValue }
 	}
 }
 
-struct ENExposureDetectionSummaryContainer: Codable {
+struct CodableExposureDetectionSummary: Codable {
 	let daysSinceLastExposure: Int
 	let matchedKeyCount: UInt64
 	let maximumRiskScore: ENRiskScore
+	let maximumRiskScoreFullRange: Int
+	/// An array that contains the duration, in seconds, at certain attenuations, using an aggregated maximum exposures of 30 minutes.
+	///
+	/// Its values are adjusted based on the metadata in `ENExposureConfiguration`
+	/// - see also: [Apple Documentation](https://developer.apple.com/documentation/exposurenotification/enexposuredetectionsummary/3586324-metadata)
+	let configuredAttenuationDurations: [Double]
 
-	init(daysSinceLastExposure: Int, matchedKeyCount: UInt64, maximumRiskScore: ENRiskScore) {
+	init(
+		daysSinceLastExposure: Int,
+		matchedKeyCount: UInt64,
+		maximumRiskScore: ENRiskScore,
+		attenuationDurations: [Double],
+		maximumRiskScoreFullRange: Int
+	) {
 		self.daysSinceLastExposure = daysSinceLastExposure
 		self.matchedKeyCount = matchedKeyCount
 		self.maximumRiskScore = maximumRiskScore
+		self.configuredAttenuationDurations = attenuationDurations
+		self.maximumRiskScoreFullRange = maximumRiskScoreFullRange
+	}
+
+	init?(with summary: ENExposureDetectionSummary?) {
+		guard let summary = summary else {
+			return nil
+		}
+		self.init(with: summary)
 	}
 
 	init(with summary: ENExposureDetectionSummary) {
 		self.daysSinceLastExposure = summary.daysSinceLastExposure
 		self.matchedKeyCount = summary.matchedKeyCount
 		self.maximumRiskScore = summary.maximumRiskScore
+		self.maximumRiskScoreFullRange = (summary.metadata?["maximumRiskScoreFullRange"] as? NSNumber)?.intValue ?? 0
+		if let attenuationDurations = summary.metadata?["attenuationDurations"] as? [NSNumber] {
+			self.configuredAttenuationDurations = attenuationDurations.map { Double($0.floatValue) }
+		} else {
+			self.configuredAttenuationDurations = []
+		}
+	}
+
+	var description: String {
+		var str = ""
+		str.append("daysSinceLastExposure: \(daysSinceLastExposure)\n")
+		str.append("matchedKeyCount: \(matchedKeyCount)\n")
+		str.append("maximumRiskScore: \(maximumRiskScore)\n")
+		str.append("maximumRiskScoreFullRange: \(maximumRiskScoreFullRange)\n")
+		return str
 	}
 }

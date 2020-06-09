@@ -33,14 +33,14 @@ class ExposureDetectionLongGuideCell: UITableViewCell {
 		}
 
 		for text in text[1...] {
-			let imageView = UIImageView(image: UIImage(named: "exposure-detection-content-dot"))
+			let imageView = UIImageView(image: UIImage(named: "Icons_Dot"))
 			imageView.translatesAutoresizingMaskIntoConstraints = false
 			imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
 
 			let label = DynamicTypeLabel()
 			label.translatesAutoresizingMaskIntoConstraints = false
 			label.text = text
-			label.textColor = .preferredColor(for: .textPrimary1)
+			label.textColor = .enaColor(for: .textPrimary1)
 			label.numberOfLines = 0
 			label.adjustsFontForContentSizeCategory = true
 			label.font = textLabel?.font

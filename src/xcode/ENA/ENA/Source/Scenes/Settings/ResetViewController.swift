@@ -24,22 +24,30 @@ protocol ResetDelegate: AnyObject {
 
 final class ResetViewController: UIViewController {
 	@IBOutlet var header1Label: DynamicTypeLabel!
-	@IBOutlet var description1TextView: UITextView!
+	@IBOutlet var description1Label: UILabel!
 	@IBOutlet var resetButton: ENAButton!
-	@IBOutlet var discardResetButton: UIButton!
 	@IBOutlet var infoTitleLabel: DynamicTypeLabel!
 	@IBOutlet var infoDescriptionLabel: UILabel!
 	@IBOutlet var infoView: UIView!
 	@IBOutlet var subtitleLabel: UILabel!
+	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var footerView: UIView!
 
 	weak var delegate: ResetDelegate?
 
 	@IBAction func resetData(_: Any) {
 		delegate?.reset()
+		dismiss(animated: true, completion: nil)
 	}
 
 	override func viewDidLoad() {
 		setupView()
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+
+		scrollView.contentInset.bottom = footerView.frame.height
 	}
 
 	@IBAction func discard(_: Any) {
@@ -48,32 +56,24 @@ final class ResetViewController: UIViewController {
 
 	private func setupView() {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
-		navigationController?.navigationBar.prefersLargeTitles = true
+
+		let barButtonItem = UIBarButtonItem(image: UIImage(named: "Icons - Close"), style: .done, target: self, action: #selector(discard)
+		)
+		navigationItem.rightBarButtonItem = barButtonItem
 
 		subtitleLabel.text = AppStrings.Reset.subtitle
 
-		description1TextView.contentInset = .zero
-		description1TextView.textContainer.lineFragmentPadding = 0
-
 		header1Label.text = AppStrings.Reset.header1
-		description1TextView.text = AppStrings.Reset.description1
-		discardResetButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
-		discardResetButton.titleLabel?.adjustsFontForContentSizeCategory = true
+		description1Label.text = AppStrings.Reset.description1
 
 		infoView.layer.cornerRadius = 14
 		infoTitleLabel.text = AppStrings.Reset.infoTitle
 		infoDescriptionLabel.text = AppStrings.Reset.infoDescription
 
-		guard let resetButton = resetButton, let titleLabel = resetButton.titleLabel else { return }
-
 		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
-		resetButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-		resetButton.backgroundColor = UIColor.preferredColor(for: .brandRed)
 
-		titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
-		titleLabel.adjustsFontForContentSizeCategory = true
-		titleLabel.lineBreakMode = .byWordWrapping
-
-		resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: resetButton.titleLabel, attribute: .height, multiplier: 1, constant: 0))
+		if let resetButton = resetButton, let titleLabel = resetButton.titleLabel {
+			resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
+		}
 	}
 }

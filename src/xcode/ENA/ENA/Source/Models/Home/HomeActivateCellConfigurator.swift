@@ -21,9 +21,9 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
 	let identifier = UUID()
 	
-	private var state: RiskDetectionState
+	private var state: ENStateHandler.State
 
-	init(state: RiskDetectionState) {
+	init(state: ENStateHandler.State) {
 		self.state = state
 	}
 
@@ -36,36 +36,35 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 		switch state {
 		case .enabled:
 			iconImage = UIImage(named: "Icons_Risikoermittlung")
-			cell.titleTextView.text = AppStrings.Home.activateCardOnTitle
-			cell.iconImageView.tintColor = UIColor.preferredColor(for: .tint)
-		case .disabled, .restricted:
+			cell.titleLabel.text = AppStrings.Home.activateCardOnTitle
+			cell.iconImageView.tintColor = .enaColor(for: .tint)
+		case .disabled, .restricted, .notAuthorized, .unknown:
 			iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
-			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negativeRisk)
-			cell.titleTextView.text = AppStrings.Home.activateCardOffTitle
+			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
+			cell.titleLabel.text = AppStrings.Home.activateCardOffTitle
 		case .bluetoothOff:
 			iconImage = UIImage(named: "Icons_Bluetooth_aus")
-			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negativeRisk)
-			cell.titleTextView.text = AppStrings.Home.activateCardBluetoothOffTitle
+			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
+			cell.titleLabel.text = AppStrings.Home.activateCardBluetoothOffTitle
 		case .internetOff:
 			iconImage = UIImage(systemName: "wifi.slash")
-			cell.iconImageView.tintColor = UIColor.preferredColor(for: .negativeRisk)
-			cell.titleTextView.text = AppStrings.Home.activateCardInternetOffTitle
+			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
+			cell.titleLabel.text = AppStrings.Home.activateCardInternetOffTitle
 		}
 
 		cell.iconImageView.image = iconImage
 
-		let chevronImage = UIImage(systemName: "chevron.right.circle.fill")
-		cell.chevronImageView.image = chevronImage
-
 		setupAccessibility(for: cell)
-	}
-
-	func set(newState: RiskDetectionState) {
-		state = newState
 	}
 
 	func setupAccessibility(for cell: ActivateCollectionViewCell) {
 		cell.isAccessibilityElement = true
 		cell.accessibilityIdentifier = Accessibility.StaticText.homeActivateTitle
+	}
+}
+
+extension HomeActivateCellConfigurator: ENStateHandlerUpdating {
+	func updateEnState(_ state: ENStateHandler.State) {
+		self.state = state
 	}
 }

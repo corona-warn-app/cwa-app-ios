@@ -35,6 +35,32 @@ final class HTTPClient: Client {
 	private let configuration: Configuration
 	private let session: URLSession
 
+	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
+		session.GET(configuration.configurationURL) { result in
+			switch result {
+			case let .success(response):
+				guard let data = response.body else {
+					completion(nil)
+					return
+				}
+				guard response.hasAcceptableStatusCode else {
+					completion(nil)
+					return
+				}
+
+				guard let package = SAPDownloadedPackage(compressedData: data) else {
+					logError(message: "Failed to create signed package.")
+					completion(nil)
+					return
+				}
+				
+				completion(try? SAP_ApplicationConfiguration(serializedData: package.bin))
+			case .failure:
+				completion(nil)
+			}
+		}
+	}
+
 	func exposureConfiguration(
 		completion: @escaping ExposureConfigurationCompletionHandler
 	) {
@@ -57,9 +83,16 @@ final class HTTPClient: Client {
 					completion(nil)
 					return
 				}
-
 				do {
-					completion(try ENExposureConfiguration(from: package.bin))
+					// Configuration File Signature must be checked by the application since it is not verified by the operating system
+					guard try package.verifySignature() else {
+						logError(message: "Failed to verify configuration data signature")
+						completion(nil)
+						return
+					}
+					
+					let appConfig = try SAP_ApplicationConfiguration(serializedData: package.bin)
+					completion(try ENExposureConfiguration(from: appConfig.exposureConfig))
 				} catch {
 					logError(message: "Failed to get exposure configuration: \(error)")
 					completion(nil)
@@ -233,7 +266,7 @@ final class HTTPClient: Client {
 				switch result {
 				case let .success(response):
 
-					if (response.statusCode == 400) {
+					if response.statusCode == 400 {
 						completeWith(.failure(.regTokenNotExist))
 						return
 					}
@@ -287,8 +320,12 @@ final class HTTPClient: Client {
 			session.POST(url, data) { result in
 				switch result {
 				case let .success(response):
-					if (response.statusCode == 400) {
-						completeWith(.failure(.qRTeleTanAlreadyUsed))
+					if response.statusCode == 400 {
+						if type == "TELETAN" {
+							completeWith(.failure(.teleTanAlreadyUsed))
+						} else {
+							completeWith(.failure(.qRAlreadyUsed))
+						}
 						return
 					}
 					guard response.hasAcceptableStatusCode else {
@@ -426,11 +463,9 @@ private extension URLRequest {
 }
 
 private extension ENExposureConfiguration {
-	convenience init(from data: Data) throws {
+
+	convenience init(from riskscoreParameters: SAP_RiskScoreParameters) throws {
 		self.init()
-
-		let riskscoreParameters = try SAP_RiskScoreParameters(serializedData: data)
-
 		// We are intentionally not setting minimumRiskScore.
 		attenuationLevelValues = riskscoreParameters.attenuation.asArray
 		daysSinceLastExposureLevelValues = riskscoreParameters.daysSinceLastExposure.asArray
@@ -445,25 +480,25 @@ private extension SAP_RiskLevel {
 	}
 }
 
-private extension SAP_RiskScoreParameters.TransmissionRiskParameters {
+private extension SAP_RiskScoreParameters.TransmissionRiskParameter {
 	var asArray: [NSNumber] {
 		[appDefined1, appDefined2, appDefined3, appDefined4, appDefined5, appDefined6, appDefined7, appDefined8].map { $0.asNumber }
 	}
 }
 
-private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameters {
+private extension SAP_RiskScoreParameters.DaysSinceLastExposureRiskParameter {
 	var asArray: [NSNumber] {
 		[ge14Days, ge12Lt14Days, ge10Lt12Days, ge8Lt10Days, ge6Lt8Days, ge4Lt6Days, ge2Lt4Days, ge0Lt2Days].map { $0.asNumber }
 	}
 }
 
-private extension SAP_RiskScoreParameters.DurationRiskParameters {
+private extension SAP_RiskScoreParameters.DurationRiskParameter {
 	var asArray: [NSNumber] {
 		[eq0Min, gt0Le5Min, gt5Le10Min, gt10Le15Min, gt15Le20Min, gt20Le25Min, gt25Le30Min, gt30Min].map { $0.asNumber }
 	}
 }
 
-private extension SAP_RiskScoreParameters.AttenuationRiskParameters {
+private extension SAP_RiskScoreParameters.AttenuationRiskParameter {
 	var asArray: [NSNumber] {
 		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, lt10Dbm].map { $0.asNumber }
 	}

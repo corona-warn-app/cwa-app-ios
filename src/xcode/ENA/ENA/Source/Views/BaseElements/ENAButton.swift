@@ -62,19 +62,23 @@ class ENAButton: DynamicTypeButton {
 		setValue(ButtonType.custom.rawValue, forKey: "buttonType")
 
 		clipsToBounds = true
+		cornerRadius = 8
 
 		contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-		heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+		let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+		// TODO temporary fix for auto layout warnings on home screen
+		heightConstraint.priority = .init(999)
+		heightConstraint.isActive = true
 
+		titleLabel?.font = .preferredFont(forTextStyle: .body)
+		dynamicTypeSize = 17
+		dynamicTypeWeight = "semibold"
+
+		// Important: Must be added after accessing title label for the first time for correct z-order.
 		highlightView?.removeFromSuperview()
 		highlightView = UIView(frame: bounds)
 		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		addSubview(highlightView)
-
-		titleLabel?.font = .preferredFont(forTextStyle: .body)
-		cornerRadius = 8
-		dynamicTypeSize = 17
-		dynamicTypeWeight = "semibold"
 
 		applyStyle()
 		applyHighlight()
@@ -116,38 +120,38 @@ private extension ENAButton {
 
 extension ENAButton.Style {
 	var highlightColor: UIColor {
-		UIColor.black.withAlphaComponent(0.2)
+		.enaColor(for: .buttonHighlight)
 	}
 
 	var backgroundColor: UIColor {
 		switch self {
 		case .transparent: return .clear
-		case .emphasized(let color): return color ?? .preferredColor(for: .tint)
-		case .contrast: return .preferredColor(for: .backgroundPrimary)
+		case .emphasized(let color): return color ?? .enaColor(for: .buttonPrimary)
+		case .contrast: return .enaColor(for: .background)
 		}
 	}
 
 	var foregroundColor: UIColor {
 		switch self {
-		case .transparent: return .preferredColor(for: .tint)
-		case .emphasized: return .white
-		case .contrast: return .preferredColor(for: .textPrimary1, interface: .dark)
+		case .transparent: return .enaColor(for: .textTint)
+		case .emphasized: return .enaColor(for: .textContrast)
+		case .contrast: return .enaColor(for: .textPrimary1)
 		}
 	}
 
 	var disabledBackgroundColor: UIColor {
 		switch self {
-		case .transparent: return .preferredColor(for: .separator)
-		case .emphasized: return .preferredColor(for: .separator)
-		case .contrast: return .preferredColor(for: .separator)
+		case .transparent: return .clear
+		case .emphasized: return .enaColor(for: .separator)
+		case .contrast: return .enaColor(for: .separator)
 		}
 	}
 
 	var disabledForegroundColor: UIColor {
 		switch self {
-		case .transparent: return .preferredColor(for: .tint)
-		case .emphasized: return .preferredColor(for: .textPrimary1)
-		case .contrast: return .preferredColor(for: .textPrimary1)
+		case .transparent: return .enaColor(for: .textTint)
+		case .emphasized: return .enaColor(for: .textPrimary1)
+		case .contrast: return .enaColor(for: .textPrimary1)
 		}
 	}
 }

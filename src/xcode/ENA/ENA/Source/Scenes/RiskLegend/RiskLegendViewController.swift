@@ -32,6 +32,12 @@ class RiskLegendViewController: DynamicTableViewController {
 		dynamicTableViewModel = model
 	}
 
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = super.tableView(tableView, cellForRowAt: indexPath)
+		cell.backgroundColor = .clear
+		return cell
+	}
+
 	@IBAction func close() {
 		dismiss(animated: true)
 	}

@@ -21,12 +21,22 @@ import UIKit
 class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	var dynamicTableViewModel = DynamicTableViewModel([])
 
-	@IBOutlet private(set) var tableView: UITableView!
+	@IBInspectable var cellBackgroundColor: UIColor?
+
+	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
+
+	override func loadView() {
+		if nil != nibName {
+			super.loadView()
+		} else {
+			view = UITableView(frame: .zero, style: .grouped)
+			tableView.delegate = self
+			tableView.dataSource = self
+		}
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		if tableView == nil { tableView = view as? UITableView }
 
 		tableView.register(DynamicTableViewHeaderImageView.self, forHeaderFooterViewReuseIdentifier: HeaderFooterReuseIdentifier.header.rawValue)
 		tableView.register(DynamicTableViewHeaderSeparatorView.self, forHeaderFooterViewReuseIdentifier: HeaderFooterReuseIdentifier.separator.rawValue)
@@ -86,9 +96,13 @@ extension DynamicTableViewController {
 			view?.layoutMargins = insets
 			return view
 
-		case let .image(image, height):
+		case let .image(image, accessibilityLabel: label, height):
 			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.header.rawValue) as? DynamicTableViewHeaderImageView
 			view?.imageView?.image = image
+			if let label = label {
+				view?.imageView?.isAccessibilityElement = true
+				view?.imageView?.accessibilityLabel = label
+			}
 			view?.height = height
 			return view
 
@@ -116,7 +130,7 @@ extension DynamicTableViewController {
 		}
 	}
 
-	private func execute(action: DynamicAction) {
+	final func execute(action: DynamicAction) {
 		switch action {
 		case let .open(url):
 			if let url = url { UIApplication.shared.open(url) }
@@ -234,6 +248,10 @@ extension DynamicTableViewController {
 			cell.addSeparator(.clear)
 		}
 
+		if let cellBackgroundColor = cellBackgroundColor {
+			cell.backgroundColor = cellBackgroundColor
+		}
+
 		return cell
 	}
 
@@ -250,39 +268,39 @@ extension DynamicTableViewController {
 }
 
 private extension UITableViewCell {
-	enum SeparatorLocation {
-		case top
-		case bottom
-		case inset
-		case clear
+	enum SeparatorLocation: Int {
+		case top = 100_001
+		case bottom = 100_002
+		case inset = 100_003
+		case clear = 100_004
 	}
 
 	func addSeparator(_ location: SeparatorLocation) {
 		if location == .clear {
-			contentView.viewWithTag(100_001)?.removeFromSuperview()
-			contentView.viewWithTag(100_002)?.removeFromSuperview()
-			contentView.viewWithTag(100_003)?.removeFromSuperview()
+			contentView.viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
+			contentView.viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
+			contentView.viewWithTag(SeparatorLocation.inset.rawValue)?.removeFromSuperview()
 			return
 		}
 
 		let separator = UIView(frame: bounds)
 		contentView.addSubview(separator)
-		separator.backgroundColor = .preferredColor(for: .separator)
+		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
 		separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
 		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
 
 		switch location {
 		case .top:
-			separator.tag = 100_001
+			separator.tag = SeparatorLocation.top.rawValue
 			separator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
 			separator.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
 		case .bottom:
-			separator.tag = 100_002
+			separator.tag = SeparatorLocation.bottom.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 			separator.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
 		case .inset:
-			separator.tag = 100_002
+			separator.tag = SeparatorLocation.inset.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
 			separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
 		default:

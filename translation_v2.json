@@ -1,0 +1,21 @@
+{
+  "collections": [
+    {
+      "collectionName": "cwa-app-ios",
+      "folders": [
+        {
+          "startingFolderPath": "src/xcode/ENA/ENA/Resources/Localization/de.lproj/**",
+          "sourceFilters": [
+            "*.strings","*.stringsdict"
+          ],
+           "targetFolderPath":"../[langCode].lproj/"
+        }
+      ]
+    }
+  ],
+  "defaultConfiguration": {
+    "pseudoLocFolderPath": "../2Q.lproj",
+    "oneQFolderPath": "../1Q.lproj",
+    "targetFileNamingConvention": "[filename].[extension]"
+  }
+}

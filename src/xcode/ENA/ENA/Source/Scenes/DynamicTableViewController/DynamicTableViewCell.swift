@@ -26,6 +26,7 @@ struct DynamicCell {
 	let action: DynamicAction
 	let accessoryAction: DynamicAction
 	private let configure: CellConfigurator?
+	var tag: String?
 
 	func configure(cell: UITableViewCell, at indexPath: IndexPath, for viewController: DynamicTableViewController) {
 		configure?(viewController, cell, indexPath)
@@ -44,7 +45,8 @@ extension DynamicCell {
 			cellReuseIdentifier: identifier,
 			action: action,
 			accessoryAction: accessoryAction,
-			configure: configure
+			configure: configure,
+			tag: nil
 		)
 	}
 
@@ -69,9 +71,10 @@ extension DynamicCell {
 		}
 	}
 
-	static func icon(action: DynamicAction = .none, _ icon: DynamicIcon) -> Self {
-		.identifier(CellReuseIdentifier.icon, action: action, accessoryAction: .none) { _, cell, _ in
-			(cell as? DynamicTableViewIconCell)?.configure(icon)
+	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+		.identifier(CellReuseIdentifier.icon, action: action, accessoryAction: .none) { viewController, cell, indexPath in
+			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor)
+			configure?(viewController, cell, indexPath)
 		}
 	}
 
@@ -95,16 +98,4 @@ extension DynamicCell {
 	static func body(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.body, text: text, color: color, configure: configure) }
 	static func subheadline(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.subheadline, text: text, color: color, configure: configure) }
 	static func footnote(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.footnote, text: text, color: color, configure: configure) }
-}
-
-extension DynamicCell {
-	// TODO to be removed
-	@available(*, deprecated, renamed: "title2")
-	static func bigBold(text: String) -> Self { .dynamicType(text: text, size: 22, weight: .bold, style: .headline) }
-	@available(*, deprecated)
-	static func bold(text: String) -> Self { .dynamicType(text: text, size: 17, weight: .bold, style: .body) }
-	@available(*, deprecated, renamed: "headline")
-	static func semibold(text: String) -> Self { .dynamicType(text: text, size: 17, weight: .semibold, style: .body) }
-	@available(*, deprecated, renamed: "body")
-	static func regular(text: String) -> Self { .dynamicType(text: text, size: 17, weight: .regular, style: .body) }
 }

@@ -36,7 +36,7 @@ class DynamicTypeTableViewCell: UITableViewCell {
 	private func setup() {
 		selectionStyle = .none
 
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		backgroundColor = .enaColor(for: .background)
 
 		contentView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
 
@@ -49,13 +49,13 @@ class DynamicTypeTableViewCell: UITableViewCell {
 		}
 
 		configureDynamicType()
-		configure(text: "", color: .preferredColor(for: .textPrimary1))
+		configure(text: "", color: .enaColor(for: .textPrimary1))
 	}
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
 		configureDynamicType()
-		configure(text: "", color: .preferredColor(for: .textPrimary1))
+		configure(text: "", color: .enaColor(for: .textPrimary1))
 	}
 
 	func configureDynamicType(size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body) {
@@ -66,6 +66,6 @@ class DynamicTypeTableViewCell: UITableViewCell {
 
 	func configure(text: String, color: UIColor? = nil) {
 		textLabel?.text = text
-		textLabel?.textColor = color ?? .preferredColor(for: .textPrimary1)
+		textLabel?.textColor = color ?? .enaColor(for: .textPrimary1)
 	}
 }

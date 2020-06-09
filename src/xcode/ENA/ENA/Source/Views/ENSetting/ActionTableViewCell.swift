@@ -19,11 +19,16 @@ import Foundation
 import UIKit
 
 protocol ActionCell: ConfigurableENSettingCell {
-	func configure(for state: RiskDetectionState, delegate: ActionTableViewCellDelegate)
+	func configure(for state: ENStateHandler.State, delegate: ActionTableViewCellDelegate)
 }
 
 protocol ActionTableViewCellDelegate: AnyObject {
-	func performAction(enable: Bool)
+	func performAction(action: SettingAction)
+}
+
+enum SettingAction {
+	case enable(Bool)
+	case askConsent
 }
 
 class ActionTableViewCell: UITableViewCell, ActionCell {
@@ -32,16 +37,22 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 	@IBOutlet var detailLabel: UILabel!
 
 	weak var delegate: ActionTableViewCellDelegate?
+	private var askForConsent = false
 
 	@IBAction func switchValueDidChange(_: Any) {
-		delegate?.performAction(enable: actionSwitch.isOn)
+		if askForConsent {
+			delegate?.performAction(action: .askConsent)
+		} else {
+			delegate?.performAction(action: .enable(self.actionSwitch.isOn))
+		}
 	}
 
 	func turnSwitch(to on: Bool) {
 		actionSwitch.setOn(on, animated: true)
 	}
 
-	func configure(for state: RiskDetectionState) {
+	func configure(for state: ENStateHandler.State) {
+		askForConsent = false
 		actionTitleLabel.text = AppStrings.ExposureNotificationSetting.enableTracing
 		detailLabel.text = AppStrings.ExposureNotificationSetting.limitedTracing
 		turnSwitch(to: state == .enabled)
@@ -53,15 +64,19 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		case .bluetoothOff, .internetOff:
 			detailLabel.isHidden = false
 			actionSwitch.isHidden = true
-		case .restricted:
+		case .restricted, .notAuthorized:
 			detailLabel.isHidden = false
 			actionSwitch.isHidden = true
 			detailLabel.text = AppStrings.ExposureNotificationSetting.deactivatedTracing
+		case .unknown:
+			askForConsent = true
+			detailLabel.isHidden = true
+			actionSwitch.isHidden = false
 		}
 	}
 
 	func configure(
-		for state: RiskDetectionState,
+		for state: ENStateHandler.State,
 		delegate: ActionTableViewCellDelegate
 	) {
 		self.delegate = delegate

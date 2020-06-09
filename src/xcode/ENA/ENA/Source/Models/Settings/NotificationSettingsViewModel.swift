@@ -20,16 +20,22 @@ import Foundation
 class NotificationSettingsViewModel {
 	let notificationsOn: Bool
 	let image: String
-	let title: String
-	let description: String
+	let title: String?
 	let sections: [Section]
+	let openSettings: OpenSettings?
 
-	private init(notificationsOn: Bool, image: String, title: String, description: String, sections: [Section]) {
+	private init(
+		notificationsOn: Bool,
+		image: String,
+		title: String?,
+		sections: [Section],
+		openSettings: OpenSettings?
+	) {
 		self.notificationsOn = notificationsOn
 		self.image = image
 		self.title = title
-		self.description = description
 		self.sections = sections
+		self.openSettings = openSettings
 	}
 
 	static func notificationsOn(_ store: Store) -> NotificationSettingsViewModel {
@@ -37,7 +43,6 @@ class NotificationSettingsViewModel {
 			notificationsOn: true,
 			image: "Illu_Mitteilungen_On",
 			title: AppStrings.NotificationSettings.onTitle,
-			description: AppStrings.NotificationSettings.onDescription,
 			sections: [
 				.settingsOn(
 					title: AppStrings.NotificationSettings.onSectionTitle,
@@ -54,7 +59,8 @@ class NotificationSettingsViewModel {
 						))
 					]
 				)
-			]
+			],
+			openSettings: nil
 		)
 	}
 
@@ -62,29 +68,24 @@ class NotificationSettingsViewModel {
 		NotificationSettingsViewModel(
 			notificationsOn: false,
 			image: "Illu_Mitteilungen_Off",
-			title: AppStrings.NotificationSettings.offTitle,
-			description: AppStrings.NotificationSettings.offDescription,
+			title: nil,
 			sections: [
 				.settingsOff(
+					title: AppStrings.NotificationSettings.offSectionTitle,
 					cells: [
-						.navigateSettings(.init(
-							icon: "Icons_iOS_Settings",
-							description: AppStrings.NotificationSettings.navigateSettings
-						)),
-						.pickNotifications(.init(
-							icon: "Icons_iOS_Mitteilungen",
-							description: AppStrings.NotificationSettings.pickNotifications
-						)),
 						.enableNotifications(.init(
-							icon: "Icons_iOS_Mitteilungen",
-							description: AppStrings.NotificationSettings.enableNotifications
+							description: AppStrings.NotificationSettings.enableNotifications,
+							state: AppStrings.NotificationSettings.statusInactive
 						))
 					]
-				),
-				.openSettings(
-					cell: .openSettings(title: AppStrings.NotificationSettings.openSettings)
 				)
-			]
+			],
+			openSettings: OpenSettings(
+				title: AppStrings.NotificationSettings.infoTitle,
+				icon: "Icons_iOS_Mitteilungen",
+				description: AppStrings.NotificationSettings.infoDescription,
+				openSettings: AppStrings.NotificationSettings.openSettings
+			)
 		)
 	}
 }
@@ -94,10 +95,7 @@ extension NotificationSettingsViewModel {
 		case riskChanges(SettingsOnItem)
 		case testsStatus(SettingsOnItem)
 
-		case navigateSettings(SettingsOffItem)
-		case pickNotifications(SettingsOffItem)
 		case enableNotifications(SettingsOffItem)
-		case openSettings(identifier: String = "openSettings", title: String)
 	}
 
 	struct SettingsOnItem {
@@ -114,15 +112,21 @@ extension NotificationSettingsViewModel {
 
 	struct SettingsOffItem {
 		let identifier = "notificationsOff"
+		let description: String
+		let state: String
+	}
+
+	struct OpenSettings {
+		let title: String
 		let icon: String
 		let description: String
+		let openSettings: String
 	}
 }
 
 extension NotificationSettingsViewModel {
 	enum Section {
 		case settingsOn(title: String, cells: [SettingsItems])
-		case settingsOff(cells: [SettingsItems])
-		case openSettings(cell: SettingsItems)
+		case settingsOff(title: String, cells: [SettingsItems])
 	}
 }
