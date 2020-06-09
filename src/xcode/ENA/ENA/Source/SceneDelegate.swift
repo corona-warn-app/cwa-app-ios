@@ -148,10 +148,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private func setupNavigationBarAppearance() {
 		let appearance = UINavigationBar.appearance()
+
 		appearance.tintColor = .enaColor(for: .tint)
+
 		appearance.titleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
 		]
+
 		appearance.largeTitleTextAttributes = [
 			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
 			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
