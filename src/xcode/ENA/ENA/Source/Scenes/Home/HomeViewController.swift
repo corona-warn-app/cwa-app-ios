@@ -84,7 +84,6 @@ final class HomeViewController: UIViewController {
 		configureDataSource()
 		updateSections()
 		applySnapshotFromSections()
-		configureUI()
 		homeInteractor.updateTestResults()
 		setupAccessibility()
 	}
@@ -96,11 +95,8 @@ final class HomeViewController: UIViewController {
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
-		if self.traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-			let image = UIImage(named: "Corona-Warn-App")
-			let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
-			leftItem.isEnabled = false
-			self.navigationItem.leftBarButtonItem = leftItem
+		if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+			navigationItem.leftBarButtonItem?.image = UIImage(named: "Corona-Warn-App")
 		}
 	}
 
@@ -116,8 +112,7 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Actions
 
-	@objc
-	private func infoButtonTapped() {
+	@IBAction private func infoButtonTapped() {
 		present(
 			AppStoryboard.riskLegend.initiateInitial(),
 			animated: true,
@@ -334,22 +329,6 @@ final class HomeViewController: UIViewController {
 	func updateSections() {
 		sections = homeInteractor.sections
 	}
-
-	private func configureUI() {
-		collectionView.backgroundColor = .clear
-		let infoImage = UIImage(systemName: "info.circle")
-		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			image: infoImage,
-			style: .plain,
-			target: self,
-			action: #selector(infoButtonTapped)
-		)
-		let image = UIImage(named: "Corona-Warn-App")
-		let leftItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
-		leftItem.isEnabled = false
-		navigationItem.leftBarButtonItem = leftItem
-	}
-
 }
 
 // MARK: - Update test state.
