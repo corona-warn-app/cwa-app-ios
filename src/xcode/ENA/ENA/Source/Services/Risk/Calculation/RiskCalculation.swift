@@ -176,7 +176,7 @@ enum RiskCalculation {
 		numberOfTracingActiveHours: Int,
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date(),
-		store: Store
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	) -> Risk? {
 		switch riskLevel(
 			summary: summary,
@@ -202,7 +202,7 @@ enum RiskCalculation {
 
 			var riskLevelHasChanged = false
 			if
-				let previousRiskLevel = store.previousRiskLevel,
+				let previousRiskLevel = previousRiskLevel,
 				let newRiskLevel = EitherLowOrIncreasedRiskLevel(with: level),
 				previousRiskLevel != newRiskLevel {
 				// If the newly calculated risk level is different than the stored level, set the flag to true.
