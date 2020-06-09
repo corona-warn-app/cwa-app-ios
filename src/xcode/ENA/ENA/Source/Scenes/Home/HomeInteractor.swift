@@ -397,7 +397,7 @@ extension HomeInteractor {
 			case .failure(let error):
 				// When we fail here, trigger an alert and set the state to pending.
 				self?.homeViewController.alertError(
-					message: error.localizedDescription,
+					message: AppStrings.Home.resultCardLoadingErrorText + "\n" + error.localizedDescription,
 					title: AppStrings.Home.resultCardLoadingErrorTitle,
 					completion: {
 						self?.testResult = .pending

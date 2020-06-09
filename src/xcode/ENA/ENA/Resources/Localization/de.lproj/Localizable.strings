@@ -637,6 +637,8 @@
 
 "Home_resultCard_LoadingErrorTitle" = "Ihr Testergebnis konnte nicht geladen werden";
 
+"Home_resultCard_LoadingErrorText" = "Es konnte keine Verbindung aufgebaut werden.";
+
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
 
