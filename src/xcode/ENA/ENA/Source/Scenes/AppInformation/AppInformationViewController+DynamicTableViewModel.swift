@@ -118,8 +118,8 @@ extension AppInformationViewController {
 	private static let aboutModel = DynamicTableViewModel([
 		.section(
 			header: .image(UIImage(named: "Illu_AppInfo_UeberApp"),
-						   // TODO: get the accessibility content for this image
-						   //accessibilityLabel: AppStrings.AppInformation.aboutImageDescription,
+						   accessibilityLabel: AppStrings.AppInformation.aboutImageDescription,
+						   accessibilityIdentifier: "AppStrings.AppInformation.aboutImageDescription",
 						   height: 230),
 			cells: [
 				.title2(text: AppStrings.AppInformation.aboutTitle,
@@ -136,6 +136,7 @@ extension AppInformationViewController {
 		.section(
 			header: .image(UIImage(named: "Illu_Appinfo_Kontakt"),
 						   accessibilityLabel: AppStrings.AppInformation.contactImageDescription,
+						   accessibilityIdentifier: "AppStrings.AppInformation.contactImageDescription",
 						   height: 230),
 			cells: [
 				.title2(text: AppStrings.AppInformation.contactTitle,
@@ -158,6 +159,7 @@ extension AppInformationViewController {
 		.section(
 			header: .image(UIImage(named: "Illu_Appinfo_Impressum"),
 						   accessibilityLabel: AppStrings.AppInformation.imprintImageDescription,
+						   accessibilityIdentifier: "AppStrings.AppInformation.imprintImageDescription",
 						   height: 230),
 			cells: [
 				.headline(text: AppStrings.AppInformation.imprintSection1Title,
@@ -184,8 +186,8 @@ extension AppInformationViewController {
 		.section(
 			header: .image(
 				UIImage(named: "Illu_Appinfo_Datenschutz"),
-				// TODO: get the accessibility content for this image
-				//accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
+				accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
+				accessibilityIdentifier: "AppStrings.AppInformation.privacyImageDescription",
 				height: 230
 			),
 			cells: [
@@ -198,6 +200,7 @@ extension AppInformationViewController {
 		.section(
 			header: .image(UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"),
 						   accessibilityLabel: AppStrings.AppInformation.termsImageDescription,
+						   accessibilityIdentifier: "AppStrings.AppInformation.termsImageDescription",
 						   height: 230),
 			cells: [
 				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))

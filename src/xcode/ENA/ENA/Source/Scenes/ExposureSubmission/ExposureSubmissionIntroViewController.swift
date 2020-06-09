@@ -117,6 +117,7 @@ private extension DynamicTableViewModel {
 			header: .image(
 				UIImage(named: "Illu_Submission_Funktion1"),
 				accessibilityLabel: nil,
+				accessibilityIdentifier: nil,
 				height: 200
 			),
 			separators: false,

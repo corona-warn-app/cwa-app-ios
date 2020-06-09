@@ -54,7 +54,8 @@ private extension DynamicTableViewModel {
 		DynamicSection.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_VielenDank"),
-				accessibilityLabel: AppStrings.ExposureSubmissionSuccess.accImageDescription
+				accessibilityLabel: AppStrings.ExposureSubmissionSuccess.accImageDescription,
+				accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.accImageDescription"
 			),
 			separators: false,
 			cells: [

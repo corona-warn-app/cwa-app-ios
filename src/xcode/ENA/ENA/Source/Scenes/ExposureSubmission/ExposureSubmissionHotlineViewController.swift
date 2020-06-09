@@ -60,7 +60,9 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 		dynamicTableViewModel = DynamicTableViewModel(
 			[
 				.section(
-					header: .image(UIImage(named: "Illu_Submission_Kontakt"), accessibilityLabel: nil),
+					header: .image(UIImage(named: "Illu_Submission_Kontakt"),
+								   accessibilityLabel: nil,
+								   accessibilityIdentifier: nil),
 					cells: [
 						.body(text: AppStrings.ExposureSubmissionHotline.description,
 							  accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.description")
