@@ -74,6 +74,8 @@ orbs:
 workflows:
     default:
       jobs:
+        - build
+        - test
         - assess:
             requires:
               - build
