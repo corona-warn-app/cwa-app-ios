@@ -98,8 +98,6 @@
 
 "ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.\n\nDie Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
 
-"ExposureDetection_Hotline_Number" = "+498007540002";
-
 "ExposureDetection_Button_Enable" = "Risiko-Ermittlung aktivieren";
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
