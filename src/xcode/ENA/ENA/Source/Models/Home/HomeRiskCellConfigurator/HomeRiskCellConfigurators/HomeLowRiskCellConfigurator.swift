@@ -21,27 +21,29 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private var numberRiskContacts: Int
 	private var numberDays: Int
 	private var totalDays: Int
+	private let detectionInterval: Int
 
 	// MARK: Creating a Home Risk Cell Configurator
 
 	init(
-		startDate: Date?,
-		releaseDate: Date?,
 		numberRiskContacts: Int,
 		numberDays: Int,
 		totalDays: Int,
-		lastUpdateDate: Date?
+		lastUpdateDate: Date?,
+		isButtonHidden: Bool,
+		detectionMode: DetectionMode,
+		manualExposureDetectionState: ManualExposureDetectionState,
+		detectionInterval: Int
 	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.numberDays = numberDays
 		self.totalDays = totalDays
+		self.detectionInterval = detectionInterval
 		super.init(
 			isLoading: false,
-			isButtonEnabled: true,
-			isButtonHidden: true,
-			isCounterLabelHidden: true,
-			startDate: startDate,
-			releaseDate: releaseDate,
+			isButtonEnabled: detectionMode == .manual && manualExposureDetectionState == .possible,
+			isButtonHidden: isButtonHidden,
+			detectionIntervalLabelHidden: false,
 			lastUpdateDate: lastUpdateDate
 		)
 	}
@@ -51,15 +53,13 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
 
-		cell.removeAllArrangedSubviews()
-
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardLowTitle
-		let titleColor: UIColor = .white
+		let titleColor: UIColor = .enaColor(for: .textContrast)
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
 
-		let color = UIColor.preferredColor(for: .positiveRisk)
-		let separatorColor = UIColor.white.withAlphaComponent(0.15)
+		let color: UIColor = .enaColor(for: .riskLow)
+		let separatorColor: UIColor = .enaColor(for: .hairlineContrast)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 		if isLoading {
 			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
@@ -80,10 +80,21 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		cell.configureChevron(image: UIImage(named: "Icons_Chevron_White"), tintColor: nil)
-
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardLowButton
+
+		let intervalString = "\(detectionInterval)"
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
+		cell.configureDetectionIntervalLabel(
+			text: intervalTitle,
+			isHidden: detectionIntervalLabelHidden
+		)
 		
-		configureCounter(buttonTitle: buttonTitle, cell: cell)
+		cell.configureUpdateButton(
+			title: buttonTitle,
+			isEnabled: isButtonEnabled,
+			isHidden: isButtonHidden
+		)
+
+		setupAccessibility(cell)
 	}
 }

@@ -176,7 +176,7 @@ final class RiskCalculationTests: XCTestCase {
 
 	func testCalculateRisk_OutsideRangeError_TooLow() {
 		// Test the case where preconditions pass and there is increased risk
-		// Values below are hand-picked to result in a raw risk score of 0.85 - outside of the botton bound of the config
+		// Values below are hand-picked to result in a raw risk score of 0.85 - outside of the bottom bound of the config
 		let summary = makeExposureSummaryContainer(maxRiskScoreFullRange: 64, ad_low: 10, ad_mid: 10, ad_high: 10)
 		let risk = RiskCalculation.risk(
 			summary: summary,
@@ -233,15 +233,15 @@ private extension RiskCalculationTests {
 		makeAppConfig(w_low: 1.0, w_med: 0.5, w_high: 0.5)
 	}
 
-	private var summaryLow: ENExposureDetectionSummaryContainer {
+	private var summaryLow: CodableExposureDetectionSummary {
 		makeExposureSummaryContainer(maxRiskScoreFullRange: 80, ad_low: 10, ad_mid: 10, ad_high: 10)
 	}
 
-	private var summaryMed: ENExposureDetectionSummaryContainer {
+	private var summaryMed: CodableExposureDetectionSummary {
 		makeExposureSummaryContainer(maxRiskScoreFullRange: 128, ad_low: 15, ad_mid: 15, ad_high: 15)
 	}
 
-	private var summaryHigh: ENExposureDetectionSummaryContainer {
+	private var summaryHigh: CodableExposureDetectionSummary {
 		makeExposureSummaryContainer(maxRiskScoreFullRange: 255, ad_low: 30, ad_mid: 30, ad_high: 30)
 	}
 
@@ -269,8 +269,13 @@ private extension RiskCalculationTests {
 		ad_low: Double,
 		ad_mid: Double,
 		ad_high: Double
-	) -> ENExposureDetectionSummaryContainer {
-		ENExposureDetectionSummaryContainer(daysSinceLastExposure: 0, matchedKeyCount: 0, maximumRiskScore: 0, attenuationDurations: [ad_low, ad_mid, ad_high], maximumRiskScoreFullRange: maxRiskScoreFullRange
+	) -> CodableExposureDetectionSummary {
+		.init(
+			daysSinceLastExposure: 0,
+			matchedKeyCount: 0,
+			maximumRiskScore: 0,
+			attenuationDurations: [ad_low, ad_mid, ad_high],
+			maximumRiskScoreFullRange: maxRiskScoreFullRange
 		)
 	}
 

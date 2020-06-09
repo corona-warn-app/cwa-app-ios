@@ -42,21 +42,21 @@ class DynamicTableViewRoundedCell: UITableViewCell {
 
 		// MARK: - General cell setup.
 		selectionStyle = .none
-		backgroundColor = .preferredColor(for: .backgroundPrimary)
+		backgroundColor = .enaColor(for: .background)
 
 		// MARK: - Add inset view
-		insetView.backgroundColor = .preferredColor(for: .backgroundSecondary)
+		insetView.backgroundColor = .enaColor(for: .separator)
 		insetView.layer.cornerRadius = 16.0
 
 		// MARK: - Title adjustment.
 		title.style = .headline
-		title.textColor = .preferredColor(for: .textPrimary1)
+		title.textColor = .enaColor(for: .textPrimary1)
 		title.lineBreakMode = .byWordWrapping
 		title.numberOfLines = 0
 
 		// MARK: - Body adjustment.
 		body.style = .body
-		body.textColor = .preferredColor(for: .textPrimary1)
+		body.textColor = .enaColor(for: .textPrimary1)
 		body.lineBreakMode = .byWordWrapping
 		body.numberOfLines = 0
 

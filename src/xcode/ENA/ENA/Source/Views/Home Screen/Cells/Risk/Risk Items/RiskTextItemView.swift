@@ -20,13 +20,11 @@ import UIKit
 final class RiskTextItemView: UIView, RiskItemView, RiskItemViewSeparatorable {
 	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var separatorView: UIView!
-	@IBOutlet var separatorHeightConstraint: NSLayoutConstraint!
 
 	private let titleTopPadding: CGFloat = 8.0
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		separatorHeightConstraint.constant = 1
 		layoutMargins = .init(top: titleTopPadding, left: 0, bottom: titleTopPadding, right: 0)
 	}
 

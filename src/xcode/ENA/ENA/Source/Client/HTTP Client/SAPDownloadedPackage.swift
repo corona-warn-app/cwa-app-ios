@@ -17,6 +17,7 @@
 
 import Foundation
 import ZIPFoundation
+import CryptoKit
 
 struct SAPDownloadedPackage {
 	// MARK: Creating a Key Package
@@ -36,11 +37,39 @@ struct SAPDownloadedPackage {
 			return nil
 		}
 	}
-
+	
 	// MARK: Properties
 
 	let bin: Data
 	let signature: Data
+}
+
+extension SAPDownloadedPackage {
+	/// Verify that the .bin file actually originated from our server and was not tampered with.
+	///
+	/// This works as follows:
+	/// - We store the public key of our server (depends on landscape, we have two public keys right now)
+	/// - Neither the .bin or .sig data is encrypted (besides in transit), but the .sig file serves the signature
+	/// - The server has signed this hash with their private key.
+	///
+	func verifySignature(with keystore: PublicKeyStore = ProductionPublicKeyStore()) throws -> Bool {
+		
+		guard let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature) else {
+			return false
+		}
+		
+		for signatureEntry in parsedSignatureFile.signatures {
+			let signatureData: Data = signatureEntry.signature
+			let publicKey = try keystore.publicKey(for: signatureEntry.signatureInfo.appBundleID)
+			let signature = try P256.Signing.ECDSASignature(derRepresentation: signatureData)
+				
+			if publicKey.isValidSignature(signature, for: bin) {
+				return true
+			}
+		}
+		
+		return false
+	}
 }
 
 private extension Archive {
@@ -48,6 +77,7 @@ private extension Archive {
 	enum KeyPackageError: Error {
 		case binNotFound
 		case sigNotFound
+		case signatureCheckFailed
 	}
 
 	func extractData(from entry: Entry) throws -> Data {

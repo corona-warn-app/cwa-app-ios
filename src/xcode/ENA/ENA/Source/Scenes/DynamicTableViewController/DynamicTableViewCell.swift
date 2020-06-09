@@ -26,6 +26,7 @@ struct DynamicCell {
 	let action: DynamicAction
 	let accessoryAction: DynamicAction
 	private let configure: CellConfigurator?
+	var tag: String?
 
 	func configure(cell: UITableViewCell, at indexPath: IndexPath, for viewController: DynamicTableViewController) {
 		configure?(viewController, cell, indexPath)
@@ -44,7 +45,8 @@ extension DynamicCell {
 			cellReuseIdentifier: identifier,
 			action: action,
 			accessoryAction: accessoryAction,
-			configure: configure
+			configure: configure,
+			tag: nil
 		)
 	}
 
@@ -69,9 +71,9 @@ extension DynamicCell {
 		}
 	}
 
-	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, style: ENAFont = .body, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
 		.identifier(CellReuseIdentifier.icon, action: action, accessoryAction: .none) { viewController, cell, indexPath in
-			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor)
+			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor, style: style)
 			configure?(viewController, cell, indexPath)
 		}
 	}

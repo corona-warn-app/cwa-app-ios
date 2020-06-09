@@ -117,7 +117,7 @@ private extension ENAColor {
 		case .separator: return "separator"
 
 		// MARK: - Brand Colors
-		case .brandBlue: return "brand -blue"
+		case .brandBlue: return "brand-blue"
 		case .brandBurgundy: return "brand-burgundy"
 		case .brandLightBlue: return "brand-light-blue"
 		case .brandRed: return "brand-red"
@@ -128,6 +128,8 @@ private extension ENAColor {
 		case .buttonPrimary: return "button-primary"
 
 		// MARK: - Miscellaneous Colors
+		case .chevron: return "chevron-color"
+		case .shadow: return "shadow-color"
 		case .tint: return "tint-color"
 
 		// MARK: - Risk Colors
@@ -135,6 +137,9 @@ private extension ENAColor {
 		case .riskLow: return "risk-low"
 		case .riskMedium: return "risk-medium"
 		case .riskNeutral: return "risk-neutral"
+
+		// MARK: - Tap States Colors
+		case .listHighlight: return "list-highlight"
 
 		// MARK: - Text Colors
 		case .textContrast: return "text-contrast"

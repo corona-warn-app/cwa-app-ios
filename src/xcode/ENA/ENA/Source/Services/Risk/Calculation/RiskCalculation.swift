@@ -48,7 +48,7 @@ enum RiskCalculation {
 	Once all preconditions above are passed, simply use the `maximumRiskScore` from the injected `ENExposureDetectionSummaryContainer`
 
 	- parameters:
-		- summary: The lastest `ENExposureDetectionSummaryContainer`, `nil` if it does not exist
+		- summary: The latest `ENExposureDetectionSummaryContainer`, `nil` if it does not exist
 		- configuration: The latest `ENExposureConfiguration`
 		- dateLastExposureDetection: The date of the most recent exposure detection
 		- numberOfTracingActiveDays: A count of how many days tracing has been active for
@@ -56,20 +56,18 @@ enum RiskCalculation {
 		- currentDate: The current `Date` to use in checks. Defaults to `Date()`
 	*/
 	private static func riskLevel(
-		summary: ENExposureDetectionSummaryContainer?,
+		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		numberOfTracingActiveHours: Int, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date()
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
-//		return .success(.increased)
 		var riskLevel = RiskLevel.low
-
 		DispatchQueue.main.async {
-			let appDelegate = UIApplication.shared.delegate as? AppDelegate  // TODO: Remove
+			let appDelegate = UIApplication.shared.delegate as? AppDelegate // TODO: Remove
 			appDelegate?.lastRiskCalculation = ""  // Reset; Append from here on
-			appDelegate?.lastRiskCalculation.append("Configuation: \(configuration)\n")
+			appDelegate?.lastRiskCalculation.append("configuration: \(configuration)\n")
 			appDelegate?.lastRiskCalculation.append("numberOfTracingActiveHours: \(numberOfTracingActiveHours)\n")
 			appDelegate?.lastRiskCalculation.append("preconditions: \(preconditions)\n")
 			appDelegate?.lastRiskCalculation.append("currentDate: \(currentDate)\n")
@@ -137,9 +135,10 @@ enum RiskCalculation {
 	/// Performs the raw risk calculation without checking any preconditions
 	/// - returns: weighted risk score
 	static func calculateRawRisk(
-		summary: ENExposureDetectionSummaryContainer,
+		summary: CodableExposureDetectionSummary,
 		configuration: SAP_ApplicationConfiguration
 	) -> Double {
+
 		let maximumRisk = summary.maximumRiskScoreFullRange
 		let adWeights = configuration.attenuationDuration.weights
 		let attenuationDurationsInMin = summary.configuredAttenuationDurations.map { $0 / Double(60.0) }
@@ -171,13 +170,13 @@ enum RiskCalculation {
 	}
 
 	static func risk(
-		summary: ENExposureDetectionSummaryContainer?,
+		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		numberOfTracingActiveHours: Int,
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date(),
-		previousSummary: ENExposureDetectionSummaryContainer?
+		previousSummary: CodableExposureDetectionSummary?
 	) -> Risk? {
 		switch riskLevel(
 			summary: summary,
@@ -193,13 +192,13 @@ enum RiskCalculation {
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
 
-			var riskLevelHasIncreased = false
+			var riskLevelHasChanged = false
 			if
 				let summary = summary,
 				let previousSummary = previousSummary,
-				RiskLevel(riskScore: summary.maximumRiskScore) == .increased,
-				RiskLevel(riskScore: summary.maximumRiskScore) > RiskLevel(riskScore: previousSummary.maximumRiskScore) {
-				riskLevelHasIncreased = true
+				(RiskLevel(riskScore: summary.maximumRiskScore) == .low || RiskLevel(riskScore: summary.maximumRiskScore) == .increased),
+				RiskLevel(riskScore: summary.maximumRiskScore) != RiskLevel(riskScore: previousSummary.maximumRiskScore) {
+				riskLevelHasChanged = true
 			}
 
 			DispatchQueue.main.async {
@@ -209,11 +208,11 @@ enum RiskCalculation {
 				appDelegate?.lastRiskCalculation.append("details: \(details)\n")
 				appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
 			}
-
+			
 			return Risk(
 				level: level,
 				details: details,
-				riskLevelHasIncreased: riskLevelHasIncreased
+				riskLevelHasChanged: riskLevelHasChanged
 			)
 		case .failure:
 			return nil

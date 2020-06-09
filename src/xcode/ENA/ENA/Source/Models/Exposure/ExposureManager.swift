@@ -174,12 +174,6 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	}
 
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
-//		print("The status of exposure manager is \(manager.exposureNotificationStatus)")
-//		print("The status of authorizationStatus \(ENManager.authorizationStatus)")
-//		if ENManager.authorizationStatus == .notAuthorized {
-//			//TODO:
-//		}
-
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
 				logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
@@ -205,7 +199,9 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Wrapper for `ENManager.detectExposures`
 	/// `ExposureManager` needs to be activated and enabled
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
-		manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs, completionHandler: completionHandler)
+		manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { summary, error in
+			completionHandler(summary, error)
+		}
 	}
 
 	// MARK: Diagnosis Keys

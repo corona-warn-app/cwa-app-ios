@@ -41,10 +41,10 @@ class ENAUITestsHome: XCTestCase {
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardShareTitle].exists)
-		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardAboutTitle].exists)
-		XCTAssert(app.staticTexts[Accessibility.Cell.appInformationCardTitle].exists)
-		XCTAssert(app.staticTexts[Accessibility.Cell.settingsCardTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.infoCardShareTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.infoCardAboutTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.appInformationCardTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.settingsCardTitle].exists)
 		snapshot("ScreenShot_\(#function)")
 	}
 
@@ -57,10 +57,10 @@ class ENAUITestsHome: XCTestCase {
 
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardShareTitle].exists)
-		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardAboutTitle].exists)
-		XCTAssert(app.staticTexts[Accessibility.Cell.appInformationCardTitle].exists)
-		XCTAssert(app.staticTexts[Accessibility.Cell.settingsCardTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.infoCardShareTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.infoCardAboutTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.appInformationCardTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.settingsCardTitle].exists)
 		snapshot("ScreenShot_\(#function)")
 	}
 
@@ -74,11 +74,11 @@ class ENAUITestsHome: XCTestCase {
 		app.swipeUp()
 		app.swipeUp()
 		// assert cells
-		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardShareTitle].exists)
-		XCTAssert(app.staticTexts[Accessibility.Cell.infoCardAboutTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.infoCardShareTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.infoCardAboutTitle].exists)
 		app.swipeUp()
-		XCTAssert(app.staticTexts[Accessibility.Cell.appInformationCardTitle].exists)
-		XCTAssert(app.staticTexts[Accessibility.Cell.settingsCardTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.appInformationCardTitle].exists)
+		XCTAssert(app.cells[Accessibility.Cell.settingsCardTitle].exists)
 		snapshot("ScreenShot_\(#function)")
 	}
 }

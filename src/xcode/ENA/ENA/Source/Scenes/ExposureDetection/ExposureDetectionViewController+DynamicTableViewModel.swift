@@ -25,7 +25,8 @@ extension ExposureDetectionViewController {
 		}
 
 		switch riskLevel {
-		case .unknownInitial, .unknownOutdated: return unknownRiskModel
+		case .unknownInitial: return unknownRiskModel
+		case .unknownOutdated: return outdatedRiskModel
 		case .inactive: return unknownRiskModel
 		case .low: return lowRiskModel
 		case .increased: return highRiskModel
@@ -161,8 +162,7 @@ private extension DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskRefresh) { viewController, cell, _ in
 			let state = viewController.state
 			cell.backgroundColor = state.riskTintColor
-			let components = Calendar.current.dateComponents([.minute, .second], from: Date(), to: state.nextRefresh ?? Date())
-			cell.textLabel?.text = String(format: text, components.minute ?? 0, components.second ?? 0)
+			cell.textLabel?.text = AppStrings.ExposureDetection.refresh24h
 		}
 	}
 
@@ -185,7 +185,9 @@ private extension DynamicCell {
 	static func guide(text: String, image: UIImage?) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.guide) { viewController, cell, _ in
 			let state = viewController.state
-			cell.tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
+			var tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
+			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
+			cell.tintColor = tintColor
 			cell.textLabel?.text = text
 			cell.imageView?.image = image
 		}
@@ -238,8 +240,7 @@ extension ExposureDetectionViewController {
 			isHidden: { viewController in
 				guard let state = (viewController as? ExposureDetectionViewController)?.state else { return true }
 				if state.isLoading { return true }
-				if state.nextRefresh == nil { return true }
-				return state.mode != .automatic
+				return state.detectionMode != .automatic
 			},
 			cells: [
 				.riskRefresh(text: AppStrings.ExposureDetection.refreshingIn)
@@ -271,14 +272,14 @@ extension ExposureDetectionViewController {
 		)
 	}
 
-	private func explanationSection(text: String) -> DynamicSection {
+	private func explanationSection(text: String, isActive: Bool) -> DynamicSection {
 		.section(
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
 			cells: [
 				.header(
 					title: AppStrings.ExposureDetection.explanationTitle,
-					subtitle: AppStrings.ExposureDetection.explanationSubtitle
+					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
 				),
 				.body(text: text)
 			]
@@ -289,16 +290,34 @@ extension ExposureDetectionViewController {
 		DynamicTableViewModel([
 			.section(
 				header: .none,
-				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 16, right: 0)),
+				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
 				cells: [
-					.riskText(text: AppStrings.ExposureDetection.inactiveText),
+					.riskText(text: AppStrings.ExposureDetection.offText),
 					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
 			),
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextOff)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextOff, isActive: false)
+		])
+	}
+
+	private var outdatedRiskModel: DynamicTableViewModel {
+		DynamicTableViewModel([
+			.section(
+				header: .none,
+				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
+				cells: [
+					.riskText(text: AppStrings.ExposureDetection.outdatedText),
+					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
+					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
+				]
+			),
+			riskRefreshSection,
+			riskLoadingSection,
+			standardGuideSection,
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextOutdated, isActive: false)
 		])
 	}
 
@@ -310,7 +329,7 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextUnknown)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextUnknown, isActive: false)
 		])
 	}
 
@@ -324,7 +343,7 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextLow)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextLow, isActive: true)
 		])
 	}
 
@@ -352,7 +371,7 @@ extension ExposureDetectionViewController {
 					])
 				]
 			),
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextHigh)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextHigh, isActive: true)
 		])
 	}
 }

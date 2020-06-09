@@ -20,18 +20,39 @@ import UIKit
 final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Configuration
 
+	// This interval is 24
+	private let detectionInterval: Int
+
+	// MARK: Creating a unknown Risk cell
+	init(
+		isLoading: Bool,
+		detectionIntervalLabelHidden: Bool,
+		lastUpdateDate: Date?,
+		detectionInterval: Int,
+		detectionMode: DetectionMode,
+		manualExposureDetectionState: ManualExposureDetectionState
+	) {
+		self.detectionInterval = detectionInterval
+
+		super.init(
+			isLoading: isLoading,
+			isButtonEnabled: detectionMode == .manual && manualExposureDetectionState == .possible,
+			isButtonHidden: detectionMode == .automatic,
+			detectionIntervalLabelHidden: detectionIntervalLabelHidden,
+			lastUpdateDate: lastUpdateDate
+		)
+	}
+
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
 
-		cell.removeAllArrangedSubviews()
-
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
-		let titleColor: UIColor = .white
+		let titleColor: UIColor = .enaColor(for: .textContrast)
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)
 
-		let color = UIColor.preferredColor(for: .unknownRisk)
-		let separatorColor = UIColor.white.withAlphaComponent(0.15)
+		let color: UIColor = .enaColor(for: .riskNeutral)
+		let separatorColor: UIColor = .enaColor(for: .hairlineContrast)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 		if isLoading {
 			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
@@ -44,10 +65,21 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		cell.configureBackgroundColor(color: color)
 
-		cell.configureChevron(image: UIImage(named: "Icons_Chevron_White"), tintColor: nil)
-
 		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardUnknownButton
 
-		configureCounter(buttonTitle: buttonTitle, cell: cell)
+		let intervalString = "\(detectionInterval)"
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
+		cell.configureDetectionIntervalLabel(
+			text: intervalTitle,
+			isHidden: detectionIntervalLabelHidden
+		)
+		
+		cell.configureUpdateButton(
+			title: buttonTitle,
+			isEnabled: isButtonEnabled,
+			isHidden: isButtonHidden
+		)
+
+		setupAccessibility(cell)
 	}
 }

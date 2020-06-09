@@ -41,34 +41,34 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 		case .negative:
 			configureTestResultNegative(cell: cell)
 		default:
-			appLogger.log(message: "Unsupported state", file: #file, line: #line, function: #function)
+			log(message: "Unsupported state", file: #file, line: #line, function: #function)
 		}
 	}
 
 	private func configureTestResultNegative(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Illu_Hand_with_phone-negativ")
-		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
-		cell.result.text = AppStrings.Home.resultCardNegativeTitle
-		cell.result.textColor = .preferredColor(for: .positiveRisk)
-		cell.body.text = AppStrings.Home.resultCardNegativeDesc
+		cell.imageView.image = UIImage(named: "Illu_Hand_with_phone-negativ")
+		cell.titleLabel.text = AppStrings.Home.resultCardResultAvailableTitle
+		cell.resultLabel.text = AppStrings.Home.resultCardNegativeTitle
+		cell.resultLabel.textColor = .enaColor(for: .riskLow)
+		cell.bodyLabel.text = AppStrings.Home.resultCardNegativeDesc
 		configureResultsButton(for: cell)
 	}
 
 	private func configureTestResultInvalid(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Illu_Hand_with_phone-error")
-		cell.title.text = AppStrings.Home.resultCardResultAvailableTitle
-		cell.result.text = AppStrings.Home.resultCardInvalidTitle
-		cell.result.textColor = .preferredColor(for: .separator)
-		cell.body.text = AppStrings.Home.resultCardInvalidDesc
+		cell.imageView.image = UIImage(named: "Illu_Hand_with_phone-error")
+		cell.titleLabel.text = AppStrings.Home.resultCardResultAvailableTitle
+		cell.resultLabel.text = AppStrings.Home.resultCardInvalidTitle
+		cell.resultLabel.textColor = .enaColor(for: .textPrimary2)
+		cell.bodyLabel.text = AppStrings.Home.resultCardInvalidDesc
 		configureResultsButton(for: cell)
 	}
 
 	private func configureTestResultPending(cell: HomeTestResultCell) {
-		cell.image.image = UIImage(named: "Illu_Hand_with_phone-pending")
-		cell.title.text = AppStrings.Home.resultCardResultUnvailableTitle
-		cell.result.text = ""
-		cell.result.textColor = .preferredColor(for: .chevron)
-		cell.body.text = AppStrings.Home.resultCardPendingDesc
+		cell.imageView.image = UIImage(named: "Illu_Hand_with_phone-pending")
+		cell.titleLabel.text = AppStrings.Home.resultCardResultUnvailableTitle
+		cell.resultLabel.text = ""
+		cell.resultLabel.textColor = .enaColor(for: .textPrimary2)
+		cell.bodyLabel.text = AppStrings.Home.resultCardPendingDesc
 		configureResultsButton(for: cell)
 	}
 

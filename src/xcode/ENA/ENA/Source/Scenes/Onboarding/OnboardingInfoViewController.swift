@@ -17,6 +17,7 @@
 
 import UIKit
 import UserNotifications
+import ExposureNotification
 
 enum OnboardingPageType: Int, CaseIterable {
 	case togetherAgainstCoronaPage = 0
@@ -32,6 +33,10 @@ enum OnboardingPageType: Int, CaseIterable {
 	func isLast() -> Bool {
 		(self == OnboardingPageType.allCases.last)
 	}
+}
+
+extension OnboardingInfoViewController: RequiresAppDependencies {
+
 }
 
 final class OnboardingInfoViewController: UIViewController {
@@ -117,6 +122,7 @@ final class OnboardingInfoViewController: UIViewController {
 			askExposureNotificationsPermissions(completion: {
 				handleBluetooth {
 					completion()
+					self.taskScheduler.scheduleTasks()
 				}
 			})
 
@@ -180,13 +186,17 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	func setupAccessibility() {
-		imageView.isAccessibilityElement = false
+		imageView.isAccessibilityElement = true
 		titleLabel.isAccessibilityElement = true
 		boldLabel.isAccessibilityElement = true
 		textLabel.isAccessibilityElement = true
 		nextButton.isAccessibilityElement = true
 		ignoreButton.isAccessibilityElement = true
 
+		imageView.accessibilityLabel = onboardingInfo?.imageDescription
+
+		titleLabel.accessibilityTraits = .header
+		
 		titleLabel.accessibilityIdentifier = Accessibility.StaticText.onboardingTitle
 		nextButton.accessibilityIdentifier = Accessibility.Button.next
 		ignoreButton.accessibilityIdentifier = Accessibility.Button.ignore
@@ -199,7 +209,7 @@ final class OnboardingInfoViewController: UIViewController {
 			return
 		}
 		store.dateOfAcceptedPrivacyNotice = Date()
-		log(message: "Persist that user acccepted the privacy terms on \(Date())", level: .info)
+		log(message: "Persist that user accepted the privacy terms on \(Date())", level: .info)
 		completion?()
 	}
 

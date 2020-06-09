@@ -56,7 +56,7 @@ extension AppInformationViewController {
 	private func footerView() -> UIView {
 		let versionLabel = ENALabel()
 		versionLabel.translatesAutoresizingMaskIntoConstraints = false
-		versionLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
+		versionLabel.textColor = .enaColor(for: .textPrimary2)
 		versionLabel.style = .footnote
 
 		if let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"],
@@ -94,5 +94,8 @@ extension AppInformationViewController {
 			self.execute(action: action)
 		}
 	}
+}
 
+extension AppInformationViewController: NavigationBarOpacityDelegate {
+	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { .systemChromeMaterial }
 }

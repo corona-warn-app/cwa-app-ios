@@ -35,7 +35,7 @@ protocol Client {
 
 	// MARK: Interacting with a Client
 
-	/// Gets the app configuratoin
+	/// Gets the app configuration
 	func appConfiguration(completion: @escaping AppConfigurationCompletion)
 
 	/// Determines days that can be downloaded.

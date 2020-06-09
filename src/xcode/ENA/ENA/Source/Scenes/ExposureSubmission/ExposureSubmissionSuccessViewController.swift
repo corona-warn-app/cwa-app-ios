@@ -70,7 +70,8 @@ private extension DynamicTableViewModel {
 							image: UIImage(named: "Icons - Hotline"),
 							hasSeparators: false,
 							isCircle: true,
-							iconTintColor: .preferredColor(for: .negativeRisk)
+							iconTintColor: .enaColor(for: .riskHigh),
+							iconCentered: true
 						)
 					}
 				),
@@ -83,7 +84,8 @@ private extension DynamicTableViewModel {
 							text: AppStrings.ExposureSubmissionSuccess.listItem2,
 							image: UIImage(named: "Icons - Home"),
 							isCircle: true,
-							iconTintColor: .preferredColor(for: .negativeRisk)
+							iconTintColor: .enaColor(for: .riskHigh),
+							iconCentered: true
 						)
 					}
 				),
@@ -93,13 +95,7 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionSuccess.listItem2_1,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
-						)
+						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_1)
 				}
 				),
 				.identifier(
@@ -107,13 +103,7 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionSuccess.listItem2_2,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
-						)
+						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_2)
 				}
 				),
 				.identifier(
@@ -121,13 +111,7 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionSuccess.listItem2_3,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
-						)
+						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_3)
 				}
 				),
 				.identifier(
@@ -135,13 +119,7 @@ private extension DynamicTableViewModel {
 					action: .none,
 					configure: { _, cell, _ in
 						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionSuccess.listItem2_4,
-							image: UIImage(named: "Icons_Dark_Dot"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .preferredColor(for: .textPrimary1)
-						)
+						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_4)
 				}
 				)
 			]

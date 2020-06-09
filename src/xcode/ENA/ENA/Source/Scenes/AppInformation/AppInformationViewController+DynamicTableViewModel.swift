@@ -20,10 +20,12 @@ import UIKit
 
 private extension DynamicCell {
 	static func phone(text: String, number: String) -> Self {
-		.icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
+		var cell: DynamicCell = .icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
 			cell.textLabel?.textColor = .enaColor(for: .textTint)
 			(cell.textLabel as? ENALabel)?.style = .title2
 		}
+		cell.tag = "phone"
+		return cell
 	}
 
 	static func headlineWithoutBottomInset(text: String) -> Self {
@@ -80,8 +82,8 @@ extension AppInformationViewController {
 			action: .safari
 		),
 		.terms: (
-			text: AppStrings.AppInformation.termsNavigation,
-			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsTitle)
+			text: AppStrings.AppInformation.termsTitle,
+			action: .push(model: termsModel, withTitle:  AppStrings.AppInformation.termsNavigation)
 		),
 		.privacy: (
 			text: AppStrings.AppInformation.privacyNavigation,
@@ -153,11 +155,14 @@ extension AppInformationViewController {
 
 	private static let privacyModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Datenschutz"),
-						   // TODO: get the accessibility content for this image
-						   //accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
-						   height: 230),
+			header: .image(
+				UIImage(named: "Illu_Appinfo_Datenschutz"),
+				// TODO: get the accessibility content for this image
+				//accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
+				height: 230
+			),
 			cells: [
+				.title2(text: AppStrings.AppInformation.privacyTitle),
 				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
 			]
 		)
@@ -169,6 +174,7 @@ extension AppInformationViewController {
 						   accessibilityLabel: AppStrings.AppInformation.termsImageDescription,
 						   height: 230),
 			cells: [
+				.title2(text: AppStrings.AppInformation.termsTitle),
 				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
 			]
 		)

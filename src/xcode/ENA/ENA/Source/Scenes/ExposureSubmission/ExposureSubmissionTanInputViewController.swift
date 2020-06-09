@@ -22,6 +22,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 	// MARK: - Attributes.
 
 	@IBOutlet var descriptionLabel: UILabel!
+	@IBOutlet weak var errorLabel: UILabel!
 	@IBOutlet var infoLabel: UILabel!
 	@IBOutlet var tanInput: ENATanInput!
 	var initialTan: String?
@@ -33,6 +34,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupView()
+		setupBackButton()
 		fetchService()
 	}
 
@@ -57,7 +59,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		title = AppStrings.ExposureSubmissionTanEntry.title
 		setButtonEnabled(enabled: tanInput.isValid)
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
-
+		errorLabel.isHidden = true
 		descriptionLabel.adjustsFontForContentSizeCategory = true
 		descriptionLabel.lineBreakMode = .byWordWrapping
 		descriptionLabel.numberOfLines = 0
@@ -108,8 +110,17 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 
 	// MARK: - ENATanInputDelegate
 
-	func tanChanged(isValid: Bool) {
-		setButtonEnabled(enabled: isValid)
+	func tanChanged(isValid: Bool, checksumIsValid: Bool, isBlocked: Bool) {
+		setButtonEnabled(enabled: (isValid && checksumIsValid))
+		if isValid && !checksumIsValid {
+			errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidError
+			errorLabel.isHidden = false
+		} else if isBlocked {
+			errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidCharacterError
+			errorLabel.isHidden = false
+		} else {
+			errorLabel.isHidden = true
+		}
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

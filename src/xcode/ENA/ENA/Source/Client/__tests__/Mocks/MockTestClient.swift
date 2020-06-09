@@ -65,4 +65,8 @@ extension ClientMock: Client {
 	func getTANForExposureSubmit(forDevice device: String, completion completeWith: @escaping TANHandler) {
 		completeWith(.success("dummyTan"))
 	}
+
+	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
+		completion(SAP_ApplicationConfiguration())
+	}
 }

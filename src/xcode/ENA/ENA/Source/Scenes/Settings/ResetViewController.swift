@@ -26,6 +26,7 @@ final class ResetViewController: UIViewController {
 	@IBOutlet var header1Label: DynamicTypeLabel!
 	@IBOutlet var description1Label: UILabel!
 	@IBOutlet var resetButton: ENAButton!
+	@IBOutlet var discardButton: ENAButton!
 	@IBOutlet var infoTitleLabel: DynamicTypeLabel!
 	@IBOutlet var infoDescriptionLabel: UILabel!
 	@IBOutlet var infoView: UIView!
@@ -57,10 +58,6 @@ final class ResetViewController: UIViewController {
 	private func setupView() {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
 
-		let barButtonItem = UIBarButtonItem(image: UIImage(named: "Icons - Close"), style: .done, target: self, action: #selector(discard)
-		)
-		navigationItem.rightBarButtonItem = barButtonItem
-
 		subtitleLabel.text = AppStrings.Reset.subtitle
 
 		header1Label.text = AppStrings.Reset.header1
@@ -71,9 +68,16 @@ final class ResetViewController: UIViewController {
 		infoDescriptionLabel.text = AppStrings.Reset.infoDescription
 
 		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
+		discardButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
 
 		if let resetButton = resetButton, let titleLabel = resetButton.titleLabel {
 			resetButton.addConstraint(NSLayoutConstraint(item: resetButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
 		}
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		navigationItem.rightBarButtonItem?.image = UIImage(named: "Icons - Close")
 	}
 }
