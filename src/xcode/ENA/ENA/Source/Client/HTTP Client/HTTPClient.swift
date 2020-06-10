@@ -21,18 +21,16 @@ import ZIPFoundation
 
 final class HTTPClient: Client {
 	// MARK: Creating
-
 	init(
-		configuration: Configuration = .production,
+		configuration: Configuration,
 		session: URLSession = .coronaWarnSession()
 	) {
-		self.configuration = configuration
 		self.session = session
+		self.configuration = configuration
 	}
 
 	// MARK: Properties
-
-	private let configuration: Configuration
+	let configuration: Configuration
 	private let session: URLSession
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {

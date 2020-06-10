@@ -20,7 +20,6 @@
 "General_BackButtonTitle" = "Zurück";
 
 /* Accessibility */
-
 "AccessibilityLabel_Close" = "Schließen";
 
 /* Exposure Detection */
@@ -40,7 +39,7 @@
 
 "ExposureDetection_Refreshed_Never" = "Unbekannt";
 
-"ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d Minuten";
+"ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d\U00A0Minuten";
 
 "ExposureDetection_Refresh_24h" = "Aktualisierung alle 24 Stunden";
 
@@ -84,13 +83,11 @@
 
 "ExposureDetection_Explanation_Text_Off" = "Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Outdated" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko- Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Outdated" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko- Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Unknown" = "Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
-"ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona- positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
-
-"ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer- Corona positiv-getesteten Person über einen längeren Zeitraum und mit einem geringen Abstand begegnet sind.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
+"ExposureDetection_Explanation_Text_Low" = "Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDie Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.";
 
 "ExposureDetection_Explanation_Text_High" = "Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.\n\nDie Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.";
 
@@ -113,22 +110,22 @@
 
 "Settings_Reset_Label" = "Anwendung zurücksetzen";
 
-"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von Covid-19-Zufallscodes.";
+"Settings_Tracing_Description" = "Erlauben Sie die Aufzeichnung und Weitergabe von COVID-19-Zufallscodes.";
 
-"Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Covid-19-Risikostatus.";
+"Settings_Notification_Description" = "Erlauben Sie automatische Mitteilungen zu Ihrem COVID-19-Risikostatus.";
 
 "Settings_Reset_Description" = "Löschen Sie alle Ihre Daten in der App.";
 
 "Settings_NavTitle" = "Einstellungen";
 
 /* Noticiation Settings */
-"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem Covid-19 Risikostatus aktivieren?";
+"NotificationSettings_On_Title" = "Möchten Sie Mitteilungen zu Ihrem COVID-19-Risikostatus aktivieren?";
 
 "NotificationSettings_On_SectionTitle" = "Einstellung";
 
 "NotificationSettings_On_RiskChanges" = "Änderung Ihres Infektionsrisikos";
 
-"NotificationSettings_On_TestsStatus" = "Status Ihres Coronavirus-Tests";
+"NotificationSettings_On_TestsStatus" = "Status Ihres COVID-19 Tests";
 
 "NotificationSettings_Off_SectionTitle" = "Einstellung";
 
@@ -145,7 +142,6 @@
 "NotificationSettings_NavTitle" = "Mitteilungen";
 
 /* Onboarding */
-
 "Onboarding_LetsGo_actionText" = "Los geht’s";
 
 "Onboarding_Continue_actionText" = "Weiter";
@@ -172,7 +168,7 @@
 
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
 
-"OnboardingInfo_privacyPage_boldText" = "HELLO WORLD";
+"OnboardingInfo_privacyPage_boldText" = "";
 
 "OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
 
@@ -186,7 +182,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Einwilligungserklärung";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Um zu erfahren, ob Sie Kontakt mit einer infizierten Person hatten und für Sie ein Infektionsrisiko besteht, müssen Sie die Funktion Risiko-Ermittlung in der App aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung stimmen Sie mit Antippen des Buttons: Risiko-Ermittlung aktivieren zu.\n\nUm die Risiko-Ermittlung nutzen zu können müssen Sie zudem auf Ihrem iPhone die von Apple “ aktivieren und für die Corona-Warn-App freigeben.\n\nIhr iPhone erzeugt und versendet bei aktivierter Kontaktaufzeichnung kontinuierlich Zufalls-IDs per Bluetooth, die von anderen Apple- und Android-Smartphones mit ebenfalls aktivierter Kontaktaufzeichnung in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs der anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden im COVID-19-Kontaktprotokoll aufgezeichnet und dort für 14 Tage gespeichert.\n\nZur Ermittlung Ihres Infektionsrisikos lädt die App mehrmals täglich oder auf Abfrage eine Liste mit den Zufalls-IDs aller Nutzer, die Ihre Infektion mit dem Corona-Virus in der App geteilt haben. Diese Liste wird dann mit den im COVID-19-Kontaktprotokoll gespeicherten Zufalls-IDs verglichen. Wenn die App dabei feststellt, dass Sie möglicherweise Kontakt zu einem infizierten Nutzer gehabt haben, werden Sie von der App informiert, dass Sie mit einer infizierten Person in Kontakt waren und insoweit ein Infektionsrisiko besteht. In diesem Fall erhält die App außerdem Zugriff auf weitere im COVID-19-Kontaktprotokoll Ihres iPhone gespeicherte Daten (Datum und Dauer sowie Bluetooth-Signalstärke des Kontakts).\n\nAus der Bluetooth-Signalstärke wird der räumliche Abstand abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Gesundheitsrisiko durch eine Infektion mit dem Corona-Virus abzuschätzen und Ihnen Empfehlungen für die nächsten Schritte zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt. Außer Ihnen erfährt niemand (auch nicht das RKI), ob Sie mit einer infizierten Person Kontakt hatten und welches Risiko für Sie ermittelt wird.\n\nZum Widerruf Ihrer Einwilligung in die Risiko-Ermittlung können Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Kontakt zu einem infizierten Nutzer gehabt haben. Um auch die Aussendung und den Empfang der Zufalls-IDs anzuhalten, müssen Sie das COVID-19-Kontaktprotokoll in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die im COVID-19-Kontaktprotokoll aufgezeichneten fremden und eigenen Zufalls-Kennungen nicht in der App gelöscht werden. Die im COVID-19-Kontaktprotokoll gespeicherten Daten können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\nDie Datenschutzhinweise der App (einschließlich Informationen zur Datenverarbeitung für die Risiko-Ermittlung) finden Sie unter dem Menüpunkt „Datenschutzinformation“.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Um zu erfahren, ob Sie Kontakt mit einer infizierten Person hatten und für Sie ein Infektionsrisiko besteht, müssen Sie die Funktion Risiko-Ermittlung in der App aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung stimmen Sie mit Antippen des Buttons: Risiko-Ermittlung aktivieren zu.\n\n\nUm die Risiko-Ermittlung nutzen zu können müssen Sie zudem auf Ihrem iPhone die von Apple “ aktivieren und für die Corona-Warn-App freigeben.\n\n\nIhr iPhone erzeugt und versendet bei aktivierter Kontaktaufzeichnung kontinuierlich Zufalls-IDs per Bluetooth, die von anderen Apple- und Android-Smartphones mit ebenfalls aktivierter Kontaktaufzeichnung in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs der anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden im COVID-19-Kontaktprotokoll aufgezeichnet und dort für 14 Tage gespeichert.\n\n\nZur Ermittlung Ihres Infektionsrisikos lädt die App mehrmals täglich oder auf Abfrage eine Liste mit den Zufalls-IDs aller Nutzer, die Ihre Infektion mit dem Corona-Virus in der App geteilt haben. Diese Liste wird dann mit den im COVID-19-Kontaktprotokoll gespeicherten Zufalls-IDs verglichen. Wenn die App dabei feststellt, dass Sie möglicherweise Kontakt zu einem infizierten Nutzer gehabt haben, werden Sie von der App informiert, dass Sie mit einer infizierten Person in Kontakt waren und insoweit ein Infektionsrisiko besteht. In diesem Fall erhält die App außerdem Zugriff auf weitere im COVID-19-Kontaktprotokoll Ihres iPhone gespeicherte Daten (Datum und Dauer sowie Bluetooth-Signalstärke des Kontakts).\n\nAus der Bluetooth-Signalstärke wird der räumliche Abstand abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Gesundheitsrisiko durch eine Infektion mit dem Corona-Virus abzuschätzen und Ihnen Empfehlungen für die nächsten Schritte zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt. Außer Ihnen erfährt niemand (auch nicht das RKI), ob Sie mit einer infizierten Person Kontakt hatten und welches Risiko für Sie ermittelt wird.\n\nZum Widerruf Ihrer Einwilligung in die Risiko-Ermittlung können Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Kontakt zu einem infizierten Nutzer gehabt haben. Um auch die Aussendung und den Empfang der Zufalls-IDs anzuhalten, müssen Sie das COVID-19-Kontaktprotokoll in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die im COVID-19-Kontaktprotokoll aufgezeichneten fremden und eigenen Zufalls-Kennungen nicht in der App gelöscht werden. Die im COVID-19-Kontaktprotokoll gespeicherten Daten können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\n\nDie Datenschutzhinweise der App (einschließlich Informationen zur Datenverarbeitung für die Risiko-Ermittlung) finden Sie unter dem Menüpunkt „Datenschutzinformation“.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Ein positiver Testbefund wird verschlüsselt ins System übermittelt, das nun andere Nutzerinnen und Nutzer warnt.";
 
@@ -261,7 +257,7 @@
 
 "ExposureSubmissionHotline_SectionTitle" = "Info zum Ablauf:";
 
-"ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:\n\n%@\n\n%@";
+"ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:";
 
 "ExposureSubmission_PhoneNumber" = "+49 (0)800 7540002";
 
@@ -333,7 +329,7 @@
 "ExposureSubmissionIntroduction_ListItem4" = "Wenn Sie keine TAN haben, können Sie diese telefonisch anfragen.";
 
 /* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Test-Ergebnis";
+"ExposureSubmissionResult_Title" = "Testergebnis";
 
 "ExposureSubmissionResult_CardSubTitle" = "IHR BEFUND";
 
@@ -359,7 +355,7 @@
 
 "ExposureSubmissionResult_testPositive" = "Befund positiv";
 
-"ExposureSubmissionResult_testPositiveDesc" = "Ihr Test-Ergebnis wurde erfolgreich als “positiv” verifiziert.";
+"ExposureSubmissionResult_testPositiveDesc" = "Ihr Testergebnis wurde erfolgreich als “positiv” verifiziert.";
 
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
 
@@ -379,11 +375,15 @@
 
 "ExposureSubmissionResult_testInvalid" = "Test fehlerhaft";
 
-"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Gesundheitsamt, um Information zum weiteren Vorgehen zu erhalten. Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
+"ExposureSubmissionResult_testInvalidDesc" = "Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Gesundheitsamt, um Information zum weiteren Vorgehen zu erhalten.";
 
-"ExposureSubmissionResult_testPending" = "Test-Ergebnis noch nicht verfügbar";
+"ExposureSubmissionResult_testPending" = "Testergebnis noch nicht verfügbar";
 
-"ExposureSubmissionResult_testPendingDesc" = "Ihr Test-Ergebnis steht noch nicht zur Verfügung.";
+"ExposureSubmissionResult_testPendingDesc" = "Ihr Testergebnis steht noch nicht zur Verfügung.";
+
+"ExposureSubmissionResult_testRemove" = "Test entfernen";
+
+"ExposureSubmissionResult_testRemoveDesc" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 
 "ExposureSubmissionResult_continueButton" = "Weiter";
 
@@ -436,6 +436,8 @@
 
 "ExposureSubmissionError_otherend" = "Bitte versuchen Sie es erneut.";
 
+"ExposureSubmissionError_httpError" = "Es konnte keine Verbindung hergestellt werden.";
+
 "ExposureSubmissionError_declined" = "Bitte geben Sie Ihre Zufallscodes frei, um andere zu warnen.";
 
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
@@ -477,9 +479,9 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt das aktivierte COVID-19-Kontaktprotokoll und die -Mitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie „COVID-19-Kontaktprotokoll und -Mitteilungen“ in Ihren Systemeinstellungen.";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Kindersicherung/Bildschirmzeit aktiviert";
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "COVID-19-Kontaktprotokoll und -Mitteilungen aktivieren";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Die aktivierte Kindersicherung verhindert die Aktivierung der Risiko-Ermittlung. Bitte deaktivieren Sie die Beschränkung dieser App unter Einstellungen -> Bildschirmzeit.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt das aktivierte COVID-19-Kontaktprotokoll und die -Mitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie „COVID-19-Kontaktprotokoll und -Mitteilungen“ in Ihren Systemeinstellungen.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Autorisierung erforderlich";
 
@@ -515,8 +517,10 @@
 
 /* Home common card */
 "Home_Risk_Date_Item_Title" = "Aktualisiert: %@";
+
 "Home_Risk_No_Date_Title" = "Unbekannt";
-"Home_Risk_Period_Update_Title" = "Aktualisierung alle %@ Stunden";
+
+"Home_Risk_Period_Update_Title" = "Aktualisierung alle %@\U00A0Stunden";
 
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
@@ -631,19 +635,21 @@
 
 "Home_resultCard_ShowResultButton" = "Test anzeigen";
 
-"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
+"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
 
 "Home_resultCard_LoadingTitle" = "Aktualisierung läuft...";
 
 "Home_resultCard_NegativeTitle" = "Befund negativ";
 
-"Home_resultCard_NegativeDesc" = "Sie wurden negativ auf SARS-CoV-2 getestet.";
+"Home_resultCard_NegativeDesc" = "Das Virus SARS-CoV-2 konnte bei Ihnen nicht nachgewiesen werden.";
 
-"Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tagen.";
+"Home_resultCard_PendingDesc" = "Die Auswertung Ihres Tests ist noch nicht abgeschlossen.";
 
-"Home_resultCard_InvalidTitle" = "Befund ungültig";
+"Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
 
 "Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
+
+"Home_resultCard_LoadingErrorTitle" = "Ihr Testergebnis konnte nicht geladen werden";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
@@ -678,7 +684,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Unser technischer Kundenservice ist für Sie da. Die Wartezeit ist weniger als 5 Minuten im Moment.";
 
-"App_Information_Contact_Hotline_Terms" = "Unsere Öffnungszeiten:\nMo - Fr: 08:00 - 22:00 Uhr\nSa - So: 10:00 - 22:00 Uhr\nEs gelten die Preise Ihres Telefonanbieters.";
+"App_Information_Contact_Hotline_Terms" = "Unsere Öffnungszeiten:\nMo - Sa: 08:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
@@ -792,10 +798,13 @@
 "RiskLegend_Legend2_RiskLevels" = "Folgende Risikostufen können angezeigt werden:";
 
 "RiskLegend_Legend2_High" = "Erhöhtes Risiko";
+"RiskLegend_Legend2_High_Color" = "Rot";
 
 "RiskLegend_Legend2_Low" = "Niedriges Risiko";
+"RiskLegend_Legend2_Low_Color" = "Grün";
 
 "RiskLegend_Legend2_Unknown" = "Unbekanntes Risiko";
+"RiskLegend_Legend2_Unknown_Color" = "Grau";
 
 "RiskLegend_Legend3_Title" = "Benachrichtigung anderer";
 
@@ -826,8 +835,13 @@
 "RiskLegend_Image1_AccLabel" = "Ein Smartphone zeigt unterschiedliche Inhalte, die nummeriert sind.";
 
 /* Update Message */
-"Update_Message_Title" = "Update verfügbar:";
-"Update_Message_Text" = "Es gibt ein neues Update für die Corona-Warn-App";
+"Update_Message_Title" = "Update verfügbar";
+
+"Update_Message_Text" = "Es gibt ein neues Update für die Corona-Warn-App.";
+
 "Update_Message_Text_Force" = "Bitte beachten Sie: Sie können die Corona-Warn-App erst wieder benutzen, wenn Sie das neueste Update installiert haben.";
+
 "Update_Message_Action_Update" = "Update";
+
 "Update_Message_Action_Later" = "Später";
+
