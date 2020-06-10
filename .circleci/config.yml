@@ -49,10 +49,7 @@ jobs:
           path: src/xcode/swiftlint.result.json
       - run:
           name: Skip SonarCloud for external Pull Requests
-          command: |
-            if [ -v CIRCLE_PR_REPONAME ]; then
-              circleci-agent step halt
-            fi
+          command: '[[ -v CIRCLE_PR_REPONAME ]] && circleci-agent step halt || true'
       - run:
           name: Install and run sonar-scanner
           command: |
@@ -98,4 +95,3 @@ workflows:
               branches:
                 only:
                   - master
-                  - development
