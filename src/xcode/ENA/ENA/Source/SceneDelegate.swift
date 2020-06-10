@@ -326,9 +326,8 @@ extension SceneDelegate: HomeViewControllerDelegate {
 		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
 		exposureManager.reset {
-			DispatchQueue.main.async {
-				NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
-			}
+			self.exposureManager.resume(observer: self)
+			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 		}
 	}
 }

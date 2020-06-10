@@ -249,10 +249,6 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 	// MARK: Invalidate
 
-	/// Invalidate the EnManager
-	func invalidate() {
-		manager.invalidate()
-	}
 
 	/// Invalidate the EnManager with completion handler
 	func invalidate(handler: (() -> Void)?) {
@@ -264,12 +260,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 
 	/// Reset the ExposureManager
-	///
 	func reset(handler: (() -> Void)?) {
 		statusObservation?.invalidate()
 		disableIfNeeded { _ in
 			self.invalidate {
 				self.manager = ENManager()
+				self.observer = nil
 				handler?()
 			}
 		}
