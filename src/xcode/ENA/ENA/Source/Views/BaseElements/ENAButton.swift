@@ -127,6 +127,7 @@ class ENAButton: DynamicTypeButton {
 	private func applyActivityIndicator() {
 		guard isLoading else {
 			activityIndicator?.removeFromSuperview()
+			titleLabel?.invalidateIntrinsicContentSize()
 			return
 		}
 
