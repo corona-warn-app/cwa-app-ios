@@ -110,7 +110,7 @@ final class StoreTests: XCTestCase {
 	}
 
 	func previousRiskLevel_Success() {
-		XCTAssertNil(store.previousRisk)
+		XCTAssertNil(store.previousRiskLevel)
 		let riskLevel = EitherLowOrIncreasedRiskLevel(rawValue: 7)
 
 		store.previousRiskLevel = riskLevel
