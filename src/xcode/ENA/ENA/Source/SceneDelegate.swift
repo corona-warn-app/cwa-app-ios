@@ -72,11 +72,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}()
 
 	private(set) lazy var client: Client = {
-		// We disable app store checks to make testing easier.
-		//        #if APP_STORE
-		//        return HTTPClient(configuration: .production)
-		//        #endif
-		return HTTPClient(configuration: self.clientConfiguration)
+		HTTPClient(configuration: clientConfiguration)
 	}()
 
 	private var enStateHandler: ENStateHandler?

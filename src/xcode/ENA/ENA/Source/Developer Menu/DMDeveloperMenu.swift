@@ -17,8 +17,6 @@
 
 import UIKit
 
-/// The entry point of the developer menu infrastructure. This class can be considered a no op in `APP_STORE` builds.
-///
 /// If enabled, the developer can be revealed by tripple-tapping anywhere within the `presentingViewController`.
 final class DMDeveloperMenu {
 	// MARK: Creating a developer menu

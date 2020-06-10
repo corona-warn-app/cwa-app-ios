@@ -85,7 +85,7 @@ private extension DynamicTableViewModel {
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_1),
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_2),
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_3),
-				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_4),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_4)
 			]
 		)
 	])
