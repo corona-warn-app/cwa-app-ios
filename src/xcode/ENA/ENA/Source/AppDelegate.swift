@@ -238,12 +238,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 }
 
 extension AppDelegate: ENATaskExecutionDelegate {
-	func executeExposureDetectionRequest(task: BGTask) {
-
-		func complete(success: Bool) {
-			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleTask(for: .detectExposures)
-		}
+	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
 		riskProvider.requestRisk(userInitiated: false) { risk in
 			// present a notification if the risk score has increased
@@ -252,24 +247,16 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.detectExposureTitle,
 					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: ENATaskIdentifier.detectExposures.rawValue
+					identifier: task.identifier
 				)
 			}
-			complete(success: true)
+			completion(true)
 		}
 
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			complete(success: false)
-		}
 	}
 
-	func executeFetchTestResults(task: BGTask) {
+	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		func complete(success: Bool) {
-			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleTask(for: .fetchTestResults)
-		}
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
@@ -282,19 +269,16 @@ extension AppDelegate: ENATaskExecutionDelegate {
 						UNUserNotificationCenter.current().presentNotification(
 							title: AppStrings.LocalNotifications.testResultsTitle,
 							body: AppStrings.LocalNotifications.testResultsBody,
-							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+							identifier: task.identifier
+						)
 					}
 				}
 
-				complete(success: true)
+				completion(true)
 			}
 		} else {
-			complete(success: true)
+			completion(true)
 		}
 
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			complete(success: false)
-		}
 	}
 }

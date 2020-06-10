@@ -114,6 +114,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
+		taskScheduler.scheduleTasks()
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
@@ -179,7 +180,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			presentHomeVC()
 		}
 	}
-
 
 	private func presentHomeVC() {
 		enStateHandler = ENStateHandler(
@@ -335,23 +335,14 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 	}
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-		switch response.notification.request.identifier {
-		case ENATaskIdentifier.detectExposures.backgroundTaskSchedulerIdentifier:
-			log(message: "Handling notification for \(response.notification.request.identifier)")
-
-			switch response.actionIdentifier {
-			case UserNotificationAction.openExposureDetectionResults.rawValue: showHome(animated: true)
-			case UserNotificationAction.openTestResults.rawValue: showHome(animated: true)
-			case UserNotificationAction.ignore.rawValue: break
-			case UNNotificationDefaultActionIdentifier: break
-			case UNNotificationDismissActionIdentifier: break
-			default: break
-			}
-
-		default:
-			log(message: "Handling notification for \(response.notification.request.identifier)")
+		switch response.actionIdentifier {
+		case UserNotificationAction.openExposureDetectionResults.rawValue: showHome(animated: true)
+		case UserNotificationAction.openTestResults.rawValue: showHome(animated: true)
+		case UserNotificationAction.ignore.rawValue: break
+		case UNNotificationDefaultActionIdentifier: break
+		case UNNotificationDismissActionIdentifier: break
+		default: break
 		}
-
 		completionHandler()
 	}
 }
