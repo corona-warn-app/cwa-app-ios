@@ -21,13 +21,10 @@ import UIKit
 
 enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
-	case detectExposures = "exposure-notification" // detect-exposures.exposure-notification"
 	case fetchTestResults = "fetch-test-results"
 
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
-		// set to trigger at the earliest begin time possible
-		case .detectExposures: return 2 * 60 * 60
 		// set to trigger every 2 hours
 		case .fetchTestResults: return 2 * 60 * 60
 		}
@@ -54,7 +51,6 @@ final class ENATaskScheduler {
 	typealias CompletionHandler = (() -> Void)
 
 	private func registerTasks() {
-		registerTask(with: .detectExposures, taskHander: executeExposureDetectionRequest(_:))
 		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
 	}
 
@@ -66,7 +62,6 @@ final class ENATaskScheduler {
 	}
 
 	func scheduleTasks() {
-		scheduleTask(for: .detectExposures, cancelExisting: true)
 		scheduleTask(for: .fetchTestResults, cancelExisting: true)
 	}
 
@@ -105,7 +100,7 @@ final class ENATaskScheduler {
 	private func executeExposureDetectionRequest(_ task: BGTask) {
 		guard let taskDelegate = taskDelegate else {
 			task.setTaskCompleted(success: false)
-			scheduleTask(for: .detectExposures)
+			scheduleTasks()
 			return
 		}
 		taskDelegate.executeExposureDetectionRequest(task: task)
@@ -114,7 +109,7 @@ final class ENATaskScheduler {
 	private func executeFetchTestResults(_ task: BGTask) {
 		guard let taskDelegate = taskDelegate else {
 			task.setTaskCompleted(success: false)
-			scheduleTask(for: .fetchTestResults)
+			scheduleTasks()
 			return
 		}
 		taskDelegate.executeFetchTestResults(task: task)

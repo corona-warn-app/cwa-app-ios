@@ -48,36 +48,28 @@ extension UNUserNotificationCenter {
 			}
 		}
 
-		// conditionally add actions
-		if let taskId = ENATaskIdentifier(rawValue: identifier) {
-			let openActionIdentifier: UserNotificationAction
-			switch taskId {
-			case .detectExposures:
-				openActionIdentifier = UserNotificationAction.openExposureDetectionResults
-			case .fetchTestResults:
-				openActionIdentifier = UserNotificationAction.openTestResults
-			}
+		let openActionIdentifier = UserNotificationAction.openExposureDetectionResults
 
-			let viewAction = UNNotificationAction(
-				identifier: openActionIdentifier.rawValue,
-				title: openActionIdentifier.rawValue,
-				options: [.authenticationRequired]
-			)
+		let viewAction = UNNotificationAction(
+			identifier: openActionIdentifier.rawValue,
+			title: openActionIdentifier.rawValue,
+			options: [.authenticationRequired]
+		)
 
-			let deleteAction = UNNotificationAction(
-				identifier: UserNotificationAction.ignore.rawValue,
-				title: UserNotificationAction.ignore.rawValue,
-				options: [.destructive]
-			)
+		let deleteAction = UNNotificationAction(
+			identifier: UserNotificationAction.ignore.rawValue,
+			title: UserNotificationAction.ignore.rawValue,
+			options: [.destructive]
+		)
 
-			let category = UNNotificationCategory(
-				identifier: identifier,
-				actions: [viewAction, deleteAction],
-				intentIdentifiers: [],
-				options: []
-			)
+		let category = UNNotificationCategory(
+			identifier: identifier,
+			actions: [viewAction, deleteAction],
+			intentIdentifiers: [],
+			options: []
+		)
 
-			setNotificationCategories([category])
-		}
+		setNotificationCategories([category])
+
 	}
 }
