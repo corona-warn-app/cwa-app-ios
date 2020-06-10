@@ -26,6 +26,7 @@ extension URLSessionConfiguration {
 		config.httpCookieAcceptPolicy = .never // we don't like cookies - privacy
 		config.httpShouldSetCookies = false // we never send cookies
 		config.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData // avoid stale data
+		config.tlsMinimumSupportedProtocolVersion = .TLSv12
 		return config
 	}
 }
