@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>de.rki.coronawarnapp.exposure-notification</string>
+		<string>de.rki.coronawarnapp.fetch-test-results</string>
+	</array>
 	<key>BackendURLs</key>
 	<dict>
 		<key>distribution</key>
@@ -11,11 +16,6 @@
 		<key>verification</key>
 		<string>$(BACKEND_VERIFICATION_BASE_URL)</string>
 	</dict>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER).exposure-notification</string>
-		<string>$(PRODUCT_BUNDLE_IDENTIFIER).fetch-test-results</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
