@@ -43,8 +43,6 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController 
 	func didTapButton() {
 		dismiss(animated: true, completion: nil)
 	}
-
-	@IBAction func unwindToExposureSubmissionIntro(_: UIStoryboardSegue) {}
 }
 
 extension ExposureSubmissionSuccessViewController: ExposureSubmissionNavigationControllerChild {}
