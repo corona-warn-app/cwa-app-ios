@@ -13,6 +13,7 @@
 		0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */; };
 		0159E6C2247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */; };
 		016146912487A43E00660992 /* WebPageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* WebPageHelper.swift */; };
+		01D3ED002490230400551E65 /* StoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D3ECFF2490230400551E65 /* StoreTests.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
@@ -38,7 +39,6 @@
 		13E5046C248E434B0086641C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		13E5046D248E434B0086641C /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
 		2F26CE2E248B9C4F00BE30EE /* UIViewController+BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */; };
-		2F3218CE24800F6500A7AC0A /* DynamicTableViewStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CD24800F6500A7AC0A /* DynamicTableViewStepCell.swift */; };
 		2F3218D0248063E300A7AC0A /* UIView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */; };
 		2F785752248506BD00323A9C /* HomeTestResultCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2F78574F248506BD00323A9C /* HomeTestResultCollectionViewCell.xib */; };
 		2F80CFD9247ED988000F06AF /* ExposureSubmissionIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */; };
@@ -113,6 +113,9 @@
 		710021E0248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710021DF248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift */; };
 		710224EA248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224E9248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift */; };
 		710224EC248FC150000C5DEF /* HomeTestResultCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224EB248FC150000C5DEF /* HomeTestResultCellConfigurator.swift */; };
+		710224EE2490E2FD000C5DEF /* ExposureSubmissionStepCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 710224ED2490E2FC000C5DEF /* ExposureSubmissionStepCell.xib */; };
+		710224F42490E7A3000C5DEF /* ExposureSubmissionStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224F32490E7A3000C5DEF /* ExposureSubmissionStepCell.swift */; };
+		710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710224F524910661000C5DEF /* ExposureSubmissionDynamicCell.swift */; };
 		710ABB1F2475115500948792 /* UITableViewController+Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB1E2475115500948792 /* UITableViewController+Enum.swift */; };
 		710ABB23247513E300948792 /* DynamicTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */; };
 		710ABB25247514BD00948792 /* UIViewController+Segue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710ABB24247514BD00948792 /* UIViewController+Segue.swift */; };
@@ -353,6 +356,7 @@
 		0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_export.pb.swift; path = ../../../gen/output/temporary_exposure_key_export.pb.swift; sourceTree = "<group>"; };
 		0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_signature_list.pb.swift; path = ../../../gen/output/temporary_exposure_key_signature_list.pb.swift; sourceTree = "<group>"; };
 		016146902487A43E00660992 /* WebPageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageHelper.swift; sourceTree = "<group>"; };
+		01D3ECFF2490230400551E65 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StoreTests.swift; sourceTree = "<group>"; };
 		01F5F7212487B9C000229720 /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
 		0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStore.swift; sourceTree = "<group>"; };
 		0DD260FE248D549B007C3B2C /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -381,7 +385,6 @@
 		13BAE9B02472FB1E00CEE58A /* CellConfiguratorIndexPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfiguratorIndexPosition.swift; sourceTree = "<group>"; };
 		13E50468248E3CD20086641C /* ENAUITestsAppInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAUITestsAppInformation.swift; sourceTree = "<group>"; };
 		2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+BackButton.swift"; sourceTree = "<group>"; };
-		2F3218CD24800F6500A7AC0A /* DynamicTableViewStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewStepCell.swift; sourceTree = "<group>"; };
 		2F3218CF248063E300A7AC0A /* UIView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Convenience.swift"; sourceTree = "<group>"; };
 		2F78574F248506BD00323A9C /* HomeTestResultCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTestResultCollectionViewCell.xib; sourceTree = "<group>"; };
 		2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionIntroViewController.swift; sourceTree = "<group>"; };
@@ -462,6 +465,9 @@
 		710021DF248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionImageCardCell.swift; sourceTree = "<group>"; };
 		710224E9248FA67F000C5DEF /* HomeTestResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		710224EB248FC150000C5DEF /* HomeTestResultCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTestResultCellConfigurator.swift; sourceTree = "<group>"; };
+		710224ED2490E2FC000C5DEF /* ExposureSubmissionStepCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureSubmissionStepCell.xib; sourceTree = "<group>"; };
+		710224F32490E7A3000C5DEF /* ExposureSubmissionStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionStepCell.swift; sourceTree = "<group>"; };
+		710224F524910661000C5DEF /* ExposureSubmissionDynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionDynamicCell.swift; sourceTree = "<group>"; };
 		710ABB1E2475115500948792 /* UITableViewController+Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewController+Enum.swift"; sourceTree = "<group>"; };
 		710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeTableViewCell.swift; sourceTree = "<group>"; };
 		710ABB24247514BD00948792 /* UIViewController+Segue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Segue.swift"; sourceTree = "<group>"; };
@@ -1109,7 +1115,6 @@
 				710ABB22247513E300948792 /* DynamicTypeTableViewCell.swift */,
 				71FE1C8A247AC79D00851FEB /* DynamicTableViewIconCell.swift */,
 				71FE1C8B247AC79D00851FEB /* DynamicTableViewIconCell.xib */,
-				2F3218CD24800F6500A7AC0A /* DynamicTableViewStepCell.swift */,
 				71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */,
 				2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */,
 				717D21E8248C022E00D9717E /* DynamicTableViewHtmlCell.swift */,
@@ -1121,8 +1126,10 @@
 			isa = PBXGroup;
 			children = (
 				71FE1C84247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift */,
-				710021DD248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib */,
 				710021DF248EAF9A001F0B63 /* ExposureSubmissionImageCardCell.swift */,
+				710021DD248EAF16001F0B63 /* ExposureSubmissionImageCardCell.xib */,
+				710224F32490E7A3000C5DEF /* ExposureSubmissionStepCell.swift */,
+				710224ED2490E2FC000C5DEF /* ExposureSubmissionStepCell.xib */,
 			);
 			path = ExposureSubmission;
 			sourceTree = "<group>";
@@ -1327,6 +1334,7 @@
 				0DF6BB9C248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift */,
 				A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */,
 				B1CD333D24865E0000B06E9B /* TracingStatusHistoryTests.swift */,
+				01D3ECFF2490230400551E65 /* StoreTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -1685,6 +1693,7 @@
 				2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */,
 				2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */,
 				A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */,
+				710224F524910661000C5DEF /* ExposureSubmissionDynamicCell.swift */,
 			);
 			path = ExposureSubmission;
 			sourceTree = "<group>";
@@ -1938,6 +1947,7 @@
 				EE269508248FCB0300BAE234 /* InfoPlist.strings in Resources */,
 				A16714B1248CFF020031B111 /* HostWhitelist.plist in Resources */,
 				85D7594E24570491008175F0 /* LaunchScreen.storyboard in Resources */,
+				710224EE2490E2FD000C5DEF /* ExposureSubmissionStepCell.xib in Resources */,
 				EE20EA072469883900770683 /* RiskLegend.storyboard in Resources */,
 				71FE1C8D247AC79D00851FEB /* DynamicTableViewIconCell.xib in Resources */,
 				A189E461248C35BF001D0996 /* PublicKeys.plist in Resources */,
@@ -2134,6 +2144,7 @@
 				514C0A0F247AFEC500F235F6 /* HomeRiskTextItemViewConfigurator.swift in Sources */,
 				A3284250248B9269006B1F09 /* HomeTestResultLoadingCellConfigurator.swift in Sources */,
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,
+				710224F42490E7A3000C5DEF /* ExposureSubmissionStepCell.swift in Sources */,
 				3DD7674B2483D6C1002DD2B3 /* ConnectivityReachabilityService.swift in Sources */,
 				B1D7D68E24766D2100E4DA5D /* submission_payload.pb.swift in Sources */,
 				B1B381432472EF8B0056BEEE /* HTTPClient+Configuration.swift in Sources */,
@@ -2172,7 +2183,6 @@
 				71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */,
 				B1D6B002247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift in Sources */,
 				713EA25B247818B000AB7EE8 /* DynamicTypeButton.swift in Sources */,
-				2F3218CE24800F6500A7AC0A /* DynamicTableViewStepCell.swift in Sources */,
 				51C77910248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift in Sources */,
 				B1D6B004247DA4920079DDD3 /* UIApplication+CoronaWarn.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
@@ -2188,6 +2198,7 @@
 				B14D0CDF246E976400D5BEBC /* ExposureDetectionTransaction+DidEndPrematurelyReason.swift in Sources */,
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
+				710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,
 				71FE1C86247AC33D00851FEB /* ExposureSubmissionTestResultHeaderView.swift in Sources */,
@@ -2275,6 +2286,7 @@
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
 				CDF27BD5246ADBF30044D32B /* HTTPClientTests.swift in Sources */,
 				A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */,
+				01D3ED002490230400551E65 /* StoreTests.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
 				B1D431CE246C84F200E728AD /* KeyPackagesStoreTests.swift in Sources */,
