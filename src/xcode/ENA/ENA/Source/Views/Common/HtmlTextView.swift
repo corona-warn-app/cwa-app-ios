@@ -145,6 +145,8 @@ private extension ENAColor {
 		case .textPrimary1Contrast: return "text-primary-1-contrast"
 		case .textPrimary2: return "text-primary-2"
 		case .textPrimary3: return "text-primary-3"
+		case .textSemanticGray: return "text-semantic-gray"
+		case .textSemanticGreen: return "text-semantic-green"
 		case .textSemanticRed: return "text-semantic-red"
 		case .textTint: return "text-tint"
 		}
