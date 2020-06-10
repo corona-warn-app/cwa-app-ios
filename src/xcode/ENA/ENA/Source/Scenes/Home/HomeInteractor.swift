@@ -268,7 +268,8 @@ extension HomeInteractor {
 	}
 
 	func setupActiveConfigurator() -> HomeActivateCellConfigurator {
-		return HomeActivateCellConfigurator(state: state.enState)
+		let isTestResultSubmitted = store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
+		return HomeActivateCellConfigurator(state: state.enState, isTestResultSubmitted: isTestResultSubmitted)
 	}
 
 	func setupActionConfigurators() -> [CollectionViewCellConfiguratorAny] {

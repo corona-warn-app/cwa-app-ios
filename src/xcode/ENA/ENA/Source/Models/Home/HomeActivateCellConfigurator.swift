@@ -22,9 +22,11 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 	let identifier = UUID()
 	
 	private var state: ENStateHandler.State
+	private var isTestResultSubmitted: Bool
 
-	init(state: ENStateHandler.State) {
+	init(state: ENStateHandler.State, isTestResultSubmitted: Bool) {
 		self.state = state
+		self.isTestResultSubmitted = isTestResultSubmitted
 	}
 
 	// MARK: Configuring a Cell
@@ -33,23 +35,29 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 		var iconImage: UIImage?
 		cell.iconImageView.image?.withRenderingMode(.alwaysTemplate)
 
-		switch state {
-		case .enabled:
-			iconImage = UIImage(named: "Icons_Risikoermittlung")
-			cell.titleLabel.text = AppStrings.Home.activateCardOnTitle
-			cell.iconImageView.tintColor = .enaColor(for: .tint)
-		case .disabled, .restricted, .notAuthorized, .unknown:
+		if isTestResultSubmitted {
 			iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
 			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
 			cell.titleLabel.text = AppStrings.Home.activateCardOffTitle
-		case .bluetoothOff:
-			iconImage = UIImage(named: "Icons_Bluetooth_aus")
-			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
-			cell.titleLabel.text = AppStrings.Home.activateCardBluetoothOffTitle
-		case .internetOff:
-			iconImage = UIImage(systemName: "wifi.slash")
-			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
-			cell.titleLabel.text = AppStrings.Home.activateCardInternetOffTitle
+		} else {
+			switch state {
+			case .enabled:
+				iconImage = UIImage(named: "Icons_Risikoermittlung")
+				cell.titleLabel.text = AppStrings.Home.activateCardOnTitle
+				cell.iconImageView.tintColor = .enaColor(for: .tint)
+			case .disabled, .restricted, .notAuthorized, .unknown:
+				iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
+				cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
+				cell.titleLabel.text = AppStrings.Home.activateCardOffTitle
+			case .bluetoothOff:
+				iconImage = UIImage(named: "Icons_Bluetooth_aus")
+				cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
+				cell.titleLabel.text = AppStrings.Home.activateCardBluetoothOffTitle
+			case .internetOff:
+				iconImage = UIImage(systemName: "wifi.slash")
+				cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
+				cell.titleLabel.text = AppStrings.Home.activateCardInternetOffTitle
+			}
 		}
 
 		cell.iconImageView.image = iconImage
