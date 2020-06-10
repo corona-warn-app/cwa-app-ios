@@ -26,8 +26,7 @@ enum ENATaskIdentifier: String, CaseIterable {
 
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
-		// set to trigger every 2 hours
-			// TODO: change back to 2hrs
+		// TODO: change back to 2hrs
 		case .fetchTestResults: return 5 * 60 //2 * 60 * 60
 		}
 	}
@@ -100,11 +99,13 @@ final class ENATaskScheduler {
 
 	// Task Handlers:
 	private func executeBackgroundTask(_ task: BGTask) {
+		// TODO: testing
 		UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: "\(task.identifier) started", identifier: UUID().uuidString)
 		executeFetchTestResults(task) { executeFetchTestResultsSuccess in
 			self.executeExposureDetectionRequest(task) { executeExposureDetectionRequestSuccess in
 				let success = executeFetchTestResultsSuccess && executeExposureDetectionRequestSuccess
 				log(message: "Task complete! executeFetchTestResultsSuccess \(executeFetchTestResultsSuccess) && executeExposureDetectionRequestSuccess \(executeExposureDetectionRequestSuccess)")
+				// TODO: testing
 				UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: "\(task.identifier) complete!", identifier: UUID().uuidString)
 				task.setTaskCompleted(success: success)
 				self.scheduleTasks()
@@ -113,27 +114,18 @@ final class ENATaskScheduler {
 
 		task.expirationHandler = {
 			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
+			self.scheduleTasks()
 		}
 	}
 
 	private func executeExposureDetectionRequest(_ task: BGTask, completion: @escaping ((Bool) -> Void)) {
-		guard let taskDelegate = taskDelegate else {
-			task.setTaskCompleted(success: false)
-			scheduleTasks()
-			return
-		}
-		taskDelegate.executeExposureDetectionRequest(task: task) { success in
+		taskDelegate?.executeExposureDetectionRequest(task: task) { success in
 			completion(success)
 		}
 	}
 
 	private func executeFetchTestResults(_ task: BGTask, completion: @escaping ((Bool) -> Void)) {
-		guard let taskDelegate = taskDelegate else {
-			task.setTaskCompleted(success: false)
-			scheduleTasks()
-			return
-		}
-		taskDelegate.executeFetchTestResults(task: task) {success in
+		taskDelegate?.executeFetchTestResults(task: task) {success in
 			completion(success)
 		}
 	}

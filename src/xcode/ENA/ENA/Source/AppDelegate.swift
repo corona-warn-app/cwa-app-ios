@@ -240,8 +240,6 @@ extension AppDelegate: CoronaWarnAppDelegate {
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: task.identifier, identifier: UUID().uuidString)
-
 		riskProvider.requestRisk(userInitiated: false) { risk in
 			// present a notification if the risk score has increased
 			if let risk = risk,
@@ -258,8 +256,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	}
 
 	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
-
-		UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: task.identifier, identifier: UUID().uuidString)
 
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
