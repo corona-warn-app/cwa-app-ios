@@ -21,4 +21,11 @@ class ActivateCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var iconImageView: UIImageView!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var viewContainer: UIView!
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+
+		isAccessibilityElement = true
+		accessibilityTraits = .button
+	}
 }
