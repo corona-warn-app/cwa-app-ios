@@ -58,10 +58,12 @@ extension AppNavigationController: UINavigationControllerDelegate {
 
 		var navigationBackgroundAlpha: CGFloat = 1.0
 		var largeTitleBlurEffect: UIBlurEffect.Style?
+		var largeTitleBackgroundColor: UIColor?
 
 		if let opacityDelegate = viewController as? NavigationBarOpacityDelegate {
 			navigationBackgroundAlpha = opacityDelegate.backgroundAlpha
 			largeTitleBlurEffect = opacityDelegate.preferredLargeTitleBlurEffect
+			largeTitleBackgroundColor = opacityDelegate.preferredLargeTitleBackgroundColor
 
 			if let scrollView = viewController.view as? UIScrollView ?? viewController.view.subviews.first(ofType: UIScrollView.self) {
 				scrollViewObserver = scrollView.observe(\.contentOffset) { [weak self] _, _ in
@@ -74,10 +76,14 @@ extension AppNavigationController: UINavigationControllerDelegate {
 
 		let previousNavigationBackgroundAlpha = navigationBar.backgroundAlpha
 		let previousScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
+
 		transitionCoordinator?.animate(alongsideTransition: { _ in
 			self.navigationBar.backgroundAlpha = navigationBackgroundAlpha
 
-			if let largeTitleBlurEffect = largeTitleBlurEffect {
+			if let largeTitleBackgroundColor = largeTitleBackgroundColor {
+				self.navigationBar.scrollEdgeAppearance = UINavigationBarAppearance()
+				self.navigationBar.scrollEdgeAppearance?.backgroundColor = largeTitleBackgroundColor
+			} else if let largeTitleBlurEffect = largeTitleBlurEffect {
 				self.navigationBar.scrollEdgeAppearance = UINavigationBarAppearance()
 				self.navigationBar.scrollEdgeAppearance?.backgroundEffect = UIBlurEffect(style: largeTitleBlurEffect)
 			} else {
@@ -120,10 +126,12 @@ private extension Array {
 protocol NavigationBarOpacityDelegate: class {
 	var preferredNavigationBarOpacity: CGFloat { get }
 	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { get }
+	var preferredLargeTitleBackgroundColor: UIColor? { get }
 }
 
 extension NavigationBarOpacityDelegate {
 	var preferredNavigationBarOpacity: CGFloat { 1.0 }
 	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { nil }
+	var preferredLargeTitleBackgroundColor: UIColor? { nil }
 	fileprivate var backgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
 }

@@ -87,15 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 	lazy var client: Client = {
-		// We disable app store checks to make testing easier.
-		//        #if APP_STORE
-		//        return HTTPClient(configuration: .production)
-		//        #endif
-
-		if ClientMode.default == .mock {
-			fatalError("not implemented")
-		}
-
 		let store = self.store
 		guard
 			let distributionURLString = store.developerDistributionBaseURLOverride,
@@ -104,7 +95,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
 			let submissionURL = URL(string: submissionURLString) else {
-				return HTTPClient(configuration: .production)
+				let configuration: HTTPClient.Configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
+				return HTTPClient(configuration: configuration)
 		}
 
 		let config = HTTPClient.Configuration(

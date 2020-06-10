@@ -95,10 +95,14 @@ final class DMViewController: UITableViewController {
 
 	@objc
 	private func showConfiguration() {
+		guard let client = client as? HTTPClient else {
+			logError(message: "the developer menu only supports apps using a real http client")
+			return
+		}
 		let viewController = DMConfigurationViewController(
-			distributionURL: store.developerDistributionBaseURLOverride,
-			submissionURL: store.developerSubmissionBaseURLOverride,
-			verificationURL: store.developerVerificationBaseURLOverride
+			distributionURL: client.configuration.endpoints.distribution.baseURL.absoluteString,
+			submissionURL: client.configuration.endpoints.submission.baseURL.absoluteString,
+			verificationURL: client.configuration.endpoints.verification.baseURL.absoluteString
 		)
 		navigationController?.pushViewController(viewController, animated: true)
 	}
