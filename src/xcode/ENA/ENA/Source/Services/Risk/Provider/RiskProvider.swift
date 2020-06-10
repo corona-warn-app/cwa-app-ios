@@ -70,15 +70,6 @@ private extension RiskConsumer {
 	}
 }
 
-
-extension RiskProvider {
-	enum RequestType {
-		case userInitiated
-		case userInterface
-		case background
-	}
-}
-
 extension RiskProvider: RiskProviding {
 	func observeRisk(_ consumer: RiskConsumer) {
 		queue.async {
@@ -211,7 +202,7 @@ extension RiskProvider: RiskProviding {
 				numberOfTracingActiveHours: numberOfEnabledHours,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
-				previousSummary: summaries?.previous?.summary
+				previousRiskLevel: store.previousRiskLevel
 			) else {
 				logError(message: "Serious error during risk calculation")
 				completeOnTargetQueue(risk: nil)
@@ -223,9 +214,22 @@ extension RiskProvider: RiskProviding {
 		}
 
 		completeOnTargetQueue(risk: risk)
+
+		saveRiskIfNeeded(risk)
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
 		consumer?.provideRisk(risk)
+	}
+
+	private func saveRiskIfNeeded(_ risk: Risk) {
+		switch risk.level {
+		case .low:
+			store.previousRiskLevel = .low
+		case .increased:
+			store.previousRiskLevel = .increased
+		default:
+			break
+		}
 	}
 }

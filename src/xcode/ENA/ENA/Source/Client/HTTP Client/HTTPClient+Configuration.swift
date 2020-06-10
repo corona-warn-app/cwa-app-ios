@@ -26,19 +26,48 @@ extension HTTPClient {
 			country: "DE",
 			endpoints: Configuration.Endpoints(
 				distribution: .init(
-					baseURL: URL(staticString: "https://localhost/fixme"),
-					requiresTrailingSlash: true
+					baseURL: URL(staticString: "https://svc90.main.px.t-online.de"),
+					requiresTrailingSlash: false
 				),
 				submission: .init(
-					baseURL: URL(staticString: "https://localhost/fixme"),
-					requiresTrailingSlash: true
+					baseURL: URL(staticString: "https://submission.coronawarn.app"),
+					requiresTrailingSlash: false
 				),
 				verification: .init(
-					baseURL: URL(staticString: "https://localhost/fixme"),
-					requiresTrailingSlash: true
+					baseURL: URL(staticString: "https://verification.coronawarn.app"),
+					requiresTrailingSlash: false
 				)
 			)
 		)
+
+		static func loadFromPlist(dictionaryNameInPList: String) -> Configuration? {
+			let plistDict = Bundle.main.readPlistDict(name: "BackendURLs")
+			guard
+				let distribution = URL(string: plistDict?["distribution"] ?? "invalid"),
+				let submission = URL(string: plistDict?["submission"] ?? "invalid"),
+				let verification = URL(string: plistDict?["verification"] ?? "invalid") else {
+					return nil
+			}
+
+			return Configuration(
+				apiVersion: "v1",
+				country: "DE",
+				endpoints: Configuration.Endpoints(
+					distribution: .init(
+						baseURL: distribution,
+						requiresTrailingSlash: false
+					),
+					submission: .init(
+						baseURL: submission,
+						requiresTrailingSlash: false
+					),
+					verification: .init(
+						baseURL: verification,
+						requiresTrailingSlash: false
+					)
+				)
+			)
+		}
 
 		// MARK: Properties
 

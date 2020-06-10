@@ -22,30 +22,25 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 	let identifier = UUID()
 	
 	var title: String
-	var body: String?
+	var description: String?
 	var position: CellConfiguratorPositionInSection
 	var accessibilityIdentifier: String?
 
-	init(title: String, body: String?, position: CellConfiguratorPositionInSection, accessibilityIdentifier: String?) {
+	init(title: String, description: String?, position: CellConfiguratorPositionInSection, accessibilityIdentifier: String?) {
 		self.title = title
-		self.body = body
+		self.description = description
 		self.position = position
 		self.accessibilityIdentifier = accessibilityIdentifier
 	}
 
 	func configure(cell: InfoCollectionViewCell) {
-		cell.backgroundColor = UIColor.preferredColor(for: .backgroundPrimary)
-		cell.chevronImageView.image = UIImage(systemName: "chevron.right")
-		cell.titleLabel.text = title
-		cell.bodyLabel.text = body
-		cell.bodyLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
-		cell.bodyLabel.isHidden = (body == nil)
+		cell.backgroundColor = .enaColor(for: .background)
+		cell.configure(title: title, description: description, accessibilityIdentifier: accessibilityIdentifier)
 
 		cell.topDividerView.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(0.3)
 		cell.bottomDividerView.backgroundColor = UIColor.secondaryLabel.withAlphaComponent(0.3)
 
 		configureBorders(in: cell)
-		setupAccessibility(for: cell)
 	}
 
 	func configureBorders(in cell: InfoCollectionViewCell) {
@@ -60,18 +55,5 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 			cell.topDividerView.isHidden = true
 			cell.bottomDividerLeadingConstraint.constant = 0.0
 		}
-	}
-
-	func setupAccessibility(for cell: InfoCollectionViewCell) {
-		cell.chevronImageView.isAccessibilityElement = false
-		cell.titleLabel.isAccessibilityElement = false
-		cell.bodyLabel.isAccessibilityElement = false
-		cell.topDividerView.isAccessibilityElement = false
-		cell.bottomDividerView.isAccessibilityElement = false
-
-		cell.isAccessibilityElement = true
-		cell.accessibilityTraits = .button
-		cell.accessibilityIdentifier = accessibilityIdentifier
-		cell.accessibilityLabel = title
 	}
 }

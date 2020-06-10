@@ -54,7 +54,8 @@ extension DynamicTableViewControllerHeaderTests {
 		let expectedHeaderTitle = "Foo"
 		let section = DynamicSection.section(
 			header: .text(expectedHeaderTitle),
-			cells: [.headline(text: "Bar")]
+			cells: [.headline(text: "Bar",
+							  accessibilityIdentifier: "Bar")]
 		)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
@@ -68,7 +69,8 @@ extension DynamicTableViewControllerHeaderTests {
 		let section = DynamicSection.section(
 			header: .text("Foo"),
 			isHidden: { _ in return true },
-			cells: [.headline(text: "Bar")]
+			cells: [.headline(text: "Bar",
+							  accessibilityIdentifier: "Bar")]
 		)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
@@ -84,17 +86,18 @@ extension DynamicTableViewControllerHeaderTests {
 			.blank,
 			.space(height: 1),
 			.separator(color: .red),
-			.image(nil),
+			.image(nil, accessibilityIdentifier: nil),
 			.view(UIView()),
 			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
-			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
+			.cell(withIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeText),
 			.custom({ _ in return nil })
 		]
 		
 		dynamicHeader.forEach { header in
 			let section = DynamicSection.section(
 				header: header,
-				cells: [.headline(text: "Bar")]
+				cells: [.headline(text: "Bar",
+								  accessibilityIdentifier: "Bar")]
 			)
 			sut.dynamicTableViewModel = DynamicTableViewModel([section])
 			
@@ -106,7 +109,8 @@ extension DynamicTableViewControllerHeaderTests {
 	
 	func testHeightForHeader_whenHeaderIsNone_isLeastNonezeroMagnitude() {
 		// set up view model
-		let section = DynamicSection.section(header: .none, cells: [.body(text: "Bar")])
+		let section = DynamicSection.section(header: .none, cells: [.body(text: "Bar",
+																		  accessibilityIdentifier: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForHeaderInSection: 0)
@@ -116,7 +120,8 @@ extension DynamicTableViewControllerHeaderTests {
 	
 	func testHeightForHeader_whenHeaderIsBlank_isAutomaticDimension() {
 		// set up view model
-		let section = DynamicSection.section(header: .blank, cells: [.body(text: "Bar")])
+		let section = DynamicSection.section(header: .blank, cells: [.body(text: "Bar",
+																		   accessibilityIdentifier: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForHeaderInSection: 0)
@@ -127,7 +132,8 @@ extension DynamicTableViewControllerHeaderTests {
 	func testHeightForHeader_whenHeaderIsSpace_isHeightOfSpace() {
 		// set up view model
 		let expectedHeight: CGFloat = 42
-		let section = DynamicSection.section(header: .space(height: expectedHeight, color: nil), cells: [.body(text: "Bar")])
+		let section = DynamicSection.section(header: .space(height: expectedHeight, color: nil), cells: [.body(text: "Bar",
+																											   accessibilityIdentifier: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForHeaderInSection: 0)
@@ -139,15 +145,16 @@ extension DynamicTableViewControllerHeaderTests {
 		// set up view model
 		let dynamicHeader: [DynamicHeader] = [
 			.separator(color: .red),
-			.image(nil),
+			.image(nil, accessibilityIdentifier: nil),
 			.view(UIView()),
 			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
-			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
+			.cell(withIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeText),
 			.custom({ _ in return nil })
 		]
 		
 		dynamicHeader.forEach { header in
-			let section = DynamicSection.section(header: header, cells: [.body(text: "Bar")])
+			let section = DynamicSection.section(header: header, cells: [.body(text: "Bar",
+																			   accessibilityIdentifier: "Bar")])
 			sut.dynamicTableViewModel = DynamicTableViewModel([section])
 			
 			let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForHeaderInSection: 0)
@@ -158,7 +165,8 @@ extension DynamicTableViewControllerHeaderTests {
 	
 	func testHeightForHeader_whenHeaderIsHidden_isLeastNonzeroMagnitude() {
 		// set up view model
-		let section = DynamicSection.section(header: .text("Foo"), isHidden: { _ in return true }, cells: [.body(text: "Bar")])
+		let section = DynamicSection.section(header: .text("Foo"), isHidden: { _ in return true }, cells: [.body(text: "Bar",
+																												 accessibilityIdentifier: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		let height = sut.tableView?.delegate?.tableView?(sut.tableView, heightForHeaderInSection: 0)
@@ -168,7 +176,8 @@ extension DynamicTableViewControllerHeaderTests {
 	
 	func testViewForHeader_whenHeaderIsSpace_returnsColoredView() {
 		// set up view model
-		let section = DynamicSection.section(header: .space(height: 42, color: .red), cells: [.body(text: "Bar")])
+		let section = DynamicSection.section(header: .space(height: 42, color: .red), cells: [.body(text: "Bar",
+																									accessibilityIdentifier: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0)
@@ -181,7 +190,8 @@ extension DynamicTableViewControllerHeaderTests {
 		let color: UIColor = .red
 		let height: CGFloat = 42
 		let insets = UIEdgeInsets(top: 1, left: 2, bottom: 3, right: 4)
-		let section = DynamicSection.section(header: .separator(color: color, height: height, insets: insets), cells: [.body(text: "Bar")])
+		let section = DynamicSection.section(header: .separator(color: color, height: height, insets: insets), cells: [.body(text: "Bar",
+																															 accessibilityIdentifier: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0)
@@ -198,7 +208,8 @@ extension DynamicTableViewControllerHeaderTests {
 		// set up view model
 		let image = UIImage()
 		let height: CGFloat = 42
-		let section = DynamicSection.section(header: .image(image, height: height), cells: [.body(text: "Bar")])
+		let section = DynamicSection.section(header: .image(image, accessibilityIdentifier: nil, height: height), cells: [.body(text: "Bar",
+																								  accessibilityIdentifier: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0)
@@ -213,7 +224,8 @@ extension DynamicTableViewControllerHeaderTests {
 	func testViewForHeader_whenHeaderIsView_returnsView() {
 		// set up view model
 		let expectedView = UIView()
-		let section = DynamicSection.section(header: .view(expectedView), cells: [.body(text: "Bar")])
+		let section = DynamicSection.section(header: .view(expectedView), cells: [.body(text: "Bar",
+																						accessibilityIdentifier: "Bar")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0)
@@ -231,7 +243,8 @@ extension DynamicTableViewControllerHeaderTests {
 		
 		dynamicHeader.forEach { header in
 			// set up view model
-			let section = DynamicSection.section(header: header, cells: [.body(text: "Bar")])
+			let section = DynamicSection.section(header: header, cells: [.body(text: "Bar",
+																			   accessibilityIdentifier: "Bar")])
 			sut.dynamicTableViewModel = DynamicTableViewModel([section])
 			
 			let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0)
@@ -245,7 +258,8 @@ extension DynamicTableViewControllerHeaderTests {
 		let section = DynamicSection.section(
 			header: .text("Foo"),
 			isHidden: { _ in return true },
-			cells: [.body(text: "Bar")]
+			cells: [.body(text: "Bar",
+						  accessibilityIdentifier: "Bar")]
 		)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 

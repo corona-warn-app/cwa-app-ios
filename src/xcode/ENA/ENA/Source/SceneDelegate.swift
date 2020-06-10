@@ -37,6 +37,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private var developerMenu: DMDeveloperMenu?
+	private var appUpdateChecker: AppUpdateCheckHelper?
 
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
 		developerMenu = DMDeveloperMenu(
@@ -89,6 +90,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
+//		appUpdateChecker = AppUpdateCheckHelper(client: client, store: store)
+
 		exposureManager.resume(observer: self)
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
@@ -109,13 +112,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		updateExposureState(state)
 	}
 
+	func sceneDidEnterBackground(_ scene: UIScene) {
+		showPrivacyProtectionWindow()
+	}
+
 	func sceneDidBecomeActive(_: UIScene) {
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
-	}
-
-	func sceneWillResignActive(_: UIScene) {
-		showPrivacyProtectionWindow()
 	}
 
 	// MARK: Helper
@@ -144,14 +147,18 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
+		appUpdateChecker?.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
 	private func setupNavigationBarAppearance() {
 		let appearance = UINavigationBar.appearance()
+
 		appearance.tintColor = .enaColor(for: .tint)
+
 		appearance.titleTextAttributes = [
 			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
 		]
+
 		appearance.largeTitleTextAttributes = [
 			NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .largeTitle).scaledFont(size: 28, weight: .bold),
 			NSAttributedString.Key.foregroundColor: UIColor.enaColor(for: .textPrimary1)
@@ -269,6 +276,7 @@ extension SceneDelegate {
 			else {
 				return
 		}
+
 		let privacyProtectionViewController = PrivacyProtectionViewController()
 		privacyProtectionWindow = UIWindow(windowScene: windowScene)
 		privacyProtectionWindow?.rootViewController = privacyProtectionViewController

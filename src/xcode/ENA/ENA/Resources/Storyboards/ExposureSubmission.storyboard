@@ -11,7 +11,7 @@
         <!--Tan Input-->
         <scene sceneID="xja-bU-byS">
             <objects>
-                <viewController id="aFo-WD-gEN" customClass="ExposureSubmissionTanInputViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ExposureSubmissionTanInputViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aFo-WD-gEN" customClass="ExposureSubmissionTanInputViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" id="qXS-zI-pkU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -151,7 +151,7 @@
         <!--Exposure SubmissionQR Scanner Navigation Controller-->
         <scene sceneID="HrB-NV-jDk">
             <objects>
-                <navigationController storyboardIdentifier="testD" modalPresentationStyle="fullScreen" interfaceStyle="dark" id="BYY-Kq-aHb" customClass="ExposureSubmissionQRScannerNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="fullScreen" interfaceStyle="dark" id="BYY-Kq-aHb" customClass="ExposureSubmissionQRScannerNavigationController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="aXv-uE-SC5"/>
                     <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iPc-CN-Pgt">

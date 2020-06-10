@@ -69,7 +69,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	private func setupTableView() {
 		tableView.dataSource = self
 		tableView.delegate = self
-		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 		
 		dynamicTableViewModel = .intro
 		
@@ -111,57 +111,25 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 private extension DynamicTableViewModel {
 	static let intro = DynamicTableViewModel([
-		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle),
+		.navigationSubtitle(text: AppStrings.ExposureSubmissionIntroduction.subTitle,
+							accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.subTitle"),
 		.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_Funktion1"),
 				accessibilityLabel: nil,
+				accessibilityIdentifier: nil,
 				height: 200
 			),
 			separators: false,
 			cells: [
-				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01),
-				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02),
-				.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configureBulletPointCell(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem1
-						)
-				}
-				),
-				.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configureBulletPointCell(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem2
-						)
-				}
-				),
-				.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configureBulletPointCell(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem3
-						)
-				}
-				),
-				.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configureBulletPointCell(
-							text: AppStrings.ExposureSubmissionIntroduction.listItem4
-						)
-				}
-				)
+				.headline(text: AppStrings.ExposureSubmissionIntroduction.usage01,
+						  accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.usage01"),
+				.body(text: AppStrings.ExposureSubmissionIntroduction.usage02,
+					  accessibilityIdentifier: "AppStrings.ExposureSubmissionIntroduction.usage02"),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem1),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem2),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem3),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionIntroduction.listItem4)
 			]
 		)
 	])

@@ -25,7 +25,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 	// MARK: - Attributes.
 
 	@IBAction func unwindToExposureSubmissionIntro(_: UIStoryboardSegue) {}
-	private var service: ExposureSubmissionService?
+	var service: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
 
 	// MARK: - Initializers.
@@ -57,7 +57,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			),
 			forHeaderFooterViewReuseIdentifier: "test"
 		)
-		tableView.register(DynamicTableViewImageCardCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue)
+		tableView.register(UINib(nibName: String(describing: ExposureSubmissionImageCardCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue)
 		title = AppStrings.ExposureSubmissionDispatch.title
 	}
 
@@ -142,7 +142,7 @@ extension ExposureSubmissionOverviewViewController {
 // MARK: - ExposureSubmissionQRScannerDelegate methods.
 
 extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerDelegate {
-	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError) {
+	func qrScanner(_ viewController: QRScannerViewController, error: QRScannerError) {
 		switch error {
 		case .cameraPermissionDenied:
 
@@ -152,7 +152,6 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error) {
 					self.dismissQRCodeScannerView(viewController, completion: nil)
 				}
-
 				viewController.present(alert, animated: true, completion: nil)
 			}
 		default:
@@ -160,7 +159,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		}
 	}
 
-	func qrScanner(_ vc: ExposureSubmissionQRScannerViewController, didScan code: String) {
+	func qrScanner(_ vc: QRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
 			vc.delegate = nil
 			let alert = ExposureSubmissionViewUtils.setupAlert(
@@ -189,6 +188,15 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			self.stopSpinner()
 			switch result {
 			case let .failure(error):
+
+				// Note: In the case the QR Code was already used, retrying will result
+				// in an endless loop.
+				if case .qRAlreadyUsed = error {
+					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, completion: nil)
+					self.present(alert, animated: true, completion: nil)
+					return
+				}
+
 				logError(message: "Error while getting registration token: \(error)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, retry: true, retryActionHandler: {
 					self.startSpinner()
@@ -197,7 +205,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				self.present(alert, animated: true, completion: nil)
 
 			case let .success(token):
-				appLogger.log(
+				log(
 					message: "Received registration token: \(token)",
 					file: #file,
 					line: #line,
@@ -213,7 +221,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	/// - starts with https://
 	/// - contains only alphanumeric characters
 	/// - is not empty
-	private func sanitizeAndExtractGuid(_ input: String) -> String? {
+	func sanitizeAndExtractGuid(_ input: String) -> String? {
 		guard input.count <= 150 else { return nil }
 		guard let regex = try? NSRegularExpression(pattern: "^.*\\?(?<GUID>[A-Z,a-z,0-9,-]*)") else { return nil }
 		guard let match = regex.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.utf8.count)) else { return nil }
@@ -224,13 +232,33 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		return candidate
 	}
 
-	private func dismissQRCodeScannerView(_ vc: ExposureSubmissionQRScannerViewController, completion: (() -> Void)?) {
+	private func dismissQRCodeScannerView(_ vc: QRScannerViewController, completion: (() -> Void)?) {
 		vc.delegate = nil
 		vc.dismiss(animated: true, completion: completion)
 	}
 }
 
 // MARK: Data extension for DynamicTableView.
+
+private extension DynamicCell {
+	static func imageCard(
+		title: String,
+		description: String? = nil,
+		attributedDescription: NSAttributedString? = nil,
+		image: UIImage?,
+		action: DynamicAction,
+		accessibilityIdentifier: String? = nil) -> Self {
+		.identifier(ExposureSubmissionOverviewViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
+			guard let cell = cell as? ExposureSubmissionImageCardCell else { return }
+			cell.configure(
+				title: title,
+				description: description ?? "",
+				attributedDescription: attributedDescription,
+				image: image,
+				accessibilityIdentifier: accessibilityIdentifier)
+		}
+	}
+}
 
 private extension ExposureSubmissionOverviewViewController {
 	func dynamicTableData() -> DynamicTableViewModel {
@@ -243,84 +271,46 @@ private extension ExposureSubmissionOverviewViewController {
 				header: header,
 				separators: false,
 				cells: [
-					.body(text: AppStrings.ExposureSubmissionDispatch.description)
+					.body(
+						text: AppStrings.ExposureSubmissionDispatch.description,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.description")
 				]
 			)
 		)
 
 		data.add(DynamicSection.section(cells: [
-			.identifier(
-				CustomCellReuseIdentifiers.imageCard,
-				action: .execute(block: { _ in
-					self.showDisclaimer()
-				}),
-				configure: { _, cell, _ in
-					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
-					cell.configure(
-						title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
-						image: UIImage(named: "Illu_Submission_QRCode"),
-						body: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription
-					)
-				}
+			.imageCard(
+				title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
+				description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
+				image: UIImage(named: "Illu_Submission_QRCode"),
+				action: .execute(block: { _ in self.showDisclaimer() }),
+				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
 			),
-			.identifier(
-				CustomCellReuseIdentifiers.imageCard,
+			.imageCard(
+				title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
+				description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
+				image: UIImage(named: "Illu_Submission_TAN"),
 				action: .perform(segue: Segue.tanInput),
-				configure: { _, cell, _ in
-					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
-					cell.configure(
-						title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
-						image: UIImage(named: "Illu_Submission_TAN"),
-						body: AppStrings.ExposureSubmissionDispatch.tanButtonDescription
-					)
-				}
+				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
 			),
-			.identifier(
-				CustomCellReuseIdentifiers.imageCard,
+			.imageCard(
+				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
+				attributedDescription: applyFont(style: .headline, to: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription, with: AppStrings.ExposureSubmissionDispatch.positiveWord),
+				image: UIImage(named: "Illu_Submission_Anruf"),
 				action: .perform(segue: Segue.hotline),
-				configure: { _, cell, _ in
-					guard let cell = cell as? DynamicTableViewImageCardCell else { return }
-					cell.configure(
-						title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
-						image: UIImage(named: "Illu_Submission_Anruf"),
-						body: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
-						attributedStrings: self.getAttributedStrings()
-					)
-				}
+				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
 			)
 		]))
 
 		return data
 	}
 
-	/// Gets the attributed string that makes the "Positive" word bold.
-	private func getAttributedStrings() -> [NSAttributedString] {
-		let font: UIFont = .preferredFont(forTextStyle: .body)
-		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
-		let attr: [NSAttributedString.Key: Any] = [.font: boldFont]
-		let word = NSAttributedString(string: AppStrings.ExposureSubmissionDispatch.positiveWord, attributes: attr)
-		return [word]
-	}
-
-	private func transitionToQRScanner(_: UIViewController) {
-		// Make sure we are allowed to use the camera.
-		switch AVCaptureDevice.authorizationStatus(for: .video) {
-		case .authorized, .notDetermined:
-			performSegue(withIdentifier: Segue.qrScanner, sender: self)
-		case .denied:
-			let alert = ExposureSubmissionViewUtils.setupAlert(
-				message: AppStrings.ExposureSubmissionQRScanner.cameraPermissionDenied
-			)
-			present(alert, animated: true, completion: nil)
-		case .restricted:
-			let alert = ExposureSubmissionViewUtils.setupAlert(
-				message: AppStrings.ExposureSubmissionQRScanner.cameraPermissionRestricted
-			)
-			present(alert, animated: true, completion: nil)
-        // swiftlint:disable:next switch_case_alignment
-        @unknown default:
-			log(message: "Unhandled  AVCaptureDevice state.")
-		}
+	private func applyFont(style: ENAFont, to text: String, with content: String) -> NSAttributedString {
+		return NSMutableAttributedString.generateAttributedString(normalText: text, attributedText: [
+			NSAttributedString(string: content, attributes: [
+				NSAttributedString.Key.font: UIFont.enaFont(for: style)
+			])
+		])
 	}
 }
 

@@ -100,7 +100,6 @@ final class RiskProviderTests: XCTestCase {
 //		wait(for: [nextExposureDetectionDateDidChangeExpectation, expectThatSummaryIsRequested], timeout: 10.0)
     }
 
-	// swiftlint:disable:next function_body_length
     func testExample() throws {
 		var duration = DateComponents()
 		duration.day = 1
@@ -152,13 +151,13 @@ final class RiskProviderTests: XCTestCase {
 		let nextExposureDetectionDateDidChangeExpectation = expectation(
 			description: "expect willCalculateRiskLevelIn to be called"
 		)
-		let expectedDate = calendar.date(byAdding: .hour, value: 12, to: Date(), wrappingComponents: false)!
+		let expectedDate = calendar.date(byAdding: .hour, value: 12, to: Date(), wrappingComponents: false)
 
 //		XCTAssertTrue(calendar.isDate(sut.nextExposureDetectionDate(), equalTo: expectedDate, toGranularity: .hour))
 
 		consumer.nextExposureDetectionDateDidChange = { nextDetectionDate in
 			// swiftlint:disable:next force_unwrapping
-//			let expectedDate = calendar.date(byAdding: .hour, value: 12, to: Date(), wrappingComponents: false)!
+//			let expectedDate = calendar.date(byAdding: .hour, value: 12, to: Date(), wrappingComponents: false)
 //			print("expected: \(expectedDate)")
 //			print("nextDetectionDate: \(nextDetectionDate)")
 

@@ -59,7 +59,6 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		navigationItem.largeTitleDisplayMode = .always
 		setUIText()
 		tableView.sectionFooterHeight = 0.0
-
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -171,6 +170,9 @@ extension ExposureNotificationSettingViewController {
 	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		switch model.content[section] {
 		case .actionCell:
+			if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+				return UITableView.automaticDimension
+			}
 			return 40
 		default:
 			return 0
@@ -190,11 +192,12 @@ extension ExposureNotificationSettingViewController {
 		1
 	}
 
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	override func tableView(
+		_ tableView: UITableView,
+		cellForRowAt indexPath: IndexPath
+	) -> UITableViewCell {
 		let section = indexPath.section
-
 		let content = model.content[section]
-
 		if let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell {
 			switch content {
 			case .banner:
@@ -213,8 +216,8 @@ extension ExposureNotificationSettingViewController {
 					let tracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
 					if let tracingCell = tracingCell as? TracingHistoryTableViewCell {
 						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
-							(UIColor.preferredColor(for: .tint), UIColor.preferredColor(for: .textPrimary3)) :
-							(UIColor.preferredColor(for: .textPrimary2), UIColor.preferredColor(for: .textPrimary3))
+							(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
+							(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
 
 						let numberRiskContacts = store.tracingStatusHistory.countEnabledDays()
 						tracingCell.configure(
@@ -251,7 +254,6 @@ extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate
 		}
 	}
 }
-
 
 extension ExposureNotificationSettingViewController {
 	fileprivate enum ReusableCellIdentifier: String {

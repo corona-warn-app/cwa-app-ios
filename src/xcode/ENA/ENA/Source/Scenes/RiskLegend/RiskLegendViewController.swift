@@ -27,7 +27,10 @@ class RiskLegendViewController: DynamicTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		titleLabel.text = AppStrings.RiskLegend.title
+		navigationItem.title = AppStrings.RiskLegend.title
+
+		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
 
 		dynamicTableViewModel = model
 	}
@@ -40,6 +43,12 @@ class RiskLegendViewController: DynamicTableViewController {
 
 	@IBAction func close() {
 		dismiss(animated: true)
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		navigationItem.rightBarButtonItem?.image = UIImage(named: "Icons - Close")
 	}
 }
 

@@ -2,6 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BackendURLs</key>
+	<dict>
+		<key>distribution</key>
+		<string>$(BACKEND_DISTIBUTION_BASE_URL)</string>
+		<key>submission</key>
+		<string>$(BACKEND_SUBMISSION_BASE_URL)</string>
+		<key>verification</key>
+		<string>$(BACKEND_VERIFICATION_BASE_URL)</string>
+	</dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER).exposure-notification</string>

@@ -1,201 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bUW-YD-tVi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iiQ-wt-Y6o">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Risk Legend View Controller-->
-        <scene sceneID="U1Q-9Q-xlD">
+        <!--Title-->
+        <scene sceneID="4Qc-Wv-eTU">
             <objects>
-                <viewController id="bUW-YD-tVi" customClass="RiskLegendViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="wV0-4z-n5g">
+                <viewController id="XAu-6f-Lfo" customClass="RiskLegendViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="gvT-uE-HbS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="HE9-Lw-n8D">
-                                <rect key="frame" x="0.0" y="48.5" width="414" height="793.5"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="numberedTitleCell" id="0B7-SQ-UFz" customClass="RiskLegendNumberedTitleCell" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="414" height="42.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0B7-SQ-UFz" id="yjn-ic-RhS">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="42.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lWx-UY-HUn">
-                                                    <rect key="frame" x="20" y="5.5" width="32" height="32"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qc9-LB-X43">
-                                                            <rect key="frame" x="12" y="6" width="8.5" height="20.5"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                            <color key="textColor" name="ENA Text Primary 1 Contrast Color"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" name="ENA Brand Light Blue Color"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="32" id="5Sc-V3-Ir3"/>
-                                                        <constraint firstItem="Qc9-LB-X43" firstAttribute="centerY" secondItem="lWx-UY-HUn" secondAttribute="centerY" id="9d8-ke-l5C"/>
-                                                        <constraint firstAttribute="width" constant="32" id="QMK-RK-bBQ"/>
-                                                        <constraint firstItem="Qc9-LB-X43" firstAttribute="centerX" secondItem="lWx-UY-HUn" secondAttribute="centerX" id="qmv-yg-0vX"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="16"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LyM-IV-zgr" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="68" y="11" width="326" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="lWx-UY-HUn" firstAttribute="centerY" secondItem="yjn-ic-RhS" secondAttribute="centerY" id="AJH-hT-AdA"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="LyM-IV-zgr" secondAttribute="trailing" id="F9P-rP-F3g"/>
-                                                <constraint firstItem="LyM-IV-zgr" firstAttribute="leading" secondItem="lWx-UY-HUn" secondAttribute="trailing" constant="16" id="Pkz-P4-qqb"/>
-                                                <constraint firstItem="LyM-IV-zgr" firstAttribute="top" secondItem="yjn-ic-RhS" secondAttribute="topMargin" id="QT2-F1-9WC"/>
-                                                <constraint firstItem="lWx-UY-HUn" firstAttribute="leading" secondItem="yjn-ic-RhS" secondAttribute="leadingMargin" id="qTK-8p-afC"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="LyM-IV-zgr" secondAttribute="bottom" id="tHH-UB-Q5y"/>
-                                            </constraints>
-                                            <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                        <connections>
-                                            <outlet property="numberLabel" destination="Qc9-LB-X43" id="xCJ-ci-hPV"/>
-                                            <outlet property="numberView" destination="lWx-UY-HUn" id="mvT-S1-2Ie"/>
-                                            <outlet property="textLabel" destination="LyM-IV-zgr" id="W76-CU-pJN"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dotBodyCell" id="HgF-Kh-Lfs" customClass="RiskLegendDotBodyCell" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="98" width="414" height="42.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HgF-Kh-Lfs" id="g3u-X0-F9D">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="42.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onE-k3-TYh" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                    <rect key="frame" x="68" y="11" width="326" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="ENA Text Primary 1 Color"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WgT-xD-Tk0">
-                                                    <rect key="frame" x="28" y="13.5" width="16" height="16"/>
-                                                    <color key="backgroundColor" name="ENA Risk High Color"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="JOR-kQ-qYO"/>
-                                                        <constraint firstAttribute="width" constant="16" id="NwE-Ut-vGD"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="8"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="onE-k3-TYh" secondAttribute="bottom" id="6pk-NC-KhA"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="onE-k3-TYh" secondAttribute="trailing" id="Lm3-ln-SUD"/>
-                                                <constraint firstItem="onE-k3-TYh" firstAttribute="leading" secondItem="WgT-xD-Tk0" secondAttribute="trailing" constant="24" id="UZj-tv-7YK"/>
-                                                <constraint firstItem="WgT-xD-Tk0" firstAttribute="centerY" secondItem="g3u-X0-F9D" secondAttribute="centerY" id="i1O-U8-VjW"/>
-                                                <constraint firstItem="WgT-xD-Tk0" firstAttribute="leading" secondItem="g3u-X0-F9D" secondAttribute="leadingMargin" constant="8" id="pCu-cq-WXi"/>
-                                                <constraint firstItem="onE-k3-TYh" firstAttribute="top" secondItem="g3u-X0-F9D" secondAttribute="topMargin" id="shq-YN-yRd"/>
-                                            </constraints>
-                                            <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
-                                        <connections>
-                                            <outlet property="dotView" destination="WgT-xD-Tk0" id="kzb-sI-DYH"/>
-                                            <outlet property="textLabel" destination="onE-k3-TYh" id="rwz-j7-xh9"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="bUW-YD-tVi" id="8dE-85-eQG"/>
-                                    <outlet property="delegate" destination="bUW-YD-tVi" id="WNc-gl-vld"/>
-                                </connections>
-                            </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mi8-Cv-Sbm">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="48.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0E-Fd-yj4" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="24" width="334" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" name="ENA Text Primary 1 Color"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title1"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" name="ENA Background Color"/>
-                                <constraints>
-                                    <constraint firstItem="X0E-Fd-yj4" firstAttribute="top" secondItem="mi8-Cv-Sbm" secondAttribute="topMargin" id="HUf-O5-vNO"/>
-                                    <constraint firstItem="X0E-Fd-yj4" firstAttribute="leading" secondItem="mi8-Cv-Sbm" secondAttribute="leadingMargin" id="WTS-kE-wiB"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="X0E-Fd-yj4" secondAttribute="bottom" id="dGf-rV-kVu"/>
-                                </constraints>
-                                <edgeInsets key="layoutMargins" top="24" left="16" bottom="4" right="16"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqM-tL-rje" customClass="UIControl">
-                                <rect key="frame" x="357" y="15" width="50" height="50"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icons - Close" translatesAutoresizingMaskIntoConstraints="NO" id="1Jv-e2-fP5">
-                                        <rect key="frame" x="9" y="9" width="32" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="jlv-MU-Tnf"/>
-                                            <constraint firstAttribute="width" constant="32" id="tLh-oq-7cO"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="8vq-3f-dMg"/>
-                                    <constraint firstItem="1Jv-e2-fP5" firstAttribute="centerX" secondItem="gqM-tL-rje" secondAttribute="centerX" id="I4m-tU-bem"/>
-                                    <constraint firstAttribute="width" constant="50" id="LNa-7o-h0G"/>
-                                    <constraint firstItem="1Jv-e2-fP5" firstAttribute="centerY" secondItem="gqM-tL-rje" secondAttribute="centerY" id="TP4-W0-wTF"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="close" destination="bUW-YD-tVi" eventType="touchUpInside" id="tZD-sN-UDT"/>
-                                </connections>
-                            </view>
-                        </subviews>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" name="ENA Background Color"/>
-                        <constraints>
-                            <constraint firstItem="HE9-Lw-n8D" firstAttribute="leading" secondItem="wV0-4z-n5g" secondAttribute="leading" id="8x0-67-nJm"/>
-                            <constraint firstItem="1Jv-e2-fP5" firstAttribute="leading" secondItem="X0E-Fd-yj4" secondAttribute="trailing" constant="16" id="ElY-yN-uvQ"/>
-                            <constraint firstAttribute="trailing" secondItem="1Jv-e2-fP5" secondAttribute="trailing" constant="16" id="IwJ-sh-K4J"/>
-                            <constraint firstAttribute="bottom" secondItem="HE9-Lw-n8D" secondAttribute="bottom" id="aUH-5R-doe"/>
-                            <constraint firstItem="HE9-Lw-n8D" firstAttribute="top" secondItem="mi8-Cv-Sbm" secondAttribute="bottom" id="bF6-k4-1ZE"/>
-                            <constraint firstItem="mi8-Cv-Sbm" firstAttribute="top" secondItem="wV0-4z-n5g" secondAttribute="top" id="nek-S0-lgm"/>
-                            <constraint firstItem="1Jv-e2-fP5" firstAttribute="top" secondItem="wV0-4z-n5g" secondAttribute="top" constant="24" id="tBw-rr-k4T"/>
-                            <constraint firstAttribute="trailing" secondItem="HE9-Lw-n8D" secondAttribute="trailing" id="tQI-dH-TF5"/>
-                            <constraint firstItem="mi8-Cv-Sbm" firstAttribute="leading" secondItem="wV0-4z-n5g" secondAttribute="leading" id="tca-DS-G2u"/>
-                            <constraint firstAttribute="trailing" secondItem="mi8-Cv-Sbm" secondAttribute="trailing" id="tiU-x3-Ort"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="6aY-LP-mhl"/>
-                    </view>
-                    <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <connections>
-                        <outlet property="tableView" destination="HE9-Lw-n8D" id="KEx-iG-Jab"/>
-                        <outlet property="titleLabel" destination="X0E-Fd-yj4" id="c6Q-W4-Cgu"/>
-                    </connections>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dotBodyCell" id="HgF-Kh-Lfs" customClass="RiskLegendDotBodyCell" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="43"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HgF-Kh-Lfs" id="g3u-X0-F9D">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onE-k3-TYh" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                            <rect key="frame" x="68" y="11" width="326" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" name="ENA Text Primary 1 Color"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WgT-xD-Tk0">
+                                            <rect key="frame" x="28" y="13.5" width="16" height="16"/>
+                                            <color key="backgroundColor" name="ENA Risk High Color"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="16" id="JOR-kQ-qYO"/>
+                                                <constraint firstAttribute="width" constant="16" id="NwE-Ut-vGD"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="8"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="onE-k3-TYh" secondAttribute="bottom" id="6pk-NC-KhA"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="onE-k3-TYh" secondAttribute="trailing" id="Lm3-ln-SUD"/>
+                                        <constraint firstItem="onE-k3-TYh" firstAttribute="leading" secondItem="WgT-xD-Tk0" secondAttribute="trailing" constant="24" id="UZj-tv-7YK"/>
+                                        <constraint firstItem="WgT-xD-Tk0" firstAttribute="centerY" secondItem="g3u-X0-F9D" secondAttribute="centerY" id="i1O-U8-VjW"/>
+                                        <constraint firstItem="WgT-xD-Tk0" firstAttribute="leading" secondItem="g3u-X0-F9D" secondAttribute="leadingMargin" constant="8" id="pCu-cq-WXi"/>
+                                        <constraint firstItem="onE-k3-TYh" firstAttribute="top" secondItem="g3u-X0-F9D" secondAttribute="topMargin" id="shq-YN-yRd"/>
+                                    </constraints>
+                                    <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dotView" destination="WgT-xD-Tk0" id="kzb-sI-DYH"/>
+                                    <outlet property="textLabel" destination="onE-k3-TYh" id="rwz-j7-xh9"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Title" largeTitleDisplayMode="always" id="36h-MK-Kc0">
+                        <barButtonItem key="rightBarButtonItem" image="Icons - Close" id="26D-bE-hwu">
+                            <connections>
+                                <action selector="close" destination="XAu-6f-Lfo" id="u1S-Ad-wld"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hX4-W1-vcK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pQh-c0-lON" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="672.46376811594212" y="895.98214285714278"/>
+            <point key="canvasLocation" x="641" y="896"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8gi-bi-Lps">
+            <objects>
+                <navigationController id="iiQ-wt-Y6o" sceneMemberID="viewController">
+                    <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="OPR-lc-rEn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="XAu-6f-Lfo" kind="relationship" relationship="rootViewController" id="KGY-AH-w8M"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kbx-ZZ-AyV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-278" y="896"/>
         </scene>
     </scenes>
     <resources>
@@ -203,16 +99,10 @@
         <namedColor name="ENA Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="ENA Brand Light Blue Color">
-            <color red="0.90200001001358032" green="0.96100002527236938" blue="0.98400002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="ENA Risk High Color">
             <color red="0.75300002098083496" green="0.059000000357627869" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Primary 1 Color">
-            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="ENA Text Primary 1 Contrast Color">
             <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
