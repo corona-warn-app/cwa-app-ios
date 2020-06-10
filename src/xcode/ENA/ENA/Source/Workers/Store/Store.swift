@@ -85,8 +85,6 @@ protocol Store: AnyObject {
 
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
-	var lastCheckedVersion: String? { get set }
-
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? { get set }
 
 	func clearAll(key: String?)
