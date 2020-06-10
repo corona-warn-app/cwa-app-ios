@@ -19,6 +19,11 @@ jobs:
       xcode: 11.5.0
     shell: zsh
     steps:
+      - run:
+          name: Skip this job for non-PRs and when not on development
+          command: |
+            testedBranches=(development branch-test-sonar)
+            [[ ${testedBranches[(r)$CIRCLE_BRANCH]} == $CIRCLE_BRANCH || -v CIRCLE_PR_NUMBER ]] && true || circleci step halt
       - checkout
       - run:
           name: Install dependencies
@@ -26,32 +31,16 @@ jobs:
       - run:
           name: Tests
           command: cd src/xcode && bundle exec fastlane test
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - scripts/*.sh
-            - sonar-project.properties
-            - src/xcode/
-  scan:
-    macos:
-      xcode: 11.5.0
-    shell: zsh
-    steps:
-      - checkout
       - restore_cache:
           key: sonar-cloud-v2
-      - attach_workspace:
-          at: ~/project/
       - run:
           name: Convert coverage information to SonarCloud format
           command: |
-            ./scripts/xcov_to_sonarqube_generic.sh src/xcode/fastlane/test_output/*.xccovarchive/ > src/xcode/fastlane/test_output/coverage.xml
-            sed -i "" 's|/Users/distiller/project/||' src/xcode/fastlane/test_output/coverage.xml
+            ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/action_0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
       - run:
           name: Fix SwiftLint output for SonarCloud
           command: |
-            mv src/xcode/swiftlint.result.json src/xcode/swiftlint.result.original.json
-            cat src/xcode/swiftlint.result.original.json | jq '.["issues"]' > src/xcode/swiftlint.result.json
+            ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
       - store_test_results:
           path: src/xcode/fastlane/test_output
       - store_artifacts:
@@ -59,7 +48,7 @@ jobs:
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
       - run:
-          name: Abort if external pull request
+          name: Skip SonarCloud for external Pull Requests
           command: |
             if [ -v CIRCLE_PR_REPONAME ]; then
               circleci-agent step halt
@@ -99,18 +88,14 @@ jobs:
 workflows:
     test-and-scan:
       jobs:
-        - test
-        - scan:
-            requires:
-              - test
+        - test:
             context: SonarCloud
-    build-and-pics:
+    build:
       jobs:
-        #- build:
-        #  filters:
-        #    branches:
-        #      only: /^development|^branch-.*/
+        - build
         - grab-screenshots:
             filters:
               branches:
-                only: /^development/
+                only:
+                  - master
+                  - development
