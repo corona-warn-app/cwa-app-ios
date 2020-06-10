@@ -36,20 +36,24 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 		switch state {
 		case .enabled:
 			iconImage = UIImage(named: "Icons_Risikoermittlung")
-			cell.titleLabel.text = AppStrings.Home.activateCardOnTitle
 			cell.iconImageView.tintColor = .enaColor(for: .tint)
+			cell.titleLabel.text = AppStrings.Home.activateCardOnTitle
+			cell.accessibilityIdentifier = "AppStrings.Home.activateCardOnTitle"
 		case .disabled, .restricted, .notAuthorized, .unknown:
 			iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
 			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
 			cell.titleLabel.text = AppStrings.Home.activateCardOffTitle
+			cell.accessibilityIdentifier = "AppStrings.Home.activateCardOffTitle"
 		case .bluetoothOff:
 			iconImage = UIImage(named: "Icons_Bluetooth_aus")
 			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
 			cell.titleLabel.text = AppStrings.Home.activateCardBluetoothOffTitle
+			cell.accessibilityIdentifier = "AppStrings.Home.activateCardBluetoothOffTitle"
 		case .internetOff:
 			iconImage = UIImage(systemName: "wifi.slash")
 			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
 			cell.titleLabel.text = AppStrings.Home.activateCardInternetOffTitle
+			cell.accessibilityIdentifier = "AppStrings.Home.activateCardInternetOffTitle"
 		}
 
 		cell.iconImageView.image = iconImage
@@ -59,6 +63,8 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
 	func setupAccessibility(for cell: ActivateCollectionViewCell) {
 		cell.isAccessibilityElement = true
+		cell.accessibilityTraits = .button
+		cell.accessibilityLabel = cell.titleLabel.text
 	}
 }
 
