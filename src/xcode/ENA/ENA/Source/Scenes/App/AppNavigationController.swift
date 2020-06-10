@@ -54,7 +54,7 @@ class AppNavigationController: UINavigationController {
 
 extension AppNavigationController: UINavigationControllerDelegate {
 	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-		scrollViewObserver?.invalidate()
+		let previousScrollViewObserver = scrollViewObserver
 
 		var navigationBackgroundAlpha: CGFloat = 1.0
 		var largeTitleBlurEffect: UIBlurEffect.Style?
@@ -88,6 +88,12 @@ extension AppNavigationController: UINavigationControllerDelegate {
 			if context.isCancelled {
 				self.navigationBar.backgroundAlpha = previousNavigationBackgroundAlpha
 				self.navigationBar.scrollEdgeAppearance = previousScrollEdgeAppearance
+
+				self.scrollViewObserver?.invalidate()
+				self.scrollViewObserver = previousScrollViewObserver
+
+			} else {
+				previousScrollViewObserver?.invalidate()
 			}
 		})
 	}
