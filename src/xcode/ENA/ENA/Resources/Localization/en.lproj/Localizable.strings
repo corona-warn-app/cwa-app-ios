@@ -20,7 +20,7 @@
 "General_BackButtonTitle" = "Back";
 
 /* Accessibility */
-"AccessibilityLabel_Close" = "Schließen";
+"AccessibilityLabel_Close" = "Close";
 
 /* Exposure Detection */
 "ExposureDetection_Off" = "Risk identification stopped";
