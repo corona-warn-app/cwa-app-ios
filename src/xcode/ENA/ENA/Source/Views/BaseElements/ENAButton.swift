@@ -30,7 +30,7 @@ class ENAButton: DynamicTypeButton {
 	override var isHighlighted: Bool { didSet { applyHighlight() } }
 
 	private var highlightView: UIView!
-	private var activityIndicator: UIActivityIndicatorView!
+	private weak var activityIndicator: UIActivityIndicatorView?
 
 	override var intrinsicContentSize: CGSize {
 		var size = super.intrinsicContentSize
@@ -82,22 +82,6 @@ class ENAButton: DynamicTypeButton {
 		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		addSubview(highlightView)
 
-		// MARK: - Add spinner for loading state.
-		activityIndicator = UIActivityIndicatorView(style: .medium)
-		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-		activityIndicator.isUserInteractionEnabled = false
-		addSubview(activityIndicator)
-		if let title = titleLabel {
-			title.leadingAnchor.constraint(equalTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
-			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-			trailingAnchor.constraint(greaterThanOrEqualTo: title.trailingAnchor, constant: 8).isActive = true
-		} else {
-			activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-			trailingAnchor.constraint(greaterThanOrEqualTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
-		}
-		activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8).isActive = true
-
 		applyStyle()
 		applyHighlight()
 	}
@@ -112,22 +96,16 @@ class ENAButton: DynamicTypeButton {
 			style = .emphasized(color: color)
 		}
 
+		applyActivityIndicator()
+
 		if isEnabled {
 			backgroundColor = style.backgroundColor
 			setTitleColor(style.foregroundColor, for: .normal)
+			activityIndicator?.color = style.foregroundColor
 		} else {
 			backgroundColor = style.disabledBackgroundColor
 			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
-		}
-
-		if isLoading && isEnabled {
-			activityIndicator.color = style.foregroundColor
-			activityIndicator.startAnimating()
-		} else if isLoading && !isEnabled {
-			activityIndicator.color = style.disabledForegroundColor.withAlphaComponent(0.5)
-			activityIndicator.startAnimating()
-		} else {
-			activityIndicator.stopAnimating()
+			activityIndicator?.color = style.disabledForegroundColor.withAlphaComponent(0.5)
 		}
 
 		highlightView?.backgroundColor = style.highlightColor
@@ -135,6 +113,52 @@ class ENAButton: DynamicTypeButton {
 
 	private func applyHighlight() {
 		highlightView.isHidden = !isHighlighted
+	}
+
+	private func applyActivityIndicator() {
+		guard isLoading else {
+			activityIndicator?.removeFromSuperview()
+			return
+		}
+
+		guard nil == activityIndicator else { return }
+
+		let activityIndicator = UIActivityIndicatorView(style: .medium)
+		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+		activityIndicator.isUserInteractionEnabled = false
+
+		addSubview(activityIndicator)
+
+		if let title = titleLabel {
+			title.leadingAnchor.constraint(equalTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
+			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 8).isActive = true
+			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+		} else {
+			activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 8).isActive = true
+			self.trailingAnchor.constraint(greaterThanOrEqualTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
+		}
+
+		updateActivityIndicatorStyle()
+
+		activityIndicator.startAnimating()
+
+		self.activityIndicator = activityIndicator
+	}
+
+	private func updateActivityIndicatorStyle() {
+		if traitCollection.preferredContentSizeCategory >= .accessibilityExtraLarge {
+			activityIndicator?.style = .large
+		} else {
+			activityIndicator?.style = .medium
+		}
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateActivityIndicatorStyle()
 	}
 }
 
