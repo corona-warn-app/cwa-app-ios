@@ -47,8 +47,8 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
 			cell.titleLabel.text = AppStrings.Home.activateCardBluetoothOffTitle
 		case .internetOff:
-			iconImage = UIImage(systemName: "wifi.slash")
 			cell.iconImageView.tintColor = .enaColor(for: .riskHigh)
+			iconImage = UIImage(named: "Icons_Internet_aus")
 			cell.titleLabel.text = AppStrings.Home.activateCardInternetOffTitle
 		}
 
