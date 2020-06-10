@@ -24,11 +24,13 @@ class ENAButton: DynamicTypeButton {
 
 	@IBInspectable var isTransparent: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
+	@IBInspectable var isLoading: Bool = false { didSet { isEnabled = !isLoading } }
 
 	override var isEnabled: Bool { didSet { applyStyle() } }
 	override var isHighlighted: Bool { didSet { applyHighlight() } }
 
 	private var highlightView: UIView!
+	private weak var activityIndicator: UIActivityIndicatorView?
 
 	override var intrinsicContentSize: CGSize {
 		var size = super.intrinsicContentSize
@@ -82,6 +84,16 @@ class ENAButton: DynamicTypeButton {
 		setHeight()
 	}
 
+	private func setHeight() {
+		let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+		heightConstraint.priority = .defaultHigh
+		heightConstraint.isActive = true
+
+		if let titleLabel = titleLabel {
+			heightAnchor.constraint(equalTo: titleLabel.heightAnchor).isActive = true
+		}
+	}
+
 	private func applyStyle() {
 		let style: Style
 		if isTransparent {
@@ -92,12 +104,16 @@ class ENAButton: DynamicTypeButton {
 			style = .emphasized(color: color)
 		}
 
+		applyActivityIndicator()
+
 		if isEnabled {
 			backgroundColor = style.backgroundColor
 			setTitleColor(style.foregroundColor, for: .normal)
+			activityIndicator?.color = style.foregroundColor
 		} else {
 			backgroundColor = style.disabledBackgroundColor
 			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
+			activityIndicator?.color = style.disabledForegroundColor.withAlphaComponent(0.5)
 		}
 
 		highlightView?.backgroundColor = style.highlightColor
@@ -107,14 +123,50 @@ class ENAButton: DynamicTypeButton {
 		highlightView.isHidden = !isHighlighted
 	}
 
-	private func setHeight() {
-		let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
-		heightConstraint.priority = .defaultHigh
-		heightConstraint.isActive = true
-
-		if let titleLabel = titleLabel {
-			heightAnchor.constraint(equalTo: titleLabel.heightAnchor).isActive = true
+	private func applyActivityIndicator() {
+		guard isLoading else {
+			activityIndicator?.removeFromSuperview()
+			return
 		}
+
+		guard nil == activityIndicator else { return }
+
+		let activityIndicator = UIActivityIndicatorView(style: .medium)
+		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+		activityIndicator.isUserInteractionEnabled = false
+
+		addSubview(activityIndicator)
+
+		if let title = titleLabel {
+			title.leadingAnchor.constraint(equalTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
+			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 8).isActive = true
+			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+		} else {
+			activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: self.leadingAnchor, constant: 8).isActive = true
+			self.trailingAnchor.constraint(greaterThanOrEqualTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
+		}
+
+		updateActivityIndicatorStyle()
+
+		activityIndicator.startAnimating()
+
+		self.activityIndicator = activityIndicator
+	}
+
+	private func updateActivityIndicatorStyle() {
+		if traitCollection.preferredContentSizeCategory >= .accessibilityExtraLarge {
+			activityIndicator?.style = .large
+		} else {
+			activityIndicator?.style = .medium
+		}
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateActivityIndicatorStyle()
 	}
 }
 

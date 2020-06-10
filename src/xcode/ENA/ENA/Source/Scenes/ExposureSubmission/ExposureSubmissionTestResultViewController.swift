@@ -18,13 +18,12 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController, SpinnerInjectable {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController {
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
 	var testResult: TestResult?
 	var timeStamp: Int64?
-	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View Lifecycle methods.
 
@@ -128,10 +127,10 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 	}
 
 	private func refreshTest() {
-		startSpinner()
+		startButtonSpinner()
 		exposureSubmissionService?
 			.getTestResult { result in
-				self.stopSpinner()
+				self.stopButtonSpinner()
 				switch result {
 				case let .failure(error):
 					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)

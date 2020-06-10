@@ -52,6 +52,14 @@ extension ExposureSubmissionNavigationControllerChild {
 		exposureSubmissionNavigationController?.setButtonEnabled(enabled: enabled)
 	}
 
+	func startButtonSpinner() {
+		exposureSubmissionNavigationController?.button.isLoading = true
+	}
+
+	func stopButtonSpinner() {
+		exposureSubmissionNavigationController?.button.isLoading = false
+	}
+
 	func setSecondaryButtonTitle(to title: String) {
 		exposureSubmissionNavigationController?.setSecondaryButtonTitle(title: title)
 	}

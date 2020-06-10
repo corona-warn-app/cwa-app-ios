@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjectable, ENATanInputDelegate {
+class ExposureSubmissionTanInputViewController: UIViewController, ENATanInputDelegate {
 	// MARK: - Attributes.
 
 	@IBOutlet var descriptionLabel: UILabel!
@@ -27,7 +27,6 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 	@IBOutlet var tanInput: ENATanInput!
 	var initialTan: String?
 	var exposureSubmissionService: ExposureSubmissionService?
-	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View lifecycle methods.
 
@@ -84,7 +83,7 @@ extension ExposureSubmissionTanInputViewController {
 
 extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
 	func didTapButton() {
-		startSpinner()
+		startButtonSpinner()
 		setButtonEnabled(enabled: false)
 		// If teleTAN is correct, show Alert Controller
 		// to check permissions to request TAN.
@@ -92,7 +91,7 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 
 		exposureSubmissionService?
 			.getRegistrationToken(forKey: .teleTan(teleTan), completion: { result in
-				self.stopSpinner()
+				self.stopButtonSpinner()
 				self.setButtonEnabled(enabled: true)
 				switch result {
 				case let .failure(error):
