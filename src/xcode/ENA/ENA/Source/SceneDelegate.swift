@@ -36,9 +36,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		}
 	}
 
-	private var developerMenu: DMDeveloperMenu?
 	private var appUpdateChecker: AppUpdateCheckHelper?
 
+	#if !RELEASE
+	private var developerMenu: DMDeveloperMenu?
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
@@ -48,6 +49,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		)
 		developerMenu?.enableIfAllowed()
 	}
+	#endif
 
 	private lazy var clientConfiguration: HTTPClient.Configuration = {
 		guard
@@ -205,7 +207,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.navigationController.setViewControllers([vc], animated: false)
 		})
+		#if !RELEASE
 		enableDeveloperMenuIfAllowed(in: vc)
+		#endif
 	}
 
 	private func showOnboarding() {
