@@ -88,15 +88,15 @@ class ENAButton: DynamicTypeButton {
 		activityIndicator.isUserInteractionEnabled = false
 		addSubview(activityIndicator)
 		if let title = titleLabel {
-			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8).isActive = true
 			title.leadingAnchor.constraint(equalTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
 			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8).isActive = true
 			trailingAnchor.constraint(greaterThanOrEqualTo: title.trailingAnchor, constant: 8).isActive = true
 		} else {
 			activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+			trailingAnchor.constraint(greaterThanOrEqualTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
 		}
+		activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8).isActive = true
 
 		applyStyle()
 		applyHighlight()
