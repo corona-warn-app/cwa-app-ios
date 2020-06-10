@@ -20,27 +20,27 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQb-9Z-xLl">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="443"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="421"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="2eY-pe-EqA">
-                                                <rect key="frame" x="16" y="16" width="382" height="411"/>
+                                                <rect key="frame" x="16" y="16" width="382" height="389"/>
                                                 <subviews>
                                                     <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="0fv-1M-Keg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="251"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="229"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Illu_Onboarding_GemeinsamCoronabekaempfen" translatesAutoresizingMaskIntoConstraints="NO" id="mfP-Vw-3SQ">
-                                                                <rect key="frame" x="3.6666666666666572" y="0.0" width="375" height="251"/>
+                                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="1000" image="Illu_Onboarding_GemeinsamCoronabekaempfen" translatesAutoresizingMaskIntoConstraints="NO" id="mfP-Vw-3SQ">
+                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="229"/>
                                                             </imageView>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="mfP-Vw-3SQ" firstAttribute="centerX" secondItem="0fv-1M-Keg" secondAttribute="centerX" id="7rB-Ou-fkz"/>
                                                             <constraint firstItem="mfP-Vw-3SQ" firstAttribute="top" secondItem="0fv-1M-Keg" secondAttribute="top" id="BZz-Z8-X26"/>
-                                                            <constraint firstItem="mfP-Vw-3SQ" firstAttribute="centerY" secondItem="0fv-1M-Keg" secondAttribute="centerY" id="FNR-mZ-hKO"/>
+                                                            <constraint firstAttribute="trailing" secondItem="mfP-Vw-3SQ" secondAttribute="trailing" id="iu1-wQ-5jX"/>
+                                                            <constraint firstItem="mfP-Vw-3SQ" firstAttribute="leading" secondItem="0fv-1M-Keg" secondAttribute="leading" id="uxs-d2-GlS"/>
                                                             <constraint firstAttribute="bottom" secondItem="mfP-Vw-3SQ" secondAttribute="bottom" id="ySP-3n-hjS"/>
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="800" verticalCompressionResistancePriority="50" text="Title 1" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1kj-Lh-G2l" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="283" width="382" height="33.666666666666686"/>
+                                                        <rect key="frame" x="0.0" y="261" width="382" height="33.666666666666686"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                         <nil key="highlightedColor"/>
@@ -49,7 +49,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="mqn-eD-7XN">
-                                                        <rect key="frame" x="0.0" y="348.66666666666669" width="382" height="62.333333333333314"/>
+                                                        <rect key="frame" x="0.0" y="326.66666666666669" width="382" height="62.333333333333314"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Headline" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iX7-JF-1ms" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="382" height="20.333333333333332"/>
@@ -72,9 +72,6 @@
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="0fv-1M-Keg" firstAttribute="centerX" secondItem="2eY-pe-EqA" secondAttribute="centerX" id="ijf-vE-Eeg"/>
-                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
@@ -157,12 +154,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CRv-wa-5iJ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="4Ft-pZ-AFP"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="Qrf-NY-PRN"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="boldLabel" destination="iX7-JF-1ms" id="Msl-h4-7Vz"/>
                         <outlet property="footerView" destination="0oH-fF-RI6" id="zbC-b2-CdY"/>
                         <outlet property="ignoreButton" destination="Clc-Yy-2ht" id="i67-q6-JoV"/>
                         <outlet property="imageView" destination="mfP-Vw-3SQ" id="SAq-8U-IOS"/>
+                        <outlet property="innerStackView" destination="mqn-eD-7XN" id="Nut-P9-iLI"/>
                         <outlet property="nextButton" destination="XjZ-ed-ItP" id="M6T-Jt-59B"/>
                         <outlet property="scrollView" destination="1HX-Yf-LyV" id="UsC-cr-Xe3"/>
                         <outlet property="stackView" destination="2eY-pe-EqA" id="WbR-dJ-Jp8"/>
