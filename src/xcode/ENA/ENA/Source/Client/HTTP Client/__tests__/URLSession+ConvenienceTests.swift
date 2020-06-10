@@ -22,7 +22,7 @@ final class URLSessionConvenienceTests: XCTestCase {
 	func testExecuteRequest_Success() {
 		let url = URL(staticString: "https://localhost:8080")
 
-		let data = "hello".data(using: .utf8)
+		let data = Data("hello".utf8)
 		let session = MockUrlSession(
 			data: data,
 			nextResponse: HTTPURLResponse(
@@ -55,7 +55,7 @@ final class URLSessionConvenienceTests: XCTestCase {
 	func testExecuteRequest_SuccessAcceptsNotFound() {
 		let url = URL(staticString: "https://localhost:8080")
 
-		let data = "hello".data(using: .utf8)
+		let data = Data("hello".utf8)
 		let session = MockUrlSession(
 			data: data,
 			nextResponse: HTTPURLResponse(
@@ -90,7 +90,7 @@ final class URLSessionConvenienceTests: XCTestCase {
 			code: NSURLErrorNotConnectedToInternet,
 			userInfo: nil
 		)
-		let data = "hello".data(using: .utf8)
+		let data = Data("hello".utf8)
 		let session = MockUrlSession(
 			data: data,
 			nextResponse: HTTPURLResponse(

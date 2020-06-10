@@ -241,10 +241,21 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 // MARK: Data extension for DynamicTableView.
 
 private extension DynamicCell {
-	static func imageCard(title: String, description: String? = nil, attributedDescription: NSAttributedString? = nil, image: UIImage?, action: DynamicAction) -> Self {
+	static func imageCard(
+		title: String,
+		description: String? = nil,
+		attributedDescription: NSAttributedString? = nil,
+		image: UIImage?,
+		action: DynamicAction,
+		accessibilityIdentifier: String? = nil) -> Self {
 		.identifier(ExposureSubmissionOverviewViewController.CustomCellReuseIdentifiers.imageCard, action: action) { _, cell, _ in
 			guard let cell = cell as? ExposureSubmissionImageCardCell else { return }
-			cell.configure(title: title, description: description ?? "", attributedDescription: attributedDescription, image: image)
+			cell.configure(
+				title: title,
+				description: description ?? "",
+				attributedDescription: attributedDescription,
+				image: image,
+				accessibilityIdentifier: accessibilityIdentifier)
 		}
 	}
 }
@@ -260,7 +271,9 @@ private extension ExposureSubmissionOverviewViewController {
 				header: header,
 				separators: false,
 				cells: [
-					.body(text: AppStrings.ExposureSubmissionDispatch.description)
+					.body(
+						text: AppStrings.ExposureSubmissionDispatch.description,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.description")
 				]
 			)
 		)
@@ -270,19 +283,22 @@ private extension ExposureSubmissionOverviewViewController {
 				title: AppStrings.ExposureSubmissionDispatch.qrCodeButtonTitle,
 				description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
 				image: UIImage(named: "Illu_Submission_QRCode"),
-				action: .execute(block: { _ in self.showDisclaimer() })
+				action: .execute(block: { _ in self.showDisclaimer() }),
+				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
 			),
 			.imageCard(
 				title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
 				description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
 				image: UIImage(named: "Illu_Submission_TAN"),
-				action: .perform(segue: Segue.tanInput)
+				action: .perform(segue: Segue.tanInput),
+				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
 			),
 			.imageCard(
 				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
 				attributedDescription: applyFont(style: .headline, to: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription, with: AppStrings.ExposureSubmissionDispatch.positiveWord),
 				image: UIImage(named: "Illu_Submission_Anruf"),
-				action: .perform(segue: Segue.hotline)
+				action: .perform(segue: Segue.hotline),
+				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
 			)
 		]))
 

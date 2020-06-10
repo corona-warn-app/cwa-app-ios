@@ -97,10 +97,14 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		viewContainer.backgroundColor = color
 	}
 
-	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool) {
+	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool, accessibilityIdentifier: String?) {
 		updateButton.setTitle(title, for: .normal)
 		updateButton.isEnabled = isEnabled
 		updateButton.isHidden = isHidden
+		updateButton.isHidden = isHidden
+		updateButton.isAccessibilityElement = true
+		updateButton.accessibilityLabel = title
+		updateButton.accessibilityIdentifier = accessibilityIdentifier
 	}
 
 	func configureDetectionIntervalLabel(text: String, isHidden: Bool) {

@@ -61,9 +61,13 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 		cardView.addSubview(highlightView)
 
 		updateIllustration(for: traitCollection)
+
+		isAccessibilityElement = false
+		cardView.isAccessibilityElement = true
+		cardView.accessibilityTraits = .button
 	}
 
-	func configure(title: String, description: String, attributedDescription: NSAttributedString? = nil, image: UIImage?) {
+	func configure(title: String, description: String, attributedDescription: NSAttributedString? = nil, image: UIImage?, accessibilityIdentifier: String?) {
 		titleLabel.text = title
 		descriptionLabel.text = description
 		illustrationView?.image = image
@@ -72,6 +76,9 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 			let attributedText = NSMutableAttributedString(attributedString: attributedDescription)
 			descriptionLabel.attributedText = attributedText
 		}
+
+		cardView.accessibilityLabel = "\(title)\n\n\(description)"
+		cardView.accessibilityIdentifier = accessibilityIdentifier
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

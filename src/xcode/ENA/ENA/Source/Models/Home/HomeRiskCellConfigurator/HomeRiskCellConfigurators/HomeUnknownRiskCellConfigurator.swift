@@ -77,7 +77,8 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureUpdateButton(
 			title: buttonTitle,
 			isEnabled: isButtonEnabled,
-			isHidden: isButtonHidden
+			isHidden: isButtonHidden,
+			accessibilityIdentifier: "AppStrings.Home.riskCardIntervalUpdateTitle"
 		)
 
 		setupAccessibility(cell)

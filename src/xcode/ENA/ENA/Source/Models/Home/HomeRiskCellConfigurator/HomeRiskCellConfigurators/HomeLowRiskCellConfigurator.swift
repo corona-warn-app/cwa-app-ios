@@ -92,7 +92,8 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureUpdateButton(
 			title: buttonTitle,
 			isEnabled: isButtonEnabled,
-			isHidden: isButtonHidden
+			isHidden: isButtonHidden,
+			accessibilityIdentifier: "AppStrings.Home.riskCardIntervalUpdateTitle"
 		)
 
 		setupAccessibility(cell)
