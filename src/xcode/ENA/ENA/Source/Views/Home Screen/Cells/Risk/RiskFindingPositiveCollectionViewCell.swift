@@ -41,8 +41,15 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var statusContainer: UIView!
 	@IBOutlet var stackView: UIStackView!
 	@IBOutlet var riskViewStackView: UIStackView!
-	
+
 	weak var delegate: RiskFindingPositiveCollectionViewCellDelegate?
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		stackView.setCustomSpacing(32.0, after: topContainer)
+		stackView.setCustomSpacing(32.0, after: statusContainer)
+		stackView.setCustomSpacing(8.0, after: noteLabel)
+	}
 
 	@IBAction func nextButtonTapped(_: UIButton) {
 		delegate?.nextButtonTapped(cell: self)
@@ -65,7 +72,6 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 	func configureTitle(title: String, titleColor: UIColor) {
 		titleLabel.text = title
 		titleLabel.textColor = titleColor
-		stackView.setCustomSpacing(32.0, after: topContainer)
 	}
 
 	func configureStatus(title: String, subtitle: String, titleColor: UIColor, lineColor: UIColor, imageName: String) {
@@ -79,12 +85,10 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 
 		let image = UIImage(named: imageName)
 		statusImageView.image = image
-		stackView.setCustomSpacing(32.0, after: statusContainer)
 	}
 
 	func configureNoteLabel(title: String) {
 		noteLabel.text = title
-		stackView.setCustomSpacing(8.0, after: noteLabel)
 	}
 
 	func configureNextButton(title: String) {
