@@ -475,9 +475,9 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt das aktivierte COVID-19-Kontaktprotokoll und die -Mitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie „COVID-19-Kontaktprotokoll und -Mitteilungen“ in Ihren Systemeinstellungen.";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Kindersicherung/Bildschirmzeit aktiviert";
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "COVID-19-Kontaktprotokoll und -Mitteilungen aktivieren";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Die aktivierte Kindersicherung verhindert die Aktivierung der Risiko-Ermittlung. Bitte deaktivieren Sie die Beschränkung dieser App unter Einstellungen -> Bildschirmzeit.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt das aktivierte COVID-19-Kontaktprotokoll und die -Mitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie „COVID-19-Kontaktprotokoll und -Mitteilungen“ in Ihren Systemeinstellungen.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Autorisierung erforderlich";
 
