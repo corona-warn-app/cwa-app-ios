@@ -58,7 +58,13 @@ import UIKit.UIImage
 {% endmacro %}
 {% if catalogs.count > 1 %}
 {% for catalog in catalogs %}
+{% if catalog.name == "Assets" %}
+{{accessModifier}} typealias Images = {{enumName}}.{{catalog.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}
+{% elif catalog.name == "ena-colors" %}
+{{accessModifier}} typealias Colors = {{enumName}}.{{catalog.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}
+{% else %}
 {{accessModifier}} typealias {{catalog.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} = {{enumName}}.{{catalog.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}
+{% endif %}
 {% endfor %}
 {% else %}
 {% call enumBlock catalogs.first.assets %}

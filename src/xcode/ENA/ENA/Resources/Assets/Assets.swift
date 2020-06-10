@@ -4,8 +4,8 @@
 import UIKit.UIImage
 
 // MARK: - Asset Catalogs
-internal typealias Assets = Asset.Assets
-internal typealias EnaColors = Asset.EnaColors
+internal typealias Images = Asset.Assets
+internal typealias Colors = Asset.EnaColors
 
 internal enum Asset {
   internal enum Assets {
