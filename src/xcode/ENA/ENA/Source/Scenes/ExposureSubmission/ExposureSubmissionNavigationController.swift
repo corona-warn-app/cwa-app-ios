@@ -180,18 +180,18 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		keyboardWillShowObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { [weak self] notification in
 			self?.isKeyboardHidden = false
 			self?.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-			self?.updateBottomSafeAreaInset(animated: true)
+			self?.updateBottomSafeAreaInset()
 		}
 
 		keyboardWillHideObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { [weak self] notification in
 			self?.isKeyboardHidden = true
 			self?.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-			self?.updateBottomSafeAreaInset(animated: true)
+			self?.updateBottomSafeAreaInset()
 		}
 
 		keyboardWillChangeFrameObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: nil) { [weak self] notification in
 			self?.keyboardWindowFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
-			self?.updateBottomSafeAreaInset(animated: true)
+			self?.updateBottomSafeAreaInset()
 		}
 	}
 
@@ -241,7 +241,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		guard hidden != isBottomViewHidden else { return }
 		isBottomViewHidden = hidden
 
-		updateBottomSafeAreaInset(animated: animated)
+		updateBottomSafeAreaInset()
 		bottomViewTopConstraint.isActive = hidden
 
 		if isBottomViewHidden {
@@ -265,7 +265,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		updateBottomSafeAreaInset()
 	}
 
-	private func updateBottomSafeAreaInset(animated: Bool = false) {
+	private func updateBottomSafeAreaInset() {
 		let baseInset = view.safeAreaInsets.bottom - additionalSafeAreaInsets.bottom
 		var bottomInset: CGFloat = 0
 
@@ -321,11 +321,15 @@ extension ExposureSubmissionNavigationController {
 		self.view.addSubview(view)
 		view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
 		view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+		let topConstraint = view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+		topConstraint.isActive = true
+		topConstraint.priority = .defaultHigh
 		let bottomConstraint = view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
 		bottomConstraint.isActive = true
 		bottomConstraint.priority = .defaultHigh
-		bottomViewTopConstraint = view.topAnchor.constraint(equalTo: self.view.bottomAnchor)
 
+		bottomViewTopConstraint = view.topAnchor.constraint(equalTo: self.view.bottomAnchor)
+		
 		button = ENAButton(type: .custom)
 		button.setTitle("", for: .normal)
 
@@ -341,9 +345,7 @@ extension ExposureSubmissionNavigationController {
 		view.contentView.addSubview(stackView)
 		view.contentView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
 		view.contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
-
-		stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 16).isActive = true
-		stackView.topAnchor.constraint(equalTo: view.contentView.layoutMarginsGuide.topAnchor, constant: 0).isActive = true
+		view.contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: stackView.topAnchor).isActive = true
 
 		button.addTarget(self, action: #selector(didTapButton), for: .primaryActionTriggered)
 		secondaryButton.addTarget(self, action: #selector(didTapSecondaryButton), for: .primaryActionTriggered)
