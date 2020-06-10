@@ -69,7 +69,7 @@ final class ExposureSubmissionQRScannerNavigationController: UINavigationControl
 final class ExposureSubmissionQRScannerViewController: UIViewController, QRScannerViewController {
 	@IBOutlet var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet var flashButton: UIButton!
-	@IBOutlet weak var instructionLabel: DynamicTypeLabel!
+	@IBOutlet var instructionLabel: DynamicTypeLabel!
 
 	weak var delegate: ExposureSubmissionQRScannerDelegate?
 
@@ -95,6 +95,11 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionQRScanner.title
 		instructionLabel.text = AppStrings.ExposureSubmissionQRScanner.instruction
+
+		instructionLabel.layer.shadowColor = UIColor.enaColor(for: .textPrimary1Contrast).cgColor
+		instructionLabel.layer.shadowOpacity = 1
+		instructionLabel.layer.shadowRadius = 3
+		instructionLabel.layer.shadowOffset = .init(width: 0, height: 0)
 	}
 
 	private func prepareScanning() {
