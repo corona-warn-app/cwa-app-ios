@@ -90,7 +90,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
-		appUpdateChecker = AppUpdateCheckHelper(client: client, store: store)
+//		appUpdateChecker = AppUpdateCheckHelper(client: client, store: store)
 
 		exposureManager.resume(observer: self)
 
@@ -112,13 +112,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		updateExposureState(state)
 	}
 
+	func sceneDidEnterBackground(_ scene: UIScene) {
+		showPrivacyProtectionWindow()
+	}
+
 	func sceneDidBecomeActive(_: UIScene) {
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
-	}
-
-	func sceneWillResignActive(_: UIScene) {
-		showPrivacyProtectionWindow()
 	}
 
 	// MARK: Helper
@@ -276,6 +276,7 @@ extension SceneDelegate {
 			else {
 				return
 		}
+
 		let privacyProtectionViewController = PrivacyProtectionViewController()
 		privacyProtectionWindow = UIWindow(windowScene: windowScene)
 		privacyProtectionWindow?.rootViewController = privacyProtectionViewController
