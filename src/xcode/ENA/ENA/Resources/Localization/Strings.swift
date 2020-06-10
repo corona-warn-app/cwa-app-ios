@@ -11,10 +11,10 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name
 internal enum L10n {
+  /// Schließen
+  internal static let accessibilityLabelClose = L10n.tr("Localizable", "AccessibilityLabel_Close")
   /// Abbrechen
   internal static let alertActionCancel = L10n.tr("Localizable", "Alert_ActionCancel")
-  /// Nein
-  internal static let alertActionNo = L10n.tr("Localizable", "Alert_ActionNo")
   /// OK
   internal static let alertActionOk = L10n.tr("Localizable", "Alert_ActionOk")
   /// Entfernen
@@ -29,14 +29,8 @@ internal enum L10n {
   internal static let alertCancelActionLater = L10n.tr("Localizable", "Alert_CancelAction_Later")
   /// Einstellungen öffnen
   internal static let alertDefaultActionOpenSettings = L10n.tr("Localizable", "Alert_DefaultAction_OpenSettings")
-  /// Sind Sie damit einverstanden, Ihre TAN generieren zu lassen?
-  internal static let alertDescriptionKeySubmit = L10n.tr("Localizable", "Alert_DescriptionKeySubmit")
-  /// Bitte versuchen Sie es erneut.
-  internal static let alertMessageGeneral = L10n.tr("Localizable", "Alert_MessageGeneral")
   /// Ein Fehler ist aufgetreten.
   internal static let alertTitleGeneral = L10n.tr("Localizable", "Alert_TitleGeneral")
-  /// TAN-Generierung
-  internal static let alertTitleKeySubmit = L10n.tr("Localizable", "Alert_TitleKeySubmit")
   /// Das Robert Koch-Institut (RKI) als zentrale Einrichtung des Bundes im Bereich der Öffentlichen Gesundheit und als nationales Public-Health-Institut veröffentlicht die Corona-Warn-App für die gesamte Bundesregierung. Die App ist die digitale Ergänzung zu Abstandhalten, Hygiene und Alltagsmaske.
   internal static let appInformationAboutDescription = L10n.tr("Localizable", "App_Information_About_Description")
   /// 
@@ -53,7 +47,7 @@ internal enum L10n {
   internal static let appInformationContactHotlineDescription = L10n.tr("Localizable", "App_Information_Contact_Hotline_Description")
   /// +498007540001
   internal static let appInformationContactHotlineNumber = L10n.tr("Localizable", "App_Information_Contact_Hotline_Number")
-  /// Unsere Öffnungszeiten:\nMo - Fr: 08:00 - 22:00 Uhr\nSa - So: 10:00 - 22:00 Uhr\nEs gelten die Preise Ihres Telefonanbieters.
+  /// Unsere Öffnungszeiten:\nMo - Sa: 08:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n
   internal static let appInformationContactHotlineTerms = L10n.tr("Localizable", "App_Information_Contact_Hotline_Terms")
   /// +49 (0)800 7540001
   internal static let appInformationContactHotlineText = L10n.tr("Localizable", "App_Information_Contact_Hotline_Text")
@@ -119,23 +113,19 @@ internal enum L10n {
   internal static let exposureDetectionButtonEnable = L10n.tr("Localizable", "ExposureDetection_Button_Enable")
   /// Aktualisieren
   internal static let exposureDetectionButtonRefresh = L10n.tr("Localizable", "ExposureDetection_Button_Refresh")
-  /// Aktualisieren (%02d:%02d)
-  internal static func exposureDetectionButtonRefreshingIn(_ p1: Int, _ p2: Int) -> String {
-    return L10n.tr("Localizable", "ExposureDetection_Button_RefreshingIn", p1, p2)
-  }
   /// So wurde Ihr Risiko ermittelt
   internal static let exposureDetectionExplanationSubtitleActive = L10n.tr("Localizable", "ExposureDetection_Explanation_Subtitle_Active")
   /// So wird Ihr Risiko ermittelt
   internal static let exposureDetectionExplanationSubtitleInactive = L10n.tr("Localizable", "ExposureDetection_Explanation_Subtitle_Inactive")
   /// Sie haben ein erhöhtes Infektionsrisiko, da Sie zuletzt vor 2 Tagen mindestens einer nachweislich Corona-positiv getesteten Person über einen längeren Zeitpunkt und mit einem geringen Abstand begegnet sind.\n\nDie Infektionswahrscheinlichkeit wird daher als erhöht für Sie eingestuft.\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.\nWenn Sie nach Hause kommen, vermeiden Sie auch Begegnungen mit Familienmitgliedern und Mitbewohnern.
   internal static let exposureDetectionExplanationTextHigh = L10n.tr("Localizable", "ExposureDetection_Explanation_Text_High")
-  /// Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona- positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.
+  /// Sie haben ein niedriges Infektionsrisiko, da keine Begegnung mit nachweislich Corona-positiv getesteten Personen aufgezeichnet wurde oder sich Ihre Begegnung auf kurze Zeit und einen größeren Abstand beschränkt hat.\n\nDie Infektionswahrscheinlichkeit wird daher als niedrig für Sie eingestuft.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.
   internal static let exposureDetectionExplanationTextLow = L10n.tr("Localizable", "ExposureDetection_Explanation_Text_Low")
   /// Das Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.
   internal static let exposureDetectionExplanationTextOff = L10n.tr("Localizable", "ExposureDetection_Explanation_Text_Off")
-  /// Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko- Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.
+  /// Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.
   internal static let exposureDetectionExplanationTextOutdated = L10n.tr("Localizable", "ExposureDetection_Explanation_Text_Outdated")
-  /// Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko- Ermittlung unter Berücksichtigung von Abstand und Dauer lokal auf Ihrem Smartphone berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.
+  /// Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.\n\nDas Infektionsrisiko wird anhand der Daten der Risiko-Ermittlung mit Bezug zum Abstand und der Dauer lokal auf Ihrem Endgerät berechnet. Ihr Infektionsrisiko ist für niemanden einsehbar und wird nicht weitergegeben.
   internal static let exposureDetectionExplanationTextUnknown = L10n.tr("Localizable", "ExposureDetection_Explanation_Text_Unknown")
   /// Infektionsrisiko
   internal static let exposureDetectionExplanationTitle = L10n.tr("Localizable", "ExposureDetection_Explanation_Title")
@@ -163,8 +153,6 @@ internal enum L10n {
   internal static func exposureDetectionLastRiskLevel(_ p1: String) -> String {
     return L10n.tr("Localizable", "ExposureDetection_LastRiskLevel", p1)
   }
-  /// Prüfung läuft…
-  internal static let exposureDetectionLoading = L10n.tr("Localizable", "ExposureDetection_Loading")
   /// Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.
   internal static let exposureDetectionLoadingText = L10n.tr("Localizable", "ExposureDetection_LoadingText")
   /// Geringes Risiko
@@ -189,7 +177,7 @@ internal enum L10n {
   }
   /// Unbekannt
   internal static let exposureDetectionRefreshedNever = L10n.tr("Localizable", "ExposureDetection_Refreshed_Never")
-  /// Aktualisierung in %02d:%02d Minuten
+  /// Aktualisierung in %02d:%02d Minuten
   internal static func exposureDetectionRefreshingIn(_ p1: Int, _ p2: Int) -> String {
     return L10n.tr("Localizable", "ExposureDetection_RefreshingIn", p1, p2)
   }
@@ -403,8 +391,6 @@ internal enum L10n {
   internal static let exposureSubmissionResultRemoveAlertText = L10n.tr("Localizable", "ExposureSubmissionResult_RemoveAlert_Text")
   /// Test entfernen?
   internal static let exposureSubmissionResultRemoveAlertTitle = L10n.tr("Localizable", "ExposureSubmissionResult_RemoveAlert_Title")
-  /// Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.
-  internal static let exposureSubmissionResultRemoveNote = L10n.tr("Localizable", "ExposureSubmissionResult_removeNote")
   /// Test erfolgreich hinzugefügt
   internal static let exposureSubmissionResultTestAdded = L10n.tr("Localizable", "ExposureSubmissionResult_testAdded")
   /// Ihr Test wurde in der Corona-Warn-App registriert.
@@ -427,15 +413,15 @@ internal enum L10n {
   internal static let exposureSubmissionResultTestNegativeFurtherInfosTitle = L10n.tr("Localizable", "ExposureSubmissionResult_testNegative_furtherInfos_title")
   /// Der Labortest hat keinen Nachweis für das Coronavirus SARS-CoV-2 bei Ihnen ergeben.
   internal static let exposureSubmissionResultTestNegativeDesc = L10n.tr("Localizable", "ExposureSubmissionResult_testNegativeDesc")
-  /// Test-Ergebnis noch nicht verfügbar
+  /// Testergebnis noch nicht verfügbar
   internal static let exposureSubmissionResultTestPending = L10n.tr("Localizable", "ExposureSubmissionResult_testPending")
-  /// Ihr Test-Ergebnis steht noch nicht zur Verfügung.
+  /// Ihr Testergebnis steht noch nicht zur Verfügung.
   internal static let exposureSubmissionResultTestPendingDesc = L10n.tr("Localizable", "ExposureSubmissionResult_testPendingDesc")
   /// Befund positiv
   internal static let exposureSubmissionResultTestPositive = L10n.tr("Localizable", "ExposureSubmissionResult_testPositive")
-  /// Ihr Test-Ergebnis wurde erfolgreich als “positiv” verifiziert.
+  /// Ihr Testergebnis wurde erfolgreich als “positiv” verifiziert.
   internal static let exposureSubmissionResultTestPositiveDesc = L10n.tr("Localizable", "ExposureSubmissionResult_testPositiveDesc")
-  /// Test-Ergebnis
+  /// Testergebnis
   internal static let exposureSubmissionResultTitle = L10n.tr("Localizable", "ExposureSubmissionResult_Title")
   /// Andere warnen
   internal static let exposureSubmissionResultWarnOthers = L10n.tr("Localizable", "ExposureSubmissionResult_warnOthers")
@@ -493,12 +479,6 @@ internal enum L10n {
   internal static let exposureSubmissionWarnOthersTitle = L10n.tr("Localizable", "ExposureSubmissionWarnOthers_title")
   /// Zurück
   internal static let generalBackButtonTitle = L10n.tr("Localizable", "General_BackButtonTitle")
-  /// Erhöhtes Risiko
-  internal static let highRisk = L10n.tr("Localizable", "high_risk")
-  /// Es wurde ein erhöhtes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.
-  internal static let highRiskDetail = L10n.tr("Localizable", "high_risk_detail")
-  /// Es besteht hohes Infektionsrisiko, da eine Begegnung mit Corona-positiv getesteten Personen aufgezeichnet wurde.
-  internal static let highRiskDetailHelp = L10n.tr("Localizable", "high_risk_detail_help")
   /// Bluetooth deaktiviert
   internal static let homeActivateCardBluetoothOffTitle = L10n.tr("Localizable", "Home_Activate_Card_Bluetooth_Off_Title")
   /// Keine Internetverbindung
@@ -551,12 +531,6 @@ internal enum L10n {
   internal static let homeResultCardNegativeTitle = L10n.tr("Localizable", "Home_resultCard_NegativeTitle")
   /// Die Auswertung dauert zwischen 1-3 Tagen.
   internal static let homeResultCardPendingDesc = L10n.tr("Localizable", "Home_resultCard_PendingDesc")
-  /// Ergebnis liegt noch nicht vor
-  internal static let homeResultCardPendingTitle = L10n.tr("Localizable", "Home_resultCard_PendingTitle")
-  /// Das Virus SARS-CoV-2 wurde bei Ihnen nachgewiesen.
-  internal static let homeResultCardPositiveDesc = L10n.tr("Localizable", "Home_resultCard_PositiveDesc")
-  /// Befund positiv
-  internal static let homeResultCardPositiveTitle = L10n.tr("Localizable", "Home_resultCard_PositiveTitle")
   /// Ihr Ergebnis liegt vor
   internal static let homeResultCardResultAvailableTitle = L10n.tr("Localizable", "Home_resultCard_ResultAvailableTitle")
   /// Ergebnis liegt noch nicht vor
@@ -573,10 +547,16 @@ internal enum L10n {
   internal static let homeRiskHighButton = L10n.tr("Localizable", "Home_Risk_High_Button")
   /// Erhöhtes Risiko
   internal static let homeRiskHighTitle = L10n.tr("Localizable", "Home_Risk_High_Title")
+  /// Erhöhtes Risiko
+  internal static let homeRiskInactiveActivateItemHighTitle = L10n.tr("Localizable", "Home_Risk_Inactive_Activate_Item_High_Title")
+  /// Geringes Risiko
+  internal static let homeRiskInactiveActivateItemLowTitle = L10n.tr("Localizable", "Home_Risk_Inactive_Activate_Item_Low_Title")
   /// Letzte Risiko-Ermittlung: %@
   internal static func homeRiskInactiveActivateItemTitle(_ p1: String) -> String {
     return L10n.tr("Localizable", "Home_Risk_Inactive_Activate_Item_Title", p1)
   }
+  /// Unbekanntes Risiko
+  internal static let homeRiskInactiveActivateItemUnknownTitle = L10n.tr("Localizable", "Home_Risk_Inactive_Activate_Item_Unknown_Title")
   /// Aktivieren Sie die Risiko-Ermittlung, um Ihren heutigen Risikostatus zu berechnen.
   internal static let homeRiskInactiveNoCalculationPossibleBody = L10n.tr("Localizable", "Home_Risk_Inactive_NoCalculation_Possible_Body")
   /// Risiko-Ermittlung einschalten
@@ -599,7 +579,7 @@ internal enum L10n {
   internal static let homeRiskLowTitle = L10n.tr("Localizable", "Home_Risk_Low_Title")
   /// Unbekannt
   internal static let homeRiskNoDateTitle = L10n.tr("Localizable", "Home_Risk_No_Date_Title")
-  /// Aktualisierung alle %@ Stunden
+  /// Aktualisierung alle %@ Stunden
   internal static func homeRiskPeriodUpdateTitle(_ p1: String) -> String {
     return L10n.tr("Localizable", "Home_Risk_Period_Update_Title", p1)
   }
@@ -643,12 +623,6 @@ internal enum L10n {
   internal static let homeThankYouCardPhoneItemTitle = L10n.tr("Localizable", "Home_Thank_You_Card_Phone_Item_Title")
   /// Vielen Dank!
   internal static let homeThankYouCardTitle = L10n.tr("Localizable", "Home_Thank_You_Card_Title")
-  /// Keine Risiko-Überprüfung
-  internal static let inactiveRisk = L10n.tr("Localizable", "inactive_risk")
-  /// inactive
-  internal static let inactiveRiskDetail = L10n.tr("Localizable", "inactive_risk_detail")
-  /// inactive
-  internal static let inactiveRiskDetailHelp = L10n.tr("Localizable", "inactive_risk_detail_help")
   /// Download-Link versenden
   internal static let inviteFriendsButton = L10n.tr("Localizable", "InviteFriends_Button")
   /// Je mehr Menschen mitmachen, desto besser durchbrechen wir Infektionsketten. Laden Sie Familie, Freunde und Bekannte ein!
@@ -677,12 +651,6 @@ internal enum L10n {
   internal static let localNotificationsTestresultsTitle = L10n.tr("Localizable", "local_notifications_testresults_title")
   /// Ergebnisse anzeigen
   internal static let localNotificationsViewResults = L10n.tr("Localizable", "local_notifications_viewResults")
-  /// Geringes Risiko
-  internal static let lowRisk = L10n.tr("Localizable", "low_risk")
-  /// Es wurde ein geringes Risiko für Begegnungen mit Corona-positiv getesteten Personen erkannt.
-  internal static let lowRiskDetail = L10n.tr("Localizable", "low_risk_detail")
-  /// Das Infektionsrisiko ist gering, da eine Begegnung mit Corona-positiv getesteten Personen noch gar nicht oder nur über kurzen Zeitpunkt hinweg aufgezeichnet wurde.
-  internal static let lowRiskDetailHelp = L10n.tr("Localizable", "low_risk_detail_help")
   /// Mitteilungen
   internal static let notificationSettingsNavTitle = L10n.tr("Localizable", "NotificationSettings_NavTitle")
   /// Mitteilungen
@@ -701,12 +669,10 @@ internal enum L10n {
   internal static let notificationSettingsOnRiskChanges = L10n.tr("Localizable", "NotificationSettings_On_RiskChanges")
   /// Einstellung
   internal static let notificationSettingsOnSectionTitle = L10n.tr("Localizable", "NotificationSettings_On_SectionTitle")
-  /// Status Ihres Coronavirus-Tests
+  /// Status Ihres COVID-19 Tests
   internal static let notificationSettingsOnTestsStatus = L10n.tr("Localizable", "NotificationSettings_On_TestsStatus")
-  /// Möchten Sie Mitteilungen zu Ihrem Covid-19 Risikostatus aktivieren?
+  /// Möchten Sie Mitteilungen zu Ihrem COVID-19-Risikostatus aktivieren?
   internal static let notificationSettingsOnTitle = L10n.tr("Localizable", "NotificationSettings_On_Title")
-  /// Zurück
-  internal static let onboardingBackActionText = L10n.tr("Localizable", "Onboarding_Back_actionText")
   /// Weiter
   internal static let onboardingContinueActionText = L10n.tr("Localizable", "Onboarding_Continue_actionText")
   /// Sie können die Funktion jederzeit ausschalten.
@@ -719,12 +685,8 @@ internal enum L10n {
   internal static let onboardingDoNotAllowActionText = L10n.tr("Localizable", "Onboarding_doNotAllow_actionText")
   /// Risiko-Ermittlung aktivieren
   internal static let onboardingEnableLoggingActionText = L10n.tr("Localizable", "Onboarding_EnableLogging_actionText")
-  /// Fertig
-  internal static let onboardingFinish = L10n.tr("Localizable", "Onboarding_Finish")
   /// Los geht’s
   internal static let onboardingLetsGoActionText = L10n.tr("Localizable", "Onboarding_LetsGo_actionText")
-  /// Weiter
-  internal static let onboardingNext = L10n.tr("Localizable", "Onboarding_Next")
   /// Die App kann Sie automatisch über Ihren Risikostatus informieren und bei Neuinfektionen von Menschen, denen Sie begegnet sind, warnen. Erlauben Sie der App jetzt, Sie zu benachrichtigen.
   internal static let onboardingInfoAlwaysStayInformedPageBoldText = L10n.tr("Localizable", "OnboardingInfo_alwaysStayInformedPage_boldText")
   /// Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.
@@ -739,7 +701,7 @@ internal enum L10n {
   internal static let onboardingInfoEnableLoggingOfContactsPageImageDescription = L10n.tr("Localizable", "OnboardingInfo_enableLoggingOfContactsPage_imageDescription")
   /// Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.\n\nDie verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.
   internal static let onboardingInfoEnableLoggingOfContactsPageNormalText = L10n.tr("Localizable", "OnboardingInfo_enableLoggingOfContactsPage_normalText")
-  /// Um zu erfahren, ob Sie Kontakt mit einer infizierten Person hatten und für Sie ein Infektionsrisiko besteht, müssen Sie die Funktion Risiko-Ermittlung in der App aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung stimmen Sie mit Antippen des Buttons: Risiko-Ermittlung aktivieren zu.\n\nUm die Risiko-Ermittlung nutzen zu können müssen Sie zudem auf Ihrem iPhone die von Apple “ aktivieren und für die Corona-Warn-App freigeben.\n\nIhr iPhone erzeugt und versendet bei aktivierter Kontaktaufzeichnung kontinuierlich Zufalls-IDs per Bluetooth, die von anderen Apple- und Android-Smartphones mit ebenfalls aktivierter Kontaktaufzeichnung in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs der anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden im COVID-19-Kontaktprotokoll aufgezeichnet und dort für 14 Tage gespeichert.\n\nZur Ermittlung Ihres Infektionsrisikos lädt die App mehrmals täglich oder auf Abfrage eine Liste mit den Zufalls-IDs aller Nutzer, die Ihre Infektion mit dem Corona-Virus in der App geteilt haben. Diese Liste wird dann mit den im COVID-19-Kontaktprotokoll gespeicherten Zufalls-IDs verglichen. Wenn die App dabei feststellt, dass Sie möglicherweise Kontakt zu einem infizierten Nutzer gehabt haben, werden Sie von der App informiert, dass Sie mit einer infizierten Person in Kontakt waren und insoweit ein Infektionsrisiko besteht. In diesem Fall erhält die App außerdem Zugriff auf weitere im COVID-19-Kontaktprotokoll Ihres iPhone gespeicherte Daten (Datum und Dauer sowie Bluetooth-Signalstärke des Kontakts).\n\nAus der Bluetooth-Signalstärke wird der räumliche Abstand abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Gesundheitsrisiko durch eine Infektion mit dem Corona-Virus abzuschätzen und Ihnen Empfehlungen für die nächsten Schritte zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt. Außer Ihnen erfährt niemand (auch nicht das RKI), ob Sie mit einer infizierten Person Kontakt hatten und welches Risiko für Sie ermittelt wird.\n\nZum Widerruf Ihrer Einwilligung in die Risiko-Ermittlung können Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Kontakt zu einem infizierten Nutzer gehabt haben. Um auch die Aussendung und den Empfang der Zufalls-IDs anzuhalten, müssen Sie das COVID-19-Kontaktprotokoll in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die im COVID-19-Kontaktprotokoll aufgezeichneten fremden und eigenen Zufalls-Kennungen nicht in der App gelöscht werden. Die im COVID-19-Kontaktprotokoll gespeicherten Daten können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\nDie Datenschutzhinweise der App (einschließlich Informationen zur Datenverarbeitung für die Risiko-Ermittlung) finden Sie unter dem Menüpunkt „Datenschutzinformation“.
+  /// Um zu erfahren, ob Sie Kontakt mit einer infizierten Person hatten und für Sie ein Infektionsrisiko besteht, müssen Sie die Funktion Risiko-Ermittlung in der App aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung stimmen Sie mit Antippen des Buttons: Risiko-Ermittlung aktivieren zu.\n\n\nUm die Risiko-Ermittlung nutzen zu können müssen Sie zudem auf Ihrem iPhone die von Apple “ aktivieren und für die Corona-Warn-App freigeben.\n\n\nIhr iPhone erzeugt und versendet bei aktivierter Kontaktaufzeichnung kontinuierlich Zufalls-IDs per Bluetooth, die von anderen Apple- und Android-Smartphones mit ebenfalls aktivierter Kontaktaufzeichnung in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs der anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden im COVID-19-Kontaktprotokoll aufgezeichnet und dort für 14 Tage gespeichert.\n\n\nZur Ermittlung Ihres Infektionsrisikos lädt die App mehrmals täglich oder auf Abfrage eine Liste mit den Zufalls-IDs aller Nutzer, die Ihre Infektion mit dem Corona-Virus in der App geteilt haben. Diese Liste wird dann mit den im COVID-19-Kontaktprotokoll gespeicherten Zufalls-IDs verglichen. Wenn die App dabei feststellt, dass Sie möglicherweise Kontakt zu einem infizierten Nutzer gehabt haben, werden Sie von der App informiert, dass Sie mit einer infizierten Person in Kontakt waren und insoweit ein Infektionsrisiko besteht. In diesem Fall erhält die App außerdem Zugriff auf weitere im COVID-19-Kontaktprotokoll Ihres iPhone gespeicherte Daten (Datum und Dauer sowie Bluetooth-Signalstärke des Kontakts).\n\nAus der Bluetooth-Signalstärke wird der räumliche Abstand abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Gesundheitsrisiko durch eine Infektion mit dem Corona-Virus abzuschätzen und Ihnen Empfehlungen für die nächsten Schritte zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt. Außer Ihnen erfährt niemand (auch nicht das RKI), ob Sie mit einer infizierten Person Kontakt hatten und welches Risiko für Sie ermittelt wird.\n\nZum Widerruf Ihrer Einwilligung in die Risiko-Ermittlung können Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Kontakt zu einem infizierten Nutzer gehabt haben. Um auch die Aussendung und den Empfang der Zufalls-IDs anzuhalten, müssen Sie das COVID-19-Kontaktprotokoll in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die im COVID-19-Kontaktprotokoll aufgezeichneten fremden und eigenen Zufalls-Kennungen nicht in der App gelöscht werden. Die im COVID-19-Kontaktprotokoll gespeicherten Daten können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\n\nDie Datenschutzhinweise der App (einschließlich Informationen zur Datenverarbeitung für die Risiko-Ermittlung) finden Sie unter dem Menüpunkt „Datenschutzinformation“.
   internal static let onboardingInfoEnableLoggingOfContactsPagePanelBody = L10n.tr("Localizable", "OnboardingInfo_enableLoggingOfContactsPage_panelBody")
   /// Einwilligungserklärung
   internal static let onboardingInfoEnableLoggingOfContactsPagePanelTitle = L10n.tr("Localizable", "OnboardingInfo_enableLoggingOfContactsPage_panelTitle")
@@ -803,8 +765,12 @@ internal enum L10n {
   internal static let riskLegendLegend1Title = L10n.tr("Localizable", "RiskLegend_Legend1_Title")
   /// Erhöhtes Risiko
   internal static let riskLegendLegend2High = L10n.tr("Localizable", "RiskLegend_Legend2_High")
+  /// Rot
+  internal static let riskLegendLegend2HighColor = L10n.tr("Localizable", "RiskLegend_Legend2_High_Color")
   /// Niedriges Risiko
   internal static let riskLegendLegend2Low = L10n.tr("Localizable", "RiskLegend_Legend2_Low")
+  /// Grün
+  internal static let riskLegendLegend2LowColor = L10n.tr("Localizable", "RiskLegend_Legend2_Low_Color")
   /// Folgende Risikostufen können angezeigt werden:
   internal static let riskLegendLegend2RiskLevels = L10n.tr("Localizable", "RiskLegend_Legend2_RiskLevels")
   /// Sind Sie innerhalb der letzten 14 Tage einer Corona-positiv getesteten Person begegnet, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand eine Begegnung stattfand.
@@ -813,6 +779,8 @@ internal enum L10n {
   internal static let riskLegendLegend2Title = L10n.tr("Localizable", "RiskLegend_Legend2_Title")
   /// Unbekanntes Risiko
   internal static let riskLegendLegend2Unknown = L10n.tr("Localizable", "RiskLegend_Legend2_Unknown")
+  /// Grau
+  internal static let riskLegendLegend2UnknownColor = L10n.tr("Localizable", "RiskLegend_Legend2_Unknown_Color")
   /// Eine weitere zentrale Funktion. Hier können Sie Ihren Test registrieren und seinen Status abfragen. Bei einem positiven Test können Sie andere warnen und damit Infektionsketten unterbrechen.
   internal static let riskLegendLegend3Text = L10n.tr("Localizable", "RiskLegend_Legend3_Text")
   /// Benachrichtigung anderer
@@ -841,7 +809,7 @@ internal enum L10n {
   internal static let settingsKontaktProtokollStatusInactive = L10n.tr("Localizable", "Settings_KontaktProtokollStatusInactive")
   /// Einstellungen
   internal static let settingsNavTitle = L10n.tr("Localizable", "Settings_NavTitle")
-  /// Erlauben Sie automatische Mitteilungen zu Covid-19-Risikostatus.
+  /// Erlauben Sie automatische Mitteilungen zu Ihrem COVID-19-Risikostatus.
   internal static let settingsNotificationDescription = L10n.tr("Localizable", "Settings_Notification_Description")
   /// Mitteilungen
   internal static let settingsNotificationLabel = L10n.tr("Localizable", "Settings_Notification_Label")
@@ -853,25 +821,19 @@ internal enum L10n {
   internal static let settingsStatusActive = L10n.tr("Localizable", "Settings_StatusActive")
   /// Aus
   internal static let settingsStatusInactive = L10n.tr("Localizable", "Settings_StatusInactive")
-  /// Erlauben Sie die Aufzeichnung und Weitergabe von Covid-19-Zufallscodes.
+  /// Erlauben Sie die Aufzeichnung und Weitergabe von COVID-19-Zufallscodes.
   internal static let settingsTracingDescription = L10n.tr("Localizable", "Settings_Tracing_Description")
   /// Risiko-Ermittlung
   internal static let settingsTracingLabel = L10n.tr("Localizable", "Settings_Tracing_Label")
-  /// Unbekanntes Risiko
-  internal static let unknownRisk = L10n.tr("Localizable", "unknown_risk")
-  /// Es wurde keine Begegnung mit Corona-positiv getesteten Personen erkannt.
-  internal static let unknownRiskDetail = L10n.tr("Localizable", "unknown_risk_detail")
-  /// Das Infektionsrisiko ist unbekannt, da bisher noch keine Begegnungen aufgezeichnet wurden.
-  internal static let unknownRiskDetailHelp = L10n.tr("Localizable", "unknown_risk_detail_help")
   /// Später
   internal static let updateMessageActionLater = L10n.tr("Localizable", "Update_Message_Action_Later")
   /// Update
   internal static let updateMessageActionUpdate = L10n.tr("Localizable", "Update_Message_Action_Update")
-  /// Es gibt ein neues Update für die Corona-Warn-App
+  /// Es gibt ein neues Update für die Corona-Warn-App.
   internal static let updateMessageText = L10n.tr("Localizable", "Update_Message_Text")
   /// Bitte beachten Sie: Sie können die Corona-Warn-App erst wieder benutzen, wenn Sie das neueste Update installiert haben.
   internal static let updateMessageTextForce = L10n.tr("Localizable", "Update_Message_Text_Force")
-  /// Update verfügbar:
+  /// Update verfügbar
   internal static let updateMessageTitle = L10n.tr("Localizable", "Update_Message_Title")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

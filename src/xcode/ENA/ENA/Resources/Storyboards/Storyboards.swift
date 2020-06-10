@@ -49,8 +49,6 @@ internal enum StoryboardScene {
     internal static let exposureSubmissionTestResultViewController = SceneType<ENA.ExposureSubmissionTestResultViewController>(storyboard: ExposureSubmission.self, identifier: "ExposureSubmissionTestResultViewController")
 
     internal static let exposureSubmissionWarnOthersViewController = SceneType<ENA.ExposureSubmissionWarnOthersViewController>(storyboard: ExposureSubmission.self, identifier: "ExposureSubmissionWarnOthersViewController")
-
-    internal static let testD = SceneType<ENA.ExposureSubmissionQRScannerNavigationController>(storyboard: ExposureSubmission.self, identifier: "testD")
   }
   internal enum Home: StoryboardType {
     internal static let storyboardName = "Home"

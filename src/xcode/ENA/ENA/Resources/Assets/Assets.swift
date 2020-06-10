@@ -220,7 +220,6 @@ internal enum Asset {
     internal enum BrandColors {
       internal static let enaBrandBlueColor = UIColor(named: "ENA Brand Blue Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let enaBrandBurgundyColor = UIColor(named: "ENA Brand Burgundy Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
-      internal static let enaBrandLightBlueColor = UIColor(named: "ENA Brand Light Blue Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let enaBrandRedColor = UIColor(named: "ENA Brand Red Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
     }
     internal enum ButtonColors {
@@ -248,6 +247,8 @@ internal enum Asset {
       internal static let enaTextPrimary1ContrastColor = UIColor(named: "ENA Text Primary 1 Contrast Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let enaTextPrimary2Color = UIColor(named: "ENA Text Primary 2 Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let enaTextPrimary3Color = UIColor(named: "ENA Text Primary 3 Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
+      internal static let enaTextSemanticGrayColor = UIColor(named: "ENA Text Semantic Gray Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
+      internal static let enaTextSemanticGreenColor = UIColor(named: "ENA Text Semantic Green Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let enaTextSemanticRedColor = UIColor(named: "ENA Text Semantic Red Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let enaTextTintColor = UIColor(named: "ENA Text Tint Color", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
     }
@@ -258,7 +259,6 @@ internal enum Asset {
       BackgroundColors.enaSeparatorColor,
       BrandColors.enaBrandBlueColor,
       BrandColors.enaBrandBurgundyColor,
-      BrandColors.enaBrandLightBlueColor,
       BrandColors.enaBrandRedColor,
       ButtonColors.enaButtonDestructiveColor,
       ButtonColors.enaButtonHighlightColor,
@@ -276,6 +276,8 @@ internal enum Asset {
       TextColors.enaTextPrimary1ContrastColor,
       TextColors.enaTextPrimary2Color,
       TextColors.enaTextPrimary3Color,
+      TextColors.enaTextSemanticGrayColor,
+      TextColors.enaTextSemanticGreenColor,
       TextColors.enaTextSemanticRedColor,
       TextColors.enaTextTintColor,
     ]
