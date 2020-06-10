@@ -84,8 +84,10 @@ extension DynamicTableViewControllerNumberOfRowsAndSectionsTests {
 	func testNumberOfRows_returnsValueFromViewModel_withOneCell() {
 		// setup view model
 		let cells = [
-			DynamicCell.headline(text: "Foo",
-								 accessibilityIdentifier: "Foo")
+			DynamicCell.headline(
+				text: "Foo",
+				accessibilityIdentifier: "Foo"
+			)
 		]
 		sut.dynamicTableViewModel = DynamicTableViewModel([.section(cells: cells)])
 		

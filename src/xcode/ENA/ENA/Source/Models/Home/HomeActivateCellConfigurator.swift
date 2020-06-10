@@ -54,11 +54,7 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
 		cell.iconImageView.image = iconImage
 
-		setupAccessibility(for: cell)
-	}
-
-	func setupAccessibility(for cell: ActivateCollectionViewCell) {
-		cell.isAccessibilityElement = true
+		cell.accessibilityLabel = cell.titleLabel.text ?? ""
 	}
 }
 
