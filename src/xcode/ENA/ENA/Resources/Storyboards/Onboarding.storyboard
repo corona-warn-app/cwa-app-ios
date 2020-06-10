@@ -29,13 +29,11 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="229"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" verticalHuggingPriority="1000" image="Illu_Onboarding_GemeinsamCoronabekaempfen" translatesAutoresizingMaskIntoConstraints="NO" id="mfP-Vw-3SQ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="229"/>
+                                                                <rect key="frame" x="-16" y="0.0" width="414" height="229"/>
                                                             </imageView>
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="mfP-Vw-3SQ" firstAttribute="top" secondItem="0fv-1M-Keg" secondAttribute="top" id="BZz-Z8-X26"/>
-                                                            <constraint firstAttribute="trailing" secondItem="mfP-Vw-3SQ" secondAttribute="trailing" id="iu1-wQ-5jX"/>
-                                                            <constraint firstItem="mfP-Vw-3SQ" firstAttribute="leading" secondItem="0fv-1M-Keg" secondAttribute="leading" id="uxs-d2-GlS"/>
                                                             <constraint firstAttribute="bottom" secondItem="mfP-Vw-3SQ" secondAttribute="bottom" id="ySP-3n-hjS"/>
                                                         </constraints>
                                                     </view>
@@ -75,10 +73,12 @@
                                             </stackView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="mfP-Vw-3SQ" firstAttribute="leading" secondItem="OQb-9Z-xLl" secondAttribute="leading" id="26b-ut-V2b"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="2eY-pe-EqA" secondAttribute="trailing" id="2Lb-3b-S4q"/>
                                             <constraint firstItem="2eY-pe-EqA" firstAttribute="leading" secondItem="OQb-9Z-xLl" secondAttribute="leadingMargin" id="MeS-VO-imZ"/>
                                             <constraint firstItem="2eY-pe-EqA" firstAttribute="top" secondItem="OQb-9Z-xLl" secondAttribute="topMargin" id="cPS-1v-1xt"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="2eY-pe-EqA" secondAttribute="bottom" id="k6k-qT-j9v"/>
+                                            <constraint firstAttribute="trailing" secondItem="mfP-Vw-3SQ" secondAttribute="trailing" id="yvH-dE-8An"/>
                                         </constraints>
                                         <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                     </view>
@@ -180,7 +180,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Primary 1 Color">
-            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
