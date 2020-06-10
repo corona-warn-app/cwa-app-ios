@@ -69,6 +69,7 @@ class ENAButton: DynamicTypeButton {
 		contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
 		titleLabel?.font = .preferredFont(forTextStyle: .body)
+		titleLabel?.textAlignment = .center
 		titleLabel?.lineBreakMode = .byWordWrapping
 		dynamicTypeSize = 17
 		dynamicTypeWeight = "semibold"
