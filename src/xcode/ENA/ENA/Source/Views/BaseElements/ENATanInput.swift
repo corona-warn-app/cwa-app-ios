@@ -127,6 +127,8 @@ class ENATanInput: UIControl, UIKeyInput {
 		stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		stackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
 		stackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+
+		setupAccessibility()
 	}
 
 	func insertText(_ text: String) {
@@ -149,6 +151,9 @@ class ENATanInput: UIControl, UIKeyInput {
 			}
 
 		}
+
+		accessibilityLabel = self.text
+
 		delegate?.tanChanged(isValid: isValid, checksumIsValid: verifyChecksum(input: self.text), isBlocked: inputBlocked
 		)
 	}
@@ -194,6 +199,25 @@ class ENATanInput: UIControl, UIKeyInput {
 		// swiftlint:disable:next force_unwrapping
 		return checksum.first!
 	}
+
+	func setupAccessibility() {
+		isAccessibilityElement = true
+		accessibilityLabel = nil
+		accessibilityIdentifier = "ENATanInput"
+		accessibilityTraits = .updatesFrequently
+	}
+
+	override func accessibilityElementCount() -> Int {
+		return labels.count
+	}
+	override func accessibilityElement(at index: Int) -> Any? {
+		return labels[index]
+	}
+	override func index(ofAccessibilityElement element: Any) -> Int {
+		guard let label = element as? ENATanInputLabel else { return -1 }
+		return labels.firstIndex(of: label) ?? -1
+	}
+
 }
 
 private class ENATanInputLabel: UILabel {
