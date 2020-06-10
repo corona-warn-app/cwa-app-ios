@@ -132,7 +132,7 @@ class ENAButton: DynamicTypeButton {
 
 		guard nil == activityIndicator else { return }
 
-		let activityIndicator = UIActivityIndicatorView(style: .medium)
+		let activityIndicator = UIActivityIndicatorView(style: traitCollection.preferredContentSizeCategory >= .accessibilityExtraLarge ? .large : .medium)
 		activityIndicator.translatesAutoresizingMaskIntoConstraints = false
 		activityIndicator.isUserInteractionEnabled = false
 
