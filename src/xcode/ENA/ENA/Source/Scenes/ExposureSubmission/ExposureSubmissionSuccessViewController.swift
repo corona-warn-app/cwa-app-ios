@@ -39,13 +39,13 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController 
 		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
 	}
+}
 
+extension ExposureSubmissionSuccessViewController: ExposureSubmissionNavigationControllerChild {
 	func didTapButton() {
 		dismiss(animated: true, completion: nil)
 	}
 }
-
-extension ExposureSubmissionSuccessViewController: ExposureSubmissionNavigationControllerChild {}
 
 private extension DynamicTableViewModel {
 	static let data = DynamicTableViewModel([
