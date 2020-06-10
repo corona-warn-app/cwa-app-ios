@@ -170,6 +170,9 @@ extension ExposureNotificationSettingViewController {
 	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		switch model.content[section] {
 		case .actionCell:
+			if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+				return UITableView.automaticDimension
+			}
 			return 40
 		default:
 			return 0
