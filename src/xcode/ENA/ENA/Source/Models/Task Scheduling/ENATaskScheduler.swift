@@ -21,12 +21,13 @@ import UIKit
 
 enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
-	case fetchTestResults = "exposure-notification"
-//	case fetchTestResults = "fetch-test-results"
+//	case fetchTestResults = "exposure-notification"
+	case fetchTestResults = "fetch-test-results"
 
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
 		// set to trigger every 2 hours
+			// TODO: change back to 2hrs
 		case .fetchTestResults: return 5 * 60 //2 * 60 * 60
 		}
 	}
@@ -99,6 +100,7 @@ final class ENATaskScheduler {
 
 	// Task Handlers:
 	private func executeBackgroundTask(_ task: BGTask) {
+		UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: "\(task.identifier) started", identifier: UUID().uuidString)
 		executeFetchTestResults(task) { executeFetchTestResultsSuccess in
 			self.executeExposureDetectionRequest(task) { executeExposureDetectionRequestSuccess in
 				let success = executeFetchTestResultsSuccess && executeExposureDetectionRequestSuccess
@@ -108,7 +110,12 @@ final class ENATaskScheduler {
 				self.scheduleTasks()
 			}
 		}
+
+		task.expirationHandler = {
+			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
+		}
 	}
+
 	private func executeExposureDetectionRequest(_ task: BGTask, completion: @escaping ((Bool) -> Void)) {
 		guard let taskDelegate = taskDelegate else {
 			task.setTaskCompleted(success: false)

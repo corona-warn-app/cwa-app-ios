@@ -242,10 +242,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 		UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: task.identifier, identifier: UUID().uuidString)
 
-		func complete(success: Bool) {
-			completion(success)
-		}
-
 		riskProvider.requestRisk(userInitiated: false) { risk in
 			// present a notification if the risk score has increased
 			if let risk = risk,
@@ -256,22 +252,15 @@ extension AppDelegate: ENATaskExecutionDelegate {
 					identifier: task.identifier
 				)
 			}
-			complete(success: true)
+			completion(true)
 		}
 
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			complete(success: false)
-		}
 	}
 
 	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
 		UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: task.identifier, identifier: UUID().uuidString)
 
-		func complete(success: Bool) {
-			completion(success)
-		}
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
@@ -289,15 +278,11 @@ extension AppDelegate: ENATaskExecutionDelegate {
 					}
 				}
 
-				complete(success: true)
+				completion(true)
 			}
 		} else {
-			complete(success: true)
+			completion(true)
 		}
 
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			complete(success: false)
-		}
 	}
 }
