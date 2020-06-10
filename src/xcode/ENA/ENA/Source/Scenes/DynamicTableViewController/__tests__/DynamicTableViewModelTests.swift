@@ -50,25 +50,23 @@ class DynamicTableViewModelTests: XCTestCase {
 		]
 		sut = DynamicTableViewModel(sections)
 	}
-	
+
 	override func tearDownWithError() throws {
 		sut = nil
 		sections = []
 		cellsSection0 = []
 		cellsSection1 = []
 	}
-	
+
 	func testSection_returnsInitializedSection() {
-		
 		let section = sut.section(1)
 		
 		XCTAssertEqual(section.cells.count, 1)
 		XCTAssertEqual(section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
 		
 	}
-	
+
 	func testSectionAt_returnsInitializedSection() {
-		
 		let section = sut.section(at: IndexPath(row: 0, section: 1))
 
 		XCTAssertEqual(section.cells.count, 1)
@@ -77,25 +75,21 @@ class DynamicTableViewModelTests: XCTestCase {
 			DynamicCell.CellReuseIdentifier.dynamicTypeText
 		)
 	}
-	
+
 	func testCellAt_returnsInitializedCell() {
-		
 		let cell = sut.cell(at: IndexPath(row: 0, section: 0))
 		XCTAssertEqual(cell.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText)
 	}
 	
 	func testNumberOfSections() {
-		
 		XCTAssertEqual(sut.numberOfSection, sections.count)
 	}
 	
 	func testNumberOfRows_section0() {
-		
 		XCTAssertEqual(sut.numberOfRows(inSection: 0, for: DynamicTableViewController()), cellsSection0.count)
 	}
 	
 	func testAdd_appendsSection() {
-		
 		let cells = [DynamicCell.headline(
 			text: "23",
 			accessibilityIdentifier: "23")
@@ -108,11 +102,9 @@ class DynamicTableViewModelTests: XCTestCase {
 		XCTAssertEqual(
 			section.cells.first?.cellReuseIdentifier as? DynamicCell.CellReuseIdentifier, DynamicCell.CellReuseIdentifier.dynamicTypeText
 		)
-
 	}
 
 	func testWith_returnsAlteredModel() {
-		
 		let model = DynamicTableViewModel.with { model in
 			let cells = [
 				DynamicCell.headline(
@@ -122,7 +114,7 @@ class DynamicTableViewModelTests: XCTestCase {
 			]
 			model.add(DynamicSection.section(cells: cells))
 		}
-		
+
 		// get last section
 		let section = getLastSection(from: model)
 		// assert cell type and content
@@ -135,7 +127,6 @@ class DynamicTableViewModelTests: XCTestCase {
 
 extension DynamicTableViewModelTests {
 	func getLastSection(from model: DynamicTableViewModel) -> DynamicSection {
-		let numberOfSections = model.numberOfSection
-		return model.section(numberOfSections - 1)
+		model.section(model.numberOfSection - 1)
 	}
 }
