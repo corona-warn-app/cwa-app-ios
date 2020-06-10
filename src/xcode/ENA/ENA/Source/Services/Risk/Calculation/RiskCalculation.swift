@@ -176,7 +176,8 @@ enum RiskCalculation {
 		numberOfTracingActiveHours: Int,
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date(),
-		previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		providerConfiguration: RiskProvidingConfiguration
 	) -> Risk? {
 		switch riskLevel(
 			summary: summary,
