@@ -35,7 +35,7 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(store.testResultReceivedTimeStamp, Int64.min)
 	}
 
-	func lastSuccessfulSubmitDiagnosisKeyTimestamp_Success() {
+	func testLastSuccessfulSubmitDiagnosisKeyTimestamp_Success() {
 		XCTAssertNil(store.lastSuccessfulSubmitDiagnosisKeyTimestamp)
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64.max
 		XCTAssertEqual(store.lastSuccessfulSubmitDiagnosisKeyTimestamp, Int64.max)
@@ -43,31 +43,31 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(store.lastSuccessfulSubmitDiagnosisKeyTimestamp, Int64.min)
 	}
 
-	func numberOfSuccesfulSubmissions_Success() {
-		XCTAssertNil(store.numberOfSuccesfulSubmissions)
+	func testNumberOfSuccesfulSubmissions_Success() {
+		XCTAssertEqual(store.numberOfSuccesfulSubmissions, 0)
 		store.numberOfSuccesfulSubmissions = Int64.max
 		XCTAssertEqual(store.numberOfSuccesfulSubmissions, Int64.max)
 		store.numberOfSuccesfulSubmissions = Int64.min
 		XCTAssertEqual(store.numberOfSuccesfulSubmissions, Int64.min)
 	}
 
-	func initialSubmitCompleted_Success() {
-		XCTAssertNil(store.initialSubmitCompleted)
+	func testInitialSubmitCompleted_Success() {
+		XCTAssertEqual(store.initialSubmitCompleted, false)
 		store.initialSubmitCompleted = true
 		XCTAssertEqual(store.initialSubmitCompleted, true)
 		store.initialSubmitCompleted = false
 		XCTAssertEqual(store.initialSubmitCompleted, false)
 	}
 
-	func registrationToken_Success() {
-		XCTAssertEqual(store.registrationToken, "")
+	func testRegistrationToken_Success() {
+		XCTAssertNil(store.registrationToken)
 
 		let token = UUID().description
 		store.registrationToken = token
 		XCTAssertEqual(store.registrationToken, token)
 	}
 
-	func tracingStatusHistory_Success() {
+	func testTracingStatusHistory_Success() {
 		XCTAssertTrue(store.tracingStatusHistory.isEmpty)
 		let date1 = Date(timeIntervalSinceNow: -86400)
 		let date2 = Date()
@@ -79,15 +79,15 @@ final class StoreTests: XCTestCase {
 
 		XCTAssertEqual(store.tracingStatusHistory.count, 2)
 		XCTAssertEqual(store.tracingStatusHistory[0].on, true)
-		XCTAssertEqual(store.tracingStatusHistory[0].date, date1)
+		XCTAssertEqual(store.tracingStatusHistory[0].date.description, date1.description)
 		XCTAssertEqual(store.tracingStatusHistory[1].on, false)
-		XCTAssertEqual(store.tracingStatusHistory[1].date, date2)
+		XCTAssertEqual(store.tracingStatusHistory[1].date.description, date2.description)
 
 		store.flush()
 		XCTAssertTrue(store.tracingStatusHistory.isEmpty)
 	}
 
-	func SummaryMetadata_Success() {
+	func testSummary_Success() {
 		XCTAssertNil(store.summary)
 
 		let date = Date()
@@ -109,7 +109,7 @@ final class StoreTests: XCTestCase {
 		XCTAssertEqual(store.summary?.summary.maximumRiskScoreFullRange, 7)
 	}
 
-	func previousRiskLevel_Success() {
+	func testPreviousRiskLevel_Success() {
 		XCTAssertNil(store.previousRiskLevel)
 		let riskLevel = EitherLowOrIncreasedRiskLevel(rawValue: 7)
 
