@@ -112,7 +112,7 @@
 
 "Settings_Tracing_Description" = "Allow COVID-19 random IDs to be generated and shared.";
 
-"Settings_Notification_Description" = "Allow automatic notifications of COVID-19 risk level";
+"Settings_Notification_Description" = "Allow automatic notifications of your COVID-19 risk level";
 
 "Settings_Reset_Description" = "Delete all your data in the app.";
 
