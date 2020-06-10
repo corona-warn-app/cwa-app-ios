@@ -113,7 +113,7 @@ class ENAButton: DynamicTypeButton {
 		heightConstraint.isActive = true
 
 		if let titleLabel = titleLabel {
-			addConstraint(NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
+			heightAnchor.constraint(equalTo: titleLabel.heightAnchor).isActive = true
 		}
 	}
 }
