@@ -168,7 +168,7 @@
 
 "OnboardingInfo_privacyPage_title" = "Datenschutz";
 
-"OnboardingInfo_privacyPage_boldText" = "HELLO WORLD";
+"OnboardingInfo_privacyPage_boldText" = "";
 
 "OnboardingInfo_privacyPage_normalText" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:";
 
@@ -432,6 +432,8 @@
 
 "ExposureSubmissionError_otherend" = "Bitte versuchen Sie es erneut.";
 
+"ExposureSubmissionError_httpError" = "Es konnte keine Verbindung hergestellt werden.";
+
 "ExposureSubmissionError_declined" = "Bitte geben Sie Ihre Zufallscodes frei, um andere zu warnen.";
 
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
@@ -473,9 +475,9 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt das aktivierte COVID-19-Kontaktprotokoll und die -Mitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie „COVID-19-Kontaktprotokoll und -Mitteilungen“ in Ihren Systemeinstellungen.";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Kindersicherung/Bildschirmzeit aktiviert";
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "COVID-19-Kontaktprotokoll und -Mitteilungen aktivieren";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Die aktivierte Kindersicherung verhindert die Aktivierung der Risiko-Ermittlung. Bitte deaktivieren Sie die Beschränkung dieser App unter Einstellungen -> Bildschirmzeit.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Die Risiko-Ermittlung benötigt das aktivierte COVID-19-Kontaktprotokoll und die -Mitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie „COVID-19-Kontaktprotokoll und -Mitteilungen“ in Ihren Systemeinstellungen.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Autorisierung erforderlich";
 
@@ -629,19 +631,21 @@
 
 "Home_resultCard_ShowResultButton" = "Test anzeigen";
 
-"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
+"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
 
 "Home_resultCard_LoadingTitle" = "Aktualisierung läuft...";
 
 "Home_resultCard_NegativeTitle" = "Befund negativ";
 
-"Home_resultCard_NegativeDesc" = "Sie wurden negativ auf SARS-CoV-2 getestet.";
+"Home_resultCard_NegativeDesc" = "Das Virus SARS-CoV-2 konnte bei Ihnen nicht nachgewiesen werden.";
 
-"Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tagen.";
+"Home_resultCard_PendingDesc" = "Die Auswertung Ihres Tests ist noch nicht abgeschlossen.";
 
-"Home_resultCard_InvalidTitle" = "Befund ungültig";
+"Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
 
 "Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
+
+"Home_resultCard_LoadingErrorTitle" = "Ihr Testergebnis konnte nicht geladen werden";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
