@@ -473,9 +473,9 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "For risk identification, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Parental control/screen time activated";
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Activated parental control prevents activation of risk identification. Please deactivate this restriction in your app in Settings -> Screen time.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For risk identification, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Authorization required";
 
