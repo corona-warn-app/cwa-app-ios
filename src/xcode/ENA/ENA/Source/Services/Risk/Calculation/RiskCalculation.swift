@@ -176,7 +176,7 @@ enum RiskCalculation {
 		numberOfTracingActiveHours: Int,
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date(),
-		previousSummary: CodableExposureDetectionSummary?
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	) -> Risk? {
 		switch riskLevel(
 			summary: summary,
@@ -192,21 +192,22 @@ enum RiskCalculation {
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
 
-			var riskLevelHasChanged = false
-			if
-				let summary = summary,
-				let previousSummary = previousSummary,
-				(RiskLevel(riskScore: summary.maximumRiskScore) == .low || RiskLevel(riskScore: summary.maximumRiskScore) == .increased),
-				RiskLevel(riskScore: summary.maximumRiskScore) != RiskLevel(riskScore: previousSummary.maximumRiskScore) {
-				riskLevelHasChanged = true
-			}
-
 			DispatchQueue.main.async {
 				// TODO: Remove
 				let appDelegate = UIApplication.shared.delegate as? AppDelegate
 				appDelegate?.lastRiskCalculation.append("\n ===== Risk =====\n")
 				appDelegate?.lastRiskCalculation.append("details: \(details)\n")
 				appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
+			}
+
+			var riskLevelHasChanged = false
+			if
+				let previousRiskLevel = previousRiskLevel,
+				let newRiskLevel = EitherLowOrIncreasedRiskLevel(with: level),
+				previousRiskLevel != newRiskLevel {
+				// If the newly calculated risk level is different than the stored level, set the flag to true.
+				// Note that we ignore all levels aside from low or increased risk
+				riskLevelHasChanged = true
 			}
 			
 			return Risk(

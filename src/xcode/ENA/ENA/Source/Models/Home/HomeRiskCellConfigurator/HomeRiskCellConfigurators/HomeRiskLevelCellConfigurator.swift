@@ -30,8 +30,6 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	var detectionIntervalLabelHidden: Bool
 	var lastUpdateDate: Date?
 
-	private let calendar = Calendar.current
-
 	private static let lastUpdateDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
 		dateFormatter.doesRelativeDateFormatting = true

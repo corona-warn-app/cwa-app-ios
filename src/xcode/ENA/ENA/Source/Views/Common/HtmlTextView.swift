@@ -93,10 +93,8 @@ extension HtmlTextView {
 	}
 
 	private func parseHtml(_ html: String) throws -> NSAttributedString? {
-		guard let data = html.data(using: .utf8) else { return nil }
-
 		return try NSAttributedString(
-			data: data,
+			data: Data(html.utf8),
 			options: [
 				.documentType: NSAttributedString.DocumentType.html,
 				.characterEncoding: String.Encoding.utf8.rawValue
@@ -137,6 +135,9 @@ private extension ENAColor {
 		case .riskLow: return "risk-low"
 		case .riskMedium: return "risk-medium"
 		case .riskNeutral: return "risk-neutral"
+
+		// MARK: - Tap States Colors
+		case .listHighlight: return "list-highlight"
 
 		// MARK: - Text Colors
 		case .textContrast: return "text-contrast"

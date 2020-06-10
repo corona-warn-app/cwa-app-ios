@@ -121,30 +121,30 @@ final class HomeInteractor: RequiresAppDependencies {
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
-			body: AppStrings.Home.infoCardShareBody,
+			description: AppStrings.Home.infoCardShareBody,
 			position: .first,
-			accessibilityIdentifier: Accessibility.Cell.infoCardShareTitle
+			accessibilityIdentifier: "AppStrings.Home.infoCardShareTitle"
 		)
 
 		let info2Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardAboutTitle,
-			body: AppStrings.Home.infoCardAboutBody,
+			description: AppStrings.Home.infoCardAboutBody,
 			position: .last,
-			accessibilityIdentifier: Accessibility.Cell.infoCardAboutTitle
+			accessibilityIdentifier: "AppStrings.Home.infoCardAboutTitle"
 		)
 
 		let appInformationConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.appInformationCardTitle,
-			body: nil,
+			description: nil,
 			position: .first,
-			accessibilityIdentifier: Accessibility.Cell.appInformationCardTitle
+			accessibilityIdentifier: "AppStrings.Home.appInformationCardTitle"
 		)
 
 		let settingsConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.settingsCardTitle,
-			body: nil,
+			description: nil,
 			position: .last,
-			accessibilityIdentifier: Accessibility.Cell.settingsCardTitle
+			accessibilityIdentifier: "AppStrings.Home.settingsCardTitle"
 		)
 
 		let infosConfigurators: [CollectionViewCellConfiguratorAny] = [info1Configurator, info2Configurator]
@@ -210,7 +210,7 @@ extension HomeInteractor {
 		case .inactive:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				incativeType: .noCalculationPossible,
-				lastInvestigation: "Geringes Risiko",
+				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
@@ -218,7 +218,7 @@ extension HomeInteractor {
 		case .unknownOutdated:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				incativeType: .outdatedResults,
-				lastInvestigation: "Geringes Risiko",
+				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
 		case .low:
@@ -249,13 +249,13 @@ extension HomeInteractor {
 	}
 
 	private func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
-		testResultConfigurator.buttonAction = homeViewController.showTestResultScreen
+		testResultConfigurator.primaryAction = homeViewController.showTestResultScreen
 		return testResultConfigurator
 	}
 
-	func setupSubmitConfigurator() -> HomeSubmitCellConfigurator {
-		let submitConfigurator = HomeSubmitCellConfigurator()
-		submitConfigurator.submitAction = homeViewController.showExposureSubmissionWithoutResult
+	func setupSubmitConfigurator() -> HomeTestResultCellConfigurator {
+		let submitConfigurator = HomeTestResultCellConfigurator()
+		submitConfigurator.primaryAction = homeViewController.showExposureSubmissionWithoutResult
 		return submitConfigurator
 	}
 
@@ -288,7 +288,7 @@ extension HomeInteractor {
 
 			let thankYou = HomeThankYouRiskCellConfigurator()
 			actionsConfigurators.append(thankYou)
-			appLogger.log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
+			log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
 
 		} else if store.registrationToken != nil {
 			// This is shown when we registered a test.

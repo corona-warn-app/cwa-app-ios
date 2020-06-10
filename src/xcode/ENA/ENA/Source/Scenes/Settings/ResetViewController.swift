@@ -26,6 +26,7 @@ final class ResetViewController: UIViewController {
 	@IBOutlet var header1Label: DynamicTypeLabel!
 	@IBOutlet var description1Label: UILabel!
 	@IBOutlet var resetButton: ENAButton!
+	@IBOutlet var discardButton: ENAButton!
 	@IBOutlet var infoTitleLabel: DynamicTypeLabel!
 	@IBOutlet var infoDescriptionLabel: UILabel!
 	@IBOutlet var infoView: UIView!
@@ -41,6 +42,7 @@ final class ResetViewController: UIViewController {
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		setupView()
 	}
 
@@ -57,10 +59,6 @@ final class ResetViewController: UIViewController {
 	private func setupView() {
 		navigationItem.title = AppStrings.Reset.navigationBarTitle
 
-		let barButtonItem = UIBarButtonItem(image: UIImage(named: "Icons - Close"), style: .done, target: self, action: #selector(discard)
-		)
-		navigationItem.rightBarButtonItem = barButtonItem
-
 		subtitleLabel.text = AppStrings.Reset.subtitle
 
 		header1Label.text = AppStrings.Reset.header1
@@ -71,5 +69,15 @@ final class ResetViewController: UIViewController {
 		infoDescriptionLabel.text = AppStrings.Reset.infoDescription
 
 		resetButton.setTitle(AppStrings.Reset.resetButton, for: .normal)
+		discardButton.setTitle(AppStrings.Reset.discardButton, for: .normal)
+
+		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		navigationItem.rightBarButtonItem?.image = UIImage(named: "Icons - Close")
 	}
 }

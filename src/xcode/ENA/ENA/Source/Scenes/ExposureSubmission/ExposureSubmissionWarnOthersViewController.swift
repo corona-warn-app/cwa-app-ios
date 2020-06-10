@@ -115,10 +115,13 @@ private extension ExposureSubmissionWarnOthersViewController {
 					header: .image(
 						UIImage(named: "Illu_Submission_AndereWarnen"),
 						accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
+						accessibilityIdentifier: "AppStrings.ExposureSubmissionWarnOthers.accImageDescription",
 						height: 250),
 					cells: [
-						.title2(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle),
-						.body(text: AppStrings.ExposureSubmissionWarnOthers.description),
+						.title2(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle,
+								accessibilityIdentifier: "AppStrings.ExposureSubmissionWarnOthers.sectionTitle"),
+						.body(text: AppStrings.ExposureSubmissionWarnOthers.description,
+							  accessibilityIdentifier: "AppStrings.ExposureSubmissionWarnOthers.description"),
 						.custom(withIdentifier: CustomCellReuseIdentifiers.roundedCell,
 								configure: { _, cell, _ in
 									guard let cell = cell as? DynamicTableViewRoundedCell else { return }

@@ -32,21 +32,30 @@ class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		if let label = imageConfiguration.label {
 			imageContainerView.isAccessibilityElement = true
 			imageContainerView.accessibilityLabel = label
+			imageContainerView.accessibilityIdentifier = accessibilityIdentifier
 		} else {
 			imageContainerView.isAccessibilityElement = false
 		}
 	}
 
-	private func bannerImageConfig(for state: ENStateHandler.State) -> (image: UIImage?, label: String?) {
+	private func bannerImageConfig(for state: ENStateHandler.State) -> (image: UIImage?, label: String?, accessibilityIdentifier: String?) {
 		switch state {
 		case .enabled:
-			return (UIImage(named: "Illu_Risikoermittlung_On"), AppStrings.ExposureNotificationSetting.accLabelEnabled)
+			return (UIImage(named: "Illu_Risikoermittlung_On"),
+					AppStrings.ExposureNotificationSetting.accLabelEnabled,
+					"AppStrings.ExposureNotificationSetting.accLabelEnabled")
 		case .disabled, .restricted, .notAuthorized, .unknown:
-			return (UIImage(named: "Illu_Risikoermittlung_Off"), AppStrings.ExposureNotificationSetting.accLabelDisabled)
+			return (UIImage(named: "Illu_Risikoermittlung_Off"),
+					AppStrings.ExposureNotificationSetting.accLabelDisabled,
+					"AppStrings.ExposureNotificationSetting.accLabelDisabled")
 		case .bluetoothOff:
-			return (UIImage(named: "Illu_Bluetooth_Off"), AppStrings.ExposureNotificationSetting.accLabelBluetoothOff)
+			return (UIImage(named: "Illu_Bluetooth_Off"),
+					AppStrings.ExposureNotificationSetting.accLabelBluetoothOff,
+					"AppStrings.ExposureNotificationSetting.accLabelBluetoothOff")
 		case .internetOff:
-			return (UIImage(named: "Illu_Internet_Off"), AppStrings.ExposureNotificationSetting.accLabelInternetOff)
+			return (UIImage(named: "Illu_Internet_Off"),
+					AppStrings.ExposureNotificationSetting.accLabelInternetOff,
+					"AppStrings.ExposureNotificationSetting.accLabelInternetOff")
 		}
 	}
 }

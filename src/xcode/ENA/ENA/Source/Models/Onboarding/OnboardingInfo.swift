@@ -25,6 +25,10 @@ struct OnboardingInfo {
 	var text: String
 	var actionText: String
 	var ignoreText: String
+	var titleAccessibilityIdentifier: String?
+	var imageAccessibilityIdentifier: String?
+	var actionTextAccessibilityIdentifier: String?
+	var ignoreTextAccessibilityIdentifier: String?
 }
 
 extension OnboardingInfo {
@@ -36,7 +40,11 @@ extension OnboardingInfo {
 			boldText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingLetsGo,
-			ignoreText: ""
+			ignoreText: "",
+			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title",
+			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_imageDescription",
+			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingLetsGo",
+			ignoreTextAccessibilityIdentifier: nil
 		)
 
 		let info2 = OnboardingInfo(
@@ -46,17 +54,25 @@ extension OnboardingInfo {
 			boldText: AppStrings.Onboarding.onboardingInfo_privacyPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_privacyPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
-			ignoreText: ""
+			ignoreText: "",
+			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_title",
+			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription",
+			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingContinue",
+			ignoreTextAccessibilityIdentifier: ""
 		)
 
 		let info3 = OnboardingInfo(
-			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_title,
-			imageName: "Illu_Onboarding_Risikoerekennung",
-			imageDescription: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_imageDescription,
-			boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
-			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
+			title: AppStrings.Onboarding.onboardingInfo_privacyPage_title,
+			imageName: "Illu_Onboarding_Datenschutz",
+			imageDescription: AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription,
+			boldText: AppStrings.Onboarding.onboardingInfo_privacyPage_boldText,
+			text: AppStrings.Onboarding.onboardingInfo_privacyPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
-			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate
+			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate,
+			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_title",
+			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription",
+			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button",
+			ignoreTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingDoNotActivate"
 		)
 
 		let info4 = OnboardingInfo(
@@ -66,7 +82,11 @@ extension OnboardingInfo {
 			boldText: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
-			ignoreText: ""
+			ignoreText: "",
+			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title",
+			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_imageDescription",
+			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingContinue",
+			ignoreTextAccessibilityIdentifier: nil
 		)
 
 		let info5 = OnboardingInfo(
@@ -76,8 +96,13 @@ extension OnboardingInfo {
 			boldText: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
-			ignoreText: AppStrings.Onboarding.onboardingDoNotAllow
+			ignoreText: AppStrings.Onboarding.onboardingDoNotAllow,
+			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_title",
+			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_imageDescription",
+			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingContinue",
+			ignoreTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingDoNotAllow"
 		)
+
 
 		return [info1, info2, info3, info4, info5]
 	}

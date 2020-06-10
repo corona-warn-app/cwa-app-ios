@@ -61,7 +61,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		detectionIntervalLabelContainer.layer.masksToBounds = true
 		detectionIntervalLabelContainer.layoutMargins = .init(top: 9.0, left: 16.0, bottom: 9.0, right: 16.0)
 		detectionIntervalLabelContainer.backgroundColor = UIColor.black.withAlphaComponent(0.12)
-		detectionIntervalLabel.textColor = .systemGray6
+		detectionIntervalLabel.textColor = .enaColor(for: .textContrast)
 	}
 
 	// Ignore touches on the button when it's disabled
@@ -97,10 +97,14 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 		viewContainer.backgroundColor = color
 	}
 
-	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool) {
+	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool, accessibilityIdentifier: String?) {
 		updateButton.setTitle(title, for: .normal)
 		updateButton.isEnabled = isEnabled
 		updateButton.isHidden = isHidden
+		updateButton.isHidden = isHidden
+		updateButton.isAccessibilityElement = true
+		updateButton.accessibilityLabel = title
+		updateButton.accessibilityIdentifier = accessibilityIdentifier
 	}
 
 	func configureDetectionIntervalLabel(text: String, isHidden: Bool) {
