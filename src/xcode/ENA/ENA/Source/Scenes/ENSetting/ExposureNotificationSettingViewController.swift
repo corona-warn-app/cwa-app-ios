@@ -59,7 +59,6 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		navigationItem.largeTitleDisplayMode = .always
 		setUIText()
 		tableView.sectionFooterHeight = 0.0
-		
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -216,7 +215,7 @@ extension ExposureNotificationSettingViewController {
 						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
 							(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
 							(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
-						
+
 						let numberRiskContacts = store.tracingStatusHistory.countEnabledDays()
 						tracingCell.configure(
 							progress: CGFloat(numberRiskContacts),
