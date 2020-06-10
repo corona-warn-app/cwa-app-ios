@@ -35,10 +35,8 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 	// Add a package, try to get it, assert that it matches what we put inside
 	func testSettingDays() throws {
 		store.open()
-		// swiftlint:disable:next force_unwrapping
-		let keysBin = "keys".data(using: .utf8)!
-		// swiftlint:disable:next force_unwrapping
-		let signature = "sig".data(using: .utf8)!
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
 
 		let package = SAPDownloadedPackage(
 			keysBin: keysBin,
@@ -56,10 +54,8 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		store.open()
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12").isEmpty)
 
-		// swiftlint:disable:next force_unwrapping
-		let keysBin = "keys".data(using: .utf8)!
-		// swiftlint:disable:next force_unwrapping
-		let signature = "sig".data(using: .utf8)!
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
 
 		let package = SAPDownloadedPackage(
 			keysBin: keysBin,
@@ -75,10 +71,8 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		store.open()
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12").isEmpty)
 
-		// swiftlint:disable:next force_unwrapping
-		let keysBin = "keys".data(using: .utf8)!
-		// swiftlint:disable:next force_unwrapping
-		let signature = "sig".data(using: .utf8)!
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
 
 		let package = SAPDownloadedPackage(
 			keysBin: keysBin,

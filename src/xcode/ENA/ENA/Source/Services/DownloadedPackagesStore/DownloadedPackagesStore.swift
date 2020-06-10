@@ -16,6 +16,7 @@
 // under the License.
 
 import Foundation
+import FMDB
 
 protocol DownloadedPackagesStore: AnyObject {
 	func open()

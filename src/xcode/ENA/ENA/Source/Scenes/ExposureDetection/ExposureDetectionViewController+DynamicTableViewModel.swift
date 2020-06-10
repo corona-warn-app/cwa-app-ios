@@ -185,7 +185,9 @@ private extension DynamicCell {
 	static func guide(text: String, image: UIImage?) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.guide) { viewController, cell, _ in
 			let state = viewController.state
-			cell.tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
+			var tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
+			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
+			cell.tintColor = tintColor
 			cell.textLabel?.text = text
 			cell.imageView?.image = image
 		}
@@ -270,7 +272,7 @@ extension ExposureDetectionViewController {
 		)
 	}
 
-	private func explanationSection(text: String, isActive: Bool) -> DynamicSection {
+	private func explanationSection(text: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
 		.section(
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
@@ -279,7 +281,7 @@ extension ExposureDetectionViewController {
 					title: AppStrings.ExposureDetection.explanationTitle,
 					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
 				),
-				.body(text: text)
+				.body(text: text, accessibilityIdentifier: accessibilityIdentifier)
 			]
 		)
 	}
@@ -288,7 +290,7 @@ extension ExposureDetectionViewController {
 		DynamicTableViewModel([
 			.section(
 				header: .none,
-				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 16, right: 0)),
+				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.offText),
 					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
@@ -297,7 +299,8 @@ extension ExposureDetectionViewController {
 			),
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextOff, isActive: false)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextOff, isActive: false,
+							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextOff")
 		])
 	}
 
@@ -305,6 +308,7 @@ extension ExposureDetectionViewController {
 		DynamicTableViewModel([
 			.section(
 				header: .none,
+				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.outdatedText),
 					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
@@ -314,7 +318,8 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextOutdated, isActive: false)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextOutdated, isActive: false,
+							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextOutdated")
 		])
 	}
 
@@ -326,7 +331,8 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextUnknown, isActive: false)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextUnknown, isActive: false,
+							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextUnknown")
 		])
 	}
 
@@ -340,7 +346,8 @@ extension ExposureDetectionViewController {
 			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextLow, isActive: true)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextLow, isActive: true,
+							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextLow")
 		])
 	}
 
@@ -368,7 +375,8 @@ extension ExposureDetectionViewController {
 					])
 				]
 			),
-			explanationSection(text: AppStrings.ExposureDetection.explanationTextHigh, isActive: true)
+			explanationSection(text: AppStrings.ExposureDetection.explanationTextHigh, isActive: true,
+							   accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextHigh")
 		])
 	}
 }

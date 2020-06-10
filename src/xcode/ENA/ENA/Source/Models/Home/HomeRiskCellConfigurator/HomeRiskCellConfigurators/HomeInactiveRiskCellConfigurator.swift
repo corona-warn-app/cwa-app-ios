@@ -21,7 +21,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	let identifier = UUID()
 
-	private var lastInvestigation: String
+	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	private var lastUpdateDate: Date?
 
 	enum IncativeType {
@@ -51,9 +51,13 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(incativeType: IncativeType, lastInvestigation: String, lastUpdateDate: Date?) {
+	init(
+		incativeType: IncativeType,
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		lastUpdateDate: Date?
+	) {
 		self.incativeType = incativeType
-		self.lastInvestigation = lastInvestigation
+		self.previousRiskLevel = previousRiskLevel
 		self.lastUpdateDate = lastUpdateDate
 	}
 
@@ -75,9 +79,19 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		let separatorColor: UIColor = .enaColor(for: .hairline)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 
-		let lastInvestigationTitle = String(format: AppStrings.Home.riskCardInactiveActivateItemTitle, lastInvestigation)
+		let previousRiskTitle: String
+		switch previousRiskLevel {
+		case .low?:
+			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemLowTitle
+		case .increased?:
+			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemHighTitle
+		default:
+			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemUnknownTitle
+		}
+
+		let activateItemTitle = String(format: AppStrings.Home.riskCardInactiveActivateItemTitle, previousRiskTitle)
 		let iconTintColor: UIColor = .enaColor(for: .riskNeutral)
-		let item1 = HomeRiskImageItemViewConfigurator(title: lastInvestigationTitle, titleColor: titleColor, iconImageName: "Icons_LetzteErmittlung-Light", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
+		let item1 = HomeRiskImageItemViewConfigurator(title: activateItemTitle, titleColor: titleColor, iconImageName: "Icons_LetzteErmittlung-Light", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
 		let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
 		let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
 		itemCellConfigurators.append(contentsOf: [item1, item2])
