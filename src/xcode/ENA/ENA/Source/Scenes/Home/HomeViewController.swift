@@ -101,8 +101,9 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func setupAccessibility() {
+		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
-		navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
+		navigationItem.leftBarButtonItem?.accessibilityTraits = .none
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
 		navigationItem.leftBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.leftBarButtonDescription"
 		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
