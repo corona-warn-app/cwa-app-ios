@@ -87,7 +87,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ExposureSubmissionTestResultViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="efh-V6-b47" customClass="ExposureSubmissionTestResultViewController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" id="gbg-tE-mnF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ENA Background Color"/>
                         <connections>
@@ -190,7 +190,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="999" text="Positionieren Sie den Rahmen über dem QR Code Ihres Dokuments" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTI-P6-3Zh" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                <rect key="frame" x="52" y="151" width="310.5" height="41"/>
+                                <rect key="frame" x="52" y="149.5" width="310.5" height="42.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" name="ENA Text Contrast Color"/>
                                 <nil key="highlightedColor"/>
@@ -255,6 +255,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="K4W-nS-7Ar">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                 </navigationController>
@@ -382,10 +383,10 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Primary 1 Color">
-            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Semantic Red Color">
-            <color red="0.75300002098083496" green="0.059000000357627869" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.75294117647058822" green="0.058823529411764705" blue="0.17647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
