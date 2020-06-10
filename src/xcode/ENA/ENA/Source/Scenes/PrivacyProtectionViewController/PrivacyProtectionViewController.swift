@@ -36,13 +36,13 @@ class PrivacyProtectionViewController: UIViewController {
 	}
 	
 	func show() {
-		UIView.animate(withDuration: 0.2, animations: {
+		UIView.animate(withDuration: CATransaction.animationDuration(), animations: {
 			self.view.alpha = 1.0
 		})
 	}
 	
 	func hide(completion: (() -> Void)? = nil) {
-		UIView.animate(withDuration: 0.1, animations: {
+		UIView.animate(withDuration: CATransaction.animationDuration(), animations: {
 			self.view.alpha = 0.0
 		}, completion: { _ in
 			completion?()
