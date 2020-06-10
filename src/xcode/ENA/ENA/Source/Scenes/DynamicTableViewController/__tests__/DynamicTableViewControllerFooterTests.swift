@@ -86,7 +86,7 @@ extension DynamicTableViewControllerFooterTests {
 			.image(nil, accessibilityIdentifier: nil),
 			.view(UIView()),
 			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
-			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
+			.cell(withIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeText),
 			.custom({ _ in return nil })
 		]
 		
@@ -146,7 +146,7 @@ extension DynamicTableViewControllerFooterTests {
 			.image(nil, accessibilityIdentifier: nil),
 			.view(UIView()),
 			.identifier(DynamicTableViewController.HeaderFooterReuseIdentifier.header),
-			.cell(withIdentifier: DynamicTableViewStepCell.ReuseIdentifier.cell),
+			.cell(withIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeText),
 			.custom({ _ in return nil })
 		]
 		
