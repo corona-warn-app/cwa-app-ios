@@ -51,9 +51,21 @@ extension RiskLegendViewController {
 						text: AppStrings.RiskLegend.legend2RiskLevels,
 						accessibilityIdentifier: "AppStrings.RiskLegend.legend2RiskLevels"),
 					.space(height: 8),
-					.dotBodyCell(color: .enaColor(for: .riskHigh), text: AppStrings.RiskLegend.legend2High),
-					.dotBodyCell(color: .enaColor(for: .riskLow), text: AppStrings.RiskLegend.legend2Low),
-					.dotBodyCell(color: .enaColor(for: .riskNeutral), text: AppStrings.RiskLegend.legend2Unknown)
+					.dotBodyCell(
+						color: .enaColor(for: .riskHigh),
+						text: AppStrings.RiskLegend.legend2High,
+						accessibilityLabelColor: AppStrings.RiskLegend.legend2HighColor,
+						accessibilityIdentifier: "AppStrings.RiskLegend.legend2High"),
+					.dotBodyCell(
+						color: .enaColor(for: .riskLow),
+						text: AppStrings.RiskLegend.legend2Low,
+						accessibilityLabelColor: AppStrings.RiskLegend.legend2LowColor,
+						accessibilityIdentifier: "AppStrings.RiskLegend.legend2LowColor"),
+					.dotBodyCell(
+						color: .enaColor(for: .riskNeutral),
+						text: AppStrings.RiskLegend.legend2Unknown,
+						accessibilityLabelColor: AppStrings.RiskLegend.legend2UnknownColor,
+						accessibilityIdentifier: "AppStrings.RiskLegend.legend2UnknownColor")
 				]
 			),
 			.section(
@@ -140,11 +152,13 @@ private extension DynamicCell {
 		}
 	}
 
-	static func dotBodyCell(color: UIColor, text: String) -> Self {
+	static func dotBodyCell(color: UIColor, text: String, accessibilityLabelColor: String, accessibilityIdentifier: String?) -> Self {
 		.identifier(RiskLegendViewController.CellReuseIdentifier.dotBody) { _, cell, _ in
 			guard let cell = cell as? RiskLegendDotBodyCell else { return }
 			cell.dotView.backgroundColor = color
 			cell.textLabel?.text = text
+			cell.accessibilityLabel = "\(text)\n\n\(accessibilityLabelColor)"
+			cell.accessibilityIdentifier = accessibilityIdentifier
 		}
 	}
 }
