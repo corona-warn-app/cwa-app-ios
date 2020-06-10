@@ -87,16 +87,12 @@ class HomeTestResultCollectionViewCell: HomeCardCollectionViewCell {
 	}
 
 	func setupAccessibility() {
-		titleLabel.isAccessibilityElement = false
-		subtitleLabel.isAccessibilityElement = false
-		descriptionLabel.isAccessibilityElement = false
-		illustrationView.isAccessibilityElement = false
+		titleLabel.isAccessibilityElement = true
+		subtitleLabel.isAccessibilityElement = true
+		descriptionLabel.isAccessibilityElement = true
+		illustrationView.isAccessibilityElement = true
+		isAccessibilityElement = false
 
-		isAccessibilityElement = true
-		accessibilityIdentifier = "HomeCardCollectionViewCell"
-		accessibilityLabel = [titleLabel.text, subtitleLabel.text, descriptionLabel.text]
-			.compactMap({$0})
-			.joined(separator: "\n")
-		accessibilityTraits = .button
+		titleLabel.accessibilityTraits = .header
 	}
 }
