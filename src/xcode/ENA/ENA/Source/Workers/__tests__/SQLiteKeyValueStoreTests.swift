@@ -22,6 +22,12 @@ import FMDB
 import XCTest
 
 final class SQLiteKeyValueStoreTests: XCTestCase {
+	private let storeDir = FileManager()
+		.temporaryDirectory
+		.appendingPathComponent(
+			"SQLiteKeyValueStoreTests",
+			isDirectory: true
+	)
 
 	private var kvStore: SQLiteKeyValueStore!
 	let group = DispatchGroup()
@@ -34,10 +40,29 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 		("developerVerificationBaseURLOverride", Data("testing5".utf8))
 	]
 
-	override func setUp() {
-		super.setUp()
+	private func removeAndRecreateDir() throws {
+		let fileManager = FileManager()
+		if fileManager.fileExists(atPath: storeDir.path) {
+			try fileManager.removeItem(at: storeDir)
+		}
+		try fileManager.createDirectory(
+			at: storeDir,
+			withIntermediateDirectories: true,
+			attributes: nil
+		)
 		// Old DB is deinited and hence connection closed at every setUp() call
-		kvStore = SQLiteKeyValueStore(with: URL(staticString:":memory:"), key: "password")
+		kvStore = SQLiteKeyValueStore(with: storeDir, key: "password")
+	}
+
+	override func setUpWithError() throws {
+		try super.setUpWithError()
+		try removeAndRecreateDir()
+	}
+
+	override func tearDownWithError() throws {
+		try super.tearDownWithError()
+		try removeAndRecreateDir()
+		kvStore = nil
 	}
 
 	// MARK: - Positive Tests
@@ -145,6 +170,21 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 				XCTAssertEqual(self.kvStore["key\(j)"], Data("value\(j)".utf8))
 			}
 		}
+	}
+
+	func testDate() {
+		// 2020 June 9th
+		let birthday = Date(timeIntervalSince1970: 1591724655)
+
+		kvStore["birthday"] = birthday
+		guard let out = kvStore["birthday"] as Date? else {
+			XCTFail("store should give back the date that was put in")
+			return
+		}
+
+		XCTAssert(
+			Calendar.current.isDate(birthday, equalTo: out, toGranularity: .minute)
+		)
 	}
 }
 

@@ -25,6 +25,20 @@ protocol ConfigurableENSettingCell: UITableViewCell {
 class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	@IBOutlet var imageContainerView: UIImageView!
 
+	private struct BannerImageConfig {
+		init(
+			_ image: UIImage?,
+			_ label: String?,
+			_ accessibilityIdentifier: String?
+		) {
+			self.image = image
+			self.label = label
+			self.accessibilityIdentifier = accessibilityIdentifier
+		}
+		let image: UIImage?
+		let label: String?
+		let accessibilityIdentifier: String?
+	}
 
 	func configure(for state: ENStateHandler.State) {
 		let imageConfiguration = bannerImageConfig(for: state)
@@ -38,24 +52,32 @@ class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		}
 	}
 
-	private func bannerImageConfig(for state: ENStateHandler.State) -> (image: UIImage?, label: String?, accessibilityIdentifier: String?) {
+	private func bannerImageConfig(for state: ENStateHandler.State) -> BannerImageConfig {
 		switch state {
 		case .enabled:
-			return (UIImage(named: "Illu_Risikoermittlung_On"),
-					AppStrings.ExposureNotificationSetting.accLabelEnabled,
-					"AppStrings.ExposureNotificationSetting.accLabelEnabled")
+			return .init(
+				UIImage(named: "Illu_Risikoermittlung_On"),
+				AppStrings.ExposureNotificationSetting.accLabelEnabled,
+				"AppStrings.ExposureNotificationSetting.accLabelEnabled"
+			)
 		case .disabled, .restricted, .notAuthorized, .unknown:
-			return (UIImage(named: "Illu_Risikoermittlung_Off"),
-					AppStrings.ExposureNotificationSetting.accLabelDisabled,
-					"AppStrings.ExposureNotificationSetting.accLabelDisabled")
+			return .init(
+				UIImage(named: "Illu_Risikoermittlung_Off"),
+				AppStrings.ExposureNotificationSetting.accLabelDisabled,
+				"AppStrings.ExposureNotificationSetting.accLabelDisabled"
+			)
 		case .bluetoothOff:
-			return (UIImage(named: "Illu_Bluetooth_Off"),
-					AppStrings.ExposureNotificationSetting.accLabelBluetoothOff,
-					"AppStrings.ExposureNotificationSetting.accLabelBluetoothOff")
+			return .init(
+				UIImage(named: "Illu_Bluetooth_Off"),
+				AppStrings.ExposureNotificationSetting.accLabelBluetoothOff,
+				"AppStrings.ExposureNotificationSetting.accLabelBluetoothOff"
+			)
 		case .internetOff:
-			return (UIImage(named: "Illu_Internet_Off"),
-					AppStrings.ExposureNotificationSetting.accLabelInternetOff,
-					"AppStrings.ExposureNotificationSetting.accLabelInternetOff")
+			return .init(
+				UIImage(named: "Illu_Internet_Off"),
+				AppStrings.ExposureNotificationSetting.accLabelInternetOff,
+				"AppStrings.ExposureNotificationSetting.accLabelInternetOff"
+			)
 		}
 	}
 }
