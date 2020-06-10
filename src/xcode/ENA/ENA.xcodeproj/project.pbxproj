@@ -190,6 +190,7 @@
 		A3284259248E7672006B1F09 /* MockExposureSubmissionQRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3284258248E7672006B1F09 /* MockExposureSubmissionQRScannerViewController.swift */; };
 		A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328425B248E82B5006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift */; };
 		A328425F248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A328425E248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift */; };
+		A32842612490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32842602490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift */; };
 		A36D07B92486D61C00E46F96 /* HomeCardCellButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D07B82486D61C00E46F96 /* HomeCardCellButtonDelegate.swift */; };
 		A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */; };
 		A3E5E71A247D4FFB00237116 /* ExposureSubmissionViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */; };
@@ -555,6 +556,7 @@
 		A3284258248E7672006B1F09 /* MockExposureSubmissionQRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExposureSubmissionQRScannerViewController.swift; sourceTree = "<group>"; };
 		A328425B248E82B5006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTestResultViewControllerTests.swift; sourceTree = "<group>"; };
 		A328425E248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionTanInputViewControllerTests.swift; sourceTree = "<group>"; };
+		A32842602490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewControllerTests.swift; sourceTree = "<group>"; };
 		A36D07B82486D61C00E46F96 /* HomeCardCellButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardCellButtonDelegate.swift; sourceTree = "<group>"; };
 		A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewController.swift; sourceTree = "<group>"; };
 		A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionViewUtils.swift; sourceTree = "<group>"; };
@@ -1338,6 +1340,7 @@
 				A3284254248E493B006B1F09 /* ExposureSubmissionOverviewViewControllerTests.swift */,
 				A328425B248E82B5006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift */,
 				A328425E248E943D006B1F09 /* ExposureSubmissionTanInputViewControllerTests.swift */,
+				A32842602490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2265,6 +2268,7 @@
 				B1218920248AD79900496210 /* ClientMock.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,
+				A32842612490E2AC006B1F09 /* ExposureSubmissionWarnOthersViewControllerTests.swift in Sources */,
 				B1B9CF1F246ED2E8008F04F5 /* Sap_FilebucketTests.swift in Sources */,
 				B17A44A22464906A00CB195E /* KeyTests.swift in Sources */,
 				B161782D248062CE006E435A /* DeltaCalculationResultTests.swift in Sources */,
