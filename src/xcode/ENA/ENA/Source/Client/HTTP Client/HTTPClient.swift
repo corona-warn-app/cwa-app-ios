@@ -21,28 +21,16 @@ import ZIPFoundation
 
 final class HTTPClient: Client {
 	// MARK: Creating
-
 	init(
-		configuration: Configuration? = .loadFromPlist(dictionaryNameInPList: "BackendURLs"),
+		configuration: Configuration,
 		session: URLSession = .coronaWarnSession()
 	) {
-
 		self.session = session
-// TODO: Enable
-//		#if RELEASE
-//		self.configuration = .production
-//		#else
-		guard let configuration = configuration else {
-			self.configuration = .production  // fallback
-			return
-		}
 		self.configuration = configuration
-//		#endif
 	}
 
 	// MARK: Properties
-
-	private let configuration: Configuration
+	let configuration: Configuration
 	private let session: URLSession
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
