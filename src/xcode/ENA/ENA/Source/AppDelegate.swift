@@ -238,13 +238,12 @@ extension AppDelegate: CoronaWarnAppDelegate {
 }
 
 extension AppDelegate: ENATaskExecutionDelegate {
-	func executeExposureDetectionRequest(task: BGTask) {
+	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
+
+		UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: task.identifier, identifier: UUID().uuidString)
 
 		func complete(success: Bool) {
-			taskScheduler.didCompleteExposureDetectionRequest = true
-			guard taskScheduler.didCompleteTasks() else { return }
-			task.setTaskCompleted(success: true)
-			taskScheduler.scheduleTasks()
+			completion(success)
 		}
 
 		riskProvider.requestRisk(userInitiated: false) { risk in
@@ -266,13 +265,12 @@ extension AppDelegate: ENATaskExecutionDelegate {
 		}
 	}
 
-	func executeFetchTestResults(task: BGTask) {
+	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
+
+		UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: task.identifier, identifier: UUID().uuidString)
 
 		func complete(success: Bool) {
-			taskScheduler.didCompleteFetchTestResults = true
-			guard taskScheduler.didCompleteTasks() else { return }
-			task.setTaskCompleted(success: true)
-			taskScheduler.scheduleTasks()
+			completion(success)
 		}
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 

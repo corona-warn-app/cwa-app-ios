@@ -21,12 +21,13 @@ import UIKit
 
 enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
-	case fetchTestResults = "fetch-test-results"
+	case fetchTestResults = "exposure-notification"
+//	case fetchTestResults = "fetch-test-results"
 
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
 		// set to trigger every 2 hours
-		case .fetchTestResults: return 2 * 60 * 60
+		case .fetchTestResults: return 5 * 60 //2 * 60 * 60
 		}
 	}
 	var backgroundTaskSchedulerIdentifier: String {
@@ -35,25 +36,12 @@ enum ENATaskIdentifier: String, CaseIterable {
 }
 
 protocol ENATaskExecutionDelegate: AnyObject {
-	func executeExposureDetectionRequest(task: BGTask)
-	func executeFetchTestResults(task: BGTask)
+	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void))
+	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void))
 }
 
 final class ENATaskScheduler {
 	static let shared = ENATaskScheduler()
-
-	var didCompleteExposureDetectionRequest: Bool = false
-	var didCompleteFetchTestResults: Bool = false
-
-	func didCompleteTasks() -> Bool {
-		if didCompleteFetchTestResults && didCompleteExposureDetectionRequest {
-			didCompleteExposureDetectionRequest = false
-			didCompleteFetchTestResults = false
-			return true
-		} else {
-			return false
-		}
-	}
 
 	private init() {
 		registerTasks()
@@ -64,7 +52,7 @@ final class ENATaskScheduler {
 	typealias CompletionHandler = (() -> Void)
 
 	private func registerTasks() {
-		registerTask(with: .fetchTestResults, taskHander: executeFetchTestResults(_:))
+		registerTask(with: .fetchTestResults, taskHander: executeBackgroundTask(_:))
 	}
 
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
@@ -110,22 +98,37 @@ final class ENATaskScheduler {
 	}
 
 	// Task Handlers:
-	private func executeExposureDetectionRequest(_ task: BGTask) {
+	private func executeBackgroundTask(_ task: BGTask) {
+		executeFetchTestResults(task) { executeFetchTestResultsSuccess in
+			self.executeExposureDetectionRequest(task) { executeExposureDetectionRequestSuccess in
+				let success = executeFetchTestResultsSuccess && executeExposureDetectionRequestSuccess
+				log(message: "Task complete! executeFetchTestResultsSuccess \(executeFetchTestResultsSuccess) && executeExposureDetectionRequestSuccess \(executeExposureDetectionRequestSuccess)")
+				UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: "\(task.identifier) complete!", identifier: UUID().uuidString)
+				task.setTaskCompleted(success: success)
+				self.scheduleTasks()
+			}
+		}
+	}
+	private func executeExposureDetectionRequest(_ task: BGTask, completion: @escaping ((Bool) -> Void)) {
 		guard let taskDelegate = taskDelegate else {
 			task.setTaskCompleted(success: false)
 			scheduleTasks()
 			return
 		}
-		taskDelegate.executeExposureDetectionRequest(task: task)
+		taskDelegate.executeExposureDetectionRequest(task: task) { success in
+			completion(success)
+		}
 	}
 
-	private func executeFetchTestResults(_ task: BGTask) {
+	private func executeFetchTestResults(_ task: BGTask, completion: @escaping ((Bool) -> Void)) {
 		guard let taskDelegate = taskDelegate else {
 			task.setTaskCompleted(success: false)
 			scheduleTasks()
 			return
 		}
-		taskDelegate.executeFetchTestResults(task: task)
+		taskDelegate.executeFetchTestResults(task: task) {success in
+			completion(success)
+		}
 	}
 
 }
