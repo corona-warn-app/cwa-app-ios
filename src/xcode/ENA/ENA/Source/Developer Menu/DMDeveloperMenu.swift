@@ -79,11 +79,5 @@ final class DMDeveloperMenu {
 
 	private func isAllowed() -> Bool {
 		true
-		// We have to allow the developer menu to be installed to make testing in APP_STORE mode possible.
-		//        #if RELEASE || DEBUG
-		//            return true
-		//        #else
-		//            return false
-		//        #endif
 	}
 }
