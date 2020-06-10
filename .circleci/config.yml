@@ -74,7 +74,9 @@ workflows:
         - grab-screenshots:
             filters:
               branches:
-                only: /^master/
+                only:
+                  - master
+                  - tkowark-patch-1
     # Run only on pull requests
     pull_request:
       jobs:
