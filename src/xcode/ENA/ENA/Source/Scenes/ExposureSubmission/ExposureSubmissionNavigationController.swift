@@ -41,7 +41,6 @@ extension ExposureSubmissionNavigationControllerChild {
 
 extension ExposureSubmissionNavigationControllerChild {
 	var exposureSubmissionNavigationController: ExposureSubmissionNavigationController? { navigationController as? ExposureSubmissionNavigationController }
-	var bottomView: UIView? { exposureSubmissionNavigationController?.bottomView }
 	var button: ENAButton? { exposureSubmissionNavigationController?.button }
 
 	func setButtonTitle(to title: String) {
@@ -85,7 +84,8 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	private var isKeyboardHidden: Bool = true
 	private var keyboardWindowFrame: CGRect?
 
-	private(set) var bottomView: UIView!
+	private(set) var footerView: UIVisualEffectView!
+	private(set) var footerStackView: UIStackView!
 	private(set) var button: ENAButton!
 	private(set) var secondaryButton: ENAButton!
 	private var bottomViewTopConstraint: NSLayoutConstraint!
@@ -169,7 +169,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		super.viewDidLayoutSubviews()
 
 		updateBottomSafeAreaInset()
-		view.layoutIfNeeded()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -213,6 +212,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		super.traitCollectionDidChange(previousTraitCollection)
 		navigationItem.rightBarButtonItem?.image = UIImage(named: "Icons - Close")
 		applyDefaultRightBarButtonItem(to: topViewController)
+		updateBottomSafeAreaInset()
 	}
 
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
@@ -245,14 +245,14 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		bottomViewTopConstraint.isActive = hidden
 
 		if isBottomViewHidden {
-			bottomView.frame.origin.y = view.frame.height
-			bottomView.frame.size.height = 0
+			footerView.frame.origin.y = view.frame.height
+			footerView.frame.size.height = 0
 		} else {
-			bottomView.frame.origin.y = view.frame.height - view.safeAreaInsets.bottom
-			bottomView.frame.size.height = view.safeAreaInsets.bottom
+			footerView.frame.origin.y = view.frame.height - view.safeAreaInsets.bottom
+			footerView.frame.size.height = view.safeAreaInsets.bottom
 		}
 
-		bottomView.layoutIfNeeded()
+		footerView.layoutIfNeeded()
 	}
 
 	func showSecondaryButton() {
@@ -269,8 +269,10 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		let baseInset = view.safeAreaInsets.bottom - additionalSafeAreaInsets.bottom
 		var bottomInset: CGFloat = 0
 
-		if !isBottomViewHidden { bottomInset += 90 }
-		if !secondaryButton.isHidden { bottomInset += secondaryButton.frame.height }
+		if !isBottomViewHidden {
+			let size = footerStackView.systemLayoutSizeFitting(.zero, withHorizontalFittingPriority: .defaultLow, verticalFittingPriority: .defaultHigh)
+			bottomInset += size.height + footerView.contentView.layoutMargins.top + footerView.contentView.layoutMargins.bottom
+		}
 
 		if !isKeyboardHidden {
 			if let keyboardWindowFrame = keyboardWindowFrame {
@@ -310,10 +312,10 @@ extension ExposureSubmissionNavigationController {
 
 extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
-		let view = UIView()
-		view.backgroundColor = .enaColor(for: .background)
-		view.insetsLayoutMarginsFromSafeArea = true
-		view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+		let view = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+		view.contentView.preservesSuperviewLayoutMargins = false
+		view.contentView.insetsLayoutMarginsFromSafeArea = false
+		view.contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 
 		view.translatesAutoresizingMaskIntoConstraints = false
 		self.view.addSubview(view)
@@ -327,29 +329,28 @@ extension ExposureSubmissionNavigationController {
 		button = ENAButton(type: .custom)
 		button.setTitle("", for: .normal)
 
-		button.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(button)
-		button.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-		button.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
-		button.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
-		button.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: 90).isActive = true
-
-		// by default, the secondary button is hidden.
 		secondaryButton = ENAButton(type: .custom)
 		secondaryButton.setTitle("", for: .normal)
 		secondaryButton.isTransparent = true
-		secondaryButton.translatesAutoresizingMaskIntoConstraints = false
 		secondaryButton.isHidden = true
-		view.addSubview(secondaryButton)
 
-		secondaryButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-		secondaryButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
-		secondaryButton.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
-		secondaryButton.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 5).isActive = true
+		let stackView = UIStackView(arrangedSubviews: [button, secondaryButton])
+		stackView.axis = .vertical
+		stackView.spacing = 8
+		stackView.translatesAutoresizingMaskIntoConstraints = false
+		view.contentView.addSubview(stackView)
+		view.contentView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
+		view.contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
 
-		bottomView = view
+		stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 16).isActive = true
+		stackView.topAnchor.constraint(equalTo: view.contentView.layoutMarginsGuide.topAnchor, constant: 0).isActive = true
+
 		button.addTarget(self, action: #selector(didTapButton), for: .primaryActionTriggered)
 		secondaryButton.addTarget(self, action: #selector(didTapSecondaryButton), for: .primaryActionTriggered)
+
+		footerView = view
+		footerStackView = stackView
+
 		setBottomViewHidden(false, animated: false)
 	}
 
