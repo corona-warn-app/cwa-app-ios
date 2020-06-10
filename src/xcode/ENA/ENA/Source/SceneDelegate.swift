@@ -181,7 +181,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		}
 	}
 
-
 	private func presentHomeVC() {
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),

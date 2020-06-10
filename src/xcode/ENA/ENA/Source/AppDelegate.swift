@@ -241,7 +241,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask) {
 
 		func complete(success: Bool) {
-			task.setTaskCompleted(success: success)
+			taskScheduler.didCompleteExposureDetectionRequest = true
+			guard taskScheduler.didCompleteTasks() else { return }
+			task.setTaskCompleted(success: true)
 			taskScheduler.scheduleTasks()
 		}
 
@@ -267,7 +269,9 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	func executeFetchTestResults(task: BGTask) {
 
 		func complete(success: Bool) {
-			task.setTaskCompleted(success: success)
+			taskScheduler.didCompleteFetchTestResults = true
+			guard taskScheduler.didCompleteTasks() else { return }
+			task.setTaskCompleted(success: true)
 			taskScheduler.scheduleTasks()
 		}
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)

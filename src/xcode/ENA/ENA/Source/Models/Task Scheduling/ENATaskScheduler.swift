@@ -42,6 +42,19 @@ protocol ENATaskExecutionDelegate: AnyObject {
 final class ENATaskScheduler {
 	static let shared = ENATaskScheduler()
 
+	var didCompleteExposureDetectionRequest: Bool = false
+	var didCompleteFetchTestResults: Bool = false
+
+	func didCompleteTasks() -> Bool {
+		if didCompleteFetchTestResults && didCompleteExposureDetectionRequest {
+			didCompleteExposureDetectionRequest = false
+			didCompleteFetchTestResults = false
+			return true
+		} else {
+			return false
+		}
+	}
+
 	private init() {
 		registerTasks()
 	}
