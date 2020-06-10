@@ -117,7 +117,6 @@ private extension ENAColor {
 		// MARK: - Brand Colors
 		case .brandBlue: return "brand-blue"
 		case .brandBurgundy: return "brand-burgundy"
-		case .brandLightBlue: return "brand-light-blue"
 		case .brandRed: return "brand-red"
 
 		// MARK: - Button Colors

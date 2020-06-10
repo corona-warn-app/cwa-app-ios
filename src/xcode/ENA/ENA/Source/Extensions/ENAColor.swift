@@ -28,7 +28,6 @@ public enum ENAColor: String, CaseIterable {
 	// MARK: - Brand Colors
 	case brandBlue = "ENA Brand Blue Color"
 	case brandBurgundy = "ENA Brand Burgundy Color"
-	case brandLightBlue = "ENA Brand Light Blue Color"
 	case brandRed = "ENA Brand Red Color"
 
 	// MARK: - Button Colors
