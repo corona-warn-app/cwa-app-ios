@@ -21,6 +21,7 @@
 import ExposureNotification
 import XCTest
 
+// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 final class RiskCalculationTests: XCTestCase {
 
@@ -90,7 +91,7 @@ final class RiskCalculationTests: XCTestCase {
 				preconditions: preconditions(.valid),
 				previousRiskLevel: nil,
 				providerConfiguration: config
-			)
+		)
 
 		XCTAssertEqual(risk?.level, .unknownInitial)
 
@@ -130,6 +131,56 @@ final class RiskCalculationTests: XCTestCase {
 
 		XCTAssertEqual(risk?.level, .unknownOutdated)
 	}
+
+	func testCalculateRisk_UnknownOutdated2() {
+		// Test the condition when the risk is returned as unknownOutdated.
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: .init(day: 2),
+			exposureDetectionInterval: .init(day: 2),
+			detectionMode: .automatic
+		)
+
+		// That will happen when the date of last exposure detection is older than one day
+		let risk = RiskCalculation.risk(
+			summary: nil,
+			configuration: appConfig,
+			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -1)),
+			numberOfTracingActiveHours: 48,
+			preconditions: preconditions(.valid),
+			previousRiskLevel: nil,
+			providerConfiguration: config
+		)
+
+		XCTAssertEqual(risk?.level, .unknownInitial)
+
+		XCTAssertEqual(
+			RiskCalculation.risk(
+				summary: summaryLow,
+				configuration: appConfig,
+				dateLastExposureDetection: Date().addingTimeInterval(.init(days: -3)),
+				numberOfTracingActiveHours: 48,
+				preconditions: preconditions(.valid),
+				previousRiskLevel: nil,
+				providerConfiguration: config
+				)?.level,
+			.unknownOutdated
+		)
+
+		XCTAssertEqual(
+			RiskCalculation.risk(
+				summary: summaryLow,
+				configuration: appConfig,
+				dateLastExposureDetection: Date().addingTimeInterval(.init(days: -1)),
+				numberOfTracingActiveHours: 48,
+				preconditions: preconditions(.valid),
+				previousRiskLevel: nil,
+				providerConfiguration: config
+				)?.level,
+			.low
+		)
+	}
+
 
 	func testCalculateRisk_LowRisk() {
 		let config = RiskProvidingConfiguration(
@@ -273,6 +324,7 @@ final class RiskCalculationTests: XCTestCase {
 		)
 
 		XCTAssertEqual(risk?.level, .increased)
+		XCTAssertTrue(risk?.riskLevelHasChanged == false)
 	}
 
 	func testCalculateRisk_UnknownInitialOverridesUnknownOutdated() {
@@ -307,7 +359,6 @@ final class RiskCalculationTests: XCTestCase {
 
 		// Test the case where we have an old risk level in the store,
 		// and the new risk level has changed
-		let previousRiskLevel = EitherLowOrIncreasedRiskLevel.low
 
 		// Will produce increased risk
 		let risk = RiskCalculation.risk(
@@ -317,10 +368,11 @@ final class RiskCalculationTests: XCTestCase {
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid),
-			previousRiskLevel: previousRiskLevel,
+			previousRiskLevel: .low,
 			providerConfiguration: config
 		)
-
+		XCTAssertNotNil(risk)
+		XCTAssertEqual(risk?.level, .increased)
 		XCTAssertTrue(risk?.riskLevelHasChanged ?? false)
 	}
 
@@ -358,7 +410,6 @@ final class RiskCalculationTests: XCTestCase {
 
 		// Test the case where we have an old risk level in the store,
 		// and the new risk level has not changed
-		let previousRiskLevel = EitherLowOrIncreasedRiskLevel.low
 
 		let risk = RiskCalculation.risk(
 			summary: summaryLow,
@@ -367,7 +418,7 @@ final class RiskCalculationTests: XCTestCase {
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid),
-			previousRiskLevel: previousRiskLevel,
+			previousRiskLevel: .low,
 			providerConfiguration: config
 		)
 
@@ -383,7 +434,6 @@ final class RiskCalculationTests: XCTestCase {
 
 		// Test the case where we have low risk level in the store,
 		// and the new risk calculation returns unknown
-		let previousRiskLevel = EitherLowOrIncreasedRiskLevel.low
 
 		// Produces unknown risk
 		let risk = RiskCalculation.risk(
@@ -392,7 +442,7 @@ final class RiskCalculationTests: XCTestCase {
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid),
-			previousRiskLevel: previousRiskLevel,
+			previousRiskLevel: .low,
 			providerConfiguration: config
 		)
 		// The risk level did not change - we only care about changes between low and increased
@@ -408,7 +458,6 @@ final class RiskCalculationTests: XCTestCase {
 
 		// Test the case where we have low risk level in the store,
 		// and the new risk calculation returns unknown
-		let previousRiskLevel = EitherLowOrIncreasedRiskLevel.increased
 
 		// Produces unknown risk
 		let risk = RiskCalculation.risk(
@@ -417,7 +466,7 @@ final class RiskCalculationTests: XCTestCase {
 			dateLastExposureDetection: Date().addingTimeInterval(.init(days: -2)),
 			numberOfTracingActiveHours: 48,
 			preconditions: preconditions(.valid),
-			previousRiskLevel: previousRiskLevel,
+			previousRiskLevel: .increased,
 			providerConfiguration: config
 		)
 		// The risk level did not change - we only care about changes between low and increased
