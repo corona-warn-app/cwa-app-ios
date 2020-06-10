@@ -314,3 +314,35 @@ struct CodableExposureDetectionSummary: Codable {
 		return str
 	}
 }
+
+extension SecureStore {
+
+	convenience init(subDirectory: String) {
+		do {
+			let fileManager = FileManager.default
+			let directoryURL = try fileManager
+				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+				.appendingPathComponent(subDirectory)
+			
+			var key: String
+			if !fileManager.fileExists(atPath: directoryURL.path) {
+				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
+				guard let key = KeychainHelper.generateDatabaseKey() else {
+					fatalError("Creating the Database failed")
+				}
+				self.init(at: directoryURL, key: key)
+			} else {
+				if let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") {
+					key = String(decoding: keyData, as: UTF8.self)
+				} else if let generated = KeychainHelper.generateDatabaseKey() {
+					key = generated
+				} else {
+					fatalError("Cannot get or generate the key")
+				}
+				self.init(at: directoryURL, key: key)
+			}
+		} catch {
+			fatalError("Creating the Database failed")
+		}
+	}
+}
