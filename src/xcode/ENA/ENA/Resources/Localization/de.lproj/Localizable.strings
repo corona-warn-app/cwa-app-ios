@@ -432,6 +432,8 @@
 
 "ExposureSubmissionError_otherend" = "Bitte versuchen Sie es erneut.";
 
+"ExposureSubmissionError_httpError" = "Es konnte keine Verbindung hergestellt werden.";
+
 "ExposureSubmissionError_declined" = "Bitte geben Sie Ihre Zufallscodes frei, um andere zu warnen.";
 
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
@@ -629,19 +631,21 @@
 
 "Home_resultCard_ShowResultButton" = "Test anzeigen";
 
-"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
+"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
 
 "Home_resultCard_LoadingTitle" = "Aktualisierung läuft...";
 
 "Home_resultCard_NegativeTitle" = "Befund negativ";
 
-"Home_resultCard_NegativeDesc" = "Sie wurden negativ auf SARS-CoV-2 getestet.";
+"Home_resultCard_NegativeDesc" = "Das Virus SARS-CoV-2 konnte bei Ihnen nicht nachgewiesen werden.";
 
-"Home_resultCard_PendingDesc" = "Die Auswertung dauert zwischen 1-3 Tagen.";
+"Home_resultCard_PendingDesc" = "Die Auswertung Ihres Tests ist noch nicht abgeschlossen.";
 
-"Home_resultCard_InvalidTitle" = "Befund ungültig";
+"Home_resultCard_InvalidTitle" = "Fehlerhafter Test";
 
 "Home_resultCard_InvalidDesc" = "Ihr Test konnte nicht ausgewertet werden.";
+
+"Home_resultCard_LoadingErrorTitle" = "Ihr Testergebnis konnte nicht geladen werden";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "Über die App";
