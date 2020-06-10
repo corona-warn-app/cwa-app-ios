@@ -32,7 +32,7 @@ enum ENATaskIdentifier: String, CaseIterable {
 		}
 	}
 	var backgroundTaskSchedulerIdentifier: String {
-		"\(Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp").\(rawValue)"
+		"de.rki.coronawarnapp.\(rawValue)"
 	}
 }
 
