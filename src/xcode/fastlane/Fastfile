@@ -67,15 +67,6 @@ platform :ios do
       devices: ["iPhone 11"]
     )
 
-    # Gather code coverage
-    xcov(
-      workspace: "ENA.xcworkspace",
-      scheme: "ENATests",
-      markdown_report: true,
-      html_report: false,
-      output_directory: "fastlane/test_output"
-    )
-
     # Run Swiftlint
     swiftlint(
       mode: :lint,
@@ -83,6 +74,15 @@ platform :ios do
       config_file: "ENA/.swiftlint.yml",
       raise_if_swiftlint_error: true,
       reporter: "sonarqube"
+    )
+
+    # Gather code coverage
+    xcov(
+      workspace: "ENA.xcworkspace",
+      scheme: "ENATests",
+      markdown_report: true,
+      html_report: false,
+      output_directory: "fastlane/test_output"
     )
   end
 
