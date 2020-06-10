@@ -170,6 +170,16 @@ final class SecureStore: Store {
 		set { kvStore["hourlyFetchingEnabled"] = newValue }
 	}
 
+	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? {
+		get {
+			guard let value = kvStore["previousRiskLevel"] as Int? else {
+				return nil
+			}
+			return EitherLowOrIncreasedRiskLevel(rawValue: value)
+		}
+		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
+	}
+
 	var lastCheckedVersion: String? {
 		get { kvStore["lastCheckedVersion"] as String? ?? "0.0.0" }
 		set { kvStore["lastCheckedVersion"] = newValue }

@@ -18,6 +18,24 @@
 import Foundation
 import ExposureNotification
 
+enum EitherLowOrIncreasedRiskLevel: Int {
+	case low = 0
+	case increased = 1_000 // so that increased > low + we have enough reserved values
+}
+
+extension EitherLowOrIncreasedRiskLevel {
+	init?(with risk: RiskLevel) {
+		switch risk {
+		case .low:
+			self = .low
+		case .increased:
+			self = .increased
+		default:
+			return nil
+		}
+	}
+}
+
 protocol Store: AnyObject {
 	var isOnboarded: Bool { get set }
 	var dateOfAcceptedPrivacyNotice: Date? { get set }
@@ -68,6 +86,8 @@ protocol Store: AnyObject {
 	var tracingStatusHistory: TracingStatusHistory { get set }
 
 	var lastCheckedVersion: String? { get set }
+
+	var previousRiskLevel: EitherLowOrIncreasedRiskLevel? { get set }
 
 	func clearAll(key: String?)
 }

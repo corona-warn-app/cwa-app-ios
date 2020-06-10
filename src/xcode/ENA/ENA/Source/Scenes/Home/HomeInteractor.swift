@@ -121,28 +121,28 @@ final class HomeInteractor: RequiresAppDependencies {
 
 		let info1Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardShareTitle,
-			body: AppStrings.Home.infoCardShareBody,
+			description: AppStrings.Home.infoCardShareBody,
 			position: .first,
 			accessibilityIdentifier: "AppStrings.Home.infoCardShareTitle"
 		)
 
 		let info2Configurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.infoCardAboutTitle,
-			body: AppStrings.Home.infoCardAboutBody,
+			description: AppStrings.Home.infoCardAboutBody,
 			position: .last,
 			accessibilityIdentifier: "AppStrings.Home.infoCardAboutTitle"
 		)
 
 		let appInformationConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.appInformationCardTitle,
-			body: nil,
+			description: nil,
 			position: .first,
 			accessibilityIdentifier: "AppStrings.Home.appInformationCardTitle"
 		)
 
 		let settingsConfigurator = HomeInfoCellConfigurator(
 			title: AppStrings.Home.settingsCardTitle,
-			body: nil,
+			description: nil,
 			position: .last,
 			accessibilityIdentifier: "AppStrings.Home.settingsCardTitle"
 		)
@@ -210,7 +210,7 @@ extension HomeInteractor {
 		case .inactive:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				incativeType: .noCalculationPossible,
-				lastInvestigation: "Geringes Risiko",
+				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
 			inactiveConfigurator?.activeAction = inActiveCellActionHandler
@@ -218,7 +218,7 @@ extension HomeInteractor {
 		case .unknownOutdated:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				incativeType: .outdatedResults,
-				lastInvestigation: "Geringes Risiko",
+				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
 		case .low:
@@ -381,19 +381,30 @@ extension HomeInteractor {
 
 extension HomeInteractor {
 	func updateTestResults() {
+		// Avoid unnecessary loading.
+		guard testResult == nil || testResult == .pending else { return }
 		guard store.registrationToken != nil else { return }
+
 
 		// Make sure to make the loading cell appear for at least `minRequestTime`.
 		// This avoids an ugly flickering when the cell is only shown for the fraction of a second.
 		// Make sure to only trigger this additional delay when no other test result is present already.
 		let requestStart = Date()
-		let minRequestTime: TimeInterval = 2.0
+		let minRequestTime: TimeInterval = 0.5
 
 		self.exposureSubmissionService.getTestResult { [weak self] result in
 			switch result {
-			case .failure:
-				// TODO: initiate retry?
-				self?.testResult = nil
+			case .failure(let error):
+				// When we fail here, trigger an alert and set the state to pending.
+				self?.homeViewController.alertError(
+					message: error.localizedDescription,
+					title: AppStrings.Home.resultCardLoadingErrorTitle,
+					completion: {
+						self?.testResult = .pending
+						self?.reloadTestResult(with: .pending)
+					}
+				)
+
 			case .success(let result):
 				let requestTime = Date().timeIntervalSince(requestStart)
 				let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0

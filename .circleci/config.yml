@@ -71,6 +71,11 @@ workflows:
     default:
       jobs:
         - build
+        - grab-screenshots:
+            filters:
+              branches:
+                only:
+                  - master
     # Run only on pull requests
     pull_request:
       jobs:

@@ -89,6 +89,8 @@ enum AppStrings {
 		static let testInvalidDesc = NSLocalizedString("ExposureSubmissionResult_testInvalidDesc", comment: "")
 		static let testPending = NSLocalizedString("ExposureSubmissionResult_testPending", comment: "")
 		static let testPendingDesc = NSLocalizedString("ExposureSubmissionResult_testPendingDesc", comment: "")
+		static let testRemove = NSLocalizedString("ExposureSubmissionResult_testRemove", comment: "")
+		static let testRemoveDesc = NSLocalizedString("ExposureSubmissionResult_testRemoveDesc", comment: "")
 		static let warnOthersDesc = NSLocalizedString("ExposureSubmissionResult_warnOthersDesc", comment: "")
 		static let continueButton = NSLocalizedString("ExposureSubmissionResult_continueButton", comment: "")
 		static let deleteButton = NSLocalizedString("ExposureSubmissionResult_deleteButton", comment: "")
@@ -176,6 +178,7 @@ enum AppStrings {
 		static let regTokenNotExist = NSLocalizedString("ExposureSubmissionError_RegTokenNotExist", comment: "")
 		static let other = NSLocalizedString("ExposureSubmissionError_other", comment: "")
 		static let otherend = NSLocalizedString("ExposureSubmissionError_otherend", comment: "")
+		static let httpError = NSLocalizedString("ExposureSubmissionError_httpError", comment: "")
 		static let notAuthorized = NSLocalizedString("ExposureSubmissionError_declined", comment: "")
 		static let unknown = NSLocalizedString("ExposureSubmissionError_unknown", comment: "")
 		static let defaultError = NSLocalizedString("ExposureSubmissionError_defaultError", comment: "")
@@ -345,6 +348,9 @@ enum AppStrings {
 		static let riskCardInactiveNoCalculationPossibleBody = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Body", comment: "")
 		static let riskCardInactiveOutdatedResultsBody = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Body", comment: "")
 		static let riskCardInactiveActivateItemTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Title", comment: "")
+		static let riskCardInactiveActiveItemUnknownTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Unknown_Title", comment: "")
+		static let riskCardInactiveActiveItemLowTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_Low_Title", comment: "")
+		static let riskCardInactiveActiveItemHighTitle = NSLocalizedString("Home_Risk_Inactive_Activate_Item_High_Title", comment: "")
 		static let riskCardInactiveNoCalculationPossibleButton = NSLocalizedString("Home_Risk_Inactive_NoCalculation_Possible_Button", comment: "")
 		static let riskCardInactiveOutdatedResultsButton = NSLocalizedString("Home_Risk_Inactive_Outdated_Results_Button", comment: "")
 
@@ -422,6 +428,7 @@ enum AppStrings {
 		static let resultCardPendingDesc = NSLocalizedString("Home_resultCard_PendingDesc", comment: "")
 		static let resultCardInvalidTitle = NSLocalizedString("Home_resultCard_InvalidTitle", comment: "")
 		static let resultCardInvalidDesc = NSLocalizedString("Home_resultCard_InvalidDesc", comment: "")
+		static let resultCardLoadingErrorTitle = NSLocalizedString("Home_resultCard_LoadingErrorTitle", comment: "")
 	}
 	
 	enum InviteFriends {
@@ -468,8 +475,11 @@ enum AppStrings {
 		static let legend2Text = NSLocalizedString("RiskLegend_Legend2_Text", comment: "")
 		static let legend2RiskLevels = NSLocalizedString("RiskLegend_Legend2_RiskLevels", comment: "")
 		static let legend2High = NSLocalizedString("RiskLegend_Legend2_High", comment: "")
+		static let legend2HighColor = NSLocalizedString("RiskLegend_Legend2_High_Color", comment: "")
 		static let legend2Low = NSLocalizedString("RiskLegend_Legend2_Low", comment: "")
+		static let legend2LowColor = NSLocalizedString("RiskLegend_Legend2_Low_Color", comment: "")
 		static let legend2Unknown = NSLocalizedString("RiskLegend_Legend2_Unknown", comment: "")
+		static let legend2UnknownColor = NSLocalizedString("RiskLegend_Legend2_Unknown_Color", comment: "")
 		static let legend3Title = NSLocalizedString("RiskLegend_Legend3_Title", comment: "")
 		static let legend3Text = NSLocalizedString("RiskLegend_Legend3_Text", comment: "")
 		static let definitionsTitle = NSLocalizedString("RiskLegend_Definitions_Title", comment: "")
