@@ -23,11 +23,21 @@ final class HTTPClient: Client {
 	// MARK: Creating
 
 	init(
-		configuration: Configuration = .production,
+		configuration: Configuration? = .loadFromPlist(dictionaryNameInPList: "BackendURLs"),
 		session: URLSession = .coronaWarnSession()
 	) {
-		self.configuration = configuration
+
 		self.session = session
+// TODO: Enable
+//		#if RELEASE
+//		self.configuration = .production
+//		#else
+		guard let configuration = configuration else {
+			self.configuration = .production  // fallback
+			return
+		}
+		self.configuration = configuration
+//		#endif
 	}
 
 	// MARK: Properties

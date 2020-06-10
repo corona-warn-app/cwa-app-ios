@@ -131,7 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
 			let submissionURL = URL(string: submissionURLString) else {
-				return HTTPClient(configuration: .production)
+				return HTTPClient()
 		}
 
 		let config = HTTPClient.Configuration(
