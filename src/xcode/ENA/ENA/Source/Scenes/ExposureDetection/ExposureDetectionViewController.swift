@@ -22,6 +22,7 @@ import UIKit
 final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
 	// MARK: Properties
 
+	@IBOutlet var closeControl: UIControl!
 	@IBOutlet var closeImage: UIImageView!
 	@IBOutlet var headerView: UIView!
 	@IBOutlet var titleViewBottomConstraint: NSLayoutConstraint!
@@ -58,6 +59,13 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 extension ExposureDetectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		titleLabel.accessibilityTraits = .header
+
+    closeControl.isAccessibilityElement = true
+		closeControl.accessibilityTraits = .button
+		closeControl.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		closeControl.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
 
 		consumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk

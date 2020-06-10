@@ -82,20 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
 
-	let downloadedPackagesStore: DownloadedPackagesStore = {
-		let fileManager = FileManager()
-		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-			fatalError("unable to determine document dir")
-		}
-		let storeURL = documentDir
-			.appendingPathComponent("packages")
-			.appendingPathExtension("sqlite3")
+	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-		let db = FMDatabase(url: storeURL)
-		let store = DownloadedPackagesSQLLiteStore(database: db)
-		store.open()
-		return store
-	}()
 
 	let store: Store = {
 		do {
@@ -107,15 +95,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			if !fileManager.fileExists(atPath: directoryURL.path) {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				guard let key = KeychainHelper.generateDatabaseKey() else {
-					logError(message: "Creating the Database failed")
-					return SecureStore(at: nil, key: "")
+					fatalError("Creating the Database failed")
 				}
 				return SecureStore(at: directoryURL, key: key)
 			} else {
 				guard let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") else {
 					guard let key = KeychainHelper.generateDatabaseKey() else {
-						logError(message: "Creating the Database failed")
-						return SecureStore(at: nil, key: "")
+						fatalError("Creating the Database failed")
 					}
 					return SecureStore(at: directoryURL, key: key)
 				}
@@ -123,8 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				return SecureStore(at: directoryURL, key: key)
 			}
 		} catch {
-			logError(message: "Creating the Database failed")
-			return SecureStore(at: nil, key: "")
+			fatalError("Creating the Database failed")
 		}
 	}()
 
@@ -154,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			country: "DE",
 			endpoints: HTTPClient.Configuration.Endpoints(
 				distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-				submission: .init(baseURL: submissionURL, requiresTrailingSlash: true),
+				submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
 				verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
 			)
 		)
@@ -200,6 +185,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
+
 	private func useSummaryDetectionResult(
 		_ result: Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>
 	) {

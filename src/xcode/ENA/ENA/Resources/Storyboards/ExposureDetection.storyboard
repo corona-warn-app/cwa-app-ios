@@ -629,6 +629,7 @@
                     <size key="freeformSize" width="414" height="1154"/>
                     <connections>
                         <outlet property="checkButton" destination="cMV-Lp-NXE" id="z3i-Tb-KeN"/>
+                        <outlet property="closeControl" destination="6Yg-bN-9lH" id="QEg-XV-rXg"/>
                         <outlet property="closeImage" destination="YMn-0h-IfS" id="SfS-Li-9HN"/>
                         <outlet property="footerView" destination="iKv-vN-XYX" id="YGA-MS-mvA"/>
                         <outlet property="headerView" destination="7J8-aC-PDv" id="xOD-4t-OhH"/>
