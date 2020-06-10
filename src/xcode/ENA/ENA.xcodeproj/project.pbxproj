@@ -13,6 +13,7 @@
 		0159E6C1247829BA00894A89 /* temporary_exposure_key_export.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */; };
 		0159E6C2247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */; };
 		016146912487A43E00660992 /* WebPageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* WebPageHelper.swift */; };
+		01D3ED002490230400551E65 /* StoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D3ECFF2490230400551E65 /* StoreTests.swift */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
@@ -353,6 +354,7 @@
 		0159E6BF247829BA00894A89 /* temporary_exposure_key_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_export.pb.swift; path = ../../../gen/output/temporary_exposure_key_export.pb.swift; sourceTree = "<group>"; };
 		0159E6C0247829BA00894A89 /* temporary_exposure_key_signature_list.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = temporary_exposure_key_signature_list.pb.swift; path = ../../../gen/output/temporary_exposure_key_signature_list.pb.swift; sourceTree = "<group>"; };
 		016146902487A43E00660992 /* WebPageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageHelper.swift; sourceTree = "<group>"; };
+		01D3ECFF2490230400551E65 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StoreTests.swift; sourceTree = "<group>"; };
 		01F5F7212487B9C000229720 /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
 		0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStore.swift; sourceTree = "<group>"; };
 		0DD260FE248D549B007C3B2C /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -1327,6 +1329,7 @@
 				0DF6BB9C248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift */,
 				A173665124844F29006BE209 /* SQLiteKeyValueStoreTests.swift */,
 				B1CD333D24865E0000B06E9B /* TracingStatusHistoryTests.swift */,
+				01D3ECFF2490230400551E65 /* StoreTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2275,6 +2278,7 @@
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
 				CDF27BD5246ADBF30044D32B /* HTTPClientTests.swift in Sources */,
 				A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */,
+				01D3ED002490230400551E65 /* StoreTests.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
 				B1D431CE246C84F200E728AD /* KeyPackagesStoreTests.swift in Sources */,
@@ -2436,7 +2440,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1623;
+				CURRENT_PROJECT_VERSION = 1840;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2597,7 +2601,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1623;
+				CURRENT_PROJECT_VERSION = 1840;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2813,7 +2817,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1623;
+				CURRENT_PROJECT_VERSION = 1840;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2852,7 +2856,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1623;
+				CURRENT_PROJECT_VERSION = 1840;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -3053,7 +3057,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1623;
+				CURRENT_PROJECT_VERSION = 1840;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
