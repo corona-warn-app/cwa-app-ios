@@ -91,6 +91,8 @@ class ENAButton: DynamicTypeButton {
 			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8).isActive = true
 			title.leadingAnchor.constraint(equalTo: activityIndicator.trailingAnchor, constant: 8).isActive = true
 			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+			activityIndicator.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8).isActive = true
+			trailingAnchor.constraint(greaterThanOrEqualTo: title.trailingAnchor, constant: 8).isActive = true
 		} else {
 			activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 			activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -118,7 +120,10 @@ class ENAButton: DynamicTypeButton {
 			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
 		}
 
-		if isLoading {
+		if isLoading && isEnabled {
+			activityIndicator.color = style.foregroundColor
+			activityIndicator.startAnimating()
+		} else if isLoading && !isEnabled {
 			activityIndicator.color = style.disabledForegroundColor.withAlphaComponent(0.5)
 			activityIndicator.startAnimating()
 		} else {
