@@ -23,10 +23,10 @@
                                 <rect key="frame" x="16" y="16" width="354" height="230"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kbL-hr-82V">
-                                        <rect key="frame" x="0.0" y="0.0" width="354" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="49.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFH-Mm-4RX" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="327" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="326" height="49.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="ENA Text Primary 1 Color"/>
                                                 <nil key="highlightedColor"/>
@@ -35,10 +35,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fd1-Xg-Pi0">
-                                                <rect key="frame" x="335" y="0.0" width="19" height="50"/>
+                                                <rect key="frame" x="334" y="0.0" width="20" height="49.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="x5f-VD-TVW" customClass="DynamicTypeSymbolImageView" customModule="ENA" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="12" width="10" height="13.5"/>
+                                                        <rect key="frame" x="0.0" y="-2" width="12.5" height="16.5"/>
                                                         <color key="tintColor" name="ENA Chevron Color"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="dynamicTypeSize">
@@ -59,7 +59,7 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkq-bX-I2X" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="66" width="354" height="98"/>
+                                        <rect key="frame" x="0.0" y="65.5" width="354" height="0.0"/>
                                         <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -68,8 +68,11 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="body"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jVH-Zg-DFR">
+                                        <rect key="frame" x="0.0" y="81.5" width="354" height="98.5"/>
+                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ebl-5E-48J" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="180" width="354" height="50"/>
+                                        <rect key="frame" x="0.0" y="196" width="354" height="34"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="activeButtonTapped:" destination="IaJ-cb-gwW" eventType="touchUpInside" id="pOG-n7-LhN"/>
@@ -100,6 +103,7 @@
                 <outlet property="activeButton" destination="Ebl-5E-48J" id="uOY-qP-ATv"/>
                 <outlet property="bodyLabel" destination="hkq-bX-I2X" id="RBg-dO-tbJ"/>
                 <outlet property="chevronImageView" destination="x5f-VD-TVW" id="aax-Y7-Haq"/>
+                <outlet property="riskViewStackView" destination="jVH-Zg-DFR" id="Znl-gj-kus"/>
                 <outlet property="stackView" destination="xnZ-os-SOr" id="cPu-HA-gcz"/>
                 <outlet property="titleLabel" destination="YFH-Mm-4RX" id="Uzs-AF-cii"/>
                 <outlet property="topContainer" destination="kbL-hr-82V" id="pYX-sb-bhA"/>
@@ -117,7 +121,7 @@
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ENA Text Primary 1 Color">
-            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
