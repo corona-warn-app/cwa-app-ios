@@ -342,6 +342,7 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 		case UNNotificationDefaultActionIdentifier: break
 		case UNNotificationDismissActionIdentifier: break
 		default: break
+		}
 		completionHandler()
 	}
 }
