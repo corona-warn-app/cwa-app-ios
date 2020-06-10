@@ -40,6 +40,35 @@ extension HTTPClient {
 			)
 		)
 
+		static func loadFromPlist(dictionaryNameInPList: String) -> Configuration? {
+			let plistDict = Bundle.main.readPlistDict(name: "BackendURLs")
+			guard
+				let distribution = URL(string: plistDict?["distribution"] ?? "invalid"),
+				let submission = URL(string: plistDict?["submission"] ?? "invalid"),
+				let verification = URL(string: plistDict?["verification"] ?? "invalid") else {
+					return nil
+			}
+
+			return Configuration(
+				apiVersion: "v1",
+				country: "DE",
+				endpoints: Configuration.Endpoints(
+					distribution: .init(
+						baseURL: distribution,
+						requiresTrailingSlash: false
+					),
+					submission: .init(
+						baseURL: submission,
+						requiresTrailingSlash: false
+					),
+					verification: .init(
+						baseURL: verification,
+						requiresTrailingSlash: false
+					)
+				)
+			)
+		}
+
 		// MARK: Properties
 
 		let apiVersion: String
