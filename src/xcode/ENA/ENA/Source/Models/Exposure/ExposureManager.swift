@@ -111,8 +111,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 	// MARK: Properties
 
-	private weak var observer: ENAExposureManagerObserver?
-//	private var enabledObservation: NSKeyValueObservation?
+	private weak var exposureManagerObserver: ENAExposureManagerObserver?
 	private var statusObservation: NSKeyValueObservation?
 	@objc private var manager: Manager
 
@@ -127,11 +126,11 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 	func resume(observer: ENAExposureManagerObserver) {
 		precondition(
-			self.observer == nil,
+			self.exposureManagerObserver == nil,
 			"Cannot resume an exposure manager that is already resumed."
 		)
 
-		self.observer = observer
+		self.exposureManagerObserver = observer
 
 		statusObservation = observe(\.manager.exposureNotificationStatus, options: .new) { [weak self] _, _ in
 			guard let self = self else { return }
@@ -252,10 +251,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 	/// Invalidate the EnManager with completion handler
 	func invalidate(handler: (() -> Void)?) {
+		manager.invalidationHandler = handler
 		manager.invalidate()
-			manager.invalidationHandler = {
-				handler?()
-			}
 	}
 
 
@@ -263,9 +260,9 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	func reset(handler: (() -> Void)?) {
 		statusObservation?.invalidate()
 		disableIfNeeded { _ in
+			self.exposureManagerObserver = nil
 			self.invalidate {
 				self.manager = ENManager()
-				self.observer = nil
 				handler?()
 			}
 		}
