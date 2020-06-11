@@ -336,7 +336,7 @@ extension ExposureSubmissionError: LocalizedError {
 		case let .serverError(code):
 			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
 		case let .httpError(desc):
-			return desc
+			return "\(AppStrings.ExposureSubmissionError.httpError)\n\(desc)"
 		case .invalidTan:
 			return AppStrings.ExposureSubmissionError.invalidTan
 		case .enNotEnabled:

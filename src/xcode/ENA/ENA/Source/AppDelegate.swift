@@ -114,15 +114,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 
 	lazy var client: Client = {
-		// We disable app store checks to make testing easier.
-		//        #if APP_STORE
-		//        return HTTPClient(configuration: .production)
-		//        #endif
-
-		if ClientMode.default == .mock {
-			fatalError("not implemented")
-		}
-
 		let store = self.store
 		guard
 			let distributionURLString = store.developerDistributionBaseURLOverride,
@@ -131,7 +122,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
 			let submissionURL = URL(string: submissionURLString) else {
-				return HTTPClient(configuration: .production)
+				let configuration: HTTPClient.Configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
+				return HTTPClient(configuration: configuration)
 		}
 
 		let config = HTTPClient.Configuration(
@@ -246,12 +238,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 }
 
 extension AppDelegate: ENATaskExecutionDelegate {
-	func executeExposureDetectionRequest(task: BGTask) {
-
-		func complete(success: Bool) {
-			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleTask(for: .detectExposures)
-		}
+	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
 		riskProvider.requestRisk(userInitiated: false) { risk in
 			// present a notification if the risk score has increased
@@ -260,24 +247,16 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.detectExposureTitle,
 					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: ENATaskIdentifier.detectExposures.rawValue
+					identifier: task.identifier
 				)
 			}
-			complete(success: true)
+			completion(true)
 		}
 
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			complete(success: false)
-		}
 	}
 
-	func executeFetchTestResults(task: BGTask) {
+	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		func complete(success: Bool) {
-			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleTask(for: .fetchTestResults)
-		}
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
@@ -290,19 +269,16 @@ extension AppDelegate: ENATaskExecutionDelegate {
 						UNUserNotificationCenter.current().presentNotification(
 							title: AppStrings.LocalNotifications.testResultsTitle,
 							body: AppStrings.LocalNotifications.testResultsBody,
-							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+							identifier: task.identifier
+						)
 					}
 				}
 
-				complete(success: true)
+				completion(true)
 			}
 		} else {
-			complete(success: true)
+			completion(true)
 		}
 
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			complete(success: false)
-		}
 	}
 }
