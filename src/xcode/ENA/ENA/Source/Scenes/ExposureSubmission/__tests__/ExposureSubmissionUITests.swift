@@ -47,8 +47,9 @@ class ExposureSubmissionUITests: XCTestCase {
 		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 
-		// TODO: Make sure this is the correct accesibility identifier.
-		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
+		// Check whether we have entered the info screen.
+		let infoIdentifier = localized(AppStrings.ExposureSubmissionIntroduction.title)
+		XCTAssert(app.navigationBars[infoIdentifier].waitForExistence(timeout: .medium))
 	}
 
 	func test_NavigateToHotlineVC() throws {
@@ -57,18 +58,21 @@ class ExposureSubmissionUITests: XCTestCase {
 		// Open Intro screen.
 		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
+		let infoIdentifier = localized(AppStrings.ExposureSubmissionIntroduction.title)
+		XCTAssert(app.navigationBars[infoIdentifier].waitForExistence(timeout: .medium))
 
 		// Click next button.
-		// TODO: Remove hardcoded key and add accessibility identifier for button.
-		XCTAssertNotNil(app.buttons["Weiter"].waitForExistence(timeout: .medium))
-		app.buttons["Weiter"].tap()
+		let nextIdentifier = localized(AppStrings.ExposureSubmission.continueText)
+		XCTAssertNotNil(app.buttons[nextIdentifier].waitForExistence(timeout: .medium))
+		app.buttons[nextIdentifier].tap()
 
-		// Select hotline
-		XCTAssert(app.buttons["AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"].waitForExistence(timeout: .medium))
+		// Select hotline button.
+		XCTAssert(app
+			.buttons["AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"]
+			.waitForExistence(timeout: .medium)
+		)
 		app.buttons["AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"].tap()
-
-		// TODO: Check if call screen behaves as expected.
+		XCTAssertNotNil(app.navigationBars.firstMatch.title)
 	}
 
 	func test_DataPrivacyDisclaimerShownOnQRCodeScan() throws {
@@ -80,12 +84,15 @@ class ExposureSubmissionUITests: XCTestCase {
 		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
 
 		// Click next button.
-		// TODO: Remove hardcoded key and add accessibility identifier for button.
-		XCTAssertNotNil(app.buttons["Weiter"].waitForExistence(timeout: .medium))
-		app.buttons["Weiter"].tap()
+		let nextIdentifier = localized(AppStrings.ExposureSubmission.continueText)
+		XCTAssertNotNil(app.buttons[nextIdentifier].waitForExistence(timeout: .medium))
+		app.buttons[nextIdentifier].tap()
 
 		// Select QRCode screen.
-		XCTAssert(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
+		XCTAssert(app
+			.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"]
+			.waitForExistence(timeout: .medium)
+		)
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
 
 		// Test that data privacy alert is shown.
@@ -101,15 +108,15 @@ class ExposureSubmissionUITests: XCTestCase {
 		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
 
 		// Click next button.
-		// TODO: Remove hardcoded key and add accessibility identifier for button.
-		XCTAssertNotNil(app.buttons["Weiter"].waitForExistence(timeout: .medium))
-		app.buttons["Weiter"].tap()
+		let nextIdentifier = localized(AppStrings.ExposureSubmission.continueText)
+		XCTAssertNotNil(app.buttons[nextIdentifier].waitForExistence(timeout: .medium))
+		app.buttons[nextIdentifier].tap()
 
 		// Select QRCode screen.
 		XCTAssert(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
 
-		// Deny the alert.
+		// Accept the alert.
 		XCTAssertTrue(app.alerts.firstMatch.exists)
 		app.alerts.buttons.firstMatch.tap()
 
