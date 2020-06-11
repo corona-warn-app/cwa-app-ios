@@ -23,8 +23,9 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 
 	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet weak var errorLabel: UILabel!
-	@IBOutlet var infoLabel: UILabel!
+	@IBOutlet weak var errorView: UIView!
 	@IBOutlet var tanInput: ENATanInput!
+
 	var initialTan: String?
 	var exposureSubmissionService: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
@@ -59,11 +60,8 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		title = AppStrings.ExposureSubmissionTanEntry.title
 		setButtonEnabled(enabled: tanInput.isValid)
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
-		errorLabel.isHidden = true
-		descriptionLabel.adjustsFontForContentSizeCategory = true
-		descriptionLabel.lineBreakMode = .byWordWrapping
-		descriptionLabel.numberOfLines = 0
-		infoLabel.text = AppStrings.ExposureSubmissionTanEntry.info
+		errorView.isHidden = true
+		errorView.alpha = 0
 	}
 
 	private func fetchService() {
@@ -112,14 +110,21 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 
 	func tanChanged(isValid: Bool, checksumIsValid: Bool, isBlocked: Bool) {
 		setButtonEnabled(enabled: (isValid && checksumIsValid))
-		if isValid && !checksumIsValid {
-			errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidError
-			errorLabel.isHidden = false
-		} else if isBlocked {
-			errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidCharacterError
-			errorLabel.isHidden = false
-		} else {
-			errorLabel.isHidden = true
+		UIView.animate(withDuration: CATransaction.animationDuration()) {
+			if isValid && !checksumIsValid {
+				self.errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidError
+				self.errorView.isHidden = false
+				self.errorView.alpha = 1
+			} else if isBlocked {
+				self.errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidCharacterError
+				self.errorView.isHidden = false
+				self.errorView.alpha = 1
+			} else {
+				self.errorView.isHidden = true
+				self.errorView.alpha = 0
+			}
+
+			self.view.layoutIfNeeded()
 		}
 	}
 
