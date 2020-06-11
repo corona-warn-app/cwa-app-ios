@@ -22,6 +22,8 @@
 /* Accessibility */
 "AccessibilityLabel_Close" = "Close";
 
+"AccessibilityLabel_PhoneNumber" = "Telefonnummer";
+
 /* Exposure Detection */
 "ExposureDetection_Off" = "Risk identification stopped";
 
@@ -39,7 +41,7 @@
 
 "ExposureDetection_Refreshed_Never" = "Unknown";
 
-"ExposureDetection_RefreshingIn" = "Update in %02d:%02d\U00A0minutes";
+"ExposureDetection_RefreshingIn" = "Update in %02d:%02d\\U00A0minutes";
 
 "ExposureDetection_Refresh_24h" = "Updated every 24 hours";
 
@@ -168,7 +170,7 @@
 
 "OnboardingInfo_privacyPage_title" = "Data Privacy";
 
-"OnboardingInfo_privacyPage_boldText" = "Hello world";
+"OnboardingInfo_privacyPage_boldText" = "";
 
 "OnboardingInfo_privacyPage_normalText" = "You remain anonymous.\nYour data is transmitted fully encrypted and under a pseudonym.\n\nResponsible body: GDPR, Article 4, Paragraph 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nPlease read our data privacy regulations.\n\nData privacy information:";
 
@@ -381,6 +383,10 @@
 
 "ExposureSubmissionResult_testPendingDesc" = "Your test result is not yet available.";
 
+"ExposureSubmissionResult_testRemove" = "Test entfernen";
+
+"ExposureSubmissionResult_testRemoveDesc" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
+
 "ExposureSubmissionResult_continueButton" = "Next";
 
 "ExposureSubmissionResult_deleteButton" = "Delete test";
@@ -432,6 +438,8 @@
 
 "ExposureSubmissionError_otherend" = "Please try again.";
 
+"ExposureSubmissionError_httpError" = "Es konnte keine Verbindung hergestellt werden.";
+
 "ExposureSubmissionError_declined" = "Please release your random IDs to warn other people.";
 
 "ExposureSubmissionError_unknown" = "Unknown error";
@@ -473,9 +481,9 @@
 
 "ExposureNotificationSetting_Activate_OSENSetting_Description" = "For risk identification, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications";
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Parental control/screen time activated";
 
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For risk identification, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Activated parental control prevents activation of risk identification. Please deactivate this restriction in your app in Settings -> Screen time.";
 
 "ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Authorization required";
 
@@ -514,7 +522,7 @@
 
 "Home_Risk_No_Date_Title" = "Unknown";
 
-"Home_Risk_Period_Update_Title" = "Updated every %@\U00A0hours";
+"Home_Risk_Period_Update_Title" = "Updated every %@\\U00A0hours";
 
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Risk Unknown";
@@ -642,6 +650,8 @@
 "Home_resultCard_InvalidTitle" = "Invalid Diagnosis";
 
 "Home_resultCard_InvalidDesc" = "Your test could not be evaluated.";
+
+"Home_resultCard_LoadingErrorTitle" = "Ihr Testergebnis konnte nicht geladen werden";
 
 /* App Information - About */
 "App_Information_About_Navigation" = "About the App";
