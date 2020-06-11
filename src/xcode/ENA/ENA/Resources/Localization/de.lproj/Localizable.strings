@@ -221,6 +221,8 @@
 
 "ExposureSubmissionTanEntry_Title" = "TAN-Eingabe";
 
+"ExposureSubmissionTanEntry_EntryField" = "TAN-Eingabefeld";
+
 "ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die Ihnen mitgeteilte TAN ein:";
 
 "ExposureSubmissionTanEntry_Description" = "Geben Sie bitte die 10-stellige TAN ein, die Ihnen mitgeteilt wurde.";
