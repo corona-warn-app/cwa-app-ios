@@ -24,7 +24,7 @@ func log(
 	line: UInt = #line,
 	function: String = #function
 ) {
-	#if !APP_STORE
+	#if !RELEASE
 	print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
 	#endif
 }
@@ -36,6 +36,7 @@ func logError(
 	line: UInt = #line,
 	function: String = #function
 ) {
+	#if !RELEASE
 	log(
 		message: message,
 		level: .error,
@@ -43,6 +44,7 @@ func logError(
 		line: line,
 		function: function
 	)
+	#endif
 }
 
 enum LogLevel: String {

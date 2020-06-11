@@ -126,7 +126,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 			}
 		}
 	
-		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
+		if let riskItemView = riskViewStackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
 			riskItemView.hideSeparator()
 		}
 
