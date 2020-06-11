@@ -24,5 +24,10 @@ class NotificationSettingsOffTableViewCell: UITableViewCell {
 	func configure(viewModel: NotificationSettingsViewModel.SettingsOffItem) {
 		descriptionLabel.text = viewModel.description
 		stateLabel.text = viewModel.state
+
+		isAccessibilityElement = true
+		accessibilityLabel = descriptionLabel.text
+		accessibilityTraits = .none
+
 	}
 }
