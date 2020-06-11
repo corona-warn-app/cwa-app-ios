@@ -501,15 +501,3 @@ private extension SAP_RiskScoreParameters.AttenuationRiskParameter {
 		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, lt10Dbm].map { $0.asNumber }
 	}
 }
-
-extension ENExposureConfiguration {
-	class func mock() -> ENExposureConfiguration {
-		let config = ENExposureConfiguration()
-		config.metadata = ["attenuationDurationThresholds": [50, 70]]
-		config.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-		config.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-		config.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-		config.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-		return config
-	}
-}
