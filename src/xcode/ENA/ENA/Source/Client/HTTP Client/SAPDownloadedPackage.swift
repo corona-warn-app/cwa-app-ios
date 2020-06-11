@@ -52,16 +52,24 @@ extension SAPDownloadedPackage {
 	/// - Neither the .bin or .sig data is encrypted (besides in transit), but the .sig file serves the signature
 	/// - The server has signed this hash with their private key.
 	///
-	func verifySignature(with keystore: PublicKeyStore = ProductionPublicKeyStore()) throws -> Bool {
+	func verifySignature(with keystore: PublicKeyStore = ProductionPublicKeyStore()) -> Bool {
 		
-		guard let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature) else {
+		guard
+			let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: signature),
+			let bundleId = Bundle.main.bundleIdentifier
+		else {
 			return false
 		}
 		
 		for signatureEntry in parsedSignatureFile.signatures {
 			let signatureData: Data = signatureEntry.signature
-			let publicKey = try keystore.publicKey(for: signatureEntry.signatureInfo.appBundleID)
-			let signature = try P256.Signing.ECDSASignature(derRepresentation: signatureData)
+			guard
+				let publicKey = try? keystore.publicKey(for: bundleId),
+				let signature = try? P256.Signing.ECDSASignature(derRepresentation: signatureData)
+			else {
+				logError(message: "Could not validate signature of downloaded package", level: .warning)
+				continue
+			}
 				
 			if publicKey.isValidSignature(signature, for: bin) {
 				return true
