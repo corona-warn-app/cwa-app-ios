@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,28 +15,21 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import UIKit
+import Foundation
 
-/// A Switch UI control which has the same behavior of UISwitch, but with different tint color.
-@IBDesignable
-final class ENASwitch: UISwitch {
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		customizeSwitch()
-	}
-
-	required init?(coder: NSCoder) {
-		super.init(coder: coder)
-		customizeSwitch()
-	}
-
-	private func customizeSwitch() {
-		onTintColor = .enaColor(for: .buttonPrimary)
-	}
-
-	override func prepareForInterfaceBuilder() {
-		super.prepareForInterfaceBuilder()
-		customizeSwitch()
+extension SAP_SemanticVersion: Comparable {
+	static func < (lhs: SAP_SemanticVersion, rhs: SAP_SemanticVersion) -> Bool {
+		if lhs.major != rhs.major {
+			return lhs.major < rhs.major
+		}
+		if lhs.minor != rhs.minor {
+			return lhs.minor < rhs.minor
+		}
+		if lhs.patch != rhs.patch {
+			return lhs.patch < rhs.patch
+		}
+		return false
 	}
 }
