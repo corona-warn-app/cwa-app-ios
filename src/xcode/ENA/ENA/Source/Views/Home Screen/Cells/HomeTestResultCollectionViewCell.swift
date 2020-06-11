@@ -47,6 +47,8 @@ class HomeTestResultCollectionViewCell: HomeCardCollectionViewCell {
 	private func setup() {
 		subtitleLabel.textColor = tintColor
 		updateIllustration(for: traitCollection)
+
+		titleLabel.accessibilityTraits = [.header, .button]
 	}
 
 	func configure(title: String, subtitle: String? = nil, description: String, button buttonTitle: String, image: UIImage?, tintColor: UIColor = .enaColor(for: .textPrimary1)) {
@@ -56,6 +58,7 @@ class HomeTestResultCollectionViewCell: HomeCardCollectionViewCell {
 		illustrationView?.image = image
 
 		button.setTitle(buttonTitle, for: .normal)
+		button.accessibilityIdentifier = "AppStrings.Home.submitCardButton"
 
 		subtitleLabel.isHidden = (nil == subtitle)
 
