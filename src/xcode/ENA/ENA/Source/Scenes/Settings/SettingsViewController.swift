@@ -299,5 +299,5 @@ extension SettingsViewController: ENStateHandlerUpdating {
 }
 
 extension SettingsViewController: NavigationBarOpacityDelegate {
-	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { .systemChromeMaterial }
+	var preferredLargeTitleBackgroundColor: UIColor? { .enaColor(for: .background) }
 }

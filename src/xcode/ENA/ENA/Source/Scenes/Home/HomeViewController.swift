@@ -84,12 +84,12 @@ final class HomeViewController: UIViewController {
 		configureDataSource()
 		updateSections()
 		applySnapshotFromSections()
-		homeInteractor.updateTestResults()
 		setupAccessibility()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		homeInteractor.updateTestResults()
 		homeInteractor.requestRisk(userInitiated: false)
 	}
 
@@ -239,6 +239,8 @@ final class HomeViewController: UIViewController {
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is HomeTestResultCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
+		case is RiskInactiveCollectionViewCell:
+			showExposureDetection()
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:

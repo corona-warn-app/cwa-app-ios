@@ -62,11 +62,11 @@ extension OnboardingInfo {
 		)
 
 		let info3 = OnboardingInfo(
-			title: AppStrings.Onboarding.onboardingInfo_privacyPage_title,
-			imageName: "Illu_Onboarding_Datenschutz",
-			imageDescription: AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription,
-			boldText: AppStrings.Onboarding.onboardingInfo_privacyPage_boldText,
-			text: AppStrings.Onboarding.onboardingInfo_privacyPage_normalText,
+			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_title,
+			imageName: "Illu_Onboarding_Risikoerekennung",
+			imageDescription: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_imageDescription,
+			boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
+			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
 			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate,
 			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_title",
