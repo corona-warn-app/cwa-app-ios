@@ -35,6 +35,7 @@ enum AppStrings {
 
 	enum AccessibilityLabel {
 		static let close = NSLocalizedString("AccessibilityLabel_Close", comment: "")
+		static let phoneNumber = NSLocalizedString("AccessibilityLabel_PhoneNumber", comment: "")
 	}
 
 	enum ExposureSubmission {
