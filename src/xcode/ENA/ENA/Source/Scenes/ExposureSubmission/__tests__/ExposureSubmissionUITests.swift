@@ -20,32 +20,13 @@
 import Foundation
 import XCTest
 
-private extension TimeInterval {
-	static let short = 1.0
-	static let medium = 3.0
-	static let long = 5.0
-}
-
 class ExposureSubmissionUITests: XCTestCase {
+
+	// MARK: - Attributes.
+	
 	var app: XCUIApplication!
 
-	/// Use this method to grab localized strings correctly.
-	private func localized(_ string: String) -> String {
-		if let path =
-			Bundle(for: ExposureSubmissionUITests.self)
-				.path(
-					forResource: deviceLanguage,
-					ofType: "lproj"
-			),
-			let bundle = Bundle(path: path) {
-			return NSLocalizedString(
-				string,
-				bundle: bundle,
-				comment: ""
-			)
-		}
-		fatalError("Localization could not be loaded.")
-	}
+	// MARK: - Setup.
 
 	override func setUpWithError() throws {
 		continueAfterFailure = false
@@ -57,12 +38,7 @@ class ExposureSubmissionUITests: XCTestCase {
 		app.launchArguments += ["-AppleLocale", "de_DE"]
 	}
 
-
-	/// Launch and wait until the app is ready.
-	private func launch() {
-		app.launch()
-		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .long))
-	}
+	// MARK: - Test cases.
 
 	func test_NavigateToIntroVC() throws {
 		launch()
@@ -140,4 +116,39 @@ class ExposureSubmissionUITests: XCTestCase {
 		// Check if QR Code screen was accessed
 		XCTAssertTrue(app.navigationBars.firstMatch.identifier == localized(AppStrings.ExposureSubmissionQRScanner.title))
 	}
+}
+
+// MARK: - Helpers.
+
+extension ExposureSubmissionUITests {
+
+	/// Launch and wait until the app is ready.
+	private func launch() {
+		app.launch()
+		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: .long))
+	}
+
+	/// Use this method to grab localized strings correctly.
+	private func localized(_ string: String) -> String {
+		if let path =
+			Bundle(for: ExposureSubmissionUITests.self)
+				.path(
+					forResource: deviceLanguage,
+					ofType: "lproj"
+			),
+			let bundle = Bundle(path: path) {
+			return NSLocalizedString(
+				string,
+				bundle: bundle,
+				comment: ""
+			)
+		}
+		fatalError("Localization could not be loaded.")
+	}
+}
+
+private extension TimeInterval {
+	static let short = 1.0
+	static let medium = 3.0
+	static let long = 5.0
 }
