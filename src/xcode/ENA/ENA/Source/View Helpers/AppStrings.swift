@@ -551,4 +551,9 @@ enum AppStrings {
 		static let termsText = NSLocalizedString("App_Information_Terms_Text", comment: "")
 	}
 
+	enum ENATanInput {
+		static let empty = NSLocalizedString("ENATanInput_Empty", comment: "")
+		static let invalidCharacter = NSLocalizedString("ENATanInput_InvalidCharacter", comment: "")
+		static let characterIndex = NSLocalizedString("ENATanInput_CharacterIndex", comment: "")
+	}
 }

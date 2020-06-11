@@ -86,6 +86,7 @@ extension ENATanInput {
 		super.awakeFromNib()
 
 		setup()
+		setupAccessibility()
 	}
 
 	override func layoutSubviews() {
@@ -102,6 +103,20 @@ extension ENATanInput {
 		super.traitCollectionDidChange(previousTraitCollection)
 
 		updateAxis(.horizontal)
+	}
+}
+
+extension ENATanInput {
+	private func setupAccessibility() {
+		labels.forEach { label in
+			label.isAccessibilityElement = false
+		}
+
+		inputLabels.enumerated().forEach { index, label in
+			label.isAccessibilityElement = true
+			label.accessibilityTraits = .updatesFrequently
+			label.accessibilityHint = String(format: AppStrings.ENATanInput.characterIndex, index + 1, numberOfDigits)
+		}
 	}
 }
 
@@ -274,7 +289,9 @@ private class ENATanInputLabel: UILabel {
 	var validColor: UIColor?
 	var invalidColor: UIColor?
 
-	var isValid: Bool = true { didSet { setNeedsDisplay() } }
+	var isValid: Bool = true { didSet { setNeedsDisplay() ; updateAccessibilityLabel() } }
+
+	override var text: String? { didSet { updateAccessibilityLabel() } }
 
 	private var lineColor: UIColor { (isValid ? validColor : invalidColor) ?? textColor }
 
@@ -283,6 +300,11 @@ private class ENATanInputLabel: UILabel {
 	override var intrinsicContentSize: CGSize {
 		let size = super.intrinsicContentSize
 		return CGSize(width: size.width + layoutMargins.left + layoutMargins.right, height: size.height + layoutMargins.top + layoutMargins.bottom)
+	}
+
+	convenience init() {
+		self.init(frame: .zero)
+		updateAccessibilityLabel()
 	}
 
 	override func draw(_ rect: CGRect) {
@@ -312,8 +334,15 @@ private class ENATanInputLabel: UILabel {
 		text = ""
 		isValid = true
 	}
-}
 
+	private func updateAccessibilityLabel() {
+		accessibilityLabel = (text?.isEmpty ?? true) ? AppStrings.ENATanInput.empty : text
+
+		if !isValid {
+			accessibilityLabel = String(format: AppStrings.ENATanInput.invalidCharacter, accessibilityLabel ?? "")
+		}
+	}
+}
 
 private extension ENATanInput {
 	func verifyChecksum(input: String) -> Bool {
