@@ -308,6 +308,7 @@
 		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
 		EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF10679246EBF8B009DFB4E /* ResetViewController.swift */; };
 		F22C6E2324917E3200712A6B /* DynamicTableViewControllerRowsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F247572A24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift */; };
+		F22C6E252492082B00712A6B /* DynamicTableViewSpaceCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22C6E242492082B00712A6B /* DynamicTableViewSpaceCellTests.swift */; };
 		F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F252472E2483955B00C5556B /* DynamicTableViewControllerFake.storyboard */; };
 		F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25247302484456800C5556B /* DynamicTableViewModelTests.swift */; };
 		F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DC808D248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift */; };
@@ -671,6 +672,7 @@
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		EEF10679246EBF8B009DFB4E /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
+		F22C6E242492082B00712A6B /* DynamicTableViewSpaceCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSpaceCellTests.swift; sourceTree = "<group>"; };
 		F247572A24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerRowsTests.swift; sourceTree = "<group>"; };
 		F252472E2483955B00C5556B /* DynamicTableViewControllerFake.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DynamicTableViewControllerFake.storyboard; sourceTree = "<group>"; };
 		F25247302484456800C5556B /* DynamicTableViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DynamicTableViewModelTests.swift; sourceTree = "<group>"; };
@@ -1818,6 +1820,7 @@
 				F247572A24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift */,
 				F252472E2483955B00C5556B /* DynamicTableViewControllerFake.storyboard */,
 				F25247302484456800C5556B /* DynamicTableViewModelTests.swift */,
+				F22C6E242492082B00712A6B /* DynamicTableViewSpaceCellTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -2305,6 +2308,7 @@
 				CDF27BD5246ADBF30044D32B /* HTTPClientTests.swift in Sources */,
 				A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */,
 				B117909824914D77007FF821 /* StoreTests.swift in Sources */,
+				F22C6E252492082B00712A6B /* DynamicTableViewSpaceCellTests.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
 				B1D431CE246C84F200E728AD /* KeyPackagesStoreTests.swift in Sources */,
