@@ -217,6 +217,9 @@ reporter: "xcode"
 
 ### Rule specific configuration
 
+file_length:
+  ignore_comment_only_lines: true
+
 line_length:
   warning: 500
   error: 1000
