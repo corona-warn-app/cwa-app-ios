@@ -146,7 +146,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
-		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
+		// TODO: Enable once Apple reviewed a higher version
+		// appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
 	private func setupNavigationBarAppearance() {
