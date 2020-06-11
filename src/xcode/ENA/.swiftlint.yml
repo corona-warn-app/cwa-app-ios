@@ -217,6 +217,9 @@ reporter: "xcode"
 
 ### Rule specific configuration
 
+cyclomatic_complexity:
+  ignores_case_statements: true
+
 file_length:
   ignore_comment_only_lines: true
 
