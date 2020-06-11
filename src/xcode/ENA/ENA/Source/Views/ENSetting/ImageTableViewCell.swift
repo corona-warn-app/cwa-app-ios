@@ -43,13 +43,13 @@ class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 	func configure(for state: ENStateHandler.State) {
 		let imageConfiguration = bannerImageConfig(for: state)
 		imageContainerView.image = imageConfiguration.image
-		if let label = imageConfiguration.label {
+		if imageConfiguration.label != nil {
 			imageContainerView.isAccessibilityElement = true
-			imageContainerView.accessibilityLabel = label
-			imageContainerView.accessibilityIdentifier = accessibilityIdentifier
 		} else {
 			imageContainerView.isAccessibilityElement = false
 		}
+		imageContainerView.accessibilityLabel = imageConfiguration.label
+		imageContainerView.accessibilityIdentifier = imageConfiguration.accessibilityIdentifier
 	}
 
 	private func bannerImageConfig(for state: ENStateHandler.State) -> BannerImageConfig {

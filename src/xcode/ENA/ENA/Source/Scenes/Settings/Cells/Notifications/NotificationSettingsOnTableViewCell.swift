@@ -32,5 +32,23 @@ class NotificationSettingsOnTableViewCell: UITableViewCell {
 
 		descriptionLabel.text = viewModel.description
 		toggleSwitch.isOn = viewModel.state
+
+		var accessibilityLabelText = descriptionLabel.text ?? ""
+		accessibilityLabelText += ", "
+		accessibilityLabelText += toggleSwitch.isOn ? AppStrings.Settings.notificationStatusActive : AppStrings.Settings.notificationStatusInactive
+
+		isAccessibilityElement = true
+		accessibilityLabel = accessibilityLabelText
+		accessibilityTraits = .button
+
+		accessibilityCustomActions = [
+			UIAccessibilityCustomAction(name: "Toggle", target: self, selector: #selector(toggle(_:)))
+		]
+
+	}
+
+	@objc
+	func toggle(_ sender: Any) {
+		toggleSwitch.isOn.toggle()
 	}
 }

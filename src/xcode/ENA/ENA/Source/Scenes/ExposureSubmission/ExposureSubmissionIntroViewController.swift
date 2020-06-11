@@ -32,6 +32,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		// The button is shared among multiple controllers,
 		// make sure to reset it whenever the view appears.
 		setButtonTitle(to: AppStrings.ExposureSubmission.continueText)
+		button?.accessibilityIdentifier = "AppStrings.ExposureSubmission.continueText"
 		if exposureSubmissionService?.hasRegistrationToken() ?? false {
 			fetchResult()
 		}
@@ -116,8 +117,8 @@ private extension DynamicTableViewModel {
 		.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_Funktion1"),
-				accessibilityLabel: nil,
-				accessibilityIdentifier: nil,
+				accessibilityLabel: "",
+				accessibilityIdentifier: "ExposureSubmissionIntroViewController.image",
 				height: 200
 			),
 			separators: false,
