@@ -43,8 +43,8 @@ platform :ios do
 
     swiftlint(
       mode: :lint,
+      path: "ENA",
       output_file: "swiftlint.result.json",
-      config_file: "ENA/.swiftlint.yml",
       raise_if_swiftlint_error: true,
       reporter: "sonarqube"
     )
