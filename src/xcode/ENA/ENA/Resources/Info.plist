@@ -36,13 +36,11 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>None</string>
 			<key>CFBundleURLName</key>
-			<string>com.sap.ena</string>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>corona-warn-app</string>
-			</array>
+			<array/>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
