@@ -102,7 +102,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		setupUI()
 
 		NotificationCenter.default.addObserver(self, selector: #selector(isOnboardedDidChange(_:)), name: .isOnboardedDidChange, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(backgroundRefreshStatusDidChange), name: UIApplication.backgroundRefreshStatusDidChangeNotification, object: nil)
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(backgroundRefreshStatusDidChange),
+			name: UIApplication.backgroundRefreshStatusDidChangeNotification,
+			object: nil
+		)
 	}
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
@@ -330,11 +335,19 @@ extension SceneDelegate: HomeViewControllerDelegate {
 }
 
 extension SceneDelegate: UNUserNotificationCenterDelegate {
-	func userNotificationCenter(_: UNUserNotificationCenter, willPresent _: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+	func userNotificationCenter(
+		_: UNUserNotificationCenter,
+		willPresent _: UNNotification,
+		withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+	) {
 		completionHandler([.alert, .badge, .sound])
 	}
 
-	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+	func userNotificationCenter(
+		_: UNUserNotificationCenter,
+		didReceive response: UNNotificationResponse,
+		withCompletionHandler completionHandler: @escaping () -> Void
+	) {
 		switch response.actionIdentifier {
 		case UserNotificationAction.openExposureDetectionResults.rawValue,
 			 UserNotificationAction.openTestResults.rawValue:

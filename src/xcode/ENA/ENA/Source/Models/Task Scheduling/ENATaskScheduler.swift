@@ -104,6 +104,7 @@ final class ENATaskScheduler {
 		executeFetchTestResults(task) { executeFetchTestResultsSuccess in
 			self.executeExposureDetectionRequest(task) { executeExposureDetectionRequestSuccess in
 				let success = executeFetchTestResultsSuccess && executeExposureDetectionRequestSuccess
+				// swiftlint:disable:next line_length
 				log(message: "Task complete! executeFetchTestResultsSuccess \(executeFetchTestResultsSuccess) && executeExposureDetectionRequestSuccess \(executeExposureDetectionRequestSuccess)")
 				// TODO: testing
 				UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: "\(task.identifier) complete!", identifier: UUID().uuidString)

@@ -49,7 +49,9 @@ final class DMDeveloperMenu {
 
 	/// Enables the developer menu if it is currently allowed to do so.
 	///
-	/// Whether or not the developer menu is allowed is determined at build time by looking at the active build configuration. It is only allowed for `RELEASE` and `DEBUG` builds. Builds that target the app store (configuration `APP_STORE`) are built without support for a developer menu.
+	/// Whether or not the developer menu is allowed is determined at build time by looking at the active build configuration.
+	/// It is only allowed for `RELEASE` and `DEBUG` builds.
+	/// Builds that target the app store (configuration `APP_STORE`) are built without support for a developer menu.
 	func enableIfAllowed() {
 		guard isAllowed() else {
 			return

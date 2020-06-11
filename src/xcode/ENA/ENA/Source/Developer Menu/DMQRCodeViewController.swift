@@ -87,7 +87,13 @@ private extension CIFilter {
 	var bigOutputCGImage: CGImage {
 		let extent = existingOutputImage.extent
 		// swiftlint:disable:next force_unwrapping
-		return DMQRCodeViewController.context.createCGImage(bigOutputImage, from: CGRect(origin: .zero, size: CGSize(width: extent.width * scaleFactor, height: extent.height * scaleFactor)))!
+		return DMQRCodeViewController.context.createCGImage(
+			bigOutputImage,
+			from: CGRect(
+				origin: .zero,
+				size: CGSize(width: extent.width * scaleFactor, height: extent.height * scaleFactor)
+			)
+		)!
 	}
 }
 

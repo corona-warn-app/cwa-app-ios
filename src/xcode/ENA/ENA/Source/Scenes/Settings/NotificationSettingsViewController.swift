@@ -132,7 +132,17 @@ class NotificationSettingsViewController: UIViewController {
 		infoViewButton.titleLabel?.lineBreakMode = .byWordWrapping
 
 		if let infoViewButton = infoViewButton {
-			infoViewButton.addConstraint(NSLayoutConstraint(item: infoViewButton, attribute: .height, relatedBy: .equal, toItem: infoViewButton.titleLabel, attribute: .height, multiplier: 1, constant: 0))
+			infoViewButton.addConstraint(
+				NSLayoutConstraint(
+					item: infoViewButton,
+					attribute: .height,
+					relatedBy: .equal,
+					toItem: infoViewButton.titleLabel,
+					attribute: .height,
+					multiplier: 1,
+					constant: 0
+				)
+			)
 		}
 	}
 }

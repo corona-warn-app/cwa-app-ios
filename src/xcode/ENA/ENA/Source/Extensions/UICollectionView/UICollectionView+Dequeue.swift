@@ -35,9 +35,18 @@ extension UICollectionView {
 	///   - reusableViewType: Concreate reusable view type.
 	///   - kind: The kind of reusable view to dequeue.
 	///   - indexPath: IndexPath of the cell.
-	func dequeueReusableSupplementaryView<ReusableView: UICollectionReusableView>(reusableViewType: ReusableView.Type, kind: String, for indexPath: IndexPath) -> ReusableView {
+	func dequeueReusableSupplementaryView<ReusableView: UICollectionReusableView>(
+		reusableViewType: ReusableView.Type,
+		kind: String,
+		for indexPath: IndexPath
+	) -> ReusableView {
 		let identifier = reusableViewType.reusableViewIdentifier
-		guard let view = dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath) as? ReusableView else { fatalError("\(identifier) isn't registered") }
+		guard let view = dequeueReusableSupplementaryView(
+			ofKind: kind,
+			withReuseIdentifier: identifier,
+			for: indexPath
+		) as? ReusableView else { fatalError("\(identifier) isn't registered") }
+
 		return view
 	}
 }

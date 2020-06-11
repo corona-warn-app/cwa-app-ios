@@ -173,6 +173,7 @@ class SQLiteKeyValueStore {
 	func flush() {
 		openDbIfNeeded()
 		databaseQueue?.inDatabase { db in
+			// swiftlint:disable:next line_length
 			let deleteStmt = "DELETE FROM kv WHERE key NOT IN('developerSubmissionBaseURLOverride','developerDistributionBaseURLOverride','developerVerificationBaseURLOverride');"
 			do {
 				try db.executeUpdate(deleteStmt, values: [])

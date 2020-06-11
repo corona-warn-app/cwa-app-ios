@@ -55,7 +55,10 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 	private func setupTableView() {
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+		tableView.register(
+			UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil),
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue
+		)
 
 		dynamicTableViewModel = DynamicTableViewModel(
 			[

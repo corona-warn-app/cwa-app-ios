@@ -42,11 +42,25 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		let iconColor: UIColor = .enaColor(for: .riskHigh)
 		let phoneTitle = AppStrings.Home.thankYouCardPhoneItemTitle
-		let phoneItem = HomeRiskImageItemViewConfigurator(title: phoneTitle, titleColor: titleColor, iconImageName: "Icons - Hotline", iconTintColor: iconColor, color: .clear, separatorColor: .clear)
+		let phoneItem = HomeRiskImageItemViewConfigurator(
+			title: phoneTitle,
+			titleColor: titleColor,
+			iconImageName: "Icons - Hotline",
+			iconTintColor: iconColor,
+			color: .clear,
+			separatorColor: .clear
+		)
 		phoneItem.containerInsets = .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
 
 		let homeTitle = AppStrings.Home.thankYouCardHomeItemTitle
-		let homeItem = HomeRiskImageItemViewConfigurator(title: homeTitle, titleColor: titleColor, iconImageName: "Icons - Home", iconTintColor: iconColor, color: .clear, separatorColor: .clear)
+		let homeItem = HomeRiskImageItemViewConfigurator(
+			title: homeTitle,
+			titleColor: titleColor,
+			iconImageName: "Icons - Home",
+			iconTintColor: iconColor,
+			color: .clear,
+			separatorColor: .clear
+		)
 		homeItem.containerInsets = .init(top: 10.0, left: 0.0, bottom: 10.0, right: 0)
 		cell.configureNoteRiskViews(cellConfigurators: [phoneItem, homeItem])
 

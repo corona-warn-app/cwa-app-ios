@@ -41,7 +41,15 @@ enum ExposureSubmissionViewUtils {
 		setupAlert(message: error.localizedDescription, retry: retry, retryActionHandler: retryActionHandler)
 	}
 
-	static func setupAlert(title: String? = nil, message: String, okTitle: String? = nil, retryTitle: String? = nil, retry: Bool = false, action completion: (() -> Void)? = nil, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
+	static func setupAlert(
+		title: String? = nil,
+		message: String,
+		okTitle: String? = nil,
+		retryTitle: String? = nil,
+		retry: Bool = false,
+		action completion: (() -> Void)? = nil,
+		retryActionHandler: (() -> Void)? = nil
+	) -> UIAlertController {
 		let alert = UIAlertController(
 			title: title ?? AppStrings.ExposureSubmission.generalErrorTitle,
 			message: message,

@@ -57,7 +57,10 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			),
 			forHeaderFooterViewReuseIdentifier: "test"
 		)
-		tableView.register(UINib(nibName: String(describing: ExposureSubmissionImageCardCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue)
+		tableView.register(
+			UINib(nibName: String(describing: ExposureSubmissionImageCardCell.self), bundle: nil),
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.imageCard.rawValue
+		)
 		title = AppStrings.ExposureSubmissionDispatch.title
 	}
 
@@ -295,7 +298,11 @@ private extension ExposureSubmissionOverviewViewController {
 			),
 			.imageCard(
 				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
-				attributedDescription: applyFont(style: .headline, to: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription, with: AppStrings.ExposureSubmissionDispatch.positiveWord),
+				attributedDescription: applyFont(
+					style: .headline,
+					to: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription,
+					with: AppStrings.ExposureSubmissionDispatch.positiveWord
+				),
 				image: UIImage(named: "Illu_Submission_Anruf"),
 				action: .perform(segue: Segue.hotline),
 				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"

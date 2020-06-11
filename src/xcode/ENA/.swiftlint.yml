@@ -215,11 +215,7 @@ reporter: "xcode"
 
 ### Rule specific configuration
 
-line_length:
-  warning: 500
-  error: 1000
-  ignores_function_declarations: true
-  ignores_comments: true
+line_length: 160
 
 trailing_whitespace:
   ignores_empty_lines: true

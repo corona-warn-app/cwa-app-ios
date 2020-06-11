@@ -60,7 +60,10 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	private func setupTableView() {
 		tableView.dataSource = self
 		tableView.delegate = self
-		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+		tableView.register(
+			UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil),
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue
+		)
 		dynamicTableViewModel = .intro
 	}
 

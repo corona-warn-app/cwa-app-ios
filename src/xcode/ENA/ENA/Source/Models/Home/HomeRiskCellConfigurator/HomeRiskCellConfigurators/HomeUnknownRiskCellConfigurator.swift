@@ -54,10 +54,21 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		let separatorColor: UIColor = .enaColor(for: .hairlineContrast)
 		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
 		if isLoading {
-			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(title: AppStrings.Home.riskCardStatusCheckBody, titleColor: titleColor, isLoading: true, color: color, separatorColor: separatorColor)
+			let isLoadingItem = HomeRiskLoadingItemViewConfigurator(
+				title: AppStrings.Home.riskCardStatusCheckBody,
+				titleColor: titleColor,
+				isLoading: true,
+				color: color,
+				separatorColor: separatorColor
+			)
 			itemCellConfigurators.append(isLoadingItem)
 		} else {
-			let item = HomeRiskTextItemViewConfigurator(title: AppStrings.Home.riskCardUnknownItemTitle, titleColor: titleColor, color: color, separatorColor: separatorColor)
+			let item = HomeRiskTextItemViewConfigurator(
+				title: AppStrings.Home.riskCardUnknownItemTitle,
+				titleColor: titleColor,
+				color: color,
+				separatorColor: separatorColor
+			)
 			itemCellConfigurators.append(item)
 		}
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)

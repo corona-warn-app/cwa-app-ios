@@ -68,7 +68,12 @@ private extension DynamicCell {
 		case hotline = "hotlineCell"
 	}
 
-	private static func exposureDetectionCell(_ identifier: TableViewCellReuseIdentifiers, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: GenericCellConfigurator<ExposureDetectionViewController>? = nil) -> DynamicCell {
+	private static func exposureDetectionCell(
+		_ identifier: TableViewCellReuseIdentifiers,
+		action: DynamicAction = .none,
+		accessoryAction: DynamicAction = .none,
+		configure: GenericCellConfigurator<ExposureDetectionViewController>? = nil
+	) -> DynamicCell {
 		.custom(withIdentifier: identifier, action: action, accessoryAction: accessoryAction, configure: configure)
 	}
 

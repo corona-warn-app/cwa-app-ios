@@ -66,11 +66,15 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	func configure(cell: RiskInactiveCollectionViewCell) {
 		cell.delegate = self
 
-		let title: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
+		let title: String = incativeType == .noCalculationPossible ?
+				AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle :
+				AppStrings.Home.riskCardInactiveOutdatedResultsTitle
 		let titleColor: UIColor = .enaColor(for: .textPrimary1)
 		cell.configureTitle(title: title, titleColor: titleColor)
 
-		let bodyText: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleBody : AppStrings.Home.riskCardInactiveOutdatedResultsBody
+		let bodyText: String = incativeType == .noCalculationPossible ?
+			AppStrings.Home.riskCardInactiveNoCalculationPossibleBody :
+			AppStrings.Home.riskCardInactiveOutdatedResultsBody
 		cell.configureBody(text: bodyText, bodyColor: titleColor)
 
 		let color: UIColor = .enaColor(for: .background)
@@ -89,15 +93,31 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		let activateItemTitle = String(format: AppStrings.Home.riskCardInactiveActivateItemTitle, previousRiskTitle)
 		let iconTintColor: UIColor = .enaColor(for: .riskNeutral)
-		let item1 = HomeRiskImageItemViewConfigurator(title: activateItemTitle, titleColor: titleColor, iconImageName: "Icons_LetzteErmittlung-Light", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
+		let item1 = HomeRiskImageItemViewConfigurator(
+			title: activateItemTitle,
+			titleColor: titleColor,
+			iconImageName: "Icons_LetzteErmittlung-Light",
+			iconTintColor: iconTintColor,
+			color: color,
+			separatorColor: separatorColor
+		)
 		let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
-		let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
+		let item2 = HomeRiskImageItemViewConfigurator(
+			title: dateTitle,
+			titleColor: titleColor,
+			iconImageName: "Icons_Aktualisiert",
+			iconTintColor: iconTintColor,
+			color: color,
+			separatorColor: separatorColor
+		)
 		itemCellConfigurators.append(contentsOf: [item1, item2])
 
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		let buttonTitle: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
+		let buttonTitle: String = incativeType == .noCalculationPossible ?
+			AppStrings.Home.riskCardInactiveNoCalculationPossibleButton :
+			AppStrings.Home.riskCardInactiveOutdatedResultsButton
 
 		cell.configureActiveButton(title: buttonTitle)
 

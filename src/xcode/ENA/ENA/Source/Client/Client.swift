@@ -84,12 +84,12 @@ protocol Client {
 
 	/// Gets the remove exposure configuration. See `ENExposureConfiguration` for more details
 	/// Parameters:
-	/// - completion: Will be called with the remove configuration or an error if something went wrong. The completion handler will always be called on the main thread.
+	/// - completion: Called with the remove configuration or an error if something went wrong. Completion handler will always be called on the main thread.
 	func exposureConfiguration(
 		completion: @escaping ExposureConfigurationCompletionHandler
 	)
 
-	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
+	/// Submits exposure keys to the backend. Makes the local information available to the world so the risk of others can be calculated on their local devices.
 	/// Parameters:
 	/// - keys: An array of `ENTemporaryExposureKey`s  to submit to the backend.
 	/// - tan: A transaction number

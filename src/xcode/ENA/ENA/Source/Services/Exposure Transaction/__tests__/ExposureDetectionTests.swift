@@ -165,7 +165,12 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 		writtenPackages()
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) {
+	func exposureDetection(
+		_ detection: ExposureDetection,
+		detectSummaryWithConfiguration configuration: ENExposureConfiguration,
+		writtenPackages: WrittenPackages,
+		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void
+	) {
 		completion(summaryResult(configuration, writtenPackages))
 	}
 }

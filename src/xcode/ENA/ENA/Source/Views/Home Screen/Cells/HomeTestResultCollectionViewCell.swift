@@ -51,7 +51,15 @@ class HomeTestResultCollectionViewCell: HomeCardCollectionViewCell {
 		setupAccessibility()
 	}
 
-	func configure(title: String, subtitle: String? = nil, description: String, button buttonTitle: String, image: UIImage?, tintColor: UIColor = .enaColor(for: .textPrimary1), accessibilityIdentifier: String?) {
+	func configure(
+		title: String,
+		subtitle: String? = nil,
+		description: String,
+		button buttonTitle: String,
+		image: UIImage?,
+		tintColor: UIColor = .enaColor(for: .textPrimary1),
+		accessibilityIdentifier: String?
+	) {
 		titleLabel.text = title
 		subtitleLabel.text = subtitle
 		descriptionLabel.text = description

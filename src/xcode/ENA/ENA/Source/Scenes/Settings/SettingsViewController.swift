@@ -290,7 +290,11 @@ extension SettingsViewController: ResetDelegate {
 }
 
 extension SettingsViewController: ExposureNotificationSettingViewControllerDelegate {
-	func exposureNotificationSettingViewController(_: ExposureNotificationSettingViewController, setExposureManagerEnabled enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {
+	func exposureNotificationSettingViewController(
+		_: ExposureNotificationSettingViewController,
+		setExposureManagerEnabled enabled: Bool,
+		then completion: @escaping (ExposureNotificationError?) -> Void
+	) {
 		setExposureManagerEnabled(enabled, then: completion)
 	}
 }

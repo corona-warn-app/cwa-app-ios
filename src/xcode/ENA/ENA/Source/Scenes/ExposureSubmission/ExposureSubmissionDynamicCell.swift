@@ -21,21 +21,41 @@ import Foundation
 import UIKit
 
 enum ExposureSubmissionDynamicCell {
-	static func stepCell(title: String, description: String?, icon: UIImage?, hairline: ExposureSubmissionStepCell.Hairline, bottomSpacing: ExposureSubmissionStepCell.Spacing = .large, action: DynamicAction = .none) -> DynamicCell {
+	static func stepCell(
+		title: String,
+		description: String?,
+		icon: UIImage?,
+		hairline: ExposureSubmissionStepCell.Hairline,
+		bottomSpacing: ExposureSubmissionStepCell.Spacing = .large,
+		action: DynamicAction = .none
+	) -> DynamicCell {
 		.identifier(ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell, action: action) { _, cell, _ in
 			guard let cell = cell as? ExposureSubmissionStepCell else { return }
 			cell.configure(title: title, description: description, icon: icon, hairline: hairline, bottomSpacing: bottomSpacing)
 		}
 	}
 
-	static func stepCell(style: ENAFont, color: UIColor = .enaColor(for: .textPrimary1), title: String, icon: UIImage? = nil, hairline: ExposureSubmissionStepCell.Hairline, bottomSpacing: ExposureSubmissionStepCell.Spacing = .large, action: DynamicAction = .none) -> DynamicCell {
+	static func stepCell(
+		style: ENAFont,
+		color: UIColor = .enaColor(for: .textPrimary1),
+		title: String,
+		icon: UIImage? = nil,
+		hairline: ExposureSubmissionStepCell.Hairline,
+		bottomSpacing: ExposureSubmissionStepCell.Spacing = .large,
+		action: DynamicAction = .none
+	) -> DynamicCell {
 		.identifier(ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell, action: action) { _, cell, _ in
 			guard let cell = cell as? ExposureSubmissionStepCell else { return }
 			cell.configure(style: style, color: color, title: title, icon: icon, hairline: hairline, bottomSpacing: bottomSpacing)
 		}
 	}
 
-	static func stepCell(bulletPoint title: String, hairline: ExposureSubmissionStepCell.Hairline = .none, bottomSpacing: ExposureSubmissionStepCell.Spacing = .normal, action: DynamicAction = .none) -> DynamicCell {
+	static func stepCell(
+		bulletPoint title: String,
+		hairline: ExposureSubmissionStepCell.Hairline = .none,
+		bottomSpacing: ExposureSubmissionStepCell.Spacing = .normal,
+		action: DynamicAction = .none
+	) -> DynamicCell {
 		.identifier(ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell, action: action) { _, cell, _ in
 			guard let cell = cell as? ExposureSubmissionStepCell else { return }
 			cell.configure(bulletPoint: title, hairline: hairline, bottomSpacing: bottomSpacing)
