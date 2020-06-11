@@ -168,7 +168,7 @@
 
 "OnboardingInfo_privacyPage_imageDescription" = "Eine Frau mit einem Handy benutzt die Corona-Warn-App, ein Vorhängeschloss auf einem Schild steht als Symbol für verschlüsselte Daten.";
 
-"OnboardingInfo_privacyPage_title" = "Datenschutz";
+"OnboardingInfo_privacyPage_title" = "Datenschutzinformation";
 
 "OnboardingInfo_privacyPage_boldText" = "";
 
@@ -203,9 +203,9 @@
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Isolation begeben und sich nach entsprechender Abklärung testen lassen.";
 
 /* Exposure Submission */
-"ExposureSubmission_Hotline_Number" = "+498007540002";
+"ExposureSubmission_Hotline_Number" = "+49 800 7540002";
 
-"ExposureSubmission_DataPrivacyTitle" = "Datenschutz";
+"ExposureSubmission_DataPrivacyTitle" = "Datenschutzinformation";
 
 "ExposureSubmission_Continue_actionText" = "Weiter";
 
@@ -261,7 +261,7 @@
 
 "ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:";
 
-"ExposureSubmission_PhoneNumber" = "+49 (0)800 7540002";
+"ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
 "ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch\n\nErreichbarkeit:\nMo - So: 00:00 - 24:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
 
@@ -405,7 +405,7 @@
 
 "ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Durch Antippen von „Einverstanden“ willigen Sie ein, dass die App Ihr positives Testergebnis zusammen mit Ihren Zufalls-IDs der letzten 14 Tage an das Serversystem der App übermittelt, damit andere App-Nutzer mit aktivierter Risiko-Ermittlung automatisch informiert werden können, dass sie möglicherweise einem Infektionsrisiko ausgesetzt waren. Die übermittelten Zufalls-IDs enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.\n\nDie Übermittlung Ihres Testergebnisses per App ist freiwillig. Wenn Sie Ihr Testergebnis nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen niemand, ob Sie eine Infektion übermittelt haben.\n\nSie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformation“.";
 
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutz";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Datenschutzinformation";
 
 "ExposureSubmissionResult_RemoveAlert_Title" = "Test entfernen?";
 
@@ -680,11 +680,11 @@
 
 "App_Information_Contact_Hotline_Title" = "Technische Hotline";
 
-"App_Information_Contact_Hotline_Text" = "+49 (0)800 7540001";
+"App_Information_Contact_Hotline_Text" = "+49 800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "+498007540001";
+"App_Information_Contact_Hotline_Number" = "+49 800 7540001";
 
-"App_Information_Contact_Hotline_Description" = "Unser technischer Kundenservice ist für Sie da. Die Wartezeit ist weniger als 5 Minuten im Moment.";
+"App_Information_Contact_Hotline_Description" = "Unser technischer Kundenservice ist für Sie da.";
 
 "App_Information_Contact_Hotline_Terms" = "Unsere Öffnungszeiten:\nMo - Sa: 08:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen) \n";
 
@@ -713,7 +713,7 @@
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
 /* App Information - Privacy */
-"App_Information_Privacy_Navigation" = "Datenschutz";
+"App_Information_Privacy_Navigation" = "Datenschutzinformation";
 
 "App_Information_Legal_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist eine Balkenwaage als Symbol für rechtliche Hinweise.";
 
@@ -721,7 +721,7 @@
 
 "App_Information_Privacy_Description" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.";
 
-"App_Information_Privacy_Text" = "Verantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\n\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:\nDuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla.";
+"App_Information_Privacy_Text" = "Verantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\n\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:\n";
 
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "Nutzung";
