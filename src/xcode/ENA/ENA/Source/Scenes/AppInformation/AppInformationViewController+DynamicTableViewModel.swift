@@ -77,7 +77,9 @@ private extension DynamicAction {
 }
 
 extension AppInformationViewController {
-	static let model: [Category: (text: String, accessibilityIdentifier: String?, action: DynamicAction)] = [
+	typealias CategoryModel = (text: String, accessibilityIdentifier: String?, action: DynamicAction)
+
+	static let model: [Category: CategoryModel] = [
 		.about: (
 			text: AppStrings.AppInformation.aboutNavigation,
 			accessibilityIdentifier: "AppStrings.AppInformation.aboutNavigation",

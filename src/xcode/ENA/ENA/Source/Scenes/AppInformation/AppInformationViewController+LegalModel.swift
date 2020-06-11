@@ -31,19 +31,20 @@ private extension DynamicCell {
 	}
 }
 
-
-// swiftlint:disable line_length
 extension AppInformationViewController {
 	static let legalModel = DynamicTableViewModel([
 		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_RechtlicheHinweise"),
-						   accessibilityLabel: AppStrings.AppInformation.legalImageDescription,
-						   accessibilityIdentifier: "AppStrings.AppInformation.legalImageDescription",
-						   height: 230),
+			header: .image(
+				UIImage(named: "Illu_Appinfo_RechtlicheHinweise"),
+				accessibilityLabel: AppStrings.AppInformation.legalImageDescription,
+				accessibilityIdentifier: "AppStrings.AppInformation.legalImageDescription",
+				height: 230
+			),
 			cells: legalCells
 		)
 	])
 
+	// swiftlint:disable line_length
 	private static let legalCells: [DynamicCell] = [
 		.legal(title: "ZIPFoundation", licensor: "Thomas Zoechling", fullLicense: """
 MIT License
@@ -160,5 +161,5 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """)
 	]
+	// swiftlint:enable line_length
 }
-// swiftlint:enable line_length

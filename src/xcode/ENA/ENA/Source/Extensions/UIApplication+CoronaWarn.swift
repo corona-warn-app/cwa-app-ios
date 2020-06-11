@@ -18,7 +18,9 @@
 import UIKit
 extension UIApplication {
 	class func coronaWarnDelegate() -> CoronaWarnAppDelegate {
-		// swiftlint:disable:next force_cast
-		shared.delegate as! CoronaWarnAppDelegate
+		guard let delegate = shared.delegate as? CoronaWarnAppDelegate else {
+			fatalError("shared.delegate is expected to be of type 'CoronaWarnAppDelegate'")
+		}
+		return delegate
 	}
 }
