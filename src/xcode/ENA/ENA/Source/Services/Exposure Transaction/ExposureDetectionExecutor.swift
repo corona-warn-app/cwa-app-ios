@@ -105,6 +105,21 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 				configuration: configuration,
 				diagnosisKeyURLs: writtenPackages.urls
 		) { summary, error in
+			if let error = error as? ENError {
+				// On some errors (ex. signature verification, we need to clear the package store)
+				// This is not necessary for all errors, though. Simple ones like apiMisuse should not trigger the reset
+				switch error.code {
+				case .badFormat, .unknown, .badParameter:
+					self.downloadedPackagesStore.reset()
+				default:
+					break
+				}
+				// Not considered right now is the potential for an infinite cycle:
+				//  1. Detection/downloaded keys are not signed correctly.
+				// 	2. Error is handled here
+				//	3. Store is cleared, last downloaded timestamp not updated (as error occurre)
+				//	4. Rinse and repeat, never succeeding.
+			}
 			completion(withResultFrom(summary: summary, error: error))
 		}
 	}
