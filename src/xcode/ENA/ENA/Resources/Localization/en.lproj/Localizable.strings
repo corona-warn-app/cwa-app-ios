@@ -273,6 +273,8 @@
 
 "ExposureSubmission_TANInputButtonTitle" = "Enter TAN";
 
+"ExposureSubmissionHotline_imageDescription" = "Hotline employee tells a TAN.";
+
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR Code Scan";
 
