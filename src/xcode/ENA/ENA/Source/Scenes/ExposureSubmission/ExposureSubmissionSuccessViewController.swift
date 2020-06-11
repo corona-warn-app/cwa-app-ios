@@ -30,7 +30,7 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController 
 
 	private func setUpView() {
 		navigationItem.hidesBackButton = true
-		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 		dynamicTableViewModel = .data
 	}
 
@@ -63,69 +63,29 @@ private extension DynamicTableViewModel {
 					  accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.description"),
 				.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle,
 						accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.listTitle"),
-				.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionSuccess.listItem1,
-							image: UIImage(named: "Icons - Hotline"),
-							hasSeparators: false,
-							isCircle: true,
-							iconTintColor: .enaColor(for: .riskHigh),
-							iconCentered: true
-						)
-					}
+
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionSuccess.listItem1,
+					icon: UIImage(named: "Icons - Hotline")?.withTintColor(.enaColor(for: .riskHigh)),
+					hairline: .none,
+					bottomSpacing: .normal
 				),
-				.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configure(
-							text: AppStrings.ExposureSubmissionSuccess.listItem2,
-							image: UIImage(named: "Icons - Home"),
-							isCircle: true,
-							iconTintColor: .enaColor(for: .riskHigh),
-							iconCentered: true
-						)
-					}
+				ExposureSubmissionDynamicCell.stepCell(
+					style: .body,
+					title: AppStrings.ExposureSubmissionSuccess.listItem2,
+					icon: UIImage(named: "Icons - Home")?.withTintColor(.enaColor(for: .riskHigh)),
+					hairline: .none,
+					bottomSpacing: .large
 				),
+
 				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle,
 						accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.subTitle"),
-				.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_1)
-				}
-				),
-				.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_2)
-				}
-				),
-				.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_3)
-				}
-				),
-				.identifier(
-					ExposureSubmissionSuccessViewController.CustomCellReuseIdentifiers.stepCell,
-					action: .none,
-					configure: { _, cell, _ in
-						guard let cell = cell as? DynamicTableViewStepCell else { return }
-						cell.configureBulletPointCell(text: AppStrings.ExposureSubmissionSuccess.listItem2_4)
-				}
-				)
+
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_1),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_2),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_3),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_4)
 			]
 		)
 	])

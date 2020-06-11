@@ -35,6 +35,7 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 	@IBOutlet var actionTitleLabel: UILabel!
 	@IBOutlet var actionSwitch: ENASwitch!
 	@IBOutlet var detailLabel: UILabel!
+	@IBOutlet var switchContainerView: UIView!
 
 	weak var delegate: ActionTableViewCellDelegate?
 	private var askForConsent = false
@@ -60,18 +61,18 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		switch state {
 		case .enabled, .disabled:
 			detailLabel.isHidden = true
-			actionSwitch.isHidden = false
+			switchContainerView.isHidden = false
 		case .bluetoothOff, .internetOff:
 			detailLabel.isHidden = false
-			actionSwitch.isHidden = true
+			switchContainerView.isHidden = true
 		case .restricted, .notAuthorized:
 			detailLabel.isHidden = false
-			actionSwitch.isHidden = true
+			switchContainerView.isHidden = true
 			detailLabel.text = AppStrings.ExposureNotificationSetting.deactivatedTracing
 		case .unknown:
 			askForConsent = true
 			detailLabel.isHidden = true
-			actionSwitch.isHidden = false
+			switchContainerView.isHidden = false
 		}
 	}
 

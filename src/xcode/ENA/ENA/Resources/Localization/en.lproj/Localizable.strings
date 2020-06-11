@@ -65,7 +65,7 @@
 
 "ExposureDetection_Guide_Sneeze" = "Sneeze or cough into your elbow or a tissue. ";
 
-"ExposureDetection_Guide_Home" = "Please go home as soon as you can and stay at home.";
+"ExposureDetection_Guide_Home" = "If possible, please go home and stay at home.";
 
 "ExposureDetection_Guide_Hotline1" = "If you have questions about symptoms, testing availability, or self-isolation, please contact one of the following:";
 
@@ -182,7 +182,7 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declaration of Consent";
 
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "To find out whether you have been in contact with an infected person and whether there is a risk that you yourself have been infected, you need to enable the App’s risk identification feature. By tapping on the \"Enable\"/\"Turn On\" button, you agree to the enabling of the App’s risk identification feature and the associated data processing.\n\nIn order to use the App’s risk identification feature, you will have to enable the COVID-19 Exposure Logging functionality provided by Apple on your iPhone and grant the Corona-Warn-App permission to use this.\n\nWhen exposure logging is enabled, your iPhone continuously generates and transmits random IDs via Bluetooth, which other Apple and Android smartphones in your vicinity can receive if exposure logging is also enabled on them. Your iPhone, in turn, receives the random IDs of the other smartphones. Your own random IDs and those received from other smartphones are recorded in the exposure log and stored there for 14 days.\n\nTo identify your risk of infection, the App loads a list – several times a day or on request – of the random IDs of all users who have told the App that they have been infected with the coronavirus. This list is then compared with the random IDs stored in the exposure log. If the App detects that you may have been in contact with an infected user, it will inform you of this and tell you that there is a risk that you are also infected. In this case, the App is also given access to other data stored in your iPhone’s exposure log (date, duration and Bluetooth signal strength of the contact).\n\nThe Bluetooth signal strength is used to derive the physical distance (the stronger the signal, the smaller the distance). The App then analyses this information in order to assess your likelihood of having been infected with the coronavirus and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone. Apart from you, nobody (not even the RKI) will know whether you have been in contact with an infected person and what risk has been identified for you.\n\nTo withdraw your consent to the risk identification feature, you can disable the feature using the toggle switch in the App or delete the App. If you decide to use the risk identification feature again, you can toggle the feature back on or reinstall the App. If you disable the risk identification feature, the App will no longer check whether you have been in contact with an infected user. If you also wish to stop your device sending and receiving random IDs, you will need to disable COVID-19 Exposure Logging in your iPhone settings. Please note that your own random IDs and those received from other smartphones which are stored in the exposure log will not be deleted in the App. You can only permanently delete the data stored in the exposure log in your iPhone settings.\n\nThe App’s privacy notice (including an explanation of the data processing carried out for the risk identification feature) can be found in the menu under \"Data Privacy Information\".";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "<Translation to be added>";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "An encrypted positive test diagnosis is transmitted to the system, which will now warn other users.";
 
@@ -534,11 +534,11 @@
 
 "Home_Risk_Inactive_Activate_Item_Title" = "Last risk identification: %@";
 
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Unbekanntes Risiko";
+"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Risk Unknown";
 
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Geringes Risiko";
+"Home_Risk_Inactive_Activate_Item_Low_Title" = "Low Risk";
 
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Erhöhtes Risiko";
+"Home_Risk_Inactive_Activate_Item_High_Title" = "Higher Risk";
 
 "Home_Risk_Inactive_NoCalculation_Possible_Button" = "Activate Risk Identification";
 
@@ -791,9 +791,15 @@
 
 "RiskLegend_Legend2_High" = "Higher Risk";
 
+"RiskLegend_Legend2_High_Color" = "Red";
+
 "RiskLegend_Legend2_Low" = "Low Risk";
 
+"RiskLegend_Legend2_Low_Color" = "Green";
+
 "RiskLegend_Legend2_Unknown" = "Risk Unknown";
+
+"RiskLegend_Legend2_Unknown_Color" = "Grey";
 
 "RiskLegend_Legend3_Title" = "Notifying Other Users";
 

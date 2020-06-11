@@ -21,18 +21,16 @@ import ZIPFoundation
 
 final class HTTPClient: Client {
 	// MARK: Creating
-
 	init(
-		configuration: Configuration = .production,
+		configuration: Configuration,
 		session: URLSession = .coronaWarnSession()
 	) {
-		self.configuration = configuration
 		self.session = session
+		self.configuration = configuration
 	}
 
 	// MARK: Properties
-
-	private let configuration: Configuration
+	let configuration: Configuration
 	private let session: URLSession
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
@@ -85,7 +83,7 @@ final class HTTPClient: Client {
 				}
 				do {
 					// Configuration File Signature must be checked by the application since it is not verified by the operating system
-					guard try package.verifySignature() else {
+					guard package.verifySignature() else {
 						logError(message: "Failed to verify configuration data signature")
 						completion(nil)
 						return
