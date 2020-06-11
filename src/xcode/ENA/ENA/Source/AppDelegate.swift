@@ -46,6 +46,10 @@ extension AppDelegate: ExposureSummaryProvider {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
+	//TODO: Handle it
+	private(set) var store: Store = SecureStore(subDirectory: "database")!
+	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
@@ -84,8 +88,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-	//TODO: Handle it
-	private(set) var store: Store = SecureStore(subDirectory: "database")!
 
 
 	lazy var client: Client = {
