@@ -37,7 +37,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private var developerMenu: DMDeveloperMenu?
-	private var appUpdateChecker: AppUpdateCheckHelper?
+	private lazy var appUpdateChecker = AppUpdateCheckHelper(client: self.client, store: self.store)
 
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
 		developerMenu = DMDeveloperMenu(
@@ -148,7 +148,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
-		appUpdateChecker?.checkAppVersionDialog(for: window?.rootViewController)
+		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
 	private func setupNavigationBarAppearance() {
