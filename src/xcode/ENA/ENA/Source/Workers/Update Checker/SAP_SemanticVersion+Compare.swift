@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,41 +15,21 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 
-func log(
-	message: String,
-	level: LogLevel = .info,
-	file: String = #file,
-	line: UInt = #line,
-	function: String = #function
-) {
-	#if !RELEASE
-	print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
-	#endif
-}
-
-func logError(
-	message: String,
-	level: LogLevel = .error,
-	file: String = #file,
-	line: UInt = #line,
-	function: String = #function
-) {
-	#if !RELEASE
-	log(
-		message: message,
-		level: .error,
-		file: file,
-		line: line,
-		function: function
-	)
-	#endif
-}
-
-enum LogLevel: String {
-	case info
-	case warning
-	case error
+extension SAP_SemanticVersion: Comparable {
+	static func < (lhs: SAP_SemanticVersion, rhs: SAP_SemanticVersion) -> Bool {
+		if lhs.major != rhs.major {
+			return lhs.major < rhs.major
+		}
+		if lhs.minor != rhs.minor {
+			return lhs.minor < rhs.minor
+		}
+		if lhs.patch != rhs.patch {
+			return lhs.patch < rhs.patch
+		}
+		return false
+	}
 }
