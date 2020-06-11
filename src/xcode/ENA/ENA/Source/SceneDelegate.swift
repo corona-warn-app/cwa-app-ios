@@ -230,12 +230,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		store.isOnboarded ? showHome() : showOnboarding()
 	}
 
+	#if !RELEASE
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-		// We have to allow backend configuration via the url schema for now.
-		//        #if APP_STORE
-		//        return
-		//        #endif
-
 		guard let url = URLContexts.first?.url else {
 			return
 		}
@@ -257,8 +253,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
 			store.developerVerificationBaseURLOverride = verificationBaseURL
 		}
-		
 	}
+	#endif
 
 	private var privacyProtectionWindow: UIWindow?
 }
