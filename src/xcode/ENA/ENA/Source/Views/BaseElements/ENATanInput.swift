@@ -23,205 +23,324 @@ protocol ENATanInputDelegate: AnyObject {
 }
 
 @IBDesignable
-class ENATanInput: UIControl, UIKeyInput {
-	@IBInspectable var labelTextColor: UIColor = .enaColor(for: .textPrimary1)
+class ENATanInput: UIControl {
+	@IBInspectable var textColor: UIColor = .enaColor(for: .textPrimary1)
+	@IBInspectable var validColor: UIColor = .enaColor(for: .textSemanticGray)
+	@IBInspectable var invalidColor: UIColor = .enaColor(for: .textSemanticRed)
 	@IBInspectable var boxColor: UIColor = .enaColor(for: .separator)
 
-	@IBInspectable var fontSize: CGFloat = 28
-	@IBInspectable var groups: String = "3,3,4"
-	@IBInspectable var whiteList: String = "2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,J,K,M,N,P,Q,R,S,T,U,V,W,X,Y,Z"
+	@IBInspectable private var enaFontStyle: String?
 
 	@IBInspectable var spacing: CGFloat = 3
+	@IBInspectable var verticalSpacing: CGFloat = 8
 	@IBInspectable var cornerRadius: CGFloat = 4
 
-	private weak var stackView: UIStackView!
+	@IBInspectable private var groups: String = "3,3,4"
+	@IBInspectable private var allowedCharacters: String = "23456789ABCDEFGHJKMNPQRSTUVWXYZ"
+
 	weak var delegate: ENATanInputDelegate?
-	private(set) var text = ""
-	var count: Int { text.count }
 
-	var dashes: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
-	var whiteListArray: [String] { whiteList.split(separator: ",").map(String.init) }
-	var digits: Int { dashes.reduce(0) { $0 + $1 } }
+	let boxInsets = UIEdgeInsets(top: 10, left: 1, bottom: 10, right: 1)
+	let verticalBoxInsets = UIEdgeInsets(top: 13, left: 8, bottom: 13, right: 8)
 
-	// swiftlint:disable:next empty_count
-	var isEmpty: Bool { count == 0 }
-	var isValid: Bool { count == digits }
-	var inputBlocked: Bool = false
+	private var stackView: UIStackView!
+	private var stackViewWidthConstraint: NSLayoutConstraint!
+	private var boxWidthConstraint: NSLayoutConstraint!
+	private var boxHeightConstraint: NSLayoutConstraint!
 
-	private var labels: [UILabel] { stackView.arrangedSubviews.compactMap({ $0 as? ENATanInputLabel }) }
+	private var stackViews: [UIStackView] { stackView.arrangedSubviews.compactMap({ $0 as? UIStackView }) }
+	private var labels: [ENATanInputLabel] { stackViews.flatMap({ $0.arrangedSubviews }).compactMap({ $0 as? ENATanInputLabel }) }
 
-	override var canBecomeFirstResponder: Bool { true }
+	lazy var fontStyle: ENAFont = ENAFont(rawValue: enaFontStyle ?? "") ?? .title2
+	lazy var font = UIFont.enaFont(for: fontStyle)
+
+	var digitGroups: [Int] { groups.split(separator: ",").compactMap({ Int($0.trimmingCharacters(in: .whitespacesAndNewlines)) }) }
+	var numberOfDigits: Int { digitGroups.reduce(0) { $0 + $1 } }
+
+	lazy var characterSet: CharacterSet = CharacterSet(charactersIn: self.allowedCharacters.uppercased())
 
 	var keyboardType: UIKeyboardType = .asciiCapable
 	var textContentType: UITextContentType = .oneTimeCode
 
 	var hasText: Bool { !text.isEmpty }
 
+	override var canBecomeFirstResponder: Bool { true }
+
+	private(set) var text = ""
+	var count: Int { text.count }
+	// swiftlint:disable:next empty_count
+	var isEmpty: Bool { count == 0 }
+	var isValid: Bool { count == numberOfDigits }
+	private(set) var isInputBlocked: Bool = false
+}
+
+extension ENATanInput {
+	
+}
+
+extension ENATanInput {
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
 
-		backgroundColor = UIColor.enaColor(for: .separator)
-
-		let label = UILabel(frame: .zero)
-		label.text = String(describing: ENATanInput.self)
-		label.textColor = .white
-		label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-		label.sizeToFit()
-
-		addSubview(label)
-		label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-		label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-		label.center = CGPoint(x: (frame.maxX - frame.minX) / 2, y: (frame.maxY - frame.minY) / 2)
+		setup()
 	}
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
+
 		setup()
 	}
 
+	override func layoutSubviews() {
+		super.layoutSubviews()
+
+		if stackView.axis != .vertical && stackView.bounds.width > bounds.width {
+			updateAxis(.vertical)
+		} else if stackView.axis == .horizontal && !stackViewWidthConstraint.isActive {
+			stackViewWidthConstraint.isActive = true
+		}
+	}
+
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateAxis(.horizontal)
+	}
+}
+
+extension ENATanInput {
 	private func setup() {
 		guard stackView == nil else { return }
-		addTarget(self, action: #selector(becomeFirstResponder), for: .touchUpInside)
 
-		translatesAutoresizingMaskIntoConstraints = false
+		stackView = UIStackView()
 
-		let stackView = UIStackView()
-		self.stackView = stackView
-		stackView.translatesAutoresizingMaskIntoConstraints = false
 		stackView.isUserInteractionEnabled = false
-		stackView.spacing = spacing
-		stackView.axis = .horizontal
-		stackView.distribution = .fill
 		stackView.alignment = .fill
 
-		let font = UIFont.preferredFont(forTextStyle: .body).scaledFont(size: fontSize, weight: .bold)
-
-		for (index, digits) in dashes.enumerated() {
-			if index > 0 {
-				let label = UILabel()
-				label.textAlignment = .center
-				label.textColor = labelTextColor
-				label.font = font
-				label.text = "-"
-				stackView.addArrangedSubview(label)
-			}
-
-			for _ in 0..<digits {
-				let label = ENATanInputLabel()
-				label.clipsToBounds = true
-				label.backgroundColor = boxColor
-				label.layer.cornerRadius = cornerRadius
-				label.textAlignment = .center
-				label.textColor = labelTextColor
-				label.font = font
-				stackView.addArrangedSubview(label)
-			}
+		// Generate character groups
+		for (index, numberOfDigitsInGroup) in digitGroups.enumerated() {
+			let groupView = createGroup(count: numberOfDigitsInGroup, hasDash: index < digitGroups.count - 1)
+			stackView.addArrangedSubview(groupView)
 		}
 
+		// Constrain group heights
+		if let firstStackView = stackViews.first {
+			stackViews[1...].forEach { $0.heightAnchor.constraint(equalTo: firstStackView.heightAnchor).isActive = true }
+		}
+
+		// Constrain character labels
 		if let firstLabel = labels.first {
-			labels[1...].forEach { firstLabel.widthAnchor.constraint(equalTo: $0.widthAnchor).isActive = true }
+			boxWidthConstraint = firstLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 0)
+			boxHeightConstraint = firstLabel.heightAnchor.constraint(equalToConstant: 0)
+			labels[1...].forEach { $0.widthAnchor.constraint(equalTo: firstLabel.widthAnchor).isActive = true }
 		}
 
 		addSubview(stackView)
 		stackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
 		stackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-		stackView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-		stackView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+		stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+		stackViewWidthConstraint = stackView.widthAnchor.constraint(equalTo: widthAnchor)
+
+		UIView.translatesAutoresizingMaskIntoConstraints(for: [stackView] + stackViews + labels, to: false)
+
+		updateAxis(.horizontal)
+
+		addTapTargetToBecomeFirstResponder()
 	}
 
+	private func createGroup(count: Int, hasDash: Bool) -> UIStackView {
+		let stackView = UIStackView()
+
+		stackView.spacing = spacing
+		stackView.axis = .horizontal
+		stackView.alignment = .fill
+		stackView.distribution = .fill
+
+		for _ in 0..<count { stackView.addArrangedSubview(createLabel()) }
+		if hasDash { stackView.addArrangedSubview(createDash()) }
+
+		return stackView
+	}
+
+	private func createLabel() -> ENATanInputLabel {
+		let label = ENATanInputLabel()
+
+		label.textColor = textColor
+		label.validColor = validColor
+		label.invalidColor = invalidColor
+
+		label.clipsToBounds = true
+		label.backgroundColor = boxColor
+		label.layer.cornerRadius = cornerRadius
+
+		label.font = font
+		label.adjustsFontForContentSizeCategory = true
+
+		label.textAlignment = .center
+		label.lineBreakMode = .byClipping
+
+		return label
+	}
+
+	private func createDash() -> UILabel {
+		let label = UILabel()
+
+		label.font = font
+		label.adjustsFontForContentSizeCategory = true
+
+		label.textColor = validColor
+		label.textAlignment = .center
+		label.text = "-"
+
+		return label
+	}
+
+	private func updateAxis(_ axis: NSLayoutConstraint.Axis) {
+		stackView.axis = axis
+
+		let insets: UIEdgeInsets
+
+		if axis == .horizontal {
+			stackView.spacing = spacing
+			stackView.distribution = .fill
+			insets = boxInsets
+		} else {
+			stackView.spacing = verticalSpacing
+			stackView.distribution = .fillEqually
+			insets = verticalBoxInsets
+		}
+
+		labels.forEach { $0.layoutMargins = insets }
+
+		stackViewWidthConstraint.isActive = false
+
+		updateBoxSize()
+	}
+
+	private func updateBoxSize() {
+		let label = UILabel()
+		label.adjustsFontForContentSizeCategory = true
+		label.font = .enaFont(for: fontStyle)
+		label.text = "W" // Largest reference character
+
+		let size = label.intrinsicContentSize
+		let insets = stackView.axis == .horizontal ? boxInsets : verticalBoxInsets
+
+		boxWidthConstraint.constant = size.width + insets.left + insets.right
+		boxHeightConstraint.constant = size.height + insets.top + insets.bottom
+
+		boxWidthConstraint.isActive = true
+		boxHeightConstraint.isActive = true
+	}
+
+	private func addTapTargetToBecomeFirstResponder() {
+		addTarget(self, action: #selector(becomeFirstResponder), for: .touchUpInside)
+	}
+}
+
+extension ENATanInput: UIKeyInput {
 	func insertText(_ text: String) {
-		guard !inputBlocked else { return }
-		for character in text {
-			guard !isValid else { return }
+		guard !isInputBlocked else { return }
+
+		for character in text.map({ $0.uppercased() }) {
 			let label = labels[count]
 
-			label.text = "\(character.uppercased())"
-			self.text += "\(character.uppercased())"
-			if let enaInputLabel = label as? ENATanInputLabel {
-				if whiteListArray.contains(String(character.uppercased())) {
-					enaInputLabel.isValid = true
-					enaInputLabel.textColor = labelTextColor
-				} else {
-					enaInputLabel.isValid = false
-					enaInputLabel.textColor = .enaColor(for: .textSemanticRed)
-					inputBlocked = true
-				}
-			}
+			self.text += "\(character)"
+			label.text = "\(character)"
 
+			label.isValid = character.rangeOfCharacter(from: characterSet) != nil
+			isInputBlocked = !label.isValid
 		}
-		delegate?.tanChanged(isValid: isValid, checksumIsValid: verifyChecksum(input: self.text), isBlocked: inputBlocked
-		)
+
+		delegate?.tanChanged(isValid: isValid, checksumIsValid: verifyChecksum(input: self.text), isBlocked: isInputBlocked)
 	}
 
 	func deleteBackward() {
 		guard !isEmpty else { return }
-		inputBlocked = false
+		isInputBlocked = false
+
 		text = String(text[..<text.index(before: text.endIndex)])
-		let label = labels[count]
-		label.text = ""
-		if let enaInputLabel = label as? ENATanInputLabel {
-			enaInputLabel.isValid = true
-		}
-		delegate?.tanChanged(isValid: isValid, checksumIsValid: false, isBlocked: inputBlocked)
+		labels[count].clear()
+
+		delegate?.tanChanged(isValid: isValid, checksumIsValid: false, isBlocked: isInputBlocked)
 	}
 
 	func clear() {
-		labels.forEach { $0.text = "" }
+		labels.forEach { $0.clear() }
 		text = ""
-	}
-	
-	func verifyChecksum(input: String) -> Bool {
-		guard isValid else {
-			return false
-
-		}
-		let start = input.index(input.startIndex, offsetBy: 0)
-		let end = input.index(input.startIndex, offsetBy: input.count - 2)
-		let testString = String(input[start...end])
-		return input.last == calculateChecksum(input: testString)
-	}
-	
-	func calculateChecksum(input: String) -> Character {
-		let hash = Hasher.sha256(input)
-		var checksum = hash[hash.startIndex].uppercased()
-		if checksum == "0" {
-			checksum = "G"
-
-		} else if checksum == "1" {
-			checksum = "H"
-
-		}
-		// swiftlint:disable:next force_unwrapping
-		return checksum.first!
 	}
 }
 
 private class ENATanInputLabel: UILabel {
 	private let lineWidth: CGFloat = 3
 
+	var validColor: UIColor?
+	var invalidColor: UIColor?
+
 	var isValid: Bool = true { didSet { setNeedsDisplay() } }
 
-	var color: UIColor {
-		if isValid {
-			if self.text?.isEmpty == nil || self.text == "" {
-				return .enaColor(for: .hairline)
-			} else {
-				return UIColor.clear
-			}
-		} else {
-			return .enaColor(for: .textSemanticRed)
-		}
+	private var lineColor: UIColor { (isValid ? validColor : invalidColor) ?? textColor }
 
+	override var layoutMargins: UIEdgeInsets { didSet { invalidateIntrinsicContentSize() ; setNeedsLayout() } }
+
+	override var intrinsicContentSize: CGSize {
+		let size = super.intrinsicContentSize
+		return CGSize(width: size.width + layoutMargins.left + layoutMargins.right, height: size.height + layoutMargins.top + layoutMargins.bottom)
 	}
 
 	override func draw(_ rect: CGRect) {
+		let textColor = self.textColor
+		self.textColor = isValid ? textColor : (invalidColor ?? textColor)
+
 		super.draw(rect)
+
+		self.textColor = textColor
 
 		guard let context = UIGraphicsGetCurrentContext() else { return }
 		context.setLineWidth(lineWidth)
-		context.setStrokeColor(color.cgColor)
+		context.setStrokeColor(lineColor.cgColor)
 		context.move(to: CGPoint(x: 0, y: bounds.height - lineWidth / 2))
 		context.addLine(to: CGPoint(x: bounds.width, y: bounds.height - lineWidth / 2))
 		context.strokePath()
+	}
+
+	override func drawText(in rect: CGRect) {
+		let textSize = super.intrinsicContentSize
+		let point = CGPoint(x: (bounds.width - textSize.width) / 2, y: (bounds.height - textSize.width) / 2)
+		let insets = UIEdgeInsets(top: point.y, left: point.x + 0.5, bottom: point.y, right: point.x - 0.5)
+		super.drawText(in: rect.inset(by: insets))
+	}
+
+	func clear() {
+		text = ""
+		isValid = true
+	}
+}
+
+
+// TODO
+private extension ENATanInput {
+	func verifyChecksum(input: String) -> Bool {
+		guard isValid else {
+			return false
+		}
+
+		let start = input.index(input.startIndex, offsetBy: 0)
+		let end = input.index(input.startIndex, offsetBy: input.count - 2)
+		let testString = String(input[start...end])
+		return input.last == calculateChecksum(input: testString)
+	}
+
+	func calculateChecksum(input: String) -> Character {
+		let hash = Hasher.sha256(input)
+		var checksum = hash[hash.startIndex].uppercased()
+		if checksum == "0" {
+			checksum = "G"
+		} else if checksum == "1" {
+			checksum = "H"
+		}
+		// TODO
+		// swiftlint:disable:next force_unwrapping
+		return checksum.first!
 	}
 }
