@@ -220,6 +220,10 @@ reporter: "xcode"
 file_length:
   ignore_comment_only_lines: true
 
+function_body_length:
+  warning: 80
+  error: 200
+
 line_length:
   warning: 500
   error: 1000
