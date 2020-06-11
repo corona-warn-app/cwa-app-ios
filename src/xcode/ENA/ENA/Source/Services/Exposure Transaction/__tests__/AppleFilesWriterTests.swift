@@ -23,10 +23,10 @@ import XCTest
 final class AppleFilesWriterTests: XCTestCase {
 
 	private class func createRootDir() throws -> URL {
-		let fm = FileManager()
-		let tempDir = fm.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		let fileManager = FileManager()
+		let tempDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 
-		try fm.createDirectory(
+		try fileManager.createDirectory(
 			atPath: tempDir.path,
 			withIntermediateDirectories: true,
 			attributes: nil

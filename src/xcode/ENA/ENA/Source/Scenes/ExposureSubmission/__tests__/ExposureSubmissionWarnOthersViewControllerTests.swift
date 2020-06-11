@@ -37,9 +37,9 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 	}
 
 	func testSuccessfulSubmit() {
-		let vc = createVC()
-		_ = vc.view
-		vc.exposureSubmissionService = service
+		let viewCtrl = createVC()
+		_ = viewCtrl.view
+		viewCtrl.exposureSubmissionService = service
 
 		let expectTANSubmission = self.expectation(description: "Call getTANForExposureSubmit")
 		let exampleTAN = "asdf123456"
@@ -63,7 +63,7 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 		}
 
 		// Trigger submission process.
-		vc.didTapButton()
+		viewCtrl.didTapButton()
 		waitForExpectations(timeout: .short)
 	}
 

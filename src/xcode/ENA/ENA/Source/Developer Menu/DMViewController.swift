@@ -166,7 +166,7 @@ final class DMViewController: UITableViewController {
 	// For now we simply submit automatically.
 	@objc
 	private func generateTestKeys() {
-		exposureManager.getTestDiagnosisKeys { [weak self] keys, error in
+		exposureManager.getTestDiagnosisKeys { [weak self] keysOptional, error in
 			guard let self = self else {
 				return
 			}
@@ -174,17 +174,17 @@ final class DMViewController: UITableViewController {
 				logError(message: "Failed to generate test keys due to: \(error)")
 				return
 			}
-			let _keys = keys ?? []
+			let keys = keysOptional ?? []
 			// The tan is hardcoded and should work on int. It you get a HTTP 403 response
 			// it may be required to change the tan to something else.
 			self.client.submit(
-				keys: _keys,
+				keys: keys,
 				tan: "235b56ff-fd57-465a-8203-31456e58f06f"
 			) { submitError in
 				print("submitError: \(submitError?.localizedDescription ?? "")")
 				return
 			}
-			log(message: "Got diagnosis keys: \(_keys)", level: .info)
+			log(message: "Got diagnosis keys: \(keys)", level: .info)
 			self.resetAndFetchKeys()
 		}
 	}

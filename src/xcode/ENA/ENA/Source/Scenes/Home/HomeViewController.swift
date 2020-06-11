@@ -168,7 +168,7 @@ final class HomeViewController: UIViewController {
 
 	func showExposureNotificationSetting() {
 		let storyboard = AppStoryboard.exposureNotificationSetting.instance
-		let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
+		let viewCtrl = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
 			ExposureNotificationSettingViewController(
 					coder: coder,
 					initialEnState: self.homeInteractor.state.enState,
@@ -176,14 +176,14 @@ final class HomeViewController: UIViewController {
 					delegate: self
 			)
 		}
-		addToUpdatingSetIfNeeded(vc)
-		notificationSettingsController = vc
-		navigationController?.pushViewController(vc, animated: true)
+		addToUpdatingSetIfNeeded(viewCtrl)
+		notificationSettingsController = viewCtrl
+		navigationController?.pushViewController(viewCtrl, animated: true)
 	}
 
 	func showSetting() {
 		let storyboard = AppStoryboard.settings.instance
-		let vc = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
+		let viewCtrl = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
 			SettingsViewController(
 				coder: coder,
 				store: self.homeInteractor.store,
@@ -191,9 +191,9 @@ final class HomeViewController: UIViewController {
 				delegate: self
 			)
 		}
-		addToUpdatingSetIfNeeded(vc)
-		settingsController = vc
-		navigationController?.pushViewController(vc, animated: true)
+		addToUpdatingSetIfNeeded(viewCtrl)
+		settingsController = viewCtrl
+		navigationController?.pushViewController(viewCtrl, animated: true)
 	}
 
 	func showExposureDetection() {
@@ -203,16 +203,16 @@ final class HomeViewController: UIViewController {
 			isLoading: homeInteractor.isRequestRiskRunning,
 			risk: homeInteractor.state.risk
 		)
-		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
+		let viewCtrl = AppStoryboard.exposureDetection.initiateInitial { coder in
 			ExposureDetectionViewController(
 				coder: coder,
 				state: state,
 				delegate: self
 			)
 		}
-//		addToUpdatingSetIfNeeded(vc)
-		exposureDetectionController = vc as? ExposureDetectionViewController
-		present(vc, animated: true)
+//		addToUpdatingSetIfNeeded(viewCtrl)
+		exposureDetectionController = viewCtrl as? ExposureDetectionViewController
+		present(viewCtrl, animated: true)
 	}
 
 	func showAppInformation() {

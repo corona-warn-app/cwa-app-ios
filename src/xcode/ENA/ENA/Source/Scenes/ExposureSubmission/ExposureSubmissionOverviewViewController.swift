@@ -67,17 +67,17 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		let destination = segue.destination
 		switch Segue(segue) {
 		case .tanInput:
-			let vc = destination as? ExposureSubmissionTanInputViewController
-			vc?.initialTan = sender as? String
-			vc?.exposureSubmissionService = service
+			let viewCtrl = destination as? ExposureSubmissionTanInputViewController
+			viewCtrl?.initialTan = sender as? String
+			viewCtrl?.exposureSubmissionService = service
 		case .qrScanner:
-			let vc = destination as? ExposureSubmissionQRScannerNavigationController
-			vc?.scannerViewController?.delegate = self
-			vc?.exposureSubmissionService = service
+			let viewCtrl = destination as? ExposureSubmissionQRScannerNavigationController
+			viewCtrl?.scannerViewController?.delegate = self
+			viewCtrl?.exposureSubmissionService = service
 		case .labResult:
-			let vc = destination as? ExposureSubmissionTestResultViewController
-			vc?.exposureSubmissionService = service
-			vc?.testResult = sender as? TestResult
+			let viewCtrl = destination as? ExposureSubmissionTestResultViewController
+			viewCtrl?.exposureSubmissionService = service
+			viewCtrl?.testResult = sender as? TestResult
 		default:
 			break
 		}
@@ -159,25 +159,25 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		}
 	}
 
-	func qrScanner(_ vc: QRScannerViewController, didScan code: String) {
+	func qrScanner(_ viewCtrl: QRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
-			vc.delegate = nil
+			viewCtrl.delegate = nil
 			let alert = ExposureSubmissionViewUtils.setupAlert(
 				title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
 				message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
 				okTitle: AppStrings.Common.alertActionCancel,
 				retry: true,
 				action: {
-					self.dismissQRCodeScannerView(vc, completion: nil)
+					self.dismissQRCodeScannerView(viewCtrl, completion: nil)
 				},
-				retryActionHandler: { vc.delegate = self }
+				retryActionHandler: { viewCtrl.delegate = self }
 			)
-			vc.present(alert, animated: true, completion: nil)
+			viewCtrl.present(alert, animated: true, completion: nil)
 			return
 		}
 
 		// Found QR Code, deactivate scanning.
-		dismissQRCodeScannerView(vc, completion: {
+		dismissQRCodeScannerView(viewCtrl, completion: {
 			self.startSpinner()
 			self.getRegistrationToken(forKey: .guid(guid))
 		})
@@ -232,9 +232,9 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		return candidate
 	}
 
-	private func dismissQRCodeScannerView(_ vc: QRScannerViewController, completion: (() -> Void)?) {
-		vc.delegate = nil
-		vc.dismiss(animated: true, completion: completion)
+	private func dismissQRCodeScannerView(_ viewCtrl: QRScannerViewController, completion: (() -> Void)?) {
+		viewCtrl.delegate = nil
+		viewCtrl.dismiss(animated: true, completion: completion)
 	}
 }
 

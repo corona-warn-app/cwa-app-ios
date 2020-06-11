@@ -193,7 +193,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			fatalError("It should not happen.")
 		}
 
-		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
+		let viewCtrl = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
 				delegate: self,
@@ -204,12 +204,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			)
 		}
 
-		homeController = vc // strong ref needed
+		homeController = viewCtrl // strong ref needed
 		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
-			self.navigationController.setViewControllers([vc], animated: false)
+			self.navigationController.setViewControllers([viewCtrl], animated: false)
 		})
 		#if !RELEASE
-		enableDeveloperMenuIfAllowed(in: vc)
+		enableDeveloperMenuIfAllowed(in: viewCtrl)
 		#endif
 	}
 

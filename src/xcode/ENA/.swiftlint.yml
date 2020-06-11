@@ -196,7 +196,6 @@ opt_in_rules:
 # Disable rules which are in the default set
 disabled_rules:
   - type_name
-  - identifier_name
   - redundant_string_enum_value # disabled because it conflicts with explicit_enum_raw_value
 
 # Included paths (disables --path option)
@@ -214,6 +213,15 @@ reporter: "xcode"
 
 
 ### Rule specific configuration
+
+identifier_name:
+  max_length: 60
+  excluded:
+    - db
+    - id
+    - ok
+    - on
+    - to
 
 line_length:
   warning: 500

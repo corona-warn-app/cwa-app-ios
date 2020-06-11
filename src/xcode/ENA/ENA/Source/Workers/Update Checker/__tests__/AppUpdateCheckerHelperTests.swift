@@ -82,18 +82,18 @@ final class AppUpdateCheckerHelperTests: XCTestCase {
 	}
 
 	func testAlert_none() {
-		let alert = sut.createAlert(.none, vc: nil)
+		let alert = sut.createAlert(.none, viewCtrl: nil)
 		XCTAssertNil(alert)
 	}
 
 	func testAlert_update() {
-		let alert = sut.createAlert(.update, vc: nil)
+		let alert = sut.createAlert(.update, viewCtrl: nil)
 		XCTAssertNotNil(alert)
 		XCTAssertEqual(alert?.actions.count, 2)
 	}
 
 	func testAlert_forceUpdate() {
-		let alert = sut.createAlert(.forceUpdate, vc: nil)
+		let alert = sut.createAlert(.forceUpdate, viewCtrl: nil)
 		XCTAssertNotNil(alert)
 		XCTAssertEqual(alert?.actions.count, 1)
 	}

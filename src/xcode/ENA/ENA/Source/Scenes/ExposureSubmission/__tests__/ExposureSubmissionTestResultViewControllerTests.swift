@@ -28,15 +28,15 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 	}
 
 	func testPositiveState() {
-		let vc = createVC()
-		vc.testResult = .positive
-		_ = vc.view
-		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
+		let viewCtrl = createVC()
+		viewCtrl.testResult = .positive
+		_ = viewCtrl.view
+		XCTAssertEqual(viewCtrl.dynamicTableViewModel.numberOfSection, 1)
 
-		let header = vc.tableView(vc.tableView, viewForHeaderInSection: 0) as? ExposureSubmissionTestResultHeaderView
+		let header = viewCtrl.tableView(viewCtrl.tableView, viewForHeaderInSection: 0) as? ExposureSubmissionTestResultHeaderView
 		XCTAssertNotNil(header)
 
-		let cell = vc.tableView(vc.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? DynamicTypeTableViewCell
+		let cell = viewCtrl.tableView(viewCtrl.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? DynamicTypeTableViewCell
 		XCTAssertNotNil(cell)
 		XCTAssertEqual(cell?.textLabel?.text, AppStrings.ExposureSubmissionResult.procedure)
 	}

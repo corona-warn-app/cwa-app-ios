@@ -213,11 +213,11 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 			
 			let startIndex = 0
-			for i in startIndex...keys.count - 1 {
-				if i + 1 <= transmissionRiskDefaultVector.count - 1 {
-					keys[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
+			for index in startIndex...keys.count - 1 {
+				if index + 1 <= transmissionRiskDefaultVector.count - 1 {
+					keys[index].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[index + 1])
 				} else {
-					keys[i].transmissionRiskLevel = UInt8(1)
+					keys[index].transmissionRiskLevel = UInt8(1)
 				}
 			}
 

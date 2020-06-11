@@ -61,13 +61,13 @@ final class DMDeveloperMenu {
 
 	@objc
 	func showDeveloperMenu(_: UITapGestureRecognizer) {
-		let vc = DMViewController(
+		let viewCtrl = DMViewController(
 			client: client,
 			store: store,
 			exposureManager: exposureManager
 		)
 		let navigationController = UINavigationController(
-			rootViewController: vc
+			rootViewController: viewCtrl
 		)
 		presentingViewController.present(
 			navigationController,

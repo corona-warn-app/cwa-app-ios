@@ -34,9 +34,9 @@ class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 	}
 
 	func testTanInputSuccess() {
-		let vc = createVC()
-		_ = vc.view
-		vc.exposureSubmissionService = service
+		let viewCtrl = createVC()
+		_ = viewCtrl.view
+		viewCtrl.exposureSubmissionService = service
 
 		let expectation = self.expectation(description: "Call getRegistration service method.")
 		service.getRegistrationTokenCallback = { deviceRegistrationKey, completion in
@@ -44,9 +44,9 @@ class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 			completion(.success(""))
 		}
 
-		vc.tanInput.insertText("234567893D")
-		if vc.tanInput.isEnabled {
-			vc.didTapButton()
+		viewCtrl.tanInput.insertText("234567893D")
+		if viewCtrl.tanInput.isEnabled {
+			viewCtrl.didTapButton()
 		}
 		
 		waitForExpectations(timeout: .short)

@@ -66,9 +66,9 @@ extension Array where Element == TracingStatusEntry {
 
 		// Iterate from end of array until we find a date older than threshold
 		var firstStaleIndex: Int?
-		for (i, element) in enumerated().reversed() {
+		for (index, element) in enumerated().reversed() {
 			if now.timeIntervalSince(element.date) > threshold {
-				firstStaleIndex = i
+				firstStaleIndex = index
 				break
 			}
 		}

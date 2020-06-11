@@ -27,9 +27,9 @@ enum WebPageHelper {
 			config.entersReaderIfAvailable = true
 			config.barCollapsingEnabled = true
 
-			let vc = SFSafariViewController(url: url, configuration: config)
-			vc.preferredControlTintColor = .enaColor(for: .tint)
-			viewController.present(vc, animated: true)
+			let viewCtrl = SFSafariViewController(url: url, configuration: config)
+			viewCtrl.preferredControlTintColor = .enaColor(for: .tint)
+			viewController.present(viewCtrl, animated: true)
 		} else {
 			let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
 			logError(message: error)
@@ -42,9 +42,9 @@ enum WebPageHelper {
 		config.entersReaderIfAvailable = true
 		config.barCollapsingEnabled = true
 
-		let vc = SFSafariViewController(url: url, configuration: config)
-		vc.preferredControlTintColor = .enaColor(for: .tint)
+		let viewCtrl = SFSafariViewController(url: url, configuration: config)
+		viewCtrl.preferredControlTintColor = .enaColor(for: .tint)
 
-		viewController.present(vc, animated: true)
+		viewController.present(viewCtrl, animated: true)
 	}
 }

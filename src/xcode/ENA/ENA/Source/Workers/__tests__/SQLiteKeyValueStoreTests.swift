@@ -147,15 +147,15 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 	}
 
 	func testThreadSafety() {
-		for i in 0...1000 {
+		for index in 0...1000 {
 			group.enter()
 
 			DispatchQueue.global().async {
 				let sleepVal = UInt32.random(in: 0...1000)
 				usleep(sleepVal)
-				self.kvStore["key\(i)"] = Data("value\(i)".utf8)
-				if i.isMultiple(of: 2) {
-					self.kvStore["key\(i)"] = nil
+				self.kvStore["key\(index)"] = Data("value\(index)".utf8)
+				if index.isMultiple(of: 2) {
+					self.kvStore["key\(index)"] = nil
 				}
 				self.group.leave()
 			}
@@ -163,11 +163,11 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 
 		let result = group.wait(timeout: .now() + 15)
 		XCTAssert(result == .success)
-		for j in 0...1000 {
-			if j.isMultiple(of: 2) {
-				XCTAssertNil(self.kvStore["key\(j)"])
+		for index in 0...1000 {
+			if index.isMultiple(of: 2) {
+				XCTAssertNil(self.kvStore["key\(index)"])
 			} else {
-				XCTAssertEqual(self.kvStore["key\(j)"], Data("value\(j)".utf8))
+				XCTAssertEqual(self.kvStore["key\(index)"], Data("value\(index)".utf8))
 			}
 		}
 	}

@@ -108,15 +108,15 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 		// We got a test result and can jump straight into the test result view controller.
 		if let service = exposureSubmissionService, testResult != nil, service.hasRegistrationToken() {
-			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
-			vc.exposureSubmissionService = service
-			vc.testResult = testResult
-			return vc
+			let viewCtrl = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
+			viewCtrl.exposureSubmissionService = service
+			viewCtrl.testResult = testResult
+			return viewCtrl
 		}
 
 		// By default, we show the intro view.
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self)
-		return vc
+		let viewCtrl = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self)
+		return viewCtrl
 	}
 
 	override func viewDidLoad() {

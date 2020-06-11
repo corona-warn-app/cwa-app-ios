@@ -35,7 +35,7 @@ class MockExposureSubmissionQRScannerViewController: QRScannerViewController {
 		dismissCallback?(animated, completion)
 	}
 
-	func present(_ vc: UIViewController, animated: Bool, completion: (() -> Void)?) {
-		presentCallback?(vc, animated, completion)
+	func present(_ viewCtrl: UIViewController, animated: Bool, completion: (() -> Void)?) {
+		presentCallback?(viewCtrl, animated, completion)
 	}
 }

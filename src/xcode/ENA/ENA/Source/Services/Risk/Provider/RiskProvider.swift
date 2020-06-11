@@ -168,10 +168,10 @@ extension RiskProvider: RiskProviding {
 			group.leave()
 		}
 
-		var appConfiguration: SAP_ApplicationConfiguration?
+		var appConfigurationOptional: SAP_ApplicationConfiguration?
 		group.enter()
 		appConfigurationProvider.appConfiguration { configuration in
-			appConfiguration = configuration
+			appConfigurationOptional = configuration
 			group.leave()
 		}
 
@@ -186,7 +186,7 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 
-		guard let _appConfiguration = appConfiguration else {
+		guard let appConfiguration = appConfigurationOptional else {
 			completeOnTargetQueue(risk: nil)
 			return
 		}
@@ -197,7 +197,7 @@ extension RiskProvider: RiskProviding {
 		guard
 			let risk = RiskCalculation.risk(
 				summary: summaries?.current?.summary,
-				configuration: _appConfiguration,
+				configuration: appConfiguration,
 				dateLastExposureDetection: summaries?.current?.date,
 				numberOfTracingActiveHours: numberOfEnabledHours,
 				preconditions: exposureManagerState,

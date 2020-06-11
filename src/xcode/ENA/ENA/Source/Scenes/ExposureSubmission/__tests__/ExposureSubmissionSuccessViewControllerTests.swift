@@ -34,12 +34,12 @@ class ExposureSubmissionSuccessViewControllerTests: XCTestCase {
 	}
 
 	func testViewLoading() {
-		let vc = createVC()
-		_ = vc.view
+		let viewCtrl = createVC()
+		_ = viewCtrl.view
 
-		XCTAssertEqual(vc.navigationItem.title, AppStrings.ExposureSubmissionSuccess.title)
-		XCTAssertTrue(vc.navigationItem.hidesBackButton)
-		XCTAssertEqual(vc.tableView.numberOfSections, 1)
-		XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), 9)
+		XCTAssertEqual(viewCtrl.navigationItem.title, AppStrings.ExposureSubmissionSuccess.title)
+		XCTAssertTrue(viewCtrl.navigationItem.hidesBackButton)
+		XCTAssertEqual(viewCtrl.tableView.numberOfSections, 1)
+		XCTAssertEqual(viewCtrl.tableView.numberOfRows(inSection: 0), 9)
 	}
 }

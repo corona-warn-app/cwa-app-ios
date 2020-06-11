@@ -44,7 +44,7 @@ final class AppUpdateCheckHelper {
 		removeObserver()
 	}
 
-	func checkAppVersionDialog(for vc: UIViewController?) {
+	func checkAppVersionDialog(for viewCtrl: UIViewController?) {
 		client.appConfiguration { result in
 			guard let versionInfo: SAP_ApplicationVersionConfiguration = result?.appVersion else {
 				return
@@ -59,19 +59,19 @@ final class AppUpdateCheckHelper {
 				latestVersion: versionInfo.ios.latest
 			)
 
-			guard let alert = self.createAlert(alertType, vc: vc) else { return }
-			vc?.present(alert, animated: true, completion: nil)
+			guard let alert = self.createAlert(alertType, viewCtrl: viewCtrl) else { return }
+			viewCtrl?.present(alert, animated: true, completion: nil)
 		}
 	}
 
-	private func setObserver(vc: UIViewController?, alertType: UpdateAlertType) {
+	private func setObserver(viewCtrl: UIViewController?, alertType: UpdateAlertType) {
 		guard self.applicationDidBecomeActiveObserver == nil else { return }
 		self.applicationDidBecomeActiveObserver = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] _ in
 			guard let self = self else { return }
-			guard let alert = self.createAlert(alertType, vc: vc) else {
+			guard let alert = self.createAlert(alertType, viewCtrl: viewCtrl) else {
 				return
 			}
-			vc?.present(alert, animated: true, completion: nil)
+			viewCtrl?.present(alert, animated: true, completion: nil)
 		}
 	}
 
@@ -80,7 +80,7 @@ final class AppUpdateCheckHelper {
 		applicationDidBecomeActiveObserver = nil
 	}
 
-	func createAlert(_ type: UpdateAlertType, vc: UIViewController?) -> UIAlertController? {
+	func createAlert(_ type: UpdateAlertType, viewCtrl: UIViewController?) -> UIAlertController? {
 		let alert = UIAlertController(title: AppStrings.UpdateMessage.title, message: AppStrings.UpdateMessage.text, preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionUpdate, comment: ""), style: .cancel, handler: { _ in
 			guard let url: URL = URL(string: "itms-apps://itunes.apple.com/app/apple-store/") else {
@@ -95,7 +95,7 @@ final class AppUpdateCheckHelper {
 			}))
 		case .forceUpdate:
 			alert.message = AppStrings.UpdateMessage.textForce
-			self.setObserver(vc: vc, alertType: type)
+			self.setObserver(viewCtrl: viewCtrl, alertType: type)
 		case .none:
 			return nil
 		}

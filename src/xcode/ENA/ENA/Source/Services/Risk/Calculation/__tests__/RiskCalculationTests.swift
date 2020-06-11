@@ -513,6 +513,7 @@ private extension RiskCalculationTests {
 		}
 	}
 
+	// swiftlint:disable identifier_name
 	private func makeExposureSummaryContainer(
 		maxRiskScoreFullRange: Int,
 		ad_low: Double,
@@ -565,6 +566,7 @@ private extension RiskCalculationTests {
 
 		return config
 	}
+	// swiftlint:enable identifier_name
 }
 
 private extension TimeInterval {

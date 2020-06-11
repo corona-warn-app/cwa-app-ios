@@ -81,21 +81,21 @@ final class SettingsViewController: UITableViewController {
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
-		if segue.identifier == resetSegue, let nc = segue.destination as? UINavigationController, let vc = nc.topViewController as? ResetViewController {
-			vc.delegate = self
+		if segue.identifier == resetSegue, let navCtrl = segue.destination as? UINavigationController, let viewCtrl = navCtrl.topViewController as? ResetViewController {
+			viewCtrl.delegate = self
 		}
 	}
 
 	@IBSegueAction
 	func createExposureNotificationSettingViewController(coder: NSCoder) -> ExposureNotificationSettingViewController? {
-		let vc = ExposureNotificationSettingViewController(
+		let navCtrl = ExposureNotificationSettingViewController(
 				coder: coder,
 				initialEnState: enState,
 				store: store,
 				delegate: self
 		)
-		notificationSettingsController = vc
-		return vc
+		notificationSettingsController = navCtrl
+		return navCtrl
 	}
 
 	@IBSegueAction

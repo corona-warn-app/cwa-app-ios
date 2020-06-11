@@ -23,11 +23,11 @@ import XCTest
 class ExposureSubmissionHotlineViewControllerTest: XCTestCase {
 
 	func testSetupView() {
-		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self)
-		_ = vc.view
-		XCTAssertNotNil(vc.tableView)
-		XCTAssertEqual(vc.tableView.numberOfSections, 2)
-		XCTAssertEqual(vc.tableView(vc.tableView, numberOfRowsInSection: 1), 5)
+		let viewCtrl = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self)
+		_ = viewCtrl.view
+		XCTAssertNotNil(viewCtrl.tableView)
+		XCTAssertEqual(viewCtrl.tableView.numberOfSections, 2)
+		XCTAssertEqual(viewCtrl.tableView(viewCtrl.tableView, numberOfRowsInSection: 1), 5)
 	}
 
 }

@@ -34,58 +34,58 @@ class ExposureSubmissionNavigationControllerTest: XCTestCase {
 	}
 
 	func testSetupSecondaryButton() {
-		let vc = createVC()
-		_ = vc.view
+		let viewCtrl = createVC()
+		_ = viewCtrl.view
 		let title = "Second Button Test"
-		vc.setSecondaryButtonTitle(title: title)
-		vc.showSecondaryButton()
+		viewCtrl.setSecondaryButtonTitle(title: title)
+		viewCtrl.showSecondaryButton()
 
-		XCTAssert(!vc.secondaryButton.isHidden)
-		XCTAssertEqual(vc.secondaryButton.currentTitle, title)
-		XCTAssertEqual(vc.secondaryButton.state, UIButton.State.normal)
+		XCTAssert(!viewCtrl.secondaryButton.isHidden)
+		XCTAssertEqual(viewCtrl.secondaryButton.currentTitle, title)
+		XCTAssertEqual(viewCtrl.secondaryButton.state, UIButton.State.normal)
 	}
 
 	func testHideSecondaryButton() {
-		let vc = createVC()
-		_ = vc.view
-		vc.showSecondaryButton()
+		let viewCtrl = createVC()
+		_ = viewCtrl.view
+		viewCtrl.showSecondaryButton()
 
-		XCTAssert(!vc.secondaryButton.isHidden)
-		vc.hideSecondaryButton()
-		XCTAssert(vc.secondaryButton.isHidden)
+		XCTAssert(!viewCtrl.secondaryButton.isHidden)
+		viewCtrl.hideSecondaryButton()
+		XCTAssert(viewCtrl.secondaryButton.isHidden)
 	}
 
 	func testSecondaryButtonAction() {
-		let vc = createVC()
-		_ = vc.view
+		let viewCtrl = createVC()
+		_ = viewCtrl.view
 
 		let child = MockExposureSubmissionNavigationControllerChild()
 		let expectation = self.expectation(description: "Button action executed.")
 		child.didTapSecondButtonCallback = { expectation.fulfill() }
 
-		vc.pushViewController(child, animated: false)
-		vc.secondaryButton.sendActions(for: .touchUpInside)
+		viewCtrl.pushViewController(child, animated: false)
+		viewCtrl.secondaryButton.sendActions(for: .touchUpInside)
 
 		waitForExpectations(timeout: .short)
 	}
 
 	func testButtonAction() {
-		let vc = createVC()
-		_ = vc.view
+		let viewCtrl = createVC()
+		_ = viewCtrl.view
 
 		let child = MockExposureSubmissionNavigationControllerChild()
 		let expectation = self.expectation(description: "Button action executed.")
 		child.didTapButtonCallback = { expectation.fulfill() }
 
-		vc.pushViewController(child, animated: false)
-		vc.button.sendActions(for: .touchUpInside)
+		viewCtrl.pushViewController(child, animated: false)
+		viewCtrl.button.sendActions(for: .touchUpInside)
 
 		waitForExpectations(timeout: .short)
 	}
 
 	func testExposureSubmissionService() {
-		let vc = createVC()
-		XCTAssertNotNil(vc.getExposureSubmissionService())
+		let viewCtrl = createVC()
+		XCTAssertNotNil(viewCtrl.getExposureSubmissionService())
 	}
 
 }

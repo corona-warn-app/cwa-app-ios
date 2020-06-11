@@ -36,6 +36,7 @@ final class ConvertingKeysTests: XCTestCase {
 	}
 }
 
+// swiftlint:disable identifier_name
 private final class TemporaryExposureKeyMock: ENTemporaryExposureKey {
 	init(
 		keyData: Data,
