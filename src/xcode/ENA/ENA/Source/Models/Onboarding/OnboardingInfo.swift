@@ -58,7 +58,7 @@ extension OnboardingInfo {
 			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_title",
 			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription",
 			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingContinue",
-			ignoreTextAccessibilityIdentifier: ""
+			ignoreTextAccessibilityIdentifier: nil
 		)
 
 		let info3 = OnboardingInfo(
