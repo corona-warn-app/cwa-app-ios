@@ -49,6 +49,7 @@ extension DynamicSection {
 				cell.contentView.preservesSuperviewLayoutMargins = false
 				cell.contentView.layoutMargins = insets
 				cell.accessibilityIdentifier = accessibilityIdentifier
+				cell.accessibilityTraits = .header
 			}
 		])
 	}
