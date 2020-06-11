@@ -224,6 +224,11 @@ function_body_length:
   warning: 80
   error: 200
 
+function_parameter_count:
+  warning: 7
+  error: 10
+  ignores_default_parameters: true
+
 line_length:
   warning: 500
   error: 1000
