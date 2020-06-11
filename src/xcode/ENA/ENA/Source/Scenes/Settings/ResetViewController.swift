@@ -33,6 +33,7 @@ final class ResetViewController: UIViewController {
 	@IBOutlet var subtitleLabel: UILabel!
 	@IBOutlet var scrollView: UIScrollView!
 	@IBOutlet var footerView: UIView!
+	@IBOutlet weak var imageView: UIImageView!
 
 	weak var delegate: ResetDelegate?
 
@@ -77,6 +78,10 @@ final class ResetViewController: UIViewController {
 
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+
+		imageView.isAccessibilityElement = true
+		imageView.accessibilityLabel = AppStrings.Reset.imageDescription
+		imageView.accessibilityIdentifier = "AppString.Reset.imageDescription"
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
