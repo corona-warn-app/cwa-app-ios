@@ -31,87 +31,69 @@ final class RiskThankYouCollectionViewCell: HomeCardCollectionViewCell {
 
 	@IBOutlet var viewContainer: UIView!
 	@IBOutlet var stackView: UIStackView!
+	@IBOutlet var riskViewStackView: UIStackView!
+	@IBOutlet var furtherInfoStackView: UIStackView!
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-	}
-
-	func removeAllArrangedSubviews() {
-		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+		stackView.setCustomSpacing(16.0, after: imageView)
+		stackView.setCustomSpacing(32.0, after: bodyLabel)
+		stackView.setCustomSpacing(8.0, after: noteLabel)
+		stackView.setCustomSpacing(22.0, after: riskViewStackView)
+		stackView.setCustomSpacing(8.0, after: furtherInfoLabel)
 	}
 
 	func configureBackgroundColor(color: UIColor) {
 		viewContainer.backgroundColor = color
 	}
-	
+
 	func configureTitle(title: String, titleColor: UIColor) {
 		titleLabel.text = title
 		titleLabel.textColor = titleColor
-		stackView.addArrangedSubview(titleLabel)
 	}
 
 	func configureImage(imageName: String) {
 		let image = UIImage(named: imageName)
 		imageView.image = image
-		stackView.addArrangedSubview(imageView)
-		stackView.setCustomSpacing(16.0, after: imageView)
 	}
 
 	func configureBody(text: String, bodyColor: UIColor) {
 		bodyLabel.text = text
 		bodyLabel.textColor = bodyColor
-		stackView.addArrangedSubview(bodyLabel)
-		stackView.setCustomSpacing(32.0, after: bodyLabel)
 	}
 
 	func configureNoteLabel(title: String) {
 		noteLabel.text = title
-		stackView.addArrangedSubview(noteLabel)
-		stackView.setCustomSpacing(8.0, after: noteLabel)
 	}
 
 	func configureFurtherInfoLabel(title: String) {
 		furtherInfoLabel.text = title
-		stackView.addArrangedSubview(furtherInfoLabel)
-		stackView.setCustomSpacing(8.0, after: furtherInfoLabel)
 	}
 
 	func configureNoteRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
-		guard let noteIndex = stackView.arrangedSubviews.firstIndex(of: noteLabel) else { return }
-		var lastView: UIView?
-		for itemConfigurator in cellConfigurators.reversed() {
+		riskViewStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+		for itemConfigurator in cellConfigurators {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
-			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
-				stackView.insertArrangedSubview(riskView, at: noteIndex + 1)
-				if lastView != nil {
-					stackView.setCustomSpacing(0.0, after: riskView)
-				} else {
-					lastView = riskView
-				}
+			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? UIView {
+				riskViewStackView.addArrangedSubview(riskView)
 				itemConfigurator.configureAny(riskView: riskView)
 			}
 		}
-		if let last = lastView {
-			stackView.setCustomSpacing(22.0, after: last)
-		}
+		riskViewStackView.isHidden = cellConfigurators.isEmpty
+
 	}
 
 	func configureFurtherInfoRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
-		guard let furtherInfoIndex = stackView.arrangedSubviews.firstIndex(of: furtherInfoLabel) else { return }
-		var lastView: UIView?
-		for itemConfigurator in cellConfigurators.reversed() {
+		furtherInfoStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+		for itemConfigurator in cellConfigurators {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
-			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
-				stackView.insertArrangedSubview(riskView, at: furtherInfoIndex + 1)
-				if lastView != nil {
-					stackView.setCustomSpacing(0.0, after: riskView)
-				} else {
-					lastView = riskView
-				}
+			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? UIView {
+				furtherInfoStackView.addArrangedSubview(riskView)
 				itemConfigurator.configureAny(riskView: riskView)
 			}
 		}
+		furtherInfoStackView.isHidden = cellConfigurators.isEmpty
 	}
 }
