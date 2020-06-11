@@ -97,14 +97,10 @@ final class ENATaskScheduler {
 
 	// Task Handlers:
 	private func executeBackgroundTask(_ task: BGTask) {
-		// TODO: testing
-		UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: "\(task.identifier) started", identifier: UUID().uuidString)
 		executeFetchTestResults(task) { executeFetchTestResultsSuccess in
 			self.executeExposureDetectionRequest(task) { executeExposureDetectionRequestSuccess in
 				let success = executeFetchTestResultsSuccess && executeExposureDetectionRequestSuccess
 				log(message: "Task complete! executeFetchTestResultsSuccess \(executeFetchTestResultsSuccess) && executeExposureDetectionRequestSuccess \(executeExposureDetectionRequestSuccess)")
-				// TODO: testing
-				UNUserNotificationCenter.current().presentNotification(title: "\(#function)", body: "\(task.identifier) complete!", identifier: UUID().uuidString)
 				task.setTaskCompleted(success: success)
 				self.scheduleTasks()
 			}
