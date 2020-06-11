@@ -150,8 +150,9 @@ final class OnboardingInfoViewController: UIViewController {
 
 		titleLabel.text = onboardingInfo.title
 
-		let exposureNotificationsNotSet = exposureManagerState.status == .unknown
-		let exposureNotificationsDisabled = !exposureManagerState.enabled && !exposureNotificationsNotSet
+		let exposureNotificationsNotSet = exposureManagerState.status == .unknown && exposureManagerState.authorizationStatus == .unknown
+		let exposureNotificationsEnabled = exposureManagerState.enabled || (exposureManagerState.authorized && exposureManagerState.status != .disabled)
+		let exposureNotificationsDisabled = !exposureNotificationsEnabled && !exposureNotificationsNotSet
 		let showStateView = onboardingInfo.showState && !exposureNotificationsNotSet
 
 		// swiftlint:disable force_unwrapping
@@ -174,7 +175,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 		stateHeaderLabel.text = onboardingInfo.stateHeader?.uppercased()
 		stateTitleLabel.text = onboardingInfo.stateTitle
-		stateStateLabel.text = exposureManagerState.enabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
+		stateStateLabel.text = exposureNotificationsEnabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
 
 		switch pageType {
 		case .enableLoggingOfContactsPage:
