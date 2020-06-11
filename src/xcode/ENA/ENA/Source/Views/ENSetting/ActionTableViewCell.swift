@@ -97,8 +97,9 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 
 		isAccessibilityElement = true
 		accessibilityTraits = [.button]
+		let actionName = actionSwitch.isOn ? AppStrings.Settings.statusEnable : AppStrings.Settings.statusDisable
 		accessibilityCustomActions = [
-			UIAccessibilityCustomAction(name: "Toggle", target: self, selector: #selector(toggle(_:)))
+			UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(toggle(_:)))
 		]
 
 		accessibilityLabel = AppStrings.ExposureNotificationSetting.enableTracing
