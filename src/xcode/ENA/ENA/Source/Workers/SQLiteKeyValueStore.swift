@@ -19,14 +19,8 @@ import FMDB
 import Foundation
 
 
-protocol KeyValueStore {
-	subscript(key: String) -> Data? { get set }
-	subscript<Model: Codable>(key: String) -> Model? { get set }
-	func clearAll(key: String?)
-}
-
 /// Basic SQLite Key/Value store with Keys as `TEXT` and Values stored as `BLOB`
-final class SQLiteKeyValueStore: KeyValueStore {
+final class SQLiteKeyValueStore {
 	private let databaseQueue: FMDatabaseQueue?
 	private let directoryURL: URL
 
