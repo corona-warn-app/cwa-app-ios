@@ -212,6 +212,7 @@
 		B11E619B246EE4B0004A056A /* DynamicTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */; };
 		B11E619C246EE4E9004A056A /* UIFont+DynamicType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */; };
 		B1218920248AD79900496210 /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD678F6C246C43EE00B6A0F8 /* ClientMock.swift */; };
+		B1221BDC2492BCEB00E6C4E4 /* Info_Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1221BDB2492BCEB00E6C4E4 /* Info_Debug.plist */; };
 		B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853D98842469DC8100490DBA /* ExposureNotificationSettingViewController.swift */; };
 		B14D0CD9246E946E00D5BEBC /* ExposureDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A9E70D246D73180024CC12 /* ExposureDetection.swift */; };
 		B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14D0CDA246E968C00D5BEBC /* String+Today.swift */; };
@@ -579,6 +580,7 @@
 		B1175215248A9F9600C3325C /* ConvertingKeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertingKeysTests.swift; sourceTree = "<group>"; };
 		B1175217248ACFBC00C3325C /* SAP_RiskScoreClass+LowAndHigh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_RiskScoreClass+LowAndHigh.swift"; sourceTree = "<group>"; };
 		B1175219248ACFFC00C3325C /* SAP_RiskScoreClass+LowAndHighTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_RiskScoreClass+LowAndHighTests.swift"; sourceTree = "<group>"; };
+		B1221BDB2492BCEB00E6C4E4 /* Info_Debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Debug.plist; sourceTree = "<group>"; };
 		B12995E8246C344100854AD0 /* HTTPClient+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+Configuration.swift"; sourceTree = "<group>"; };
 		B14D0CDA246E968C00D5BEBC /* String+Today.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Today.swift"; sourceTree = "<group>"; };
 		B14D0CDC246E972400D5BEBC /* ExposureDetectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionDelegate.swift; sourceTree = "<group>"; };
@@ -1271,6 +1273,7 @@
 				85790F2E245C6B72003D47E1 /* ENA.entitlements */,
 				EE70C239245B09E900AC9B2F /* Localization */,
 				85D7594F24570491008175F0 /* Info.plist */,
+				B1221BDB2492BCEB00E6C4E4 /* Info_Debug.plist */,
 				B1E8C99A2479D239006DC678 /* Info_AppStore.plist */,
 				85D75976245706BD008175F0 /* Assets */,
 				85D75975245706B0008175F0 /* Storyboards */,
@@ -1977,6 +1980,7 @@
 				51486DA32485101500FCE216 /* RiskInactiveCollectionViewCell.xib in Resources */,
 				13156CFD248C19D000AFC472 /* usage.html in Resources */,
 				51486DA72485237200FCE216 /* RiskThankYouCollectionViewCell.xib in Resources */,
+				B1221BDC2492BCEB00E6C4E4 /* Info_Debug.plist in Resources */,
 				2F785752248506BD00323A9C /* HomeTestResultCollectionViewCell.xib in Resources */,
 				EE269508248FCB0300BAE234 /* InfoPlist.strings in Resources */,
 				A16714B1248CFF020031B111 /* HostWhitelist.plist in Resources */,
@@ -2499,7 +2503,7 @@
 					"SQLITE_HAS_CODEC=1",
 					"DISABLE_CERTIFICATE_PINNING=1",
 				);
-				INFOPLIST_FILE = ENA/Resources/Info.plist;
+				INFOPLIST_FILE = ENA/Resources/Info_Debug.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = "";
 				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App";
@@ -2514,7 +2518,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
+				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = COMMUNITY;
@@ -2677,7 +2681,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
+				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG UITESTING";
@@ -2880,7 +2884,7 @@
 					"$(inherited)",
 					"SQLITE_HAS_CODEC=1",
 				);
-				INFOPLIST_FILE = ENA/Resources/Info.plist;
+				INFOPLIST_FILE = ENA/Resources/Info_Debug.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
 				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App";
@@ -2895,7 +2899,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
+				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
@@ -2933,7 +2937,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
+				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
@@ -3137,7 +3141,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
+				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
