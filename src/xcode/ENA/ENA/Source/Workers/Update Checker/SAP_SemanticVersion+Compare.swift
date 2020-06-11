@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,20 +15,21 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import UIKit
+import Foundation
 
-class NotificationSettingsOffTableViewCell: UITableViewCell {
-	@IBOutlet var descriptionLabel: ENALabel!
-	@IBOutlet var stateLabel: ENALabel!
-
-	func configure(viewModel: NotificationSettingsViewModel.SettingsOffItem) {
-		descriptionLabel.text = viewModel.description
-		stateLabel.text = viewModel.state
-
-		isAccessibilityElement = true
-		accessibilityLabel = descriptionLabel.text
-		accessibilityTraits = .none
-
+extension SAP_SemanticVersion: Comparable {
+	static func < (lhs: SAP_SemanticVersion, rhs: SAP_SemanticVersion) -> Bool {
+		if lhs.major != rhs.major {
+			return lhs.major < rhs.major
+		}
+		if lhs.minor != rhs.minor {
+			return lhs.minor < rhs.minor
+		}
+		if lhs.patch != rhs.patch {
+			return lhs.patch < rhs.patch
+		}
+		return false
 	}
 }

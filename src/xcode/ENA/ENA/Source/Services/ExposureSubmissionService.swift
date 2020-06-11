@@ -263,7 +263,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch exposureNotificationError {
 			case .exposureNotificationRequired, .exposureNotificationAuthorization, .exposureNotificationUnavailable:
 				return .enNotEnabled
-			case .apiMisuse:
+			case .apiMisuse, .unknown:
 				return .other("ENErrorCodeAPIMisuse")
 			}
 		}

@@ -26,25 +26,25 @@ enum UpdateAlertType {
 	case forceUpdate
 }
 
-class AppUpdateCheckHelper {
+final class AppUpdateCheckHelper {
+	// MARK: Properties
+	private let client: Client
+	private let store: Store
 
-	let client: Client
-	let store: Store
-
-    /// The retained `NotificationCenter` observer that listens for `UIApplication.didBecomeActiveNotification` notifications.
-    var applicationDidBecomeActiveObserver: NSObjectProtocol?
+	/// The retained `NotificationCenter` observer that listens for `UIApplication.didBecomeActiveNotification` notifications.
+	var applicationDidBecomeActiveObserver: NSObjectProtocol?
 
 	init(client: Client, store: Store) {
 		self.client = client
 		self.store = store
 	}
 
+	// MARK: Deinit
 	deinit {
 		removeObserver()
 	}
 
 	func checkAppVersionDialog(for vc: UIViewController?) {
-		/**
 		client.appConfiguration { result in
 			guard let versionInfo: SAP_ApplicationVersionConfiguration = result?.appVersion else {
 				return
@@ -52,14 +52,16 @@ class AppUpdateCheckHelper {
 			guard let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
 				return
 			}
-			let minVersion = "\(versionInfo.ios.min.major).\(versionInfo.ios.min.minor).\(versionInfo.ios.min.patch)"
-			let latestVersion = "\(versionInfo.ios.latest.major).\(versionInfo.ios.latest.minor).\(versionInfo.ios.latest.patch)"
-			guard let alert = self.createAlert(self.compareVersion(currentVersion: appVersion, minVersion: minVersion, latestVersion: latestVersion), vc: vc) else {
-				return
-			}
-			vc?.present(alert, animated: true, completion: nil)
 
-		}*/
+			let alertType = self.alertTypeFrom(
+				currentVersion: appVersion,
+				minVersion: versionInfo.ios.min,
+				latestVersion: versionInfo.ios.latest
+			)
+
+			guard let alert = self.createAlert(alertType, vc: vc) else { return }
+			vc?.present(alert, animated: true, completion: nil)
+		}
 	}
 
 	private func setObserver(vc: UIViewController?, alertType: UpdateAlertType) {
@@ -75,7 +77,7 @@ class AppUpdateCheckHelper {
 
 	private func removeObserver() {
 		NotificationCenter.default.removeObserver(applicationDidBecomeActiveObserver as Any)
-        applicationDidBecomeActiveObserver = nil
+		applicationDidBecomeActiveObserver = nil
 	}
 
 	func createAlert(_ type: UpdateAlertType, vc: UIViewController?) -> UIAlertController? {
@@ -84,7 +86,7 @@ class AppUpdateCheckHelper {
 			guard let url: URL = URL(string: "itms-apps://itunes.apple.com/app/apple-store/") else {
 				return
 			}
-				UIApplication.shared.open(url, options: [:], completionHandler: nil)
+			UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		}))
 		switch type {
 		case .update:
@@ -100,17 +102,23 @@ class AppUpdateCheckHelper {
 		return alert
 	}
 
-	func compareVersion(currentVersion: String, minVersion: String, latestVersion: String) -> UpdateAlertType {
-		let checkMinVersion = currentVersion.compare(minVersion, options: .numeric)
-		if checkMinVersion == .orderedAscending {
-			return .forceUpdate
-		} else {
-			let checkLatestVersion = currentVersion.compare(latestVersion, options: .numeric)
-			if checkLatestVersion == .orderedAscending {
-				store.lastCheckedVersion = latestVersion
-				return .update
-			}
+	func alertTypeFrom(
+		currentVersion: String,
+		minVersion: SAP_SemanticVersion,
+		latestVersion: SAP_SemanticVersion
+	) -> UpdateAlertType {
+		guard let currentSemanticVersion = currentVersion.semanticVersion else {
+			return .none
 		}
+
+		if currentSemanticVersion < minVersion {
+			return .forceUpdate
+		}
+
+		if currentSemanticVersion < latestVersion {
+			return .update
+		}
+		
 		return .none
 	}
 }

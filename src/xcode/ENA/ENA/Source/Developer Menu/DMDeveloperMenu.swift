@@ -15,6 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
+#if !RELEASE
 import UIKit
 
 /// If enabled, the developer can be revealed by tripple-tapping anywhere within the `presentingViewController`.
@@ -79,3 +80,4 @@ final class DMDeveloperMenu {
 		true
 	}
 }
+#endif
