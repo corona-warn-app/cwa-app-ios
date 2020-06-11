@@ -66,8 +66,6 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 	func configure(cell: RiskInactiveCollectionViewCell) {
 		cell.delegate = self
 
-		cell.removeAllArrangedSubviews()
-
 		let title: String = incativeType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
 		let titleColor: UIColor = .enaColor(for: .textPrimary1)
 		cell.configureTitle(title: title, titleColor: titleColor)

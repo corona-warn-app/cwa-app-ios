@@ -239,6 +239,8 @@ final class HomeViewController: UIViewController {
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is HomeTestResultCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
+		case is RiskInactiveCollectionViewCell:
+			showExposureDetection()
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:

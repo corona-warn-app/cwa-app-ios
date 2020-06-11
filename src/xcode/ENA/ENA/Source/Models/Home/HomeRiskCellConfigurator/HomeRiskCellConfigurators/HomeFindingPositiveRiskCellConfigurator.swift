@@ -31,8 +31,6 @@ final class HomeFindingPositiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 		cell.delegate = self
 
-		cell.removeAllArrangedSubviews()
-
 		let title = AppStrings.Home.findingPositiveCardTitle
 		let titleColor: UIColor = .enaColor(for: .textPrimary1)
 		cell.configureTitle(title: title, titleColor: titleColor)
