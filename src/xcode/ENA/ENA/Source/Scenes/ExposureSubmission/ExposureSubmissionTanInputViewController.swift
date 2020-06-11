@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjectable, ENATanInputDelegate {
+class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjectable {
 	// MARK: - Attributes.
 
 	@IBOutlet var descriptionLabel: UILabel!
@@ -42,6 +42,14 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		setButtonEnabled(enabled: true)
+	}
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == Segue.labResultsSegue.rawValue,
+			let vc = segue.destination as? ExposureSubmissionTestResultViewController {
+			vc.exposureSubmissionService = exposureSubmissionService
+			vc.testResult = .positive
+		}
 	}
 
 	// MARK: - Helper methods.
@@ -81,6 +89,13 @@ extension ExposureSubmissionTanInputViewController {
 
 extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
 	func didTapButton() {
+		submitTan()
+	}
+
+	@discardableResult
+	func submitTan() -> Bool {
+		guard tanInput.isValid && tanInput.isChecksumValid else { return false }
+
 		startSpinner()
 		setButtonEnabled(enabled: false)
 		// If teleTAN is correct, show Alert Controller
@@ -103,14 +118,17 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 					)
 				}
         })
+
+		return true
 	}
+}
 
 	// MARK: - ENATanInputDelegate
-
-	func tanChanged(isValid: Bool, checksumIsValid: Bool, isBlocked: Bool) {
-		setButtonEnabled(enabled: (isValid && checksumIsValid))
+extension ExposureSubmissionTanInputViewController: ENATanInputDelegate {
+	func enaTanInput(_ tanInput: ENATanInput, didChange text: String, isValid: Bool, isChecksumValid: Bool, isBlocked: Bool) {
+		setButtonEnabled(enabled: (isValid && isChecksumValid))
 		UIView.animate(withDuration: CATransaction.animationDuration()) {
-			if isValid && !checksumIsValid {
+			if isValid && !isChecksumValid {
 				self.errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidError
 				self.errorView.alpha = 1
 			} else if isBlocked {
@@ -124,11 +142,7 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 		}
 	}
 
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if segue.identifier == Segue.labResultsSegue.rawValue,
-			let vc = segue.destination as? ExposureSubmissionTestResultViewController {
-			vc.exposureSubmissionService = exposureSubmissionService
-			vc.testResult = .positive
-		}
+	func enaTanInputDidTapReturn(_ tanInput: ENATanInput) -> Bool {
+		return submitTan()
 	}
 }

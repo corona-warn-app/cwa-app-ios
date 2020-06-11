@@ -18,8 +18,16 @@
 import Foundation
 import UIKit
 
+@objc
 protocol ENATanInputDelegate: AnyObject {
-	func tanChanged(isValid: Bool, checksumIsValid: Bool, isBlocked: Bool)
+	@objc
+	optional func enaTanInput(_ tanInput: ENATanInput, didChange text: String, isValid: Bool, isChecksumValid: Bool, isBlocked: Bool)
+	@objc
+	optional func enaTanInputDidBeginEditing(_ tanInput: ENATanInput)
+	@objc
+	optional func enaTanInputDidEndEditing(_ tanInput: ENATanInput)
+	@objc
+	optional func enaTanInputDidTapReturn(_ tanInput: ENATanInput) -> Bool
 }
 
 @IBDesignable
@@ -73,6 +81,7 @@ class ENATanInput: UIControl {
 	// swiftlint:disable:next empty_count
 	var isEmpty: Bool { count == 0 }
 	var isValid: Bool { count == numberOfDigits }
+	var isChecksumValid: Bool { verifyChecksum() }
 	private(set) var isInputBlocked: Bool = false
 }
 
@@ -104,6 +113,18 @@ extension ENATanInput {
 		super.traitCollectionDidChange(previousTraitCollection)
 
 		updateAxis(.horizontal)
+	}
+}
+
+extension ENATanInput {
+	override func becomeFirstResponder() -> Bool {
+		delegate?.enaTanInputDidBeginEditing?(self)
+		return super.becomeFirstResponder()
+	}
+
+	override func resignFirstResponder() -> Bool {
+		delegate?.enaTanInputDidEndEditing?(self)
+		return super.resignFirstResponder()
 	}
 }
 
@@ -253,6 +274,10 @@ extension ENATanInput {
 
 extension ENATanInput: UIKeyInput {
 	func insertText(_ text: String) {
+		if text == "\n" {
+			if delegate?.enaTanInputDidTapReturn?(self) ?? true { _ = resignFirstResponder() }
+			return
+		}
 
 		for character in text.trimmingCharacters(in: .whitespacesAndNewlines).map({ $0.uppercased() }) {
 			guard !isValid && !isInputBlocked else { return }
@@ -266,7 +291,7 @@ extension ENATanInput: UIKeyInput {
 			isInputBlocked = !label.isValid
 		}
 
-		delegate?.tanChanged(isValid: isValid, checksumIsValid: verifyChecksum(input: self.text), isBlocked: isInputBlocked)
+		delegate?.enaTanInput?(self, didChange: self.text, isValid: isValid, isChecksumValid: isChecksumValid, isBlocked: isInputBlocked)
 	}
 
 	func deleteBackward() {
@@ -276,12 +301,14 @@ extension ENATanInput: UIKeyInput {
 		text = String(text[..<text.index(before: text.endIndex)])
 		inputLabels[count].clear()
 
-		delegate?.tanChanged(isValid: isValid, checksumIsValid: false, isBlocked: isInputBlocked)
+		delegate?.enaTanInput?(self, didChange: self.text, isValid: isValid, isChecksumValid: isChecksumValid, isBlocked: isInputBlocked)
 	}
 
 	func clear() {
 		inputLabels.forEach { $0.clear() }
 		text = ""
+
+		delegate?.enaTanInput?(self, didChange: self.text, isValid: isValid, isChecksumValid: isChecksumValid, isBlocked: isInputBlocked)
 	}
 }
 
@@ -347,13 +374,13 @@ private class ENATanInputLabel: UILabel {
 }
 
 private extension ENATanInput {
-	func verifyChecksum(input: String) -> Bool {
+	func verifyChecksum() -> Bool {
 		guard isValid else { return false }
 
-		let start = input.index(input.startIndex, offsetBy: 0)
-		let end = input.index(input.startIndex, offsetBy: input.count - 2)
-		let testString = String(input[start...end])
-		return input.last == calculateChecksum(input: testString)
+		let start = text.index(text.startIndex, offsetBy: 0)
+		let end = text.index(text.startIndex, offsetBy: text.count - 2)
+		let testString = String(text[start...end])
+		return text.last == calculateChecksum(input: testString)
 	}
 
 	func calculateChecksum(input: String) -> Character? {
