@@ -50,14 +50,6 @@ enum RiskLevel: Int, CaseIterable {
 	///
 	/// - important: Should always be displayed, even if a different risk level has been calculated. It should override all other levels!
 	case inactive
-
-	init(riskScore: ENRiskScore?) {
-		guard let riskScore = riskScore else {
-			self = .unknownInitial
-			return
-		}
-		self = riskScore.riskLevel
-	}
 }
 
 extension RiskLevel: Comparable {
@@ -74,11 +66,5 @@ extension RiskLevel: Comparable {
 		default:
 		return lhs.rawValue < rhs.rawValue
 		}
-	}
-}
-
-extension ENRiskScore {
-	var riskLevel: RiskLevel {
-		self <= 100 ? .low : .increased
 	}
 }
