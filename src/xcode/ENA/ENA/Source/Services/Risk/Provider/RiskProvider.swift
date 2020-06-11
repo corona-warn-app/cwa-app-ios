@@ -214,13 +214,21 @@ extension RiskProvider: RiskProviding {
 			_provideRisk(risk, to: consumer)
 		}
 
+		#if UITESTING
+		completeOnTargetQueue(risk: .mocked)
+		#else
 		completeOnTargetQueue(risk: risk)
+		#endif
 
 		saveRiskIfNeeded(risk)
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
+		#if UITESTING
+		consumer?.provideRisk(.mocked)
+		#else
 		consumer?.provideRisk(risk)
+		#endif
 	}
 
 	private func saveRiskIfNeeded(_ risk: Risk) {
