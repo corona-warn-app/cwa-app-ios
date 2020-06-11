@@ -2502,7 +2502,7 @@
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = "";
-				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App-Dev";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2514,7 +2514,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = COMMUNITY;
@@ -2665,7 +2665,7 @@
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
-				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App-Dev";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2677,7 +2677,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG UITESTING";
@@ -2883,7 +2883,7 @@
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
-				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App-Dev";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2895,7 +2895,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
@@ -2921,7 +2921,7 @@
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
-				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App-Dev";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2933,7 +2933,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
@@ -3125,7 +3125,7 @@
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
-				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App-Dev";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3137,7 +3137,7 @@
 					"-DSQLCIPHER_CRYPTO_CC",
 					"-DNDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
 				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
