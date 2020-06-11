@@ -321,7 +321,10 @@ extension SceneDelegate: HomeViewControllerDelegate {
 		let newKey = KeychainHelper.generateDatabaseKey()
 		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
-		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
+		exposureManager.reset {
+			self.exposureManager.resume(observer: self)
+			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
+		}
 	}
 }
 
@@ -332,13 +335,16 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		switch response.actionIdentifier {
-		case UserNotificationAction.openExposureDetectionResults.rawValue: showHome(animated: true)
-		case UserNotificationAction.openTestResults.rawValue: showHome(animated: true)
-		case UserNotificationAction.ignore.rawValue: break
-		case UNNotificationDefaultActionIdentifier: break
-		case UNNotificationDismissActionIdentifier: break
+		case UserNotificationAction.openExposureDetectionResults.rawValue,
+			 UserNotificationAction.openTestResults.rawValue:
+			showHome(animated: true)
+		case UserNotificationAction.ignore.rawValue,
+			 UNNotificationDefaultActionIdentifier,
+			 UNNotificationDismissActionIdentifier:
+			break
 		default: break
 		}
+
 		completionHandler()
 	}
 }
