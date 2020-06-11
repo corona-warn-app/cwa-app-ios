@@ -512,6 +512,8 @@
 
 "Home_Risk_Period_Update_Title" = "Updated every %@\U00A0hours";
 
+"Home_Risk_Period_Disabled_Button_Title" = "Updated only every %@\U00A0H";
+
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Risk Unknown";
 
