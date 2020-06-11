@@ -49,7 +49,7 @@ class NotificationSettingsOnTableViewCell: UITableViewCell {
 
 		isAccessibilityElement = true
 		accessibilityTraits = [.button]
-		let actionName = toggleSwitch.isOn ? AppStrings.Settings.statusEnable : AppStrings.Settings.statusDisable
+		let actionName = toggleSwitch.isOn ? AppStrings.Settings.statusDisable : AppStrings.Settings.statusEnable
 		accessibilityCustomActions = [
 			UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(toggle(_:)))
 		]
