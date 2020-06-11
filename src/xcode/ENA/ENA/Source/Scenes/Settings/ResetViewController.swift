@@ -33,7 +33,7 @@ final class ResetViewController: UIViewController {
 	@IBOutlet var subtitleLabel: UILabel!
 	@IBOutlet var scrollView: UIScrollView!
 	@IBOutlet var footerView: UIView!
-	@IBOutlet weak var imageView: UIImageView!
+	@IBOutlet var imageView: UIImageView!
 
 	weak var delegate: ResetDelegate?
 
