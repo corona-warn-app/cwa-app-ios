@@ -15,6 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
+#if !RELEASE
+
 import UIKit
 
 final class DMConfigurationViewController: UITableViewController, RequiresAppDependencies {
@@ -133,3 +135,5 @@ private class DMConfigurationCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 }
+
+#endif

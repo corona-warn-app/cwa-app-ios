@@ -15,6 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
+#if !RELEASE
+
 import ExposureNotification
 import UIKit
 
@@ -272,3 +274,5 @@ extension DMViewController: DMSubmissionStateViewControllerDelegate {
 		exposureManager.getTestDiagnosisKeys(completionHandler: completionHandler)
 	}
 }
+
+#endif
