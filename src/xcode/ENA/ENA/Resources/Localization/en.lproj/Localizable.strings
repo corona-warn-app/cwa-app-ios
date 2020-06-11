@@ -188,7 +188,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "An encrypted positive test diagnosis is transmitted to the system, which will now warn other users.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "If you are diagnosed with COVID-19...";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "If you are diagnosed with COVID-19…";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "...please report this in the Corona-Warn-App. Sharing your test results is voluntary and secure. Please do this for the sake of everyone's health.";
 
@@ -284,8 +284,6 @@
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";
 
-"ExposureSubmissionQRScanner_cameraPermissionRestricted" = "The use of your camera was restricted. Allow the app to use the camera to scan the QR code.";
-
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Thank you!";
 
@@ -370,8 +368,6 @@
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Remain at home until you feel well again. If you were to get infected with coronavirus (SARS-CoV-2) whilst weakened from another infection, this could lead to a serious illness.";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Do not go to work if you feel unwell to ensure you do not put other people at risk.";
-
-"ExposureSubmissionResult_testNegative_furtherInfos_hint" = "Please delete the test from the Corona-Warn-App, so that you can save a new test code here if necessary.";
 
 "ExposureSubmissionResult_furtherInfos_hint_testAgain" = "If your symptoms worsen, you might need a further SARS-CoV-2 test.";
 
@@ -524,6 +520,8 @@
 
 "Home_Risk_Period_Update_Title" = "Updated every %@\U00A0hours";
 
+"Home_Risk_Period_Disabled_Button_Title" = "Updated only every %@\U00A0H";
+
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Risk Unknown";
 
@@ -565,7 +563,7 @@
 "Home_Risk_High_Button" = "Update";
 
 /* Home Status Check */
-"Home_Risk_Status_Check_Title" = "Check is running...";
+"Home_Risk_Status_Check_Title" = "Check is running…";
 
 "Home_Risk_Status_Check_Body" = "Current data is being downloaded and checked.\nThis can take several minutes.";
 
@@ -639,7 +637,7 @@
 
 "Home_resultCard_LoadingBody" = "Current data is being downloaded.\nThis can take several minutes.";
 
-"Home_resultCard_LoadingTitle" = "Update in progress...";
+"Home_resultCard_LoadingTitle" = "Update in progress…";
 
 "Home_resultCard_NegativeTitle" = "Negative Diagnosis";
 
@@ -666,8 +664,6 @@
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "FAQ";
-
-"App_Information_FAQ_Title" = "FAQ";
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Technical Hotline";
@@ -721,18 +717,12 @@
 
 "App_Information_Privacy_Description" = "You remain anonymous.\nYour data is completely encrypted and transmitted under a pseudonym. ";
 
-"App_Information_Privacy_Text" = "Responsible body: GDPR, Article 4, Paragraph 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\n\nPlease read our data privacy regulations.\n\nData privacy statement:";
-
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "Terms of Use";
 
 "App_Information_Terms_ImageDescription" = "One person is holding a device with a lot of text on the screen. Next to the text is a tick, which is the symbol for accepting the terms of use.";
 
 "App_Information_Terms_Title" = "Terms of Use";
-
-"App_Information_Terms_Description" = "The following terms of use apply for the app and are accepted when you call or use the app, or one of its features. ";
-
-"App_Information_Terms_Text" = "...";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Share";
@@ -774,8 +764,6 @@
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
 
 /* Local Notifications */
-"local_notifications_viewResults" = "Display Results";
-
 "local_notifications_ignore" = "Ignore";
 
 "local_notifications_detectexposure_title" = "Corona-Warn-App";
