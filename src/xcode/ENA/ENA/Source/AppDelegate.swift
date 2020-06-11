@@ -114,28 +114,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 
 	lazy var client: Client = {
+
+		var configuration: HTTPClient.Configuration
+		#if !RELEASE
 		let store = self.store
-		guard
+		if
 			let distributionURLString = store.developerDistributionBaseURLOverride,
 			let submissionURLString = store.developerSubmissionBaseURLOverride,
 			let verificationURLString = store.developerVerificationBaseURLOverride,
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) else {
-				let configuration: HTTPClient.Configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
-				return HTTPClient(configuration: configuration)
+			let submissionURL = URL(string: submissionURLString) {
+			configuration = HTTPClient.Configuration(
+					apiVersion: "v1",
+					country: "DE",
+					endpoints: HTTPClient.Configuration.Endpoints(
+						distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
+						submission: .init(baseURL: verificationURL, requiresTrailingSlash: false),
+						verification: .init(baseURL: submissionURL, requiresTrailingSlash: false)
+					)
+				)
+
+		} else {
+			configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
 		}
 
-		let config = HTTPClient.Configuration(
-			apiVersion: "v1",
-			country: "DE",
-			endpoints: HTTPClient.Configuration.Endpoints(
-				distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-				submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
-				verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
-			)
-		)
-		return HTTPClient(configuration: config)
+		#else
+		configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
+		#endif
+		
+		return HTTPClient(configuration: configuration)
 	}()
 
 	// TODO: REMOVE ME

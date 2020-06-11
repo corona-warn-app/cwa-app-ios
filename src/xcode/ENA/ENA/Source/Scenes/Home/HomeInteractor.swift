@@ -20,7 +20,6 @@ import Foundation
 import UIKit
 
 final class HomeInteractor: RequiresAppDependencies {
-
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
 
@@ -36,8 +35,6 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	// MARK: Properties
-	// private var enState: ENStateHandler.State
-
 	var state = HomeInteractor.State(
 		detectionMode: .default,
 		exposureManagerState: .init(),
@@ -375,7 +372,7 @@ extension HomeInteractor {
 		let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
 		return indexPath
 	}
-	}
+}
 
 // MARK: - Exposure submission service calls.
 
@@ -384,7 +381,6 @@ extension HomeInteractor {
 		// Avoid unnecessary loading.
 		guard testResult == nil || testResult == .pending else { return }
 		guard store.registrationToken != nil else { return }
-
 
 		// Make sure to make the loading cell appear for at least `minRequestTime`.
 		// This avoids an ugly flickering when the cell is only shown for the fraction of a second.
@@ -412,7 +408,6 @@ extension HomeInteractor {
 					self?.testResult = result
 					self?.reloadTestResult(with: result)
 				}
-
 			}
 		}
 	}
