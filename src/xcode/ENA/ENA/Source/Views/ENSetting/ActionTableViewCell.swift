@@ -97,6 +97,9 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 
 		isAccessibilityElement = true
 		accessibilityTraits = [.button]
+
+		accessibilityCustomActions?.removeAll()
+
 		let actionName = actionSwitch.isOn ? AppStrings.Settings.statusDisable : AppStrings.Settings.statusEnable
 		accessibilityCustomActions = [
 			UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(toggle(_:)))
