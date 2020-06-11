@@ -461,7 +461,6 @@ private extension URLRequest {
 }
 
 private extension ENExposureConfiguration {
-
 	convenience init(from riskscoreParameters: SAP_RiskScoreParameters) throws {
 		self.init()
 		// We are intentionally not setting minimumRiskScore.
