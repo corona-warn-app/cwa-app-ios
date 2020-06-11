@@ -90,18 +90,26 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	func setupAccessibility(_ cell: RiskLevelCollectionViewCell) {
 		cell.titleLabel.isAccessibilityElement = false
 		cell.chevronImageView.isAccessibilityElement = false
-		cell.detectionIntervalLabel.isAccessibilityElement = false
-		cell.detectionIntervalLabel.isAccessibilityElement = false
 		cell.viewContainer.isAccessibilityElement = false
 		cell.stackView.isAccessibilityElement = false
 
 		cell.topContainer.isAccessibilityElement = true
 		cell.bodyLabel.isAccessibilityElement = true
+		cell.detectionIntervalLabel.isAccessibilityElement = true
 		cell.updateButton.isAccessibilityElement = true
 
-		let topContainerText = cell.titleLabel.text ?? ""
-		cell.topContainer.accessibilityLabel = topContainerText
-		cell.topContainer.accessibilityTraits = [.button, .header]
+		cell.topContainer.accessibilityTraits = [.updatesFrequently, .button]
+		cell.bodyLabel.accessibilityTraits = [.updatesFrequently]
+		cell.detectionIntervalLabel.accessibilityTraits = [.updatesFrequently]
+		cell.updateButton.accessibilityTraits = [.updatesFrequently, .button]
+
+		cell.topContainer.accessibilityLabel = cell.titleLabel.text ?? ""
+
+		cell.topContainer.accessibilityIdentifier = "RiskLevelCollectionViewCell.topContainer"
+		cell.bodyLabel.accessibilityIdentifier = "RiskLevelCollectionViewCell.bodyLabel"
+		cell.detectionIntervalLabel.accessibilityIdentifier = "RiskLevelCollectionViewCell.detectionIntervalLabel"
+		cell.updateButton.accessibilityIdentifier = "RiskLevelCollectionViewCell.updateButton"
+
 	}
 }
 
