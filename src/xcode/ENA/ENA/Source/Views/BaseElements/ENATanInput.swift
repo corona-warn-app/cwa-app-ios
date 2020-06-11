@@ -49,7 +49,8 @@ class ENATanInput: UIControl {
 	private var boxHeightConstraint: NSLayoutConstraint!
 
 	private var stackViews: [UIStackView] { stackView.arrangedSubviews.compactMap({ $0 as? UIStackView }) }
-	private var labels: [ENATanInputLabel] { stackViews.flatMap({ $0.arrangedSubviews }).compactMap({ $0 as? ENATanInputLabel }) }
+	private var labels: [UILabel] { stackViews.flatMap({ $0.arrangedSubviews }).compactMap({ $0 as? UILabel }) }
+	private var inputLabels: [ENATanInputLabel] { labels.compactMap({ $0 as? ENATanInputLabel }) }
 
 	lazy var fontStyle: ENAFont = ENAFont(rawValue: enaFontStyle ?? "") ?? .title2
 	lazy var font = UIFont.enaFont(for: fontStyle)
@@ -72,10 +73,6 @@ class ENATanInput: UIControl {
 	var isEmpty: Bool { count == 0 }
 	var isValid: Bool { count == numberOfDigits }
 	private(set) var isInputBlocked: Bool = false
-}
-
-extension ENATanInput {
-	
 }
 
 extension ENATanInput {
@@ -129,10 +126,10 @@ extension ENATanInput {
 		}
 
 		// Constrain character labels
-		if let firstLabel = labels.first {
+		if let firstLabel = inputLabels.first {
 			boxWidthConstraint = firstLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 0)
 			boxHeightConstraint = firstLabel.heightAnchor.constraint(equalToConstant: 0)
-			labels[1...].forEach { $0.widthAnchor.constraint(equalTo: firstLabel.widthAnchor).isActive = true }
+			inputLabels[1...].forEach { $0.widthAnchor.constraint(equalTo: firstLabel.widthAnchor).isActive = true }
 		}
 
 		addSubview(stackView)
@@ -210,7 +207,7 @@ extension ENATanInput {
 			insets = verticalBoxInsets
 		}
 
-		labels.forEach { $0.layoutMargins = insets }
+		inputLabels.forEach { $0.layoutMargins = insets }
 
 		stackViewWidthConstraint.isActive = false
 
@@ -243,7 +240,7 @@ extension ENATanInput: UIKeyInput {
 		guard !isInputBlocked else { return }
 
 		for character in text.map({ $0.uppercased() }) {
-			let label = labels[count]
+			let label = inputLabels[count]
 
 			self.text += "\(character)"
 			label.text = "\(character)"
@@ -260,13 +257,13 @@ extension ENATanInput: UIKeyInput {
 		isInputBlocked = false
 
 		text = String(text[..<text.index(before: text.endIndex)])
-		labels[count].clear()
+		inputLabels[count].clear()
 
 		delegate?.tanChanged(isValid: isValid, checksumIsValid: false, isBlocked: isInputBlocked)
 	}
 
 	func clear() {
-		labels.forEach { $0.clear() }
+		inputLabels.forEach { $0.clear() }
 		text = ""
 	}
 }
