@@ -377,7 +377,7 @@ extension HomeInteractor {
 extension HomeInteractor {
 	func updateTestResults() {
 		// Avoid unnecessary loading.
-		guard testResult == nil || testResult == .pending else { return }
+		guard testResult == nil || testResult != .positive else { return }
 		guard store.registrationToken != nil else { return }
 
 		// Make sure to make the loading cell appear for at least `minRequestTime`.
