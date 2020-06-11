@@ -40,8 +40,16 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var topContainer: UIView!
 	@IBOutlet var statusContainer: UIView!
 	@IBOutlet var stackView: UIStackView!
+	@IBOutlet var riskViewStackView: UIStackView!
 
 	weak var delegate: RiskFindingPositiveCollectionViewCellDelegate?
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		stackView.setCustomSpacing(32.0, after: topContainer)
+		stackView.setCustomSpacing(32.0, after: statusContainer)
+		stackView.setCustomSpacing(8.0, after: noteLabel)
+	}
 
 	@IBAction func nextButtonTapped(_: UIButton) {
 		delegate?.nextButtonTapped(cell: self)
@@ -61,15 +69,9 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 		}
 	}
 
-	func removeAllArrangedSubviews() {
-		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-	}
-
 	func configureTitle(title: String, titleColor: UIColor) {
 		titleLabel.text = title
 		titleLabel.textColor = titleColor
-		stackView.addArrangedSubview(topContainer)
-		stackView.setCustomSpacing(32.0, after: topContainer)
 	}
 
 	func configureStatus(title: String, subtitle: String, titleColor: UIColor, lineColor: UIColor, imageName: String) {
@@ -83,14 +85,10 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 
 		let image = UIImage(named: imageName)
 		statusImageView.image = image
-		stackView.addArrangedSubview(statusContainer)
-		stackView.setCustomSpacing(32.0, after: statusContainer)
 	}
 
 	func configureNoteLabel(title: String) {
 		noteLabel.text = title
-		stackView.addArrangedSubview(noteLabel)
-		stackView.setCustomSpacing(8.0, after: noteLabel)
 	}
 
 	func configureNextButton(title: String) {
@@ -98,7 +96,6 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 			nextButton.setTitle(title, for: .normal)
 			nextButton.layoutIfNeeded()
 		}
-		stackView.addArrangedSubview(nextButton)
 	}
 
 	func configureBackgroundColor(color: UIColor) {
@@ -106,23 +103,15 @@ final class RiskFindingPositiveCollectionViewCell: HomeCardCollectionViewCell {
 	}
 
 	func configureNotesRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
-		guard let noteIndex = stackView.arrangedSubviews.firstIndex(of: noteLabel) else { return }
-		var lastView: UIView?
-		for itemConfigurator in cellConfigurators.reversed() {
+		riskViewStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+		for itemConfigurator in cellConfigurators {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
-			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? RiskItemView {
-				stackView.insertArrangedSubview(riskView, at: noteIndex + 1)
-				if lastView != nil {
-					stackView.setCustomSpacing(0.0, after: riskView)
-				} else {
-					lastView = riskView
-				}
+			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? UIView {
+				riskViewStackView.addArrangedSubview(riskView)
 				itemConfigurator.configureAny(riskView: riskView)
 			}
 		}
-		if let last = lastView {
-			stackView.setCustomSpacing(32.0, after: last)
-		}
+		riskViewStackView.isHidden = cellConfigurators.isEmpty
 	}
 }
