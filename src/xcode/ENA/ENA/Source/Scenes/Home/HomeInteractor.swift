@@ -193,12 +193,10 @@ extension HomeInteractor {
 		inactiveConfigurator = nil
 
 		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
-
 		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
-				detectionIntervalLabelHidden: false,
 				lastUpdateDate: nil,
 				detectionInterval: detectionInterval,
 				detectionMode: detectionMode,
@@ -379,7 +377,7 @@ extension HomeInteractor {
 extension HomeInteractor {
 	func updateTestResults() {
 		// Avoid unnecessary loading.
-		guard testResult == nil || testResult == .pending else { return }
+		guard testResult == nil || testResult != .positive else { return }
 		guard store.registrationToken != nil else { return }
 
 		// Make sure to make the loading cell appear for at least `minRequestTime`.

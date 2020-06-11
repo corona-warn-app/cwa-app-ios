@@ -179,6 +179,7 @@ private extension DynamicCell {
 			let cell = cell as? ExposureDetectionHeaderCell
 			cell?.titleLabel?.text = title
 			cell?.subtitleLabel?.text = subtitle
+			cell?.titleLabel?.accessibilityTraits = .header
 		}
 	}
 

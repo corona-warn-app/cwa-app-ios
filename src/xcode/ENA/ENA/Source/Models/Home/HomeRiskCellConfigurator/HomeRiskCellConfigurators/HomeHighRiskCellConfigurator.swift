@@ -39,8 +39,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			isLoading: false,
 			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
-			// we never want to hide the detection interval label
-			detectionIntervalLabelHidden: false,
+			detectionIntervalLabelHidden: detectionMode != .automatic,
 			lastUpdateDate: lastUpdateDate
 		)
 	}
@@ -74,14 +73,20 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardHighButton
 		let intervalString = "\(validityDuration)"
 		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
 		cell.configureDetectionIntervalLabel(
 			text: intervalTitle,
 			isHidden: detectionIntervalLabelHidden
 		)
-		
+
+		let buttonTitle: String
+		if isLoading {
+			buttonTitle = AppStrings.Home.riskCardStatusCheckButton
+		} else {
+			let intervalDisabledButtonTitle = String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, intervalString)
+			buttonTitle = isButtonEnabled ? AppStrings.Home.riskCardHighButton : intervalDisabledButtonTitle
+		}
 		cell.configureUpdateButton(
 			title: buttonTitle,
 			isEnabled: isButtonEnabled,
