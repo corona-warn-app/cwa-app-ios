@@ -48,10 +48,10 @@ class HomeTestResultCollectionViewCell: HomeCardCollectionViewCell {
 		subtitleLabel.textColor = tintColor
 		updateIllustration(for: traitCollection)
 
-		titleLabel.accessibilityTraits = [.header, .button]
+		setupAccessibility()
 	}
 
-	func configure(title: String, subtitle: String? = nil, description: String, button buttonTitle: String, image: UIImage?, tintColor: UIColor = .enaColor(for: .textPrimary1)) {
+	func configure(title: String, subtitle: String? = nil, description: String, button buttonTitle: String, image: UIImage?, tintColor: UIColor = .enaColor(for: .textPrimary1), accessibilityIdentifier: String?) {
 		titleLabel.text = title
 		subtitleLabel.text = subtitle
 		descriptionLabel.text = description
@@ -60,6 +60,7 @@ class HomeTestResultCollectionViewCell: HomeCardCollectionViewCell {
 		button.setTitle(buttonTitle, for: .normal)
 
 		subtitleLabel.isHidden = (nil == subtitle)
+		button.accessibilityIdentifier = accessibilityIdentifier
 
 		self.tintColor = tintColor
 	}
@@ -84,5 +85,15 @@ class HomeTestResultCollectionViewCell: HomeCardCollectionViewCell {
 
 	@IBAction func primaryActionTriggered() {
 		delegate?.testResultCollectionViewCellPrimaryActionTriggered(self)
+	}
+
+	func setupAccessibility() {
+		titleLabel.isAccessibilityElement = true
+		subtitleLabel.isAccessibilityElement = true
+		descriptionLabel.isAccessibilityElement = true
+		illustrationView.isAccessibilityElement = true
+		isAccessibilityElement = false
+
+		titleLabel.accessibilityTraits = [.header, .button]
 	}
 }
