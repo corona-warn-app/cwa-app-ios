@@ -169,3 +169,15 @@ extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
 		completion(summaryResult(configuration, writtenPackages))
 	}
 }
+
+private extension ENExposureConfiguration {
+	class func mock() -> ENExposureConfiguration {
+		let config = ENExposureConfiguration()
+		config.metadata = ["attenuationDurationThresholds": [50, 70]]
+		config.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+		config.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+		config.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+		config.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
+		return config
+	}
+}

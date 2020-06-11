@@ -36,9 +36,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		}
 	}
 
-	private var developerMenu: DMDeveloperMenu?
 	private lazy var appUpdateChecker = AppUpdateCheckHelper(client: self.client, store: self.store)
 
+	#if !RELEASE
+	private var developerMenu: DMDeveloperMenu?
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
@@ -48,6 +49,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		)
 		developerMenu?.enableIfAllowed()
 	}
+	#endif
 
 	private lazy var clientConfiguration: HTTPClient.Configuration = {
 		guard
@@ -144,7 +146,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
-		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
+		// TODO: Enable once Apple reviewed a higher version
+		// appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
 	private func setupNavigationBarAppearance() {
@@ -205,7 +208,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.navigationController.setViewControllers([vc], animated: false)
 		})
+		#if !RELEASE
 		enableDeveloperMenuIfAllowed(in: vc)
+		#endif
 	}
 
 	private func showOnboarding() {
@@ -230,12 +235,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		store.isOnboarded ? showHome() : showOnboarding()
 	}
 
+	#if !RELEASE
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-		// We have to allow backend configuration via the url schema for now.
-		//        #if APP_STORE
-		//        return
-		//        #endif
-
 		guard let url = URLContexts.first?.url else {
 			return
 		}
@@ -257,8 +258,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
 			store.developerVerificationBaseURLOverride = verificationBaseURL
 		}
-		
 	}
+	#endif
 
 	private var privacyProtectionWindow: UIWindow?
 }

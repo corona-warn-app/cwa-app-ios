@@ -43,6 +43,7 @@ extension ExposureSubmissionNavigationControllerChild {
 	var exposureSubmissionNavigationController: ExposureSubmissionNavigationController? { navigationController as? ExposureSubmissionNavigationController }
 	var bottomView: UIView? { exposureSubmissionNavigationController?.bottomView }
 	var button: ENAButton? { exposureSubmissionNavigationController?.button }
+	var secondaryButton: ENAButton? { exposureSubmissionNavigationController?.secondaryButton }
 
 	func setButtonTitle(to title: String) {
 		exposureSubmissionNavigationController?.setButtonTitle(title: title)

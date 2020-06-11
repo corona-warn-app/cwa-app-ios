@@ -125,12 +125,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	}
 
 	func resume(observer: ENAExposureManagerObserver) {
-		precondition(
-			self.exposureManagerObserver == nil,
-			"Cannot resume an exposure manager that is already resumed."
-		)
+		// previsously we had a precondion here. Removed for now to track down a bug.
+		guard exposureManagerObserver == nil else {
+			return
+		}
 
-		self.exposureManagerObserver = observer
+		exposureManagerObserver = observer
 
 		statusObservation = observe(\.manager.exposureNotificationStatus, options: .new) { [weak self] _, _ in
 			guard let self = self else { return }
