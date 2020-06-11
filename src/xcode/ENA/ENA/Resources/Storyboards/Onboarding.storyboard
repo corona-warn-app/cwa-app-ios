@@ -84,7 +84,6 @@
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="oqp-SS-lmn" secondAttribute="trailing" id="0Bp-C3-D2H"/>
                                                             <constraint firstItem="Yjr-cH-93U" firstAttribute="leading" secondItem="5mX-wj-3lR" secondAttribute="leading" constant="-16" id="1aC-4O-ZrA"/>

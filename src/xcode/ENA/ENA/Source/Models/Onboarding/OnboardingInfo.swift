@@ -71,8 +71,8 @@ extension OnboardingInfo {
 
 		let info3 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_title,
-			imageName: "Illu_Risikoermittlung_On",
-			alternativeImageName: "Illu_Risikoermittlung_Off",
+			imageName: "Illu_Onboarding_Risikoerekennung",
+			alternativeImageName: "Illu_Onboarding_Risikoerekennung_Off",
 			imageDescription: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_imageDescription,
 			showState: true,
 			stateHeader: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateHeader,
