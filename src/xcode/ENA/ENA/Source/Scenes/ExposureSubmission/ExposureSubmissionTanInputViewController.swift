@@ -60,7 +60,6 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		title = AppStrings.ExposureSubmissionTanEntry.title
 		setButtonEnabled(enabled: tanInput.isValid)
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
-		errorView.isHidden = true
 		errorView.alpha = 0
 	}
 
@@ -113,14 +112,11 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 		UIView.animate(withDuration: CATransaction.animationDuration()) {
 			if isValid && !checksumIsValid {
 				self.errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidError
-				self.errorView.isHidden = false
 				self.errorView.alpha = 1
 			} else if isBlocked {
 				self.errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidCharacterError
-				self.errorView.isHidden = false
 				self.errorView.alpha = 1
 			} else {
-				self.errorView.isHidden = true
 				self.errorView.alpha = 0
 			}
 
