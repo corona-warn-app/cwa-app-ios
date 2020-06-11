@@ -844,5 +844,7 @@
 
 /* ENATanInput*/
 "ENATanInput_Empty" = "Leer";
-"ENATanInput_InvalidCharacter" = "Ungültigies Zeichen\n\n%@";
+
+"ENATanInput_InvalidCharacter" = "Ungültiges Zeichen\n\n%@";
+
 "ENATanInput_CharacterIndex" = "Zeichen %1$u von %2$u";
