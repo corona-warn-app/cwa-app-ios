@@ -318,12 +318,9 @@ private class ENATanInputLabel: UILabel {
 }
 
 
-// TODO
 private extension ENATanInput {
 	func verifyChecksum(input: String) -> Bool {
-		guard isValid else {
-			return false
-		}
+		guard isValid else { return false }
 
 		let start = input.index(input.startIndex, offsetBy: 0)
 		let end = input.index(input.startIndex, offsetBy: input.count - 2)
@@ -331,16 +328,12 @@ private extension ENATanInput {
 		return input.last == calculateChecksum(input: testString)
 	}
 
-	func calculateChecksum(input: String) -> Character {
+	func calculateChecksum(input: String) -> Character? {
 		let hash = Hasher.sha256(input)
-		var checksum = hash[hash.startIndex].uppercased()
-		if checksum == "0" {
-			checksum = "G"
-		} else if checksum == "1" {
-			checksum = "H"
+		switch hash.first?.uppercased() {
+		case "0": return "G"
+		case "1": return "H"
+		default: return nil
 		}
-		// TODO
-		// swiftlint:disable:next force_unwrapping
-		return checksum.first!
 	}
 }
