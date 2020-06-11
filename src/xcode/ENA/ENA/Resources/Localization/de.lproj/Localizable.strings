@@ -21,6 +21,7 @@
 
 /* Accessibility */
 "AccessibilityLabel_Close" = "Schließen";
+"AccessibilityLabel_PhoneNumber" = "Telefonnummer";
 
 /* Exposure Detection */
 "ExposureDetection_Off" = "Risiko-Ermittlung gestoppt";
