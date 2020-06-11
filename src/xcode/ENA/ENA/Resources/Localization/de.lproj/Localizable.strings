@@ -187,9 +187,9 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Ein positiver Testbefund wird verschlüsselt ins System übermittelt, das nun andere Nutzerinnen und Nutzer warnt.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie positiv getestet werden ...";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie positiv getestet werden …";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "... teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufallscodes Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.";
 
@@ -283,8 +283,6 @@
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.";
 
-"ExposureSubmissionQRScanner_cameraPermissionRestricted" = "Ihre Kamera Nutzung wurde eingeschränkt. Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.";
-
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank!";
 
@@ -369,8 +367,6 @@
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Bleiben Sie bis zu Ihrer Genesung trotzdem zu Hause. Falls Sie sich durch eine andere Infektion geschwächt mit dem Coronavirus (SARS-CoV-2) infizieren, kann dies zu schwereren Krankheitsverläufen führen.";
 
 "ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Gehen Sie nicht krank zur Arbeit, um andere Personen nicht zu gefährden.";
-
-"ExposureSubmissionResult_testNegative_furtherInfos_hint" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
 
 "ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Falls sich Ihre Symptome verschlechtern, kann die Notwendigkeit eines weiteres SARS-CoV-2-Tests bestehen.";
 
@@ -638,7 +634,7 @@
 
 "Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
 
-"Home_resultCard_LoadingTitle" = "Aktualisierung läuft...";
+"Home_resultCard_LoadingTitle" = "Aktualisierung läuft…";
 
 "Home_resultCard_NegativeTitle" = "Befund negativ";
 
@@ -665,8 +661,6 @@
 
 /* App Information - FAQ */
 "App_Information_FAQ_Navigation" = "Häufige Fragen";
-
-"App_Information_FAQ_Title" = "Häufige Fragen";
 
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "Technische Hotline";
@@ -720,18 +714,12 @@
 
 "App_Information_Privacy_Description" = "Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.";
 
-"App_Information_Privacy_Text" = "Verantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\n\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:\nDuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla.";
-
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "Nutzung";
 
 "App_Information_Terms_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Haken als Symbol für akzeptierte Nutzungsbedingungen.";
 
 "App_Information_Terms_Title" = "Nutzungsbedingungen";
-
-"App_Information_Terms_Description" = "Die nachfolgenden Nutzungsbedingungen gelten für die Nutzung der App und werden duch Aufruf oder Nutzung des Angebots oder einer einzelnen Funktion akzeptiert.";
-
-"App_Information_Terms_Text" = "...";
 
 /* Invite Friends */
 "InviteFriends_NavTitle" = "Teilen";
@@ -773,8 +761,6 @@
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
 
 /* Local Notifications */
-"local_notifications_viewResults" = "Ergebnisse anzeigen";
-
 "local_notifications_ignore" = "Ignorieren";
 
 "local_notifications_detectexposure_title" = "Corona-Warn-App";
