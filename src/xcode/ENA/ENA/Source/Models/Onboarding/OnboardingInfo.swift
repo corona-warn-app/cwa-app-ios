@@ -20,10 +20,13 @@ import Foundation
 struct OnboardingInfo {
 	var title: String
 	var imageName: String
+	var alternativeImageName: String?
 	var imageDescription: String
+	let showState: Bool
 	var stateHeader: String?
 	var stateTitle: String?
-	var stateState: String?
+	var stateActivated: String?
+	var stateDeactivated: String?
 	var boldText: String
 	var text: String
 	var actionText: String
@@ -40,6 +43,7 @@ extension OnboardingInfo {
 			title: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title,
 			imageName: "Illu_Onboarding_GemeinsamCoronabekaempfen",
 			imageDescription: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_imageDescription,
+			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingLetsGo,
@@ -54,6 +58,7 @@ extension OnboardingInfo {
 			title: AppStrings.Onboarding.onboardingInfo_privacyPage_title,
 			imageName: "Illu_Onboarding_Datenschutz",
 			imageDescription: AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription,
+			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_privacyPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_privacyPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
@@ -66,15 +71,18 @@ extension OnboardingInfo {
 
 		let info3 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_title,
-			imageName: "Illu_Onboarding_Risikoerekennung", // TODO: State logic
+			imageName: "Illu_Risikoermittlung_On",
+			alternativeImageName: "Illu_Risikoermittlung_Off",
 			imageDescription: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_imageDescription,
+			showState: true,
 			stateHeader: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateHeader,
 			stateTitle: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateTitle,
-			stateState: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateActivated, // TODO: State logic
+			stateActivated: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateActivated,
+			stateDeactivated: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateDeactivated,
 			boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
-			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button, // TODO: State logic
-			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate, // TODO: State logic
+			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
+			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate,
 			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_title",
 			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription",
 			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button",
@@ -85,6 +93,7 @@ extension OnboardingInfo {
 			title: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title,
 			imageName: "Illu_Onboarding_Getestet",
 			imageDescription: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_imageDescription,
+			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
@@ -99,6 +108,7 @@ extension OnboardingInfo {
 			title: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_title,
 			imageName: "Illu_Onboarding_Mitteilungen",
 			imageDescription: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_imageDescription,
+			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
