@@ -269,9 +269,11 @@ extension DynamicTableViewController {
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		tableView.deselectRow(at: indexPath, animated: true)
-		let content = dynamicTableViewModel.cell(at: indexPath)
-		execute(action: content.action)
+		DispatchQueue.main.async {
+			tableView.deselectRow(at: indexPath, animated: true)
+			let content = self.dynamicTableViewModel.cell(at: indexPath)
+			self.execute(action: content.action)
+		}
 	}
 
 	func tableView(_: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
