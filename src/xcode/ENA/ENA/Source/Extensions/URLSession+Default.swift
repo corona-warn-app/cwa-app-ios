@@ -20,7 +20,7 @@ import Foundation
 extension URLSession {
 	class func coronaWarnSession() -> URLSession {
 		#if DISABLE_CERTIFICATE_PINNING
-		let coronaWarnURLSessionDelegate = nil
+		let coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate? = nil
 		#else
 		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate()
 		#endif

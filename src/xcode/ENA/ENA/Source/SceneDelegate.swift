@@ -322,6 +322,7 @@ extension SceneDelegate: HomeViewControllerDelegate {
 		let newKey = KeychainHelper.generateDatabaseKey()
 		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
 		exposureManager.reset {
 			self.exposureManager.resume(observer: self)
 			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
