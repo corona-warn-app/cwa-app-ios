@@ -93,13 +93,6 @@ final class HomeViewController: UIViewController {
 		homeInteractor.requestRisk(userInitiated: false)
 	}
 
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-			navigationItem.leftBarButtonItem?.image = UIImage(named: "Corona-Warn-App")
-		}
-	}
-
 	private func setupAccessibility() {
 		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
