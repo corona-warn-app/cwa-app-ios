@@ -22,12 +22,12 @@ import XCTest
 
 class ExposureSubmissionHotlineViewControllerTest: XCTestCase {
 
-	override func setUp() {
-		super.setUp()
-	}
-
-	func hotlineNumberCorrect() {
-		XCTAssert(AppStrings.ExposureSubmissionHotline.phoneNumber == "+49 (0)800 7540002")
+	func testSetupView() {
+		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self)
+		_ = vc.view
+		XCTAssertNotNil(vc.tableView)
+		XCTAssertEqual(vc.tableView.numberOfSections, 2)
+		XCTAssertEqual(vc.tableView(vc.tableView, numberOfRowsInSection: 1), 5)
 	}
 
 }
