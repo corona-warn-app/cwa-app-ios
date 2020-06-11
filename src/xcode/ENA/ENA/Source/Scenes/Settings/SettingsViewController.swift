@@ -218,20 +218,30 @@ extension SettingsViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let section = Sections.allCases[indexPath.section]
 
+		let cell: UITableViewCell
+
 		switch section {
 		case .tracing:
-			return configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
+			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
+			cell.accessibilityIdentifier = "AppStrings.Settings.tracingLabel"
 		case .notifications:
-			return configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
+			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
+			cell.accessibilityIdentifier = "AppStrings.Settings.notificationLabel"
 		case .reset:
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? LabelTableViewCell else {
+			guard let labelCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? LabelTableViewCell else {
 				fatalError("No cell for reuse identifier.")
 			}
 
-			cell.titleLabel.text = settingsViewModel.reset
+			labelCell.titleLabel.text = settingsViewModel.reset
 
-			return cell
+			cell = labelCell
+			cell.accessibilityIdentifier = "AppStrings.Settings.resetLabel"
 		}
+
+		cell.isAccessibilityElement = true
+		cell.accessibilityTraits = .button
+
+		return cell
 	}
 
 	func configureMainCell(indexPath: IndexPath, model: SettingsViewModel.Main) -> MainSettingsTableViewCell {
@@ -294,10 +304,11 @@ extension SettingsViewController: ExposureStateUpdating {
 extension SettingsViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		enState = state
+		checkTracingStatus()
 		notificationSettingsController?.updateEnState(state)
 	}
 }
 
 extension SettingsViewController: NavigationBarOpacityDelegate {
-	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { .systemChromeMaterial }
+	var preferredLargeTitleBackgroundColor: UIColor? { .enaColor(for: .background) }
 }

@@ -16,7 +16,6 @@
 // under the License.
 
 import ExposureNotification
-import Reachability
 import UIKit
 
 protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
@@ -59,7 +58,6 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		navigationItem.largeTitleDisplayMode = .always
 		setUIText()
 		tableView.sectionFooterHeight = 0.0
-
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -107,6 +105,12 @@ extension ExposureNotificationSettingViewController {
 			if alert {
 				alertError(message: "ExposureNotification is already enabled", title: "Note")
 			}
+		case .unknown(let message):
+			logError(message: "unknown")
+			if alert {
+				alertError(message: "Cannot enable the notification. The reason is \(message)", title: "Error")
+			}
+
 		}
 		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
 			mySceneDelegate.requestUpdatedExposureState()
@@ -171,6 +175,9 @@ extension ExposureNotificationSettingViewController {
 	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		switch model.content[section] {
 		case .actionCell:
+			if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+				return UITableView.automaticDimension
+			}
 			return 40
 		default:
 			return 0
@@ -190,11 +197,12 @@ extension ExposureNotificationSettingViewController {
 		1
 	}
 
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	override func tableView(
+		_ tableView: UITableView,
+		cellForRowAt indexPath: IndexPath
+	) -> UITableViewCell {
 		let section = indexPath.section
-
 		let content = model.content[section]
-
 		if let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell {
 			switch content {
 			case .banner:
@@ -251,7 +259,6 @@ extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate
 		}
 	}
 }
-
 
 extension ExposureNotificationSettingViewController {
 	fileprivate enum ReusableCellIdentifier: String {

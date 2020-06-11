@@ -15,10 +15,10 @@
 // specific language governing permissions and limitations
 // under the License.
 
-@testable import ENA
 import Foundation
+@testable import ENA
 
-class MockTestStore: Store {
+final class MockTestStore: Store {
 	var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	var summary: SummaryMetadata?
 	var tracingStatusHistory: TracingStatusHistory = []
@@ -47,5 +47,4 @@ class MockTestStore: Store {
 	var allowRiskChangesNotification: Bool = true
 	var allowTestsStatusNotification: Bool = true
 	var hourlyFetchingEnabled: Bool = true
-	var lastCheckedVersion: String?
 }
