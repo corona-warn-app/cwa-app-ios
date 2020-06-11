@@ -844,3 +844,9 @@
 
 "Update_Message_Action_Later" = "Later";
 
+/* ENATanInput*/
+"ENATanInput_Empty" = "Empty";
+
+"ENATanInput_InvalidCharacter" = "Invalid Character\n\n%@";
+
+"ENATanInput_CharacterIndex" = "Character %1$u of %2$u";
