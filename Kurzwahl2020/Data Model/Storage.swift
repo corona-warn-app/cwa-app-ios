@@ -165,8 +165,8 @@ class storage {
         } catch {
             print("load settings failed")
             result = ["fontsize" : "22",
-                      "ColorPalette0" : c_summerTime,
-                      "ColorPalette1" : c_darkPink,
+                      "ColorPalette0" : c_darkPink,
+                      "ColorPalette1" : c_summerTime,
                       "ColorPalette2" : c_red
             ]
         }
