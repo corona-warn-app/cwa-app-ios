@@ -35,6 +35,7 @@ enum AppStrings {
 
 	enum AccessibilityLabel {
 		static let close = NSLocalizedString("AccessibilityLabel_Close", comment: "")
+		static let phoneNumber = NSLocalizedString("AccessibilityLabel_PhoneNumber", comment: "")
 	}
 
 	enum ExposureSubmission {
@@ -451,6 +452,7 @@ enum AppStrings {
 		static let infoTitle = NSLocalizedString("Reset_InfoTitle", comment: "")
 		static let infoDescription = NSLocalizedString("Reset_InfoDescription", comment: "")
 		static let subtitle = NSLocalizedString("Reset_Subtitle", comment: "")
+		static let imageDescription = NSLocalizedString("Reset_ImageDescription", comment: "")
 	}
 
 	enum SafariView {

@@ -93,16 +93,10 @@ final class HomeViewController: UIViewController {
 		homeInteractor.requestRisk(userInitiated: false)
 	}
 
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-			navigationItem.leftBarButtonItem?.image = UIImage(named: "Corona-Warn-App")
-		}
-	}
-
 	private func setupAccessibility() {
+		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
-		navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
+		navigationItem.leftBarButtonItem?.accessibilityTraits = .none
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
 		navigationItem.leftBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.leftBarButtonDescription"
 		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
@@ -239,6 +233,8 @@ final class HomeViewController: UIViewController {
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is HomeTestResultCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
+		case is RiskInactiveCollectionViewCell:
+			showExposureDetection()
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:

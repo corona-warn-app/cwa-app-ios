@@ -24,6 +24,8 @@ private extension DynamicCell {
 			cell.textLabel?.textColor = .enaColor(for: .textTint)
 			(cell.textLabel as? ENALabel)?.style = .title2
 			cell.accessibilityIdentifier = accessibilityIdentifier
+			cell.accessibilityLabel = "\(AppStrings.AccessibilityLabel.phoneNumber):\n\n\(text)"
+			cell.accessibilityTraits = .button
 		}
 		cell.tag = "phone"
 		return cell

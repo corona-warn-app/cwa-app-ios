@@ -23,7 +23,7 @@
                                 <rect key="frame" x="16" y="16" width="341" height="469"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vH-2n-zB9" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="341" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="341" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -32,10 +32,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" image="Illu_Home_VielenDank" translatesAutoresizingMaskIntoConstraints="NO" id="gib-Lj-L9x">
-                                        <rect key="frame" x="0.0" y="36.5" width="341" height="178"/>
+                                        <rect key="frame" x="0.0" y="16" width="341" height="0.0"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" verticalCompressionResistancePriority="249" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MjR-ul-n67" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="230.5" width="341" height="165.5"/>
+                                        <rect key="frame" x="0.0" y="32" width="341" height="0.0"/>
                                         <string key="text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -45,7 +45,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 2 Note" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kx4-69-edp" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="412" width="341" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="48" width="341" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -53,8 +53,11 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8VS-I3-yNF">
+                                        <rect key="frame" x="0.0" y="64" width="341" height="200"/>
+                                    </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="250" insetsLayoutMarginsFromSafeArea="NO" text="Title 2 More Info" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5t-z9-0Jg" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="448.5" width="341" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="280" width="341" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
                                         <nil key="highlightedColor"/>
@@ -62,6 +65,9 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="ibEnaStyle" value="title2"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BEI-EV-nwa">
+                                        <rect key="frame" x="0.0" y="296" width="341" height="173"/>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -86,8 +92,10 @@
             <connections>
                 <outlet property="bodyLabel" destination="MjR-ul-n67" id="QIl-Pd-u3v"/>
                 <outlet property="furtherInfoLabel" destination="t5t-z9-0Jg" id="Fse-DI-Nvg"/>
+                <outlet property="furtherInfoStackView" destination="BEI-EV-nwa" id="Dbj-fa-qKk"/>
                 <outlet property="imageView" destination="gib-Lj-L9x" id="4cq-dl-mjJ"/>
                 <outlet property="noteLabel" destination="kx4-69-edp" id="h5s-et-WJy"/>
+                <outlet property="riskViewStackView" destination="8VS-I3-yNF" id="Zlo-Ux-KpK"/>
                 <outlet property="stackView" destination="7r0-tC-NXI" id="wdQ-CH-nbg"/>
                 <outlet property="titleLabel" destination="4vH-2n-zB9" id="8I0-Ft-YOo"/>
                 <outlet property="viewContainer" destination="6KL-tv-0fo" id="x1l-QF-Zg1"/>
@@ -98,7 +106,7 @@
     <resources>
         <image name="Illu_Home_VielenDank" width="343" height="178"/>
         <namedColor name="ENA Text Primary 1 Color">
-            <color red="0.090000003576278687" green="0.097999997437000275" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090196078431372548" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
