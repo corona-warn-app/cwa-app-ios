@@ -138,6 +138,8 @@ enum AppStrings {
 		static let tanInputButtonTitle = NSLocalizedString("ExposureSubmission_TANInputButtonTitle", comment: "")
 		static let phoneNumber = NSLocalizedString("ExposureSubmission_PhoneNumber", comment: "")
 		static let hotlineDetailDescription = NSLocalizedString("ExposureSubmission_PhoneDetailDescription", comment: "")
+		static let imageDescription = NSLocalizedString("ExposureSubmissionHotline_imageDescription", comment: "")
+
 	}
 
 	enum ExposureSubmissionWarnOthers {
