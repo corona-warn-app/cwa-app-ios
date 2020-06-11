@@ -101,13 +101,14 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 			UIAccessibilityCustomAction(name: "Toggle", target: self, selector: #selector(toggle(_:)))
 		]
 
+		accessibilityLabel = AppStrings.ExposureNotificationSetting.enableTracing
 		if switchContainerView.isHidden {
 			accessibilityLabel = AppStrings.ExposureNotificationSetting.enableTracing
 		} else {
 			if actionSwitch.isOn {
-				accessibilityLabel = "\(AppStrings.ExposureNotificationSetting.enableTracing): \(AppStrings.Settings.notificationStatusActive)"
+				accessibilityValue = AppStrings.Settings.notificationStatusActive
 			} else {
-				accessibilityLabel = "\(AppStrings.ExposureNotificationSetting.enableTracing): \(AppStrings.Settings.notificationStatusInactive)"
+				accessibilityValue = AppStrings.Settings.notificationStatusInactive
 			}
 		}
 	}

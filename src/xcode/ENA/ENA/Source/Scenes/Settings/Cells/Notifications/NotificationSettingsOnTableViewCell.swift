@@ -53,10 +53,11 @@ class NotificationSettingsOnTableViewCell: UITableViewCell {
 			UIAccessibilityCustomAction(name: "Toggle", target: self, selector: #selector(toggle(_:)))
 		]
 
-		if toggleSwitch.isOn { 
-			accessibilityLabel = "\(viewModel.description): \(AppStrings.Settings.notificationStatusActive)"
+		accessibilityLabel = viewModel.description
+		if toggleSwitch.isOn {
+			accessibilityValue = AppStrings.Settings.notificationStatusActive
 		} else {
-			accessibilityLabel = "\(viewModel.description): \(AppStrings.Settings.notificationStatusInactive)"
+			accessibilityValue = AppStrings.Settings.notificationStatusInactive
 		}
 	}
 
