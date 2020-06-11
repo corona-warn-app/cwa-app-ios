@@ -16,7 +16,6 @@
 // under the License.
 
 import ExposureNotification
-import Reachability
 import UIKit
 
 protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
