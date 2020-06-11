@@ -304,6 +304,7 @@ extension SettingsViewController: ExposureStateUpdating {
 extension SettingsViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		enState = state
+		checkTracingStatus()
 		notificationSettingsController?.updateEnState(state)
 	}
 }
