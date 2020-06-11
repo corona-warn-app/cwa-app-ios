@@ -306,6 +306,7 @@
 		EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE70C23A245B09E900AC9B2F /* Localizable.strings */; };
 		EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = EE92A340245D96DA006B97B0 /* Localizable.stringsdict */; };
 		EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF10679246EBF8B009DFB4E /* ResetViewController.swift */; };
+		F22C6E2324917E3200712A6B /* DynamicTableViewControllerRowsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F247572A24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift */; };
 		F252472F2483955B00C5556B /* DynamicTableViewControllerFake.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F252472E2483955B00C5556B /* DynamicTableViewControllerFake.storyboard */; };
 		F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25247302484456800C5556B /* DynamicTableViewModelTests.swift */; };
 		F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DC808D248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift */; };
@@ -2295,6 +2296,7 @@
 				71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */,
 				0DF6BB9D248AE232007E8B0C /* AppUpdateCheckerHelperTests.swift in Sources */,
 				A328425D248E82BC006B1F09 /* ExposureSubmissionTestResultViewControllerTests.swift in Sources */,
+				F22C6E2324917E3200712A6B /* DynamicTableViewControllerRowsTests.swift in Sources */,
 				B18C411D246DB30000B8D8CB /* URL+Helper.swift in Sources */,
 				CDF27BD5246ADBF30044D32B /* HTTPClientTests.swift in Sources */,
 				A17DA5E32486D8EF006F310F /* RiskLevelTests.swift in Sources */,
