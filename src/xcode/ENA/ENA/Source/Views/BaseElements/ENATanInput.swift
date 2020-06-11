@@ -61,6 +61,7 @@ class ENATanInput: UIControl {
 	lazy var characterSet: CharacterSet = CharacterSet(charactersIn: self.allowedCharacters.uppercased())
 
 	var keyboardType: UIKeyboardType = .asciiCapable
+	var returnKeyType: UIReturnKeyType = .next
 	var textContentType: UITextContentType = .oneTimeCode
 
 	var hasText: Bool { !text.isEmpty }
