@@ -81,7 +81,6 @@ class AppUpdateCheckHelper {
 	func createAlert(_ type: UpdateAlertType, vc: UIViewController?) -> UIAlertController? {
 		let alert = UIAlertController(title: AppStrings.UpdateMessage.title, message: AppStrings.UpdateMessage.text, preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionUpdate, comment: ""), style: .cancel, handler: { _ in
-			//TODO: Add correct App Store ID
 			guard let url: URL = URL(string: "itms-apps://itunes.apple.com/app/apple-store/") else {
 				return
 			}

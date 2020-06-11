@@ -56,7 +56,7 @@ class DynamicTableViewControllerRowsTests: XCTestCase {
 // MARK: Rows
 extension DynamicTableViewControllerRowsTests {
 	func testHeightForRow_returnsAutomaticDimension() {
-		let section = DynamicSection.section(cells: [.body(text: "Foo")])
+		let section = DynamicSection.section(cells: [.body(text: "Foo", accessibilityIdentifier: "Foo")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		let indexPath = IndexPath(row: 0, section: 0)
@@ -66,7 +66,7 @@ extension DynamicTableViewControllerRowsTests {
 	}
 	
 	func testHeightForRow_whenSectionIsHidden_returnsLeastNonzeroMagnitude() {
-		let section = DynamicSection.section(isHidden: { _ in return true }, cells: [.body(text: "Foo")])
+		let section = DynamicSection.section(isHidden: { _ in return true }, cells: [.body(text: "Foo", accessibilityIdentifier: "Foo")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 
 		let indexPath = IndexPath(row: 0, section: 0)
@@ -77,7 +77,7 @@ extension DynamicTableViewControllerRowsTests {
 	
 	func testCellForRowAt_configuresCell() {
 		let expectedText = "Foo"
-		let section = DynamicSection.section(cells: [.body(text: expectedText)])
+		let section = DynamicSection.section(cells: [.body(text: expectedText, accessibilityIdentifier: "Foo")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -89,7 +89,7 @@ extension DynamicTableViewControllerRowsTests {
 	}
 	
 	func testCellForRowAt_whenSectionIsHidden_returnsIsPlainUITableViewCell() {
-		let section = DynamicSection.section(isHidden: { _ in return true }, cells: [.body(text: "Foo")])
+		let section = DynamicSection.section(isHidden: { _ in return true }, cells: [.body(text: "Foo", accessibilityIdentifier: "Foo")])
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -104,7 +104,11 @@ extension DynamicTableViewControllerRowsTests {
 	}
 	
 	func testCellForRowAt_whenSectionHasSeparators_addsTopSeparatorToFirstCell() {
-		let section = DynamicSection.section(separators: true, cells: [.body(text: "Foo"), .body(text: "Bar")])
+		let cells: [DynamicCell] = [
+			.body(text: "Foo", accessibilityIdentifier: "Foo"),
+			.body(text: "Bar", accessibilityIdentifier: "Bar")
+		]
+		let section = DynamicSection.section(separators: true, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -121,7 +125,10 @@ extension DynamicTableViewControllerRowsTests {
 	}
 	
 	func testCellForRowAt_whenSectionHasSeparators_NotAddsTopSeparatorToSecondCell() {
-		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar")]
+		let cells: [DynamicCell] = [
+			.body(text: "Foo", accessibilityIdentifier: "Foo"),
+			.body(text: "Bar", accessibilityIdentifier: "Bar")
+		]
 		let section = DynamicSection.section(separators: true, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
@@ -138,7 +145,10 @@ extension DynamicTableViewControllerRowsTests {
 	}
 	
 	func testCellForRowAt_whenSectionHasSeparators_addsBottomSeparatorToLastCell() {
-		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar")]
+		let cells: [DynamicCell] = [
+			.body(text: "Foo", accessibilityIdentifier: "Foo"),
+			.body(text: "Bar", accessibilityIdentifier: "Bar")
+		]
 		let section = DynamicSection.section(separators: true, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
@@ -157,7 +167,10 @@ extension DynamicTableViewControllerRowsTests {
 	}
 	
 	func testCellForRowAt_whenSectionHasSeparators_notAddsBottomSeparatorToFirstCell() {
-		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar")]
+		let cells: [DynamicCell] = [
+			.body(text: "Foo", accessibilityIdentifier: "Foo"),
+			.body(text: "Bar", accessibilityIdentifier: "Bar")
+		]
 		let section = DynamicSection.section(separators: true, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
@@ -174,7 +187,11 @@ extension DynamicTableViewControllerRowsTests {
 	}
 	
 	func testCellForRowAt_whenSectionHasSeparators_addsInsetSeparatorToFirstCell() {
-		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar"), .body(text: "Baz")]
+		let cells: [DynamicCell] = [
+			.body(text: "Foo", accessibilityIdentifier: "Foo"),
+			.body(text: "Bar", accessibilityIdentifier: "Bar"),
+			.body(text: "Baz", accessibilityIdentifier: "Baz")
+		]
 		let section = DynamicSection.section(separators: true, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
@@ -192,7 +209,11 @@ extension DynamicTableViewControllerRowsTests {
 	}
 	
 	func testCellForRowAt_whenSectionHasSeparators_addsInsetSeparatorToIntermediateCells() {
-		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar"), .body(text: "Baz")]
+		let cells: [DynamicCell] = [
+			.body(text: "Foo", accessibilityIdentifier: "Foo"),
+			.body(text: "Bar", accessibilityIdentifier: "Bar"),
+			.body(text: "Baz", accessibilityIdentifier: "Baz")
+		]
 		let section = DynamicSection.section(separators: true, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
@@ -211,7 +232,11 @@ extension DynamicTableViewControllerRowsTests {
 	}
 	
 	func testCellForRowAt_whenSectionHasSeparators_notAddsInsetSeparatorToLastCell() {
-		let cells: [DynamicCell] = [.body(text: "Foo"), .body(text: "Bar"), .body(text: "Baz")]
+		let cells: [DynamicCell] = [
+			.body(text: "Foo", accessibilityIdentifier: "Foo"),
+			.body(text: "Bar", accessibilityIdentifier: "Bar"),
+			.body(text: "Baz", accessibilityIdentifier: "Baz")
+		]
 		let section = DynamicSection.section(separators: true, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
