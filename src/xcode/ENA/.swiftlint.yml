@@ -200,7 +200,9 @@ disabled_rules:
 
 # Included paths (disables --path option)
 included:
-  - ENA
+  - ENA/Source
+  - ENATests
+  - ENAUITests
 
 # Excluded paths (takes precedence over 'included')
 excluded: # paths to ignore during linting. Takes precedence over `included`.

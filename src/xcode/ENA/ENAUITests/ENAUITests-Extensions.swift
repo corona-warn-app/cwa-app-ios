@@ -17,6 +17,7 @@
 
 import XCTest
 
+// swiftlint:disable identifier_name
 enum SizeCategory: String {
 	case XS
 	case S
@@ -26,6 +27,7 @@ enum SizeCategory: String {
 	case XXL
 	case XXXL
 }
+// swiftlint:enable identifier_name
 
 enum SizeCategoryAccessibility: String {
 	case accessibility = "Accessibility"
