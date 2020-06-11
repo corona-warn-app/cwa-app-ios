@@ -25,7 +25,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="G88-yG-qxh">
                                                 <rect key="frame" x="16" y="16" width="382" height="720"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0N-4y-Zcm" userLabel="Description" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" text="Headline" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0N-4y-Zcm" userLabel="Description" customClass="ENALabel" customModule="ENA" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" name="ENA Text Primary 1 Color"/>
@@ -38,7 +38,7 @@
                                                         <rect key="frame" x="0.0" y="36.5" width="382" height="617.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFa-H0-7iG" customClass="ENATanInput" customModule="ENA" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="285.5" width="382" height="46.5"/>
+                                                                <rect key="frame" x="0.0" y="284" width="382" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" priority="250" constant="50" placeholder="YES" id="GoX-aD-BHg"/>
                                                                 </constraints>
@@ -107,9 +107,11 @@
                     <navigationItem key="navigationItem" title="Tan Input" id="V3g-Ep-y0w"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="contentView" destination="8dd-c4-eqD" id="JeN-jy-4Cu"/>
                         <outlet property="descriptionLabel" destination="I0N-4y-Zcm" id="vie-3g-ShQ"/>
                         <outlet property="errorLabel" destination="DuS-ZV-gMr" id="4BV-KR-afu"/>
                         <outlet property="errorView" destination="8rA-X0-4lX" id="RKU-K1-1cV"/>
+                        <outlet property="scrollView" destination="qBb-LO-eZK" id="qoE-wM-nHa"/>
                         <outlet property="tanInput" destination="fFa-H0-7iG" id="fon-ur-kpf"/>
                         <segue destination="JPa-EJ-yrk" kind="show" identifier="sentSegue" id="HlT-ix-3R2"/>
                         <segue destination="IeT-ta-YWf" kind="show" identifier="warnOthersSegue" id="aeq-iH-Hkk"/>

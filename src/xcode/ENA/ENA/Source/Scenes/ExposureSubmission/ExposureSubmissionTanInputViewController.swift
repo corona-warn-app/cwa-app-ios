@@ -21,9 +21,11 @@ import UIKit
 class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjectable {
 	// MARK: - Attributes.
 
+	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var contentView: UIView!
 	@IBOutlet var descriptionLabel: UILabel!
-	@IBOutlet weak var errorLabel: UILabel!
-	@IBOutlet weak var errorView: UIView!
+	@IBOutlet var errorLabel: UILabel!
+	@IBOutlet var errorView: UIView!
 	@IBOutlet var tanInput: ENATanInput!
 
 	var initialTan: String?
@@ -125,6 +127,11 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 
 	// MARK: - ENATanInputDelegate
 extension ExposureSubmissionTanInputViewController: ENATanInputDelegate {
+	func enaTanInputDidBeginEditing(_ tanInput: ENATanInput) {
+		let rect = contentView.convert(tanInput.frame, from: tanInput)
+		scrollView.scrollRectToVisible(rect, animated: true)
+	}
+
 	func enaTanInput(_ tanInput: ENATanInput, didChange text: String, isValid: Bool, isChecksumValid: Bool, isBlocked: Bool) {
 		setButtonEnabled(enabled: (isValid && isChecksumValid))
 		UIView.animate(withDuration: CATransaction.animationDuration()) {
