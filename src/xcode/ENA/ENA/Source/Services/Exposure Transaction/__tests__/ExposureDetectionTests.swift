@@ -21,7 +21,6 @@ import XCTest
 @testable import ENA
 import ExposureNotification
 final class ExposureDetectionTransactionTests: XCTestCase {
-	// swiftlint:disable:next function_body_length
     func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let delegate = ExposureDetectionDelegateMock()
 

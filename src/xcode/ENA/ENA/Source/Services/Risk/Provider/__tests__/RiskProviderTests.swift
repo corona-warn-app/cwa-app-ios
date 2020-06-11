@@ -32,7 +32,6 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 }
 
 final class RiskProviderTests: XCTestCase {
-	// swiftlint:disable:next function_body_length
 	func testExposureDetectionIsExecutedIfLastDetectionIsToOldAndModeIsAutomatic() throws {
 		var duration = DateComponents()
 		duration.day = 1
@@ -55,7 +54,6 @@ final class RiskProviderTests: XCTestCase {
 				attenuationDurations: [],
 				maximumRiskScoreFullRange: 0
 			),
-			// swiftlint:disable:next force_unwrapping
 			date: lastExposureDetectionDate!
 		)
 
@@ -111,7 +109,6 @@ final class RiskProviderTests: XCTestCase {
 			value: -12,
 			to: Date(),
 			wrappingComponents: false
-			// swiftlint:disable:next force_unwrapping
 		)!
 
 		let store = MockTestStore()
@@ -156,7 +153,6 @@ final class RiskProviderTests: XCTestCase {
 //		XCTAssertTrue(calendar.isDate(sut.nextExposureDetectionDate(), equalTo: expectedDate, toGranularity: .hour))
 
 		consumer.nextExposureDetectionDateDidChange = { nextDetectionDate in
-			// swiftlint:disable:next force_unwrapping
 //			let expectedDate = calendar.date(byAdding: .hour, value: 12, to: Date(), wrappingComponents: false)
 //			print("expected: \(expectedDate)")
 //			print("nextDetectionDate: \(nextDetectionDate)")

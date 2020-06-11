@@ -19,7 +19,6 @@
 import ExposureNotification
 import XCTest
 
-// swiftlint:disable:next type_body_length
 final class HTTPClientTests: XCTestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
@@ -221,7 +220,6 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testFetchHour_Success() throws {
-		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
 
@@ -262,7 +260,6 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testFetchDay_Success() throws {
-		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
 
@@ -467,7 +464,6 @@ final class HTTPClientTests: XCTestCase {
 
 	// TODO: Enable once we figured our how to get this running with production server
 //	func testValidExposureConfigurationResponseData() throws {
-//		// swiftlint:disable:next force_unwrapping
 //		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
 //		let responseData = try Data(contentsOf: url)
 //
@@ -485,7 +481,6 @@ final class HTTPClientTests: XCTestCase {
 //	}
 
 	func testValidExposureConfigurationDataBut404Response() throws {
-		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
 		let responseData = try Data(contentsOf: url)
 

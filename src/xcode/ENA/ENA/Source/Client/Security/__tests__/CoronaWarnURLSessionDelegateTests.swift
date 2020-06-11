@@ -19,7 +19,6 @@
 import XCTest
 
 class CoronaWarnURLSessionDelegateTests: XCTestCase {
-	//swiftlint:disable:next weak_delegate
 	private let delegate = CoronaWarnURLSessionDelegate()
 
 	// MARK: - Whitelist testing
