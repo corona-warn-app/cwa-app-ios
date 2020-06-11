@@ -131,6 +131,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		setupNavigationBarAppearance()
 
 		#if UITESTING
+		// Present initial screen
 		if UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else {
