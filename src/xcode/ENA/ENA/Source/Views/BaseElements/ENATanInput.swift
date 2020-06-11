@@ -388,6 +388,7 @@ private extension ENATanInput {
 		switch hash.first?.uppercased() {
 		case "0": return "G"
 		case "1": return "H"
+		case .some(let c): return Character(c)
 		default: return nil
 		}
 	}
