@@ -357,7 +357,7 @@
 
 "ExposureSubmissionResult_testPositive" = "Befund positiv";
 
-"ExposureSubmissionResult_testPositiveDesc" = "Ihr Testergebnis wurde als positiv verifiziert.";
+"ExposureSubmissionResult_testPositiveDesc" = "Ihr Testergebnis wurde erfolgreich als positiv verifiziert.";
 
 "ExposureSubmissionResult_testNegative" = "Befund negativ";
 
@@ -567,7 +567,7 @@
 /* Home Status Check */
 "Home_Risk_Status_Check_Title" = "Prüfung läuft…";
 
-"Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
+"Home_Risk_Status_Check_Body" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
 
 "Home_Risk_Status_Check_Button" = "Aktualisieren";
 
@@ -637,7 +637,7 @@
 
 "Home_resultCard_ShowResultButton" = "Test anzeigen";
 
-"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.";
+"Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
 
 "Home_resultCard_LoadingTitle" = "Aktualisierung läuft...";
 
@@ -703,7 +703,7 @@
 
 "App_Information_Imprint_Section3_Title" = "Kontakt";
 
-"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelefon: +40 30 18754 5100";
+"App_Information_Imprint_Section3_Text" = "E-Mail: CoronaWarnApp@rki.de\nTelefon: +49 30 30 5100";
 
 "App_Information_Imprint_Section4_Title" = "Umsatzsteueridentifikationsnummer";
 
