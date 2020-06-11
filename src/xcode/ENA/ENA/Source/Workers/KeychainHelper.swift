@@ -18,34 +18,103 @@
 //
 
 import Foundation
-enum KeychainHelper {
-	static func saveToKeychain(key: String, data: Data) -> OSStatus {
-		let query = [
+
+private extension CFDictionary {
+	class func keychainQueryForDeleting(
+		account: String,
+		service: String
+	) -> CFDictionary {
+		[
+			kSecAttrService: service,
 			kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
 			kSecClass: kSecClassGenericPassword,
-			kSecAttrAccount: key,
-			kSecValueData: data
-		] as [CFString: Any]
+			kSecAttrAccount: account
+		] as CFDictionary
+	}
 
-		SecItemDelete(query as CFDictionary)
-		return SecItemAdd(query as CFDictionary, nil)
+	class func keychainQueryForAdding(
+		account: String,
+		service: String,
+		data: Data
+	) -> CFDictionary {
+		[
+			kSecAttrService: service,
+			kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
+			kSecClass: kSecClassGenericPassword,
+			kSecAttrAccount: account,
+			kSecValueData: data
+			] as CFDictionary
+	}
+
+	class func keychainQueryForGetting(
+		account: String,
+		service: String
+	) -> CFDictionary {
+		[
+			kSecAttrService: service,
+			kSecAttrAccount: account,
+			kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
+			kSecClass: kSecClassGenericPassword,
+			kSecReturnData: kCFBooleanTrue as Any,
+			kSecMatchLimit: kSecMatchLimitOne
+			] as CFDictionary
+	}
+}
+
+enum KeychainHelper {
+	// swiftlint:disable:next force_unwrapping
+	private static let _service = Bundle.main.bundleIdentifier!
+
+	static func saveToKeychain(key: String, data: Data) -> Bool {
+
+		let deleteResult = SecItemDelete(
+			.keychainQueryForDeleting(
+				account: key,
+				service: _service
+			)
+		)
+
+		if deleteResult != errSecSuccess && deleteResult != errSecItemNotFound {
+			if let message = SecCopyErrorMessageString(deleteResult, nil) {
+				logError(message: "Failed to delete keychain item '\(key)' due to: \(message as String)")
+			} else {
+				logError(message: "Failed to delete keychain item '\(key)' due to unknown error")
+			}
+		}
+
+		let addResult = SecItemAdd(
+			.keychainQueryForAdding(
+				account: key,
+				service: _service,
+				data: data
+			),
+			nil
+		)
+
+		if addResult != errSecSuccess {
+			if let message = SecCopyErrorMessageString(addResult, nil) {
+				logError(message: "Failed to add keychain item '\(key)' due to: \(message as String)")
+			} else {
+				logError(message: "Failed to add keychain item '\(key)' due to unknown error")
+			}
+		}
+
+		return addResult == errSecSuccess
 	}
 
 	static func loadFromKeychain(key: String) -> Data? {
-		let query = [
-			kSecClass as String: kSecClassGenericPassword,
-			kSecAttrAccount as String: key,
-			kSecReturnData as String: kCFBooleanTrue as Any,
-			kSecMatchLimit as String: kSecMatchLimitOne
-			] as [String: Any]
-
-		var dataTypeRef: AnyObject?
-		let status: OSStatus = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
-		if status == noErr {
-			return dataTypeRef as? Data ?? nil
-		} else {
-			return nil
+		var dataRef: AnyObject?
+		let status: OSStatus = SecItemCopyMatching(
+			.keychainQueryForGetting(account: key, service: _service),
+			&dataRef
+		)
+		if
+			let dataRef = dataRef,
+			status == errSecSuccess,
+			CFGetTypeID(dataRef) == CFDataGetTypeID() {
+			return dataRef as? Data
 		}
+		return nil
 	}
 
 	static func generateDatabaseKey() -> String? {
@@ -56,7 +125,7 @@ enum KeychainHelper {
 			return nil
 		}
 		let key = "x'\(Data(bytes).hexEncodedString())'"
-		if saveToKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) != noErr {
+		if saveToKeychain(key: "secureStoreDatabaseKey", data: Data(key.utf8)) == false {
 			logError(message: "Unable to save Key to Keychain")
 			return nil
 		}
