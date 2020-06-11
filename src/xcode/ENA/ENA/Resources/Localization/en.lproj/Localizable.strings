@@ -383,9 +383,9 @@
 
 "ExposureSubmissionResult_testPendingDesc" = "Your test result is not yet available.";
 
-"ExposureSubmissionResult_testRemove" = "Test entfernen";
+"ExposureSubmissionResult_testRemove" = "Delete test";
 
-"ExposureSubmissionResult_testRemoveDesc" = "Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.";
+"ExposureSubmissionResult_testRemoveDesc" = "Please delete the test from the Corona-Warn-App, so that you can save a new test code here if necessary.";
 
 "ExposureSubmissionResult_continueButton" = "Next";
 
