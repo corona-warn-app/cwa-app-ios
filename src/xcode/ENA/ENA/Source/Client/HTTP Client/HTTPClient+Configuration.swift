@@ -41,11 +41,19 @@ extension HTTPClient {
 		)
 
 		static func loadFromPlist(dictionaryNameInPList: String) -> Configuration? {
-			let plistDict = Bundle.main.readPlistDict(name: "BackendURLs")
+			let plistDict = Bundle.main.infoDictionary?["BackendURLs"] as? [ String: Any ]
+
 			guard
-				let distribution = URL(string: plistDict?["distribution"] ?? "invalid"),
-				let submission = URL(string: plistDict?["submission"] ?? "invalid"),
-				let verification = URL(string: plistDict?["verification"] ?? "invalid") else {
+				let distributionString = plistDict?["distribution"] as? String,
+				let submissionString = plistDict?["submission"] as? String,
+				let verificationString = plistDict?["verification"] as? String else {
+					return nil
+			}
+
+			guard
+				let distribution = URL(string: distributionString),
+				let submission = URL(string: submissionString),
+				let verification = URL(string: verificationString) else {
 					return nil
 			}
 
