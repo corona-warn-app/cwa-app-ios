@@ -65,6 +65,9 @@ final class OnboardingInfoViewController: UIViewController {
 	var store: Store
 
 	@IBOutlet var imageView: UIImageView!
+	@IBOutlet var stateHeaderLabel: ENALabel!
+	@IBOutlet var stateTitleLabel: ENALabel!
+	@IBOutlet var stateStateLabel: ENALabel!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var boldLabel: UILabel!
 	@IBOutlet var textLabel: UILabel!
@@ -73,6 +76,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	@IBOutlet var scrollView: UIScrollView!
 	@IBOutlet var stackView: UIStackView!
+	@IBOutlet var stateView: UIView!
 	@IBOutlet var innerStackView: UIStackView!
 	@IBOutlet var footerView: UIView!
 
@@ -153,6 +157,12 @@ final class OnboardingInfoViewController: UIViewController {
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
 		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
+
+		stateView.isHidden = true // TODO: state logic
+
+		stateHeaderLabel.text = onboardingInfo.stateHeader?.uppercased()
+		stateTitleLabel.text = onboardingInfo.stateTitle
+		stateStateLabel.text = onboardingInfo.stateState
 
 		switch pageType {
 		case .enableLoggingOfContactsPage:

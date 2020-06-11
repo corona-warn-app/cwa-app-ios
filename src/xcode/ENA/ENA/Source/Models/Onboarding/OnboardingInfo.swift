@@ -21,6 +21,9 @@ struct OnboardingInfo {
 	var title: String
 	var imageName: String
 	var imageDescription: String
+	var stateHeader: String?
+	var stateTitle: String?
+	var stateState: String?
 	var boldText: String
 	var text: String
 	var actionText: String
@@ -63,12 +66,15 @@ extension OnboardingInfo {
 
 		let info3 = OnboardingInfo(
 			title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_title,
-			imageName: "Illu_Onboarding_Risikoerekennung",
+			imageName: "Illu_Onboarding_Risikoerekennung", // TODO: State logic
 			imageDescription: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_imageDescription,
+			stateHeader: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateHeader,
+			stateTitle: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateTitle,
+			stateState: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateActivated, // TODO: State logic
 			boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
-			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
-			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate,
+			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button, // TODO: State logic
+			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate, // TODO: State logic
 			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_title",
 			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription",
 			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button",
