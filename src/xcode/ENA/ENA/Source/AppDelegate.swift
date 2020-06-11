@@ -48,7 +48,7 @@ extension AppDelegate: ExposureSummaryProvider {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	//TODO: Handle it
-	private(set) var store: Store = SecureStore(subDirectory: "database")!
+	var store: Store = SecureStore(subDirectory: "database")
 	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared

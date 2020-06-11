@@ -27,13 +27,9 @@ final class SecureStore: Store {
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
 
-	init? (at directoryURL: URL, key: String) {
+	init (at directoryURL: URL, key: String) {
 		self.directoryURL = directoryURL
-		guard let kvStore = SQLiteKeyValueStore(with: directoryURL, key: key) else {
-			return nil
-		}
-		self.kvStore = kvStore
-
+		self.kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
 
 	func flush() {
@@ -44,6 +40,7 @@ final class SecureStore: Store {
 		kvStore.clearAll(key: key)
 	}
 
+	
 	var testResultReceivedTimeStamp: Int64? {
 		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
@@ -187,9 +184,9 @@ final class SecureStore: Store {
 	}
 }
 
-extension SecureStore {
 
-	convenience init?(subDirectory: String) {
+extension SecureStore {
+	convenience init(subDirectory: String) {
 		do {
 			let fileManager = FileManager.default
 			let directoryURL = try fileManager
