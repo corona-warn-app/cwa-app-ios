@@ -94,5 +94,4 @@ iOSInjectionProject/
 *.DS_Store
 
 src/xcode/fastlane/screenshots
-src/xcode/screenshots
 /src/xcode/.idea
