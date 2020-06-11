@@ -29,6 +29,24 @@ private extension TimeInterval {
 class ExposureSubmissionUITests: XCTestCase {
 	var app: XCUIApplication!
 
+	/// Use this method to grab localized strings correctly.
+	private func localized(_ string: String) -> String {
+		if let path =
+			Bundle(for: ExposureSubmissionUITests.self)
+				.path(
+					forResource: deviceLanguage,
+					ofType: "lproj"
+			),
+			let bundle = Bundle(path: path) {
+			return NSLocalizedString(
+				string,
+				bundle: bundle,
+				comment: ""
+			)
+		}
+		fatalError("Localization could not be loaded.")
+	}
+
 	override func setUpWithError() throws {
 		continueAfterFailure = false
 		app = XCUIApplication()
@@ -70,10 +88,56 @@ class ExposureSubmissionUITests: XCTestCase {
 		XCTAssertNotNil(app.buttons["Weiter"].waitForExistence(timeout: .medium))
 		app.buttons["Weiter"].tap()
 
-		// Select teleTAN
+		// Select hotline
 		XCTAssert(app.buttons["AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"].waitForExistence(timeout: .medium))
 		app.buttons["AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"].tap()
 
 		// TODO: Check if call screen behaves as expected.
+	}
+
+	func test_DataPrivacyDisclaimerShownOnQRCodeScan() throws {
+		launch()
+
+		// Open Intro screen.
+		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
+
+		// Click next button.
+		// TODO: Remove hardcoded key and add accessibility identifier for button.
+		XCTAssertNotNil(app.buttons["Weiter"].waitForExistence(timeout: .medium))
+		app.buttons["Weiter"].tap()
+
+		// Select QRCode screen.
+		XCTAssert(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
+
+		// Test that data privacy alert is shown.
+		XCTAssertTrue(app.alerts.firstMatch.exists)
+	}
+
+	func test_QRCodeScanOpened() throws {
+		launch()
+
+		// Open Intro screen.
+		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
+
+		// Click next button.
+		// TODO: Remove hardcoded key and add accessibility identifier for button.
+		XCTAssertNotNil(app.buttons["Weiter"].waitForExistence(timeout: .medium))
+		app.buttons["Weiter"].tap()
+
+		// Select QRCode screen.
+		XCTAssert(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].tap()
+
+		// Deny the alert.
+		XCTAssertTrue(app.alerts.firstMatch.exists)
+		app.alerts.buttons.firstMatch.tap()
+
+		// Check if QR Code screen was accessed
+		XCTAssertTrue(app.navigationBars.firstMatch.identifier == localized(AppStrings.ExposureSubmissionQRScanner.title))
 	}
 }
