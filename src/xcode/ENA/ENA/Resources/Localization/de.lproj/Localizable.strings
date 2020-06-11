@@ -203,7 +203,7 @@
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "Auf diese Weise können Sie sich zum Schutz Ihrer Mitmenschen in Isolation begeben und sich nach entsprechender Abklärung testen lassen.";
 
 /* Exposure Submission */
-"ExposureSubmission_Hotline_Number" = "+49 800 7540002";
+"ExposureSubmission_Hotline_Number" = "+498007540002";
 
 "ExposureSubmission_DataPrivacyTitle" = "Datenschutzinformation";
 
@@ -682,7 +682,7 @@
 
 "App_Information_Contact_Hotline_Text" = "+49 800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "+49 800 7540001";
+"App_Information_Contact_Hotline_Number" = "+498007540001";
 
 "App_Information_Contact_Hotline_Description" = "Unser Kundenservice ist für Sie da.";
 

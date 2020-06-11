@@ -203,7 +203,7 @@
 "OnboardingInfo_alwaysStayInformedPage_normalText" = "You can then self-isolate to protect others and find out where you can get tested.";
 
 /* Exposure Submission */
-"ExposureSubmission_Hotline_Number" = "+49 800 7540002";
+"ExposureSubmission_Hotline_Number" = "+498007540002";
 
 "ExposureSubmission_DataPrivacyTitle" = "Data Privacy Information";
 
@@ -682,7 +682,7 @@
 
 "App_Information_Contact_Hotline_Text" = "+49 800 7540001";
 
-"App_Information_Contact_Hotline_Number" = "+49 800 7540001";
+"App_Information_Contact_Hotline_Number" = "+498007540001";
 
 "App_Information_Contact_Hotline_Description" = "Our customer service is here to help.";
 
