@@ -52,15 +52,33 @@ final class AppUpdateCheckerHelperTests: XCTestCase {
 	}
 
 	func testAlertType_update() {
-		XCTAssert(sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(0, 1, 0), latestVersion: Version(1, 1, 0)) == .update)
-		XCTAssert(sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(0, 0, 0), latestVersion: Version(0, 99, 99)) == .update)
-		XCTAssert(sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(0, 1, 99), latestVersion: Version(0, 99, 99)) == .update)
+		XCTAssertEqual(
+			sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(0, 1, 0), latestVersion: Version(1, 1, 0)),
+			.update
+		)
+		XCTAssertEqual(
+			sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(0, 0, 0), latestVersion: Version(1, 99, 99)),
+			.update
+		)
+		XCTAssertEqual(
+			sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(0, 1, 99), latestVersion: Version(1, 99, 99)),
+			.update
+		)
 	}
 
 	func testAlertType_forceUpdate() {
-		XCTAssert(sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(1, 1, 0), latestVersion: Version(1, 1, 0)) == .forceUpdate)
-		XCTAssert(sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(99, 99, 99), latestVersion: Version(99, 99, 99)) == .forceUpdate)
-		XCTAssert(sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(1, 0, 1), latestVersion: Version(1, 0, 1)) == .forceUpdate)
+		XCTAssertEqual(sut.alertTypeFrom(
+			currentVersion: currentVersion, minVersion: Version(1, 1, 0), latestVersion: Version(1, 1, 0)),
+			.forceUpdate
+		)
+		XCTAssertEqual(
+			sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(99, 99, 99), latestVersion: Version(99, 99, 99)),
+			.forceUpdate
+		)
+		XCTAssertEqual(
+			sut.alertTypeFrom(currentVersion: currentVersion, minVersion: Version(1, 0, 1), latestVersion: Version(1, 0, 1)),
+			.forceUpdate
+		)
 	}
 
 	func testAlert_none() {
@@ -71,13 +89,13 @@ final class AppUpdateCheckerHelperTests: XCTestCase {
 	func testAlert_update() {
 		let alert = sut.createAlert(.update, vc: nil)
 		XCTAssertNotNil(alert)
-		XCTAssert(alert?.actions.count == 2)
+		XCTAssertEqual(alert?.actions.count, 2)
 	}
 
 	func testAlert_forceUpdate() {
 		let alert = sut.createAlert(.forceUpdate, vc: nil)
 		XCTAssertNotNil(alert)
-		XCTAssert(alert?.actions.count == 1)
+		XCTAssertEqual(alert?.actions.count, 1)
 	}
 }
 

@@ -111,11 +111,11 @@ final class AppUpdateCheckHelper {
 			return .none
 		}
 
-		if currentSemanticVersion.isSmaller(than: minVersion) {
+		if currentSemanticVersion < minVersion {
 			return .forceUpdate
 		}
 
-		if currentSemanticVersion.isSmaller(than: latestVersion) {
+		if currentSemanticVersion < latestVersion {
 			return .update
 		}
 		

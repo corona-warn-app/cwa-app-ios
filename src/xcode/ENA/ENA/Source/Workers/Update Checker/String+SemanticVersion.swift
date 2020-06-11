@@ -30,7 +30,7 @@ extension String {
 
 	var semanticVersion: SAP_SemanticVersion? {
 		let versions: [UInt32] = components(separatedBy: ".")
-			.map { type(of: self).semanticVersionComponentFormatter.number(from: $0)?.intValue ?? 0 }
+			.compactMap { type(of: self).semanticVersionComponentFormatter.number(from: $0)?.intValue }
 			.map(UInt32.init)
 
 		guard versions.count == 3 else {

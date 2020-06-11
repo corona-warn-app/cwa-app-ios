@@ -19,16 +19,16 @@
 
 import Foundation
 
-extension SAP_SemanticVersion {
-	func isSmaller(than other: SAP_SemanticVersion) -> Bool {
-		if major < other.major {
-			return true
+extension SAP_SemanticVersion: Comparable {
+	static func < (lhs: SAP_SemanticVersion, rhs: SAP_SemanticVersion) -> Bool {
+		if lhs.major != rhs.major {
+			return lhs.major < rhs.major
 		}
-		if major < other.major && minor < other.minor {
-			return true
+		if lhs.minor != rhs.minor {
+			return lhs.minor < rhs.minor
 		}
-		if major < other.major && minor < other.minor && patch < other.patch {
-			return true
+		if lhs.patch != rhs.patch {
+			return lhs.patch < rhs.patch
 		}
 		return false
 	}
