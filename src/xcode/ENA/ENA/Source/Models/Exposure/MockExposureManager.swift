@@ -38,8 +38,18 @@ final class MockExposureManager {
 }
 
 extension MockExposureManager: ExposureManager {
+	func invalidate(handler: (() -> Void)?) {
+		handler?()
+	}
+
+	func reset(handler: (() -> Void)?) {
+		handler?()
+	}
+
+
 	func invalidate() {}
 
+	
 	func activate(completion: @escaping CompletionHandler) {
 		completion(exposureNotificationError)
 	}

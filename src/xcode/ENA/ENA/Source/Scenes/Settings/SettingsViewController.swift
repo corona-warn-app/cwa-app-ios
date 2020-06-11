@@ -218,20 +218,27 @@ extension SettingsViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let section = Sections.allCases[indexPath.section]
 
+		let cell: UITableViewCell
+
 		switch section {
 		case .tracing:
-			return configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
+			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
 		case .notifications:
-			return configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
+			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
 		case .reset:
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? LabelTableViewCell else {
+			guard let labelCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? LabelTableViewCell else {
 				fatalError("No cell for reuse identifier.")
 			}
 
-			cell.titleLabel.text = settingsViewModel.reset
+			labelCell.titleLabel.text = settingsViewModel.reset
 
-			return cell
+			cell = labelCell
 		}
+
+		cell.isAccessibilityElement = true
+		cell.accessibilityTraits = .button
+
+		return cell
 	}
 
 	func configureMainCell(indexPath: IndexPath, model: SettingsViewModel.Main) -> MainSettingsTableViewCell {
