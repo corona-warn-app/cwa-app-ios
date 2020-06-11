@@ -254,7 +254,7 @@ extension ENATanInput: UIKeyInput {
 	func insertText(_ text: String) {
 		guard !isInputBlocked else { return }
 
-		for character in text.map({ $0.uppercased() }) {
+		for character in text.trimmingCharacters(in: .whitespacesAndNewlines).map({ $0.uppercased() }) {
 			let label = inputLabels[count]
 
 			self.text += "\(character)"
