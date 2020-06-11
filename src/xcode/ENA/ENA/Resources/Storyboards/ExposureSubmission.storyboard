@@ -58,11 +58,11 @@
                         </subviews>
                         <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
-                            <constraint firstItem="nFg-zD-itB" firstAttribute="leading" secondItem="qXS-zI-pkU" secondAttribute="leading" constant="20" id="B0X-Aa-4pm"/>
-                            <constraint firstItem="nFg-zD-itB" firstAttribute="width" secondItem="qXS-zI-pkU" secondAttribute="width" constant="-40" id="NP4-Ts-Jat"/>
-                            <constraint firstItem="nFg-zD-itB" firstAttribute="top" secondItem="qXS-zI-pkU" secondAttribute="top" constant="20" id="ccI-6y-ljj"/>
-                            <constraint firstAttribute="trailing" secondItem="nFg-zD-itB" secondAttribute="trailing" constant="20" id="ge0-kU-kU3"/>
-                            <constraint firstAttribute="bottom" secondItem="nFg-zD-itB" secondAttribute="bottom" constant="20" id="rQk-fU-jbe"/>
+                            <constraint firstItem="nFg-zD-itB" firstAttribute="leading" secondItem="qXS-zI-pkU" secondAttribute="leading" constant="16" id="B0X-Aa-4pm"/>
+                            <constraint firstItem="nFg-zD-itB" firstAttribute="width" secondItem="qXS-zI-pkU" secondAttribute="width" constant="-32" id="NP4-Ts-Jat"/>
+                            <constraint firstItem="nFg-zD-itB" firstAttribute="top" secondItem="qXS-zI-pkU" secondAttribute="top" constant="16" id="ccI-6y-ljj"/>
+                            <constraint firstAttribute="trailing" secondItem="nFg-zD-itB" secondAttribute="trailing" constant="16" id="ge0-kU-kU3"/>
+                            <constraint firstAttribute="bottom" secondItem="nFg-zD-itB" secondAttribute="bottom" constant="16" id="rQk-fU-jbe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ToI-X1-pfK"/>
                     </scrollView>
