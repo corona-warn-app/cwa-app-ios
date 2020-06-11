@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,20 +15,23 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
+import Foundation
 import UIKit
+@testable import ENA
 
-class NotificationSettingsOffTableViewCell: UITableViewCell {
-	@IBOutlet var descriptionLabel: ENALabel!
-	@IBOutlet var stateLabel: ENALabel!
+class MockExposureSubmissionNavigationControllerChild: UIViewController {
+	var didTapButtonCallback: (() -> Void)?
+	var didTapSecondButtonCallback: (() -> Void)?
+}
 
-	func configure(viewModel: NotificationSettingsViewModel.SettingsOffItem) {
-		descriptionLabel.text = viewModel.description
-		stateLabel.text = viewModel.state
+extension MockExposureSubmissionNavigationControllerChild: ExposureSubmissionNavigationControllerChild {
+	func didTapButton() {
+		didTapButtonCallback?()
+	}
 
-		isAccessibilityElement = true
-		accessibilityLabel = descriptionLabel.text
-		accessibilityTraits = .none
-
+	func didTapSecondButton() {
+		didTapSecondButtonCallback?()
 	}
 }

@@ -87,7 +87,6 @@
                                                                     </connections>
                                                                 </switch>
                                                             </subviews>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="ttn-a7-w0H" secondAttribute="trailing" id="CNv-eR-5X6"/>
                                                                 <constraint firstItem="ttn-a7-w0H" firstAttribute="leading" secondItem="yn0-sa-eIJ" secondAttribute="leading" id="HmR-Ls-yth"/>

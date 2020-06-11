@@ -21,9 +21,11 @@ import Foundation
 enum KeychainHelper {
 	static func saveToKeychain(key: String, data: Data) -> OSStatus {
 		let query = [
-			kSecClass as String: kSecClassGenericPassword as String,
-			kSecAttrAccount as String: key,
-			kSecValueData as String: data ] as [String: Any]
+			kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
+			kSecClass: kSecClassGenericPassword,
+			kSecAttrAccount: key,
+			kSecValueData: data
+		] as [CFString: Any]
 
 		SecItemDelete(query as CFDictionary)
 		return SecItemAdd(query as CFDictionary, nil)
