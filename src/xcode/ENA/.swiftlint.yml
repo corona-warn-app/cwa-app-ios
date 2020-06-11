@@ -198,6 +198,7 @@ disabled_rules:
   - type_name
   - identifier_name
   - redundant_string_enum_value # disabled because it conflicts with explicit_enum_raw_value
+# - todo # keep this in here for the CI to work properly (will be uncommented on the CI so it can use the `--strict` mode)
 
 # Included paths (disables --path option)
 included:

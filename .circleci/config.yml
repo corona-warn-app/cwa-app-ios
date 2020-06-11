@@ -12,6 +12,9 @@ jobs:
           name: Install dependencies
           command: brew install swiftlint && cd src/xcode && bundle install
       - run:
+          name: Disable SwiftLint rule todo
+          command: sed -i '' "s/# - todo/  - todo/g" src/xcode/ENA/.swiftlint.yml
+      - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build
   test:
