@@ -31,12 +31,4 @@ extension UIView {
 			self.addSubview(subView)
 		}
 	}
-
-	/// Convenience constraint setting for width and height layout constraints.
-	func setConstraint(
-		for anchor: NSLayoutDimension,
-		equalTo constant: CGFloat
-	) {
-		anchor.constraint(equalToConstant: constant).isActive = true
-	}
 }

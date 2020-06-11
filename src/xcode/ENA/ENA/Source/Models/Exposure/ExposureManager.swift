@@ -26,6 +26,7 @@ enum ExposureNotificationError: Error {
 	case exposureNotificationUnavailable
 	/// Typically occurs when `activate()` is called more than once.
 	case apiMisuse
+	case unknown(String)
 }
 
 struct ExposureManagerState {
@@ -57,6 +58,7 @@ struct ExposureManagerState {
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
 	func activate(completionHandler: @escaping ENErrorHandler)
 	func invalidate()
+	var invalidationHandler: (() -> Void)? { get set }
 	@objc dynamic var exposureNotificationEnabled: Bool { get }
 	func setExposureNotificationEnabled(_ enabled: Bool, completionHandler: @escaping ENErrorHandler)
 	@objc dynamic var exposureNotificationStatus: ENStatus { get }
@@ -68,11 +70,12 @@ extension ENManager: Manager {}
 
 protocol ExposureManagerLifeCycle {
 	typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
-	func invalidate()
+	func invalidate(handler:(() -> Void)?)
 	func activate(completion: @escaping CompletionHandler)
 	func enable(completion: @escaping CompletionHandler)
 	func disable(completion: @escaping CompletionHandler)
 	func preconditions() -> ExposureManagerState
+	func reset(handler: (() -> Void)?)
 	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void))
 }
 
@@ -108,12 +111,12 @@ protocol ENAExposureManagerObserver: AnyObject {
 
 /// Wrapper for ENManager to avoid code duplication and to abstract error handling
 final class ENAExposureManager: NSObject, ExposureManager {
+
 	// MARK: Properties
 
-	private weak var observer: ENAExposureManagerObserver?
-//	private var enabledObservation: NSKeyValueObservation?
+	private weak var exposureManagerObserver: ENAExposureManagerObserver?
 	private var statusObservation: NSKeyValueObservation?
-	@objc private let manager: Manager
+	@objc private var manager: Manager
 
 	// MARK: Creating a Manager
 
@@ -126,18 +129,11 @@ final class ENAExposureManager: NSObject, ExposureManager {
 
 	func resume(observer: ENAExposureManagerObserver) {
 		precondition(
-			self.observer == nil,
+			self.exposureManagerObserver == nil,
 			"Cannot resume an exposure manager that is already resumed."
 		)
 
-		self.observer = observer
-
-//		enabledObservation = observe(\.manager.exposureNotificationEnabled, options: .new) { [weak self] _, _ in
-//			guard let self = self else { return }
-//			DispatchQueue.main.async {
-//				observer.exposureManager(self, didChangeState: self.preconditions())
-//			}
-//		}
+		self.exposureManagerObserver = observer
 
 		statusObservation = observe(\.manager.exposureNotificationStatus, options: .new) { [weak self] _, _ in
 			guard let self = self else { return }
@@ -186,6 +182,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			completion(nil)
 		}
 	}
+
+
+	private func disableIfNeeded(completion:@escaping CompletionHandler) {
+		manager.exposureNotificationEnabled ? disable(completion: completion) : completion(nil)
+	}
+
 
 	/// Returns an instance of the OptionSet `Preconditions`
 	/// Only if `Preconditions.all()`
@@ -241,18 +243,35 @@ final class ENAExposureManager: NSObject, ExposureManager {
 			case .apiMisuse:
 				completion(ExposureNotificationError.apiMisuse)
 			default:
-				let error = "[ExposureManager] Not implemented \(error.localizedDescription)"
-				logError(message: error)
-				// fatalError(error)
+				let errorMsg = "[ExposureManager] Not implemented \(error.localizedDescription)"
+				logError(message: errorMsg)
+				completion(ExposureNotificationError.unknown(error.localizedDescription))
 			}
 		}
 	}
 
 	// MARK: Invalidate
 
-	func invalidate() {
+
+	/// Invalidate the EnManager with completion handler
+	func invalidate(handler: (() -> Void)?) {
+		manager.invalidationHandler = handler
 		manager.invalidate()
 	}
+
+
+	/// Reset the ExposureManager
+	func reset(handler: (() -> Void)?) {
+		statusObservation?.invalidate()
+		disableIfNeeded { _ in
+			self.exposureManagerObserver = nil
+			self.invalidate {
+				self.manager = ENManager()
+				handler?()
+			}
+		}
+	}
+
 
 	// MARK: Memory
 

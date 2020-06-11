@@ -212,6 +212,7 @@
                         <outlet property="discardButton" destination="Nx1-Do-hf7" id="Vtr-sD-lMk"/>
                         <outlet property="footerView" destination="VZq-Fq-6XF" id="n0N-mi-fTd"/>
                         <outlet property="header1Label" destination="XDb-RN-MMz" id="QRR-5x-Jvb"/>
+                        <outlet property="imageView" destination="53g-kI-NE1" id="U6S-X0-NR0"/>
                         <outlet property="infoDescriptionLabel" destination="QgA-Zf-xZr" id="O5C-5d-4KW"/>
                         <outlet property="infoTitleLabel" destination="Nbj-X3-Z5h" id="qn0-kz-VIk"/>
                         <outlet property="infoView" destination="e8n-J6-m3c" id="lFX-mV-ZzF"/>
