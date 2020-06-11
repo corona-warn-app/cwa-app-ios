@@ -62,7 +62,7 @@ extension ExposureDetectionViewController {
 
 		titleLabel.accessibilityTraits = .header
 
-    closeControl.isAccessibilityElement = true
+		closeControl.isAccessibilityElement = true
 		closeControl.accessibilityTraits = .button
 		closeControl.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		closeControl.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
