@@ -18,16 +18,96 @@
 import XCTest
 
 class ENAUITests: XCTestCase {
-	override func setUpWithError() throws {
-		// Put setup code here. This method is called before the invocation of each test method in the class.
+	var app: XCUIApplication!
 
-		// In UI tests it is usually best to stop immediately when a failure occurs.
+	override func setUp() {
 		continueAfterFailure = false
-
-		// In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+		app = XCUIApplication()
+		setupSnapshot(app)
+		app.setDefaults()
+		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
 	}
+
 
 	override func tearDownWithError() throws {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
+
+	func test_0000_Generate_Screenshots_For_AppStore() throws {
+
+		let snapshotsActive = false
+
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .M)
+		app.launch()
+
+		//// ScreenShot_0001: Onboarding screen 1
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: 5.0))
+		if snapshotsActive { snapshot("ScreenShot_0001") }
+
+		/// ScreenShot_0002: Homescreen (low risk)
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
+		if snapshotsActive { snapshot("ScreenShot_0002") }
+
+		//// ScreenShot_0003: Risk view (low risk)
+		XCTAssertTrue(app.buttons["RiskLevelCollectionViewCell.topContainer"].waitForExistence(timeout: 5.0))
+		app.buttons["RiskLevelCollectionViewCell.topContainer"].tap()
+		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5.0))
+		if snapshotsActive { snapshot("ScreenShot_0003") }
+
+		//// ScreenShot_0004: Settings > Risk exposure
+		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
+		app.swipeUp()
+		XCTAssertTrue(app.cells["AppStrings.Home.settingsCardTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.settingsCardTitle"].tap()
+		XCTAssertTrue(app.cells["AppStrings.Settings.tracingLabel"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Settings.tracingLabel"].tap()
+		XCTAssertTrue(app.images["AppStrings.ExposureNotificationSetting.accLabelEnabled"].waitForExistence(timeout: 5.0))
+		if snapshotsActive { snapshot("ScreenShot_0004") }
+
+		//// ScreenShot_0005: Test Options
+		// todo: need accessibility for Settings (navigation bar back button)
+		XCTAssertTrue(app.navigationBars.buttons.element(boundBy: 0).waitForExistence(timeout: 5.0))
+		app.navigationBars.buttons.element(boundBy: 0).tap()
+		XCTAssertTrue(app.navigationBars.buttons.element(boundBy: 0).waitForExistence(timeout: 5.0))
+		app.navigationBars.buttons.element(boundBy: 0).tap()
+		app.swipeDown()
+		// todo: need accessibility for Notify and Help
+		XCTAssertTrue(app.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.Home.submitCardButton"].tap()
+		// todo: need accessibility for Next
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: 5.0))
+		if snapshotsActive { snapshot("ScreenShot_0005") }
+
+
+		//// ScreenShot_0006: Result screen: negative
+		XCTAssertTrue(app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
+		// TODO: need mock data to access the negative results
+		if snapshotsActive { snapshot("ScreenShot_0006") }
+
+		//// ScreenShot_0007: Share screen
+		// todo: need accessibility for Back (navigation bar back button)
+		XCTAssertTrue(app.buttons["AppStrings.AccessibilityLabel.close"].waitForExistence(timeout: 5.0))
+		app.buttons["AppStrings.AccessibilityLabel.close"].tap()
+		XCTAssertTrue(app.cells["AppStrings.Home.infoCardShareTitle"].waitForExistence(timeout: 5.0))
+		app.cells["AppStrings.Home.infoCardShareTitle"].tap()
+		if snapshotsActive { snapshot("ScreenShot_0007") }
+
+		print("Snapshot.screenshotsDirectory")
+		print(Snapshot.screenshotsDirectory?.path ?? "unknown output directory")
+
+	}
+
 }
