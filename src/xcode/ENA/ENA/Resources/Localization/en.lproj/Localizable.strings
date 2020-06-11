@@ -41,7 +41,7 @@
 
 "ExposureDetection_Refreshed_Never" = "Unknown";
 
-"ExposureDetection_RefreshingIn" = "Update in %02d:%02d\\U00A0minutes";
+"ExposureDetection_RefreshingIn" = "Update in %02d:%02d\U00A0minutes";
 
 "ExposureDetection_Refresh_24h" = "Updated every 24 hours";
 
@@ -522,7 +522,7 @@
 
 "Home_Risk_No_Date_Title" = "Unknown";
 
-"Home_Risk_Period_Update_Title" = "Updated every %@\\U00A0hours";
+"Home_Risk_Period_Update_Title" = "Updated every %@\U00A0hours";
 
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Risk Unknown";
