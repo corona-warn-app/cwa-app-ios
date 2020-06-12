@@ -225,6 +225,8 @@
 
 "ExposureSubmissionTanEntry_Title" = "TAN Entry";
 
+"ExposureSubmissionTanEntry_EntryField" = "TAN Entry Field";
+
 "ExposureSubmissionTanEntry_Info" = "Please enter the TAN you were given:";
 
 "ExposureSubmissionTanEntry_Description" = "Please enter the 10-digit TAN that you were given.";
