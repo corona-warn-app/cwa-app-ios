@@ -22,8 +22,7 @@ import UIKit
 final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
 	// MARK: Properties
 
-	@IBOutlet var closeControl: UIControl!
-	@IBOutlet var closeImage: UIImageView!
+	@IBOutlet var closeButton: UIButton!
 	@IBOutlet var headerView: UIView!
 	@IBOutlet var titleViewBottomConstraint: NSLayoutConstraint!
 	@IBOutlet var titleLabel: UILabel!
@@ -62,10 +61,10 @@ extension ExposureDetectionViewController {
 
 		titleLabel.accessibilityTraits = .header
 
-    closeControl.isAccessibilityElement = true
-		closeControl.accessibilityTraits = .button
-		closeControl.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		closeControl.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+		closeButton.isAccessibilityElement = true
+		closeButton.accessibilityTraits = .button
+		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		closeButton.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
 
 		consumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
@@ -165,9 +164,11 @@ extension ExposureDetectionViewController {
 
 	private func updateCloseButton() {
 		if state.isTracingEnabled && state.riskLevel != .unknownOutdated {
-			closeImage.image = UIImage(named: "Icons - Close - Contrast")
+			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
+			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
 		} else {
-			closeImage.image = UIImage(named: "Icons - Close")
+			closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
+			closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
 		}
 	}
 
