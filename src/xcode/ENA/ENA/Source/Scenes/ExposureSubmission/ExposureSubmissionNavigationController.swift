@@ -105,7 +105,14 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	/// Returns the root view controller, depending on whether we have a
 	/// registration token or not.
 	private func getRootViewController() -> UIViewController {
+		#if UITESTING
+		if ProcessInfo.processInfo.arguments.contains("-negativeResult") {
+			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
+			vc.testResult = .negative
+			return vc
+		}
 
+		#else
 		// We got a test result and can jump straight into the test result view controller.
 		if let service = exposureSubmissionService, testResult != nil, service.hasRegistrationToken() {
 			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
@@ -113,6 +120,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			vc.testResult = testResult
 			return vc
 		}
+		#endif
 
 		// By default, we show the intro view.
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self)

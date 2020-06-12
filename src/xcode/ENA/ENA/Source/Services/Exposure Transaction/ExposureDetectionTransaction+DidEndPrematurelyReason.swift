@@ -45,7 +45,7 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 			guard let enError = error as? ENError else {
 				return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoSummary"
 			}
-			return AppStrings.ExposureDetectionError.errorAlertMessage + " EN Code: \(enError.code)"
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " EN Code: \(enError.code.rawValue)"
 		case .noDaysAndHours:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoDaysAndHours"
 		case .noExposureConfiguration:

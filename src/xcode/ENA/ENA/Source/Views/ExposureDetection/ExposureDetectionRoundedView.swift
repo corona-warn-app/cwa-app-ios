@@ -34,6 +34,8 @@ class ExposureDetectionRoundedView: UIView {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		applyRoundedCorners()
+
+		backgroundColor = UIColor.enaColor(for: .textPrimary1Contrast).withAlphaComponent(0.1)
 	}
 
 	private func applyRoundedCorners() {
