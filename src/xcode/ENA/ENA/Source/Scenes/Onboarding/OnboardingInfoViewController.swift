@@ -150,7 +150,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 		titleLabel.text = onboardingInfo.title
 
-		let exposureNotificationsNotSet = exposureManagerState.status == .unknown
+		let exposureNotificationsNotSet = exposureManagerState.status == .unknown || exposureManagerState.status == .bluetoothOff
 		let exposureNotificationsEnabled = exposureManagerState.enabled
 		let exposureNotificationsDisabled = !exposureNotificationsEnabled && !exposureNotificationsNotSet
 		let showStateView = onboardingInfo.showState && !exposureNotificationsNotSet
