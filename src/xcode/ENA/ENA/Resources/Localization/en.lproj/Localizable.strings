@@ -35,7 +35,7 @@
 
 "ExposureDetection_High" = "Higher Risk";
 
-"ExposureDetection_NumberOfDaysStored" = "%d of days active";
+"ExposureDetection_NumberOfDaysStored" = "%d of 14 days active";
 
 "ExposureDetection_Refreshed" = "Updated: %@";
 
@@ -303,13 +303,13 @@
 
 "ExposureSubmissionQRScanner_CameraFlash" = "Camera flash";
 
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Turn On";
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Turned On";
 
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Turn Off";
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Turned Off";
 
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Turn On Camera Flash";
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Turn on camera flash";
 
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn Off Camera Flash";
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn off camera flash";
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Thank you!";
