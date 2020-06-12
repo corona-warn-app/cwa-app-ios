@@ -787,6 +787,14 @@
 
 "Reset_ImageDescription" = "One person is holding a device displaying a symbol indicating that the app is being reset.";
 
+"Reset_ConfirmDialog_Title" = "Reset App";
+
+"Reset_ConfirmDialog_Description" = "You will no longer be notified of your exposures and you will no longer be able to warn other users. This procedure cannot be undone.";
+
+"Reset_ConfirmDialog_Cancel"  = "Cancel";
+
+"Reset_ConfirmDialog_Confirm" = "Reset";
+
 /* Safari */
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
 
