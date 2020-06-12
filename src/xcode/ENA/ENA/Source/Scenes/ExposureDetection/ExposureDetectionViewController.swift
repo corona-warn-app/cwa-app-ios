@@ -62,7 +62,7 @@ extension ExposureDetectionViewController {
 
 		titleLabel.accessibilityTraits = .header
 
-    closeControl.isAccessibilityElement = true
+		closeControl.isAccessibilityElement = true
 		closeControl.accessibilityTraits = .button
 		closeControl.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		closeControl.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
@@ -84,11 +84,12 @@ extension ExposureDetectionViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		switch state.detectionMode {
-		case .automatic:
+		if footerView.isHidden {
 			tableView.contentInset.bottom = 0
-		case .manual:
-			tableView.contentInset.bottom = footerView.frame.height
+			tableView.verticalScrollIndicatorInsets.bottom = 0
+		} else {
+			tableView.contentInset.bottom = footerView.frame.height - tableView.safeAreaInsets.bottom
+			tableView.verticalScrollIndicatorInsets.bottom = tableView.contentInset.bottom
 		}
 	}
 

@@ -102,6 +102,10 @@
 
 "Settings_StatusInactive" = "Off";
 
+"Settings_StatusEnable" = "Enable";
+
+"Settings_StatusDisable" = "Disable";
+
 "Settings_KontaktProtokollStatusActive" = "Active";
 
 "Settings_KontaktProtokollStatusInactive" = "Stopped";
@@ -221,6 +225,8 @@
 
 "ExposureSubmissionTanEntry_Title" = "TAN Entry";
 
+"ExposureSubmissionTanEntry_EntryField" = "TAN Entry Field";
+
 "ExposureSubmissionTanEntry_Info" = "Please enter the TAN you were given:";
 
 "ExposureSubmissionTanEntry_Description" = "Please enter the 10-digit TAN that you were given.";
@@ -273,6 +279,8 @@
 
 "ExposureSubmission_TANInputButtonTitle" = "Enter TAN";
 
+"ExposureSubmissionHotline_imageDescription" = "Hotline employee tells a TAN.";
+
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR Code Scan";
 
@@ -285,6 +293,16 @@
 "ExposureSubmissionQRScanner_otherError" = "An unknown error occurred.";
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";
+
+"ExposureSubmissionQRScanner_CameraFlash" = "Camera Flash";
+
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Enabled";
+
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Disabled";
+
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Turn flash on";
+
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn flash off";
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Thank you!";
@@ -842,3 +860,9 @@
 
 "Update_Message_Action_Later" = "Later";
 
+/* ENATanInput*/
+"ENATanInput_Empty" = "Empty";
+
+"ENATanInput_InvalidCharacter" = "Invalid Character\n\n%@";
+
+"ENATanInput_CharacterIndex" = "Character %1$u of %2$u";

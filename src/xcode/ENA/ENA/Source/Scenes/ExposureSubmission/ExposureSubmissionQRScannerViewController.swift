@@ -82,6 +82,7 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 		super.viewDidLoad()
 		
 		setupView()
+		updateToggleFlashAccessibility()
 		prepareScanning()
 	}
 
@@ -100,6 +101,20 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 		instructionLabel.layer.shadowOpacity = 1
 		instructionLabel.layer.shadowRadius = 3
 		instructionLabel.layer.shadowOffset = .init(width: 0, height: 0)
+	}
+
+	private func updateToggleFlashAccessibility() {
+		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
+		flashButton.accessibilityCustomActions?.removeAll()
+		flashButton.accessibilityTraits = [.button]
+
+		if flashButton.isSelected {
+			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOnValue
+			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityDisableAction, target: self, selector: #selector(toggleFlash))]
+		} else {
+			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOffValue
+			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityEnableAction, target: self, selector: #selector(toggleFlash))]
+		}
 	}
 
 	private func prepareScanning() {
@@ -179,6 +194,8 @@ final class ExposureSubmissionQRScannerViewController: UIViewController, QRScann
 			}
 
 			device.unlockForConfiguration()
+
+			updateToggleFlashAccessibility()
 		} catch {
 			log(message: error.localizedDescription, level: .error)
 		}
