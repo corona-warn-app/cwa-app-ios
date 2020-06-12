@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="385" height="195"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BsT-dg-Xpx">
+                <view clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BsT-dg-Xpx">
                     <rect key="frame" x="16" y="16" width="353" height="163"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3vq-uJ-Wvp">
@@ -100,6 +100,11 @@
                         <constraint firstAttribute="bottomMargin" secondItem="3vq-uJ-Wvp" secondAttribute="bottom" id="jkG-m4-ojt"/>
                     </constraints>
                     <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="16"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
             <constraints>
