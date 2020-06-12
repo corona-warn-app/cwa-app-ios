@@ -63,12 +63,9 @@ final class SettingsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		tableView.delegate = self
-		tableView.dataSource = self
 		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.title = AppStrings.Settings.navigationBarTitle
-		navigationController?.navigationBar.prefersLargeTitles = true
 
 		setupView()
 	}
@@ -174,19 +171,12 @@ extension SettingsViewController {
 		1
 	}
 
-	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		let section = Sections.allCases[section]
-
-		switch section {
-		case .reset:
-			return 40
-		case .tracing, .notifications:
-			return 20
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		switch Sections.allCases[section] {
+		case .tracing: return 32
+		case .reset: return 48
+		default: return UITableView.automaticDimension
 		}
-	}
-
-	override func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
-		UIView()
 	}
 
 	override func tableView(_: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -223,8 +213,10 @@ extension SettingsViewController {
 		switch section {
 		case .tracing:
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
+			cell.accessibilityIdentifier = "AppStrings.Settings.tracingLabel"
 		case .notifications:
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
+			cell.accessibilityIdentifier = "AppStrings.Settings.notificationLabel"
 		case .reset:
 			guard let labelCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? LabelTableViewCell else {
 				fatalError("No cell for reuse identifier.")
@@ -233,6 +225,7 @@ extension SettingsViewController {
 			labelCell.titleLabel.text = settingsViewModel.reset
 
 			cell = labelCell
+			cell.accessibilityIdentifier = "AppStrings.Settings.resetLabel"
 		}
 
 		cell.isAccessibilityElement = true

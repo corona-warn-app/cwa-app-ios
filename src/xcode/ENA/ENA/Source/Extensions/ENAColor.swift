@@ -71,6 +71,7 @@ public extension UIColor {
 	}
 
 	#if TARGET_INTERFACE_BUILDER
+	// swiftlint:disable:next cyclomatic_complexity
 	static func enaColor(for style: ENAColor, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
 		switch style {
 		case .background: return UIColor(rgb: 0xFFFFFF, alpha: 1.0)
@@ -80,6 +81,8 @@ public extension UIColor {
 		case .separator: return UIColor(rgb: 0xF5F5F5, alpha: 1.0)
 		case .textContrast: return UIColor(rgb: 0xFFFFFF, alpha: 1.0)
 		case .textPrimary1: return UIColor(rgb: 0x17191A, alpha: 1.0)
+		case .textSemanticRed: return UIColor(rgb: 0xC00F2D, alpha: 1.0)
+		case .textSemanticGray: return UIColor(rgb: 0x5D6E80, alpha: 1.0)
 		case .textTint: return UIColor(rgb: 0x007FAD, alpha: 1.0)
 		case .tint: return UIColor(rgb: 0x007FAD, alpha: 1.0)
 		default:
