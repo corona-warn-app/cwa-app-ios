@@ -276,6 +276,10 @@
 
 "ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:";
 
+"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Schritt 1 von 2";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Schritt 2 von 2";
+
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
 "ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.";
