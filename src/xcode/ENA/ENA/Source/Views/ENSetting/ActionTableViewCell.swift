@@ -74,6 +74,8 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 			detailLabel.isHidden = true
 			switchContainerView.isHidden = false
 		}
+
+		setupAccessibility()
 	}
 
 	func configure(
@@ -83,4 +85,36 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		self.delegate = delegate
 		configure(for: state)
 	}
+
+	@objc
+	func toggle(_ sender: Any) {
+		actionSwitch.isOn.toggle()
+		setupAccessibility()
+	}
+
+	private func setupAccessibility() {
+		accessibilityIdentifier = "AppStrings.ExposureNotificationSetting.enableTracing"
+
+		isAccessibilityElement = true
+		accessibilityTraits = [.button]
+
+		accessibilityCustomActions?.removeAll()
+
+		let actionName = actionSwitch.isOn ? AppStrings.Settings.statusDisable : AppStrings.Settings.statusEnable
+		accessibilityCustomActions = [
+			UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(toggle(_:)))
+		]
+
+		accessibilityLabel = AppStrings.ExposureNotificationSetting.enableTracing
+		if switchContainerView.isHidden {
+			accessibilityLabel = AppStrings.ExposureNotificationSetting.enableTracing
+		} else {
+			if actionSwitch.isOn {
+				accessibilityValue = AppStrings.Settings.notificationStatusActive
+			} else {
+				accessibilityValue = AppStrings.Settings.notificationStatusInactive
+			}
+		}
+	}
+
 }
