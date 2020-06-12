@@ -201,10 +201,16 @@
                         <viewLayoutGuide key="safeArea" id="DEG-xR-O81"/>
                     </view>
                     <navigationItem key="navigationItem" title="# Anwendung zurücksetzen" largeTitleDisplayMode="always" id="mPv-pG-gEC">
-                        <barButtonItem key="rightBarButtonItem" image="Icons - Close" id="8oP-Eo-jxM">
-                            <connections>
-                                <action selector="discard:" destination="uYn-mg-qmD" id="eXE-Xa-1yx"/>
-                            </connections>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="ywT-lT-8u8">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7lU-s0-vJG">
+                                <rect key="frame" x="302" y="13" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Icons - Close"/>
+                                <state key="highlighted" image="Icons - Close - Tap"/>
+                                <connections>
+                                    <action selector="discard:" destination="uYn-mg-qmD" eventType="primaryActionTriggered" id="5KN-eY-ijl"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -679,6 +685,7 @@
     </scenes>
     <resources>
         <image name="Icons - Close" width="30" height="30"/>
+        <image name="Icons - Close - Tap" width="30" height="30"/>
         <image name="Icons_Settings_Risikoermittlung" width="28" height="28"/>
         <image name="Illu_AppZuruecksetzen" width="375" height="229"/>
         <image name="Illu_Mitteilungen_On" width="375" height="229"/>
