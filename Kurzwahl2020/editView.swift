@@ -74,18 +74,22 @@ struct editView: View {
                         Button(action: {
                             self.navigation.advance(NavigationItem(
                                 view: AnyView(ContactView()))) }) {
-                                    Text("Contacts").foregroundColor(Color.accentColor)
-                                    Spacer()
-                                    Image(systemName: "person.2")
-                        }.buttonStyle(PlainButtonStyle())
+                                    HStack {
+                                        Text("Contacts").foregroundColor(Color.accentColor)
+                                        Spacer()
+                                        Image(systemName: "person.2")
+                                    }
+                        }//.buttonStyle(PlainButtonStyle())
                     } else {
                         Button(action: {
                             self.navigation.advance(NavigationItem(
                                 view: AnyView(AskForAccessToContactsView()))) }) {
-                                    Text("Contacts").foregroundColor(Color.accentColor)
-                                    Spacer()
-                                    Image(systemName: "person.2")
-                        }.buttonStyle(PlainButtonStyle())
+                                    HStack {
+                                        Text("Contacts").foregroundColor(Color.accentColor)
+                                        Spacer()
+                                        Image(systemName: "person.2")
+                                    }
+                        }//.buttonStyle(PlainButtonStyle())
                     }
                     
                 }
@@ -93,11 +97,13 @@ struct editView: View {
                 HStack {
                     Button(action: {
                         self.cleanEditViewState()
-                        }) {
+                    }) {
+                        HStack {
                             Text("Clear").foregroundColor(Color.accentColor)
                             Spacer()
                             Image(systemName: "trash")
-                    }.buttonStyle(PlainButtonStyle())//.font(Font.system(size: 22))
+                        }
+                    }//.buttonStyle(PlainButtonStyle())//.font(Font.system(size: 22))
                 }
             }
             

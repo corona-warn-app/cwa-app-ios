@@ -28,25 +28,25 @@ struct SettingsView: View {
                         self.navigation.advance(NavigationItem(
                     view: AnyView(ColorSelectView()))) }) {
                         Text("Colors")
-                    }.buttonStyle(PlainButtonStyle())
+                    }//.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
                     view: AnyView(AskForAccessToContactsView()))) }) {
                         Text("Help")
-                    }.buttonStyle(PlainButtonStyle())
+                    }//.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
                     view: AnyView(PrivacyView()))) }) {
                         Text("Privacy Statement")
-                    }.buttonStyle(PlainButtonStyle())
+                    }//.buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.navigation.advance(NavigationItem(
                     view: AnyView(AboutView()))) }) {
                         Text("About")
-                    }.buttonStyle(PlainButtonStyle())
+                    }//.buttonStyle(PlainButtonStyle())
 
                 }.navigationBarTitle(Text("Settings"))
             }
