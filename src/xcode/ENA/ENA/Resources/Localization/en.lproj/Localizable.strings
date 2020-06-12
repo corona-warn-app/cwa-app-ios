@@ -35,7 +35,7 @@
 
 "ExposureDetection_High" = "Higher Risk";
 
-"ExposureDetection_NumberOfDaysStored" = "%d of 14 days saved";
+"ExposureDetection_NumberOfDaysStored" = "%d of days active";
 
 "ExposureDetection_Refreshed" = "Updated: %@";
 
@@ -98,11 +98,11 @@
 "ExposureDetection_Button_Refresh" = "Update";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Something went wrong";
+"ExposureDetectionError_Alert_Title" = "Something went wrong.";
 
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
-"ExposureDetectionError_Alert_Message" = "An error occurred during risk calculation.";
+"ExposureDetectionError_Alert_Message" = "An error occurred during exposure logging.";
 
 /* Settings */
 "Settings_StatusActive" = "On";
@@ -278,7 +278,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Languages: \nGerman, English, Turkish\n\nBusiness hours:\nMonday to Friday: 8am - 10pm; \nSaturday to Sunday: 10am - 10pm\n\nThe call is free of charge.";
+"ExposureSubmission_PhoneDetailDescription" = "Languages: \nGerman, English, Turkish\n\nBusiness hours:\nMonday to Sunday: 24 hours\n\nThe call is free of charge.";
 
 "ExposureSubmission_SectionDescription2" = "Register the test by entering the TAN in the app.";
 
@@ -301,15 +301,15 @@
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";
 
-"ExposureSubmissionQRScanner_CameraFlash" = "Camera Flash";
+"ExposureSubmissionQRScanner_CameraFlash" = "Camera flash";
 
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Enabled";
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Turn On";
 
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Disabled";
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Turn Off";
 
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Turn flash on";
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Turn On Camera Flash";
 
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn flash off";
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn Off Camera Flash";
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Thank you!";
@@ -647,7 +647,7 @@
 
 "Home_InfoCard_AboutTitle" = "FAQ";
 
-"Home_InfoCard_AboutBody" = "Here you can find answers to frequently asked questions about the Corona-Warn-App.";
+"Home_InfoCard_AboutBody" = "Here you can find answers to frequently asked questions about the Corona-Warn-App. You will be forwarded to an external website.";
 
 "Home_SettingsCard_Title" = "Settings";
 
