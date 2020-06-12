@@ -41,7 +41,7 @@
 
 "ExposureDetection_Refreshed_Never" = "Unbekannt";
 
-"ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d\U00A0Minuten";
+"ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d\\U00A0Minuten";
 
 "ExposureDetection_Refresh_24h" = "Aktualisierung alle 24 Stunden";
 
@@ -194,9 +194,9 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Ein positiver Testbefund wird verschlüsselt ins System übermittelt, das nun andere Nutzerinnen und Nutzer warnt.";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie positiv getestet werden…";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Falls Sie Corona-positiv getestet werden...";
 
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "…teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "...teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufallscodes Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.";
 
@@ -271,7 +271,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch\n\nErreichbarkeit:\nMo - So: 00:00 - 24:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nÖffnungszeiten:\nMo - Fr: 08:00 - 22:00 Uhr; Sa - So: 10:00 - 22:00 Uhr\n\nDer Anruf ist kostenlos.";
 
 "ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 
@@ -528,9 +528,9 @@
 
 "Home_Risk_No_Date_Title" = "Unbekannt";
 
-"Home_Risk_Period_Update_Title" = "Aktualisierung alle %@\U00A0Stunden";
+"Home_Risk_Period_Update_Title" = "Aktualisierung alle %@\\U00A0Stunden";
 
-"Home_Risk_Period_Disabled_Button_Title" = "Aktualisierung nur alle %@H";
+"Home_Risk_Period_Disabled_Button_Title" = "Aktualisierung nur alle %@\\U00A0Stunden";
 
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Unbekanntes Risiko";
@@ -647,7 +647,7 @@
 
 "Home_resultCard_LoadingBody" = "Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.";
 
-"Home_resultCard_LoadingTitle" = "Aktualisierung läuft…";
+"Home_resultCard_LoadingTitle" = "Aktualisierung läuft...";
 
 "Home_resultCard_NegativeTitle" = "Befund negativ";
 
@@ -692,7 +692,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Unser Kundenservice ist für Sie da.";
 
-"App_Information_Contact_Hotline_Terms" = "Unsere Öffnungszeiten:\nMo - Sa: 08:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen) \n";
+"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch\n\nUnsere Öffnungszeiten:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenlos.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
@@ -747,7 +747,7 @@
 
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 
-"InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
+"InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
 
 "InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
@@ -850,9 +850,10 @@
 
 "Update_Message_Action_Later" = "Später";
 
-/* ENATanInput*/
+/* ENATanInput */
 "ENATanInput_Empty" = "Leer";
 
 "ENATanInput_InvalidCharacter" = "Ungültiges Zeichen\n\n%@";
 
 "ENATanInput_CharacterIndex" = "Zeichen %1$u von %2$u";
+
