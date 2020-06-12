@@ -20,35 +20,26 @@
 import Foundation
 import XCTest
 @testable import ENA
-class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 
-	private var service: MockExposureSubmissionService!
+class ExposureSubmissionSuccessViewControllerTests: XCTestCase {
 
 	override func setUp() {
 		super.setUp()
-		service = MockExposureSubmissionService()
 	}
 
-	private func createVC() -> ExposureSubmissionTanInputViewController {
-		return AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTanInputViewController.self)
+	private func createVC() -> ExposureSubmissionSuccessViewController {
+		return AppStoryboard.exposureSubmission.initiate(
+			viewControllerType: ExposureSubmissionSuccessViewController.self
+		)
 	}
 
-	func testTanInputSuccess() {
+	func testViewLoading() {
 		let vc = createVC()
 		_ = vc.view
-		vc.exposureSubmissionService = service
 
-		let expectation = self.expectation(description: "Call getRegistration service method.")
-		service.getRegistrationTokenCallback = { deviceRegistrationKey, completion in
-			expectation.fulfill()
-			completion(.success(""))
-		}
-
-		vc.tanInput.insertText("234567893D")
-		if vc.tanInput.isEnabled {
-			vc.didTapButton()
-		}
-		
-		waitForExpectations(timeout: .short)
+		XCTAssertEqual(vc.navigationItem.title, AppStrings.ExposureSubmissionSuccess.title)
+		XCTAssertTrue(vc.navigationItem.hidesBackButton)
+		XCTAssertEqual(vc.tableView.numberOfSections, 1)
+		XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), 9)
 	}
 }

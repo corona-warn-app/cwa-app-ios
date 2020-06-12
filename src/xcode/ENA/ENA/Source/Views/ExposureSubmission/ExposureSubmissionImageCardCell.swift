@@ -77,7 +77,7 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 			descriptionLabel.attributedText = attributedText
 		}
 
-		cardView.accessibilityLabel = "\(title)\n\n\(description)"
+		cardView.accessibilityLabel = "\(title)\n\n\(description) \(attributedDescription?.string ?? "")"
 		cardView.accessibilityIdentifier = accessibilityIdentifier
 	}
 
