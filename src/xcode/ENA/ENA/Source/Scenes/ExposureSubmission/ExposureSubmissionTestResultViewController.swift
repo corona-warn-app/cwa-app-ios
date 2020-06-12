@@ -86,7 +86,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 		}
 
 		tableView.register(
-			ExposureSubmissionTestResultHeaderView.self,
+			UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil),
 			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue
 		)
 		tableView.register(
