@@ -23,9 +23,25 @@ private extension DynamicCell {
 		var cell: DynamicCell = .icon(UIImage(systemName: "phone"), text: text, tintColor: .enaColor(for: .textPrimary1), action: .call(number: number)) { _, cell, _ in
 			cell.textLabel?.textColor = .enaColor(for: .textTint)
 			(cell.textLabel as? ENALabel)?.style = .title2
+
+			cell.isAccessibilityElement = true
 			cell.accessibilityIdentifier = accessibilityIdentifier
 			cell.accessibilityLabel = "\(AppStrings.AccessibilityLabel.phoneNumber):\n\n\(text)"
 			cell.accessibilityTraits = .button
+
+			cell.accessibilityCustomActions?.removeAll()
+
+			let actionName = "\(AppStrings.ExposureSubmissionHotline.callButtonTitle) \(AppStrings.AccessibilityLabel.phoneNumber)"
+			cell.accessibilityCustomActions = [
+				UIAccessibilityCustomAction(name: actionName, actionHandler: {  _ -> Bool in
+					if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)"),
+						UIApplication.shared.canOpenURL(url) {
+						UIApplication.shared.open(url, options: [:], completionHandler: nil)
+					}
+					return true
+				})
+			]
+
 		}
 		cell.tag = "phone"
 		return cell
