@@ -97,6 +97,13 @@
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
+/* Exposure Detection Errors */
+"ExposureDetectionError_Alert_Title" = "Etwas ist schief gelaufen";
+
+"ExposureDetectionError_Alert_Action_Details" = "Details";
+
+"ExposureDetectionError_Alert_Message" = "Während der Risiko-Ermittlung ist ein Fehler aufgetreten.";
+
 /* Settings */
 "Settings_StatusActive" = "An";
 
@@ -293,6 +300,16 @@
 "ExposureSubmissionQRScanner_otherError" = "Ein unbekannter Fehler ist aufgetreten.";
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.";
+
+"ExposureSubmissionQRScanner_CameraFlash" = "Kamerablitz";
+
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Eingeschaltet";
+
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Ausgeschaltet";
+
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Kamerablitz einschalten";
+
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Kamerablitz ausschalten";
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank!";

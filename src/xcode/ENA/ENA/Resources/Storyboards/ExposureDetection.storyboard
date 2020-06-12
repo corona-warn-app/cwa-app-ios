@@ -525,7 +525,7 @@
                                     <outlet property="delegate" destination="DFY-cN-Vfe" id="Gqn-Rh-hQi"/>
                                 </connections>
                             </tableView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKv-vN-XYX">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iKv-vN-XYX" customClass="ENAFooterView" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="984" width="414" height="116"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Yff-4j-Uub">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="116"/>
@@ -585,42 +585,32 @@
                                     <constraint firstItem="tYy-qm-bQA" firstAttribute="leading" secondItem="7J8-aC-PDv" secondAttribute="leading" id="sOB-7f-mys"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Yg-bN-9lH" customClass="UIControl">
-                                <rect key="frame" x="357" y="15" width="50" height="50"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icons - Close" translatesAutoresizingMaskIntoConstraints="NO" id="YMn-0h-IfS">
-                                        <rect key="frame" x="9" y="9" width="32" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="32" id="4SS-e6-rGY"/>
-                                            <constraint firstAttribute="height" constant="32" id="yXr-N0-R0S"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vb4-F2-qe9">
+                                <rect key="frame" x="360" y="18" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="KyL-KE-gfC"/>
-                                    <constraint firstItem="YMn-0h-IfS" firstAttribute="centerX" secondItem="6Yg-bN-9lH" secondAttribute="centerX" id="Rjy-W3-pZr"/>
-                                    <constraint firstAttribute="height" constant="50" id="VpC-vx-4OJ"/>
-                                    <constraint firstItem="YMn-0h-IfS" firstAttribute="centerY" secondItem="6Yg-bN-9lH" secondAttribute="centerY" id="aGj-i0-SBG"/>
+                                    <constraint firstAttribute="width" constant="44" id="Zfh-FA-14b"/>
+                                    <constraint firstAttribute="height" constant="44" id="mju-z3-xfe"/>
                                 </constraints>
+                                <state key="normal" image="Icons - Close - Contrast"/>
                                 <connections>
-                                    <action selector="tappedClose" destination="DFY-cN-Vfe" eventType="touchUpInside" id="nfs-0h-X6n"/>
+                                    <action selector="tappedClose" destination="DFY-cN-Vfe" eventType="primaryActionTriggered" id="c1n-dX-iAq"/>
                                 </connections>
-                            </view>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
-                            <constraint firstItem="YMn-0h-IfS" firstAttribute="top" secondItem="rGF-GP-JTN" secondAttribute="top" constant="24" id="4yc-mE-v10"/>
                             <constraint firstItem="QWK-uI-Gcu" firstAttribute="top" secondItem="tYy-qm-bQA" secondAttribute="bottom" id="8HO-Nr-P15"/>
-                            <constraint firstAttribute="trailing" secondItem="YMn-0h-IfS" secondAttribute="trailing" constant="16" id="C65-uA-Rda"/>
                             <constraint firstItem="7J8-aC-PDv" firstAttribute="leading" secondItem="rGF-GP-JTN" secondAttribute="leading" id="DCW-gT-1wi"/>
                             <constraint firstItem="QWK-uI-Gcu" firstAttribute="leading" secondItem="rGF-GP-JTN" secondAttribute="leading" id="Ft0-4H-dgJ"/>
                             <constraint firstAttribute="bottom" secondItem="iKv-vN-XYX" secondAttribute="bottom" id="GqU-0v-TjV"/>
                             <constraint firstAttribute="bottom" secondItem="QWK-uI-Gcu" secondAttribute="bottom" id="NCO-tT-C5e"/>
-                            <constraint firstItem="YMn-0h-IfS" firstAttribute="leading" secondItem="tYy-qm-bQA" secondAttribute="trailing" constant="16" id="PSY-7P-aB1"/>
                             <constraint firstAttribute="trailing" secondItem="QWK-uI-Gcu" secondAttribute="trailing" id="Wbr-2O-nMf"/>
                             <constraint firstItem="iKv-vN-XYX" firstAttribute="leading" secondItem="rGF-GP-JTN" secondAttribute="leading" id="XLP-9z-beX"/>
                             <constraint firstAttribute="trailing" secondItem="7J8-aC-PDv" secondAttribute="trailing" id="hDJ-Yl-zM1"/>
+                            <constraint firstItem="vb4-F2-qe9" firstAttribute="top" secondItem="rGF-GP-JTN" secondAttribute="top" constant="18" id="mEj-jv-mHj"/>
+                            <constraint firstAttribute="trailing" secondItem="vb4-F2-qe9" secondAttribute="trailing" constant="10" id="p9e-HJ-GJT"/>
                             <constraint firstAttribute="trailing" secondItem="iKv-vN-XYX" secondAttribute="trailing" id="rI0-zy-NO7"/>
+                            <constraint firstItem="vb4-F2-qe9" firstAttribute="leading" secondItem="LpH-l8-dtB" secondAttribute="trailing" constant="2" id="s8e-GO-BUb"/>
                             <constraint firstItem="7J8-aC-PDv" firstAttribute="top" secondItem="rGF-GP-JTN" secondAttribute="top" id="ykl-uj-O1j"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aWL-92-gDJ"/>
@@ -629,8 +619,7 @@
                     <size key="freeformSize" width="414" height="1154"/>
                     <connections>
                         <outlet property="checkButton" destination="cMV-Lp-NXE" id="z3i-Tb-KeN"/>
-                        <outlet property="closeControl" destination="6Yg-bN-9lH" id="QEg-XV-rXg"/>
-                        <outlet property="closeImage" destination="YMn-0h-IfS" id="SfS-Li-9HN"/>
+                        <outlet property="closeButton" destination="vb4-F2-qe9" id="lOt-Oy-6Uw"/>
                         <outlet property="footerView" destination="iKv-vN-XYX" id="YGA-MS-mvA"/>
                         <outlet property="headerView" destination="7J8-aC-PDv" id="xOD-4t-OhH"/>
                         <outlet property="tableView" destination="QWK-uI-Gcu" id="xbz-d0-nYX"/>
@@ -644,7 +633,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Icons - Close" width="30" height="30"/>
+        <image name="Icons - Close - Contrast" width="30" height="30"/>
         <image name="Icons - Home" width="32" height="32"/>
         <image name="Icons_Dot" width="32" height="32"/>
         <image name="Icons_RisikoBegegnung" width="32" height="32"/>
