@@ -87,7 +87,7 @@ final class AppUpdateCheckHelper {
 	func createAlert(_ type: UpdateAlertType, vc: UIViewController?) -> UIAlertController? {
 		let alert = UIAlertController(title: AppStrings.UpdateMessage.title, message: AppStrings.UpdateMessage.text, preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionUpdate, comment: ""), style: .cancel, handler: { _ in
-			 let url = URL(staticString: "https://apps.apple.com/de/app/Corona-Warn-App/id1512595757?mt=8")
+			 let url = URL(staticString: "https://apps.apple.com/de/app/corona-warn-app/id1512595757?mt=8")
 			UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		}))
 		switch type {
