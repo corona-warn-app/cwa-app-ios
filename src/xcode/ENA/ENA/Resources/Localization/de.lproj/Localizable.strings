@@ -31,11 +31,11 @@
 
 "ExposureDetection_Unknown" = "Unbekanntes Risiko";
 
-"ExposureDetection_Low" = "Geringes Risiko";
+"ExposureDetection_Low" = "Niedriges Risiko";
 
 "ExposureDetection_High" = "Erhöhtes Risiko";
 
-"ExposureDetection_NumberOfDaysStored" = "%d von 14 Tagen gespeichert";
+"ExposureDetection_NumberOfDaysStored" = "%d von 14 Tagen aktiv";
 
 "ExposureDetection_Refreshed" = "Aktualisiert: %@";
 
@@ -278,7 +278,7 @@
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
-"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nÖffnungszeiten:\nMo - Fr: 08:00 - 22:00 Uhr\nSa - So: 10:00 - 22:00 Uhr\n\nDer Anruf ist kostenfrei.";
+"ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.";
 
 "ExposureSubmission_SectionDescription2" = "Test per TAN-Eingabe in der App registrieren";
 
@@ -569,7 +569,7 @@
 
 "Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Unbekanntes Risiko";
 
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Geringes Risiko";
+"Home_Risk_Inactive_Activate_Item_Low_Title" = "Niedriges Risiko";
 
 "Home_Risk_Inactive_Activate_Item_High_Title" = "Erhöhtes Risiko";
 
@@ -647,7 +647,7 @@
 
 "Home_InfoCard_AboutTitle" = "Häufige Fragen";
 
-"Home_InfoCard_AboutBody" = "Hier finden Sie Antworten auf häufig gestellte Fragen rund um die Corona-Warn-App.";
+"Home_InfoCard_AboutBody" = "Hier finden Sie Antworten auf häufig gestellte Fragen rund um die Corona-Warn-App. Sie werden auf eine externe Website weitergeleitet.";
 
 "Home_SettingsCard_Title" = "Einstellungen";
 
@@ -709,7 +709,7 @@
 
 "App_Information_Contact_Hotline_Description" = "Unser Kundenservice ist für Sie da.";
 
-"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch\n\nUnsere Öffnungszeiten:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.";
+"App_Information_Contact_Hotline_Terms" = "Sprachen: Deutsch, Englisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.";
 
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "Impressum";
