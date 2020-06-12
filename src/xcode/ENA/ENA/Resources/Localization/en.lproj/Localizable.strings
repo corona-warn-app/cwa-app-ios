@@ -286,6 +286,16 @@
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";
 
+"ExposureSubmissionQRScanner_CameraFlash" = "Camera Flash";
+
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Enabled";
+
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Disabled";
+
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Turn flash on";
+
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn flash off";
+
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Thank you!";
 

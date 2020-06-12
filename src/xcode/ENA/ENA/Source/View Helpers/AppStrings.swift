@@ -126,6 +126,11 @@ enum AppStrings {
 		static let alertCodeNotFoundText = NSLocalizedString("ExposureSubmissionQRScanner_notFoundAlertText", comment: "")
 		static let otherError = NSLocalizedString("ExposureSubmissionQRScanner_otherError", comment: "")
 		static let cameraPermissionDenied = NSLocalizedString("ExposureSubmissionQRScanner_cameraPermissionDenied", comment: "")
+		static let flashButtonAccessibilityLabel = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash", comment: "")
+		static let flashButtonAccessibilityOnValue = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_On", comment: "")
+		static let flashButtonAccessibilityOffValue = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Off", comment: "")
+		static let flashButtonAccessibilityEnableAction = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Enable", comment: "")
+		static let flashButtonAccessibilityDisableAction = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Disable", comment: "")
 	}
 
 	enum ExposureSubmissionHotline {
