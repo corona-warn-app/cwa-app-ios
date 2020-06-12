@@ -143,8 +143,8 @@
                                     <constraint firstAttribute="trailing" secondItem="tVc-NJ-NnT" secondAttribute="trailing" id="dlE-zT-s1g"/>
                                 </constraints>
                             </scrollView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZq-Fq-6XF">
-                                <rect key="frame" x="0.0" y="668" width="414" height="174"/>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VZq-Fq-6XF" customClass="ENAFooterView" customModule="ENA" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="704" width="414" height="138"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GDV-z5-gaV">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="174"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

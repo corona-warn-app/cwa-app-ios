@@ -88,8 +88,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
-//		appUpdateChecker = AppUpdateCheckHelper(client: client, store: store)
-
 		exposureManager.resume(observer: self)
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
@@ -108,6 +106,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	func sceneWillEnterForeground(_ scene: UIScene) {
 		let state = exposureManager.preconditions()
 		updateExposureState(state)
+		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
 	func sceneDidEnterBackground(_ scene: UIScene) {
@@ -131,6 +130,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		setupNavigationBarAppearance()
 
 		#if UITESTING
+		// Present initial screen
 		if UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else {
@@ -146,8 +146,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
-		// TODO: Enable once Apple reviewed a higher version
-		// appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
+
 	}
 
 	private func setupNavigationBarAppearance() {
