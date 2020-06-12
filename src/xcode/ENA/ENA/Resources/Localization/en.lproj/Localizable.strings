@@ -97,6 +97,13 @@
 
 "ExposureDetection_Button_Refresh" = "Update";
 
+/* Exposure Detection Errors */
+"ExposureDetectionError_Alert_Title" = "Something went wrong";
+
+"ExposureDetectionError_Alert_Action_Details" = "Details";
+
+"ExposureDetectionError_Alert_Message" = "An error occurred during risk calculation.";
+
 /* Settings */
 "Settings_StatusActive" = "On";
 
