@@ -98,7 +98,7 @@
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
 /* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Etwas ist schief gelaufen";
+"ExposureDetectionError_Alert_Title" = "Etwas ist schief gelaufen.";
 
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
