@@ -33,9 +33,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		// make sure to reset it whenever the view appears.
 		setButtonTitle(to: AppStrings.ExposureSubmission.continueText)
 		button?.accessibilityIdentifier = "AppStrings.ExposureSubmission.continueText"
-		if exposureSubmissionService?.hasRegistrationToken() ?? false {
-			fetchResult()
-		}
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -46,13 +43,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		super.viewDidLoad()
 		setupView()
 		setupBackButton()
-
-		// Grab ExposureSubmissionService from the navigation controller
-		// (which is the entry point for the storyboard, and in which
-		// this controller is embedded.)
-		if let navC = navigationController as? ExposureSubmissionNavigationController {
-			exposureSubmissionService = navC.getExposureSubmissionService()
-		}
 	}
 
 	// MARK: - Setup helpers.
@@ -71,42 +61,13 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
-		
 		dynamicTableViewModel = .intro
-		
-	}
-	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		switch Segue(segue) {
-		case .labResult:
-			let destination = segue.destination as? ExposureSubmissionTestResultViewController
-			destination?.exposureSubmissionService = exposureSubmissionService
-			destination?.testResult = sender as? TestResult
-		default:
-			break
-		}
 	}
 
 	// MARK: - ExposureSubmissionNavigationControllerChild methods.
 
 	func didTapButton() {
 		performSegue(withIdentifier: Segue.overview, sender: self)
-	}
-
-	// MARK: - Helpers.
-	private func fetchResult() {
-		startSpinner()
-		exposureSubmissionService?.getTestResult { result in
-			self.stopSpinner()
-			switch result {
-			case let .failure(error):
-				logError(message: "An error occurred during result fetching: \(error)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-				self.present(alert, animated: true, completion: nil)
-			case let .success(testResult):
-				self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
-			}
-		}
 	}
 }
 

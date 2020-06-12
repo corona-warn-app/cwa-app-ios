@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,21 +15,31 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
+import XCTest
+@testable import ENA
 
-extension URLSession {
-	class func coronaWarnSession() -> URLSession {
-		#if DISABLE_CERTIFICATE_PINNING
-		let coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate? = nil
-		#else
-		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate()
-		#endif
-		return URLSession(
-			configuration: .coronaWarnSessionConfiguration(),
-			delegate: coronaWarnURLSessionDelegate,
-			delegateQueue: .main
+class ExposureSubmissionSuccessViewControllerTests: XCTestCase {
+
+	override func setUp() {
+		super.setUp()
+	}
+
+	private func createVC() -> ExposureSubmissionSuccessViewController {
+		return AppStoryboard.exposureSubmission.initiate(
+			viewControllerType: ExposureSubmissionSuccessViewController.self
 		)
-		
+	}
+
+	func testViewLoading() {
+		let vc = createVC()
+		_ = vc.view
+
+		XCTAssertEqual(vc.navigationItem.title, AppStrings.ExposureSubmissionSuccess.title)
+		XCTAssertTrue(vc.navigationItem.hidesBackButton)
+		XCTAssertEqual(vc.tableView.numberOfSections, 1)
+		XCTAssertEqual(vc.tableView.numberOfRows(inSection: 0), 9)
 	}
 }

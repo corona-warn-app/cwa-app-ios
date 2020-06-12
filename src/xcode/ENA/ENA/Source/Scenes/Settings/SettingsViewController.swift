@@ -63,12 +63,9 @@ final class SettingsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		tableView.delegate = self
-		tableView.dataSource = self
 		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.title = AppStrings.Settings.navigationBarTitle
-		navigationController?.navigationBar.prefersLargeTitles = true
 
 		setupView()
 	}
@@ -174,19 +171,12 @@ extension SettingsViewController {
 		1
 	}
 
-	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		let section = Sections.allCases[section]
-
-		switch section {
-		case .reset:
-			return 40
-		case .tracing, .notifications:
-			return 20
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		switch Sections.allCases[section] {
+		case .tracing: return 32
+		case .reset: return 48
+		default: return UITableView.automaticDimension
 		}
-	}
-
-	override func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
-		UIView()
 	}
 
 	override func tableView(_: UITableView, titleForFooterInSection section: Int) -> String? {

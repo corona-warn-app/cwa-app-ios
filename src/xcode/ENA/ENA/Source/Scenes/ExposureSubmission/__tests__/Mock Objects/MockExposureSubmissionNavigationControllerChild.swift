@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,21 +15,23 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
+import UIKit
+@testable import ENA
 
-extension URLSession {
-	class func coronaWarnSession() -> URLSession {
-		#if DISABLE_CERTIFICATE_PINNING
-		let coronaWarnURLSessionDelegate: CoronaWarnURLSessionDelegate? = nil
-		#else
-		let coronaWarnURLSessionDelegate = CoronaWarnURLSessionDelegate()
-		#endif
-		return URLSession(
-			configuration: .coronaWarnSessionConfiguration(),
-			delegate: coronaWarnURLSessionDelegate,
-			delegateQueue: .main
-		)
-		
+class MockExposureSubmissionNavigationControllerChild: UIViewController {
+	var didTapButtonCallback: (() -> Void)?
+	var didTapSecondButtonCallback: (() -> Void)?
+}
+
+extension MockExposureSubmissionNavigationControllerChild: ExposureSubmissionNavigationControllerChild {
+	func didTapButton() {
+		didTapButtonCallback?()
+	}
+
+	func didTapSecondButton() {
+		didTapSecondButtonCallback?()
 	}
 }
