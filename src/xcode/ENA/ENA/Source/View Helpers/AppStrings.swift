@@ -139,6 +139,8 @@ enum AppStrings {
 		static let description = NSLocalizedString("ExposureSubmissionHotline_Description", comment: "")
 		static let sectionTitle = NSLocalizedString("ExposureSubmissionHotline_SectionTitle", comment: "")
 		static let sectionDescription1 = NSLocalizedString("ExposureSubmissionHotline_SectionDescription1", comment: "")
+		static let iconAccessibilityLabel1 = NSLocalizedString("ExposureSubmissionHotline_iconAccessibilityLabel1", comment: "")
+		static let iconAccessibilityLabel2 = NSLocalizedString("ExposureSubmissionHotline_iconAccessibilityLabel2", comment: "")
 		static let sectionDescription2 = NSLocalizedString("ExposureSubmission_SectionDescription2", comment: "")
 		static let callButtonTitle = NSLocalizedString("ExposureSubmission_CallButtonTitle", comment: "")
 		static let tanInputButtonTitle = NSLocalizedString("ExposureSubmission_TANInputButtonTitle", comment: "")
@@ -470,6 +472,11 @@ enum AppStrings {
 		static let infoDescription = NSLocalizedString("Reset_InfoDescription", comment: "")
 		static let subtitle = NSLocalizedString("Reset_Subtitle", comment: "")
 		static let imageDescription = NSLocalizedString("Reset_ImageDescription", comment: "")
+
+		static let confirmDialogTitle = NSLocalizedString("Reset_ConfirmDialog_Title", comment: "")
+		static let confirmDialogDescription = NSLocalizedString("Reset_ConfirmDialog_Description", comment: "")
+		static let confirmDialogCancel = NSLocalizedString("Reset_ConfirmDialog_Cancel", comment: "")
+		static let confirmDialogConfirm = NSLocalizedString("Reset_ConfirmDialog_Confirm", comment: "")
 	}
 
 	enum SafariView {

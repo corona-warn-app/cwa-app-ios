@@ -276,6 +276,10 @@
 
 "ExposureSubmissionHotline_SectionDescription1" = "Hotline anrufen & TAN erfragen:";
 
+"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Schritt 1 von 2";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Schritt 2 von 2";
+
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
 "ExposureSubmission_PhoneDetailDescription" = "Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.";
@@ -786,6 +790,14 @@
 "Reset_Subtitle" = "Anwendung zurücksetzen";
 
 "Reset_ImageDescription" = "Eine Hand hält ein Smartphone, auf dem das Zurücksetzen der Anwendung symbolisiert wird.";
+
+"Reset_ConfirmDialog_Title" = "Anwendung zurücksetzen";
+
+"Reset_ConfirmDialog_Description" = "Sie werden nicht mehr über Ihre Risiko-Begegnungen informiert und können andere Nutzerinnen und Nutzer nicht mehr warnen. Dieser Vorgang kann nicht rückgängig gemacht werden.";
+
+"Reset_ConfirmDialog_Cancel"  = "Abbrechen";
+
+"Reset_ConfirmDialog_Confirm" = "Zurücksetzen";
 
 /* Safari */
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
