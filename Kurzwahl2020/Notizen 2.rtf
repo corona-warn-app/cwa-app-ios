@@ -1,0 +1,118 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\froman\fcharset0 Times-Roman;
+\f3\froman\fcharset0 Times-Bold;\f4\fswiss\fcharset0 Helvetica-Bold;\f5\fnil\fcharset0 LucidaGrande;
+\f6\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red0\green116\blue0;\red255\green255\blue255;\red14\green14\blue255;
+\red0\green0\blue0;\red170\green13\blue145;\red11\green79\blue121;\red92\green38\blue153;\red0\green0\blue0;
+\red0\green0\blue233;\red46\green58\blue89;\red255\green255\blue255;\red55\green55\blue55;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c45600\c0;\csgenericrgb\c100000\c100000\c100000;\csgenericrgb\c5500\c5500\c100000;
+\csgenericrgb\c0\c0\c0;\csgenericrgb\c66500\c5200\c56900;\csgenericrgb\c4314\c30980\c47451;\csgenericrgb\c35900\c14900\c60100;\cssrgb\c0\c0\c0;
+\cssrgb\c0\c0\c93333;\cssrgb\c23529\c29804\c42353;\cssrgb\c100000\c100000\c100000;\cssrgb\c27843\c27843\c27843;}
+\paperw12240\paperh15840\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs32 \cf0 Warum ein CollectionView, wenn doch die Anzahl uns das Layout der Zellen konstant ist?\
+\
+Alternative:\
+{\field{\*\fldinst{HYPERLINK "https://iosexample.com/the-missing-swiftui-collection-view/"}}{\fldrslt https://iosexample.com/the-missing-swiftui-collection-view/}}\
+\
+Swift 5.1 references for busy coders\
+{\field{\*\fldinst{HYPERLINK "https://swiftly.dev"}}{\fldrslt https://swiftly.dev}}\
+\
+Hacking with Swift\
+{\field{\*\fldinst{HYPERLINK "https://www.hackingwithswift.com/articles"}}{\fldrslt https://www.hackingwithswift.com/articles}}\
+\
+SWIFTUI and  Storyboard:\
+{\field{\*\fldinst{HYPERLINK "https://www.raywenderlich.com/3715234-swiftui-getting-started"}}{\fldrslt https://www.raywenderlich.com/3715234-swiftui-getting-started}}\
+\
+Note: UIHostingController enables you to integrate SwiftUI views into an existing app. You add a Hosting View Controller to your storyboard and create a segue to it from a UIViewController. Then Control-drag from the segue into the view controller code to create an IBSegueAction, where you specify the hosting controller\'92s rootView value \'97\'a0a SwiftUI view.\
+\
+\
+Colors: max. 7 x 2 = 14 Felder pro Seite\
+14 x 3 Farben f\'fcr insgesamt drei Seiten\
+\
+Wie und wo werden die Namen und Telefonnummern gespeichert?\
+\
+\
+Beispiel f\'fcr eine DragGesture:\
+{\field{\*\fldinst{HYPERLINK "https://swiftwithmajid.com/2019/07/10/gestures-in-swiftui/"}}{\fldrslt https://swiftwithmajid.com/2019/07/10/gestures-in-swiftui/}}\
+\
+TabView mit Navigation Link zu einem neuen View:\
+How to push a new view onto a NavigationView\
+{\field{\*\fldinst{HYPERLINK "https://www.hackingwithswift.com/quick-start/swiftui/how-to-push-a-new-view-onto-a-navigationview"}}{\fldrslt https://www.hackingwithswift.com/quick-start/swiftui/how-to-push-a-new-view-onto-a-navigationview}}\
+\
+\
+\pard\tx692\pardeftab692\pardirnatural\partightenfactor0
+
+\f1\fs28 \cf2 \cb3 // from \cf4 https://swiftwithmajid.com/2019/07/10/gestures-in-swiftui/\cf5 \
+\cf6 struct\cf5  \cf7 DragGestureExample\cf5  : \cf8 View\cf5  
+\f0\fs32 \cf0 \cb1 \
+\
+\
+\'dcbersicht \'fcber die Fonts\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs48 \cf0 UIFont Complete list preview for iOS 13.3
+\f3\b \cf9 \expnd0\expndtw0\kerning0
+\
+\pard\tx692\pardeftab692\pardirnatural\partightenfactor0
+
+\f0\b0\fs32 \cf0 \kerning1\expnd0\expndtw0 https://github.com/lionhylra/iOS-UIFont-Names/blob/master/README.md\
+\
+\
+\pard\tx692\pardeftab692\pardirnatural\partightenfactor0
+
+\f4\b \cf0 Localization
+\f0\b0 \
+Info.plist\
+\pard\pardeftab720\sl280\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html"}}{\fldrslt 
+\f2\fs24 \cf10 \expnd0\expndtw0\kerning0
+\ul \ulc10 https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AboutInformationPropertyListFiles.html}}\
+\
+Strings\
+\pard\pardeftab720\sl280\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://www.hackingwithswift.com/example-code/uikit/how-to-localize-your-ios-app"}}{\fldrslt 
+\f2\fs24 \cf10 \expnd0\expndtw0\kerning0
+\ul \ulc10 https://www.hackingwithswift.com/example-code/uikit/how-to-localize-your-ios-app}}
+\f2\fs24 \cf10 \expnd0\expndtw0\kerning0
+\ul \ulc10 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 \ulnone Build Number\cf10 \expnd0\expndtw0\kerning0
+\ul \
+\pard\pardeftab720\sl280\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://stackoverflow.com/questions/3015796/how-to-programmatically-display-version-build-number-of-target-in-ios-app"}}{\fldrslt \cf10 https://stackoverflow.com/questions/3015796/how-to-programmatically-display-version-build-number-of-target-in-ios-app}}\
+\pard\pardeftab720\sl280\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://crunchybagel.com/auto-incrementing-build-numbers-in-xcode/"}}{\fldrslt \cf10 https://crunchybagel.com/auto-incrementing-build-numbers-in-xcode/}}\
+\
+\
+Beispiele f\'fcr Farbpaletten\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 \ulnone https://www.color-hex.com/color-palettes/\
+\
+\
+Auto Increment Build Number\
+https://medium.com/swiftcommmunity/automatic-build-incrementation-technique-for-ios-release-94eb0d08785b\
+https://gist.github.com/sekati/3172554\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\fs49\fsmilli24700 \cf11 \cb12 \expnd0\expndtw0\kerning0
+Technical Note TN2420\cb1 \
+\pard\pardeftab720\partightenfactor0
+
+\fs56 \cf0 \cb12 Version Numbers and Build Numbers
+\f2\fs24 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 https://developer.apple.com/library/archive/technotes/tn2420/_index.html\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f6\fs70 \cf13 \cb12 \expnd0\expndtw0\kerning0
+App Store Connect Help\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 https://help.apple.com/app-store-connect/#/}
