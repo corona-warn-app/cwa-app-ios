@@ -159,7 +159,7 @@
 
 "Onboarding_Continue_actionText" = "Weiter";
 
-"Onboarding_Continue_skipLongTextHint" = "Es folgt ein Langtext. Eine statische Weitertaste steht am unteren Rand des Bildschirms zur Verfügung.";
+"Onboarding_Continue_actionTextHint" = "Sie können diesen Bildschirm überspringen";
 
 "Onboarding_EnableLogging_actionText" = "Risiko-Ermittlung aktivieren";
 

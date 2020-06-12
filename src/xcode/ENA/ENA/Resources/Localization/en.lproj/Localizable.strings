@@ -159,7 +159,7 @@
 
 "Onboarding_Continue_actionText" = "Next";
 
-"Onboarding_Continue_skipLongTextHint" = "A long text follows. To proceed at any time, use the button at the bottom of the screen.";
+"Onboarding_Continue_actionTextHint" = "You may skip this screen";
 
 "Onboarding_EnableLogging_actionText" = "Activate Risk Identification";
 

@@ -165,11 +165,11 @@ final class OnboardingInfoViewController: UIViewController {
 			let textView = HtmlTextView()
 			textView.layoutMargins = .zero
 			textView.delegate = self
-			titleLabel.accessibilityLabel = onboardingInfo.title + "\n" + AppStrings.Onboarding.skipLongTextHint
 			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
 				textView.load(from: url)
 			}
 			stackView.addArrangedSubview(textView)
+			addSkipAccessibilityActionToHeader()
 		default:
 			break
 		}
@@ -192,6 +192,19 @@ final class OnboardingInfoViewController: UIViewController {
 		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
 
 		titleLabel.accessibilityTraits = .header
+	}
+
+	func addSkipAccessibilityActionToHeader() {
+		titleLabel.accessibilityHint = AppStrings.Onboarding.onboardingContinueDescription
+		let actionName = AppStrings.Onboarding.onboardingContinue
+		titleLabel.accessibilityCustomActions = [
+			UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
+		]
+	}
+
+	@objc
+	func skip(_ sender: Any) {
+		didTapNextButton(sender)
 	}
 
 	private func persistTimestamp(completion: (() -> Void)?) {
