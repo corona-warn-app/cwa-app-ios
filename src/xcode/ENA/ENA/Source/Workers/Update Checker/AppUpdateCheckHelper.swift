@@ -65,12 +65,13 @@ final class AppUpdateCheckHelper {
 	}
 
 	private func setObserver(vc: UIViewController?, alertType: UpdateAlertType) {
-		guard applicationDidBecomeActiveObserver == nil else {
-			return
-		}
-
-		self.applicationDidBecomeActiveObserver = NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { [weak self] _ in
+		guard applicationDidBecomeActiveObserver == nil else { return }
+		applicationDidBecomeActiveObserver = NotificationCenter.default.addObserver(forName: UIScene.didActivateNotification, object: nil, queue: nil) { [weak self] _ in
 			guard let self = self else { return }
+			let alreadyPresentingSomething = vc?.presentedViewController != nil
+			guard alreadyPresentingSomething == false else {
+				return
+			}
 			guard let alert = self.createAlert(alertType, vc: vc) else {
 				return
 			}
