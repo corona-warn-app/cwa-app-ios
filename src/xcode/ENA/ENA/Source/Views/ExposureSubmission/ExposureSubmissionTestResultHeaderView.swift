@@ -42,6 +42,7 @@ class ExposureSubmissionTestResultHeaderView: DynamicTableViewHeaderFooterView {
 		subTitleLabel.text = AppStrings.ExposureSubmissionResult.card_subtitle
 		titleLabel.text = testResult.text
 		barView.backgroundColor = testResult.color
+		imageView.image = testResult.image
 
 		if let timeStamp = timeStamp {
 			let formatter = DateFormatter()
