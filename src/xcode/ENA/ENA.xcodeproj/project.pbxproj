@@ -328,6 +328,7 @@
 		F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DC808F24898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift */; };
 		F2DC809224898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DC809124898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift */; };
 		F2DC809424898CE600EDC40A /* DynamicTableViewControllerFooterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DC809324898CE600EDC40A /* DynamicTableViewControllerFooterTests.swift */; };
+		FC9E76082493D9E9001B5A13 /* corona.aiff in Resources */ = {isa = PBXBuildFile; fileRef = FC9E76072493D9E9001B5A13 /* corona.aiff */; };
 		FEDCE09E9F78ABEB4AA9A484 /* ExposureDetectionExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE0116603B6E00FAEE632 /* ExposureDetectionExecutor.swift */; };
 		FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */; };
 		FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE1600374711EC77FF572 /* RequiresAppDependencies.swift */; };
@@ -703,6 +704,7 @@
 		F2DC808F24898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift; sourceTree = "<group>"; };
 		F2DC809124898B1800EDC40A /* DynamicTableViewControllerHeaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerHeaderTests.swift; sourceTree = "<group>"; };
 		F2DC809324898CE600EDC40A /* DynamicTableViewControllerFooterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerFooterTests.swift; sourceTree = "<group>"; };
+		FC9E76072493D9E9001B5A13 /* corona.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = corona.aiff; sourceTree = "<group>"; };
 		FEDCE0116603B6E00FAEE632 /* ExposureDetectionExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureDetectionExecutor.swift; sourceTree = "<group>"; };
 		FEDCE1600374711EC77FF572 /* RequiresAppDependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequiresAppDependencies.swift; sourceTree = "<group>"; };
 		FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENStateHandler+State.swift"; sourceTree = "<group>"; };
@@ -1292,6 +1294,7 @@
 		85D7597424570615008175F0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FC9E76062493D9CA001B5A13 /* Sounds */,
 				011E4B002483A35A002E6412 /* ENACommunity.entitlements */,
 				CD7F5C732466F6D400D3D03C /* ENATest.entitlements */,
 				85790F2E245C6B72003D47E1 /* ENA.entitlements */,
@@ -1890,6 +1893,14 @@
 			path = __tests__;
 			sourceTree = "<group>";
 		};
+		FC9E76062493D9CA001B5A13 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				FC9E76072493D9E9001B5A13 /* corona.aiff */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		FEDCE21C117BF675C80F5989 /* States */ = {
 			isa = PBXGroup;
 			children = (
@@ -2039,6 +2050,7 @@
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
+				FC9E76082493D9E9001B5A13 /* corona.aiff in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
 				51C779142486E5AB004582F8 /* RiskFindingPositiveCollectionViewCell.xib in Resources */,

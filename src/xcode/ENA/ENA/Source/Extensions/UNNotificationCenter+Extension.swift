@@ -35,7 +35,7 @@ extension UNUserNotificationCenter {
 
 		content.title = title
 		content.body = body
-		content.sound = UNNotificationSound.default
+		content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "corona.aiff"))
 		content.badge = 1
 		content.categoryIdentifier = identifier
 
