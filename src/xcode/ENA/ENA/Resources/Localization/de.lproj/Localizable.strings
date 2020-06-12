@@ -102,6 +102,10 @@
 
 "Settings_StatusInactive" = "Aus";
 
+"Settings_StatusEnable" = "Aktivieren";
+
+"Settings_StatusDisable" = "Deaktivieren";
+
 "Settings_KontaktProtokollStatusActive" = "Aktiv";
 
 "Settings_KontaktProtokollStatusInactive" = "Gestoppt";
