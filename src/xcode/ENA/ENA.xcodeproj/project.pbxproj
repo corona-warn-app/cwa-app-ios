@@ -125,6 +125,7 @@
 		71176E2F248922B0004B0C9F /* ENAColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71176E2D24891C02004B0C9F /* ENAColorTests.swift */; };
 		71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71176E31248957C3004B0C9F /* AppNavigationController.swift */; };
 		711EFCC924935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 711EFCC824935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib */; };
+		711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711EFCC62492EE31005FEF21 /* ENAFooterView.swift */; };
 		71330E41248109F600EB10F6 /* DynamicTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E40248109F600EB10F6 /* DynamicTableViewSection.swift */; };
 		71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E42248109FD00EB10F6 /* DynamicTableViewCell.swift */; };
 		71330E4524810A0500EB10F6 /* DynamicTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E4424810A0500EB10F6 /* DynamicTableViewHeader.swift */; };
@@ -490,6 +491,7 @@
 		71176E2D24891C02004B0C9F /* ENAColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAColorTests.swift; sourceTree = "<group>"; };
 		71176E31248957C3004B0C9F /* AppNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
 		711EFCC824935C79005FEF21 /* ExposureSubmissionTestResultHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExposureSubmissionTestResultHeaderView.xib; sourceTree = "<group>"; };
+		711EFCC62492EE31005FEF21 /* ENAFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAFooterView.swift; sourceTree = "<group>"; };
 		71330E40248109F600EB10F6 /* DynamicTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSection.swift; sourceTree = "<group>"; };
 		71330E42248109FD00EB10F6 /* DynamicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewCell.swift; sourceTree = "<group>"; };
 		71330E4424810A0500EB10F6 /* DynamicTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeader.swift; sourceTree = "<group>"; };
@@ -643,7 +645,6 @@
 		B1D7D68624766D2100E4DA5D /* submission_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = submission_payload.pb.swift; path = ../../../gen/output/submission_payload.pb.swift; sourceTree = "<group>"; };
 		B1D7D68A24766D2100E4DA5D /* apple_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apple_export.pb.swift; path = ../../../gen/output/apple_export.pb.swift; sourceTree = "<group>"; };
 		B1DDDABB247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientConfigurationEndpointTests.swift; sourceTree = "<group>"; };
-		B1E8C99A2479D239006DC678 /* Info_AppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_AppStore.plist; sourceTree = "<group>"; };
 		B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMSubmissionStateViewController.swift; sourceTree = "<group>"; };
 		B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Convenience.swift"; sourceTree = "<group>"; };
 		B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+ConvenienceTests.swift"; sourceTree = "<group>"; };
@@ -1170,6 +1171,7 @@
 				8595BF5E246032D90056EA27 /* ENASwitch.swift */,
 				71FE1C81247AC30300851FEB /* ENATanInput.swift */,
 				71B804462484CC0800D53506 /* ENALabel.swift */,
+				711EFCC62492EE31005FEF21 /* ENAFooterView.swift */,
 			);
 			path = BaseElements;
 			sourceTree = "<group>";
@@ -1292,7 +1294,6 @@
 				EE70C239245B09E900AC9B2F /* Localization */,
 				85D7594F24570491008175F0 /* Info.plist */,
 				B1221BDB2492BCEB00E6C4E4 /* Info_Debug.plist */,
-				B1E8C99A2479D239006DC678 /* Info_AppStore.plist */,
 				85D75976245706BD008175F0 /* Assets */,
 				85D75975245706B0008175F0 /* Storyboards */,
 				A16714B0248CFF020031B111 /* HostWhitelist.plist */,
@@ -2176,6 +2177,7 @@
 				A16714BB248D18D20031B111 /* SummaryMetadata.swift in Sources */,
 				51C779162486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
+				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
 				B1FE13F024891D1500D012E5 /* RiskCalculation.swift in Sources */,
 				514C0A14247C163800F235F6 /* HomeLowRiskCellConfigurator.swift in Sources */,
 				51C779122486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift in Sources */,

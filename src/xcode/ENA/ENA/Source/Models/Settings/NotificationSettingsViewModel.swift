@@ -29,7 +29,9 @@ class NotificationSettingsViewModel {
 		image: String,
 		title: String?,
 		sections: [Section],
-		openSettings: OpenSettings?
+		openSettings: OpenSettings?,
+		accessibilityLabel: String?,
+		accessibilityIdentifier: String?
 	) {
 		self.notificationsOn = notificationsOn
 		self.image = image
@@ -50,17 +52,21 @@ class NotificationSettingsViewModel {
 						.riskChanges(.init(
 							description: AppStrings.NotificationSettings.riskChanges,
 							state: store.allowRiskChangesNotification,
-							updateState: { store.allowRiskChangesNotification = $0 }
+							updateState: { store.allowRiskChangesNotification = $0 },
+							accessibilityIdentifier: AppStrings.NotificationSettings.riskChanges
 						)),
 						.testsStatus(.init(
 							description: AppStrings.NotificationSettings.testsStatus,
 							state: store.allowTestsStatusNotification,
-							updateState: { store.allowTestsStatusNotification = $0 }
+							updateState: { store.allowTestsStatusNotification = $0 },
+							accessibilityIdentifier: AppStrings.NotificationSettings.testsStatus
 						))
 					]
 				)
 			],
-			openSettings: nil
+			openSettings: nil,
+			accessibilityLabel: AppStrings.NotificationSettings.onTitle,
+			accessibilityIdentifier: "AppStrings.NotificationSettings.onTitle"
 		)
 	}
 
@@ -85,7 +91,9 @@ class NotificationSettingsViewModel {
 				icon: "Icons_iOS_Mitteilungen",
 				description: AppStrings.NotificationSettings.infoDescription,
 				openSettings: AppStrings.NotificationSettings.openSettings
-			)
+			),
+			accessibilityLabel: nil,
+			accessibilityIdentifier: nil
 		)
 	}
 }
@@ -108,6 +116,8 @@ extension NotificationSettingsViewModel {
 		}
 
 		let updateState: (Bool) -> Void
+		let accessibilityIdentifier: String?
+
 	}
 
 	struct SettingsOffItem {
