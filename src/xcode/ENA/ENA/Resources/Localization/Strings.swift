@@ -13,6 +13,8 @@ import Foundation
 internal enum L10n {
   /// Schließen
   internal static let accessibilityLabelClose = L10n.tr("Localizable", "AccessibilityLabel_Close")
+  /// Telefonnummer
+  internal static let accessibilityLabelPhoneNumber = L10n.tr("Localizable", "AccessibilityLabel_PhoneNumber")
   /// Abbrechen
   internal static let alertActionCancel = L10n.tr("Localizable", "Alert_ActionCancel")
   /// OK
@@ -37,19 +39,19 @@ internal enum L10n {
   internal static let appInformationAboutImageDescription = L10n.tr("Localizable", "App_Information_About_ImageDescription")
   /// Über die App
   internal static let appInformationAboutNavigation = L10n.tr("Localizable", "App_Information_About_Navigation")
-  /// Wer sie nutzt, hilft, Infektionsketten schnell nachzuverfolgen und zu durchbrechen. Die App speichert dezentral – auf Ihrem Smartphone – Begegnungen mit anderen. Sie werden informiert, wenn Sie Kontakt mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.
+  /// Wer sie nutzt, hilft, Infektionsketten schnell nachzuverfolgen und zu durchbrechen. Die App speichert dezentral – auf Ihrem Smartphone – Begegnungen mit anderen. Sie werden informiert, wenn Sie Begegnungen mit nachweislich infizierten Personen hatten. Ihre Privatsphäre bleibt dabei bestens geschützt.
   internal static let appInformationAboutText = L10n.tr("Localizable", "App_Information_About_Text")
   /// Gemeinsam Corona bekämpfen
   internal static let appInformationAboutTitle = L10n.tr("Localizable", "App_Information_About_Title")
   /// Für technische Fragen rund um die Corona-Warn-App können Sie sich direkt an unsere technische Hotline wenden.
   internal static let appInformationContactDescription = L10n.tr("Localizable", "App_Information_Contact_Description")
-  /// Unser technischer Kundenservice ist für Sie da. Die Wartezeit ist weniger als 5 Minuten im Moment.
+  /// Unser Kundenservice ist für Sie da.
   internal static let appInformationContactHotlineDescription = L10n.tr("Localizable", "App_Information_Contact_Hotline_Description")
   /// +498007540001
   internal static let appInformationContactHotlineNumber = L10n.tr("Localizable", "App_Information_Contact_Hotline_Number")
-  /// Unsere Öffnungszeiten:\nMo - Sa: 08:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n
+  /// Sprachen: Deutsch, Englisch\n\nErreichbarkeit:\nMo - Sa: 07:00 - 22:00 Uhr\n(außer an bundesweiten Feiertagen)\n\nDer Anruf ist kostenfrei.
   internal static let appInformationContactHotlineTerms = L10n.tr("Localizable", "App_Information_Contact_Hotline_Terms")
-  /// +49 (0)800 7540001
+  /// +49 800 7540001
   internal static let appInformationContactHotlineText = L10n.tr("Localizable", "App_Information_Contact_Hotline_Text")
   /// Technische Hotline
   internal static let appInformationContactHotlineTitle = L10n.tr("Localizable", "App_Information_Contact_Hotline_Title")
@@ -61,8 +63,6 @@ internal enum L10n {
   internal static let appInformationContactTitle = L10n.tr("Localizable", "App_Information_Contact_Title")
   /// Häufige Fragen
   internal static let appInformationFAQNavigation = L10n.tr("Localizable", "App_Information_FAQ_Navigation")
-  /// Häufige Fragen
-  internal static let appInformationFAQTitle = L10n.tr("Localizable", "App_Information_FAQ_Title")
   /// Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Paragraphenzeichen als Symbol für das Impressum.
   internal static let appInformationImprintImageDescription = L10n.tr("Localizable", "App_Information_Imprint_ImageDescription")
   /// Impressum
@@ -75,7 +75,7 @@ internal enum L10n {
   internal static let appInformationImprintSection2Text = L10n.tr("Localizable", "App_Information_Imprint_Section2_Text")
   /// Robert Koch-Institut
   internal static let appInformationImprintSection2Title = L10n.tr("Localizable", "App_Information_Imprint_Section2_Title")
-  /// E-Mail: CoronaWarnApp@rki.de\nTelefon: XXXXXXX
+  /// E-Mail: CoronaWarnApp@rki.de\nTelefon: +49 30 18754 5100
   internal static let appInformationImprintSection3Text = L10n.tr("Localizable", "App_Information_Imprint_Section3_Text")
   /// Kontakt
   internal static let appInformationImprintSection3Title = L10n.tr("Localizable", "App_Information_Imprint_Section3_Title")
@@ -91,20 +91,24 @@ internal enum L10n {
   internal static let appInformationPrivacyDescription = L10n.tr("Localizable", "App_Information_Privacy_Description")
   /// Datenschutz
   internal static let appInformationPrivacyNavigation = L10n.tr("Localizable", "App_Information_Privacy_Navigation")
-  /// Verantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\n\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:\nDuis id ullamcorper lectus, feugiat dapibus lectus. In hac habitasse platea dictumst. Curabitur ante sapien, efficitur et elit id, aliquam vulputate est. Proin nec porttitor neque. Donec lacus augue, gravida et lacinia id, luctus at nulla.
-  internal static let appInformationPrivacyText = L10n.tr("Localizable", "App_Information_Privacy_Text")
   /// Datenschutzerklärung
   internal static let appInformationPrivacyTitle = L10n.tr("Localizable", "App_Information_Privacy_Title")
-  /// Die nachfolgenden Nutzungsbedingungen gelten für die Nutzung der App und werden duch Aufruf oder Nutzung des Angebots oder einer einzelnen Funktion akzeptiert.
-  internal static let appInformationTermsDescription = L10n.tr("Localizable", "App_Information_Terms_Description")
   /// Eine Hand hält ein Smartphone mit viel Text, daneben ist ein Haken als Symbol für akzeptierte Nutzungsbedingungen.
   internal static let appInformationTermsImageDescription = L10n.tr("Localizable", "App_Information_Terms_ImageDescription")
   /// Nutzung
   internal static let appInformationTermsNavigation = L10n.tr("Localizable", "App_Information_Terms_Navigation")
-  /// ...
-  internal static let appInformationTermsText = L10n.tr("Localizable", "App_Information_Terms_Text")
   /// Nutzungsbedingungen
   internal static let appInformationTermsTitle = L10n.tr("Localizable", "App_Information_Terms_Title")
+  /// Zeichen %1$u von %2$u
+  internal static func enaTanInputCharacterIndex(_ p1: Int, _ p2: Int) -> String {
+    return L10n.tr("Localizable", "ENATanInput_CharacterIndex", p1, p2)
+  }
+  /// Leer
+  internal static let enaTanInputEmpty = L10n.tr("Localizable", "ENATanInput_Empty")
+  /// Ungültiges Zeichen\n\n%@
+  internal static func enaTanInputInvalidCharacter(_ p1: String) -> String {
+    return L10n.tr("Localizable", "ENATanInput_InvalidCharacter", p1)
+  }
   /// So verhalten Sie sich richtig
   internal static let exposureDetectionBehaviorSubtitle = L10n.tr("Localizable", "ExposureDetection_Behavior_Subtitle")
   /// Verhalten
@@ -133,13 +137,13 @@ internal enum L10n {
   internal static let exposureDetectionGuideDistance = L10n.tr("Localizable", "ExposureDetection_Guide_Distance")
   /// Waschen Sie Ihre Hände regelmäßig.
   internal static let exposureDetectionGuideHands = L10n.tr("Localizable", "ExposureDetection_Guide_Hands")
-  /// Begeben Sie sich umgehend nach Hause bzw. bleiben Sie zu Hause.
+  /// Begeben Sie sich, wenn möglich, nach Hause bzw. bleiben Sie zu Hause.
   internal static let exposureDetectionGuideHome = L10n.tr("Localizable", "ExposureDetection_Guide_Home")
   /// Für Fragen zu auftretenden Symptomen, Testmöglichkeiten und weiteren Isolationsmaßnahmen, wenden Sie sich bitte an eine der folgenden Stellen:
   internal static let exposureDetectionGuideHotline1 = L10n.tr("Localizable", "ExposureDetection_Guide_Hotline1")
-  /// Ihre Hausärztin/Ihren Hausarzt
+  /// Ihre Hausarztpraxis
   internal static let exposureDetectionGuideHotline2 = L10n.tr("Localizable", "ExposureDetection_Guide_Hotline2")
-  /// Den Kassenärztlichen Notdienst unter der Telefonnummer: 116117
+  /// Den kassenärztlichen Bereitschaftsdienst unter der Telefonnummer: 116117
   internal static let exposureDetectionGuideHotline3 = L10n.tr("Localizable", "ExposureDetection_Guide_Hotline3")
   /// Ihr Gesundheitsamt
   internal static let exposureDetectionGuideHotline4 = L10n.tr("Localizable", "ExposureDetection_Guide_Hotline4")
@@ -155,9 +159,9 @@ internal enum L10n {
   }
   /// Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.
   internal static let exposureDetectionLoadingText = L10n.tr("Localizable", "ExposureDetection_LoadingText")
-  /// Geringes Risiko
+  /// Niedriges Risiko
   internal static let exposureDetectionLow = L10n.tr("Localizable", "ExposureDetection_Low")
-  /// %d von 14 Tagen gespeichert
+  /// %d von 14 Tagen aktiv
   internal static func exposureDetectionNumberOfDaysStored(_ p1: Int) -> String {
     return L10n.tr("Localizable", "ExposureDetection_NumberOfDaysStored", p1)
   }
@@ -185,6 +189,12 @@ internal enum L10n {
   internal static let exposureDetectionUnknown = L10n.tr("Localizable", "ExposureDetection_Unknown")
   /// Da Sie die Risiko-Ermittlung noch nicht lange genug aktiviert haben, konnten wir für Sie kein Infektionsrisiko berechnen.
   internal static let exposureDetectionUnknownText = L10n.tr("Localizable", "ExposureDetection_UnknownText")
+  /// Details
+  internal static let exposureDetectionErrorAlertActionDetails = L10n.tr("Localizable", "ExposureDetectionError_Alert_Action_Details")
+  /// Während der Risiko-Ermittlung ist ein Fehler aufgetreten.
+  internal static let exposureDetectionErrorAlertMessage = L10n.tr("Localizable", "ExposureDetectionError_Alert_Message")
+  /// Etwas ist schief gelaufen.
+  internal static let exposureDetectionErrorAlertTitle = L10n.tr("Localizable", "ExposureDetectionError_Alert_Title")
   /// Eine Person hat Bluetooth auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.
   internal static let exposureNotificationSettingAccLabelBluetoothOff = L10n.tr("Localizable", "ExposureNotificationSetting_AccLabel_BluetoothOff")
   /// Eine Person hat die Risiko-Ermittlung auf ihrem Smartphone ausgeschaltet, eine Begegnung mit zwei weiteren Personen wird daher nicht aufgezeichnet.
@@ -213,7 +223,7 @@ internal enum L10n {
   internal static let exposureNotificationSettingAuthorizationRequiredOSENSettingDescription = L10n.tr("Localizable", "ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description")
   /// Die Risiko-Ermittlung benötigt aktiviertes Bluetooth, um Begegnungen aufzuzeichnen. Bitte aktivieren Sie Bluetooth in Ihren Geräte-Einstellungen.
   internal static let exposureNotificationSettingBluetoothDescription = L10n.tr("Localizable", "ExposureNotificationSetting_Bluetooth_Description")
-  /// Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.
+  /// Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.
   internal static let exposureNotificationSettingDescriptionText1 = L10n.tr("Localizable", "ExposureNotificationSetting_DescriptionText1")
   /// Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.
   internal static let exposureNotificationSettingDescriptionText2 = L10n.tr("Localizable", "ExposureNotificationSetting_DescriptionText2")
@@ -231,9 +241,9 @@ internal enum L10n {
   internal static let exposureNotificationSettingEnableTracing = L10n.tr("Localizable", "ExposureNotificationSetting_EnableTracing")
   /// Die Risiko-Ermittlung benötigt eine Internetverbindung, um Risiko-Begegnungen berechnen zu können. Bitte aktivieren Sie WLAN oder mobile Daten in Ihren Geräte-Einstellungen.
   internal static let exposureNotificationSettingInternetDescription = L10n.tr("Localizable", "ExposureNotificationSetting_Internet_Description")
-  /// Kindersicherung/Bildschirmzeit aktiviert
+  /// COVID-19-Kontaktprotokoll und -Mitteilungen aktivieren
   internal static let exposureNotificationSettingParentalControlsOSENSetting = L10n.tr("Localizable", "ExposureNotificationSetting_ParentalControls_OSENSetting")
-  /// Die aktivierte Kindersicherung verhindert die Aktivierung der Risiko-Ermittlung. Bitte deaktivieren Sie die Beschränkung dieser App unter Einstellungen -> Bildschirmzeit.
+  /// Die Risiko-Ermittlung benötigt das aktivierte COVID-19-Kontaktprotokoll und die -Mitteilungen in den Systemeinstellungen, um Begegnungen zu protokollieren. Bitte aktivieren Sie „COVID-19-Kontaktprotokoll und -Mitteilungen“ in Ihren Systemeinstellungen.
   internal static let exposureNotificationSettingParentalControlsOSENSettingDescription = L10n.tr("Localizable", "ExposureNotificationSetting_ParentalControls_OSENSetting_Description")
   /// Deaktiviert
   internal static let exposureNotificationSettingTracingDeactivated = L10n.tr("Localizable", "ExposureNotificationSetting_Tracing_Deactivated")
@@ -247,7 +257,7 @@ internal enum L10n {
   internal static let exposureSubmissionContinueActionText = L10n.tr("Localizable", "ExposureSubmission_Continue_actionText")
   /// Durch Antippen von „Erlauben“ willigen Sie ein, dass die App den Status Ihres Corona-Virus-Tests abfragen und in der App anzeigen darf. Diese Funktion steht Ihnen zur Verfügung, wenn Sie einen QR-Code erhalten und eingewilligt haben, dass Ihr Testergebnis an das Serversystem der App übermittelt werden darf. Sobald das Testlabor Ihr Testergebnis auf dem Server hinterlegt hat, können Sie das Ergebnis in der App sehen. Falls Sie Mitteilungen aktiviert haben, werden Sie auch außerhalb der App über den Eingang des Testergebnis informiert. Das Testergebnis selbst wird aus Datenschutzgründen jedoch nur in der App angezeigt. Sie können diese Einwilligung jederzeit widerrufen, indem Sie die Testregistrierung in der App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformation“.
   internal static let exposureSubmissionDataPrivacyDescription = L10n.tr("Localizable", "ExposureSubmission_DataPrivacyDescription")
-  /// Datenschutz
+  /// Datenschutzinformation
   internal static let exposureSubmissionDataPrivacyTitle = L10n.tr("Localizable", "ExposureSubmission_DataPrivacyTitle")
   /// Was liegt Ihnen vor?
   internal static let exposureSubmissionDispatchDescription = L10n.tr("Localizable", "ExposureSubmission_DispatchDescription")
@@ -259,9 +269,9 @@ internal enum L10n {
   internal static let exposureSubmissionHotlineNumber = L10n.tr("Localizable", "ExposureSubmission_Hotline_Number")
   /// Positivkennung senden
   internal static let exposureSubmissionNavTitle = L10n.tr("Localizable", "ExposureSubmission_NavTitle")
-  /// Sprachen:\nDeutsch, Englisch\n\nErreichbarkeit:\nMo - So: 00:00 - 24:00 Uhr\n\nEs gelten die Preise Ihres Telefonanbieters.
+  /// Sprachen:\nDeutsch, Englisch, Türkisch\n\nErreichbarkeit:\nMo - So: Täglich 24 Stunden\n\nDer Anruf ist kostenfrei.
   internal static let exposureSubmissionPhoneDetailDescription = L10n.tr("Localizable", "ExposureSubmission_PhoneDetailDescription")
-  /// +49 (0)800 7540002
+  /// +49 800 7540002
   internal static let exposureSubmissionPhoneNumber = L10n.tr("Localizable", "ExposureSubmission_PhoneNumber")
   /// Test per TAN-Eingabe in der App registrieren
   internal static let exposureSubmissionSectionDescription2 = L10n.tr("Localizable", "ExposureSubmission_SectionDescription2")
@@ -297,6 +307,8 @@ internal enum L10n {
   internal static let exposureSubmissionErrorDefaultError = L10n.tr("Localizable", "ExposureSubmissionError_defaultError")
   /// Die Risiko-Ermittlung ist nicht aktiv.
   internal static let exposureSubmissionErrorEnNotEnabled = L10n.tr("Localizable", "ExposureSubmissionError_EnNotEnabled")
+  /// Es konnte keine Verbindung hergestellt werden.
+  internal static let exposureSubmissionErrorHttpError = L10n.tr("Localizable", "ExposureSubmissionError_httpError")
   /// Die Antwort kann nicht verarbeitet werden.
   internal static let exposureSubmissionErrorInvalidResponse = L10n.tr("Localizable", "ExposureSubmissionError_InvalidResponse")
   /// Die erzeugte Übermittlungs-TAN ist ungültig. Bitte kontaktieren Sie die technische Hotline über App-Informationen -> Technische Hotline.
@@ -321,10 +333,14 @@ internal enum L10n {
   internal static let exposureSubmissionErrorUnknown = L10n.tr("Localizable", "ExposureSubmissionError_unknown")
   /// Bitte halten Sie zur TAN-Abfrage Ihren Befundbrief (sofern vorhanden) und Ihre Telefonnummer bereit.
   internal static let exposureSubmissionHotlineDescription = L10n.tr("Localizable", "ExposureSubmissionHotline_Description")
-  /// Hotline anrufen & TAN erfragen:\n\n%@\n\n%@
-  internal static func exposureSubmissionHotlineSectionDescription1(_ p1: String, _ p2: String) -> String {
-    return L10n.tr("Localizable", "ExposureSubmissionHotline_SectionDescription1", p1, p2)
-  }
+  /// Schritt 1 von 2
+  internal static let exposureSubmissionHotlineIconAccessibilityLabel1 = L10n.tr("Localizable", "ExposureSubmissionHotline_iconAccessibilityLabel1")
+  /// Schritt 2 von 2
+  internal static let exposureSubmissionHotlineIconAccessibilityLabel2 = L10n.tr("Localizable", "ExposureSubmissionHotline_iconAccessibilityLabel2")
+  /// Hotline teilt eine TAN mit.
+  internal static let exposureSubmissionHotlineImageDescription = L10n.tr("Localizable", "ExposureSubmissionHotline_imageDescription")
+  /// Hotline anrufen & TAN erfragen:
+  internal static let exposureSubmissionHotlineSectionDescription1 = L10n.tr("Localizable", "ExposureSubmissionHotline_SectionDescription1")
   /// Info zum Ablauf:
   internal static let exposureSubmissionHotlineSectionTitle = L10n.tr("Localizable", "ExposureSubmissionHotline_SectionTitle")
   /// TAN anfragen
@@ -347,10 +363,18 @@ internal enum L10n {
   internal static let exposureSubmissionIntroductionUsage01 = L10n.tr("Localizable", "ExposureSubmissionIntroduction_Usage01")
   /// Da nur verschlüsselte Zufallscodes ausgetauscht werden, bleiben Sie unerkannt. Sie können jetzt wie folgt vorgehen:
   internal static let exposureSubmissionIntroductionUsage02 = L10n.tr("Localizable", "ExposureSubmissionIntroduction_Usage02")
+  /// Kamerablitz
+  internal static let exposureSubmissionQRScannerCameraFlash = L10n.tr("Localizable", "ExposureSubmissionQRScanner_CameraFlash")
+  /// Kamerablitz ausschalten
+  internal static let exposureSubmissionQRScannerCameraFlashDisable = L10n.tr("Localizable", "ExposureSubmissionQRScanner_CameraFlash_Disable")
+  /// Kamerablitz einschalten
+  internal static let exposureSubmissionQRScannerCameraFlashEnable = L10n.tr("Localizable", "ExposureSubmissionQRScanner_CameraFlash_Enable")
+  /// Ausgeschaltet
+  internal static let exposureSubmissionQRScannerCameraFlashOff = L10n.tr("Localizable", "ExposureSubmissionQRScanner_CameraFlash_Off")
+  /// Eingeschaltet
+  internal static let exposureSubmissionQRScannerCameraFlashOn = L10n.tr("Localizable", "ExposureSubmissionQRScanner_CameraFlash_On")
   /// Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.
   internal static let exposureSubmissionQRScannerCameraPermissionDenied = L10n.tr("Localizable", "ExposureSubmissionQRScanner_cameraPermissionDenied")
-  /// Ihre Kamera Nutzung wurde eingeschränkt. Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.
-  internal static let exposureSubmissionQRScannerCameraPermissionRestricted = L10n.tr("Localizable", "ExposureSubmissionQRScanner_cameraPermissionRestricted")
   /// Positionieren Sie den Rahmen über dem QR-Code Ihres Dokuments.
   internal static let exposureSubmissionQRScannerInstruction = L10n.tr("Localizable", "ExposureSubmissionQRScanner_instruction")
   /// Um das Lesen des QR-Codes zu erleichtern, versuchen Sie, den QR-Code vertikal zum Scanner auszurichten oder aktivieren Sie das Blitzlicht.
@@ -397,13 +421,11 @@ internal enum L10n {
   internal static let exposureSubmissionResultTestAddedDesc = L10n.tr("Localizable", "ExposureSubmissionResult_testAddedDesc")
   /// Test fehlerhaft
   internal static let exposureSubmissionResultTestInvalid = L10n.tr("Localizable", "ExposureSubmissionResult_testInvalid")
-  /// Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Gesundheitsamt, um Information zum weiteren Vorgehen zu erhalten. Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.
+  /// Es gab ein Problem bei der Auswertung Ihres Tests. Bitte kontaktieren Sie das Gesundheitsamt, um Informationen zum weiteren Vorgehen zu erhalten.
   internal static let exposureSubmissionResultTestInvalidDesc = L10n.tr("Localizable", "ExposureSubmissionResult_testInvalidDesc")
   /// Befund negativ
   internal static let exposureSubmissionResultTestNegative = L10n.tr("Localizable", "ExposureSubmissionResult_testNegative")
-  /// Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.
-  internal static let exposureSubmissionResultTestNegativeFurtherInfosHint = L10n.tr("Localizable", "ExposureSubmissionResult_testNegative_furtherInfos_hint")
-  /// Sie haben trotzdem gesundheitliche Beschwerden? Wenn Sie sich sehr krank fühlen und/oder Ihre Beschwerden sich verschlechtert haben, wenden Sie sich bitte an Ihre/-n Hausärztin/Hausarzt.
+  /// Sie haben trotzdem gesundheitliche Beschwerden? Wenn Sie sich sehr krank fühlen und/oder Ihre Beschwerden sich verschlechtert haben, wenden Sie sich bitte an Ihre Hausarztpraxis.
   internal static let exposureSubmissionResultTestNegativeFurtherInfosListItem1 = L10n.tr("Localizable", "ExposureSubmissionResult_testNegative_furtherInfos_listItem1")
   /// Bleiben Sie bis zu Ihrer Genesung trotzdem zu Hause. Falls Sie sich durch eine andere Infektion geschwächt mit dem Coronavirus (SARS-CoV-2) infizieren, kann dies zu schwereren Krankheitsverläufen führen.
   internal static let exposureSubmissionResultTestNegativeFurtherInfosListItem2 = L10n.tr("Localizable", "ExposureSubmissionResult_testNegative_furtherInfos_listItem2")
@@ -419,8 +441,12 @@ internal enum L10n {
   internal static let exposureSubmissionResultTestPendingDesc = L10n.tr("Localizable", "ExposureSubmissionResult_testPendingDesc")
   /// Befund positiv
   internal static let exposureSubmissionResultTestPositive = L10n.tr("Localizable", "ExposureSubmissionResult_testPositive")
-  /// Ihr Testergebnis wurde erfolgreich als “positiv” verifiziert.
+  /// Ihr Testergebnis wurde erfolgreich als positiv verifiziert.
   internal static let exposureSubmissionResultTestPositiveDesc = L10n.tr("Localizable", "ExposureSubmissionResult_testPositiveDesc")
+  /// Test entfernen
+  internal static let exposureSubmissionResultTestRemove = L10n.tr("Localizable", "ExposureSubmissionResult_testRemove")
+  /// Bitte entfernen Sie den Test wieder aus der Corona-Warn-App, damit Sie bei Bedarf einen neuen Test hinterlegen können.
+  internal static let exposureSubmissionResultTestRemoveDesc = L10n.tr("Localizable", "ExposureSubmissionResult_testRemoveDesc")
   /// Testergebnis
   internal static let exposureSubmissionResultTitle = L10n.tr("Localizable", "ExposureSubmissionResult_Title")
   /// Andere warnen
@@ -431,7 +457,7 @@ internal enum L10n {
   internal static let exposureSubmissionSuccessAccImageDescription = L10n.tr("Localizable", "ExposureSubmissionSuccess_AccImageDescription")
   /// Fertig
   internal static let exposureSubmissionSuccessButton = L10n.tr("Localizable", "ExposureSubmissionSuccess_Button")
-  /// Dank Ihrer Mithilfe können Andere gewarnt werden und entsprechend reagieren.
+  /// Dank Ihrer Mithilfe können andere gewarnt werden und entsprechend reagieren.
   internal static let exposureSubmissionSuccessDescription = L10n.tr("Localizable", "ExposureSubmissionSuccess_Description")
   /// Das Gesundheitsamt wird sich in den nächsten Tagen telefonisch oder schriftlich bei Ihnen melden.
   internal static let exposureSubmissionSuccessListItem1 = L10n.tr("Localizable", "ExposureSubmissionSuccess_listItem1")
@@ -451,8 +477,10 @@ internal enum L10n {
   internal static let exposureSubmissionSuccessSubTitle = L10n.tr("Localizable", "ExposureSubmissionSuccess_subTitle")
   /// Vielen Dank!
   internal static let exposureSubmissionSuccessTitle = L10n.tr("Localizable", "ExposureSubmissionSuccess_Title")
-  /// Geben Sie bitte die 10 Stellen der TAN ein, die Ihnen mitgeteilt wurde.
+  /// Geben Sie bitte die 10-stellige TAN ein, die Ihnen mitgeteilt wurde.
   internal static let exposureSubmissionTanEntryDescription = L10n.tr("Localizable", "ExposureSubmissionTanEntry_Description")
+  /// TAN-Eingabefeld
+  internal static let exposureSubmissionTanEntryEntryField = L10n.tr("Localizable", "ExposureSubmissionTanEntry_EntryField")
   /// Geben Sie bitte die Ihnen mitgeteilte TAN ein:
   internal static let exposureSubmissionTanEntryInfo = L10n.tr("Localizable", "ExposureSubmissionTanEntry_Info")
   /// Ungültige Eingabe, bitte überprüfen Sie das Zeichen.
@@ -469,7 +497,7 @@ internal enum L10n {
   internal static let exposureSubmissionWarnOthersContinueButton = L10n.tr("Localizable", "ExposureSubmissionWarnOthers_continueButton")
   /// Durch Antippen von „Einverstanden“ willigen Sie ein, dass die App Ihr positives Testergebnis zusammen mit Ihren Zufalls-IDs der letzten 14 Tage an das Serversystem der App übermittelt, damit andere App-Nutzer mit aktivierter Risiko-Ermittlung automatisch informiert werden können, dass sie möglicherweise einem Infektionsrisiko ausgesetzt waren. Die übermittelten Zufalls-IDs enthalten keine Angaben, die Rückschlüsse auf Ihre Identität oder Ihre Person zulassen.\n\nDie Übermittlung Ihres Testergebnisses per App ist freiwillig. Wenn Sie Ihr Testergebnis nicht übermitteln, entstehen Ihnen keine Nachteile. Da weder nachvollzogen noch kontrolliert werden kann, ob und wie Sie die App verwenden, erfährt außer Ihnen niemand, ob Sie eine Infektion übermittelt haben.\n\nSie können Ihre Einwilligung jederzeit widerrufen, indem Sie die App löschen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht berührt. Weitere Informationen finden Sie unter dem Menüpunkt „Datenschutzinformation“.
   internal static let exposureSubmissionWarnOthersDataPrivacyDescription = L10n.tr("Localizable", "ExposureSubmissionWarnOthers_dataPrivacyDescription")
-  /// Datenschutz
+  /// Datenschutzinformation
   internal static let exposureSubmissionWarnOthersDataPrivacyTitle = L10n.tr("Localizable", "ExposureSubmissionWarnOthers_dataPrivacyTitle")
   /// Als Nächstes können Sie dafür sorgen, dass das Corona-Warn-System Ihre lokal gespeicherten Zufallscodes der letzten 14 Tage an andere verteilt. So können Sie Ihre Mitmenschen warnen und helfen, die Infektionskette zu unterbrechen.\n\nDa nur unpersönliche Zufallscodes übertragen werden, bleibt Ihre Identität unbekannt.
   internal static let exposureSubmissionWarnOthersDescription = L10n.tr("Localizable", "ExposureSubmissionWarnOthers_description")
@@ -507,7 +535,7 @@ internal enum L10n {
   internal static let homeFindingPositiveCardStatusTitle = L10n.tr("Localizable", "Home_Finding_Positive_Card_Status_Title")
   /// Befund positiv
   internal static let homeFindingPositiveCardTitle = L10n.tr("Localizable", "Home_Finding_Positive_Card_Title")
-  /// Hier finden Sie Antworten auf häufig gestellte Fragen rund um die Corona-Warn-App.
+  /// Hier finden Sie Antworten auf häufig gestellte Fragen rund um die Corona-Warn-App. Sie werden auf eine externe Website weitergeleitet.
   internal static let homeInfoCardAboutBody = L10n.tr("Localizable", "Home_InfoCard_AboutBody")
   /// Häufige Fragen
   internal static let homeInfoCardAboutTitle = L10n.tr("Localizable", "Home_InfoCard_AboutTitle")
@@ -519,17 +547,19 @@ internal enum L10n {
   internal static let homeLeftBarButtonDescription = L10n.tr("Localizable", "Home_LeftBarButton_description")
   /// Ihr Test konnte nicht ausgewertet werden.
   internal static let homeResultCardInvalidDesc = L10n.tr("Localizable", "Home_resultCard_InvalidDesc")
-  /// Befund ungültig
+  /// Fehlerhafter Test
   internal static let homeResultCardInvalidTitle = L10n.tr("Localizable", "Home_resultCard_InvalidTitle")
-  /// Es werden aktuelle Daten heruntergeladen und geprüft. Dies kann mehrere Minuten dauern.
+  /// Es werden aktuelle Daten heruntergeladen. Dies kann mehrere Minuten dauern.
   internal static let homeResultCardLoadingBody = L10n.tr("Localizable", "Home_resultCard_LoadingBody")
+  /// Ihr Testergebnis konnte nicht geladen werden.
+  internal static let homeResultCardLoadingErrorTitle = L10n.tr("Localizable", "Home_resultCard_LoadingErrorTitle")
   /// Aktualisierung läuft...
   internal static let homeResultCardLoadingTitle = L10n.tr("Localizable", "Home_resultCard_LoadingTitle")
-  /// Sie wurden negativ auf SARS-CoV-2 getestet.
+  /// Das Virus SARS-CoV-2 konnte bei Ihnen nicht nachgewiesen werden.
   internal static let homeResultCardNegativeDesc = L10n.tr("Localizable", "Home_resultCard_NegativeDesc")
   /// Befund negativ
   internal static let homeResultCardNegativeTitle = L10n.tr("Localizable", "Home_resultCard_NegativeTitle")
-  /// Die Auswertung dauert zwischen 1-3 Tagen.
+  /// Die Auswertung Ihres Tests ist noch nicht abgeschlossen.
   internal static let homeResultCardPendingDesc = L10n.tr("Localizable", "Home_resultCard_PendingDesc")
   /// Ihr Ergebnis liegt vor
   internal static let homeResultCardResultAvailableTitle = L10n.tr("Localizable", "Home_resultCard_ResultAvailableTitle")
@@ -549,7 +579,7 @@ internal enum L10n {
   internal static let homeRiskHighTitle = L10n.tr("Localizable", "Home_Risk_High_Title")
   /// Erhöhtes Risiko
   internal static let homeRiskInactiveActivateItemHighTitle = L10n.tr("Localizable", "Home_Risk_Inactive_Activate_Item_High_Title")
-  /// Geringes Risiko
+  /// Niedriges Risiko
   internal static let homeRiskInactiveActivateItemLowTitle = L10n.tr("Localizable", "Home_Risk_Inactive_Activate_Item_Low_Title")
   /// Letzte Risiko-Ermittlung: %@
   internal static func homeRiskInactiveActivateItemTitle(_ p1: String) -> String {
@@ -579,6 +609,10 @@ internal enum L10n {
   internal static let homeRiskLowTitle = L10n.tr("Localizable", "Home_Risk_Low_Title")
   /// Unbekannt
   internal static let homeRiskNoDateTitle = L10n.tr("Localizable", "Home_Risk_No_Date_Title")
+  /// Aktualisierung nur alle %@ Stunden
+  internal static func homeRiskPeriodDisabledButtonTitle(_ p1: String) -> String {
+    return L10n.tr("Localizable", "Home_Risk_Period_Disabled_Button_Title", p1)
+  }
   /// Aktualisierung alle %@ Stunden
   internal static func homeRiskPeriodUpdateTitle(_ p1: String) -> String {
     return L10n.tr("Localizable", "Home_Risk_Period_Update_Title", p1)
@@ -597,7 +631,7 @@ internal enum L10n {
   internal static let homeRiskCardUnknownItemTitle = L10n.tr("Localizable", "Home_RiskCard_Unknown_Item_Title")
   /// Einstellungen
   internal static let homeSettingsCardTitle = L10n.tr("Localizable", "Home_SettingsCard_Title")
-  /// Helfen Sie mit, die Infektionskette zu durchbrechen und warnen Sie Andere.
+  /// Helfen Sie mit, die Infektionskette zu durchbrechen und informieren Sie andere.
   internal static let homeSubmitCardBody = L10n.tr("Localizable", "Home_SubmitCard_Body")
   /// Informieren & mitmachen
   internal static let homeSubmitCardButton = L10n.tr("Localizable", "Home_SubmitCard_Button")
@@ -607,7 +641,7 @@ internal enum L10n {
   internal static let homeThankYouCard14DaysItemTitle = L10n.tr("Localizable", "Home_Thank_You_Card_14Days_Item_Title")
   /// Bitte denken Sie hier auch besonders an Personen, die nicht automatisch durch die App informiert werden, da sie kein Smartphone oder die App haben.
   internal static let homeThankYouCardAppItemTitle = L10n.tr("Localizable", "Home_Thank_You_Card_App_Item_Title")
-  /// Dank Ihrer Mithilfe können Andere gewarnt werden und entsprechend reagieren.
+  /// Dank Ihrer Mithilfe können andere gewarnt werden und entsprechend reagieren.
   internal static let homeThankYouCardBody = L10n.tr("Localizable", "Home_Thank_You_Card_Body")
   /// Sie werden von Ihrem Gesundheitsamt gebeten, eine Liste Ihrer Kontaktpersonen zu erstellen. Dabei sollen alle Personen erfasst werden, mit denen Sie in den zwei Tagen vor Erkrankungsbeginn engen Kontakt (unter 2 Meter, direktes Gespräch) über insgesamt 15 Minuten hatten.
   internal static let homeThankYouCardContactsItemTitle = L10n.tr("Localizable", "Home_Thank_You_Card_Contacts_Item_Title")
@@ -633,7 +667,7 @@ internal enum L10n {
   internal static let inviteFriendsNavTitle = L10n.tr("Localizable", "InviteFriends_NavTitle")
   /// Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?
   internal static let inviteFriendsShareTitle = L10n.tr("Localizable", "InviteFriends_ShareTitle")
-  /// https://www.coronawarn.app/de/
+  /// https://www.corona-warn-app.de
   internal static let inviteFriendsShareUrl = L10n.tr("Localizable", "InviteFriends_ShareUrl")
   /// Teilen Sie die Corona-Warn-App
   internal static let inviteFriendsSubtitle = L10n.tr("Localizable", "InviteFriends_Subtitle")
@@ -649,8 +683,6 @@ internal enum L10n {
   internal static let localNotificationsTestresultsBody = L10n.tr("Localizable", "local_notifications_testresults_body")
   /// Corona-Warn-App
   internal static let localNotificationsTestresultsTitle = L10n.tr("Localizable", "local_notifications_testresults_title")
-  /// Ergebnisse anzeigen
-  internal static let localNotificationsViewResults = L10n.tr("Localizable", "local_notifications_viewResults")
   /// Mitteilungen
   internal static let notificationSettingsNavTitle = L10n.tr("Localizable", "NotificationSettings_NavTitle")
   /// Mitteilungen
@@ -669,12 +701,14 @@ internal enum L10n {
   internal static let notificationSettingsOnRiskChanges = L10n.tr("Localizable", "NotificationSettings_On_RiskChanges")
   /// Einstellung
   internal static let notificationSettingsOnSectionTitle = L10n.tr("Localizable", "NotificationSettings_On_SectionTitle")
-  /// Status Ihres COVID-19 Tests
+  /// Status Ihres COVID-19-Tests
   internal static let notificationSettingsOnTestsStatus = L10n.tr("Localizable", "NotificationSettings_On_TestsStatus")
   /// Möchten Sie Mitteilungen zu Ihrem COVID-19-Risikostatus aktivieren?
   internal static let notificationSettingsOnTitle = L10n.tr("Localizable", "NotificationSettings_On_Title")
   /// Weiter
   internal static let onboardingContinueActionText = L10n.tr("Localizable", "Onboarding_Continue_actionText")
+  /// Sie können diesen Bildschirm überspringen
+  internal static let onboardingContinueActionTextHint = L10n.tr("Localizable", "Onboarding_Continue_actionTextHint")
   /// Sie können die Funktion jederzeit ausschalten.
   internal static let onboardingDeactivateExposureConfirmationMessage = L10n.tr("Localizable", "Onboarding_DeactivateExposureConfirmation_message")
   /// Corona-Warn-App kann dadurch keine Benachrichtigungen zum COVID-19-Risikostatus versenden und empfangen.
@@ -695,33 +729,33 @@ internal enum L10n {
   internal static let onboardingInfoAlwaysStayInformedPageNormalText = L10n.tr("Localizable", "OnboardingInfo_alwaysStayInformedPage_normalText")
   /// Warnungen erhalten, Risiken kennen
   internal static let onboardingInfoAlwaysStayInformedPageTitle = L10n.tr("Localizable", "OnboardingInfo_alwaysStayInformedPage_title")
-  /// Um zu erkennen, ob für Sie ein Ansteckungsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.
+  /// Um zu erkennen, ob für Sie ein Infektionsrisiko vorliegt, müssen Sie die Risiko-Ermittlung aktivieren.
   internal static let onboardingInfoEnableLoggingOfContactsPageBoldText = L10n.tr("Localizable", "OnboardingInfo_enableLoggingOfContactsPage_boldText")
   /// Drei Personen haben die Risiko-Ermittlung auf ihren Smartphones aktiviert, ihre Begegnung wird daher aufgezeichnet.
   internal static let onboardingInfoEnableLoggingOfContactsPageImageDescription = L10n.tr("Localizable", "OnboardingInfo_enableLoggingOfContactsPage_imageDescription")
   /// Die Risiko-Ermittlung funktioniert, indem Ihr Handy per Bluetooth verschlüsselte Zufallscodes anderer Nutzerinnen und Nutzer empfängt und Ihren eigenen Zufallscode an deren Smartphones weitergibt. Die Funktion lässt sich jederzeit wieder deaktivieren.\n\nDie verschlüsselten Zufallscodes geben nur Auskunft über das Datum, die Dauer und die anhand der Signalstärke berechnete Entfernung zu Ihren Mitmenschen. Persönliche Daten wie Name, Adresse oder Aufenthaltsort werden zu keiner Zeit erfasst. Konkrete Rückschlüsse auf Personen sind nicht möglich.
   internal static let onboardingInfoEnableLoggingOfContactsPageNormalText = L10n.tr("Localizable", "OnboardingInfo_enableLoggingOfContactsPage_normalText")
-  /// Um zu erfahren, ob Sie Kontakt mit einer infizierten Person hatten und für Sie ein Infektionsrisiko besteht, müssen Sie die Funktion Risiko-Ermittlung in der App aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung stimmen Sie mit Antippen des Buttons: Risiko-Ermittlung aktivieren zu.\n\n\nUm die Risiko-Ermittlung nutzen zu können müssen Sie zudem auf Ihrem iPhone die von Apple “ aktivieren und für die Corona-Warn-App freigeben.\n\n\nIhr iPhone erzeugt und versendet bei aktivierter Kontaktaufzeichnung kontinuierlich Zufalls-IDs per Bluetooth, die von anderen Apple- und Android-Smartphones mit ebenfalls aktivierter Kontaktaufzeichnung in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs der anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden im COVID-19-Kontaktprotokoll aufgezeichnet und dort für 14 Tage gespeichert.\n\n\nZur Ermittlung Ihres Infektionsrisikos lädt die App mehrmals täglich oder auf Abfrage eine Liste mit den Zufalls-IDs aller Nutzer, die Ihre Infektion mit dem Corona-Virus in der App geteilt haben. Diese Liste wird dann mit den im COVID-19-Kontaktprotokoll gespeicherten Zufalls-IDs verglichen. Wenn die App dabei feststellt, dass Sie möglicherweise Kontakt zu einem infizierten Nutzer gehabt haben, werden Sie von der App informiert, dass Sie mit einer infizierten Person in Kontakt waren und insoweit ein Infektionsrisiko besteht. In diesem Fall erhält die App außerdem Zugriff auf weitere im COVID-19-Kontaktprotokoll Ihres iPhone gespeicherte Daten (Datum und Dauer sowie Bluetooth-Signalstärke des Kontakts).\n\nAus der Bluetooth-Signalstärke wird der räumliche Abstand abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Gesundheitsrisiko durch eine Infektion mit dem Corona-Virus abzuschätzen und Ihnen Empfehlungen für die nächsten Schritte zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt. Außer Ihnen erfährt niemand (auch nicht das RKI), ob Sie mit einer infizierten Person Kontakt hatten und welches Risiko für Sie ermittelt wird.\n\nZum Widerruf Ihrer Einwilligung in die Risiko-Ermittlung können Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Kontakt zu einem infizierten Nutzer gehabt haben. Um auch die Aussendung und den Empfang der Zufalls-IDs anzuhalten, müssen Sie das COVID-19-Kontaktprotokoll in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die im COVID-19-Kontaktprotokoll aufgezeichneten fremden und eigenen Zufalls-Kennungen nicht in der App gelöscht werden. Die im COVID-19-Kontaktprotokoll gespeicherten Daten können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\n\nDie Datenschutzhinweise der App (einschließlich Informationen zur Datenverarbeitung für die Risiko-Ermittlung) finden Sie unter dem Menüpunkt „Datenschutzinformation“.
+  /// Um zu erfahren, ob Sie Kontakt mit einer infizierten Person hatten und für Sie ein Infektionsrisiko besteht, müssen Sie die Funktion Risiko-Ermittlung in der App aktivieren. Der Aktivierung der Risiko-Ermittlung und der damit im Zusammenhang stehenden Datenverarbeitung stimmen Sie mit Antippen des Buttons: Risiko-Ermittlung aktivieren zu.\n\n\nUm die Risiko-Ermittlung nutzen zu können müssen Sie zudem auf Ihrem iPhone die von Apple bereitgestellte Kontaktaufzeichnungs-Funktion „COVID-19-Kontaktprotokoll“ aktivieren und für die Corona-Warn-App freigeben.\n\nIhr iPhone erzeugt und versendet bei aktivierter Kontaktaufzeichnung kontinuierlich Zufalls-IDs per Bluetooth, die von anderen Apple- und Android-Smartphones mit ebenfalls aktivierter Kontaktaufzeichnung in Ihrer Umgebung empfangen werden können. Umgekehrt empfängt Ihr iPhone die Zufalls-IDs der anderen Smartphones. Die eigenen und die von anderen Smartphones empfangenen Zufalls-IDs werden im COVID-19-Kontaktprotokoll aufgezeichnet und dort für 14 Tage gespeichert.\n\n\nZur Ermittlung Ihres Infektionsrisikos lädt die App mehrmals täglich oder auf Abfrage eine Liste mit den Zufalls-IDs aller Nutzer, die Ihre Infektion mit dem Corona-Virus in der App geteilt haben. Diese Liste wird dann mit den im COVID-19-Kontaktprotokoll gespeicherten Zufalls-IDs verglichen. Wenn die App dabei feststellt, dass Sie möglicherweise Kontakt zu einem infizierten Nutzer gehabt haben, werden Sie von der App informiert, dass Sie mit einer infizierten Person in Kontakt waren und insoweit ein Infektionsrisiko besteht. In diesem Fall erhält die App außerdem Zugriff auf weitere im COVID-19-Kontaktprotokoll Ihres iPhone gespeicherte Daten (Datum und Dauer sowie Bluetooth-Signalstärke des Kontakts).\n\nAus der Bluetooth-Signalstärke wird der räumliche Abstand abgeleitet (je stärker das Signal, desto geringer der Abstand). Diese Angaben werden von der App ausgewertet, um Ihr Gesundheitsrisiko durch eine Infektion mit dem Corona-Virus abzuschätzen und Ihnen Empfehlungen für die nächsten Schritte zu geben. Diese Auswertung wird ausschließlich lokal auf Ihrem iPhone durchgeführt. Außer Ihnen erfährt niemand (auch nicht das RKI), ob Sie mit einer infizierten Person Kontakt hatten und welches Risiko für Sie ermittelt wird.\n\nZum Widerruf Ihrer Einwilligung in die Risiko-Ermittlung können Sie die Funktion über den Schieberegler innerhalb der App deaktivieren oder die App löschen. Wenn Sie die Risiko-Ermittlung wieder nutzen möchten, können Sie den Schieberegler erneut aktivieren oder die App erneut installieren. Wenn Sie die Risiko-Ermittlung deaktivieren, prüft die App nicht mehr, ob Sie Kontakt zu einem infizierten Nutzer gehabt haben. Um auch die Aussendung und den Empfang der Zufalls-IDs anzuhalten, müssen Sie das COVID-19-Kontaktprotokoll in den Einstellungen Ihres iPhones deaktivieren. Bitte beachten Sie, dass die im COVID-19-Kontaktprotokoll aufgezeichneten fremden und eigenen Zufalls-Kennungen nicht in der App gelöscht werden. Die im COVID-19-Kontaktprotokoll gespeicherten Daten können Sie nur in den Einstellungen Ihres iPhones dauerhaft löschen.\n\n\nDie Datenschutzhinweise der App (einschließlich Informationen zur Datenverarbeitung für die Risiko-Ermittlung) finden Sie unter dem Menüpunkt „Datenschutzinformation“.
   internal static let onboardingInfoEnableLoggingOfContactsPagePanelBody = L10n.tr("Localizable", "OnboardingInfo_enableLoggingOfContactsPage_panelBody")
   /// Einwilligungserklärung
   internal static let onboardingInfoEnableLoggingOfContactsPagePanelTitle = L10n.tr("Localizable", "OnboardingInfo_enableLoggingOfContactsPage_panelTitle")
   /// Wie Sie die Risiko-Ermittlung ermöglichen
   internal static let onboardingInfoEnableLoggingOfContactsPageTitle = L10n.tr("Localizable", "OnboardingInfo_enableLoggingOfContactsPage_title")
-  /// ... teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.
+  /// ...teilen Sie es bitte über die Corona-Warn-App mit. Freiwillig und sicher. Für die Gesundheit aller.
   internal static let onboardingInfoHowDoesDataExchangeWorkPageBoldText = L10n.tr("Localizable", "OnboardingInfo_howDoesDataExchangeWorkPage_boldText")
   /// Ein positiver Testbefund wird verschlüsselt ins System übermittelt, das nun andere Nutzerinnen und Nutzer warnt.
   internal static let onboardingInfoHowDoesDataExchangeWorkPageImageDescription = L10n.tr("Localizable", "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription")
   /// Ihre Mitteilung wird zuverlässig verschlüsselt über einen sicheren Server weiterverarbeitet. Die Personen, deren verschlüsselte Zufallscodes Sie gesammelt haben, erhalten nun eine Warnung und Informationen darüber, wie sie weiter vorgehen sollen.
   internal static let onboardingInfoHowDoesDataExchangeWorkPageNormalText = L10n.tr("Localizable", "OnboardingInfo_howDoesDataExchangeWorkPage_normalText")
-  /// Falls Sie positiv getestet werden ...
+  /// Falls Sie Corona-positiv getestet werden...
   internal static let onboardingInfoHowDoesDataExchangeWorkPageTitle = L10n.tr("Localizable", "OnboardingInfo_howDoesDataExchangeWorkPage_title")
-  /// HELLO WORLD
+  /// 
   internal static let onboardingInfoPrivacyPageBoldText = L10n.tr("Localizable", "OnboardingInfo_privacyPage_boldText")
   /// Eine Frau mit einem Handy benutzt die Corona-Warn-App, ein Vorhängeschloss auf einem Schild steht als Symbol für verschlüsselte Daten.
   internal static let onboardingInfoPrivacyPageImageDescription = L10n.tr("Localizable", "OnboardingInfo_privacyPage_imageDescription")
   /// Sie bleiben unerkannt.\nIhre Daten werden komplett verschlüsselt und pseudonym übertragen.\n\nVerantwortliche Stelle im Sinne des Art. 4 Abs. 7 DSGVO:\n\nRobert Koch-Institut\nNordufer 20\n13353 Berlin\nBitte lesen Sie unsere Datenschutzbestimmungen.\n\nDatenschutzhinweise:
   internal static let onboardingInfoPrivacyPageNormalText = L10n.tr("Localizable", "OnboardingInfo_privacyPage_normalText")
-  /// Datenschutz
+  /// Datenschutzinformation
   internal static let onboardingInfoPrivacyPageTitle = L10n.tr("Localizable", "OnboardingInfo_privacyPage_title")
   /// Mehr Schutz für Sie und uns alle. Mit der Corona-Warn-App durchbrechen wir Infektionsketten schneller.
   internal static let onboardingInfoTogetherAgainstCoronaPageBoldText = L10n.tr("Localizable", "OnboardingInfo_togetherAgainstCoronaPage_boldText")
@@ -733,12 +767,22 @@ internal enum L10n {
   internal static let onboardingInfoTogetherAgainstCoronaPageTitle = L10n.tr("Localizable", "OnboardingInfo_togetherAgainstCoronaPage_title")
   /// Anwendung zurücksetzen
   internal static let resetButton = L10n.tr("Localizable", "Reset_Button")
+  /// Abbrechen
+  internal static let resetConfirmDialogCancel = L10n.tr("Localizable", "Reset_ConfirmDialog_Cancel")
+  /// Zurücksetzen
+  internal static let resetConfirmDialogConfirm = L10n.tr("Localizable", "Reset_ConfirmDialog_Confirm")
+  /// Sie werden nicht mehr über Ihre Risiko-Begegnungen informiert und können andere Nutzerinnen und Nutzer nicht mehr warnen. Dieser Vorgang kann nicht rückgängig gemacht werden.
+  internal static let resetConfirmDialogDescription = L10n.tr("Localizable", "Reset_ConfirmDialog_Description")
+  /// Anwendung zurücksetzen
+  internal static let resetConfirmDialogTitle = L10n.tr("Localizable", "Reset_ConfirmDialog_Title")
   /// Sie werden nicht mehr über Ihre Risiko-Begegnungen informiert und können andere Nutzerinnen und Nutzer nicht mehr warnen.
   internal static let resetDescrition1 = L10n.tr("Localizable", "Reset_Descrition1")
   /// Abbrechen
   internal static let resetDiscard = L10n.tr("Localizable", "Reset_Discard")
   /// Sind Sie sicher, dass Sie die Anwendung zurücksetzen wollen?
   internal static let resetHeader1 = L10n.tr("Localizable", "Reset_Header1")
+  /// Eine Hand hält ein Smartphone, auf dem das Zurücksetzen der Anwendung symbolisiert wird.
+  internal static let resetImageDescription = L10n.tr("Localizable", "Reset_ImageDescription")
   /// Die Begegnungs-Aufzeichnung muss separat in den Geräte-Einstellungen gelöscht werden.
   internal static let resetInfoDescription = L10n.tr("Localizable", "Reset_InfoDescription")
   /// Begegnungs-Aufzeichnung löschen
@@ -771,7 +815,7 @@ internal enum L10n {
   internal static let riskLegendLegend2Low = L10n.tr("Localizable", "RiskLegend_Legend2_Low")
   /// Grün
   internal static let riskLegendLegend2LowColor = L10n.tr("Localizable", "RiskLegend_Legend2_Low_Color")
-  /// Folgende Risikostufen können angezeigt werden:
+  /// Folgende Risikostatus können angezeigt werden:
   internal static let riskLegendLegend2RiskLevels = L10n.tr("Localizable", "RiskLegend_Legend2_RiskLevels")
   /// Sind Sie innerhalb der letzten 14 Tage einer Corona-positiv getesteten Person begegnet, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand eine Begegnung stattfand.
   internal static let riskLegendLegend2Text = L10n.tr("Localizable", "RiskLegend_Legend2_Text")
@@ -789,7 +833,7 @@ internal enum L10n {
   internal static let riskLegendNotificationText = L10n.tr("Localizable", "RiskLegend_Notification_Text")
   /// Risiko-Benachrichtigung
   internal static let riskLegendNotificationTitle = L10n.tr("Localizable", "RiskLegend_Notification_Title")
-  /// Die Zufallscodes sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufallskennungen lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufallscodes der letzten bis zu 14 Tage freiwillig mit anderen CWA-Nutzern teilen.
+  /// Die Zufallscodes sind zufällig erzeugte Zahlen- und Buchstabenkombinationen. Sie werden zwischen benachbarten Smartphones ausgetauscht. Zufallscodes lassen sich nicht einer bestimmten Person zuordnen und werden nach 14 Tagen automatisch gelöscht. Eine Corona-positiv getestete Person kann ihre Zufallscodes der letzten bis zu 14 Tage freiwillig mit anderen CWA-Nutzern teilen.
   internal static let riskLegendRandomText = L10n.tr("Localizable", "RiskLegend_Random_Text")
   /// Zufallscode
   internal static let riskLegendRandomTitle = L10n.tr("Localizable", "RiskLegend_Random_Title")
@@ -819,6 +863,10 @@ internal enum L10n {
   internal static let settingsResetLabel = L10n.tr("Localizable", "Settings_Reset_Label")
   /// An
   internal static let settingsStatusActive = L10n.tr("Localizable", "Settings_StatusActive")
+  /// Deaktivieren
+  internal static let settingsStatusDisable = L10n.tr("Localizable", "Settings_StatusDisable")
+  /// Aktivieren
+  internal static let settingsStatusEnable = L10n.tr("Localizable", "Settings_StatusEnable")
   /// Aus
   internal static let settingsStatusInactive = L10n.tr("Localizable", "Settings_StatusInactive")
   /// Erlauben Sie die Aufzeichnung und Weitergabe von COVID-19-Zufallscodes.

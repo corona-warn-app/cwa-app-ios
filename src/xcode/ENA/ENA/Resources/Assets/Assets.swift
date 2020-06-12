@@ -15,6 +15,8 @@ internal enum Asset {
       internal static let iconsAnsteckend = UIImage(named: "Icons - Ansteckend", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let iconsCheck = UIImage(named: "Icons - Check", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let iconsCloseContrast = UIImage(named: "Icons - Close - Contrast", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
+      internal static let iconsCloseTapContrast = UIImage(named: "Icons - Close - Tap - Contrast", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
+      internal static let iconsCloseTap = UIImage(named: "Icons - Close - Tap", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let iconsClose = UIImage(named: "Icons - Close", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let iconsEmpty = UIImage(named: "Icons - Empty", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let iconsHands = UIImage(named: "Icons - Hands", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
@@ -33,6 +35,7 @@ internal enum Asset {
       internal static let iconsGrey1 = UIImage(named: "Icons_Grey_1", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let iconsGrey2 = UIImage(named: "Icons_Grey_2", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let iconsGreyCheck = UIImage(named: "Icons_Grey_Check", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
+      internal static let iconsGreyEntfernen = UIImage(named: "Icons_Grey_Entfernen", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let iconsGreyError = UIImage(named: "Icons_Grey_Error", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let iconsGreyWait = UIImage(named: "Icons_Grey_Wait", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
       internal static let iconsGreyWarnen = UIImage(named: "Icons_Grey_Warnen", in: Bundle(for: BundleToken.self), compatibleWith: nil)!
@@ -119,6 +122,8 @@ internal enum Asset {
       Common.iconsAnsteckend,
       Common.iconsCheck,
       Common.iconsCloseContrast,
+      Common.iconsCloseTapContrast,
+      Common.iconsCloseTap,
       Common.iconsClose,
       Common.iconsEmpty,
       Common.iconsHands,
@@ -137,6 +142,7 @@ internal enum Asset {
       Common.iconsGrey1,
       Common.iconsGrey2,
       Common.iconsGreyCheck,
+      Common.iconsGreyEntfernen,
       Common.iconsGreyError,
       Common.iconsGreyWait,
       Common.iconsGreyWarnen,
