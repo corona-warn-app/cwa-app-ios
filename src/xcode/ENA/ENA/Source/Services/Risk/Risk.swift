@@ -33,3 +33,16 @@ extension Risk {
 		var exposureDetectionDate: Date
 	}
 }
+
+#if UITESTING
+extension Risk {
+	static let mocked = Risk(
+		level: .low,
+		details: Risk.Details(
+			numberOfExposures: 0,
+			numberOfHoursWithActiveTracing: 336,  // two weeks
+			exposureDetectionDate: Date()),
+		riskLevelHasChanged: true
+	)
+}
+#endif
