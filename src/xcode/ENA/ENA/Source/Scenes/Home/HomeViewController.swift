@@ -95,14 +95,13 @@ final class HomeViewController: UIViewController {
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
 		super.traitCollectionDidChange(previousTraitCollection)
-		if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-			navigationItem.leftBarButtonItem?.image = UIImage(named: "Corona-Warn-App")
-		}
+		updateBackgroundColor()
 	}
 
 	private func setupAccessibility() {
+		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
-		navigationItem.leftBarButtonItem?.accessibilityTraits = .staticText
+		navigationItem.leftBarButtonItem?.accessibilityTraits = .none
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
 		navigationItem.leftBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.leftBarButtonDescription"
 		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
@@ -239,6 +238,8 @@ final class HomeViewController: UIViewController {
 			showExposureSubmission(with: homeInteractor.testResult)
 		case is HomeTestResultCollectionViewCell:
 			showExposureSubmission(with: homeInteractor.testResult)
+		case is RiskInactiveCollectionViewCell:
+			showExposureDetection()
 		case is RiskThankYouCollectionViewCell:
 			return
 		default:
@@ -287,7 +288,7 @@ final class HomeViewController: UIViewController {
 		collectionView.collectionViewLayout = .homeLayout(delegate: self)
 		collectionView.delegate = self
 
-		collectionView.contentInset = UIEdgeInsets(top: 32.0, left: 0, bottom: 32.0, right: 0)
+		collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0, bottom: -UICollectionViewLayout.bottomBackgroundOverflowHeight, right: 0)
 
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
@@ -328,6 +329,14 @@ final class HomeViewController: UIViewController {
 
 	func updateSections() {
 		sections = homeInteractor.sections
+	}
+
+	private func updateBackgroundColor() {
+		if traitCollection.userInterfaceStyle == .light {
+			collectionView.backgroundColor = .enaColor(for: .background)
+		} else {
+			collectionView.backgroundColor = .enaColor(for: .separator)
+		}
 	}
 }
 

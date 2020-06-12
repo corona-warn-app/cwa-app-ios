@@ -165,6 +165,7 @@ final class OnboardingInfoViewController: UIViewController {
 			let textView = HtmlTextView()
 			textView.layoutMargins = .zero
 			textView.delegate = self
+			titleLabel.accessibilityLabel = onboardingInfo.title + "\n" + AppStrings.Onboarding.skipLongTextHint
 			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
 				textView.load(from: url)
 			}

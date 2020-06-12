@@ -248,10 +248,10 @@ extension DownloadedPackagesSQLLiteStore: DownloadedPackagesStore {
 				"""
 					PRAGMA journal_mode=OFF;
 					DROP TABLE Z_DOWNLOADED_PACKAGE;
+					VACUUM;
 				"""
 			)
 		}
-		self.close()
 	}
 }
 

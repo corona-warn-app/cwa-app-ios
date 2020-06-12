@@ -16,7 +16,6 @@
 // under the License.
 
 import ExposureNotification
-import Reachability
 import UIKit
 
 protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
@@ -106,6 +105,12 @@ extension ExposureNotificationSettingViewController {
 			if alert {
 				alertError(message: "ExposureNotification is already enabled", title: "Note")
 			}
+		case .unknown(let message):
+			logError(message: "unknown")
+			if alert {
+				alertError(message: "Cannot enable the notification. The reason is \(message)", title: "Error")
+			}
+
 		}
 		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
 			mySceneDelegate.requestUpdatedExposureState()

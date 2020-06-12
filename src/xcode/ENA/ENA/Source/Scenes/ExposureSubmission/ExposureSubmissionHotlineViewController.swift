@@ -61,8 +61,8 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 			[
 				.section(
 					header: .image(UIImage(named: "Illu_Submission_Kontakt"),
-								   accessibilityLabel: nil,
-								   accessibilityIdentifier: nil),
+								   accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
+								   accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.imageDescription"),
 					cells: [
 						.body(text: AppStrings.ExposureSubmissionHotline.description,
 							  accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.description")
@@ -102,30 +102,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 					])
 			]
 		)
-	}
-
-	/// Gets the attributed string that makes the phone number blue and bold.
-	private func getAttributedStrings() -> [NSAttributedString] {
-		let attr1: [NSAttributedString.Key: Any] = [
-			.font: UIFont.enaFont(for: .headline),
-			.foregroundColor: UIColor.enaColor(for: .textTint)
-		]
-
-		let word = NSAttributedString(
-			string: AppStrings.ExposureSubmissionHotline.phoneNumber,
-			attributes: attr1
-		)
-
-		let attr2: [NSAttributedString.Key: Any] = [
-			.font: UIFont.enaFont(for: .footnote)
-		]
-
-		let description = NSAttributedString(
-			string: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
-			attributes: attr2
-		)
-
-		return [word, description]
 	}
 }
 

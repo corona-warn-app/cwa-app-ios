@@ -30,6 +30,10 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 }
 
+extension AppDelegate: CoronaWarnAppDelegate {
+	// required - otherwise app will crash because cast will fails
+}
+
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
@@ -37,9 +41,56 @@ extension AppDelegate: ExposureSummaryProvider {
 			switch result {
 			case .success(let summary):
 				completion(summary)
-			case .failure:
+			case .failure(let error):
+				self.showError(exposure: error)
 				completion(nil)
 			}
+		}
+	}
+
+	private func showError(exposure didEndPrematurely: ExposureDetection.DidEndPrematurelyReason) {
+
+		guard
+			let scene = UIApplication.shared.connectedScenes.first,
+			let delegate = scene.delegate as? SceneDelegate,
+			let rootController = delegate.window?.rootViewController,
+			let localizedError = didEndPrematurely.errorDescription
+		else {
+			return
+		}
+		let trace = Thread.callStackSymbols
+
+		func showError() {
+			rootController.present(alert, animated: true, completion: nil)
+		}
+
+		let alert = UIAlertController(
+			title: AppStrings.ExposureDetectionError.errorAlertTitle,
+			message: localizedError,
+			preferredStyle: .alert
+		)
+		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: nil)
+		let detailsAction = UIAlertAction(title: AppStrings.ExposureDetectionError.errorAlertActionDetails, style: .default, handler: { _ in
+			let detailsAlert = UIAlertController(
+				title: AppStrings.ExposureDetectionError.errorAlertTitle,
+				message: trace.joined(separator: "\n"),
+				preferredStyle: .alert
+			)
+			detailsAlert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: nil))
+			let showDetails: () -> Void = {
+				rootController.present(detailsAlert, animated: true, completion: nil)
+			}
+			alert.dismiss(animated: true, completion: showDetails)
+		})
+
+		alert.addAction(okAction)
+		alert.addAction(detailsAction)
+		alert.preferredAction = okAction
+
+		if rootController.presentedViewController != nil {
+			rootController.dismiss(animated: true, completion: showError)
+		} else {
+			rootController.present(alert, animated: true, completion: nil)
 		}
 	}
 }
@@ -114,28 +165,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 
 	lazy var client: Client = {
+
+		var configuration: HTTPClient.Configuration
+		#if !RELEASE
 		let store = self.store
-		guard
+		if
 			let distributionURLString = store.developerDistributionBaseURLOverride,
 			let submissionURLString = store.developerSubmissionBaseURLOverride,
 			let verificationURLString = store.developerVerificationBaseURLOverride,
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) else {
-				let configuration: HTTPClient.Configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
-				return HTTPClient(configuration: configuration)
+			let submissionURL = URL(string: submissionURLString) {
+			configuration = HTTPClient.Configuration(
+					apiVersion: "v1",
+					country: "DE",
+					endpoints: HTTPClient.Configuration.Endpoints(
+						distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
+						submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
+						verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
+					)
+				)
+
+		} else {
+			configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
 		}
 
-		let config = HTTPClient.Configuration(
-			apiVersion: "v1",
-			country: "DE",
-			endpoints: HTTPClient.Configuration.Endpoints(
-				distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-				submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
-				verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
-			)
-		)
-		return HTTPClient(configuration: config)
+		#else
+		configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
+		#endif
+		
+		return HTTPClient(configuration: configuration)
 	}()
 
 	// TODO: REMOVE ME
@@ -176,67 +235,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
 }
 
-extension AppDelegate: CoronaWarnAppDelegate {
-
-	private func useSummaryDetectionResult(
-		_ result: Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>
-	) {
-		exposureDetection = nil
-		switch result {
-		case .success(let summary):
-			store.summary = SummaryMetadata(detectionSummary: summary)
-		case .failure(let reason):
-			logError(message: "Exposure transaction failed: \(reason)")
-
-			let message: String
-			switch reason {
-			case .noExposureManager:
-				message = "No ExposureManager"
-			case .noSummary:
-				// not really accurate but very likely this is the case.
-				message = "Max file per day limit set by Apple reached (15)"
-			case .noDaysAndHours:
-				message = "No available files. Did you configure the backend URL?"
-			case .noExposureConfiguration:
-				message = "Didn't get a configuration"
-			case .unableToWriteDiagnosisKeys:
-				message = "No keys"
-			}
-
-			// We have to remove this after the test has been concluded.
-			let alert = UIAlertController(
-				title: "Exposure Detection Failed",
-				message: message,
-				preferredStyle: .alert
-			)
-
-			alert.addAction(
-				UIAlertAction(
-					title: "OK",
-					style: .cancel
-				)
-			)
-
-			exposureDetection = nil
-
-			guard let scene = UIApplication.shared.connectedScenes.first else { return }
-			guard let delegate = scene.delegate as? SceneDelegate else { return }
-			guard let rootController = delegate.window?.rootViewController else {
-				return
-			}
-			func showError() {
-				rootController.present(alert, animated: true, completion: nil)
-			}
-
-			if rootController.presentedViewController != nil {
-				rootController.dismiss(animated: true, completion: showError)
-			} else {
-				showError()
-			}
-		}
-	}
-}
-
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
@@ -252,7 +250,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 			}
 			completion(true)
 		}
-
 	}
 
 	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
