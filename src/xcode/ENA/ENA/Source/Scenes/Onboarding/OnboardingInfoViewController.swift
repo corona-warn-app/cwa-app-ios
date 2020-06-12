@@ -78,6 +78,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
+	var htmlTextView: HtmlTextView?
 
 	var onboardingInfo: OnboardingInfo?
 
@@ -169,6 +170,7 @@ final class OnboardingInfoViewController: UIViewController {
 				textView.load(from: url)
 			}
 			stackView.addArrangedSubview(textView)
+			htmlTextView = textView
 			addSkipAccessibilityActionToHeader()
 		default:
 			break
@@ -197,9 +199,9 @@ final class OnboardingInfoViewController: UIViewController {
 	func addSkipAccessibilityActionToHeader() {
 		titleLabel.accessibilityHint = AppStrings.Onboarding.onboardingContinueDescription
 		let actionName = AppStrings.Onboarding.onboardingContinue
-		titleLabel.accessibilityCustomActions = [
-			UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
-		]
+		let skipAction = UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
+		titleLabel.accessibilityCustomActions = [skipAction]
+		htmlTextView?.accessibilityCustomActions = [skipAction]
 	}
 
 	@objc
