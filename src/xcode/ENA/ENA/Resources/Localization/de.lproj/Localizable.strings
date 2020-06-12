@@ -797,7 +797,7 @@
 
 "RiskLegend_Legend2_Text" = "Sind Sie innerhalb der letzten 14 Tage einer Corona-positiv getesteten Person begegnet, berechnet die App Ihr persönliches Infektionsrisiko. Als Grundlage dafür misst sie, über welche Dauer und mit welchem Abstand eine Begegnung stattfand.";
 
-"RiskLegend_Legend2_RiskLevels" = "Folgende Risikostufen können angezeigt werden:";
+"RiskLegend_Legend2_RiskLevels" = "Folgende Risikostatus können angezeigt werden:";
 
 "RiskLegend_Legend2_High" = "Erhöhtes Risiko";
 
