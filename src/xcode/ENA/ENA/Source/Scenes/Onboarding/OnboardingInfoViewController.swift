@@ -150,8 +150,8 @@ final class OnboardingInfoViewController: UIViewController {
 
 		titleLabel.text = onboardingInfo.title
 
-		let exposureNotificationsNotSet = exposureManagerState.status == .unknown && exposureManagerState.authorizationStatus == .unknown
-		let exposureNotificationsEnabled = exposureManagerState.enabled || (exposureManagerState.authorized && exposureManagerState.status != .disabled)
+		let exposureNotificationsNotSet = exposureManagerState.status == .unknown && ENManager.authorizationStatus == .unknown
+		let exposureNotificationsEnabled = exposureManagerState.enabled || (ENManager.authorizationStatus == .authorized && exposureManagerState.status != .disabled)
 		let exposureNotificationsDisabled = !exposureNotificationsEnabled && !exposureNotificationsNotSet
 		let showStateView = onboardingInfo.showState && !exposureNotificationsNotSet
 

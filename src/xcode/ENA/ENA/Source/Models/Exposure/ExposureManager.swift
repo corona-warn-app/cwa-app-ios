@@ -35,13 +35,11 @@ struct ExposureManagerState {
 	init(
 		authorized: Bool = false,
 		enabled: Bool = false,
-		status: ENStatus = .unknown,
-		authorizationStatus: ENAuthorizationStatus = .unknown
+		status: ENStatus = .unknown
 	) {
 		self.authorized = authorized
 		self.enabled = enabled
 		self.status = status
-		self.authorizationStatus = authorizationStatus
 	}
 
 	// MARK: Properties
@@ -49,7 +47,6 @@ struct ExposureManagerState {
 	let authorized: Bool
 	let enabled: Bool
 	let status: ENStatus
-	let authorizationStatus: ENAuthorizationStatus
 	var isGood: Bool { authorized && enabled && status == .active }
 }
 
@@ -195,8 +192,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		.init(
 			authorized: type(of: manager).authorizationStatus == .authorized,
 			enabled: manager.exposureNotificationEnabled,
-			status: manager.exposureNotificationStatus,
-			authorizationStatus: type(of: manager).authorizationStatus
+			status: manager.exposureNotificationStatus
 		)
 	}
 
