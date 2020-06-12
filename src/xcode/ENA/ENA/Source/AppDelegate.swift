@@ -30,6 +30,10 @@ protocol CoronaWarnAppDelegate: AnyObject {
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 }
 
+extension AppDelegate: CoronaWarnAppDelegate {
+	// required - otherwise app will crash because cast will fails
+}
+
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
