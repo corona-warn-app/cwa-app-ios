@@ -93,6 +93,11 @@ final class HomeViewController: UIViewController {
 		homeInteractor.requestRisk(userInitiated: false)
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		updateBackgroundColor()
+	}
+
 	private func setupAccessibility() {
 		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
@@ -283,7 +288,7 @@ final class HomeViewController: UIViewController {
 		collectionView.collectionViewLayout = .homeLayout(delegate: self)
 		collectionView.delegate = self
 
-		collectionView.contentInset = UIEdgeInsets(top: 32.0, left: 0, bottom: 32.0, right: 0)
+		collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0, bottom: -UICollectionViewLayout.bottomBackgroundOverflowHeight, right: 0)
 
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
@@ -324,6 +329,14 @@ final class HomeViewController: UIViewController {
 
 	func updateSections() {
 		sections = homeInteractor.sections
+	}
+
+	private func updateBackgroundColor() {
+		if traitCollection.userInterfaceStyle == .light {
+			collectionView.backgroundColor = .enaColor(for: .background)
+		} else {
+			collectionView.backgroundColor = .enaColor(for: .separator)
+		}
 	}
 }
 

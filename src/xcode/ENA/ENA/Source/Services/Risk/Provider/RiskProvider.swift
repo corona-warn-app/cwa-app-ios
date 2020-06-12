@@ -145,8 +145,6 @@ extension RiskProvider: RiskProviding {
 		exposureSummaryProvider.detectExposure { detectedSummary in
 			if let detectedSummary = detectedSummary {
 				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
-			} else {
-				self.store.summary = nil
 			}
 			completion(
 				.init(

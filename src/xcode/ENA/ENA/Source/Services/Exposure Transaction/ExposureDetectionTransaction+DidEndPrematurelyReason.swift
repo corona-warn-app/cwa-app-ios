@@ -16,6 +16,7 @@
 // under the License.
 
 import Foundation
+import ExposureNotification
 
 extension ExposureDetection {
 	enum DidEndPrematurelyReason: Error {
@@ -30,5 +31,25 @@ extension ExposureDetection {
 		case noExposureConfiguration
 		/// Unable to write diagnosis keys
 		case unableToWriteDiagnosisKeys
+	}
+}
+
+extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
+	public var errorDescription: String? {
+		switch self {
+		case .noExposureManager:
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoExposureManager"
+		case .unableToWriteDiagnosisKeys:
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: DignosisKeys"
+		case .noSummary(let error):
+			guard let enError = error as? ENError else {
+				return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoSummary"
+			}
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " EN Code: \(enError.code.rawValue)"
+		case .noDaysAndHours:
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoDaysAndHours"
+		case .noExposureConfiguration:
+			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoExposureConfiguration"
+		}
 	}
 }

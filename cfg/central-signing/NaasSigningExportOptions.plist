@@ -8,8 +8,8 @@
 	<string>app-store</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>de.rki.coronawarnapp-dev</key>
-		<string>Corona-Warn-App-Dev</string>
+		<key>de.rki.coronawarnapp</key>
+		<string>Corona-Warn-App</string>
 	</dict>
 </dict>
 </plist>
