@@ -641,7 +641,6 @@
 		B1D7D68624766D2100E4DA5D /* submission_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = submission_payload.pb.swift; path = ../../../gen/output/submission_payload.pb.swift; sourceTree = "<group>"; };
 		B1D7D68A24766D2100E4DA5D /* apple_export.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = apple_export.pb.swift; path = ../../../gen/output/apple_export.pb.swift; sourceTree = "<group>"; };
 		B1DDDABB247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientConfigurationEndpointTests.swift; sourceTree = "<group>"; };
-		B1E8C99A2479D239006DC678 /* Info_AppStore.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_AppStore.plist; sourceTree = "<group>"; };
 		B1E8C99C2479D4E7006DC678 /* DMSubmissionStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DMSubmissionStateViewController.swift; sourceTree = "<group>"; };
 		B1EAEC8A24711884003BE9A2 /* URLSession+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Convenience.swift"; sourceTree = "<group>"; };
 		B1EAEC8D247118CB003BE9A2 /* URLSession+ConvenienceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+ConvenienceTests.swift"; sourceTree = "<group>"; };
@@ -1289,7 +1288,6 @@
 				EE70C239245B09E900AC9B2F /* Localization */,
 				85D7594F24570491008175F0 /* Info.plist */,
 				B1221BDB2492BCEB00E6C4E4 /* Info_Debug.plist */,
-				B1E8C99A2479D239006DC678 /* Info_AppStore.plist */,
 				85D75976245706BD008175F0 /* Assets */,
 				85D75975245706B0008175F0 /* Storyboards */,
 				A16714B0248CFF020031B111 /* HostWhitelist.plist */,
