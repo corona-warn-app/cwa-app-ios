@@ -361,6 +361,14 @@ extension HomeViewController: HomeLayoutDelegate {
 }
 
 extension HomeViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+		let cell = collectionView.cellForItem(at: indexPath)
+		switch cell {
+		case is RiskThankYouCollectionViewCell: return false
+		default: return true
+		}
+	}
+
 	func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 		collectionView.cellForItem(at: indexPath)?.highlight()
 	}
