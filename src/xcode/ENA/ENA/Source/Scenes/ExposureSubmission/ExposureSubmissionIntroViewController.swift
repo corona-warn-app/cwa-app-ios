@@ -78,7 +78,7 @@ private extension DynamicTableViewModel {
 		.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_Funktion1"),
-				accessibilityLabel: "",
+				accessibilityLabel: AppStrings.ExposureSubmissionIntroduction.accImageDescription,
 				accessibilityIdentifier: "ExposureSubmissionIntroViewController.image",
 				height: 200
 			),
