@@ -91,6 +91,7 @@ final class HomeViewController: UIViewController {
 		super.viewWillAppear(animated)
 		homeInteractor.updateTestResults()
 		homeInteractor.requestRisk(userInitiated: false)
+		updateBackgroundColor()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
