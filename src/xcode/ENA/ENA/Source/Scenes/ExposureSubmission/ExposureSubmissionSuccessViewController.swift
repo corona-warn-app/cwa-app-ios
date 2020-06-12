@@ -65,14 +65,16 @@ private extension DynamicTableViewModel {
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
 					title: AppStrings.ExposureSubmissionSuccess.listItem1,
-					icon: UIImage(named: "Icons - Hotline")?.withTintColor(.enaColor(for: .riskHigh)),
+					icon: UIImage(named: "Icons - Hotline"),
+					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
 					bottomSpacing: .normal
 				),
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
 					title: AppStrings.ExposureSubmissionSuccess.listItem2,
-					icon: UIImage(named: "Icons - Home")?.withTintColor(.enaColor(for: .riskHigh)),
+					icon: UIImage(named: "Icons - Home"),
+					iconTint: .enaColor(for: .riskHigh),
 					hairline: .none,
 					bottomSpacing: .large
 				),

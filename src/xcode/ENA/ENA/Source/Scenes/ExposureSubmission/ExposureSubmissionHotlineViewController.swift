@@ -65,7 +65,9 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 								   accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.imageDescription"),
 					cells: [
 						.body(text: AppStrings.ExposureSubmissionHotline.description,
-							  accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.description")
+							  accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.description") { _, cell, _ in
+								cell.textLabel?.accessibilityTraits = .header
+						}
 					]
 				),
 				DynamicSection.section(
@@ -76,6 +78,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
 							icon: UIImage(named: "Icons_Grey_1"),
+							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel1,
 							hairline: .iconAttached,
 							bottomSpacing: .normal
 						),
@@ -97,6 +100,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
 							icon: UIImage(named: "Icons_Grey_2"),
+							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel2,
 							hairline: .none
 						)
 					])

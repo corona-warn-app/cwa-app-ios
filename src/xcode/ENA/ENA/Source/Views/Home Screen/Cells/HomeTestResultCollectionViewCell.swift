@@ -92,7 +92,6 @@ class HomeTestResultCollectionViewCell: HomeCardCollectionViewCell {
 		titleLabel.isAccessibilityElement = true
 		subtitleLabel.isAccessibilityElement = true
 		descriptionLabel.isAccessibilityElement = true
-		illustrationView.isAccessibilityElement = true
 		isAccessibilityElement = false
 
 		titleLabel.accessibilityTraits = [.header, .button]

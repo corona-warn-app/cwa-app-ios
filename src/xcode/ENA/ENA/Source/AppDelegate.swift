@@ -54,41 +54,20 @@ extension AppDelegate: ExposureSummaryProvider {
 			let scene = UIApplication.shared.connectedScenes.first,
 			let delegate = scene.delegate as? SceneDelegate,
 			let rootController = delegate.window?.rootViewController,
-			let localizedError = didEndPrematurely.errorDescription
+			let alert = didEndPrematurely.errorAlertController(rootController: rootController)
 		else {
 			return
 		}
-		let trace = Thread.callStackSymbols
 
-		func showError() {
+		func _showError() {
 			rootController.present(alert, animated: true, completion: nil)
 		}
 
-		let alert = UIAlertController(
-			title: AppStrings.ExposureDetectionError.errorAlertTitle,
-			message: localizedError,
-			preferredStyle: .alert
-		)
-		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: nil)
-		let detailsAction = UIAlertAction(title: AppStrings.ExposureDetectionError.errorAlertActionDetails, style: .default, handler: { _ in
-			let detailsAlert = UIAlertController(
-				title: AppStrings.ExposureDetectionError.errorAlertTitle,
-				message: trace.joined(separator: "\n"),
-				preferredStyle: .alert
-			)
-			detailsAlert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: nil))
-			let showDetails: () -> Void = {
-				rootController.present(detailsAlert, animated: true, completion: nil)
-			}
-			alert.dismiss(animated: true, completion: showDetails)
-		})
-
-		alert.addAction(okAction)
-		alert.addAction(detailsAction)
-		alert.preferredAction = okAction
-
 		if rootController.presentedViewController != nil {
-			rootController.dismiss(animated: true, completion: showError)
+			rootController.dismiss(
+				animated: true,
+				completion: _showError
+			)
 		} else {
 			rootController.present(alert, animated: true, completion: nil)
 		}

@@ -91,6 +91,7 @@ final class HomeViewController: UIViewController {
 		super.viewWillAppear(animated)
 		homeInteractor.updateTestResults()
 		homeInteractor.requestRisk(userInitiated: false)
+		updateBackgroundColor()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -360,6 +361,14 @@ extension HomeViewController: HomeLayoutDelegate {
 }
 
 extension HomeViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+		let cell = collectionView.cellForItem(at: indexPath)
+		switch cell {
+		case is RiskThankYouCollectionViewCell: return false
+		default: return true
+		}
+	}
+
 	func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 		collectionView.cellForItem(at: indexPath)?.highlight()
 	}

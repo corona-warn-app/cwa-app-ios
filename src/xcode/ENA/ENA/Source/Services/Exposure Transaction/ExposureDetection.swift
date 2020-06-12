@@ -92,8 +92,10 @@ final class ExposureDetection {
 			completion != nil,
 			"Tried to end a detection prematurely is only possible if a detection is currently running."
 		)
-		completion?(.failure(reason))
-		completion = nil
+		DispatchQueue.main.async {
+			self.completion?(.failure(reason))
+			self.completion = nil
+		}
 	}
 
 	// Informs the delegate about a summary.
@@ -102,7 +104,10 @@ final class ExposureDetection {
 			completion != nil,
 			"Tried report a summary but no completion handler is set."
 		)
-		completion?(.success(summary))
-		completion = nil
+		DispatchQueue.main.async {
+			self.completion?(.success(summary))
+			self.completion = nil
+		}
+
 	}
 }
