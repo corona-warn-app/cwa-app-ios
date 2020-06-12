@@ -365,7 +365,8 @@ private class ENATanInputLabel: UILabel {
 	}
 
 	private func updateAccessibilityLabel() {
-		accessibilityLabel = (text?.isEmpty ?? true) ? AppStrings.ENATanInput.empty : text
+		accessibilityLabel = AppStrings.ExposureSubmissionTanEntry.textField
+		accessibilityValue = (text?.isEmpty ?? true) ? AppStrings.ENATanInput.empty : text
 
 		if !isValid {
 			accessibilityLabel = String(format: AppStrings.ENATanInput.invalidCharacter, accessibilityLabel ?? "")

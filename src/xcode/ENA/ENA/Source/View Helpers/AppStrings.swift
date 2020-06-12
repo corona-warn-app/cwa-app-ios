@@ -48,9 +48,10 @@ enum AppStrings {
 
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
 	}
-
+	
 	enum ExposureSubmissionTanEntry {
 		static let title = NSLocalizedString("ExposureSubmissionTanEntry_Title", comment: "")
+		static let textField = NSLocalizedString("ExposureSubmissionTanEntry_EntryField", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionTanEntry_Description", comment: "")
 		static let info = NSLocalizedString("ExposureSubmissionTanEntry_Info", comment: "")
 		static let submit = NSLocalizedString("ExposureSubmissionTanEntry_Submit", comment: "")
@@ -143,6 +144,7 @@ enum AppStrings {
 		static let tanInputButtonTitle = NSLocalizedString("ExposureSubmission_TANInputButtonTitle", comment: "")
 		static let phoneNumber = NSLocalizedString("ExposureSubmission_PhoneNumber", comment: "")
 		static let hotlineDetailDescription = NSLocalizedString("ExposureSubmission_PhoneDetailDescription", comment: "")
+		static let imageDescription = NSLocalizedString("ExposureSubmissionHotline_imageDescription", comment: "")
 	}
 
 	enum ExposureSubmissionWarnOthers {
@@ -239,6 +241,10 @@ enum AppStrings {
 	enum Settings {
 		static let trackingStatusActive = NSLocalizedString("Settings_KontaktProtokollStatusActive", comment: "")
 		static let trackingStatusInactive = NSLocalizedString("Settings_KontaktProtokollStatusInactive", comment: "")
+
+		static let statusEnable = NSLocalizedString("Settings_StatusEnable", comment: "")
+		static let statusDisable = NSLocalizedString("Settings_StatusDisable", comment: "")
+
 		static let notificationStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
 		static let notificationStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
 
