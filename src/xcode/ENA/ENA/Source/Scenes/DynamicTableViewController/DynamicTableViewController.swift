@@ -21,6 +21,8 @@ import UIKit
 class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	var dynamicTableViewModel = DynamicTableViewModel([])
 
+	@IBInspectable var cellBackgroundColor: UIColor?
+
 	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
 
 	override func loadView() {
@@ -28,9 +30,21 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 			super.loadView()
 		} else {
 			view = UITableView(frame: .zero, style: .grouped)
-			tableView.delegate = self
-			tableView.dataSource = self
 		}
+
+		if nil == tableView {
+			fatalError("\(String(describing: Self.self)) must be provided with a \(String(describing: UITableView.self)).")
+		}
+
+		tableView.delegate = self
+		tableView.dataSource = self
+
+		tableView.rowHeight = UITableView.automaticDimension
+		tableView.estimatedRowHeight = UITableView.automaticDimension
+		tableView.sectionHeaderHeight = UITableView.automaticDimension
+		tableView.estimatedSectionHeaderHeight = UITableView.automaticDimension
+		tableView.sectionFooterHeight = UITableView.automaticDimension
+		tableView.estimatedSectionFooterHeight = UITableView.automaticDimension
 	}
 
 	override func viewDidLoad() {
@@ -94,13 +108,14 @@ extension DynamicTableViewController {
 			view?.layoutMargins = insets
 			return view
 
-		case let .image(image, accessibilityLabel: label, height):
+		case let .image(image, accessibilityLabel: label, accessibilityIdentifier: accessibilityIdentifier, height):
 			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.header.rawValue) as? DynamicTableViewHeaderImageView
 			view?.imageView?.image = image
 			if let label = label {
 				view?.imageView?.isAccessibilityElement = true
 				view?.imageView?.accessibilityLabel = label
 			}
+			view?.imageView?.accessibilityIdentifier = accessibilityIdentifier
 			view?.height = height
 			return view
 
@@ -246,6 +261,10 @@ extension DynamicTableViewController {
 			cell.addSeparator(.clear)
 		}
 
+		if let cellBackgroundColor = cellBackgroundColor {
+			cell.backgroundColor = cellBackgroundColor
+		}
+
 		return cell
 	}
 
@@ -279,7 +298,7 @@ private extension UITableViewCell {
 
 		let separator = UIView(frame: bounds)
 		contentView.addSubview(separator)
-		separator.backgroundColor = .preferredColor(for: .separator)
+		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
 		separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
 		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true

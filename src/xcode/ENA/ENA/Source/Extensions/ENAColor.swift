@@ -18,68 +18,6 @@
 import Foundation
 import UIKit
 
-// TODO will be removed in due course while migrating to latest color scheme
-public enum ColorStyle: String {
-	case backgroundPrimary = "background"
-	case backgroundSecondary = "backgroundGroup"
-
-	case brandRed
-	case brandBlue
-	case brandMagenta
-
-	case separator
-	case hairline
-	case hairlineContrast
-	case tint
-
-	case textPrimary1
-	case textPrimary2
-	case textPrimary3
-
-	case positiveRisk = "positive"
-	case negativeRisk = "negative"
-	case inactiveRisk = "medium"
-	case unknownRisk = "unknown"
-
-	// TODO: Colors not defined by design
-	case chevron
-	case shadow
-}
-
-// TODO will be removed in due course while migrating to latest color scheme
-public extension UIColor {
-	convenience init?(style: ColorStyle, interface: UIUserInterfaceStyle = .unspecified) {
-		if interface == .unspecified {
-			self.init(named: style.rawValue)
-		} else {
-			self.init(named: style.rawValue, in: nil, compatibleWith: UITraitCollection(userInterfaceStyle: interface))
-		}
-	}
-
-
-	#if TARGET_INTERFACE_BUILDER
-	static func preferredColor(for style: ColorStyle, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
-		switch style {
-		case .tint: return UIColor(red: 0 / 255.0, green: 127 / 255.0, blue: 173 / 255.0, alpha: 1)
-		case .separator: return UIColor(red: 245 / 255.0, green: 245 / 255.0, blue: 245 / 255.0, alpha: 1)
-		case .textPrimary1: return UIColor(red: 23 / 255.0, green: 25 / 255.0, blue: 26 / 255.0, alpha: 1)
-		case .backgroundPrimary: return UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1)
-		default:
-			fatalError("Requested color is not available in interface builder: " + style.rawValue)
-		}
-	}
-	#else
-	static func preferredColor(for style: ColorStyle, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
-		if let color = UIColor(style: style, interface: interface) {
-			return color
-		} else {
-			fatalError("Requested color is not available: " + style.rawValue)
-		}
-	}
-	#endif
-}
-
-
 public enum ENAColor: String, CaseIterable {
 	// MARK: - Background Colors
 	case background = "ENA Background Color"
@@ -90,7 +28,6 @@ public enum ENAColor: String, CaseIterable {
 	// MARK: - Brand Colors
 	case brandBlue = "ENA Brand Blue Color"
 	case brandBurgundy = "ENA Brand Burgundy Color"
-	case brandLightBlue = "ENA Brand Light Blue Color"
 	case brandRed = "ENA Brand Red Color"
 
 	// MARK: - Button Colors
@@ -109,12 +46,17 @@ public enum ENAColor: String, CaseIterable {
 	case riskMedium = "ENA Risk Medium Color"
 	case riskNeutral = "ENA Risk Neutral Color"
 
+	// MARK: - Tap States Colors
+	case listHighlight = "ENA List Highlight Color"
+
 	// MARK: - Text Colors
 	case textContrast = "ENA Text Contrast Color"
 	case textPrimary1 = "ENA Text Primary 1 Color"
 	case textPrimary1Contrast = "ENA Text Primary 1 Contrast Color"
 	case textPrimary2 = "ENA Text Primary 2 Color"
 	case textPrimary3 = "ENA Text Primary 3 Color"
+	case textSemanticGray = "ENA Text Semantic Gray Color"
+	case textSemanticGreen = "ENA Text Semantic Green Color"
 	case textSemanticRed = "ENA Text Semantic Red Color"
 	case textTint = "ENA Text Tint Color"
 }
@@ -128,17 +70,21 @@ public extension UIColor {
 		}
 	}
 
-
 	#if TARGET_INTERFACE_BUILDER
+	// swiftlint:disable:next cyclomatic_complexity
 	static func enaColor(for style: ENAColor, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
 		switch style {
 		case .background: return UIColor(rgb: 0xFFFFFF, alpha: 1.0)
 		case .buttonPrimary: return UIColor(rgb: 0x007FAD, alpha: 1.0)
 		case .buttonHighlight: return UIColor(rgb: 0x17191A, alpha: 0.1)
+		case .listHighlight: return UIColor(rgb: 0x17191A, alpha: 0.2)
 		case .separator: return UIColor(rgb: 0xF5F5F5, alpha: 1.0)
 		case .textContrast: return UIColor(rgb: 0xFFFFFF, alpha: 1.0)
 		case .textPrimary1: return UIColor(rgb: 0x17191A, alpha: 1.0)
+		case .textSemanticRed: return UIColor(rgb: 0xC00F2D, alpha: 1.0)
+		case .textSemanticGray: return UIColor(rgb: 0x5D6E80, alpha: 1.0)
 		case .textTint: return UIColor(rgb: 0x007FAD, alpha: 1.0)
+		case .tint: return UIColor(rgb: 0x007FAD, alpha: 1.0)
 		default:
 			fatalError("Requested color is not available in interface builder: " + style.rawValue)
 		}
@@ -153,7 +99,6 @@ public extension UIColor {
 	}
 	#endif
 }
-
 
 private extension UIColor {
 	convenience init(rgb: UInt32, alpha: CGFloat) {

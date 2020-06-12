@@ -31,7 +31,7 @@ final class ENASwitch: UISwitch {
 	}
 
 	private func customizeSwitch() {
-		onTintColor = UIColor.preferredColor(for: .tint)
+		onTintColor = .enaColor(for: .buttonPrimary)
 	}
 
 	override func prepareForInterfaceBuilder() {

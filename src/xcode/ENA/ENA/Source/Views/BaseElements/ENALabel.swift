@@ -88,6 +88,20 @@ extension ENALabel.Style {
 	
 	var textStyle: UIFont.TextStyle {
 		switch self {
+		case .title1: return .largeTitle
+		case .title2: return .title2
+		case .headline: return .headline
+		case .body: return .body
+		case .subheadline: return .subheadline
+		case .footnote: return .footnote
+		}
+	}
+}
+
+
+extension ENAFont {
+	var labelStyle: ENALabel.Style {
+		switch self {
 		case .title1: return .title1
 		case .title2: return .title2
 		case .headline: return .headline

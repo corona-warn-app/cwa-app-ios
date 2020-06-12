@@ -36,8 +36,14 @@ extension QRScannerError: LocalizedError {
 }
 
 protocol ExposureSubmissionQRScannerDelegate: AnyObject {
-	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, didScan code: String)
-	func qrScanner(_ viewController: ExposureSubmissionQRScannerViewController, error: QRScannerError)
+	func qrScanner(_ viewController: QRScannerViewController, didScan code: String)
+	func qrScanner(_ viewController: QRScannerViewController, error: QRScannerError)
+}
+
+protocol QRScannerViewController: class {
+	var delegate: ExposureSubmissionQRScannerDelegate? { get set }
+	func dismiss(animated: Bool, completion: (() -> Void)?)
+	func present(_: UIViewController, animated: Bool, completion: (() -> Void)?)
 }
 
 final class ExposureSubmissionQRScannerNavigationController: UINavigationController {
@@ -49,30 +55,66 @@ final class ExposureSubmissionQRScannerNavigationController: UINavigationControl
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		overrideUserInterfaceStyle = .dark
+
+		navigationBar.tintColor = .enaColor(for: .textContrast)
+		navigationBar.shadowImage = UIImage()
+		if let image = UIImage.with(color: UIColor(white: 0, alpha: 0.5)) {
+			navigationBar.setBackgroundImage(image, for: .default)
+		}
 	}
 }
 
-final class ExposureSubmissionQRScannerViewController: UIViewController {
+final class ExposureSubmissionQRScannerViewController: UIViewController, QRScannerViewController {
 	@IBOutlet var focusView: ExposureSubmissionQRScannerFocusView!
 	@IBOutlet var flashButton: UIButton!
-	@IBOutlet weak var navigationTitle: UINavigationItem!
-	@IBOutlet weak var instructionLabel: DynamicTypeLabel!
+	@IBOutlet var instructionLabel: DynamicTypeLabel!
 
 	weak var delegate: ExposureSubmissionQRScannerDelegate?
 
 	private var captureDevice: AVCaptureDevice?
-	private var previewLayer: AVCaptureVideoPreviewLayer?
+	private var previewLayer: AVCaptureVideoPreviewLayer? { didSet { setNeedsPreviewMaskUpdate() } }
+
+	private var needsPreviewMaskUpdate: Bool = true
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
 		setupView()
+		updateToggleFlashAccessibility()
 		prepareScanning()
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+
+		setNeedsPreviewMaskUpdate()
+		updatePreviewMaskIfNeeded()
 	}
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionQRScanner.title
 		instructionLabel.text = AppStrings.ExposureSubmissionQRScanner.instruction
+
+		instructionLabel.layer.shadowColor = UIColor.enaColor(for: .textPrimary1Contrast).cgColor
+		instructionLabel.layer.shadowOpacity = 1
+		instructionLabel.layer.shadowRadius = 3
+		instructionLabel.layer.shadowOffset = .init(width: 0, height: 0)
+	}
+
+	private func updateToggleFlashAccessibility() {
+		flashButton.accessibilityLabel = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityLabel
+		flashButton.accessibilityCustomActions?.removeAll()
+		flashButton.accessibilityTraits = [.button]
+
+		if flashButton.isSelected {
+			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOnValue
+			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityDisableAction, target: self, selector: #selector(toggleFlash))]
+		} else {
+			flashButton.accessibilityValue = AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityOffValue
+			flashButton.accessibilityCustomActions = [UIAccessibilityCustomAction(name: AppStrings.ExposureSubmissionQRScanner.flashButtonAccessibilityEnableAction, target: self, selector: #selector(toggleFlash))]
+		}
 	}
 
 	private func prepareScanning() {
@@ -152,6 +194,8 @@ final class ExposureSubmissionQRScannerViewController: UIViewController {
 			}
 
 			device.unlockForConfiguration()
+
+			updateToggleFlashAccessibility()
 		} catch {
 			log(message: error.localizedDescription, level: .error)
 		}
@@ -176,13 +220,59 @@ extension ExposureSubmissionQRScannerViewController: AVCaptureMetadataOutputObje
 	}
 }
 
+extension ExposureSubmissionQRScannerViewController {
+	private func setNeedsPreviewMaskUpdate() {
+		guard needsPreviewMaskUpdate else { return }
+		needsPreviewMaskUpdate = true
+
+		DispatchQueue.main.async(execute: updatePreviewMaskIfNeeded)
+	}
+
+	private func updatePreviewMaskIfNeeded() {
+		guard needsPreviewMaskUpdate else { return }
+		needsPreviewMaskUpdate = false
+
+		guard let previewLayer = previewLayer else { return }
+		guard focusView.backdropOpacity > 0 else {
+			previewLayer.mask = nil
+			return
+		}
+		let backdropColor = UIColor(white: 0, alpha: 1 - max(0, min(focusView.backdropOpacity, 1)))
+
+		let focusPath = UIBezierPath(roundedRect: focusView.frame, cornerRadius: focusView.layer.cornerRadius)
+
+		let backdropPath = UIBezierPath(cgPath: focusPath.cgPath)
+		backdropPath.append(UIBezierPath(rect: view.bounds))
+
+		let backdropLayer = CAShapeLayer()
+		backdropLayer.path = UIBezierPath(rect: view.bounds).cgPath
+		backdropLayer.fillColor = backdropColor.cgColor
+
+		let backdropLayerMask = CAShapeLayer()
+		backdropLayerMask.fillRule = .evenOdd
+		backdropLayerMask.path = backdropPath.cgPath
+		backdropLayer.mask = backdropLayerMask
+
+		let throughHoleLayer = CAShapeLayer()
+		throughHoleLayer.path = UIBezierPath(cgPath: focusPath.cgPath).cgPath
+
+		previewLayer.mask = CALayer()
+		previewLayer.mask?.addSublayer(throughHoleLayer)
+		previewLayer.mask?.addSublayer(backdropLayer)
+	}
+}
+
 @IBDesignable
 final class ExposureSubmissionQRScannerFocusView: UIView {
+	@IBInspectable var backdropOpacity: CGFloat = 0
 	@IBInspectable var cornerRadius: CGFloat = 0
 	@IBInspectable var borderWidth: CGFloat = 1
 
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
+
+		backgroundColor = UIColor(white: 1, alpha: 0.5)
+
 		awakeFromNib()
 	}
 
@@ -198,5 +288,23 @@ final class ExposureSubmissionQRScannerFocusView: UIView {
 private extension Array {
 	func first<T>(ofType _: T.Type) -> T? {
 		first(where: { $0 is T }) as? T
+	}
+}
+
+private extension UIImage {
+	static func with(color: UIColor) -> UIImage? {
+		let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+
+		UIGraphicsBeginImageContext(rect.size)
+
+		if let context = UIGraphicsGetCurrentContext() {
+			context.setFillColor(color.cgColor)
+			context.fill(rect)
+		}
+
+		let image = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+
+		return image
 	}
 }

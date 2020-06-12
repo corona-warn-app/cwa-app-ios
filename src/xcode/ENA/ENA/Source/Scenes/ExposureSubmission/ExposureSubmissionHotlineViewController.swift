@@ -55,59 +55,53 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 	private func setupTableView() {
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 
 		dynamicTableViewModel = DynamicTableViewModel(
 			[
 				.section(
-					header: .image(UIImage(named: "Illu_Submission_Kontakt"), accessibilityLabel: nil),
+					header: .image(UIImage(named: "Illu_Submission_Kontakt"),
+								   accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
+								   accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.imageDescription"),
 					cells: [
-						.body(text: AppStrings.ExposureSubmissionHotline.description)
+						.body(text: AppStrings.ExposureSubmissionHotline.description,
+							  accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.description")
 					]
 				),
 				DynamicSection.section(
 					cells: [
-						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle),
-						.identifier(CustomCellReuseIdentifiers.stepCell,
-									action: .execute { _ in self.callHotline() },
-									configure: { _, cell, _ in
-										guard let cell = cell as? DynamicTableViewStepCell else { return }
-										cell.configure(
-											text: AppStrings.ExposureSubmissionHotline.sectionDescription1,
-											attributedText: self.getAttributedStrings(),
-											image: UIImage(named: "Icons_Grey_1")
-										)
-                        }),
-						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
-							guard let cell = cell as? DynamicTableViewStepCell else { return }
-							cell.configure(
-								text: AppStrings.ExposureSubmissionHotline.sectionDescription2,
-								image: UIImage(named: "Icons_Grey_2")
-							)
-                            })
+						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle,
+								accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.sectionTitle"),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .body,
+							title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
+							icon: UIImage(named: "Icons_Grey_1"),
+							hairline: .iconAttached,
+							bottomSpacing: .normal
+						),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .headline,
+							color: .enaColor(for: .textTint),
+							title: AppStrings.ExposureSubmissionHotline.phoneNumber,
+							hairline: .topAttached,
+							bottomSpacing: .normal,
+							action: .execute { [weak self] _ in self?.callHotline() }
+						),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .footnote,
+							title: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
+							hairline: .topAttached,
+							bottomSpacing: .large
+						),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .body,
+							title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
+							icon: UIImage(named: "Icons_Grey_2"),
+							hairline: .none
+						)
 					])
 			]
 		)
-	}
-
-	/// Gets the attributed string that makes the phone number blue and bold.
-	private func getAttributedStrings() -> [NSAttributedString] {
-		let font: UIFont = .preferredFont(forTextStyle: .body)
-		let boldFont: UIFont = UIFont.boldSystemFont(ofSize: font.pointSize)
-		let color: UIColor = .preferredColor(for: .tint)
-		let attr1: [NSAttributedString.Key: Any] = [.font: boldFont, .foregroundColor: color]
-		let word = NSAttributedString(
-			string: AppStrings.ExposureSubmissionHotline.phoneNumber,
-			attributes: attr1
-		)
-
-		let attr2: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .footnote)]
-		let description = NSAttributedString(
-			string: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
-			attributes: attr2
-		)
-
-		return [word, description]
 	}
 }
 
@@ -139,7 +133,7 @@ extension ExposureSubmissionHotlineViewController: ExposureSubmissionNavigationC
 	}
 
 	private func callHotline() {
-		if let url = URL(string: "telprompt:\(AppStrings.ExposureDetection.hotlineNumber)") {
+		if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)") {
 			if UIApplication.shared.canOpenURL(url) {
 				UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			}

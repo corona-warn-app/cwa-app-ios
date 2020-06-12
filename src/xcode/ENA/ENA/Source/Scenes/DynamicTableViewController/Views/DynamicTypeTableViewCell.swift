@@ -38,8 +38,6 @@ class DynamicTypeTableViewCell: UITableViewCell {
 
 		backgroundColor = .enaColor(for: .background)
 
-		contentView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-
 		if let label = textLabel {
 			label.translatesAutoresizingMaskIntoConstraints = false
 			label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
@@ -48,14 +46,22 @@ class DynamicTypeTableViewCell: UITableViewCell {
 			label.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
 		}
 
+		resetMargins()
 		configureDynamicType()
 		configure(text: "", color: .enaColor(for: .textPrimary1))
 	}
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
+		
+		resetMargins()
 		configureDynamicType()
 		configure(text: "", color: .enaColor(for: .textPrimary1))
+	}
+
+	private func resetMargins() {
+		contentView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+		contentView.insetsLayoutMarginsFromSafeArea = false
 	}
 
 	func configureDynamicType(size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body) {
@@ -66,6 +72,12 @@ class DynamicTypeTableViewCell: UITableViewCell {
 
 	func configure(text: String, color: UIColor? = nil) {
 		textLabel?.text = text
-		textLabel?.textColor = color ?? .preferredColor(for: .textPrimary1)
+		textLabel?.textColor = color ?? .enaColor(for: .textPrimary1)
+	}
+
+	func configureAccessibility(label: String? = nil, identifier: String? = nil, traits: UIAccessibilityTraits = .staticText) {
+		textLabel?.accessibilityLabel = label
+		textLabel?.accessibilityIdentifier = identifier
+		accessibilityTraits = traits
 	}
 }

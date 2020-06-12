@@ -33,13 +33,15 @@ class SettingsViewModel {
 			icon: "Icons_Settings_Risikoermittlung",
 			description: AppStrings.Settings.tracingLabel,
 			stateActive: AppStrings.Settings.trackingStatusActive,
-			stateInactive: AppStrings.Settings.trackingStatusInactive
+			stateInactive: AppStrings.Settings.trackingStatusInactive,
+			accessibilityIdentifier: "AppStrings.Settings.tracingLabel"
 		),
 		notifications: Main(
 			icon: "Icons_Settings_Mitteilungen",
 			description: AppStrings.Settings.notificationLabel,
 			stateActive: AppStrings.Settings.notificationStatusActive,
-			stateInactive: AppStrings.Settings.notificationStatusInactive
+			stateInactive: AppStrings.Settings.notificationStatusInactive,
+			accessibilityIdentifier: "AppStrings.Settings.notificationLabel"
 		),
 		reset: AppStrings.Settings.resetLabel
 	)
@@ -53,6 +55,7 @@ extension SettingsViewModel {
 
 		let stateActive: String
 		let stateInactive: String
+		let accessibilityIdentifier: String?
 
 		mutating func setState(state: Bool) {
 			self.state = state ? stateActive : stateInactive

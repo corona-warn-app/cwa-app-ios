@@ -15,6 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
+#if !RELEASE
+
 import UIKit
 
 /// A view controller that displays a `Key` as a QR code.
@@ -100,3 +102,5 @@ private extension UIView {
 		view.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 	}
 }
+
+#endif

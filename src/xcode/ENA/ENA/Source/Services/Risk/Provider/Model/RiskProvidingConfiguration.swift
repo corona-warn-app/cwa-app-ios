@@ -21,9 +21,48 @@ import Foundation
 
 /// Used to configure a `RiskLevelProvider`.
 struct RiskProvidingConfiguration {
-	/// The mode of operation – either manual or automatic.
-	var updateMode: RiskProvidingConfigurationUpdateMode
-
 	/// The duration a conducted exposure detection is considered valid.
 	var exposureDetectionValidityDuration: DateComponents
+
+	/// Time interval between exposure detections.
+	var exposureDetectionInterval: DateComponents
+
+	/// The mode of operation
+	var detectionMode: DetectionMode = DetectionMode.default
+}
+
+extension RiskProvidingConfiguration {
+	func exposureDetectionValidUntil(lastExposureDetectionDate: Date?) -> Date {
+		Calendar.current.date(
+			byAdding: exposureDetectionValidityDuration,
+			to: lastExposureDetectionDate ?? .distantPast,
+			wrappingComponents: false
+			) ?? .distantPast
+	}
+
+	func nextExposureDetectionDate(lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Date {
+		let potentialDate = Calendar.current.date(
+			byAdding: exposureDetectionInterval,
+			to: lastExposureDetectionDate ?? .distantPast,
+			wrappingComponents: false
+			) ?? .distantPast
+		return potentialDate > currentDate ? currentDate : potentialDate
+	}
+
+	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast, currentDate: Date = Date()) -> Bool {
+		// It is not valid to have a future exposure detection date
+		guard lastExposureDetectionDate <= currentDate else { return false }
+
+		return currentDate < exposureDetectionValidUntil(lastExposureDetectionDate: lastExposureDetectionDate)
+	}
+
+	func shouldPerformExposureDetection(lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
+		if let lastExposureDetectionDate = lastExposureDetectionDate, lastExposureDetectionDate > currentDate {
+			// It is not valid to have a future exposure detection date.
+			return true
+		}
+		let next = nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate, currentDate: currentDate)
+		let result = next < currentDate
+		return result
+	}
 }

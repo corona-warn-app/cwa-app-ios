@@ -56,17 +56,17 @@ enum RiskCalculation {
 		- currentDate: The current `Date` to use in checks. Defaults to `Date()`
 	*/
 	private static func riskLevel(
-		summary: ENExposureDetectionSummaryContainer?,
+		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		numberOfTracingActiveHours: Int, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
+		providerConfiguration: RiskProvidingConfiguration,
 		currentDate: Date = Date()
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
 		var riskLevel = RiskLevel.low
-
 		DispatchQueue.main.async {
-			let appDelegate = UIApplication.shared.delegate as? AppDelegate  // TODO: Remove
+			let appDelegate = UIApplication.shared.delegate as? AppDelegate // TODO: Remove
 			appDelegate?.lastRiskCalculation = ""  // Reset; Append from here on
 			appDelegate?.lastRiskCalculation.append("configuration: \(configuration)\n")
 			appDelegate?.lastRiskCalculation.append("numberOfTracingActiveHours: \(numberOfTracingActiveHours)\n")
@@ -91,12 +91,10 @@ enum RiskCalculation {
 			riskLevel = .unknownInitial
 		}
 
-		// Precondition 4 - If date of last exposure detection was not within 1 day, risk is unknownOutdated
 		if
-			let dateLastExposureDetection = dateLastExposureDetection,
-			!currentDate.isWithinExposureDetectionValidInterval(from: dateLastExposureDetection),
-			riskLevel < .unknownOutdated
-		{
+			!providerConfiguration.exposureDetectionIsValid(lastExposureDetectionDate: dateLastExposureDetection ?? .distantPast),
+			riskLevel < .unknownOutdated {
+			// The last exposure detection is not valid since it occurred too far in the past
 			riskLevel = .unknownOutdated
 		}
 
@@ -136,9 +134,10 @@ enum RiskCalculation {
 	/// Performs the raw risk calculation without checking any preconditions
 	/// - returns: weighted risk score
 	static func calculateRawRisk(
-		summary: ENExposureDetectionSummaryContainer,
+		summary: CodableExposureDetectionSummary,
 		configuration: SAP_ApplicationConfiguration
 	) -> Double {
+
 		let maximumRisk = summary.maximumRiskScoreFullRange
 		let adWeights = configuration.attenuationDuration.weights
 		let attenuationDurationsInMin = summary.configuredAttenuationDurations.map { $0 / Double(60.0) }
@@ -170,20 +169,22 @@ enum RiskCalculation {
 	}
 
 	static func risk(
-		summary: ENExposureDetectionSummaryContainer?,
+		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
 		numberOfTracingActiveHours: Int,
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date(),
-		previousSummary: ENExposureDetectionSummaryContainer?
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		providerConfiguration: RiskProvidingConfiguration
 	) -> Risk? {
 		switch riskLevel(
 			summary: summary,
 			configuration: configuration,
 			dateLastExposureDetection: dateLastExposureDetection,
 			numberOfTracingActiveHours: numberOfTracingActiveHours,
-			preconditions: preconditions
+			preconditions: preconditions,
+			providerConfiguration: providerConfiguration
 		) {
 		case .success(let level):
 			let details = Risk.Details(
@@ -191,15 +192,6 @@ enum RiskCalculation {
 				numberOfHoursWithActiveTracing: numberOfTracingActiveHours,
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
-
-			var riskLevelHasChanged = false
-			if
-				let summary = summary,
-				let previousSummary = previousSummary,
-				(RiskLevel(riskScore: summary.maximumRiskScore) == .low || RiskLevel(riskScore: summary.maximumRiskScore) == .increased),
-				RiskLevel(riskScore: summary.maximumRiskScore) != RiskLevel(riskScore: previousSummary.maximumRiskScore) {
-				riskLevelHasChanged = true
-			}
 
 			DispatchQueue.main.async {
 				// TODO: Remove
@@ -209,6 +201,16 @@ enum RiskCalculation {
 				appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
 			}
 
+			var riskLevelHasChanged = false
+			if
+				let previousRiskLevel = previousRiskLevel,
+				let newRiskLevel = EitherLowOrIncreasedRiskLevel(with: level),
+				previousRiskLevel != newRiskLevel {
+				// If the newly calculated risk level is different than the stored level, set the flag to true.
+				// Note that we ignore all levels aside from low or increased risk
+				riskLevelHasChanged = true
+			}
+			
 			return Risk(
 				level: level,
 				details: details,
@@ -228,17 +230,6 @@ enum RiskLevelCalculationError: Error {
 }
 
 // MARK: - Helpers
-
-extension Date {
-	func isWithinExposureDetectionValidInterval(from date: Date = Date()) -> Bool {
-		Calendar.current.dateComponents(
-			[.day],
-			from: date,
-			to: self
-		).day ?? .max < RiskCalculation.exposureDetectionStaleThreshold
-	}
-}
-
 
 extension Double {
 	func rounded(to places: Int) -> Double {

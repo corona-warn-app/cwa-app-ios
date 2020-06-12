@@ -33,5 +33,21 @@ class DescriptionTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		label1.text = AppStrings.ExposureNotificationSetting.descriptionText1
 		label2.text = AppStrings.ExposureNotificationSetting.descriptionText2
 		label3.text = AppStrings.ExposureNotificationSetting.descriptionText3
+
+		titleLabel.isAccessibilityElement = true
+		label1.isAccessibilityElement = true
+		label2.isAccessibilityElement = true
+		label3.isAccessibilityElement = true
+
+		titleLabel.accessibilityIdentifier = (riskDetectionState == .disabled) ?
+			"AppStrings.ExposureNotificationSetting.descriptionTitleInactive" : "AppStrings.ExposureNotificationSetting.descriptionTitle"
+		label1.accessibilityIdentifier = "AppStrings.ExposureNotificationSetting.descriptionText1"
+		label2.accessibilityIdentifier = "AppStrings.ExposureNotificationSetting.descriptionText2"
+		label3.accessibilityIdentifier = "AppStrings.ExposureNotificationSetting.descriptionText3"
+
+		titleLabel.accessibilityTraits = .header
+		label1.accessibilityTraits = .staticText
+		label2.accessibilityTraits = .staticText
+		label3.accessibilityTraits = .staticText
 	}
 }

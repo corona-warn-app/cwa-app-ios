@@ -62,18 +62,19 @@ extension DynamicCell {
 }
 
 extension DynamicCell {
-	static func dynamicType(text: String, size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self {
+	static func dynamicType(text: String, size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body, color: UIColor? = nil, accessibilityIdentifier: String? = nil, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
 		.identifier(CellReuseIdentifier.dynamicTypeText, action: .none, accessoryAction: .none) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicTypeTableViewCell else { return }
 			cell.configureDynamicType(size: size, weight: weight, style: style)
 			cell.configure(text: text, color: color)
+			cell.configureAccessibility(label: text, identifier: accessibilityIdentifier, traits: accessibilityTraits)
 			configure?(viewController, cell, indexPath)
 		}
 	}
 
-	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, style: ENAFont = .body, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
 		.identifier(CellReuseIdentifier.icon, action: action, accessoryAction: .none) { viewController, cell, indexPath in
-			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor)
+			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor, style: style)
 			configure?(viewController, cell, indexPath)
 		}
 	}
@@ -88,14 +89,31 @@ extension DynamicCell {
 }
 
 extension DynamicCell {
-	private static func enaLabelStyle(_ style: ENALabel.Style, text: String, color: UIColor?, configure: CellConfigurator? = nil) -> Self {
-		dynamicType(text: text, size: style.fontSize, weight: UIFont.Weight(style.fontWeight), style: style.textStyle, color: color, configure: configure)
+	private static func enaLabelStyle(_ style: ENALabel.Style, text: String, color: UIColor?, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
+		dynamicType(text: text, size: style.fontSize, weight: UIFont.Weight(style.fontWeight), style: style.textStyle, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
 	}
 
-	static func title1(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.title1, text: text, color: color, configure: configure) }
-	static func title2(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.title2, text: text, color: color, configure: configure) }
-	static func headline(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.headline, text: text, color: color, configure: configure) }
-	static func body(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.body, text: text, color: color, configure: configure) }
-	static func subheadline(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.subheadline, text: text, color: color, configure: configure) }
-	static func footnote(text: String, color: UIColor? = nil, configure: CellConfigurator? = nil) -> Self { .enaLabelStyle(.footnote, text: text, color: color, configure: configure) }
+	static func title1(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = [.header, .staticText], configure: CellConfigurator? = nil) -> Self {
+		.enaLabelStyle(.title1, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	}
+
+	static func title2(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = [.header, .staticText], configure: CellConfigurator? = nil) -> Self {
+		.enaLabelStyle(.title2, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	}
+
+	static func headline(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
+		.enaLabelStyle(.headline, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	}
+
+	static func body(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
+		.enaLabelStyle(.body, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	}
+
+	static func subheadline(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
+		.enaLabelStyle(.subheadline, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	}
+
+	static func footnote(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
+		.enaLabelStyle(.footnote, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	}
 }

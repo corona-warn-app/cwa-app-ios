@@ -19,7 +19,7 @@
 			<string>Yesterday, %%1$@</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%%2$@, %%1$@</string>
+			<string>%%2$@, %%1$@ o'clock</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_NumberOfContacts</key>
@@ -34,13 +34,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>No exposure up to now</string>
+			<string>No exposures up to now</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>%u exposure</string>
+			<string>One exposure</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u exposures</string>
+			<string>%u&#x00a0;exposures</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_LastExposure</key>
@@ -55,13 +55,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Last encounter: today</string>
+			<string>%u&#x00a0;days since last exposure</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Last encounter: yesterday</string>
+			<string>%u&#x00a0;day since last exposure</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u days since last encounter</string>
+			<string>%u&#x00a0;days since last exposure</string>
 		</dict>
 	</dict>
     <key>Home_Risk_Number_Contacts_Item_Title</key>
@@ -79,10 +79,10 @@
             <string>No exposure up to now</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One -->
-            <string>%u exposure</string>
+            <string>%u&#x00a0;exposure</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
-            <string>%u exposures</string>
+            <string>%u&#x00a0;exposures</string>
         </dict>
     </dict>
     <key>Home_Risk_Last_Contact_Item_Title</key>
@@ -100,10 +100,10 @@
             <string>Less than one day since last exposure</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One -->
-            <string>%u day since last exposure</string>
+            <string>%u&#x00a0;day since last exposure</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
-            <string>%u days since last exposure</string>
+            <string>%u&#x00a0;days since last exposure</string>
         </dict>
     </dict>
     <key>Home_Risk_Status_Counter_Label</key>
@@ -118,13 +118,13 @@
             <string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-            <string>Update in %02u:%2$#@seconds@ seconds</string>
+            <string>Update in %02u:%2$#@seconds@&#x00a0;seconds</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One -->
-            <string>Update in %02u:%2$#@seconds@ minute</string>
+            <string>Update in %02u:%2$#@seconds@&#x00a0;minute</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
-            <string>Update in %02u:%2$#@seconds@ minutes</string>
+            <string>Update in %02u:%2$#@seconds@&#x00a0;minutes</string>
         </dict>
         <key>seconds</key>
         <dict>
@@ -149,16 +149,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Risk identification has been active for less than one day.
-An exposure check can only be reliable if risk identification is permanently activated.</string>
+			<string>Risk identification has been active for less than one day. An exposure check can only be reliable if risk identification is permanently activated.</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Risk identification has been active for %u day.
-The exposure check is only reliable if risk identification is permanently activated.</string>
+			<string>Risk identification has been active for %u&#x00a0;day. The exposure check is only reliable if risk identification is permanently activated.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>Risk identification has been active for %u days.
-An exposure check can only be reliable if risk identification is permanently activated.</string>
+			<string>Risk identification has been active for %u&#x00a0;days. An exposure check can only be reliable if risk identification is permanently activated.</string>
 		</dict>
 	</dict>
 </dict>

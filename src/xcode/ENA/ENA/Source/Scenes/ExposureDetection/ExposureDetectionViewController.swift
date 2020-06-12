@@ -22,16 +22,19 @@ import UIKit
 final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
 	// MARK: Properties
 
-	@IBOutlet var closeImage: UIImageView!
+	@IBOutlet var closeButton: UIButton!
 	@IBOutlet var headerView: UIView!
 	@IBOutlet var titleViewBottomConstraint: NSLayoutConstraint!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var footerView: UIView!
 	@IBOutlet var checkButton: ENAButton!
 
-	var state: State
+	var state: State {
+		didSet {
+			updateUI()
+		}
+	}
 	private weak var delegate: ExposureDetectionViewControllerDelegate?
-	private weak var refreshTimer: Timer?
 
 	private let consumer = RiskConsumer()
 
@@ -56,13 +59,16 @@ extension ExposureDetectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		consumer.didCalculateRisk = { risk in
-			self.state.risk = risk
-			self.updateUI()
-		}
+		titleLabel.accessibilityTraits = .header
 
-		consumer.nextExposureDetectionDateDidChange = { date in
+		closeButton.isAccessibilityElement = true
+		closeButton.accessibilityTraits = .button
+		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		closeButton.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
 
+		consumer.didCalculateRisk = { [weak self] risk in
+			self?.state.risk = risk
+			self?.updateUI()
 		}
 
 		riskProvider.observeRisk(consumer)
@@ -74,20 +80,15 @@ extension ExposureDetectionViewController {
 		updateUI()
 	}
 
-	override func viewDidDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
-
-		refreshTimer?.invalidate()
-	}
-
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		switch state.mode {
-		case .automatic:
+		if footerView.isHidden {
 			tableView.contentInset.bottom = 0
-		case .manual:
-			tableView.contentInset.bottom = footerView.frame.height
+			tableView.verticalScrollIndicatorInsets.bottom = 0
+		} else {
+			tableView.contentInset.bottom = footerView.frame.height - tableView.safeAreaInsets.bottom
+			tableView.verticalScrollIndicatorInsets.bottom = tableView.contentInset.bottom
 		}
 	}
 
@@ -106,6 +107,8 @@ extension ExposureDetectionViewController {
 
 		return cell
 	}
+
+
 }
 
 extension ExposureDetectionViewController {
@@ -132,7 +135,12 @@ private extension ExposureDetectionViewController {
 			}
 			return
 		}
-		riskProvider.requestRisk()
+		state.isLoading = true
+		self.delegate?.didStartLoading(exposureDetectionViewController: self)
+		riskProvider.requestRisk(userInitiated: true) { _ in
+			self.state.isLoading = false
+			self.delegate?.didFinishLoading(exposureDetectionViewController: self)
+		}
 	}
 }
 
@@ -145,9 +153,6 @@ extension ExposureDetectionViewController: ExposureStateUpdating {
 
 extension ExposureDetectionViewController {
 	func updateUI() {
-		let areAnimationEnabled = UIView.areAnimationsEnabled
-		UIView.setAnimationsEnabled(false)
-
 		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, isTracingEnabled: state.isTracingEnabled)
 
 		updateCloseButton()
@@ -155,18 +160,16 @@ extension ExposureDetectionViewController {
 		updateTableView()
 		updateCheckButton()
 
-		updateTimer()
-
 		view.setNeedsLayout()
-
-		UIView.setAnimationsEnabled(areAnimationEnabled)
 	}
 
 	private func updateCloseButton() {
-		if state.isTracingEnabled {
-			closeImage.image = UIImage(named: "Icons - Close - Contrast")
+		if state.isTracingEnabled && state.riskLevel != .unknownOutdated {
+			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
+			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
 		} else {
-			closeImage.image = UIImage(named: "Icons - Close")
+			closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
+			closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
 		}
 	}
 
@@ -180,14 +183,6 @@ extension ExposureDetectionViewController {
 		tableView.reloadData()
 	}
 
-	private func updateRefreshCell() {
-		let indexPath = IndexPath(row: 0, section: 1)
-		if let cell = tableView.cellForRow(at: indexPath) {
-			dynamicTableViewModel.cell(at: indexPath).configure(cell: cell, at: indexPath, for: self)
-			cell.setNeedsLayout()
-		}
-	}
-
 	private func updateCheckButton() {
 		if !state.isTracingEnabled {
 			footerView.isHidden = false
@@ -196,50 +191,14 @@ extension ExposureDetectionViewController {
 			return
 		}
 		
-		switch state.mode {
+		switch state.detectionMode {
 		case .automatic:
 			footerView.isHidden = true
 			checkButton.isEnabled = true
-
 		case .manual:
 			footerView.isHidden = false
-
-			if let nextRefresh = state.nextRefresh {
-				UIView.performWithoutAnimation {
-					let components = Calendar.current.dateComponents([.minute, .second], from: Date(), to: nextRefresh)
-					checkButton.setTitle(String(format: AppStrings.ExposureDetection.buttonRefreshingIn, components.minute ?? 0, components.second ?? 0), for: .disabled)
-					checkButton.isEnabled = false
-					checkButton.layoutIfNeeded()
-				}
-			} else {
-				checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
-				checkButton.isEnabled = !state.isLoading
-			}
-		}
-	}
-
-	private func updateTimer() {
-		refreshTimer?.invalidate()
-
-		guard state.nextRefresh != nil else { return }
-
-		refreshTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] timer in
-			guard let self = self else { timer.invalidate(); return }
-			self.timerUpdateUI()
-		}
-
-		if tableView.window != nil {
-			refreshTimer?.fire()
-		}
-	}
-
-	private func timerUpdateUI() {
-		switch state.mode {
-		case .automatic:
-			updateRefreshCell()
-
-		case .manual:
-			updateCheckButton()
+			checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
+			checkButton.isEnabled = riskProvider.manualExposureDetectionState == .possible
 		}
 	}
 }

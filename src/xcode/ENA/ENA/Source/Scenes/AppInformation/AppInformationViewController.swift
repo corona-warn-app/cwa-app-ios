@@ -27,14 +27,14 @@ class AppInformationViewController: DynamicTableViewController {
 		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.largeTitleDisplayMode = .always
-		navigationItem.title = "Home_AppInformationCard_Title".localized
+		navigationItem.title = AppStrings.Home.appInformationCardTitle
 
 		dynamicTableViewModel = .init([
 			.section(
 				header: .space(height: 32),
 				footer: .view(footerView()),
 				separators: false,
-				cells: Category.allCases.compactMap { Self.model[$0]?.text }.map { .body(text: $0) }
+				cells: Category.allCases.compactMap { Self.model[$0] }.map { .body(text: $0.text, accessibilityIdentifier: $0.accessibilityIdentifier) }
 			)
 		])
     }
@@ -56,7 +56,7 @@ extension AppInformationViewController {
 	private func footerView() -> UIView {
 		let versionLabel = ENALabel()
 		versionLabel.translatesAutoresizingMaskIntoConstraints = false
-		versionLabel.textColor = UIColor.preferredColor(for: .textPrimary2)
+		versionLabel.textColor = .enaColor(for: .textPrimary2)
 		versionLabel.style = .footnote
 
 		if let bundleVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"],
@@ -83,6 +83,14 @@ extension AppInformationViewController {
 		let cell = super.tableView(tableView, cellForRowAt: indexPath)
 		cell.accessoryType = .disclosureIndicator
 		cell.selectionStyle = .default
+
+		cell.isAccessibilityElement = true
+		cell.accessibilityLabel = cell.textLabel?.text
+		if let category = Category(rawValue: indexPath.row),
+			let accessibilityIdentifier = Self.model[category]?.accessibilityIdentifier {
+			cell.accessibilityIdentifier = accessibilityIdentifier
+		}
+
 		return cell
 	}
 
@@ -94,5 +102,8 @@ extension AppInformationViewController {
 			self.execute(action: action)
 		}
 	}
+}
 
+extension AppInformationViewController: NavigationBarOpacityDelegate {
+	var preferredLargeTitleBackgroundColor: UIColor? { .enaColor(for: .background) }
 }

@@ -32,13 +32,16 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: ENALabel!
-	@IBOutlet var updateButton: ENAButton!
-	@IBOutlet var counterLabel: ENALabel!
-	@IBOutlet var counterLabelContainer: UIView!
+	@IBOutlet var updateButton: ENACloneButton!
+	@IBOutlet var detectionIntervalLabel: ENALabel!
+	@IBOutlet var detectionIntervalLabelContainer: UIView!
 
 	@IBOutlet var viewContainer: UIView!
-	@IBOutlet var topContainer: UIView!
+	@IBOutlet var topContainer: UIStackView!
 	@IBOutlet var stackView: UIStackView!
+	@IBOutlet var riskViewStackView: UIStackView!
+
+	// MARK: Nib Loading
 
 	// Ignore touches on the button when it's disabled
 	override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -58,61 +61,54 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 
 	// MARK: Configuring the UI
 
-	func removeAllArrangedSubviews() {
-		stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-	}
-
 	func configureTitle(title: String, titleColor: UIColor) {
 		titleLabel.text = title
 		titleLabel.textColor = titleColor
-		stackView.addArrangedSubview(topContainer)
 	}
 
 	func configureBody(text: String, bodyColor: UIColor, isHidden: Bool) {
 		bodyLabel.text = text
 		bodyLabel.textColor = bodyColor
 		bodyLabel.isHidden = isHidden
-		stackView.addArrangedSubview(bodyLabel)
 	}
 
 	func configureBackgroundColor(color: UIColor) {
 		viewContainer.backgroundColor = color
 	}
 
-	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool) {
-		UIView.performWithoutAnimation {
-			updateButton.setTitle(title, for: .normal)
-			updateButton.layoutIfNeeded()
-		}
+	func configureUpdateButton(title: String, isEnabled: Bool, isHidden: Bool, accessibilityIdentifier: String?) {
+		updateButton.setTitle(title, for: .normal)
 		updateButton.isEnabled = isEnabled
 		updateButton.isHidden = isHidden
-		stackView.addArrangedSubview(updateButton)
+		updateButton.isHidden = isHidden
+		updateButton.isAccessibilityElement = true
+		updateButton.accessibilityLabel = title
+		updateButton.accessibilityIdentifier = accessibilityIdentifier
 	}
 
-	func configureCounterLabel(text: String, isHidden: Bool) {
-		counterLabel.text = text
-		counterLabel.isHidden = isHidden
-		counterLabelContainer.isHidden = isHidden
-		stackView.addArrangedSubview(counterLabelContainer)
+	func configureDetectionIntervalLabel(text: String, isHidden: Bool) {
+		detectionIntervalLabel.text = text
+		detectionIntervalLabel.isHidden = isHidden
+		detectionIntervalLabelContainer.isHidden = isHidden
 	}
 
 	func configureRiskViews(cellConfigurators: [HomeRiskViewConfiguratorAny]) {
-		var lastView: UIView?
+
+		riskViewStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
 		for itemConfigurator in cellConfigurators {
 			let nibName = itemConfigurator.viewAnyType.stringName()
 			let nib = UINib(nibName: nibName, bundle: .main)
 			if let riskView = nib.instantiate(withOwner: self, options: nil).first as? UIView {
-				stackView.addArrangedSubview(riskView)
-				stackView.setCustomSpacing(0.0, after: riskView)
+				riskViewStackView.addArrangedSubview(riskView)
 				itemConfigurator.configureAny(riskView: riskView)
-				lastView = riskView
 			}
 		}
-		if let last = lastView {
-			stackView.setCustomSpacing(16.0, after: last)
-		}
-		if let riskItemView = stackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
+	
+		if let riskItemView = riskViewStackView.arrangedSubviews.last as? RiskItemViewSeparatorable {
 			riskItemView.hideSeparator()
 		}
+
+		riskViewStackView.isHidden = cellConfigurators.isEmpty
 	}
 }

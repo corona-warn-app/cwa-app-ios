@@ -20,10 +20,30 @@ import UIKit
 final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	// MARK: Configuration
 
+	// This interval is 24
+	private let detectionInterval: Int
+
+	// MARK: Creating a unknown Risk cell
+	init(
+		isLoading: Bool,
+		lastUpdateDate: Date?,
+		detectionInterval: Int,
+		detectionMode: DetectionMode,
+		manualExposureDetectionState: ManualExposureDetectionState
+	) {
+		self.detectionInterval = detectionInterval
+
+		super.init(
+			isLoading: isLoading,
+			isButtonEnabled: detectionMode == .manual && manualExposureDetectionState == .possible,
+			isButtonHidden: detectionMode == .automatic,
+			detectionIntervalLabelHidden: detectionMode != .automatic,
+			lastUpdateDate: lastUpdateDate
+		)
+	}
+
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
-
-		cell.removeAllArrangedSubviews()
 
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
 		let titleColor: UIColor = .enaColor(for: .textContrast)
@@ -44,11 +64,28 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		cell.configureBackgroundColor(color: color)
 
-		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardUnknownButton
 
-		configureCounter(buttonTitle: buttonTitle, cell: cell)
+		let intervalString = "\(detectionInterval)"
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
+		cell.configureDetectionIntervalLabel(
+			text: intervalTitle,
+			isHidden: detectionIntervalLabelHidden
+		)
+
+		let buttonTitle: String
+		if isLoading {
+			buttonTitle = AppStrings.Home.riskCardStatusCheckButton
+		} else {
+			let intervalDisabledButtonTitle = String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, intervalString)
+			buttonTitle = isButtonEnabled ? AppStrings.Home.riskCardUnknownButton : intervalDisabledButtonTitle
+		}
+		cell.configureUpdateButton(
+			title: buttonTitle,
+			isEnabled: isButtonEnabled,
+			isHidden: isButtonHidden,
+			accessibilityIdentifier: "AppStrings.Home.riskCardIntervalUpdateTitle"
+		)
 
 		setupAccessibility(cell)
 	}
-
 }

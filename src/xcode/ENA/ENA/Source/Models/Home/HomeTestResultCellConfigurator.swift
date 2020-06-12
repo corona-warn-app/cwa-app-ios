@@ -1,7 +1,7 @@
 //
 // Corona-Warn-App
 //
-// SAP SE and all other contributors /
+// SAP SE and all other contributors
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -21,69 +21,76 @@ import Foundation
 import UIKit
 
 class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
+	var identifier = UUID()
 
-	let identifier = UUID()
+	var testResult: TestResult?
 
-	var buttonAction: (() -> Void)?
-	var testResult = TestResult.pending
+	var primaryAction: (() -> Void)?
 
-	func configure(cell: HomeTestResultCell) {
+	func configure(cell: HomeTestResultCollectionViewCell) {
 		cell.delegate = self
-		updateState(cell)
+		configure(cell: cell, for: testResult)
 	}
 
-	func updateState(_ cell: HomeTestResultCell) {
+	private func configure(cell: HomeTestResultCollectionViewCell, for testResult: TestResult?) {
 		switch testResult {
-		case .invalid:
-			configureTestResultInvalid(cell: cell)
-		case .pending:
-			configureTestResultPending(cell: cell)
-		case .negative:
-			configureTestResultNegative(cell: cell)
+		case .none: configureSubmit(cell: cell)
+		case .invalid: configureTestResultInvalid(cell: cell)
+		case .pending: configureTestResultPending(cell: cell)
+		case .negative: configureTestResultNegative(cell: cell)
 		default:
-			appLogger.log(message: "Unsupported state", file: #file, line: #line, function: #function)
+			log(message: "Unsupported state for \(String(describing: Self.self))", file: #file, line: #line, function: #function)
 		}
 	}
 
-	private func configureTestResultNegative(cell: HomeTestResultCell) {
-		cell.imageView.image = UIImage(named: "Illu_Hand_with_phone-negativ")
-		cell.titleLabel.text = AppStrings.Home.resultCardResultAvailableTitle
-		cell.resultLabel.text = AppStrings.Home.resultCardNegativeTitle
-		cell.resultLabel.textColor = .enaColor(for: .riskLow)
-		cell.bodyLabel.text = AppStrings.Home.resultCardNegativeDesc
-		configureResultsButton(for: cell)
+	func configureSubmit(cell: HomeTestResultCollectionViewCell) {
+		cell.configure(
+			title: AppStrings.Home.submitCardTitle,
+			description: AppStrings.Home.submitCardBody,
+			button: AppStrings.Home.submitCardButton,
+			image: UIImage(named: "Illu_Hand_with_phone-initial"),
+			accessibilityIdentifier: "AppStrings.Home.submitCardButton"
+		)
 	}
 
-	private func configureTestResultInvalid(cell: HomeTestResultCell) {
-		cell.imageView.image = UIImage(named: "Illu_Hand_with_phone-error")
-		cell.titleLabel.text = AppStrings.Home.resultCardResultAvailableTitle
-		cell.resultLabel.text = AppStrings.Home.resultCardInvalidTitle
-		cell.resultLabel.textColor = .enaColor(for: .textPrimary2)
-		cell.bodyLabel.text = AppStrings.Home.resultCardInvalidDesc
-		configureResultsButton(for: cell)
+	private func configureTestResultNegative(cell: HomeTestResultCollectionViewCell) {
+		cell.configure(
+			title: AppStrings.Home.resultCardResultAvailableTitle,
+			subtitle: AppStrings.Home.resultCardNegativeTitle,
+			description: AppStrings.Home.resultCardNegativeDesc,
+			button: AppStrings.Home.resultCardShowResultButton,
+			image: UIImage(named: "Illu_Hand_with_phone-negativ"),
+			tintColor: .enaColor(for: .riskLow),
+			accessibilityIdentifier: "AppStrings.Home.resultCardShowResultButton"
+		)
 	}
 
-	private func configureTestResultPending(cell: HomeTestResultCell) {
-		cell.imageView.image = UIImage(named: "Illu_Hand_with_phone-pending")
-		cell.titleLabel.text = AppStrings.Home.resultCardResultUnvailableTitle
-		cell.resultLabel.text = ""
-		cell.resultLabel.textColor = .enaColor(for: .textPrimary2)
-		cell.bodyLabel.text = AppStrings.Home.resultCardPendingDesc
-		configureResultsButton(for: cell)
+	private func configureTestResultInvalid(cell: HomeTestResultCollectionViewCell) {
+		cell.configure(
+			title: AppStrings.Home.resultCardResultAvailableTitle,
+			subtitle: AppStrings.Home.resultCardInvalidTitle,
+			description: AppStrings.Home.resultCardInvalidDesc,
+			button: AppStrings.Home.resultCardShowResultButton,
+			image: UIImage(named: "Illu_Hand_with_phone-error"),
+			tintColor: .enaColor(for: .textPrimary2),
+			accessibilityIdentifier: "AppStrings.Home.resultCardShowResultButton"
+		)
 	}
 
-	private func configureResultsButton(for cell: HomeTestResultCell) {
-		let title = AppStrings.Home.resultCardShowResultButton
-		cell.button.setTitle(title, for: .normal)
-		guard let buttonLabel = cell.button.titleLabel else { return }
-		buttonLabel.font = UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: 17, weight: .semibold))
-		buttonLabel.adjustsFontForContentSizeCategory = true
-		buttonLabel.lineBreakMode = .byWordWrapping
+	private func configureTestResultPending(cell: HomeTestResultCollectionViewCell) {
+		cell.configure(
+			title: AppStrings.Home.resultCardResultUnvailableTitle,
+			description: AppStrings.Home.resultCardPendingDesc,
+			button: AppStrings.Home.resultCardShowResultButton,
+			image: UIImage(named: "Illu_Hand_with_phone-pending"),
+			tintColor: .enaColor(for: .textPrimary2),
+			accessibilityIdentifier: "AppStrings.Home.resultCardShowResultButton"
+		)
 	}
 }
 
-extension HomeTestResultCellConfigurator: HomeCardCellButtonDelegate {
-	func buttonTapped(cell: HomeCardCollectionViewCell) {
-		buttonAction?()
+extension HomeTestResultCellConfigurator: HomeTestResultCollectionViewCellDelegate {
+	func testResultCollectionViewCellPrimaryActionTriggered(_ collectionViewCell: HomeTestResultCollectionViewCell) {
+		primaryAction?()
 	}
 }

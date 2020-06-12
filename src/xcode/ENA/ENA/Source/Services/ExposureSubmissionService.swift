@@ -263,7 +263,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch exposureNotificationError {
 			case .exposureNotificationRequired, .exposureNotificationAuthorization, .exposureNotificationUnavailable:
 				return .enNotEnabled
-			case .apiMisuse:
+			case .apiMisuse, .unknown:
 				return .other("ENErrorCodeAPIMisuse")
 			}
 		}
@@ -336,7 +336,7 @@ extension ExposureSubmissionError: LocalizedError {
 		case let .serverError(code):
 			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
 		case let .httpError(desc):
-			return desc
+			return "\(AppStrings.ExposureSubmissionError.httpError)\n\(desc)"
 		case .invalidTan:
 			return AppStrings.ExposureSubmissionError.invalidTan
 		case .enNotEnabled:

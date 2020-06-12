@@ -15,6 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
+#if !RELEASE
+
 import ExposureNotification
 import UIKit
 
@@ -116,9 +118,7 @@ final class DMSubmissionStateViewController: UITableViewController {
 }
 
 private extension Data {
-	// swiftlint:disable:next force_unwrapping
-	static let binHeader = "EK Export v1    ".data(using: .utf8)!
-
+	static let binHeader = Data("EK Export v1    ".utf8)
 	var withoutBinHeader: Data {
 		let headerRange = startIndex ..< Data.binHeader.count
 
@@ -148,3 +148,5 @@ private extension Array where Element == Apple_TemporaryExposureKey {
 		}
 	}
 }
+
+#endif

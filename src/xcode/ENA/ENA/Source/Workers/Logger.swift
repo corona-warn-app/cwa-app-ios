@@ -17,25 +17,37 @@
 
 import Foundation
 
-let appLogger = Logger()
-
-func log(message: String, level _: LogLevel = .info, file _: String = #file, line _: UInt = #line, function _: String = #function) {
-	NSLog("%@", message)
+func log(
+	message: String,
+	level: LogLevel = .info,
+	file: String = #file,
+	line: UInt = #line,
+	function: String = #function
+) {
+	#if !RELEASE
+	print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
+	#endif
 }
 
-func logError(message: String, level _: LogLevel = .error, file _: String = #file, line _: UInt = #line, function _: String = #function) {
-	NSLog("%@", message)
+func logError(
+	message: String,
+	level: LogLevel = .error,
+	file: String = #file,
+	line: UInt = #line,
+	function: String = #function
+) {
+	#if !RELEASE
+	log(
+		message: message,
+		level: .error,
+		file: file,
+		line: line,
+		function: function
+	)
+	#endif
 }
 
-class Logger {
-	func log(message _: String, level _: LogLevel = .info, file _: String, line _: UInt, function _: String) {}
-
-	func getLoggedData() -> Data? {
-		Data()
-	}
-}
-
-enum LogLevel {
+enum LogLevel: String {
 	case info
 	case warning
 	case error

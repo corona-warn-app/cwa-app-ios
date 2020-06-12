@@ -63,12 +63,9 @@ final class SettingsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		tableView.delegate = self
-		tableView.dataSource = self
-		tableView.separatorColor = .preferredColor(for: .hairline)
+		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.title = AppStrings.Settings.navigationBarTitle
-		navigationController?.navigationBar.prefersLargeTitles = true
 
 		setupView()
 	}
@@ -174,19 +171,12 @@ extension SettingsViewController {
 		1
 	}
 
-	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		let section = Sections.allCases[section]
-
-		switch section {
-		case .reset:
-			return 40
-		case .tracing, .notifications:
-			return 20
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		switch Sections.allCases[section] {
+		case .tracing: return 32
+		case .reset: return 48
+		default: return UITableView.automaticDimension
 		}
-	}
-
-	override func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
-		UIView()
 	}
 
 	override func tableView(_: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -218,20 +208,30 @@ extension SettingsViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let section = Sections.allCases[indexPath.section]
 
+		let cell: UITableViewCell
+
 		switch section {
 		case .tracing:
-			return configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
+			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
+			cell.accessibilityIdentifier = "AppStrings.Settings.tracingLabel"
 		case .notifications:
-			return configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
+			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
+			cell.accessibilityIdentifier = "AppStrings.Settings.notificationLabel"
 		case .reset:
-			guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? LabelTableViewCell else {
+			guard let labelCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? LabelTableViewCell else {
 				fatalError("No cell for reuse identifier.")
 			}
 
-			cell.titleLabel.text = settingsViewModel.reset
+			labelCell.titleLabel.text = settingsViewModel.reset
 
-			return cell
+			cell = labelCell
+			cell.accessibilityIdentifier = "AppStrings.Settings.resetLabel"
 		}
+
+		cell.isAccessibilityElement = true
+		cell.accessibilityTraits = .button
+
+		return cell
 	}
 
 	func configureMainCell(indexPath: IndexPath, model: SettingsViewModel.Main) -> MainSettingsTableViewCell {
@@ -294,6 +294,11 @@ extension SettingsViewController: ExposureStateUpdating {
 extension SettingsViewController: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		enState = state
+		checkTracingStatus()
 		notificationSettingsController?.updateEnState(state)
 	}
+}
+
+extension SettingsViewController: NavigationBarOpacityDelegate {
+	var preferredLargeTitleBackgroundColor: UIColor? { .enaColor(for: .background) }
 }

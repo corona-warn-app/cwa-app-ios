@@ -20,21 +20,34 @@ import UIKit
 final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	private var numberRiskContacts: Int
 	private var daysSinceLastExposure: Int?
+	private let validityDuration: Int
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(startDate: Date?, releaseDate: Date?, numberRiskContacts: Int, daysSinceLastExposure: Int?, lastUpdateDate: Date?) {
+	init(
+		numberRiskContacts: Int,
+		daysSinceLastExposure: Int?,
+		lastUpdateDate: Date?,
+		manualExposureDetectionState: ManualExposureDetectionState,
+		detectionMode: DetectionMode,
+		validityDuration: Int
+	) {
 		self.numberRiskContacts = numberRiskContacts
 		self.daysSinceLastExposure = daysSinceLastExposure
-		super.init(isLoading: false, isButtonEnabled: true, isButtonHidden: true, isCounterLabelHidden: true, startDate: startDate, releaseDate: releaseDate, lastUpdateDate: lastUpdateDate)
+		self.validityDuration = validityDuration
+		super.init(
+			isLoading: false,
+			isButtonEnabled: manualExposureDetectionState == .possible,
+			isButtonHidden: detectionMode == .automatic,
+			detectionIntervalLabelHidden: detectionMode != .automatic,
+			lastUpdateDate: lastUpdateDate
+		)
 	}
 
 	// MARK: Configuration
 
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
-
-		cell.removeAllArrangedSubviews()
 
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardHighTitle
 		let titleColor: UIColor = .enaColor(for: .textContrast)
@@ -60,9 +73,26 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardHighButton
+		let intervalString = "\(validityDuration)"
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
+		cell.configureDetectionIntervalLabel(
+			text: intervalTitle,
+			isHidden: detectionIntervalLabelHidden
+		)
 
-		configureCounter(buttonTitle: buttonTitle, cell: cell)
+		let buttonTitle: String
+		if isLoading {
+			buttonTitle = AppStrings.Home.riskCardStatusCheckButton
+		} else {
+			let intervalDisabledButtonTitle = String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, intervalString)
+			buttonTitle = isButtonEnabled ? AppStrings.Home.riskCardHighButton : intervalDisabledButtonTitle
+		}
+		cell.configureUpdateButton(
+			title: buttonTitle,
+			isEnabled: isButtonEnabled,
+			isHidden: isButtonHidden,
+			accessibilityIdentifier: "AppStrings.Home.riskCardIntervalUpdateTitle"
+		)
 
 		setupAccessibility(cell)
 	}

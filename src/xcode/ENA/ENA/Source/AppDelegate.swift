@@ -21,66 +21,76 @@ import FMDB
 import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
-	func appStartExposureDetectionTransaction()
 	var client: Client { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
-	var taskScheduler: ENATaskScheduler { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
+	var taskScheduler: ENATaskScheduler { get }
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
 }
 
-protocol RequiresAppDependencies {
-	var client: Client { get }
-	var store: Store { get }
-	var taskScheduler: ENATaskScheduler { get }
-	var downloadedPackagesStore: DownloadedPackagesStore { get }
-	var riskProvider: RiskProvider { get }
-	var exposureManager: ExposureManager { get }
-	var lastRiskCalculation: String { get }  // TODO: REMOVE ME
-}
-
-extension RequiresAppDependencies {
-	var client: Client {
-		UIApplication.coronaWarnDelegate().client
-	}
-
-	var downloadedPackagesStore: DownloadedPackagesStore {
-		UIApplication.coronaWarnDelegate().downloadedPackagesStore
-	}
-
-	var store: Store {
-		UIApplication.coronaWarnDelegate().store
-	}
-
-	var taskScheduler: ENATaskScheduler {
-		UIApplication.coronaWarnDelegate().taskScheduler
-	}
-
-	var riskProvider: RiskProvider {
-		UIApplication.coronaWarnDelegate().riskProvider
-	}
-
-	var lastRiskCalculation: String {
-		UIApplication.coronaWarnDelegate().lastRiskCalculation
-	}
-
-	var exposureManager: ExposureManager {
-		UIApplication.coronaWarnDelegate().exposureManager
-	}
+extension AppDelegate: CoronaWarnAppDelegate {
+	// required - otherwise app will crash because cast will fails
 }
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
-		exposureDetection = ExposureDetection(delegate: self)
+		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
 		exposureDetection?.start { result in
 			switch result {
 			case .success(let summary):
 				completion(summary)
-			case .failure:
+			case .failure(let error):
+				self.showError(exposure: error)
 				completion(nil)
 			}
+		}
+	}
+
+	private func showError(exposure didEndPrematurely: ExposureDetection.DidEndPrematurelyReason) {
+
+		guard
+			let scene = UIApplication.shared.connectedScenes.first,
+			let delegate = scene.delegate as? SceneDelegate,
+			let rootController = delegate.window?.rootViewController,
+			let localizedError = didEndPrematurely.errorDescription
+		else {
+			return
+		}
+		let trace = Thread.callStackSymbols
+
+		func showError() {
+			rootController.present(alert, animated: true, completion: nil)
+		}
+
+		let alert = UIAlertController(
+			title: AppStrings.ExposureDetectionError.errorAlertTitle,
+			message: localizedError,
+			preferredStyle: .alert
+		)
+		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: nil)
+		let detailsAction = UIAlertAction(title: AppStrings.ExposureDetectionError.errorAlertActionDetails, style: .default, handler: { _ in
+			let detailsAlert = UIAlertController(
+				title: AppStrings.ExposureDetectionError.errorAlertTitle,
+				message: trace.joined(separator: "\n"),
+				preferredStyle: .alert
+			)
+			detailsAlert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: nil))
+			let showDetails: () -> Void = {
+				rootController.present(detailsAlert, animated: true, completion: nil)
+			}
+			alert.dismiss(animated: true, completion: showDetails)
+		})
+
+		alert.addAction(okAction)
+		alert.addAction(detailsAction)
+		alert.preferredAction = okAction
+
+		if rootController.presentedViewController != nil {
+			rootController.dismiss(animated: true, completion: showError)
+		} else {
+			rootController.present(alert, animated: true, completion: nil)
 		}
 	}
 }
@@ -88,15 +98,18 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	private let consumer = RiskConsumer()
-	let taskScheduler = ENATaskScheduler.shared
+	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+
 	lazy var riskProvider: RiskProvider = {
-		var duration = DateComponents()
-		duration.day = 1
+		let exposureDetectionInterval = self.store.hourlyFetchingEnabled ? DateComponents(minute: 45) : DateComponents(hour: 24)
 
 		let config = RiskProvidingConfiguration(
-			updateMode: .automatic,
-			exposureDetectionValidityDuration: duration
+			exposureDetectionValidityDuration: DateComponents(day: 2),
+			exposureDetectionInterval: exposureDetectionInterval,
+			detectionMode: .default
 		)
+
+
 		return RiskProvider(
 			configuration: config,
 			store: self.store,
@@ -120,20 +133,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	private var exposureDetection: ExposureDetection?
 	private var exposureSubmissionService: ENAExposureSubmissionService?
 
-	let downloadedPackagesStore: DownloadedPackagesStore = {
-		let fileManager = FileManager()
-		guard let documentDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-			fatalError("unable to determine document dir")
-		}
-		let storeURL = documentDir
-			.appendingPathComponent("packages")
-			.appendingPathExtension("sqlite3")
+	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-		let db = FMDatabase(url: storeURL)
-		let store = DownloadedPackagesSQLLiteStore(database: db)
-		store.open()
-		return store
-	}()
 
 	let store: Store = {
 		do {
@@ -145,15 +146,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			if !fileManager.fileExists(atPath: directoryURL.path) {
 				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
 				guard let key = KeychainHelper.generateDatabaseKey() else {
-					logError(message: "Creating the Database failed")
-					return SecureStore(at: nil, key: "")
+					fatalError("Creating the Database failed")
 				}
 				return SecureStore(at: directoryURL, key: key)
 			} else {
 				guard let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") else {
 					guard let key = KeychainHelper.generateDatabaseKey() else {
-						logError(message: "Creating the Database failed")
-						return SecureStore(at: nil, key: "")
+						fatalError("Creating the Database failed")
 					}
 					return SecureStore(at: directoryURL, key: key)
 				}
@@ -161,46 +160,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				return SecureStore(at: directoryURL, key: key)
 			}
 		} catch {
-			logError(message: "Creating the Database failed")
-			return SecureStore(at: nil, key: "")
+			fatalError("Creating the Database failed")
 		}
 	}()
 
 	lazy var client: Client = {
-		// We disable app store checks to make testing easier.
-		//        #if APP_STORE
-		//        return HTTPClient(configuration: .production)
-		//        #endif
 
-		if ClientMode.default == .mock {
-			fatalError("not implemented")
-		}
-
+		var configuration: HTTPClient.Configuration
+		#if !RELEASE
 		let store = self.store
-		guard
+		if
 			let distributionURLString = store.developerDistributionBaseURLOverride,
 			let submissionURLString = store.developerSubmissionBaseURLOverride,
 			let verificationURLString = store.developerVerificationBaseURLOverride,
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) else {
-				return HTTPClient(configuration: .production)
+			let submissionURL = URL(string: submissionURLString) {
+			configuration = HTTPClient.Configuration(
+					apiVersion: "v1",
+					country: "DE",
+					endpoints: HTTPClient.Configuration.Endpoints(
+						distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
+						submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
+						verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
+					)
+				)
+
+		} else {
+			configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
 		}
 
-		let config = HTTPClient.Configuration(
-			apiVersion: "v1",
-			country: "DE",
-			endpoints: HTTPClient.Configuration.Endpoints(
-				distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-				submission: .init(baseURL: submissionURL, requiresTrailingSlash: true),
-				verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
-			)
-		)
-		return HTTPClient(configuration: config)
+		#else
+		configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
+		#endif
+		
+		return HTTPClient(configuration: configuration)
 	}()
 
 	// TODO: REMOVE ME
 	var lastRiskCalculation: String = ""
+
+	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
+		ExposureDetectionExecutor(
+			client: self.client,
+			downloadedPackagesStore: self.downloadedPackagesStore,
+			store: self.store,
+			exposureDetector: self.exposureManager
+		)
+	}()
 
 	func application(
 		_: UIApplication,
@@ -209,6 +216,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.taskDelegate = self
+
 		riskProvider.observeRisk(consumer)
 
 		return true
@@ -227,232 +235,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
 }
 
-extension AppDelegate: ExposureDetectionDelegate {
-	func exposureDetection(_ detection: ExposureDetection, determineAvailableData completion: @escaping (DaysAndHours?) -> Void) {
-		client.availableDaysAndHoursUpUntil(.formattedToday()) { result in
-			let mappedResult = result.map { DaysAndHours(days: $0.days, hours: $0.hours) }
-			switch mappedResult {
-			case .success(let daysAndHours):
-				completion(daysAndHours)
-			case .failure:
-				completion(nil)
-			}
-		}
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
-		let delta = DeltaCalculationResult(
-			remoteDays: Set(remote.days),
-			remoteHours: Set(remote.hours),
-			localDays: Set(downloadedPackagesStore.allDays()),
-			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
-		)
-		return (
-			days: Array(delta.missingDays),
-			hours: Array(delta.missingHours)
-		)
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
-		func storeDaysAndHours(_ fetchedDaysAndHours: FetchedDaysAndHours) {
-			downloadedPackagesStore.addFetchedDaysAndHours(fetchedDaysAndHours)
-			completion(nil)
-		}
-		client.fetchDays(
-			delta.days,
-			hours: delta.hours,
-			of: .formattedToday(),
-			completion: storeDaysAndHours
-		)
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void) {
-		client.exposureConfiguration(completion: completion)
-	}
-
-	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages? {
-		let fileManager = FileManager()
-		let rootDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-		do {
-			try fileManager.createDirectory(at: rootDir, withIntermediateDirectories: true, attributes: nil)
-			let packages = downloadedPackagesStore.allPackages(for: .formattedToday(), onlyHours: store.hourlyFetchingEnabled)
-			let writer = AppleFilesWriter(rootDir: rootDir, keyPackages: packages)
-			return writer.writeAllPackages()
-		} catch {
-			return nil
-		}
-	}
-
-	func exposureDetection(
-		_ detection: ExposureDetection,
-		detectSummaryWithConfiguration
-		configuration: ENExposureConfiguration,
-		writtenPackages: WrittenPackages,
-		completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void
-	) {
-		func withResultFrom(
-			summary: ENExposureDetectionSummary?,
-			error: Error?
-		) -> Result<ENExposureDetectionSummary, Error> {
-			if let error = error {
-				return .failure(error)
-			}
-			if let summary = summary {
-				return .success(summary)
-			}
-			fatalError("invalid state")
-		}
-		_ = exposureManager.detectExposures(
-			configuration: configuration,
-			diagnosisKeyURLs: writtenPackages.urls
-		) { summary, error in
-			completion(withResultFrom(summary: summary, error: error))
-		}
-	}
-}
-
-extension AppDelegate: CoronaWarnAppDelegate {
-	private func useSummaryDetectionResult(
-		_ result: Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>
-	) {
-		exposureDetection = nil
-		switch result {
-		case .success(let summary):
-			store.dateLastExposureDetection = Date()
-			NotificationCenter.default.post(
-				name: .didDetectExposureDetectionSummary,
-				object: nil,
-				userInfo: ["summary": summary]
-			)
-		case .failure(let reason):
-			logError(message: "Exposure transaction failed: \(reason)")
-
-			let message: String
-			switch reason {
-			case .noExposureManager:
-				message = "No ExposureManager"
-			case .noSummary:
-				// not really accurate but very likely this is the case.
-				message = "Max file per day limit set by Apple reached (15)"
-			case .noDaysAndHours:
-				message = "No available files. Did you configure the backend URL?"
-			case .noExposureConfiguration:
-				message = "Didn't get a configuration"
-			case .unableToWriteDiagnosisKeys:
-				message = "No keys"
-			}
-
-			// We have to remove this after the test has been concluded.
-			let alert = UIAlertController(
-				title: "Exposure Detection Failed",
-				message: message,
-				preferredStyle: .alert
-			)
-
-			alert.addAction(
-				UIAlertAction(
-					title: "OK",
-					style: .cancel
-				)
-			)
-
-			exposureDetection = nil
-
-			guard let scene = UIApplication.shared.connectedScenes.first else { return }
-			guard let delegate = scene.delegate as? SceneDelegate else { return }
-			guard let rootController = delegate.window?.rootViewController else {
-				return
-			}
-			func showError() {
-				rootController.present(alert, animated: true, completion: nil)
-			}
-
-			if rootController.presentedViewController != nil {
-				rootController.dismiss(animated: true, completion: showError)
-			} else {
-				showError()
-			}
-		}
-	}
-	func appStartExposureDetectionTransaction() {
-		precondition(
-			exposureDetection == nil,
-			"An Exposure Transaction is currently already running. This should never happen."
-		)
-		exposureDetection = ExposureDetection(
-			delegate: self
-		)
-		exposureDetection?.start(completion: useSummaryDetectionResult)
-	}
-}
-
-extension DownloadedPackagesStore {
-	func addFetchedDaysAndHours(_ daysAndHours: FetchedDaysAndHours) {
-		let days = daysAndHours.days
-		days.bucketsByDay.forEach { day, bucket in
-			self.set(day: day, package: bucket)
-		}
-
-		let hours = daysAndHours.hours
-		hours.bucketsByHour.forEach { hour, bucket in
-			self.set(hour: hour, day: hours.day, package: bucket)
-		}
-	}
-}
-
-private extension DownloadedPackagesStore {
-	func allPackages(for day: String, onlyHours: Bool) -> [SAPDownloadedPackage] {
-		var packages = [SAPDownloadedPackage]()
-
-		if onlyHours {  // Testing only: Feed last three hours into framework
-			let allHoursForToday = hourlyPackages(for: .formattedToday())
-			packages.append(contentsOf: Array(allHoursForToday.prefix(3)))
-		} else {
-			let fullDays = allDays()
-			packages.append(
-				contentsOf: fullDays.map { package(for: $0) }.compactMap { $0 }
-			)
-		}
-
-		return packages
-	}
-}
-
 extension AppDelegate: ENATaskExecutionDelegate {
-	func executeExposureDetectionRequest(task: BGTask) {
-		func complete(success: Bool) {
-			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleBackgroundTask(for: .detectExposures)
-		}
+	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		consumer.didCalculateRisk = { risk in
+		riskProvider.requestRisk(userInitiated: false) { risk in
 			// present a notification if the risk score has increased
-			if risk.riskLevelHasChanged {
+			if let risk = risk,
+				risk.riskLevelHasChanged {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.detectExposureTitle,
 					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: ENATaskIdentifier.detectExposures.rawValue)
+					identifier: task.identifier
+				)
 			}
-			complete(success: true)
-		}
-
-		consumer.nextExposureDetectionDateDidChange = { date in
-			self.taskScheduler.scheduleBackgroundTask(for: .detectExposures)
-		}
-
-		riskProvider.requestRisk()
-
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			complete(success: false)
+			completion(true)
 		}
 	}
 
-	func executeFetchTestResults(task: BGTask) {
-		func complete(success: Bool) {
-			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleBackgroundTask(for: .fetchTestResults)
-		}
+	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
@@ -461,33 +261,21 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				switch result {
 				case .failure(let error):
 					logError(message: error.localizedDescription)
-
 				case .success(let testResult):
 					if testResult != .pending {
 						UNUserNotificationCenter.current().presentNotification(
 							title: AppStrings.LocalNotifications.testResultsTitle,
 							body: AppStrings.LocalNotifications.testResultsBody,
-							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+							identifier: task.identifier
+						)
 					}
 				}
 
-				complete(success: true)
+				completion(true)
 			}
 		} else {
-			complete(success: true)
+			completion(true)
 		}
 
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			complete(success: false)
-		}
-
-	}
-}
-
-private extension URL {
-	init(staticString: StaticString) {
-		// swiftlint:disable:next force_unwrapping
-		self.init(string: "\(staticString)")!
 	}
 }

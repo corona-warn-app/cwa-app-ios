@@ -26,19 +26,56 @@ extension HTTPClient {
 			country: "DE",
 			endpoints: Configuration.Endpoints(
 				distribution: .init(
-					baseURL: URL(staticString: "https://localhost/fixme"),
-					requiresTrailingSlash: true
+					baseURL: URL(staticString: "https://svc90.main.px.t-online.de"),
+					requiresTrailingSlash: false
 				),
 				submission: .init(
-					baseURL: URL(staticString: "https://localhost/fixme"),
-					requiresTrailingSlash: true
+					baseURL: URL(staticString: "https://submission.coronawarn.app"),
+					requiresTrailingSlash: false
 				),
 				verification: .init(
-					baseURL: URL(staticString: "https://localhost/fixme"),
-					requiresTrailingSlash: true
+					baseURL: URL(staticString: "https://verification.coronawarn.app"),
+					requiresTrailingSlash: false
 				)
 			)
 		)
+
+		static func loadFromPlist(dictionaryNameInPList: String) -> Configuration? {
+			let plistDict = Bundle.main.infoDictionary?["BackendURLs"] as? [ String: Any ]
+
+			guard
+				let distributionString = plistDict?["distribution"] as? String,
+				let submissionString = plistDict?["submission"] as? String,
+				let verificationString = plistDict?["verification"] as? String else {
+					return nil
+			}
+
+			guard
+				let distribution = URL(string: distributionString),
+				let submission = URL(string: submissionString),
+				let verification = URL(string: verificationString) else {
+					return nil
+			}
+
+			return Configuration(
+				apiVersion: "v1",
+				country: "DE",
+				endpoints: Configuration.Endpoints(
+					distribution: .init(
+						baseURL: distribution,
+						requiresTrailingSlash: false
+					),
+					submission: .init(
+						baseURL: submission,
+						requiresTrailingSlash: false
+					),
+					verification: .init(
+						baseURL: verification,
+						requiresTrailingSlash: false
+					)
+				)
+			)
+		}
 
 		// MARK: Properties
 
@@ -210,12 +247,5 @@ extension HTTPClient.Configuration {
 		let distribution: Endpoint
 		let submission: Endpoint
 		let verification: Endpoint
-	}
-}
-
-private extension URL {
-	init(staticString: StaticString) {
-		// swiftlint:disable:next force_unwrapping
-		self.init(string: "\(staticString)")!
 	}
 }

@@ -20,23 +20,15 @@ import UIKit
 
 class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 
-	let identifier = UUID()
-
 	// MARK: Properties
-
+	let identifier = UUID()
 	var buttonAction: (() -> Void)?
 
 	var isLoading: Bool
 	var isButtonEnabled: Bool
 	var isButtonHidden: Bool
-	var isCounterLabelHidden: Bool
-
-	var startDate: Date?
-	var releaseDate: Date?
-
+	var detectionIntervalLabelHidden: Bool
 	var lastUpdateDate: Date?
-
-	private let calendar = Calendar.current
 
 	private static let lastUpdateDateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
@@ -56,18 +48,21 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 
 	// MARK: Creating a Home Risk Cell Configurator
 
-	init(isLoading: Bool, isButtonEnabled: Bool, isButtonHidden: Bool, isCounterLabelHidden: Bool, startDate: Date?, releaseDate: Date?, lastUpdateDate: Date?) {
+	init(
+		isLoading: Bool,
+		isButtonEnabled: Bool,
+		isButtonHidden: Bool,
+		detectionIntervalLabelHidden: Bool,
+		lastUpdateDate: Date?
+	) {
 		self.isLoading = isLoading
 		self.isButtonEnabled = isButtonEnabled
-		self.isButtonHidden = isButtonHidden // ; TODO: Use isButtonHidden again
-		self.isCounterLabelHidden = isCounterLabelHidden
-		self.startDate = startDate
-		self.releaseDate = releaseDate
+		self.isButtonHidden = isButtonHidden
+		self.detectionIntervalLabelHidden = detectionIntervalLabelHidden
 		self.lastUpdateDate = lastUpdateDate
 	}
 
 	// MARK: Loading
-
 	func startLoading() {
 		isLoading = true
 	}
@@ -76,52 +71,14 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 		isLoading = false
 	}
 
-	// MARK: Counter
-
-	func updateCounter(startDate: Date, releaseDate: Date) {
-		self.startDate = startDate
-		self.releaseDate = releaseDate
-	}
-
-	func removeCounter() {
-		startDate = nil
-		releaseDate = nil
-	}
-
 	// MARK: Button
 
 	func updateButtonEnabled(_ enabled: Bool) {
 		isButtonEnabled = enabled
 	}
 
-	func counterTouple() -> (minutes: Int, seconds: Int)? {
-		guard let startDate = startDate else { return nil }
-		guard let releaseDate = releaseDate else { return nil }
-		let dateComponents = calendar.dateComponents([.minute, .second], from: startDate, to: releaseDate)
-		guard let minutes = dateComponents.minute else { return nil }
-		guard let seconds = dateComponents.second else { return nil }
-		return (minutes: minutes, seconds: seconds)
-	}
-
-	func configureCounter(buttonTitle: String, cell: RiskLevelCollectionViewCell) {
-		if let (minutes, seconds) = counterTouple() {
-			let counterLabelText = String(format: AppStrings.Home.riskCardStatusCheckCounterLabel, minutes, seconds)
-			cell.configureCounterLabel(text: counterLabelText, isHidden: isCounterLabelHidden)
-			let formattedTime = String(format: "(%02u:%02u)", minutes, seconds)
-			let updateButtonText = "\(buttonTitle) \(formattedTime)"
-			cell.configureUpdateButton(
-				title: updateButtonText,
-				isEnabled: isButtonEnabled,
-				isHidden: isButtonHidden
-			)
-		} else {
-			cell.configureCounterLabel(text: "", isHidden: isCounterLabelHidden)
-			cell.configureUpdateButton(
-				title: buttonTitle,
-				isEnabled: isButtonEnabled,
-				isHidden: isButtonHidden
-			)
-		}
+	func updateButtonHidden(_ hidden: Bool) {
+		isButtonHidden = hidden
 	}
 
 	// MARK: Configuration
@@ -133,18 +90,26 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 	func setupAccessibility(_ cell: RiskLevelCollectionViewCell) {
 		cell.titleLabel.isAccessibilityElement = false
 		cell.chevronImageView.isAccessibilityElement = false
-		cell.counterLabel.isAccessibilityElement = false
-		cell.counterLabelContainer.isAccessibilityElement = false
 		cell.viewContainer.isAccessibilityElement = false
 		cell.stackView.isAccessibilityElement = false
 
 		cell.topContainer.isAccessibilityElement = true
 		cell.bodyLabel.isAccessibilityElement = true
+		cell.detectionIntervalLabel.isAccessibilityElement = true
 		cell.updateButton.isAccessibilityElement = true
 
-		let topContainerText = cell.titleLabel.text ?? ""
-		cell.topContainer.accessibilityLabel = topContainerText
-		cell.topContainer.accessibilityTraits = [.button, .header]
+		cell.topContainer.accessibilityTraits = [.updatesFrequently, .button]
+		cell.bodyLabel.accessibilityTraits = [.updatesFrequently]
+		cell.detectionIntervalLabel.accessibilityTraits = [.updatesFrequently]
+		cell.updateButton.accessibilityTraits = [.updatesFrequently, .button]
+
+		cell.topContainer.accessibilityLabel = cell.titleLabel.text ?? ""
+
+		cell.topContainer.accessibilityIdentifier = "RiskLevelCollectionViewCell.topContainer"
+		cell.bodyLabel.accessibilityIdentifier = "RiskLevelCollectionViewCell.bodyLabel"
+		cell.detectionIntervalLabel.accessibilityIdentifier = "RiskLevelCollectionViewCell.detectionIntervalLabel"
+		cell.updateButton.accessibilityIdentifier = "RiskLevelCollectionViewCell.updateButton"
+
 	}
 }
 
