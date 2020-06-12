@@ -125,12 +125,15 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		let rootVC = getRootViewController()
 		setViewControllers([rootVC], animated: false)
 
-		let barButtonItem = UIBarButtonItem(
-			image: UIImage(named: "Icons - Close"),
-			style: .done, target: self, action: #selector(close)
-		)
+		let closeButton = UIButton(type: .custom)
+		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
+		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
+		closeButton.addTarget(self, action: #selector(close), for: .primaryActionTriggered)
+
+		let barButtonItem = UIBarButtonItem(customView: closeButton)
 		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		barButtonItem.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+
 		navigationItem.rightBarButtonItem = barButtonItem
 
 		setupBottomView()
@@ -296,6 +299,7 @@ extension ExposureSubmissionNavigationController {
 
 extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
+		// TODO: Apply ENAFooterView
 		let view = UIView()
 		view.backgroundColor = .enaColor(for: .background)
 		view.insetsLayoutMarginsFromSafeArea = true
