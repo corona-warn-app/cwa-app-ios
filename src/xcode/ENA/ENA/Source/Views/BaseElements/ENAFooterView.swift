@@ -22,7 +22,7 @@ import UIKit
 
 @IBDesignable
 class ENAFooterView: UIVisualEffectView {
-	@IBInspectable var isTranslucent: Bool = true { didSet { updateBackground() } }
+	@IBInspectable var isTranslucent: Bool = false { didSet { updateBackground() } }
 
 	private var isSettingEffectInternally: Bool = false
 	override var effect: UIVisualEffect? {

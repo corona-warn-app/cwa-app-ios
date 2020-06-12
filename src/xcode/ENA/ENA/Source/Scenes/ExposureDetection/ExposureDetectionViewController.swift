@@ -131,7 +131,9 @@ private extension ExposureDetectionViewController {
 	@IBAction private func tappedBottomButton() {
 		guard state.isTracingEnabled else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
-				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
+				if let error = error {
+					self.alertError(message: error.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
+				}
 			}
 			return
 		}
