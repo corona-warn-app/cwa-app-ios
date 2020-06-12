@@ -94,7 +94,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" name="ENA Background Color"/>
                         <constraints>
                             <constraint firstItem="8dd-c4-eqD" firstAttribute="height" secondItem="9Ma-84-jrP" secondAttribute="height" priority="750" id="1MX-BT-sha"/>
                             <constraint firstItem="qBb-LO-eZK" firstAttribute="leading" secondItem="9jY-Vi-dC9" secondAttribute="leading" id="4nE-3V-PkZ"/>
