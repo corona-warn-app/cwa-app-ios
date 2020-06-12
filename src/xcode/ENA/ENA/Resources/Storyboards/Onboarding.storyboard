@@ -91,7 +91,7 @@
                                     <constraint firstItem="OQb-9Z-xLl" firstAttribute="width" secondItem="1HX-Yf-LyV" secondAttribute="width" id="ufc-l2-buW"/>
                                 </constraints>
                             </scrollView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0oH-fF-RI6">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0oH-fF-RI6" customClass="ENAFooterView" customModule="ENA" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="722" width="414" height="174"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5H2-LC-1rB">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="174"/>
