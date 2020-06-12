@@ -97,6 +97,13 @@
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
+/* Exposure Detection Errors */
+"ExposureDetectionError_Alert_Title" = "Etwas ist schief gelaufen";
+
+"ExposureDetectionError_Alert_Action_Details" = "Details";
+
+"ExposureDetectionError_Alert_Message" = "Während der Risiko-Ermittlung ist ein Fehler aufgetreten.";
+
 /* Settings */
 "Settings_StatusActive" = "An";
 
