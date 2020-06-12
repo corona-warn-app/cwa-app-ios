@@ -48,9 +48,10 @@ enum AppStrings {
 
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
 	}
-
+	
 	enum ExposureSubmissionTanEntry {
 		static let title = NSLocalizedString("ExposureSubmissionTanEntry_Title", comment: "")
+		static let textField = NSLocalizedString("ExposureSubmissionTanEntry_EntryField", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionTanEntry_Description", comment: "")
 		static let info = NSLocalizedString("ExposureSubmissionTanEntry_Info", comment: "")
 		static let submit = NSLocalizedString("ExposureSubmissionTanEntry_Submit", comment: "")
@@ -126,6 +127,11 @@ enum AppStrings {
 		static let alertCodeNotFoundText = NSLocalizedString("ExposureSubmissionQRScanner_notFoundAlertText", comment: "")
 		static let otherError = NSLocalizedString("ExposureSubmissionQRScanner_otherError", comment: "")
 		static let cameraPermissionDenied = NSLocalizedString("ExposureSubmissionQRScanner_cameraPermissionDenied", comment: "")
+		static let flashButtonAccessibilityLabel = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash", comment: "")
+		static let flashButtonAccessibilityOnValue = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_On", comment: "")
+		static let flashButtonAccessibilityOffValue = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Off", comment: "")
+		static let flashButtonAccessibilityEnableAction = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Enable", comment: "")
+		static let flashButtonAccessibilityDisableAction = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Disable", comment: "")
 	}
 
 	enum ExposureSubmissionHotline {
@@ -138,6 +144,7 @@ enum AppStrings {
 		static let tanInputButtonTitle = NSLocalizedString("ExposureSubmission_TANInputButtonTitle", comment: "")
 		static let phoneNumber = NSLocalizedString("ExposureSubmission_PhoneNumber", comment: "")
 		static let hotlineDetailDescription = NSLocalizedString("ExposureSubmission_PhoneDetailDescription", comment: "")
+		static let imageDescription = NSLocalizedString("ExposureSubmissionHotline_imageDescription", comment: "")
 	}
 
 	enum ExposureSubmissionWarnOthers {
@@ -231,9 +238,19 @@ enum AppStrings {
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
 	}
 
+	enum ExposureDetectionError {
+		static let errorAlertTitle = NSLocalizedString("ExposureDetectionError_Alert_Title", comment: "")
+				static let errorAlertMessage = NSLocalizedString("ExposureDetectionError_Alert_Message", comment: "")
+		static let errorAlertActionDetails = NSLocalizedString("ExposureDetectionError_Alert_Action_Details", comment: "")
+	}
+
 	enum Settings {
 		static let trackingStatusActive = NSLocalizedString("Settings_KontaktProtokollStatusActive", comment: "")
 		static let trackingStatusInactive = NSLocalizedString("Settings_KontaktProtokollStatusInactive", comment: "")
+
+		static let statusEnable = NSLocalizedString("Settings_StatusEnable", comment: "")
+		static let statusDisable = NSLocalizedString("Settings_StatusDisable", comment: "")
+
 		static let notificationStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
 		static let notificationStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
 
@@ -544,5 +561,11 @@ enum AppStrings {
 		static let termsNavigation = NSLocalizedString("App_Information_Terms_Navigation", comment: "")
 		static let termsImageDescription = NSLocalizedString("App_Information_Terms_ImageDescription", comment: "")
 		static let termsTitle = NSLocalizedString("App_Information_Terms_Title", comment: "")
+	}
+
+	enum ENATanInput {
+		static let empty = NSLocalizedString("ENATanInput_Empty", comment: "")
+		static let invalidCharacter = NSLocalizedString("ENATanInput_InvalidCharacter", comment: "")
+		static let characterIndex = NSLocalizedString("ENATanInput_CharacterIndex", comment: "")
 	}
 }

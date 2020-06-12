@@ -97,10 +97,21 @@
 
 "ExposureDetection_Button_Refresh" = "Aktualisieren";
 
+/* Exposure Detection Errors */
+"ExposureDetectionError_Alert_Title" = "Etwas ist schief gelaufen";
+
+"ExposureDetectionError_Alert_Action_Details" = "Details";
+
+"ExposureDetectionError_Alert_Message" = "Während der Risiko-Ermittlung ist ein Fehler aufgetreten.";
+
 /* Settings */
 "Settings_StatusActive" = "An";
 
 "Settings_StatusInactive" = "Aus";
+
+"Settings_StatusEnable" = "Aktivieren";
+
+"Settings_StatusDisable" = "Deaktivieren";
 
 "Settings_KontaktProtokollStatusActive" = "Aktiv";
 
@@ -221,6 +232,8 @@
 
 "ExposureSubmissionTanEntry_Title" = "TAN-Eingabe";
 
+"ExposureSubmissionTanEntry_EntryField" = "TAN-Eingabefeld";
+
 "ExposureSubmissionTanEntry_Info" = "Geben Sie bitte die Ihnen mitgeteilte TAN ein:";
 
 "ExposureSubmissionTanEntry_Description" = "Geben Sie bitte die 10-stellige TAN ein, die Ihnen mitgeteilt wurde.";
@@ -273,6 +286,8 @@
 
 "ExposureSubmission_TANInputButtonTitle" = "TAN eingeben";
 
+"ExposureSubmissionHotline_imageDescription" = "Hotline teilt eine TAN mit.";
+
 /* Exposure Submission QR Code Scanner */
 "ExposureSubmissionQRScanner_title" = "QR-Code Scan";
 
@@ -285,6 +300,16 @@
 "ExposureSubmissionQRScanner_otherError" = "Ein unbekannter Fehler ist aufgetreten.";
 
 "ExposureSubmissionQRScanner_cameraPermissionDenied" = "Bitte erlauben Sie der App die Benutzung der Kamera, um den QR-Code zu scannen.";
+
+"ExposureSubmissionQRScanner_CameraFlash" = "Kamerablitz";
+
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Eingeschaltet";
+
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Ausgeschaltet";
+
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Kamerablitz einschalten";
+
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Kamerablitz ausschalten";
 
 /* Exposure Submission Success */
 "ExposureSubmissionSuccess_Title" = "Vielen Dank!";
@@ -842,3 +867,9 @@
 
 "Update_Message_Action_Later" = "Später";
 
+/* ENATanInput*/
+"ENATanInput_Empty" = "Leer";
+
+"ENATanInput_InvalidCharacter" = "Ungültiges Zeichen\n\n%@";
+
+"ENATanInput_CharacterIndex" = "Zeichen %1$u von %2$u";

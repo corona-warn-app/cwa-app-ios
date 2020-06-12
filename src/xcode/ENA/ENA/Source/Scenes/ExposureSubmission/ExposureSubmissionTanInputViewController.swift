@@ -18,13 +18,16 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjectable, ENATanInputDelegate {
+class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjectable {
 	// MARK: - Attributes.
 
+	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var contentView: UIView!
 	@IBOutlet var descriptionLabel: UILabel!
-	@IBOutlet weak var errorLabel: UILabel!
-	@IBOutlet var infoLabel: UILabel!
+	@IBOutlet var errorLabel: UILabel!
+	@IBOutlet var errorView: UIView!
 	@IBOutlet var tanInput: ENATanInput!
+
 	var initialTan: String?
 	var exposureSubmissionService: ExposureSubmissionService?
 	var spinner: UIActivityIndicatorView?
@@ -43,6 +46,14 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		setButtonEnabled(enabled: true)
 	}
 
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == Segue.labResultsSegue.rawValue,
+			let vc = segue.destination as? ExposureSubmissionTestResultViewController {
+			vc.exposureSubmissionService = exposureSubmissionService
+			vc.testResult = .positive
+		}
+	}
+
 	// MARK: - Helper methods.
 
 	private func setupView() {
@@ -59,11 +70,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		title = AppStrings.ExposureSubmissionTanEntry.title
 		setButtonEnabled(enabled: tanInput.isValid)
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
-		errorLabel.isHidden = true
-		descriptionLabel.adjustsFontForContentSizeCategory = true
-		descriptionLabel.lineBreakMode = .byWordWrapping
-		descriptionLabel.numberOfLines = 0
-		infoLabel.text = AppStrings.ExposureSubmissionTanEntry.info
+		errorView.alpha = 0
 	}
 
 	private func fetchService() {
@@ -84,6 +91,13 @@ extension ExposureSubmissionTanInputViewController {
 
 extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
 	func didTapButton() {
+		submitTan()
+	}
+
+	@discardableResult
+	func submitTan() -> Bool {
+		guard tanInput.isValid && tanInput.isChecksumValid else { return false }
+
 		startSpinner()
 		setButtonEnabled(enabled: false)
 		// If teleTAN is correct, show Alert Controller
@@ -106,28 +120,36 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 					)
 				}
         })
+
+		return true
 	}
+}
 
 	// MARK: - ENATanInputDelegate
+extension ExposureSubmissionTanInputViewController: ENATanInputDelegate {
+	func enaTanInputDidBeginEditing(_ tanInput: ENATanInput) {
+		let rect = contentView.convert(tanInput.frame, from: tanInput)
+		scrollView.scrollRectToVisible(rect, animated: true)
+	}
 
-	func tanChanged(isValid: Bool, checksumIsValid: Bool, isBlocked: Bool) {
-		setButtonEnabled(enabled: (isValid && checksumIsValid))
-		if isValid && !checksumIsValid {
-			errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidError
-			errorLabel.isHidden = false
-		} else if isBlocked {
-			errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidCharacterError
-			errorLabel.isHidden = false
-		} else {
-			errorLabel.isHidden = true
+	func enaTanInput(_ tanInput: ENATanInput, didChange text: String, isValid: Bool, isChecksumValid: Bool, isBlocked: Bool) {
+		setButtonEnabled(enabled: (isValid && isChecksumValid))
+		UIView.animate(withDuration: CATransaction.animationDuration()) {
+			if isValid && !isChecksumValid {
+				self.errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidError
+				self.errorView.alpha = 1
+			} else if isBlocked {
+				self.errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidCharacterError
+				self.errorView.alpha = 1
+			} else {
+				self.errorView.alpha = 0
+			}
+
+			self.view.layoutIfNeeded()
 		}
 	}
 
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if segue.identifier == Segue.labResultsSegue.rawValue,
-			let vc = segue.destination as? ExposureSubmissionTestResultViewController {
-			vc.exposureSubmissionService = exposureSubmissionService
-			vc.testResult = .positive
-		}
+	func enaTanInputDidTapReturn(_ tanInput: ENATanInput) -> Bool {
+		return submitTan()
 	}
 }
