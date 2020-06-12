@@ -52,6 +52,7 @@ private extension DynamicCell {
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.bottom = 0
 			cell.accessibilityIdentifier = accessibilityIdentifier
+			cell.accessibilityTraits = .header
 		}
 	}
 
@@ -181,7 +182,8 @@ extension AppInformationViewController {
 						   height: 230),
 			cells: [
 				.headline(text: AppStrings.AppInformation.imprintSection1Title,
-						  accessibilityIdentifier: "AppStrings.AppInformation.imprintSection1Title"),
+						  accessibilityIdentifier: "AppStrings.AppInformation.imprintSection1Title",
+						  accessibilityTraits: .header),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection1Text,
 									 accessibilityIdentifier: "AppStrings.AppInformation.imprintSection1Text"),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection2Title,
