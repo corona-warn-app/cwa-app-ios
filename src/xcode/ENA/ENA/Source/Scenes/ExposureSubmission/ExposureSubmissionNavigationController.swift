@@ -296,6 +296,7 @@ extension ExposureSubmissionNavigationController {
 
 extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
+		// TODO: Apply ENAFooterView
 		let view = UIView()
 		view.backgroundColor = .enaColor(for: .background)
 		view.insetsLayoutMarginsFromSafeArea = true
