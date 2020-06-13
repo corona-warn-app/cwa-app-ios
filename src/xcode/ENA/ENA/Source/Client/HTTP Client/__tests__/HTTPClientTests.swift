@@ -40,26 +40,16 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testAvailableDays_Success() {
-		let responseData = Data("[\"2020-05-01\", \"2020-05-02\"]".utf8)
-
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data("[\"2020-05-01\", \"2020-05-02\"]".utf8)
 		)
 
-		let session = MockUrlSession(
-			data: responseData,
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(configuration: .fake, session: session)
 		let expectation = self.expectation(
 			description: "expect successful result"
 		)
-		client.availableDays { result in
+
+		HTTPClient.makeWith(mock: stack).availableDays { result in
 			switch result {
 			case let .success(days):
 				XCTAssertEqual(
@@ -75,31 +65,20 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testAvailableDays_StatusCodeNotAccepted() {
-		let responseData = Data(
-			"""
-			["2020-05-01", "2020-05-02"]
-			""".utf8
+		let stack = MockNetworkStack(
+			httpStatus: 500,
+			responseData: Data(
+				"""
+				["2020-05-01", "2020-05-02"]
+				""".utf8
+			)
 		)
-
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 500,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: responseData,
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(configuration: .fake, session: session)
 
 		let expectation = self.expectation(
 			description: "expect error result"
 		)
-		client.availableDays { result in
+
+		HTTPClient.makeWith(mock: stack).availableDays { result in
 			switch result {
 			case .success:
 				XCTFail("an invalid response should never yield success")
@@ -112,30 +91,19 @@ final class HTTPClientTests: XCTestCase {
 
 	// The hours of a given day can be missing
 	func testAvailableHours_NotFound() {
-		let responseData = Data(
-			"""
-			[1,2,3,4,5]
-			""".utf8
+		let stack = MockNetworkStack(
+			httpStatus: 404,
+			responseData: Data(
+				"""
+				[1,2,3,4,5]
+				""".utf8
+			)
 		)
 
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 404,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: responseData,
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(configuration: .fake, session: session)
 		let expectation = self.expectation(
 			description: "expect successful result but empty"
 		)
-		client.availableHours(day: "2020-05-12") { result in
+		HTTPClient.makeWith(mock: stack).availableHours(day: "2020-05-12") { result in
 			switch result {
 			case let .success(hours):
 				XCTAssertEqual(
@@ -151,30 +119,20 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testAvailableHours_Success() {
-		let responseData = Data(
-			"""
-			[1,2,3,4,5]
-			""".utf8
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data(
+				"""
+				[1,2,3,4,5]
+				""".utf8
+			)
 		)
 
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: responseData,
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(configuration: .fake, session: session)
 		let expectation = self.expectation(
 			description: "expect successful result"
 		)
-		client.availableHours(day: "2020-05-12") { result in
+
+		HTTPClient.makeWith(mock: stack).availableHours(day: "2020-05-12") { result in
 			switch result {
 			case let .success(hours):
 				XCTAssertEqual(
@@ -190,28 +148,16 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testFetchHour_InvalidPayload() throws {
-		let responseData = Data("hello world".utf8)
-
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data("hello world".utf8)
 		)
-
-		let session = MockUrlSession(
-			data: responseData,
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(configuration: .fake, session: session)
 
 		let failureExpectation = expectation(
 			description: "expect error result"
 		)
 
-		client.fetchHour(1, day: "2020-05-01") { result in
+		HTTPClient.makeWith(mock: stack).fetchHour(1, day: "2020-05-01") { result in
 			switch result {
 			case .success:
 				XCTFail("an invalid response should never cause success")
@@ -225,28 +171,16 @@ final class HTTPClientTests: XCTestCase {
 	func testFetchHour_Success() throws {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
-		let responseData = try Data(contentsOf: url)
-
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try Data(contentsOf: url)
 		)
-
-		let session = MockUrlSession(
-			data: responseData,
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(configuration: .fake, session: session)
 
 		let successExpectation = expectation(
 			description: "expect error result"
 		)
 
-		client.fetchHour(1, day: "2020-05-01") { result in
+		HTTPClient.makeWith(mock: stack).fetchHour(1, day: "2020-05-01") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -266,28 +200,16 @@ final class HTTPClientTests: XCTestCase {
 	func testFetchDay_Success() throws {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
-		let responseData = try Data(contentsOf: url)
-
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try Data(contentsOf: url)
 		)
-
-		let session = MockUrlSession(
-			data: responseData,
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(configuration: .fake, session: session)
 
 		let successExpectation = expectation(
 			description: "expect error result"
 		)
 
-		client.fetchDay("2020-05-01") { result in
+		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -480,7 +402,7 @@ final class HTTPClientTests: XCTestCase {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
 		let stack = MockNetworkStack(
-			httpStatus: 200,
+			httpStatus: 404,
 			responseData: try Data(contentsOf: url)
 		)
 
