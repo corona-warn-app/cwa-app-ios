@@ -50,6 +50,10 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
+		setButtonEnabled(enabled: true)
+	}
+
+	override func viewDidLayoutSubviews() {
 		setButtonEnabled(enabled: tanInput.isValid && tanInput.isChecksumValid)
 	}
 
