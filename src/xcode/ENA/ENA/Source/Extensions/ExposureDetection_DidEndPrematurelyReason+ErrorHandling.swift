@@ -33,22 +33,7 @@ extension ExposureDetection.DidEndPrematurelyReason {
 			preferredStyle: .alert
 		)
 		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: nil)
-		let detailsAction = UIAlertAction(title: AppStrings.ExposureDetectionError.errorAlertActionDetails, style: .default, handler: { _ in
-			let detailsAlert = UIAlertController(
-				title: AppStrings.ExposureDetectionError.errorAlertTitle,
-				message: Thread.callStackSymbols.joined(separator: "\n"),
-				preferredStyle: .alert
-			)
-			detailsAlert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: nil))
-			let showDetails: () -> Void = {
-				rootController.present(detailsAlert, animated: true, completion: nil)
-			}
-			alert.dismiss(animated: true, completion: showDetails)
-		})
-
 		alert.addAction(okAction)
-		alert.addAction(detailsAction)
-		alert.preferredAction = okAction
 		return alert
 	}
 }
