@@ -43,7 +43,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-		setButtonEnabled(enabled: true)
+		setButtonEnabled(enabled: tanInput.isValid)
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
