@@ -50,7 +50,7 @@
 
 /* Begin PBXFileReference section */
 		50164488240CFC26005FA948 /* ColorManagementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManagementTests.swift; sourceTree = "<group>"; };
-		502BF533236399BB00FDE7BF /* Call by Color 24.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Call by Color 24.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		502BF533236399BB00FDE7BF /* Call by Color 36.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Call by Color 36.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		502BF536236399BB00FDE7BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		502BF538236399BB00FDE7BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		502BF53C236399BD00FDE7BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 		502BF534236399BB00FDE7BF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				502BF533236399BB00FDE7BF /* Call by Color 24.app */,
+				502BF533236399BB00FDE7BF /* Call by Color 36.app */,
 				502BF549236399BD00FDE7BF /* Kurzwahl2020Tests.xctest */,
 			);
 			name = Products;
@@ -197,9 +197,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		502BF532236399BB00FDE7BF /* Call by Color 24 */ = {
+		502BF532236399BB00FDE7BF /* Call by Color 36 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 502BF552236399BD00FDE7BF /* Build configuration list for PBXNativeTarget "Call by Color 24" */;
+			buildConfigurationList = 502BF552236399BD00FDE7BF /* Build configuration list for PBXNativeTarget "Call by Color 36" */;
 			buildPhases = (
 				502BF52F236399BB00FDE7BF /* Sources */,
 				502BF530236399BB00FDE7BF /* Frameworks */,
@@ -210,11 +210,11 @@
 			);
 			dependencies = (
 			);
-			name = "Call by Color 24";
+			name = "Call by Color 36";
 			packageProductDependencies = (
 			);
 			productName = Kurzwahl2020;
-			productReference = 502BF533236399BB00FDE7BF /* Call by Color 24.app */;
+			productReference = 502BF533236399BB00FDE7BF /* Call by Color 36.app */;
 			productType = "com.apple.product-type.application";
 		};
 		502BF548236399BD00FDE7BF /* Kurzwahl2020Tests */ = {
@@ -270,7 +270,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				502BF532236399BB00FDE7BF /* Call by Color 24 */,
+				502BF532236399BB00FDE7BF /* Call by Color 36 */,
 				502BF548236399BD00FDE7BF /* Kurzwahl2020Tests */,
 			);
 		};
@@ -362,7 +362,7 @@
 /* Begin PBXTargetDependency section */
 		502BF54B236399BD00FDE7BF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 502BF532236399BB00FDE7BF /* Call by Color 24 */;
+			target = 502BF532236399BB00FDE7BF /* Call by Color 36 */;
 			targetProxy = 502BF54A236399BD00FDE7BF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -523,8 +523,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc24;
-				PRODUCT_NAME = "Call by Color 24";
+				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc36;
+				PRODUCT_NAME = "Call by Color 36";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -547,8 +547,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc24;
-				PRODUCT_NAME = "Call by Color 24";
+				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc36;
+				PRODUCT_NAME = "Call by Color 36";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -572,7 +572,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kurzwahl2020.app/Kurzwahl2020";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Call by Color 36.app/Call by Color 36";
 			};
 			name = Debug;
 		};
@@ -594,7 +594,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kurzwahl2020.app/Kurzwahl2020";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Call by Color 36.app/Call by Color 36";
 			};
 			name = Release;
 		};
@@ -610,7 +610,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		502BF552236399BD00FDE7BF /* Build configuration list for PBXNativeTarget "Call by Color 24" */ = {
+		502BF552236399BD00FDE7BF /* Build configuration list for PBXNativeTarget "Call by Color 36" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				502BF553236399BD00FDE7BF /* Debug */,

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Kurzwahl2020
+@testable import Call_by_Color_36
 
 class StorageTests: XCTestCase {
     var sut : storage = storage()

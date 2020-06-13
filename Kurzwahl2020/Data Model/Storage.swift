@@ -37,10 +37,10 @@ import Foundation
 
 
 class storage {
-    fileprivate let numbersFileName = "CBC24numbers"
-    fileprivate let namesFileName = "CBC24names"
-    fileprivate let settingsFileName = "CBC24settings"
-    fileprivate let colorsFileName = "CBC24colors"
+    fileprivate let numbersFileName = "CBC36numbers"
+    fileprivate let namesFileName = "CBC36names"
+    fileprivate let settingsFileName = "CBC36settings"
+    fileprivate let colorsFileName = "CBC36colors"
     
     init() {
 //        self.deleteFilesFromAppgroup()
@@ -165,8 +165,9 @@ class storage {
         } catch {
             print("load settings failed")
             result = ["fontsize" : "22",
-                      "ColorPalette0" : c_palette02,
-                      "ColorPalette1" : c_palette01
+                      "ColorPalette0" : c_darkPink,
+                      "ColorPalette1" : c_summerTime,
+                      "ColorPalette2" : c_red
             ]
         }
         return result

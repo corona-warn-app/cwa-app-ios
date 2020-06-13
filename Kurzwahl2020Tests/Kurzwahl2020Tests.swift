@@ -9,7 +9,7 @@
 import XCTest
 import Foundation
 import SwiftUI
-@testable import Kurzwahl2020
+@testable import Call_by_Color_36
 
 class Kurzwahl2020Tests: XCTestCase {
 

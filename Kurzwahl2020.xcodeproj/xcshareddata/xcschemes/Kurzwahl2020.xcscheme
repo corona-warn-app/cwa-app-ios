@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "502BF532236399BB00FDE7BF"
-               BuildableName = "Call by Color 24.app"
-               BlueprintName = "Call by Color 24"
+               BuildableName = "Call by Color 36.app"
+               BlueprintName = "Call by Color 36"
                ReferencedContainer = "container:Kurzwahl2020.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "502BF532236399BB00FDE7BF"
-            BuildableName = "Call by Color 24.app"
-            BlueprintName = "Call by Color 24"
+            BuildableName = "Call by Color 36.app"
+            BlueprintName = "Call by Color 36"
             ReferencedContainer = "container:Kurzwahl2020.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -73,8 +73,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "502BF532236399BB00FDE7BF"
-            BuildableName = "Call by Color 24.app"
-            BlueprintName = "Call by Color 24"
+            BuildableName = "Call by Color 36.app"
+            BlueprintName = "Call by Color 36"
             ReferencedContainer = "container:Kurzwahl2020.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

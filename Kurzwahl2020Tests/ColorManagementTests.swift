@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Kurzwahl2020
+@testable import Call_by_Color_36
 
 class ColorManagementTests: XCTestCase {
     
@@ -31,7 +31,7 @@ class ColorManagementTests: XCTestCase {
     
     func testGetAllThumbnails() {
         let result = sut.getAllPalettes()
-        XCTAssertTrue(result.count == 5)
+        XCTAssertTrue(result.count == 8)
     }
     
     func testSetPalette() {

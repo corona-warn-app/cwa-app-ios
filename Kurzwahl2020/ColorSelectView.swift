@@ -54,16 +54,16 @@ struct ColorSelectView: View {
                         Image(systemName: "2.square")
                     }
                     Spacer()
-//                    VStack{
-//                        Button(action: {
-//                            self.navigation.advance(NavigationItem(
-//                                view: AnyView(SelectColorPalette(screenIndex: 2)))) }) {
-//                                    Image(colorManager.getThumbnailName(withIndex: 2)).resizable()
-//                                        .frame(width: 100, height: 190)//.padding()
-//                        }.buttonStyle(PlainButtonStyle())
-//                        Image(systemName: "3.square")
-//                    }
-//                    Spacer()
+                    VStack{
+                        Button(action: {
+                            self.navigation.advance(NavigationItem(
+                                view: AnyView(SelectColorPalette(screenIndex: 2)))) }) {
+                                    Image(colorManager.getThumbnailName(withIndex: 2)).resizable()
+                                        .frame(width: 100, height: 190)//.padding()
+                        }.buttonStyle(PlainButtonStyle())
+                        Image(systemName: "3.square")
+                    }
+                    Spacer()
                 }
                 Spacer()
             }
