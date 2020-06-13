@@ -395,20 +395,15 @@ final class HTTPClientTests: XCTestCase {
 
 	func testSubmit_Response400() {
 		// Arrange
-		let mockResponse = HTTPURLResponse(url: mockUrl, statusCode: 400, httpVersion: nil, headerFields: nil)
-		let mockURLSession = MockUrlSession(
-			// Cannot be nil since response is not nil
-			data: Data(),
-			nextResponse: mockResponse,
-			error: nil
+		let stack = MockNetworkStack(
+			httpStatus: 400,
+			responseData: Data()
 		)
-
-		let client = HTTPClient(configuration: .fake, session: mockURLSession)
 
 		let expectation = self.expectation(description: "Response400")
 
 		// Act
-		client.submit(keys: keys, tan: tan) { error in
+		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) { error in
 			defer { expectation.fulfill() }
 			guard let error = error else {
 				XCTFail("error expected")
@@ -425,20 +420,15 @@ final class HTTPClientTests: XCTestCase {
 
 	func testSubmit_Response403() {
 		// Arrange
-		let mockResponse = HTTPURLResponse(url: mockUrl, statusCode: 403, httpVersion: nil, headerFields: nil)
-		let mockURLSession = MockUrlSession(
-			// Cannot be nil since response is not nil
-			data: Data(),
-			nextResponse: mockResponse,
-			error: nil
+		let stack = MockNetworkStack(
+			httpStatus: 403,
+			responseData: Data()
 		)
-
-		let client = HTTPClient(configuration: .fake, session: mockURLSession)
 
 		let expectation = self.expectation(description: "Response403")
 
 		// Act
-		client.submit(keys: keys, tan: tan) { error in
+		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) { error in
 			defer { expectation.fulfill() }
 			guard let error = error else {
 				XCTFail("error expected")
@@ -454,13 +444,14 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testInvalidEmptyExposureConfigurationResponseData() {
-		let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
-		let mockURLSession = MockUrlSession(data: nil, nextResponse: response, error: nil)
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: nil
+		)
 
-		let client = HTTPClient(configuration: .fake, session: mockURLSession)
 		let expectation = self.expectation(description: "HTTPClient should have failed.")
 
-		client.exposureConfiguration { config in
+		HTTPClient.makeWith(mock: stack).exposureConfiguration { config in
 			XCTAssertNil(config, "configuration should be nil when data is invalid")
 			expectation.fulfill()
 		}
@@ -471,15 +462,14 @@ final class HTTPClientTests: XCTestCase {
 	func testValidExposureConfigurationResponseData() throws {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
-		let responseData = try Data(contentsOf: url)
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try Data(contentsOf: url)
+		)
 
-		let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
-		let mockURLSession = MockUrlSession(data: responseData, nextResponse: response, error: nil)
-
-		let client = HTTPClient(configuration: .fake, session: mockURLSession)
 		let expectation = self.expectation(description: "HTTPClient should have succeeded.")
 
-		client.exposureConfiguration { config in
+		HTTPClient.makeWith(mock: stack).exposureConfiguration { config in
 			XCTAssertNotNil(config, "configuration should not be nil for valid responses")
 			expectation.fulfill()
 		}
@@ -489,16 +479,14 @@ final class HTTPClientTests: XCTestCase {
 	func testValidExposureConfigurationDataBut404Response() throws {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
-		let responseData = try Data(contentsOf: url)
-
-		let response = HTTPURLResponse(url: mockUrl, statusCode: 404, httpVersion: "HTTP/2", headerFields: [:])
-		let mockURLSession = MockUrlSession(data: responseData, nextResponse: response, error: nil)
-
-		let client = HTTPClient(configuration: .fake, session: mockURLSession)
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try Data(contentsOf: url)
+		)
 
 		let expectation = self.expectation(description: "HTTPClient should have failed.")
 
-		client.exposureConfiguration { configuration in
+		HTTPClient.makeWith(mock: stack).exposureConfiguration { configuration in
 			XCTAssertNil(
 				configuration, "a 404 configuration response should yield an error - not a success"
 			)
@@ -512,36 +500,22 @@ final class HTTPClientTests: XCTestCase {
 	func testGetAppConfiguration_SignatureVerificationSuccess() throws {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
-		let responseData = try Data(contentsOf: url)
-
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
+		let packageSignatureExpectation = expectation(
+			description: "Expect that the verifier is called!"
 		)
-
-		let session = MockUrlSession(
-			data: responseData,
-			nextResponse: mockResponse,
-			error: nil
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try Data(contentsOf: url),
+			packageVerifier: { _ in
+				packageSignatureExpectation.fulfill()
+				return true
+			}
 		)
-
-		let successVerifier: SAPDownloadedPackage.Verification = { _ in
-			true
-		}
-
-		let client = HTTPClient(
-			configuration: .fake,
-			packageVerifier: successVerifier,
-			session: session
-		)
-
 		let successExpectation = expectation(
 			description: "Package signature validation passed!"
 		)
 
-		client.appConfiguration { result in
+		HTTPClient.makeWith(mock: stack).appConfiguration { result in
 			defer { successExpectation.fulfill() }
 			if result == nil {
 				XCTFail("Signature validation should have passed!")
@@ -553,36 +527,23 @@ final class HTTPClientTests: XCTestCase {
 	func testGetAppConfiguration_SignatureVerificationFail() throws {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
-		let responseData = try Data(contentsOf: url)
-
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
+		let packageSignatureExpectation = expectation(
+			description: "Expect that the verifier is called!"
 		)
-
-		let session = MockUrlSession(
-			data: responseData,
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let failVerifier: SAPDownloadedPackage.Verification = { _ in
-			false
-		}
-
-		let client = HTTPClient(
-			configuration: .fake,
-			packageVerifier: failVerifier,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try Data(contentsOf: url),
+			packageVerifier: { _ in
+				packageSignatureExpectation.fulfill()
+				return false
+			}
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that package signature validation fails"
 		)
 
-		client.appConfiguration { result in
+		HTTPClient.makeWith(mock: stack).appConfiguration { result in
 			defer { successExpectation.fulfill() }
 			if result != nil {
 				XCTFail("Expected signature validation to fail!")
@@ -595,29 +556,16 @@ final class HTTPClientTests: XCTestCase {
 
 	func testGetTANForExposureSubmit_Success() throws {
 		let tan = "0987654321"
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: try? JSONEncoder().encode(GetTANResponse(tan: tan)),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try? JSONEncoder().encode(GetTANResponse(tan: tan))
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we get a TAN"
 		)
 
-		client.getTANForExposureSubmit(forDevice: "1234567890") { result in
+		HTTPClient.makeWith(mock: stack).getTANForExposureSubmit(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success(let responseTAN):
@@ -630,29 +578,16 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testGetTANForExposureSubmit_TokenDoesNotExist() throws {
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 400,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: Data(),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 400,
+			responseData: Data()
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we get a completion"
 		)
 
-		client.getTANForExposureSubmit(forDevice: "1234567890") { result in
+		HTTPClient.makeWith(mock: stack).getTANForExposureSubmit(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -670,29 +605,16 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testGetTANForExposureSubmit_UnacceptableResponse() throws {
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 302,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: Data(),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 302,
+			responseData: Data()
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we get a completion"
 		)
 
-		client.getTANForExposureSubmit(forDevice: "1234567890") { result in
+		HTTPClient.makeWith(mock: stack).getTANForExposureSubmit(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -710,29 +632,16 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testGetTANForExposureSubmit_MalformedResponse() throws {
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: Data(bytes: [0xA, 0xB], count: 2),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data(bytes: [0xA, 0xB], count: 2)
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we get a TAN"
 		)
 
-		client.getTANForExposureSubmit(forDevice: "1234567890") { result in
+		HTTPClient.makeWith(mock: stack).getTANForExposureSubmit(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -750,31 +659,18 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testGetTANForExposureSubmit_MalformedJSONResponse() throws {
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: """
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: """
 			{ "taaaaaaan":"Hello" }
-			""".data(using: .utf8),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+			""".data(using: .utf8)
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we get a TAN"
 		)
 
-		client.getTANForExposureSubmit(forDevice: "1234567890") { result in
+		HTTPClient.makeWith(mock: stack).getTANForExposureSubmit(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -795,29 +691,16 @@ final class HTTPClientTests: XCTestCase {
 
 	func testGetTestResult_Success() throws {
 		let testResult = 1234
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: try? JSONEncoder().encode(GetTestResultResponse(testResult: testResult)),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try? JSONEncoder().encode(GetTestResultResponse(testResult: testResult))
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we got a completion"
 		)
 
-		client.getTestResult(forDevice: "1234567890") { result in
+		HTTPClient.makeWith(mock: stack).getTestResult(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success(let responseCode):
@@ -831,29 +714,16 @@ final class HTTPClientTests: XCTestCase {
 
 	func testGetTestResult_ServerError() throws {
 		let testResult = 1234
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 302,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: try? JSONEncoder().encode(GetTestResultResponse(testResult: testResult)),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 302,
+			responseData: try? JSONEncoder().encode(GetTestResultResponse(testResult: testResult))
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we got a completion"
 		)
 
-		client.getTestResult(forDevice: "1234567890") { result in
+		HTTPClient.makeWith(mock: stack).getTestResult(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -871,29 +741,16 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testGetTestResult_MalformedResponse() throws {
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: Data(bytes: [0xA, 0xB], count: 2),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data(bytes: [0xA, 0xB], count: 2)
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we got a completion"
 		)
 
-		client.getTestResult(forDevice: "1234567890") { result in
+		HTTPClient.makeWith(mock: stack).getTestResult(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -911,31 +768,18 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testGetTestResult_MalformedJSONResponse() throws {
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: """
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: """
 			{ "notAValidKey":"1234" }
-			""".data(using: .utf8),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+			""".data(using: .utf8)
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we got a completion"
 		)
 
-		client.getTestResult(forDevice: "1234567890") { result in
+		HTTPClient.makeWith(mock: stack).getTestResult(forDevice: "1234567890") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -956,29 +800,16 @@ final class HTTPClientTests: XCTestCase {
 
 	func testGetRegistrationToken_TeleTANSuccess() throws {
 		let expectedToken = "SomeToken"
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken))
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we got a completion"
 		)
 
-		client.getRegistrationToken(forKey: "1234567890", withType: "TELETAN") { result in
+		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "TELETAN") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success(let token):
@@ -992,29 +823,16 @@ final class HTTPClientTests: XCTestCase {
 
 	func testGetRegistrationToken_GUIDSuccess() throws {
 		let expectedToken = "SomeToken"
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken))
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we got a completion"
 		)
 
-		client.getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
+		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success(let token):
@@ -1027,29 +845,16 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testGetRegistrationToken_TANAlreadyUsed() throws {
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 400,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: Data(),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 400,
+			responseData: Data()
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we got a completion"
 		)
 
-		client.getRegistrationToken(forKey: "1234567890", withType: "TELETAN") { result in
+		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "TELETAN") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -1067,29 +872,16 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testGetRegistrationToken_GUIDAlreadyUsed() throws {
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 400,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: Data(),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 400,
+			responseData: Data()
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we got a completion"
 		)
 
-		client.getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
+		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -1107,29 +899,16 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testGetRegistrationToken_MalformedResponse() throws {
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: Data(bytes: [0xA, 0xB], count: 2),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data(bytes: [0xA, 0xB], count: 2)
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we got a completion"
 		)
 
-		client.getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
+		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -1147,31 +926,18 @@ final class HTTPClientTests: XCTestCase {
 	}
 
 	func testGetRegistrationToken_MalformedJSONResponse() throws {
-		let mockResponse = HTTPURLResponse(
-			url: mockUrl,
-			statusCode: 200,
-			httpVersion: nil,
-			headerFields: nil
-		)
-
-		let session = MockUrlSession(
-			data: """
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: """
 			{ "NotregistrationToken":"Hello" }
-			""".data(using: .utf8),
-			nextResponse: mockResponse,
-			error: nil
-		)
-
-		let client = HTTPClient(
-			configuration: .fake,
-			session: session
+			""".data(using: .utf8)
 		)
 
 		let successExpectation = expectation(
 			description: "Expect that we got a completion"
 		)
 
-		client.getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
+		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -1189,7 +955,58 @@ final class HTTPClientTests: XCTestCase {
 	}
 }
 
-// MARK: - Helper Types
+// MARK: - Helpers
+
+/// Helper struct to easily create a `MockUrlSession` that sends the desired HTTP status code and `URLResponse`
+private struct MockNetworkStack {
+	var urlSession: MockUrlSession
+	var mockResponse: URLResponse?
+	var packageVerifier: SAPDownloadedPackage.Verification
+
+	init(
+		mockSession: MockUrlSession,
+		mockResponse: URLResponse? = nil,
+		packageVerifier:  @escaping SAPDownloadedPackage.Verification = { _ in return true }
+	) {
+		self.urlSession = mockSession
+		self.mockResponse = mockResponse
+		self.packageVerifier = packageVerifier
+	}
+
+	/// Convenience, creates a `MockUrlSession`, `URLResponse` under the hood
+	init(
+		baseURL: URL = URL(staticString: "http://example.com"),
+		httpStatus: Int,
+		httpVersion: String = "HTTP/2",
+		headerFields: [String: String] = [:],
+		responseData: Data?,
+		packageVerifier: @escaping SAPDownloadedPackage.Verification = { _ in return true }
+	) {
+		mockResponse = HTTPURLResponse(
+			url: baseURL,
+			statusCode: httpStatus,
+			httpVersion: httpVersion,
+			headerFields: headerFields
+		)!	// swiftlint:disable:this force_unwrapping
+		urlSession = MockUrlSession(
+			data: responseData,
+			nextResponse: mockResponse,
+			error: nil
+		)
+		self.packageVerifier = packageVerifier
+	}
+}
+
+private extension HTTPClient {
+	/// Configure a `HTTPClient` with `.fake` configuration and mocked `URLSession`
+	static func makeWith(mock stack: MockNetworkStack) -> HTTPClient {
+		HTTPClient(
+			configuration: .fake,
+			packageVerifier: stack.packageVerifier,
+			session: stack.urlSession
+		)
+	}
+}
 
 enum TestError: Error {
 	case error
