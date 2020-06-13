@@ -96,7 +96,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.isAllowedToSubmitDiagnosisKeys = false
 	}
 
-
 	/// This method gets the test result based on the registrationToken that was previously
 	/// received, either from the TAN or QR Code flow. After successful completion,
 	/// the timestamp of the last received test is updated.

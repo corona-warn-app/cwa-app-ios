@@ -66,6 +66,10 @@ final class DownloadedPackagesInMemoryStore {
 }
 
 extension DownloadedPackagesInMemoryStore: DownloadedPackagesStore {
+	func deleteOutdatedDays(now: String) throws {
+		fatalError("not implemented")
+	}
+
 	func open() {
 		// noop
 	}
