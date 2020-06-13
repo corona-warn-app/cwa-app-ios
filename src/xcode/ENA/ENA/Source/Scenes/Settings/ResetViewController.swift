@@ -38,8 +38,30 @@ final class ResetViewController: UIViewController {
 	weak var delegate: ResetDelegate?
 
 	@IBAction func resetData(_: Any) {
-		delegate?.reset()
-		dismiss(animated: true, completion: nil)
+		let alertController = UIAlertController(
+			title: AppStrings.Reset.confirmDialogTitle,
+			message: AppStrings.Reset.confirmDialogDescription,
+			preferredStyle: .alert
+		)
+
+		let delete = UIAlertAction(
+			title: AppStrings.Reset.confirmDialogConfirm,
+			style: .destructive,
+			handler: { _ in
+				self.delegate?.reset()
+				self.dismiss(animated: true, completion: nil)
+			}
+		)
+
+		let cancel = UIAlertAction(
+			title: AppStrings.Reset.confirmDialogCancel,
+			style: .cancel
+		)
+
+		alertController.addAction(delete)
+		alertController.addAction(cancel)
+
+		present(alertController, animated: true, completion: nil)
 	}
 
 	override func viewDidLoad() {

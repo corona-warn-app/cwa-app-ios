@@ -159,7 +159,7 @@
 
 "Onboarding_Continue_actionText" = "Next";
 
-"Onboarding_Continue_skipLongTextHint" = "A long text follows. To proceed at any time, use the button at the bottom of the screen.";
+"Onboarding_Continue_actionTextHint" = "You may skip this screen";
 
 "Onboarding_EnableLogging_actionText" = "Next";
 
@@ -280,6 +280,10 @@
 "ExposureSubmissionHotline_SectionTitle" = "How this works";
 
 "ExposureSubmissionHotline_SectionDescription1" = "Call the hotline and request a TAN:";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Step 1 of 2";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Step 1 of 2";
 
 "ExposureSubmission_PhoneNumber" = "+49 800 7540002";
 
@@ -791,6 +795,14 @@
 "Reset_Subtitle" = "Reset App";
 
 "Reset_ImageDescription" = "One person is holding a device displaying a symbol indicating that the app is being reset.";
+
+"Reset_ConfirmDialog_Title" = "Reset App";
+
+"Reset_ConfirmDialog_Description" = "You will no longer be notified of your exposures and you will no longer be able to warn other users. This procedure cannot be undone.";
+
+"Reset_ConfirmDialog_Cancel"  = "Cancel";
+
+"Reset_ConfirmDialog_Confirm" = "Reset";
 
 /* Safari */
 "safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
