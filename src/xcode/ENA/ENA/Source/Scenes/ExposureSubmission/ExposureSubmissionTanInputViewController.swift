@@ -33,12 +33,19 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View lifecycle methods.
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
 		setupView()
 		setupBackButton()
 		fetchService()
+		setupTanState()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		self.setupTanState()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -55,16 +62,20 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 	}
 
 	// MARK: - Helper methods.
-
-	private func setupView() {
-		tanInput.delegate = self
+	
+	private func setupTanState() {
 		if let tan = initialTan {
 			tanInput.clear()
 			tanInput.insertText(tan)
 			initialTan = nil
-		} else {
-			tanInput.becomeFirstResponder()
+		} else if !tanInput.isFirstResponder {
+			_ = tanInput.becomeFirstResponder()
 		}
+	}
+
+	private func setupView() {
+		tanInput.delegate = self
+
 		hideSecondaryButton()
 		setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
 		title = AppStrings.ExposureSubmissionTanEntry.title
