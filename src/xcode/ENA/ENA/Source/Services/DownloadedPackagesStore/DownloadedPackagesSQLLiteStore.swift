@@ -304,7 +304,6 @@ private extension FMResultSet {
 	}
 }
 
-
 extension DownloadedPackagesSQLLiteStore {
 	convenience init(fileName: String) {
 
