@@ -43,7 +43,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-		setButtonEnabled(enabled: tanInput.isValid)
+		setButtonEnabled(enabled: tanInput.isValid && tanInput.isChecksumValid)
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -68,7 +68,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		hideSecondaryButton()
 		setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
 		title = AppStrings.ExposureSubmissionTanEntry.title
-		setButtonEnabled(enabled: tanInput.isValid)
+		setButtonEnabled(enabled: tanInput.isValid && tanInput.isChecksumValid)
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
 		errorView.alpha = 0
 	}
