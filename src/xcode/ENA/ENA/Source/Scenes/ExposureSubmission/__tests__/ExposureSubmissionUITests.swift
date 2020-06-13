@@ -84,9 +84,8 @@ class ExposureSubmissionUITests: XCTestCase {
 		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
 
 		// Click next button.
-		let nextIdentifier = localized(AppStrings.ExposureSubmission.continueText)
-		XCTAssertNotNil(app.buttons[nextIdentifier].waitForExistence(timeout: .medium))
-		app.buttons[nextIdentifier].tap()
+		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// Select QRCode screen.
 		XCTAssert(app
@@ -108,9 +107,8 @@ class ExposureSubmissionUITests: XCTestCase {
 		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
 
 		// Click next button.
-		let nextIdentifier = localized(AppStrings.ExposureSubmission.continueText)
-		XCTAssertNotNil(app.buttons[nextIdentifier].waitForExistence(timeout: .medium))
-		app.buttons[nextIdentifier].tap()
+		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// Select QRCode screen.
 		XCTAssert(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
