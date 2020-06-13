@@ -57,6 +57,8 @@ class ColorManagement : ObservableObject {
         allPalettes.append(palette(name: c_green, thumbnail: c_tn_green_lm, thumbnailDarkMode: c_tn_green_dm, colors:ColorPaletteGreen))
         allPalettes.append(palette(name: c_blue, thumbnail: c_tn_blue_lm, thumbnailDarkMode: c_tn_blue_dm, colors:ColorPaletteBlue))
         allPalettes.append(palette(name: c_gray, thumbnail: c_tn_gray_lm, thumbnailDarkMode: c_tn_gray_dm, colors:ColorPaletteGray))
+        allPalettes.append(palette(name: c_palette01, thumbnail: c_tn_gray_lm, thumbnailDarkMode: c_tn_gray_dm, colors:ColorPalette01))
+        allPalettes.append(palette(name: c_palette02, thumbnail: c_tn_gray_lm, thumbnailDarkMode: c_tn_gray_dm, colors:ColorPalette02))
         
         for i in 0...2 {
             self.setScreenPalette(withIndex: i, name: globalDataModel.getUserSelectedPalette(withIndex: i))

@@ -16,6 +16,8 @@ let c_red : String = "Red"
 let c_green : String = "Green"
 let c_blue : String = "Blue"
 let c_gray : String = "Gray"
+let c_palette01 : String = "P01"
+let c_palette02 : String = "P02"
 
 // constants: file names for thumbnails in Light & Dark Mode
 let c_tn_summerTime_lm = "Standard Light Mode"
@@ -82,3 +84,19 @@ let ColorPaletteGray: [String] = [
     "Darkgrey6E6E6E","Darkgrey6E6E6E",
     "Darkgrey6E6E6E","Darkgrey6E6E6E",
     "Darkgrey6E6E6E","Darkgrey6E6E6E"]
+
+let ColorPalette01: [String] = [
+    "#3F1258","#6A1143",
+    "#8A2C61","#27033B",
+    "#75488E","#470028",
+    "#590000","#592973",
+    "#841616","#AA5183",
+    "#AC3737","#D46565"]
+
+let ColorPalette02: [String] = [
+    "#B67929","#A3ACB1",
+    "#3C5B74","#264B77",
+    "#00243F","#354B5C",
+    "#525252","#556F8D",
+    "#B9C3C9","#B88545",
+    "#405A6E","#424242"]
