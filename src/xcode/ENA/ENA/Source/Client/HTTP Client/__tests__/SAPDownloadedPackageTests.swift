@@ -25,13 +25,15 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	private lazy var signingKey = P256.Signing.PrivateKey()
 	private lazy var publicKey = signingKey.publicKey
 	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
+	private lazy var mockKeyProvider: PublicKeyProviding = { _ in return self.publicKey }
+	private lazy var verifier = SAPDownloadedPackage.Verifier(key: mockKeyProvider)
 
 	// MARK: Signature Verification Tests
 
 	func testVerifySignature_SingleSignature() throws {
 		// Test the package signature verification process
 		let package = try SAPDownloadedPackage.makePackage(key: signingKey)
-		XCTAssertTrue(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
+		XCTAssertTrue(verifier(package))
 	}
 
 	func testVerifySignature_RejectModifiedBin() throws {
@@ -42,7 +44,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 														   signature: try SAPDownloadedPackage.makeSignature(data: Data(bytes: bytes, count: 3), key: signingKey).asList() //swiftlint:disable:this vertical_parameter_alignment_on_call
 		)
 
-		XCTAssertFalse(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
+		XCTAssertFalse(verifier(package))
 	}
 
 	func testVerifySignature_RejectCorruptSignature() throws {
@@ -52,7 +54,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 			signature: Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
 		)
 
-		XCTAssertFalse(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
+		XCTAssertFalse(verifier(package))
 	}
 
 	func testVerifySignature_OneKeyMatchesBundleId() throws {
@@ -66,7 +68,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 		let package = try SAPDownloadedPackage.makePackage(bin: data, signature: signatures)
 		// When no public key to sign is found, the verification should fail
-		XCTAssertTrue(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
+		XCTAssertTrue(verifier(package))
 	}
 
 	func testVerifySignature_OneSignatureFails() throws {
@@ -82,8 +84,8 @@ final class SAPDownloadedPackageTests: XCTestCase {
 		].asList()
 
 		let package = try SAPDownloadedPackage.makePackage(bin: data, signature: signatures)
-		// When no public key to sign is found, the verification should fail
-		XCTAssertTrue(package.verifySignature(with: MockKeyStore(keys: [defaultBundleId: publicKey])))
+		// Only one signature is necessary to pass the check
+		XCTAssertTrue(verifier(package))
 	}
 
 	// MARK: - Init from ZIP Tests

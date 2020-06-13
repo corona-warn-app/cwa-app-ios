@@ -18,7 +18,9 @@
 @testable import ENA
 import ExposureNotification
 import XCTest
+import CryptoKit
 
+// swiftlint:disable file_length
 // swiftlint:disable:next type_body_length
 final class HTTPClientTests: XCTestCase {
 	let binFileSize = 501
@@ -465,24 +467,24 @@ final class HTTPClientTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	// TODO: Enable once we figured our how to get this running with production server
-//	func testValidExposureConfigurationResponseData() throws {
-//		// swiftlint:disable:next force_unwrapping
-//		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
-//		let responseData = try Data(contentsOf: url)
-//
-//		let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
-//		let mockURLSession = MockUrlSession(data: responseData, nextResponse: response, error: nil)
-//
-//		let client = HTTPClient(configuration: .fake, session: mockURLSession)
-//		let expectation = self.expectation(description: "HTTPClient should have succeeded.")
-//
-//		client.exposureConfiguration { config in
-//			XCTAssertNotNil(config, "configuration should not be nil for valid responses")
-//			expectation.fulfill()
-//		}
-//		waitForExpectations(timeout: expectationsTimeout)
-//	}
+
+	func testValidExposureConfigurationResponseData() throws {
+		// swiftlint:disable:next force_unwrapping
+		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
+		let responseData = try Data(contentsOf: url)
+
+		let response = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: "HTTP/2", headerFields: [:])
+		let mockURLSession = MockUrlSession(data: responseData, nextResponse: response, error: nil)
+
+		let client = HTTPClient(configuration: .fake, session: mockURLSession)
+		let expectation = self.expectation(description: "HTTPClient should have succeeded.")
+
+		client.exposureConfiguration { config in
+			XCTAssertNotNil(config, "configuration should not be nil for valid responses")
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
 
 	func testValidExposureConfigurationDataBut404Response() throws {
 		// swiftlint:disable:next force_unwrapping
@@ -504,8 +506,703 @@ final class HTTPClientTests: XCTestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
+
+	// MARK: - GET App Config Tests
+
+	func testGetAppConfiguration_SignatureVerificationSuccess() throws {
+		// swiftlint:disable:next force_unwrapping
+		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
+		let responseData = try Data(contentsOf: url)
+
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: responseData,
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let successVerifier: SAPDownloadedPackage.Verification = { _ in
+			true
+		}
+
+		let client = HTTPClient(
+			configuration: .fake,
+			packageVerifier: successVerifier,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Package signature validation passed!"
+		)
+
+		client.appConfiguration { result in
+			defer { successExpectation.fulfill() }
+			if result == nil {
+				XCTFail("Signature validation should have passed!")
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetAppConfiguration_SignatureVerificationFail() throws {
+		// swiftlint:disable:next force_unwrapping
+		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
+		let responseData = try Data(contentsOf: url)
+
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: responseData,
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let failVerifier: SAPDownloadedPackage.Verification = { _ in
+			false
+		}
+
+		let client = HTTPClient(
+			configuration: .fake,
+			packageVerifier: failVerifier,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that package signature validation fails"
+		)
+
+		client.appConfiguration { result in
+			defer { successExpectation.fulfill() }
+			if result != nil {
+				XCTFail("Expected signature validation to fail!")
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	// MARK: - POST Token for Exposure Submit
+
+	func testGetTANForExposureSubmit_Success() throws {
+		let tan = "0987654321"
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: try? JSONEncoder().encode(GetTANResponse(tan: tan)),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we get a TAN"
+		)
+
+		client.getTANForExposureSubmit(forDevice: "1234567890") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success(let responseTAN):
+				XCTAssertEqual(responseTAN, tan)
+			case .failure:
+				XCTFail("Encountered Error when receiving TAN")
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetTANForExposureSubmit_TokenDoesNotExist() throws {
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 400,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: Data(),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we get a completion"
+		)
+
+		client.getTANForExposureSubmit(forDevice: "1234567890") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("Mock backend returned 400 - but we got a TAN instead?!")
+			case .failure(let error):
+				switch error {
+				case .regTokenNotExist:
+					break
+				default:
+					XCTFail("Received error was not .regTokenNotExist")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetTANForExposureSubmit_UnacceptableResponse() throws {
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 302,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: Data(),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we get a completion"
+		)
+
+		client.getTANForExposureSubmit(forDevice: "1234567890") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("Mock backend returned 302 - but we got a TAN instead?!")
+			case .failure(let error):
+				switch error {
+				case .serverError:
+					break
+				default:
+					XCTFail("Received error was not .serverError")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetTANForExposureSubmit_MalformedResponse() throws {
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: Data(bytes: [0xA, 0xB], count: 2),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we get a TAN"
+		)
+
+		client.getTANForExposureSubmit(forDevice: "1234567890") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("Mock backend returned random bytes - but we got a TAN instead?!")
+			case .failure(let error):
+				switch error {
+				case .invalidResponse:
+					break
+				default:
+					XCTFail("Received error was not .invalidResponse")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetTANForExposureSubmit_MalformedJSONResponse() throws {
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: """
+			{ "taaaaaaan":"Hello" }
+			""".data(using: .utf8),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we get a TAN"
+		)
+
+		client.getTANForExposureSubmit(forDevice: "1234567890") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("Mock backend returned random bytes - but we got a TAN instead?!")
+			case .failure(let error):
+				switch error {
+				case .invalidResponse:
+					break
+				default:
+					XCTFail("Received error was not .invalidResponse")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	// MARK: - GET Test Result
+
+	func testGetTestResult_Success() throws {
+		let testResult = 1234
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: try? JSONEncoder().encode(GetTestResultResponse(testResult: testResult)),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we got a completion"
+		)
+
+		client.getTestResult(forDevice: "1234567890") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success(let responseCode):
+				XCTAssertEqual(testResult, responseCode)
+			case .failure:
+				XCTFail("Encountered Error when receiving test result!")
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetTestResult_ServerError() throws {
+		let testResult = 1234
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 302,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: try? JSONEncoder().encode(GetTestResultResponse(testResult: testResult)),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we got a completion"
+		)
+
+		client.getTestResult(forDevice: "1234567890") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("The request should not have succeeded!")
+			case .failure(let error):
+				switch error {
+				case .serverError:
+					break
+				default:
+					XCTFail("The received error was not .serverError!")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetTestResult_MalformedResponse() throws {
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: Data(bytes: [0xA, 0xB], count: 2),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we got a completion"
+		)
+
+		client.getTestResult(forDevice: "1234567890") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("The request should not have succeeded!")
+			case .failure(let error):
+				switch error {
+				case .invalidResponse:
+					break
+				default:
+					XCTFail("The received error was not .invalidResponse!")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetTestResult_MalformedJSONResponse() throws {
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: """
+			{ "notAValidKey":"1234" }
+			""".data(using: .utf8),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we got a completion"
+		)
+
+		client.getTestResult(forDevice: "1234567890") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("The request should not have succeeded!")
+			case .failure(let error):
+				switch error {
+				case .invalidResponse:
+					break
+				default:
+					XCTFail("The received error was not .invalidResponse!")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	// MARK: - GET Registration Token
+
+	func testGetRegistrationToken_TeleTANSuccess() throws {
+		let expectedToken = "SomeToken"
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we got a completion"
+		)
+
+		client.getRegistrationToken(forKey: "1234567890", withType: "TELETAN") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success(let token):
+				XCTAssertEqual(token, expectedToken)
+			case .failure:
+				XCTFail("Encountered Error when receiving registration token!")
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetRegistrationToken_GUIDSuccess() throws {
+		let expectedToken = "SomeToken"
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we got a completion"
+		)
+
+		client.getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success(let token):
+				XCTAssertEqual(token, expectedToken)
+			case .failure:
+				XCTFail("Encountered Error when receiving registration token!")
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetRegistrationToken_TANAlreadyUsed() throws {
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 400,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: Data(),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we got a completion"
+		)
+
+		client.getRegistrationToken(forKey: "1234567890", withType: "TELETAN") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("Backend returned 400 - the request should have failed!")
+			case .failure(let error):
+				switch error {
+				case .teleTanAlreadyUsed:
+					break
+				default:
+					XCTFail("The error was not .teleTanAlreadyUsed!")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetRegistrationToken_GUIDAlreadyUsed() throws {
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 400,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: Data(),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we got a completion"
+		)
+
+		client.getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("Backend returned 400 - the request should have failed!")
+			case .failure(let error):
+				switch error {
+				case .qRAlreadyUsed:
+					break
+				default:
+					XCTFail("The error was not .qRAlreadyUsed!")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetRegistrationToken_MalformedResponse() throws {
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: Data(bytes: [0xA, 0xB], count: 2),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we got a completion"
+		)
+
+		client.getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("Backend returned random bytes - the request should have failed!")
+			case .failure(let error):
+				switch error {
+				case .invalidResponse:
+					break
+				default:
+					XCTFail("The error was not .invalidResponse!")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetRegistrationToken_MalformedJSONResponse() throws {
+		let mockResponse = HTTPURLResponse(
+			url: mockUrl,
+			statusCode: 200,
+			httpVersion: nil,
+			headerFields: nil
+		)
+
+		let session = MockUrlSession(
+			data: """
+			{ "NotregistrationToken":"Hello" }
+			""".data(using: .utf8),
+			nextResponse: mockResponse,
+			error: nil
+		)
+
+		let client = HTTPClient(
+			configuration: .fake,
+			session: session
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that we got a completion"
+		)
+
+		client.getRegistrationToken(forKey: "1234567890", withType: "GUID") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("Backend returned 400 - the request should have failed!")
+			case .failure(let error):
+				switch error {
+				case .invalidResponse:
+					break
+				default:
+					XCTFail("The error was not .invalidResponse!")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
 }
+
+// MARK: - Helper Types
 
 enum TestError: Error {
 	case error
+}
+
+struct GetTANResponse: Codable {
+	let tan: String
+}
+
+struct GetTestResultResponse: Codable {
+	let testResult: Int
+}
+
+struct GetRegistrationTokenResponse: Codable {
+	let registrationToken: String
 }
