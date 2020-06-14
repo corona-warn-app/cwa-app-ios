@@ -20,8 +20,6 @@ import ExposureNotification
 import XCTest
 import CryptoKit
 
-// swiftlint:disable file_length
-// swiftlint:disable:next type_body_length
 final class HTTPClientDaysAndHoursTests: XCTestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
@@ -215,7 +213,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
-	
+
 	private func assertPackageFormat(for downloadedPackage: SAPDownloadedPackage) {
 		XCTAssertEqual(downloadedPackage.bin.count, binFileSize)
 		XCTAssertEqual(downloadedPackage.signature.count, sigFileSize)

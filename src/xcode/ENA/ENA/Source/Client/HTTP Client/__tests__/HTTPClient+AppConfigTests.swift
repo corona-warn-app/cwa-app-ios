@@ -24,6 +24,8 @@ import XCTest
 final class HTTPClientAppConfigTests: XCTestCase {
 	private let expectationsTimeout: TimeInterval = 2
 
+	// MARK: - Signature Verification Tests
+
 	func testGetAppConfiguration_SignatureVerificationSuccess() throws {
 		// swiftlint:disable:next force_unwrapping
 		let url = Bundle(for: type(of: self)).url(forResource: "de-config", withExtension: nil)!
@@ -74,6 +76,65 @@ final class HTTPClientAppConfigTests: XCTestCase {
 			defer { successExpectation.fulfill() }
 			if result != nil {
 				XCTFail("Expected signature validation to fail!")
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	// MARK: - Invalid Response Tests
+
+	func testGetAppConfiguration_ServerSentInvalidData() {
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data(bytes: [0xA, 0xB], count: 2)
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that Data cannot be deserialized into SAP_ApplicationConfiguration!"
+		)
+
+		HTTPClient.makeWith(mock: stack).appConfiguration { result in
+			defer { successExpectation.fulfill() }
+			if result != nil {
+				XCTFail("Request succeeded although data returned by server was invalid?!")
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetAppConfiguration_BadStatus() {
+		let stack = MockNetworkStack(
+			httpStatus: 500,
+			responseData: Data()
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that request fails"
+		)
+
+		HTTPClient.makeWith(mock: stack).appConfiguration { result in
+			defer { successExpectation.fulfill() }
+			if result != nil {
+				XCTFail("Server sent bad response code, but request succeeded?!")
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testGetAppConfiguration_NoData() {
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: nil
+		)
+
+		let successExpectation = expectation(
+			description: "Expect that request fails"
+		)
+
+		HTTPClient.makeWith(mock: stack).appConfiguration { result in
+			defer { successExpectation.fulfill() }
+			if result != nil {
+				XCTFail("Server sent bad response code, but request succeeded?!")
 			}
 		}
 		waitForExpectations(timeout: expectationsTimeout)

@@ -20,6 +20,7 @@
 @testable import ENA
 import Foundation
 import XCTest
+import ZIPFoundation
 
 final class HTTPClientExposureConfigTests: XCTestCase {
 
@@ -33,6 +34,42 @@ final class HTTPClientExposureConfigTests: XCTestCase {
 
 		let expectation = self.expectation(description: "HTTPClient should have failed.")
 
+		HTTPClient.makeWith(mock: stack).exposureConfiguration { config in
+			XCTAssertNil(config, "configuration should be nil when data is invalid")
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
+	func testResponseDataHasNoExposureConfig() throws {
+		// Test the case where we get a SAP_ApplicationConfiguration, but it's hasExposureConfig == nil
+
+		// We need to build the SAP_ApplicationConfiguration manually
+		// 1 Create in - memory archive
+		guard let archive = Archive(accessMode: .create) else {
+			XCTFail("Could not create in-memory ZIP archive!")
+			return
+		}
+		// 2 Init default SAP_ApplicationConfiguration - it will have hasExposureConfig defaulted to nil
+		let appConfig = try SAP_ApplicationConfiguration().serializedData()
+		// 3 Make ZIP
+		try archive.addEntry(with: "export.bin", type: .file, uncompressedSize: UInt32(appConfig.count), bufferSize: 4, provider: { position, size -> Data in
+			return appConfig.subdata(in: position..<position + size)
+		})
+
+		let randomData = Data("Hello!".utf8)
+		try archive.addEntry(with: "export.sig", type: .file, uncompressedSize: UInt32(randomData.count), bufferSize: 4, provider: { position, size -> Data in
+			return randomData.subdata(in: position..<position + size)
+		})
+		let archiveData = archive.data ?? Data()
+		// 3 Mock URLSession setup to return mock ZIP
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: archiveData
+		)
+
+		let expectation = self.expectation(description: "HTTPClient should have failed.")
+		// 4 Test that the exposureConfiguration fetch fails
 		HTTPClient.makeWith(mock: stack).exposureConfiguration { config in
 			XCTAssertNil(config, "configuration should be nil when data is invalid")
 			expectation.fulfill()
