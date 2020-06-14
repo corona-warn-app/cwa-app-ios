@@ -646,6 +646,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_SWIFT_FLAGS = "-DCBC36";
 				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc36;
 				PRODUCT_NAME = "Call by Color 36";
 				SWIFT_VERSION = 5.0;
@@ -670,6 +671,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_SWIFT_FLAGS = "-DCBC36";
 				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc36;
 				PRODUCT_NAME = "Call by Color 36";
 				SWIFT_VERSION = 5.0;
@@ -738,6 +740,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_SWIFT_FLAGS = "-DCBC24";
 				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc24;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -762,6 +765,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_SWIFT_FLAGS = "-DCBC24";
 				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc24;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
