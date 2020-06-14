@@ -18,6 +18,7 @@ let c_blue : String = "Blue"
 let c_gray : String = "Gray"
 let c_palette01 : String = "P01"
 let c_palette02 : String = "P02"
+let c_palette03 : String = "P03"
 
 // constants: file names for thumbnails in Light & Dark Mode
 let c_tn_summerTime_lm = "Standard Light Mode"
@@ -32,6 +33,13 @@ let c_tn_blue_lm = "Blue Light Mode"
 let c_tn_blue_dm = "Blue Dark Mode"
 let c_tn_gray_lm = "Gray Light Mode"
 let c_tn_gray_dm = "Gray Dark Mode"
+let c_tn_P01_dm = "P01 Dark Mode"
+let c_tn_P02_dm = "P02 Dark Mode"
+let c_tn_P03_dm = "P03 Dark Mode"
+let c_tn_P01_lm = "P01 Light Mode"
+let c_tn_P02_lm = "P02 Light Mode"
+let c_tn_P03_lm = "P03 Light Mode"
+
 
 
 // the color names refer to the items in Asset.xcassets
@@ -100,3 +108,34 @@ let ColorPalette02: [String] = [
     "#525252","#556F8D",
     "#B9C3C9","#B88545",
     "#405A6E","#424242"]
+
+let ColorPalette03: [String] = [
+    "P03-primary-0",
+    "P03-primary-3",
+    "P03-primary-4",
+    "P03-secondary-1-0",
+    "P03-secondary-1-3",
+    "P03-secondary-1-4",
+    "P03-secondary-2-0",
+    "P03-secondary-2-3",
+    "P03-secondary-2-4",
+    "P03-complement-0",
+    "P03-complement-3",
+    "P03-complement-4"
+]
+
+
+//let ColorPalette03: [String] = [
+//"P03-primary-0",
+//"P03-secondary-1-0",
+//"P03-secondary-2-0",
+//"P03-complement-0",
+//"P03-primary-3",
+//"P03-secondary-1-3",
+//"P03-secondary-2-3",
+//"P03-complement-3",
+//"P03-primary-4",
+//"P03-secondary-1-4",
+//"P03-secondary-2-4",
+//"P03-complement-4"
+//]

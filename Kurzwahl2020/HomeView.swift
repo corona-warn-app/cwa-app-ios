@@ -222,6 +222,7 @@ struct HomeView: View {
 
     fileprivate func textLabel(withTileNumber: Int, height: CGFloat, width: CGFloat) -> some View {
         return Text("\(globalDataModel.getName(withId: withTileNumber))").multilineTextAlignment(.center)
+//        return Text("Veronica iPhone").multilineTextAlignment(.center)
             .font(Font.custom(globalDataModel.font, size: globalDataModel.fontSize))
             .foregroundColor(Color.white)
             .frame(width: width, height: height, alignment: .center)

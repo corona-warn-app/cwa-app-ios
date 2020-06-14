@@ -83,6 +83,8 @@
 		7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStack.swift; sourceTree = "<group>"; };
 		7E4F6A1F23BB93BA00530294 /* Kurzwahl2020.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kurzwahl2020.entitlements; sourceTree = "<group>"; };
 		7E5C786323E8AA3200E25902 /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
+		7E7AEC582496278D00CD1D6B /* Palette 03.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Palette 03.md"; sourceTree = "<group>"; };
+		7E7AEC592496285500CD1D6B /* Palette 03.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "Palette 03.html"; sourceTree = "<group>"; };
 		7E8262882413920A008E141C /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		7E88253C248C068200E9F650 /* App Store Description.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "App Store Description.md"; sourceTree = "<group>"; };
 		7E9EEEA024812B1800990D38 /* iPhone Screen Sizes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "iPhone Screen Sizes.md"; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				7E3D7D0E23B6BF2B00C0E29F /* SwiftUI Doc & Help.md */,
 				7E88253C248C068200E9F650 /* App Store Description.md */,
 				7E9EEEA024812B1800990D38 /* iPhone Screen Sizes.md */,
+				7E7AEC5A2496287600CD1D6B /* Color Palettes */,
 				7E9EEEA124812C4B00990D38 /* Launch Screen 2.storyboard */,
 			);
 			path = Kurzwahl2020;
@@ -180,6 +183,15 @@
 				502BF54F236399BD00FDE7BF /* Info.plist */,
 			);
 			path = Kurzwahl2020Tests;
+			sourceTree = "<group>";
+		};
+		7E7AEC5A2496287600CD1D6B /* Color Palettes */ = {
+			isa = PBXGroup;
+			children = (
+				7E7AEC582496278D00CD1D6B /* Palette 03.md */,
+				7E7AEC592496285500CD1D6B /* Palette 03.html */,
+			);
+			path = "Color Palettes";
 			sourceTree = "<group>";
 		};
 		7E82628724138BE4008E141C /* Data Model */ = {
@@ -509,7 +521,7 @@
 		502BF553236399BD00FDE7BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCBC36;
 				CODE_SIGN_ENTITLEMENTS = Kurzwahl2020/Kurzwahl2020.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.1.1;
@@ -533,7 +545,7 @@
 		502BF554236399BD00FDE7BF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCBC36;
 				CODE_SIGN_ENTITLEMENTS = Kurzwahl2020/Kurzwahl2020.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.1.1;
