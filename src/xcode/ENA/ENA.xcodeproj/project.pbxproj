@@ -234,7 +234,6 @@
 		B154F59B246DD5CF003E891E /* Client+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B154F59A246DD5CF003E891E /* Client+Convenience.swift */; };
 		B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16177E724802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift */; };
 		B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B161782424804AC3006E435A /* DownloadedPackagesSQLLiteStore.swift */; };
-		B161782724804AF3006E435A /* DownloadedPackagesInMemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B161782624804AF3006E435A /* DownloadedPackagesInMemoryStore.swift */; };
 		B161782D248062CE006E435A /* DeltaCalculationResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B161782C248062CE006E435A /* DeltaCalculationResultTests.swift */; };
 		B161782E2480658F006E435A /* DeltaCalculationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B161782924805784006E435A /* DeltaCalculationResult.swift */; };
 		B1741B492462C207006275D9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741B482462C207006275D9 /* Client.swift */; };
@@ -269,7 +268,6 @@
 		B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */; };
 		B1D431C8246C69F300E728AD /* HTTPClient+ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */; };
 		B1D431CB246C84A400E728AD /* DownloadedPackagesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CA246C84A400E728AD /* DownloadedPackagesStore.swift */; };
-		B1D431CE246C84F200E728AD /* KeyPackagesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D431CC246C84ED00E728AD /* KeyPackagesStoreTests.swift */; };
 		B1D6B002247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6B001247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift */; };
 		B1D6B004247DA4920079DDD3 /* UIApplication+CoronaWarn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6B003247DA4920079DDD3 /* UIApplication+CoronaWarn.swift */; };
 		B1D7D68E24766D2100E4DA5D /* submission_payload.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7D68624766D2100E4DA5D /* submission_payload.pb.swift */; };
@@ -613,7 +611,6 @@
 		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		B16177E724802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreTests.swift; sourceTree = "<group>"; };
 		B161782424804AC3006E435A /* DownloadedPackagesSQLLiteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStore.swift; sourceTree = "<group>"; };
-		B161782624804AF3006E435A /* DownloadedPackagesInMemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesInMemoryStore.swift; sourceTree = "<group>"; };
 		B161782924805784006E435A /* DeltaCalculationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaCalculationResult.swift; sourceTree = "<group>"; };
 		B161782C248062CE006E435A /* DeltaCalculationResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaCalculationResultTests.swift; sourceTree = "<group>"; };
 		B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeViewController.swift; sourceTree = "<group>"; };
@@ -641,7 +638,6 @@
 		B1CD33402486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaWarnURLSessionDelegate.swift; sourceTree = "<group>"; };
 		B1D431C7246C69F300E728AD /* HTTPClient+ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+ConfigurationTests.swift"; sourceTree = "<group>"; };
 		B1D431CA246C84A400E728AD /* DownloadedPackagesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesStore.swift; sourceTree = "<group>"; };
-		B1D431CC246C84ED00E728AD /* KeyPackagesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPackagesStoreTests.swift; sourceTree = "<group>"; };
 		B1D6B001247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		B1D6B003247DA4920079DDD3 /* UIApplication+CoronaWarn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+CoronaWarn.swift"; sourceTree = "<group>"; };
 		B1D7D68624766D2100E4DA5D /* submission_payload.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = submission_payload.pb.swift; path = ../../../gen/output/submission_payload.pb.swift; sourceTree = "<group>"; };
@@ -1668,10 +1664,8 @@
 			isa = PBXGroup;
 			children = (
 				B1D431CA246C84A400E728AD /* DownloadedPackagesStore.swift */,
-				B161782624804AF3006E435A /* DownloadedPackagesInMemoryStore.swift */,
 				B161782424804AC3006E435A /* DownloadedPackagesSQLLiteStore.swift */,
 				B16177E624802F85006E435A /* __tests__ */,
-				B1D431CC246C84ED00E728AD /* KeyPackagesStoreTests.swift */,
 			);
 			path = DownloadedPackagesStore;
 			sourceTree = "<group>";
@@ -2161,7 +2155,6 @@
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
 				71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */,
-				B161782724804AF3006E435A /* DownloadedPackagesInMemoryStore.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */,
 				51486DA22485101500FCE216 /* RiskInactiveCollectionViewCell.swift in Sources */,
@@ -2388,7 +2381,6 @@
 				B117909824914D77007FF821 /* StoreTests.swift in Sources */,
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
-				B1D431CE246C84F200E728AD /* KeyPackagesStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
