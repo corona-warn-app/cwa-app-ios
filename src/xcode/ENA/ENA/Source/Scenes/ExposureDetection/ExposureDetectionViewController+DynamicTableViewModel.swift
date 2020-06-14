@@ -68,6 +68,14 @@ private extension DynamicCell {
 		case hotline = "hotlineCell"
 	}
 
+	private static let relativeDateTimeFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.doesRelativeDateFormatting = true
+		formatter.dateStyle = .short
+		formatter.timeStyle = .short
+		return formatter
+	}()
+
 	private static func exposureDetectionCell(_ identifier: TableViewCellReuseIdentifiers, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: GenericCellConfigurator<ExposureDetectionViewController>? = nil) -> DynamicCell {
 		.custom(withIdentifier: identifier, action: action, accessoryAction: accessoryAction, configure: configure)
 	}
@@ -131,15 +139,7 @@ private extension DynamicCell {
 		.risk { viewController, cell, _ in
 			var valueText: String
 			if let date: Date = viewController.state.risk?.details.exposureDetectionDate {
-				let dateFormatter = DateFormatter(); dateFormatter.dateStyle = .short
-				let timeFormatter = DateFormatter(); timeFormatter.timeStyle = .short
-
-				let dateValue = dateFormatter.string(from: date)
-				let timeValue = timeFormatter.string(from: date)
-
-				let days = Calendar.current.dateComponents([.day], from: date, to: Date()).day ?? 100
-				valueText = String.localizedStringWithFormat(AppStrings.ExposureDetection.refreshedFormat, days)
-				valueText = String(format: valueText, timeValue, dateValue)
+				valueText = relativeDateTimeFormatter.string(from: date)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever
 			}
