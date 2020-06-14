@@ -111,9 +111,60 @@ final class StoreTests: XCTestCase {
 
 	func testPreviousRiskLevel_Success() {
 		XCTAssertNil(store.previousRiskLevel)
-		let riskLevel = EitherLowOrIncreasedRiskLevel(rawValue: 7)
 
-		store.previousRiskLevel = riskLevel
-		XCTAssertEqual(store.previousRiskLevel, riskLevel)
+		store.previousRiskLevel = .low
+		XCTAssertEqual(store.previousRiskLevel, .low)
+	}
+
+	func testPrepareContainer() {
+		let fileManager = FileManager.default
+		// swiftlint:disable:next force_try
+		let directoryURL = try! fileManager
+			.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+			.appendingPathComponent("tempDatabase")
+		print(directoryURL)
+		let tmpStore = SecureStore(at: directoryURL, key: "12345678")
+
+		// Prepare data
+		let testTimeStamp: Int64 = 1466467200
+		let testDate1 = Date(timeIntervalSince1970: Double(testTimeStamp))  // 21.06.2016
+		let testDate2 = Date(timeIntervalSince1970: Double(testTimeStamp) - 86400)
+
+		let testSummary = CodableExposureDetectionSummary(
+			daysSinceLastExposure: 13,
+			matchedKeyCount: UInt64.max,
+			maximumRiskScore: 5,
+			attenuationDurations: [0.1, 7.42, 13.0],
+			maximumRiskScoreFullRange: 7
+		)
+
+		let entry1 = TracingStatusEntry(on: true, date: testDate1)
+		let entry2 = TracingStatusEntry(on: false, date: testDate2)
+		tmpStore.tracingStatusHistory.append(entry1)
+		tmpStore.tracingStatusHistory.append(entry2)
+
+		tmpStore.isOnboarded = true
+		tmpStore.dateOfAcceptedPrivacyNotice = testDate1
+		tmpStore.teleTan = "97RR2D5644"
+		tmpStore.hourlyFetchingEnabled = false
+		tmpStore.tan = "97RR2D5644"
+		tmpStore.testGUID = "00000000-0000-4000-8000-000000000000"
+		tmpStore.devicePairingConsentAccept = true
+		tmpStore.devicePairingConsentAcceptTimestamp = testTimeStamp
+		tmpStore.devicePairingSuccessfulTimestamp = testTimeStamp
+		tmpStore.isAllowedToSubmitDiagnosisKeys = true
+		tmpStore.allowRiskChangesNotification = true
+		tmpStore.allowTestsStatusNotification = true
+		tmpStore.summary = SummaryMetadata(summary: testSummary, date: testDate1)
+		tmpStore.registrationToken = ""
+		tmpStore.hasSeenSubmissionExposureTutorial = true
+		tmpStore.testResultReceivedTimeStamp = testTimeStamp
+		tmpStore.lastSuccessfulSubmitDiagnosisKeyTimestamp = testTimeStamp
+		tmpStore.numberOfSuccesfulSubmissions = 1
+		tmpStore.initialSubmitCompleted = true
+		tmpStore.exposureActivationConsentAcceptTimestamp = testTimeStamp
+		tmpStore.exposureActivationConsentAccept = true
+		tmpStore.previousRiskLevel = .increased
+
 	}
 }

@@ -29,7 +29,7 @@ class SQLiteKeyValueStore {
 	init(with url: URL, key: String) {
 		self.directoryURL = url
 		var fileURL = directoryURL
-		if directoryURL.absoluteString.compare(":memory:") != .orderedSame {
+		if !directoryURL.absoluteString.contains(":memory:") {
 			fileURL = fileURL.appendingPathComponent("secureStore.sqlite")
 		}
 		databaseQueue = FMDatabaseQueue(url: fileURL)
