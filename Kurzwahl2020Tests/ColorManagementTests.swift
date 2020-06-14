@@ -31,7 +31,7 @@ class ColorManagementTests: XCTestCase {
     
     func testGetAllThumbnails() {
         let result = sut.getAllPalettes()
-        XCTAssertTrue(result.count == 8)
+        XCTAssertTrue(result.count == 9)
     }
     
     func testSetPalette() {
