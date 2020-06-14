@@ -33,6 +33,30 @@
 		7E40860E2401EE6C00D50EF8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7E4086102401EE6C00D50EF8 /* Localizable.strings */; };
 		7E4C9C4923C3AA2700515E63 /* NavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */; };
 		7E5C786423E8AA3200E25902 /* ContactDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C786323E8AA3200E25902 /* ContactDetailView.swift */; };
+		7E7AEC5D2496C44700CD1D6B /* AskForAccessToContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3564E2401C4510026ABE5 /* AskForAccessToContactsView.swift */; };
+		7E7AEC5E2496C44700CD1D6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF536236399BB00FDE7BF /* AppDelegate.swift */; };
+		7E7AEC5F2496C44700CD1D6B /* SelectColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADF97B240EAA3100850FB6 /* SelectColorPalette.swift */; };
+		7E7AEC602496C44700CD1D6B /* ModelContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C8558B23D98EC400AAB7F2 /* ModelContacts.swift */; };
+		7E7AEC612496C44700CD1D6B /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E16FDEE23D4AD92005DAAF3 /* PrivacyView.swift */; };
+		7E7AEC622496C44700CD1D6B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505F055A23C3C7E50032B776 /* HomeView.swift */; };
+		7E7AEC632496C44700CD1D6B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502BF538236399BB00FDE7BF /* SceneDelegate.swift */; };
+		7E7AEC642496C44700CD1D6B /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D6D0223CB8FD7002E4239 /* AboutView.swift */; };
+		7E7AEC652496C44700CD1D6B /* ContactDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C786323E8AA3200E25902 /* ContactDetailView.swift */; };
+		7E7AEC662496C44700CD1D6B /* ColorManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF812369C135007B248B /* ColorManagement.swift */; };
+		7E7AEC672496C44700CD1D6B /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ADCF832369C35F007B248B /* Storage.swift */; };
+		7E7AEC682496C44700CD1D6B /* ColorSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505B608C240C57FB0041A592 /* ColorSelectView.swift */; };
+		7E7AEC692496C44700CD1D6B /* editView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1B80223C100E8004B7396 /* editView.swift */; };
+		7E7AEC6A2496C44700CD1D6B /* NavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4C9C4823C3AA2700515E63 /* NavigationStack.swift */; };
+		7E7AEC6B2496C44700CD1D6B /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AD8B6923D8EDEB00819FD1 /* ContactView.swift */; };
+		7E7AEC6C2496C44700CD1D6B /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262882413920A008E141C /* ColorConstants.swift */; };
+		7E7AEC6D2496C44700CD1D6B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D6D0423CB997B002E4239 /* SettingsView.swift */; };
+		7E7AEC6E2496C44700CD1D6B /* kurzwahlModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509989A923B9466300C19C15 /* kurzwahlModel.swift */; };
+		7E7AEC712496C44700CD1D6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 502BF541236399BD00FDE7BF /* LaunchScreen.storyboard */; };
+		7E7AEC722496C44700CD1D6B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 502BF53F236399BD00FDE7BF /* Preview Assets.xcassets */; };
+		7E7AEC732496C44700CD1D6B /* Launch Screen 2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E9EEEA124812C4B00990D38 /* Launch Screen 2.storyboard */; };
+		7E7AEC742496C44700CD1D6B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7E4086102401EE6C00D50EF8 /* Localizable.strings */; };
+		7E7AEC752496C44700CD1D6B /* Notizen.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 5094A7A52365E324004D0932 /* Notizen.rtf */; };
+		7E7AEC762496C44700CD1D6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 502BF53C236399BD00FDE7BF /* Assets.xcassets */; };
 		7E8262892413920A008E141C /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262882413920A008E141C /* ColorConstants.swift */; };
 		7E9EEEA224812C4B00990D38 /* Launch Screen 2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E9EEEA124812C4B00990D38 /* Launch Screen 2.storyboard */; };
 		7EC1B80323C100E8004B7396 /* editView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1B80223C100E8004B7396 /* editView.swift */; };
@@ -85,6 +109,8 @@
 		7E5C786323E8AA3200E25902 /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
 		7E7AEC582496278D00CD1D6B /* Palette 03.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Palette 03.md"; sourceTree = "<group>"; };
 		7E7AEC592496285500CD1D6B /* Palette 03.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "Palette 03.html"; sourceTree = "<group>"; };
+		7E7AEC7B2496C44700CD1D6B /* Call by Color 24.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Call by Color 24.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E7AEC7C2496C44700CD1D6B /* CBC24Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = CBC24Info.plist; path = "/Users/vogel/Library/Mobile Documents/com~apple~CloudDocs/Xcode Projects/Kurzwahl2020/CBC24Info.plist"; sourceTree = "<absolute>"; };
 		7E8262882413920A008E141C /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		7E88253C248C068200E9F650 /* App Store Description.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "App Store Description.md"; sourceTree = "<group>"; };
 		7E9EEEA024812B1800990D38 /* iPhone Screen Sizes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "iPhone Screen Sizes.md"; sourceTree = "<group>"; };
@@ -109,6 +135,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7E7AEC6F2496C44700CD1D6B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -118,6 +151,7 @@
 				502BF535236399BB00FDE7BF /* Kurzwahl2020 */,
 				502BF54C236399BD00FDE7BF /* Kurzwahl2020Tests */,
 				502BF534236399BB00FDE7BF /* Products */,
+				7E7AEC7C2496C44700CD1D6B /* CBC24Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,6 +160,7 @@
 			children = (
 				502BF533236399BB00FDE7BF /* Call by Color 36.app */,
 				502BF549236399BD00FDE7BF /* Kurzwahl2020Tests.xctest */,
+				7E7AEC7B2496C44700CD1D6B /* Call by Color 24.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -247,6 +282,26 @@
 			productReference = 502BF549236399BD00FDE7BF /* Kurzwahl2020Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		7E7AEC5B2496C44700CD1D6B /* Call by Color 24 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E7AEC782496C44700CD1D6B /* Build configuration list for PBXNativeTarget "Call by Color 24" */;
+			buildPhases = (
+				7E7AEC5C2496C44700CD1D6B /* Sources */,
+				7E7AEC6F2496C44700CD1D6B /* Frameworks */,
+				7E7AEC702496C44700CD1D6B /* Resources */,
+				7E7AEC772496C44700CD1D6B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Call by Color 24";
+			packageProductDependencies = (
+			);
+			productName = Kurzwahl2020;
+			productReference = 7E7AEC7B2496C44700CD1D6B /* Call by Color 24.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -284,6 +339,7 @@
 			targets = (
 				502BF532236399BB00FDE7BF /* Call by Color 36 */,
 				502BF548236399BD00FDE7BF /* Kurzwahl2020Tests */,
+				7E7AEC5B2496C44700CD1D6B /* Call by Color 24 */,
 			);
 		};
 /* End PBXProject section */
@@ -309,9 +365,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7E7AEC702496C44700CD1D6B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E7AEC712496C44700CD1D6B /* LaunchScreen.storyboard in Resources */,
+				7E7AEC722496C44700CD1D6B /* Preview Assets.xcassets in Resources */,
+				7E7AEC732496C44700CD1D6B /* Launch Screen 2.storyboard in Resources */,
+				7E7AEC742496C44700CD1D6B /* Localizable.strings in Resources */,
+				7E7AEC752496C44700CD1D6B /* Notizen.rtf in Resources */,
+				7E7AEC762496C44700CD1D6B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7E7AEC772496C44700CD1D6B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n$HOME/Library/Mobile\\ Documents/com\\~apple\\~CloudDocs/Xcode\\ Projects/Kurzwahl2020/Kurzwahl2020/update_build_bumber.sh\n";
+		};
 		7EC8F976248D336D004A810F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -366,6 +452,31 @@
 				50164489240CFC26005FA948 /* ColorManagementTests.swift in Sources */,
 				505F052623BDF0290032B776 /* StorageTests.swift in Sources */,
 				7E3D6CFF23C9D4CB002E4239 /* StoreToFileTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7E7AEC5C2496C44700CD1D6B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E7AEC5D2496C44700CD1D6B /* AskForAccessToContactsView.swift in Sources */,
+				7E7AEC5E2496C44700CD1D6B /* AppDelegate.swift in Sources */,
+				7E7AEC5F2496C44700CD1D6B /* SelectColorPalette.swift in Sources */,
+				7E7AEC602496C44700CD1D6B /* ModelContacts.swift in Sources */,
+				7E7AEC612496C44700CD1D6B /* PrivacyView.swift in Sources */,
+				7E7AEC622496C44700CD1D6B /* HomeView.swift in Sources */,
+				7E7AEC632496C44700CD1D6B /* SceneDelegate.swift in Sources */,
+				7E7AEC642496C44700CD1D6B /* AboutView.swift in Sources */,
+				7E7AEC652496C44700CD1D6B /* ContactDetailView.swift in Sources */,
+				7E7AEC662496C44700CD1D6B /* ColorManagement.swift in Sources */,
+				7E7AEC672496C44700CD1D6B /* Storage.swift in Sources */,
+				7E7AEC682496C44700CD1D6B /* ColorSelectView.swift in Sources */,
+				7E7AEC692496C44700CD1D6B /* editView.swift in Sources */,
+				7E7AEC6A2496C44700CD1D6B /* NavigationStack.swift in Sources */,
+				7E7AEC6B2496C44700CD1D6B /* ContactView.swift in Sources */,
+				7E7AEC6C2496C44700CD1D6B /* ColorConstants.swift in Sources */,
+				7E7AEC6D2496C44700CD1D6B /* SettingsView.swift in Sources */,
+				7E7AEC6E2496C44700CD1D6B /* kurzwahlModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,6 +721,54 @@
 			};
 			name = Release;
 		};
+		7E7AEC792496C44700CD1D6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCBC24;
+				CODE_SIGN_ENTITLEMENTS = Kurzwahl2020/Kurzwahl2020.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1.1;
+				DEVELOPMENT_ASSET_PATHS = "\"Kurzwahl2020/Preview Content\"";
+				DEVELOPMENT_TEAM = 38NDJTMNK5;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = CBC24Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc24;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		7E7AEC7A2496C44700CD1D6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconCBC24;
+				CODE_SIGN_ENTITLEMENTS = Kurzwahl2020/Kurzwahl2020.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.1.1;
+				DEVELOPMENT_ASSET_PATHS = "\"Kurzwahl2020/Preview Content\"";
+				DEVELOPMENT_TEAM = 38NDJTMNK5;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = CBC24Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tcfos.cbc24;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -636,6 +795,15 @@
 			buildConfigurations = (
 				502BF556236399BD00FDE7BF /* Debug */,
 				502BF557236399BD00FDE7BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E7AEC782496C44700CD1D6B /* Build configuration list for PBXNativeTarget "Call by Color 24" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E7AEC792496C44700CD1D6B /* Debug */,
+				7E7AEC7A2496C44700CD1D6B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
