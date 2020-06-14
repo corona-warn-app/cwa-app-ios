@@ -40,15 +40,18 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
+		// prune the store
+		try? downloadedPackagesStore.deleteOutdatedDays(now: .formattedToday())
+		
 		let delta = DeltaCalculationResult(
-				remoteDays: Set(remote.days),
-				remoteHours: Set(remote.hours),
-				localDays: Set(downloadedPackagesStore.allDays()),
-				localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
+			remoteDays: Set(remote.days),
+			remoteHours: Set(remote.hours),
+			localDays: Set(downloadedPackagesStore.allDays()),
+			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
 		)
 		return (
-				days: Array(delta.missingDays),
-				hours: Array(delta.missingHours)
+			days: Array(delta.missingDays),
+			hours: Array(delta.missingHours)
 		)
 	}
 
