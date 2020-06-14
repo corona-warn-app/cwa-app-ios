@@ -43,7 +43,8 @@ struct MockNetworkStack {
 		httpVersion: String = "HTTP/2",
 		headerFields: [String: String] = [:],
 		responseData: Data?,
-		packageVerifier: @escaping SAPDownloadedPackage.Verification = { _ in return true }
+		packageVerifier: @escaping SAPDownloadedPackage.Verification = { _ in return true },
+		requestObserver: MockUrlSession.URLRequestObserver? = nil
 	) {
 		mockResponse = HTTPURLResponse(
 			url: baseURL,
@@ -54,7 +55,8 @@ struct MockNetworkStack {
 		urlSession = MockUrlSession(
 			data: responseData,
 			nextResponse: mockResponse,
-			error: nil
+			error: nil,
+			urlRequestObserver: requestObserver
 		)
 		self.packageVerifier = packageVerifier
 	}

@@ -214,6 +214,33 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
+	func testFetchDay_InvalidPackage() throws {
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: Data(bytes: [0xA, 0xB], count: 2)
+		)
+
+		let successExpectation = expectation(
+			description: "expect error result"
+		)
+
+		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01") { result in
+			defer { successExpectation.fulfill() }
+			switch result {
+			case .success:
+				XCTFail("An invalid server response should not result in success!")
+			case let .failure(error):
+				switch error {
+				case .invalidResponse:
+					break
+				default:
+					XCTFail("Incorrect error type \(error) received, expected .invalidResponse")
+				}
+			}
+		}
+		waitForExpectations(timeout: expectationsTimeout)
+	}
+
 	private func assertPackageFormat(for downloadedPackage: SAPDownloadedPackage) {
 		XCTAssertEqual(downloadedPackage.bin.count, binFileSize)
 		XCTAssertEqual(downloadedPackage.signature.count, sigFileSize)

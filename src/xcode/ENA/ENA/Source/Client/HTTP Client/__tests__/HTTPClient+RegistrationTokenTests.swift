@@ -179,4 +179,40 @@ final class HTTPClientRegistrationTokenTests: XCTestCase {
 		}
 		waitForExpectations(timeout: expectationsTimeout)
 	}
+
+	func testGetRegistrationToken_VerifyPOSTBodyContent() throws {
+		let expectedToken = "SomeToken"
+		let key = "1234567890"
+		let type = "GUID"
+
+		let sendPostExpectation = expectation(
+			description: "Expect that the client sends a POST request"
+		)
+		let verifyPostBodyContent: MockUrlSession.URLRequestObserver = { request in
+			defer { sendPostExpectation.fulfill() }
+
+			guard let content = try? JSONDecoder().decode([String: String].self, from: request.httpBody ?? Data()) else {
+				XCTFail("POST body was empty, expected key & key type as JSON!")
+				return
+			}
+
+			guard content["key"] == key else {
+				XCTFail("POST JSON body did not have key value, or it was incorrect!")
+				return
+			}
+
+			guard content["keyType"] == type else {
+				XCTFail("POST JSON body did not have keyType value, or it was incorrect!")
+				return
+			}
+		}
+		let stack = MockNetworkStack(
+			httpStatus: 200,
+			responseData: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
+			requestObserver: verifyPostBodyContent
+		)
+
+		HTTPClient.makeWith(mock: stack).getRegistrationToken(forKey: key, withType: type) { _ in }
+		waitForExpectations(timeout: expectationsTimeout)
+	}
 }
