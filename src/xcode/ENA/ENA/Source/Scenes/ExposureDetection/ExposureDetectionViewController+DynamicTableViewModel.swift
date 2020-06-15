@@ -321,7 +321,6 @@ extension ExposureDetectionViewController {
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
 			),
-			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
 			explanationSection(
