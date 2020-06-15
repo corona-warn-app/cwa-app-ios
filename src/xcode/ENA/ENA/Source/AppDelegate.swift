@@ -21,7 +21,7 @@ import FMDB
 import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
-	var client: Client { get }
+	var client: HTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var riskProvider: RiskProvider { get }
@@ -143,8 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}()
 
-	lazy var client: Client = {
-
+	lazy var client: HTTPClient = {
 		var configuration: HTTPClient.Configuration
 		#if !RELEASE
 		let store = self.store
