@@ -17,6 +17,7 @@
 
 import FMDB
 import Foundation
+import CWASQLite
 
 /// Basic SQLite Key/Value store with Keys as `TEXT` and Values stored as `BLOB`
 class SQLiteKeyValueStore {
