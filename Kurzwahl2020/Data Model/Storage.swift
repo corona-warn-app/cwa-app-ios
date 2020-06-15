@@ -37,16 +37,23 @@ import Foundation
 
 
 class storage {
+    #if CBC36
     fileprivate let numbersFileName = "CBC36numbers"
     fileprivate let namesFileName = "CBC36names"
     fileprivate let settingsFileName = "CBC36settings"
     fileprivate let colorsFileName = "CBC36colors"
+    #elseif CBC24
+    fileprivate let numbersFileName = "CBC24numbers"
+    fileprivate let namesFileName = "CBC24names"
+    fileprivate let settingsFileName = "CBC24settings"
+    fileprivate let colorsFileName = "CBC24colors"
+    #endif
     
     init() {
-//        self.deleteFilesFromAppgroup()
+        //        self.deleteFilesFromAppgroup()
     }
     
-
+    
     func persist(withNames : [String], withFilename: String = "" ) {
         let filename : String = (withFilename.count == 0 ? namesFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
@@ -57,7 +64,7 @@ class storage {
             print("Store names failes")
         }
     }
-
+    
     
     func persist(withNumbers : [String], withFilename: String = "" ) {
         
@@ -70,7 +77,7 @@ class storage {
             print("Store numbers failes")
         }
     }
-
+    
     
     func persist(withColors : [String], withFilename: String = "" ) {
         
@@ -99,9 +106,9 @@ class storage {
     
     
     // check this: https://www.hackingwithswift.com/example-code/system/how-to-save-and-load-objects-with-nskeyedarchiver-and-nskeyedunarchiver
-//  Apple:  Use +unarchivedObjectOfClass:fromData:error: instead
+    //  Apple:  Use +unarchivedObjectOfClass:fromData:error: instead
     
-// https://stackoverflow.com/questions/49526740/nskeyedunarchiver-unarchivetoplevelobjectwithdata-is-obsoleted-in-swift-4
+    // https://stackoverflow.com/questions/49526740/nskeyedunarchiver-unarchivetoplevelobjectwithdata-is-obsoleted-in-swift-4
     func loadNames(withFilename : String = "") ->[String] {
         var result : [String]
         var namesFromFile : [String]?
@@ -112,7 +119,7 @@ class storage {
         
         let fileURL = directory.appendingPathComponent(filename)
         do {
-        let data = try Data(contentsOf: fileURL)
+            let data = try Data(contentsOf: fileURL)
             namesFromFile = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as? [String]
             result = namesFromFile ?? defaultNames
         } catch {
@@ -122,14 +129,14 @@ class storage {
         return result
     }
     
-
+    
     func loadNumbers(withFilename : String = "") ->[String] {
         var result : [String] = [""]
         let filename : String = (withFilename.count == 0 ? numbersFileName : withFilename)
         let directory : URL = FileManager.sharedContainerURL()
         let fileURL = directory.appendingPathComponent(filename)
         do {
-        let data = try Data(contentsOf: fileURL)
+            let data = try Data(contentsOf: fileURL)
             result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
         } catch {
             print("load Numbers failed")
@@ -138,19 +145,19 @@ class storage {
     }
     
     
-//    func loadColors(withFilename : String = "") ->[String] {
-//        var result = [String]()
-//        let filename : String = (withFilename.count == 0 ? colorsFileName : withFilename)
-//        let directory : URL = FileManager.sharedContainerURL()
-//        let fileURL = directory.appendingPathComponent(filename)
-//        do {
-//        let data = try Data(contentsOf: fileURL)
-//            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
-//        } catch {
-//            print("load Colors failed")
-//        }
-//        return result
-//    }
+    //    func loadColors(withFilename : String = "") ->[String] {
+    //        var result = [String]()
+    //        let filename : String = (withFilename.count == 0 ? colorsFileName : withFilename)
+    //        let directory : URL = FileManager.sharedContainerURL()
+    //        let fileURL = directory.appendingPathComponent(filename)
+    //        do {
+    //        let data = try Data(contentsOf: fileURL)
+    //            result = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data as Data) as! [String]
+    //        } catch {
+    //            print("load Colors failed")
+    //        }
+    //        return result
+    //    }
     
     
     func loadSettings(withFilename : String = "") ->[String : String] {
@@ -164,11 +171,18 @@ class storage {
             return result
         } catch {
             print("load settings failed")
+            #if CBC36
             result = ["fontsize" : "22",
                       "ColorPalette0" : c_darkPink,
                       "ColorPalette1" : c_summerTime,
                       "ColorPalette2" : c_red
             ]
+            #elseif CBC24
+            result = ["fontsize" : "22",
+                      "ColorPalette0" : c_palette02,
+                      "ColorPalette1" : c_palette03
+            ]
+            #endif
         }
         return result
     }
@@ -208,9 +222,9 @@ class storage {
 
 // from https://dmtopolog.com/ios-app-extensions-data-sharing/
 extension FileManager {
-  static func sharedContainerURL() -> URL {
-    return FileManager.default.containerURL(
-      forSecurityApplicationGroupIdentifier: APPGROUP
-    )!
-  }
+    static func sharedContainerURL() -> URL {
+        return FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: APPGROUP
+            )!
+    }
 }

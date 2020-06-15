@@ -54,7 +54,13 @@ struct phoneTile {
 var globalNumberOfRows: Int = appdefaults.rows.large
 var globalDataModel : kurzwahlModel = kurzwahlModel()
 var contactDataModel : contactReader = contactReader()
+#if CBC36
 var globalMaxTileNumber : Int = 35 // 3 * 12 - 1
+let globalNoOfScreens : Int = 3
+#elseif CBC24
+var globalMaxTileNumber : Int = 23 // 2 * 12 - 1
+let globalNoOfScreens : Int = 2
+#endif
 let APPGROUP : String = "group.org.tcfos.callbycolor"
 
 // global constants

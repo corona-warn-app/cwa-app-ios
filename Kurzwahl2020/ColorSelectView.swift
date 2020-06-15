@@ -54,6 +54,7 @@ struct ColorSelectView: View {
                         Image(systemName: "2.square")
                     }
                     Spacer()
+                    #if CBC36
                     VStack{
                         Button(action: {
                             self.navigation.advance(NavigationItem(
@@ -64,6 +65,7 @@ struct ColorSelectView: View {
                         Image(systemName: "3.square")
                     }
                     Spacer()
+                    #endif
                 }
                 Spacer()
             }

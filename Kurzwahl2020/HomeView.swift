@@ -85,6 +85,7 @@ struct HomeView: View {
                 Image(systemName: appState.selectedTab == 1 ? "2.square.fill" : "2.square")
             }.tag(1)
 
+            #if CBC36
             // 3nd screen
                 GeometryReader { geometry in
                     VStack(spacing: self.vspacing()) {
@@ -96,7 +97,8 @@ struct HomeView: View {
                 .tabItem {
                     Image(systemName: appState.selectedTab == 2 ? "3.square.fill" : "3.square")
                 }.tag(2)
-            
+            #endif
+
             // 4nd screen
 //            GeometryReader { geometry in
 //                VStack(spacing: self.vspacing()) {
@@ -108,7 +110,6 @@ struct HomeView: View {
 //            .tabItem {
 //                Image(systemName: appState.selectedTab == 3 ? "4.square.fill" : "4.square")
 //            }.tag(3)
-
 
             // settings view
             SettingsView(model: globalDataModel).onDisappear{globalDataModel.persistSettings()}

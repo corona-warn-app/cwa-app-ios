@@ -61,7 +61,7 @@ class ColorManagement : ObservableObject {
         allPalettes.append(palette(name: c_palette02, thumbnail: c_tn_P02_lm, thumbnailDarkMode: c_tn_P02_dm, colors:ColorPalette02))
         allPalettes.append(palette(name: c_palette03, thumbnail: c_tn_P03_lm, thumbnailDarkMode: c_tn_P03_dm, colors:ColorPalette03))
         
-        for i in 0...2 {
+        for i in 0...(globalNoOfScreens - 1) {
             self.setScreenPalette(withIndex: i, name: globalDataModel.getUserSelectedPalette(withIndex: i))
         }
         setAllColors()
@@ -119,7 +119,7 @@ class ColorManagement : ObservableObject {
     
     func setAllColors() {
         allColors.removeAll()
-        for i in 0...2 {
+        for i in 0...(globalNoOfScreens - 1) {
             let p = getScreenPaletteName(withIndex: i)
             allColors = allColors + getColors(forPalette: p)
         }
