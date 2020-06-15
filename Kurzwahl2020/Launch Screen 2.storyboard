@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -15,28 +15,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenImage" translatesAutoresizingMaskIntoConstraints="NO" id="22y-LL-1Kb">
-                                <rect key="frame" x="0.0" y="51" width="414" height="753.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="22y-LL-1Kb" secondAttribute="height" multiplier="138:251" id="t1f-Pw-wQ6"/>
-                                </constraints>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="IconCBC24 1024" translatesAutoresizingMaskIntoConstraints="NO" id="1wb-Nh-iJL">
+                                <rect key="frame" x="146" y="230" width="121" height="118"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <viewLayoutGuide key="safeArea" id="e48-dJ-HvU"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="22y-LL-1Kb" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="7" id="W1c-EA-v6y"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="22y-LL-1Kb" secondAttribute="bottom" constant="57.5" id="hYh-US-Njh"/>
-                            <constraint firstItem="22y-LL-1Kb" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="jOi-L4-0ga"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
+                    <size key="freeformSize" width="414" height="896"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+            <point key="canvasLocation" x="191" y="236"/>
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreenImage" width="414" height="753.5"/>
+        <image name="IconCBC24 1024" width="1024" height="1024"/>
     </resources>
 </document>
