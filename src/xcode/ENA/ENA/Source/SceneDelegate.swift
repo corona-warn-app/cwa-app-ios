@@ -104,7 +104,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
-		riskProvider.requestRisk(userInitiated: true)
+		let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+		let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
+		riskProvider.configuration.detectionMode = detectionMode
+
+		riskProvider.requestRisk(userInitiated: false)
+
 		let state = exposureManager.preconditions()
 		updateExposureState(state)
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
