@@ -217,6 +217,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
+		let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+		let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
+		riskProvider.configuration.detectionMode = detectionMode
+
 		riskProvider.requestRisk(userInitiated: false) { risk in
 			// present a notification if the risk score has increased
 			if let risk = risk,
