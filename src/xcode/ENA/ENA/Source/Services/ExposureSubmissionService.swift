@@ -36,7 +36,7 @@ protocol ExposureSubmissionService {
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
 
-	func submitExposure(with: String, completionHandler: @escaping ExposureSubmissionHandler)
+	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler)
 	func getRegistrationToken(
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
 		completion completeWith: @escaping RegistrationHandler
@@ -184,7 +184,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
-	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
+	func submitExposure( completionHandler: @escaping ExposureSubmissionHandler) {
 		log(message: "Started exposure submission...")
 
 		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
@@ -219,17 +219,24 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					keys[i].transmissionRiskLevel = UInt8(1)
 				}
 			}
+			self.getTANForExposureSubmit(hasConsent: true, completion: { result in
+				switch result {
+				case let .failure(error):
+					completionHandler(error)
+				case let .success(tan):
+					self.client.submit(keys: keys, tan: tan) { error in
+						if let error = error {
+							logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+							completionHandler(self.parseError(error))
+							return
+						}
+						log(message: "Successfully completed exposure sumbission.")
+						self.submitExposureCleanup()
+						completionHandler(nil)
+					}
 
-			self.client.submit(keys: keys, tan: tan) { error in
-				if let error = error {
-					logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
-					completionHandler(self.parseError(error))
-					return
 				}
-				log(message: "Successfully completed exposure sumbission.")
-				self.submitExposureCleanup()
-				completionHandler(nil)
-			}
+			})
 		}
 	}
 

@@ -60,22 +60,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 
 	private func startSubmitProcess() {
 		startSpinner()
-		exposureSubmissionService?.getTANForExposureSubmit(hasConsent: true, completion: { result in
-			switch result {
-			case let .failure(error):
-				self.stopSpinner()
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-				self.present(alert, animated: true, completion: nil)
-			case let .success(tan):
-				log(message: "Received tan for submission: \(tan)", level: .info)
-				self.submitKeys(with: tan)
-			}
-      })
-	}
-
-	private func submitKeys(with tan: String) {
-		startSpinner()
-		exposureSubmissionService?.submitExposure(with: tan, completionHandler: { error in
+		exposureSubmissionService?.submitExposure( completionHandler: { error in
 			self.stopSpinner()
 			if let error = error {
 				logError(message: "error: \(error.localizedDescription)", level: .error)
@@ -85,8 +70,9 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 			}
 
 			self.performSegue(withIdentifier: Segue.sent, sender: self)
-      })
+		})
 	}
+
 }
 
 // MARK: ExposureSubmissionNavigationControllerChild methods.
