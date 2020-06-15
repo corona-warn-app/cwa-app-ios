@@ -84,7 +84,11 @@ private extension DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.risk) { viewController, cell, indexPath in
 			let state = viewController.state
 			cell.backgroundColor = state.riskTintColor
-			cell.tintColor = state.isTracingEnabled ? .enaColor(for: .textContrast) : .enaColor(for: .riskNeutral)
+
+			var tintColor: UIColor = state.isTracingEnabled ? .enaColor(for: .textContrast) : .enaColor(for: .riskNeutral)
+			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
+			cell.tintColor = tintColor
+
 			cell.textLabel?.textColor = state.riskContrastColor
 			if let cell = cell as? ExposureDetectionRiskCell {
 				cell.separatorView.isHidden = (indexPath.row == 0) || !hasSeparator
@@ -317,7 +321,6 @@ extension ExposureDetectionViewController {
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
 			),
-			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
 			explanationSection(
