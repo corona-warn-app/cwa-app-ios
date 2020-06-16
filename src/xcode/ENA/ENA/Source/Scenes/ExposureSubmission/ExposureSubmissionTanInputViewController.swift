@@ -40,12 +40,12 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		setupView()
 		setupBackButton()
 		fetchService()
-		setupTanState()
+		validateTanState()
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		self.setupTanState()
+		validateTanState()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -55,6 +55,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 
 	override func viewDidLayoutSubviews() {
 		setButtonEnabled(enabled: tanInput.isValid && tanInput.isChecksumValid)
+		validateTanState()
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,7 +68,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 
 	// MARK: - Helper methods.
 	
-	private func setupTanState() {
+	private func validateTanState() {
 		setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
 		title = AppStrings.ExposureSubmissionTanEntry.title
 
