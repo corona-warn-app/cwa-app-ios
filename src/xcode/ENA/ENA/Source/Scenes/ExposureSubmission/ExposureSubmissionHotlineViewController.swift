@@ -55,69 +55,57 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 	private func setupTableView() {
 		tableView.delegate = self
 		tableView.dataSource = self
-		tableView.register(DynamicTableViewStepCell.self, forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
+		tableView.register(UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil), forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue)
 
 		dynamicTableViewModel = DynamicTableViewModel(
 			[
 				.section(
 					header: .image(UIImage(named: "Illu_Submission_Kontakt"),
-								   accessibilityLabel: nil,
-								   accessibilityIdentifier: nil),
+								   accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
+								   accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.imageDescription"),
 					cells: [
 						.body(text: AppStrings.ExposureSubmissionHotline.description,
-							  accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.description")
+							  accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.description") { _, cell, _ in
+								cell.textLabel?.accessibilityTraits = .header
+						}
 					]
 				),
 				DynamicSection.section(
 					cells: [
 						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle,
 								accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.sectionTitle"),
-						.identifier(CustomCellReuseIdentifiers.stepCell,
-									action: .execute { [weak self] _ in self?.callHotline() },
-									configure: { [weak self] _, cell, _ in
-										guard let self = self else { return }
-										guard let cell = cell as? DynamicTableViewStepCell else { return }
-										cell.configure(
-											text: AppStrings.ExposureSubmissionHotline.sectionDescription1,
-											attributedText: self.getAttributedStrings(),
-											image: UIImage(named: "Icons_Grey_1"),
-											hasSeparators: true
-										)
-                        }),
-						.identifier(CustomCellReuseIdentifiers.stepCell, action: .none, configure: { _, cell, _ in
-							guard let cell = cell as? DynamicTableViewStepCell else { return }
-							cell.configure(
-								text: AppStrings.ExposureSubmissionHotline.sectionDescription2,
-								image: UIImage(named: "Icons_Grey_2")
-							)
-                            })
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .body,
+							title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
+							icon: UIImage(named: "Icons_Grey_1"),
+							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel1,
+							hairline: .iconAttached,
+							bottomSpacing: .normal
+						),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .headline,
+							color: .enaColor(for: .textTint),
+							title: AppStrings.ExposureSubmissionHotline.phoneNumber,
+							hairline: .topAttached,
+							bottomSpacing: .normal,
+							action: .execute { [weak self] _ in self?.callHotline() }
+						),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .footnote,
+							title: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
+							hairline: .topAttached,
+							bottomSpacing: .large
+						),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .body,
+							title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
+							icon: UIImage(named: "Icons_Grey_2"),
+							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel2,
+							hairline: .none
+						)
 					])
 			]
 		)
-	}
-
-	/// Gets the attributed string that makes the phone number blue and bold.
-	private func getAttributedStrings() -> [NSAttributedString] {
-		let attr1: [NSAttributedString.Key: Any] = [
-			.font: UIFont.enaFont(for: .headline),
-			.foregroundColor: UIColor.enaColor(for: .textTint)
-		]
-
-		let word = NSAttributedString(
-			string: AppStrings.ExposureSubmissionHotline.phoneNumber,
-			attributes: attr1
-		)
-
-		let attr2: [NSAttributedString.Key: Any] = [
-			.font: UIFont.enaFont(for: .footnote)
-		]
-
-		let description = NSAttributedString(
-			string: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
-			attributes: attr2
-		)
-
-		return [word, description]
 	}
 }
 

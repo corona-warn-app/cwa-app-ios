@@ -43,7 +43,7 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			isLoading: false,
 			isButtonEnabled: detectionMode == .manual && manualExposureDetectionState == .possible,
 			isButtonHidden: isButtonHidden,
-			detectionIntervalLabelHidden: false,
+			detectionIntervalLabelHidden: detectionMode != .automatic,
 			lastUpdateDate: lastUpdateDate
 		)
 	}
@@ -70,7 +70,8 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			let numberDaysString = String(numberDays)
 			let totalDaysString = String(totalDays)
 			let saveDays = String(format: AppStrings.Home.riskCardLowSaveDaysItemTitle, numberDaysString, totalDaysString)
-			let item2 = HomeRiskImageItemViewConfigurator(title: saveDays, titleColor: titleColor, iconImageName: "Icons_TracingCircleFull - Dark", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
+			let progressImage: String = numberDays >= totalDays ? "Icons_TracingCircleFull - Dark" : "Icons_TracingCircle-Dark_Step \(numberDays)"
+			let item2 = HomeRiskImageItemViewConfigurator(title: saveDays, titleColor: titleColor, iconImageName: progressImage, iconTintColor: titleColor, color: color, separatorColor: separatorColor)
 			let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
 			let item3 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: titleColor, color: color, separatorColor: separatorColor)
 			itemCellConfigurators.append(item1)
@@ -80,7 +81,6 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		let buttonTitle: String = isLoading ? AppStrings.Home.riskCardStatusCheckButton : AppStrings.Home.riskCardLowButton
 
 		let intervalString = "\(detectionInterval)"
 		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
@@ -88,7 +88,14 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			text: intervalTitle,
 			isHidden: detectionIntervalLabelHidden
 		)
-		
+
+		let buttonTitle: String
+		if isLoading {
+			buttonTitle = AppStrings.Home.riskCardStatusCheckButton
+		} else {
+			let intervalDisabledButtonTitle = String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, intervalString)
+			buttonTitle = isButtonEnabled ? AppStrings.Home.riskCardLowButton : intervalDisabledButtonTitle
+		}
 		cell.configureUpdateButton(
 			title: buttonTitle,
 			isEnabled: isButtonEnabled,

@@ -35,6 +35,7 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 	@IBOutlet var actionTitleLabel: UILabel!
 	@IBOutlet var actionSwitch: ENASwitch!
 	@IBOutlet var detailLabel: UILabel!
+	@IBOutlet var switchContainerView: UIView!
 
 	weak var delegate: ActionTableViewCellDelegate?
 	private var askForConsent = false
@@ -60,19 +61,21 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		switch state {
 		case .enabled, .disabled:
 			detailLabel.isHidden = true
-			actionSwitch.isHidden = false
+			switchContainerView.isHidden = false
 		case .bluetoothOff, .internetOff:
 			detailLabel.isHidden = false
-			actionSwitch.isHidden = true
+			switchContainerView.isHidden = true
 		case .restricted, .notAuthorized:
 			detailLabel.isHidden = false
-			actionSwitch.isHidden = true
+			switchContainerView.isHidden = true
 			detailLabel.text = AppStrings.ExposureNotificationSetting.deactivatedTracing
 		case .unknown:
 			askForConsent = true
 			detailLabel.isHidden = true
-			actionSwitch.isHidden = false
+			switchContainerView.isHidden = false
 		}
+
+		setupAccessibility()
 	}
 
 	func configure(
@@ -82,4 +85,36 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		self.delegate = delegate
 		configure(for: state)
 	}
+
+	@objc
+	func toggle(_ sender: Any) {
+		actionSwitch.isOn.toggle()
+		setupAccessibility()
+	}
+
+	private func setupAccessibility() {
+		accessibilityIdentifier = "AppStrings.ExposureNotificationSetting.enableTracing"
+
+		isAccessibilityElement = true
+		accessibilityTraits = [.button]
+
+		accessibilityCustomActions?.removeAll()
+
+		let actionName = actionSwitch.isOn ? AppStrings.Settings.statusDisable : AppStrings.Settings.statusEnable
+		accessibilityCustomActions = [
+			UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(toggle(_:)))
+		]
+
+		accessibilityLabel = AppStrings.ExposureNotificationSetting.enableTracing
+		if switchContainerView.isHidden {
+			accessibilityLabel = AppStrings.ExposureNotificationSetting.enableTracing
+		} else {
+			if actionSwitch.isOn {
+				accessibilityValue = AppStrings.Settings.notificationStatusActive
+			} else {
+				accessibilityValue = AppStrings.Settings.notificationStatusInactive
+			}
+		}
+	}
+
 }

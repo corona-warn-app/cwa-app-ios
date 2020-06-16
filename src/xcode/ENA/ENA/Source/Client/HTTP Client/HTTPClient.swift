@@ -21,18 +21,16 @@ import ZIPFoundation
 
 final class HTTPClient: Client {
 	// MARK: Creating
-
 	init(
-		configuration: Configuration = .production,
+		configuration: Configuration,
 		session: URLSession = .coronaWarnSession()
 	) {
-		self.configuration = configuration
 		self.session = session
+		self.configuration = configuration
 	}
 
 	// MARK: Properties
-
-	private let configuration: Configuration
+	let configuration: Configuration
 	private let session: URLSession
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
@@ -49,11 +47,17 @@ final class HTTPClient: Client {
 				}
 
 				guard let package = SAPDownloadedPackage(compressedData: data) else {
-					logError(message: "Failed to create signed package.")
+					logError(message: "Failed to create downloaded package for app config.")
 					completion(nil)
 					return
 				}
-				
+
+				// Configuration File Signature must be checked by the application since it is not verified by the operating system
+				guard package.verifySignature() else {
+					logError(message: "Failed to verify app config signature")
+					completion(nil)
+					return
+				}
 				completion(try? SAP_ApplicationConfiguration(serializedData: package.bin))
 			case .failure:
 				completion(nil)
@@ -65,41 +69,16 @@ final class HTTPClient: Client {
 		completion: @escaping ExposureConfigurationCompletionHandler
 	) {
 		log(message: "Fetching exposureConfiguation from: \(configuration.configurationURL)")
-		session.GET(configuration.configurationURL) { result in
-
-			switch result {
-			case let .success(response):
-				guard let data = response.body else {
-					completion(nil)
-					return
-				}
-				guard response.hasAcceptableStatusCode else {
-					completion(nil)
-					return
-				}
-
-				guard let package = SAPDownloadedPackage(compressedData: data) else {
-					logError(message: "Failed to create signed package.")
-					completion(nil)
-					return
-				}
-				do {
-					// Configuration File Signature must be checked by the application since it is not verified by the operating system
-					guard try package.verifySignature() else {
-						logError(message: "Failed to verify configuration data signature")
-						completion(nil)
-						return
-					}
-					
-					let appConfig = try SAP_ApplicationConfiguration(serializedData: package.bin)
-					completion(try ENExposureConfiguration(from: appConfig.exposureConfig))
-				} catch {
-					logError(message: "Failed to get exposure configuration: \(error)")
-					completion(nil)
-				}
-			case .failure:
+		appConfiguration { config in
+			guard let config = config else {
 				completion(nil)
+				return
 			}
+			guard config.hasExposureConfig else {
+				completion(nil)
+				return
+			}
+			completion(try? ENExposureConfiguration(from: config.exposureConfig))
 		}
 	}
 
@@ -463,7 +442,6 @@ private extension URLRequest {
 }
 
 private extension ENExposureConfiguration {
-
 	convenience init(from riskscoreParameters: SAP_RiskScoreParameters) throws {
 		self.init()
 		// We are intentionally not setting minimumRiskScore.
@@ -501,17 +479,5 @@ private extension SAP_RiskScoreParameters.DurationRiskParameter {
 private extension SAP_RiskScoreParameters.AttenuationRiskParameter {
 	var asArray: [NSNumber] {
 		[gt73Dbm, gt63Le73Dbm, gt51Le63Dbm, gt33Le51Dbm, gt27Le33Dbm, gt15Le27Dbm, gt10Le15Dbm, lt10Dbm].map { $0.asNumber }
-	}
-}
-
-extension ENExposureConfiguration {
-	class func mock() -> ENExposureConfiguration {
-		let config = ENExposureConfiguration()
-		config.metadata = ["attenuationDurationThresholds": [50, 70]]
-		config.attenuationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-		config.daysSinceLastExposureLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-		config.durationLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-		config.transmissionRiskLevelValues = [1, 2, 3, 4, 5, 6, 7, 8]
-		return config
 	}
 }

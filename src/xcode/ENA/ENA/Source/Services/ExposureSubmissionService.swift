@@ -96,7 +96,6 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.isAllowedToSubmitDiagnosisKeys = false
 	}
 
-
 	/// This method gets the test result based on the registrationToken that was previously
 	/// received, either from the TAN or QR Code flow. After successful completion,
 	/// the timestamp of the last received test is updated.
@@ -201,7 +200,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 
 			var transmissionRiskDefaultVector: [Int] {
-				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
+				[5, 6, 8, 8, 8, 5, 3, 1, 1, 1, 1, 1, 1, 1, 1]
 			}
 
 			keys.sort {
@@ -263,7 +262,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			switch exposureNotificationError {
 			case .exposureNotificationRequired, .exposureNotificationAuthorization, .exposureNotificationUnavailable:
 				return .enNotEnabled
-			case .apiMisuse:
+			case .apiMisuse, .unknown:
 				return .other("ENErrorCodeAPIMisuse")
 			}
 		}

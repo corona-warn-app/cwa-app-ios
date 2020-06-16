@@ -15,10 +15,9 @@
 // specific language governing permissions and limitations
 // under the License.
 
+#if !RELEASE
 import UIKit
 
-/// The entry point of the developer menu infrastructure. This class can be considered a no op in `APP_STORE` builds.
-///
 /// If enabled, the developer can be revealed by tripple-tapping anywhere within the `presentingViewController`.
 final class DMDeveloperMenu {
 	// MARK: Creating a developer menu
@@ -79,11 +78,6 @@ final class DMDeveloperMenu {
 
 	private func isAllowed() -> Bool {
 		true
-		// We have to allow the developer menu to be installed to make testing in APP_STORE mode possible.
-		//        #if RELEASE || DEBUG
-		//            return true
-		//        #else
-		//            return false
-		//        #endif
 	}
 }
+#endif

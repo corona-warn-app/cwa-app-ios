@@ -78,6 +78,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	private var onboardingInfos = OnboardingInfo.testData()
 	private var exposureManagerActivated = false
+	var htmlTextView: HtmlTextView?
 
 	var onboardingInfo: OnboardingInfo?
 
@@ -112,7 +113,6 @@ final class OnboardingInfoViewController: UIViewController {
 			askExposureNotificationsPermissions(completion: {
 				handleBluetooth {
 					completion()
-					self.taskScheduler.scheduleTasks()
 				}
 			})
 
@@ -170,6 +170,8 @@ final class OnboardingInfoViewController: UIViewController {
 				textView.load(from: url)
 			}
 			stackView.addArrangedSubview(textView)
+			htmlTextView = textView
+			addSkipAccessibilityActionToHeader()
 		default:
 			break
 		}
@@ -192,6 +194,19 @@ final class OnboardingInfoViewController: UIViewController {
 		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
 
 		titleLabel.accessibilityTraits = .header
+	}
+
+	func addSkipAccessibilityActionToHeader() {
+		titleLabel.accessibilityHint = AppStrings.Onboarding.onboardingContinueDescription
+		let actionName = AppStrings.Onboarding.onboardingContinue
+		let skipAction = UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
+		titleLabel.accessibilityCustomActions = [skipAction]
+		htmlTextView?.accessibilityCustomActions = [skipAction]
+	}
+
+	@objc
+	func skip(_ sender: Any) {
+		didTapNextButton(sender)
 	}
 
 	private func persistTimestamp(completion: (() -> Void)?) {

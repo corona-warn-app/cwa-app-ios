@@ -21,13 +21,17 @@ import FMDB
 import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
-	var client: Client { get }
+	var client: HTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
+}
+
+extension AppDelegate: CoronaWarnAppDelegate {
+	// required - otherwise app will crash because cast will fails
 }
 
 extension AppDelegate: ExposureSummaryProvider {
@@ -37,9 +41,35 @@ extension AppDelegate: ExposureSummaryProvider {
 			switch result {
 			case .success(let summary):
 				completion(summary)
-			case .failure:
+			case .failure(let error):
+				self.showError(exposure: error)
 				completion(nil)
 			}
+		}
+	}
+
+	private func showError(exposure didEndPrematurely: ExposureDetection.DidEndPrematurelyReason) {
+
+		guard
+			let scene = UIApplication.shared.connectedScenes.first,
+			let delegate = scene.delegate as? SceneDelegate,
+			let rootController = delegate.window?.rootViewController,
+			let alert = didEndPrematurely.errorAlertController(rootController: rootController)
+		else {
+			return
+		}
+
+		func _showError() {
+			rootController.present(alert, animated: true, completion: nil)
+		}
+
+		if rootController.presentedViewController != nil {
+			rootController.dismiss(
+				animated: true,
+				completion: _showError
+			)
+		} else {
+			rootController.present(alert, animated: true, completion: nil)
 		}
 	}
 }
@@ -113,37 +143,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}()
 
-	lazy var client: Client = {
-		// We disable app store checks to make testing easier.
-		//        #if APP_STORE
-		//        return HTTPClient(configuration: .production)
-		//        #endif
-
-		if ClientMode.default == .mock {
-			fatalError("not implemented")
-		}
-
+	lazy var client: HTTPClient = {
+		var configuration: HTTPClient.Configuration
+		#if !RELEASE
 		let store = self.store
-		guard
+		if
 			let distributionURLString = store.developerDistributionBaseURLOverride,
 			let submissionURLString = store.developerSubmissionBaseURLOverride,
 			let verificationURLString = store.developerVerificationBaseURLOverride,
 			let distributionURL = URL(string: distributionURLString),
 			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) else {
-				return HTTPClient(configuration: .production)
+			let submissionURL = URL(string: submissionURLString) {
+			configuration = HTTPClient.Configuration(
+					apiVersion: "v1",
+					country: "DE",
+					endpoints: HTTPClient.Configuration.Endpoints(
+						distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
+						submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
+						verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
+					)
+				)
+
+		} else {
+			configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
 		}
 
-		let config = HTTPClient.Configuration(
-			apiVersion: "v1",
-			country: "DE",
-			endpoints: HTTPClient.Configuration.Endpoints(
-				distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-				submission: .init(baseURL: submissionURL, requiresTrailingSlash: false),
-				verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
-			)
-		)
-		return HTTPClient(configuration: config)
+		#else
+		configuration = HTTPClient.Configuration.loadFromPlist(dictionaryNameInPList: "BackendURLs") ?? .production
+		#endif
+		
+		return HTTPClient(configuration: configuration)
 	}()
 
 	// TODO: REMOVE ME
@@ -184,74 +213,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
 }
 
-extension AppDelegate: CoronaWarnAppDelegate {
-
-	private func useSummaryDetectionResult(
-		_ result: Result<ENExposureDetectionSummary, ExposureDetection.DidEndPrematurelyReason>
-	) {
-		exposureDetection = nil
-		switch result {
-		case .success(let summary):
-			store.summary = SummaryMetadata(detectionSummary: summary)
-		case .failure(let reason):
-			logError(message: "Exposure transaction failed: \(reason)")
-
-			let message: String
-			switch reason {
-			case .noExposureManager:
-				message = "No ExposureManager"
-			case .noSummary:
-				// not really accurate but very likely this is the case.
-				message = "Max file per day limit set by Apple reached (15)"
-			case .noDaysAndHours:
-				message = "No available files. Did you configure the backend URL?"
-			case .noExposureConfiguration:
-				message = "Didn't get a configuration"
-			case .unableToWriteDiagnosisKeys:
-				message = "No keys"
-			}
-
-			// We have to remove this after the test has been concluded.
-			let alert = UIAlertController(
-				title: "Exposure Detection Failed",
-				message: message,
-				preferredStyle: .alert
-			)
-
-			alert.addAction(
-				UIAlertAction(
-					title: "OK",
-					style: .cancel
-				)
-			)
-
-			exposureDetection = nil
-
-			guard let scene = UIApplication.shared.connectedScenes.first else { return }
-			guard let delegate = scene.delegate as? SceneDelegate else { return }
-			guard let rootController = delegate.window?.rootViewController else {
-				return
-			}
-			func showError() {
-				rootController.present(alert, animated: true, completion: nil)
-			}
-
-			if rootController.presentedViewController != nil {
-				rootController.dismiss(animated: true, completion: showError)
-			} else {
-				showError()
-			}
-		}
-	}
-}
-
 extension AppDelegate: ENATaskExecutionDelegate {
-	func executeExposureDetectionRequest(task: BGTask) {
+	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		func complete(success: Bool) {
-			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleTask(for: .detectExposures)
-		}
+		let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+		let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
+		riskProvider.configuration.detectionMode = detectionMode
 
 		riskProvider.requestRisk(userInitiated: false) { risk in
 			// present a notification if the risk score has increased
@@ -260,24 +227,15 @@ extension AppDelegate: ENATaskExecutionDelegate {
 				UNUserNotificationCenter.current().presentNotification(
 					title: AppStrings.LocalNotifications.detectExposureTitle,
 					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: ENATaskIdentifier.detectExposures.rawValue
+					identifier: task.identifier
 				)
 			}
-			complete(success: true)
-		}
-
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			complete(success: false)
+			completion(true)
 		}
 	}
 
-	func executeFetchTestResults(task: BGTask) {
+	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		func complete(success: Bool) {
-			task.setTaskCompleted(success: success)
-			taskScheduler.scheduleTask(for: .fetchTestResults)
-		}
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
 		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
@@ -290,19 +248,16 @@ extension AppDelegate: ENATaskExecutionDelegate {
 						UNUserNotificationCenter.current().presentNotification(
 							title: AppStrings.LocalNotifications.testResultsTitle,
 							body: AppStrings.LocalNotifications.testResultsBody,
-							identifier: ENATaskIdentifier.fetchTestResults.rawValue)
+							identifier: task.identifier
+						)
 					}
 				}
 
-				complete(success: true)
+				completion(true)
 			}
 		} else {
-			complete(success: true)
+			completion(true)
 		}
 
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			complete(success: false)
-		}
 	}
 }

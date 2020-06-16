@@ -86,12 +86,12 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 		}
 
 		tableView.register(
-			ExposureSubmissionTestResultHeaderView.self,
+			UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil),
 			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue
 		)
 		tableView.register(
-			DynamicTableViewStepCell.self,
-			forCellReuseIdentifier: DynamicTableViewStepCell.tableViewCellReuseIdentifier.rawValue
+			UINib(nibName: String(describing: ExposureSubmissionStepCell.self), bundle: nil),
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.stepCell.rawValue
 		)
 
 		dynamicTableViewModel = dynamicTableViewModel(for: result)
@@ -179,6 +179,14 @@ extension ExposureSubmissionTestResultViewController {
 	}
 }
 
+// MARK: - Cell reuse identifiers.
+
+extension ExposureSubmissionTestResultViewController {
+	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
+		case stepCell
+	}
+}
+
 // MARK: ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigationControllerChild {
@@ -243,21 +251,26 @@ private extension ExposureSubmissionTestResultViewController {
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
-				.stepCellWith(
+
+				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
-					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
-					image: UIImage(named: "Icons_Grey_Check")
+					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
 				),
-				.stepCellWith(
+
+				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testPositive,
-					text: AppStrings.ExposureSubmissionResult.testPositiveDesc,
-					image: UIImage(named: "Icons_Grey_Check")
+					description: AppStrings.ExposureSubmissionResult.testPositiveDesc,
+					icon: UIImage(named: "Icons_Grey_Error"),
+					hairline: .topAttached
 				),
-				.stepCellWith(
+
+				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.warnOthers,
-					text: AppStrings.ExposureSubmissionResult.warnOthersDesc,
-					image: UIImage(named: "Icons_Grey_Warnen"),
-					hasSeparators: false
+					description: AppStrings.ExposureSubmissionResult.warnOthersDesc,
+					icon: UIImage(named: "Icons_Grey_Warnen"),
+					hairline: .none
 				)
 			]
 		)
@@ -275,29 +288,36 @@ private extension ExposureSubmissionTestResultViewController {
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
-				.stepCellWith(
+
+
+				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
-					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
-					image: UIImage(named: "Icons_Grey_Check")
+					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
 				),
-				.stepCellWith(
+
+				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testNegative,
-					text: AppStrings.ExposureSubmissionResult.testNegativeDesc,
-					image: UIImage(named: "Icons_Grey_Check"),
-					hasSeparators: false
+					description: AppStrings.ExposureSubmissionResult.testNegativeDesc,
+					icon: UIImage(named: "Icons_Grey_Error"),
+					hairline: .topAttached
 				),
-				.stepCellWith(
-					title: nil,
-					text: AppStrings.ExposureSubmissionResult.furtherInfos_Hint,
-					image: nil,
-					hasSeparators: false
+
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.testRemove,
+					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
+					icon: UIImage(named: "Icons_Grey_Entfernen"),
+					hairline: .none
 				),
+
 				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
 						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.furtherInfos_Title"),
-				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1),
-				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2),
-				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3),
-				.bulletPointCellWith(text: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain)
+
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem3),
+				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_TestAgain)
 			]
 		)
 	}
@@ -314,16 +334,26 @@ private extension ExposureSubmissionTestResultViewController {
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
-				.stepCellWith(
+
+				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
-					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
-					image: UIImage(named: "Icons_Grey_Check")
+					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
 				),
-				.stepCellWith(
+
+				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testInvalid,
-					text: AppStrings.ExposureSubmissionResult.testInvalidDesc,
-					image: UIImage(named: "Icons_Grey_Error"),
-					hasSeparators: false
+					description: AppStrings.ExposureSubmissionResult.testInvalidDesc,
+					icon: UIImage(named: "Icons_Grey_Error"),
+					hairline: .topAttached
+				),
+
+				ExposureSubmissionDynamicCell.stepCell(
+					title: AppStrings.ExposureSubmissionResult.testRemove,
+					description: AppStrings.ExposureSubmissionResult.testRemoveDesc,
+					icon: UIImage(named: "Icons_Grey_Entfernen"),
+					hairline: .none
 				)
 			]
 		)
@@ -340,46 +370,21 @@ private extension ExposureSubmissionTestResultViewController {
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
 						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
-				.stepCellWith(
+
+				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
-					text: AppStrings.ExposureSubmissionResult.testAddedDesc,
-					image: UIImage(named: "Icons_Grey_Check")
+					description: AppStrings.ExposureSubmissionResult.testAddedDesc,
+					icon: UIImage(named: "Icons_Grey_Check"),
+					hairline: .iconAttached
 				),
-				.stepCellWith(
+
+				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testPending,
-					text: AppStrings.ExposureSubmissionResult.testPendingDesc,
-					image: UIImage(named: "Icons_Grey_Wait"),
-					hasSeparators: false
+					description: AppStrings.ExposureSubmissionResult.testPendingDesc,
+					icon: UIImage(named: "Icons_Grey_Wait"),
+					hairline: .none
 				)
 			]
-		)
-	}
-}
-
-private extension DynamicCell {
-	static func stepCellWith(title: String?, text: String, image: UIImage? = nil, hasSeparators: Bool = true) -> DynamicCell {
-		return .identifier(
-			DynamicTableViewStepCell.tableViewCellReuseIdentifier,
-			configure: { _, cell, _ in
-				guard let cell = cell as? DynamicTableViewStepCell else { return }
-				cell.configure(
-					title: title,
-					text: text,
-					image: image,
-					hasSeparators: hasSeparators,
-					isCircle: true
-				)
-			}
-		)
-	}
-
-	static func bulletPointCellWith(text: String) -> DynamicCell {
-		return .identifier(
-			DynamicTableViewStepCell.tableViewCellReuseIdentifier,
-			configure: { _, cell, _ in
-				guard let cell = cell as? DynamicTableViewStepCell else { return }
-				cell.configureBulletPointCell(text: text)
-			}
 		)
 	}
 }

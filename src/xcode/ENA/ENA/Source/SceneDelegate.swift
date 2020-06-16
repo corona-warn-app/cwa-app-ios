@@ -36,9 +36,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		}
 	}
 
-	private var developerMenu: DMDeveloperMenu?
-	private var appUpdateChecker: AppUpdateCheckHelper?
+	private lazy var appUpdateChecker = AppUpdateCheckHelper(client: self.client, store: self.store)
 
+	#if !RELEASE
+	private var developerMenu: DMDeveloperMenu?
 	private func enableDeveloperMenuIfAllowed(in controller: UIViewController) {
 		developerMenu = DMDeveloperMenu(
 			presentingViewController: controller,
@@ -48,36 +49,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		)
 		developerMenu?.enableIfAllowed()
 	}
-
-	private lazy var clientConfiguration: HTTPClient.Configuration = {
-		guard
-			let distributionURLString = store.developerDistributionBaseURLOverride,
-			let submissionURLString = store.developerSubmissionBaseURLOverride,
-			let verificationURLString = store.developerVerificationBaseURLOverride,
-			let distributionURL = URL(string: distributionURLString),
-			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) else {
-			return .production
-		}
-
-		return HTTPClient.Configuration(
-			apiVersion: "v1",
-			country: "DE",
-			endpoints: HTTPClient.Configuration.Endpoints(
-				distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-				submission: .init(baseURL: submissionURL, requiresTrailingSlash: true),
-				verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
-			)
-		)
-	}()
-
-	private(set) lazy var client: Client = {
-		// We disable app store checks to make testing easier.
-		//        #if APP_STORE
-		//        return HTTPClient(configuration: .production)
-		//        #endif
-		return HTTPClient(configuration: self.clientConfiguration)
-	}()
+	#endif
 
 	private var enStateHandler: ENStateHandler?
 
@@ -89,8 +61,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
-
-//		appUpdateChecker = AppUpdateCheckHelper(client: client, store: store)
 
 		exposureManager.resume(observer: self)
 
@@ -108,12 +78,20 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
+		let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+		let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
+		riskProvider.configuration.detectionMode = detectionMode
+
+		riskProvider.requestRisk(userInitiated: false)
+
 		let state = exposureManager.preconditions()
 		updateExposureState(state)
+		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
+		taskScheduler.scheduleTasks()
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
@@ -132,6 +110,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		setupNavigationBarAppearance()
 
 		#if UITESTING
+		// Present initial screen
 		if UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else {
@@ -147,7 +126,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
-		appUpdateChecker?.checkAppVersionDialog(for: window?.rootViewController)
+
 	}
 
 	private func setupNavigationBarAppearance() {
@@ -180,12 +159,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		}
 	}
 
-
 	private func presentHomeVC() {
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),
 			reachabilityService: ConnectivityReachabilityService(
-				connectivityURLs: [clientConfiguration.configurationURL]
+				connectivityURLs: [client.configuration.configurationURL]
 			),
 			delegate: self
 		)
@@ -209,7 +187,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.navigationController.setViewControllers([vc], animated: false)
 		})
+		#if !RELEASE
 		enableDeveloperMenuIfAllowed(in: vc)
+		#endif
 	}
 
 	private func showOnboarding() {
@@ -234,12 +214,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		store.isOnboarded ? showHome() : showOnboarding()
 	}
 
+	#if !RELEASE
 	func scene(_: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-		// We have to allow backend configuration via the url schema for now.
-		//        #if APP_STORE
-		//        return
-		//        #endif
-
 		guard let url = URLContexts.first?.url else {
 			return
 		}
@@ -261,8 +237,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		if let verificationBaseURL = query.valueFor(queryItem: "verificationBaseURL") {
 			store.developerVerificationBaseURLOverride = verificationBaseURL
 		}
-		
 	}
+	#endif
 
 	private var privacyProtectionWindow: UIWindow?
 }
@@ -325,7 +301,11 @@ extension SceneDelegate: HomeViewControllerDelegate {
 		let newKey = KeychainHelper.generateDatabaseKey()
 		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
-		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
+		exposureManager.reset {
+			self.exposureManager.resume(observer: self)
+			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
+		}
 	}
 }
 
@@ -335,21 +315,15 @@ extension SceneDelegate: UNUserNotificationCenterDelegate {
 	}
 
 	func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-		switch response.notification.request.identifier {
-		case ENATaskIdentifier.detectExposures.backgroundTaskSchedulerIdentifier:
-			log(message: "Handling notification for \(response.notification.request.identifier)")
-
-			switch response.actionIdentifier {
-			case UserNotificationAction.openExposureDetectionResults.rawValue: showHome(animated: true)
-			case UserNotificationAction.openTestResults.rawValue: showHome(animated: true)
-			case UserNotificationAction.ignore.rawValue: break
-			case UNNotificationDefaultActionIdentifier: break
-			case UNNotificationDismissActionIdentifier: break
-			default: break
-			}
-
-		default:
-			log(message: "Handling notification for \(response.notification.request.identifier)")
+		switch response.actionIdentifier {
+		case UserNotificationAction.openExposureDetectionResults.rawValue,
+			 UserNotificationAction.openTestResults.rawValue:
+			showHome(animated: true)
+		case UserNotificationAction.ignore.rawValue,
+			 UNNotificationDefaultActionIdentifier,
+			 UNNotificationDismissActionIdentifier:
+			break
+		default: break
 		}
 
 		completionHandler()

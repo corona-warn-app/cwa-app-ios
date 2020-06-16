@@ -61,6 +61,7 @@ enum RiskCalculation {
 		dateLastExposureDetection: Date?,
 		numberOfTracingActiveHours: Int, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
+		providerConfiguration: RiskProvidingConfiguration,
 		currentDate: Date = Date()
 	) -> Result<RiskLevel, RiskLevelCalculationError> {
 		var riskLevel = RiskLevel.low
@@ -90,12 +91,10 @@ enum RiskCalculation {
 			riskLevel = .unknownInitial
 		}
 
-		// Precondition 4 - If date of last exposure detection was not within 1 day, risk is unknownOutdated
 		if
-			let dateLastExposureDetection = dateLastExposureDetection,
-			!currentDate.isWithinExposureDetectionValidInterval(from: dateLastExposureDetection),
-			riskLevel < .unknownOutdated
-		{
+			!providerConfiguration.exposureDetectionIsValid(lastExposureDetectionDate: dateLastExposureDetection ?? .distantPast),
+			riskLevel < .unknownOutdated {
+			// The last exposure detection is not valid since it occurred too far in the past
 			riskLevel = .unknownOutdated
 		}
 
@@ -176,14 +175,16 @@ enum RiskCalculation {
 		numberOfTracingActiveHours: Int,
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date(),
-		previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		providerConfiguration: RiskProvidingConfiguration
 	) -> Risk? {
 		switch riskLevel(
 			summary: summary,
 			configuration: configuration,
 			dateLastExposureDetection: dateLastExposureDetection,
 			numberOfTracingActiveHours: numberOfTracingActiveHours,
-			preconditions: preconditions
+			preconditions: preconditions,
+			providerConfiguration: providerConfiguration
 		) {
 		case .success(let level):
 			let details = Risk.Details(
@@ -229,17 +230,6 @@ enum RiskLevelCalculationError: Error {
 }
 
 // MARK: - Helpers
-
-extension Date {
-	func isWithinExposureDetectionValidInterval(from date: Date = Date()) -> Bool {
-		Calendar.current.dateComponents(
-			[.day],
-			from: date,
-			to: self
-		).day ?? .max < RiskCalculation.exposureDetectionStaleThreshold
-	}
-}
-
 
 extension Double {
 	func rounded(to places: Int) -> Double {

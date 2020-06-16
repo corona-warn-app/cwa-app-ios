@@ -145,8 +145,6 @@ extension RiskProvider: RiskProviding {
 		exposureSummaryProvider.detectExposure { detectedSummary in
 			if let detectedSummary = detectedSummary {
 				self.store.summary = .init(detectionSummary: detectedSummary, date: Date())
-			} else {
-				self.store.summary = nil
 			}
 			completion(
 				.init(
@@ -202,7 +200,8 @@ extension RiskProvider: RiskProviding {
 				numberOfTracingActiveHours: numberOfEnabledHours,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
-				previousRiskLevel: store.previousRiskLevel
+				previousRiskLevel: store.previousRiskLevel,
+				providerConfiguration: configuration
 			) else {
 				logError(message: "Serious error during risk calculation")
 				completeOnTargetQueue(risk: nil)
@@ -213,13 +212,21 @@ extension RiskProvider: RiskProviding {
 			_provideRisk(risk, to: consumer)
 		}
 
+		#if UITESTING
+		completeOnTargetQueue(risk: .mocked)
+		#else
 		completeOnTargetQueue(risk: risk)
+		#endif
 
 		saveRiskIfNeeded(risk)
 	}
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
+		#if UITESTING
+		consumer?.provideRisk(.mocked)
+		#else
 		consumer?.provideRisk(risk)
+		#endif
 	}
 
 	private func saveRiskIfNeeded(_ risk: Risk) {

@@ -43,6 +43,7 @@ extension ExposureSubmissionNavigationControllerChild {
 	var exposureSubmissionNavigationController: ExposureSubmissionNavigationController? { navigationController as? ExposureSubmissionNavigationController }
 	var bottomView: UIView? { exposureSubmissionNavigationController?.bottomView }
 	var button: ENAButton? { exposureSubmissionNavigationController?.button }
+	var secondaryButton: ENAButton? { exposureSubmissionNavigationController?.secondaryButton }
 
 	func setButtonTitle(to title: String) {
 		exposureSubmissionNavigationController?.setButtonTitle(title: title)
@@ -104,7 +105,14 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	/// Returns the root view controller, depending on whether we have a
 	/// registration token or not.
 	private func getRootViewController() -> UIViewController {
+		#if UITESTING
+		if ProcessInfo.processInfo.arguments.contains("-negativeResult") {
+			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
+			vc.testResult = .negative
+			return vc
+		}
 
+		#else
 		// We got a test result and can jump straight into the test result view controller.
 		if let service = exposureSubmissionService, testResult != nil, service.hasRegistrationToken() {
 			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
@@ -112,6 +120,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			vc.testResult = testResult
 			return vc
 		}
+		#endif
 
 		// By default, we show the intro view.
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self)
@@ -124,12 +133,15 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		let rootVC = getRootViewController()
 		setViewControllers([rootVC], animated: false)
 
-		let barButtonItem = UIBarButtonItem(
-			image: UIImage(named: "Icons - Close"),
-			style: .done, target: self, action: #selector(close)
-		)
+		let closeButton = UIButton(type: .custom)
+		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
+		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
+		closeButton.addTarget(self, action: #selector(close), for: .primaryActionTriggered)
+
+		let barButtonItem = UIBarButtonItem(customView: closeButton)
 		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		barButtonItem.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+
 		navigationItem.rightBarButtonItem = barButtonItem
 
 		setupBottomView()
@@ -295,6 +307,7 @@ extension ExposureSubmissionNavigationController {
 
 extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
+		// TODO: Apply ENAFooterView
 		let view = UIView()
 		view.backgroundColor = .enaColor(for: .background)
 		view.insetsLayoutMarginsFromSafeArea = true
