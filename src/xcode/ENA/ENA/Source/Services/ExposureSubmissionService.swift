@@ -184,7 +184,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
-	func submitExposure( completionHandler: @escaping ExposureSubmissionHandler) {
+	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler) {
 		log(message: "Started exposure submission...")
 
 		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
@@ -219,24 +219,30 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 					keys[i].transmissionRiskLevel = UInt8(1)
 				}
 			}
+
 			self.getTANForExposureSubmit(hasConsent: true, completion: { result in
 				switch result {
 				case let .failure(error):
 					completionHandler(error)
 				case let .success(tan):
-					self.client.submit(keys: keys, tan: tan) { error in
-						if let error = error {
-							logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
-							completionHandler(self.parseError(error))
-							return
-						}
-						log(message: "Successfully completed exposure sumbission.")
-						self.submitExposureCleanup()
-						completionHandler(nil)
-					}
-
+					self.submit(keys, with: tan, completion: completionHandler)
 				}
 			})
+		}
+	}
+
+	/// Helper method that is used to submit keys after a TAN was retrieved.
+	private func submit(_ keys: [ENTemporaryExposureKey], with tan: String, completion: @escaping ExposureSubmissionHandler) {
+		self.client.submit(keys: keys, tan: tan) { error in
+			if let error = error {
+				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+				completion(self.parseError(error))
+				return
+			}
+
+			self.submitExposureCleanup()
+			log(message: "Successfully completed exposure sumbission.")
+			completion(nil)
 		}
 	}
 
@@ -247,6 +253,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+		log(message: "Exposure submission cleanup.")
 	}
 
 	/// This method attempts to parse all different types of incoming errors, regardless
