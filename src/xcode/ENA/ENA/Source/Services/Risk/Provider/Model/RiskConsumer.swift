@@ -20,9 +20,6 @@
 import Foundation
 
 final class RiskConsumer: NSObject {
-	deinit {
-		print("deinig")
-	}
 	// MARK: Creating a Consumer
 	init(targetQueue: DispatchQueue = .main) {
 		self.targetQueue = targetQueue
