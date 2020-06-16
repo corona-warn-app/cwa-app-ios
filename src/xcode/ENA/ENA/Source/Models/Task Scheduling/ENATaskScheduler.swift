@@ -107,7 +107,7 @@ final class ENATaskScheduler {
 		}
 
 		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
+			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: AppStrings.ExposureSubmission.generalErrorTitle))
 			self.scheduleTasks()
 		}
 	}

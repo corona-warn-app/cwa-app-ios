@@ -87,17 +87,17 @@ extension ExposureNotificationSettingViewController {
 		case .exposureNotificationAuthorization:
 			logError(message: "Failed to enable exposureNotificationAuthorization")
 			if alert {
-				alertError(message: "Failed to enable: exposureNotificationAuthorization", title: "Error")
+				alertError(message: "Failed to enable: exposureNotificationAuthorization", title: AppStrings.ExposureSubmission.generalErrorTitle)
 			}
 		case .exposureNotificationRequired:
 			logError(message: "Failed to enable")
 			if alert {
-				alertError(message: "exposureNotificationAuthorization", title: "Error")
+				alertError(message: "exposureNotificationAuthorization", title: AppStrings.ExposureSubmission.generalErrorTitle)
 			}
 		case .exposureNotificationUnavailable:
 			logError(message: "Failed to enable")
 			if alert {
-				alertError(message: "ExposureNotification is not available due to the system policy", title: "Error")
+				alertError(message: "ExposureNotification is not available due to the system policy", title: AppStrings.ExposureSubmission.generalErrorTitle)
 			}
 		case .apiMisuse:
 			logError(message: "APIMisuse")
@@ -108,7 +108,7 @@ extension ExposureNotificationSettingViewController {
 		case .unknown(let message):
 			logError(message: "unknown")
 			if alert {
-				alertError(message: "Cannot enable the notification. The reason is \(message)", title: "Error")
+				alertError(message: "Cannot enable the notification. The reason is \(message)", title: AppStrings.ExposureSubmission.generalErrorTitle)
 			}
 
 		}

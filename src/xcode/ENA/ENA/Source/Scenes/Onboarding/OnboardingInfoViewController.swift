@@ -295,8 +295,8 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
-		let alert = UIAlertController(title: "Error", message: String(describing: error), preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: String(describing: error), preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
 		viewController.present(alert, animated: true, completion: completion)
 	}
 
