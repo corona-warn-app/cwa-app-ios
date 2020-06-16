@@ -196,7 +196,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 			}
 
 			var transmissionRiskDefaultVector: [Int] {
-				[5, 6, 7, 8, 7, 5, 3, 2, 1, 1, 1, 1, 1, 1, 1]
+				[5, 6, 8, 8, 8, 5, 3, 1, 1, 1, 1, 1, 1, 1, 1]
 			}
 
 			keys.sort {
