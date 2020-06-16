@@ -449,7 +449,7 @@
 
 "ExposureSubmissionError_EnNotEnabled" = "Die Risiko-Ermittlung ist nicht aktiv.";
 
-"ExposureSubmissionError_NoRegistrationToken" = "Kein Registrations-Token auf dem Endgerät gefunden.";
+"ExposureSubmissionError_NoRegistrationToken" = "Kein Registrierungs-Token auf dem Endgerät gefunden.";
 
 "ExposureSubmissionError_InvalidResponse" = "Die Antwort kann nicht verarbeitet werden.";
 
