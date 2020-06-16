@@ -30,24 +30,36 @@ class MockURLSessionDataTask: URLSessionDataTask {
 }
 
 class MockUrlSession: URLSession {
+	typealias URLRequestObserver = ((URLRequest) -> Void)
 	let data: Data?
 	let nextResponse: URLResponse?
 	let error: Error?
+	let onURLRequestObserver: URLRequestObserver?
 
-	init(data: Data?, nextResponse: URLResponse?, error: Error?) {
+	init(
+		data: Data?,
+		nextResponse: URLResponse?,
+		error: Error?,
+		urlRequestObserver: URLRequestObserver? = nil
+	) {
 		self.data = data
 		self.nextResponse = nextResponse
 		self.error = error
+		self.onURLRequestObserver = urlRequestObserver
 	}
 
-	override func dataTask(with _: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-		MockURLSessionDataTask {
+	override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+		onURLRequestObserver?(URLRequest(url: url))
+
+		return MockURLSessionDataTask {
 			completionHandler(self.data, self.nextResponse, self.error)
 		}
 	}
 
-	override func dataTask(with _: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-		MockURLSessionDataTask {
+	override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+		onURLRequestObserver?(request)
+
+		return MockURLSessionDataTask {
 			completionHandler(self.data, self.nextResponse, self.error)
 		}
 	}
