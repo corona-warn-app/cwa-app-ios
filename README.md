@@ -49,7 +49,7 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
    ```
    Install _fastlane_ using [Bundler](https://bundler.io/)
    ```console
-   cd src/xcode && bundle install
+   cd src/xcode && bundle install --path vendor/bundle
    ```
 
 

@@ -78,23 +78,15 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			)
 			let numberDaysString = String(numberDays)
 			let totalDaysString = String(totalDays)
-			let saveDays = String(format: AppStrings.Home.riskCardLowSaveDaysItemTitle, numberDaysString, totalDaysString)
+			let saveDays = String(
+				format: AppStrings.Home.riskCardLowSaveDaysItemTitle, numberDaysString, totalDaysString
+			)
+			let progressImage: String = numberDays >= totalDays ? "Icons_TracingCircleFull - Dark" : "Icons_TracingCircle-Dark_Step \(numberDays)"
 			itemCellConfigurators.append(
 				HomeRiskImageItemViewConfigurator(
 					title: saveDays,
 					titleColor: titleColor,
-					iconImageName: "Icons_TracingCircleFull - Dark",
-					iconTintColor: titleColor,
-					color: color,
-					separatorColor: separatorColor
-				)
-			)
-			let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
-			itemCellConfigurators.append(
-				HomeRiskImageItemViewConfigurator(
-					title: dateTitle,
-					titleColor: titleColor,
-					iconImageName: "Icons_Aktualisiert",
+					iconImageName: progressImage,
 					iconTintColor: titleColor,
 					color: color,
 					separatorColor: separatorColor

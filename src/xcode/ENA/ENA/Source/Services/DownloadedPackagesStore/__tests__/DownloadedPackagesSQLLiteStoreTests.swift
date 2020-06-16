@@ -94,6 +94,73 @@ final class DownloadedPackagesSQLLiteStoreTests: XCTestCase {
 		store.set(day: "2020-06-12", package: package)
 		XCTAssertTrue(store.hourlyPackages(for: "2020-06-12").isEmpty)
 	}
+
+	func testWeOnlyGet14DaysAfterPruning() throws {
+		store.open()
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+
+		// Add days
+		store.set(day: "2020-06-01", package: package)
+		store.set(day: "2020-06-02", package: package)
+		store.set(day: "2020-06-03", package: package)
+		store.set(day: "2020-06-04", package: package)
+		store.set(day: "2020-06-05", package: package)
+		store.set(day: "2020-06-06", package: package)
+		store.set(day: "2020-06-07", package: package)
+		store.set(day: "2020-06-08", package: package)
+		store.set(day: "2020-06-09", package: package)
+		store.set(day: "2020-06-10", package: package)
+		store.set(day: "2020-06-11", package: package)
+		store.set(day: "2020-06-12", package: package)
+		store.set(day: "2020-06-13", package: package)
+		store.set(day: "2020-06-14", package: package)
+		store.set(day: "2020-06-15", package: package)
+		store.set(day: "2020-06-16", package: package)
+		store.set(day: "2020-06-17", package: package)
+		store.set(day: "2020-06-18", package: package)
+		store.set(day: "2020-06-19", package: package)
+		store.set(day: "2020-06-20", package: package)
+
+		// Assert that we only get 14 packages
+
+		XCTAssertEqual(store.allDays().count, 20)
+		try store.deleteOutdatedDays(now: "2020-06-20")
+		XCTAssertEqual(store.allDays().count, 14)
+	}
+
+	func testGetLessThan14DaysAfterPruning() throws {
+		store.open()
+
+		let keysBin = Data("keys".utf8)
+		let signature = Data("sig".utf8)
+
+		let package = SAPDownloadedPackage(
+			keysBin: keysBin,
+			signature: signature
+		)
+
+		// Add days
+		store.set(day: "2020-06-01", package: package)
+		store.set(day: "2020-06-02", package: package)
+		store.set(day: "2020-06-03", package: package)
+		store.set(day: "2020-06-04", package: package)
+		store.set(day: "2020-06-05", package: package)
+		store.set(day: "2020-06-06", package: package)
+		store.set(day: "2020-06-07", package: package)
+
+		// Assert that we only get 7 packages
+
+		XCTAssertEqual(store.allDays().count, 7)
+		try store.deleteOutdatedDays(now: "2020-06-07")
+		XCTAssertEqual(store.allDays().count, 7)
+	}
 }
 
 private extension FMDatabase {

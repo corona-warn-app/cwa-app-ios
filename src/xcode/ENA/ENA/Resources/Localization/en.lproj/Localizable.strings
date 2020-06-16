@@ -740,7 +740,7 @@
 "App_Information_Legal_Navigation" = "Legal Notices";
 
 /* App Information - Privacy */
-"App_Information_Privacy_Navigation" = "Data Privacy Information";
+"App_Information_Privacy_Navigation" = "Data Privacy";
 
 "App_Information_Legal_ImageDescription" = "One person is holding a device with a lot of text on the screen. Next to the text is a balance scale, which is the symbol for legal notices";
 
@@ -800,7 +800,7 @@
 "Reset_ConfirmDialog_Confirm" = "Reset";
 
 /* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
 
 /* Local Notifications */
 "local_notifications_ignore" = "Ignore";
@@ -885,4 +885,3 @@
 "ENATanInput_InvalidCharacter" = "Invalid Character\n\n%@";
 
 "ENATanInput_CharacterIndex" = "Character %1$u of %2$u";
-

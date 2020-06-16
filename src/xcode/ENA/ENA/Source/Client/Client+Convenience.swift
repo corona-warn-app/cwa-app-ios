@@ -48,6 +48,7 @@ extension Client {
 			group.leave()
 		}
 
+		/*
 		group.enter()
 		availableHours(day: today) { result in
 			switch result {
@@ -58,6 +59,7 @@ extension Client {
 			}
 			group.leave()
 		}
+		*/
 
 		group.notify(queue: .main) {
 			guard errors.isEmpty else {
