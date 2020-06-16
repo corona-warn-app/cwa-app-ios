@@ -54,16 +54,6 @@
       </CodeCoverageTargets>
       <Testables>
          <TestableReference
-            skipped = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "85D7595E24570491008175F0"
-               BuildableName = "ENAUITests.xctest"
-               BlueprintName = "ENAUITests"
-               ReferencedContainer = "container:ENA.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
