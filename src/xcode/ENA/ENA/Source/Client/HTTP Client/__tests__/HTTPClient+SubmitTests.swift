@@ -40,18 +40,16 @@ final class HTTPClientSubmitTests: XCTestCase {
 
 	func testSubmit_Success() {
 		// Arrange
-		let mockResponse = HTTPURLResponse(url: mockUrl, statusCode: 200, httpVersion: nil, headerFields: nil)
-		let mockURLSession = MockUrlSession(
+		let stack = MockNetworkStack(
+			httpStatus: 200,
 			// cannot be nil since this is not a a completion handler can be in (response + nil body)
-			data: Data(),
-			nextResponse: mockResponse,
-			error: nil
+			responseData: Data()
 		)
-		let client = HTTPClient(configuration: .fake, session: mockURLSession)
+
 		let expectation = self.expectation(description: "completion handler is called without an error")
 
 		// Act
-		client.submit(keys: keys, tan: tan) { error in
+		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) { error in
 			defer { expectation.fulfill() }
 			XCTAssertTrue(error == nil)
 		}
@@ -61,15 +59,19 @@ final class HTTPClientSubmitTests: XCTestCase {
 
 	func testSubmit_Error() {
 		// Arrange
-		let mockURLSession = MockUrlSession(data: nil, nextResponse: nil, error: TestError.error)
-
-		let client = HTTPClient(configuration: .fake, session: mockURLSession)
+		var error: SubmissionError?
+		let stack = MockNetworkStack(
+			mockSession: MockUrlSession(
+				data: nil,
+				nextResponse: nil,
+				error: TestError.error
+			)
+		)
 
 		let expectation = self.expectation(description: "Error")
-		var error: SubmissionError?
 
 		// Act
-		client.submit(keys: keys, tan: tan) {
+		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) {
 			error = $0
 			expectation.fulfill()
 		}
@@ -82,13 +84,17 @@ final class HTTPClientSubmitTests: XCTestCase {
 
 	func testSubmit_SpecificError() {
 		// Arrange
-		let mockURLSession = MockUrlSession(data: nil, nextResponse: nil, error: TestError.error)
-
-		let client = HTTPClient(configuration: .fake, session: mockURLSession)
+		let stack = MockNetworkStack(
+			mockSession: MockUrlSession(
+				data: nil,
+				nextResponse: nil,
+				error: TestError.error
+			)
+		)
 		let expectation = self.expectation(description: "SpecificError")
 
 		// Act
-		client.submit(keys: keys, tan: tan) { error in
+		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) { error in
 			defer {
 				expectation.fulfill()
 			}
@@ -110,12 +116,13 @@ final class HTTPClientSubmitTests: XCTestCase {
 	func testSubmit_ResponseNil() {
 		// Arrange
 		let mockURLSession = MockUrlSession(data: nil, nextResponse: nil, error: nil)
-
-		let client = HTTPClient(configuration: .fake, session: mockURLSession)
+		let stack = MockNetworkStack(
+			mockSession: mockURLSession
+		)
 		let expectation = self.expectation(description: "ResponseNil")
 
 		// Act
-		client.submit(keys: keys, tan: tan) { error in
+		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) { error in
 			defer {
 				expectation.fulfill()
 			}

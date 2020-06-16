@@ -23,16 +23,13 @@ import Foundation
 /// Helper struct to easily create a `MockUrlSession` that sends the desired HTTP status code and `URLResponse`
 struct MockNetworkStack {
 	var urlSession: MockUrlSession
-	var mockResponse: URLResponse?
 	var packageVerifier: SAPDownloadedPackage.Verification
 
 	init(
 		mockSession: MockUrlSession,
-		mockResponse: URLResponse? = nil,
 		packageVerifier:  @escaping SAPDownloadedPackage.Verification = { _ in return true }
 	) {
 		self.urlSession = mockSession
-		self.mockResponse = mockResponse
 		self.packageVerifier = packageVerifier
 	}
 
@@ -46,7 +43,7 @@ struct MockNetworkStack {
 		packageVerifier: @escaping SAPDownloadedPackage.Verification = { _ in return true },
 		requestObserver: MockUrlSession.URLRequestObserver? = nil
 	) {
-		mockResponse = HTTPURLResponse(
+		let mockResponse = HTTPURLResponse(
 			url: baseURL,
 			statusCode: httpStatus,
 			httpVersion: httpVersion,
