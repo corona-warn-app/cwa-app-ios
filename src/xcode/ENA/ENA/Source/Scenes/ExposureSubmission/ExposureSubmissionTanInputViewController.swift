@@ -68,6 +68,9 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 	// MARK: - Helper methods.
 	
 	private func setupTanState() {
+		setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
+		title = AppStrings.ExposureSubmissionTanEntry.title
+
 		if let tan = initialTan {
 			tanInput.clear()
 			tanInput.insertText(tan)
@@ -81,8 +84,6 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 		tanInput.delegate = self
 
 		hideSecondaryButton()
-		setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
-		title = AppStrings.ExposureSubmissionTanEntry.title
 		setButtonEnabled(enabled: tanInput.isValid && tanInput.isChecksumValid)
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
 		errorView.alpha = 0
