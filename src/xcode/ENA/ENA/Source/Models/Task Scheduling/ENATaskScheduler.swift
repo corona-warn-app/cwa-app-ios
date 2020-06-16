@@ -25,7 +25,7 @@ enum ENATaskIdentifier: String, CaseIterable {
 
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
-		case .primaryBackgroundTask: return 2 * 60 * 60
+		case .primaryBackgroundTask: return nil
 		}
 	}
 	var backgroundTaskSchedulerIdentifier: String {

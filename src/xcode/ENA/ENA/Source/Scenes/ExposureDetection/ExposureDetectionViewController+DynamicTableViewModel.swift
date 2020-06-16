@@ -68,6 +68,14 @@ private extension DynamicCell {
 		case hotline = "hotlineCell"
 	}
 
+	private static let relativeDateTimeFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.doesRelativeDateFormatting = true
+		formatter.dateStyle = .short
+		formatter.timeStyle = .short
+		return formatter
+	}()
+
 	private static func exposureDetectionCell(_ identifier: TableViewCellReuseIdentifiers, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: GenericCellConfigurator<ExposureDetectionViewController>? = nil) -> DynamicCell {
 		.custom(withIdentifier: identifier, action: action, accessoryAction: accessoryAction, configure: configure)
 	}
@@ -76,7 +84,11 @@ private extension DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.risk) { viewController, cell, indexPath in
 			let state = viewController.state
 			cell.backgroundColor = state.riskTintColor
-			cell.tintColor = state.isTracingEnabled ? .enaColor(for: .textContrast) : .enaColor(for: .riskNeutral)
+
+			var tintColor: UIColor = state.isTracingEnabled ? .enaColor(for: .textContrast) : .enaColor(for: .riskNeutral)
+			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
+			cell.tintColor = tintColor
+
 			cell.textLabel?.textColor = state.riskContrastColor
 			if let cell = cell as? ExposureDetectionRiskCell {
 				cell.separatorView.isHidden = (indexPath.row == 0) || !hasSeparator
@@ -131,15 +143,7 @@ private extension DynamicCell {
 		.risk { viewController, cell, _ in
 			var valueText: String
 			if let date: Date = viewController.state.risk?.details.exposureDetectionDate {
-				let dateFormatter = DateFormatter(); dateFormatter.dateStyle = .short
-				let timeFormatter = DateFormatter(); timeFormatter.timeStyle = .short
-
-				let dateValue = dateFormatter.string(from: date)
-				let timeValue = timeFormatter.string(from: date)
-
-				let days = Calendar.current.dateComponents([.day], from: date, to: Date()).day ?? 100
-				valueText = String.localizedStringWithFormat(AppStrings.ExposureDetection.refreshedFormat, days)
-				valueText = String(format: valueText, timeValue, dateValue)
+				valueText = relativeDateTimeFormatter.string(from: date)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever
 			}
@@ -317,7 +321,6 @@ extension ExposureDetectionViewController {
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
 			),
-			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
 			explanationSection(
