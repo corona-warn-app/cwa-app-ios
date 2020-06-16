@@ -51,16 +51,14 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 	}
 
 	private func fetchService() {
-		exposureSubmissionService = exposureSubmissionService ??
-			(navigationController as? ExposureSubmissionNavigationController)?
-			.getExposureSubmissionService()
+		exposureSubmissionService = exposureSubmissionService ?? (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
 	}
 
 	// MARK: - ExposureSubmissionService Helpers.
 
 	private func startSubmitProcess() {
 		startSpinner()
-		exposureSubmissionService?.submitExposure( completionHandler: { error in
+		exposureSubmissionService?.submitExposure { error in
 			self.stopSpinner()
 			if let error = error {
 				logError(message: "error: \(error.localizedDescription)", level: .error)
@@ -70,7 +68,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 			}
 
 			self.performSegue(withIdentifier: Segue.sent, sender: self)
-		})
+		}
 	}
 
 }
