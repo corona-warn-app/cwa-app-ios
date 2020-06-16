@@ -114,7 +114,9 @@ extension NavigationControllerWithFooterView {
 			height: view.safeAreaInsets.bottom
 		)
 
-		if !isFooterViewHidden {
+		if isFooterViewHidden {
+			frame.size.height = 0
+		} else {
 			frame.origin.y -= view.safeAreaInsets.bottom
 		}
 
