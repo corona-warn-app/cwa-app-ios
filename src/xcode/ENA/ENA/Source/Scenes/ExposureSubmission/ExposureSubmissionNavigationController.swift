@@ -66,9 +66,11 @@ extension ExposureSubmissionNavigationControllerChild {
 	}
 }
 
-class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
+protocol ExposureSubmissionNavigationControllerDelegate: AnyObject {
+	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController)
+}
 
-	private weak var homeViewController: HomeViewController?
+final class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
 	private var testResult: TestResult?
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
@@ -82,19 +84,20 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	private(set) var button: ENAButton!
 	private(set) var secondaryButton: ENAButton!
 	private var bottomViewTopConstraint: NSLayoutConstraint!
-	private var exposureSubmissionService: ExposureSubmissionService?
+	private(set) var exposureSubmissionService: ExposureSubmissionService?
+	private weak var submissionDelegate: ExposureSubmissionNavigationControllerDelegate?
 
 	// MARK: - Initializers.
 
 	init?(
 		coder: NSCoder,
 		exposureSubmissionService: ExposureSubmissionService,
-		homeViewController: HomeViewController? = nil,
+		submissionDelegate: ExposureSubmissionNavigationControllerDelegate?,
 		testResult: TestResult? = nil
 	) {
 		super.init(coder: coder)
 		self.exposureSubmissionService = exposureSubmissionService
-		self.homeViewController = homeViewController
+		self.submissionDelegate = submissionDelegate
 		self.testResult = testResult
 	}
 
@@ -165,10 +168,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		button.isEnabled = enabled
 	}
 
-	func getExposureSubmissionService() -> ExposureSubmissionService? {
-		exposureSubmissionService
-	}
-
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
@@ -195,7 +194,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		homeViewController?.updateTestResultState()
+		submissionDelegate?.exposureSubmissionNavigationControllerWillDisappear(self)
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {

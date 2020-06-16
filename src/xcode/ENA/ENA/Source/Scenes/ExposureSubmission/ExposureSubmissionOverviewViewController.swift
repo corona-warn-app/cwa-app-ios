@@ -30,8 +30,13 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 
 	// MARK: - Initializers.
 
-	required init?(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder, service: ExposureSubmissionService?) {
+		self.service = service
 		super.init(coder: aDecoder)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	// MARK: - View lifecycle methods.
@@ -40,13 +45,6 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		super.viewDidLoad()
 		dynamicTableViewModel = dynamicTableData()
 		setupView()
-
-		// Grab ExposureSubmissionService from the navigation controller
-		// (which is the entry point for the storyboard, and in which
-		// this controller is embedded.)
-		if let navC = navigationController as? ExposureSubmissionNavigationController {
-			service = navC.getExposureSubmissionService()
-		}
 	}
 
 	private func setupView() {
