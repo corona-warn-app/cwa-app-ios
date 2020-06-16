@@ -48,8 +48,7 @@ class ExposureSubmissionUITests: XCTestCase {
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
 
 		// Check whether we have entered the info screen.
-		let infoIdentifier = localized(AppStrings.ExposureSubmissionIntroduction.title)
-		XCTAssert(app.navigationBars[infoIdentifier].waitForExistence(timeout: .medium))
+		XCTAssert(app.images["ExposureSubmissionIntroViewController.image"].waitForExistence(timeout: .medium))
 	}
 
 	func test_NavigateToHotlineVC() throws {
@@ -58,13 +57,11 @@ class ExposureSubmissionUITests: XCTestCase {
 		// Open Intro screen.
 		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		let infoIdentifier = localized(AppStrings.ExposureSubmissionIntroduction.title)
-		XCTAssert(app.navigationBars[infoIdentifier].waitForExistence(timeout: .medium))
+		XCTAssert(app.staticTexts["AppStrings.ExposureSubmissionIntroduction.subTitle"].waitForExistence(timeout: .medium))
 
 		// Click next button.
-		let nextIdentifier = localized(AppStrings.ExposureSubmission.continueText)
-		XCTAssertNotNil(app.buttons[nextIdentifier].waitForExistence(timeout: .medium))
-		app.buttons[nextIdentifier].tap()
+		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// Select hotline button.
 		XCTAssert(app
@@ -84,9 +81,8 @@ class ExposureSubmissionUITests: XCTestCase {
 		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
 
 		// Click next button.
-		let nextIdentifier = localized(AppStrings.ExposureSubmission.continueText)
-		XCTAssertNotNil(app.buttons[nextIdentifier].waitForExistence(timeout: .medium))
-		app.buttons[nextIdentifier].tap()
+		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// Select QRCode screen.
 		XCTAssert(app
@@ -108,9 +104,8 @@ class ExposureSubmissionUITests: XCTestCase {
 		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
 
 		// Click next button.
-		let nextIdentifier = localized(AppStrings.ExposureSubmission.continueText)
-		XCTAssertNotNil(app.buttons[nextIdentifier].waitForExistence(timeout: .medium))
-		app.buttons[nextIdentifier].tap()
+		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
 
 		// Select QRCode screen.
 		XCTAssert(app.buttons["AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"].waitForExistence(timeout: .medium))
@@ -120,8 +115,6 @@ class ExposureSubmissionUITests: XCTestCase {
 		XCTAssertTrue(app.alerts.firstMatch.exists)
 		app.alerts.buttons.firstMatch.tap()
 
-		// Check if QR Code screen was accessed
-		XCTAssertTrue(app.navigationBars.firstMatch.identifier == localized(AppStrings.ExposureSubmissionQRScanner.title))
 	}
 }
 
