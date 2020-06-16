@@ -89,7 +89,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
-	func sceneDidEnterBackground(_ scene: UIScene) {
+	func sceneWillResignActive(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
 		taskScheduler.scheduleTasks()
 	}
