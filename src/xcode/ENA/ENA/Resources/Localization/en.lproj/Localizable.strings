@@ -759,7 +759,7 @@
 "Reset_Subtitle" = "Reset App";
 
 /* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch/corona-warn-app-faq-1758636";
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
 
 /* Local Notifications */
 "local_notifications_viewResults" = "Display Results";
@@ -833,4 +833,3 @@
 "Update_Message_Action_Update" = "Update";
 
 "Update_Message_Action_Later" = "Later";
-
