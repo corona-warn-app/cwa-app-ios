@@ -19,6 +19,7 @@
 
 import Foundation
 import UIKit
+import CWAppKit
 
 class HtmlTextView: UITextView {
 	private var html: String?

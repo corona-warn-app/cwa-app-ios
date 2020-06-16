@@ -61,12 +61,25 @@ public enum ENAColor: String, CaseIterable {
 	case textTint = "ENA Text Tint Color"
 }
 
+private class Flag {}
+
 public extension UIColor {
-	convenience init?(enaColor style: ENAColor, interface: UIUserInterfaceStyle = .unspecified) {
+	convenience init?(
+		enaColor style: ENAColor,
+		interface: UIUserInterfaceStyle = .unspecified
+	) {
 		if interface == .unspecified {
-			self.init(named: style.rawValue)
+			self.init(
+				named: style.rawValue,
+				in: Bundle(for: Flag.self),
+				compatibleWith: UITraitCollection(userInterfaceStyle: interface)
+			)
 		} else {
-			self.init(named: style.rawValue, in: nil, compatibleWith: UITraitCollection(userInterfaceStyle: interface))
+			self.init(
+				named: style.rawValue,
+				in: Bundle(for: Flag.self),
+				compatibleWith: UITraitCollection(userInterfaceStyle: interface)
+			)
 		}
 	}
 

@@ -18,7 +18,7 @@
 //
 
 import XCTest
-@testable import ENA
+import CWAppKit
 
 class ENAColorTests: XCTestCase {
 

@@ -16,6 +16,7 @@
 // under the License.
 
 import UIKit
+import CWAppKit
 
 class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 

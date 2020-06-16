@@ -73,6 +73,16 @@
                ReferencedContainer = "container:ENA.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B163D0E62498E5C8001A322C"
+               BuildableName = "CWAppKitTests.xctest"
+               BlueprintName = "CWAppKitTests"
+               ReferencedContainer = "container:ENA.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
