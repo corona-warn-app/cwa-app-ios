@@ -145,8 +145,13 @@
 		71B8044D248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B8044C248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift */; };
 		71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */; };
 		71B804542485273C00D53506 /* RiskLegendDotBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B804532485273C00D53506 /* RiskLegendDotBodyCell.swift */; };
+		71C0BEDD2498DD07009A17A0 /* ENAButtonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C0BEDC2498DD07009A17A0 /* ENAButtonFooterView.swift */; };
 		71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CAB9D1248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift */; };
 		71CAB9D4248AB33500F516A5 /* DynamicTypeSymbolImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CAB9D3248AB33500F516A5 /* DynamicTypeSymbolImageView.swift */; };
+		71D3C19A2494EFAC00DBABA8 /* NavigationControllerWithFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D3C1992494EFAC00DBABA8 /* NavigationControllerWithFooter.swift */; };
+		71EF33D72497A77D007B7E1B /* NavigationControllerWithFooterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71EF33D62497A77D007B7E1B /* NavigationControllerWithFooterView.storyboard */; };
+		71EF33D92497F3E8007B7E1B /* NavigationControllerWithFooterChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF33D82497F3E8007B7E1B /* NavigationControllerWithFooterChild.swift */; };
+		71EF33DB2497F419007B7E1B /* NavigationItemWithFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF33DA2497F419007B7E1B /* NavigationItemWithFooter.swift */; };
 		71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */; };
 		71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 71F5418A248BEDBE006DB793 /* privacy-policy.html */; };
 		71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F54190248BF677006DB793 /* HtmlTextView.swift */; };
@@ -514,12 +519,17 @@
 		71B8044C248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RiskLegendViewController+DynamicTableViewModel.swift"; sourceTree = "<group>"; };
 		71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSpaceCell.swift; sourceTree = "<group>"; };
 		71B804532485273C00D53506 /* RiskLegendDotBodyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendDotBodyCell.swift; sourceTree = "<group>"; };
+		71C0BEDC2498DD07009A17A0 /* ENAButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENAButtonFooterView.swift; sourceTree = "<group>"; };
 		71CAB9D1248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelPerfectLayoutConstraint.swift; sourceTree = "<group>"; };
 		71CAB9D3248AB33500F516A5 /* DynamicTypeSymbolImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeSymbolImageView.swift; sourceTree = "<group>"; };
 		71CC3E9C246D5D8000217F2C /* AppInformationViewController+DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+DynamicTableViewModel.swift"; sourceTree = "<group>"; };
 		71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDetailViewController.swift; sourceTree = "<group>"; };
 		71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabel.swift; sourceTree = "<group>"; };
 		71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicType.swift"; sourceTree = "<group>"; };
+		71D3C1992494EFAC00DBABA8 /* NavigationControllerWithFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerWithFooter.swift; sourceTree = "<group>"; };
+		71EF33D62497A77D007B7E1B /* NavigationControllerWithFooterView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NavigationControllerWithFooterView.storyboard; sourceTree = "<group>"; };
+		71EF33D82497F3E8007B7E1B /* NavigationControllerWithFooterChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerWithFooterChild.swift; sourceTree = "<group>"; };
+		71EF33DA2497F419007B7E1B /* NavigationItemWithFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItemWithFooter.swift; sourceTree = "<group>"; };
 		71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ena-colors.xcassets"; sourceTree = "<group>"; };
 		71F5418B248BEDBE006DB793 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = "de.lproj/privacy-policy.html"; sourceTree = "<group>"; };
 		71F54190248BF677006DB793 /* HtmlTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlTextView.swift; sourceTree = "<group>"; };
@@ -1110,6 +1120,18 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		7143D07424990A3100608DDE /* NavigationControllerWithFooter */ = {
+			isa = PBXGroup;
+			children = (
+				71D3C1992494EFAC00DBABA8 /* NavigationControllerWithFooter.swift */,
+				71EF33D82497F3E8007B7E1B /* NavigationControllerWithFooterChild.swift */,
+				71EF33DA2497F419007B7E1B /* NavigationItemWithFooter.swift */,
+				71C0BEDC2498DD07009A17A0 /* ENAButtonFooterView.swift */,
+				71EF33D62497A77D007B7E1B /* NavigationControllerWithFooterView.storyboard */,
+			);
+			path = NavigationControllerWithFooter;
+			sourceTree = "<group>";
+		};
 		71B804502485272200D53506 /* RiskLegend */ = {
 			isa = PBXGroup;
 			children = (
@@ -1271,6 +1293,7 @@
 			children = (
 				71176E30248957B1004B0C9F /* App */,
 				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
+				7143D07424990A3100608DDE /* NavigationControllerWithFooter */,
 				EE20EA0824699A3A00770683 /* RiskLegend */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				51D420AF2458308400AD70CA /* Onboarding */,
@@ -2030,6 +2053,7 @@
 				A189E461248C35BF001D0996 /* PublicKeys.plist in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
 				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
+				71EF33D72497A77D007B7E1B /* NavigationControllerWithFooterView.storyboard in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
@@ -2115,6 +2139,7 @@
 				B1D7D69224766D2100E4DA5D /* apple_export.pb.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
 				A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */,
+				71C0BEDD2498DD07009A17A0 /* ENAButtonFooterView.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
@@ -2193,6 +2218,7 @@
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */,
 				3DD767462483D4DE002DD2B3 /* ReachabilityService.swift in Sources */,
+				71EF33D92497F3E8007B7E1B /* NavigationControllerWithFooterChild.swift in Sources */,
 				4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */,
@@ -2237,6 +2263,7 @@
 				B1C6ED00247F23730066138F /* NotificationName.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
 				51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */,
+				71D3C19A2494EFAC00DBABA8 /* NavigationControllerWithFooter.swift in Sources */,
 				CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				B1FE13FB24896E6700D012E5 /* AppConfigurationProviding.swift in Sources */,
@@ -2302,6 +2329,7 @@
 				0DFCC2722484DC8400E2811D /* sqlite3.c in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				514C0A0624772F3400F235F6 /* HomeRiskViewConfigurator.swift in Sources */,
+				71EF33DB2497F419007B7E1B /* NavigationItemWithFooter.swift in Sources */,
 				710ABB1F2475115500948792 /* UITableViewController+Enum.swift in Sources */,
 				51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */,
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
