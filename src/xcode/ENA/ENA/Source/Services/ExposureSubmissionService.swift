@@ -41,10 +41,6 @@ protocol ExposureSubmissionService {
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
 		completion completeWith: @escaping RegistrationHandler
 	)
-	func getTANForExposureSubmit(
-		hasConsent: Bool,
-		completion completeWith: @escaping TANHandler
-	)
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
 	func hasRegistrationToken() -> Bool
 	func deleteTest()
@@ -143,7 +139,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	func getTANForExposureSubmit(
+	private func getTANForExposureSubmit(
 		hasConsent: Bool,
 		completion completeWith: @escaping TANHandler
 	) {
