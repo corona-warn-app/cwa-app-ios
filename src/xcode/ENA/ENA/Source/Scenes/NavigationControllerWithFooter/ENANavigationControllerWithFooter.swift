@@ -20,10 +20,10 @@
 import Foundation
 import UIKit
 
-class NavigationControllerWithFooterView: UINavigationController {
-	private var navigationItemObserver: NavigationItemWithFooter.Observer?
+class ENANavigationControllerWithFooter: UINavigationController {
+	private var navigationItemObserver: ENANavigationFooterItem.Observer?
 
-	private(set) var footerView: ENAButtonFooterView! { didSet { footerView.delegate = self } }
+	private(set) var footerView: ENANavigationFooterView! { didSet { footerView.delegate = self } }
 
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
@@ -33,12 +33,12 @@ class NavigationControllerWithFooterView: UINavigationController {
 
 	private(set) var isFooterViewHidden: Bool = true
 
-	private var topViewControllerWithFooterChild: NavigationControllerWithFooterViewChild? { topViewController as? NavigationControllerWithFooterViewChild }
+	private var topViewControllerWithFooterChild: ENANavigationControllerWithFooterChild? { topViewController as? ENANavigationControllerWithFooterChild }
 
 	override func loadView() {
 		super.loadView()
 
-		footerView = ENAButtonFooterView(effect: UIBlurEffect(style: .regular))
+		footerView = ENANavigationFooterView(effect: UIBlurEffect(style: .regular))
 		view.addSubview(footerView)
 
 		if let topViewController = topViewController {
@@ -67,7 +67,7 @@ class NavigationControllerWithFooterView: UINavigationController {
 	}
 }
 
-private extension NavigationControllerWithFooterView {
+private extension ENANavigationControllerWithFooter {
 	func observeKeyboard() {
 		keyboardWillShowObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { [weak self] notification in
 			guard let self = self else { return }
@@ -106,7 +106,7 @@ private extension NavigationControllerWithFooterView {
 	}
 }
 
-extension NavigationControllerWithFooterView {
+extension ENANavigationControllerWithFooter {
 	private func updateAdditionalSafeAreaInsets() {
 		let baseInset = view.safeAreaInsets.bottom - additionalSafeAreaInsets.bottom
 		var bottomInset: CGFloat = 0
@@ -132,7 +132,7 @@ extension NavigationControllerWithFooterView {
 	}
 }
 
-extension NavigationControllerWithFooterView {
+extension ENANavigationControllerWithFooter {
 	override func pushViewController(_ viewController: UIViewController, animated: Bool) {
 		super.pushViewController(viewController, animated: animated)
 		transitionFooterView(to: viewController)
@@ -150,7 +150,7 @@ extension NavigationControllerWithFooterView {
 	}
 }
 
-extension NavigationControllerWithFooterView {
+extension ENANavigationControllerWithFooter {
 	func setFooterViewHidden(_ isHidden: Bool, animated: Bool) {
 		if animated {
 			UIView.animate(withDuration: CATransaction.animationDuration()) {
@@ -200,7 +200,7 @@ extension NavigationControllerWithFooterView {
 		self.updateAdditionalSafeAreaInsets()
 		self.layoutFooterView()
 
-		navigationItemObserver = (viewController.navigationItem as? NavigationItemWithFooter)?.observe(observer: navigationItemObserver)
+		navigationItemObserver = (viewController.navigationItem as? ENANavigationFooterItem)?.observe(observer: navigationItemObserver)
 	}
 
 	private func transitionFooterView(to viewController: UIViewController?) {
@@ -224,7 +224,7 @@ extension NavigationControllerWithFooterView {
 	}
 }
 
-extension NavigationControllerWithFooterView {
+extension ENANavigationControllerWithFooter {
 	private func navigationItemObserver(_ navigationItem: UINavigationItem) {
 		guard nil != view.window && nil == transitionCoordinator  else { return }
 
@@ -236,7 +236,7 @@ extension NavigationControllerWithFooterView {
 	}
 }
 
-extension NavigationControllerWithFooterView: ENAButtonFooterViewDelegate {
+extension ENANavigationControllerWithFooter: ENAButtonFooterViewDelegate {
 	func footerView(_ footerView: UIView, didTapPrimaryButton button: UIButton) {
 		guard nil == transitionCoordinator else { return }
 		topViewControllerWithFooterChild?.navigationController(self, didTapPrimaryButton: button)
@@ -249,7 +249,7 @@ extension NavigationControllerWithFooterView: ENAButtonFooterViewDelegate {
 	}
 }
 
-private extension NavigationItemWithFooter {
+private extension ENANavigationFooterItem {
 	struct Observer {
 		fileprivate var observers: [NSKeyValueObservation]
 

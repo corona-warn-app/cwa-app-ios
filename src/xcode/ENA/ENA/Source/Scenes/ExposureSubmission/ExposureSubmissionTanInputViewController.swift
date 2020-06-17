@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTanInputViewController: UIViewController, NavigationControllerWithFooterViewChild, SpinnerInjectable {
+class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationControllerWithFooterChild, SpinnerInjectable {
 	// MARK: - Attributes.
 
 	@IBOutlet var scrollView: UIScrollView!
@@ -39,8 +39,8 @@ class ExposureSubmissionTanInputViewController: UIViewController, NavigationCont
 
 		navigationItem.title = AppStrings.ExposureSubmissionTanEntry.title
 
-		navigationItemWithFooter?.primaryButtonTitle = AppStrings.ExposureSubmissionTanEntry.submit
-		navigationItemWithFooter?.isPrimaryButtonEnabled = false
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionTanEntry.submit
+		navigationFooterItem?.isPrimaryButtonEnabled = false
 
 		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
 		errorView.alpha = 0
@@ -97,7 +97,7 @@ extension ExposureSubmissionTanInputViewController {
 // MARK: - ExposureSubmissionNavigationControllerChild methods.
 
 extension ExposureSubmissionTanInputViewController {
-	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		submitTan()
 	}
 
@@ -107,7 +107,7 @@ extension ExposureSubmissionTanInputViewController {
 
 		startSpinner()
 
-		navigationItemWithFooter?.isPrimaryButtonEnabled = false
+		navigationFooterItem?.isPrimaryButtonEnabled = false
 
 		// If teleTAN is correct, show Alert Controller
 		// to check permissions to request TAN.
@@ -121,7 +121,7 @@ extension ExposureSubmissionTanInputViewController {
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
 
-				self.navigationItemWithFooter?.isPrimaryButtonEnabled = false
+				self.navigationFooterItem?.isPrimaryButtonEnabled = false
 
 			case .success:
 				self.performSegue(
@@ -143,7 +143,7 @@ extension ExposureSubmissionTanInputViewController: ENATanInputDelegate {
 	}
 
 	func enaTanInput(_ tanInput: ENATanInput, didChange text: String, isValid: Bool, isChecksumValid: Bool, isBlocked: Bool) {
-		navigationItemWithFooter?.isPrimaryButtonEnabled = (isValid && isChecksumValid)
+		navigationFooterItem?.isPrimaryButtonEnabled = (isValid && isChecksumValid)
 
 		UIView.animate(withDuration: CATransaction.animationDuration()) {
 			if isValid && !isChecksumValid {

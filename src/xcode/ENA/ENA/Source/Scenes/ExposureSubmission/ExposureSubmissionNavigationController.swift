@@ -22,7 +22,7 @@ protocol ExposureSubmissionNavigationControllerDelegate: AnyObject {
 	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController)
 }
 
-final class ExposureSubmissionNavigationController: NavigationControllerWithFooterView, UINavigationControllerDelegate {
+final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate {
 	private var testResult: TestResult?
 
 	private(set) var exposureSubmissionService: ExposureSubmissionService?

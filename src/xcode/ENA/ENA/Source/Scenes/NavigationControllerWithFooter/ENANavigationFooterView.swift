@@ -30,7 +30,7 @@ extension ENAButtonFooterViewDelegate {
 	func footerView(_ footerView: UIView, didTapSecondaryButton button: UIButton) {}
 }
 
-class ENAButtonFooterView: ENAFooterView {
+class ENANavigationFooterView: ENAFooterView {
 	weak var delegate: ENAButtonFooterViewDelegate?
 
 	var bottomInset: CGFloat {
@@ -89,7 +89,7 @@ class ENAButtonFooterView: ENAFooterView {
 	}
 }
 
-extension ENAButtonFooterView {
+extension ENANavigationFooterView {
 	override func didMoveToSuperview() {
 		super.didMoveToSuperview()
 
@@ -106,7 +106,7 @@ extension ENAButtonFooterView {
 	}
 }
 
-extension ENAButtonFooterView {
+extension ENANavigationFooterView {
 	private func setup() {
 		setupPrimaryButton()
 		setupSecondaryButton()
@@ -143,7 +143,7 @@ extension ENAButtonFooterView {
 	}
 }
 
-extension ENAButtonFooterView {
+extension ENANavigationFooterView {
 	override func sizeThatFits(_ size: CGSize) -> CGSize {
 		var height: CGFloat = contentView.layoutMargins.top + contentView.layoutMargins.bottom
 
@@ -165,9 +165,9 @@ extension ENAButtonFooterView {
 	}
 }
 
-extension ENAButtonFooterView {
+extension ENANavigationFooterView {
 	func apply(navigationItem: UINavigationItem?) {
-		if let navigationItem = navigationItem as? NavigationItemWithFooter {
+		if let navigationItem = navigationItem as? ENANavigationFooterItem {
 			isPrimaryButtonHidden = navigationItem.isPrimaryButtonHidden
 			isPrimaryButtonEnabled = navigationItem.isPrimaryButtonEnabled
 			if !isPrimaryButtonHidden { primaryButtonTitle = navigationItem.primaryButtonTitle }
@@ -188,7 +188,7 @@ extension ENAButtonFooterView {
 	}
 }
 
-private extension ENAButtonFooterView {
+private extension ENANavigationFooterView {
 	@objc
 	private func didTapPrimaryButton() {
 		delegate?.footerView(self, didTapPrimaryButton: primaryButton)

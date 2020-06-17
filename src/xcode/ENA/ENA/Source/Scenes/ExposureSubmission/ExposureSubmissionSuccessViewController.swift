@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-final class ExposureSubmissionSuccessViewController: DynamicTableViewController, NavigationControllerWithFooterViewChild {
+final class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	// MARK: UIViewController
 
 	override func viewDidLoad() {
@@ -26,7 +26,7 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 		setupTitle()
 		setUpView()
 
-		navigationItemWithFooter?.primaryButtonTitle = AppStrings.ExposureSubmissionSuccess.button
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSuccess.button
 	}
 
 	private func setUpView() {
@@ -43,7 +43,7 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController,
 }
 
 extension ExposureSubmissionSuccessViewController {
-	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		dismiss(animated: true, completion: nil)
 	}
 }

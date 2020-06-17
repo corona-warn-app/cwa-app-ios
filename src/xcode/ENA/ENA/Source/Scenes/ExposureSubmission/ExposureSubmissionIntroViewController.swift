@@ -17,7 +17,7 @@
 
 import UIKit
 
-class ExposureSubmissionIntroViewController: DynamicTableViewController, NavigationControllerWithFooterViewChild, SpinnerInjectable {
+class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, SpinnerInjectable {
 
 	// MARK: - Attributes.
 	
@@ -29,7 +29,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Navigat
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		navigationItemWithFooter?.primaryButtonTitle = AppStrings.ExposureSubmission.continueText
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmission.continueText
 
 		setupView()
 		setupBackButton()
@@ -66,7 +66,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Navigat
 
 	// MARK: - ExposureSubmissionNavigationControllerChild methods.
 
-	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		let service = (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
 			ExposureSubmissionOverviewViewController(coder: coder, service: service)

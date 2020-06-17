@@ -21,7 +21,7 @@ import Foundation
 import UIKit
 
 @IBDesignable
-class NavigationItemWithFooter: UINavigationItem {
+class ENANavigationFooterItem: UINavigationItem {
 	@IBInspectable dynamic var isPrimaryButtonHidden: Bool = false
 	@IBInspectable dynamic var isPrimaryButtonEnabled: Bool = true
 	@IBInspectable dynamic var primaryButtonTitle: String = ""
