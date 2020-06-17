@@ -152,6 +152,10 @@ extension NavigationControllerWithFooterView {
 		}
 
 		additionalSafeAreaInsets = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
+
+		if nil != view.window && nil == transitionCoordinator {
+			topViewController?.view.layoutIfNeeded()
+		}
 	}
 }
 
