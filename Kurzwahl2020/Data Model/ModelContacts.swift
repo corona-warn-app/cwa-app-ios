@@ -110,11 +110,10 @@ class contactReader: ObservableObject{
                 
                 // If phoneNo a Mobilenumber, then put into Array:
                 for phoneNo in contact.phoneNumbers {
-                    if (phoneNo.label == CNLabelPhoneNumberMobile ||
-                        phoneNo.label == CNLabelPhoneNumberiPhone ||
-                        phoneNo.label == CNLabelPhoneNumberMain ||
-                        phoneNo.label == "_$!<Home>!$_" ||
-                        phoneNo.label == "_$!<Work>!$_" ) {
+                    if (phoneNo.label != CNLabelPhoneNumberHomeFax &&
+                        phoneNo.label != CNLabelPhoneNumberWorkFax &&
+                        phoneNo.label != CNLabelPhoneNumberOtherFax
+                        ) {
                         // https://stackoverflow.com/questions/58578341/how-to-implement-localization-in-swift-ui
                         self.myContacts.append(myContact(name: name,
                                                          phoneNumber: phoneNo.value.stringValue,
