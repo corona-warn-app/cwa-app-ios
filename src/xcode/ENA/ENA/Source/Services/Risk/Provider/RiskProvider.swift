@@ -59,41 +59,20 @@ final class RiskProvider {
 private extension RiskConsumer {
 	func provideRisk(_ risk: Risk) {
 		targetQueue.async { [weak self] in
-			self?.didCalculateRisk?(risk)
-		}
-	}
-	
-	func provideNextExposureDetectionDate(_ date: Date) {
-		targetQueue.async { [weak self] in
-			self?.nextExposureDetectionDateDidChange?(date)
+			self?.didCalculateRisk(risk)
 		}
 	}
 }
 
 extension RiskProvider: RiskProviding {
 	func observeRisk(_ consumer: RiskConsumer) {
-		queue.async {
-			self._observeRisk(consumer)
+		queue.sync { [weak self] in
+			self?.consumers.add(consumer)
 		}
 	}
 
-	func nextExposureDetectionDate() -> Date {
-		configuration.nextExposureDetectionDate(
-			lastExposureDetectionDate: store.summary?.date
-		)
-	}
-
-	private func _observeRisk(_ consumer: RiskConsumer) {
-		consumers.add(consumer)
-		consumer.nextExposureDetectionDateDidChange?(self.nextExposureDetectionDate())
-		consumer.manualExposureDetectionStateDidChange?(manualExposureDetectionState)
-	}
-
-	var manualExposureDetectionState: ManualExposureDetectionState {
-		let shouldPerformDetection = configuration.shouldPerformExposureDetection(
-			lastExposureDetectionDate: store.summary?.date
-			) && configuration.detectionMode == .manual
-		return shouldPerformDetection ? .possible : .waiting
+	var manualExposureDetectionState: ManualExposureDetectionState? {
+		configuration.manualExposureDetectionState(lastExposureDetectionDate: store.summary?.date)
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.

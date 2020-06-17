@@ -28,7 +28,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		numberRiskContacts: Int,
 		daysSinceLastExposure: Int?,
 		lastUpdateDate: Date?,
-		manualExposureDetectionState: ManualExposureDetectionState,
+		manualExposureDetectionState: ManualExposureDetectionState?,
 		detectionMode: DetectionMode,
 		validityDuration: Int
 	) {
