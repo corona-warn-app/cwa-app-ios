@@ -76,6 +76,10 @@ extension AppDelegate: ExposureSummaryProvider {
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
+	//TODO: Handle it
+	var store: Store = SecureStore(subDirectory: "database")
+	
 	private let consumer = RiskConsumer()
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
 
@@ -115,33 +119,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
 
-	let store: Store = {
-		do {
-			let fileManager = FileManager.default
-			let directoryURL = try fileManager
-				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-				.appendingPathComponent("database")
-
-			if !fileManager.fileExists(atPath: directoryURL.path) {
-				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
-				guard let key = KeychainHelper.generateDatabaseKey() else {
-					fatalError("Creating the Database failed")
-				}
-				return SecureStore(at: directoryURL, key: key)
-			} else {
-				guard let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") else {
-					guard let key = KeychainHelper.generateDatabaseKey() else {
-						fatalError("Creating the Database failed")
-					}
-					return SecureStore(at: directoryURL, key: key)
-				}
-				let key = String(decoding: keyData, as: UTF8.self)
-				return SecureStore(at: directoryURL, key: key)
-			}
-		} catch {
-			fatalError("Creating the Database failed")
-		}
-	}()
 
 	lazy var client: HTTPClient = {
 		var configuration: HTTPClient.Configuration
