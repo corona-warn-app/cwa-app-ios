@@ -800,7 +800,7 @@
 "Reset_ConfirmDialog_Confirm" = "Reset";
 
 /* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq";
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
 
 /* Local Notifications */
 "local_notifications_ignore" = "Ignore";
@@ -885,4 +885,3 @@
 "ENATanInput_InvalidCharacter" = "Invalid Character\n\n%@";
 
 "ENATanInput_CharacterIndex" = "Character %1$u of %2$u";
-

@@ -96,3 +96,5 @@ iOSInjectionProject/
 src/xcode/fastlane/screenshots
 src/xcode/screenshots
 /src/xcode/.idea
+/src/xcode/vendor
+/src/xcode/.bundle

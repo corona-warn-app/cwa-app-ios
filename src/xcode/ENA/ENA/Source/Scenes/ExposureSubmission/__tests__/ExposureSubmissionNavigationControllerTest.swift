@@ -20,14 +20,14 @@
 import XCTest
 @testable import ENA
 
-class ExposureSubmissionNavigationControllerTest: XCTestCase {
+final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 
 	private func createVC() -> ExposureSubmissionNavigationController {
 		return AppStoryboard.exposureSubmission.initiateInitial { coder in
 			ExposureSubmissionNavigationController(
 				coder: coder,
 				exposureSubmissionService: MockExposureSubmissionService(),
-				homeViewController: nil,
+				submissionDelegate: nil,
 				testResult: nil
 			)
 		}
@@ -84,8 +84,6 @@ class ExposureSubmissionNavigationControllerTest: XCTestCase {
 	}
 
 	func testExposureSubmissionService() {
-		let vc = createVC()
-		XCTAssertNotNil(vc.getExposureSubmissionService())
+		XCTAssertNotNil(createVC().exposureSubmissionService)
 	}
-
 }

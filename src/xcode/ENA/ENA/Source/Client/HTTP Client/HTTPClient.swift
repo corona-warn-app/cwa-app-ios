@@ -23,18 +23,23 @@ final class HTTPClient: Client {
 	// MARK: Creating
 	init(
 		configuration: Configuration,
+		packageVerifier: @escaping SAPDownloadedPackage.Verification = SAPDownloadedPackage.Verifier().verify,
 		session: URLSession = .coronaWarnSession()
 	) {
 		self.session = session
 		self.configuration = configuration
+		self.packageVerifier = packageVerifier
 	}
 
 	// MARK: Properties
 	let configuration: Configuration
 	private let session: URLSession
+	private let packageVerifier: SAPDownloadedPackage.Verification
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
-		session.GET(configuration.configurationURL) { result in
+		session.GET(configuration.configurationURL) { [weak self] result in
+			guard let self = self else { return }
+
 			switch result {
 			case let .success(response):
 				guard let data = response.body else {
@@ -53,7 +58,7 @@ final class HTTPClient: Client {
 				}
 
 				// Configuration File Signature must be checked by the application since it is not verified by the operating system
-				guard package.verifySignature() else {
+				guard self.packageVerifier(package) else {
 					logError(message: "Failed to verify app config signature")
 					completion(nil)
 					return

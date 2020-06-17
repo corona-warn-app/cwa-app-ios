@@ -43,7 +43,7 @@ final class SettingsViewController: UITableViewController {
 	let notificationsSegue = "showNotifications"
 	let resetSegue = "showReset"
 
-	let settingsViewModel = SettingsViewModel.model
+	let settingsViewModel = SettingsViewModel()
 	var enState: ENStateHandler.State
 
 
