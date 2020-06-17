@@ -21,7 +21,7 @@ import FMDB
 import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
-	var client: Client { get }
+	var client: HTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
 	var riskProvider: RiskProvider { get }
@@ -143,8 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}()
 
-	lazy var client: Client = {
-
+	lazy var client: HTTPClient = {
 		var configuration: HTTPClient.Configuration
 		#if !RELEASE
 		let store = self.store
@@ -216,6 +215,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
+
+		let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
+		let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
+		riskProvider.configuration.detectionMode = detectionMode
 
 		riskProvider.requestRisk(userInitiated: false) { risk in
 			// present a notification if the risk score has increased

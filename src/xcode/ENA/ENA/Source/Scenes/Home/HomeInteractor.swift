@@ -216,6 +216,8 @@ extension HomeInteractor {
 				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
+			inactiveConfigurator?.activeAction = inActiveCellActionHandler
+			
 		case .low:
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
 				numberRiskContacts: state.numberRiskContacts,
