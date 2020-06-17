@@ -149,7 +149,6 @@
 		71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CAB9D1248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift */; };
 		71CAB9D4248AB33500F516A5 /* DynamicTypeSymbolImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CAB9D3248AB33500F516A5 /* DynamicTypeSymbolImageView.swift */; };
 		71D3C19A2494EFAC00DBABA8 /* NavigationControllerWithFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D3C1992494EFAC00DBABA8 /* NavigationControllerWithFooter.swift */; };
-		71EF33D72497A77D007B7E1B /* NavigationControllerWithFooterView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71EF33D62497A77D007B7E1B /* NavigationControllerWithFooterView.storyboard */; };
 		71EF33D92497F3E8007B7E1B /* NavigationControllerWithFooterChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF33D82497F3E8007B7E1B /* NavigationControllerWithFooterChild.swift */; };
 		71EF33DB2497F419007B7E1B /* NavigationItemWithFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF33DA2497F419007B7E1B /* NavigationItemWithFooter.swift */; };
 		71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */; };
@@ -539,7 +538,6 @@
 		71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabel.swift; sourceTree = "<group>"; };
 		71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicType.swift"; sourceTree = "<group>"; };
 		71D3C1992494EFAC00DBABA8 /* NavigationControllerWithFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerWithFooter.swift; sourceTree = "<group>"; };
-		71EF33D62497A77D007B7E1B /* NavigationControllerWithFooterView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NavigationControllerWithFooterView.storyboard; sourceTree = "<group>"; };
 		71EF33D82497F3E8007B7E1B /* NavigationControllerWithFooterChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerWithFooterChild.swift; sourceTree = "<group>"; };
 		71EF33DA2497F419007B7E1B /* NavigationItemWithFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItemWithFooter.swift; sourceTree = "<group>"; };
 		71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ena-colors.xcassets"; sourceTree = "<group>"; };
@@ -1152,7 +1150,6 @@
 				71EF33D82497F3E8007B7E1B /* NavigationControllerWithFooterChild.swift */,
 				71EF33DA2497F419007B7E1B /* NavigationItemWithFooter.swift */,
 				71C0BEDC2498DD07009A17A0 /* ENAButtonFooterView.swift */,
-				71EF33D62497A77D007B7E1B /* NavigationControllerWithFooterView.storyboard */,
 			);
 			path = NavigationControllerWithFooter;
 			sourceTree = "<group>";
@@ -2105,7 +2102,6 @@
 				A189E461248C35BF001D0996 /* PublicKeys.plist in Resources */,
 				71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */,
 				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
-				71EF33D72497A77D007B7E1B /* NavigationControllerWithFooterView.storyboard in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,

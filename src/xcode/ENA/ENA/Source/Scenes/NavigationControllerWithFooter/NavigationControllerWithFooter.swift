@@ -20,36 +20,6 @@
 import Foundation
 import UIKit
 
-
-class TextController: UIViewController, UITextFieldDelegate, NavigationControllerWithFooterViewChild {
-	@IBOutlet weak var textfield: UITextField!
-
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-
-		DispatchQueue.main.async {
-			self.textfield.delegate = self
-			self.textfield.becomeFirstResponder()
-		}
-	}
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		self.textfield.resignFirstResponder()
-	}
-
-	func textFieldShouldReturn(_ textField: UITextField) -> Bool { textField.resignFirstResponder() }
-
-	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) {
-		print("fsadfsjadhfk")
-	}
-
-	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapSecondaryButton button: UIButton) {
-		print("fsadfsjadhfk******")
-	}
-}
-
-
 class NavigationControllerWithFooterView: UINavigationController {
 	private var navigationItemObserver: NavigationItemWithFooter.Observer?
 
@@ -257,7 +227,7 @@ extension NavigationControllerWithFooterView {
 extension NavigationControllerWithFooterView {
 	private func navigationItemObserver(_ navigationItem: UINavigationItem) {
 		guard nil != view.window && nil == transitionCoordinator  else { return }
-		
+
 		UIView.animate(withDuration: CATransaction.animationDuration()) {
 			self.footerView.apply(navigationItem: self.isFooterViewHidden ? nil : navigationItem)
 			self.updateAdditionalSafeAreaInsets()
