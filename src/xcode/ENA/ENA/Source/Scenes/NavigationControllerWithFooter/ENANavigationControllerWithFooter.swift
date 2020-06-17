@@ -226,9 +226,13 @@ extension ENANavigationControllerWithFooter {
 
 extension ENANavigationControllerWithFooter {
 	private func navigationItemObserver(_ navigationItem: UINavigationItem) {
-		guard nil != view.window && nil == transitionCoordinator  else { return }
-
-		UIView.animate(withDuration: CATransaction.animationDuration()) {
+		if nil != view.window && nil == transitionCoordinator {
+			UIView.animate(withDuration: CATransaction.animationDuration()) {
+				self.footerView.apply(navigationItem: self.isFooterViewHidden ? nil : navigationItem)
+				self.updateAdditionalSafeAreaInsets()
+				self.layoutFooterView()
+			}
+		} else {
 			self.footerView.apply(navigationItem: self.isFooterViewHidden ? nil : navigationItem)
 			self.updateAdditionalSafeAreaInsets()
 			self.layoutFooterView()
