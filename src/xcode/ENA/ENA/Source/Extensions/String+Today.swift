@@ -17,9 +17,11 @@
 
 import Foundation
 
+private var todayFormatter = DateFormatter.packagesDateFormatter
+
 extension String {
 	static func formattedToday() -> String {
-		DateFormatter.packagesDateFormatter.string(from: Date())
+		todayFormatter.string(from: Date())
 	}
 }
 
