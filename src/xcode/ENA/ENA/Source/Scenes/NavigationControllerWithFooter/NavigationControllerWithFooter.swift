@@ -66,11 +66,10 @@ class NavigationControllerWithFooterView: UINavigationController {
 	override func loadView() {
 		super.loadView()
 
-		if let topViewController = topViewController {
-			footerView = ENAButtonFooterView(effect: UIBlurEffect(style: .regular))
-			view.addSubview(footerView)
+		footerView = ENAButtonFooterView(effect: UIBlurEffect(style: .regular))
+		view.addSubview(footerView)
 
-			isFooterViewHidden = topViewController.hidesBottomBarWhenPushed
+		if let topViewController = topViewController {
 			updateFooterView(for: topViewController)
 		}
 	}
@@ -237,6 +236,10 @@ extension NavigationControllerWithFooterView {
 				self.updateFooterView(for: fromViewController)
 			}
 		})
+
+		if nil == transitionCoordinator, let viewController = viewController {
+			self.updateFooterView(for: viewController)
+		}
 	}
 }
 
