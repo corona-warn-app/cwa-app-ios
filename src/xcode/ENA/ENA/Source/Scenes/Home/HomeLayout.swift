@@ -22,6 +22,7 @@ protocol HomeLayoutDelegate: AnyObject {
 }
 
 extension UICollectionViewLayout {
+	static let topInset: CGFloat = 32.0
 	static let bottomBackgroundOverflowHeight: CGFloat = UIScreen.main.bounds.height
 
 	class func homeLayout(delegate: HomeLayoutDelegate) -> UICollectionViewLayout {
@@ -58,7 +59,7 @@ extension UICollectionViewLayout {
 		let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
 		let section = NSCollectionLayoutSection(group: group)
-		section.contentInsets = .init(top: 32.0, leading: 16.0, bottom: 32.0, trailing: 16.0)
+		section.contentInsets = .init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0)
 		section.interGroupSpacing = 32.0
 
 		return section

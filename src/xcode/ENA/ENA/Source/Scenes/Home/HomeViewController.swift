@@ -91,6 +91,7 @@ final class HomeViewController: UIViewController {
 		super.viewWillAppear(animated)
 		homeInteractor.updateTestResults()
 		homeInteractor.requestRisk(userInitiated: false)
+		updateBackgroundColor()
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -148,7 +149,7 @@ final class HomeViewController: UIViewController {
 				ExposureSubmissionNavigationController(
 					coder: coder,
 					exposureSubmissionService: self.homeInteractor.exposureSubmissionService,
-					homeViewController: self,
+					submissionDelegate: self,
 					testResult: result
 				)
 			},
@@ -288,7 +289,7 @@ final class HomeViewController: UIViewController {
 		collectionView.collectionViewLayout = .homeLayout(delegate: self)
 		collectionView.delegate = self
 
-		collectionView.contentInset = UIEdgeInsets(top: 0.0, left: 0, bottom: -UICollectionViewLayout.bottomBackgroundOverflowHeight, right: 0)
+		collectionView.contentInset = UIEdgeInsets(top: UICollectionViewLayout.topInset, left: 0, bottom: -UICollectionViewLayout.bottomBackgroundOverflowHeight, right: 0)
 
 		collectionView.isAccessibilityElement = false
 		collectionView.shouldGroupAccessibilityChildren = true
@@ -360,6 +361,14 @@ extension HomeViewController: HomeLayoutDelegate {
 }
 
 extension HomeViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+		let cell = collectionView.cellForItem(at: indexPath)
+		switch cell {
+		case is RiskThankYouCollectionViewCell: return false
+		default: return true
+		}
+	}
+
 	func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
 		collectionView.cellForItem(at: indexPath)?.highlight()
 	}
@@ -467,6 +476,12 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 	}
 }
 
+extension HomeViewController: ExposureSubmissionNavigationControllerDelegate {
+	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
+		updateTestResultState()
+	}
+}
+
 private extension UICollectionViewCell {
 	func highlight() {
 		let highlightView = UIView(frame: bounds)
@@ -485,3 +500,4 @@ private extension UICollectionViewCell {
 		subviews.filter(({ $0.tag == 100_000 })).forEach({ $0.removeFromSuperview() })
 	}
 }
+

@@ -18,36 +18,42 @@
 import FMDB
 import Foundation
 
+
 /// Basic SQLite Key/Value store with Keys as `TEXT` and Values stored as `BLOB`
-class SQLiteKeyValueStore {
+final class SQLiteKeyValueStore {
 	private let databaseQueue: FMDatabaseQueue?
 	private let directoryURL: URL
+
 
 	/// - parameter url: URL on disk where the FMDB should be initialized
 	/// If any part of the init fails no Datbase will be created
 	/// If the Database can't be accessed with the key the currentFile will be reset
-	init(with url: URL, key: String) {
-		self.directoryURL = url
+
+	init(with directoryURL: URL, key: String) {
+		self.directoryURL = directoryURL
 		var fileURL = directoryURL
-		if directoryURL.absoluteString.compare(":memory:") != .orderedSame {
+		if directoryURL.absoluteString != ":memory:" {
 			fileURL = fileURL.appendingPathComponent("secureStore.sqlite")
 		}
 		databaseQueue = FMDatabaseQueue(url: fileURL)
-		initDatabase(key, retry: false)
+		_ = initDatabase(with: key)
 	}
 
+
 	deinit {
-		databaseQueue?.close()
+		closeDbIfNeeded()
 	}
 
 	/// Generates or Loads Database Key
 	/// Creates the K/V Datsbase if it is not already there
-	private func initDatabase(_ key: String, retry: Bool) {
-		var noDatabaseAccess = false
+	private func initDatabase(with key: String) -> Bool {
+
+		var isSuccess = true
 		databaseQueue?.inDatabase { db in
 			let dbhandle = OpaquePointer(db.sqliteHandle)
 			guard sqlite3_key(dbhandle, key, Int32(key.count)) == SQLITE_OK else {
 				logError(message: "Unable to set Key")
+				isSuccess = false
 				return
 			}
 			let sqlStmt = """
@@ -58,15 +64,10 @@ class SQLiteKeyValueStore {
 				value BLOB
 			);
 			"""
-			if !db.executeStatements(sqlStmt) {
-				noDatabaseAccess = true
-			}
-		}
-		if noDatabaseAccess && !retry {
-			resetDatabase()
-			initDatabase(key, retry: true)
-		}
 
+			isSuccess = db.executeStatements(sqlStmt)
+		}
+		return isSuccess
 	}
 
 	///Open Database Connection, set the Key and check if the Key/Value Table already exits.
@@ -78,6 +79,16 @@ class SQLiteKeyValueStore {
 			}
 		}
 	}
+
+
+	private func closeDbIfNeeded() {
+		databaseQueue?.inDatabase { db in
+			if db.isOpen {
+				db.close()
+			}
+		}
+	}
+
 
 	/// - returns: `Data` if the key/value pair in the DB, `nil` otherwise
 	private func getData(for key: String) -> Data? {
@@ -135,27 +146,18 @@ class SQLiteKeyValueStore {
 	}
 
 	/// Removes all key/value pairs from the Store
+	/// - Parameters If the key is nil, the action is same as the `resetDatabase`, otherwise
 	func clearAll(key: String?) {
-		openDbIfNeeded()
-		databaseQueue?.inDatabase { db in
-			let sqlStmt = """
-			PRAGMA journal_mode=OFF;
-			DROP TABLE kv;
-			VACUUM;
-			"""
-			db.executeStatements(sqlStmt)
-		}
 		resetDatabase()
 		guard let key = key else {
 			return
 		}
-
-		initDatabase(key, retry: false)
+		_ = initDatabase(with: key)
 	}
 
 	/// Removes the Database File to clear everything
 	private func resetDatabase() {
-		databaseQueue?.close()
+		closeDbIfNeeded()
 		do {
 			try FileManager.default.removeItem(at: directoryURL)
 			try FileManager.default.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
