@@ -17,7 +17,7 @@
 
 import UIKit
 
-class ExposureSubmissionHotlineViewController: DynamicTableViewController {
+class ExposureSubmissionHotlineViewController: DynamicTableViewController, NavigationControllerWithFooterViewChild {
 	// MARK: - View lifecycle methods.
 
 	override func viewDidLoad() {
@@ -32,7 +32,6 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		hideSecondaryButton()
 	}
 
 	// MARK: - View setup.
@@ -45,9 +44,9 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController {
 	}
 
 	private func setupButtons() {
-		setButtonTitle(to: AppStrings.ExposureSubmissionHotline.callButtonTitle)
-		setSecondaryButtonTitle(to: AppStrings.ExposureSubmissionHotline.tanInputButtonTitle)
-		showSecondaryButton()
+		navigationItemWithFooter?.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.callButtonTitle
+		navigationItemWithFooter?.secondaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
+		navigationItemWithFooter?.isSecondaryButtonHidden = false
 	}
 
 	// MARK: - Data setup.
@@ -127,12 +126,12 @@ extension ExposureSubmissionHotlineViewController {
 
 // MARK: - ExposureSubmissionNavigationControllerChild Extension.
 
-extension ExposureSubmissionHotlineViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension ExposureSubmissionHotlineViewController {
+	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) {
 		callHotline()
 	}
 
-	func didTapSecondButton() {
+	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapSecondaryButton button: UIButton) {
 		performSegue(withIdentifier: Segue.tanInput, sender: self)
 	}
 

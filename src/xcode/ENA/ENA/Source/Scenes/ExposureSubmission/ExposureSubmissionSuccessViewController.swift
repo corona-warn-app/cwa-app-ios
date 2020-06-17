@@ -18,14 +18,15 @@
 import Foundation
 import UIKit
 
-final class ExposureSubmissionSuccessViewController: DynamicTableViewController {
+final class ExposureSubmissionSuccessViewController: DynamicTableViewController, NavigationControllerWithFooterViewChild {
 	// MARK: UIViewController
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTitle()
 		setUpView()
-		setButtonTitle(to: AppStrings.ExposureSubmissionSuccess.button)
+
+		navigationItemWithFooter?.primaryButtonTitle = AppStrings.ExposureSubmissionSuccess.button
 	}
 
 	private func setUpView() {
@@ -41,8 +42,8 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController 
 	}
 }
 
-extension ExposureSubmissionSuccessViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension ExposureSubmissionSuccessViewController {
+	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) {
 		dismiss(animated: true, completion: nil)
 	}
 }

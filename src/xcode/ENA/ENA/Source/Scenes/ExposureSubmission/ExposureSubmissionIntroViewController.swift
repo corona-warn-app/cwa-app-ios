@@ -17,7 +17,7 @@
 
 import UIKit
 
-class ExposureSubmissionIntroViewController: DynamicTableViewController, ExposureSubmissionNavigationControllerChild, SpinnerInjectable {
+class ExposureSubmissionIntroViewController: DynamicTableViewController, NavigationControllerWithFooterViewChild, SpinnerInjectable {
 
 	// MARK: - Attributes.
 	
@@ -26,23 +26,23 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 	// MARK: - View lifecycle methods.
 
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		navigationItemWithFooter?.primaryButtonTitle = AppStrings.ExposureSubmission.continueText
+
+		setupView()
+		setupBackButton()
+	}
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		// The button is shared among multiple controllers,
-		// make sure to reset it whenever the view appears.
-		setButtonTitle(to: AppStrings.ExposureSubmission.continueText)
-		button?.accessibilityIdentifier = "AppStrings.ExposureSubmission.continueText"
+		footerView?.primaryButton?.accessibilityIdentifier = "AppStrings.ExposureSubmission.continueText"
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		setupView()
-		setupBackButton()
 	}
 
 	// MARK: - Setup helpers.
@@ -66,12 +66,12 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 
 	// MARK: - ExposureSubmissionNavigationControllerChild methods.
 
-	func didTapButton() {
+	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) {
 		let service = (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
 			ExposureSubmissionOverviewViewController(coder: coder, service: service)
 		}
-		navigationController?.pushViewController(vc, animated: true)
+		navigationController.pushViewController(vc, animated: true)
 	}
 }
 

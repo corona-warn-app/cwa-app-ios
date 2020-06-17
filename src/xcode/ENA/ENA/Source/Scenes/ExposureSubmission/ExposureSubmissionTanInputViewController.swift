@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjectable {
+class ExposureSubmissionTanInputViewController: UIViewController, NavigationControllerWithFooterViewChild, SpinnerInjectable {
 	// MARK: - Attributes.
 
 	@IBOutlet var scrollView: UIScrollView!
@@ -26,7 +26,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var errorLabel: UILabel!
 	@IBOutlet var errorView: UIView!
-	@IBOutlet var tanInput: ENATanInput!
+	@IBOutlet var tanInput: ENATanInput! { didSet { tanInput.delegate = self } }
 
 	var initialTan: String?
 	var exposureSubmissionService: ExposureSubmissionService?
@@ -34,16 +34,41 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 
 	// MARK: - View lifecycle methods.
 
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		navigationItem.title = AppStrings.ExposureSubmissionTanEntry.title
+
+		navigationItemWithFooter?.primaryButtonTitle = AppStrings.ExposureSubmissionTanEntry.submit
+		navigationItemWithFooter?.isPrimaryButtonEnabled = false
+
+		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
+		errorView.alpha = 0
+	}
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		setupView()
-		setupBackButton()
 		fetchService()
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+		if let tan = initialTan {
+			tanInput.clear()
+			tanInput.insertText(tan)
+			initialTan = nil
+		} else {
+			DispatchQueue.main.async {
+				self.tanInput.becomeFirstResponder()
+			}
+		}
+	}
+
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewDidDisappear(animated)
-		setButtonEnabled(enabled: true)
+		super.viewWillDisappear(animated)
+
+		tanInput.resignFirstResponder()
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,23 +81,6 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 
 	// MARK: - Helper methods.
 
-	private func setupView() {
-		tanInput.delegate = self
-		if let tan = initialTan {
-			tanInput.clear()
-			tanInput.insertText(tan)
-			initialTan = nil
-		} else {
-			tanInput.becomeFirstResponder()
-		}
-		hideSecondaryButton()
-		setButtonTitle(to: AppStrings.ExposureSubmissionTanEntry.submit)
-		title = AppStrings.ExposureSubmissionTanEntry.title
-		setButtonEnabled(enabled: tanInput.isValid)
-		descriptionLabel.text = AppStrings.ExposureSubmissionTanEntry.description
-		errorView.alpha = 0
-	}
-
 	private func fetchService() {
 		exposureSubmissionService = exposureSubmissionService ??
 			(navigationController as? ExposureSubmissionNavigationController)?
@@ -82,15 +90,14 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 
 extension ExposureSubmissionTanInputViewController {
 	enum Segue: String, SegueIdentifiers {
-		case sentSegue
 		case labResultsSegue
 	}
 }
 
 // MARK: - ExposureSubmissionNavigationControllerChild methods.
 
-extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension ExposureSubmissionTanInputViewController {
+	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) {
 		submitTan()
 	}
 
@@ -99,27 +106,30 @@ extension ExposureSubmissionTanInputViewController: ExposureSubmissionNavigation
 		guard tanInput.isValid && tanInput.isChecksumValid else { return false }
 
 		startSpinner()
-		setButtonEnabled(enabled: false)
+
+		navigationItemWithFooter?.isPrimaryButtonEnabled = false
+
 		// If teleTAN is correct, show Alert Controller
 		// to check permissions to request TAN.
 		let teleTan = tanInput.text
 
-		exposureSubmissionService?
-			.getRegistrationToken(forKey: .teleTan(teleTan), completion: { result in
-				self.stopSpinner()
-				self.setButtonEnabled(enabled: true)
-				switch result {
-				case let .failure(error):
-					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-					self.present(alert, animated: true, completion: nil)
-					return
-				case .success:
-					self.performSegue(
-						withIdentifier: Segue.labResultsSegue,
-						sender: self
-					)
-				}
-        })
+		exposureSubmissionService?.getRegistrationToken(forKey: .teleTan(teleTan)) { result in
+			self.stopSpinner()
+
+			switch result {
+			case let .failure(error):
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				self.present(alert, animated: true, completion: nil)
+
+				self.navigationItemWithFooter?.isPrimaryButtonEnabled = false
+
+			case .success:
+				self.performSegue(
+					withIdentifier: Segue.labResultsSegue,
+					sender: self
+				)
+			}
+		}
 
 		return true
 	}
@@ -133,7 +143,8 @@ extension ExposureSubmissionTanInputViewController: ENATanInputDelegate {
 	}
 
 	func enaTanInput(_ tanInput: ENATanInput, didChange text: String, isValid: Bool, isChecksumValid: Bool, isBlocked: Bool) {
-		setButtonEnabled(enabled: (isValid && isChecksumValid))
+		navigationItemWithFooter?.isPrimaryButtonEnabled = (isValid && isChecksumValid)
+
 		UIView.animate(withDuration: CATransaction.animationDuration()) {
 			if isValid && !isChecksumValid {
 				self.errorLabel.text = AppStrings.ExposureSubmissionTanEntry.invalidError

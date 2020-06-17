@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, SpinnerInjectable {
+class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, NavigationControllerWithFooterViewChild, SpinnerInjectable {
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
@@ -36,7 +36,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
-		setButtonTitle(to: AppStrings.ExposureSubmissionWarnOthers.continueButton)
+		navigationItemWithFooter?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnOthers.continueButton
 		setupTableView()
 	}
 
@@ -75,8 +75,8 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 
 // MARK: ExposureSubmissionNavigationControllerChild methods.
 
-extension ExposureSubmissionWarnOthersViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension ExposureSubmissionWarnOthersViewController {
+	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) {
 		startSubmitProcess()
 	}
 }
