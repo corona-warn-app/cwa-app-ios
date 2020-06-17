@@ -21,7 +21,9 @@ import UIKit
 @IBDesignable
 class DynamicTypeLabel: UILabel {
 	@IBInspectable var dynamicTypeSize: CGFloat = 0 { didSet { applyDynamicFont() } }
-	@IBInspectable var dynamicTypeWeight: String = "" { didSet { applyDynamicFont() } }
+	@IBInspectable var dynamicTypeWeight: String = "" {
+		didSet { applyDynamicFont() }
+	}
 
 	private var rawFont: UIFont!
 
