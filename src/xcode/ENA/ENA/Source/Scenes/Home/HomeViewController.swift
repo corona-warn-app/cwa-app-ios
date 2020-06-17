@@ -48,6 +48,7 @@ final class HomeViewController: UIViewController {
 		addToUpdatingSetIfNeeded(homeInteractor)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
