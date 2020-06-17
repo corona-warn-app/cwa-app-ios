@@ -117,11 +117,13 @@ extension ENATanInput {
 }
 
 extension ENATanInput {
+	@discardableResult
 	override func becomeFirstResponder() -> Bool {
 		delegate?.enaTanInputDidBeginEditing?(self)
 		return super.becomeFirstResponder()
 	}
 
+	@discardableResult
 	override func resignFirstResponder() -> Bool {
 		delegate?.enaTanInputDidEndEditing?(self)
 		return super.resignFirstResponder()
