@@ -61,6 +61,7 @@ class ENAUITests: XCTestCase {
 		XCTAssertTrue(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 		if snapshotsActive { snapshot("AppStore_0002") }
 
+		
 		//// ScreenShot_0003: Risk view (low risk)
 		XCTAssertTrue(app.buttons["RiskLevelCollectionViewCell.topContainer"].waitForExistence(timeout: 5.0))
 		app.buttons["RiskLevelCollectionViewCell.topContainer"].tap()
