@@ -93,7 +93,7 @@ class ExposureSubmissionTanInputViewController: UIViewController, SpinnerInjecta
 	private func fetchService() {
 		exposureSubmissionService = exposureSubmissionService ??
 			(navigationController as? ExposureSubmissionNavigationController)?
-			.getExposureSubmissionService()
+			.exposureSubmissionService
 	}
 }
 
