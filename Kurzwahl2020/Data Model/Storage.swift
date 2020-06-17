@@ -180,7 +180,7 @@ class storage {
             #elseif CBC24
             result = ["fontsize" : "22",
                       "ColorPalette0" : c_palette02,
-                      "ColorPalette1" : c_palette03
+                      "ColorPalette1" : c_palette01
             ]
             #endif
         }
