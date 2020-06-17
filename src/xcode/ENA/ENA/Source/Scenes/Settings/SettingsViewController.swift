@@ -134,21 +134,14 @@ final class SettingsViewController: UITableViewController {
 	private func notificationSettings() {
 		let currentCenter = UNUserNotificationCenter.current()
 
-		currentCenter.getNotificationSettings { [weak self] (settings) in
+		currentCenter.getNotificationSettings { [weak self] settings in
 			guard let self = self else { return }
 
-			switch settings.authorizationStatus {
-			case .notDetermined, .denied:
-				self.settingsViewModel.notifications.setState(state: false)
-			case .authorized, .provisional:
-				if self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification {
-					self.settingsViewModel.notifications.setState(state: true)
-				} else {
-					self.settingsViewModel.notifications.setState(state: false)
-				}
-			@unknown default:
-				logError(message: "Unknown state of UserNotificationSettings")
-				self.settingsViewModel.notifications.setState(state: false)
+			if (settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional)
+			&& (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
+				  self.settingsViewModel.notifications.setState(state: true)
+			} else {
+				  self.settingsViewModel.notifications.setState(state: false)
 			}
 
 			DispatchQueue.main.async {

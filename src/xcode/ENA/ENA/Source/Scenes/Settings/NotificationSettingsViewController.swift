@@ -93,6 +93,12 @@ class NotificationSettingsViewController: UIViewController {
 		center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
 			guard let self = self else { return }
 
+			if let error = error {
+				log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
+				self.viewModel = NotificationSettingsViewModel.notificationsOff()
+				return
+			}
+
 			self.viewModel = granted ? NotificationSettingsViewModel.notificationsOn(self.store) : NotificationSettingsViewModel.notificationsOff()
 
 			DispatchQueue.main.async {
