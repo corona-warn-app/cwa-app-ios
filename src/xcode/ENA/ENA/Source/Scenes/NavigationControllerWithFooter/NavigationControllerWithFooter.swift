@@ -217,7 +217,7 @@ extension NavigationControllerWithFooterView {
 	}
 
 	private func updateFooterView(for viewController: UIViewController) {
-		self.footerView.apply(navigationItem: viewController.navigationItem)
+		self.footerView.apply(navigationItem: viewController.hidesBottomBarWhenPushed ? nil : viewController.navigationItem)
 		self.setFooterViewHidden(viewController.hidesBottomBarWhenPushed)
 		self.updateAdditionalSafeAreaInsets()
 		self.layoutFooterView()
