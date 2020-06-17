@@ -15,6 +15,9 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Mta-hx-xbk">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="RdZ-nr-vdh" kind="relationship" relationship="rootViewController" id="PX3-46-Qsl"/>
                     </connections>
@@ -66,12 +69,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hSa-Me-cGr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1112" y="808"/>
+            <point key="canvasLocation" x="1028" y="806"/>
         </scene>
-        <!--View Controller-->
+        <!--Text Controller-->
         <scene sceneID="h7c-av-Afp">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="dYa-dg-Nk2" sceneMemberID="viewController">
+                <viewController id="dYa-dg-Nk2" customClass="TextController" customModule="ENA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="h80-QV-0SU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,15 +86,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mpy-ZA-ew3">
+                                <rect key="frame" x="31" y="208" width="332" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="dTh-Bw-IPx"/>
                     </view>
-                    <navigationItem key="navigationItem" id="0dg-LY-dNK"/>
+                    <navigationItem key="navigationItem" id="0dg-LY-dNK" customClass="NavigationItemWithFooter" customModule="ENA" customModuleProvider="target">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="primaryButtonTitle" value="Next"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSecondaryButtonHidden" value="NO"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="secondaryButtonTitle" value="Super"/>
+                        </userDefinedRuntimeAttributes>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textfield" destination="mpy-ZA-ew3" id="a4i-JY-d2p"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iRB-Z7-z4B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2157" y="798"/>
+            <point key="canvasLocation" x="2156.521739130435" y="797.54464285714278"/>
         </scene>
         <!--Title-->
         <scene sceneID="6bm-go-0di">
