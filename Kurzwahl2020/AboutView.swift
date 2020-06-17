@@ -24,15 +24,23 @@ struct AboutView: View {
                                     self.navigation.unwind()
             })
             VStack{
+                #if CBC36
                 Text("Call by Color 36")
                     .font(.title)
+                #elseif CBC24
+                Text("Call by Color 24")
+                .font(.title)
+                #endif
                 //Text("Version 1.0")
                 Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)")
                     .fontWeight(.regular)
                 Text("Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)")
                     .fontWeight(.light)
-                
+                #if CBC36
                 Image("Icon1024").resizable().frame(width: 120, height: 120).cornerRadius(20)
+                #elseif CBC24
+                Image("IconCBC24 1024").resizable().frame(width: 120, height: 120).cornerRadius(20)
+                #endif
                     Spacer()
                         .fixedSize()
                         .frame(width: 150, height: 150)
