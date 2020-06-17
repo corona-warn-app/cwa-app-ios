@@ -22,9 +22,11 @@ import UIKit
 
 @IBDesignable
 class NavigationItemWithFooter: UINavigationItem {
-	@IBInspectable var isPrimaryButtonHidden: Bool = false
-	@IBInspectable var primaryButtonTitle: String = ""
+	@IBInspectable dynamic var isPrimaryButtonHidden: Bool = false
+	@IBInspectable dynamic var isPrimaryButtonEnabled: Bool = true
+	@IBInspectable dynamic var primaryButtonTitle: String = ""
 
-	@IBInspectable var isSecondaryButtonHidden: Bool = true
-	@IBInspectable var secondaryButtonTitle: String = ""
+	@IBInspectable dynamic var isSecondaryButtonHidden: Bool = true
+	@IBInspectable dynamic var isSecondaryButtonEnabled: Bool = true
+	@IBInspectable dynamic var secondaryButtonTitle: String = ""
 }
