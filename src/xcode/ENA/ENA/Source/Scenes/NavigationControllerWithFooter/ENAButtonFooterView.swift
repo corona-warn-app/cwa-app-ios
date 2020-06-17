@@ -21,17 +21,17 @@ import Foundation
 import UIKit
 
 protocol ENAButtonFooterViewDelegate: class {
-	func footerView(_ footerView: UIView, didTapPrimaryButton: UIButton)
-	func footerView(_ footerView: UIView, didTapSecondaryButton: UIButton)
+	func footerView(_ footerView: UIView, didTapPrimaryButton button: UIButton)
+	func footerView(_ footerView: UIView, didTapSecondaryButton button: UIButton)
 }
 
 extension ENAButtonFooterViewDelegate {
-	func footerView(_ footerView: UIView, didTapPrimaryButton: UIButton) {}
-	func footerView(_ footerView: UIView, didTapSecondaryButton: UIButton) {}
+	func footerView(_ footerView: UIView, didTapPrimaryButton button: UIButton) {}
+	func footerView(_ footerView: UIView, didTapSecondaryButton button: UIButton) {}
 }
 
 class ENAButtonFooterView: ENAFooterView {
-	private weak var delegate: ENAButtonFooterViewDelegate?
+	weak var delegate: ENAButtonFooterViewDelegate?
 
 	var bottomInset: CGFloat {
 		get { footerViewTopConstraint.constant }

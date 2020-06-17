@@ -21,7 +21,7 @@ import Foundation
 import UIKit
 
 
-class TextController: UIViewController, UITextFieldDelegate {
+class TextController: UIViewController, UITextFieldDelegate, NavigationControllerWithFooterViewChild {
 	@IBOutlet weak var textfield: UITextField!
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -39,11 +39,19 @@ class TextController: UIViewController, UITextFieldDelegate {
 	}
 
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool { textField.resignFirstResponder() }
+
+	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) {
+		print("fsadfsjadhfk")
+	}
+
+	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapSecondaryButton button: UIButton) {
+		print("fsadfsjadhfk******")
+	}
 }
 
 
 class NavigationControllerWithFooterView: UINavigationController {
-	private var footerView: ENAButtonFooterView!
+	private var footerView: ENAButtonFooterView! { didSet { footerView.delegate = self } }
 
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
@@ -52,6 +60,8 @@ class NavigationControllerWithFooterView: UINavigationController {
 	private var isKeyboardHidden: Bool = true
 
 	private(set) var isFooterViewHidden: Bool = true
+
+	private var topViewControllerWithFooterChild: NavigationControllerWithFooterViewChild? { topViewController as? NavigationControllerWithFooterViewChild }
 
 	override func loadView() {
 		super.loadView()
@@ -227,6 +237,19 @@ extension NavigationControllerWithFooterView {
 				self.updateFooterView(for: fromViewController)
 			}
 		})
+	}
+}
+
+extension NavigationControllerWithFooterView: ENAButtonFooterViewDelegate {
+	func footerView(_ footerView: UIView, didTapPrimaryButton button: UIButton) {
+		guard nil == transitionCoordinator else { return }
+		topViewControllerWithFooterChild?.navigationController(self, didTapPrimaryButton: button)
+
+	}
+
+	func footerView(_ footerView: UIView, didTapSecondaryButton button: UIButton) {
+		guard nil == transitionCoordinator else { return }
+		topViewControllerWithFooterChild?.navigationController(self, didTapSecondaryButton: button)
 	}
 }
 
