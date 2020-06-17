@@ -33,7 +33,11 @@ extension ENAButtonFooterViewDelegate {
 class ENAButtonFooterView: ENAFooterView {
 	private weak var delegate: ENAButtonFooterViewDelegate?
 
-	private var footerViewTopConstraint: NSLayoutConstraint?
+	var bottomInset: CGFloat {
+		get { footerViewTopConstraint.constant }
+		set { footerViewTopConstraint.constant = newValue }
+	}
+	private var footerViewTopConstraint: NSLayoutConstraint!
 
 	private(set) var primaryButton: ENAButton!
 	private(set) var secondaryButton: ENAButton!
@@ -56,11 +60,6 @@ class ENAButtonFooterView: ENAFooterView {
 	var isSecondaryButtonHidden: Bool {
 		get { secondaryButton.alpha < 0.1 }
 		set { secondaryButton.alpha = newValue ? 0 : 1 }
-	}
-
-	var isFooterHidden: Bool {
-		get { footerViewTopConstraint?.isActive ?? true }
-		set { footerViewTopConstraint?.isActive = newValue }
 	}
 
 	private let spacing: CGFloat = 8
@@ -91,17 +90,14 @@ extension ENAButtonFooterView {
 			superview.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
 			superview.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
 
-			let safeAreaBottomConstraint = superview.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.topAnchor)
-			safeAreaBottomConstraint.priority = .defaultHigh
-			safeAreaBottomConstraint.isActive = true
 			footerViewTopConstraint = superview.bottomAnchor.constraint(equalTo: self.topAnchor)
+			footerViewTopConstraint?.isActive = true
 		}
 	}
 }
 
 extension ENAButtonFooterView {
 	private func setup() {
-		contentView.backgroundColor = .green
 		setupPrimaryButton()
 		setupSecondaryButton()
 
