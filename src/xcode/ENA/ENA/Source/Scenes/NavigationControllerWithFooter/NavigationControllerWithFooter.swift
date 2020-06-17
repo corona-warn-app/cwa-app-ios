@@ -51,6 +51,8 @@ class TextController: UIViewController, UITextFieldDelegate, NavigationControlle
 
 
 class NavigationControllerWithFooterView: UINavigationController {
+	private var navigationItemObserver: NavigationItemWithFooter.Observer?
+
 	private(set) var footerView: ENAButtonFooterView! { didSet { footerView.delegate = self } }
 
 	private var keyboardWillShowObserver: NSObjectProtocol?
@@ -84,6 +86,7 @@ class NavigationControllerWithFooterView: UINavigationController {
 		super.viewWillDisappear(animated)
 
 		removeKeyboardObserver()
+		navigationItemObserver?.invalidate()
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -220,10 +223,14 @@ extension NavigationControllerWithFooterView {
 	}
 
 	private func updateFooterView(for viewController: UIViewController) {
+		navigationItemObserver?.invalidate()
+
 		self.footerView.apply(navigationItem: viewController.hidesBottomBarWhenPushed ? nil : viewController.navigationItem)
 		self.setFooterViewHidden(viewController.hidesBottomBarWhenPushed)
 		self.updateAdditionalSafeAreaInsets()
 		self.layoutFooterView()
+
+		navigationItemObserver = (viewController.navigationItem as? NavigationItemWithFooter)?.observe(observer: navigationItemObserver)
 	}
 
 	private func transitionFooterView(to viewController: UIViewController?) {
@@ -247,6 +254,18 @@ extension NavigationControllerWithFooterView {
 	}
 }
 
+extension NavigationControllerWithFooterView {
+	private func navigationItemObserver(_ navigationItem: UINavigationItem) {
+		guard nil != view.window && nil == transitionCoordinator  else { return }
+		
+		UIView.animate(withDuration: CATransaction.animationDuration()) {
+			self.footerView.apply(navigationItem: self.isFooterViewHidden ? nil : navigationItem)
+			self.updateAdditionalSafeAreaInsets()
+			self.layoutFooterView()
+		}
+	}
+}
+
 extension NavigationControllerWithFooterView: ENAButtonFooterViewDelegate {
 	func footerView(_ footerView: UIView, didTapPrimaryButton button: UIButton) {
 		guard nil == transitionCoordinator else { return }
@@ -257,6 +276,29 @@ extension NavigationControllerWithFooterView: ENAButtonFooterViewDelegate {
 	func footerView(_ footerView: UIView, didTapSecondaryButton button: UIButton) {
 		guard nil == transitionCoordinator else { return }
 		topViewControllerWithFooterChild?.navigationController(self, didTapSecondaryButton: button)
+	}
+}
+
+private extension NavigationItemWithFooter {
+	struct Observer {
+		fileprivate var observers: [NSKeyValueObservation]
+
+		mutating func invalidate() {
+			observers.forEach({ $0.invalidate() })
+			observers = []
+		}
+	}
+
+	func observe(observer: @escaping (UINavigationItem) -> Void) -> Observer {
+		let observers = [
+			observe(\.isPrimaryButtonHidden, changeHandler: { _, _ in observer(self) }),
+			observe(\.isPrimaryButtonEnabled, changeHandler: { _, _ in observer(self) }),
+			observe(\.primaryButtonTitle, changeHandler: { _, _ in observer(self) }),
+			observe(\.isSecondaryButtonHidden, changeHandler: { _, _ in observer(self) }),
+			observe(\.isSecondaryButtonEnabled, changeHandler: { _, _ in observer(self) }),
+			observe(\.secondaryButtonTitle, changeHandler: { _, _ in observer(self) })
+		]
+		return Observer(observers: observers)
 	}
 }
 
