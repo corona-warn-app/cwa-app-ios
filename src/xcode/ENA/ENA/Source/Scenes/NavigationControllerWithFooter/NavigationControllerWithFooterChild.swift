@@ -21,13 +21,17 @@ import Foundation
 import UIKit
 
 protocol NavigationControllerWithFooterViewChild: UIViewController {
+	var footerView: ENAButtonFooterView? { get }
+
 	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton)
 	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapSecondaryButton button: UIButton)
 }
 
 extension NavigationControllerWithFooterViewChild {
-	private var navigationControllerWithFooterView: NavigationControllerWithFooterView? { navigationController as? NavigationControllerWithFooterView }
-	private var navigationItemWithFooter: NavigationItemWithFooter? { navigationItem as? NavigationItemWithFooter }
+	var navigationControllerWithFooterView: NavigationControllerWithFooterView? { navigationController as? NavigationControllerWithFooterView }
+	var navigationItemWithFooter: NavigationItemWithFooter? { navigationItem as? NavigationItemWithFooter }
+
+	var footerView: ENAButtonFooterView? { navigationControllerWithFooterView?.footerView }
 
 	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapPrimaryButton button: UIButton) { }
 	func navigationController(_ navigationController: NavigationControllerWithFooterView, didTapSecondaryButton button: UIButton) { }

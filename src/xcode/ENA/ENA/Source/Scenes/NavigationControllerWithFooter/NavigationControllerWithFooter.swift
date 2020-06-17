@@ -51,7 +51,7 @@ class TextController: UIViewController, UITextFieldDelegate, NavigationControlle
 
 
 class NavigationControllerWithFooterView: UINavigationController {
-	private var footerView: ENAButtonFooterView! { didSet { footerView.delegate = self } }
+	private(set) var footerView: ENAButtonFooterView! { didSet { footerView.delegate = self } }
 
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
