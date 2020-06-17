@@ -117,4 +117,8 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		}
 	}
 
+	override func accessibilityActivate() -> Bool {
+		toggle(self)
+		return true
+	}
 }
