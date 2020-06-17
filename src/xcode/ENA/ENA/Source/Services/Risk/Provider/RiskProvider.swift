@@ -66,8 +66,8 @@ private extension RiskConsumer {
 
 extension RiskProvider: RiskProviding {
 	func observeRisk(_ consumer: RiskConsumer) {
-		queue.sync { [weak self] in
-			self?.consumers.add(consumer)
+		queue.sync {
+			self.consumers.add(consumer)
 		}
 	}
 
