@@ -61,6 +61,9 @@ class NotificationSettingsViewController: UIViewController {
 			object: UIApplication.shared
 		)
 
+		// Setup view to prevent unrendered content behind the UserNotification alert
+		setupView()
+
 		notificationSettings()
 	}
 
@@ -87,12 +90,10 @@ class NotificationSettingsViewController: UIViewController {
 	private func notificationSettings() {
 		let center = UNUserNotificationCenter.current()
 
-		center.getNotificationSettings { [weak self] settings in
+		center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
 			guard let self = self else { return }
 
-			let authorized = (settings.authorizationStatus == .authorized) || (settings.authorizationStatus == .provisional)
-
-			self.viewModel = authorized ? NotificationSettingsViewModel.notificationsOn(self.store) : NotificationSettingsViewModel.notificationsOff()
+			self.viewModel = granted ? NotificationSettingsViewModel.notificationsOn(self.store) : NotificationSettingsViewModel.notificationsOff()
 
 			DispatchQueue.main.async {
 				self.setupView()
