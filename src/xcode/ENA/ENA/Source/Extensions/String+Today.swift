@@ -17,16 +17,14 @@
 
 import Foundation
 
-private var todayFormatter = DateFormatter.packagesDateFormatter
-
 extension String {
 	static func formattedToday() -> String {
-		todayFormatter.string(from: Date())
+		DateFormatter.packagesDateFormatter.string(from: Date())
 	}
 }
 
 extension DateFormatter {
-	static var packagesDateFormatter: DateFormatter {
+	static var packagesDateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
 		formatter.dateFormat = "yyyy-MM-dd"
 		formatter.timeZone = TimeZone(abbreviation: "UTC")
@@ -34,5 +32,5 @@ extension DateFormatter {
 		formatter.calendar = Calendar(identifier: .gregorian)
 
 		return formatter
-	}
+	}()
 }

@@ -43,7 +43,7 @@ final class RiskTests: XCTestCase {
 	}
 
 	func testGetNumberOfDaysActiveTracing_FourteenDaysExact() {
-		let details = mockDetails(hours: 336)
+		let details = mockDetails(hours: 24 * 14)
 		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 14)
 	}
 }
