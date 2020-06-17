@@ -213,6 +213,8 @@
 		A3E5E71A247D4FFB00237116 /* ExposureSubmissionViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */; };
 		A3E5E71E247E6F7A00237116 /* SpinnerInjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E5E71D247E6F7A00237116 /* SpinnerInjectable.swift */; };
 		A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FF84EB247BFAF00053E947 /* Hasher.swift */; };
+		B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10F9B89249961B500C418F4 /* DynamicTypeLabelTests.swift */; };
+		B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */; };
 		B10FD5ED246EAADC00E9D7F2 /* AppInformationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */; };
 		B10FD5F1246EAB1000E9D7F2 /* AppInformationViewController+DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CC3E9C246D5D8000217F2C /* AppInformationViewController+DynamicTableViewModel.swift */; };
 		B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10FD5F3246EAC1700E9D7F2 /* AppleFilesWriter.swift */; };
@@ -605,6 +607,7 @@
 		A3E5E71D247E6F7A00237116 /* SpinnerInjectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerInjectable.swift; sourceTree = "<group>"; };
 		A3FF84EB247BFAF00053E947 /* Hasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hasher.swift; sourceTree = "<group>"; };
 		B102BDC22460410600CD55A2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B10F9B89249961B500C418F4 /* DynamicTypeLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabelTests.swift; sourceTree = "<group>"; };
 		B10FD5F3246EAC1700E9D7F2 /* AppleFilesWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleFilesWriter.swift; sourceTree = "<group>"; };
 		B111EE2B2465D9F7001AEBB4 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		B1125459246F2C6500AB5036 /* ENTemporaryExposureKey+Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ENTemporaryExposureKey+Convert.swift"; sourceTree = "<group>"; };
@@ -632,6 +635,7 @@
 		B161782924805784006E435A /* DeltaCalculationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaCalculationResult.swift; sourceTree = "<group>"; };
 		B161782C248062CE006E435A /* DeltaCalculationResultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaCalculationResultTests.swift; sourceTree = "<group>"; };
 		B163D10F2499068D001A322C /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
+		B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicTypeTests.swift"; sourceTree = "<group>"; };
 		B1741B3D24619179006275D9 /* DMQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeViewController.swift; sourceTree = "<group>"; };
 		B1741B402461A511006275D9 /* DMQRCodeScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMQRCodeScanViewController.swift; sourceTree = "<group>"; };
 		B1741B422461C105006275D9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -1118,6 +1122,7 @@
 			children = (
 				71176E2D24891C02004B0C9F /* ENAColorTests.swift */,
 				B1C7EE4524938EB700F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandlingTests.swift */,
+				B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -1209,6 +1214,7 @@
 		8595BF5D246032C40056EA27 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B10F9B88249961B500C418F4 /* __tests__ */,
 				EE22DB83247FB43A001B0A71 /* ENSetting */,
 				51B5B41A246E059700DC5D3E /* Common */,
 				853D987824694A1E00490DBA /* BaseElements */,
@@ -1427,6 +1433,14 @@
 				B102BDC22460410600CD55A2 /* README.md */,
 			);
 			path = Backend;
+			sourceTree = "<group>";
+		};
+		B10F9B88249961B500C418F4 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				B10F9B89249961B500C418F4 /* DynamicTypeLabelTests.swift */,
+			);
+			path = __tests__;
 			sourceTree = "<group>";
 		};
 		B111EDEC2465B1F4001AEBB4 /* Client */ = {
@@ -2379,11 +2393,13 @@
 				B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */,
 				B1175216248A9F9600C3325C /* ConvertingKeysTests.swift in Sources */,
 				A16714C0248D53F60031B111 /* CoronaWarnURLSessionDelegateTests.swift in Sources */,
+				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
 				A3284255248E493B006B1F09 /* ExposureSubmissionOverviewViewControllerTests.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandlingTests.swift in Sources */,
+				B10F9B8C249961CE00C418F4 /* UIFont+DynamicTypeTests.swift in Sources */,
 				A173665324844F41006BE209 /* SQLiteKeyValueStoreTests.swift in Sources */,
 				A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */,
 				F2DC809424898CE600EDC40A /* DynamicTableViewControllerFooterTests.swift in Sources */,
