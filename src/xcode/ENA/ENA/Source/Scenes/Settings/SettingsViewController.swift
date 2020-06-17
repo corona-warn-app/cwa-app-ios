@@ -138,10 +138,10 @@ final class SettingsViewController: UITableViewController {
 			guard let self = self else { return }
 
 			if (settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional)
-			&& (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
-				  self.settingsViewModel.notifications.setState(state: true)
+				&& (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
+				self.settingsViewModel.notifications.setState(state: true)
 			} else {
-				  self.settingsViewModel.notifications.setState(state: false)
+				self.settingsViewModel.notifications.setState(state: false)
 			}
 
 			DispatchQueue.main.async {
