@@ -65,4 +65,11 @@ extension RiskProvidingConfiguration {
 		let result = next < currentDate
 		return result
 	}
+
+	func manualExposureDetectionState(lastExposureDetectionDate detectionDate: Date?) -> ManualExposureDetectionState? {
+		guard detectionMode != .automatic else {
+			return nil
+		}
+		return shouldPerformExposureDetection(lastExposureDetectionDate: detectionDate) ? .possible : .waiting
+	}
 }

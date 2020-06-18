@@ -68,7 +68,7 @@ final class HTTPClientSubmitTests: XCTestCase {
 			)
 		)
 
-		let expectation = self.expectation(description: "Error")
+		let expectation = self.expectation(description: AppStrings.ExposureSubmission.generalErrorTitle)
 
 		// Act
 		HTTPClient.makeWith(mock: stack).submit(keys: keys, tan: tan) {
