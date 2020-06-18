@@ -22,47 +22,8 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func homeViewControllerUserDidRequestReset(_ controller: HomeViewController)
 }
 
-extension UIImage {
-	class func coronaWarnLogo() -> UIImage {
-		// swiftlint:disable:next force_unwrapping
-		UIImage(named: "Corona-Warn-App")!
-	}
-}
-
-final class LogoBarButtonItem: UIBarButtonItem {
-	override init() {
-		super.init()
-		customView = UIImageView(image: .coronaWarnLogo())
-		isAccessibilityElement = true
-		accessibilityTraits = .none
-		accessibilityLabel = AppStrings.Home.leftBarButtonDescription
-		accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-}
-
-final class InfoBarButtonItem: UIBarButtonItem {
-	init(target: HomeViewController?, action: Selector) {
-		super.init()
-		customView = {
-			let button = UIButton(type: .infoLight)
-			button.addTarget(target, action: action, for: .primaryActionTriggered)
-			return button
-		}()
-	}
-
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-}
-
-extension HomeViewController: RequiresAppDependencies {}
-
 // swiftlint:disable:next type_body_length
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
 	init(
 		delegate: HomeViewControllerDelegate,
@@ -465,7 +426,6 @@ extension HomeViewController: ExposureStateUpdating {
 		reloadData()
 	}
 }
-
 
 extension HomeViewController: NavigationBarOpacityDelegate {
 	var preferredNavigationBarOpacity: CGFloat {
