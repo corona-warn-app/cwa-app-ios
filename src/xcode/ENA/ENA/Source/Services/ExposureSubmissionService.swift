@@ -30,51 +30,6 @@ enum TestResult: Int {
 	case invalid = 3
 }
 
-// TODO: Move to file.
-// TODO: Introduce UITestingParameters enum?
-class ExposureSubmissionServiceFactory { }
-
-#if UITESTING
-
-extension ExposureSubmissionServiceFactory {
-	static func create(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) -> ExposureSubmissionService {
-		let service = MockExposureSubmissionService()
-
-		if ProcessInfo.processInfo.arguments.contains("UI:ExposureSubmission:getRegistrationTokenSuccess") {
-			service.getRegistrationTokenCallback = { _, completeWith in
-				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-					completeWith(.success("dummyRegToken"))
-				}
-			}
-		}
-
-		if ProcessInfo.processInfo.arguments.contains("UI:ExposureSubmission:submitExposureSuccess") {
-			service.submitExposureCallback = { completeWith in
-				DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-					completeWith(nil)
-				}
-			}
-		}
-
-		return service
-	}
-}
-
-#else
-
-extension ExposureSubmissionServiceFactory {
-	static func create(diagnosiskeyRetrieval: DiagnosisKeysRetrieval, client: Client, store: Store) -> ExposureSubmissionService {
-
-		return ENAExposureSubmissionService(
-			diagnosiskeyRetrieval: diagnosiskeyRetrieval,
-			client: client,
-			store: store
-		)
-	}
-}
-
-#endif
-
 protocol ExposureSubmissionService {
 	typealias ExposureSubmissionHandler = (_ error: ExposureSubmissionError?) -> Void
 	typealias RegistrationHandler = (Result<String, ExposureSubmissionError>) -> Void

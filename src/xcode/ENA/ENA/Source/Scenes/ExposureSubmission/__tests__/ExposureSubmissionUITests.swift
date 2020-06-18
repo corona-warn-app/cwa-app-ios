@@ -118,8 +118,9 @@ class ExposureSubmissionUITests: XCTestCase {
 	func test_SubmitTAN() {
 
 		// Setup service mocks.
-		app.launchArguments += ["UI:ExposureSubmission:getRegistrationTokenSuccess"]
-		app.launchArguments += ["UI:ExposureSubmission:submitExposureSuccess"]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.useMock.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.getRegistrationTokenSuccess.rawValue]
+		app.launchArguments += [UITestingParameters.ExposureSubmission.submitExposureSuccess.rawValue]
 		launch()
 
 		// Open Intro screen.
