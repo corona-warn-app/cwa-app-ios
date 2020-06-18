@@ -76,7 +76,7 @@ class ExposureSubmissionUITests: XCTestCase {
 		// Open Intro screen.
 		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		XCTAssert(app.navigationBars["ExposureSubmissionNavigationContoller"].waitForExistence(timeout: .medium))
+		XCTAssert(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
 		// Click next button.
 		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
@@ -99,7 +99,7 @@ class ExposureSubmissionUITests: XCTestCase {
 		// Open Intro screen.
 		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		XCTAssert(app.navigationBars["ExposureSubmissionNavigationContoller"].waitForExistence(timeout: .medium))
+		XCTAssert(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
 		// Click next button.
 		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
