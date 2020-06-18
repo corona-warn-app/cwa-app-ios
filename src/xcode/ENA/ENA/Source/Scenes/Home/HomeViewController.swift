@@ -105,10 +105,10 @@ final class HomeViewController: UIViewController {
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
 		navigationItem.leftBarButtonItem?.accessibilityTraits = .none
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
-		navigationItem.leftBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.leftBarButtonDescription"
+		navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
 		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.rightBarButtonDescription"
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
 	}
 
 	// MARK: Actions

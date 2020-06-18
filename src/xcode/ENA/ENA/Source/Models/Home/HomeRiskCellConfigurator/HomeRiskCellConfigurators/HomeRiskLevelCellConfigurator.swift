@@ -105,10 +105,10 @@ class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 
 		cell.topContainer.accessibilityLabel = cell.titleLabel.text ?? ""
 
-		cell.topContainer.accessibilityIdentifier = "RiskLevelCollectionViewCell.topContainer"
-		cell.bodyLabel.accessibilityIdentifier = "RiskLevelCollectionViewCell.bodyLabel"
-		cell.detectionIntervalLabel.accessibilityIdentifier = "RiskLevelCollectionViewCell.detectionIntervalLabel"
-		cell.updateButton.accessibilityIdentifier = "RiskLevelCollectionViewCell.updateButton"
+		cell.topContainer.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.topContainer
+		cell.bodyLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.bodyLabel
+		cell.detectionIntervalLabel.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.detectionIntervalLabel
+		cell.updateButton.accessibilityIdentifier = AccessibilityIdentifiers.RiskCollectionViewCell.updateButton
 
 	}
 }

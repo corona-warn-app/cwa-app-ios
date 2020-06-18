@@ -52,7 +52,7 @@ extension SettingsViewModel.Main {
 		description: AppStrings.Settings.tracingLabel,
 		stateActive: AppStrings.Settings.trackingStatusActive,
 		stateInactive: AppStrings.Settings.trackingStatusInactive,
-		accessibilityIdentifier: "AppStrings.Settings.tracingLabel"
+		accessibilityIdentifier: AccessibilityIdentifiers.Settings.tracingLabel
 	)
 
 	static let notifications = SettingsViewModel.Main(
@@ -60,7 +60,7 @@ extension SettingsViewModel.Main {
 		description: AppStrings.Settings.notificationLabel,
 		stateActive: AppStrings.Settings.notificationStatusActive,
 		stateInactive: AppStrings.Settings.notificationStatusInactive,
-		accessibilityIdentifier: "AppStrings.Settings.notificationLabel"
+		accessibilityIdentifier: AccessibilityIdentifiers.Settings.notificationLabel
 	)
 
 	mutating func setState(state newState: Bool) {

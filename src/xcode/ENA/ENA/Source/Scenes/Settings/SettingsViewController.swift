@@ -209,10 +209,10 @@ extension SettingsViewController {
 		switch section {
 		case .tracing:
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
-			cell.accessibilityIdentifier = "AppStrings.Settings.tracingLabel"
+			cell.accessibilityIdentifier = AccessibilityIdentifiers.Settings.tracingLabel
 		case .notifications:
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
-			cell.accessibilityIdentifier = "AppStrings.Settings.notificationLabel"
+			cell.accessibilityIdentifier = AccessibilityIdentifiers.Settings.notificationLabel
 		case .reset:
 			guard let labelCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? LabelTableViewCell else {
 				fatalError("No cell for reuse identifier.")
@@ -221,7 +221,7 @@ extension SettingsViewController {
 			labelCell.titleLabel.text = settingsViewModel.reset
 
 			cell = labelCell
-			cell.accessibilityIdentifier = "AppStrings.Settings.resetLabel"
+			cell.accessibilityIdentifier = AccessibilityIdentifiers.Settings.resetLabel
 		}
 
 		cell.isAccessibilityElement = true
