@@ -140,10 +140,7 @@ final class HomeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-//		configureCollectionView()
 		configureDataSource()
-		updateSections()
 		applySnapshotFromSections()
 		setupAccessibility()
 	}
@@ -323,10 +320,8 @@ final class HomeViewController: UIViewController {
 	}
 
 	// MARK: Configuration
-
 	func reloadData() {
 		guard isViewLoaded else { return }
-		updateSections()
 		collectionView.reloadData()
 	}
 
@@ -336,30 +331,6 @@ final class HomeViewController: UIViewController {
 		sections[indexPath.section].cellConfigurators[indexPath.item].configureAny(cell: cell)
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
-
-//	private func configureCollectionView() {
-//		collectionView.collectionViewLayout = .homeLayout(delegate: self)
-//		collectionView.delegate = self
-//
-//		collectionView.contentInset = UIEdgeInsets(top: UICollectionViewLayout.topInset, left: 0, bottom: -UICollectionViewLayout.bottomBackgroundOverflowHeight, right: 0)
-//
-//		collectionView.isAccessibilityElement = false
-//		collectionView.shouldGroupAccessibilityChildren = true
-//
-//		let cellTypes: [UICollectionViewCell.Type] = [
-//			ActivateCollectionViewCell.self,
-//			RiskLevelCollectionViewCell.self,
-//			InfoCollectionViewCell.self,
-//			HomeTestResultCollectionViewCell.self,
-//			RiskInactiveCollectionViewCell.self,
-//			RiskFindingPositiveCollectionViewCell.self,
-//			RiskThankYouCollectionViewCell.self,
-//			InfoCollectionViewCell.self,
-//			HomeTestResultLoadingCell.self
-//		]
-//
-//		collectionView.register(cellTypes: cellTypes)
-//	}
 
 	private func configureDataSource() {
 		dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
@@ -378,10 +349,6 @@ final class HomeViewController: UIViewController {
 			snapshot.appendItems( section.cellConfigurators.map { $0.identifier })
 		}
 		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
-	}
-
-	func updateSections() {
-//		sections = homeInteractor.sections
 	}
 
 	private func updateBackgroundColor() {
@@ -532,22 +499,9 @@ private extension UICollectionViewCell {
 	}
 }
 
-
-
 extension HomeViewController {
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
-
-	// MARK: Creating
-
-	//	init(
-	//		homeViewController: HomeViewController,
-	//		state: State
-	//	) {
-	//		self.homeViewController = homeViewController
-	//		self.state = state
-	//		sections = initialCellConfigurators()
-	//	}
 
 	// MARK: Properties
 	private var riskLevel: RiskLevel { state.riskLevel }
@@ -555,7 +509,6 @@ extension HomeViewController {
 
 	private func updateActiveCell() {
 		guard let indexPath = indexPathForActiveCell() else { return }
-		updateSections()
 		reloadCell(at: indexPath)
 	}
 
@@ -573,10 +526,8 @@ extension HomeViewController {
 
 	private func reloadRiskCell() {
 		guard let indexPath = indexPathForRiskCell() else { return }
-		updateSections()
 		reloadCell(at: indexPath)
 	}
-
 
 	func updateAndReloadRiskLoading(isRequestRiskRunning: Bool) {
 		self.isRequestRiskRunning = isRequestRiskRunning
@@ -652,7 +603,6 @@ extension HomeViewController {
 
 	func reloadActionSection() {
 		sections[0] = setupActionSectionDefinition()
-		updateSections()
 		applySnapshotFromSections(animatingDifferences: true)
 		reloadData()
 	}
@@ -688,7 +638,7 @@ extension HomeViewController {
 				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
-			inactiveConfigurator?.activeAction = inActiveCellActionHandler
+			inactiveConfigurator?.activeAction = showExposureNotificationSetting
 
 		case .unknownOutdated:
 			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
@@ -696,7 +646,7 @@ extension HomeViewController {
 				previousRiskLevel: store.previousRiskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
-			inactiveConfigurator?.activeAction = inActiveCellActionHandler
+			inactiveConfigurator?.activeAction = showExposureNotificationSetting
 
 		case .low:
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
@@ -916,11 +866,5 @@ extension HomeViewController: ENStateHandlerUpdating {
 			anyObject is ENStateHandlerUpdating {
 			enStateUpdatingSet.add(anyObject)
 		}
-	}
-}
-
-extension HomeViewController {
-	private func inActiveCellActionHandler() {
-		showExposureNotificationSetting()
 	}
 }
