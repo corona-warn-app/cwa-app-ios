@@ -36,7 +36,8 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	override func loadView() {
-		view = HomeCollectionView(delegate: self)
+		collectionView.dataSource = dataSource
+		view = collectionView
 	}
 
 	@available(*, unavailable)
@@ -51,11 +52,14 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Properties
 	private(set) var isRequestRiskRunning = false
 	private var sections: SectionConfiguration = []
-	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
-	private var collectionView: HomeCollectionView {
-		// swiftlint:disable:next force_cast
-		view as! HomeCollectionView
-	}
+	private lazy var dataSource: HomeCollectionViewDataSource = {
+		HomeCollectionViewDataSource(collectionView: collectionView) {
+			self.sections
+		}
+	}()
+	private lazy var collectionView: HomeCollectionView = {
+		HomeCollectionView(delegate: self)
+	}()
 	private var activeConfigurator: HomeActivateCellConfigurator!
 	private var testResultConfigurator = HomeTestResultCellConfigurator()
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
@@ -96,7 +100,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		configureDataSource()
 		applySnapshotFromSections()
 	}
 
@@ -263,29 +266,14 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	func reloadCell(at indexPath: IndexPath) {
-		guard let snapshot = dataSource?.snapshot() else { return }
+		let snapshot = dataSource.snapshot()
 		guard let cell = collectionView.cellForItem(at: indexPath) else { return }
 		sections[indexPath.section].cellConfigurators[indexPath.item].configureAny(cell: cell)
-		dataSource?.apply(snapshot, animatingDifferences: true)
-	}
-
-	private func configureDataSource() {
-		dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in
-			let configurator = self.sections[indexPath.section].cellConfigurators[indexPath.row]
-			let cell = collectionView.dequeueReusableCell(cellType: configurator.viewAnyType, for: indexPath)
-			cell.unhighlight()
-			configurator.configureAny(cell: cell)
-			return cell
-		}
+		dataSource.apply(snapshot, animatingDifferences: true)
 	}
 
 	func applySnapshotFromSections(animatingDifferences: Bool = false) {
-		var snapshot = NSDiffableDataSourceSnapshot<Section, UUID>()
-		for section in sections {
-			snapshot.appendSections([section.section])
-			snapshot.appendItems( section.cellConfigurators.map { $0.identifier })
-		}
-		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
+		dataSource.applySnapshotFromSections(animatingDifferences: animatingDifferences)
 	}
 }
 
@@ -402,7 +390,7 @@ extension HomeViewController: ExposureSubmissionNavigationControllerDelegate {
 	}
 }
 
-private extension UICollectionViewCell {
+extension UICollectionViewCell {
 	func highlight() {
 		let highlightView = UIView(frame: bounds)
 		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

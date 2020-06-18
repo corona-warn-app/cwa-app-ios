@@ -270,6 +270,8 @@
 		B19C9E99249C003C0066B2B7 /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F09665249BE7FF00A1D5C1 /* HomeCollectionView.swift */; };
 		B19C9E9B249C019A0066B2B7 /* UIColor+HomeBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9E9A249C019A0066B2B7 /* UIColor+HomeBackgroundColor.swift */; };
 		B19C9E9D249C01BD0066B2B7 /* UIColor+HomeBackgroundColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9E9C249C01BD0066B2B7 /* UIColor+HomeBackgroundColorTests.swift */; };
+		B19C9E9F249C070F0066B2B7 /* HomeCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9E9E249C070F0066B2B7 /* HomeCollectionViewDataSource.swift */; };
+		B19C9EA1249C148C0066B2B7 /* HomeCollectionViewDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9EA0249C148C0066B2B7 /* HomeCollectionViewDataSourceTests.swift */; };
 		B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FD7102491A07000A9D56A /* String+SemanticVersion.swift */; };
 		B19FD7132491A08500A9D56A /* SAP_SemanticVersion+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FD7122491A08500A9D56A /* SAP_SemanticVersion+Compare.swift */; };
 		B19FD7152491A4A300A9D56A /* SAP_SemanticVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FD7142491A4A300A9D56A /* SAP_SemanticVersionTests.swift */; };
@@ -678,6 +680,8 @@
 		B19C9E97249BFD300066B2B7 /* HomeCollectionViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewTests.swift; sourceTree = "<group>"; };
 		B19C9E9A249C019A0066B2B7 /* UIColor+HomeBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HomeBackgroundColor.swift"; sourceTree = "<group>"; };
 		B19C9E9C249C01BD0066B2B7 /* UIColor+HomeBackgroundColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HomeBackgroundColorTests.swift"; sourceTree = "<group>"; };
+		B19C9E9E249C070F0066B2B7 /* HomeCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		B19C9EA0249C148C0066B2B7 /* HomeCollectionViewDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewDataSourceTests.swift; sourceTree = "<group>"; };
 		B19FD7102491A07000A9D56A /* String+SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SemanticVersion.swift"; sourceTree = "<group>"; };
 		B19FD7122491A08500A9D56A /* SAP_SemanticVersion+Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_SemanticVersion+Compare.swift"; sourceTree = "<group>"; };
 		B19FD7142491A4A300A9D56A /* SAP_SemanticVersionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAP_SemanticVersionTests.swift; sourceTree = "<group>"; };
@@ -1734,6 +1738,7 @@
 				B19C9E8F249BF8050066B2B7 /* UIImage+LogoTests.swift */,
 				B19C9E97249BFD300066B2B7 /* HomeCollectionViewTests.swift */,
 				B19C9E9C249C01BD0066B2B7 /* UIColor+HomeBackgroundColorTests.swift */,
+				B19C9EA0249C148C0066B2B7 /* HomeCollectionViewDataSourceTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -1840,6 +1845,7 @@
 				B19C9E93249BFB580066B2B7 /* LogoBarButtonItem.swift */,
 				B19C9E95249BFB7A0066B2B7 /* InfoBarButtonItem.swift */,
 				51CE1B5424604DD2002CF42A /* HomeLayout.swift */,
+				B19C9E9E249C070F0066B2B7 /* HomeCollectionViewDataSource.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -2382,6 +2388,7 @@
 				B1F82DF224718C7300E2E56A /* DMConfigurationViewController.swift in Sources */,
 				B1CD33412486AA7100B06E9B /* CoronaWarnURLSessionDelegate.swift in Sources */,
 				514C0A0F247AFEC500F235F6 /* HomeRiskTextItemViewConfigurator.swift in Sources */,
+				B19C9E9F249C070F0066B2B7 /* HomeCollectionViewDataSource.swift in Sources */,
 				A3284250248B9269006B1F09 /* HomeTestResultLoadingCellConfigurator.swift in Sources */,
 				713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */,
 				A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */,
@@ -2528,6 +2535,7 @@
 				B15382E5248273F30010F007 /* MockTestStore.swift in Sources */,
 				A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */,
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
+				B19C9EA1249C148C0066B2B7 /* HomeCollectionViewDataSourceTests.swift in Sources */,
 				B19C9E98249BFD300066B2B7 /* HomeCollectionViewTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				2FD881CC2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift in Sources */,
