@@ -18,7 +18,6 @@
 import UIKit
 
 enum AppStoryboard: String {
-	case home = "Home"
 	case onboarding = "Onboarding"
 	case exposureNotificationSetting = "ExposureNotificationSetting"
 	case exposureSubmission = "ExposureSubmission"
