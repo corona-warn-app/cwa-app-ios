@@ -17,16 +17,21 @@
 // under the License.
 //
 
-import XCTest
-@testable import ENA
+import UIKit
 
-//private class HCVDelegate: UICollectionViewDelegate {
-//
-//}
+extension UIColor {
+	private static let defaultColor = UIColor.enaColor(for: .background)
 
-final class HomeCollectionViewTests: XCTestCase {
-    func testExample() throws {
-//		let delegate = HCVDelegate()
-//		let sut = HomeCollectionView(delegate: delegate)
-    }
+	class func homeBackgroundColor() -> UIColor {
+		UIColor { traits in
+			switch traits.userInterfaceStyle {
+			case .light, .unspecified:
+				return .defaultColor
+			case .dark:
+				return .enaColor(for: .separator)
+			@unknown default:
+				return .defaultColor
+			}
+		}
+	}
 }

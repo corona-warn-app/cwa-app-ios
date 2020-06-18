@@ -41,6 +41,7 @@ final class HomeCollectionView: UICollectionView {
 			HomeTestResultLoadingCell.self
 		]
 
+		backgroundColor = .homeBackgroundColor()
 		register(cellTypes: cellTypes)
 	}
 

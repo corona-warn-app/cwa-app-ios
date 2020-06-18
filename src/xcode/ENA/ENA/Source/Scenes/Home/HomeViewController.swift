@@ -98,7 +98,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		super.viewDidLoad()
 		configureDataSource()
 		applySnapshotFromSections()
-		setupAccessibility()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -110,22 +109,9 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		)
 		updateTestResults()
 		requestRisk(userInitiated: false)
-		updateBackgroundColor()
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		updateBackgroundColor()
-	}
-
-	private func setupAccessibility() {
-		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
-		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
 	}
 
 	// MARK: Actions
-
 	@objc
 	private func infoButtonTapped() {
 		present(
@@ -300,14 +286,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 			snapshot.appendItems( section.cellConfigurators.map { $0.identifier })
 		}
 		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
-	}
-
-	private func updateBackgroundColor() {
-		if traitCollection.userInterfaceStyle == .light {
-			collectionView.backgroundColor = .enaColor(for: .background)
-		} else {
-			collectionView.backgroundColor = .enaColor(for: .separator)
-		}
 	}
 }
 

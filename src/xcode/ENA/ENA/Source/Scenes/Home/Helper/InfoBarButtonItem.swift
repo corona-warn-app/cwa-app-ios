@@ -27,6 +27,9 @@ final class InfoBarButtonItem: UIBarButtonItem {
 			button.addTarget(target, action: action, for: .primaryActionTriggered)
 			return button
 		}()
+		isAccessibilityElement = true
+		accessibilityLabel = AppStrings.Home.rightBarButtonDescription
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
 	}
 
 	@available(*, unavailable)
