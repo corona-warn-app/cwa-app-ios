@@ -20,11 +20,10 @@
 import Foundation
 import UIKit
 
-class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
+final class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
+	// MARK: Properties
 	var identifier = UUID()
-
 	var testResult: TestResult?
-
 	var primaryAction: (() -> Void)?
 
 	func configure(cell: HomeTestResultCollectionViewCell) {

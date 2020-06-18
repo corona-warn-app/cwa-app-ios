@@ -4,6 +4,7 @@
 //
 
 import Foundation
+
 extension HomeViewController {
 	struct State {
 		var detectionMode: DetectionMode
@@ -22,11 +23,29 @@ extension HomeViewController {
 			}
 			return Calendar.current.dateComponents([.day], from: date, to: Date()).day
 		}
+	}
+}
 
-		init(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, enState: ENStateHandler.State, risk: Risk?) {
+extension HomeViewController.State {
+	mutating func mergeWith(
+		detectionMode: DetectionMode? = nil,
+		exposureManagerState: ExposureManagerState? = nil,
+		enState: ENStateHandler.State? = nil,
+		risk: Risk?
+	) {
+		if let detectionMode = detectionMode {
 			self.detectionMode = detectionMode
+		}
+
+		if let exposureManagerState = exposureManagerState {
 			self.exposureManagerState = exposureManagerState
+		}
+
+		if let enState = enState {
 			self.enState = enState
+		}
+
+		if let risk = risk {
 			self.risk = risk
 		}
 	}

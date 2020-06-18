@@ -27,13 +27,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 
 	private lazy var navigationController: UINavigationController = AppNavigationController()
 	private var homeController: HomeViewController?
-
+	
 	var state: State = State(exposureManager: .init(), detectionMode: currentDetectionMode, risk: nil) {
 		didSet {
 			homeController?.updateState(
 				detectionMode: state.detectionMode,
 				exposureManagerState: state.exposureManager,
-				risk: state.risk)
+				risk: state.risk
+			)
 		}
 	}
 
