@@ -175,11 +175,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			fatalError("It should not happen.")
 		}
 
-//		detectionMode: self.state.detectionMode,
-//		exposureManagerState: self.state.exposureManager,
-//		initialEnState: enStateHandler.state,
-//		risk: self.state.risk
-//
 		let vc = HomeViewController(
 			delegate: self,
 			state: .init(
