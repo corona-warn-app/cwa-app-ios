@@ -134,6 +134,21 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
+	#if UITESTING
+	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
+		let risk = Risk.mocked
+
+		targetQueue.async {
+			completion?(.mocked)
+		}
+
+		for consumer in consumers.allObjects {
+			_provideRisk(risk, to: consumer)
+		}
+
+		saveRiskIfNeeded(risk)
+	}
+	#else
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
 		let group = DispatchGroup()
 
@@ -191,14 +206,10 @@ extension RiskProvider: RiskProviding {
 			_provideRisk(risk, to: consumer)
 		}
 
-		#if UITESTING
-		completeOnTargetQueue(risk: .mocked)
-		#else
 		completeOnTargetQueue(risk: risk)
-		#endif
-
 		saveRiskIfNeeded(risk)
 	}
+	#endif
 
 	private func _provideRisk(_ risk: Risk, to consumer: RiskConsumer?) {
 		#if UITESTING
