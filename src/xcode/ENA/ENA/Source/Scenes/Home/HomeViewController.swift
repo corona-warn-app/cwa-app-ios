@@ -22,25 +22,65 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func homeViewControllerUserDidRequestReset(_ controller: HomeViewController)
 }
 
+extension UIImage {
+	class func coronaWarnLogo() -> UIImage {
+		// swiftlint:disable:next force_unwrapping
+		UIImage(named: "Corona-Warn-App")!
+	}
+}
+
+final class LogoBarButtonItem: UIBarButtonItem {
+	override init() {
+		super.init()
+		customView = UIImageView(image: .coronaWarnLogo())
+		isAccessibilityElement = true
+		accessibilityTraits = .none
+		accessibilityLabel = AppStrings.Home.leftBarButtonDescription
+		accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
+
+final class InfoBarButtonItem: UIBarButtonItem {
+	init(target: HomeViewController?, action: Selector) {
+		super.init()
+		customView = {
+			let button = UIButton(type: .infoLight)
+			button.addTarget(target, action: action, for: .primaryActionTriggered)
+			return button
+		}()
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
+
 extension HomeViewController: RequiresAppDependencies {}
 
 // swiftlint:disable:next type_body_length
 final class HomeViewController: UIViewController {
 	// MARK: Creating a Home View Controller
-	init?(
-		coder: NSCoder,
+	init(
 		delegate: HomeViewControllerDelegate,
-		detectionMode: DetectionMode,
-		exposureManagerState: ExposureManagerState,
-		initialEnState: ENStateHandler.State,
-		risk: Risk?
+		state: State
 	) {
 		self.delegate = delegate
-		super.init(coder: coder)
+		self.state = state
+		super.init(nibName: nil, bundle: nil)
 		sections = initialCellConfigurators()
 		navigationItem.largeTitleDisplayMode = .never
 	}
 
+	override func loadView() {
+		view = HomeCollectionView(
+			delegate: self,
+			layoutDelegate: self
+		)
+	}
 
 	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
@@ -55,7 +95,10 @@ final class HomeViewController: UIViewController {
 	private(set) var isRequestRiskRunning = false
 	private var sections: SectionConfiguration = []
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
-	private var collectionView: UICollectionView! { view as? UICollectionView }
+	private var collectionView: HomeCollectionView {
+		// swiftlint:disable:next force_cast
+		view as! HomeCollectionView
+	}
 	private var activeConfigurator: HomeActivateCellConfigurator!
 	private var testResultConfigurator = HomeTestResultCellConfigurator()
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
@@ -97,7 +140,8 @@ final class HomeViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		configureCollectionView()
+
+//		configureCollectionView()
 		configureDataSource()
 		updateSections()
 		applySnapshotFromSections()
@@ -106,6 +150,11 @@ final class HomeViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		navigationItem.leftBarButtonItem = LogoBarButtonItem()
+		navigationItem.rightBarButtonItem = InfoBarButtonItem(
+			target: self,
+			action: #selector(infoButtonTapped)
+		)
 		updateTestResults()
 		requestRisk(userInitiated: false)
 		updateBackgroundColor()
@@ -117,11 +166,6 @@ final class HomeViewController: UIViewController {
 	}
 
 	private func setupAccessibility() {
-		navigationItem.leftBarButtonItem?.customView = UIImageView(image: navigationItem.leftBarButtonItem?.image)
-		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
-		navigationItem.leftBarButtonItem?.accessibilityTraits = .none
-		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
-		navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
 		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
 		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
@@ -129,7 +173,8 @@ final class HomeViewController: UIViewController {
 
 	// MARK: Actions
 
-	@IBAction private func infoButtonTapped() {
+	@objc
+	private func infoButtonTapped() {
 		present(
 			AppStoryboard.riskLegend.initiateInitial(),
 			animated: true,
@@ -292,29 +337,29 @@ final class HomeViewController: UIViewController {
 		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 
-	private func configureCollectionView() {
-		collectionView.collectionViewLayout = .homeLayout(delegate: self)
-		collectionView.delegate = self
-
-		collectionView.contentInset = UIEdgeInsets(top: UICollectionViewLayout.topInset, left: 0, bottom: -UICollectionViewLayout.bottomBackgroundOverflowHeight, right: 0)
-
-		collectionView.isAccessibilityElement = false
-		collectionView.shouldGroupAccessibilityChildren = true
-
-		let cellTypes: [UICollectionViewCell.Type] = [
-			ActivateCollectionViewCell.self,
-			RiskLevelCollectionViewCell.self,
-			InfoCollectionViewCell.self,
-			HomeTestResultCollectionViewCell.self,
-			RiskInactiveCollectionViewCell.self,
-			RiskFindingPositiveCollectionViewCell.self,
-			RiskThankYouCollectionViewCell.self,
-			InfoCollectionViewCell.self,
-			HomeTestResultLoadingCell.self
-		]
-
-		collectionView.register(cellTypes: cellTypes)
-	}
+//	private func configureCollectionView() {
+//		collectionView.collectionViewLayout = .homeLayout(delegate: self)
+//		collectionView.delegate = self
+//
+//		collectionView.contentInset = UIEdgeInsets(top: UICollectionViewLayout.topInset, left: 0, bottom: -UICollectionViewLayout.bottomBackgroundOverflowHeight, right: 0)
+//
+//		collectionView.isAccessibilityElement = false
+//		collectionView.shouldGroupAccessibilityChildren = true
+//
+//		let cellTypes: [UICollectionViewCell.Type] = [
+//			ActivateCollectionViewCell.self,
+//			RiskLevelCollectionViewCell.self,
+//			InfoCollectionViewCell.self,
+//			HomeTestResultCollectionViewCell.self,
+//			RiskInactiveCollectionViewCell.self,
+//			RiskFindingPositiveCollectionViewCell.self,
+//			RiskThankYouCollectionViewCell.self,
+//			InfoCollectionViewCell.self,
+//			HomeTestResultLoadingCell.self
+//		]
+//
+//		collectionView.register(cellTypes: cellTypes)
+//	}
 
 	private func configureDataSource() {
 		dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView) { [unowned self] collectionView, indexPath, _ in

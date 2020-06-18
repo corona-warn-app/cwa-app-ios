@@ -175,21 +175,26 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			fatalError("It should not happen.")
 		}
 
-		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
-			HomeViewController(
-				coder: coder,
-				delegate: self,
-				detectionMode: self.state.detectionMode,
-				exposureManagerState: self.state.exposureManager,
-				initialEnState: enStateHandler.state,
-				risk: self.state.risk
+//		detectionMode: self.state.detectionMode,
+//		exposureManagerState: self.state.exposureManager,
+//		initialEnState: enStateHandler.state,
+//		risk: self.state.risk
+//
+		let vc = HomeViewController(
+			delegate: self,
+			state: .init(
+				detectionMode: state.detectionMode,
+				exposureManagerState: state.exposureManager,
+				enState: enStateHandler.state,
+				risk: state.risk
 			)
-		}
+		)
 
 		homeController = vc // strong ref needed
 		UIView.transition(with: navigationController.view, duration: CATransaction.animationDuration(), options: [.transitionCrossDissolve], animations: {
 			self.navigationController.setViewControllers([vc], animated: false)
 		})
+		
 		#if !RELEASE
 		enableDeveloperMenuIfAllowed(in: vc)
 		#endif
