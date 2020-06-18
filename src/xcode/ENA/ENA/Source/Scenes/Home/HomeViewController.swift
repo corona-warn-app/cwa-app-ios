@@ -109,7 +109,7 @@ final class HomeViewController: UIViewController {
 	private weak var notificationSettingsController: ExposureNotificationSettingViewController?
 	private weak var delegate: HomeViewControllerDelegate?
 	lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ENAExposureSubmissionService(
+		ExposureSubmissionServiceFactory.create(
 			diagnosiskeyRetrieval: self.exposureManager,
 			client: self.client,
 			store: self.store
