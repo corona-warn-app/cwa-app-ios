@@ -106,6 +106,9 @@ class ColorManagement : ObservableObject {
     
     
     func getScreenPaletteName(withIndex: Int) -> String {
+        if userScreen.count < withIndex + 1 {
+            return globalDefaultPalettes[withIndex]
+        }
         return userScreen[withIndex].name
     }
     

@@ -57,9 +57,11 @@ var contactDataModel : contactReader = contactReader()
 #if CBC36
 var globalMaxTileNumber : Int = 35 // 3 * 12 - 1
 let globalNoOfScreens : Int = 3
+let globalDefaultPalettes = [ c_darkPink, c_summerTime, c_red ]
 #elseif CBC24
 var globalMaxTileNumber : Int = 23 // 2 * 12 - 1
 let globalNoOfScreens : Int = 2
+let globalDefaultPalettes = [ c_palette02, c_palette01 ]
 #endif
 let APPGROUP : String = "group.org.tcfos.callbycolor"
 

@@ -173,14 +173,14 @@ class storage {
             print("load settings failed")
             #if CBC36
             result = ["fontsize" : "22",
-                      "ColorPalette0" : c_darkPink,
-                      "ColorPalette1" : c_summerTime,
-                      "ColorPalette2" : c_red
+                      "ColorPalette0" : globalDefaultPalettes[0],
+                      "ColorPalette1" : globalDefaultPalettes[1],
+                      "ColorPalette2" : globalDefaultPalettes[2]
             ]
             #elseif CBC24
             result = ["fontsize" : "22",
-                      "ColorPalette0" : c_palette02,
-                      "ColorPalette1" : c_palette01
+                      "ColorPalette0" : globalDefaultPalettes[0],
+                      "ColorPalette1" : globalDefaultPalettes[1]
             ]
             #endif
         }
