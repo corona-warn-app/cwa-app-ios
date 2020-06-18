@@ -172,14 +172,6 @@ final class HomeViewController: UIViewController {
 		)
 	}
 
-	func showDeveloperMenu() {
-		present(
-			AppStoryboard.developerMenu.initiateInitial(),
-			animated: true,
-			completion: nil
-		)
-	}
-
 	func showInviteFriends() {
 		navigationController?.pushViewController(
 			FriendsInviteController.initiate(for: .inviteFriends),

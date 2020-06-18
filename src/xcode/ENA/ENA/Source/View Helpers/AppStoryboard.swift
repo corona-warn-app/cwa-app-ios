@@ -23,7 +23,6 @@ enum AppStoryboard: String {
 	case exposureNotificationSetting = "ExposureNotificationSetting"
 	case exposureSubmission = "ExposureSubmission"
 	case settings = "Settings"
-	case developerMenu = "DeveloperMenu"
 	case inviteFriends = "InviteFriends"
 	case exposureDetection = "ExposureDetection"
 	case riskLegend = "RiskLegend"
