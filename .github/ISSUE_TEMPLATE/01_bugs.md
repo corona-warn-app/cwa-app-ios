@@ -12,6 +12,10 @@ Before opening a new issue, please make sure that we do not have any duplicates 
 Also, be sure to check our documentation first: <URL>
 -->
 
+## Avoid duplicates
+* [ ] Bug is not mentioned in the [FAQ](https://www.coronawarn.app/en/faq/)
+* [ ] Bug is not already reported in another issue
+
 ## Describe the bug
 
 <!-- Describe your issue, but please be descriptive! Thanks again 🙌 ❤️ -->
