@@ -28,7 +28,7 @@ enum DetectionMode {
 }
 
 extension DetectionMode {
-	static func from(backgroundStatus: UIBackgroundRefreshStatus) -> DetectionMode {
+	static func fromBackgroundStatus(_ backgroundStatus: UIBackgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus) -> DetectionMode {
 		switch backgroundStatus {
 		case .restricted, .denied:
 			return .manual
