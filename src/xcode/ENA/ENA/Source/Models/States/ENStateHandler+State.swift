@@ -5,7 +5,8 @@
 
 import Foundation
 extension ENStateHandler {
-	enum State {
+	// CaseIterable needed to make testing easier
+	enum State: CaseIterable {
 		/// Exposure Notification is enabled.
 		case enabled
 		/// Exposure Notification is disabled.

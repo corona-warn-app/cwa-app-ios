@@ -606,7 +606,6 @@ extension HomeViewController {
 // MARK: - Test result cell methods.
 
 extension HomeViewController {
-
 	private func reloadTestResult(with result: TestResult) {
 		testResultConfigurator.testResult = result
 		reloadActionSection()
@@ -630,7 +629,6 @@ extension HomeViewController {
 
 	// swiftlint:disable:next function_body_length
 	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
-
 		let detectionIsAutomatic = detectionMode == .automatic
 		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
 
