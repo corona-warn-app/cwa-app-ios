@@ -124,7 +124,7 @@ extension ExposureSubmissionHotlineViewController {
 	}
 }
 
-// MARK: - ExposureSubmissionNavigationControllerChild Extension.
+// MARK: - ENANavigationControllerWithFooterChild Extension.
 
 extension ExposureSubmissionHotlineViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {

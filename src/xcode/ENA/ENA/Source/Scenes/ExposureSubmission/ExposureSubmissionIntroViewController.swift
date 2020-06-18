@@ -60,7 +60,7 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 		dynamicTableViewModel = .intro
 	}
 
-	// MARK: - ExposureSubmissionNavigationControllerChild methods.
+	// MARK: - ENANavigationControllerWithFooterChild methods.
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		let service = (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService

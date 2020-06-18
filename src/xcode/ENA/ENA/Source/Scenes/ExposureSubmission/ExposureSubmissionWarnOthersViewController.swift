@@ -73,7 +73,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 }
 
-// MARK: ExposureSubmissionNavigationControllerChild methods.
+// MARK: ENANavigationControllerWithFooterChild methods.
 
 extension ExposureSubmissionWarnOthersViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {

@@ -187,7 +187,7 @@ extension ExposureSubmissionTestResultViewController {
 	}
 }
 
-// MARK: ExposureSubmissionNavigationControllerChild methods.
+// MARK: ENANavigationControllerWithFooterChild methods.
 
 extension ExposureSubmissionTestResultViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {

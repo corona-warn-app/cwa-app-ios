@@ -94,7 +94,7 @@ extension ExposureSubmissionTanInputViewController {
 	}
 }
 
-// MARK: - ExposureSubmissionNavigationControllerChild methods.
+// MARK: - ENANavigationControllerWithFooterChild methods.
 
 extension ExposureSubmissionTanInputViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
