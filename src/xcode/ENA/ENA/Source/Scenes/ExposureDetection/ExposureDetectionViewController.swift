@@ -22,8 +22,7 @@ import UIKit
 final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
 	// MARK: Properties
 
-	@IBOutlet var closeControl: UIControl!
-	@IBOutlet var closeImage: UIImageView!
+	@IBOutlet var closeButton: UIButton!
 	@IBOutlet var headerView: UIView!
 	@IBOutlet var titleViewBottomConstraint: NSLayoutConstraint!
 	@IBOutlet var titleLabel: UILabel!
@@ -51,6 +50,7 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 		super.init(coder: coder)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
@@ -62,10 +62,10 @@ extension ExposureDetectionViewController {
 
 		titleLabel.accessibilityTraits = .header
 
-    closeControl.isAccessibilityElement = true
-		closeControl.accessibilityTraits = .button
-		closeControl.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		closeControl.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+		closeButton.isAccessibilityElement = true
+		closeButton.accessibilityTraits = .button
+		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
+		closeButton.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
 
 		consumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
@@ -84,11 +84,12 @@ extension ExposureDetectionViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		switch state.detectionMode {
-		case .automatic:
+		if footerView.isHidden {
 			tableView.contentInset.bottom = 0
-		case .manual:
-			tableView.contentInset.bottom = footerView.frame.height
+			tableView.verticalScrollIndicatorInsets.bottom = 0
+		} else {
+			tableView.contentInset.bottom = footerView.frame.height - tableView.safeAreaInsets.bottom
+			tableView.verticalScrollIndicatorInsets.bottom = tableView.contentInset.bottom
 		}
 	}
 
@@ -131,7 +132,9 @@ private extension ExposureDetectionViewController {
 	@IBAction private func tappedBottomButton() {
 		guard state.isTracingEnabled else {
 			delegate?.exposureDetectionViewController(self, setExposureManagerEnabled: true) { error in
-				self.alertError(message: error?.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
+				if let error = error {
+					self.alertError(message: error.localizedDescription, title: AppStrings.Common.alertTitleGeneral)
+				}
 			}
 			return
 		}
@@ -165,9 +168,11 @@ extension ExposureDetectionViewController {
 
 	private func updateCloseButton() {
 		if state.isTracingEnabled && state.riskLevel != .unknownOutdated {
-			closeImage.image = UIImage(named: "Icons - Close - Contrast")
+			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
+			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
 		} else {
-			closeImage.image = UIImage(named: "Icons - Close")
+			closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
+			closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
 		}
 	}
 

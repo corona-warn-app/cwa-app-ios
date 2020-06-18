@@ -18,6 +18,7 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
+import Connectivity
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
@@ -51,32 +52,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 	#endif
 
-	private lazy var clientConfiguration: HTTPClient.Configuration = {
-		guard
-			let distributionURLString = store.developerDistributionBaseURLOverride,
-			let submissionURLString = store.developerSubmissionBaseURLOverride,
-			let verificationURLString = store.developerVerificationBaseURLOverride,
-			let distributionURL = URL(string: distributionURLString),
-			let verificationURL = URL(string: verificationURLString),
-			let submissionURL = URL(string: submissionURLString) else {
-			return .production
-		}
-
-		return HTTPClient.Configuration(
-			apiVersion: "v1",
-			country: "DE",
-			endpoints: HTTPClient.Configuration.Endpoints(
-				distribution: .init(baseURL: distributionURL, requiresTrailingSlash: false),
-				submission: .init(baseURL: submissionURL, requiresTrailingSlash: true),
-				verification: .init(baseURL: verificationURL, requiresTrailingSlash: false)
-			)
-		)
-	}()
-
-	private(set) lazy var client: Client = {
-		HTTPClient(configuration: clientConfiguration)
-	}()
-
 	private var enStateHandler: ENStateHandler?
 
 	// MARK: UISceneDelegate
@@ -87,8 +62,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
-
-//		appUpdateChecker = AppUpdateCheckHelper(client: client, store: store)
 
 		exposureManager.resume(observer: self)
 
@@ -106,8 +79,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
+		let detectionMode = DetectionMode.fromBackgroundStatus()
+		riskProvider.configuration.detectionMode = detectionMode
+
+		riskProvider.requestRisk(userInitiated: false)
+
 		let state = exposureManager.preconditions()
 		updateExposureState(state)
+		appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
 	}
 
 	func sceneDidEnterBackground(_ scene: UIScene) {
@@ -131,6 +110,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		setupNavigationBarAppearance()
 
 		#if UITESTING
+		// Present initial screen
 		if UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
 			showOnboarding()
 		} else {
@@ -146,8 +126,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
-		// TODO: Enable once Apple reviewed a higher version
-		// appUpdateChecker.checkAppVersionDialog(for: window?.rootViewController)
+
 	}
 
 	private func setupNavigationBarAppearance() {
@@ -181,10 +160,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func presentHomeVC() {
+		Connectivity.urlSessionConfiguration.timeoutIntervalForRequest = 15.0
+		Connectivity.urlSessionConfiguration.timeoutIntervalForResource = 15.0
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),
 			reachabilityService: ConnectivityReachabilityService(
-				connectivityURLs: [clientConfiguration.configurationURL]
+				connectivityURLs: [client.configuration.configurationURL]
 			),
 			delegate: self
 		)
@@ -322,6 +303,7 @@ extension SceneDelegate: HomeViewControllerDelegate {
 		let newKey = KeychainHelper.generateDatabaseKey()
 		store.clearAll(key: newKey)
 		UIApplication.coronaWarnDelegate().downloadedPackagesStore.reset()
+		UIApplication.coronaWarnDelegate().downloadedPackagesStore.open()
 		exposureManager.reset {
 			self.exposureManager.resume(observer: self)
 			NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
@@ -384,7 +366,5 @@ extension SceneDelegate {
 }
 
 private var currentDetectionMode: DetectionMode {
-	let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
-	let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
-	return detectionMode
+	DetectionMode.fromBackgroundStatus()
 }

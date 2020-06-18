@@ -67,7 +67,11 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, Exposur
 	// MARK: - ExposureSubmissionNavigationControllerChild methods.
 
 	func didTapButton() {
-		performSegue(withIdentifier: Segue.overview, sender: self)
+		let service = (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
+		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionOverviewViewController.self) { coder in
+			ExposureSubmissionOverviewViewController(coder: coder, service: service)
+		}
+		navigationController?.pushViewController(vc, animated: true)
 	}
 }
 
@@ -78,7 +82,7 @@ private extension DynamicTableViewModel {
 		.section(
 			header: .image(
 				UIImage(named: "Illu_Submission_Funktion1"),
-				accessibilityLabel: "",
+				accessibilityLabel: AppStrings.ExposureSubmissionIntroduction.accImageDescription,
 				accessibilityIdentifier: "ExposureSubmissionIntroViewController.image",
 				height: 200
 			),
@@ -98,10 +102,6 @@ private extension DynamicTableViewModel {
 }
 
 private extension ExposureSubmissionIntroViewController {
-	enum Segue: String, SegueIdentifiers {
-		case overview = "overviewSegue"
-		case labResult = "labResultSegue"
-	}
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell
 	}

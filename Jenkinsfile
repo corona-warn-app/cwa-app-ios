@@ -42,6 +42,12 @@ try {
 				   executeProtecodeScan script: this, fetchUrl : nexusFetchUrl
 			  	}
 			}
+			lock(resource: "${env.JOB_NAME}/50", inversePrecedence: true) {
+				milestone 50
+				stage('WhiteSource Scan') {
+					executeWhitesourceScan script: this, scanType: 'unifiedAgent'
+			  	}
+			}
 		}
 	}
 } catch (Throwable err) { // catch all exceptions

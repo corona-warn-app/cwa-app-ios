@@ -68,26 +68,38 @@ private extension DynamicCell {
 		case hotline = "hotlineCell"
 	}
 
+	private static let relativeDateTimeFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.doesRelativeDateFormatting = true
+		formatter.dateStyle = .short
+		formatter.timeStyle = .short
+		return formatter
+	}()
+
 	private static func exposureDetectionCell(_ identifier: TableViewCellReuseIdentifiers, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: GenericCellConfigurator<ExposureDetectionViewController>? = nil) -> DynamicCell {
 		.custom(withIdentifier: identifier, action: action, accessoryAction: accessoryAction, configure: configure)
 	}
 
-	static func risk(configure: @escaping GenericCellConfigurator<ExposureDetectionViewController>) -> DynamicCell {
+	static func risk(hasSeparator: Bool = true, configure: @escaping GenericCellConfigurator<ExposureDetectionViewController>) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.risk) { viewController, cell, indexPath in
 			let state = viewController.state
 			cell.backgroundColor = state.riskTintColor
-			cell.tintColor = state.isTracingEnabled ? .enaColor(for: .textContrast) : .enaColor(for: .riskNeutral)
+
+			var tintColor: UIColor = state.isTracingEnabled ? .enaColor(for: .textContrast) : .enaColor(for: .riskNeutral)
+			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
+			cell.tintColor = tintColor
+
 			cell.textLabel?.textColor = state.riskContrastColor
 			if let cell = cell as? ExposureDetectionRiskCell {
-				cell.separatorView.isHidden = (indexPath.row == 0)
+				cell.separatorView.isHidden = (indexPath.row == 0) || !hasSeparator
 				cell.separatorView.backgroundColor = state.isTracingEnabled ? .enaColor(for: .hairlineContrast) : .enaColor(for: .hairline)
 			}
 			configure(viewController, cell, indexPath)
 		}
 	}
 
-	static func riskLastRiskLevel(text: String, image: UIImage?) -> DynamicCell {
-		.risk { viewController, cell, _ in
+	static func riskLastRiskLevel(hasSeparator: Bool = true, text: String, image: UIImage?) -> DynamicCell {
+		.risk(hasSeparator: hasSeparator) { viewController, cell, _ in
 			let state = viewController.state
 			cell.textLabel?.text = String(format: text, state.actualRiskText)
 			cell.imageView?.image = image
@@ -131,15 +143,7 @@ private extension DynamicCell {
 		.risk { viewController, cell, _ in
 			var valueText: String
 			if let date: Date = viewController.state.risk?.details.exposureDetectionDate {
-				let dateFormatter = DateFormatter(); dateFormatter.dateStyle = .short
-				let timeFormatter = DateFormatter(); timeFormatter.timeStyle = .short
-
-				let dateValue = dateFormatter.string(from: date)
-				let timeValue = timeFormatter.string(from: date)
-
-				let days = Calendar.current.dateComponents([.day], from: date, to: Date()).day ?? 100
-				valueText = String.localizedStringWithFormat(AppStrings.ExposureDetection.refreshedFormat, days)
-				valueText = String(format: valueText, timeValue, dateValue)
+				valueText = relativeDateTimeFormatter.string(from: date)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever
 			}
@@ -294,7 +298,7 @@ extension ExposureDetectionViewController {
 				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.offText),
-					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
+					.riskLastRiskLevel(hasSeparator: false, text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
 			),
@@ -313,11 +317,10 @@ extension ExposureDetectionViewController {
 				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
 				cells: [
 					.riskText(text: AppStrings.ExposureDetection.outdatedText),
-					.riskLastRiskLevel(text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
+					.riskLastRiskLevel(hasSeparator: false, text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
 			),
-			riskRefreshSection,
 			riskLoadingSection,
 			standardGuideSection,
 			explanationSection(

@@ -43,7 +43,7 @@ final class SettingsViewController: UITableViewController {
 	let notificationsSegue = "showNotifications"
 	let resetSegue = "showReset"
 
-	let settingsViewModel = SettingsViewModel.model
+	let settingsViewModel = SettingsViewModel()
 	var enState: ENStateHandler.State
 
 
@@ -54,6 +54,7 @@ final class SettingsViewController: UITableViewController {
 		super.init(coder: coder)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -63,12 +64,9 @@ final class SettingsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		tableView.delegate = self
-		tableView.dataSource = self
 		tableView.separatorColor = .enaColor(for: .hairline)
 
 		navigationItem.title = AppStrings.Settings.navigationBarTitle
-		navigationController?.navigationBar.prefersLargeTitles = true
 
 		setupView()
 	}
@@ -137,16 +135,11 @@ final class SettingsViewController: UITableViewController {
 	private func notificationSettings() {
 		let currentCenter = UNUserNotificationCenter.current()
 
-		currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
+		currentCenter.getNotificationSettings { [weak self] settings in
 			guard let self = self else { return }
 
-			if let error = error {
-				log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
-				self.settingsViewModel.notifications.setState(state: false)
-				return
-			}
-
-			if granted && (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
+			if (settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional)
+				&& (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
 				self.settingsViewModel.notifications.setState(state: true)
 			} else {
 				self.settingsViewModel.notifications.setState(state: false)
@@ -174,19 +167,12 @@ extension SettingsViewController {
 		1
 	}
 
-	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		let section = Sections.allCases[section]
-
-		switch section {
-		case .reset:
-			return 40
-		case .tracing, .notifications:
-			return 20
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		switch Sections.allCases[section] {
+		case .tracing: return 32
+		case .reset: return 48
+		default: return UITableView.automaticDimension
 		}
-	}
-
-	override func tableView(_: UITableView, viewForHeaderInSection _: Int) -> UIView? {
-		UIView()
 	}
 
 	override func tableView(_: UITableView, titleForFooterInSection section: Int) -> String? {

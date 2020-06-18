@@ -66,9 +66,11 @@ extension ExposureSubmissionNavigationControllerChild {
 	}
 }
 
-class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
+protocol ExposureSubmissionNavigationControllerDelegate: AnyObject {
+	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController)
+}
 
-	private weak var homeViewController: HomeViewController?
+final class ExposureSubmissionNavigationController: UINavigationController, UINavigationControllerDelegate {
 	private var testResult: TestResult?
 	private var keyboardWillShowObserver: NSObjectProtocol?
 	private var keyboardWillHideObserver: NSObjectProtocol?
@@ -82,22 +84,24 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	private(set) var button: ENAButton!
 	private(set) var secondaryButton: ENAButton!
 	private var bottomViewTopConstraint: NSLayoutConstraint!
-	private var exposureSubmissionService: ExposureSubmissionService?
+	private(set) var exposureSubmissionService: ExposureSubmissionService?
+	private weak var submissionDelegate: ExposureSubmissionNavigationControllerDelegate?
 
 	// MARK: - Initializers.
 
 	init?(
 		coder: NSCoder,
 		exposureSubmissionService: ExposureSubmissionService,
-		homeViewController: HomeViewController? = nil,
+		submissionDelegate: ExposureSubmissionNavigationControllerDelegate?,
 		testResult: TestResult? = nil
 	) {
 		super.init(coder: coder)
 		self.exposureSubmissionService = exposureSubmissionService
-		self.homeViewController = homeViewController
+		self.submissionDelegate = submissionDelegate
 		self.testResult = testResult
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -105,7 +109,14 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 	/// Returns the root view controller, depending on whether we have a
 	/// registration token or not.
 	private func getRootViewController() -> UIViewController {
+		#if UITESTING
+		if ProcessInfo.processInfo.arguments.contains("-negativeResult") {
+			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
+			vc.testResult = .negative
+			return vc
+		}
 
+		#else
 		// We got a test result and can jump straight into the test result view controller.
 		if let service = exposureSubmissionService, testResult != nil, service.hasRegistrationToken() {
 			let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionTestResultViewController.self)
@@ -113,6 +124,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 			vc.testResult = testResult
 			return vc
 		}
+		#endif
 
 		// By default, we show the intro view.
 		let vc = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self)
@@ -125,13 +137,17 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 		let rootVC = getRootViewController()
 		setViewControllers([rootVC], animated: false)
 
-		let barButtonItem = UIBarButtonItem(
-			image: UIImage(named: "Icons - Close"),
-			style: .done, target: self, action: #selector(close)
-		)
+		let closeButton = UIButton(type: .custom)
+		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
+		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
+		closeButton.addTarget(self, action: #selector(close), for: .primaryActionTriggered)
+
+		let barButtonItem = UIBarButtonItem(customView: closeButton)
 		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		barButtonItem.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+
 		navigationItem.rightBarButtonItem = barButtonItem
+		navigationBar.accessibilityLabel = "ExposureSubmissionNavigationController"
 
 		setupBottomView()
 
@@ -152,10 +168,6 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	func setButtonEnabled(enabled: Bool) {
 		button.isEnabled = enabled
-	}
-
-	func getExposureSubmissionService() -> ExposureSubmissionService? {
-		exposureSubmissionService
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -184,7 +196,7 @@ class ExposureSubmissionNavigationController: UINavigationController, UINavigati
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		homeViewController?.updateTestResultState()
+		submissionDelegate?.exposureSubmissionNavigationControllerWillDisappear(self)
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -296,6 +308,7 @@ extension ExposureSubmissionNavigationController {
 
 extension ExposureSubmissionNavigationController {
 	private func setupBottomView() {
+		// TODO: Apply ENAFooterView
 		let view = UIView()
 		view.backgroundColor = .enaColor(for: .background)
 		view.insetsLayoutMarginsFromSafeArea = true

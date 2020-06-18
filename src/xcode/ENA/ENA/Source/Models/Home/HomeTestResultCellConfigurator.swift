@@ -60,7 +60,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			description: AppStrings.Home.resultCardNegativeDesc,
 			button: AppStrings.Home.resultCardShowResultButton,
 			image: UIImage(named: "Illu_Hand_with_phone-negativ"),
-			tintColor: .enaColor(for: .riskLow),
+			tintColor: .enaColor(for: .textSemanticGreen),
 			accessibilityIdentifier: "AppStrings.Home.resultCardShowResultButton"
 		)
 	}
@@ -72,7 +72,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			description: AppStrings.Home.resultCardInvalidDesc,
 			button: AppStrings.Home.resultCardShowResultButton,
 			image: UIImage(named: "Illu_Hand_with_phone-error"),
-			tintColor: .enaColor(for: .textPrimary2),
+			tintColor: .enaColor(for: .textSemanticGray),
 			accessibilityIdentifier: "AppStrings.Home.resultCardShowResultButton"
 		)
 	}

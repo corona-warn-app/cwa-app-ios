@@ -48,9 +48,10 @@ enum AppStrings {
 
 		static let hotlineNumber = NSLocalizedString("ExposureSubmission_Hotline_Number", comment: "")
 	}
-
+	
 	enum ExposureSubmissionTanEntry {
 		static let title = NSLocalizedString("ExposureSubmissionTanEntry_Title", comment: "")
+		static let textField = NSLocalizedString("ExposureSubmissionTanEntry_EntryField", comment: "")
 		static let description = NSLocalizedString("ExposureSubmissionTanEntry_Description", comment: "")
 		static let info = NSLocalizedString("ExposureSubmissionTanEntry_Info", comment: "")
 		static let submit = NSLocalizedString("ExposureSubmissionTanEntry_Submit", comment: "")
@@ -126,6 +127,11 @@ enum AppStrings {
 		static let alertCodeNotFoundText = NSLocalizedString("ExposureSubmissionQRScanner_notFoundAlertText", comment: "")
 		static let otherError = NSLocalizedString("ExposureSubmissionQRScanner_otherError", comment: "")
 		static let cameraPermissionDenied = NSLocalizedString("ExposureSubmissionQRScanner_cameraPermissionDenied", comment: "")
+		static let flashButtonAccessibilityLabel = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash", comment: "")
+		static let flashButtonAccessibilityOnValue = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_On", comment: "")
+		static let flashButtonAccessibilityOffValue = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Off", comment: "")
+		static let flashButtonAccessibilityEnableAction = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Enable", comment: "")
+		static let flashButtonAccessibilityDisableAction = NSLocalizedString("ExposureSubmissionQRScanner_CameraFlash_Disable", comment: "")
 	}
 
 	enum ExposureSubmissionHotline {
@@ -133,11 +139,14 @@ enum AppStrings {
 		static let description = NSLocalizedString("ExposureSubmissionHotline_Description", comment: "")
 		static let sectionTitle = NSLocalizedString("ExposureSubmissionHotline_SectionTitle", comment: "")
 		static let sectionDescription1 = NSLocalizedString("ExposureSubmissionHotline_SectionDescription1", comment: "")
+		static let iconAccessibilityLabel1 = NSLocalizedString("ExposureSubmissionHotline_iconAccessibilityLabel1", comment: "")
+		static let iconAccessibilityLabel2 = NSLocalizedString("ExposureSubmissionHotline_iconAccessibilityLabel2", comment: "")
 		static let sectionDescription2 = NSLocalizedString("ExposureSubmission_SectionDescription2", comment: "")
 		static let callButtonTitle = NSLocalizedString("ExposureSubmission_CallButtonTitle", comment: "")
 		static let tanInputButtonTitle = NSLocalizedString("ExposureSubmission_TANInputButtonTitle", comment: "")
 		static let phoneNumber = NSLocalizedString("ExposureSubmission_PhoneNumber", comment: "")
 		static let hotlineDetailDescription = NSLocalizedString("ExposureSubmission_PhoneDetailDescription", comment: "")
+		static let imageDescription = NSLocalizedString("ExposureSubmissionHotline_imageDescription", comment: "")
 	}
 
 	enum ExposureSubmissionWarnOthers {
@@ -231,9 +240,19 @@ enum AppStrings {
 		static let buttonRefresh = NSLocalizedString("ExposureDetection_Button_Refresh", comment: "")
 	}
 
+	enum ExposureDetectionError {
+		static let errorAlertTitle = NSLocalizedString("ExposureDetectionError_Alert_Title", comment: "")
+				static let errorAlertMessage = NSLocalizedString("ExposureDetectionError_Alert_Message", comment: "")
+		static let errorAlertActionDetails = NSLocalizedString("ExposureDetectionError_Alert_Action_Details", comment: "")
+	}
+
 	enum Settings {
 		static let trackingStatusActive = NSLocalizedString("Settings_KontaktProtokollStatusActive", comment: "")
 		static let trackingStatusInactive = NSLocalizedString("Settings_KontaktProtokollStatusInactive", comment: "")
+
+		static let statusEnable = NSLocalizedString("Settings_StatusEnable", comment: "")
+		static let statusDisable = NSLocalizedString("Settings_StatusDisable", comment: "")
+
 		static let notificationStatusActive = NSLocalizedString("Settings_StatusActive", comment: "")
 		static let notificationStatusInactive = NSLocalizedString("Settings_StatusInactive", comment: "")
 
@@ -267,7 +286,7 @@ enum AppStrings {
 	enum Onboarding {
 		static let onboardingLetsGo = NSLocalizedString("Onboarding_LetsGo_actionText", comment: "")
 		static let onboardingContinue = NSLocalizedString("Onboarding_Continue_actionText", comment: "")
-		static let skipLongTextHint = NSLocalizedString("Onboarding_Continue_skipLongTextHint", comment: "")
+		static let onboardingContinueDescription = NSLocalizedString("Onboarding_Continue_actionTextHint", comment: "")
 		static let onboardingDoNotActivate = NSLocalizedString("Onboarding_DoNotActivate_actionText", comment: "")
 		static let onboardingDoNotAllow = NSLocalizedString("Onboarding_doNotAllow_actionText", comment: "")
 		static let onboarding_deactivate_exposure_notif_confirmation_title = NSLocalizedString("Onboarding_DeactivateExposureConfirmation_title", comment: "")
@@ -453,6 +472,11 @@ enum AppStrings {
 		static let infoDescription = NSLocalizedString("Reset_InfoDescription", comment: "")
 		static let subtitle = NSLocalizedString("Reset_Subtitle", comment: "")
 		static let imageDescription = NSLocalizedString("Reset_ImageDescription", comment: "")
+
+		static let confirmDialogTitle = NSLocalizedString("Reset_ConfirmDialog_Title", comment: "")
+		static let confirmDialogDescription = NSLocalizedString("Reset_ConfirmDialog_Description", comment: "")
+		static let confirmDialogCancel = NSLocalizedString("Reset_ConfirmDialog_Cancel", comment: "")
+		static let confirmDialogConfirm = NSLocalizedString("Reset_ConfirmDialog_Confirm", comment: "")
 	}
 
 	enum SafariView {
@@ -544,5 +568,11 @@ enum AppStrings {
 		static let termsNavigation = NSLocalizedString("App_Information_Terms_Navigation", comment: "")
 		static let termsImageDescription = NSLocalizedString("App_Information_Terms_ImageDescription", comment: "")
 		static let termsTitle = NSLocalizedString("App_Information_Terms_Title", comment: "")
+	}
+
+	enum ENATanInput {
+		static let empty = NSLocalizedString("ENATanInput_Empty", comment: "")
+		static let invalidCharacter = NSLocalizedString("ENATanInput_InvalidCharacter", comment: "")
+		static let characterIndex = NSLocalizedString("ENATanInput_CharacterIndex", comment: "")
 	}
 }

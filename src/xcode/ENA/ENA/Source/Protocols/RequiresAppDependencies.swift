@@ -20,7 +20,7 @@ import Foundation
 import UIKit
 
 protocol RequiresAppDependencies {
-	var client: Client { get }
+	var client: HTTPClient { get }
 	var store: Store { get }
 	var taskScheduler: ENATaskScheduler { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
@@ -30,7 +30,7 @@ protocol RequiresAppDependencies {
 }
 
 extension RequiresAppDependencies {
-	var client: Client {
+	var client: HTTPClient {
 		UIApplication.coronaWarnDelegate().client
 	}
 
