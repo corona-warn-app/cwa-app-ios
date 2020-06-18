@@ -31,6 +31,7 @@ final class DMConfigurationViewController: UITableViewController, RequiresAppDep
 		title = "⚙️ Configuration"
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -131,6 +132,7 @@ private class DMConfigurationCell: UITableViewCell {
 		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
