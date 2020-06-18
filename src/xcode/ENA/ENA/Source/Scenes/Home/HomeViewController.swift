@@ -22,7 +22,6 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func homeViewControllerUserDidRequestReset(_ controller: HomeViewController)
 }
 
-// swiftlint:disable:next type_body_length
 final class HomeViewController: UIViewController, RequiresAppDependencies {
 	// MARK: Creating a Home View Controller
 	init(
@@ -37,10 +36,7 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 	}
 
 	override func loadView() {
-		view = HomeCollectionView(
-			delegate: self,
-			layoutDelegate: self
-		)
+		view = HomeCollectionView(delegate: self)
 	}
 
 	@available(*, unavailable)
@@ -85,7 +81,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		risk: nil
 		) {
 		didSet {
-			print("🎃 Update")
 			exposureDetectionController?.state = ExposureDetectionViewController.State(
 				exposureManagerState: state.exposureManagerState,
 				detectionMode: state.detectionMode,
@@ -157,10 +152,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 		state = newState
 	}
 
-	func showExposureSubmissionWithoutResult() {
-		showExposureSubmission()
-	}
-
 	func showExposureSubmission(with result: TestResult? = nil) {
 		present(
 			AppStoryboard.exposureSubmission.initiateInitial { coder in
@@ -226,7 +217,6 @@ final class HomeViewController: UIViewController, RequiresAppDependencies {
 				delegate: self
 			)
 		}
-//		addToUpdatingSetIfNeeded(vc)
 		exposureDetectionController = vc as? ExposureDetectionViewController
 		present(vc, animated: true)
 	}
@@ -331,12 +321,6 @@ extension HomeViewController {
 	func updateTestResultState() {
 		reloadActionSection()
 		updateTestResults()
-	}
-}
-
-extension HomeViewController: HomeLayoutDelegate {
-	func homeLayoutSection(for sectionIndex: Int) -> Section? {
-		Section(rawValue: sectionIndex)
 	}
 }
 

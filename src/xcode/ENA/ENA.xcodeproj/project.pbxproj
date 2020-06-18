@@ -267,6 +267,8 @@
 		B19C9E90249BF8050066B2B7 /* UIImage+LogoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9E8F249BF8050066B2B7 /* UIImage+LogoTests.swift */; };
 		B19C9E94249BFB580066B2B7 /* LogoBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9E93249BFB580066B2B7 /* LogoBarButtonItem.swift */; };
 		B19C9E96249BFB7A0066B2B7 /* InfoBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9E95249BFB7A0066B2B7 /* InfoBarButtonItem.swift */; };
+		B19C9E98249BFD300066B2B7 /* HomeCollectionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9E97249BFD300066B2B7 /* HomeCollectionViewTests.swift */; };
+		B19C9E99249C003C0066B2B7 /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F09665249BE7FF00A1D5C1 /* HomeCollectionView.swift */; };
 		B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FD7102491A07000A9D56A /* String+SemanticVersion.swift */; };
 		B19FD7132491A08500A9D56A /* SAP_SemanticVersion+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FD7122491A08500A9D56A /* SAP_SemanticVersion+Compare.swift */; };
 		B19FD7152491A4A300A9D56A /* SAP_SemanticVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FD7142491A4A300A9D56A /* SAP_SemanticVersionTests.swift */; };
@@ -308,7 +310,6 @@
 		B1F0965D249BCD8000A1D5C1 /* HomeActivateCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CE1BB92460AFD8002CF42A /* HomeActivateCellConfigurator.swift */; };
 		B1F09661249BCDD100A1D5C1 /* ENStateHandler+State+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F09660249BCDD100A1D5C1 /* ENStateHandler+State+UIImage.swift */; };
 		B1F09664249BCE5E00A1D5C1 /* ENStateHandler+State+UIImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F09663249BCE5E00A1D5C1 /* ENStateHandler+State+UIImageTests.swift */; };
-		B1F09666249BE7FF00A1D5C1 /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F09665249BE7FF00A1D5C1 /* HomeCollectionView.swift */; };
 		B1F09669249BF7C300A1D5C1 /* UIImage+Logo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F09668249BF7C300A1D5C1 /* UIImage+Logo.swift */; };
 		B1F82DF224718C7300E2E56A /* DMConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F82DF124718C7300E2E56A /* DMConfigurationViewController.swift */; };
 		B1F8AE482479B4C30093A588 /* api-response-day-2020-05-16 in Resources */ = {isa = PBXBuildFile; fileRef = B1F8AE472479B4C30093A588 /* api-response-day-2020-05-16 */; };
@@ -674,6 +675,7 @@
 		B19C9E8F249BF8050066B2B7 /* UIImage+LogoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+LogoTests.swift"; sourceTree = "<group>"; };
 		B19C9E93249BFB580066B2B7 /* LogoBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoBarButtonItem.swift; sourceTree = "<group>"; };
 		B19C9E95249BFB7A0066B2B7 /* InfoBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBarButtonItem.swift; sourceTree = "<group>"; };
+		B19C9E97249BFD300066B2B7 /* HomeCollectionViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewTests.swift; sourceTree = "<group>"; };
 		B19FD7102491A07000A9D56A /* String+SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SemanticVersion.swift"; sourceTree = "<group>"; };
 		B19FD7122491A08500A9D56A /* SAP_SemanticVersion+Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_SemanticVersion+Compare.swift"; sourceTree = "<group>"; };
 		B19FD7142491A4A300A9D56A /* SAP_SemanticVersionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAP_SemanticVersionTests.swift; sourceTree = "<group>"; };
@@ -1096,8 +1098,6 @@
 				51CE1B2E245F5CFC002CF42A /* HomeViewController.swift */,
 				B1F0965B249BC70600A1D5C1 /* HomeViewController+Section.swift */,
 				5111E7622460BB1500ED6498 /* HomeInteractor.swift */,
-				51CE1B5424604DD2002CF42A /* HomeLayout.swift */,
-				B1F09665249BE7FF00A1D5C1 /* HomeCollectionView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1731,6 +1731,7 @@
 			isa = PBXGroup;
 			children = (
 				B19C9E8F249BF8050066B2B7 /* UIImage+LogoTests.swift */,
+				B19C9E97249BFD300066B2B7 /* HomeCollectionViewTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -1832,8 +1833,10 @@
 			children = (
 				B19C9E8E249BF7F40066B2B7 /* __tests__ */,
 				B1F09668249BF7C300A1D5C1 /* UIImage+Logo.swift */,
+				B1F09665249BE7FF00A1D5C1 /* HomeCollectionView.swift */,
 				B19C9E93249BFB580066B2B7 /* LogoBarButtonItem.swift */,
 				B19C9E95249BFB7A0066B2B7 /* InfoBarButtonItem.swift */,
+				51CE1B5424604DD2002CF42A /* HomeLayout.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -2310,7 +2313,6 @@
 				7154EB4A247D21E200A467FF /* ExposureDetectionLongGuideCell.swift in Sources */,
 				51CE1B4A246016B0002CF42A /* UICollectionViewCell+Identifier.swift in Sources */,
 				71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */,
-				B1F09666249BE7FF00A1D5C1 /* HomeCollectionView.swift in Sources */,
 				8595BF5F246032D90056EA27 /* ENASwitch.swift in Sources */,
 				71FE1C7A247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift in Sources */,
 				B1C7EEAE24941A3B00F1F284 /* ManualExposureDetectionState.swift in Sources */,
@@ -2475,6 +2477,7 @@
 				71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */,
 				B14D0CD9246E946E00D5BEBC /* ExposureDetection.swift in Sources */,
 				B154F59B246DD5CF003E891E /* Client+Convenience.swift in Sources */,
+				B19C9E99249C003C0066B2B7 /* HomeCollectionView.swift in Sources */,
 				B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStore.swift in Sources */,
 				51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */,
 				EE22DB82247FB40A001B0A71 /* ENSettingModel.swift in Sources */,
@@ -2521,6 +2524,7 @@
 				B15382E5248273F30010F007 /* MockTestStore.swift in Sources */,
 				A32842672492359E006B1F09 /* MockExposureSubmissionNavigationControllerChild.swift in Sources */,
 				F25247312484456800C5556B /* DynamicTableViewModelTests.swift in Sources */,
+				B19C9E98249BFD300066B2B7 /* HomeCollectionViewTests.swift in Sources */,
 				B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */,
 				2FD881CC2490F65C00BEC8FC /* ExposureSubmissionHotlineViewControllerTest.swift in Sources */,
 				B117521A248ACFFC00C3325C /* SAP_RiskScoreClass+LowAndHighTests.swift in Sources */,

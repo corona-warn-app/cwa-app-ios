@@ -20,8 +20,8 @@
 import UIKit
 
 final class HomeCollectionView: UICollectionView {
-	init(delegate: UICollectionViewDelegate, layoutDelegate: HomeLayoutDelegate) {
-		super.init(frame: .zero, collectionViewLayout: .homeLayout(delegate: layoutDelegate))
+	init(delegate: UICollectionViewDelegate) {
+		super.init(frame: .zero, collectionViewLayout: .homeLayout())
 		self.delegate = delegate
 
 		contentInset = UIEdgeInsets(top: UICollectionViewLayout.topInset, left: 0, bottom: -UICollectionViewLayout.bottomBackgroundOverflowHeight, right: 0)

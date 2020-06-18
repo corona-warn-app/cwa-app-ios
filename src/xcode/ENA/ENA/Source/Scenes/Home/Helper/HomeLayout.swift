@@ -17,17 +17,13 @@
 
 import UIKit
 
-protocol HomeLayoutDelegate: AnyObject {
-	func homeLayoutSection(for sectionIndex: Int) -> HomeViewController.Section?
-}
-
 extension UICollectionViewLayout {
 	static let topInset: CGFloat = 32.0
 	static let bottomBackgroundOverflowHeight: CGFloat = UIScreen.main.bounds.height
 
-	class func homeLayout(delegate: HomeLayoutDelegate) -> UICollectionViewLayout {
+	class func homeLayout() -> UICollectionViewLayout {
 		let sectionProvider: UICollectionViewCompositionalLayoutSectionProvider = { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
-			guard let homeSection = delegate.homeLayoutSection(for: sectionIndex) else { return nil }
+			guard let homeSection = HomeViewController.Section(rawValue: sectionIndex) else { return nil }
 			let section = layoutSection(for: homeSection, layoutEnvironment: layoutEnvironment)
 			return section
 		}
