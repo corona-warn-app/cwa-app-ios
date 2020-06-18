@@ -43,7 +43,7 @@ final class FriendsInviteController: UIViewController {
 		descriptionLabel.text = AppStrings.InviteFriends.description
 		imageView.isAccessibilityElement = true
 		imageView.accessibilityLabel = AppStrings.InviteFriends.imageAccessLabel
-		imageView.accessibilityIdentifier = "AppStrings.InviteFriends.imageAccessLabel"
+		imageView.accessibilityIdentifier = AccessibilityIdentifiers.InviteFriends.imageAccessLabel
 
 		inviteButton.setTitle(AppStrings.InviteFriends.submit, for: .normal)
 

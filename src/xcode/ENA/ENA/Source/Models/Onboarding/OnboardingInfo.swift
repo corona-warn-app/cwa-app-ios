@@ -41,9 +41,10 @@ extension OnboardingInfo {
 			text: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingLetsGo,
 			ignoreText: "",
-			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title",
-			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_imageDescription",
-			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingLetsGo",
+			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title,
+			imageAccessibilityIdentifier:
+			AccessibilityIdentifiers.Onboarding.onboardingInfo_togetherAgainstCoronaPage_imageDescription,
+			actionTextAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingLetsGo,
 			ignoreTextAccessibilityIdentifier: nil
 		)
 
@@ -55,9 +56,9 @@ extension OnboardingInfo {
 			text: AppStrings.Onboarding.onboardingInfo_privacyPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: "",
-			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_title",
-			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription",
-			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingContinue",
+			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_privacyPage_title,
+			imageAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_privacyPage_imageDescription,
+			actionTextAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingContinue,
 			ignoreTextAccessibilityIdentifier: nil
 		)
 
@@ -69,10 +70,11 @@ extension OnboardingInfo {
 			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
 			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate,
-			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_title",
-			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_privacyPage_imageDescription",
-			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button",
-			ignoreTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingDoNotActivate"
+			titleAccessibilityIdentifier:
+			AccessibilityIdentifiers.Onboarding.onboardingInfo_privacyPage_title,
+			imageAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_privacyPage_imageDescription,
+			actionTextAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
+			ignoreTextAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingDoNotActivate
 		)
 
 		let info4 = OnboardingInfo(
@@ -83,9 +85,9 @@ extension OnboardingInfo {
 			text: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: "",
-			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title",
-			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_imageDescription",
-			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingContinue",
+			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title,
+			imageAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_imageDescription,
+			actionTextAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingContinue,
 			ignoreTextAccessibilityIdentifier: nil
 		)
 
@@ -97,10 +99,10 @@ extension OnboardingInfo {
 			text: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_normalText,
 			actionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: AppStrings.Onboarding.onboardingDoNotAllow,
-			titleAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_title",
-			imageAccessibilityIdentifier: "AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_imageDescription",
-			actionTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingContinue",
-			ignoreTextAccessibilityIdentifier: "AppStrings.Onboarding.onboardingDoNotAllow"
+			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_alwaysStayInformedPage_title,
+			imageAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_alwaysStayInformedPage_imageDescription,
+			actionTextAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingContinue,
+			ignoreTextAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingDoNotAllow
 		)
 
 

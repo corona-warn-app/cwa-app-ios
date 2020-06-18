@@ -53,14 +53,14 @@ private extension DynamicTableViewModel {
 			header: .image(
 				UIImage(named: "Illu_Submission_VielenDank"),
 				accessibilityLabel: AppStrings.ExposureSubmissionSuccess.accImageDescription,
-				accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.accImageDescription"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription
 			),
 			separators: false,
 			cells: [
 				.body(text: AppStrings.ExposureSubmissionSuccess.description,
-					  accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.description"),
+					  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.description),
 				.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.listTitle"),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.listTitle),
 
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
@@ -80,7 +80,7 @@ private extension DynamicTableViewModel {
 				),
 
 				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.subTitle"),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.subTitle),
 
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_1),
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_2),

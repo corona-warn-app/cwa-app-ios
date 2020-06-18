@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,14 +15,20 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
-import UIKit
-extension UIViewController {
-	func alertError(message: String?, title: String?, completion: (() -> Void)? = nil) {
-		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: { _ in completion?() })
-		alertController.addAction(okAction)
-		present(alertController, animated: true, completion: nil)
+
+final class RiskConsumer: NSObject {
+	// MARK: Creating a Consumer
+	init(targetQueue: DispatchQueue = .main) {
+		self.targetQueue = targetQueue
 	}
+
+	// MARK: Properties
+	/// The queue `didCalculateRisk` will be called on. Defaults to `.main`.
+	let targetQueue: DispatchQueue
+
+	/// Called when the risk level changed
+	var didCalculateRisk: ((Risk) -> Void) = { _ in }
 }
