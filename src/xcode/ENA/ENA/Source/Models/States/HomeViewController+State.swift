@@ -4,7 +4,7 @@
 //
 
 import Foundation
-extension HomeInteractor {
+extension HomeViewController {
 	struct State {
 		var detectionMode: DetectionMode
 		var exposureManagerState: ExposureManagerState

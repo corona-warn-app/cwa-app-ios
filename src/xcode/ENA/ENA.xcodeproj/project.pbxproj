@@ -347,7 +347,7 @@
 		FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE1600374711EC77FF572 /* RequiresAppDependencies.swift */; };
 		FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewController+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */; };
 		FEDCE77AED78E9C25999BB35 /* SceneDelegate+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCE838D90CB02C55E15237 /* SceneDelegate+State.swift */; };
-		FEDCECC1B2111AB537AEF7E5 /* HomeInteractor+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCEC452596E54A041BBCE9 /* HomeInteractor+State.swift */; };
+		FEDCECC1B2111AB537AEF7E5 /* HomeViewController+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDCEC452596E54A041BBCE9 /* HomeViewController+State.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -736,7 +736,7 @@
 		FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENStateHandler+State.swift"; sourceTree = "<group>"; };
 		FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ExposureDetectionViewController+State.swift"; sourceTree = "<group>"; };
 		FEDCE838D90CB02C55E15237 /* SceneDelegate+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+State.swift"; sourceTree = "<group>"; };
-		FEDCEC452596E54A041BBCE9 /* HomeInteractor+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeInteractor+State.swift"; sourceTree = "<group>"; };
+		FEDCEC452596E54A041BBCE9 /* HomeViewController+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeViewController+State.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1953,7 +1953,7 @@
 			children = (
 				FEDCE1B8926528ED74CDE1B2 /* ENStateHandler+State.swift */,
 				FEDCE4BE82DC5BFE90575663 /* ExposureDetectionViewController+State.swift */,
-				FEDCEC452596E54A041BBCE9 /* HomeInteractor+State.swift */,
+				FEDCEC452596E54A041BBCE9 /* HomeViewController+State.swift */,
 				FEDCE838D90CB02C55E15237 /* SceneDelegate+State.swift */,
 			);
 			path = States;
@@ -2386,7 +2386,7 @@
 				FEDCE50B4AC5E24D4E11AA52 /* RequiresAppDependencies.swift in Sources */,
 				FEDCE29E414945F14E7CE576 /* ENStateHandler+State.swift in Sources */,
 				FEDCE6E2763B0BABFADF36BA /* ExposureDetectionViewController+State.swift in Sources */,
-				FEDCECC1B2111AB537AEF7E5 /* HomeInteractor+State.swift in Sources */,
+				FEDCECC1B2111AB537AEF7E5 /* HomeViewController+State.swift in Sources */,
 				B1221BE02492ECE800E6C4E4 /* CFDictionary+KeychainQuery.swift in Sources */,
 				FEDCE77AED78E9C25999BB35 /* SceneDelegate+State.swift in Sources */,
 			);
