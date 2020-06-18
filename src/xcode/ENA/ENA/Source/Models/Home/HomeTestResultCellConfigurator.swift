@@ -49,7 +49,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			description: AppStrings.Home.submitCardBody,
 			button: AppStrings.Home.submitCardButton,
 			image: UIImage(named: "Illu_Hand_with_phone-initial"),
-			accessibilityIdentifier: "AppStrings.Home.submitCardButton"
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.submitCardButton
 		)
 	}
 
@@ -61,7 +61,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			button: AppStrings.Home.resultCardShowResultButton,
 			image: UIImage(named: "Illu_Hand_with_phone-negativ"),
 			tintColor: .enaColor(for: .textSemanticGreen),
-			accessibilityIdentifier: "AppStrings.Home.resultCardShowResultButton"
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.resultCardShowResultButton
 		)
 	}
 
@@ -73,7 +73,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			button: AppStrings.Home.resultCardShowResultButton,
 			image: UIImage(named: "Illu_Hand_with_phone-error"),
 			tintColor: .enaColor(for: .textSemanticGray),
-			accessibilityIdentifier: "AppStrings.Home.resultCardShowResultButton"
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.resultCardShowResultButton
 		)
 	}
 
@@ -84,7 +84,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			button: AppStrings.Home.resultCardShowResultButton,
 			image: UIImage(named: "Illu_Hand_with_phone-pending"),
 			tintColor: .enaColor(for: .textPrimary2),
-			accessibilityIdentifier: "AppStrings.Home.resultCardShowResultButton"
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.resultCardShowResultButton
 		)
 	}
 }

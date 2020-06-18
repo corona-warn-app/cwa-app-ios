@@ -58,7 +58,7 @@ class HomeTestResultCollectionViewCell: HomeCardCollectionViewCell {
 		illustrationView?.image = image
 
 		button.setTitle(buttonTitle, for: .normal)
-		button.accessibilityIdentifier = "AppStrings.Home.submitCardButton"
+		button.accessibilityIdentifier = AccessibilityIdentifiers.Home.submitCardButton
 
 		subtitleLabel.isHidden = (nil == subtitle)
 		button.accessibilityIdentifier = accessibilityIdentifier

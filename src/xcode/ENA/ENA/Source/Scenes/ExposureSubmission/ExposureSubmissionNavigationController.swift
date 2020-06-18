@@ -144,10 +144,10 @@ final class ExposureSubmissionNavigationController: UINavigationController, UINa
 
 		let barButtonItem = UIBarButtonItem(customView: closeButton)
 		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		barButtonItem.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+		barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		navigationItem.rightBarButtonItem = barButtonItem
-		navigationBar.accessibilityLabel = "ExposureSubmissionNavigationController"
+		navigationBar.accessibilityLabel = AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle
 
 		setupBottomView()
 

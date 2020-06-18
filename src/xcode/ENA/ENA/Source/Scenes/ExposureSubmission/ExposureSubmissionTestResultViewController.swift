@@ -250,7 +250,7 @@ private extension ExposureSubmissionTestResultViewController {
 			separators: false,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
@@ -287,7 +287,7 @@ private extension ExposureSubmissionTestResultViewController {
 			separators: false,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 
 
 				ExposureSubmissionDynamicCell.stepCell(
@@ -312,7 +312,7 @@ private extension ExposureSubmissionTestResultViewController {
 				),
 
 				.title2(text: AppStrings.ExposureSubmissionResult.furtherInfos_Title,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.furtherInfos_Title"),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.furtherInfos_Title),
 
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem1),
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionResult.furtherInfos_ListItem2),
@@ -333,7 +333,7 @@ private extension ExposureSubmissionTestResultViewController {
 			separators: false,
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
@@ -369,7 +369,7 @@ private extension ExposureSubmissionTestResultViewController {
 			),
 			cells: [
 				.title2(text: AppStrings.ExposureSubmissionResult.procedure,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionResult.procedure"),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionResult.procedure),
 
 				ExposureSubmissionDynamicCell.stepCell(
 					title: AppStrings.ExposureSubmissionResult.testAdded,
