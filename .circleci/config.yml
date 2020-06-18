@@ -84,8 +84,7 @@ jobs:
 workflows:
     test-and-scan:
       jobs:
-        - test:
-            context: SonarCloud
+        - test
     build:
       jobs:
         - build

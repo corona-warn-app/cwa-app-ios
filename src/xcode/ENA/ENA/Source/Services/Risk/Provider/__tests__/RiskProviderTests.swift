@@ -32,10 +32,8 @@ private final class ExposureSummaryProviderMock: ExposureSummaryProvider {
 }
 
 final class RiskProviderTests: XCTestCase {
-	// swiftlint:disable:next function_body_length
 	func testExposureDetectionIsExecutedIfLastDetectionIsToOldAndModeIsAutomatic() throws {
-		var duration = DateComponents()
-		duration.day = 1
+		let duration = DateComponents(day: 1)
 
 		let calendar = Calendar.current
 
@@ -82,49 +80,17 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let consumer = RiskConsumer()
-		let nextExposureDetectionDateDidChangeExpectation = expectation(
-			description: "expect willCalculateRiskLevelIn to be called"
-		)
-		let expectedDate = Date()
-//		XCTAssertTrue(calendar.isDate(expectedDate, equalTo: sut.nextExposureDetectionDate(), toGranularity: .minute))
 
-		consumer.nextExposureDetectionDateDidChange = { nextDetectionDate in
-//			let expectedDate = Date()
-//
-//			XCTAssertTrue(calendar.isDate(expectedDate, equalTo: nextDetectionDate, toGranularity: .minute))
-			nextExposureDetectionDateDidChangeExpectation.fulfill()
-		}
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: false)
 		waitForExpectations(timeout: 1.0)
-//		wait(for: [nextExposureDetectionDateDidChangeExpectation, expectThatSummaryIsRequested], timeout: 10.0)
     }
 
-    func testExample() throws {
-		var duration = DateComponents()
-		duration.day = 1
-
-		let calendar = Calendar.current
-
-		let lastExposureDetectionDate = calendar.date(
-			byAdding: .hour,
-			value: -12,
-			to: Date(),
-			wrappingComponents: false
-			// swiftlint:disable:next force_unwrapping
-		)!
+    func testThatDetectionIsRequested() throws {
+		let duration = DateComponents(day: 1)
 
 		let store = MockTestStore()
-		store.summary = SummaryMetadata(
-			summary: CodableExposureDetectionSummary(
-				daysSinceLastExposure: 0,
-				matchedKeyCount: 0,
-				maximumRiskScore: 0,
-				attenuationDurations: [],
-				maximumRiskScoreFullRange: 0
-			),
-			date: lastExposureDetectionDate
-		)
+		store.summary = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -133,39 +99,42 @@ final class RiskProviderTests: XCTestCase {
 
 		let exposureSummaryProvider = ExposureSummaryProviderMock()
 
-		let expectThatNoSummaryIsRequested = expectation(description: "expectThatNoSummaryIsRequested")
-		expectThatNoSummaryIsRequested.isInverted = true
+		let detectionRequested = expectation(description: "expectThatNoSummaryIsRequested")
+
 		exposureSummaryProvider.onDetectExposure = { completion in
-			expectThatNoSummaryIsRequested.fulfill()
+			completion(nil)
+			detectionRequested.fulfill()
 		}
+
+		let client = ClientMock(submissionError: nil)
+
+		client.onAppConfiguration = { complete in
+			complete(SAP_ApplicationConfiguration.with {
+				$0.exposureConfig = SAP_RiskScoreParameters()
+			})
+		}
+
+		let cachedAppConfig = CachedAppConfiguration(client: client)
 
 		let sut = RiskProvider(
 			configuration: config,
 			store: store,
 			exposureSummaryProvider: exposureSummaryProvider,
-			appConfigurationProvider: CachedAppConfiguration(client: ClientMock(submissionError: nil)),
+			appConfigurationProvider: cachedAppConfig,
 			exposureManagerState: .init(authorized: true, enabled: true, status: .active)
 		)
 
 		let consumer = RiskConsumer()
-		let nextExposureDetectionDateDidChangeExpectation = expectation(
-			description: "expect willCalculateRiskLevelIn to be called"
+		let didCalculateRiskCalled = expectation(
+			description: "expect didCalculateRisk to be called"
 		)
-		let expectedDate = calendar.date(byAdding: .hour, value: 12, to: Date(), wrappingComponents: false)
 
-//		XCTAssertTrue(calendar.isDate(sut.nextExposureDetectionDate(), equalTo: expectedDate, toGranularity: .hour))
-
-		consumer.nextExposureDetectionDateDidChange = { nextDetectionDate in
-			// swiftlint:disable:next force_unwrapping
-//			let expectedDate = calendar.date(byAdding: .hour, value: 12, to: Date(), wrappingComponents: false)
-//			print("expected: \(expectedDate)")
-//			print("nextDetectionDate: \(nextDetectionDate)")
-
-//			XCTAssertTrue(calendar.isDate(expectedDate, equalTo: nextDetectionDate, toGranularity: .hour))
-			nextExposureDetectionDateDidChangeExpectation.fulfill()
+		consumer.didCalculateRisk = { _ in
+			didCalculateRiskCalled.fulfill()
 		}
+
 		sut.observeRisk(consumer)
-		sut.requestRisk(userInitiated: false)
-		wait(for: [nextExposureDetectionDateDidChangeExpectation, expectThatNoSummaryIsRequested], timeout: 1.0)
+		sut.requestRisk(userInitiated: true)
+		wait(for: [detectionRequested, didCalculateRiskCalled], timeout: 1.0, enforceOrder: true)
     }
 }

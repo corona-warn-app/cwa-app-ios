@@ -54,6 +54,7 @@ final class SettingsViewController: UITableViewController {
 		super.init(coder: coder)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -134,16 +135,11 @@ final class SettingsViewController: UITableViewController {
 	private func notificationSettings() {
 		let currentCenter = UNUserNotificationCenter.current()
 
-		currentCenter.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
+		currentCenter.getNotificationSettings { [weak self] settings in
 			guard let self = self else { return }
 
-			if let error = error {
-				log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
-				self.settingsViewModel.notifications.setState(state: false)
-				return
-			}
-
-			if granted && (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
+			if (settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional)
+				&& (self.store.allowRiskChangesNotification || self.store.allowTestsStatusNotification) {
 				self.settingsViewModel.notifications.setState(state: true)
 			} else {
 				self.settingsViewModel.notifications.setState(state: false)
