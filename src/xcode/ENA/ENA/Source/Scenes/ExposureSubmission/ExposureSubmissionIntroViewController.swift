@@ -41,10 +41,6 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 		footerView?.primaryButton?.accessibilityIdentifier = "AppStrings.ExposureSubmission.continueText"
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-	}
-
 	// MARK: - Setup helpers.
 
 	private func setupView() {
