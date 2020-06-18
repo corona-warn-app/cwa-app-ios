@@ -65,7 +65,7 @@ extension ExposureDetectionViewController {
 		closeButton.isAccessibilityElement = true
 		closeButton.accessibilityTraits = .button
 		closeButton.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		closeButton.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		consumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk

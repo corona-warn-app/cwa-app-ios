@@ -54,14 +54,13 @@ extension ENStateHandler.State {
 	var homeActivateAccessibilityIdentifier: String {
 		switch self {
 		case .enabled:
-			return "AppStrings.Home.activateCardOnTitle"
+			return AccessibilityIdentifiers.Home.activateCardOnTitle
 		case .disabled, .restricted, .notAuthorized, .unknown:
-			return "AppStrings.Home.activateCardOffTitle"
+			return AccessibilityIdentifiers.Home.activateCardOffTitle
 		case .bluetoothOff:
-			return "AppStrings.Home.activateCardBluetoothOffTitle"
+			return AccessibilityIdentifiers.Home.activateCardBluetoothOffTitle
 		case .internetOff:
-			return "AppStrings.Home.activateCardInternetOffTitle"
+			return AccessibilityIdentifiers.Home.activateCardInternetOffTitle
 		}
 	}
-
 }

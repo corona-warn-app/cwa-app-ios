@@ -91,7 +91,7 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			title: buttonTitle,
 			isEnabled: isButtonEnabled,
 			isHidden: isButtonHidden,
-			accessibilityIdentifier: "AppStrings.Home.riskCardIntervalUpdateTitle"
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.riskCardIntervalUpdateTitle
 		)
 
 		setupAccessibility(cell)
