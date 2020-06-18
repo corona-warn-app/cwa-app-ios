@@ -49,20 +49,34 @@ class ColorManagement : ObservableObject {
     var allColors = [String]()    //array with all color code of the selected 3 palettes
     
     
-    init() {
-        print("ColorManagemen init")
+    fileprivate func paletteInitCBC36() {
         allPalettes.append(palette(name: c_summerTime, thumbnail: c_tn_summerTime_lm, thumbnailDarkMode: c_tn_summerTime_dm, colors:ColorPaletteSummer))
         allPalettes.append(palette(name: c_darkPink, thumbnail: c_tn_darkPink_lm, thumbnailDarkMode: c_tn_darkPink_dm, colors:ColorPaletteDarkPink))
         allPalettes.append(palette(name: c_red, thumbnail: c_tn_red_lm, thumbnailDarkMode: c_tn_red_dm, colors:ColorPaletteRed))
         allPalettes.append(palette(name: c_green, thumbnail: c_tn_green_lm, thumbnailDarkMode: c_tn_green_dm, colors:ColorPaletteGreen))
         allPalettes.append(palette(name: c_blue, thumbnail: c_tn_blue_lm, thumbnailDarkMode: c_tn_blue_dm, colors:ColorPaletteBlue))
         allPalettes.append(palette(name: c_gray, thumbnail: c_tn_gray_lm, thumbnailDarkMode: c_tn_gray_dm, colors:ColorPaletteGray))
-        #if CBC24
+        //        allPalettes.append(palette(name: c_palette03, thumbnail: c_tn_P03_lm, thumbnailDarkMode: c_tn_P03_dm, colors:ColorPalette03))
+    }
+    
+    fileprivate func paletteInitCBC24() {
         allPalettes.append(palette(name: c_palette01, thumbnail: c_tn_P01_lm, thumbnailDarkMode: c_tn_P01_dm, colors:ColorPalette01))
         allPalettes.append(palette(name: c_palette02, thumbnail: c_tn_P02_lm, thumbnailDarkMode: c_tn_P02_dm, colors:ColorPalette02))
-        #endif
-//        allPalettes.append(palette(name: c_palette03, thumbnail: c_tn_P03_lm, thumbnailDarkMode: c_tn_P03_dm, colors:ColorPalette03))
-        
+        allPalettes.append(palette(name: c_red, thumbnail: c_tn_red_lm, thumbnailDarkMode: c_tn_red_dm, colors:ColorPaletteRed))
+        allPalettes.append(palette(name: c_green, thumbnail: c_tn_green_lm, thumbnailDarkMode: c_tn_green_dm, colors:ColorPaletteGreen))
+        allPalettes.append(palette(name: c_blue, thumbnail: c_tn_blue_lm, thumbnailDarkMode: c_tn_blue_dm, colors:ColorPaletteBlue))
+        allPalettes.append(palette(name: c_gray, thumbnail: c_tn_gray_lm, thumbnailDarkMode: c_tn_gray_dm, colors:ColorPaletteGray))
+        //        allPalettes.append(palette(name: c_palette03, thumbnail: c_tn_P03_lm, thumbnailDarkMode: c_tn_P03_dm, colors:ColorPalette03))
+    }
+    
+
+    init() {
+        print("ColorManagemen init")
+        #if CBC24
+        paletteInitCBC24()
+        #elseif CBC36
+        paletteInitCBC36()
+        #endif        
         for i in 0...(globalNoOfScreens - 1) {
             self.setScreenPalette(withIndex: i, name: globalDataModel.getUserSelectedPalette(withIndex: i))
         }
