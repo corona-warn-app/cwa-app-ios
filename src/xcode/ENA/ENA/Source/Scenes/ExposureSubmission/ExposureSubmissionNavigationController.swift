@@ -103,7 +103,6 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 	}
 
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
-		print(viewController?.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem)
 		if let viewController = viewController,
 			viewController.navigationItem.rightBarButtonItem == nil ||
 				viewController.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem {
