@@ -1,7 +1,7 @@
 //
 // Corona-Warn-App
 //
-// SAP SE and all other contributors /
+// SAP SE and all other contributors
 // copyright owners license this file to you under the Apache
 // License, Version 2.0 (the "License"); you may not use this
 // file except in compliance with the License.
@@ -17,13 +17,10 @@
 // under the License.
 //
 
-import Foundation
-
-protocol RiskProviding: AnyObject {
-	typealias Completion = (Risk?) -> Void
-
-	func observeRisk(_ consumer: RiskConsumer)
-	func requestRisk(userInitiated: Bool, completion: Completion?)
-
-	var configuration: RiskProvidingConfiguration { get set }
+/// If the risk provider is running in manual mode then the manual exposure detection state tells you whether or not requestRisk(…) will trigger an exposure detection when called.
+enum ManualExposureDetectionState {
+	/// If the state is `possible` then calling requestRisk(…) will trigger an exposure detection when called.
+	case possible
+	/// If the state is `waiting` then calling requestRisk(…) will used the cached summary to do a risk detection.
+	case waiting
 }

@@ -22,7 +22,6 @@ import Foundation
 import XCTest
 
 final class RiskProvidingConfigurationTests: XCTestCase {
-
 	private let validityDuration = DateComponents(day: 2)
 	private let detectionInterval = DateComponents(day: 1)
 	private lazy var config = RiskProvidingConfiguration(

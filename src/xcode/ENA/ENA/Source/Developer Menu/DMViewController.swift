@@ -36,6 +36,7 @@ final class DMViewController: UITableViewController {
 		title = "👩🏾‍💻🧑‍💻"
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -261,6 +262,7 @@ private class KeyCell: UITableViewCell {
 		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
