@@ -101,6 +101,7 @@ final class ExposureSubmissionNavigationController: UINavigationController, UINa
 		self.testResult = testResult
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -146,6 +147,7 @@ final class ExposureSubmissionNavigationController: UINavigationController, UINa
 		barButtonItem.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
 
 		navigationItem.rightBarButtonItem = barButtonItem
+		navigationBar.accessibilityLabel = "ExposureSubmissionNavigationController"
 
 		setupBottomView()
 
