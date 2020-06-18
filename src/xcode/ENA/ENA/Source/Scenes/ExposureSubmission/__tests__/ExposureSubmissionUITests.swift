@@ -34,8 +34,6 @@ class ExposureSubmissionUITests: XCTestCase {
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "YES"])
-		app.launchArguments += ["-AppleLanguages", "(de)"]
-		app.launchArguments += ["-AppleLocale", "de_DE"]
 	}
 
 	// MARK: - Test cases.
@@ -78,7 +76,7 @@ class ExposureSubmissionUITests: XCTestCase {
 		// Open Intro screen.
 		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
+		XCTAssert(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
 		// Click next button.
 		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
@@ -101,7 +99,7 @@ class ExposureSubmissionUITests: XCTestCase {
 		// Open Intro screen.
 		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
 		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
-		XCTAssert(app.navigationBars["Info"].waitForExistence(timeout: .medium))
+		XCTAssert(app.navigationBars["ExposureSubmissionNavigationController"].waitForExistence(timeout: .medium))
 
 		// Click next button.
 		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
