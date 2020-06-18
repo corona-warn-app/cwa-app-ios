@@ -857,12 +857,6 @@ extension HomeViewController {
 }
 
 // MARK: The ENStateHandler updating
-//extension HomeViewController: ENStateHandlerUpdating {
-//	func updateEnState(_ state: ENStateHandler.State) {
-//	}
-//}
-
-
 extension HomeViewController: ENStateHandlerUpdating {
 	func updateEnState(_ newState: ENStateHandler.State) {
 		state.enState = newState
