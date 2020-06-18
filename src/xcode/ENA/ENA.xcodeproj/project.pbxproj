@@ -272,6 +272,8 @@
 		B19C9E9D249C01BD0066B2B7 /* UIColor+HomeBackgroundColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9E9C249C01BD0066B2B7 /* UIColor+HomeBackgroundColorTests.swift */; };
 		B19C9E9F249C070F0066B2B7 /* HomeCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9E9E249C070F0066B2B7 /* HomeCollectionViewDataSource.swift */; };
 		B19C9EA1249C148C0066B2B7 /* HomeCollectionViewDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9EA0249C148C0066B2B7 /* HomeCollectionViewDataSourceTests.swift */; };
+		B19C9EA3249C1CFF0066B2B7 /* UICollectionViewCell+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9EA2249C1CFF0066B2B7 /* UICollectionViewCell+Highlight.swift */; };
+		B19C9EA5249C1D230066B2B7 /* UICollectionViewCell+HighlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C9EA4249C1D230066B2B7 /* UICollectionViewCell+HighlightTests.swift */; };
 		B19FD7112491A07000A9D56A /* String+SemanticVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FD7102491A07000A9D56A /* String+SemanticVersion.swift */; };
 		B19FD7132491A08500A9D56A /* SAP_SemanticVersion+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FD7122491A08500A9D56A /* SAP_SemanticVersion+Compare.swift */; };
 		B19FD7152491A4A300A9D56A /* SAP_SemanticVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19FD7142491A4A300A9D56A /* SAP_SemanticVersionTests.swift */; };
@@ -682,6 +684,8 @@
 		B19C9E9C249C01BD0066B2B7 /* UIColor+HomeBackgroundColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HomeBackgroundColorTests.swift"; sourceTree = "<group>"; };
 		B19C9E9E249C070F0066B2B7 /* HomeCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		B19C9EA0249C148C0066B2B7 /* HomeCollectionViewDataSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewDataSourceTests.swift; sourceTree = "<group>"; };
+		B19C9EA2249C1CFF0066B2B7 /* UICollectionViewCell+Highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Highlight.swift"; sourceTree = "<group>"; };
+		B19C9EA4249C1D230066B2B7 /* UICollectionViewCell+HighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+HighlightTests.swift"; sourceTree = "<group>"; };
 		B19FD7102491A07000A9D56A /* String+SemanticVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SemanticVersion.swift"; sourceTree = "<group>"; };
 		B19FD7122491A08500A9D56A /* SAP_SemanticVersion+Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAP_SemanticVersion+Compare.swift"; sourceTree = "<group>"; };
 		B19FD7142491A4A300A9D56A /* SAP_SemanticVersionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SAP_SemanticVersionTests.swift; sourceTree = "<group>"; };
@@ -1739,6 +1743,7 @@
 				B19C9E97249BFD300066B2B7 /* HomeCollectionViewTests.swift */,
 				B19C9E9C249C01BD0066B2B7 /* UIColor+HomeBackgroundColorTests.swift */,
 				B19C9EA0249C148C0066B2B7 /* HomeCollectionViewDataSourceTests.swift */,
+				B19C9EA4249C1D230066B2B7 /* UICollectionViewCell+HighlightTests.swift */,
 			);
 			path = __tests__;
 			sourceTree = "<group>";
@@ -1841,6 +1846,7 @@
 				B19C9E8E249BF7F40066B2B7 /* __tests__ */,
 				B1F09668249BF7C300A1D5C1 /* UIImage+Logo.swift */,
 				B19C9E9A249C019A0066B2B7 /* UIColor+HomeBackgroundColor.swift */,
+				B19C9EA2249C1CFF0066B2B7 /* UICollectionViewCell+Highlight.swift */,
 				B1F09665249BE7FF00A1D5C1 /* HomeCollectionView.swift */,
 				B19C9E93249BFB580066B2B7 /* LogoBarButtonItem.swift */,
 				B19C9E95249BFB7A0066B2B7 /* InfoBarButtonItem.swift */,
@@ -2484,6 +2490,7 @@
 				85142501245DA0B3009D2791 /* UIViewController+Alert.swift in Sources */,
 				CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */,
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
+				B19C9EA3249C1CFF0066B2B7 /* UICollectionViewCell+Highlight.swift in Sources */,
 				71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */,
 				B14D0CD9246E946E00D5BEBC /* ExposureDetection.swift in Sources */,
 				B154F59B246DD5CF003E891E /* Client+Convenience.swift in Sources */,
@@ -2578,6 +2585,7 @@
 				B1FE13FE24896EF700D012E5 /* CachedAppConfigurationTests.swift in Sources */,
 				A1E419602498243E0016E52A /* String+TodayTests.swift in Sources */,
 				F2DC809024898A9400EDC40A /* DynamicTableViewControllerNumberOfRowsAndSectionsTests.swift in Sources */,
+				B19C9EA5249C1D230066B2B7 /* UICollectionViewCell+HighlightTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

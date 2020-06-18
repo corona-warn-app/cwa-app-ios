@@ -390,25 +390,6 @@ extension HomeViewController: ExposureSubmissionNavigationControllerDelegate {
 	}
 }
 
-extension UICollectionViewCell {
-	func highlight() {
-		let highlightView = UIView(frame: bounds)
-		highlightView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		highlightView.backgroundColor = .enaColor(for: .listHighlight)
-		highlightView.tag = 100_000
-		highlightView.clipsToBounds = true
-
-		if let homeCollectionViewCell = self as? HomeCardCollectionViewCell {
-			highlightView.layer.cornerRadius = homeCollectionViewCell.contentView.layer.cornerRadius
-		}
-		addSubview(highlightView)
-	}
-
-	func unhighlight() {
-		subviews.filter(({ $0.tag == 100_000 })).forEach({ $0.removeFromSuperview() })
-	}
-}
-
 extension HomeViewController {
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
