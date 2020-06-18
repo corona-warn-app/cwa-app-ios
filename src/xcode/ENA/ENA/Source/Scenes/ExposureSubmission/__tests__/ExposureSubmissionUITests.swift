@@ -114,11 +114,61 @@ class ExposureSubmissionUITests: XCTestCase {
 		app.alerts.buttons.firstMatch.tap()
 
 	}
+
+	func test_SubmitTAN() {
+
+		// Setup service mocks.
+		app.launchArguments += ["UI:ExposureSubmission:getRegistrationTokenSuccess"]
+		app.launchArguments += ["UI:ExposureSubmission:submitExposureSuccess"]
+		launch()
+
+		// Open Intro screen.
+		XCTAssert(app.collectionViews.buttons["AppStrings.Home.submitCardButton"].waitForExistence(timeout: .long))
+		app.collectionViews.buttons["AppStrings.Home.submitCardButton"].tap()
+
+		// Click next button.
+		XCTAssertNotNil(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+
+		// Click TAN button.
+		XCTAssert(app
+			.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"]
+			.waitForExistence(timeout: .medium)
+		)
+		app.buttons["AppStrings.ExposureSubmissionDispatch.tanButtonDescription"].tap()
+
+		// Fill in dummy TAN.
+		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		type(app, text: "qwdzxcsrhe")
+
+		// Click continue button.
+		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].isEnabled)
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+
+		// TAN tests are ALWAYS positive!
+
+		// Click next.
+		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+
+		// Click next to warn others.
+		XCTAssert(app.buttons["AppStrings.ExposureSubmission.continueText"].waitForExistence(timeout: .medium))
+		app.buttons["AppStrings.ExposureSubmission.continueText"].tap()
+
+		XCTAssert(app.navigationBars["ENA.ExposureSubmissionSuccessView"].waitForExistence(timeout: .medium))
+
+	}
 }
 
 // MARK: - Helpers.
 
 extension ExposureSubmissionUITests {
+
+	private func type(_ app: XCUIApplication, text: String) {
+		text.forEach {
+			app.keys[String($0)].tap()
+		}
+	}
 
 	/// Launch and wait until the app is ready.
 	private func launch() {
