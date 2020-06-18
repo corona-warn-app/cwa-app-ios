@@ -108,7 +108,7 @@ class contactReader: ObservableObject{
                     }
                 }
                 
-                // If phoneNo a Mobilenumber, then put into Array:
+                // Exclude only the FAX numbers:
                 for phoneNo in contact.phoneNumbers {
                     if (phoneNo.label != CNLabelPhoneNumberHomeFax &&
                         phoneNo.label != CNLabelPhoneNumberWorkFax &&
