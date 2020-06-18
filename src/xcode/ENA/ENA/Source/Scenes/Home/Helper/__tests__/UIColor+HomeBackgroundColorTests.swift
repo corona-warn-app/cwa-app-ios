@@ -20,23 +20,20 @@
 import XCTest
 @testable import ENA
 
-private extension UITraitCollection {
-	class func lightStyle() -> UITraitCollection { .init(userInterfaceStyle: .light) }
-	class func darkStyle() -> UITraitCollection { .init(userInterfaceStyle: .dark) }
-	class func unspecifiedStyle() -> UITraitCollection { .init(userInterfaceStyle: .unspecified) }
-
-}
-
 final class UIColor_HomeBackgroundColorTests: XCTestCase {
     func testIsDynamic() throws {
 		let sut = UIColor.homeBackgroundColor()
 		let expectedDark = UIColor
 			.enaColor(for: .separator)
 			.resolvedColor(with: .darkStyle())
+		let expectedLight = UIColor
+			.enaColor(for: .background)
+			.resolvedColor(with: .lightStyle())
+		let expectedUnspecified = expectedLight
 
 		XCTAssertEqual(
 			sut.resolvedColor(with: .lightStyle()),
-			.enaColor(for: .background)
+			expectedLight
 		)
 
 		XCTAssertEqual(
@@ -47,7 +44,13 @@ final class UIColor_HomeBackgroundColorTests: XCTestCase {
 		// falls back to light
 		XCTAssertEqual(
 			sut.resolvedColor(with: .unspecifiedStyle()),
-			.enaColor(for: .background)
+			expectedUnspecified
 		)
     }
+}
+
+private extension UITraitCollection {
+	class func lightStyle() -> UITraitCollection { .init(userInterfaceStyle: .light) }
+	class func darkStyle() -> UITraitCollection { .init(userInterfaceStyle: .dark) }
+	class func unspecifiedStyle() -> UITraitCollection { .init(userInterfaceStyle: .unspecified) }
 }
