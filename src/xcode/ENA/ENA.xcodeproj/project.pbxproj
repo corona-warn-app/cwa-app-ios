@@ -248,7 +248,6 @@
 		B15382E5248273F30010F007 /* MockTestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382E3248273DC0010F007 /* MockTestStore.swift */; };
 		B15382E7248290BB0010F007 /* AppleFilesWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382E6248290BB0010F007 /* AppleFilesWriterTests.swift */; };
 		B15382FE248424F00010F007 /* ExposureDetectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15382FD248424F00010F007 /* ExposureDetectionTests.swift */; };
-		B154F59B246DD5CF003E891E /* Client+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B154F59A246DD5CF003E891E /* Client+Convenience.swift */; };
 		B16177E824802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16177E724802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift */; };
 		B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B161782424804AC3006E435A /* DownloadedPackagesSQLLiteStore.swift */; };
 		B161782D248062CE006E435A /* DeltaCalculationResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B161782C248062CE006E435A /* DeltaCalculationResultTests.swift */; };
@@ -644,7 +643,6 @@
 		B15382E3248273DC0010F007 /* MockTestStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTestStore.swift; sourceTree = "<group>"; };
 		B15382E6248290BB0010F007 /* AppleFilesWriterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleFilesWriterTests.swift; sourceTree = "<group>"; };
 		B15382FD248424F00010F007 /* ExposureDetectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionTests.swift; sourceTree = "<group>"; };
-		B154F59A246DD5CF003E891E /* Client+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+Convenience.swift"; sourceTree = "<group>"; };
 		B1569DDE245D70990079FCD7 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		B16177E724802F9B006E435A /* DownloadedPackagesSQLLiteStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStoreTests.swift; sourceTree = "<group>"; };
 		B161782424804AC3006E435A /* DownloadedPackagesSQLLiteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedPackagesSQLLiteStore.swift; sourceTree = "<group>"; };
@@ -1478,7 +1476,6 @@
 			children = (
 				B1CD333F2486AA5F00B06E9B /* Security */,
 				B1741B482462C207006275D9 /* Client.swift */,
-				B154F59A246DD5CF003E891E /* Client+Convenience.swift */,
 				B1DDDABA2471379900A07175 /* __tests__ */,
 				B1125455246F293A00AB5036 /* HTTP Client */,
 			);
@@ -2405,7 +2402,6 @@
 				514E81342461B97800636861 /* ExposureManager.swift in Sources */,
 				71176E32248957C3004B0C9F /* AppNavigationController.swift in Sources */,
 				B14D0CD9246E946E00D5BEBC /* ExposureDetection.swift in Sources */,
-				B154F59B246DD5CF003E891E /* Client+Convenience.swift in Sources */,
 				B161782524804AC3006E435A /* DownloadedPackagesSQLLiteStore.swift in Sources */,
 				51CE1BBF2460B222002CF42A /* HomeRiskCellConfigurator.swift in Sources */,
 				EE22DB82247FB40A001B0A71 /* ENSettingModel.swift in Sources */,
