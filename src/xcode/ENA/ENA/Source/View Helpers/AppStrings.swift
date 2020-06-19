@@ -265,6 +265,9 @@ enum AppStrings {
 		static let resetDescription = NSLocalizedString("Settings_Reset_Description", comment: "")
 
 		static let navigationBarTitle = NSLocalizedString("Settings_NavTitle", comment: "")
+
+		static let onImageDescription = NSLocalizedString("Settings_onImageDescription", comment: "")
+		static let offImageDescription = NSLocalizedString("Settings_offImageDescription", comment: "")
 	}
 
 	enum NotificationSettings {

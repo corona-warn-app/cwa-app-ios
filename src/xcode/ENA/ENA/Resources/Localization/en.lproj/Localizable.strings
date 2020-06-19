@@ -154,6 +154,10 @@
 
 "NotificationSettings_NavTitle" = "Notifications";
 
+"NotificationSettings_onImageDescription" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
+
+"NotificationSettings_offImageDescription" = "Eine Frau kann keine Mitteilung von ihrer Corona-Warn-App erhalten.";
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "Let’s get started";
 
