@@ -32,7 +32,9 @@ We kindly ask you to follow the [Pull Request Checklist](#Pull-Request-Checklist
 
 ## Contributing Code
 
-You are welcome to contribute code in order to fix a bug or to implement a new feature.
+You are welcome to contribute code in order to fix a bug or to implement a new feature that is logged as an issue.
+
+Only start working on the Pull Request after the team assigned the issue to you to avoid unnecessary efforts.
 
 The following rule governs code contributions:
 
