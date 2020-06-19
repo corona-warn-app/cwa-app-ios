@@ -132,7 +132,7 @@ class Kurzwahl2020Tests: XCTestCase {
     func testGetUserSelectedPalette() {
         var name : String
         for i in 0...2 {
-            name = sut.getUserSelectedPalette(withIndex: i)
+            name = sut.getUserSelectedPaletteName(withIndex: i)
             XCTAssertTrue( name.count > 0)
         }
         

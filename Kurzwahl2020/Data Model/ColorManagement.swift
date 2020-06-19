@@ -112,14 +112,29 @@ class ColorManagement : ObservableObject {
         return userSelectedPalettes[withIndex].name
     }
     
-    
+    // in case an invalid palette name has been read from the settings file then
+    // we have to make sure to set a valid palette name
     func setScreenPalette(withIndex: Int, name: String) {
+        var paletteFound = false
         for p in allPalettes {
             if p.name == name {
+                paletteFound = true
                 userSelectedPalettes.insert(p, at: withIndex)
                 //update settings
                 globalDataModel.updateScreenPalette(withIndex: withIndex, palette: p)
             }
+        }
+        if paletteFound == false {
+            let paletteName = globalDefaultPalettes[withIndex]
+            for p in allPalettes {
+                if p.name == paletteName {
+                    paletteFound = true
+                    userSelectedPalettes.insert(p, at: withIndex)
+                    //update settings
+                    globalDataModel.updateScreenPalette(withIndex: withIndex, palette: p)
+                }
+            }
+            
         }
     }
     
