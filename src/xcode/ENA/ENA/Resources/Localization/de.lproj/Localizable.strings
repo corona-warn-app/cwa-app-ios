@@ -740,7 +740,7 @@
 "App_Information_Legal_Navigation" = "Rechtliche Hinweise";
 
 /* App Information - Privacy */
-"App_Information_Privacy_Navigation" = "Datenschutz";
+"App_Information_Privacy_Navigation" = "Datenschutzinformation";
 
 "App_Information_Legal_ImageDescription" = "Eine Hand hält ein Smartphone mit viel Text, daneben ist eine Balkenwaage als Symbol für rechtliche Hinweise.";
 
@@ -768,7 +768,7 @@
 
 "InviteFriends_ShareTitle" = "Gemeinsam Corona bekämpfen. Ich bin dabei. Du auch?";
 
-"InviteFriends_ShareUrl" = "https://www.coronawarn.app/de/";
+"InviteFriends_ShareUrl" = "https://www.corona-warn-app.de";
 
 "InviteFriends_Illustration_Label" = "Ein Mann teilt die Corona-Warn-App mit vier anderen Personen.";
 
@@ -795,7 +795,7 @@
 
 "Reset_ConfirmDialog_Description" = "Sie werden nicht mehr über Ihre Risiko-Begegnungen informiert und können andere Nutzerinnen und Nutzer nicht mehr warnen. Dieser Vorgang kann nicht rückgängig gemacht werden.";
 
-"Reset_ConfirmDialog_Cancel"  = "Abbrechen";
+"Reset_ConfirmDialog_Cancel" = "Abbrechen";
 
 "Reset_ConfirmDialog_Confirm" = "Zurücksetzen";
 
