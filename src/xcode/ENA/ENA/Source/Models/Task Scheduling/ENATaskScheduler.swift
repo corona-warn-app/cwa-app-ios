@@ -115,6 +115,7 @@ final class ENATaskScheduler {
 	private func executeFetchTestResults(_ task: BGTask) {
 		taskDelegate?.executeFetchTestResults(task: task) { success in
 			task.setTaskCompleted(success: success)
+			self.scheduleTask(for: task.identifier)
 		}
 	}
 
