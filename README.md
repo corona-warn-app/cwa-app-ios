@@ -3,11 +3,12 @@
 </h1>
 
 <p align="center">
-    <a href="https://github.com/corona-warn-app/cwa-app-ios/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/corona-warn-app/cwa-app-ios?style=flat"></a>
-    <a href="https://github.com/corona-warn-app/cwa-app-ios/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios?style=flat"></a>
-    <a href="https://circleci.com/gh/corona-warn-app/cwa-app-ios" title="Build Status"><img src="https://circleci.com/gh/corona-warn-app/cwa-app-ios.png?circle-token=656940b0df758209128b0d782c5f8885ddceb7a8&style=shield"></a>
+   <a href="https://github.com/corona-warn-app/cwa-app-ios/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/corona-warn-app/cwa-app-ios?style=flat"></a>
+   <a href="https://github.com/corona-warn-app/cwa-app-ios/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios?style=flat"></a>
+   <a href="https://circleci.com/gh/corona-warn-app/cwa-app-ios" title="Build Status"><img src="https://circleci.com/gh/corona-warn-app/cwa-app-ios.png?circle-token=656940b0df758209128b0d782c5f8885ddceb7a8&style=shield"></a>
    <a href="https://sonarcloud.io/component_measures?id=corona-warn-app_cwa-app-ios&metric=Coverage&view=list" title="Coverage"><img src="https://sonarcloud.io/api/project_badges/measure?project=corona-warn-app_cwa-app-ios&metric=coverage"></a>
-    <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg"></a>
+   <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg"></a>
+   <a href="https://github-tools.github.io/github-release-notes/" title="Automated Release Notes"><img src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg"></a>
 </p>
 
 <p align="center">
