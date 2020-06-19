@@ -253,7 +253,7 @@ class kurzwahlModel: ObservableObject{
 //    }
     
     
-    func getUserSelectedPalette(withIndex: Int) -> String {
+    func getUserSelectedPaletteName(withIndex: Int) -> String {
         var result : String
         switch withIndex {
         case 0:

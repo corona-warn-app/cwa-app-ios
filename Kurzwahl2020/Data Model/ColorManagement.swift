@@ -45,7 +45,7 @@ struct palette: Identifiable, Hashable {
 
 class ColorManagement : ObservableObject {
     var allPalettes = [palette]() //array of all available palettes
-    var userScreen = [palette]()  //the three used palettes
+    var userSelectedPalettes = [palette]()  //the three used palettes
     var allColors = [String]()    //array with all color code of the selected 3 palettes
     
     
@@ -78,7 +78,7 @@ class ColorManagement : ObservableObject {
         paletteInitCBC36()
         #endif        
         for i in 0...(globalNoOfScreens - 1) {
-            self.setScreenPalette(withIndex: i, name: globalDataModel.getUserSelectedPalette(withIndex: i))
+            self.setScreenPalette(withIndex: i, name: globalDataModel.getUserSelectedPaletteName(withIndex: i))
         }
         setAllColors()
     }
@@ -96,7 +96,7 @@ class ColorManagement : ObservableObject {
     
     
     func getThumbnailName(withIndex: Int) -> String {
-        return userScreen[withIndex].thumbnail
+        return userSelectedPalettes[withIndex].thumbnail
     }
     
     
@@ -106,17 +106,17 @@ class ColorManagement : ObservableObject {
     
     
     func getScreenPaletteName(withIndex: Int) -> String {
-        if userScreen.count < withIndex + 1 {
+        if userSelectedPalettes.count < withIndex + 1 {
             return globalDefaultPalettes[withIndex]
         }
-        return userScreen[withIndex].name
+        return userSelectedPalettes[withIndex].name
     }
     
     
     func setScreenPalette(withIndex: Int, name: String) {
         for p in allPalettes {
             if p.name == name {
-                userScreen.insert(p, at: withIndex)
+                userSelectedPalettes.insert(p, at: withIndex)
                 //update settings
                 globalDataModel.updateScreenPalette(withIndex: withIndex, palette: p)
             }
@@ -127,8 +127,8 @@ class ColorManagement : ObservableObject {
     func modifyScreenPalette(withIndex: Int, name: String) {
         for p in allPalettes {
             if p.name == name {
-                userScreen.remove(at: withIndex)
-                userScreen.insert(p, at: withIndex)
+                userSelectedPalettes.remove(at: withIndex)
+                userSelectedPalettes.insert(p, at: withIndex)
                 //update settings
                 globalDataModel.updateScreenPalette(withIndex: withIndex, palette: p)
             }
