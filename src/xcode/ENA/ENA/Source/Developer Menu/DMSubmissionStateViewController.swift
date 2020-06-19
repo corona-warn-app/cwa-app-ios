@@ -63,11 +63,19 @@ final class DMSubmissionStateViewController: UITableViewController {
 	func performCheck() {
 		let group = DispatchGroup()
 
-		group.enter()
 		var allPackages = [SAPDownloadedPackage]()
-		client.fetch { result in
-			allPackages = result.allKeyPackages
-			group.leave()
+
+		group.enter()
+		client.availableDays { result in
+			switch result {
+			case let .success(days):
+				self.client.fetchDays(days) { daysResult in
+					allPackages.append(contentsOf: Array(daysResult.bucketsByDay.values))
+					group.leave()
+				}
+			case .failure:
+				group.leave()
+			}
 		}
 
 		var localKeys = [ENTemporaryExposureKey]()
