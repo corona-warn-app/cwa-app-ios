@@ -50,7 +50,7 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	private unowned var homeViewController: HomeViewController
 	lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ENAExposureSubmissionService(
+		ExposureSubmissionServiceFactory.create(
 			diagnosiskeyRetrieval: self.exposureManager,
 			client: self.client,
 			store: self.store

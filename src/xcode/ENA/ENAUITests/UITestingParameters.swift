@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,23 +15,14 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 
-extension String {
-	static func formattedToday() -> String {
-		DateFormatter.packagesDateFormatter.string(from: Date())
+enum UITestingParameters {
+	enum ExposureSubmission: String {
+		case useMock = "UI:ExposureSubmission:useMock"
+		case getRegistrationTokenSuccess = "UI:ExposureSubmission:getRegistrationTokenSuccess"
+		case submitExposureSuccess = "UI:ExposureSubmission:submitExposureSuccess"
 	}
-}
-
-extension DateFormatter {
-	static var packagesDateFormatter: DateFormatter = {
-		let formatter = DateFormatter()
-		formatter.dateFormat = "yyyy-MM-dd"
-		formatter.timeZone = TimeZone(abbreviation: "UTC")
-		formatter.locale = Locale(identifier: "en_US_POSIX")
-		formatter.calendar = Calendar(identifier: .gregorian)
-
-		return formatter
-	}()
 }

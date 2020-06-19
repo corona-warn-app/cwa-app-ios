@@ -18,7 +18,7 @@
 import ExposureNotification
 import Foundation
 
-typealias DaysAndHours = Client.DaysAndHours
+typealias DaysAndHours = (days: [String], hours: [Int])
 
 /// Methods required to move an exposure detection transaction forward and for consuming
 /// the results of a transaction.
