@@ -112,8 +112,7 @@ The German government has asked SAP and Deutsche Telekom to develop the Corona-W
 | Repository          | Description                                                           |
 | ------------------- | --------------------------------------------------------------------- |
 | [cwa-documentation] | Project overview, general documentation, and white papers.            |
-| [cwa-wishlist]     | Community feature requests.                                           |
-| [cwa-documentation] | Project overview, general documentation, and white papers.            |
+| [cwa-wishlist]      | Community feature requests.                                           |
 | [cwa-app-ios]       | Native iOS app using the Apple/Google exposure notification API.      |
 | [cwa-app-android]   | Native Android app using the Apple/Google exposure notification API.  |
 | [cwa-server]        | Backend implementation for the Apple/Google exposure notification API.|
