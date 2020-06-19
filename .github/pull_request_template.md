@@ -5,7 +5,7 @@ Before submitting, please take the time to check the points below and provide so
 
 ## Checklist
 
-* [ ] This PR does not change text that hasn't been signed off with the RKI. See issue [440](https://github.com/corona-warn-app/cwa-app-ios/issues/440)
+* [ ] This PR does not change text that hasn't been signed off with the RKI. Have a look at the pinned issue [440](https://github.com/corona-warn-app/cwa-app-ios/issues)
 * [ ] Test your changes as thoroughly as possible before you commit them. Preferably, automate your test by unit/integration tests.
 * [ ] If this PR comes from a fork, please [Allow edits from maintainers](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/allowing-changes-to-a-pull-request-branch-created-from-a-fork)
 * [ ] Set a speaking title. Format: {task_name} (closes #{issue_number}). For example: Use logger (closes # 41)
