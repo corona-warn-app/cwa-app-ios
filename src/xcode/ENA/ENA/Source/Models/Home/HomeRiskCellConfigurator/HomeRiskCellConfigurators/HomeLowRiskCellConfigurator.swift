@@ -92,6 +92,18 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 					separatorColor: separatorColor
 				)
 			)
+
+			let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
+			itemCellConfigurators.append(
+				HomeRiskImageItemViewConfigurator(
+					title: dateTitle,
+					titleColor: titleColor,
+					iconImageName: "Icons_Aktualisiert",
+					iconTintColor: titleColor,
+					color: color,
+					separatorColor: separatorColor
+				)
+			)
 		}
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
