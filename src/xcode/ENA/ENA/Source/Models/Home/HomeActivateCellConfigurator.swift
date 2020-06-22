@@ -37,19 +37,19 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 		case .enabled:
 			iconImage = UIImage(named: "Icons_Risikoermittlung")
 			cell.titleLabel.text = AppStrings.Home.activateCardOnTitle
-			cell.accessibilityIdentifier = "AppStrings.Home.activateCardOnTitle"
+			cell.accessibilityIdentifier = AccessibilityIdentifiers.Home.activateCardOnTitle
 		case .disabled, .restricted, .notAuthorized, .unknown:
 			iconImage = UIImage(named: "Icons_Risikoermittlung_gestoppt")
 			cell.titleLabel.text = AppStrings.Home.activateCardOffTitle
-			cell.accessibilityIdentifier = "AppStrings.Home.activateCardOffTitle"
+			cell.accessibilityIdentifier = AccessibilityIdentifiers.Home.activateCardOffTitle
 		case .bluetoothOff:
 			iconImage = UIImage(named: "Icons_Bluetooth_aus")
 			cell.titleLabel.text = AppStrings.Home.activateCardBluetoothOffTitle
-			cell.accessibilityIdentifier = "AppStrings.Home.activateCardBluetoothOffTitle"
+			cell.accessibilityIdentifier = AccessibilityIdentifiers.Home.activateCardBluetoothOffTitle
 		case .internetOff:
 			iconImage = UIImage(named: "Icons_Internet_aus")
 			cell.titleLabel.text = AppStrings.Home.activateCardInternetOffTitle
-			cell.accessibilityIdentifier = "AppStrings.Home.activateCardInternetOffTitle"
+			cell.accessibilityIdentifier = AccessibilityIdentifiers.Home.activateCardInternetOffTitle
 		}
 
 		cell.iconImageView.image = iconImage

@@ -53,20 +53,20 @@ class NotificationSettingsViewModel {
 							description: AppStrings.NotificationSettings.riskChanges,
 							state: store.allowRiskChangesNotification,
 							updateState: { store.allowRiskChangesNotification = $0 },
-							accessibilityIdentifier: AppStrings.NotificationSettings.riskChanges
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.riskChanges
 						)),
 						.testsStatus(.init(
 							description: AppStrings.NotificationSettings.testsStatus,
 							state: store.allowTestsStatusNotification,
 							updateState: { store.allowTestsStatusNotification = $0 },
-							accessibilityIdentifier: AppStrings.NotificationSettings.testsStatus
+							accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.testsStatus
 						))
 					]
 				)
 			],
 			openSettings: nil,
 			accessibilityLabel: AppStrings.NotificationSettings.onTitle,
-			accessibilityIdentifier: "AppStrings.NotificationSettings.onTitle"
+			accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.onTitle
 		)
 	}
 

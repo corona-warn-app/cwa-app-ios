@@ -93,7 +93,7 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 	}
 
 	private func setupAccessibility() {
-		accessibilityIdentifier = "AppStrings.ExposureNotificationSetting.enableTracing"
+		accessibilityIdentifier = AccessibilityIdentifiers.ExposureNotificationSetting.enableTracing
 
 		isAccessibilityElement = true
 		accessibilityTraits = [.button]
@@ -117,4 +117,8 @@ class ActionTableViewCell: UITableViewCell, ActionCell {
 		}
 	}
 
+	override func accessibilityActivate() -> Bool {
+		toggle(self)
+		return true
+	}
 }

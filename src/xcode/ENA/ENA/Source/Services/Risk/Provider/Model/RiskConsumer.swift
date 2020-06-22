@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,23 +15,20 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 
-extension String {
-	static func formattedToday() -> String {
-		DateFormatter.packagesDateFormatter.string(from: Date())
+final class RiskConsumer: NSObject {
+	// MARK: Creating a Consumer
+	init(targetQueue: DispatchQueue = .main) {
+		self.targetQueue = targetQueue
 	}
-}
 
-extension DateFormatter {
-	static var packagesDateFormatter: DateFormatter = {
-		let formatter = DateFormatter()
-		formatter.dateFormat = "yyyy-MM-dd"
-		formatter.timeZone = TimeZone(abbreviation: "UTC")
-		formatter.locale = Locale(identifier: "en_US_POSIX")
-		formatter.calendar = Calendar(identifier: .gregorian)
+	// MARK: Properties
+	/// The queue `didCalculateRisk` will be called on. Defaults to `.main`.
+	let targetQueue: DispatchQueue
 
-		return formatter
-	}()
+	/// Called when the risk level changed
+	var didCalculateRisk: ((Risk) -> Void) = { _ in }
 }
