@@ -163,8 +163,6 @@
 
 "Onboarding_Continue_actionTextHint" = "Sie können diesen Bildschirm überspringen";
 
-"Onboarding_Continue_skipLongTextHint" = "Es folgt ein Langtext. Eine statische Weitertaste steht am unteren Rand des Bildschirms zur Verfügung.";
-
 "Onboarding_doNotAllow_actionText" = "Nicht erlauben";
 
 "Onboarding_DoNotActivate_actionText" = "Nicht aktivieren";
