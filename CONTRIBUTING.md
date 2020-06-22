@@ -14,15 +14,17 @@ We use GitHub to manage reviews of pull requests.
 
 * If you are a new contributor, see: [Steps to Contribute](#steps-to-contribute)
 
-* If you have a trivial fix or improvement, go ahead and create a pull request, addressing (with `@...`) a suitable maintainer of this repository (see [CODEOWNERS](CODEOWNERS) of the repository you want to contribute to) in the description of the pull request.
+* Before opening a new Pull Request, create an issue that describes the problem you would like to solve or the code that should be enhanced. Please note that you are willing to work on that issue.
 
-* If you plan to do something more involved, please reach out to us and send an [email](mailto:corona-warn-app.opensource@sap.com). This will avoid unnecessary work and surely give you and us a good deal of inspiration.
+* The team will review the issue and decide whether it should be implemented as a Pull Request. In that case, they will assign the issue to you. If the team decides against picking up the issue, it will be closed with a proper explanation.
 
 * Relevant coding style guidelines are available in the respective sub-repositories as they are programming language-dependent.
 
 ## Steps to Contribute
 
-Should you wish to work on an issue, please claim it first by commenting on the GitHub issue that you want to work on. This is to prevent duplicated efforts from other contributors on the same issue.
+Should you wish to work on an existing issue, please claim it first by commenting on the GitHub issue that you want to work on. This is to prevent duplicated efforts from other contributors on the same issue.
+
+Only start working on the Pull Request after the team assigned the issue to you to avoid unnecessary efforts.
 
 If you have questions about one of the issues, please comment on them, and one of the maintainers will clarify.
 
@@ -30,7 +32,9 @@ We kindly ask you to follow the [Pull Request Checklist](#Pull-Request-Checklist
 
 ## Contributing Code
 
-You are welcome to contribute code in order to fix a bug or to implement a new feature.
+You are welcome to contribute code in order to fix a bug or to implement a new feature that is logged as an issue.
+
+Only start working on the Pull Request after the team assigned the issue to you to avoid unnecessary efforts.
 
 The following rule governs code contributions:
 

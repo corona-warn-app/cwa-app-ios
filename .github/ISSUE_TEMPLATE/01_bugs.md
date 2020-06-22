@@ -13,6 +13,7 @@ Also, be sure to check our documentation first: <URL>
 -->
 
 ## Avoid duplicates
+
 * [ ] Bug is not mentioned in the [FAQ](https://www.coronawarn.app/en/faq/)
 * [ ] Bug is not already reported in another issue
 
@@ -37,7 +38,8 @@ Also, be sure to check our documentation first: <URL>
 
 ## Technical details
 
-- Host Machine OS (Windows/Linux/Mac):
+- iOS Version:
+- Device:
 
 ## Possible Fix
 
