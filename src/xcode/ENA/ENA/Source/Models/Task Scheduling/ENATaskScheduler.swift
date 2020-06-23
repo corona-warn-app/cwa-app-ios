@@ -21,13 +21,13 @@ import UIKit
 
 enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
-	case primaryBackgroundTask = "exposure-notification"
-	case secondaryBackgroundTask = "fetch-test-results"
+	case exposureNotification = "exposure-notification"
+	case fetchTestResults = "fetch-test-results"
 
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
-		case .primaryBackgroundTask: return nil
-		case .secondaryBackgroundTask: return nil
+		case .exposureNotification: return nil
+		case .fetchTestResults: return nil
 		}
 	}
 	var backgroundTaskSchedulerIdentifier: String {
@@ -53,20 +53,20 @@ final class ENATaskScheduler {
 	typealias CompletionHandler = (() -> Void)
 
 	private func registerTasks() {
-		registerTask(with: .primaryBackgroundTask, taskHander: executeExposureDetectionRequest(_:))
-		registerTask(with: .secondaryBackgroundTask, taskHander: executeFetchTestResults(_:))
+		registerTask(with: .exposureNotification, taskHandler: executeExposureDetectionRequest(_:))
+		registerTask(with: .fetchTestResults, taskHandler: executeFetchTestResults(_:))
 	}
 
-	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
+	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHandler: @escaping ((BGTask) -> Void)) {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
-			taskHander(task)
+			taskHandler(task)
 		}
 	}
 
 	func scheduleTasks() {
-		scheduleTask(for: .primaryBackgroundTask, cancelExisting: true)
-		scheduleTask(for: .secondaryBackgroundTask, cancelExisting: true)
+		scheduleTask(for: .exposureNotification, cancelExisting: true)
+		scheduleTask(for: .fetchTestResults, cancelExisting: true)
 	}
 
 	func cancelTasks() {
