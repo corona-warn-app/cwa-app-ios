@@ -22,12 +22,12 @@ import UIKit
 enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
 	case primaryBackgroundTask = "exposure-notification"
-	case secondardBackgroundTask = "fetch-test-results"
+	case secondaryBackgroundTask = "fetch-test-results"
 
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
 		case .primaryBackgroundTask: return nil
-		case .secondardBackgroundTask: return nil
+		case .secondaryBackgroundTask: return nil
 		}
 	}
 	var backgroundTaskSchedulerIdentifier: String {
@@ -54,7 +54,7 @@ final class ENATaskScheduler {
 
 	private func registerTasks() {
 		registerTask(with: .primaryBackgroundTask, taskHander: executeExposureDetectionRequest(_:))
-		registerTask(with: .secondardBackgroundTask, taskHander: executeFetchTestResults(_:))
+		registerTask(with: .secondaryBackgroundTask, taskHander: executeFetchTestResults(_:))
 	}
 
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
@@ -66,6 +66,7 @@ final class ENATaskScheduler {
 
 	func scheduleTasks() {
 		scheduleTask(for: .primaryBackgroundTask, cancelExisting: true)
+		scheduleTask(for: .secondaryBackgroundTask, cancelExisting: true)
 	}
 
 	func cancelTasks() {
