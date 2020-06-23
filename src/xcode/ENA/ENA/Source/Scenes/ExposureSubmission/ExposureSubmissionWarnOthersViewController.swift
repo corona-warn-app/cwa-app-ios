@@ -57,6 +57,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	// MARK: - ExposureSubmissionService Helpers.
 
 	internal func startSubmitProcess() {
+		navigationFooterItem?.isPrimaryButtonEnabled = false
 		startSpinner()
 		exposureSubmissionService?.submitExposure { error in
 			self.stopSpinner()
@@ -64,6 +65,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 				logError(message: "error: \(error.localizedDescription)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
+				navigationFooterItem?.isPrimaryButtonEnabled = true
 				return
 			}
 
