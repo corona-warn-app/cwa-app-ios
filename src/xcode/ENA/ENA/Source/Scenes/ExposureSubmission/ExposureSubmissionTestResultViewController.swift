@@ -18,13 +18,12 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, SpinnerInjectable {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
 	var testResult: TestResult?
 	var timeStamp: Int64?
-	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View Lifecycle methods.
 
@@ -128,14 +127,17 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	}
 
 	private func refreshTest() {
-		startSpinner()
+		navigationFooterItem?.isPrimaryButtonEnabled = false
+		navigationFooterItem?.isPrimaryButtonLoading = true
 		exposureSubmissionService?
 			.getTestResult { result in
-				self.stopSpinner()
 				switch result {
 				case let .failure(error):
 					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-					self.present(alert, animated: true, completion: nil)
+					self.present(alert, animated: true, completion: {
+						self.navigationFooterItem?.isPrimaryButtonEnabled = true
+						self.navigationFooterItem?.isPrimaryButtonLoading = false
+					})
 				case let .success(testResult):
 					self.refreshView(for: testResult)
 				}
