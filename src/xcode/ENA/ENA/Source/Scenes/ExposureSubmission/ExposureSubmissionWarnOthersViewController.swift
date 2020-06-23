@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, SpinnerInjectable {
+class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, SpinnerInjectable {
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
@@ -36,7 +36,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
-		setButtonTitle(to: AppStrings.ExposureSubmissionWarnOthers.continueButton)
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnOthers.continueButton
 		setupTableView()
 	}
 
@@ -56,7 +56,8 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 
 	// MARK: - ExposureSubmissionService Helpers.
 
-	private func startSubmitProcess() {
+	internal func startSubmitProcess() {
+		navigationFooterItem?.isPrimaryButtonEnabled = false
 		startSpinner()
 		exposureSubmissionService?.submitExposure { error in
 			self.stopSpinner()
@@ -64,6 +65,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 				logError(message: "error: \(error.localizedDescription)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
+				self.navigationFooterItem?.isPrimaryButtonEnabled = true
 				return
 			}
 
@@ -73,10 +75,10 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 
 }
 
-// MARK: ExposureSubmissionNavigationControllerChild methods.
+// MARK: ENANavigationControllerWithFooterChild methods.
 
-extension ExposureSubmissionWarnOthersViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension ExposureSubmissionWarnOthersViewController {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		startSubmitProcess()
 	}
 }

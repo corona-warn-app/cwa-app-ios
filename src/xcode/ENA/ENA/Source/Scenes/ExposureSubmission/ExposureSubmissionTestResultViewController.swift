@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController, SpinnerInjectable {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, SpinnerInjectable {
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
@@ -61,15 +61,15 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, Sp
 		guard let result = testResult else { return }
 		switch result {
 		case .positive:
-			setButtonTitle(to: AppStrings.ExposureSubmissionResult.continueButton)
-			hideSecondaryButton()
+			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.continueButton
+			navigationFooterItem?.isSecondaryButtonHidden = true
 		case .negative, .invalid:
-			setButtonTitle(to: AppStrings.ExposureSubmissionResult.deleteButton)
-			hideSecondaryButton()
+			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
+			navigationFooterItem?.isSecondaryButtonHidden = true
 		case .pending:
-			setButtonTitle(to: AppStrings.ExposureSubmissionResult.refreshButton)
-			setSecondaryButtonTitle(to: AppStrings.ExposureSubmissionResult.deleteButton)
-			showSecondaryButton()
+			navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionResult.refreshButton
+			navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionResult.deleteButton
+			navigationFooterItem?.isSecondaryButtonHidden = false
 		}
 	}
 
@@ -187,10 +187,10 @@ extension ExposureSubmissionTestResultViewController {
 	}
 }
 
-// MARK: ExposureSubmissionNavigationControllerChild methods.
+// MARK: ENANavigationControllerWithFooterChild methods.
 
-extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension ExposureSubmissionTestResultViewController {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		guard let result = testResult else { return }
 
 		switch result {
@@ -203,7 +203,7 @@ extension ExposureSubmissionTestResultViewController: ExposureSubmissionNavigati
 		}
 	}
 
-	func didTapSecondButton() {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
 		guard let result = testResult else { return }
 		switch result {
 		case .pending:

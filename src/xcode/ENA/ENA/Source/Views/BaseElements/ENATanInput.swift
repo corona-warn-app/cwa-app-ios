@@ -117,11 +117,13 @@ extension ENATanInput {
 }
 
 extension ENATanInput {
+	@discardableResult
 	override func becomeFirstResponder() -> Bool {
 		delegate?.enaTanInputDidBeginEditing?(self)
 		return super.becomeFirstResponder()
 	}
 
+	@discardableResult
 	override func resignFirstResponder() -> Bool {
 		delegate?.enaTanInputDidEndEditing?(self)
 		return super.resignFirstResponder()
@@ -344,12 +346,14 @@ private class ENATanInputLabel: UILabel {
 
 		self.textColor = textColor
 
-		guard let context = UIGraphicsGetCurrentContext() else { return }
-		context.setLineWidth(lineWidth)
-		context.setStrokeColor(lineColor.cgColor)
-		context.move(to: CGPoint(x: 0, y: bounds.height - lineWidth / 2))
-		context.addLine(to: CGPoint(x: bounds.width, y: bounds.height - lineWidth / 2))
-		context.strokePath()
+		if false != text?.isEmpty {
+			guard let context = UIGraphicsGetCurrentContext() else { return }
+			context.setLineWidth(lineWidth)
+			context.setStrokeColor(lineColor.cgColor)
+			context.move(to: CGPoint(x: 0, y: bounds.height - lineWidth / 2))
+			context.addLine(to: CGPoint(x: bounds.width, y: bounds.height - lineWidth / 2))
+			context.strokePath()
+		}
 	}
 
 	override func drawText(in rect: CGRect) {

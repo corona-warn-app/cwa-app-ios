@@ -46,7 +46,7 @@ class ExposureSubmissionTanInputViewControllerTests: XCTestCase {
 
 		vc.tanInput.insertText("234567893D")
 		if vc.tanInput.isEnabled {
-			vc.didTapButton()
+			_ = vc.enaTanInputDidTapReturn(vc.tanInput)
 		}
 		
 		waitForExpectations(timeout: .short)
