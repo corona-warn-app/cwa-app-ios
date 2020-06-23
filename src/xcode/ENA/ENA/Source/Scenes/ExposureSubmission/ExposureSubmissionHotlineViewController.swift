@@ -61,10 +61,10 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 				.section(
 					header: .image(UIImage(named: "Illu_Submission_Kontakt"),
 								   accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
-								   accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.imageDescription"),
+								   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.imageDescription),
 					cells: [
 						.body(text: AppStrings.ExposureSubmissionHotline.description,
-							  accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.description") { _, cell, _ in
+							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.description) { _, cell, _ in
 								cell.textLabel?.accessibilityTraits = .header
 						}
 					]
@@ -72,7 +72,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 				DynamicSection.section(
 					cells: [
 						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle,
-								accessibilityIdentifier: "AppStrings.ExposureSubmissionHotline.sectionTitle"),
+								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.sectionTitle),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription1,

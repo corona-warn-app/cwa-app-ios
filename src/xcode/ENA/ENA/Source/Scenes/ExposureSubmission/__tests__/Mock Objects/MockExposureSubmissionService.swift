@@ -18,7 +18,6 @@
 //
 
 import Foundation
-@testable import ENA
 
 class MockExposureSubmissionService: ExposureSubmissionService {
 

@@ -99,11 +99,11 @@ final class ResetViewController: UIViewController {
 		}
 
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		imageView.isAccessibilityElement = true
 		imageView.accessibilityLabel = AppStrings.Reset.imageDescription
-		imageView.accessibilityIdentifier = "AppString.Reset.imageDescription"
+		imageView.accessibilityIdentifier = AccessibilityIdentifiers.Reset.imageDescription
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

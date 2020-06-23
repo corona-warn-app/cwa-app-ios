@@ -29,13 +29,13 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		lastUpdateDate: Date?,
 		detectionInterval: Int,
 		detectionMode: DetectionMode,
-		manualExposureDetectionState: ManualExposureDetectionState
+		manualExposureDetectionState: ManualExposureDetectionState?
 	) {
 		self.detectionInterval = detectionInterval
 
 		super.init(
 			isLoading: isLoading,
-			isButtonEnabled: detectionMode == .manual && manualExposureDetectionState == .possible,
+			isButtonEnabled: manualExposureDetectionState == .possible,
 			isButtonHidden: detectionMode == .automatic,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
 			lastUpdateDate: lastUpdateDate
@@ -83,7 +83,7 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			title: buttonTitle,
 			isEnabled: isButtonEnabled,
 			isHidden: isButtonHidden,
-			accessibilityIdentifier: "AppStrings.Home.riskCardIntervalUpdateTitle"
+			accessibilityIdentifier: AccessibilityIdentifiers.Home.riskCardIntervalUpdateTitle
 		)
 
 		setupAccessibility(cell)

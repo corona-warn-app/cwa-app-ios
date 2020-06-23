@@ -35,6 +35,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 		super.init(coder: aDecoder)
 	}
 
+	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -272,7 +273,7 @@ private extension ExposureSubmissionOverviewViewController {
 				cells: [
 					.body(
 						text: AppStrings.ExposureSubmissionDispatch.description,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.description")
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.description)
 				]
 			)
 		)
@@ -283,21 +284,21 @@ private extension ExposureSubmissionOverviewViewController {
 				description: AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription,
 				image: UIImage(named: "Illu_Submission_QRCode"),
 				action: .execute(block: { _ in self.showDisclaimer() }),
-				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.qrCodeButtonDescription
 			),
 			.imageCard(
 				title: AppStrings.ExposureSubmissionDispatch.tanButtonTitle,
 				description: AppStrings.ExposureSubmissionDispatch.tanButtonDescription,
 				image: UIImage(named: "Illu_Submission_TAN"),
 				action: .perform(segue: Segue.tanInput),
-				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.tanButtonDescription
 			),
 			.imageCard(
 				title: AppStrings.ExposureSubmissionDispatch.hotlineButtonTitle,
 				attributedDescription: applyFont(style: .headline, to: AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription, with: AppStrings.ExposureSubmissionDispatch.positiveWord),
 				image: UIImage(named: "Illu_Submission_Anruf"),
 				action: .perform(segue: Segue.hotline),
-				accessibilityIdentifier: "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionDispatch.hotlineButtonDescription
 			)
 		]))
 

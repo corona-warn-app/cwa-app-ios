@@ -30,7 +30,7 @@ class RiskLegendViewController: DynamicTableViewController {
 		navigationItem.title = AppStrings.RiskLegend.title
 
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.AccessibilityLabel.close
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.AccessibilityLabel.close"
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		dynamicTableViewModel = model
 	}

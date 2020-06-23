@@ -36,6 +36,7 @@ final class DMViewController: UITableViewController {
 		title = "👩🏾‍💻🧑‍💻"
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -113,7 +114,7 @@ final class DMViewController: UITableViewController {
 	private func clearRegToken() {
 		store.registrationToken = nil
 		let alert = UIAlertController(title: "Reg Token", message: "Reg Token deleted", preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
 		self.present(alert, animated: true, completion: nil)
 	}
 
@@ -261,6 +262,7 @@ private class KeyCell: UITableViewCell {
 		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}

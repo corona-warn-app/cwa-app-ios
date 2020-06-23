@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,23 +15,12 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
-import Foundation
-
-extension String {
-	static func formattedToday() -> String {
-		DateFormatter.packagesDateFormatter.string(from: Date())
-	}
-}
-
-extension DateFormatter {
-	static var packagesDateFormatter: DateFormatter = {
-		let formatter = DateFormatter()
-		formatter.dateFormat = "yyyy-MM-dd"
-		formatter.timeZone = TimeZone(abbreviation: "UTC")
-		formatter.locale = Locale(identifier: "en_US_POSIX")
-		formatter.calendar = Calendar(identifier: .gregorian)
-
-		return formatter
-	}()
+/// If the risk provider is running in manual mode then the manual exposure detection state tells you whether or not requestRisk(…) will trigger an exposure detection when called.
+enum ManualExposureDetectionState {
+	/// If the state is `possible` then calling requestRisk(…) will trigger an exposure detection when called.
+	case possible
+	/// If the state is `waiting` then calling requestRisk(…) will used the cached summary to do a risk detection.
+	case waiting
 }
