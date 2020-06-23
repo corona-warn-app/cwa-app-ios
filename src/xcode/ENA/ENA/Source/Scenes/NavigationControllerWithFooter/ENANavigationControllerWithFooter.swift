@@ -50,6 +50,8 @@ class ENANavigationControllerWithFooter: UINavigationController {
 		super.viewWillAppear(animated)
 
 		observeKeyboard()
+		observeNavigationItem(of: topViewController)
+		footerView.apply(navigationItem: topViewController?.navigationItem)
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -200,7 +202,7 @@ extension ENANavigationControllerWithFooter {
 		self.updateAdditionalSafeAreaInsets()
 		self.layoutFooterView()
 
-		navigationItemObserver = (viewController.navigationItem as? ENANavigationFooterItem)?.observe(observer: navigationItemObserver)
+		observeNavigationItem(of: viewController)
 	}
 
 	private func transitionFooterView(to viewController: UIViewController?) {
@@ -225,6 +227,11 @@ extension ENANavigationControllerWithFooter {
 }
 
 extension ENANavigationControllerWithFooter {
+	private func observeNavigationItem(of viewController: UIViewController?) {
+		guard let viewController = viewController else { return }
+		navigationItemObserver = (viewController.navigationItem as? ENANavigationFooterItem)?.observe(observer: navigationItemObserver)
+	}
+
 	private func navigationItemObserver(_ navigationItem: UINavigationItem) {
 		if nil != view.window && nil == transitionCoordinator {
 			UIView.animate(withDuration: CATransaction.animationDuration()) {
