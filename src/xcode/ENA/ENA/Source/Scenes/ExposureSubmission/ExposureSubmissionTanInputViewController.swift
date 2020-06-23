@@ -98,6 +98,7 @@ extension ExposureSubmissionTanInputViewController {
 
 extension ExposureSubmissionTanInputViewController {
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
+		tanInput.resignFirstResponder()
 		submitTan()
 	}
 
@@ -118,10 +119,11 @@ extension ExposureSubmissionTanInputViewController {
 
 			switch result {
 			case let .failure(error):
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, completion: {
+					self.navigationFooterItem?.isPrimaryButtonEnabled = true
+					self.tanInput.becomeFirstResponder()
+				})
 				self.present(alert, animated: true, completion: nil)
-
-				self.navigationFooterItem?.isPrimaryButtonEnabled = false
 
 			case .success:
 				self.performSegue(
