@@ -56,7 +56,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	// MARK: - ExposureSubmissionService Helpers.
 
-	private func startSubmitProcess() {
+	internal func startSubmitProcess() {
 		startSpinner()
 		exposureSubmissionService?.submitExposure { error in
 			self.stopSpinner()
