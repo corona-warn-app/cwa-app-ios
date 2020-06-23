@@ -91,13 +91,16 @@
                                             <constraint firstItem="eyD-er-ora" firstAttribute="top" secondItem="JLu-j3-Z7j" secondAttribute="top" id="wNC-1t-Xjg"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b20-mf-cB4" customClass="ENACloneButton" customModule="ENA" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b20-mf-cB4" customClass="ENAButton" customModule="ENA" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="294" width="595" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="50" id="ZQb-Lf-ezw"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <state key="normal" title="Button"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isInverted" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="updateButtonTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="WC5-CV-Zky"/>
                                         </connections>
