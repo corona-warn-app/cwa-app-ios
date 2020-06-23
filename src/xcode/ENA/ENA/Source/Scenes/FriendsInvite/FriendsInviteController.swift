@@ -46,10 +46,6 @@ final class FriendsInviteController: UIViewController {
 		imageView.accessibilityIdentifier = AccessibilityIdentifiers.InviteFriends.imageAccessLabel
 
 		inviteButton.setTitle(AppStrings.InviteFriends.submit, for: .normal)
-
-		if let inviteButton = inviteButton, let titleLabel = inviteButton.titleLabel {
-			inviteButton.addConstraint(NSLayoutConstraint(item: inviteButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
-		}
 	}
 
 	override func viewDidLayoutSubviews() {
