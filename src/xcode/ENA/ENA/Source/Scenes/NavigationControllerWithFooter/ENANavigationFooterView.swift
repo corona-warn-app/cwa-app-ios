@@ -72,6 +72,16 @@ class ENANavigationFooterView: ENAFooterView {
 		set { secondaryButton.isEnabled = newValue }
 	}
 
+	var isPrimaryButtonLoading: Bool {
+		get { primaryButton.isLoading }
+		set { primaryButton.isLoading = newValue }
+	}
+
+	var isSecondaryButtonLoading: Bool {
+		get { secondaryButton.isLoading }
+		set { secondaryButton.isLoading = newValue }
+	}
+
 	private let spacing: CGFloat = 8
 
 	convenience init() {
@@ -170,19 +180,23 @@ extension ENANavigationFooterView {
 		if let navigationItem = navigationItem as? ENANavigationFooterItem {
 			isPrimaryButtonHidden = navigationItem.isPrimaryButtonHidden
 			isPrimaryButtonEnabled = navigationItem.isPrimaryButtonEnabled
+			isPrimaryButtonLoading = navigationItem.isPrimaryButtonLoading
 			if !isPrimaryButtonHidden { primaryButtonTitle = navigationItem.primaryButtonTitle }
 
 			isSecondaryButtonHidden = navigationItem.isSecondaryButtonHidden
 			isSecondaryButtonEnabled = navigationItem.isSecondaryButtonEnabled
+			isSecondaryButtonLoading = navigationItem.isSecondaryButtonLoading
 			if !isSecondaryButtonHidden { secondaryButtonTitle = navigationItem.secondaryButtonTitle }
 			
 		} else {
 			isPrimaryButtonHidden = true
 			isPrimaryButtonEnabled = false
+			isPrimaryButtonLoading = false
 			if !isPrimaryButtonHidden { primaryButtonTitle = nil }
 
 			isSecondaryButtonHidden = true
 			isSecondaryButtonEnabled = false
+			isSecondaryButtonLoading = false
 			if !isSecondaryButtonHidden { secondaryButtonTitle = nil }
 		}
 	}

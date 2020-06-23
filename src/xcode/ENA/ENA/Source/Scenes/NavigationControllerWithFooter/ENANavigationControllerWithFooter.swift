@@ -267,9 +267,11 @@ private extension ENANavigationFooterItem {
 		let observers = [
 			observe(\.isPrimaryButtonHidden, changeHandler: { _, _ in observer(self) }),
 			observe(\.isPrimaryButtonEnabled, changeHandler: { _, _ in observer(self) }),
+			observe(\.isPrimaryButtonLoading, changeHandler: { _, _ in observer(self) }),
 			observe(\.primaryButtonTitle, changeHandler: { _, _ in observer(self) }),
 			observe(\.isSecondaryButtonHidden, changeHandler: { _, _ in observer(self) }),
 			observe(\.isSecondaryButtonEnabled, changeHandler: { _, _ in observer(self) }),
+			observe(\.isSecondaryButtonLoading, changeHandler: { _, _ in observer(self) }),
 			observe(\.secondaryButtonTitle, changeHandler: { _, _ in observer(self) })
 		]
 		return Observer(observers: observers)
