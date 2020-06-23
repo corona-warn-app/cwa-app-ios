@@ -65,7 +65,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 				logError(message: "error: \(error.localizedDescription)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: nil)
-				navigationFooterItem?.isPrimaryButtonEnabled = true
+				self.navigationFooterItem?.isPrimaryButtonEnabled = true
 				return
 			}
 
