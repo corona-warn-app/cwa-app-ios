@@ -156,6 +156,11 @@ class ENAButton: DynamicTypeButton {
 		activityIndicator.startAnimating()
 
 		self.activityIndicator = activityIndicator
+
+		UIView.performWithoutAnimation {
+			self.setNeedsLayout()
+			self.layoutIfNeeded()
+		}
 	}
 
 	private func updateActivityIndicatorStyle() {
