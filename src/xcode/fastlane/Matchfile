@@ -6,6 +6,10 @@ type("appstore") # The default type, can be: appstore, adhoc, enterprise or deve
 
 app_identifier(["de.rki.coronawarnapp-dev"])  #, "de.rki.coronawarnapp"
 
+template_name("Exposure Notification for 523TP53AQF (Distribution) iOS Dist")
+
 username("cwa.technical-user@sap.com") # Apple Developer Portal username
+
+team_id("523TP53AQF")
 
 # The docs are available on https://docs.fastlane.tools/actions/match

@@ -1,7 +1,7 @@
 
 app_identifier("de.rki.coronawarnapp-dev")
 
-# username()
+username("cwa.technical-user@sap.com")
 
 automatic_release(true)
 
@@ -11,6 +11,6 @@ skip_screenshots(true)
 
 skip_metadata(true)
 
-app_icon(./ENA/ENA/Resources/Assets/AppIcon.xcassets)
+app_icon("./ENA/ENA/Resources/Assets/AppIcon.xcassets")
 
-team_id(118870206)
+team_id("523TP53AQF")

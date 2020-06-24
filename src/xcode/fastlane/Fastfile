@@ -88,20 +88,22 @@ platform :ios do
   desc "Build and upload for testing"
   lane :betaRelease do
     match(
-      readonly: true,
-      team_id: "118870206"  # 523TP53AQF
+      readonly: true
     )
 
     build_ios_app(
-      export_method: "app-store",
       scheme: "ENA",
-      configuration: "Testflight",
-      clean: true
+      configuration: "TestFlight",
+      clean: true,
+      export_options: {
+        "method": "app-store",
+        "signingStyle": "manual",
+      }
     )
 
     snapshot
 
-    #deliver
+    deliver
   end
 
 end
