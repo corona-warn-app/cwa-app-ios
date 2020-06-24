@@ -1,0 +1,16 @@
+
+app_identifier("de.rki.coronawarnapp-dev")
+
+# username()
+
+automatic_release(true)
+
+overwrite_screenshots(true)
+
+skip_screenshots(true)
+
+skip_metadata(true)
+
+app_icon(./ENA/ENA/Resources/Assets/AppIcon.xcassets)
+
+team_id(118870206)
