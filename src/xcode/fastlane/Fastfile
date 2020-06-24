@@ -101,9 +101,9 @@ platform :ios do
       }
     )
 
-    snapshot
+    #snapshot
 
-    deliver
+    #deliver
   end
 
 end
