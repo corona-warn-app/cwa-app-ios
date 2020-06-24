@@ -104,7 +104,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Ma-84-jrP"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Tan Input" id="V3g-Ep-y0w"/>
+                    <navigationItem key="navigationItem" title="Tan Input" id="V3g-Ep-y0w" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="contentView" destination="8dd-c4-eqD" id="JeN-jy-4Cu"/>
@@ -135,7 +135,7 @@
                             <outlet property="delegate" destination="efh-V6-b47" id="Vg9-3e-Kw3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Testergebnis" id="ZER-NQ-eAY"/>
+                    <navigationItem key="navigationItem" title="Testergebnis" id="ZER-NQ-eAY" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
                             <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -164,7 +164,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Test Registrieren" id="M8d-ii-EG4"/>
+                    <navigationItem key="navigationItem" title="Test Registrieren" id="M8d-ii-EG4" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
                             <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -312,7 +312,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" name="ENA Background Color"/>
                     </tableView>
-                    <navigationItem key="navigationItem" id="T7L-wJ-1am"/>
+                    <navigationItem key="navigationItem" id="T7L-wJ-1am" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
                             <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -340,7 +340,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="pUU-DO-TYc" userLabel="Navigation Item"/>
+                    <navigationItem key="navigationItem" id="pUU-DO-TYc" userLabel="Navigation Item" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
@@ -366,7 +366,7 @@
                         <color key="backgroundColor" name="ENA Background Color"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Intro" largeTitleDisplayMode="always" id="O7Z-9o-aZy"/>
+                    <navigationItem key="navigationItem" title="Intro" largeTitleDisplayMode="always" id="O7Z-9o-aZy" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <userDefinedRuntimeAttributes>
@@ -392,7 +392,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" name="ENA Background Color"/>
                     </tableView>
-                    <navigationItem key="navigationItem" id="esH-XN-Att"/>
+                    <navigationItem key="navigationItem" id="esH-XN-Att" customClass="ENANavigationFooterItem" customModule="ENA" customModuleProvider="target"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="cellBackgroundColor">
                             <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -408,10 +408,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="HlT-ix-3R2"/>
-        <segue reference="aeq-iH-Hkk"/>
+        <segue reference="5YR-5A-F8h"/>
+        <segue reference="7vS-vS-v87"/>
         <segue reference="n8Y-d3-Pny"/>
-        <segue reference="zPx-Mo-iVD"/>
+        <segue reference="TMI-YH-9ne"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bolt" catalog="system" width="101" height="128"/>
