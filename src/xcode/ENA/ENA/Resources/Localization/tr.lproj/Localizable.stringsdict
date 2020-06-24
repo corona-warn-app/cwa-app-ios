@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ExposureDetection_Refreshed_Format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+			<string>Bugün, %%1$@</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One -->
+			<string>Dün, %%1$@</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other -->
+			<string>%%2$@, %%1$@</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_NumberOfContacts</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+			<string>Şu ana dek hiçbir maruz kalma yok</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One -->
+			<string>Bir maruz kalma</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other -->
+			<string>%u maruz kalma</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_LastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One -->
+			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other -->
+			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
+		</dict>
+	</dict>
+    <key>Home_Risk_Number_Contacts_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+            <string>Şu ana dek hiçbir maruz kalma yok</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One -->
+            <string>%u maruz kalma</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other -->
+            <string>%u maruz kalma</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_Last_Contact_Item_Title</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@VARIABLE@</string>
+        <key>VARIABLE</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+            <string>Son maruz kalmanın üzerinden bir günden az süre geçti</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One -->
+            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other -->
+            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
+        </dict>
+    </dict>
+    <key>Home_Risk_Status_Counter_Label</key>
+    <dict>
+        <key>NSStringLocalizedFormatKey</key>
+        <string>%#@minutes@%#</string>
+        <key>minutes</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+            <string>%02u:%2$#@seconds@ seconds içinde güncelle</string>
+            <key>one</key>
+			<!-- XFLD: Plural form for One -->
+            <string>%02u:%2$#@seconds@ minute içinde güncelle</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other -->
+            <string>%02u:%2$#@seconds@ minutes içinde güncelle</string>
+        </dict>
+        <key>seconds</key>
+        <dict>
+            <key>NSStringFormatSpecTypeKey</key>
+            <string>NSStringPluralRuleType</string>
+            <key>NSStringFormatValueTypeKey</key>
+            <string>u</string>
+            <key>other</key>
+			<!-- XFLD: Plural form for Other -->
+            <string>%02u</string>
+        </dict>
+    </dict>
+	<key>ENSetting_Tracing_History</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!-- XFLD: Plural form for Zero -->
+			<string>Maruz kalma günlüğü bir günden az süredir etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One -->
+			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
+			<key>other</key>
+			<!-- XFLD: Plural form for Other -->
+			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
