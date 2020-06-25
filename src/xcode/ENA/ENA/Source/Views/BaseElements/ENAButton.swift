@@ -65,12 +65,10 @@ class ENAButton: DynamicTypeButton {
 		cornerRadius = 8
 
 		contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-		let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
-		// TODO temporary fix for auto layout warnings on home screen
-		heightConstraint.priority = .init(999)
-		heightConstraint.isActive = true
 
 		titleLabel?.font = .preferredFont(forTextStyle: .body)
+		titleLabel?.textAlignment = .center
+		titleLabel?.lineBreakMode = .byWordWrapping
 		dynamicTypeSize = 17
 		dynamicTypeWeight = "semibold"
 
@@ -82,6 +80,18 @@ class ENAButton: DynamicTypeButton {
 
 		applyStyle()
 		applyHighlight()
+		applySizeConstraint()
+	}
+
+	private func applySizeConstraint() {
+		let heightConstraint = heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
+		heightConstraint.priority = .defaultHigh
+		heightConstraint.isActive = true
+
+		if let titleLabel = titleLabel {
+			widthAnchor.constraint(greaterThanOrEqualTo: titleLabel.widthAnchor, constant: contentEdgeInsets.left + contentEdgeInsets.right).isActive = true
+			heightAnchor.constraint(equalTo: titleLabel.heightAnchor, constant: contentEdgeInsets.top + contentEdgeInsets.bottom).isActive = true
+		}
 	}
 
 	private func applyStyle() {
