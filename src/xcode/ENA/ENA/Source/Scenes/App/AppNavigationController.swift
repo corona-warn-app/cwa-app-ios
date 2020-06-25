@@ -48,8 +48,8 @@ class AppNavigationController: UINavigationController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		if let opacityDelegate = topViewController as? AppNavigationControllerDelegate {
-			navigationBar.backgroundAlpha = opacityDelegate.navigationBarBackgroundAlpha
+		if let topViewController = topViewController {
+			applyNavigationBarOpacity(for: topViewController)
 		}
 	}
 }
@@ -115,16 +115,21 @@ extension AppNavigationController {
 		navigationBar.scrollEdgeAppearance = state.scrollEdgeAppearance ?? defaultScrollEdgeAppearance
 	}
 
+	private func applyNavigationBarOpacity(for viewController: UIViewController) {
+		guard let delegate = viewController as? AppNavigationControllerDelegate  else { return }
+		navigationBar.backgroundAlpha = delegate.navigationBarBackgroundAlpha
+	}
+
 	private func observeScrollView(of viewController: UIViewController) {
 		scrollViewObserver?.invalidate()
 
-		guard let opacityDelegate = viewController as? AppNavigationControllerDelegate  else { return }
+		guard viewController is AppNavigationControllerDelegate  else { return }
 		guard let scrollView = viewController.scrollView else { return }
 
 		scrollViewObserver = scrollView.observe(\.contentOffset) { [weak self] _, _ in
 			guard let self = self else { return }
 			guard viewController == self.topViewController else { return }
-			self.navigationBar.backgroundAlpha = opacityDelegate.navigationBarBackgroundAlpha
+			self.applyNavigationBarAppearance(for: viewController)
 		}
 	}
 }
