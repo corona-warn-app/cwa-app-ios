@@ -549,9 +549,9 @@
 
 "Home_Risk_No_Date_Title" = "Bilinmiyor";
 
-"Home_Risk_Period_Update_Title" = "%@\U00A0hours aralıkla güncellenir";
+"Home_Risk_Period_Update_Title" = "%@\U00A0saatler aralıkla güncellenir";
 
-"Home_Risk_Period_Disabled_Button_Title" = "Yalnızca %@\U00A0hours aralıkla güncellenir";
+"Home_Risk_Period_Disabled_Button_Title" = "Yalnızca %@\U00A0saatler aralıkla güncellenir";
 
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "Bilinmeyen Risk";
