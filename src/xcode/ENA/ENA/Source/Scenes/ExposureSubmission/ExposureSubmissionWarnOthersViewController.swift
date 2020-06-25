@@ -18,11 +18,10 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, SpinnerInjectable {
+class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
-	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View lifecycle methods.
 
@@ -57,15 +56,16 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	// MARK: - ExposureSubmissionService Helpers.
 
 	internal func startSubmitProcess() {
+		navigationFooterItem?.isPrimaryButtonLoading = true
 		navigationFooterItem?.isPrimaryButtonEnabled = false
-		startSpinner()
 		exposureSubmissionService?.submitExposure { error in
-			self.stopSpinner()
 			if let error = error {
 				logError(message: "error: \(error.localizedDescription)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-				self.present(alert, animated: true, completion: nil)
-				self.navigationFooterItem?.isPrimaryButtonEnabled = true
+				self.present(alert, animated: true, completion: {
+					self.navigationFooterItem?.isPrimaryButtonLoading = false
+					self.navigationFooterItem?.isPrimaryButtonEnabled = true
+				})
 				return
 			}
 

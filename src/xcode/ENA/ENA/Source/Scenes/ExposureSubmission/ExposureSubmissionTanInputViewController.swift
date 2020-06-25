@@ -18,7 +18,7 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationControllerWithFooterChild, SpinnerInjectable {
+class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationControllerWithFooterChild {
 	// MARK: - Attributes.
 
 	@IBOutlet var scrollView: UIScrollView!
@@ -30,7 +30,6 @@ class ExposureSubmissionTanInputViewController: UIViewController, ENANavigationC
 
 	var initialTan: String?
 	var exposureSubmissionService: ExposureSubmissionService?
-	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View lifecycle methods.
 
@@ -106,8 +105,7 @@ extension ExposureSubmissionTanInputViewController {
 	func submitTan() -> Bool {
 		guard tanInput.isValid && tanInput.isChecksumValid else { return false }
 
-		startSpinner()
-
+		navigationFooterItem?.isPrimaryButtonLoading = true
 		navigationFooterItem?.isPrimaryButtonEnabled = false
 
 		// If teleTAN is correct, show Alert Controller
@@ -115,11 +113,11 @@ extension ExposureSubmissionTanInputViewController {
 		let teleTan = tanInput.text
 
 		exposureSubmissionService?.getRegistrationToken(forKey: .teleTan(teleTan)) { result in
-			self.stopSpinner()
 
 			switch result {
 			case let .failure(error):
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, completion: {
+					self.navigationFooterItem?.isPrimaryButtonLoading = false
 					self.navigationFooterItem?.isPrimaryButtonEnabled = true
 					self.tanInput.becomeFirstResponder()
 				})
