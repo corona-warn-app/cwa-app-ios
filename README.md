@@ -16,7 +16,7 @@
   <a href="#architecture--documentation">Documentation</a> •
   <a href="#how-to-contribute">Contribute</a> •
   <a href="#support--feedback">Support</a> •
-  <a href="https://github.com/corona-warn-app/cwa-app-ios/releases">Changelog</a> •
+  <a href="./CHANGELOG.md">Changelog</a> •
   <a href="#licensing">Licensing</a>
 </p>
 
