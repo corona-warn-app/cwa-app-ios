@@ -131,6 +131,7 @@
 		71330E43248109FD00EB10F6 /* DynamicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E42248109FD00EB10F6 /* DynamicTableViewCell.swift */; };
 		71330E4524810A0500EB10F6 /* DynamicTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E4424810A0500EB10F6 /* DynamicTableViewHeader.swift */; };
 		71330E4724810A0C00EB10F6 /* DynamicTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71330E4624810A0C00EB10F6 /* DynamicTableViewFooter.swift */; };
+		713D762724A48D2100C0316C /* AppNavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713D762624A48D2100C0316C /* AppNavigationControllerDelegate.swift */; };
 		713EA25B247818B000AB7EE8 /* DynamicTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */; };
 		713EA25D24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713EA25C24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift */; };
 		713EA25F24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713EA25E24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift */; };
@@ -521,6 +522,7 @@
 		71330E4424810A0500EB10F6 /* DynamicTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewHeader.swift; sourceTree = "<group>"; };
 		71330E4624810A0C00EB10F6 /* DynamicTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewFooter.swift; sourceTree = "<group>"; };
 		71330E4824810A5A00EB10F6 /* DynamicTableViewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewAction.swift; sourceTree = "<group>"; };
+		713D762624A48D2100C0316C /* AppNavigationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationControllerDelegate.swift; sourceTree = "<group>"; };
 		713EA25A247818B000AB7EE8 /* DynamicTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeButton.swift; sourceTree = "<group>"; };
 		713EA25C24798A7000AB7EE8 /* ExposureDetectionRoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionRoundedView.swift; sourceTree = "<group>"; };
 		713EA25E24798A9100AB7EE8 /* ExposureDetectionRiskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureDetectionRiskCell.swift; sourceTree = "<group>"; };
@@ -1155,6 +1157,7 @@
 			isa = PBXGroup;
 			children = (
 				71176E31248957C3004B0C9F /* AppNavigationController.swift */,
+				713D762624A48D2100C0316C /* AppNavigationControllerDelegate.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -2281,6 +2284,7 @@
 				51C779162486E5BA004582F8 /* RiskFindingPositiveCollectionViewCell.swift in Sources */,
 				B10FD5F4246EAC1700E9D7F2 /* AppleFilesWriter.swift in Sources */,
 				711EFCC72492EE31005FEF21 /* ENAFooterView.swift in Sources */,
+				713D762724A48D2100C0316C /* AppNavigationControllerDelegate.swift in Sources */,
 				B1FE13F024891D1500D012E5 /* RiskCalculation.swift in Sources */,
 				514C0A14247C163800F235F6 /* HomeLowRiskCellConfigurator.swift in Sources */,
 				51C779122486E549004582F8 /* HomeFindingPositiveRiskCellConfigurator.swift in Sources */,

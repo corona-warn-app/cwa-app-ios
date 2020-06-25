@@ -354,7 +354,7 @@ extension OnboardingInfoViewController: UITextViewDelegate {
 	}
 }
 
-extension OnboardingInfoViewController: NavigationBarOpacityDelegate {
+extension OnboardingInfoViewController: AppNavigationControllerDelegate {
 	var preferredNavigationBarOpacity: CGFloat {
 		let alpha = (scrollView.adjustedContentInset.top + scrollView.contentOffset.y) / scrollView.adjustedContentInset.top
 		return max(0, min(alpha, 1))

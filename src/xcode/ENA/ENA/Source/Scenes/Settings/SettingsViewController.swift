@@ -295,6 +295,6 @@ extension SettingsViewController: ENStateHandlerUpdating {
 	}
 }
 
-extension SettingsViewController: NavigationBarOpacityDelegate {
+extension SettingsViewController: AppNavigationControllerDelegate {
 	var preferredLargeTitleBackgroundColor: UIColor? { .enaColor(for: .background) }
 }

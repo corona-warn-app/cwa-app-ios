@@ -104,6 +104,6 @@ extension AppInformationViewController {
 	}
 }
 
-extension AppInformationViewController: NavigationBarOpacityDelegate {
+extension AppInformationViewController: AppNavigationControllerDelegate {
 	var preferredLargeTitleBackgroundColor: UIColor? { .enaColor(for: .background) }
 }

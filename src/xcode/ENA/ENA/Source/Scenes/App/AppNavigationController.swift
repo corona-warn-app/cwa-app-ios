@@ -52,8 +52,8 @@ class AppNavigationController: UINavigationController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		if let opacityDelegate = topViewController as? NavigationBarOpacityDelegate {
-			navigationBar.backgroundAlpha = opacityDelegate.backgroundAlpha
+		if let opacityDelegate = topViewController as? AppNavigationControllerDelegate {
+			navigationBar.backgroundAlpha = opacityDelegate.navigationBarBackgroundAlpha
 		}
 	}
 }
@@ -108,29 +108,30 @@ extension AppNavigationController {
 
 	private func observeScrollView(of viewController: UIViewController) {
 		scrollViewObserver?.invalidate()
-		guard let opacityDelegate = viewController as? NavigationBarOpacityDelegate  else { return }
+
+		guard let opacityDelegate = viewController as? AppNavigationControllerDelegate  else { return }
 		guard let scrollView = viewController.scrollView else { return }
 
 		scrollViewObserver = scrollView.observe(\.contentOffset) { [weak self] _, _ in
 			guard let self = self else { return }
 			guard viewController == self.topViewController else { return }
-			self.navigationBar.backgroundAlpha = opacityDelegate.backgroundAlpha
+			self.navigationBar.backgroundAlpha = opacityDelegate.navigationBarBackgroundAlpha
 		}
 	}
 }
 
 extension AppNavigationController {
 	private struct NavigationBarState {
-		weak var opacityDelegate: NavigationBarOpacityDelegate?
+		weak var delegate: AppNavigationControllerDelegate?
 		let backgroundAlpha: CGFloat
 		let largeTitleBlurEffect: UIBlurEffect.Style?
 		let largeTitleBackgroundColor: UIColor?
 
 		init(for viewController: UIViewController?) {
-			opacityDelegate = viewController as? NavigationBarOpacityDelegate
-			backgroundAlpha = opacityDelegate?.backgroundAlpha ?? 1.0
-			largeTitleBlurEffect = opacityDelegate?.preferredLargeTitleBlurEffect
-			largeTitleBackgroundColor = opacityDelegate?.preferredLargeTitleBackgroundColor
+			delegate = viewController as? AppNavigationControllerDelegate
+			backgroundAlpha = delegate?.navigationBarBackgroundAlpha ?? 1.0
+			largeTitleBlurEffect = delegate?.preferredLargeTitleBlurEffectStyle
+			largeTitleBackgroundColor = delegate?.preferredLargeTitleBackgroundColor
 		}
 
 		var scrollEdgeAppearance: UINavigationBarAppearance? {
@@ -165,21 +166,12 @@ private extension UINavigationBarAppearance {
 	}
 }
 
+private extension AppNavigationControllerDelegate {
+	var navigationBarBackgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
+}
+
 private extension Array {
 	func first<T>(ofType _: T.Type) -> T? {
 		first(where: { $0 is T }) as? T
 	}
-}
-
-protocol NavigationBarOpacityDelegate: class {
-	var preferredNavigationBarOpacity: CGFloat { get }
-	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { get }
-	var preferredLargeTitleBackgroundColor: UIColor? { get }
-}
-
-extension NavigationBarOpacityDelegate {
-	var preferredNavigationBarOpacity: CGFloat { 1.0 }
-	var preferredLargeTitleBlurEffect: UIBlurEffect.Style? { nil }
-	var preferredLargeTitleBackgroundColor: UIColor? { nil }
-	fileprivate var backgroundAlpha: CGFloat { max(0, min(preferredNavigationBarOpacity, 1)) }
 }

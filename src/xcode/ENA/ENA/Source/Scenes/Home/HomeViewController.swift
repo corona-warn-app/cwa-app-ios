@@ -470,7 +470,7 @@ extension HomeViewController: ENStateHandlerUpdating {
 	}
 }
 
-extension HomeViewController: NavigationBarOpacityDelegate {
+extension HomeViewController: AppNavigationControllerDelegate {
 	var preferredNavigationBarOpacity: CGFloat {
 		let alpha = (collectionView.adjustedContentInset.top + collectionView.contentOffset.y) / collectionView.contentInset.top
 		return max(0, min(alpha, 1))
