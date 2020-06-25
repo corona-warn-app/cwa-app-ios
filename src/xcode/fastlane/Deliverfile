@@ -11,6 +11,4 @@ skip_screenshots(true)
 
 skip_metadata(true)
 
-app_icon("./ENA/ENA/Resources/Assets/AppIcon.xcassets")
-
 team_id("523TP53AQF")
