@@ -117,10 +117,6 @@ private extension Array {
 	func first<T>(ofType _: T.Type) -> T? {
 		first(where: { $0 is T }) as? T
 	}
-
-	func last<T>(ofType _: T.Type) -> T? {
-		last(where: { $0 is T }) as? T
-	}
 }
 
 protocol NavigationBarOpacityDelegate: class {
