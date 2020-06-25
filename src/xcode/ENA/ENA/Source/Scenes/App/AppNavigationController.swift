@@ -24,15 +24,11 @@ class AppNavigationController: UINavigationController {
 	private var scrollViewObserver: NSKeyValueObservation?
 	private var defaultScrollEdgeAppearance: UINavigationBarAppearance?
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func loadView() {
+		super.loadView()
 
-		navigationBar.isTranslucent = true
-		navigationBar.prefersLargeTitles = true
-
-		defaultScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
-
-		view.backgroundColor = .enaColor(for: .separator)
+		setupNavigationBar()
+		setupView()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +51,19 @@ class AppNavigationController: UINavigationController {
 		if let opacityDelegate = topViewController as? AppNavigationControllerDelegate {
 			navigationBar.backgroundAlpha = opacityDelegate.navigationBarBackgroundAlpha
 		}
+	}
+}
+
+extension AppNavigationController {
+	private func setupNavigationBar() {
+		navigationBar.isTranslucent = true
+		navigationBar.prefersLargeTitles = true
+
+		defaultScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
+	}
+
+	private func setupView() {
+		view.backgroundColor = .enaColor(for: .separator)
 	}
 }
 
