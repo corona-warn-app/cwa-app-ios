@@ -13,13 +13,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Today, %%1$@</string>
+			<string>Bugün, %%1$@</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Yesterday, %%1$@</string>
+			<string>Dün, %%1$@</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%%2$@, %%1$@ o'clock</string>
+			<string>%%2$@, %%1$@</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_NumberOfContacts</key>
@@ -34,13 +34,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>No exposures up to now</string>
+			<string>Şu ana dek hiçbir maruz kalma yok</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>One exposure</string>
+			<string>Bir maruz kalma</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u&#x00a0;exposures</string>
+			<string>%u maruz kalma</string>
 		</dict>
 	</dict>
 	<key>ExposureDetection_LastExposure</key>
@@ -55,13 +55,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>%u&#x00a0;days since last exposure</string>
+			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>%u&#x00a0;day since last exposure</string>
+			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>%u&#x00a0;days since last exposure</string>
+			<string>Son maruz kalmanın üzerinden %u gün geçti</string>
 		</dict>
 	</dict>
     <key>Home_Risk_Number_Contacts_Item_Title</key>
@@ -76,13 +76,13 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-            <string>No exposure up to now</string>
+            <string>Şu ana dek hiçbir maruz kalma yok</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One -->
-            <string>%u&#x00a0;exposure</string>
+            <string>%u maruz kalma</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
-            <string>%u&#x00a0;exposures</string>
+            <string>%u maruz kalma</string>
         </dict>
     </dict>
     <key>Home_Risk_Last_Contact_Item_Title</key>
@@ -97,13 +97,13 @@
             <string>u</string>
             <key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-            <string>Less than one day since last exposure</string>
+            <string>Son maruz kalmanın üzerinden bir günden az süre geçti</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One -->
-            <string>%u&#x00a0;day since last exposure</string>
+            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
-            <string>%u&#x00a0;days since last exposure</string>
+            <string>Son maruz kalmanın üzerinden %u gün geçti</string>
         </dict>
     </dict>
     <key>Home_Risk_Status_Counter_Label</key>
@@ -118,13 +118,13 @@
             <string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-            <string>Update in %02u:%2$#@seconds@&#x00a0;seconds</string>
+            <string>%02u:%2$#@seconds@ seconds içinde güncelle</string>
             <key>one</key>
 			<!-- XFLD: Plural form for One -->
-            <string>Update in %02u:%2$#@seconds@&#x00a0;minute</string>
+            <string>%02u:%2$#@seconds@ minute içinde güncelle</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
-            <string>Update in %02u:%2$#@seconds@&#x00a0;minutes</string>
+            <string>%02u:%2$#@seconds@ minutes içinde güncelle</string>
         </dict>
         <key>seconds</key>
         <dict>
@@ -149,13 +149,13 @@
 			<string>u</string>
 			<key>zero</key>
 			<!-- XFLD: Plural form for Zero -->
-			<string>Risk identification has been active for less than one day. An exposure check can only be reliable if risk identification is permanently activated.</string>
+			<string>Maruz kalma günlüğü bir günden az süredir etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
 			<key>one</key>
 			<!-- XFLD: Plural form for One -->
-			<string>Risk identification has been active for %u&#x00a0;day. The exposure check is only reliable if risk identification is permanently activated.</string>
+			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
 			<key>other</key>
 			<!-- XFLD: Plural form for Other -->
-			<string>Risk identification has been active for %u&#x00a0;days. An exposure check can only be reliable if risk identification is permanently activated.</string>
+			<string>Maruz kalma günlüğü %u gündür etkin. Maruz kalma denetimi yalnızca maruz kalma günlüğünün kalıcı olarak etkinleştirilmesi durumunda güvenilir olabilir.</string>
 		</dict>
 	</dict>
 </dict>

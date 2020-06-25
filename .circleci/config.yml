@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Skip this job for non-PRs and when not on development
           command: |
-            testedBranches=(development)
+            testedBranches=(staging develop)
             [[ ${testedBranches[(r)$CIRCLE_BRANCH]} == $CIRCLE_BRANCH || -v CIRCLE_PULL_REQUEST ]] && true || circleci step halt
       - checkout
       - run:

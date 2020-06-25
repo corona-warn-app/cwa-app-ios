@@ -37,8 +37,8 @@ enum ExposureSubmissionViewUtils {
 		return alert
 	}
 
-	static func setupErrorAlert(_ error: ExposureSubmissionError, retry: Bool = false, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
-		setupAlert(message: error.localizedDescription, retry: retry, retryActionHandler: retryActionHandler)
+	static func setupErrorAlert(_ error: ExposureSubmissionError, retry: Bool = false, action completion: (() -> Void)? = nil, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
+		setupAlert(message: error.localizedDescription, retry: retry, action: completion, retryActionHandler: retryActionHandler)
 	}
 
 	static func setupAlert(title: String? = nil, message: String, okTitle: String? = nil, retryTitle: String? = nil, retry: Bool = false, action completion: (() -> Void)? = nil, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {

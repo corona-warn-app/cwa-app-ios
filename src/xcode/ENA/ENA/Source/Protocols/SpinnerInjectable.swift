@@ -39,6 +39,7 @@ extension SpinnerInjectable {
 		view.addSubview(spinner)
 		spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 		spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+		spinner.center = view.center
 		self.spinner = spinner
 	}
 

@@ -49,7 +49,7 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 		}
 
 		// Trigger submission process.
-		vc.didTapButton()
+		vc.startSubmitProcess()
 		waitForExpectations(timeout: .short)
 	}
 

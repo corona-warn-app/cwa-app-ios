@@ -18,11 +18,10 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, SpinnerInjectable {
+class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
-	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View lifecycle methods.
 
@@ -36,7 +35,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
-		setButtonTitle(to: AppStrings.ExposureSubmissionWarnOthers.continueButton)
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnOthers.continueButton
 		setupTableView()
 	}
 
@@ -56,14 +55,17 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 
 	// MARK: - ExposureSubmissionService Helpers.
 
-	private func startSubmitProcess() {
-		startSpinner()
+	internal func startSubmitProcess() {
+		navigationFooterItem?.isPrimaryButtonLoading = true
+		navigationFooterItem?.isPrimaryButtonEnabled = false
 		exposureSubmissionService?.submitExposure { error in
-			self.stopSpinner()
 			if let error = error {
 				logError(message: "error: \(error.localizedDescription)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-				self.present(alert, animated: true, completion: nil)
+				self.present(alert, animated: true, completion: {
+					self.navigationFooterItem?.isPrimaryButtonLoading = false
+					self.navigationFooterItem?.isPrimaryButtonEnabled = true
+				})
 				return
 			}
 
@@ -73,10 +75,10 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 
 }
 
-// MARK: ExposureSubmissionNavigationControllerChild methods.
+// MARK: ENANavigationControllerWithFooterChild methods.
 
-extension ExposureSubmissionWarnOthersViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension ExposureSubmissionWarnOthersViewController {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		startSubmitProcess()
 	}
 }
