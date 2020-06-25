@@ -17,12 +17,11 @@
 
 import UIKit
 
-class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, SpinnerInjectable {
+class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
 	// MARK: - Attributes.
 	
 	private var exposureSubmissionService: ExposureSubmissionService?
-	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View lifecycle methods.
 

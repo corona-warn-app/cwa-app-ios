@@ -737,6 +737,12 @@
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		EEDD6DF524A4885200BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = tr; path = tr.lproj/usage.html; sourceTree = "<group>"; };
+		EEDD6DF624A4885200BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = tr; path = "tr.lproj/privacy-policy.html"; sourceTree = "<group>"; };
+		EEDD6DF724A4885D00BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EEDD6DF824A4889D00BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EEDD6DF924A488A500BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EEDD6DFA24A488AD00BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		EEF10679246EBF8B009DFB4E /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
 		F22C6E242492082B00712A6B /* DynamicTableViewSpaceCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSpaceCellTests.swift; sourceTree = "<group>"; };
 		F247572A24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerRowsTests.swift; sourceTree = "<group>"; };
@@ -2094,6 +2100,7 @@
 				en,
 				Base,
 				de,
+				tr,
 			);
 			mainGroup = 85D759322457048F008175F0;
 			packageReferences = (
@@ -2546,6 +2553,7 @@
 			children = (
 				13156CFE248C19D000AFC472 /* de */,
 				13156D00248CDECC00AFC472 /* en */,
+				EEDD6DF524A4885200BC30D0 /* tr */,
 			);
 			name = usage.html;
 			sourceTree = "<group>";
@@ -2555,6 +2563,7 @@
 			children = (
 				71F5418B248BEDBE006DB793 /* de */,
 				717D21EA248C072300D9717E /* en */,
+				EEDD6DF624A4885200BC30D0 /* tr */,
 			);
 			name = "privacy-policy.html";
 			sourceTree = "<group>";
@@ -2563,6 +2572,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				85D7594D24570491008175F0 /* Base */,
+				EEDD6DF724A4885D00BC30D0 /* tr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -2572,6 +2582,7 @@
 			children = (
 				EE269509248FCB0300BAE234 /* de */,
 				EE26950B248FCB1600BAE234 /* en */,
+				EEDD6DF824A4889D00BC30D0 /* tr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2581,6 +2592,7 @@
 			children = (
 				EE70C23B245B09E900AC9B2F /* de */,
 				EE70C23C245B09E900AC9B2F /* en */,
+				EEDD6DF924A488A500BC30D0 /* tr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2590,6 +2602,7 @@
 			children = (
 				EE92A33F245D96DA006B97B0 /* de */,
 				514C0A09247AEEE200F235F6 /* en */,
+				EEDD6DFA24A488AD00BC30D0 /* tr */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
