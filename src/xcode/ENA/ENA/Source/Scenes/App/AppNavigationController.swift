@@ -31,8 +31,8 @@ class AppNavigationController: UINavigationController {
 		setupView()
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 
 		if let topViewController = topViewController {
 			transition(to: topViewController, animated: animated)
@@ -90,22 +90,27 @@ extension AppNavigationController {
 }
 
 extension AppNavigationController {
-	func transition(to viewController: UIViewController, animated: Bool) {
+	private func transition(to viewController: UIViewController, animated: Bool) {
+		guard isViewLoaded else { return }
+
 		if animated, let transitionCoordinator = transitionCoordinator {
 			transitionCoordinator.animate(alongsideTransition: { context in
-				self.transition(to: viewController, animated: false)
+				self.transition(to: viewController)
 			}, completion: { context in
-				if context.isCancelled {
-					if let fromViewController = context.viewController(forKey: .from) {
-						self.applyNavigationBarAppearance(for: fromViewController)
-					}
+				if context.isCancelled, let fromViewController = context.viewController(forKey: .from) {
+					self.transition(to: fromViewController)
 				}
 			})
 
 		} else {
-			applyNavigationBarAppearance(for: viewController)
-			observeScrollView(of: viewController)
+			viewController.loadViewIfNeeded()
+			transition(to: viewController)
 		}
+	}
+
+	private func transition(to viewController: UIViewController) {
+		applyNavigationBarAppearance(for: viewController)
+		observeScrollView(of: viewController)
 	}
 
 	private func applyNavigationBarAppearance(for viewController: UIViewController) {
