@@ -141,7 +141,9 @@ extension AppNavigationController {
 }
 
 private extension UIViewController {
-	var scrollView: UIScrollView? { view as? UIScrollView ?? view.subviews.first(ofType: UIScrollView.self) }
+	var scrollView: UIScrollView? {
+		([view] + view.subviews).first(ofType: UIScrollView.self)
+	}
 }
 
 private extension UINavigationBar {
@@ -160,9 +162,9 @@ private extension UINavigationBarAppearance {
 	}
 
 	convenience init?(backgroundColor: UIColor?) {
-		guard let color = backgroundColor else { return nil }
+		guard let backgroundColor = backgroundColor else { return nil }
 		self.init()
-		self.backgroundColor = color
+		self.backgroundColor = backgroundColor
 	}
 }
 
