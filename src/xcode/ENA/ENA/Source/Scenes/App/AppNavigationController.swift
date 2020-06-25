@@ -33,8 +33,14 @@ class AppNavigationController: UINavigationController {
 		defaultScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
 
 		view.backgroundColor = .enaColor(for: .separator)
+	}
 
-		delegate = self
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		if let topViewController = topViewController {
+			transition(to: topViewController, animated: animated)
+		}
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -52,64 +58,110 @@ class AppNavigationController: UINavigationController {
 	}
 }
 
-extension AppNavigationController: UINavigationControllerDelegate {
-	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-		let previousScrollViewObserver = scrollViewObserver
+extension AppNavigationController {
+	override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+		super.pushViewController(viewController, animated: animated)
+		transition(to: viewController, animated: animated)
+	}
 
-		var navigationBackgroundAlpha: CGFloat = 1.0
-		var largeTitleBlurEffect: UIBlurEffect.Style?
-		var largeTitleBackgroundColor: UIColor?
-
-		if let opacityDelegate = viewController as? NavigationBarOpacityDelegate {
-			navigationBackgroundAlpha = opacityDelegate.backgroundAlpha
-			largeTitleBlurEffect = opacityDelegate.preferredLargeTitleBlurEffect
-			largeTitleBackgroundColor = opacityDelegate.preferredLargeTitleBackgroundColor
-
-			if let scrollView = viewController.view as? UIScrollView ?? viewController.view.subviews.first(ofType: UIScrollView.self) {
-				scrollViewObserver = scrollView.observe(\.contentOffset) { [weak self] _, _ in
-					guard let self = self else { return }
-					guard viewController == self.topViewController else { return }
-					self.navigationBar.backgroundAlpha = opacityDelegate.backgroundAlpha
-				}
-			}
+	override func popViewController(animated: Bool) -> UIViewController? {
+		let viewController = super.popViewController(animated: animated)
+		if let topViewController = topViewController {
+			transition(to: topViewController, animated: animated)
 		}
+		return viewController
+	}
 
-		let previousNavigationBackgroundAlpha = navigationBar.backgroundAlpha
-		let previousScrollEdgeAppearance = navigationBar.scrollEdgeAppearance
-
-		transitionCoordinator?.animate(alongsideTransition: { _ in
-			self.navigationBar.backgroundAlpha = navigationBackgroundAlpha
-
-			if let largeTitleBackgroundColor = largeTitleBackgroundColor {
-				self.navigationBar.scrollEdgeAppearance = UINavigationBarAppearance()
-				self.navigationBar.scrollEdgeAppearance?.backgroundColor = largeTitleBackgroundColor
-			} else if let largeTitleBlurEffect = largeTitleBlurEffect {
-				self.navigationBar.scrollEdgeAppearance = UINavigationBarAppearance()
-				self.navigationBar.scrollEdgeAppearance?.backgroundEffect = UIBlurEffect(style: largeTitleBlurEffect)
-			} else {
-				self.navigationBar.scrollEdgeAppearance = self.defaultScrollEdgeAppearance
-			}
-
-		}, completion: { context in
-			if context.isCancelled {
-				self.navigationBar.backgroundAlpha = previousNavigationBackgroundAlpha
-				self.navigationBar.scrollEdgeAppearance = previousScrollEdgeAppearance
-
-				self.scrollViewObserver?.invalidate()
-				self.scrollViewObserver = previousScrollViewObserver
-
-			} else {
-				previousScrollViewObserver?.invalidate()
-			}
-		})
+	override func setViewControllers(_ viewControllers: [UIViewController], animated: Bool) {
+		super.setViewControllers(viewControllers, animated: animated)
+		if let topViewController = topViewController {
+			transition(to: topViewController, animated: animated)
+		}
 	}
 }
 
-extension UINavigationBar {
+extension AppNavigationController {
+	func transition(to viewController: UIViewController, animated: Bool) {
+		if animated, let transitionCoordinator = transitionCoordinator {
+			transitionCoordinator.animate(alongsideTransition: { context in
+				self.transition(to: viewController, animated: false)
+			}, completion: { context in
+				if context.isCancelled {
+					if let fromViewController = context.viewController(forKey: .from) {
+						self.applyNavigationBarAppearance(for: fromViewController)
+					}
+				}
+			})
+
+		} else {
+			applyNavigationBarAppearance(for: viewController)
+			observeScrollView(of: viewController)
+		}
+	}
+
+	private func applyNavigationBarAppearance(for viewController: UIViewController) {
+		let state = NavigationBarState(for: viewController)
+
+		navigationBar.backgroundAlpha = state.backgroundAlpha
+		navigationBar.scrollEdgeAppearance = state.scrollEdgeAppearance ?? defaultScrollEdgeAppearance
+	}
+
+	private func observeScrollView(of viewController: UIViewController) {
+		scrollViewObserver?.invalidate()
+		guard let opacityDelegate = viewController as? NavigationBarOpacityDelegate  else { return }
+		guard let scrollView = viewController.scrollView else { return }
+
+		scrollViewObserver = scrollView.observe(\.contentOffset) { [weak self] _, _ in
+			guard let self = self else { return }
+			guard viewController == self.topViewController else { return }
+			self.navigationBar.backgroundAlpha = opacityDelegate.backgroundAlpha
+		}
+	}
+}
+
+extension AppNavigationController {
+	private struct NavigationBarState {
+		weak var opacityDelegate: NavigationBarOpacityDelegate?
+		let backgroundAlpha: CGFloat
+		let largeTitleBlurEffect: UIBlurEffect.Style?
+		let largeTitleBackgroundColor: UIColor?
+
+		init(for viewController: UIViewController?) {
+			opacityDelegate = viewController as? NavigationBarOpacityDelegate
+			backgroundAlpha = opacityDelegate?.backgroundAlpha ?? 1.0
+			largeTitleBlurEffect = opacityDelegate?.preferredLargeTitleBlurEffect
+			largeTitleBackgroundColor = opacityDelegate?.preferredLargeTitleBackgroundColor
+		}
+
+		var scrollEdgeAppearance: UINavigationBarAppearance? {
+			UINavigationBarAppearance(backgroundColor: largeTitleBackgroundColor) ?? UINavigationBarAppearance(blurEffectStyle: largeTitleBlurEffect)
+		}
+	}
+}
+
+private extension UIViewController {
+	var scrollView: UIScrollView? { view as? UIScrollView ?? view.subviews.first(ofType: UIScrollView.self) }
+}
+
+private extension UINavigationBar {
 	var backgroundView: UIView? { subviews.first }
 	var backgroundAlpha: CGFloat {
 		get { backgroundView?.alpha ?? 0 }
 		set { backgroundView?.alpha = newValue }
+	}
+}
+
+private extension UINavigationBarAppearance {
+	convenience init?(blurEffectStyle: UIBlurEffect.Style?) {
+		guard let style = blurEffectStyle else { return nil }
+		self.init()
+		self.backgroundEffect = UIBlurEffect(style: style)
+	}
+
+	convenience init?(backgroundColor: UIColor?) {
+		guard let color = backgroundColor else { return nil }
+		self.init()
+		self.backgroundColor = color
 	}
 }
 
