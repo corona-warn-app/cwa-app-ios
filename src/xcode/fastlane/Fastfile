@@ -85,4 +85,23 @@ platform :ios do
     )
   end
 
+  desc "Build and upload for testing"
+  lane :betaRelease do
+    match(
+      readonly: true
+    )
+
+    build_ios_app(
+      scheme: "ENA",
+      configuration: "TestFlight",
+      clean: true,
+      export_options: {
+        "method": "app-store",
+        "signingStyle": "manual",
+      }
+    )
+
+    deliver
+  end
+
 end

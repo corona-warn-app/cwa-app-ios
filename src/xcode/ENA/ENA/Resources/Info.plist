@@ -4,8 +4,8 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>de.rki.coronawarnapp.exposure-notification</string>
-		<string>de.rki.coronawarnapp.fetch-test-results</string>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER).exposure-notification</string>
+		<string>$(PRODUCT_BUNDLE_IDENTIFIER).fetch-test-results</string>
 	</array>
 	<key>BackendURLs</key>
 	<dict>
@@ -61,7 +61,7 @@
 		<string>processing</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
-	<true/>
+	<false/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

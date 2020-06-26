@@ -22,12 +22,14 @@ import Foundation
 /// The `SecureStore` class implements the `Store` protocol that defines all required storage attributes.
 /// It uses an SQLite Database that still needs to be encrypted
 final class SecureStore: Store {
+
+
 	private let directoryURL: URL
 	private let kvStore: SQLiteKeyValueStore
 
-	init(at directoryURL: URL, key: String) {
+	init (at directoryURL: URL, key: String) {
 		self.directoryURL = directoryURL
-		kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
+		self.kvStore = SQLiteKeyValueStore(with: directoryURL, key: key)
 	}
 
 	func flush() {
@@ -38,6 +40,7 @@ final class SecureStore: Store {
 		kvStore.clearAll(key: key)
 	}
 
+	
 	var testResultReceivedTimeStamp: Int64? {
 		get { kvStore["testResultReceivedTimeStamp"] as Int64? }
 		set { kvStore["testResultReceivedTimeStamp"] = newValue }
@@ -178,5 +181,37 @@ final class SecureStore: Store {
 			return EitherLowOrIncreasedRiskLevel(rawValue: value)
 		}
 		set { kvStore["previousRiskLevel"] = newValue?.rawValue }
+	}
+}
+
+
+extension SecureStore {
+	convenience init(subDirectory: String) {
+		do {
+			let fileManager = FileManager.default
+			let directoryURL = try fileManager
+				.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+				.appendingPathComponent(subDirectory)
+
+			var key: String
+			if !fileManager.fileExists(atPath: directoryURL.path) {
+				try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: true, attributes: nil)
+				guard let key = KeychainHelper.generateDatabaseKey() else {
+					fatalError("Creating the Database failed")
+				}
+				self.init(at: directoryURL, key: key)
+			} else {
+				if let keyData = KeychainHelper.loadFromKeychain(key: "secureStoreDatabaseKey") {
+					key = String(decoding: keyData, as: UTF8.self)
+				} else if let generated = KeychainHelper.generateDatabaseKey() {
+					key = generated
+				} else {
+					fatalError("Cannot get or generate the key")
+				}
+				self.init(at: directoryURL, key: key)
+			}
+		} catch {
+			fatalError("Creating the Database failed")
+		}
 	}
 }

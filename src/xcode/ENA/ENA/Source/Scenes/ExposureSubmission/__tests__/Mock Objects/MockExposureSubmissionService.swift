@@ -18,13 +18,12 @@
 //
 
 import Foundation
-@testable import ENA
 
 class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - Mock callbacks.
 
-	var submitExposureCallback: ((String, @escaping ExposureSubmissionHandler) -> Void)?
+	var submitExposureCallback: ((@escaping ExposureSubmissionHandler) -> Void)?
 	var getRegistrationTokenCallback: ((DeviceRegistrationKey, @escaping RegistrationHandler) -> Void)?
 	var getTANForExposureSubmitCallback: ((Bool, @escaping TANHandler) -> Void)?
 	var getTestResultCallback: ((@escaping TestResultHandler) -> Void)?
@@ -35,8 +34,8 @@ class MockExposureSubmissionService: ExposureSubmissionService {
 
 	// MARK: - ExposureSubmissionService methods.
 
-	func submitExposure(with: String, completionHandler: @escaping ExposureSubmissionHandler) {
-		submitExposureCallback?(with, completionHandler)
+	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler) {
+		submitExposureCallback?(completionHandler)
 	}
 
 	func getRegistrationToken(forKey deviceRegistrationKey: DeviceRegistrationKey, completion completeWith: @escaping RegistrationHandler) {

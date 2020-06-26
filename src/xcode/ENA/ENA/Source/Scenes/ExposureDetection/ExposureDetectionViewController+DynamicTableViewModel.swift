@@ -306,7 +306,7 @@ extension ExposureDetectionViewController {
 			standardGuideSection,
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextOff, isActive: false,
-				accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextOff")
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOff)
 		])
 	}
 
@@ -326,7 +326,7 @@ extension ExposureDetectionViewController {
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextOutdated,
 				isActive: false,
-				accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextOutdated"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOutdated
 			)
 		])
 	}
@@ -342,7 +342,7 @@ extension ExposureDetectionViewController {
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextUnknown,
 				isActive: false,
-				accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextUnknown"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextUnknown
 			)
 		])
 	}
@@ -360,7 +360,7 @@ extension ExposureDetectionViewController {
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextLow,
 				isActive: true,
-				accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextLow"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextLow
 			)
 		])
 	}
@@ -392,7 +392,7 @@ extension ExposureDetectionViewController {
 			explanationSection(
 				text: AppStrings.ExposureDetection.explanationTextHigh,
 				isActive: true,
-				accessibilityIdentifier: "AppStrings.ExposureDetection.explanationTextHigh"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh
 			)
 		])
 	}
