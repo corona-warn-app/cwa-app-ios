@@ -83,6 +83,7 @@ jobs:
   testflight-release:
     macos:
       xcode: 11.5.0
+    shell: zsh
     steps:
       - checkout
       - run: ./scripts/switch_to_dev_env.sh
