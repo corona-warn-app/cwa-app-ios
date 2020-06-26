@@ -5,7 +5,7 @@ username("cwa.technical-user@sap.com")
 
 automatic_release(true)
 
-overwrite_screenshots(true)
+overwrite_screenshots(false)
 
 skip_screenshots(true)
 
