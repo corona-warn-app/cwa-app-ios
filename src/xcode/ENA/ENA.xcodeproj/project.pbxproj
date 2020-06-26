@@ -194,6 +194,9 @@
 		A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */; };
 		A189E45F248C325E001D0996 /* de-config in Resources */ = {isa = PBXBuildFile; fileRef = A189E45E248C325E001D0996 /* de-config */; };
 		A189E461248C35BF001D0996 /* PublicKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A189E460248C35BF001D0996 /* PublicKeys.plist */; };
+		A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BABD0824A57B88000ED515 /* TemporaryExposureKeyMock.swift */; };
+		A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift */; };
+		A1BABD1024A57D03000ED515 /* ENTemporaryExposureKey+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */; };
 		A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E41940249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift */; };
 		A1E419462495479D0016E52A /* HTTPClient+MockNetworkStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E419442495476C0016E52A /* HTTPClient+MockNetworkStack.swift */; };
 		A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E41947249548260016E52A /* HTTPClient+SubmitTests.swift */; };
@@ -600,6 +603,9 @@
 		A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAPDownloadedPackageTests.swift; sourceTree = "<group>"; };
 		A189E45E248C325E001D0996 /* de-config */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config"; sourceTree = "<group>"; };
 		A189E460248C35BF001D0996 /* PublicKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PublicKeys.plist; sourceTree = "<group>"; };
+		A1BABD0824A57B88000ED515 /* TemporaryExposureKeyMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemporaryExposureKeyMock.swift; sourceTree = "<group>"; };
+		A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENTemporaryExposureKey+Processing.swift"; sourceTree = "<group>"; };
+		A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ENTemporaryExposureKey+ProcessingTests.swift"; sourceTree = "<group>"; };
 		A1E41940249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAPDownloadedPackage+Helpers.swift"; sourceTree = "<group>"; };
 		A1E419442495476C0016E52A /* HTTPClient+MockNetworkStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+MockNetworkStack.swift"; sourceTree = "<group>"; };
 		A1E41947249548260016E52A /* HTTPClient+SubmitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+SubmitTests.swift"; sourceTree = "<group>"; };
@@ -1081,6 +1087,7 @@
 				A16714AE248CA1B70031B111 /* Bundle+ReadPlist.swift */,
 				2F26CE2D248B9C4F00BE30EE /* UIViewController+BackButton.swift */,
 				B1C7EE4324938E9E00F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandling.swift */,
+				A1BABD0A24A57BA0000ED515 /* ENTemporaryExposureKey+Processing.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1151,6 +1158,7 @@
 		71176E2C24891BCF004B0C9F /* __tests__ */ = {
 			isa = PBXGroup;
 			children = (
+				A1BABD0C24A57BAC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift */,
 				71176E2D24891C02004B0C9F /* ENAColorTests.swift */,
 				B1C7EE4524938EB700F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandlingTests.swift */,
 				B163D11424993F64001A322C /* UIFont+DynamicTypeTests.swift */,
@@ -1725,6 +1733,7 @@
 		B18C411A246DB2F000B8D8CB /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				A1BABD0824A57B88000ED515 /* TemporaryExposureKeyMock.swift */,
 				B18C411C246DB30000B8D8CB /* URL+Helper.swift */,
 				A1E41940249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift */,
 			);
@@ -2358,6 +2367,7 @@
 				51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */,
 				71D3C19A2494EFAC00DBABA8 /* ENANavigationControllerWithFooter.swift in Sources */,
 				CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */,
+				A1BABD1024A57D03000ED515 /* ENTemporaryExposureKey+Processing.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				B1FE13FB24896E6700D012E5 /* AppConfigurationProviding.swift in Sources */,
 				514EE999246D4C2E00DE4884 /* UITableViewCell+Identifier.swift in Sources */,
@@ -2451,6 +2461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1BABD0924A57B88000ED515 /* TemporaryExposureKeyMock.swift in Sources */,
 				A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */,
 				A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */,
 				B1EAEC8F247118D1003BE9A2 /* URLSession+ConvenienceTests.swift in Sources */,
@@ -2494,6 +2505,7 @@
 				A1E4194F2495A5AF0016E52A /* HTTPClient+ExposureConfigTests.swift in Sources */,
 				B1218920248AD79900496210 /* ClientMock.swift in Sources */,
 				A1E4194C2495A3A10016E52A /* HTTPClient+AppConfigTests.swift in Sources */,
+				A1BABD0E24A57CFC000ED515 /* ENTemporaryExposureKey+ProcessingTests.swift in Sources */,
 				EE22DB8F247FB46C001B0A71 /* ENStateTests.swift in Sources */,
 				B1DDDABC247137B000A07175 /* HTTPClientConfigurationEndpointTests.swift in Sources */,
 				2FD881CE249115E700BEC8FC /* ExposureSubmissionNavigationControllerTest.swift in Sources */,
