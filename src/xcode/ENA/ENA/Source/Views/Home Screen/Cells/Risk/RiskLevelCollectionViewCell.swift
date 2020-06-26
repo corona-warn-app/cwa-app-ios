@@ -32,7 +32,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	@IBOutlet var titleLabel: ENALabel!
 	@IBOutlet var chevronImageView: UIImageView!
 	@IBOutlet var bodyLabel: ENALabel!
-	@IBOutlet var updateButton: ENACloneButton!
+	@IBOutlet var updateButton: ENAButton!
 	@IBOutlet var detectionIntervalLabel: ENALabel!
 	@IBOutlet var detectionIntervalLabelContainer: UIView!
 

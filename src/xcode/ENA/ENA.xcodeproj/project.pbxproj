@@ -15,6 +15,7 @@
 		016146912487A43E00660992 /* WebPageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016146902487A43E00660992 /* WebPageHelper.swift */; };
 		01678E9C249A5F08003B048B /* testStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 01678E9A249A521F003B048B /* testStore.sqlite */; };
 		01DC23252462DFD0001B727C /* ExposureSubmission.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD99A39C245B22EE00BF12AF /* ExposureSubmission.storyboard */; };
+		01E25C7024A3B52F007E33F8 /* Info_Testflight.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */; };
 		01F5F7222487B9C000229720 /* AppInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5F7212487B9C000229720 /* AppInformationViewController.swift */; };
 		0D5611B4247F852C00B5B094 /* SQLiteKeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */; };
 		0DD260FF248D549B007C3B2C /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD260FE248D549B007C3B2C /* KeychainHelper.swift */; };
@@ -107,7 +108,6 @@
 		51D420C424583E3300AD70CA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D420C324583E3300AD70CA /* SettingsViewController.swift */; };
 		51D420CE245869C800AD70CA /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CD245869C800AD70CA /* Home.storyboard */; };
 		51D420D024586AB300AD70CA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51D420CF24586AB300AD70CA /* Settings.storyboard */; };
-		51E78563248D439200BBB13E /* ENACloneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E78562248D439200BBB13E /* ENACloneButton.swift */; };
 		51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE277A2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift */; };
 		51FE277D247535C400BB8144 /* RiskLoadingItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51FE277C247535C400BB8144 /* RiskLoadingItemView.xib */; };
 		51FE277F247535E300BB8144 /* RiskLoadingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE277E247535E300BB8144 /* RiskLoadingItemView.swift */; };
@@ -147,8 +147,12 @@
 		71B8044D248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B8044C248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift */; };
 		71B8044F248526B600D53506 /* DynamicTableViewSpaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */; };
 		71B804542485273C00D53506 /* RiskLegendDotBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B804532485273C00D53506 /* RiskLegendDotBodyCell.swift */; };
+		71C0BEDD2498DD07009A17A0 /* ENANavigationFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C0BEDC2498DD07009A17A0 /* ENANavigationFooterView.swift */; };
 		71CAB9D2248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CAB9D1248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift */; };
 		71CAB9D4248AB33500F516A5 /* DynamicTypeSymbolImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CAB9D3248AB33500F516A5 /* DynamicTypeSymbolImageView.swift */; };
+		71D3C19A2494EFAC00DBABA8 /* ENANavigationControllerWithFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D3C1992494EFAC00DBABA8 /* ENANavigationControllerWithFooter.swift */; };
+		71EF33D92497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF33D82497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift */; };
+		71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EF33DA2497F419007B7E1B /* ENANavigationFooterItem.swift */; };
 		71F2E57B2487AEFC00694F1A /* ena-colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */; };
 		71F5418E248BEE08006DB793 /* privacy-policy.html in Resources */ = {isa = PBXBuildFile; fileRef = 71F5418A248BEDBE006DB793 /* privacy-policy.html */; };
 		71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F54190248BF677006DB793 /* HtmlTextView.swift */; };
@@ -394,6 +398,7 @@
 		016146902487A43E00660992 /* WebPageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageHelper.swift; sourceTree = "<group>"; };
 		01678E9A249A521F003B048B /* testStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = testStore.sqlite; sourceTree = "<group>"; };
 		01D3ECFF2490230400551E65 /* StoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StoreTests.swift; sourceTree = "<group>"; };
+		01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info_Testflight.plist; sourceTree = "<group>"; };
 		01F5F7212487B9C000229720 /* AppInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationViewController.swift; sourceTree = "<group>"; };
 		0D5611B3247F852C00B5B094 /* SQLiteKeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteKeyValueStore.swift; sourceTree = "<group>"; };
 		0DD260FE248D549B007C3B2C /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -493,7 +498,6 @@
 		51D420CD245869C800AD70CA /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		51D420CF24586AB300AD70CA /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		51D420D324586DCA00AD70CA /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
-		51E78562248D439200BBB13E /* ENACloneButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENACloneButton.swift; sourceTree = "<group>"; };
 		51FE277A2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRiskLoadingItemViewConfigurator.swift; sourceTree = "<group>"; };
 		51FE277C247535C400BB8144 /* RiskLoadingItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RiskLoadingItemView.xib; sourceTree = "<group>"; };
 		51FE277E247535E300BB8144 /* RiskLoadingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLoadingItemView.swift; sourceTree = "<group>"; };
@@ -537,12 +541,16 @@
 		71B8044C248525CD00D53506 /* RiskLegendViewController+DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RiskLegendViewController+DynamicTableViewModel.swift"; sourceTree = "<group>"; };
 		71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSpaceCell.swift; sourceTree = "<group>"; };
 		71B804532485273C00D53506 /* RiskLegendDotBodyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskLegendDotBodyCell.swift; sourceTree = "<group>"; };
+		71C0BEDC2498DD07009A17A0 /* ENANavigationFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENANavigationFooterView.swift; sourceTree = "<group>"; };
 		71CAB9D1248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelPerfectLayoutConstraint.swift; sourceTree = "<group>"; };
 		71CAB9D3248AB33500F516A5 /* DynamicTypeSymbolImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeSymbolImageView.swift; sourceTree = "<group>"; };
 		71CC3E9C246D5D8000217F2C /* AppInformationViewController+DynamicTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppInformationViewController+DynamicTableViewModel.swift"; sourceTree = "<group>"; };
 		71CC3E9E246D6B6800217F2C /* AppInformationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInformationDetailViewController.swift; sourceTree = "<group>"; };
 		71CC3EA0246D6BBF00217F2C /* DynamicTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTypeLabel.swift; sourceTree = "<group>"; };
 		71CC3EA2246D6C4000217F2C /* UIFont+DynamicType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+DynamicType.swift"; sourceTree = "<group>"; };
+		71D3C1992494EFAC00DBABA8 /* ENANavigationControllerWithFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENANavigationControllerWithFooter.swift; sourceTree = "<group>"; };
+		71EF33D82497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENANavigationControllerWithFooterChild.swift; sourceTree = "<group>"; };
+		71EF33DA2497F419007B7E1B /* ENANavigationFooterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENANavigationFooterItem.swift; sourceTree = "<group>"; };
 		71F2E57A2487AEFC00694F1A /* ena-colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ena-colors.xcassets"; sourceTree = "<group>"; };
 		71F5418B248BEDBE006DB793 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = "de.lproj/privacy-policy.html"; sourceTree = "<group>"; };
 		71F54190248BF677006DB793 /* HtmlTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlTextView.swift; sourceTree = "<group>"; };
@@ -731,6 +739,12 @@
 		EE70C23B245B09E900AC9B2F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE70C23C245B09E900AC9B2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		EEDD6DF524A4885200BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = tr; path = tr.lproj/usage.html; sourceTree = "<group>"; };
+		EEDD6DF624A4885200BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = tr; path = "tr.lproj/privacy-policy.html"; sourceTree = "<group>"; };
+		EEDD6DF724A4885D00BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		EEDD6DF824A4889D00BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EEDD6DF924A488A500BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EEDD6DFA24A488AD00BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = tr; path = tr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		EEF10679246EBF8B009DFB4E /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
 		F22C6E242492082B00712A6B /* DynamicTableViewSpaceCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewSpaceCellTests.swift; sourceTree = "<group>"; };
 		F247572A24838AC8003E1FC5 /* DynamicTableViewControllerRowsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewControllerRowsTests.swift; sourceTree = "<group>"; };
@@ -1153,6 +1167,17 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		7143D07424990A3100608DDE /* NavigationControllerWithFooter */ = {
+			isa = PBXGroup;
+			children = (
+				71D3C1992494EFAC00DBABA8 /* ENANavigationControllerWithFooter.swift */,
+				71EF33D82497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift */,
+				71EF33DA2497F419007B7E1B /* ENANavigationFooterItem.swift */,
+				71C0BEDC2498DD07009A17A0 /* ENANavigationFooterView.swift */,
+			);
+			path = NavigationControllerWithFooter;
+			sourceTree = "<group>";
+		};
 		71B804502485272200D53506 /* RiskLegend */ = {
 			isa = PBXGroup;
 			children = (
@@ -1210,7 +1235,6 @@
 			isa = PBXGroup;
 			children = (
 				853D987924694A8700490DBA /* ENAButton.swift */,
-				51E78562248D439200BBB13E /* ENACloneButton.swift */,
 				8595BF5E246032D90056EA27 /* ENASwitch.swift */,
 				71FE1C81247AC30300851FEB /* ENATanInput.swift */,
 				71B804462484CC0800D53506 /* ENALabel.swift */,
@@ -1316,6 +1340,7 @@
 			children = (
 				71176E30248957B1004B0C9F /* App */,
 				71F76D0E24767AF100515A01 /* DynamicTableViewController */,
+				7143D07424990A3100608DDE /* NavigationControllerWithFooter */,
 				EE20EA0824699A3A00770683 /* RiskLegend */,
 				EE85998B2462EFD4002E7AE2 /* AppInformation */,
 				51D420AF2458308400AD70CA /* Onboarding */,
@@ -1339,6 +1364,7 @@
 				EE70C239245B09E900AC9B2F /* Localization */,
 				85D7594F24570491008175F0 /* Info.plist */,
 				B1221BDB2492BCEB00E6C4E4 /* Info_Debug.plist */,
+				01E25C6F24A3B52F007E33F8 /* Info_Testflight.plist */,
 				85D75976245706BD008175F0 /* Assets */,
 				85D75975245706B0008175F0 /* Storyboards */,
 				A16714B0248CFF020031B111 /* HostWhitelist.plist */,
@@ -1845,13 +1871,13 @@
 			children = (
 				A3284253248E48E0006B1F09 /* __tests__ */,
 				71FE1C79247AC2B500851FEB /* ExposureSubmissionNavigationController.swift */,
+				2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */,
 				71FE1C75247AC2B500851FEB /* ExposureSubmissionOverviewViewController.swift */,
 				71FE1C76247AC2B500851FEB /* ExposureSubmissionTanInputViewController.swift */,
 				71FE1C78247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift */,
 				71FE1C73247AC2B500851FEB /* ExposureSubmissionSuccessViewController.swift */,
 				71FE1C74247AC2B500851FEB /* ExposureSubmissionQRScannerViewController.swift */,
 				A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */,
-				2F80CFD8247ED988000F06AF /* ExposureSubmissionIntroViewController.swift */,
 				2F80CFDA247EDDB3000F06AF /* ExposureSubmissionHotlineViewController.swift */,
 				A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */,
 				710224F524910661000C5DEF /* ExposureSubmissionDynamicCell.swift */,
@@ -2077,6 +2103,7 @@
 				en,
 				Base,
 				de,
+				tr,
 			);
 			mainGroup = 85D759322457048F008175F0;
 			packageReferences = (
@@ -2117,6 +2144,7 @@
 				51C7790C24867F16004582F8 /* RiskListItemView.xib in Resources */,
 				EE92A33E245D96DA006B97B0 /* Localizable.stringsdict in Resources */,
 				A328424D248B91E0006B1F09 /* HomeTestResultLoadingCell.xib in Resources */,
+				01E25C7024A3B52F007E33F8 /* Info_Testflight.plist in Resources */,
 				EE278B2D245F2BBB008B06F9 /* InviteFriends.storyboard in Resources */,
 				EE70C23D245B09EA00AC9B2F /* Localizable.strings in Resources */,
 				51CE1B85246078B6002CF42A /* ActivateCollectionViewCell.xib in Resources */,
@@ -2201,6 +2229,7 @@
 				B1D7D69224766D2100E4DA5D /* apple_export.pb.swift in Sources */,
 				7187A5582481231C00FCC755 /* DynamicTableViewAction.swift in Sources */,
 				A128F059248B459F00EC7F6C /* PublicKeyStore.swift in Sources */,
+				71C0BEDD2498DD07009A17A0 /* ENANavigationFooterView.swift in Sources */,
 				A3FF84EC247BFAF00053E947 /* Hasher.swift in Sources */,
 				51895EDC245E16CD0085DA38 /* ENAColor.swift in Sources */,
 				51FE277B2475340300BB8144 /* HomeRiskLoadingItemViewConfigurator.swift in Sources */,
@@ -2281,11 +2310,11 @@
 				A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */,
 				B1741B582462EBDB006275D9 /* HomeViewController.swift in Sources */,
 				3DD767462483D4DE002DD2B3 /* ReachabilityService.swift in Sources */,
+				71EF33D92497F3E8007B7E1B /* ENANavigationControllerWithFooterChild.swift in Sources */,
 				A3EE6E5A249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift in Sources */,
 				4026C2E424854C8D00926FB4 /* AppInformationLegalCell.swift in Sources */,
 				51C737BF245B3B5D00286105 /* OnboardingInfo.swift in Sources */,
 				B1FE13EB24891CFA00D012E5 /* RiskProvider.swift in Sources */,
-				51E78563248D439200BBB13E /* ENACloneButton.swift in Sources */,
 				B143DBDF2477F292000A29E8 /* ExposureNotificationSettingViewController.swift in Sources */,
 				016146912487A43E00660992 /* WebPageHelper.swift in Sources */,
 				51D420B924583B8300AD70CA /* UIViewController+AppStoryboard.swift in Sources */,
@@ -2327,6 +2356,7 @@
 				B1C6ED00247F23730066138F /* NotificationName.swift in Sources */,
 				EE22DB8D247FB43A001B0A71 /* ActionTableViewCell.swift in Sources */,
 				51CE1BBD2460B1CB002CF42A /* CollectionViewCellConfigurator.swift in Sources */,
+				71D3C19A2494EFAC00DBABA8 /* ENANavigationControllerWithFooter.swift in Sources */,
 				CD2EC329247D82EE00C6B3F9 /* NotificationSettingsViewController.swift in Sources */,
 				51C737BD245B349700286105 /* OnboardingInfoViewController.swift in Sources */,
 				B1FE13FB24896E6700D012E5 /* AppConfigurationProviding.swift in Sources */,
@@ -2394,6 +2424,7 @@
 				0DFCC2722484DC8400E2811D /* sqlite3.c in Sources */,
 				B1741B492462C207006275D9 /* Client.swift in Sources */,
 				514C0A0624772F3400F235F6 /* HomeRiskViewConfigurator.swift in Sources */,
+				71EF33DB2497F419007B7E1B /* ENANavigationFooterItem.swift in Sources */,
 				710ABB1F2475115500948792 /* UITableViewController+Enum.swift in Sources */,
 				51CE1B8B246078B6002CF42A /* InfoCollectionViewCell.swift in Sources */,
 				B14D0CDB246E968C00D5BEBC /* String+Today.swift in Sources */,
@@ -2526,6 +2557,7 @@
 			children = (
 				13156CFE248C19D000AFC472 /* de */,
 				13156D00248CDECC00AFC472 /* en */,
+				EEDD6DF524A4885200BC30D0 /* tr */,
 			);
 			name = usage.html;
 			sourceTree = "<group>";
@@ -2535,6 +2567,7 @@
 			children = (
 				71F5418B248BEDBE006DB793 /* de */,
 				717D21EA248C072300D9717E /* en */,
+				EEDD6DF624A4885200BC30D0 /* tr */,
 			);
 			name = "privacy-policy.html";
 			sourceTree = "<group>";
@@ -2543,6 +2576,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				85D7594D24570491008175F0 /* Base */,
+				EEDD6DF724A4885D00BC30D0 /* tr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -2552,6 +2586,7 @@
 			children = (
 				EE269509248FCB0300BAE234 /* de */,
 				EE26950B248FCB1600BAE234 /* en */,
+				EEDD6DF824A4889D00BC30D0 /* tr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2561,6 +2596,7 @@
 			children = (
 				EE70C23B245B09E900AC9B2F /* de */,
 				EE70C23C245B09E900AC9B2F /* en */,
+				EEDD6DF924A488A500BC30D0 /* tr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2570,6 +2606,7 @@
 			children = (
 				EE92A33F245D96DA006B97B0 /* de */,
 				514C0A09247AEEE200F235F6 /* en */,
+				EEDD6DFA24A488AD00BC30D0 /* tr */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -2649,7 +2686,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2660,12 +2697,12 @@
 				INFOPLIST_FILE = ENA/Resources/Info_Debug.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = "";
-				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -2741,6 +2778,154 @@
 			};
 			name = Community;
 		};
+		0140535724A0E077000A5121 /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = TestFlight;
+		};
+		0140535824A0E077000A5121 /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BACKEND_DISTIBUTION_BASE_URL = "https://svc90.main.px.t-online.de";
+				BACKEND_SUBMISSION_BASE_URL = "https://submission.coronawarn.app";
+				BACKEND_VERIFICATION_BASE_URL = "https://verification.coronawarn.app";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
+				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 523TP53AQF;
+				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
+				INFOPLIST_FILE = ENA/Resources/Info_Testflight.plist;
+				IPHONE_APP_CODE_SIGN_IDENTITY = "Apple Distribution";
+				IPHONE_APP_DEV_TEAM = 523TP53AQF;
+				IPHONE_APP_DIST_PROF_SPECIFIER = "match AppStore de.rki.coronawarnapp-dev";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.2;
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.rki.coronawarnapp-dev";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_STORE DISABLE_CERTIFICATE_PINNING";
+				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = TestFlight;
+		};
+		0140535924A0E077000A5121 /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 523TP53AQF;
+				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
+				INFOPLIST_FILE = ENATests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DNDEBUG",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ux.ENATests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ENATests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ENA.app/ENA";
+			};
+			name = TestFlight;
+		};
+		0140535A24A0E077000A5121 /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 523TP53AQF;
+				INFOPLIST_FILE = ENAUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ux.ENAUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ENA;
+			};
+			name = TestFlight;
+		};
 		01DE5A74248E3CF800F6D7F2 /* UITesting */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2813,7 +2998,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENACommunity.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = $IPHONE_APP_DEV_TEAM;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2823,12 +3008,12 @@
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
 				IPHONE_APP_DEV_TEAM = 523TP53AQF;
-				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App";
+				IPHONE_APP_DIST_PROF_SPECIFIER = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -3032,7 +3217,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENATest.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 523TP53AQF;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -3047,7 +3232,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -3076,7 +3261,7 @@
 				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
 				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 4;
 				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				INFOPLIST_FILE = ENA/Resources/Info.plist;
 				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -3086,7 +3271,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.0.2;
 				OTHER_CFLAGS = (
 					"-DSQLITE_HAS_CODEC",
 					"-DSQLITE_TEMP_STORE=3",
@@ -3213,152 +3398,6 @@
 			};
 			name = Release;
 		};
-		CD7F5C6E2466ED8F00D3D03C /* ReleaseAppStore */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = APP_STORE;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = ReleaseAppStore;
-		};
-		CD7F5C6F2466ED8F00D3D03C /* ReleaseAppStore */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				BACKEND_DISTIBUTION_BASE_URL = "https://svc90.main.px.t-online.de";
-				BACKEND_SUBMISSION_BASE_URL = "https://submission.coronawarn.app";
-				BACKEND_VERIFICATION_BASE_URL = "https://verification.coronawarn.app";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "${PROJECT}/Resources/ENA.entitlements";
-				CODE_SIGN_IDENTITY = $IPHONE_APP_CODE_SIGN_IDENTITY;
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
-				INFOPLIST_FILE = ENA/Resources/Info.plist;
-				IPHONE_APP_CODE_SIGN_IDENTITY = "iPhone Developer";
-				IPHONE_APP_DEV_TEAM = 523TP53AQF;
-				IPHONE_APP_DIST_PROF_SPECIFIER = "523TP53AQF/Corona-Warn-App";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.1.0;
-				OTHER_CFLAGS = (
-					"-DSQLITE_HAS_CODEC",
-					"-DSQLITE_TEMP_STORE=3",
-					"-DSQLCIPHER_CRYPTO_CC",
-					"-DNDEBUG",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.rki.coronawarnapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = $IPHONE_APP_DIST_PROF_SPECIFIER;
-				SWIFT_OBJC_BRIDGING_HEADER = "ENA-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = ReleaseAppStore;
-		};
-		CD7F5C702466ED8F00D3D03C /* ReleaseAppStore */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 523TP53AQF;
-				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
-				INFOPLIST_FILE = ENATests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				OTHER_CFLAGS = (
-					"-DSQLITE_HAS_CODEC",
-					"-DSQLITE_TEMP_STORE=3",
-					"-DSQLCIPHER_CRYPTO_CC",
-					"-DNDEBUG",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ux.ENATests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "ENATests-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ENA.app/ENA";
-			};
-			name = ReleaseAppStore;
-		};
-		CD7F5C712466ED8F00D3D03C /* ReleaseAppStore */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 523TP53AQF;
-				INFOPLIST_FILE = ENAUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sap.ux.ENAUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ENA;
-			};
-			name = ReleaseAppStore;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3369,7 +3408,7 @@
 				011E4AFC2483A269002E6412 /* Community */,
 				01DE5A74248E3CF800F6D7F2 /* UITesting */,
 				85D7596724570491008175F0 /* Release */,
-				CD7F5C6E2466ED8F00D3D03C /* ReleaseAppStore */,
+				0140535724A0E077000A5121 /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -3381,7 +3420,7 @@
 				011E4AFD2483A269002E6412 /* Community */,
 				01DE5A75248E3CF800F6D7F2 /* UITesting */,
 				85D7596A24570491008175F0 /* Release */,
-				CD7F5C6F2466ED8F00D3D03C /* ReleaseAppStore */,
+				0140535824A0E077000A5121 /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -3393,7 +3432,7 @@
 				011E4AFE2483A269002E6412 /* Community */,
 				01DE5A76248E3CF800F6D7F2 /* UITesting */,
 				85D7596D24570491008175F0 /* Release */,
-				CD7F5C702466ED8F00D3D03C /* ReleaseAppStore */,
+				0140535924A0E077000A5121 /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -3405,7 +3444,7 @@
 				011E4AFF2483A269002E6412 /* Community */,
 				01DE5A77248E3CF800F6D7F2 /* UITesting */,
 				85D7597024570491008175F0 /* Release */,
-				CD7F5C712466ED8F00D3D03C /* ReleaseAppStore */,
+				0140535A24A0E077000A5121 /* TestFlight */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
