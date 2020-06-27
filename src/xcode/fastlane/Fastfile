@@ -94,14 +94,14 @@ platform :ios do
     build_ios_app(
       scheme: "ENA",
       configuration: "TestFlight",
-      clean: true,
-      export_options: {
-        "method": "app-store",
-        "signingStyle": "manual",
-      }
+      clean: true
     )
 
-    deliver
+    upload_to_testflight(
+      apple_id: "1515713549",
+      skip_waiting_for_build_processing: true,
+      skip_submission: true,  # only upload
+    )
   end
 
 end
