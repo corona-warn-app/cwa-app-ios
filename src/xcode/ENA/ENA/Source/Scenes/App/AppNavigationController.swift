@@ -24,9 +24,9 @@ class AppNavigationController: UINavigationController {
 	private var scrollViewObserver: NSKeyValueObservation?
 	private var defaultScrollEdgeAppearance: UINavigationBarAppearance?
 
-	override func loadView() {
-		super.loadView()
-
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
 		setupNavigationBar()
 		setupView()
 	}
