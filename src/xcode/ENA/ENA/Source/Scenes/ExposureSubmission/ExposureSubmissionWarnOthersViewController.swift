@@ -60,9 +60,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		navigationFooterItem?.isPrimaryButtonEnabled = false
 		exposureSubmissionService?.submitExposure { error in
 			switch error {
-			case .noKeys:
-				self.performSegue(withIdentifier: Segue.sent, sender: self)
-			case .none:
+			case .none, .noKeys:
 				self.performSegue(withIdentifier: Segue.sent, sender: self)
 			case .some(let error):
 				logError(message: "error: \(error.localizedDescription)", level: .error)
