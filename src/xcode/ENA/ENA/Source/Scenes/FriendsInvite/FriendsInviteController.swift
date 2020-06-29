@@ -43,13 +43,9 @@ final class FriendsInviteController: UIViewController {
 		descriptionLabel.text = AppStrings.InviteFriends.description
 		imageView.isAccessibilityElement = true
 		imageView.accessibilityLabel = AppStrings.InviteFriends.imageAccessLabel
-		imageView.accessibilityIdentifier = "AppStrings.InviteFriends.imageAccessLabel"
+		imageView.accessibilityIdentifier = AccessibilityIdentifiers.InviteFriends.imageAccessLabel
 
 		inviteButton.setTitle(AppStrings.InviteFriends.submit, for: .normal)
-
-		if let inviteButton = inviteButton, let titleLabel = inviteButton.titleLabel {
-			inviteButton.addConstraint(NSLayoutConstraint(item: inviteButton, attribute: .height, relatedBy: .equal, toItem: titleLabel, attribute: .height, multiplier: 1, constant: 0))
-		}
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -59,7 +55,7 @@ final class FriendsInviteController: UIViewController {
 	}
 
 	@IBAction func inviteAction(_: UIButton) {
-		let inviteViewController = UIActivityViewController(activityItems: [self], applicationActivities: [])
+		let inviteViewController = UIActivityViewController(activityItems: [self, shareUrl], applicationActivities: [])
 		inviteViewController.popoverPresentationController?.sourceView = view
 		present(inviteViewController, animated: true)
 	}
@@ -79,11 +75,15 @@ final class FriendsInviteController: UIViewController {
 
 extension FriendsInviteController: UIActivityItemSource {
 	func activityViewControllerPlaceholderItem(_: UIActivityViewController) -> Any {
-		shareTitle
+		return shareTitle
 	}
 
-	func activityViewController(_: UIActivityViewController, itemForActivityType _: UIActivity.ActivityType?) -> Any? {
-		shareUrl
+	func activityViewController(_: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+		if activityType == .mail {
+			return ""
+		}
+
+		return shareTitle
 	}
 
 	func activityViewControllerLinkMetadata(_: UIActivityViewController) -> LPLinkMetadata? {
@@ -101,6 +101,6 @@ extension FriendsInviteController: UIActivityItemSource {
 	}
 
 	func activityViewController(_: UIActivityViewController, subjectForActivityType _: UIActivity.ActivityType?) -> String {
-		shareTitle
+		return shareTitle
 	}
 }

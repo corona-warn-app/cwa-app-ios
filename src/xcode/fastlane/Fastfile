@@ -85,4 +85,24 @@ platform :ios do
     )
   end
 
+  desc "Build and upload for testing"
+  lane :betaRelease do
+    match(
+      readonly: true
+    )
+
+    build_ios_app(
+      scheme: "ENA",
+      configuration: "TestFlight",
+      clean: true
+    )
+
+    upload_to_testflight(
+      username: "cwa.technical-user@sap.com",
+      apple_id: "1515713549",
+      skip_waiting_for_build_processing: true,
+      skip_submission: true,  # only upload
+    )
+  end
+
 end

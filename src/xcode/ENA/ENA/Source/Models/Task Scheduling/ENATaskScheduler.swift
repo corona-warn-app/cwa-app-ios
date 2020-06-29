@@ -21,15 +21,18 @@ import UIKit
 
 enum ENATaskIdentifier: String, CaseIterable {
 	// only one task identifier is allowed have the .exposure-notification suffix
-	case primaryBackgroundTask = "exposure-notification"
+	case exposureNotification = "exposure-notification"
+	case fetchTestResults = "fetch-test-results"
 
 	var backgroundTaskScheduleInterval: TimeInterval? {
 		switch self {
-		case .primaryBackgroundTask: return 2 * 60 * 60
+		case .exposureNotification: return nil
+		case .fetchTestResults: return 2 * 60 * 60
 		}
 	}
 	var backgroundTaskSchedulerIdentifier: String {
-		"de.rki.coronawarnapp.\(rawValue)"
+		guard let bundleID = Bundle.main.bundleIdentifier else { return "invalid-task-id!" }
+		return "\(bundleID).\(rawValue)"
 	}
 }
 
@@ -50,22 +53,29 @@ final class ENATaskScheduler {
 	typealias CompletionHandler = (() -> Void)
 
 	private func registerTasks() {
-		registerTask(with: .primaryBackgroundTask, taskHander: executeBackgroundTask(_:))
+		registerTask(with: .exposureNotification, taskHandler: executeExposureDetectionRequest(_:))
+		registerTask(with: .fetchTestResults, taskHandler: executeFetchTestResults(_:))
 	}
 
-	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHander: @escaping ((BGTask) -> Void)) {
+	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHandler: @escaping ((BGTask) -> Void)) {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
-			taskHander(task)
+			taskHandler(task)
 		}
 	}
 
 	func scheduleTasks() {
-		scheduleTask(for: .primaryBackgroundTask, cancelExisting: true)
+		scheduleTask(for: .exposureNotification, cancelExisting: true)
+		scheduleTask(for: .fetchTestResults, cancelExisting: true)
 	}
 
 	func cancelTasks() {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
+	}
+
+	func scheduleTask(for identifier: String) {
+		guard let taskIdentifier = ENATaskIdentifier(rawValue: identifier) else { return }
+		scheduleTask(for: taskIdentifier)
 	}
 
 	func scheduleTask(for taskIdentifier: ENATaskIdentifier, cancelExisting: Bool = false) {
@@ -96,31 +106,17 @@ final class ENATaskScheduler {
 	}
 
 	// Task Handlers:
-	private func executeBackgroundTask(_ task: BGTask) {
-		executeFetchTestResults(task) { executeFetchTestResultsSuccess in
-			self.executeExposureDetectionRequest(task) { executeExposureDetectionRequestSuccess in
-				let success = executeFetchTestResultsSuccess && executeExposureDetectionRequestSuccess
-				log(message: "Task complete! executeFetchTestResultsSuccess \(executeFetchTestResultsSuccess) && executeExposureDetectionRequestSuccess \(executeExposureDetectionRequestSuccess)")
-				task.setTaskCompleted(success: success)
-				self.scheduleTasks()
-			}
-		}
-
-		task.expirationHandler = {
-			logError(message: NSLocalizedString("BACKGROUND_TIMEOUT", comment: "Error"))
-			self.scheduleTasks()
-		}
-	}
-
-	private func executeExposureDetectionRequest(_ task: BGTask, completion: @escaping ((Bool) -> Void)) {
+	private func executeExposureDetectionRequest(_ task: BGTask) {
 		taskDelegate?.executeExposureDetectionRequest(task: task) { success in
-			completion(success)
+			task.setTaskCompleted(success: success)
+			self.scheduleTask(for: task.identifier)
 		}
 	}
 
-	private func executeFetchTestResults(_ task: BGTask, completion: @escaping ((Bool) -> Void)) {
-		taskDelegate?.executeFetchTestResults(task: task) {success in
-			completion(success)
+	private func executeFetchTestResults(_ task: BGTask) {
+		taskDelegate?.executeFetchTestResults(task: task) { success in
+			task.setTaskCompleted(success: success)
+			self.scheduleTask(for: task.identifier)
 		}
 	}
 

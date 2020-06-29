@@ -7,8 +7,6 @@ import Foundation
 import ExposureNotification
 
 final class ExposureDetectionExecutor: ExposureDetectionDelegate {
-
-
 	private let client: Client
 	private let downloadedPackagesStore: DownloadedPackagesStore
 	private let store: Store
@@ -27,12 +25,14 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 		self.exposureDetector = exposureDetector
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, determineAvailableData completion: @escaping (DaysAndHours?) -> Void) {
-		client.availableDaysAndHoursUpUntil(.formattedToday()) { result in
-			let mappedResult = result.map { DaysAndHours(days: $0.days, hours: $0.hours) }
-			switch mappedResult {
-			case .success(let daysAndHours):
-				completion(daysAndHours)
+	func exposureDetection(
+		_ detection: ExposureDetection,
+		determineAvailableData completion: @escaping (DaysAndHours?) -> Void
+	) {
+		client.availableDays { result in
+			switch result {
+			case let .success(days):
+				completion((days: days, hours: []))
 			case .failure:
 				completion(nil)
 			}
@@ -40,15 +40,18 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 	}
 
 	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
+		// prune the store
+		try? downloadedPackagesStore.deleteOutdatedDays(now: .formattedToday())
+		
 		let delta = DeltaCalculationResult(
-				remoteDays: Set(remote.days),
-				remoteHours: Set(remote.hours),
-				localDays: Set(downloadedPackagesStore.allDays()),
-				localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
+			remoteDays: Set(remote.days),
+			remoteHours: Set(remote.hours),
+			localDays: Set(downloadedPackagesStore.allDays()),
+			localHours: Set(downloadedPackagesStore.hours(for: .formattedToday()))
 		)
 		return (
-				days: Array(delta.missingDays),
-				hours: Array(delta.missingHours)
+			days: Array(delta.missingDays),
+			hours: Array(delta.missingHours)
 		)
 	}
 

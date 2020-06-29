@@ -38,7 +38,7 @@ extension AppInformationViewController {
 		.section(
 			header: .image(UIImage(named: "Illu_Appinfo_RechtlicheHinweise"),
 						   accessibilityLabel: AppStrings.AppInformation.legalImageDescription,
-						   accessibilityIdentifier: "AppStrings.AppInformation.legalImageDescription",
+						   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.legalImageDescription,
 						   height: 230),
 			cells: legalCells
 		)
