@@ -121,7 +121,7 @@ final class TracingStatusHistoryTests: XCTestCase {
 
 		history = history.consumingState(goodState, date)
 
-		XCTAssertEqual(history.countEnabledDays(), 15)
+		XCTAssertEqual(history.countEnabledDays(), 14)
 	}
 
 	func testIfTracingActiveForThresholdDuration_EnabledClosePast() throws {
@@ -197,17 +197,88 @@ final class TracingStatusHistoryTests: XCTestCase {
 		XCTAssertEqual(history.countEnabledHours(), 1)
 	}
 
-	func testEnabledHoursCount_Complex() throws {
+	func testEnabledHoursCount_WithTheFirstEntryBeingInDistantPast() throws {
 		var history = TracingStatusHistory()
 		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 		let badState = ExposureManagerState(authorized: true, enabled: false, status: .active)
 
-		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -15)))
-		history = history.consumingState(badState, Date().addingTimeInterval(.init(days: -10)))	// active for 5 days
-		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -1))) // inactive for 9 days
-		history = history.consumingState(badState, Date().addingTimeInterval(.init(hours: -1)))	// active for 23 hours
+		let now = Date()
 
-		XCTAssertEqual(history.countEnabledHours(), 24 * 5 + 23)
+		history = history.consumingState(goodState, now.addingTimeInterval(.init(days: -100)))
+		history = history.consumingState(badState, now.addingTimeInterval(.init(days: -10)))	// stop being active after 4 days
+
+		XCTAssertEqual(history.countEnabledHours(since: now), 96)
+		XCTAssertEqual(history.countEnabledDays(since: now), 4)
+	}
+
+
+	func testEnabledHoursCount_Complex() {
+		var history = TracingStatusHistory()
+		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
+		let badState = ExposureManagerState(authorized: true, enabled: false, status: .active)
+
+		let now = Date()
+
+		history = history.consumingState(goodState, now.addingTimeInterval(.init(days: -15)))
+		history = history.consumingState(badState, now.addingTimeInterval(.init(days: -10)))	// active for 5 days (where one day is 'irrelevant'
+		history = history.consumingState(goodState, now.addingTimeInterval(.init(days: -1))) // inactive for 9 days
+		history = history.consumingState(badState, now.addingTimeInterval(.init(hours: -1)))	// active for 23 hours
+
+		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 4 + 23)
+		XCTAssertEqual(history.countEnabledDays(since: now), 4)
+	}
+
+	func testGetEnabledInterval_Accumulator_Good() {
+		let now = Date()
+
+		let history: TracingStatusHistory = [
+			.init(on: true, date: now.addingTimeInterval(.init(days: -10))),
+			.init(on: true, date: now.addingTimeInterval(.init(days: -5)))
+		]
+
+		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 10)
+		XCTAssertEqual(history.countEnabledDays(since: now), 10)
+	}
+
+	func testGetEnabledInterval_Accumulator_Good_2() {
+		let now = Date()
+
+		let history: TracingStatusHistory = [
+			.init(on: true, date: now.addingTimeInterval(.init(days: -10))),
+			.init(on: true, date: now.addingTimeInterval(.init(days: -5))),
+			.init(on: true, date: now.addingTimeInterval(.init(days: -3))),
+			.init(on: true, date: now.addingTimeInterval(.init(days: -1)))
+		]
+
+		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 10)
+		XCTAssertEqual(history.countEnabledDays(since: now), 10)
+	}
+
+	func testGetEnabledInterval_Accumulator_Good_3() {
+		let now = Date()
+
+		let history: TracingStatusHistory = [
+			.init(on: true, date: now.addingTimeInterval(.init(days: -10))),
+			.init(on: false, date: now.addingTimeInterval(.init(days: -5))),	// Active for 5 days
+			.init(on: true, date: now.addingTimeInterval(.init(days: -2)))		// Inactive for 3 days
+			// Active for 2 more days
+		]
+
+		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 7)
+		XCTAssertEqual(history.countEnabledDays(since: now), 7)
+	}
+
+	func testGetEnabledInterval_Accumulator_Bad() {
+		let now = Date()
+
+		let history: TracingStatusHistory = [
+			.init(on: false, date: now.addingTimeInterval(.init(days: -10))),
+			.init(on: false, date: now.addingTimeInterval(.init(days: -5))),
+			.init(on: true, date: now.addingTimeInterval(.init(days: -2)))
+		]
+
+		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 2)
+		XCTAssertEqual(history.countEnabledDays(since: now), 2)
 	}
 }
 
