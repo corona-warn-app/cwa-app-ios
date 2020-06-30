@@ -66,6 +66,9 @@ final class OnboardingInfoViewController: UIViewController {
 	var store: Store
 
 	@IBOutlet var imageView: UIImageView!
+	@IBOutlet var stateHeaderLabel: ENALabel!
+	@IBOutlet var stateTitleLabel: ENALabel!
+	@IBOutlet var stateStateLabel: ENALabel!
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var boldLabel: UILabel!
 	@IBOutlet var textLabel: UILabel!
@@ -74,6 +77,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 	@IBOutlet var scrollView: UIScrollView!
 	@IBOutlet var stackView: UIStackView!
+	@IBOutlet var stateView: UIView!
 	@IBOutlet var innerStackView: UIStackView!
 	@IBOutlet var footerView: UIView!
 
@@ -89,8 +93,14 @@ final class OnboardingInfoViewController: UIViewController {
 		// should be revised in the future
 		viewRespectsSystemMinimumLayoutMargins = false
 		view.layoutMargins = .zero
-		updateUI()
 		setupAccessibility()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+
+		let preconditions = exposureManager.preconditions()
+		updateUI(exposureManagerState: preconditions)
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -136,13 +146,20 @@ final class OnboardingInfoViewController: UIViewController {
 		present(alert, animated: true, completion: nil)
 	}
 
-	private func updateUI() {
+	private func updateUI(exposureManagerState: ExposureManagerState) {
 		guard isViewLoaded else { return }
 		guard let onboardingInfo = onboardingInfo else { return }
 
 		titleLabel.text = onboardingInfo.title
 
-		imageView.image = UIImage(named: onboardingInfo.imageName)
+		let exposureNotificationsNotSet = exposureManagerState.status == .unknown || exposureManagerState.status == .bluetoothOff
+		let exposureNotificationsEnabled = exposureManagerState.enabled
+		let exposureNotificationsDisabled = !exposureNotificationsEnabled && !exposureNotificationsNotSet
+		let showStateView = onboardingInfo.showState && !exposureNotificationsNotSet
+
+		// swiftlint:disable force_unwrapping
+		let imageName = exposureNotificationsDisabled && onboardingInfo.alternativeImageName != nil ? onboardingInfo.alternativeImageName! : onboardingInfo.imageName
+		imageView.image = UIImage(named: imageName)
 
 		boldLabel.text = onboardingInfo.boldText
 		boldLabel.isHidden = onboardingInfo.boldText.isEmpty
@@ -154,7 +171,13 @@ final class OnboardingInfoViewController: UIViewController {
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
-		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty
+		ignoreButton.isHidden = onboardingInfo.ignoreText.isEmpty || showStateView
+
+		stateView.isHidden = !showStateView
+
+		stateHeaderLabel.text = onboardingInfo.stateHeader?.uppercased()
+		stateTitleLabel.text = onboardingInfo.stateTitle
+		stateStateLabel.text = exposureNotificationsEnabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
 
 		switch pageType {
 		case .enableLoggingOfContactsPage:
