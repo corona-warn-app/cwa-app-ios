@@ -266,8 +266,6 @@ enum AppStrings {
 
 		static let navigationBarTitle = NSLocalizedString("Settings_NavTitle", comment: "")
 
-		static let onImageDescription = NSLocalizedString("NotificationSettings_onImageDescription", comment: "")
-		static let offImageDescription = NSLocalizedString("NotificationSettings_offImageDescription", comment: "")
 	}
 
 	enum NotificationSettings {
@@ -284,6 +282,9 @@ enum AppStrings {
 		static let openSettings = NSLocalizedString("NotificationSettings_Off_OpenSettings", comment: "")
 
 		static let navigationBarTitle = NSLocalizedString("NotificationSettings_NavTitle", comment: "")
+
+		static let onImageDescription = NSLocalizedString("NotificationSettings_onImageDescription", comment: "")
+		static let offImageDescription = NSLocalizedString("NotificationSettings_offImageDescription", comment: "")
 	}
 	
 	enum Onboarding {
