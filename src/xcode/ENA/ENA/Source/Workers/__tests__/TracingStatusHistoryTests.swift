@@ -197,17 +197,29 @@ final class TracingStatusHistoryTests: XCTestCase {
 		XCTAssertEqual(history.countEnabledHours(), 1)
 	}
 
+	func testEnabledHoursCount_WithTheFirstEntryBeingInDistantPast() throws {
+		var history = TracingStatusHistory()
+		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
+		let badState = ExposureManagerState(authorized: true, enabled: false, status: .active)
+
+		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -100)))
+		history = history.consumingState(badState, Date().addingTimeInterval(.init(days: -10)))	// active for 5 days
+
+		XCTAssertEqual(history.countEnabledHours(), 96)
+	}
+
+
 	func testEnabledHoursCount_Complex() throws {
 		var history = TracingStatusHistory()
 		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 		let badState = ExposureManagerState(authorized: true, enabled: false, status: .active)
 
 		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -15)))
-		history = history.consumingState(badState, Date().addingTimeInterval(.init(days: -10)))	// active for 5 days
+		history = history.consumingState(badState, Date().addingTimeInterval(.init(days: -10)))	// active for 5 days (where one day is 'irrelevant'
 		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -1))) // inactive for 9 days
 		history = history.consumingState(badState, Date().addingTimeInterval(.init(hours: -1)))	// active for 23 hours
 
-		XCTAssertEqual(history.countEnabledHours(), 24 * 5 + 23)
+		XCTAssertEqual(history.countEnabledHours(), 24 * 4 + 23)
 	}
 }
 
