@@ -35,12 +35,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	// MARK: Properties
-	var state = HomeInteractor.State(
-		detectionMode: .default,
-		exposureManagerState: .init(),
-		enState: .unknown,
-		risk: nil
-	) {
+	var state: State {
 		didSet {
 			homeViewController.setStateOfChildViewControllers()
 			sections = initialCellConfigurators()
@@ -58,7 +53,6 @@ final class HomeInteractor: RequiresAppDependencies {
 	}()
 	var enStateHandler: ENStateHandler?
 
-	private var riskLevel: RiskLevel { state.riskLevel }
 	private var detectionMode: DetectionMode { state.detectionMode }
 	private(set) var sections: SectionConfiguration = []
 
@@ -193,7 +187,7 @@ extension HomeInteractor {
 		inactiveConfigurator = nil
 
 		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
-		switch riskLevel {
+		switch state.riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
@@ -238,7 +232,10 @@ extension HomeInteractor {
 				detectionMode: detectionMode,
 				validityDuration: detectionInterval
 			)
+		case .none:
+			riskLevelConfigurator = nil
 		}
+
 		riskLevelConfigurator?.buttonAction = {
 			self.requestRisk(userInitiated: true)
 		}
