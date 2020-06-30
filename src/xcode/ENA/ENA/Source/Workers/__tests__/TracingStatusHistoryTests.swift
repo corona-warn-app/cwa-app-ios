@@ -221,6 +221,31 @@ final class TracingStatusHistoryTests: XCTestCase {
 
 		XCTAssertEqual(history.countEnabledHours(), 24 * 4 + 23)
 	}
+
+	func testGetEnabledInterval_Accumulator_Good() {
+		let now = Date()
+
+		let history: TracingStatusHistory = [
+			.init(on: true, date: now.addingTimeInterval(.init(days: -10))),
+			.init(on: true, date: now.addingTimeInterval(.init(days: -5)))
+		]
+
+		XCTAssertEqual(history.countEnabledHours(), 24 * 10)
+		XCTAssertEqual(history.countEnabledDays(), 10)
+	}
+
+	func testGetEnabledInterval_Accumulator_Bad() {
+		let now = Date()
+
+		let history: TracingStatusHistory = [
+			.init(on: false, date: now.addingTimeInterval(.init(days: -10))),
+			.init(on: false, date: now.addingTimeInterval(.init(days: -5))),
+			.init(on: true, date: now.addingTimeInterval(.init(days: -2)))
+		]
+
+		XCTAssertEqual(history.countEnabledHours(), 24 * 2)
+		XCTAssertEqual(history.countEnabledDays(), 2)
+	}
 }
 
 private extension TimeInterval {
