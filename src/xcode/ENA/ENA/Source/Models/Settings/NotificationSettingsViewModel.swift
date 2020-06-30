@@ -20,6 +20,7 @@ import Foundation
 class NotificationSettingsViewModel {
 	let notificationsOn: Bool
 	let image: String
+	let imageDescription: String
 	let title: String?
 	let sections: [Section]
 	let openSettings: OpenSettings?
@@ -27,6 +28,7 @@ class NotificationSettingsViewModel {
 	private init(
 		notificationsOn: Bool,
 		image: String,
+		imageDescription: String,
 		title: String?,
 		sections: [Section],
 		openSettings: OpenSettings?,
@@ -35,6 +37,7 @@ class NotificationSettingsViewModel {
 	) {
 		self.notificationsOn = notificationsOn
 		self.image = image
+		self.imageDescription = imageDescription
 		self.title = title
 		self.sections = sections
 		self.openSettings = openSettings
@@ -44,6 +47,7 @@ class NotificationSettingsViewModel {
 		NotificationSettingsViewModel(
 			notificationsOn: true,
 			image: "Illu_Mitteilungen_On",
+			imageDescription: AppStrings.NotificationSettings.onImageDescription,
 			title: AppStrings.NotificationSettings.onTitle,
 			sections: [
 				.settingsOn(
@@ -74,6 +78,7 @@ class NotificationSettingsViewModel {
 		NotificationSettingsViewModel(
 			notificationsOn: false,
 			image: "Illu_Mitteilungen_Off",
+			imageDescription: AppStrings.NotificationSettings.offImageDescription,
 			title: nil,
 			sections: [
 				.settingsOff(
