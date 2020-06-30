@@ -49,7 +49,7 @@ func log(
 	}
 	print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
 	var logger = Log()
-	print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)", to: &logger)
+	print("\(level.rawValue.uppercased()): \(Date().description(with: .current)) [\((file as NSString).lastPathComponent):\(line) - \(function)] \(message)", to: &logger)
 	#endif
 }
 
