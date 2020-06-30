@@ -54,36 +54,21 @@ extension Array where Element == TracingStatusEntry {
 		if lastEntry.on != newEntry.on {
 			copy.append(newEntry)
 		}
-		return copy.pruned()
+		return copy
 	}
 
 	// MARK: - Prune stale elements older than 14 days
 	/// Clean up `[TracingStatusEntry]` so we do not store entries past the threshold (14 days)
 	///
 	/// - parameter threshold: Max seconds entries can be in the past for. Defaults to 14 days
-	func pruned(with threshold: TimeInterval = Self.maxStoredSeconds) -> TracingStatusHistory {
-		let now = Date()
-
-		// Iterate from end of array until we find a date older than threshold
-		var firstStaleIndex: Int?
-		for (i, element) in enumerated().reversed() {
-			if now.timeIntervalSince(element.date) > threshold {
-				firstStaleIndex = i
-				break
-			}
+	private func pruned(with threshold: TimeInterval = Self.maxStoredSeconds) -> TracingStatusHistory {
+		let maxPast = Date().addingTimeInterval(-threshold)
+		let relevantEntries = filter { $0.date > maxPast }
+		let irrelevantEntries = filter { $0.date <= maxPast }
+		if let lastIrrelevantEntry = irrelevantEntries.last {
+			return [lastIrrelevantEntry] + relevantEntries
 		}
-
-		guard let staleIndex = firstStaleIndex else {
-			return self
-		}
-
-		if staleIndex == indices.last {
-			// If the stale element is the most recent history item,
-			// do not prune it
-			return [self[staleIndex]]
-		}
-
-		return Array(self[(staleIndex + 1)...])
+		return relevantEntries
 	}
 
 	// MARK: - Check Tracing History for Risk Calculation
@@ -114,10 +99,18 @@ extension Array where Element == TracingStatusEntry {
 		Int(getContinuousEnabledInterval(since: date)) / (60 * 60)
 	}
 
-	/// Get the total `TimeInterval` that tracing has been enabled
+	/// Get the total `TimeInterval` that tracing has been enabled.
 	///
 	/// - parameter since: `Date` to use as the baseline. Defaults to `Date()`
-	private func getContinuousEnabledInterval(since: Date = Date()) -> TimeInterval {
+	func getContinuousEnabledInterval(since: Date = Date()) -> TimeInterval {
+		// In order to have a minimal set of changes for hotfix #1 we hard-code
+		// the precondition (self is pruned) here and have the old, tested code
+		// stay the same in _getContinuousEnabledInterval.
+		pruned()._getContinuousEnabledInterval(since: since)
+	}
+
+	private func _getContinuousEnabledInterval(since: Date = Date()) -> TimeInterval {
+		// self is pruned
 		guard !isEmpty else {
 			return .zero
 		}
@@ -127,9 +120,9 @@ extension Array where Element == TracingStatusEntry {
 		let sum = reversed().reduce(.zero) { acc, next -> TimeInterval in
 			if next.on {
 				let sum = acc + prevDate.timeIntervalSince(next.date)
-				prevDate = next.date
 				return sum
 			}
+			prevDate = next.date
 			return acc
 		}
 
