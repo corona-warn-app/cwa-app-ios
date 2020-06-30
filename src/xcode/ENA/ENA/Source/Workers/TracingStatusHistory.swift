@@ -117,7 +117,6 @@ extension Array where Element == TracingStatusEntry {
 			let now = since
 			let earliestRelevantDate = now.addingTimeInterval(-Self.maxStoredSeconds)
 			let delta = oldestRelevantDate.timeIntervalSince(earliestRelevantDate)
-
 			return intervalForRelevantEntries + delta
 		}
 
@@ -129,18 +128,17 @@ extension Array where Element == TracingStatusEntry {
 		guard !isEmpty else {
 			return .zero
 		}
-
 		var prevDate = since
 		// Assume pruned array
 		let sum = reversed().reduce(.zero) { acc, next -> TimeInterval in
 			if next.on {
-				let sum = acc + prevDate.timeIntervalSince(next.date)
-				return sum
+				let delta = acc + prevDate.timeIntervalSince(next.date)
+				prevDate = next.date
+				return delta
 			}
 			prevDate = next.date
 			return acc
 		}
-
 		return sum
 	}
 
@@ -154,5 +152,4 @@ extension Array where Element == TracingStatusEntry {
 	static let maxStoredDays = 14
 	/// The maximum count of seconds to keep tracing history for
 	static var maxStoredSeconds: TimeInterval { TimeInterval(maxStoredDays * 24 * 60 * 60) }
-
 }
