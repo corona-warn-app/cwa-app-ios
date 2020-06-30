@@ -53,7 +53,22 @@ final class TracingStatusHistoryTests: XCTestCase {
 		XCTAssertEqual(history.count, 4)
 	}
 
-	func testPrune_KeepSingleItem() throws {
+
+	func testPrune_WithoutAutoPruning() {
+		var history = TracingStatusHistory()
+		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
+		let badState = ExposureManagerState(authorized: true, enabled: false, status: .active)
+
+		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -16)))
+		history = history.consumingState(badState, Date().addingTimeInterval(.init(days: -15)))
+		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -10)))
+		history = history.consumingState(badState, Date().addingTimeInterval(.init(days: -1)))
+		history = history.consumingState(goodState, Date().addingTimeInterval(.init(hours: -1)))
+
+		XCTAssertEqual(history.count, 5)
+	}
+
+	func testPrune_KeepSingleItem() {
 		// Test case when user has not changed exposure tracking for a long time
 		// We should keep the oldest state (as long as it is good/on)
 		var history = TracingStatusHistory()

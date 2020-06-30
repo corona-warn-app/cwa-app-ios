@@ -54,14 +54,14 @@ extension Array where Element == TracingStatusEntry {
 		if lastEntry.on != newEntry.on {
 			copy.append(newEntry)
 		}
-		return copy.pruned()
+		return copy
 	}
 
 	// MARK: - Prune stale elements older than 14 days
 	/// Clean up `[TracingStatusEntry]` so we do not store entries past the threshold (14 days)
 	///
 	/// - parameter threshold: Max seconds entries can be in the past for. Defaults to 14 days
-	func pruned(with threshold: TimeInterval = Self.maxStoredSeconds) -> TracingStatusHistory {
+	private func pruned(with threshold: TimeInterval = Self.maxStoredSeconds) -> TracingStatusHistory {
 		let maxPast = Date().addingTimeInterval(-threshold)
 		let relevantEntries = filter { $0.date > maxPast }
 		let irrelevantEntries = filter { $0.date <= maxPast }
@@ -99,10 +99,18 @@ extension Array where Element == TracingStatusEntry {
 		Int(getContinuousEnabledInterval(since: date)) / (60 * 60)
 	}
 
-	/// Get the total `TimeInterval` that tracing has been enabled
+	/// Get the total `TimeInterval` that tracing has been enabled.
 	///
 	/// - parameter since: `Date` to use as the baseline. Defaults to `Date()`
-	private func getContinuousEnabledInterval(since: Date = Date()) -> TimeInterval {
+	func getContinuousEnabledInterval(since: Date = Date()) -> TimeInterval {
+		// In order to have a minimal set of changes for hotfix #1 we hard-code
+		// the precondition (self is pruned) here and have the old, tested code
+		// stay the same in _getContinuousEnabledInterval.
+		pruned()._getContinuousEnabledInterval(since: since)
+	}
+
+	private func _getContinuousEnabledInterval(since: Date = Date()) -> TimeInterval {
+		// self is pruned
 		guard !isEmpty else {
 			return .zero
 		}
