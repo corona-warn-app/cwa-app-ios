@@ -41,29 +41,15 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 		_ = vc.view
 		vc.exposureSubmissionService = service
 
-		let expectTANSubmission = self.expectation(description: "Call getTANForExposureSubmit")
-		let exampleTAN = "asdf123456"
-		service.getTANForExposureSubmitCallback = { hasConsent, completion in
-			if !hasConsent {
-				XCTFail("No consent provided.")
-			}
-
-			expectTANSubmission.fulfill()
-			completion(.success(exampleTAN))
-		}
-
 		let expectSubmitExposure = self.expectation(description: "Call submitExposure")
-		service.submitExposureCallback = { tan, completion in
-			if tan != exampleTAN {
-				XCTFail("TANs do not match.")
-			}
+		service.submitExposureCallback = {  completion in
 
 			expectSubmitExposure.fulfill()
 			completion(nil)
 		}
 
 		// Trigger submission process.
-		vc.didTapButton()
+		vc.startSubmitProcess()
 		waitForExpectations(timeout: .short)
 	}
 

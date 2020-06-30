@@ -18,14 +18,15 @@
 import Foundation
 import UIKit
 
-final class ExposureSubmissionSuccessViewController: DynamicTableViewController {
+final class ExposureSubmissionSuccessViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	// MARK: UIViewController
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupTitle()
 		setUpView()
-		setButtonTitle(to: AppStrings.ExposureSubmissionSuccess.button)
+
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSuccess.button
 	}
 
 	private func setUpView() {
@@ -41,8 +42,8 @@ final class ExposureSubmissionSuccessViewController: DynamicTableViewController 
 	}
 }
 
-extension ExposureSubmissionSuccessViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension ExposureSubmissionSuccessViewController {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		dismiss(animated: true, completion: nil)
 	}
 }
@@ -53,14 +54,14 @@ private extension DynamicTableViewModel {
 			header: .image(
 				UIImage(named: "Illu_Submission_VielenDank"),
 				accessibilityLabel: AppStrings.ExposureSubmissionSuccess.accImageDescription,
-				accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.accImageDescription"
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.accImageDescription
 			),
 			separators: false,
 			cells: [
 				.body(text: AppStrings.ExposureSubmissionSuccess.description,
-					  accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.description"),
+					  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.description),
 				.title2(text: AppStrings.ExposureSubmissionSuccess.listTitle,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.listTitle"),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.listTitle),
 
 				ExposureSubmissionDynamicCell.stepCell(
 					style: .body,
@@ -80,7 +81,7 @@ private extension DynamicTableViewModel {
 				),
 
 				.title2(text: AppStrings.ExposureSubmissionSuccess.subTitle,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionSuccess.subTitle"),
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionSuccess.subTitle),
 
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_1),
 				ExposureSubmissionDynamicCell.stepCell(bulletPoint: AppStrings.ExposureSubmissionSuccess.listItem2_2),

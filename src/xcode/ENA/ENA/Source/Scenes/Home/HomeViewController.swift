@@ -48,6 +48,7 @@ final class HomeViewController: UIViewController {
 		addToUpdatingSetIfNeeded(homeInteractor)
 	}
 
+	@available(*, unavailable)
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
@@ -104,10 +105,10 @@ final class HomeViewController: UIViewController {
 		navigationItem.leftBarButtonItem?.isAccessibilityElement = true
 		navigationItem.leftBarButtonItem?.accessibilityTraits = .none
 		navigationItem.leftBarButtonItem?.accessibilityLabel = AppStrings.Home.leftBarButtonDescription
-		navigationItem.leftBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.leftBarButtonDescription"
+		navigationItem.leftBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.leftBarButtonDescription
 		navigationItem.rightBarButtonItem?.isAccessibilityElement = true
 		navigationItem.rightBarButtonItem?.accessibilityLabel = AppStrings.Home.rightBarButtonDescription
-		navigationItem.rightBarButtonItem?.accessibilityIdentifier = "AppStrings.Home.rightBarButtonDescription"
+		navigationItem.rightBarButtonItem?.accessibilityIdentifier = AccessibilityIdentifiers.Home.rightBarButtonDescription
 	}
 
 	// MARK: Actions
@@ -149,7 +150,7 @@ final class HomeViewController: UIViewController {
 				ExposureSubmissionNavigationController(
 					coder: coder,
 					exposureSubmissionService: self.homeInteractor.exposureSubmissionService,
-					homeViewController: self,
+					submissionDelegate: self,
 					testResult: result
 				)
 			},
@@ -476,6 +477,12 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 	}
 }
 
+extension HomeViewController: ExposureSubmissionNavigationControllerDelegate {
+	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
+		updateTestResultState()
+	}
+}
+
 private extension UICollectionViewCell {
 	func highlight() {
 		let highlightView = UIView(frame: bounds)
@@ -494,3 +501,4 @@ private extension UICollectionViewCell {
 		subviews.filter(({ $0.tag == 100_000 })).forEach({ $0.removeFromSuperview() })
 	}
 }
+

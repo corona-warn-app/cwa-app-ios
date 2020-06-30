@@ -36,14 +36,10 @@ protocol ExposureSubmissionService {
 	typealias TestResultHandler = (Result<TestResult, ExposureSubmissionError>) -> Void
 	typealias TANHandler = (Result<String, ExposureSubmissionError>) -> Void
 
-	func submitExposure(with: String, completionHandler: @escaping ExposureSubmissionHandler)
+	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler)
 	func getRegistrationToken(
 		forKey deviceRegistrationKey: DeviceRegistrationKey,
 		completion completeWith: @escaping RegistrationHandler
-	)
-	func getTANForExposureSubmit(
-		hasConsent: Bool,
-		completion completeWith: @escaping TANHandler
 	)
 	func getTestResult(_ completeWith: @escaping TestResultHandler)
 	func hasRegistrationToken() -> Bool
@@ -143,7 +139,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		}
 	}
 
-	func getTANForExposureSubmit(
+	private func getTANForExposureSubmit(
 		hasConsent: Bool,
 		completion completeWith: @escaping TANHandler
 	) {
@@ -184,7 +180,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 	/// This method submits the exposure keys. Additionally, after successful completion,
 	/// the timestamp of the key submission is updated.
-	func submitExposure(with tan: String, completionHandler: @escaping ExposureSubmissionHandler) {
+	func submitExposure(completionHandler: @escaping ExposureSubmissionHandler) {
 		log(message: "Started exposure submission...")
 
 		diagnosiskeyRetrieval.accessDiagnosisKeys { keys, error in
@@ -196,6 +192,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 			guard var keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
+				// We perform a cleanup in order to set the correct
+				// timestamps, despite not having communicated with the backend,
+				// in order to show the correct screens.
+				self.submitExposureCleanup()
 				return
 			}
 
@@ -220,16 +220,29 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 				}
 			}
 
-			self.client.submit(keys: keys, tan: tan) { error in
-				if let error = error {
-					logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
-					completionHandler(self.parseError(error))
-					return
+			self.getTANForExposureSubmit(hasConsent: true, completion: { result in
+				switch result {
+				case let .failure(error):
+					completionHandler(error)
+				case let .success(tan):
+					self.submit(keys, with: tan, completion: completionHandler)
 				}
-				log(message: "Successfully completed exposure sumbission.")
-				self.submitExposureCleanup()
-				completionHandler(nil)
+			})
+		}
+	}
+
+	/// Helper method that is used to submit keys after a TAN was retrieved.
+	private func submit(_ keys: [ENTemporaryExposureKey], with tan: String, completion: @escaping ExposureSubmissionHandler) {
+		self.client.submit(keys: keys, tan: tan) { error in
+			if let error = error {
+				logError(message: "Error while submiting diagnosis keys: \(error.localizedDescription)")
+				completion(self.parseError(error))
+				return
 			}
+
+			self.submitExposureCleanup()
+			log(message: "Successfully completed exposure sumbission.")
+			completion(nil)
 		}
 	}
 
@@ -240,6 +253,7 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 		store.registrationToken = nil
 		store.isAllowedToSubmitDiagnosisKeys = false
 		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+		log(message: "Exposure submission cleanup.")
 	}
 
 	/// This method attempts to parse all different types of incoming errors, regardless

@@ -18,11 +18,10 @@
 import Foundation
 import UIKit
 
-class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, SpinnerInjectable {
+class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 	// MARK: - Attributes.
 
 	var exposureSubmissionService: ExposureSubmissionService?
-	var spinner: UIActivityIndicatorView?
 
 	// MARK: - View lifecycle methods.
 
@@ -36,7 +35,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 
 	private func setupView() {
 		navigationItem.title = AppStrings.ExposureSubmissionWarnOthers.title
-		setButtonTitle(to: AppStrings.ExposureSubmissionWarnOthers.continueButton)
+		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionWarnOthers.continueButton
 		setupTableView()
 	}
 
@@ -51,48 +50,35 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, Sp
 	}
 
 	private func fetchService() {
-		exposureSubmissionService = exposureSubmissionService ??
-			(navigationController as? ExposureSubmissionNavigationController)?
-			.getExposureSubmissionService()
+		exposureSubmissionService = exposureSubmissionService ?? (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
 	}
 
 	// MARK: - ExposureSubmissionService Helpers.
 
-	private func startSubmitProcess() {
-		startSpinner()
-		exposureSubmissionService?.getTANForExposureSubmit(hasConsent: true, completion: { result in
-			switch result {
-			case let .failure(error):
-				self.stopSpinner()
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-				self.present(alert, animated: true, completion: nil)
-			case let .success(tan):
-				log(message: "Received tan for submission: \(tan)", level: .info)
-				self.submitKeys(with: tan)
-			}
-      })
-	}
-
-	private func submitKeys(with tan: String) {
-		startSpinner()
-		exposureSubmissionService?.submitExposure(with: tan, completionHandler: { error in
-			self.stopSpinner()
-			if let error = error {
+	internal func startSubmitProcess() {
+		navigationFooterItem?.isPrimaryButtonLoading = true
+		navigationFooterItem?.isPrimaryButtonEnabled = false
+		exposureSubmissionService?.submitExposure { error in
+			switch error {
+			case .none, .noKeys:
+				self.performSegue(withIdentifier: Segue.sent, sender: self)
+			case .some(let error):
 				logError(message: "error: \(error.localizedDescription)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
-				self.present(alert, animated: true, completion: nil)
-				return
+				self.present(alert, animated: true, completion: {
+					self.navigationFooterItem?.isPrimaryButtonLoading = false
+					self.navigationFooterItem?.isPrimaryButtonEnabled = true
+				})
 			}
-
-			self.performSegue(withIdentifier: Segue.sent, sender: self)
-      })
+		}
 	}
+
 }
 
-// MARK: ExposureSubmissionNavigationControllerChild methods.
+// MARK: ENANavigationControllerWithFooterChild methods.
 
-extension ExposureSubmissionWarnOthersViewController: ExposureSubmissionNavigationControllerChild {
-	func didTapButton() {
+extension ExposureSubmissionWarnOthersViewController {
+	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
 		startSubmitProcess()
 	}
 }
@@ -115,13 +101,13 @@ private extension ExposureSubmissionWarnOthersViewController {
 					header: .image(
 						UIImage(named: "Illu_Submission_AndereWarnen"),
 						accessibilityLabel: AppStrings.ExposureSubmissionWarnOthers.accImageDescription,
-						accessibilityIdentifier: "AppStrings.ExposureSubmissionWarnOthers.accImageDescription",
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.accImageDescription,
 						height: 250),
 					cells: [
 						.title2(text: AppStrings.ExposureSubmissionWarnOthers.sectionTitle,
-								accessibilityIdentifier: "AppStrings.ExposureSubmissionWarnOthers.sectionTitle"),
+								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.sectionTitle),
 						.body(text: AppStrings.ExposureSubmissionWarnOthers.description,
-							  accessibilityIdentifier: "AppStrings.ExposureSubmissionWarnOthers.description"),
+							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionWarnOthers.description),
 						.custom(withIdentifier: CustomCellReuseIdentifiers.roundedCell,
 								configure: { _, cell, _ in
 									guard let cell = cell as? DynamicTableViewRoundedCell else { return }

@@ -29,13 +29,9 @@ enum KeyError: Error {
 	case plistError
 }
 
-protocol PublicKeyStore {
-	func publicKey(for bundleID: String) throws -> P256.Signing.PublicKey
-}
-
-final class ProductionPublicKeyStore: PublicKeyStore {
-
-	func publicKey(for bundleID: String) throws -> P256.Signing.PublicKey {
+typealias PublicKeyProviding = (_ key: String) throws -> P256.Signing.PublicKey
+enum PublicKeyStore {
+	static func get(for keyId: String) throws -> P256.Signing.PublicKey {
 		guard
 			let path = Bundle.main.path(forResource: "PublicKeys", ofType: "plist"),
 			let xml = FileManager.default.contents(atPath: path),
@@ -45,7 +41,7 @@ final class ProductionPublicKeyStore: PublicKeyStore {
 			throw KeyError.environmentError
 		}
 
-		guard let keyString = plistDict[bundleID] else {
+		guard let keyString = plistDict[keyId] else {
 			throw KeyError.environmentError
 		}
 		let keyData = Data(base64Encoded: keyString)

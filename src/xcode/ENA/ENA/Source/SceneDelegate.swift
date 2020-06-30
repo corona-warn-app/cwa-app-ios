@@ -18,6 +18,7 @@
 import BackgroundTasks
 import ExposureNotification
 import UIKit
+import Connectivity
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDependencies {
 	// MARK: Properties
@@ -62,6 +63,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
 
+		#if UITESTING
+		if let isOnboarded = UserDefaults.standard.value(forKey: "isOnboarded") as? String {
+			store.isOnboarded = (isOnboarded != "NO")
+		}
+		#endif
+
 		exposureManager.resume(observer: self)
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
@@ -78,8 +85,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	func sceneWillEnterForeground(_ scene: UIScene) {
-		let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
-		let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
+		let detectionMode = DetectionMode.fromBackgroundStatus()
 		riskProvider.configuration.detectionMode = detectionMode
 
 		riskProvider.requestRisk(userInitiated: false)
@@ -109,20 +115,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	private func setupUI() {
 		setupNavigationBarAppearance()
 
-		#if UITESTING
-		// Present initial screen
-		if UserDefaults.standard.value(forKey: "isOnboarded") as? String == "NO" {
-			showOnboarding()
-		} else {
-			showHome()
-		}
-		#else
 		if !store.isOnboarded {
 			showOnboarding()
 		} else {
 			showHome()
 		}
-		#endif
 		UIImageView.appearance().accessibilityIgnoresInvertColors = true
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
@@ -160,6 +157,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	}
 
 	private func presentHomeVC() {
+		Connectivity.urlSessionConfiguration.timeoutIntervalForRequest = 15.0
+		Connectivity.urlSessionConfiguration.timeoutIntervalForResource = 15.0
 		enStateHandler = ENStateHandler(
 			initialExposureManagerState: exposureManager.preconditions(),
 			reachabilityService: ConnectivityReachabilityService(
@@ -364,7 +363,5 @@ extension SceneDelegate {
 }
 
 private var currentDetectionMode: DetectionMode {
-	let backgroundRefreshStatus = UIApplication.shared.backgroundRefreshStatus
-	let detectionMode = DetectionMode.from(backgroundStatus: backgroundRefreshStatus)
-	return detectionMode
+	DetectionMode.fromBackgroundStatus()
 }
