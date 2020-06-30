@@ -112,11 +112,11 @@ extension Array where Element == TracingStatusEntry {
 
 		let intervalForRelevantEntries = prunedEntries.relevant._getContinuousEnabledInterval(since: since)
 
-		let oldestRelevantDate = prunedEntries.relevant.first?.date ?? Date()
+		let oldestRelevantDate = prunedEntries.relevant.first?.date ?? since
 		if prunedEntries.lastIrrelevant?.on == true {
 			let now = since
-			let earliestRelevantDate = now.addingTimeInterval(-Self.maxStoredSeconds)
-			let delta = oldestRelevantDate.timeIntervalSince(earliestRelevantDate)
+			let earliestPotentialDate = now.addingTimeInterval(-Self.maxStoredSeconds)
+			let delta = oldestRelevantDate.timeIntervalSince(earliestPotentialDate)
 			return intervalForRelevantEntries + delta
 		}
 
@@ -130,16 +130,15 @@ extension Array where Element == TracingStatusEntry {
 		}
 		var prevDate = since
 		// Assume pruned array
-		let sum = reversed().reduce(.zero) { acc, next -> TimeInterval in
+		return reversed().reduce(.zero) { acc, next -> TimeInterval in
 			if next.on {
-				let delta = acc + prevDate.timeIntervalSince(next.date)
+				let sum = acc + prevDate.timeIntervalSince(next.date)
 				prevDate = next.date
-				return delta
+				return sum
 			}
 			prevDate = next.date
 			return acc
 		}
-		return sum
 	}
 
 	// MARK: - Constants for Tracing
