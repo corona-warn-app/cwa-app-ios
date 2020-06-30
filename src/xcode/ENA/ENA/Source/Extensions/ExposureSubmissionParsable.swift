@@ -41,12 +41,6 @@ extension ENError: ExposureSubmissionErrorParsable {
 			return .enNotEnabled
 		case .notAuthorized:
 			return .notAuthorized
-		case .internal:
-			return .internal
-		case .unsupported:
-			return .unsupported
-		case .rateLimited:
-			return .rateLimited
 		default:
 			return .other(error.localizedDescription)
 		}

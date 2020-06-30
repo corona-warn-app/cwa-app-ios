@@ -191,9 +191,6 @@ enum AppStrings {
 		static let unknown = NSLocalizedString("ExposureSubmissionError_unknown", comment: "")
 		static let defaultError = NSLocalizedString("ExposureSubmissionError_defaultError", comment: "")
 		static let noConfiguration = NSLocalizedString("No Exposure Configuration available", comment: "")
-		static let `internal` = NSLocalizedString("ExposureSubmissionError_internal", comment: "")
-		static let unsupported = NSLocalizedString("ExposureSubmissionError_unsupported", comment: "")
-		static let rateLimited = NSLocalizedString("ExposureSubmissionError_rateLimited", comment: "")
 	}
 
 	enum ExposureDetection {

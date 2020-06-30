@@ -311,9 +311,6 @@ enum ExposureSubmissionError: Error, Equatable {
 	case serverError(Int)
 	case unknown
 	case httpError(String)
-	case `internal`
-	case unsupported
-	case rateLimited
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -349,12 +346,6 @@ extension ExposureSubmissionError: LocalizedError {
 			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:
 			return AppStrings.ExposureSubmissionError.unknown
-		case .internal:
-			return AppStrings.ExposureSubmissionError.internal
-		case .unsupported:
-			return AppStrings.ExposureSubmissionError.unsupported
-		case .rateLimited:
-			return AppStrings.ExposureSubmissionError.rateLimited
 		default:
 			logError(message: "\(self)")
 			return AppStrings.ExposureSubmissionError.defaultError
