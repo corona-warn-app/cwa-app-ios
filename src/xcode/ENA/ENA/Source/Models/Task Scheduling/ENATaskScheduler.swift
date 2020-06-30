@@ -61,6 +61,11 @@ final class ENATaskScheduler {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
 			taskHandler(task)
+			task.expirationHandler = {
+				self.scheduleTask(for: task.identifier)
+				task.setTaskCompleted(success: false)
+				log(message: "#BGTASK: \(task.identifier) EXPIRED", logToFile: true)
+			}
 		}
 	}
 
