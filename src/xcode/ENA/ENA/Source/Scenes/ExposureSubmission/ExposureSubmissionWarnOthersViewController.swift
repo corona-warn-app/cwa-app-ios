@@ -59,17 +59,17 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		navigationFooterItem?.isPrimaryButtonLoading = true
 		navigationFooterItem?.isPrimaryButtonEnabled = false
 		exposureSubmissionService?.submitExposure { error in
-			if let error = error {
+			switch error {
+			case .none, .noKeys:
+				self.performSegue(withIdentifier: Segue.sent, sender: self)
+			case .some(let error):
 				logError(message: "error: \(error.localizedDescription)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
 				self.present(alert, animated: true, completion: {
 					self.navigationFooterItem?.isPrimaryButtonLoading = false
 					self.navigationFooterItem?.isPrimaryButtonEnabled = true
 				})
-				return
 			}
-
-			self.performSegue(withIdentifier: Segue.sent, sender: self)
 		}
 	}
 
