@@ -36,6 +36,11 @@ Build project (Community)
 fastlane ios test
 ```
 Run tests
+### ios betaRelease
+```
+fastlane ios betaRelease
+```
+Build and upload for testing
 
 ----
 

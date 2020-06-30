@@ -192,6 +192,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 			guard var keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
+				// We perform a cleanup in order to set the correct
+				// timestamps, despite not having communicated with the backend,
+				// in order to show the correct screens.
+				self.submitExposureCleanup()
 				return
 			}
 
