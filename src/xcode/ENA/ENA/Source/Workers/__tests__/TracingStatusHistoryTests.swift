@@ -49,7 +49,7 @@ final class TracingStatusHistoryTests: XCTestCase {
 		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -1)))
 		history = history.consumingState(badState, Date().addingTimeInterval(.init(hours: -1)))
 
-		XCTAssertEqual(history.count, 3)
+		XCTAssertEqual(history.count, 4)
 	}
 
 	func testPrune_KeepSingleItem() throws {
@@ -86,6 +86,22 @@ final class TracingStatusHistoryTests: XCTestCase {
 		history = history.consumingState(badState, Date().addingTimeInterval(.init(days: -20)))
 
 		XCTAssertFalse(history.checkIfEnabled())
+	}
+
+	func testGitHubIssue805() throws {
+		var history = TracingStatusHistory()
+		let badState = ExposureManagerState(authorized: true, enabled: false, status: .active)
+		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
+
+		var date = Date().addingTimeInterval(.init(days: -15))
+		history = history.consumingState(goodState, date)
+
+		date = date.addingTimeInterval(.init(days: 13))
+		history = history.consumingState(badState, date)
+
+		history = history.consumingState(goodState, date)
+
+		XCTAssertEqual(history.countEnabledDays(), 15)
 	}
 
 	func testIfTracingActiveForThresholdDuration_EnabledClosePast() throws {

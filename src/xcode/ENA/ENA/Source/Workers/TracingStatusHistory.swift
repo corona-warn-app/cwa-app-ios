@@ -62,28 +62,13 @@ extension Array where Element == TracingStatusEntry {
 	///
 	/// - parameter threshold: Max seconds entries can be in the past for. Defaults to 14 days
 	func pruned(with threshold: TimeInterval = Self.maxStoredSeconds) -> TracingStatusHistory {
-		let now = Date()
-
-		// Iterate from end of array until we find a date older than threshold
-		var firstStaleIndex: Int?
-		for (i, element) in enumerated().reversed() {
-			if now.timeIntervalSince(element.date) > threshold {
-				firstStaleIndex = i
-				break
-			}
+		let maxPast = Date().addingTimeInterval(-threshold)
+		let relevantEntries = filter { $0.date > maxPast }
+		let irrelevantEntries = filter { $0.date <= maxPast }
+		if let lastIrrelevantEntry = irrelevantEntries.last {
+			return [lastIrrelevantEntry] + relevantEntries
 		}
-
-		guard let staleIndex = firstStaleIndex else {
-			return self
-		}
-
-		if staleIndex == indices.last {
-			// If the stale element is the most recent history item,
-			// do not prune it
-			return [self[staleIndex]]
-		}
-
-		return Array(self[(staleIndex + 1)...])
+		return relevantEntries
 	}
 
 	// MARK: - Check Tracing History for Risk Calculation
