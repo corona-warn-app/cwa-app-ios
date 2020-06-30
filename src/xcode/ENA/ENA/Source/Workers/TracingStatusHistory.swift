@@ -115,6 +115,7 @@ extension Array where Element == TracingStatusEntry {
 				prevDate = next.date
 				return sum
 			}
+			prevDate = next.date
 			return acc
 		}
 

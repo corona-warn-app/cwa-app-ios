@@ -27,6 +27,7 @@ final class TracingStatusHistoryTests: XCTestCase {
 		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 		let badState = ExposureManagerState(authorized: true, enabled: false, status: .active)
 		history = history.consumingState(badState)
+		// If tracing hisstory is empty, a state should only be added if it is good
 		XCTAssertTrue(history.isEmpty)
 		history = history.consumingState(goodState)
 		XCTAssertEqual(history.count, 1)
@@ -179,6 +180,19 @@ final class TracingStatusHistoryTests: XCTestCase {
 		history = history.consumingState(goodState, Date().addingTimeInterval(-5400))
 		// Enabled for 1.5 hours should only count as 1 enabled hour (truncating)
 		XCTAssertEqual(history.countEnabledHours(), 1)
+	}
+
+	func testEnabledHoursCount_Complex() throws {
+		var history = TracingStatusHistory()
+		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
+		let badState = ExposureManagerState(authorized: true, enabled: false, status: .active)
+
+		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -15)))
+		history = history.consumingState(badState, Date().addingTimeInterval(.init(days: -10)))	// active for 5 days
+		history = history.consumingState(goodState, Date().addingTimeInterval(.init(days: -1))) // inactive for 9 days
+		history = history.consumingState(badState, Date().addingTimeInterval(.init(hours: -1)))	// active for
+
+		XCTAssertEqual(history.countEnabledHours(), 24 * 5 + 23)
 	}
 }
 
