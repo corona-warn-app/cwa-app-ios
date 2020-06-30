@@ -93,6 +93,7 @@ final class ENATaskScheduler {
 			taskRequest.earliestBeginDate = nil
 		}
 
+		log(message: "#BGTASK: \(#line) \(#function) \(taskRequest.identifier) at \(taskRequest.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {
@@ -108,15 +109,17 @@ final class ENATaskScheduler {
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
 		taskDelegate?.executeExposureDetectionRequest(task: task) { success in
-			task.setTaskCompleted(success: success)
 			self.scheduleTask(for: task.identifier)
+			task.setTaskCompleted(success: success)
+			log(message: "#BGTASK: \(#line) \(#function) \(task.identifier) COMPLETED, RESCHEDULING", logToFile: true)
 		}
 	}
 
 	private func executeFetchTestResults(_ task: BGTask) {
 		taskDelegate?.executeFetchTestResults(task: task) { success in
-			task.setTaskCompleted(success: success)
 			self.scheduleTask(for: task.identifier)
+			task.setTaskCompleted(success: success)
+			log(message: "#BGTASK: \(#line) \(#function) \(task.identifier) COMPLETED, RESCHEDULING", logToFile: true)
 		}
 	}
 

@@ -98,6 +98,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
 		taskScheduler.scheduleTasks()
+
+		#if !RELEASE
+		BGTaskScheduler.shared.getPendingTaskRequests { taskRequests in
+			taskRequests.forEach { request in
+				log(message: "#BGTASK: \(#line) \(#function) \(request.identifier) at \(request.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
+			}
+		}
+		#endif
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
