@@ -477,6 +477,12 @@
 
 "ExposureSubmissionError_defaultError" = "Allgemeiner Exposure Submission Fehler";
 
+"ExposureSubmissionError_internal" = "Fehler 11. Es ist ein interner Fehler passiert. Bitte starten Sie das Telefon neu und probieren Sie es morgen erneut.";
+
+"ExposureSubmissionError_unsupported" = "Fehler 5. Es ist ein interner Fehler passiert. Bitte probieren Sie es morgen erneut.";
+
+"ExposureSubmissionError_rateLimited" = "Die maximale Anzahl an Risikoanalysen pro Tag ist erreicht. Bitte probieren Sie es morgen erneut.";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 

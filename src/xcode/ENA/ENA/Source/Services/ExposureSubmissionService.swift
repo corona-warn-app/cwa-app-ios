@@ -259,56 +259,26 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// This method attempts to parse all different types of incoming errors, regardless
 	/// whether internal or external, and transform them to an `ExposureSubmissionError`
 	/// used for interpretation in the frontend.
-	// swiftlint:disable:next cyclomatic_complexity
+	/// If the error cannot be parsed to the expected error/failure types `ENError`, `ExposureNotificationError`,
+	/// `ExposureNotificationError`, `SubmissionError`, or `URLSession.Response.Failure`,
+	/// an unknown error is returned. Therefore, if this method returns `.unknown`,
+	/// examine the incoming `Error` closely.
 	private func parseError(_ error: Error) -> ExposureSubmissionError {
+
 		if let enError = error as? ENError {
-			switch enError.code {
-			case .notEnabled:
-				return .enNotEnabled
-			case .notAuthorized:
-				return .notAuthorized
-			default:
-				return .other(enError.localizedDescription)
-			}
+			return ENError.parseError(enError)
 		}
 
 		if let exposureNotificationError = error as? ExposureNotificationError {
-			switch exposureNotificationError {
-			case .exposureNotificationRequired, .exposureNotificationAuthorization, .exposureNotificationUnavailable:
-				return .enNotEnabled
-			case .apiMisuse, .unknown:
-				return .other("ENErrorCodeAPIMisuse")
-			}
+			return ExposureNotificationError.parseError(exposureNotificationError)
 		}
 
 		if let submissionError = error as? SubmissionError {
-			switch submissionError {
-			case .invalidTan:
-				return .invalidTan
-			case let .serverError(code):
-				return .serverError(code)
-			default:
-				return .other(submissionError.localizedDescription)
-			}
+			return SubmissionError.parseError(submissionError)
 		}
 
 		if let urlFailure = error as? URLSession.Response.Failure {
-			switch urlFailure {
-			case let .httpError(wrapped):
-				return .httpError(wrapped.localizedDescription)
-			case .invalidResponse:
-				return .invalidResponse
-			case .teleTanAlreadyUsed:
-				return .teleTanAlreadyUsed
-			case .qRAlreadyUsed:
-				return .qRAlreadyUsed
-			case .regTokenNotExist:
-				return .regTokenNotExist
-			case .noResponse:
-				return .noResponse
-			case let .serverError(code):
-				return .serverError(code)
-			}
+			return URLSession.Response.Failure.parseError(urlFailure)
 		}
 
 		return .unknown
@@ -341,6 +311,9 @@ enum ExposureSubmissionError: Error, Equatable {
 	case serverError(Int)
 	case unknown
 	case httpError(String)
+	case `internal`
+	case unsupported
+	case rateLimited
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -376,6 +349,12 @@ extension ExposureSubmissionError: LocalizedError {
 			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:
 			return AppStrings.ExposureSubmissionError.unknown
+		case .internal:
+			return AppStrings.ExposureSubmissionError.internal
+		case .unsupported:
+			return AppStrings.ExposureSubmissionError.unsupported
+		case .rateLimited:
+			return AppStrings.ExposureSubmissionError.rateLimited
 		default:
 			logError(message: "\(self)")
 			return AppStrings.ExposureSubmissionError.defaultError
