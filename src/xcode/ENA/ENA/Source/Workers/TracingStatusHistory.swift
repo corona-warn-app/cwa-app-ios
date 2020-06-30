@@ -112,7 +112,6 @@ extension Array where Element == TracingStatusEntry {
 		let sum = reversed().reduce(.zero) { acc, next -> TimeInterval in
 			if next.on {
 				let sum = acc + prevDate.timeIntervalSince(next.date)
-				prevDate = next.date
 				return sum
 			}
 			prevDate = next.date
