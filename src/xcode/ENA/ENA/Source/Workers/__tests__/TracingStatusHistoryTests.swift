@@ -88,7 +88,11 @@ final class TracingStatusHistoryTests: XCTestCase {
 		XCTAssertFalse(history.checkIfEnabled())
 	}
 
-	func testGitHubIssue805() throws {
+	// Test for the following issues (which all have the same root cause)
+	// - History got lost after 14 days: https://github.com/corona-warn-app/cwa-app-ios/issues/805
+	// - Number of active days is misleading: https://github.com/corona-warn-app/cwa-app-ios/issues/794
+	// - Fehlerhafte Zählung der aktiven Tage: https://github.com/corona-warn-app/cwa-app-ios/issues/804
+	func testKeepsMostRecentIrrelevantItem() {
 		var history = TracingStatusHistory()
 		let badState = ExposureManagerState(authorized: true, enabled: false, status: .active)
 		let goodState = ExposureManagerState(authorized: true, enabled: true, status: .active)
