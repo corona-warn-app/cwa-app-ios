@@ -102,7 +102,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		#if !RELEASE
 		BGTaskScheduler.shared.getPendingTaskRequests { taskRequests in
 			taskRequests.forEach { request in
-				log(message: "#BGTASK: \(#line) \(#function) \(request.identifier) at \(request.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
+				log(message: "#BGTASK: pendingTasks \(request.identifier) at \(request.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
 			}
 		}
 		#endif

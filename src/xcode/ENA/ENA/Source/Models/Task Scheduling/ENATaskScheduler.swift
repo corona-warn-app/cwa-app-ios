@@ -93,7 +93,7 @@ final class ENATaskScheduler {
 			taskRequest.earliestBeginDate = nil
 		}
 
-		log(message: "#BGTASK: \(#line) \(#function) \(taskRequest.identifier) at \(taskRequest.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
+		log(message: "#BGTASK: scheduling \(taskRequest.identifier) at \(taskRequest.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {
@@ -111,7 +111,7 @@ final class ENATaskScheduler {
 		taskDelegate?.executeExposureDetectionRequest(task: task) { success in
 			self.scheduleTask(for: task.identifier)
 			task.setTaskCompleted(success: success)
-			log(message: "#BGTASK: \(#line) \(#function) \(task.identifier) COMPLETED, RESCHEDULING", logToFile: true)
+			log(message: "#BGTASK: \(task.identifier) COMPLETED, RESCHEDULING", logToFile: true)
 		}
 	}
 
@@ -119,7 +119,7 @@ final class ENATaskScheduler {
 		taskDelegate?.executeFetchTestResults(task: task) { success in
 			self.scheduleTask(for: task.identifier)
 			task.setTaskCompleted(success: success)
-			log(message: "#BGTASK: \(#line) \(#function) \(task.identifier) COMPLETED, RESCHEDULING", logToFile: true)
+			log(message: "#BGTASK: \(task.identifier) COMPLETED, RESCHEDULING", logToFile: true)
 		}
 	}
 

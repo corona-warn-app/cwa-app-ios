@@ -193,7 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		log(message: "#BGTASK: \(#line) \(#function) \(task.identifier)", logToFile: true)
+		log(message: "#BGTASK: executing \(task.identifier)", logToFile: true)
 
 		let detectionMode = DetectionMode.fromBackgroundStatus()
 		riskProvider.configuration.detectionMode = detectionMode
@@ -214,7 +214,7 @@ extension AppDelegate: ENATaskExecutionDelegate {
 
 	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
 
-		log(message: "#BGTASK: \(#line) \(#function) \(task.identifier)", logToFile: true)
+		log(message: "#BGTASK: executing \(task.identifier)", logToFile: true)
 
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 
