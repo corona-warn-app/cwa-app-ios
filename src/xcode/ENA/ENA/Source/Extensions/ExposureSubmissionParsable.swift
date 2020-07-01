@@ -20,40 +20,36 @@
 import Foundation
 import ExposureNotification
 
-// MARK: - ExposureSubmissionErrorParsable protocol.
+// MARK: - ExposureSubmissionErrorTransformable protocol.
 
 /// This protocol ensures that a given ErrorType can be transformed into an
 /// `ExposureSubmissionError`.
-protocol ExposureSubmissionErrorParsable {
-	associatedtype ErrorType
-
-	static func parseError(_ error: ErrorType) -> ExposureSubmissionError
+/// For the future, if other transformations are needed, it is advised to create
+/// a corrseponding protocol specific to the destination error type.
+protocol ExposureSubmissionErrorTransformable {
+	func transformToExposureSubmissionError() -> ExposureSubmissionError
 }
 
-// MARK: - ENError: ExposureSubmissionErrorParsable extension.
+// MARK: - ENError: ExposureSubmissionErrorTransformable extension.
 
-extension ENError: ExposureSubmissionErrorParsable {
-	typealias ErrorType = ENError
-
-	static func parseError(_ error: ENError) -> ExposureSubmissionError {
-		switch error.code {
+extension ENError: ExposureSubmissionErrorTransformable {
+	func transformToExposureSubmissionError() -> ExposureSubmissionError {
+		switch code {
 		case .notEnabled:
 			return .enNotEnabled
 		case .notAuthorized:
 			return .notAuthorized
 		default:
-			return .other(error.localizedDescription)
+			return .other(localizedDescription)
 		}
 	}
 }
 
-// MARK: - ExposureNotificationError: ExposureSubmissionErrorParsable extension.
+// MARK: - ExposureNotificationError: ExposureSubmissionErrorTransformable extension.
 
-extension ExposureNotificationError: ExposureSubmissionErrorParsable {
-	typealias ErrorType = ExposureNotificationError
-
-	static func parseError(_ error: ExposureNotificationError) -> ExposureSubmissionError {
-		switch error {
+extension ExposureNotificationError: ExposureSubmissionErrorTransformable {
+	func transformToExposureSubmissionError() -> ExposureSubmissionError {
+		switch self {
 		case .exposureNotificationRequired,
 			 .exposureNotificationAuthorization,
 			 .exposureNotificationUnavailable:
@@ -64,30 +60,26 @@ extension ExposureNotificationError: ExposureSubmissionErrorParsable {
 	}
 }
 
-// MARK: - SubmissionError: ExposureSubmissionErrorParsable extension.
+// MARK: - SubmissionError: ExposureSubmissionErrorTransformable extension.
 
-extension SubmissionError: ExposureSubmissionErrorParsable {
-	typealias ErrorType = SubmissionError
-
-	static func parseError(_ error: SubmissionError) -> ExposureSubmissionError {
-		switch error {
+extension SubmissionError: ExposureSubmissionErrorTransformable {
+	func transformToExposureSubmissionError() -> ExposureSubmissionError {
+		switch self {
 		case .invalidTan:
 			return .invalidTan
 		case let .serverError(code):
 			return .serverError(code)
 		default:
-			return .other(error.localizedDescription)
+			return .other(localizedDescription)
 		}
 	}
 }
 
-// MARK: - URLSession.Response.Failure: ExposureSubmissionErrorParsable extension.
+// MARK: - URLSession.Response.Failure: ExposureSubmissionErrorTransformable extension.
 
-extension URLSession.Response.Failure: ExposureSubmissionErrorParsable {
-	typealias ErrorType = URLSession.Response.Failure
-
-	static func parseError(_ error: URLSession.Response.Failure) -> ExposureSubmissionError {
-		switch error {
+extension URLSession.Response.Failure: ExposureSubmissionErrorTransformable {
+	func transformToExposureSubmissionError() -> ExposureSubmissionError {
+		switch self {
 		case let .httpError(wrapped):
 			return .httpError(wrapped.localizedDescription)
 		case .invalidResponse:

@@ -266,19 +266,19 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	private func parseError(_ error: Error) -> ExposureSubmissionError {
 
 		if let enError = error as? ENError {
-			return ENError.parseError(enError)
+			return enError.transformToExposureSubmissionError()
 		}
 
 		if let exposureNotificationError = error as? ExposureNotificationError {
-			return ExposureNotificationError.parseError(exposureNotificationError)
+			return exposureNotificationError.transformToExposureSubmissionError()
 		}
 
 		if let submissionError = error as? SubmissionError {
-			return SubmissionError.parseError(submissionError)
+			return submissionError.transformToExposureSubmissionError()
 		}
 
 		if let urlFailure = error as? URLSession.Response.Failure {
-			return URLSession.Response.Failure.parseError(urlFailure)
+			return urlFailure.transformToExposureSubmissionError()
 		}
 
 		return .unknown
