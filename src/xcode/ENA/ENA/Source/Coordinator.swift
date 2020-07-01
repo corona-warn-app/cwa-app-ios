@@ -33,6 +33,14 @@ final class Coordinator: RequiresAppDependencies {
 	private var settingsController: SettingsViewController?
 	private var exposureDetectionController: ExposureDetectionViewController?
 
+	private lazy var exposureSubmissionService: ExposureSubmissionService = {
+		ExposureSubmissionServiceFactory.create(
+			diagnosiskeyRetrieval: self.exposureManager,
+			client: self.client,
+			store: self.store
+		)
+	}()
+
 	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
 
 	init(_ delegate: CoordinatorDelegate, _ rootViewController: UINavigationController) {
@@ -52,7 +60,8 @@ final class Coordinator: RequiresAppDependencies {
 				detectionMode: state.detectionMode,
 				exposureManagerState: state.exposureManager,
 				initialEnState: enStateHandler.state,
-				risk: state.risk
+				risk: state.risk,
+				exposureSubmissionService: self.exposureSubmissionService
 			)
 		}
 
@@ -144,6 +153,12 @@ extension Coordinator: ExposureDetectionViewControllerDelegate {
 	}
 }
 
+extension Coordinator: ExposureSubmissionNavigationControllerDelegate {
+	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
+		homeController?.updateTestResultState()
+	}
+}
+
 extension Coordinator: HomeViewControllerDelegate {
 	func showSettings(enState: ENStateHandler.State) {
 		let storyboard = AppStoryboard.settings.instance
@@ -219,6 +234,20 @@ extension Coordinator: HomeViewControllerDelegate {
 			risk: state.risk
 		)
 		exposureDetectionController?.state = state
+	}
+
+	func showExposureSubmission(with result: TestResult? = nil) {
+		rootViewController.present(
+			AppStoryboard.exposureSubmission.initiateInitial { coder in
+				ExposureSubmissionNavigationController(
+					coder: coder,
+					exposureSubmissionService: self.exposureSubmissionService,
+					submissionDelegate: self,
+					testResult: result
+				)
+			},
+			animated: true
+		)
 	}
 
 	func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?) {

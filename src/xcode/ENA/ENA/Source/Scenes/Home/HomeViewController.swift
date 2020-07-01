@@ -26,6 +26,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func showWebPage(from viewController: UIViewController)
 	func showExposureDetection(state: HomeInteractor.State, isRequestRiskRunning: Bool)
 	func setExposureDetectionState(state: HomeInteractor.State, isRequestRiskRunning: Bool)
+	func showExposureSubmission(with result: TestResult?)
 	func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?)
 }
 
@@ -37,7 +38,8 @@ final class HomeViewController: UIViewController {
 		detectionMode: DetectionMode,
 		exposureManagerState: ExposureManagerState,
 		initialEnState: ENStateHandler.State,
-		risk: Risk?
+		risk: Risk?,
+		exposureSubmissionService: ExposureSubmissionService
 	) {
 		self.delegate = delegate
 		//self.enState = initialEnState
@@ -49,7 +51,7 @@ final class HomeViewController: UIViewController {
 				exposureManagerState: exposureManagerState,
 				enState: initialEnState,
 				risk: risk
-			))
+			), exposureSubmissionService: exposureSubmissionService)
 		navigationItem.largeTitleDisplayMode = .never
 		delegate.addToUpdatingSetIfNeeded(homeInteractor)
 	}
@@ -136,17 +138,7 @@ final class HomeViewController: UIViewController {
 	}
 
 	func showExposureSubmission(with result: TestResult? = nil) {
-		present(
-			AppStoryboard.exposureSubmission.initiateInitial { coder in
-				ExposureSubmissionNavigationController(
-					coder: coder,
-					exposureSubmissionService: self.homeInteractor.exposureSubmissionService,
-					submissionDelegate: self,
-					testResult: result
-				)
-			},
-			animated: true
-		)
+		delegate?.showExposureSubmission(with: result)
 	}
 
 	func showExposureNotificationSetting() {
@@ -274,7 +266,7 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController {
 	func showTestResultScreen() {
-		showExposureSubmission(with: homeInteractor.testResult) // TODO:
+		showExposureSubmission(with: homeInteractor.testResult)
 	}
 
 	func updateTestResultState() {
@@ -338,12 +330,6 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 	var preferredNavigationBarOpacity: CGFloat {
 		let alpha = (collectionView.adjustedContentInset.top + collectionView.contentOffset.y) / collectionView.contentInset.top
 		return max(0, min(alpha, 1))
-	}
-}
-
-extension HomeViewController: ExposureSubmissionNavigationControllerDelegate { // TODO: move
-	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
-		updateTestResultState()
 	}
 }
 
