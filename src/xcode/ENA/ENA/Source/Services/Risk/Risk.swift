@@ -27,6 +27,7 @@ struct Risk {
 
 extension Risk {
 	struct Details {
+		var daysSinceLastExposure: Int?
 		var numberOfExposures: Int?
 		var numberOfHoursWithActiveTracing: Int
 		var numberOfDaysWithActiveTracing: Int { numberOfHoursWithActiveTracing / 24 }

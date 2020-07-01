@@ -211,9 +211,13 @@ final class RiskCalculationTests: XCTestCase {
 			detectionMode: .automatic
 		)
 
+		var summary = summaryHigh
+		summary.daysSinceLastExposure = 5
+		summary.matchedKeyCount = 10
+
 		// Test the case where preconditions pass and there is increased risk
 		let risk = RiskCalculation.risk(
-			summary: summaryHigh,
+			summary: summary,
 			configuration: appConfig,
 			// arbitrary, but within limit
 			dateLastExposureDetection: Date().addingTimeInterval(-3600),
@@ -223,6 +227,7 @@ final class RiskCalculationTests: XCTestCase {
 			providerConfiguration: config
 		)
 
+		XCTAssertEqual(risk?.details.daysSinceLastExposure, 5)
 		XCTAssertEqual(risk?.level, .increased)
 	}
 
