@@ -69,8 +69,15 @@ final class ENATaskScheduler {
 	}
 
 	func scheduleTasks() {
-		scheduleTask(for: .exposureNotification, cancelExisting: true)
-		scheduleTask(for: .fetchTestResults, cancelExisting: true)
+		BGTaskScheduler.shared.getPendingTaskRequests { requests in
+			let pendingTaskIdentifiers = requests.map({ $0.identifier })
+			if !pendingTaskIdentifiers.contains(ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier) {
+				self.scheduleTask(for: .exposureNotification, cancelExisting: true)
+			}
+			if !pendingTaskIdentifiers.contains(ENATaskIdentifier.fetchTestResults.backgroundTaskSchedulerIdentifier) {
+				self.scheduleTask(for: .fetchTestResults, cancelExisting: true)
+			}
+		}
 	}
 
 	func cancelTasks() {
@@ -126,10 +133,10 @@ final class ENATaskScheduler {
 			task.setTaskCompleted(success: success)
 			log(message: "#BGTASK: \(task.identifier) COMPLETED", logToFile: true)
 			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-				log(message: "#BGTASK:", logToFile: true)
+				log(message: "#BGTASK: logTasks()", logToFile: true)
 				self.logTasks()
+			}
 		}
-	}
 		log(message: "#BGTASK: \(task.identifier) RESCHEDULING", logToFile: true)
 		scheduleTask(for: task.identifier)
 	}
@@ -140,7 +147,7 @@ final class ENATaskScheduler {
 			task.setTaskCompleted(success: success)
 			log(message: "#BGTASK: \(task.identifier) COMPLETED", logToFile: true)
 			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-				log(message: "#BGTASK:", logToFile: true)
+				log(message: "#BGTASK: logTasks()", logToFile: true)
 				self.logTasks()
 			}
 		}
