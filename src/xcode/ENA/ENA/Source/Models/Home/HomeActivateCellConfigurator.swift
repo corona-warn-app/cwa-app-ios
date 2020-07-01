@@ -34,7 +34,7 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
 		switch state {
 		case .enabled:
-			iconImage = UIImage(named: "Icons_Risikoermittlung")
+			iconImage = UIImage(named: "Icons_Risikoermittlung_30")
 			cell.titleLabel.text = AppStrings.Home.activateCardOnTitle
 			cell.accessibilityIdentifier = AccessibilityIdentifiers.Home.activateCardOnTitle
 		case .disabled, .restricted, .notAuthorized, .unknown:
@@ -51,9 +51,23 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 			cell.accessibilityIdentifier = AccessibilityIdentifiers.Home.activateCardInternetOffTitle
 		}
 
+		if state == .enabled {
+			animateEnabledTracing(cell: cell)
+		} else if cell.iconImageView.isAnimating {
+			cell.iconImageView.stopAnimating()
+		}
+
 		cell.iconImageView.image = iconImage
 
 		cell.accessibilityLabel = cell.titleLabel.text ?? ""
+	}
+
+	private func animateEnabledTracing(cell: ActivateCollectionViewCell) {
+		guard !cell.iconImageView.isAnimating else { return }
+
+		cell.iconImageView.animationDuration = 61.0 / 30
+		cell.iconImageView.animationImages = (0...60).compactMap({ UIImage(named: String(format: "Icons_Risikoermittlung_%02d", $0)) })
+		cell.iconImageView.startAnimating()
 	}
 }
 
