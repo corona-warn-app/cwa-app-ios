@@ -99,18 +99,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 		showPrivacyProtectionWindow()
 		taskScheduler.scheduleTasks()
 
-		#if !RELEASE
-		BGTaskScheduler.shared.getPendingTaskRequests { taskRequests in
-			taskRequests.forEach { request in
-				log(message: "#BGTASK: pendingTasks \(request.identifier) at \(request.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
-			}
-		}
-		#endif
+		log(message: "#BGTASK:", logToFile: true)
+		taskScheduler.logTasks()
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
+		log(message: "#BGTASK:", logToFile: true)
+		taskScheduler.logTasks()
 	}
 
 	// MARK: Helper

@@ -36,6 +36,7 @@ extension AppDelegate: CoronaWarnAppDelegate {
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
+		log(message: "#BGTASK: EXECUTING", logToFile: true)
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
 		exposureDetection?.start { result in
 			switch result {
