@@ -31,7 +31,6 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
 	func configure(cell: ActivateCollectionViewCell) {
 		var iconImage: UIImage?
-		cell.iconImageView.image?.withRenderingMode(.alwaysTemplate)
 
 		switch state {
 		case .enabled:
