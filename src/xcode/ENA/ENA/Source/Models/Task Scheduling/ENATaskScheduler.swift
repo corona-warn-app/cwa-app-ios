@@ -83,13 +83,6 @@ final class ENATaskScheduler {
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
 
-	func logTasks() {
-		BGTaskScheduler.shared.getPendingTaskRequests { taskRequests in
-			taskRequests.forEach { request in
-			}
-		}
-	}
-
 	func scheduleTask(for identifier: String) {
 		guard let taskIdentifier = ENATaskIdentifier(rawValue: identifier) else { return }
 		scheduleTask(for: taskIdentifier)
@@ -126,9 +119,6 @@ final class ENATaskScheduler {
 	private func executeExposureDetectionRequest(_ task: BGTask) {
 		taskDelegate?.executeExposureDetectionRequest(task: task) { success in
 			task.setTaskCompleted(success: success)
-			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-				self.logTasks()
-			}
 		}
 		scheduleTask(for: task.identifier)
 	}
@@ -136,9 +126,6 @@ final class ENATaskScheduler {
 	private func executeFetchTestResults(_ task: BGTask) {
 		taskDelegate?.executeFetchTestResults(task: task) { success in
 			task.setTaskCompleted(success: success)
-			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-				self.logTasks()
-			}
 		}
 		scheduleTask(for: task.identifier)
 	}
