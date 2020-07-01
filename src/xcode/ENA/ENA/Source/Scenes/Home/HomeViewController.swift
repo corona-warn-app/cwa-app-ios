@@ -24,6 +24,8 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func showExposureNotificationSetting(enState: ENStateHandler.State)
 	func showAppInformation()
 	func showWebPage(from viewController: UIViewController)
+	func showExposureDetection(state: HomeInteractor.State, isRequestRiskRunning: Bool)
+	func setExposureDetectionState(state: HomeInteractor.State, isRequestRiskRunning: Bool)
 	func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?)
 }
 
@@ -63,9 +65,6 @@ final class HomeViewController: UIViewController {
 	private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>?
 	private var collectionView: UICollectionView! { view as? UICollectionView }
 	private var homeInteractor: HomeInteractor!
-
-	private weak var exposureDetectionController: ExposureDetectionViewController?
-	private weak var settingsController: SettingsViewController?
 
 	private weak var delegate: HomeViewControllerDelegate?
 
@@ -123,13 +122,7 @@ final class HomeViewController: UIViewController {
 
 	// Called by HomeInteractor
 	func setStateOfChildViewControllers() {
-		let state = ExposureDetectionViewController.State(
-			exposureManagerState: homeInteractor.state.exposureManagerState,
-			detectionMode: homeInteractor.state.detectionMode,
-			isLoading: homeInteractor.isRequestRiskRunning,
-			risk: homeInteractor.state.risk
-		)
-		exposureDetectionController?.state = state
+		delegate?.setExposureDetectionState(state: homeInteractor.state, isRequestRiskRunning: homeInteractor.isRequestRiskRunning)
 	}
 
 	func updateState(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, risk: Risk?) {
@@ -161,22 +154,7 @@ final class HomeViewController: UIViewController {
 	}
 
 	func showExposureDetection() {
-		let state = ExposureDetectionViewController.State(
-			exposureManagerState: homeInteractor.state.exposureManagerState,
-			detectionMode: homeInteractor.state.detectionMode,
-			isLoading: homeInteractor.isRequestRiskRunning,
-			risk: homeInteractor.state.risk
-		)
-		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
-			ExposureDetectionViewController(
-				coder: coder,
-				state: state,
-				delegate: self
-			)
-		}
-//		delegate?.addToUpdatingSetIfNeeded(vc)
-		exposureDetectionController = vc as? ExposureDetectionViewController
-		present(vc, animated: true)
+		delegate?.showExposureDetection(state: homeInteractor.state, isRequestRiskRunning: homeInteractor.isRequestRiskRunning)
 	}
 
 	private func showScreenForActionSectionForCell(at indexPath: IndexPath) {
@@ -296,7 +274,7 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController {
 	func showTestResultScreen() {
-		showExposureSubmission(with: homeInteractor.testResult)
+		showExposureSubmission(with: homeInteractor.testResult) // TODO:
 	}
 
 	func updateTestResultState() {
@@ -333,31 +311,9 @@ extension HomeViewController: UICollectionViewDelegate {
 	}
 }
 
-extension HomeViewController: ExposureDetectionViewControllerDelegate {
-	func didStartLoading(exposureDetectionViewController: ExposureDetectionViewController) {
-		homeInteractor.updateAndReloadRiskLoading(isRequestRiskRunning: true)
-	}
-
-	func didFinishLoading(exposureDetectionViewController: ExposureDetectionViewController) {
-		homeInteractor.updateAndReloadRiskLoading(isRequestRiskRunning: false)
-	}
-
-	func exposureDetectionViewController(
-		_: ExposureDetectionViewController,
-		setExposureManagerEnabled enabled: Bool,
-		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
-	) {
-		setExposureManagerEnabled(enabled, then: completion)
-	}
-}
-
-private extension HomeViewController { // TODO: Remove
-	func setExposureManagerEnabled(_ enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {
-		if enabled {
-			homeInteractor.exposureManager.enable(completion: completion)
-		} else {
-			homeInteractor.exposureManager.disable(completion: completion)
-		}
+extension HomeViewController {
+	func updateAndReloadRiskLoading(isRequestRiskRunning: Bool) {
+		homeInteractor.updateAndReloadRiskLoading(isRequestRiskRunning: isRequestRiskRunning)
 	}
 }
 
@@ -365,7 +321,6 @@ extension HomeViewController: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		homeInteractor.state.exposureManagerState = state
 		updateOwnUI()
-		exposureDetectionController?.updateUI() // TODO: Move to Coordinator
 	}
 
 	private func updateOwnUI() {
@@ -386,7 +341,7 @@ extension HomeViewController: NavigationBarOpacityDelegate {
 	}
 }
 
-extension HomeViewController: ExposureSubmissionNavigationControllerDelegate {
+extension HomeViewController: ExposureSubmissionNavigationControllerDelegate { // TODO: move
 	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
 		updateTestResultState()
 	}
@@ -410,4 +365,3 @@ private extension UICollectionViewCell {
 		subviews.filter(({ $0.tag == 100_000 })).forEach({ $0.removeFromSuperview() })
 	}
 }
-

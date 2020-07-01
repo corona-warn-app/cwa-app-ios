@@ -31,6 +31,7 @@ final class Coordinator: RequiresAppDependencies {
 
 	private var homeController: HomeViewController?
 	private var settingsController: SettingsViewController?
+	private var exposureDetectionController: ExposureDetectionViewController?
 
 	private var enStateUpdatingSet = NSHashTable<AnyObject>.weakObjects()
 
@@ -125,6 +126,24 @@ extension Coordinator: ExposureNotificationSettingViewControllerDelegate {
 	}
 }
 
+extension Coordinator: ExposureDetectionViewControllerDelegate {
+	func didStartLoading(exposureDetectionViewController: ExposureDetectionViewController) {
+		homeController?.updateAndReloadRiskLoading(isRequestRiskRunning: true)
+	}
+
+	func didFinishLoading(exposureDetectionViewController: ExposureDetectionViewController) {
+		homeController?.updateAndReloadRiskLoading(isRequestRiskRunning: false)
+	}
+
+	func exposureDetectionViewController(
+		_: ExposureDetectionViewController,
+		setExposureManagerEnabled enabled: Bool,
+		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
+	) {
+		setExposureManagerEnabled(enabled, then: completion)
+	}
+}
+
 extension Coordinator: HomeViewControllerDelegate {
 	func showSettings(enState: ENStateHandler.State) {
 		let storyboard = AppStoryboard.settings.instance
@@ -173,6 +192,35 @@ extension Coordinator: HomeViewControllerDelegate {
 		WebPageHelper.showWebPage(from: viewController)
 	}
 
+	func showExposureDetection(state: HomeInteractor.State, isRequestRiskRunning: Bool) {
+		let state = ExposureDetectionViewController.State(
+			exposureManagerState: state.exposureManagerState,
+			detectionMode: state.detectionMode,
+			isLoading: isRequestRiskRunning,
+			risk: state.risk
+		)
+		let vc = AppStoryboard.exposureDetection.initiateInitial { coder in
+			ExposureDetectionViewController(
+				coder: coder,
+				state: state,
+				delegate: self
+			)
+		}
+//		delegate?.addToUpdatingSetIfNeeded(vc)
+		exposureDetectionController = vc as? ExposureDetectionViewController
+		rootViewController.present(vc, animated: true)
+	}
+
+	func setExposureDetectionState(state: HomeInteractor.State, isRequestRiskRunning: Bool) {
+		let state = ExposureDetectionViewController.State(
+			exposureManagerState: state.exposureManagerState,
+			detectionMode: state.detectionMode,
+			isLoading: isRequestRiskRunning,
+			risk: state.risk
+		)
+		exposureDetectionController?.state = state
+	}
+
 	func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?) {
 		if let anyObject = anyObject,
 		   anyObject is ENStateHandlerUpdating {
@@ -185,7 +233,7 @@ extension Coordinator: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
 		homeController?.updateExposureState(state)
 		settingsController?.updateExposureState(state)
-		//exposureDetectionController?.updateUI()
+		exposureDetectionController?.updateUI()
 	}
 }
 
