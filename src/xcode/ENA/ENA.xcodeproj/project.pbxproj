@@ -321,6 +321,7 @@
 		CD99A3A9245C272400BF12AF /* ExposureSubmissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */; };
 		CD99A3C7246155C300BF12AF /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C6246155C300BF12AF /* Logger.swift */; };
 		CD99A3CA2461A47C00BF12AF /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD99A3C92461A47C00BF12AF /* AppStrings.swift */; };
+		CDA262F824AB808800612E15 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA262F724AB808800612E15 /* Coordinator.swift */; };
 		CDCE11D6247D644100F30825 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE11D5247D644100F30825 /* NotificationSettingsViewModel.swift */; };
 		CDCE11D9247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE11D8247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift */; };
 		CDCE11DB247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCE11DA247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift */; };
@@ -715,6 +716,7 @@
 		CD99A3A8245C272400BF12AF /* ExposureSubmissionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionService.swift; sourceTree = "<group>"; };
 		CD99A3C6246155C300BF12AF /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		CD99A3C92461A47C00BF12AF /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
+		CDA262F724AB808800612E15 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		CDCE11D5247D644100F30825 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
 		CDCE11D8247D64C600F30825 /* NotificationSettingsOnTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsOnTableViewCell.swift; sourceTree = "<group>"; };
 		CDCE11DA247D64D600F30825 /* NotificationSettingsOffTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsOffTableViewCell.swift; sourceTree = "<group>"; };
@@ -1121,6 +1123,7 @@
 				51D420B524583B5100AD70CA /* Extensions */,
 				85D7593E2457048F008175F0 /* AppDelegate.swift */,
 				85D759402457048F008175F0 /* SceneDelegate.swift */,
+				CDA262F724AB808800612E15 /* Coordinator.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -2383,6 +2386,7 @@
 				71FE1C7F247AC2B500851FEB /* ExposureSubmissionTestResultViewController.swift in Sources */,
 				B1D6B002247DA0320079DDD3 /* ExposureDetectionViewControllerDelegate.swift in Sources */,
 				713EA25B247818B000AB7EE8 /* DynamicTypeButton.swift in Sources */,
+				CDA262F824AB808800612E15 /* Coordinator.swift in Sources */,
 				51C77910248684F5004582F8 /* HomeRiskListItemViewConfigurator.swift in Sources */,
 				B1D6B004247DA4920079DDD3 /* UIApplication+CoronaWarn.swift in Sources */,
 				51CE1BC32460B28D002CF42A /* HomeInfoCellConfigurator.swift in Sources */,
