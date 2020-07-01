@@ -95,7 +95,6 @@ extension RiskProvider: RiskProviding {
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
 			lastExposureDetectionDate: store.summary?.date
 		)
-		log(message: "#BGTASK: enoughTimeHasPassed == \(enoughTimeHasPassed) || self.exposureManagerState.isGood == \(self.exposureManagerState.isGood)", logToFile: true)
 		if enoughTimeHasPassed == false || self.exposureManagerState.isGood == false {
 			completion(
 				.init(
@@ -155,8 +154,6 @@ extension RiskProvider: RiskProviding {
 
 		var summaries: Summaries?
 
-		log(message: "#BGTASK: userInitiated == \(userInitiated)", logToFile: true)
-
 		group.enter()
 		determineSummaries(userInitiated: userInitiated) {
 			summaries = $0
@@ -177,14 +174,12 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
-			log(message: "#BGTASK: group.wait(timeout: .now() + .seconds(60))", logToFile: true)
 			completeOnTargetQueue(risk: nil)
 			return
 		}
 
 		guard let _appConfiguration = appConfiguration else {
 			completeOnTargetQueue(risk: nil)
-			log(message: "#BGTASK: appConfiguration == nil", logToFile: true)
 			return
 		}
 		

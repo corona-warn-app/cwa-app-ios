@@ -63,7 +63,6 @@ final class ENATaskScheduler {
 			taskHandler(task)
 			task.expirationHandler = {
 				task.setTaskCompleted(success: false)
-				log(message: "#BGTASK: \(task.identifier) EXPIRED", logToFile: true)
 			}
 		}
 	}
@@ -85,10 +84,8 @@ final class ENATaskScheduler {
 	}
 
 	func logTasks() {
-		log(message: "#BGTASK:", logToFile: true)
 		BGTaskScheduler.shared.getPendingTaskRequests { taskRequests in
 			taskRequests.forEach { request in
-				log(message: "#BGTASK: pendingTasks \(request.identifier) at \(request.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
 			}
 		}
 	}
@@ -113,7 +110,6 @@ final class ENATaskScheduler {
 			taskRequest.earliestBeginDate = nil
 		}
 
-		log(message: "#BGTASK: scheduling \(taskRequest.identifier) at \(taskRequest.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {
@@ -128,30 +124,22 @@ final class ENATaskScheduler {
 
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
-		log(message: "#BGTASK: \(task.identifier) STARTED", logToFile: true)
 		taskDelegate?.executeExposureDetectionRequest(task: task) { success in
 			task.setTaskCompleted(success: success)
-			log(message: "#BGTASK: \(task.identifier) COMPLETED", logToFile: true)
 			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-				log(message: "#BGTASK: logTasks()", logToFile: true)
 				self.logTasks()
 			}
 		}
-		log(message: "#BGTASK: \(task.identifier) RESCHEDULING", logToFile: true)
 		scheduleTask(for: task.identifier)
 	}
 
 	private func executeFetchTestResults(_ task: BGTask) {
-		log(message: "#BGTASK: \(task.identifier) COMPLETED", logToFile: true)
 		taskDelegate?.executeFetchTestResults(task: task) { success in
 			task.setTaskCompleted(success: success)
-			log(message: "#BGTASK: \(task.identifier) COMPLETED", logToFile: true)
 			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-				log(message: "#BGTASK: logTasks()", logToFile: true)
 				self.logTasks()
 			}
 		}
-		log(message: "#BGTASK: \(task.identifier) RESCHEDULING", logToFile: true)
 		scheduleTask(for: task.identifier)
 	}
 
@@ -159,7 +147,6 @@ final class ENATaskScheduler {
 
 extension ENATaskScheduler: ExposureStateUpdating {
 	func updateExposureState(_ state: ExposureManagerState) {
-		log(message: "#BGTASK: ExposureManagerState = \(state)", logToFile: true)
 		if state.isGood {
 			scheduleTasks()
 		} else {

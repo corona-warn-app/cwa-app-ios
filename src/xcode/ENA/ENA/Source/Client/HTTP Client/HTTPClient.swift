@@ -37,7 +37,6 @@ final class HTTPClient: Client {
 	private let packageVerifier: SAPDownloadedPackage.Verification
 
 	func appConfiguration(completion: @escaping AppConfigurationCompletion) {
-		log(message: "#BGTASK: EXECUTING", logToFile: true)
 		session.GET(configuration.configurationURL) { [weak self] result in
 			guard let self = self else { return }
 
