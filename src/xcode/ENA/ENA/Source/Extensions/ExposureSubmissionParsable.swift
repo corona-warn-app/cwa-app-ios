@@ -27,13 +27,13 @@ import ExposureNotification
 /// For the future, if other transformations are needed, it is advised to create
 /// a corrseponding protocol specific to the destination error type.
 protocol ExposureSubmissionErrorTransformable {
-	func transformToExposureSubmissionError() -> ExposureSubmissionError
+	func toExposureSubmissionError() -> ExposureSubmissionError
 }
 
 // MARK: - ENError: ExposureSubmissionErrorTransformable extension.
 
 extension ENError: ExposureSubmissionErrorTransformable {
-	func transformToExposureSubmissionError() -> ExposureSubmissionError {
+	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch code {
 		case .notEnabled:
 			return .enNotEnabled
@@ -48,7 +48,7 @@ extension ENError: ExposureSubmissionErrorTransformable {
 // MARK: - ExposureNotificationError: ExposureSubmissionErrorTransformable extension.
 
 extension ExposureNotificationError: ExposureSubmissionErrorTransformable {
-	func transformToExposureSubmissionError() -> ExposureSubmissionError {
+	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch self {
 		case .exposureNotificationRequired,
 			 .exposureNotificationAuthorization,
@@ -63,7 +63,7 @@ extension ExposureNotificationError: ExposureSubmissionErrorTransformable {
 // MARK: - SubmissionError: ExposureSubmissionErrorTransformable extension.
 
 extension SubmissionError: ExposureSubmissionErrorTransformable {
-	func transformToExposureSubmissionError() -> ExposureSubmissionError {
+	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch self {
 		case .invalidTan:
 			return .invalidTan
@@ -78,7 +78,7 @@ extension SubmissionError: ExposureSubmissionErrorTransformable {
 // MARK: - URLSession.Response.Failure: ExposureSubmissionErrorTransformable extension.
 
 extension URLSession.Response.Failure: ExposureSubmissionErrorTransformable {
-	func transformToExposureSubmissionError() -> ExposureSubmissionError {
+	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch self {
 		case let .httpError(wrapped):
 			return .httpError(wrapped.localizedDescription)
