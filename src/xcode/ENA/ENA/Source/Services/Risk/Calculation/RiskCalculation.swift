@@ -137,6 +137,7 @@ enum RiskCalculation {
 		summary: CodableExposureDetectionSummary,
 		configuration: SAP_ApplicationConfiguration
 	) -> Double {
+		// "Fig" comments below point to figures in the docs: https://github.com/corona-warn-app/cwa-documentation/blob/master/solution_architecture.md#risk-score-calculation
 		let maximumRisk = summary.maximumRiskScoreFullRange
 		let adWeights = configuration.attenuationDuration.weights
 		let attenuationDurationsInMin = summary.configuredAttenuationDurations.map { $0 / Double(60.0) }
