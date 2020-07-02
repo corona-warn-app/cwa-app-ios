@@ -17,10 +17,7 @@ extension HomeInteractor {
 		}
 
 		var daysSinceLastExposure: Int? {
-			guard let date = risk?.details.exposureDetectionDate else {
-				return nil
-			}
-			return Calendar.current.dateComponents([.day], from: date, to: Date()).day
+			risk?.details.daysSinceLastExposure
 		}
 
 		init(detectionMode: DetectionMode, exposureManagerState: ExposureManagerState, enState: ENStateHandler.State, risk: Risk?) {

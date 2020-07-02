@@ -192,6 +192,10 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 
 			guard var keys = keys, !keys.isEmpty else {
 				completionHandler(.noKeys)
+				// We perform a cleanup in order to set the correct
+				// timestamps, despite not having communicated with the backend,
+				// in order to show the correct screens.
+				self.submitExposureCleanup()
 				return
 			}
 			keys.processedForSubmission()
@@ -235,56 +239,26 @@ class ENAExposureSubmissionService: ExposureSubmissionService {
 	/// This method attempts to parse all different types of incoming errors, regardless
 	/// whether internal or external, and transform them to an `ExposureSubmissionError`
 	/// used for interpretation in the frontend.
-	// swiftlint:disable:next cyclomatic_complexity
+	/// If the error cannot be parsed to the expected error/failure types `ENError`, `ExposureNotificationError`,
+	/// `ExposureNotificationError`, `SubmissionError`, or `URLSession.Response.Failure`,
+	/// an unknown error is returned. Therefore, if this method returns `.unknown`,
+	/// examine the incoming `Error` closely.
 	private func parseError(_ error: Error) -> ExposureSubmissionError {
+
 		if let enError = error as? ENError {
-			switch enError.code {
-			case .notEnabled:
-				return .enNotEnabled
-			case .notAuthorized:
-				return .notAuthorized
-			default:
-				return .other(enError.localizedDescription)
-			}
+			return enError.toExposureSubmissionError()
 		}
 
 		if let exposureNotificationError = error as? ExposureNotificationError {
-			switch exposureNotificationError {
-			case .exposureNotificationRequired, .exposureNotificationAuthorization, .exposureNotificationUnavailable:
-				return .enNotEnabled
-			case .apiMisuse, .unknown:
-				return .other("ENErrorCodeAPIMisuse")
-			}
+			return exposureNotificationError.toExposureSubmissionError()
 		}
 
 		if let submissionError = error as? SubmissionError {
-			switch submissionError {
-			case .invalidTan:
-				return .invalidTan
-			case let .serverError(code):
-				return .serverError(code)
-			default:
-				return .other(submissionError.localizedDescription)
-			}
+			return submissionError.toExposureSubmissionError()
 		}
 
 		if let urlFailure = error as? URLSession.Response.Failure {
-			switch urlFailure {
-			case let .httpError(wrapped):
-				return .httpError(wrapped.localizedDescription)
-			case .invalidResponse:
-				return .invalidResponse
-			case .teleTanAlreadyUsed:
-				return .teleTanAlreadyUsed
-			case .qRAlreadyUsed:
-				return .qRAlreadyUsed
-			case .regTokenNotExist:
-				return .regTokenNotExist
-			case .noResponse:
-				return .noResponse
-			case let .serverError(code):
-				return .serverError(code)
-			}
+			return urlFailure.toExposureSubmissionError()
 		}
 
 		return .unknown

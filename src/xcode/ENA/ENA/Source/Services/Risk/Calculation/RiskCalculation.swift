@@ -187,7 +187,10 @@ enum RiskCalculation {
 			providerConfiguration: providerConfiguration
 		) {
 		case .success(let level):
+			let keyCount = summary?.matchedKeyCount ?? 0
+			let daysSinceLastExposure = keyCount > 0 ? summary?.daysSinceLastExposure : nil
 			let details = Risk.Details(
+				daysSinceLastExposure: daysSinceLastExposure,
 				numberOfExposures: Int(summary?.matchedKeyCount ?? 0),
 				numberOfHoursWithActiveTracing: numberOfTracingActiveHours,
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
