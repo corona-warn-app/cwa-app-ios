@@ -45,6 +45,8 @@
 
 "ExposureDetection_Refresh_24h" = "24 saatlik aralıklarla güncellenir";
 
+"ExposureDetection_RefreshIn" = "Update in %@";
+
 "ExposureDetection_LastRiskLevel" = "Son maruz kalma günlüğü: %@";
 
 "ExposureDetection_OffText" = "Bugünkü risk durumunuzu değerlendirmek için maruz kalma günlüğünü etkinleştirin.";

@@ -20,7 +20,21 @@ import Foundation
 import UIKit
 
 final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
-	// MARK: Properties
+	// MARK: Properties.
+
+	private var countdown: CountdownTimer?
+
+	private var _nextRefresh: Date?
+	private var nextRefresh: Date {
+		if let cachedNextRefresh = _nextRefresh { return cachedNextRefresh }
+
+		_nextRefresh = riskProvider.configuration.nextExposureDetectionDate(lastExposureDetectionDate: store.summary?.date, currentDate: Date())
+		return _nextRefresh ?? Date.distantFuture
+
+	}
+
+
+	// MARK: IB Outlets.
 
 	@IBOutlet var closeButton: UIButton!
 	@IBOutlet var headerView: UIView!
@@ -186,7 +200,7 @@ extension ExposureDetectionViewController {
 		tableView.reloadData()
 	}
 
-	private func updateCheckButton() {
+	private func updateCheckButton(_ time: String? = nil) {
 		if !state.isTracingEnabled {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
@@ -200,8 +214,51 @@ extension ExposureDetectionViewController {
 			checkButton.isEnabled = true
 		case .manual:
 			footerView.isHidden = false
-			checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
-			checkButton.isEnabled = riskProvider.manualExposureDetectionState == .possible
+
+			let now = Date()
+			print("now: \(now) next:\(nextRefresh)")
+
+			if nextRefresh > now, countdown == nil {
+				scheduleCountdownTimer(to: nextRefresh)
+			} else if let countdown = countdown, countdown.end != nextRefresh {
+				// Make sure to schedule new countdown if the next refresh time has changed.
+				scheduleCountdownTimer(to: nextRefresh)
+			} else if nextRefresh - 1 > now {
+				showCountdownButton(with: time)
+			} else {
+				showActiveRefreshButton()
+			}
 		}
+	}
+
+	private func scheduleCountdownTimer(to end: Date) {
+		countdown = CountdownTimer(countdownTo: end)
+		countdown?.delegate = self
+		countdown?.start()
+	}
+
+	private func showActiveRefreshButton() {
+		self.checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
+		self.checkButton.isEnabled = riskProvider.manualExposureDetectionState == .possible
+	}
+
+	private func showCountdownButton(with time: String? = nil) {
+		guard let time = time else { return }
+		UIView.performWithoutAnimation {
+			self.checkButton.setTitle(String(format: AppStrings.ExposureDetection.refreshIn, time), for: .normal)
+			self.checkButton.isEnabled = riskProvider.manualExposureDetectionState == .possible
+		}
+	}
+}
+
+// MARK: CountdownTimerDelegate methods.
+
+extension ExposureDetectionViewController: CountdownTimerDelegate {
+	func update(time: String) {
+		self.updateCheckButton(time)
+	}
+
+	func done() {
+		self.updateCheckButton()
 	}
 }

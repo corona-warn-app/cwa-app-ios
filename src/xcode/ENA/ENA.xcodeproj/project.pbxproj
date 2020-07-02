@@ -220,6 +220,8 @@
 		A3C4F96024812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */; };
 		A3E5E71A247D4FFB00237116 /* ExposureSubmissionViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */; };
 		A3E5E71E247E6F7A00237116 /* SpinnerInjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E5E71D247E6F7A00237116 /* SpinnerInjectable.swift */; };
+		A3E851B224ADD09900402485 /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E851B124ADD09900402485 /* CountdownTimer.swift */; };
+		A3E851B524ADDAC000402485 /* CountdownTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E851B424ADDAC000402485 /* CountdownTimerTests.swift */; };
 		A3EE6E5A249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E59249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift */; };
 		A3EE6E5C249BB97500C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
 		A3EE6E5D249BB9B900C64B61 /* UITestingParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */; };
@@ -628,6 +630,8 @@
 		A3C4F95F24812CD20047F23E /* ExposureSubmissionWarnOthersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionWarnOthersViewController.swift; sourceTree = "<group>"; };
 		A3E5E719247D4FFB00237116 /* ExposureSubmissionViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionViewUtils.swift; sourceTree = "<group>"; };
 		A3E5E71D247E6F7A00237116 /* SpinnerInjectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerInjectable.swift; sourceTree = "<group>"; };
+		A3E851B124ADD09900402485 /* CountdownTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
+		A3E851B424ADDAC000402485 /* CountdownTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerTests.swift; sourceTree = "<group>"; };
 		A3EE6E59249BB7AF00C64B61 /* ExposureSubmissionServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExposureSubmissionServiceFactory.swift; sourceTree = "<group>"; };
 		A3EE6E5B249BB97500C64B61 /* UITestingParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestingParameters.swift; sourceTree = "<group>"; };
 		A3FF84EB247BFAF00053E947 /* Hasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hasher.swift; sourceTree = "<group>"; };
@@ -1476,6 +1480,14 @@
 			path = "Mock Objects";
 			sourceTree = "<group>";
 		};
+		A3E851B324ADDA9E00402485 /* __tests__ */ = {
+			isa = PBXGroup;
+			children = (
+				A3E851B424ADDAC000402485 /* CountdownTimerTests.swift */,
+			);
+			path = __tests__;
+			sourceTree = "<group>";
+		};
 		B102BDC12460405F00CD55A2 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
@@ -1891,10 +1903,12 @@
 		CD99A3C82461A44B00BF12AF /* View Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A3E851B324ADDA9E00402485 /* __tests__ */,
 				51D420B324583ABB00AD70CA /* AppStoryboard.swift */,
 				CD99A3C92461A47C00BF12AF /* AppStrings.swift */,
 				71CAB9D1248AACAD00F516A5 /* PixelPerfectLayoutConstraint.swift */,
 				2FE15A3B249B8C0B0077BD8D /* AccessibilityIdentifiers.swift */,
+				A3E851B124ADD09900402485 /* CountdownTimer.swift */,
 			);
 			path = "View Helpers";
 			sourceTree = "<group>";
@@ -2244,6 +2258,7 @@
 				71F54191248BF677006DB793 /* HtmlTextView.swift in Sources */,
 				51B5B41C246EC8B800DC5D3E /* HomeCardCollectionViewCell.swift in Sources */,
 				B1EDFD8D248E74D000E7EAFF /* URL+StaticString.swift in Sources */,
+				A3E851B224ADD09900402485 /* CountdownTimer.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
 				A3E5E71A247D4FFB00237116 /* ExposureSubmissionViewUtils.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
@@ -2471,6 +2486,7 @@
 				B10F9B8B249961BC00C418F4 /* DynamicTypeLabelTests.swift in Sources */,
 				CD678F6F246C43FC00B6A0F8 /* MockURLSession.swift in Sources */,
 				A3284255248E493B006B1F09 /* ExposureSubmissionOverviewViewControllerTests.swift in Sources */,
+				A3E851B524ADDAC000402485 /* CountdownTimerTests.swift in Sources */,
 				F2DC808E248989CE00EDC40A /* DynamicTableViewControllerRegisterCellsTests.swift in Sources */,
 				EE22DB91247FB479001B0A71 /* MockStateHandlerObserverDelegate.swift in Sources */,
 				B1C7EE4624938EB700F1F284 /* ExposureDetection_DidEndPrematurelyReason+ErrorHandlingTests.swift in Sources */,

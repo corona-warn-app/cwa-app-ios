@@ -43,6 +43,8 @@
 
 "ExposureDetection_RefreshingIn" = "Aktualisierung in %02d:%02d\U00A0Minuten";
 
+"ExposureDetection_RefreshIn" = "Aktualisierung in %@";
+
 "ExposureDetection_Refresh_24h" = "Aktualisierung alle 24 Stunden";
 
 "ExposureDetection_LastRiskLevel" = "Letzte Risiko-Ermittlung: %@";

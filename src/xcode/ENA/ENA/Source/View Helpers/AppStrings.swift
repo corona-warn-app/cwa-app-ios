@@ -207,6 +207,7 @@ enum AppStrings {
 		static let refreshedFormat = NSLocalizedString("ExposureDetection_Refreshed_Format", comment: "")
 		static let refreshedNever = NSLocalizedString("ExposureDetection_Refreshed_Never", comment: "")
 		static let refreshingIn = NSLocalizedString("ExposureDetection_RefreshingIn", comment: "")
+		static let refreshIn = NSLocalizedString("ExposureDetection_RefreshIn", comment: "")
 		static let refresh24h = NSLocalizedString("ExposureDetection_Refresh_24h", comment: "")
 		static let lastRiskLevel = NSLocalizedString("ExposureDetection_LastRiskLevel", comment: "")
 		static let offText = NSLocalizedString("ExposureDetection_OffText", comment: "")
