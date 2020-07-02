@@ -65,8 +65,9 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 	private func animateEnabledTracing(cell: ActivateCollectionViewCell) {
 		guard !cell.iconImageView.isAnimating else { return }
 
-		cell.iconImageView.animationDuration = 61.0 / 30
-		cell.iconImageView.animationImages = (0...60).compactMap({ UIImage(named: String(format: "Icons_Risikoermittlung_%02d", $0)) })
+		let images = (0...60).compactMap({ UIImage(named: String(format: "Icons_Risikoermittlung_%02d", $0)) })
+		cell.iconImageView.animationImages = images
+		cell.iconImageView.animationDuration = Double(images.count) / 30
 		cell.iconImageView.startAnimating()
 	}
 }
