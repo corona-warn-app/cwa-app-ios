@@ -111,6 +111,9 @@ class NotificationSettingsViewController: UIViewController {
 
 	private func setupView() {
 		illustrationImageView.image = UIImage(named: viewModel.image)
+		illustrationImageView.isAccessibilityElement = true
+		illustrationImageView.accessibilityLabel = viewModel.imageDescription
+		illustrationImageView.accessibilityIdentifier = "AppStrings.Settings.imageDescription"
 
 		if let title = viewModel.title {
 			titleLabel.isHidden = false

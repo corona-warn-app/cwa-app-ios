@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.3 (01/07/2020)
+#### Bug fixes
+
+-  Fix number of days since last exposure [#811](https://github.com/corona-warn-app/cwa-app-ios/pull/811)
+-  Fix pruning of tracing history [#807](https://github.com/corona-warn-app/cwa-app-ios/pull/807), [#812](https://github.com/corona-warn-app/cwa-app-ios/pull/812)
+
+---
+
 ## v1.0.2.2 (15/06/2020)
 
 #### Bug fixes
