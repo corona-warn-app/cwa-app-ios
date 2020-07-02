@@ -57,7 +57,7 @@ final class ExposureKeysProcessingTests: XCTestCase {
 		var keys = makeMockKeys(count: 30)
 		keys.processedForSubmission()
 
-		for (key, vectorElement) in zip(keys, keys.transmissionRiskDefaultVector) {
+		for (key, vectorElement) in zip(keys, keys.transmissionRiskDefaultVector.dropFirst()) {
 			XCTAssertEqual(
 				key.transmissionRiskLevel,
 				vectorElement,

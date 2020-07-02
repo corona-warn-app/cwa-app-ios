@@ -30,10 +30,11 @@ extension Array where Element: ENTemporaryExposureKey {
 	/// Index 1 the next day, and so on.
 	/// These factors are supplied by RKI
 	///
+	/// - important: The first element of the array is not used. That is because the ExposureNotification framework
+	/// does not return the current day's key - so the first key we have in the array is actually from yesterday.
+	///
 	/// - see also: [Risk Score Calculation Docs](https://github.com/corona-warn-app/cwa-documentation/blob/master/solution_architecture.md#risk-score-calculation)
 	var transmissionRiskDefaultVector: [ENRiskLevel] {
-		// TODO: Is this vector not one too long (extra 1 at end)?
-		// TODO: Can we assume/clamp the vector to `maxKeyCount` # of elements?
 		[5, 6, 8, 8, 8, 5, 3, 1, 1, 1, 1, 1, 1, 1, 1]
 	}
 
@@ -44,35 +45,13 @@ extension Array where Element: ENTemporaryExposureKey {
 	/// 2. Takes the first `maxKeyCount` (14) keys using `prefix(_ :)`
 	/// 3. Applies the `transmissionRiskDefaultVector` to the sorted keys
 	mutating func processedForSubmission() {
-
 		sort {
 			$0.rollingStartNumber > $1.rollingStartNumber
 		}
 
-		if count > 14 {
-			self = Array(self[0 ..< 14])
+		self = Array(prefix(maxKeyCount))
+		for (key, vectorElement) in zip(self, transmissionRiskDefaultVector.dropFirst()) {
+			key.transmissionRiskLevel = vectorElement
 		}
-
-		let startIndex = 0
-		for i in startIndex...self.count - 1 {
-			if i + 1 <= transmissionRiskDefaultVector.count - 1 {
-				// TODO: Why do we get the i+1 element? This means we never get the first element in our vector!
-				self[i].transmissionRiskLevel = UInt8(transmissionRiskDefaultVector[i + 1])
-			} else {
-				// TODO: Will this case actually ever happen? We clamp the key array to 14 elements
-				// Assuming that this case does not happen let's us simplify this logic with a for loop and zip
-				self[i].transmissionRiskLevel = UInt8(1)
-			}
-		}
-		// Slight refactor, but DIFFERENT behavior than above
-//		sort {
-//			$0.rollingStartNumber > $1.rollingStartNumber
-//		}
-//
-//		self = Array(prefix(maxKeyCount))
-//		// We assume that the vector and key array have the same length
-//		for (key, vectorElement) in zip(self, transmissionRiskDefaultVector) {
-//			key.transmissionRiskLevel = vectorElement
-//		}
 	}
 }
