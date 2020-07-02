@@ -37,11 +37,16 @@ final class ExposureKeysProcessingTests: XCTestCase {
 		var keys: [ENTemporaryExposureKey] = [
 			TemporaryExposureKeyMock(rollingStartNumber: 4),
 			TemporaryExposureKeyMock(rollingStartNumber: 7),
-			TemporaryExposureKeyMock(rollingStartNumber: 2)
+			TemporaryExposureKeyMock(rollingStartNumber: 2),
+			TemporaryExposureKeyMock(rollingStartNumber: 7)
 		]
 		keys.processedForSubmission()
 		let rollingStartNumbers = keys.map { $0.rollingStartNumber }
-		XCTAssertTrue(rollingStartNumbers.isSorted(>), "The keys were not sorted!")
+		XCTAssertEqual(rollingStartNumbers.count, 4)
+		XCTAssertEqual(rollingStartNumbers[0], 7, "Key sorting incorrect! Got \(rollingStartNumbers[0]), expected 7")
+		XCTAssertEqual(rollingStartNumbers[1], 7, "Key sorting incorrect! Got \(rollingStartNumbers[1]), expected 7")
+		XCTAssertEqual(rollingStartNumbers[2], 4, "Key sorting incorrect! Got \(rollingStartNumbers[2]), expected 4")
+		XCTAssertEqual(rollingStartNumbers[3], 2, "Key sorting incorrect! Got \(rollingStartNumbers[3]), expected 2")
 	}
 
 	func testSubmissionPreprocess_TrimKeys() {
@@ -51,6 +56,31 @@ final class ExposureKeysProcessingTests: XCTestCase {
 
 		XCTAssertEqual(keys.count, keys.maxKeyCount)
 		XCTAssertEqual(keys, Array(copy.prefix(keys.maxKeyCount)))
+	}
+
+	func testSubmissionPreprocess_NoKeys() {
+		var keys = makeMockKeys(count: 0)
+		keys.processedForSubmission()
+
+		XCTAssertEqual(keys.count, 0)
+	}
+
+	func testSubmissionPreprocess_FewKeys() {
+		var keys = makeMockKeys(count: 2)
+		let copy = keys.sorted { $0.rollingStartNumber > $1.rollingStartNumber }
+		keys.processedForSubmission()
+
+		XCTAssertEqual(keys.count, 2)
+		XCTAssertEqual(keys, Array(copy.prefix(keys.maxKeyCount)))
+	}
+
+	func testSubmissionPreprocess_ApplyVector_FewKeys() {
+		var keys = makeMockKeys(count: 2)
+		keys.processedForSubmission()
+
+		XCTAssertEqual(keys.count, 2)
+		XCTAssertEqual(keys[0].transmissionRiskLevel, keys.transmissionRiskDefaultVector[1])
+		XCTAssertEqual(keys[1].transmissionRiskLevel, keys.transmissionRiskDefaultVector[2])
 	}
 
 	func testSubmissionPreprocess_ApplyVector() {
@@ -64,7 +94,6 @@ final class ExposureKeysProcessingTests: XCTestCase {
 				"Transmission Risk Level vector not applied correctly! Expected \(vectorElement), got \(key.transmissionRiskLevel)"
 			)
 		}
-
 	}
 }
 
@@ -82,20 +111,5 @@ extension ExposureKeysProcessingTests {
 private extension ENIntervalNumber {
 	static func random() -> ENIntervalNumber {
 		ENIntervalNumber.random(in: ENIntervalNumber.min...ENIntervalNumber.max)
-	}
-}
-
-private extension Array where Element: Comparable {
-	func isSorted(_ comparator: (Element, Element) -> Bool) -> Bool {
-		var iterator = makeIterator()
-		guard var previous = iterator.next() else { return true }
-		while let current = iterator.next() {
-			guard comparator(previous, current) else {
-				return false
-			}
-
-			previous = current
-		}
-		return true
 	}
 }
