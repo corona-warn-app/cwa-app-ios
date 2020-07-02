@@ -48,16 +48,6 @@ class HtmlTextView: UITextView {
 
 		isEditable = false
 	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		if var html = self.html {
-			DispatchQueue.main.async {
-				html = self.applyColors(to: html)
-				self.attributedText = try? self.parseHtml(html)
-			}
-		}
-	}
 }
 
 extension HtmlTextView {
