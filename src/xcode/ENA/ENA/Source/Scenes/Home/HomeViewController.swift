@@ -19,6 +19,7 @@ import ExposureNotification
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
+	func showRiskLegend()
 	func showExposureNotificationSetting(enState: ENStateHandler.State)
 	func showExposureDetection(state: HomeInteractor.State, isRequestRiskRunning: Bool)
 	func setExposureDetectionState(state: HomeInteractor.State, isRequestRiskRunning: Bool)
@@ -113,11 +114,7 @@ final class HomeViewController: UIViewController {
 	// MARK: Actions
 
 	@IBAction private func infoButtonTapped() {
-		present(
-			AppStoryboard.riskLegend.initiateInitial(),
-			animated: true,
-			completion: nil
-		)
+		delegate?.showRiskLegend()
 	}
 
 	// MARK: Misc

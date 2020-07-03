@@ -120,6 +120,14 @@ final class Coordinator: RequiresAppDependencies {
 }
 
 extension Coordinator: HomeViewControllerDelegate {
+	func showRiskLegend() {
+		rootViewController.present(
+			AppStoryboard.riskLegend.initiateInitial(),
+			animated: true,
+			completion: nil
+		)
+	}
+
 	func showExposureNotificationSetting(enState: ENStateHandler.State) {
 		let storyboard = AppStoryboard.exposureNotificationSetting.instance
 		let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
