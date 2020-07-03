@@ -19,7 +19,19 @@ import UIKit
 
 class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 
-	let identifier = UUID()
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(title)
+		hasher.combine(description)
+		hasher.combine(position)
+		hasher.combine(accessibilityIdentifier)
+	}
+
+	static func == (lhs: HomeInfoCellConfigurator, rhs: HomeInfoCellConfigurator) -> Bool {
+		lhs.title == rhs.title &&
+		lhs.description == rhs.description &&
+		lhs.position == rhs.position &&
+		lhs.accessibilityIdentifier == rhs.accessibilityIdentifier
+	}
 	
 	var title: String
 	var description: String?

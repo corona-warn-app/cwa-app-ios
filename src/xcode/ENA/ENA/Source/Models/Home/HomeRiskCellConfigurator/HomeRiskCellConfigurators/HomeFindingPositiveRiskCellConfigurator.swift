@@ -21,7 +21,11 @@ import UIKit
 
 final class HomeFindingPositiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
-	let identifier = UUID()
+	func hash(into hasher: inout Swift.Hasher) { }
+
+	static func == (lhs: HomeFindingPositiveRiskCellConfigurator, rhs: HomeFindingPositiveRiskCellConfigurator) -> Bool {
+		true
+	}
 
 	var nextAction: (() -> Void)?
 

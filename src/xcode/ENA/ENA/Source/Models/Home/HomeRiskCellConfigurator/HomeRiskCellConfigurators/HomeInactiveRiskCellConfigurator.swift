@@ -19,7 +19,17 @@ import UIKit
 
 final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
-	let identifier = UUID()
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(incativeType)
+		hasher.combine(previousRiskLevel)
+		hasher.combine(lastUpdateDate)
+	}
+
+	static func == (lhs: HomeInactiveRiskCellConfigurator, rhs: HomeInactiveRiskCellConfigurator) -> Bool {
+		lhs.incativeType == rhs.incativeType &&
+		lhs.previousRiskLevel == rhs.previousRiskLevel &&
+		lhs.lastUpdateDate == rhs.lastUpdateDate
+	}
 
 	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	private var lastUpdateDate: Date?

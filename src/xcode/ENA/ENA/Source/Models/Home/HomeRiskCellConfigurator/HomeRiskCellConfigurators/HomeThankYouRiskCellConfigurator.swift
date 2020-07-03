@@ -21,8 +21,12 @@ import UIKit
 
 final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 
-	let identifier = UUID()
+	func hash(into hasher: inout Swift.Hasher) { }
 
+	static func == (lhs: HomeThankYouRiskCellConfigurator, rhs: HomeThankYouRiskCellConfigurator) -> Bool {
+		true
+	}
+	
 	// MARK: Configuration
 
 	func configure(cell: RiskThankYouCollectionViewCell) {

@@ -21,7 +21,14 @@ import Foundation
 import UIKit
 
 class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
-	var identifier = UUID()
+
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(testResult)
+	}
+
+	static func == (lhs: HomeTestResultCellConfigurator, rhs: HomeTestResultCellConfigurator) -> Bool {
+		lhs.testResult == rhs.testResult
+	}
 
 	var testResult: TestResult?
 

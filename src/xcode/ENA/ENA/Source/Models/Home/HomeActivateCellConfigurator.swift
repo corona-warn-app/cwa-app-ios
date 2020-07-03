@@ -19,7 +19,13 @@ import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
-	let identifier = UUID()
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(state)
+	}
+
+	static func == (lhs: HomeActivateCellConfigurator, rhs: HomeActivateCellConfigurator) -> Bool {
+		lhs.state == rhs.state
+	}
 	
 	private var state: ENStateHandler.State
 

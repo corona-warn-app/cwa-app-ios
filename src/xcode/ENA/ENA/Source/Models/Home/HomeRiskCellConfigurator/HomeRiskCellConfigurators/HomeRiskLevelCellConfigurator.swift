@@ -20,8 +20,23 @@ import UIKit
 
 class HomeRiskLevelCellConfigurator: HomeRiskCellConfigurator {
 
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(isLoading)
+		hasher.combine(isButtonEnabled)
+		hasher.combine(isButtonHidden)
+		hasher.combine(detectionIntervalLabelHidden)
+		hasher.combine(lastUpdateDate)
+	}
+
+	static func == (lhs: HomeRiskLevelCellConfigurator, rhs: HomeRiskLevelCellConfigurator) -> Bool {
+		lhs.isLoading == rhs.isLoading &&
+		lhs.isButtonEnabled == rhs.isButtonEnabled &&
+		lhs.isButtonHidden == rhs.isButtonHidden &&
+		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
+		lhs.lastUpdateDate == rhs.lastUpdateDate
+	}
+
 	// MARK: Properties
-	let identifier = UUID()
 	var buttonAction: (() -> Void)?
 
 	var isLoading: Bool

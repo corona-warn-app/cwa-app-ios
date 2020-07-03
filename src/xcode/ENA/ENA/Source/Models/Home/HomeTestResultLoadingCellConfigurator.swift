@@ -21,7 +21,11 @@ import Foundation
 
 class HomeTestResultLoadingCellConfigurator: CollectionViewCellConfigurator {
 
-	let identifier = UUID()
+	func hash(into hasher: inout Swift.Hasher) { }
+	
+	static func == (lhs: HomeTestResultLoadingCellConfigurator, rhs: HomeTestResultLoadingCellConfigurator) -> Bool {
+		true
+	}
 
 	func configure(cell: HomeTestResultLoadingCell) {
 		cell.setupCell()
@@ -29,7 +33,6 @@ class HomeTestResultLoadingCellConfigurator: CollectionViewCellConfigurator {
 		cell.body.text = AppStrings.Home.resultCardLoadingBody
 		cell.button.isEnabled = false
 		cell.button.setTitle(AppStrings.Home.resultCardShowResultButton, for: .disabled)
-		return
 	}
 
 }
