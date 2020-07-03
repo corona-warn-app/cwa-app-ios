@@ -24,16 +24,6 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 
 	private var countdown: CountdownTimer?
 
-	private var _nextRefresh: Date?
-	private var nextRefresh: Date {
-		if let cachedNextRefresh = _nextRefresh { return cachedNextRefresh }
-
-		_nextRefresh = riskProvider.configuration.nextExposureDetectionDate(lastExposureDetectionDate: store.summary?.date, currentDate: Date())
-		return _nextRefresh ?? Date.distantFuture
-
-	}
-
-
 	// MARK: IB Outlets.
 
 	@IBOutlet var closeButton: UIButton!
@@ -215,8 +205,8 @@ extension ExposureDetectionViewController {
 		case .manual:
 			footerView.isHidden = false
 
+			let nextRefresh = riskProvider.nextExposureDetectionDate()
 			let now = Date()
-			print("now: \(now) next:\(nextRefresh)")
 
 			if nextRefresh > now, countdown == nil {
 				scheduleCountdownTimer(to: nextRefresh)
