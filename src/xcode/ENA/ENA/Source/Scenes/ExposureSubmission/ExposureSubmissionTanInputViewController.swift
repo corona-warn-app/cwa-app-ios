@@ -116,10 +116,13 @@ extension ExposureSubmissionTanInputViewController {
 
 			switch result {
 			case let .failure(error):
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, completion: {
-					self.navigationFooterItem?.isPrimaryButtonLoading = false
-					self.navigationFooterItem?.isPrimaryButtonEnabled = true
-					self.tanInput.becomeFirstResponder()
+
+				let alert = ExposureSubmissionViewUtils.setupErrorAlert(
+					message: error.localizedDescription,
+					completion: {
+						self.navigationFooterItem?.isPrimaryButtonLoading = false
+						self.navigationFooterItem?.isPrimaryButtonEnabled = true
+						self.tanInput.becomeFirstResponder()
 				})
 				self.present(alert, animated: true, completion: nil)
 

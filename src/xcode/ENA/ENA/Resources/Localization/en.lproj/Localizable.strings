@@ -482,6 +482,12 @@
 
 "ExposureSubmissionError_defaultError" = "General exposure submission error";
 
+"ExposureSubmissionError_unsupported" = "​Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
+
+"ExposureSubmissionError_internal" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your device and try again tomorrow.";
+
+"ExposureSubmissionError_rateLimited" = "Error 13: Your risk calculation for today has already been carried out. Please try again tomorrow.";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
 
