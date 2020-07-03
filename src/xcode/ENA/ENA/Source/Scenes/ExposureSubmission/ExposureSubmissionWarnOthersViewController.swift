@@ -72,7 +72,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 			case .some(let error):
 				logError(message: "error: \(error.localizedDescription)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(message: error.localizedDescription)
+				let alert = ErrorAlertUtil.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true, completion: {
 					self.navigationFooterItem?.isPrimaryButtonLoading = false
 					self.navigationFooterItem?.isPrimaryButtonEnabled = true
@@ -85,11 +85,11 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	private func showENErrorAlert(_ error: ExposureSubmissionError) {
 		logError(message: "error: \(error.localizedDescription)", level: .error)
-		let alert = ExposureSubmissionViewUtils.setupErrorAlert(
+		let alert = ErrorAlertUtil.setupErrorAlert(
 			message: error.localizedDescription,
-			retryTitle: AppStrings.ExposureSubmissionError.moreInfo,
-			retry: true,
-			retryActionHandler: {
+			secondaryActionTitle: AppStrings.ExposureSubmissionError.moreInfo,
+			hasSecondaryAction: true,
+			secondaryActionCompletion: {
 				guard let url = URL(string: "https://www.coronawarn.app/de/faq") else {
 					logError(message: "Unable to open FAQ page.", level: .error)
 					return

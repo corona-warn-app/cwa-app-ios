@@ -117,7 +117,7 @@ extension ExposureSubmissionTanInputViewController {
 			switch result {
 			case let .failure(error):
 
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(
+				let alert = ErrorAlertUtil.setupErrorAlert(
 					message: error.localizedDescription,
 					completion: {
 						self.navigationFooterItem?.isPrimaryButtonLoading = false

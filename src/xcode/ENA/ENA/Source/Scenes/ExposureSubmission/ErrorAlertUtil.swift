@@ -18,9 +18,27 @@
 import Foundation
 import UIKit
 
-enum ExposureSubmissionViewUtils {
+enum ErrorAlertUtil {
 
-	static func setupErrorAlert(title: String? = nil, message: String, okTitle: String? = nil, retryTitle: String? = nil, retry: Bool = false, completion: (() -> Void)? = nil, retryActionHandler: (() -> Void)? = nil) -> UIAlertController {
+	/// This method helps to build a alert for displaying error messages.
+	/// - Parameters:
+	///   - title: The title of the alert. If omitted, it will use the general error title.
+	///   - message: The description of the alert.
+	///   - okTitle: The text of the ok action.
+	///   - secondaryActionTitle: The text of the secondary action, if there is one.
+	///   - hasSecondaryAction: Indicates whether an alert has a secondary action or not.
+	///   - completion: The completion handler for the "ok" action.
+	///   - secondaryActionCompletion: The completion handler for the secondary action.
+	/// - Returns: An alert with either one or two actions, with the specified completion handlers
+	/// and texts.
+	static func setupErrorAlert(
+		title: String? = nil,
+		message: String,
+		okTitle: String? = nil,
+		secondaryActionTitle: String? = nil,
+		hasSecondaryAction: Bool = false, completion: (() -> Void)? = nil,
+		secondaryActionCompletion: (() -> Void)? = nil
+	) -> UIAlertController {
 		let alert = UIAlertController(
 			title: title ?? AppStrings.ExposureSubmission.generalErrorTitle,
 			message: message,
@@ -35,12 +53,12 @@ enum ExposureSubmissionViewUtils {
 		)
 
 		alert.addAction(ok)
-		if retry {
+		if hasSecondaryAction {
 			let retryAction = UIAlertAction(
-				title: retryTitle ?? AppStrings.Common.alertActionRetry,
+				title: secondaryActionTitle ?? AppStrings.Common.alertActionRetry,
 				style: .default,
 				handler: { _ in
-					alert.dismiss(animated: true, completion: retryActionHandler)
+					alert.dismiss(animated: true, completion: secondaryActionCompletion)
 
 				}
 			)

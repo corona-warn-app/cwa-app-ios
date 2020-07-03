@@ -134,7 +134,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				switch result {
 				case let .failure(error):
 
-					let alert = ExposureSubmissionViewUtils.setupErrorAlert(message: error.localizedDescription)
+					let alert = ErrorAlertUtil.setupErrorAlert(message: error.localizedDescription)
 					
 					self.present(alert, animated: true, completion: {
 						self.navigationFooterItem?.isPrimaryButtonEnabled = true
@@ -159,7 +159,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		if let state = exposureSubmissionService?.preconditions() {
 			if !state.isGood {
 
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(
+				let alert = ErrorAlertUtil.setupErrorAlert(
 					message: ExposureSubmissionError.enNotEnabled.localizedDescription
 				)
 				self.present(alert, animated: true, completion: nil)
