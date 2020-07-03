@@ -36,6 +36,7 @@ class CountdownTimerTests: XCTestCase {
 
 		let expectation = self.expectation(description: "Calls done.")
 		countdownTimerTarget.doneCallback = {
+			XCTAssert(Date() > end)
 			expectation.fulfill()
 		}
 
@@ -63,7 +64,7 @@ class CountdownTimerTests: XCTestCase {
 		c.delegate = countdownTimerTarget
 
 		let updateExpectation = self.expectation(description: "Calls update every second.")
-		updateExpectation.expectedFulfillmentCount = 2
+		updateExpectation.expectedFulfillmentCount = 3
 		countdownTimerTarget.updateCallback = { time in
 			updateExpectation.fulfill()
 		}

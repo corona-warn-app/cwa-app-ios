@@ -50,9 +50,9 @@ class CountdownTimer {
 	// MARK: - Private Helpers.
 
 	private func action(_ timer: Timer? = nil) {
-		guard self.end - 1 > Date() else {
-			self.delegate?.done()
+		guard self.end >= Date() else {
 			timer?.invalidate()
+			self.delegate?.done()
 			return
 		}
 
