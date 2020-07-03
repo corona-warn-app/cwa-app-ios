@@ -44,7 +44,9 @@ class CountdownTimer {
 	func start() {
 		timer?.invalidate()
 		timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: action)
-		timer?.fire()
+		guard let timer = timer else { return }
+		RunLoop.main.add(timer, forMode: .common)
+		timer.fire()
 	}
 
 	// MARK: - Private Helpers.
