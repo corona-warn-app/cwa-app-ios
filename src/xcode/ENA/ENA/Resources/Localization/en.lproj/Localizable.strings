@@ -553,6 +553,8 @@
 
 "ExposureNotificationSetting_unknownError" = "An unknown error occured. Please visit the FAQ website for more information.";
 
+"ExposureNotificationSetting_apiMisuse" = "An internal error occurred when activating the risk identification. Please visit the FAQ website for more information and try the activation later again.";
+
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App logo";
 
