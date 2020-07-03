@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4 (03/07/2020)
+#### Bug fixes
+-  Fixed number of active days [#841](https://github.com/corona-warn-app/cwa-app-ios/pull/841)
+---
+
 ## v1.0.5-dev (02/07/2020)
 #### Bug fixes
 
@@ -39,7 +44,6 @@
 
 -  Refactor Error Handling in Exposure Submission [#808](https://github.com/corona-warn-app/cwa-app-ios/pull/808)
 -  Translation Changes in DE & EN [#786](https://github.com/corona-warn-app/cwa-app-ios/pull/786)
--  Translation for turkish added [#773](https://github.com/corona-warn-app/cwa-app-ios/pull/773)
 -  Split background tasks on develop branch [#728](https://github.com/corona-warn-app/cwa-app-ios/pull/728)
 -  Translation [#743](https://github.com/corona-warn-app/cwa-app-ios/pull/743)
 -  Marked the "not implemented" initializers as "unavailable" (closes #681) [#682](https://github.com/corona-warn-app/cwa-app-ios/pull/682)
