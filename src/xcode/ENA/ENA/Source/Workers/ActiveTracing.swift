@@ -34,8 +34,9 @@ struct ActiveTracing {
 	}
 
 	var inHours: Int {
-		// Hours are intentionally rounded down. We could also simply cast this to `Int` (what we actually do here as well)
-		// but 
+		// Hours are intentionally rounded down.
+		// We could also simply cast this to `Int` (what we actually do here as well)
+		// but we still call rounded(…) to make it more explicit.
 		Int((interval / TimeInterval.SEC_PER_HOUR).rounded(.down))
 	}
 	
