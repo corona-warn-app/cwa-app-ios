@@ -19,14 +19,14 @@ import ExposureNotification
 import UIKit
 
 protocol HomeViewControllerDelegate: AnyObject {
-	func showSettings(enState: ENStateHandler.State)
-	func showInviteFriends()
 	func showExposureNotificationSetting(enState: ENStateHandler.State)
-	func showAppInformation()
-	func showWebPage(from viewController: UIViewController)
 	func showExposureDetection(state: HomeInteractor.State, isRequestRiskRunning: Bool)
 	func setExposureDetectionState(state: HomeInteractor.State, isRequestRiskRunning: Bool)
 	func showExposureSubmission(with result: TestResult?)
+	func showInviteFriends()
+	func showWebPage(from viewController: UIViewController)
+	func showAppInformation()
+	func showSettings(enState: ENStateHandler.State)
 	func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?)
 }
 

@@ -52,7 +52,7 @@ final class Coordinator: RequiresAppDependencies {
 		enStateUpdatingSet.removeAllObjects()
 	}
 
-	func showHome(_ enStateHandler: ENStateHandler, state: SceneDelegate.State) {
+	func showHome(enStateHandler: ENStateHandler, state: SceneDelegate.State) {
 		let vc = AppStoryboard.home.initiate(viewControllerType: HomeViewController.self) { [unowned self] coder in
 			HomeViewController(
 				coder: coder,
@@ -119,69 +119,7 @@ final class Coordinator: RequiresAppDependencies {
 	}
 }
 
-extension Coordinator: SettingsViewControllerDelegate {
-	func settingsViewController(_ controller: SettingsViewController, setExposureManagerEnabled enabled: Bool, then completion: @escaping Completion) {
-		setExposureManagerEnabled(enabled, then: completion)
-	}
-
-	func settingsViewControllerUserDidRequestReset(_ controller: SettingsViewController) {
-		delegate?.coordinatorUserDidRequestReset()
-	}
-}
-
-extension Coordinator: ExposureNotificationSettingViewControllerDelegate {
-	func exposureNotificationSettingViewController(_ controller: ExposureNotificationSettingViewController, setExposureManagerEnabled enabled: Bool, then completion: @escaping Completion) {
-		setExposureManagerEnabled(enabled, then: completion)
-	}
-}
-
-extension Coordinator: ExposureDetectionViewControllerDelegate {
-	func didStartLoading(exposureDetectionViewController: ExposureDetectionViewController) {
-		homeController?.updateAndReloadRiskLoading(isRequestRiskRunning: true)
-	}
-
-	func didFinishLoading(exposureDetectionViewController: ExposureDetectionViewController) {
-		homeController?.updateAndReloadRiskLoading(isRequestRiskRunning: false)
-	}
-
-	func exposureDetectionViewController(
-		_: ExposureDetectionViewController,
-		setExposureManagerEnabled enabled: Bool,
-		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
-	) {
-		setExposureManagerEnabled(enabled, then: completion)
-	}
-}
-
-extension Coordinator: ExposureSubmissionNavigationControllerDelegate {
-	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
-		homeController?.updateTestResultState()
-	}
-}
-
 extension Coordinator: HomeViewControllerDelegate {
-	func showSettings(enState: ENStateHandler.State) {
-		let storyboard = AppStoryboard.settings.instance
-		let vc = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
-			SettingsViewController(
-				coder: coder,
-				store: self.store,
-				initialEnState: enState,
-				delegate: self
-			)
-		}
-		addToUpdatingSetIfNeeded(vc)
-		settingsController = vc
-		rootViewController.pushViewController(vc, animated: true)
-	}
-
-	func showInviteFriends() {
-		rootViewController.pushViewController(
-			FriendsInviteController.initiate(for: .inviteFriends),
-			animated: true
-		)
-	}
-
 	func showExposureNotificationSetting(enState: ENStateHandler.State) {
 		let storyboard = AppStoryboard.exposureNotificationSetting.instance
 		let vc = storyboard.instantiateViewController(identifier: "ExposureNotificationSettingViewController") { coder in
@@ -194,17 +132,6 @@ extension Coordinator: HomeViewControllerDelegate {
 		}
 		addToUpdatingSetIfNeeded(vc)
 		rootViewController.pushViewController(vc, animated: true)
-	}
-
-	func showAppInformation() {
-		rootViewController.pushViewController(
-			AppInformationViewController(),
-			animated: true
-		)
-	}
-
-	func showWebPage(from viewController: UIViewController) {
-		WebPageHelper.showWebPage(from: viewController)
 	}
 
 	func showExposureDetection(state: HomeInteractor.State, isRequestRiskRunning: Bool) {
@@ -250,11 +177,84 @@ extension Coordinator: HomeViewControllerDelegate {
 		)
 	}
 
+	func showInviteFriends() {
+		rootViewController.pushViewController(
+			FriendsInviteController.initiate(for: .inviteFriends),
+			animated: true
+		)
+	}
+
+	func showWebPage(from viewController: UIViewController) {
+		WebPageHelper.showWebPage(from: viewController)
+	}
+
+	func showAppInformation() {
+		rootViewController.pushViewController(
+			AppInformationViewController(),
+			animated: true
+		)
+	}
+
+	func showSettings(enState: ENStateHandler.State) {
+		let storyboard = AppStoryboard.settings.instance
+		let vc = storyboard.instantiateViewController(identifier: "SettingsViewController") { coder in
+			SettingsViewController(
+				coder: coder,
+				store: self.store,
+				initialEnState: enState,
+				delegate: self
+			)
+		}
+		addToUpdatingSetIfNeeded(vc)
+		settingsController = vc
+		rootViewController.pushViewController(vc, animated: true)
+	}
+
 	func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?) {
 		if let anyObject = anyObject,
 		   anyObject is ENStateHandlerUpdating {
 			enStateUpdatingSet.add(anyObject)
 		}
+	}
+}
+
+extension Coordinator: ExposureNotificationSettingViewControllerDelegate {
+	func exposureNotificationSettingViewController(_ controller: ExposureNotificationSettingViewController, setExposureManagerEnabled enabled: Bool, then completion: @escaping Completion) {
+		setExposureManagerEnabled(enabled, then: completion)
+	}
+}
+
+extension Coordinator: ExposureDetectionViewControllerDelegate {
+	func didStartLoading(exposureDetectionViewController: ExposureDetectionViewController) {
+		homeController?.updateAndReloadRiskLoading(isRequestRiskRunning: true)
+	}
+
+	func didFinishLoading(exposureDetectionViewController: ExposureDetectionViewController) {
+		homeController?.updateAndReloadRiskLoading(isRequestRiskRunning: false)
+	}
+
+	func exposureDetectionViewController(
+		_: ExposureDetectionViewController,
+		setExposureManagerEnabled enabled: Bool,
+		completionHandler completion: @escaping (ExposureNotificationError?) -> Void
+	) {
+		setExposureManagerEnabled(enabled, then: completion)
+	}
+}
+
+extension Coordinator: ExposureSubmissionNavigationControllerDelegate {
+	func exposureSubmissionNavigationControllerWillDisappear(_ controller: ExposureSubmissionNavigationController) {
+		homeController?.updateTestResultState()
+	}
+}
+
+extension Coordinator: SettingsViewControllerDelegate {
+	func settingsViewController(_ controller: SettingsViewController, setExposureManagerEnabled enabled: Bool, then completion: @escaping Completion) {
+		setExposureManagerEnabled(enabled, then: completion)
+	}
+
+	func settingsViewControllerUserDidRequestReset(_ controller: SettingsViewController) {
+		delegate?.coordinatorUserDidRequestReset()
 	}
 }
 

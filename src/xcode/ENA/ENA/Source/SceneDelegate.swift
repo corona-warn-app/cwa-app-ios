@@ -158,7 +158,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 			fatalError("It should not happen.")
 		}
 
-		coordinator.showHome(enStateHandler, state: state)
+		coordinator.showHome(enStateHandler: enStateHandler, state: state)
 	}
 
 	private func showOnboarding() {
