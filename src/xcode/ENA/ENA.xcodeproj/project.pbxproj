@@ -198,6 +198,8 @@
 		A1877CAB248F2532006FEFC0 /* SAPDownloadedPackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */; };
 		A189E45F248C325E001D0996 /* de-config in Resources */ = {isa = PBXBuildFile; fileRef = A189E45E248C325E001D0996 /* de-config */; };
 		A189E461248C35BF001D0996 /* PublicKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A189E460248C35BF001D0996 /* PublicKeys.plist */; };
+		A1C683FA24AEC57400B90D12 /* DynamicTableViewTextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C683F924AEC57400B90D12 /* DynamicTableViewTextViewCell.swift */; };
+		A1C683FC24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C683FB24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift */; };
 		A1E41941249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E41940249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift */; };
 		A1E419462495479D0016E52A /* HTTPClient+MockNetworkStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E419442495476C0016E52A /* HTTPClient+MockNetworkStack.swift */; };
 		A1E41949249548770016E52A /* HTTPClient+SubmitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E41947249548260016E52A /* HTTPClient+SubmitTests.swift */; };
@@ -612,6 +614,8 @@
 		A1877CA9248F247D006FEFC0 /* SAPDownloadedPackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SAPDownloadedPackageTests.swift; sourceTree = "<group>"; };
 		A189E45E248C325E001D0996 /* de-config */ = {isa = PBXFileReference; lastKnownFileType = file; path = "de-config"; sourceTree = "<group>"; };
 		A189E460248C35BF001D0996 /* PublicKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PublicKeys.plist; sourceTree = "<group>"; };
+		A1C683F924AEC57400B90D12 /* DynamicTableViewTextViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewTextViewCell.swift; sourceTree = "<group>"; };
+		A1C683FB24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicTableViewTextCell.swift; sourceTree = "<group>"; };
 		A1E41940249410AF0016E52A /* SAPDownloadedPackage+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SAPDownloadedPackage+Helpers.swift"; sourceTree = "<group>"; };
 		A1E419442495476C0016E52A /* HTTPClient+MockNetworkStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+MockNetworkStack.swift"; sourceTree = "<group>"; };
 		A1E41947249548260016E52A /* HTTPClient+SubmitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPClient+SubmitTests.swift"; sourceTree = "<group>"; };
@@ -1230,6 +1234,7 @@
 				71330E4424810A0500EB10F6 /* DynamicTableViewHeader.swift */,
 				71330E4624810A0C00EB10F6 /* DynamicTableViewFooter.swift */,
 				71330E42248109FD00EB10F6 /* DynamicTableViewCell.swift */,
+				A1C683FB24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift */,
 				71330E4824810A5A00EB10F6 /* DynamicTableViewAction.swift */,
 			);
 			path = DynamicTableViewController;
@@ -1247,6 +1252,7 @@
 				71B8044E248526B600D53506 /* DynamicTableViewSpaceCell.swift */,
 				2FF1D62F24880FCF00381FFB /* DynamicTableViewRoundedCell.swift */,
 				717D21E8248C022E00D9717E /* DynamicTableViewHtmlCell.swift */,
+				A1C683F924AEC57400B90D12 /* DynamicTableViewTextViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2298,6 +2304,7 @@
 				B1EDFD8D248E74D000E7EAFF /* URL+StaticString.swift in Sources */,
 				A3E851B224ADD09900402485 /* CountdownTimer.swift in Sources */,
 				011E13AE24680A4000973467 /* HTTPClient.swift in Sources */,
+				A1C683FA24AEC57400B90D12 /* DynamicTableViewTextViewCell.swift in Sources */,
 				853D987A24694A8700490DBA /* ENAButton.swift in Sources */,
 				CD8638532477EBD400A5A07C /* SettingsViewModel.swift in Sources */,
 				2FC0357124B5B70700E234AC /* Error+FAQUrl.swift in Sources */,
@@ -2456,6 +2463,7 @@
 				71FE1C69247A8FE100851FEB /* DynamicTableViewHeaderFooterView.swift in Sources */,
 				B184A383248FFCE2007180F6 /* CodableExposureDetectionSummary.swift in Sources */,
 				B111EE2C2465D9F7001AEBB4 /* String+Localization.swift in Sources */,
+				A1C683FC24AEC9EE00B90D12 /* DynamicTableViewTextCell.swift in Sources */,
 				710224F624910661000C5DEF /* ExposureSubmissionDynamicCell.swift in Sources */,
 				EEF1067A246EBF8B009DFB4E /* ResetViewController.swift in Sources */,
 				51CE1BBA2460AFD8002CF42A /* HomeActivateCellConfigurator.swift in Sources */,

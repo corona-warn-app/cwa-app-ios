@@ -1,3 +1,4 @@
+//
 // Corona-Warn-App
 //
 // SAP SE and all other contributors
@@ -14,13 +15,17 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+//
 
 import Foundation
 import UIKit
 
-class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
+class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
+	let textView = UITextView()
+
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
+		setup()
 	}
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -28,32 +33,25 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 		setup()
 	}
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		setup()
-	}
-
 	private func setup() {
 		selectionStyle = .none
-
 		backgroundColor = .enaColor(for: .background)
 
-		if let label = textLabel {
-			label.translatesAutoresizingMaskIntoConstraints = false
-			label.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor).isActive = true
-			label.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor).isActive = true
-			label.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
-			label.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-		}
+		textView.translatesAutoresizingMaskIntoConstraints = false
+		textView.isScrollEnabled = false
+		textView.dataDetectorTypes = .all
+		textView.isEditable = false
 
-		resetMargins()
-		configureDynamicType()
-		configure(text: "", color: .enaColor(for: .textPrimary1))
+		contentView.addSubview(textView)
+		contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: textView.topAnchor).isActive = true
+		contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: textView.bottomAnchor).isActive = true
+		contentView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: textView.leadingAnchor).isActive = true
+		contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: textView.trailingAnchor).isActive = true
 	}
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		
+
 		resetMargins()
 		configureDynamicType()
 		configure(text: "", color: .enaColor(for: .textPrimary1))
@@ -65,19 +63,18 @@ class DynamicTypeTableViewCell: UITableViewCell, DynamicTableViewTextCell {
 	}
 
 	func configureDynamicType(size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body) {
-		textLabel?.font = UIFont.preferredFont(forTextStyle: style).scaledFont(size: size, weight: weight)
-		textLabel?.adjustsFontForContentSizeCategory = true
-		textLabel?.numberOfLines = 0
+		textView.font = UIFont.preferredFont(forTextStyle: style).scaledFont(size: size, weight: weight)
+		textView.adjustsFontForContentSizeCategory = true
 	}
 
 	func configure(text: String, color: UIColor? = nil) {
-		textLabel?.text = text
-		textLabel?.textColor = color ?? .enaColor(for: .textPrimary1)
+		textView.text = text
+		textView.textColor = color ?? .enaColor(for: .textPrimary1)
 	}
 
 	func configureAccessibility(label: String? = nil, identifier: String? = nil, traits: UIAccessibilityTraits = .staticText) {
-		textLabel?.accessibilityLabel = label
-		textLabel?.accessibilityIdentifier = identifier
+		textView.accessibilityLabel = label
+		textView.accessibilityIdentifier = identifier
 		accessibilityTraits = traits
 	}
 }

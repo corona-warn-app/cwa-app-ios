@@ -56,8 +56,8 @@ private extension DynamicCell {
 		}
 	}
 
-	static func bodyWithoutTopInset(text: String, accessibilityIdentifier: String?) -> Self {
-		.body(text: text, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
+	static func bodyWithoutTopInset(text: String, style: TextCellStyle = .label, accessibilityIdentifier: String?) -> Self {
+		.body(text: text, style: style, accessibilityIdentifier: accessibilityIdentifier) { _, cell, _ in
 			cell.contentView.preservesSuperviewLayoutMargins = false
 			cell.contentView.layoutMargins.top = 0
 			cell.accessibilityIdentifier = accessibilityIdentifier
@@ -193,6 +193,7 @@ extension AppInformationViewController {
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection3Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
+									 style: .textView,
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),
