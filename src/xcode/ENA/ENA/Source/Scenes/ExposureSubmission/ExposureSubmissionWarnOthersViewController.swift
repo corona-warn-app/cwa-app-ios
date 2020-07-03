@@ -53,15 +53,23 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		exposureSubmissionService = exposureSubmissionService ?? (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
 	}
 
-	// MARK: - ExposureSubmissionService Helpers.
-
 	internal func startSubmitProcess() {
 		navigationFooterItem?.isPrimaryButtonLoading = true
 		navigationFooterItem?.isPrimaryButtonEnabled = false
 		exposureSubmissionService?.submitExposure { error in
 			switch error {
+			// We continue the regular flow even if there are no keys collected.
 			case .none, .noKeys:
 				self.performSegue(withIdentifier: Segue.sent, sender: self)
+
+			// Custom error handling for EN framework related errors.
+			case .internal, .unsupported, .rateLimited:
+				guard let error = error else {
+					logError(message: "error while parsing EN error.")
+					return
+				}
+				self.showENErrorAlert(error)
+
 			case .some(let error):
 				logError(message: "error: \(error.localizedDescription)", level: .error)
 				let alert = ExposureSubmissionViewUtils.setupErrorAlert(message: error.localizedDescription)
@@ -71,6 +79,31 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 				})
 			}
 		}
+	}
+
+	// MARK: - UI-related helpers.
+
+	private func showENErrorAlert(_ error: ExposureSubmissionError) {
+		logError(message: "error: \(error.localizedDescription)", level: .error)
+		let alert = ExposureSubmissionViewUtils.setupErrorAlert(
+			message: error.localizedDescription,
+			retryTitle: AppStrings.ExposureSubmissionError.moreInfo,
+			retry: true,
+			retryActionHandler: {
+				guard let url = URL(string: "https://www.coronawarn.app/de/faq") else {
+					logError(message: "Unable to open FAQ page.", level: .error)
+					return
+				}
+				UIApplication.shared.open(
+					url,
+					options: [:]
+				)
+		})
+
+		self.present(alert, animated: true, completion: {
+			self.navigationFooterItem?.isPrimaryButtonLoading = false
+			self.navigationFooterItem?.isPrimaryButtonEnabled = true
+		})
 	}
 
 }

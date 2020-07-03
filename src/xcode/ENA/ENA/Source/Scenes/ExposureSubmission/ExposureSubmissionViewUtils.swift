@@ -45,7 +45,6 @@ enum ExposureSubmissionViewUtils {
 				}
 			)
 			alert.addAction(retryAction)
-			alert.preferredAction = retryAction
 		}
 		return alert
 	}

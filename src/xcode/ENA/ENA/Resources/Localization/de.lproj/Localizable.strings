@@ -484,9 +484,11 @@
 
 "ExposureSubmissionError_unsupported" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
 
-"ExposureSubmissionError_internal" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
+"ExposureSubmissionError_internal" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Mehr Informationen finden Sie in den FAQ.";
 
 "ExposureSubmissionError_rateLimited" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es morgen erneut.";
+
+"ExposureSubmissionError_moreInfo" = "Mehr Erfahren";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
