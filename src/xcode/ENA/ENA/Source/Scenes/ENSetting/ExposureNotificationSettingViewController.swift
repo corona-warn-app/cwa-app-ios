@@ -224,10 +224,10 @@ extension ExposureNotificationSettingViewController {
 							(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
 							(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
 
-						let numberRiskContacts = store.tracingStatusHistory.countEnabledDays()
+						let numberOfDaysWithActiveTracing = store.tracingStatusHistory.activeTracing().inDays
 						tracingCell.configure(
-							progress: CGFloat(numberRiskContacts),
-							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberRiskContacts),
+							progress: CGFloat(numberOfDaysWithActiveTracing),
+							text: String(format: AppStrings.ExposureNotificationSetting.tracingHistoryDescription, numberOfDaysWithActiveTracing),
 							colorConfigurationTuple: colorConfig
 						)
 						return tracingCell

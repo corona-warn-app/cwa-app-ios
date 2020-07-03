@@ -19,32 +19,27 @@
 
 import Foundation
 
-struct Risk {
-	let level: RiskLevel
-	let details: Details
-	let riskLevelHasChanged: Bool
+private extension TimeInterval {
+	static let SEC_PER_HOUR: TimeInterval = 3600.0
+	static let SEC_PER_DAY = SEC_PER_HOUR * 24.0
 }
 
-extension Risk {
-	struct Details {
-		var daysSinceLastExposure: Int?
-		var numberOfExposures: Int?
-		var numberOfHoursWithActiveTracing: Int { activeTracing.inHours }
-		var activeTracing: ActiveTracing
-		var numberOfDaysWithActiveTracing: Int { activeTracing.inDays }
-		var exposureDetectionDate: Date
+struct ActiveTracing {
+	let interval: TimeInterval
+	let maximumNumberOfDays: Int
+
+	init(interval: TimeInterval, maximumNumberOfDays: Int) {
+		self.interval = interval
+		self.maximumNumberOfDays = maximumNumberOfDays
+	}
+
+	var inHours: Int {
+		// Hours are intentionally rounded down. We could also simply cast this to `Int` (what we actually do here as well)
+		// but 
+		Int((interval / TimeInterval.SEC_PER_HOUR).rounded(.down))
+	}
+	
+	var inDays: Int {
+		Int((interval / TimeInterval.SEC_PER_DAY).rounded(.toNearestOrAwayFromZero))
 	}
 }
-
-#if UITESTING
-extension Risk {
-	static let mocked = Risk(
-		level: .low,
-		details: Risk.Details(
-			numberOfExposures: 0,
-			numberOfHoursWithActiveTracing: 336,  // two weeks
-			exposureDetectionDate: Date()),
-		riskLevelHasChanged: true
-	)
-}
-#endif

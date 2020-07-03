@@ -90,18 +90,15 @@ extension Array where Element == TracingStatusEntry {
 	/// Mark returns the count of days that tracing has been enabled
 	///
 	/// - parameter since: Date to use as the baseline. Defaults to `Date()`
-	func countEnabledDays(since date: Date = Date()) -> Int {
-		// 5.5 days => 6 days
-		// 0.5 days => 1 day
-		// 13.99999 days => 14 days
-		Int(Double(getContinuousEnabledInterval(since: date) / (60 * 60 * 24)).rounded(.toNearestOrAwayFromZero))
-	}
-
-	/// Mark returns the count of hours that tracing has been enabled
-	///
-	/// - parameter since: Date to use as the baseline. Defaults to `Date()`
-	func countEnabledHours(since date: Date = Date()) -> Int {
-		Int(getContinuousEnabledInterval(since: date)) / (60 * 60)
+	/// - parameter maximumNumberOfDays: Maximum number of days we keep in the history.
+	func activeTracing(
+		since date: Date = Date(),
+		maximumNumberOfDays: Int = Self.maxStoredDays
+	) -> ActiveTracing {
+		ActiveTracing(
+			interval: getContinuousEnabledInterval(since: date),
+			maximumNumberOfDays: maximumNumberOfDays
+		)
 	}
 
 	/// Get the total `TimeInterval` that tracing has been enabled.
