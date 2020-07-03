@@ -75,6 +75,14 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: future, currentDate: now), now)
 	}
 
+	func testNextExposureDetectionDate_Success() {
+		// Test the case where everything just works and you get a valid next date in the future.
+		let now = Date()
+		let nextDate = config.nextExposureDetectionDate(lastExposureDetectionDate: now)
+		let exposureDetectionInterval: TimeInterval = 24 * 60 * 60
+		XCTAssertEqual(nextDate, now.addingTimeInterval(exposureDetectionInterval))
+	}
+
 	// MARK: - Calculating exposure valid bool
 
 	func testExposureDetectionIsValid_PastLastDetection() {

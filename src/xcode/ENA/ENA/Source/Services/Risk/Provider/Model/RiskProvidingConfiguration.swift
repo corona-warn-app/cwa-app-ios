@@ -41,13 +41,29 @@ extension RiskProvidingConfiguration {
 	}
 
 	func nextExposureDetectionDate(lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Date {
-		let potentialDate = Calendar.current.date(
-			byAdding: exposureDetectionInterval,
-			to: lastExposureDetectionDate ?? .distantPast,
-			wrappingComponents: false
+		// The lastExposureDetection should have been computed before:
+		guard let lastExposureDetectionDate = lastExposureDetectionDate else {
+			return Calendar.current.date(
+				byAdding: exposureDetectionInterval,
+				to: .distantPast,
+				wrappingComponents: false
 			) ?? .distantPast
-		return potentialDate > currentDate ? currentDate : potentialDate
+		}
+
+		// The lastExposureDetection should not be in the future.
+		guard lastExposureDetectionDate < currentDate else {
+			return currentDate
+		}
+
+		return Calendar.current.date(
+			byAdding: exposureDetectionInterval,
+			to: lastExposureDetectionDate,
+			wrappingComponents: false
+		) ?? .distantPast
 	}
+
+	// Test the case where the last exposure detection date is in the future.
+	// This edge case should be handled by just returning now as the next detection date
 
 	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast, currentDate: Date = Date()) -> Bool {
 		// It is not valid to have a future exposure detection date
