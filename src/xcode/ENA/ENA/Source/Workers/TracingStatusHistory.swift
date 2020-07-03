@@ -87,7 +87,7 @@ extension Array where Element == TracingStatusEntry {
 		getContinuousEnabledInterval(since: date) > continuousInterval
 	}
 
-	/// Mark returns the count of days that tracing has been enabled
+	/// Mark returns the active tracing info.
 	///
 	/// - parameter since: Date to use as the baseline. Defaults to `Date()`
 	/// - parameter maximumNumberOfDays: Maximum number of days we keep in the history.
@@ -104,7 +104,7 @@ extension Array where Element == TracingStatusEntry {
 	/// Get the total `TimeInterval` that tracing has been enabled.
 	///
 	/// - parameter since: `Date` to use as the baseline. Defaults to `Date()`
-	func getContinuousEnabledInterval(since: Date = Date()) -> TimeInterval {
+	private func getContinuousEnabledInterval(since: Date = Date()) -> TimeInterval {
 		// In order to have a minimal set of changes for hotfix #1 we hard-code
 		// the precondition (self is pruned) here and have the old, tested code
 		// stay the same in _getContinuousEnabledInterval.
