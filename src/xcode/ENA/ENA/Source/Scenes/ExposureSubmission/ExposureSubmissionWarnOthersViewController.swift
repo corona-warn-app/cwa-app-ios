@@ -90,7 +90,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 			secondaryActionTitle: AppStrings.ExposureSubmissionError.moreInfo,
 			hasSecondaryAction: true,
 			secondaryActionCompletion: {
-				guard let url = URL(string: "https://www.coronawarn.app/de/faq") else {
+				guard let url = URL(string: AppStrings.ExposureSubmissionError.moreInfoURL) else {
 					logError(message: "Unable to open FAQ page.", level: .error)
 					return
 				}

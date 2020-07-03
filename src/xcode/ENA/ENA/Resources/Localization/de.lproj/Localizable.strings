@@ -490,6 +490,8 @@
 
 "ExposureSubmissionError_moreInfo" = "Mehr Erfahren";
 
+"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 

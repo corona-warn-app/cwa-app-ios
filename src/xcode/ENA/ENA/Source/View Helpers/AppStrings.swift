@@ -195,6 +195,7 @@ enum AppStrings {
 		static let `internal` = NSLocalizedString("ExposureSubmissionError_internal", comment: "")
 		static let rateLimited = NSLocalizedString("ExposureSubmissionError_rateLimited", comment: "")
 		static let moreInfo = NSLocalizedString("ExposureSubmissionError_moreInfo", comment: "")
+		static let moreInfoURL = NSLocalizedString("ExposureSubmissionError_moreInfo_URL", comment: "")
 	}
 
 	enum ExposureDetection {
