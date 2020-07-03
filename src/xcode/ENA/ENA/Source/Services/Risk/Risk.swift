@@ -42,7 +42,7 @@ extension Risk {
 		level: .low,
 		details: Risk.Details(
 			numberOfExposures: 0,
-			numberOfHoursWithActiveTracing: 336,  // two weeks
+			activeTracing: .init(interval: 336 * 24 * 3600, maximumNumberOfDays: 14),  // two weeks
 			exposureDetectionDate: Date()),
 		riskLevelHasChanged: true
 	)
