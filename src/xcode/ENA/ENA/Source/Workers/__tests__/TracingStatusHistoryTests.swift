@@ -280,6 +280,26 @@ final class TracingStatusHistoryTests: XCTestCase {
 		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 2)
 		XCTAssertEqual(history.countEnabledDays(since: now), 2)
 	}
+
+	func testNumberOfDays_Rounding() {
+		let now = Date()
+
+		var history: TracingStatusHistory = [
+			.init(on: true, date: now.addingTimeInterval(.init(hours: -((24 * 5) + 4))))
+		]
+
+		XCTAssertEqual(history.countEnabledDays(since: now), 5)
+
+		history = [
+			.init(on: true, date: now.addingTimeInterval(.init(hours: -((24 * 5) + 13))))
+		]
+		XCTAssertEqual(history.countEnabledDays(since: now), 6)
+
+		history = [
+			.init(on: true, date: now.addingTimeInterval(.init(hours: -((24 * 5) + 0))))
+		]
+		XCTAssertEqual(history.countEnabledDays(since: now), 5)
+	}
 }
 
 private extension TimeInterval {
