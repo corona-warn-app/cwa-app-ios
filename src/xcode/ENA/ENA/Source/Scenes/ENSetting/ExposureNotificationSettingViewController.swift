@@ -84,35 +84,21 @@ extension ExposureNotificationSettingViewController {
 	}
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
-		switch error {
-		case .exposureNotificationAuthorization:
-			logError(message: "Failed to enable exposureNotificationAuthorization")
-			if alert {
-				alertError(message: "Failed to enable: exposureNotificationAuthorization", title: AppStrings.ExposureSubmission.generalErrorTitle)
+		if alert {
+			switch error {
+			case .exposureNotificationAuthorization:
+				alertError(message: AppStrings.ExposureNotificationError.enAuthorizationError, title: AppStrings.ExposureNotificationError.generalErrorTitle, optinActions: [UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in WebPageHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })])
+			case .exposureNotificationRequired:
+				alertError(message: AppStrings.ExposureNotificationError.enActivationRequiredError, title: AppStrings.ExposureNotificationError.generalErrorTitle, optinActions: [UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in WebPageHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })])
+			case .exposureNotificationUnavailable:
+				alertError(message: AppStrings.ExposureNotificationError.enUnavailableError, title: AppStrings.ExposureNotificationError.generalErrorTitle, optinActions: [UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in WebPageHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })])
+			case .unknown(let message):
+				alertError(message: AppStrings.ExposureNotificationError.enUnknownError + message, title: AppStrings.ExposureNotificationError.generalErrorTitle, optinActions: [UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in WebPageHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })])
+			case .apiMisuse:
+				alertError(message: AppStrings.ExposureNotificationError.apiMisuse, title: AppStrings.ExposureNotificationError.generalErrorTitle, optinActions: [UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in WebPageHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })])
 			}
-		case .exposureNotificationRequired:
-			logError(message: "Failed to enable")
-			if alert {
-				alertError(message: "exposureNotificationAuthorization", title: AppStrings.ExposureSubmission.generalErrorTitle)
-			}
-		case .exposureNotificationUnavailable:
-			logError(message: "Failed to enable")
-			if alert {
-				alertError(message: "ExposureNotification is not available due to the system policy", title: AppStrings.ExposureSubmission.generalErrorTitle)
-			}
-		case .apiMisuse:
-			logError(message: "APIMisuse")
-			// This error should not happen as we toggle the enabled status on off - we can not enable without disabling first
-			if alert {
-				alertError(message: "ExposureNotification is already enabled", title: "Note")
-			}
-		case .unknown(let message):
-			logError(message: "unknown")
-			if alert {
-				alertError(message: "Cannot enable the notification. The reason is \(message)", title: AppStrings.ExposureSubmission.generalErrorTitle)
-			}
-
 		}
+		logError(message: error.localizedDescription)
 		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
 			mySceneDelegate.requestUpdatedExposureState()
 		}

@@ -539,6 +539,21 @@
 
 "ExposureNotificationSetting_Dismiss_Action" = "Abbrechen";
 
+"ExposureNotificationSetting_GeneralError_Title" = "Fehler";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Mehr erfahren";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/de/faq/";
+
+"ExposureNotificationSetting_AuthenticationError" = "Bei der Aktivierung der Risikoermittlung ist ein Fehler aufgetreten. Bitte prüfen Sie in den Einstellungen ob Sie die Covid19-Kontaktaufnahme aktiviert haben.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "Bei der Aktivierung der Risikoermittlung ist ein Fehler aufgetreten. Bitte prüfen Sie in den Einstellungen ob diese App für die Covid19 - Kontaktermittlung als aktive App ausgewählt wurde.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "Bei der Aktivierung der Risikoermittlung ist ein Fehler aufgetreten. Bitte prüfen Sie in den Einstellungen ob diese App für die Covid19 - Kontaktermittlung als aktive App ausgewählt wurde. Besuchen Sie die FAQ-Website für weitere Informationen.";
+
+"ExposureNotificationSetting_unknownError" = "Ein unbekannter Fehler ist aufgetreten. Für mehr Infos besuchen Sie bitte die FAQ-Website.";
+
+
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App Logo";
 

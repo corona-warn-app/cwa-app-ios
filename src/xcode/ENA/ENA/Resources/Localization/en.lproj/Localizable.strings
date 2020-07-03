@@ -539,6 +539,20 @@
 
 "ExposureNotificationSetting_Dismiss_Action" = "Cancel";
 
+"ExposureNotificationSetting_GeneralError_Title" = "Error";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Learn more";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureNotificationSetting_AuthenticationError" = "An error occurred when activating the risk identification. Please go to system settings and make sure this app is authorized to make use of Covid-19 contact tracing.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "An error occurred when activating the risk identification. Please go to system settings and make sure this app is selected active to make use of Covid-19 contact tracing.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "An error occurred when activating the risk identification. Please go to system settings and make sure this app is selected active to make use of Covid-19 contact tracing. Please visit the FAQ website for more information.";
+
+"ExposureNotificationSetting_unknownError" = "An unknown error occured. Please visit the FAQ website for more information.";
+
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App logo";
 
