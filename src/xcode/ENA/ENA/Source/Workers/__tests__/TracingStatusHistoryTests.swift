@@ -225,7 +225,7 @@ final class TracingStatusHistoryTests: XCTestCase {
 		history = history.consumingState(badState, now.addingTimeInterval(.init(hours: -1)))	// active for 23 hours
 
 		XCTAssertEqual(history.countEnabledHours(since: now), 24 * 4 + 23)
-		XCTAssertEqual(history.countEnabledDays(since: now), 4)
+		XCTAssertEqual(history.countEnabledDays(since: now), 5)
 	}
 
 	func testGetEnabledInterval_Accumulator_Good() {
