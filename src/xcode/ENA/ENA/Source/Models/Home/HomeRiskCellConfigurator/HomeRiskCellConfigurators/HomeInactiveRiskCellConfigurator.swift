@@ -19,18 +19,6 @@ import UIKit
 
 final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
-	func hash(into hasher: inout Swift.Hasher) {
-		hasher.combine(incativeType)
-		hasher.combine(previousRiskLevel)
-		hasher.combine(lastUpdateDate)
-	}
-
-	static func == (lhs: HomeInactiveRiskCellConfigurator, rhs: HomeInactiveRiskCellConfigurator) -> Bool {
-		lhs.incativeType == rhs.incativeType &&
-		lhs.previousRiskLevel == rhs.previousRiskLevel &&
-		lhs.lastUpdateDate == rhs.lastUpdateDate
-	}
-
 	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
 	private var lastUpdateDate: Date?
 
@@ -129,6 +117,20 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.topContainer.accessibilityTraits = [.button, .header]
 	}
 
+	// MARK: Hashable
+
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(incativeType)
+		hasher.combine(previousRiskLevel)
+		hasher.combine(lastUpdateDate)
+	}
+
+	static func == (lhs: HomeInactiveRiskCellConfigurator, rhs: HomeInactiveRiskCellConfigurator) -> Bool {
+		lhs.incativeType == rhs.incativeType &&
+		lhs.previousRiskLevel == rhs.previousRiskLevel &&
+		lhs.lastUpdateDate == rhs.lastUpdateDate
+	}
+	
 }
 
 extension HomeInactiveRiskCellConfigurator: RiskInactiveCollectionViewCellDelegate {

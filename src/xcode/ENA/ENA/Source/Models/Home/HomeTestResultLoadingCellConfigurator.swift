@@ -21,12 +21,6 @@ import Foundation
 
 class HomeTestResultLoadingCellConfigurator: CollectionViewCellConfigurator {
 
-	func hash(into hasher: inout Swift.Hasher) { }
-	
-	static func == (lhs: HomeTestResultLoadingCellConfigurator, rhs: HomeTestResultLoadingCellConfigurator) -> Bool {
-		true
-	}
-
 	func configure(cell: HomeTestResultLoadingCell) {
 		cell.setupCell()
 		cell.title.text = AppStrings.Home.resultCardLoadingTitle
@@ -35,4 +29,11 @@ class HomeTestResultLoadingCellConfigurator: CollectionViewCellConfigurator {
 		cell.button.setTitle(AppStrings.Home.resultCardShowResultButton, for: .disabled)
 	}
 
+	// MARK: Hashable
+
+	func hash(into hasher: inout Swift.Hasher) { }
+
+	static func == (lhs: HomeTestResultLoadingCellConfigurator, rhs: HomeTestResultLoadingCellConfigurator) -> Bool {
+		true
+	}
 }

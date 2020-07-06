@@ -19,14 +19,6 @@ import UIKit
 
 final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
-	func hash(into hasher: inout Swift.Hasher) {
-		hasher.combine(state)
-	}
-
-	static func == (lhs: HomeActivateCellConfigurator, rhs: HomeActivateCellConfigurator) -> Bool {
-		lhs.state == rhs.state
-	}
-	
 	private var state: ENStateHandler.State
 
 	init(state: ENStateHandler.State) {
@@ -62,6 +54,17 @@ final class HomeActivateCellConfigurator: CollectionViewCellConfigurator {
 
 		cell.accessibilityLabel = cell.titleLabel.text ?? ""
 	}
+
+	// MARK: Hashable
+	
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(state)
+	}
+
+	static func == (lhs: HomeActivateCellConfigurator, rhs: HomeActivateCellConfigurator) -> Bool {
+		lhs.state == rhs.state
+	}
+
 }
 
 extension HomeActivateCellConfigurator: ENStateHandlerUpdating {

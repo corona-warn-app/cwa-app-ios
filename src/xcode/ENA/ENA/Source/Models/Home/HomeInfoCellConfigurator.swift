@@ -18,20 +18,6 @@
 import UIKit
 
 class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
-
-	func hash(into hasher: inout Swift.Hasher) {
-		hasher.combine(title)
-		hasher.combine(description)
-		hasher.combine(position)
-		hasher.combine(accessibilityIdentifier)
-	}
-
-	static func == (lhs: HomeInfoCellConfigurator, rhs: HomeInfoCellConfigurator) -> Bool {
-		lhs.title == rhs.title &&
-		lhs.description == rhs.description &&
-		lhs.position == rhs.position &&
-		lhs.accessibilityIdentifier == rhs.accessibilityIdentifier
-	}
 	
 	var title: String
 	var description: String?
@@ -67,5 +53,21 @@ class HomeInfoCellConfigurator: CollectionViewCellConfigurator {
 			cell.topDividerView.isHidden = true
 			cell.bottomDividerLeadingConstraint.constant = 0.0
 		}
+	}
+
+	// MARK: Hashable
+
+	func hash(into hasher: inout Swift.Hasher) {
+		hasher.combine(title)
+		hasher.combine(description)
+		hasher.combine(position)
+		hasher.combine(accessibilityIdentifier)
+	}
+
+	static func == (lhs: HomeInfoCellConfigurator, rhs: HomeInfoCellConfigurator) -> Bool {
+		lhs.title == rhs.title &&
+		lhs.description == rhs.description &&
+		lhs.position == rhs.position &&
+		lhs.accessibilityIdentifier == rhs.accessibilityIdentifier
 	}
 }

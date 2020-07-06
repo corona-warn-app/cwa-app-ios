@@ -20,12 +20,6 @@
 import UIKit
 
 final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
-
-	func hash(into hasher: inout Swift.Hasher) { }
-
-	static func == (lhs: HomeThankYouRiskCellConfigurator, rhs: HomeThankYouRiskCellConfigurator) -> Bool {
-		true
-	}
 	
 	// MARK: Configuration
 
@@ -83,4 +77,11 @@ final class HomeThankYouRiskCellConfigurator: HomeRiskCellConfigurator {
 		cell.titleLabel.accessibilityTraits = .header
 	}
 
+	// MARK: Hashable
+
+	func hash(into hasher: inout Swift.Hasher) { }
+
+	static func == (lhs: HomeThankYouRiskCellConfigurator, rhs: HomeThankYouRiskCellConfigurator) -> Bool {
+		true
+	}
 }
