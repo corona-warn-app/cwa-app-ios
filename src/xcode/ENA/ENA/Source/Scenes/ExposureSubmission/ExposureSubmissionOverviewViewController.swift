@@ -169,7 +169,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
 				message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
 				okTitle: AppStrings.Common.alertActionCancel,
-				hasSecondaryAction: true,
+				secondaryActionTitle: AppStrings.Common.alertActionRetry,
 				completion: {
 					self.dismissQRCodeScannerView(vc, completion: nil)
 				},
@@ -204,7 +204,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 
 				let alert = self.setupErrorAlert(
 					message: error.localizedDescription,
-					hasSecondaryAction: true,
+					secondaryActionTitle: AppStrings.Common.alertActionRetry,
 					secondaryActionCompletion: {
 						self.startSpinner()
 						self.getRegistrationToken(forKey: forKey)

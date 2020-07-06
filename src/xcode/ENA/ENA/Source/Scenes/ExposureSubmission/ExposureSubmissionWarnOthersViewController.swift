@@ -85,12 +85,25 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	// MARK: - UI-related helpers.
 
-	private func showENErrorAlert(_ error: ExposureSubmissionError) {
+
+	/// Instantiates and shows an alert with a "More Info" button for
+	/// the EN errors. Assumes that the passed in `error` is either of type
+	/// `.internal`, `.unsupported` or `.rateLimited`.
+	func showENErrorAlert(_ error: ExposureSubmissionError) {
 		logError(message: "error: \(error.localizedDescription)", level: .error)
-		let alert = self.setupErrorAlert(
+		let alert = createENAlert(error)
+
+		self.present(alert, animated: true, completion: {
+			self.navigationFooterItem?.isPrimaryButtonLoading = false
+			self.navigationFooterItem?.isPrimaryButtonEnabled = true
+		})
+	}
+
+	/// Creates an error alert for the EN errors.
+	func createENAlert(_ error: ExposureSubmissionError) -> UIAlertController {
+		return self.setupErrorAlert(
 			message: error.localizedDescription,
 			secondaryActionTitle: AppStrings.ExposureSubmissionError.moreInfo,
-			hasSecondaryAction: true,
 			secondaryActionCompletion: {
 				guard let url = self.getURL(for: error) else {
 					logError(message: "Unable to open FAQ page.", level: .error)
@@ -102,15 +115,10 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 					options: [:]
 				)
 		 })
-
-		self.present(alert, animated: true, completion: {
-			self.navigationFooterItem?.isPrimaryButtonLoading = false
-			self.navigationFooterItem?.isPrimaryButtonEnabled = true
-		})
 	}
 
 	/// Returns the correct shortlink based on the EN notification error.
-	private func getURL(for error: ExposureSubmissionError) -> URL? {
+	func getURL(for error: ExposureSubmissionError) -> URL? {
 		switch error {
 		case .internal:
 			return URL(string: AppStrings.ExposureSubmissionError.moreInfoURLEN11)

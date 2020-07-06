@@ -36,12 +36,12 @@ extension UIViewController {
 	///   - secondaryActionCompletion: The completion handler for the secondary action.
 	/// - Returns: An alert with either one or two actions, with the specified completion handlers
 	/// and texts.
-	public func setupErrorAlert(
+	func setupErrorAlert(
 		title: String? = nil,
 		message: String,
 		okTitle: String? = nil,
 		secondaryActionTitle: String? = nil,
-		hasSecondaryAction: Bool = false, completion: (() -> Void)? = nil,
+		completion: (() -> Void)? = nil,
 		secondaryActionCompletion: (() -> Void)? = nil
 	) -> UIAlertController {
 		let alert = UIAlertController(
@@ -58,9 +58,9 @@ extension UIViewController {
 		)
 
 		alert.addAction(ok)
-		if hasSecondaryAction {
+		if secondaryActionTitle != nil {
 			let retryAction = UIAlertAction(
-				title: secondaryActionTitle ?? AppStrings.Common.alertActionRetry,
+				title: secondaryActionTitle,
 				style: .default,
 				handler: { _ in
 					alert.dismiss(animated: true, completion: secondaryActionCompletion)
