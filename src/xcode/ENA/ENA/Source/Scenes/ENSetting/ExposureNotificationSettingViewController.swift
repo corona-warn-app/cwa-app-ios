@@ -84,22 +84,24 @@ extension ExposureNotificationSettingViewController {
 	}
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
-		if alert {
-			let faqAction = UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in WebPageHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })
-			switch error {
-			case .exposureNotificationAuthorization:
-				alertError(message: AppStrings.ExposureNotificationError.enAuthorizationError, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [faqAction])
-			case .exposureNotificationRequired:
-				alertError(message: AppStrings.ExposureNotificationError.enActivationRequiredError, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [faqAction])
-			case .exposureNotificationUnavailable:
-				alertError(message: AppStrings.ExposureNotificationError.enUnavailableError, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [faqAction])
-			case .unknown(let message):
-				alertError(message: AppStrings.ExposureNotificationError.enUnknownError + message, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [faqAction])
-			case .apiMisuse:
-				alertError(message: AppStrings.ExposureNotificationError.apiMisuse, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [faqAction])
-			}
+		let faqAction = UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in WebPageHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })
+		var errorMessage = ""
+		switch error {
+		case .exposureNotificationAuthorization:
+			errorMessage = AppStrings.ExposureNotificationError.enAuthorizationError
+		case .exposureNotificationRequired:
+			errorMessage = AppStrings.ExposureNotificationError.enActivationRequiredError
+		case .exposureNotificationUnavailable:
+			errorMessage = AppStrings.ExposureNotificationError.enUnavailableError
+		case .unknown(let message):
+			errorMessage = AppStrings.ExposureNotificationError.enUnknownError + message
+		case .apiMisuse:
+			errorMessage = AppStrings.ExposureNotificationError.apiMisuse
 		}
-		logError(message: error.localizedDescription, level: .error)
+		if alert {
+			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [faqAction])
+		}
+		logError(message: error.localizedDescription + " with message: " + errorMessage, level: .error)
 		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
 			mySceneDelegate.requestUpdatedExposureState()
 		}
