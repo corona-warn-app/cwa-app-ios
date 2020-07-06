@@ -1,9 +1,15 @@
-git_url "git@github.com:corona-warn-app/cwa-app-ios.git"
+git_url("git@github.com:corona-warn-app/cwa-certificates.git")
 
-type "development" # The default type, can be: appstore, adhoc or development
+storage_mode("git")
 
-app_identifier ["com.sap.ena"]
-# username "" # Your Apple Developer Portal username
+type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
 
-# For all available options run `match --help`
-# Remove the # in the beginning of the line to enable the other options
+app_identifier(["de.rki.coronawarnapp-dev"])  #, "de.rki.coronawarnapp"
+
+template_name("Exposure Notification for 523TP53AQF (Distribution) iOS Dist")  # Entitlement name
+
+username("cwa.technical-user@sap.com") # Apple Developer Portal username
+
+team_id("523TP53AQF")
+
+# The docs are available on https://docs.fastlane.tools/actions/match
