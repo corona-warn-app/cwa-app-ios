@@ -229,7 +229,9 @@ extension ExposureDetectionViewController {
 			} else if nextRefresh - 1 > now {
 				showCountdownButton(with: time)
 
-			// By default, we show the active refresh button.
+			// By default, we show the active refresh button. This should always be the
+			// case when the countdown reaches zero and .done() is called or when we were
+			// allowed to update the risk from the very beginning.
 			} else {
 				showActiveRefreshButton()
 			}
