@@ -53,6 +53,8 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		exposureSubmissionService = exposureSubmissionService ?? (navigationController as? ExposureSubmissionNavigationController)?.exposureSubmissionService
 	}
 
+	// MARK: - ExposureSubmissionService Helpers.
+
 	internal func startSubmitProcess() {
 		navigationFooterItem?.isPrimaryButtonLoading = true
 		navigationFooterItem?.isPrimaryButtonEnabled = false
@@ -90,20 +92,37 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 			secondaryActionTitle: AppStrings.ExposureSubmissionError.moreInfo,
 			hasSecondaryAction: true,
 			secondaryActionCompletion: {
-				guard let url = URL(string: AppStrings.ExposureSubmissionError.moreInfoURL) else {
+				guard let url = self.getURL(for: error) else {
 					logError(message: "Unable to open FAQ page.", level: .error)
 					return
 				}
+
 				UIApplication.shared.open(
 					url,
 					options: [:]
 				)
-		})
+		 })
 
 		self.present(alert, animated: true, completion: {
 			self.navigationFooterItem?.isPrimaryButtonLoading = false
 			self.navigationFooterItem?.isPrimaryButtonEnabled = true
 		})
+	}
+
+	/// Returns the correct shortlink based on the EN notification error.
+	private func getURL(for error: ExposureSubmissionError) -> URL? {
+		switch error {
+		case .internal:
+			return URL(string: AppStrings.ExposureSubmissionError.moreInfoURLEN11)
+		case .unsupported:
+			return URL(string: AppStrings.ExposureSubmissionError.moreInfoURLEN5)
+		case .rateLimited:
+			return URL(string: AppStrings.ExposureSubmissionError.moreInfoURLEN13)
+		default:
+			// This case should not be hit, as we made sure we're only getting
+			// EN-related errors in the method calling this one.
+			return nil
+		}
 	}
 
 }

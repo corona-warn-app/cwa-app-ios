@@ -492,6 +492,12 @@
 
 "ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
 
+"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/de/faq/#ENError5";
+
+"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/de/faq/#ENError11";
+
+"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/de/faq/#ENError13";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
 
