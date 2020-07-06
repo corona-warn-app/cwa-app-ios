@@ -176,6 +176,7 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
+			log(message: "#BGTASK: group.wait(timeout: .now() + .seconds(60))", logToFile: true)
 			completeOnTargetQueue(risk: nil)
 			return
 		}

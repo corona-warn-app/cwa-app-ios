@@ -36,20 +36,21 @@ struct Log: TextOutputStream {
 
 func log(
 	message: String,
+	
 	level: LogLevel = .info,
 	file: String = #file,
 	line: UInt = #line,
 	function: String = #function,
 	logToFile: Bool = false
 ) {
-	#if !RELEASE
+	//#if !RELEASE
 	guard logToFile else {
 		print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
 		return
 	}
 	var logger = Log()
 	print("\(level.rawValue.uppercased()): \(Date().description(with: .current)) [\((file as NSString).lastPathComponent):\(line) - \(function)] \(message)", to: &logger)
-	#endif
+	//#endif
 }
 
 func logError(

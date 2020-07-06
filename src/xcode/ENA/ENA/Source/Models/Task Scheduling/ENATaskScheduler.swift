@@ -82,6 +82,7 @@ final class ENATaskScheduler {
 	}
 
 	func cancelTasks() {
+		log(message: "#BGTASK: CANCELLING ALL TASKS", logToFile: true)
 		BGTaskScheduler.shared.cancelAllTaskRequests()
 	}
 
