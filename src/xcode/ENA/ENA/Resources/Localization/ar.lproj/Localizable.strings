@@ -41,7 +41,7 @@
 
 "ExposureDetection_Refreshed_Never" = "غير معروف";
 
-"ExposureDetection_RefreshingIn" = "التحديث في %02d:%02d\U00A0minutes";
+"ExposureDetection_RefreshingIn" = "التحديث في %02d:%02d من الدقائق";
 
 "ExposureDetection_Refresh_24h" = "يتم التحديث كل 24 ساعة";
 
@@ -154,14 +154,18 @@
 
 "NotificationSettings_NavTitle" = "الإشعارات";
 
+"NotificationSettings_onImageDescription" = "Eine Frau erhält eine Mitteilung von ihrer Corona-Warn-App.";
+
+"NotificationSettings_offImageDescription" = "Eine Frau kann keine Mitteilungen von ihrer Corona-Warn-App erhalten.";
+
 /* Onboarding */
 "Onboarding_LetsGo_actionText" = "لنبدأ";
 
 "Onboarding_Continue_actionText" = "التالي";
 
-"Onboarding_Continue_actionTextHint" = "يمكنك تخطي هذه الشاشة";
-
 "Onboarding_EnableLogging_actionText" = "تنشيط تسجيل المخالطة";
+
+"Onboarding_Continue_actionTextHint" = "يمكنك تخطي هذه الشاشة";
 
 "Onboarding_doNotAllow_actionText" = "عدم السماح";
 
@@ -179,7 +183,7 @@
 
 "OnboardingInfo_togetherAgainstCoronaPage_normalText" = "قم بتحويل جهازك إلى نظام تحذير من كورونا. ألقِ نظرة عامة على حالة الخطر الواقع عليك، وتعرف على إذا ما كنت قد تواصلت عن قرب مع أشخاص مصابين بمرض كوفيد-19 في آخر 14 يومًا.\n\nيسجل التطبيق التجمُّعات بين الأفراد من خلال تبادل المعرفات العشوائية المشفرة لأجهزتهم، دون الوصول إلى أي بيانات شخصية.";
 
-"OnboardingInfo_privacyPage_imageDescription" = "إحدى السيدات تستخدم تطبيق Corona-Warn-App على جهازها. القفل الموجود على الشاشة هو رمز للبيانات المشفرة.";
+"OnboardingInfo_privacyPage_imageDescription" = "سيدة تستخدم تطبيق Corona-Warn-App على هاتفها الذكي. تشير أيقونة القفل الموجودة بخلفية الشاشة إلى بيانات مشفرة.";
 
 "OnboardingInfo_privacyPage_title" = "خصوصية البيانات";
 
@@ -199,6 +203,14 @@
 
 "OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "لمعرفة ما إذا كنت قد تواصلت مع شخص مصاب وما إذا كان هناك خطر في تعرضك للإصابة، يجب عليك تمكين ميزة تسجيل المخالطة في التطبيق. من خلال النقر فوق زر \"تشغيل\"، توافق على تمكين ميزة تسجيل المخالطة في التطبيق وما يرتبط بها من معالجة للبيانات.\n\n\nلاستخدام ميزة تسجيل المخالطة في التطبيق، سيتعين عليك تمكين وظيفة تسجيل المخالطة لمرض كوفيد-19 المقدمة من شركة Apple على هاتف iPhone لديك ومنح تطبيق Corona-Warn-App الإذن باستخدام هذه الميزة.\n\nعند تمكين تسجيل المخالطة، ينشئ هاتف iPhone المعرفات العشوائية ويرسلها عبر Bluetooth باستمرار، ويمكن لهواتف Apple وAndroid الذكية الأخرى الموجودة في منطقتك تلقيها إذا تم تمكين تسجيل المخالطة عليها أيضًا. وبدوره، يتلقى هاتف iPhone لديك المعرفات العشوائية للهواتف الذكية الأخرى، ويتم تسجيل معرفاتك العشوائية وتلك المتلقاة من الهواتف الذكية الأخرى في سجل المخالطة وتخزينها فيه لمدة 14 يومًا.\n\n\nلمعرفة خطر العدوى عليك، يقوم التطبيق، عدة مرات في اليوم أو حسب الطلب، بتحميل قائمة بالمعرفات العشوائية لكل المستخدمين الذين أخطروا التطبيق بأنهم مصابون بفيروس كورونا. وتتم مقارنة هذه القائمة، بعد ذلك، بالمعرفات العشوائية المخزنة في سجل المخالطة. في حالة اكتشاف التطبيق أنك قد تواصلت مع مستخدم مصاب، فسيخطرك بذلك ويخبرك بوجود خطر تعرضك للإصابة أيضًا. في هذه الحالة، يتم أيضًا منح التطبيق حق الوصول إلى البيانات الأخرى المسجلة في سجل المخالطة بهاتف iPhone لديك (تاريخ التواصل ومدته وقوة إشارة Bluetooth الخاصة به).\n\nتُستخدم قوة إشارة Bluetooth لاستنتاج بُعد المسافة (كلما زادت قوة الإشارة، كانت المسافة أقصر). وبعد ذلك، يحلل التطبيق هذه المعلومات من أجل تقييم احتمالية إصابتك بفيروس كورونا ولتقديم التوصيات إليك بشأن ما يجب فعله بعد ذلك. يتم إجراء هذا التحليل فقط محليًا على هاتف iPhone لديك. وبخلافك أنت، لن يعرف أي شخص (ولا حتى معهد روبرت كوخ) ما إذا كنت قد تواصلت مع شخص مصاب والخطر الذي تم تحديده لك.\n\nلسحب موافقتك على استخدام ميزة تسجيل المخالطة، يمكنك تعطيل الميزة باستخدام زر التبديل في التطبيق أو حذف التطبيق. وإذا قررت استخدام الميزة مرة أخرى، يمكنك تشغيل الميزة مرة أخرى أو إعادة تثبيت التطبيق. إذا قمت بتعطيل ميزة تسجيل المخالطة، فلن يتحقق التطبيق بعد ذلك مما إذا كنت قد تواصلت مع مستخدم مصاب. وإذا كنت ترغب أيضًا في إيقاف إرسال جهازك للمعرفات العشوائية وتلقيها، يتعين عليك تعطيل ميزة تسجيل المخالطة لمرض كوفيد-19 في إعدادات هاتف iPhone لديك. الرجاء ملاحظة أنه لن يتم حذف معرفاتك العشوائية وتلك المتلقاة من الهواتف الذكية الأخرى المخزنة في سجل المخالطة من التطبيق. يمكنك فقط حذف البيانات المخزنة في سجل المخالطة في إعدادات هاتف iPhone نهائيًا.\n\n\nيمكنك العثور على إشعار خصوصية التطبيق (بما فيه توضيح لمعالجة البيانات المنفَّذة لميزة تسجيل المخالطة) في القائمة ضمن \"معلومات خصوصية البيانات\".";
 
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Status";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Risiko-Ermittlung";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Aktiv";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Gestoppt";
+
 "OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "يتم إرسال تشخيص اختبار إيجابي مشفرًا إلى النظام؛ مما سينتج عنه تحذير المستخدمين الآخرين.";
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_title" = "إذا تم تشخيصك بأنك مصاب بمرض كوفيد-19...";
@@ -207,7 +219,7 @@
 
 "OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "يتم تشفير إشعارك ومعالجته بصورة آمنة على خادم آمن. يتلقى الأشخاص الذين قام جهازك بتجميع معرفاتهم العشوائية، الآن تحذيرًا مصحوبًا بمعلومات حول ما يجب عليهم القيام به الآن.";
 
-"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "إحدى السيدات تتلقى إشعارًا من تطبيق Corona-Warn-App.";
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "سيدة تتلقى إشعارًا من تطبيق Corona-Warn-App.";
 
 "OnboardingInfo_alwaysStayInformedPage_title" = "استلام التحذيرات وتحديد الأخطار";
 
@@ -520,11 +532,11 @@
 
 "ExposureNotificationSetting_AccLabel_Enabled" = "قام ثلاثة أشخاص بتنشيط تسجيل المخالطة على أجهزتهم؛ مما سيعمل على تسجيل تجمُّعاتهم مع بعضهم بعضًا.";
 
-"ExposureNotificationSetting_AccLabel_Disabled" = "ألغى شخص واحد تنشيط تسجيل المخالطة على جهازه؛ وبالتالي، لم يتم تسجيل تجمُّع مع شخصين آخرين.";
+"ExposureNotificationSetting_AccLabel_Disabled" = "ألغى شخص تنشيط تسجيل المخالطة على هاتفه الذكي؛ وبالتالي، لم يتم تسجيل تجمُّع مع شخصين آخرين.";
 
-"ExposureNotificationSetting_AccLabel_BluetoothOff" = "أوقف شخص واحد تشغيل Bluetooth على جهازه؛ وبالتالي، لم يتم تسجيل تجمُّع مع شخصين آخرين.";
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "أوقف شخص تشغيل Bluetooth على هاتفه الذكي؛ وبالتالي، لم يتم تسجيل تجمُّع مع شخصين آخرين.";
 
-"ExposureNotificationSetting_AccLabel_InternetOff" = "قطع شخص واحد الاتصال بالإنترنت على جهازه؛ وبالتالي، لم يكن من الممكن تحديد آخر تجمُّعات.";
+"ExposureNotificationSetting_AccLabel_InternetOff" = "قطع شخص واحد الاتصال بالإنترنت على هاتفه الذكي؛ وبالتالي، يتعذر تحديد آخر تجمُّعات له.";
 
 "ExposureNotificationSetting_Activate_Action" = "قبول";
 
@@ -549,9 +561,9 @@
 
 "Home_Risk_No_Date_Title" = "غير معروف";
 
-"Home_Risk_Period_Update_Title" = "يتم التحديث كل %@\U00A0hours";
+"Home_Risk_Period_Update_Title" = "يتم التحديث كل %@ من الساعات";
 
-"Home_Risk_Period_Disabled_Button_Title" = "يتم التحديث فقط كل %@\U00A0hours";
+"Home_Risk_Period_Disabled_Button_Title" = "يتم التحديث فقط كل %@ من الساعات";
 
 /* Home Unknown card */
 "Home_Risk_Unknown_Title" = "خطر غير معروف";
@@ -699,7 +711,7 @@
 /* App Information - Contact */
 "App_Information_Contact_Navigation" = "الخط الساخن الفني";
 
-"App_Information_Contact_ImageDescription" = "شخص يرتدي سماعة رأس أثناء إجراء اتصال.";
+"App_Information_Contact_ImageDescription" = "رجل يرتدي سماعة رأس أثناء إجراء اتصال.";
 
 "App_Information_Contact_Title" = "كيف يمكننا مساعدتك؟";
 
@@ -718,7 +730,7 @@
 /* App Information - Imprint */
 "App_Information_Imprint_Navigation" = "بيان النشر";
 
-"App_Information_Imprint_ImageDescription" = "شخص يحمل جهازًا به الكثير من النصوص على الشاشة. بجوار النص يوجد رمز لقسم يمثل بيان النشر.";
+"App_Information_Imprint_ImageDescription" = "هاتف ذكي تظهر على شاشته نصوص بخط كبير وبجوارها رمز لقسم يمثل بيان النشر.";
 
 "App_Information_Imprint_Section1_Title" = "تم النشر بواسطة";
 
@@ -742,7 +754,7 @@
 /* App Information - Privacy */
 "App_Information_Privacy_Navigation" = "خصوصية البيانات";
 
-"App_Information_Legal_ImageDescription" = "شخص يحمل جهازًا به الكثير من النصوص على الشاشة. بجوار النص يوجد ميزان يمثل رمزًا للإشعارات القانونية";
+"App_Information_Legal_ImageDescription" = "هاتف ذكي تظهر على شاشته نصوص بخط كبير وبجوارها ميزان يرمز إلى الإشعارات القانونية.";
 
 "App_Information_Privacy_Title" = "خصوصية البيانات";
 
@@ -751,7 +763,7 @@
 /* App Information - Terms */
 "App_Information_Terms_Navigation" = "شروط الاستخدام";
 
-"App_Information_Terms_ImageDescription" = "يحمل شخص ما جهازًا به الكثير من النصوص على الشاشة. بجوار النص توجد علامة صح تمثل رمزًا لقبول شروط الاستخدام.";
+"App_Information_Terms_ImageDescription" = "هاتف ذكي تظهر على شاشته نصوص بخط كبير وبجوارها علامة صح ترمز إلى قبول شروط الاستخدام.";
 
 "App_Information_Terms_Title" = "شروط الاستخدام";
 
@@ -789,7 +801,7 @@
 
 "Reset_Subtitle" = "إعادة تعيين التطبيق";
 
-"Reset_ImageDescription" = "أحد الأشخاص يحمل جهازًا يعرض رمزًا يشير إلى إعادة تعيين التطبيق.";
+"Reset_ImageDescription" = "هاتف ذكي يعرض رمزًا يشير إلى إعادة تعيين التطبيق.";
 
 "Reset_ConfirmDialog_Title" = "إعادة تعيين التطبيق";
 
@@ -800,7 +812,7 @@
 "Reset_ConfirmDialog_Confirm" = "إعادة تعيين";
 
 /* Safari */
-"safari_corona_website" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-arabisch";
+"safari_corona_website" = "https://www.bundesregierung.de/corona-warn-app-faq-englisch";
 
 /* Local Notifications */
 "local_notifications_ignore" = "تجاهل";
