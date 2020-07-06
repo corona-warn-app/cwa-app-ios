@@ -60,8 +60,10 @@ final class ENATaskScheduler {
 	private func registerTask(with taskIdentifier: ENATaskIdentifier, taskHandler: @escaping ((BGTask) -> Void)) {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
+			log(message: "#BGTASK: \(task.identifier) EXECUTING", logToFile: true)
 			taskHandler(task)
 			task.expirationHandler = {
+				log(message: "#BGTASK: \(task.identifier) EXPIRED", logToFile: true)
 				task.setTaskCompleted(success: false)
 			}
 		}
@@ -103,6 +105,8 @@ final class ENATaskScheduler {
 			taskRequest.earliestBeginDate = nil
 		}
 
+		log(message: "#BGTASK: scheduling \(taskRequest.identifier) at \(taskRequest.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
+
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {
@@ -112,21 +116,41 @@ final class ENATaskScheduler {
 	}
 
 	func cancelTask(for taskIdentifier: ENATaskIdentifier) {
+		log(message: "#BGTASK: \(taskIdentifier) CANCELLING", logToFile: true)
 		BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: taskIdentifier.backgroundTaskSchedulerIdentifier)
+	}
+
+	func logTasks() {
+		log(message: "#BGTASK:", logToFile: true)
+		BGTaskScheduler.shared.getPendingTaskRequests { taskRequests in
+			taskRequests.forEach { request in
+				log(message: "#BGTASK: pendingTasks \(request.identifier) at \(request.earliestBeginDate?.description(with: .current) ?? "nil")", logToFile: true)
+			}
+		}
 	}
 
 	// Task Handlers:
 	private func executeExposureDetectionRequest(_ task: BGTask) {
+		log(message: "#BGTASK: \(task.identifier) STARTED", logToFile: true)
 		taskDelegate?.executeExposureDetectionRequest(task: task) { success in
+			log(message: "#BGTASK: \(task.identifier) COMPLETED", logToFile: true)
+			log(message: "#BGTASK: logTasks()", logToFile: true)
+			self.logTasks()
 			task.setTaskCompleted(success: success)
 		}
+		log(message: "#BGTASK: \(task.identifier) RESCHEDULING", logToFile: true)
 		scheduleTask(for: task.identifier)
 	}
 
 	private func executeFetchTestResults(_ task: BGTask) {
+		log(message: "#BGTASK: \(task.identifier) STARTED", logToFile: true)
 		taskDelegate?.executeFetchTestResults(task: task) { success in
+			log(message: "#BGTASK: \(task.identifier) COMPLETED", logToFile: true)
+			log(message: "#BGTASK: logTasks()", logToFile: true)
+			self.logTasks()
 			task.setTaskCompleted(success: success)
 		}
+		log(message: "#BGTASK: \(task.identifier) RESCHEDULING", logToFile: true)
 		scheduleTask(for: task.identifier)
 	}
 
