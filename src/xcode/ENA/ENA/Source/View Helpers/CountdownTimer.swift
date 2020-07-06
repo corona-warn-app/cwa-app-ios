@@ -19,7 +19,7 @@
 
 import Foundation
 
-// MARK: - CountdownTimer
+// MARK: - CountdownTimer.
 
 /// Helper class that wraps a Timer and provides convenience methods.
 class CountdownTimer {
@@ -43,7 +43,11 @@ class CountdownTimer {
 
 	func start() {
 		timer?.invalidate()
-		timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: action)
+		timer = Timer.scheduledTimer(
+			withTimeInterval: 1.0,
+			repeats: true,
+			block: action
+		)
 		guard let timer = timer else { return }
 		RunLoop.main.add(timer, forMode: .common)
 		timer.fire()
@@ -62,7 +66,11 @@ class CountdownTimer {
 	}
 
 	private func update() {
-		let components = Calendar.current.dateComponents([.hour, .minute, .second], from: Date(), to: end)
+		let components = Calendar.current.dateComponents(
+			[.hour, .minute, .second],
+			from: Date(),
+			to: end
+		)
 		delegate?.update(time: CountdownTimer.format(components))
 	}
 
@@ -74,7 +82,7 @@ class CountdownTimer {
 	}
 }
 
-// MARK: CountdownTimerDelegate
+// MARK: - CountdownTimerDelegate.
 
 /// Provides callback methods that are called once per second (`update(_)`) until the countdown has finished.
 protocol CountdownTimerDelegate: class {

@@ -20,11 +20,11 @@ import Foundation
 import UIKit
 
 final class ExposureDetectionViewController: DynamicTableViewController, RequiresAppDependencies {
-	// MARK: Properties.
+	// MARK: - Properties.
 
 	private var countdown: CountdownTimer?
 
-	// MARK: IB Outlets.
+	// MARK: - IB Outlets.
 
 	@IBOutlet var closeButton: UIButton!
 	@IBOutlet var headerView: UIView!
@@ -42,7 +42,7 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 
 	private let consumer = RiskConsumer()
 
-	// MARK: Creating an Exposure Detection View Controller
+	// MARK: - Creating an Exposure Detection View Controller.
 
 	init?(
 		coder: NSCoder,
@@ -190,6 +190,10 @@ extension ExposureDetectionViewController {
 		tableView.reloadData()
 	}
 
+	/// This methods configures the update button to either allow the direct update of the current risk score
+	/// or to display a countdown and deactivate the button until it is possible to update again.
+	/// - Parameters:
+	///   - time: formatted time string <hh:mm:ss>  that is displayed as remaining time.
 	private func updateCheckButton(_ time: String? = nil) {
 		if !state.isTracingEnabled {
 			footerView.isHidden = false
@@ -199,22 +203,33 @@ extension ExposureDetectionViewController {
 		}
 		
 		switch state.detectionMode {
+
+		// Automatic mode does not requred additional logic, this is often the default configuration.
 		case .automatic:
 			footerView.isHidden = true
 			checkButton.isEnabled = true
+
+		// In manual mode we show a countdown when the button cannot be clicked.
 		case .manual:
 			footerView.isHidden = false
 
 			let nextRefresh = riskProvider.nextExposureDetectionDate()
 			let now = Date()
 
+			// If there is not countdown and the next possible refresh date is in the future,
+			// we schedule a new timer.
 			if nextRefresh > now, countdown == nil {
 				scheduleCountdownTimer(to: nextRefresh)
+
+			// Make sure to schedule new countdown if the next refresh time has changed.
 			} else if let countdown = countdown, countdown.end != nextRefresh {
-				// Make sure to schedule new countdown if the next refresh time has changed.
 				scheduleCountdownTimer(to: nextRefresh)
+
+			// Update time label as long as the next possible refresh date is in the future.
 			} else if nextRefresh - 1 > now {
 				showCountdownButton(with: time)
+
+			// By default, we show the active refresh button.
 			} else {
 				showActiveRefreshButton()
 			}
@@ -229,6 +244,7 @@ extension ExposureDetectionViewController {
 
 	private func showActiveRefreshButton() {
 		self.checkButton.setTitle(AppStrings.ExposureDetection.buttonRefresh, for: .normal)
+		// Double check that the risk provider allows updating to not expose an enable checkButton by accident.
 		self.checkButton.isEnabled = riskProvider.manualExposureDetectionState == .possible
 	}
 
@@ -236,12 +252,12 @@ extension ExposureDetectionViewController {
 		guard let time = time else { return }
 		UIView.performWithoutAnimation {
 			self.checkButton.setTitle(String(format: AppStrings.ExposureDetection.refreshIn, time), for: .normal)
-			self.checkButton.isEnabled = riskProvider.manualExposureDetectionState == .possible
+			self.checkButton.isEnabled = false
 		}
 	}
 }
 
-// MARK: CountdownTimerDelegate methods.
+// MARK: - CountdownTimerDelegate methods.
 
 extension ExposureDetectionViewController: CountdownTimerDelegate {
 	func update(time: String) {
