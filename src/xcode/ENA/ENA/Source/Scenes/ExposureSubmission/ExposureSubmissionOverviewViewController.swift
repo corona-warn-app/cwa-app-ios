@@ -91,7 +91,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			switch result {
 			case let .failure(error):
 				logError(message: "An error occurred during result fetching: \(error)", level: .error)
-				let alert = ErrorAlertUtil.setupErrorAlert(message: error.localizedDescription)
+				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true, completion: nil)
 			case let .success(testResult):
 				self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
@@ -149,7 +149,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			// The error handler could have been invoked on a non-main thread which causes
 			// issues (crash) when updating the UI.
 			DispatchQueue.main.async {
-				let alert = ErrorAlertUtil.setupErrorAlert(
+				let alert = self.setupErrorAlert(
 					message: error.localizedDescription,
 					completion: {
 						self.dismissQRCodeScannerView(viewController, completion: nil)
@@ -165,7 +165,7 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 		guard let guid = sanitizeAndExtractGuid(code) else {
 			vc.delegate = nil
 
-			let alert = ErrorAlertUtil.setupErrorAlert(
+			let alert = self.setupErrorAlert(
 				title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
 				message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
 				okTitle: AppStrings.Common.alertActionCancel,
@@ -195,14 +195,14 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				// Note: In the case the QR Code was already used, retrying will result
 				// in an endless loop.
 				if case .qRAlreadyUsed = error {
-					let alert = ErrorAlertUtil.setupErrorAlert(message: error.localizedDescription)
+					let alert = self.setupErrorAlert(message: error.localizedDescription)
 					self.present(alert, animated: true, completion: nil)
 					return
 				}
 
 				logError(message: "Error while getting registration token: \(error)", level: .error)
 
-				let alert = ErrorAlertUtil.setupErrorAlert(
+				let alert = self.setupErrorAlert(
 					message: error.localizedDescription,
 					hasSecondaryAction: true,
 					secondaryActionCompletion: {

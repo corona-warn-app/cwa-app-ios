@@ -24,4 +24,52 @@ extension UIViewController {
 		alertController.addAction(okAction)
 		present(alertController, animated: true, completion: nil)
 	}
+
+	/// This method helps to build a alert for displaying error messages.
+	/// - Parameters:
+	///   - title: The title of the alert. If omitted, it will use the general error title.
+	///   - message: The description of the alert.
+	///   - okTitle: The text of the ok action.
+	///   - secondaryActionTitle: The text of the secondary action, if there is one.
+	///   - hasSecondaryAction: Indicates whether an alert has a secondary action or not.
+	///   - completion: The completion handler for the "ok" action.
+	///   - secondaryActionCompletion: The completion handler for the secondary action.
+	/// - Returns: An alert with either one or two actions, with the specified completion handlers
+	/// and texts.
+	public func setupErrorAlert(
+		title: String? = nil,
+		message: String,
+		okTitle: String? = nil,
+		secondaryActionTitle: String? = nil,
+		hasSecondaryAction: Bool = false, completion: (() -> Void)? = nil,
+		secondaryActionCompletion: (() -> Void)? = nil
+	) -> UIAlertController {
+		let alert = UIAlertController(
+			title: title ?? AppStrings.ExposureSubmission.generalErrorTitle,
+			message: message,
+			preferredStyle: .alert
+		)
+		let ok = UIAlertAction(
+			title: okTitle ?? AppStrings.Common.alertActionOk,
+			style: .cancel,
+			handler: { _ in
+				alert.dismiss(animated: true, completion: completion)
+			}
+		)
+
+		alert.addAction(ok)
+		if hasSecondaryAction {
+			let retryAction = UIAlertAction(
+				title: secondaryActionTitle ?? AppStrings.Common.alertActionRetry,
+				style: .default,
+				handler: { _ in
+					alert.dismiss(animated: true, completion: secondaryActionCompletion)
+
+				}
+			)
+			alert.addAction(retryAction)
+		}
+		return alert
+	}
+
 }

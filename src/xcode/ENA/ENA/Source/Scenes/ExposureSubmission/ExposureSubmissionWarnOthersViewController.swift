@@ -74,7 +74,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 			case .some(let error):
 				logError(message: "error: \(error.localizedDescription)", level: .error)
-				let alert = ErrorAlertUtil.setupErrorAlert(message: error.localizedDescription)
+				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true, completion: {
 					self.navigationFooterItem?.isPrimaryButtonLoading = false
 					self.navigationFooterItem?.isPrimaryButtonEnabled = true
@@ -87,7 +87,7 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	private func showENErrorAlert(_ error: ExposureSubmissionError) {
 		logError(message: "error: \(error.localizedDescription)", level: .error)
-		let alert = ErrorAlertUtil.setupErrorAlert(
+		let alert = self.setupErrorAlert(
 			message: error.localizedDescription,
 			secondaryActionTitle: AppStrings.ExposureSubmissionError.moreInfo,
 			hasSecondaryAction: true,
