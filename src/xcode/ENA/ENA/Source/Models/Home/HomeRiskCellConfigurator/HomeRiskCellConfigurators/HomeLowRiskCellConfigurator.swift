@@ -131,4 +131,26 @@ final class HomeLowRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		setupAccessibility(cell)
 	}
+
+	// MARK: Hashable
+
+	override func hash(into hasher: inout Swift.Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(numberRiskContacts)
+		hasher.combine(numberDays)
+		hasher.combine(totalDays)
+		hasher.combine(detectionInterval)
+	}
+
+	static func == (lhs: HomeLowRiskCellConfigurator, rhs: HomeLowRiskCellConfigurator) -> Bool {
+		lhs.isLoading == rhs.isLoading &&
+		lhs.isButtonEnabled == rhs.isButtonEnabled &&
+		lhs.isButtonHidden == rhs.isButtonHidden &&
+		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
+		lhs.lastUpdateDate == rhs.lastUpdateDate &&
+		lhs.numberRiskContacts == rhs.numberRiskContacts &&
+		lhs.numberDays == rhs.numberDays &&
+		lhs.totalDays == rhs.totalDays &&
+		lhs.detectionInterval == rhs.detectionInterval
+	}
 }

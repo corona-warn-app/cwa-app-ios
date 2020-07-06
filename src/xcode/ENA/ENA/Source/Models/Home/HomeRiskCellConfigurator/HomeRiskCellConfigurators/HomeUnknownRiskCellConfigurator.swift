@@ -88,4 +88,20 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		setupAccessibility(cell)
 	}
+
+	// MARK: Hashable
+
+	override func hash(into hasher: inout Swift.Hasher) {
+		super.hash(into: &hasher)
+		hasher.combine(detectionInterval)
+	}
+
+	static func == (lhs: HomeUnknownRiskCellConfigurator, rhs: HomeUnknownRiskCellConfigurator) -> Bool {
+		lhs.isLoading == rhs.isLoading &&
+		lhs.isButtonEnabled == rhs.isButtonEnabled &&
+		lhs.isButtonHidden == rhs.isButtonHidden &&
+		lhs.detectionIntervalLabelHidden == rhs.detectionIntervalLabelHidden &&
+		lhs.lastUpdateDate == rhs.lastUpdateDate &&
+		lhs.detectionInterval == rhs.detectionInterval
+	}
 }
