@@ -183,15 +183,14 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 		
-		let tracingHistory = store.tracingStatusHistory
-		let numberOfEnabledHours = tracingHistory.countEnabledHours()
+		let activeTracing = store.tracingStatusHistory.activeTracing()
 
 		guard
 			let risk = RiskCalculation.risk(
 				summary: summaries?.current?.summary,
 				configuration: _appConfiguration,
 				dateLastExposureDetection: summaries?.current?.date,
-				numberOfTracingActiveHours: numberOfEnabledHours,
+				activeTracing: activeTracing,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
 				previousRiskLevel: store.previousRiskLevel,
