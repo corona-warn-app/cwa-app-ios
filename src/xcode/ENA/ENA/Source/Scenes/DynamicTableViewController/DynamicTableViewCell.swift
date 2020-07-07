@@ -51,7 +51,7 @@ extension DynamicCell {
 		case label
 		/// DynamicCell that uses a UITextView with data recognizers instead of a UILabel to display text
 		/// Useful for automatic link, phone #, etc. recognization
-		case textView
+		case textView(dataDetectors: UIDataDetectorTypes)
 
 		var reuseIdentifier: CellReuseIdentifier {
 			switch self {
@@ -89,6 +89,12 @@ extension DynamicCell {
 			cell.configureDynamicType(size: size, weight: weight, style: style)
 			cell.configure(text: text, color: color)
 			cell.configureAccessibility(label: text, identifier: accessibilityIdentifier, traits: accessibilityTraits)
+
+			if case .textView(let dataDetectorTypes) = cellStyle,
+				let cell = cell as? DynamicTableViewTextViewCell {
+				cell.dataDetectorTypes = dataDetectorTypes
+			}
+
 			configure?(viewController, cell, indexPath)
 		}
 	}

@@ -21,7 +21,12 @@ import Foundation
 import UIKit
 
 class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
-	let textView = UITextView()
+	private let textView = UITextView()
+
+	var dataDetectorTypes: UIDataDetectorTypes {
+		get { textView.dataDetectorTypes }
+		set { textView.dataDetectorTypes = newValue }
+	}
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)

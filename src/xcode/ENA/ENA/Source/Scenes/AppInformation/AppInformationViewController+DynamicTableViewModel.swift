@@ -185,19 +185,22 @@ extension AppInformationViewController {
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Title,
 						  accessibilityTraits: .header),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection1Text,
+									 style: .textView(dataDetectors: []),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection1Text),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection2Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection2Text,
+									 style: .textView(dataDetectors: []),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection2Text),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection3Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection3Text,
-									 style: .textView,
+									 style: .textView(dataDetectors: .all),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection3Text),
 				.headlineWithoutBottomInset(text: AppStrings.AppInformation.imprintSection4Title,
 											accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Title),
 				.bodyWithoutTopInset(text: AppStrings.AppInformation.imprintSection4Text,
+									 style: .textView(dataDetectors: []),
 									 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Text)
 			]
 		)
