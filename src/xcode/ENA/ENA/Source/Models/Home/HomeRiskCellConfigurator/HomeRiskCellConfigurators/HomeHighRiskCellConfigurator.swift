@@ -73,18 +73,28 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
 		cell.configureBackgroundColor(color: color)
 
-		let intervalString = "\(validityDuration)"
-		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, intervalString)
+		let intervalTitle = String(format: AppStrings.Home.riskCardIntervalUpdateTitle, "\(validityDuration)")
 		cell.configureDetectionIntervalLabel(
 			text: intervalTitle,
 			isHidden: detectionIntervalLabelHidden
 		)
 
+
+		configureButton(for: cell)
+		setupAccessibility(cell)
+	}
+
+	override func configureButton(for cell: RiskLevelCollectionViewCell) {
 		let buttonTitle: String
 		if isLoading {
 			buttonTitle = AppStrings.Home.riskCardStatusCheckButton
 		} else {
-			let intervalDisabledButtonTitle = String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, intervalString)
+			let intervalDisabledButtonTitle: String
+			if let timeUntilUpdate = timeUntilUpdate {
+				intervalDisabledButtonTitle = String(format: AppStrings.ExposureDetection.refreshIn, timeUntilUpdate)
+			} else {
+				intervalDisabledButtonTitle = String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(validityDuration)")
+			}
 			buttonTitle = isButtonEnabled ? AppStrings.Home.riskCardHighButton : intervalDisabledButtonTitle
 		}
 		cell.configureUpdateButton(
@@ -93,7 +103,5 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 			isHidden: isButtonHidden,
 			accessibilityIdentifier: AccessibilityIdentifiers.Home.riskCardIntervalUpdateTitle
 		)
-
-		setupAccessibility(cell)
 	}
 }

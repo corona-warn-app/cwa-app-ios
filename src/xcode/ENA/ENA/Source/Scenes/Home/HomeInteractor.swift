@@ -19,6 +19,8 @@ import ExposureNotification
 import Foundation
 import UIKit
 
+// swiftlint:disable file_length
+
 final class HomeInteractor: RequiresAppDependencies {
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
 	typealias SectionConfiguration = [SectionDefinition]
@@ -42,6 +44,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	) {
 		didSet {
 			homeViewController.setStateOfChildViewControllers()
+			scheduleCountdownTimer()
 			buildSections()
 		}
 	}
@@ -64,6 +67,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	private var testResultConfigurator = HomeTestResultCellConfigurator()
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
 	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
+	private var countdownTimer: CountdownTimer?
 
 	private(set) var testResult: TestResult?
 
@@ -425,5 +429,32 @@ extension HomeInteractor: ENStateHandlerUpdating {
 extension HomeInteractor {
 	private func inActiveCellActionHandler() {
 		homeViewController.showExposureNotificationSetting()
+	}
+}
+
+// MARK: - CountdownTimerDelegate methods.
+
+/// The `CountdownTimerDelegate` is used to update the remaining time that is shown on the risk cell button until a manual refresh is allowed.
+extension HomeInteractor: CountdownTimerDelegate {
+	private func scheduleCountdownTimer() {
+		let nextUpdate = riskProvider.nextExposureDetectionDate()
+		countdownTimer = CountdownTimer(countdownTo: nextUpdate)
+		countdownTimer?.delegate = self
+		countdownTimer?.start()
+	}
+
+	func update(time: String) {
+		guard let indexPath = self.indexPathForRiskCell() else { return }
+		guard let cell = homeViewController.cellForItem(at: indexPath) as? RiskLevelCollectionViewCell else { return }
+
+		// We pass the time and let the configurator decide whether the button can be activated or not.
+		riskLevelConfigurator?.timeUntilUpdate = time
+		riskLevelConfigurator?.configureButton(for: cell)
+	}
+
+	func done() {
+		// Reload action section to trigger full refresh of the risk cell configurator (updates
+		// the isButtonEnabled attribute).
+		self.reloadActionSection()
 	}
 }
