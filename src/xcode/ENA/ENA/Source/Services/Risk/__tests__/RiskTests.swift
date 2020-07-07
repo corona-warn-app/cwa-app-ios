@@ -24,7 +24,7 @@ import XCTest
 final class RiskTests: XCTestCase {
 	func testGetNumberOfDaysActiveTracing_LessThanOneDay() {
 		let details = mockDetails(hours: 23)
-		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 0)
+		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 1)
 	}
 
 	func testGetNumberOfDaysActiveTracing_ZeroHours() {
@@ -38,7 +38,7 @@ final class RiskTests: XCTestCase {
 	}
 
 	func testGetNumberOfDaysActiveTracing_OneDayExact() {
-		let details = mockDetails(hours: 25)
+		let details = mockDetails(hours: 24)
 		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 1)
 	}
 
@@ -49,11 +49,11 @@ final class RiskTests: XCTestCase {
 }
 
 extension RiskTests {
-	func mockDetails(hours active: Int) -> Risk.Details {
+	func mockDetails(hours: Int) -> Risk.Details {
 		Risk.Details(
+			daysSinceLastExposure: 0,
 			numberOfExposures: 0,
-			numberOfHoursWithActiveTracing: active,
-			exposureDetectionDate: Date()
-		)
+			activeTracing: .init(interval: TimeInterval(hours * 3600), maximumNumberOfDays: 0),
+			exposureDetectionDate: Date())
 	}
 }
