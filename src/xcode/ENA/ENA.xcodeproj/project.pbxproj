@@ -751,6 +751,7 @@
 		EE902FF524B301B700C8DEE9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE902FF624B301B700C8DEE9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		EE902FF724B301B700C8DEE9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EE902FF824B450F900C8DEE9 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ar; path = "ar.lproj/privacy-policy.html"; sourceTree = "<group>"; };
 		EE92A33F245D96DA006B97B0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		EEDD6DF524A4885200BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = tr; path = tr.lproj/usage.html; sourceTree = "<group>"; };
 		EEDD6DF624A4885200BC30D0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = tr; path = "tr.lproj/privacy-policy.html"; sourceTree = "<group>"; };
@@ -2588,6 +2589,7 @@
 				717D21EA248C072300D9717E /* en */,
 				EEDD6DF624A4885200BC30D0 /* tr */,
 				EE902FEF24B3015C00C8DEE9 /* ru */,
+				EE902FF824B450F900C8DEE9 /* ar */,
 			);
 			name = "privacy-policy.html";
 			sourceTree = "<group>";
