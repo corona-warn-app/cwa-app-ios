@@ -41,12 +41,17 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 		textView.isScrollEnabled = false
 		textView.dataDetectorTypes = .all
 		textView.isEditable = false
+		// The two below settings make the UITextView look more like a UILabel
+		textView.textContainerInset = .zero
+		textView.textContainer.lineFragmentPadding = .zero
 
 		contentView.addSubview(textView)
 		contentView.layoutMarginsGuide.topAnchor.constraint(equalTo: textView.topAnchor).isActive = true
 		contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: textView.bottomAnchor).isActive = true
 		contentView.layoutMarginsGuide.leadingAnchor.constraint(equalTo: textView.leadingAnchor).isActive = true
 		contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: textView.trailingAnchor).isActive = true
+
+		resetMargins()
 	}
 
 	override func prepareForReuse() {
@@ -58,7 +63,7 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 	}
 
 	private func resetMargins() {
-		contentView.layoutMargins = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+		contentView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
 		contentView.insetsLayoutMarginsFromSafeArea = false
 	}
 
