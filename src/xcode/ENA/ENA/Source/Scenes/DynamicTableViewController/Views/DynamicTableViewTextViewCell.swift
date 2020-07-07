@@ -36,6 +36,7 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 	private func setup() {
 		selectionStyle = .none
 		backgroundColor = .enaColor(for: .background)
+		textView.backgroundColor = .enaColor(for: .background)
 
 		textView.translatesAutoresizingMaskIntoConstraints = false
 		textView.isScrollEnabled = false
