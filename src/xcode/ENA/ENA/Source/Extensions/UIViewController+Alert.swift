@@ -25,7 +25,7 @@ extension UIViewController {
 		if let optionalActions = optInActions {
 			optionalActions.forEach({ action in alertController.addAction(action) })
 		}
-		present(alertController, animated: true, completion: nil)
+		present(alertController, animated: true, completion: completion)
 	}
 
 	/// This method helps to build a alert for displaying error messages.
