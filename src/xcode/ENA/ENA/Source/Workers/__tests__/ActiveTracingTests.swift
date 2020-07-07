@@ -81,7 +81,7 @@ final class ActiveTracingTests: XCTestCase {
 }
 
 private func _activeTracing(interval: TimeInterval) -> ActiveTracing {
-	ActiveTracing(interval: interval, maximumNumberOfDays: 14)
+	ActiveTracing(interval: interval)
 }
 
 private extension TimeInterval {

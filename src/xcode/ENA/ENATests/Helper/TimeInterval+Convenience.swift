@@ -16,35 +16,14 @@
 // specific language governing permissions and limitations
 // under the License.
 //
-
 import Foundation
 
-struct Risk {
-	let level: RiskLevel
-	let details: Details
-	let riskLevelHasChanged: Bool
-}
+extension TimeInterval {
+	init(hours: Int) {
+		self = Double(hours * 60 * 60)
+	}
 
-extension Risk {
-	struct Details {
-		var daysSinceLastExposure: Int?
-		var numberOfExposures: Int?
-		var numberOfHoursWithActiveTracing: Int { activeTracing.inHours }
-		var activeTracing: ActiveTracing
-		var numberOfDaysWithActiveTracing: Int { activeTracing.inDays }
-		var exposureDetectionDate: Date
+	init(days: Int) {
+		self = Double(days * 24 * 60 * 60)
 	}
 }
-
-#if UITESTING
-extension Risk {
-	static let mocked = Risk(
-		level: .low,
-		details: Risk.Details(
-			numberOfExposures: 0,
-			activeTracing: .init(interval: 336 * 3600),  // two weeks
-			exposureDetectionDate: Date()),
-		riskLevelHasChanged: true
-	)
-}
-#endif
