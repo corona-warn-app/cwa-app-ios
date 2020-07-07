@@ -105,8 +105,10 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			fatalError("invalid state")
 		}
 
-		var fileURLs: [URL]
-		if writtenPackages.urls.count > 14 {  // This should never happen. Code is just here to be sure
+		var fileURLs: [URL]  // Will contain all cached keypackages for the interaction with ENF
+		// Limit packages to upper thresshold
+		// This should never happen. Code is just here to be sure
+		if writtenPackages.urls.count > 14 {
 			logError(message: "Trying to feed too many files into the framework")
 			fileURLs = Array(writtenPackages.urls.prefix(14))
 		} else {

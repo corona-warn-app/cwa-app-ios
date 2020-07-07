@@ -98,7 +98,7 @@ extension RiskProvider: RiskProviding {
 			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.summary?.date
 		)
-		if enoughTimeHasPassed == false || self.exposureManagerState.isGood == false {
+		if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
 			completion(
 				.init(
 					previous: nil,

@@ -78,9 +78,6 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 	func testGetNextExposureDetectionDate_Success() {
 		// Test the case where everything just works and you get a valid next date in the future.
 		let now = Date()
-		let nextDate = config.nextExposureDetectionDate(lastExposureDetectionDate: now, currentDate: now)
-		let exposureDetectionInterval: TimeInterval = 24 * 60 * 60
-//		XCTAssertEqual(nextDate, now.addingTimeInterval(exposureDetectionInterval))
 		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: now, currentDate: now))
 	}
 
@@ -162,9 +159,6 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 	func testShouldPerformExposureDetection_Success() {
 		// Test the case where everything just works and you get a valid next date in the future.
 		let now = Date()
-		let nextDate = config.nextExposureDetectionDate(lastExposureDetectionDate: now, currentDate: now)
-		let exposureDetectionInterval: TimeInterval = 24 * 60 * 60
-//		XCTAssertEqual(nextDate, now.addingTimeInterval(exposureDetectionInterval))
 		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: now, currentDate: now))
 	}
 }

@@ -23,27 +23,27 @@ import XCTest
 
 final class RiskTests: XCTestCase {
 	func testGetNumberOfDaysActiveTracing_LessThanOneDay() {
-		let details = mockDetails(activeTracing: .init(interval: .init(hours: 11), maximumNumberOfDays: 14))
+		let details = mockDetails(activeTracing: .init(interval: .init(hours: 11)))
 		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 0)
 	}
 
 	func testGetNumberOfDaysActiveTracing_ZeroHours() {
-		let details = mockDetails(activeTracing: .init(interval: .init(hours: 0), maximumNumberOfDays: 14))
+		let details = mockDetails(activeTracing: .init(interval: .init(hours: 0)))
 		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 0)
 	}
 
 	func testGetNumberOfDaysActiveTracing_OneDayRoundedDown() {
-		let details = mockDetails(activeTracing: .init(interval: .init(hours: 25), maximumNumberOfDays: 14))
+		let details = mockDetails(activeTracing: .init(interval: .init(hours: 25)))
 		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 1)
 	}
 
 	func testGetNumberOfDaysActiveTracing_OneDayExact() {
-		let details = mockDetails(activeTracing: .init(interval: .init(hours: 25), maximumNumberOfDays: 14))
+		let details = mockDetails(activeTracing: .init(interval: .init(hours: 25)))
 		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 1)
 	}
 
 	func testGetNumberOfDaysActiveTracing_FourteenDaysExact() {
-		let details = mockDetails(activeTracing: .init(interval: .init(hours: 14 * 24), maximumNumberOfDays: 14))
+		let details = mockDetails(activeTracing: .init(interval: .init(hours: 14 * 24)))
 		XCTAssertEqual(details.numberOfDaysWithActiveTracing, 14)
 	}
 }

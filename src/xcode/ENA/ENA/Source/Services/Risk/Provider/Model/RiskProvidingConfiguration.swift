@@ -56,9 +56,15 @@ extension RiskProvidingConfiguration {
 		return currentDate < exposureDetectionValidUntil(lastExposureDetectionDate: lastExposureDetectionDate)
 	}
 
+	/// Checks, whether a new exposureDetection may be triggered
+	///
+	/// - Parameters:
+	///     - activeTracingHours: The amount of hours where the contact tracing protocol has been active within the relevant timeframe.
+	///     - lastExposureDetectionDate: The timestamp when the last exposureDetection completed successfully.
+	///     - currentDate: Current timestamp.
 	func shouldPerformExposureDetection(activeTracingHours: Int, lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
 		// Don't allow exposure detection within the first frame of exposureDetectionInterval
-		if activeTracingHours < ((exposureDetectionInterval.day ?? 1) * 24) {
+		guard activeTracingHours > ((exposureDetectionInterval.day ?? 1) * 24) else {
 			return false
 		}
 
@@ -71,6 +77,12 @@ extension RiskProvidingConfiguration {
 		return result
 	}
 
+	/// Checks, whether a new exposureDetection may be triggered manually by the user.
+	///
+	/// - Parameters:
+	///     - activeTracingHours: The amount of hours where the contact tracing protocol has been active within the relevant timeframe.
+	///     - lastExposureDetectionDate: The timestamp when the last exposureDetection completed successfully.
+	///     - currentDate: Current timestamp.
 	func manualExposureDetectionState(activeTracingHours: Int, lastExposureDetectionDate detectionDate: Date?) -> ManualExposureDetectionState? {
 		guard detectionMode != .automatic else {
 			return nil

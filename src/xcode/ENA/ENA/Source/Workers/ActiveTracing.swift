@@ -28,7 +28,7 @@ struct ActiveTracing {
 	let interval: TimeInterval
 	let maximumNumberOfDays: Int
 
-	init(interval: TimeInterval, maximumNumberOfDays: Int) {
+	init(interval: TimeInterval, maximumNumberOfDays: Int = 14) {
 		self.interval = interval
 		self.maximumNumberOfDays = maximumNumberOfDays
 	}
