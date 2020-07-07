@@ -45,6 +45,8 @@
 
 "ExposureDetection_Refresh_24h" = "Updated every 24 hours";
 
+"ExposureDetection_RefreshIn" = "Update in %@";
+
 "ExposureDetection_LastRiskLevel" = "Last exposure logging: %@";
 
 "ExposureDetection_OffText" = "Activate exposure logging to evaluate your risk status today.";
