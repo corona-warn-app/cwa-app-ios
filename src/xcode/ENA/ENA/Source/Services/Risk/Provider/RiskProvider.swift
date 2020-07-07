@@ -150,9 +150,22 @@ extension RiskProvider: RiskProviding {
 	}
 	#else
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
-		let group = DispatchGroup()
+		func completeOnTargetQueue(risk: Risk?) {
+			targetQueue.async {
+				completion?(risk)
+			}
+		}
 
 		var summaries: Summaries?
+		let tracingHistory = store.tracingStatusHistory
+		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
+
+		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
+			completeOnTargetQueue(risk: nil)
+			return
+		}
+
+		let group = DispatchGroup()
 
 		group.enter()
 		determineSummaries(userInitiated: userInitiated) {
@@ -165,12 +178,6 @@ extension RiskProvider: RiskProviding {
 		appConfigurationProvider.appConfiguration { configuration in
 			appConfiguration = configuration
 			group.leave()
-		}
-
-		func completeOnTargetQueue(risk: Risk?) {
-			targetQueue.async {
-				completion?(risk)
-			}
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {

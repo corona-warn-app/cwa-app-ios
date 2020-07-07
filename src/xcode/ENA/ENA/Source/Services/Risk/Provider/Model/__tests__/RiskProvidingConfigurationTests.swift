@@ -75,6 +75,15 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: future, currentDate: now), now)
 	}
 
+	func testGetNextExposureDetectionDate_Success() {
+		// Test the case where everything just works and you get a valid next date in the future.
+		let now = Date()
+		let nextDate = config.nextExposureDetectionDate(lastExposureDetectionDate: now, currentDate: now)
+		let exposureDetectionInterval: TimeInterval = 24 * 60 * 60
+//		XCTAssertEqual(nextDate, now.addingTimeInterval(exposureDetectionInterval))
+		XCTAssertFalse(config.shouldPerformExposureDetection(lastExposureDetectionDate: now, currentDate: now))
+	}
+
 	// MARK: - Calculating exposure valid bool
 
 	func testExposureDetectionIsValid_PastLastDetection() {
@@ -133,5 +142,23 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 		// Test the case when last detection not performed at all
 		// Detection is necessary
 		XCTAssertTrue(config.shouldPerformExposureDetection(lastExposureDetectionDate: nil))
+	}
+	
+	func testExposureDetectionValidUntil_Case() {
+		// Last exposure detection date was last night
+		// Now it is morning, and we start the app again
+		let lastEvening = Calendar.current.date(from: DateComponents(year: 2020, month: 6, day: 6, hour: 22, minute: 0, second: 0)) ?? .distantPast
+		let nowMorning = Calendar.current.date(from: DateComponents(year: 2020, month: 6, day: 7, hour: 7, minute: 0, second: 0)) ?? .distantPast
+
+		XCTAssertFalse(config.shouldPerformExposureDetection(lastExposureDetectionDate: lastEvening, currentDate: nowMorning))
+	}
+
+	func testShouldPerformExposureDetection_Success() {
+		// Test the case where everything just works and you get a valid next date in the future.
+		let now = Date()
+		let nextDate = config.nextExposureDetectionDate(lastExposureDetectionDate: now, currentDate: now)
+		let exposureDetectionInterval: TimeInterval = 24 * 60 * 60
+//		XCTAssertEqual(nextDate, now.addingTimeInterval(exposureDetectionInterval))
+		XCTAssertFalse(config.shouldPerformExposureDetection(lastExposureDetectionDate: now, currentDate: now))
 	}
 }

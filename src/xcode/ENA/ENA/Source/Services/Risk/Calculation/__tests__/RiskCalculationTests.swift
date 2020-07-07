@@ -571,9 +571,3 @@ private extension RiskCalculationTests {
 		return config
 	}
 }
-
-private extension TimeInterval {
-	init(days: Int) {
-		self = Double(days * 24 * 60 * 60)
-	}
-}

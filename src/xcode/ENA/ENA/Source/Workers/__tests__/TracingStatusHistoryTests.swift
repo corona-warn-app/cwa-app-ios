@@ -318,13 +318,3 @@ final class TracingStatusHistoryTests: XCTestCase {
 		XCTAssertEqual(history.activeTracing(since: now, maximumNumberOfDays: 14).inDays, 5)
 	}
 }
-
-private extension TimeInterval {
-	init(hours: Int) {
-		self = Double(hours * 60 * 60)
-	}
-
-	init(days: Int) {
-		self = Double(days * 24 * 60 * 60)
-	}
-}
