@@ -72,7 +72,9 @@ extension RiskProvider: RiskProviding {
 	}
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
-		configuration.manualExposureDetectionState(lastExposureDetectionDate: store.summary?.date)
+		configuration.manualExposureDetectionState(
+			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
+			lastExposureDetectionDate: store.summary?.date)
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
@@ -93,6 +95,7 @@ extension RiskProvider: RiskProviding {
 	) {
 		// Here we are in automatic mode and thus we have to check the validity of the current summary
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
+			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.summary?.date
 		)
 		if enoughTimeHasPassed == false || self.exposureManagerState.isGood == false {

@@ -56,7 +56,12 @@ extension RiskProvidingConfiguration {
 		return currentDate < exposureDetectionValidUntil(lastExposureDetectionDate: lastExposureDetectionDate)
 	}
 
-	func shouldPerformExposureDetection(lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
+	func shouldPerformExposureDetection(activeTracingHours: Int, lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
+		// Don't allow exposure detection within the first frame of exposureDetectionInterval
+		if activeTracingHours < ((exposureDetectionInterval.day ?? 1) * 24) {
+			return false
+		}
+
 		if let lastExposureDetectionDate = lastExposureDetectionDate, lastExposureDetectionDate > currentDate {
 			// It is not valid to have a future exposure detection date.
 			return true
@@ -66,10 +71,10 @@ extension RiskProvidingConfiguration {
 		return result
 	}
 
-	func manualExposureDetectionState(lastExposureDetectionDate detectionDate: Date?) -> ManualExposureDetectionState? {
+	func manualExposureDetectionState(activeTracingHours: Int, lastExposureDetectionDate detectionDate: Date?) -> ManualExposureDetectionState? {
 		guard detectionMode != .automatic else {
 			return nil
 		}
-		return shouldPerformExposureDetection(lastExposureDetectionDate: detectionDate) ? .possible : .waiting
+		return shouldPerformExposureDetection(activeTracingHours: activeTracingHours, lastExposureDetectionDate: detectionDate) ? .possible : .waiting
 	}
 }
