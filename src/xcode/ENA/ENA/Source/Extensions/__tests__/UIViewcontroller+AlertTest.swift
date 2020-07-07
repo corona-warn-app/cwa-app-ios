@@ -22,13 +22,23 @@ import XCTest
 
 class UIViewcontroller_AlertTest: XCTestCase {
 
-	func testAlert() {
+	var mockVC = UIViewController()
 
-		let vc = UIViewController()
+	override func setUp() {
+		super.setUp()
+
+		if let vc = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateInitialViewController() {
+			mockVC = vc
+		}
+
+		UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.rootViewController = mockVC
+	}
+
+	func testAlert() {
 		let expectation = self.expectation(description: "myExpectation")
 		expectation.expectedFulfillmentCount = 3
-		UIApplication.shared.keyWindow?.rootViewController = vc
-		vc.alertError(message: AppStrings.ExposureNotificationError.apiMisuse, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [UIAlertAction(), UIAlertAction()], completion: {
+
+		mockVC.alertError(message: AppStrings.ExposureNotificationError.apiMisuse, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [UIAlertAction(), UIAlertAction()], completion: {
 			if let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
 				let presentedController = keyWindow.rootViewController?.presentedViewController
 				XCTAssertTrue(presentedController is UIAlertController)
@@ -45,7 +55,7 @@ class UIViewcontroller_AlertTest: XCTestCase {
 				XCTestError(.timeoutWhileWaiting)
 			}
 		})
-		waitForExpectations(timeout: 1)
+		waitForExpectations(timeout: 2)
 	}
 
 	func testAlertSimple() throws {
