@@ -91,7 +91,7 @@ class ExposureSubmissionOverviewViewController: DynamicTableViewController, Spin
 			switch result {
 			case let .failure(error):
 				logError(message: "An error occurred during result fetching: \(error)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true, completion: nil)
 			case let .success(testResult):
 				self.performSegue(withIdentifier: Segue.labResult, sender: testResult)
@@ -149,9 +149,11 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 			// The error handler could have been invoked on a non-main thread which causes
 			// issues (crash) when updating the UI.
 			DispatchQueue.main.async {
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error) {
-					self.dismissQRCodeScannerView(viewController, completion: nil)
-				}
+				let alert = self.setupErrorAlert(
+					message: error.localizedDescription,
+					completion: {
+						self.dismissQRCodeScannerView(viewController, completion: nil)
+				 })
 				viewController.present(alert, animated: true, completion: nil)
 			}
 		default:
@@ -162,15 +164,16 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 	func qrScanner(_ vc: QRScannerViewController, didScan code: String) {
 		guard let guid = sanitizeAndExtractGuid(code) else {
 			vc.delegate = nil
-			let alert = ExposureSubmissionViewUtils.setupAlert(
+
+			let alert = self.setupErrorAlert(
 				title: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundTitle,
 				message: AppStrings.ExposureSubmissionQRScanner.alertCodeNotFoundText,
 				okTitle: AppStrings.Common.alertActionCancel,
-				retry: true,
-				action: {
+				secondaryActionTitle: AppStrings.Common.alertActionRetry,
+				completion: {
 					self.dismissQRCodeScannerView(vc, completion: nil)
 				},
-				retryActionHandler: { vc.delegate = self }
+				secondaryActionCompletion: { vc.delegate = self }
 			)
 			vc.present(alert, animated: true, completion: nil)
 			return
@@ -192,16 +195,21 @@ extension ExposureSubmissionOverviewViewController: ExposureSubmissionQRScannerD
 				// Note: In the case the QR Code was already used, retrying will result
 				// in an endless loop.
 				if case .qRAlreadyUsed = error {
-					let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, completion: nil)
+					let alert = self.setupErrorAlert(message: error.localizedDescription)
 					self.present(alert, animated: true, completion: nil)
 					return
 				}
 
 				logError(message: "Error while getting registration token: \(error)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error, retry: true, retryActionHandler: {
-					self.startSpinner()
-					self.getRegistrationToken(forKey: forKey)
-				})
+
+				let alert = self.setupErrorAlert(
+					message: error.localizedDescription,
+					secondaryActionTitle: AppStrings.Common.alertActionRetry,
+					secondaryActionCompletion: {
+						self.startSpinner()
+						self.getRegistrationToken(forKey: forKey)
+					}
+				)
 				self.present(alert, animated: true, completion: nil)
 
 			case let .success(token):
