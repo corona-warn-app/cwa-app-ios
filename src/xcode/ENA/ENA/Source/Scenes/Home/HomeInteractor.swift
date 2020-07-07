@@ -33,7 +33,6 @@ final class HomeInteractor: RequiresAppDependencies {
 		self.homeViewController = homeViewController
 		self.state = state
 		self.exposureSubmissionService = exposureSubmissionService
-		sections = initialCellConfigurators()
 	}
 
 	// MARK: Properties
@@ -45,8 +44,7 @@ final class HomeInteractor: RequiresAppDependencies {
 	) {
 		didSet {
 			homeViewController.setStateOfChildViewControllers()
-			sections = initialCellConfigurators()
-			homeViewController.reloadData()
+			buildSections()
 		}
 	}
 
@@ -110,6 +108,10 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	}
 
+	func buildSections() {
+		sections = initialCellConfigurators()
+	}
+
 	private func initialCellConfigurators() -> SectionConfiguration {
 
 		let info1Configurator = HomeInfoCellConfigurator(
@@ -167,9 +169,7 @@ extension HomeInteractor {
 
 	func reloadActionSection() {
 		sections[0] = setupActionSectionDefinition()
-		homeViewController.updateSections()
-		homeViewController.applySnapshotFromSections(animatingDifferences: true)
-		homeViewController.reloadData()
+		homeViewController.reloadData(animatingDifferences: false)
 	}
 }
 
