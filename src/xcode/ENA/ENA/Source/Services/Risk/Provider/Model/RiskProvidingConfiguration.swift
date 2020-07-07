@@ -69,7 +69,18 @@ extension RiskProvidingConfiguration {
 		return currentDate < exposureDetectionValidUntil(lastExposureDetectionDate: lastExposureDetectionDate)
 	}
 
-	func shouldPerformExposureDetection(lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
+	/// Checks, whether a new exposureDetection may be triggered
+	///
+	/// - Parameters:
+	///     - activeTracingHours: The amount of hours where the contact tracing protocol has been active within the relevant timeframe.
+	///     - lastExposureDetectionDate: The timestamp when the last exposureDetection completed successfully.
+	///     - currentDate: Current timestamp.
+	func shouldPerformExposureDetection(activeTracingHours: Int, lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
+		// Don't allow exposure detection within the first frame of exposureDetectionInterval
+		guard activeTracingHours >= TracingStatusHistory.minimumActiveHours else {
+			return false
+		}
+
 		if let lastExposureDetectionDate = lastExposureDetectionDate, lastExposureDetectionDate > currentDate {
 			// It is not valid to have a future exposure detection date.
 			return true
@@ -79,10 +90,15 @@ extension RiskProvidingConfiguration {
 		return result
 	}
 
-	func manualExposureDetectionState(lastExposureDetectionDate detectionDate: Date?) -> ManualExposureDetectionState? {
+	/// Checks, whether a new exposureDetection may be triggered manually by the user.
+	///
+	/// - Parameters:
+	///     - activeTracingHours: The amount of hours where the contact tracing protocol has been active within the relevant timeframe.
+	///     - lastExposureDetectionDate: The timestamp when the last exposureDetection completed successfully.
+	func manualExposureDetectionState(activeTracingHours: Int, lastExposureDetectionDate detectionDate: Date?) -> ManualExposureDetectionState? {
 		guard detectionMode != .automatic else {
 			return nil
 		}
-		return shouldPerformExposureDetection(lastExposureDetectionDate: detectionDate) ? .possible : .waiting
+		return shouldPerformExposureDetection(activeTracingHours: activeTracingHours, lastExposureDetectionDate: detectionDate) ? .possible : .waiting
 	}
 }

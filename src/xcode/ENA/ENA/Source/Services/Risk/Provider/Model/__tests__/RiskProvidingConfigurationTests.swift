@@ -75,12 +75,10 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 		XCTAssertEqual(config.nextExposureDetectionDate(lastExposureDetectionDate: future, currentDate: now), now)
 	}
 
-	func testNextExposureDetectionDate_Success() {
+	func testGetNextExposureDetectionDate_Success() {
 		// Test the case where everything just works and you get a valid next date in the future.
 		let now = Date()
-		let nextDate = config.nextExposureDetectionDate(lastExposureDetectionDate: now)
-		let exposureDetectionInterval: TimeInterval = 24 * 60 * 60
-		XCTAssertEqual(nextDate, now.addingTimeInterval(exposureDetectionInterval))
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: now, currentDate: now))
 	}
 
 	// MARK: - Calculating exposure valid bool
@@ -115,31 +113,52 @@ final class RiskProvidingConfigurationTests: XCTestCase {
 		// Test the case when last detection was performed recently
 		// There should be no need to do the detection again.
 		let lastDetection = Calendar.current.date(byAdding: DateComponents(hour: -1), to: Date()) ?? .distantPast
-		XCTAssertFalse(config.shouldPerformExposureDetection(lastExposureDetectionDate: lastDetection))
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: lastDetection))
 	}
 
 	func testShouldPerformExposureDetection_LastDetectionNow() {
 		// Test the case when last detection was performed at this instant
 		// There should be no need to do the detection again
 		let now = Date()
-		XCTAssertFalse(config.shouldPerformExposureDetection(lastExposureDetectionDate: now, currentDate: now))
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: now, currentDate: now))
 	}
 
 	func testShouldPerformExposureDetection_LastDetectionFuture() {
 		// Test the case when last detection was performed in the future.
 		// This is not valid, and a detection should be performed.
-		XCTAssertTrue(config.shouldPerformExposureDetection(lastExposureDetectionDate: Date().addingTimeInterval(10000)))
+		XCTAssertTrue(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: Date().addingTimeInterval(10000)))
 	}
 
 	func testShouldPerformExposureDetection_LastDetectionDistantPast() {
 		// Test the case when last detection was performed in the past
 		// Detection is necessary
-		XCTAssertTrue(config.shouldPerformExposureDetection(lastExposureDetectionDate: .distantPast))
+		XCTAssertTrue(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: .distantPast))
 	}
 
 	func testShouldPerformExposureDetection_NilLastDetection() {
 		// Test the case when last detection not performed at all
 		// Detection is necessary
-		XCTAssertTrue(config.shouldPerformExposureDetection(lastExposureDetectionDate: nil))
+		XCTAssertTrue(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: nil))
+	}
+
+	func testShouldPerformExposureDetection_afterInstall() {
+		// Test the case when the tracing hasn't been active long enough
+		// Detection is not necessary
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 7, lastExposureDetectionDate: nil))
+	}
+	
+	func testExposureDetectionValidUntil_Case() {
+		// Last exposure detection date was last night
+		// Now it is morning, and we start the app again
+		let lastEvening = Calendar.current.date(from: DateComponents(year: 2020, month: 6, day: 6, hour: 22, minute: 0, second: 0)) ?? .distantPast
+		let nowMorning = Calendar.current.date(from: DateComponents(year: 2020, month: 6, day: 7, hour: 7, minute: 0, second: 0)) ?? .distantPast
+
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: lastEvening, currentDate: nowMorning))
+	}
+
+	func testShouldPerformExposureDetection_Success() {
+		// Test the case where everything just works and you get a valid next date in the future.
+		let now = Date()
+		XCTAssertFalse(config.shouldPerformExposureDetection(activeTracingHours: 42, lastExposureDetectionDate: now, currentDate: now))
 	}
 }
