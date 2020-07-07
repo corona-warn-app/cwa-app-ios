@@ -482,6 +482,22 @@
 
 "ExposureSubmissionError_defaultError" = "General exposure submission error";
 
+"ExposureSubmissionError_unsupported" = "​Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
+
+"ExposureSubmissionError_internal" = "Error 11: Something went wrong. Your level of risk cannot be determined. You can find more information in the FAQ.";
+
+"ExposureSubmissionError_rateLimited" = "Error 13: Your risk calculation for today has already been carried out. Please try again tomorrow.";
+
+"ExposureSubmissionError_moreInfo" = "Learn more";
+
+"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
 
