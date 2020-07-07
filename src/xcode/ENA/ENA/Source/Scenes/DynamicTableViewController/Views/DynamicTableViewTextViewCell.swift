@@ -45,7 +45,6 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 
 		textView.translatesAutoresizingMaskIntoConstraints = false
 		textView.isScrollEnabled = false
-		textView.dataDetectorTypes = .all
 		textView.isEditable = false
 		// The two below settings make the UITextView look more like a UILabel
 		textView.textContainerInset = .zero
