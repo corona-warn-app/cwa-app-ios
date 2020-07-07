@@ -53,4 +53,55 @@ class ExposureSubmissionWarnOthersViewControllerTests: XCTestCase {
 		waitForExpectations(timeout: .short)
 	}
 
+	func testShowENErrorAlertInternal() {
+		let vc = createVC()
+		_ = vc.view
+
+		let alert = vc.createENAlert(.internal)
+		XCTAssert(alert.actions.count == 2)
+		XCTAssert(alert.actions[1].title == AppStrings.ExposureSubmissionError.moreInfo)
+		XCTAssert(alert.message == AppStrings.ExposureSubmissionError.internal)
+	}
+
+	func testShowENErrorAlertUnsupported() {
+		let vc = createVC()
+		_ = vc.view
+
+		let alert = vc.createENAlert(.unsupported)
+		XCTAssert(alert.actions.count == 2)
+		XCTAssert(alert.actions[1].title == AppStrings.ExposureSubmissionError.moreInfo)
+		XCTAssert(alert.message == AppStrings.ExposureSubmissionError.unsupported)
+	}
+
+	func testShowENErrorAlertRateLimited() {
+		let vc = createVC()
+		_ = vc.view
+
+		let alert = vc.createENAlert(.rateLimited)
+		XCTAssert(alert.actions.count == 2)
+		XCTAssert(alert.actions[1].title == AppStrings.ExposureSubmissionError.moreInfo)
+		XCTAssert(alert.message == AppStrings.ExposureSubmissionError.rateLimited)
+	}
+
+	func testGetURLInternal() {
+		let vc = createVC()
+
+		let url = vc.getURL(for: .internal)
+		XCTAssert(url?.absoluteString == AppStrings.ExposureSubmissionError.moreInfoURLEN11)
+	}
+
+	func testGetURLUnsupported() {
+		let vc = createVC()
+
+		let url = vc.getURL(for: .unsupported)
+		XCTAssert(url?.absoluteString == AppStrings.ExposureSubmissionError.moreInfoURLEN5)
+	}
+
+	func testGetURLRateLimited() {
+		let vc = createVC()
+
+		let url = vc.getURL(for: .rateLimited)
+		XCTAssert(url?.absoluteString == AppStrings.ExposureSubmissionError.moreInfoURLEN13)
+	}
+
 }
