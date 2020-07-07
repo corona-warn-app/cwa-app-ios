@@ -82,7 +82,6 @@ extension RiskProvidingConfiguration {
 	/// - Parameters:
 	///     - activeTracingHours: The amount of hours where the contact tracing protocol has been active within the relevant timeframe.
 	///     - lastExposureDetectionDate: The timestamp when the last exposureDetection completed successfully.
-	///     - currentDate: Current timestamp.
 	func manualExposureDetectionState(activeTracingHours: Int, lastExposureDetectionDate detectionDate: Date?) -> ManualExposureDetectionState? {
 		guard detectionMode != .automatic else {
 			return nil
