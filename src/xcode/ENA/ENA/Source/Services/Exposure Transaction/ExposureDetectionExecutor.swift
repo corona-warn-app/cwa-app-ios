@@ -104,9 +104,18 @@ final class ExposureDetectionExecutor: ExposureDetectionDelegate {
 			}
 			fatalError("invalid state")
 		}
+
+		var fileURLs: [URL]
+		if writtenPackages.urls.count > 14 {  // This should never happen. Code is just here to be sure
+			logError(message: "Trying to feed too many files into the framework")
+			fileURLs = Array(writtenPackages.urls.prefix(14))
+		} else {
+			fileURLs = writtenPackages.urls
+		}
+
 		_ = exposureDetector.detectExposures(
 				configuration: configuration,
-				diagnosisKeyURLs: writtenPackages.urls
+				diagnosisKeyURLs: fileURLs
 		) { summary, error in
 			completion(withResultFrom(summary: summary, error: error))
 		}
