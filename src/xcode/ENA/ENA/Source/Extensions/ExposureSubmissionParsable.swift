@@ -35,6 +35,13 @@ protocol ExposureSubmissionErrorTransformable {
 extension ENError: ExposureSubmissionErrorTransformable {
 	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch code {
+
+		case .unsupported:
+			return .unsupported
+		case .internal:
+			return .internal
+		case .rateLimited:
+			return .rateLimited
 		case .notEnabled:
 			return .enNotEnabled
 		case .notAuthorized:
