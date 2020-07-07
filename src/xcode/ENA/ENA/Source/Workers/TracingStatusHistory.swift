@@ -91,7 +91,10 @@ extension Array where Element == TracingStatusEntry {
 	///
 	/// - parameter since: Date to use as the baseline. Defaults to `Date()`
 	func countEnabledDays(since date: Date = Date()) -> Int {
-		Int(getContinuousEnabledInterval(since: date) / (60 * 60 * 24))
+		// 5.5 days => 6 days
+		// 0.5 days => 1 day
+		// 13.99999 days => 14 days
+		Int(Double(getContinuousEnabledInterval(since: date) / (60 * 60 * 24)).rounded(.toNearestOrAwayFromZero))
 	}
 
 	/// Mark returns the count of hours that tracing has been enabled
