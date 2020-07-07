@@ -187,7 +187,10 @@ extension HomeInteractor {
 		inactiveConfigurator = nil
 
 		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
-		switch state.riskLevel {
+
+		let riskLevel: RiskLevel? = state.exposureManagerState.enabled ? state.riskLevel : .inactive
+
+		switch riskLevel {
 		case .unknownInitial:
 			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
 				isLoading: false,
