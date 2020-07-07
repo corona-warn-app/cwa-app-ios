@@ -64,7 +64,7 @@ extension RiskProvidingConfiguration {
 	///     - currentDate: Current timestamp.
 	func shouldPerformExposureDetection(activeTracingHours: Int, lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Bool {
 		// Don't allow exposure detection within the first frame of exposureDetectionInterval
-		guard activeTracingHours > ((exposureDetectionInterval.day ?? 1) * 24) else {
+		guard activeTracingHours >= TracingStatusHistory.minimumActiveHours else {
 			return false
 		}
 
