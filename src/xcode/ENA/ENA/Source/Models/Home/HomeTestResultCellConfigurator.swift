@@ -48,7 +48,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			title: AppStrings.Home.submitCardTitle,
 			description: AppStrings.Home.submitCardBody,
 			button: AppStrings.Home.submitCardButton,
-			image: UIImage(named: "Illu_Hand_with_phone-initial"),
+			image: UIImage(named: "Illu_Hand_with_phone-initial")?.imageFlippedForRightToLeftLayoutDirection(),
 			accessibilityIdentifier: AccessibilityIdentifiers.Home.submitCardButton
 		)
 	}
@@ -59,7 +59,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			subtitle: AppStrings.Home.resultCardNegativeTitle,
 			description: AppStrings.Home.resultCardNegativeDesc,
 			button: AppStrings.Home.resultCardShowResultButton,
-			image: UIImage(named: "Illu_Hand_with_phone-negativ"),
+			image: UIImage(named: "Illu_Hand_with_phone-negativ")?.imageFlippedForRightToLeftLayoutDirection(),
 			tintColor: .enaColor(for: .textSemanticGreen),
 			accessibilityIdentifier: AccessibilityIdentifiers.Home.resultCardShowResultButton
 		)
@@ -71,7 +71,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			subtitle: AppStrings.Home.resultCardInvalidTitle,
 			description: AppStrings.Home.resultCardInvalidDesc,
 			button: AppStrings.Home.resultCardShowResultButton,
-			image: UIImage(named: "Illu_Hand_with_phone-error"),
+			image: UIImage(named: "Illu_Hand_with_phone-error")?.imageFlippedForRightToLeftLayoutDirection(),
 			tintColor: .enaColor(for: .textSemanticGray),
 			accessibilityIdentifier: AccessibilityIdentifiers.Home.resultCardShowResultButton
 		)
@@ -82,7 +82,7 @@ class HomeTestResultCellConfigurator: CollectionViewCellConfigurator {
 			title: AppStrings.Home.resultCardResultUnvailableTitle,
 			description: AppStrings.Home.resultCardPendingDesc,
 			button: AppStrings.Home.resultCardShowResultButton,
-			image: UIImage(named: "Illu_Hand_with_phone-pending"),
+			image: UIImage(named: "Illu_Hand_with_phone-pending")?.imageFlippedForRightToLeftLayoutDirection(),
 			tintColor: .enaColor(for: .textPrimary2),
 			accessibilityIdentifier: AccessibilityIdentifiers.Home.resultCardShowResultButton
 		)

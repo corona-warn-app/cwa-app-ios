@@ -64,6 +64,7 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	func configureTitle(title: String, titleColor: UIColor) {
 		titleLabel.text = title
 		titleLabel.textColor = titleColor
+		chevronImageView.image = chevronImageView.image?.imageFlippedForRightToLeftLayoutDirection()
 	}
 
 	func configureBody(text: String, bodyColor: UIColor, isHidden: Bool) {
