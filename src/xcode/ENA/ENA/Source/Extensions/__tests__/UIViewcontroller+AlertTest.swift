@@ -22,6 +22,7 @@ import XCTest
 
 class UIViewcontroller_AlertTest: XCTestCase {
 
+
 	func testAlertSimple() throws {
 		let vc = UIViewController()
 		let alert = vc.setupErrorAlert(message: "Error Message")

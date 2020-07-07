@@ -305,26 +305,16 @@ final class TracingStatusHistoryTests: XCTestCase {
 			.init(on: true, date: now.addingTimeInterval(.init(hours: -((24 * 5) + 4))))
 		]
 
-		XCTAssertEqual(history.activeTracing(since: now, maximumNumberOfDays: 14).inDays, 5)
+		XCTAssertEqual(history.activeTracing(since: now).inDays, 5)
 
 		history = [
 			.init(on: true, date: now.addingTimeInterval(.init(hours: -((24 * 5) + 13))))
 		]
-		XCTAssertEqual(history.activeTracing(since: now, maximumNumberOfDays: 14).inDays, 6)
+		XCTAssertEqual(history.activeTracing(since: now).inDays, 6)
 
 		history = [
 			.init(on: true, date: now.addingTimeInterval(.init(hours: -((24 * 5) + 0))))
 		]
-		XCTAssertEqual(history.activeTracing(since: now, maximumNumberOfDays: 14).inDays, 5)
-	}
-}
-
-private extension TimeInterval {
-	init(hours: Int) {
-		self = Double(hours * 60 * 60)
-	}
-
-	init(days: Int) {
-		self = Double(days * 24 * 60 * 60)
+		XCTAssertEqual(history.activeTracing(since: now).inDays, 5)
 	}
 }
