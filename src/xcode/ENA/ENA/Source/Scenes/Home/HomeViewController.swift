@@ -25,7 +25,7 @@ protocol HomeViewControllerDelegate: AnyObject {
 	func setExposureDetectionState(state: HomeInteractor.State, isRequestRiskRunning: Bool)
 	func showExposureSubmission(with result: TestResult?)
 	func showInviteFriends()
-	func showWebPage(from viewController: UIViewController)
+	func showWebPage(from viewController: UIViewController, urlString: String)
 	func showAppInformation()
 	func showSettings(enState: ENStateHandler.State)
 	func addToUpdatingSetIfNeeded(_ anyObject: AnyObject?)
@@ -183,7 +183,7 @@ final class HomeViewController: UIViewController {
 			if row == 0 {
 				delegate?.showInviteFriends()
 			} else {
-				delegate?.showWebPage(from: self)
+				delegate?.showWebPage(from: self, urlString: AppStrings.SafariView.targetURL)
 			}
 		case .settings:
 			if row == 0 {

@@ -21,8 +21,8 @@ import SafariServices
 import UIKit
 
 enum WebPageHelper {
-	static func showWebPage(from viewController: UIViewController) {
-		if let url = URL(string: AppStrings.SafariView.targetURL) {
+	static func showWebPage(from viewController: UIViewController, urlString: String) {
+		if let url = URL(string: urlString) {
 			let config = SFSafariViewController.Configuration()
 			config.entersReaderIfAvailable = true
 			config.barCollapsingEnabled = true
@@ -31,7 +31,7 @@ enum WebPageHelper {
 			vc.preferredControlTintColor = .enaColor(for: .tint)
 			viewController.present(vc, animated: true)
 		} else {
-			let error = "\(AppStrings.SafariView.targetURL) is no valid URL"
+			let error = "\(urlString) is no valid URL"
 			logError(message: error)
 			fatalError(error)
 		}

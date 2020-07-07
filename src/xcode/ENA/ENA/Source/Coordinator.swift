@@ -192,8 +192,8 @@ extension Coordinator: HomeViewControllerDelegate {
 		)
 	}
 
-	func showWebPage(from viewController: UIViewController) {
-		WebPageHelper.showWebPage(from: viewController)
+	func showWebPage(from viewController: UIViewController, urlString: String) {
+		WebPageHelper.showWebPage(from: viewController, urlString: urlString)
 	}
 
 	func showAppInformation() {
