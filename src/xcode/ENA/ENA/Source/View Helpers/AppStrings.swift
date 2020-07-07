@@ -366,6 +366,25 @@ enum AppStrings {
 		static let accLabelInternetOff = NSLocalizedString("ExposureNotificationSetting_AccLabel_InternetOff", comment: "")
 	}
 
+	enum ExposureNotificationError {
+
+		static let generalErrorTitle = NSLocalizedString("ExposureNotificationSetting_GeneralError_Title", comment: "")
+
+		static let learnMoreActionTitle = NSLocalizedString("ExposureNotificationSetting_GeneralError_LearnMore_Action", comment: "")
+
+		static let learnMoreURL = NSLocalizedString("ExposureNotificationSetting_GeneralError_LearnMore_URL", comment: "")
+
+		static let enAuthorizationError = NSLocalizedString("ExposureNotificationSetting_AuthenticationError", comment: "")
+
+		static let enActivationRequiredError = NSLocalizedString("ExposureNotificationSetting_exposureNotification_Required", comment: "")
+
+		static let enUnavailableError = NSLocalizedString("ExposureNotificationSetting_exposureNotification_unavailable", comment: "")
+
+		static let enUnknownError = NSLocalizedString("ExposureNotificationSetting_unknownError", comment: "")
+
+		static let apiMisuse = NSLocalizedString("ExposureNotificationSetting_apiMisuse", comment: "")
+	}
+
 	enum Home {
 		// Home Navigation
 		static let leftBarButtonDescription = NSLocalizedString("Home_LeftBarButton_description", comment: "")
