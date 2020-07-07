@@ -56,25 +56,25 @@ class ImageTableViewCell: UITableViewCell, ConfigurableENSettingCell {
 		switch state {
 		case .enabled:
 			return .init(
-				UIImage(named: "Illu_Risikoermittlung_On"),
+				UIImage(named: "Illu_Risikoermittlung_On")?.imageFlippedForRightToLeftLayoutDirection(),
 				AppStrings.ExposureNotificationSetting.accLabelEnabled,
 				"AppStrings.ExposureNotificationSetting.accLabelEnabled"
 			)
 		case .disabled, .restricted, .notAuthorized, .unknown:
 			return .init(
-				UIImage(named: "Illu_Risikoermittlung_Off"),
+				UIImage(named: "Illu_Risikoermittlung_Off")?.imageFlippedForRightToLeftLayoutDirection(),
 				AppStrings.ExposureNotificationSetting.accLabelDisabled,
 				"AppStrings.ExposureNotificationSetting.accLabelDisabled"
 			)
 		case .bluetoothOff:
 			return .init(
-				UIImage(named: "Illu_Bluetooth_Off"),
+				UIImage(named: "Illu_Bluetooth_Off")?.imageFlippedForRightToLeftLayoutDirection(),
 				AppStrings.ExposureNotificationSetting.accLabelBluetoothOff,
 				"AppStrings.ExposureNotificationSetting.accLabelBluetoothOff"
 			)
 		case .internetOff:
 			return .init(
-				UIImage(named: "Illu_Internet_Off"),
+				UIImage(named: "Illu_Internet_Off")?.imageFlippedForRightToLeftLayoutDirection(),
 				AppStrings.ExposureNotificationSetting.accLabelInternetOff,
 				"AppStrings.ExposureNotificationSetting.accLabelInternetOff"
 			)
