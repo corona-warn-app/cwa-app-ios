@@ -79,6 +79,85 @@ class DynamicTableViewTextViewCellTests: XCTestCase {
 
 		try sut.testDefaultConfiguration()
 	}
+
+	func testConfigureDynamicType_Customized() throws {
+		let sut = DynamicTableViewTextViewCell()
+		let expectedFontSize = CGFloat(20)
+		let expectedFontWeight = UIFont.Weight.medium
+		let expectedFontStyle = UIFont.TextStyle.callout
+
+		sut.configureDynamicType(size: expectedFontSize, weight: expectedFontWeight, style: expectedFontStyle)
+
+		let textView = try sut.getTextView()
+		let font = try XCTUnwrap(textView.font)
+
+		XCTAssertEqual(font.pointSize, expectedFontSize, accuracy: 0.1)
+		XCTAssertTrue(textView.adjustsFontForContentSizeCategory)
+		XCTAssertEqual(
+			font,
+			UIFont.preferredFont(forTextStyle: expectedFontStyle).scaledFont(size: expectedFontSize, weight: expectedFontWeight)
+		)
+	}
+
+	func testConfigureDynamicType_Defaults() throws {
+		let sut = DynamicTableViewTextViewCell()
+		let expectedFontSize = CGFloat(17)
+		let expectedFontWeight = UIFont.Weight.regular
+		let expectedFontStyle = UIFont.TextStyle.body
+
+		sut.configureDynamicType()
+
+		let textView = try sut.getTextView()
+		let font = try XCTUnwrap(textView.font)
+
+		XCTAssertEqual(font.pointSize, expectedFontSize, accuracy: 0.1)
+		XCTAssertTrue(textView.adjustsFontForContentSizeCategory)
+		XCTAssertEqual(
+			font,
+			UIFont.preferredFont(forTextStyle: expectedFontStyle).scaledFont(size: expectedFontSize, weight: expectedFontWeight)
+		)
+	}
+
+	func testConfigure_Customized() throws {
+		let sut = DynamicTableViewTextViewCell()
+		let expectedText = "Foo"
+		let expectedTextColor = UIColor.systemRed
+
+		sut.configure(text: expectedText, color: expectedTextColor)
+
+		let textView = try sut.getTextView()
+
+		XCTAssertEqual(textView.text, expectedText)
+		XCTAssertEqual(textView.textColor, expectedTextColor)
+	}
+
+	func testConfigure_Defaults() throws {
+		let sut = DynamicTableViewTextViewCell()
+		let expectedText = "Foo"
+		let expectedTextColor = UIColor.enaColor(for: .textPrimary1)
+
+		sut.configure(text: expectedText)
+
+		let textView = try sut.getTextView()
+
+		XCTAssertEqual(textView.text, expectedText)
+		XCTAssertEqual(textView.textColor, expectedTextColor)
+	}
+
+	func testConfigureAccessibility() throws {
+		let sut = DynamicTableViewTextViewCell()
+		let expectedLabel = "Foo"
+		let expectedIdentifier = "Bar"
+		let exptectedTraits = UIAccessibilityTraits.adjustable
+
+		sut.configureAccessibility(label: expectedLabel, identifier: expectedIdentifier, traits: exptectedTraits)
+
+		let textView = try sut.getTextView()
+
+		XCTAssertEqual(textView.accessibilityLabel, expectedLabel)
+		XCTAssertEqual(textView.accessibilityIdentifier, expectedIdentifier)
+		XCTAssertEqual(sut.accessibilityTraits, exptectedTraits)
+	}
 }
 
 private extension DynamicTableViewTextViewCell {
@@ -93,6 +172,7 @@ private extension DynamicTableViewTextViewCell {
 		// - adjustsFontForContentSizeCategory
 		// - textView text
 		// - textColor
+		// - empty text
 		let textView = try getTextView()
 		XCTAssertEqual(textView.font, UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 17, weight: .regular))
 		XCTAssertTrue(textView.adjustsFontForContentSizeCategory)
