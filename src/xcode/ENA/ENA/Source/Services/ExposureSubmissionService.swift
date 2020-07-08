@@ -346,11 +346,11 @@ extension ExposureSubmissionError: LocalizedError {
 		case .noKeys:
 			return AppStrings.ExposureSubmissionError.noKeys
 		case .internal:
-			return AppStrings.ExposureSubmissionError.internal
+			return AppStrings.Common.enError11Description
 		case .unsupported:
-			return AppStrings.ExposureSubmissionError.unsupported
+			return AppStrings.Common.enError5Description
 		case .rateLimited:
-			return AppStrings.ExposureSubmissionError.rateLimited
+			return AppStrings.Common.enError13Description
 		case let .other(desc):
 			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:
