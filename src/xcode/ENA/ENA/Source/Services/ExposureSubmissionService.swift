@@ -311,6 +311,9 @@ enum ExposureSubmissionError: Error, Equatable {
 	case serverError(Int)
 	case unknown
 	case httpError(String)
+	case `internal`
+	case unsupported
+	case rateLimited
 }
 
 extension ExposureSubmissionError: LocalizedError {
@@ -342,6 +345,12 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		case .noKeys:
 			return AppStrings.ExposureSubmissionError.noKeys
+		case .internal:
+			return AppStrings.ExposureSubmissionError.internal
+		case .unsupported:
+			return AppStrings.ExposureSubmissionError.unsupported
+		case .rateLimited:
+			return AppStrings.ExposureSubmissionError.rateLimited
 		case let .other(desc):
 			return  "\(AppStrings.ExposureSubmissionError.other)\(desc)\(AppStrings.ExposureSubmissionError.otherend)"
 		case .unknown:

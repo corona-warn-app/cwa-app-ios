@@ -45,6 +45,8 @@
 
 "ExposureDetection_Refresh_24h" = "Updated every 24 hours";
 
+"ExposureDetection_RefreshIn" = "Update in %@";
+
 "ExposureDetection_LastRiskLevel" = "Last exposure logging: %@";
 
 "ExposureDetection_OffText" = "Activate exposure logging to evaluate your risk status today.";
@@ -482,6 +484,22 @@
 
 "ExposureSubmissionError_defaultError" = "General exposure submission error";
 
+"ExposureSubmissionError_unsupported" = "​Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
+
+"ExposureSubmissionError_internal" = "Error 11: Something went wrong. Your level of risk cannot be determined. You can find more information in the FAQ.";
+
+"ExposureSubmissionError_rateLimited" = "Error 13: Your risk calculation for today has already been carried out. Please try again tomorrow.";
+
+"ExposureSubmissionError_moreInfo" = "Learn more";
+
+"ExposureSubmissionError_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureSubmissionError_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"ExposureSubmissionError_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"ExposureSubmissionError_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
 
@@ -538,6 +556,22 @@
 "ExposureNotificationSetting_Activate_Action" = "Accept";
 
 "ExposureNotificationSetting_Dismiss_Action" = "Cancel";
+
+"ExposureNotificationSetting_GeneralError_Title" = "Error";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Learn more";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.coronawarn.app/en/faq/";
+
+"ExposureNotificationSetting_AuthenticationError" = "An error occurred when activating the exposure logging. Please go to system settings and make sure this app is authorized to make use of COVID-19 exposure logging.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "An error occurred when activating the exposure logging. Please go to system settings and make sure the exposure notifications are enabled for this app.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "An error occurred when activating the exposure logging. Please go to system settings and make sure this app is set active to make use of exposure notifications. Please visit the FAQ website for more information.";
+
+"ExposureNotificationSetting_unknownError" = "An unknown error occured. Please visit the FAQ website for more information.";
+
+"ExposureNotificationSetting_apiMisuse" = "An internal error occurred when activating the risk identification. Please visit the FAQ website for more information and try exposure logging later again.";
 
 /* Home Navigation Bar */
 "Home_LeftBarButton_description" = "Corona-Warn-App logo";

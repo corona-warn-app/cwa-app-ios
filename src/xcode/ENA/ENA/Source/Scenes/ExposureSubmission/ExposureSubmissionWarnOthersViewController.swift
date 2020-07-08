@@ -60,16 +60,76 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 		navigationFooterItem?.isPrimaryButtonEnabled = false
 		exposureSubmissionService?.submitExposure { error in
 			switch error {
+			// We continue the regular flow even if there are no keys collected.
 			case .none, .noKeys:
 				self.performSegue(withIdentifier: Segue.sent, sender: self)
+
+			// Custom error handling for EN framework related errors.
+			case .internal, .unsupported, .rateLimited:
+				guard let error = error else {
+					logError(message: "error while parsing EN error.")
+					return
+				}
+				self.showENErrorAlert(error)
+
 			case .some(let error):
 				logError(message: "error: \(error.localizedDescription)", level: .error)
-				let alert = ExposureSubmissionViewUtils.setupErrorAlert(error)
+				let alert = self.setupErrorAlert(message: error.localizedDescription)
 				self.present(alert, animated: true, completion: {
 					self.navigationFooterItem?.isPrimaryButtonLoading = false
 					self.navigationFooterItem?.isPrimaryButtonEnabled = true
 				})
 			}
+		}
+	}
+
+	// MARK: - UI-related helpers.
+
+
+	/// Instantiates and shows an alert with a "More Info" button for
+	/// the EN errors. Assumes that the passed in `error` is either of type
+	/// `.internal`, `.unsupported` or `.rateLimited`.
+	func showENErrorAlert(_ error: ExposureSubmissionError) {
+		logError(message: "error: \(error.localizedDescription)", level: .error)
+		let alert = createENAlert(error)
+
+		self.present(alert, animated: true, completion: {
+			self.navigationFooterItem?.isPrimaryButtonLoading = false
+			self.navigationFooterItem?.isPrimaryButtonEnabled = true
+		})
+	}
+
+	/// Creates an error alert for the EN errors.
+	func createENAlert(_ error: ExposureSubmissionError) -> UIAlertController {
+		return self.setupErrorAlert(
+			message: error.localizedDescription,
+			secondaryActionTitle: AppStrings.ExposureSubmissionError.moreInfo,
+			secondaryActionCompletion: {
+				guard let url = self.getURL(for: error) else {
+					logError(message: "Unable to open FAQ page.", level: .error)
+					return
+				}
+
+				UIApplication.shared.open(
+					url,
+					options: [:]
+				)
+		 })
+	}
+
+	/// Returns the correct shortlink based on the EN notification error.
+	func getURL(for error: ExposureSubmissionError) -> URL? {
+		switch error {
+		case .internal:
+			return URL(string: AppStrings.ExposureSubmissionError.moreInfoURLEN11)
+		case .unsupported:
+			return URL(string: AppStrings.ExposureSubmissionError.moreInfoURLEN5)
+		case .rateLimited:
+			return URL(string: AppStrings.ExposureSubmissionError.moreInfoURLEN13)
+		default:
+			// This case should not be hit, as we made sure we're only getting
+			// EN-related errors in the method calling this one.
+			return nil
 		}
 	}
 
