@@ -437,7 +437,8 @@ extension HomeInteractor {
 /// The `CountdownTimerDelegate` is used to update the remaining time that is shown on the risk cell button until a manual refresh is allowed.
 extension HomeInteractor: CountdownTimerDelegate {
 	private func scheduleCountdownTimer() {
-		let nextUpdate = riskProvider.nextExposureDetectionDate()
+		guard detectionMode == .manual else { return }
+		var nextUpdate = riskProvider.nextExposureDetectionDate()
 		countdownTimer = CountdownTimer(countdownTo: nextUpdate)
 		countdownTimer?.delegate = self
 		countdownTimer?.start()

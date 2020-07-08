@@ -85,6 +85,8 @@ final class HomeHighRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 	}
 
 	override func configureButton(for cell: RiskLevelCollectionViewCell) {
+		super.configureButton(for: cell)
+
 		let buttonTitle: String
 		if isLoading {
 			buttonTitle = AppStrings.Home.riskCardStatusCheckButton
