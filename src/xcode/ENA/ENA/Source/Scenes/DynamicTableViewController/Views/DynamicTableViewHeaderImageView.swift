@@ -23,7 +23,7 @@ class DynamicTableViewHeaderImageView: UITableViewHeaderFooterView {
 	private var heightConstraint: NSLayoutConstraint!
 
 	var image: UIImage? {
-		set { imageView.image = newValue }
+		set { imageView.image = newValue?.imageFlippedForRightToLeftLayoutDirection() }
 		get { imageView.image }
 	}
 

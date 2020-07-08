@@ -110,7 +110,7 @@ extension DynamicTableViewController {
 
 		case let .image(image, accessibilityLabel: label, accessibilityIdentifier: accessibilityIdentifier, height):
 			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.header.rawValue) as? DynamicTableViewHeaderImageView
-			view?.imageView?.image = image
+			view?.imageView?.image = image?.imageFlippedForRightToLeftLayoutDirection()
 			if let label = label {
 				view?.imageView?.isAccessibilityElement = true
 				view?.imageView?.accessibilityLabel = label
