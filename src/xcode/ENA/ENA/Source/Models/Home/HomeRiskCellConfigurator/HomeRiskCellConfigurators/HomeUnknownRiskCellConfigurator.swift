@@ -35,8 +35,8 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		super.init(
 			isLoading: isLoading,
-			isButtonEnabled: true, //manualExposureDetectionState == .possible,
-			isButtonHidden: false, //detectionMode == .automatic,
+			isButtonEnabled: manualExposureDetectionState == .possible,
+			isButtonHidden: detectionMode == .automatic,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
 			lastUpdateDate: lastUpdateDate
 		)
