@@ -39,7 +39,7 @@ class HtmlTextView: UITextView {
 		isScrollEnabled = false
 		backgroundColor = nil
 		adjustsFontForContentSizeCategory = true
-		font = .preferredFont(forTextStyle: .body)
+		font = .enaFont(for: .body)
 		textContainer.lineFragmentPadding = .zero
 
 		linkTextAttributes = [
