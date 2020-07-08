@@ -217,7 +217,7 @@ extension DynamicTableViewControllerHeaderTests {
 		guard let headerImageView = view as? DynamicTableViewHeaderImageView else {
 			return XCTFail("Unexpeced type")
 		}
-		XCTAssertEqual(headerImageView.imageView.image, image)
+		XCTAssertEqual(headerImageView.imageView.image?.pngData(), image.pngData())
 		XCTAssertEqual(headerImageView.height, height)
 	}
 	

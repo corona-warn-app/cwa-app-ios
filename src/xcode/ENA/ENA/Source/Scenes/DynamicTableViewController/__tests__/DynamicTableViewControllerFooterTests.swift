@@ -219,7 +219,7 @@ extension DynamicTableViewControllerFooterTests {
 		guard let headerImageView = view as? DynamicTableViewHeaderImageView else {
 			return XCTFail("Unexpected type")
 		}
-		XCTAssertEqual(headerImageView.imageView.image, image)
+		XCTAssertEqual(headerImageView.imageView.image?.pngData(), image.pngData())
 		XCTAssertEqual(headerImageView.height, height)
 	}
 	
