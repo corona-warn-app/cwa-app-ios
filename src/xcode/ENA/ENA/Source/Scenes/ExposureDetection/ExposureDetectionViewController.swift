@@ -195,7 +195,7 @@ extension ExposureDetectionViewController {
 	/// - Parameters:
 	///   - time: formatted time string <hh:mm:ss>  that is displayed as remaining time.
 	private func updateCheckButton(_ time: String? = nil) {
-		if true || !state.isTracingEnabled {
+		if !state.isTracingEnabled {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
 			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
