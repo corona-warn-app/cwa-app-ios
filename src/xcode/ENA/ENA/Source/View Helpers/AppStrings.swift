@@ -31,6 +31,18 @@ enum AppStrings {
 		static let alertActionLater = NSLocalizedString("Alert_CancelAction_Later", comment: "")
 		static let alertActionOpenSettings = NSLocalizedString("Alert_DefaultAction_OpenSettings", comment: "")
 		static let general_BackButtonTitle = NSLocalizedString("General_BackButtonTitle", comment: "")
+
+		static let errorAlertActionMoreInfo = NSLocalizedString("Common_Alert_Action_moreInfo", comment: "")
+		static let enError5Description = NSLocalizedString("Common_ENError5_Description", comment: "")
+		static let enError11Description = NSLocalizedString("Common_ENError11_Description", comment: "")
+		static let enError13Description = NSLocalizedString("Common_ENError13_Description", comment: "")
+	}
+
+	enum Links {
+		static let appFaq = NSLocalizedString("General_moreInfo_URL", comment: "")
+		static let appFaqENError5 = NSLocalizedString("General_moreInfo_URL_EN5", comment: "")
+		static let appFaqENError11 = NSLocalizedString("General_moreInfo_URL_EN11", comment: "")
+		static let appFaqENError13 = NSLocalizedString("General_moreInfo_URL_EN13", comment: "")
 	}
 
 	enum AccessibilityLabel {
@@ -191,14 +203,6 @@ enum AppStrings {
 		static let unknown = NSLocalizedString("ExposureSubmissionError_unknown", comment: "")
 		static let defaultError = NSLocalizedString("ExposureSubmissionError_defaultError", comment: "")
 		static let noConfiguration = NSLocalizedString("No Exposure Configuration available", comment: "")
-		static let unsupported = NSLocalizedString("ExposureSubmissionError_unsupported", comment: "")
-		static let `internal` = NSLocalizedString("ExposureSubmissionError_internal", comment: "")
-		static let rateLimited = NSLocalizedString("ExposureSubmissionError_rateLimited", comment: "")
-		static let moreInfo = NSLocalizedString("ExposureSubmissionError_moreInfo", comment: "")
-		static let moreInfoURL = NSLocalizedString("ExposureSubmissionError_moreInfo_URL", comment: "")
-		static let moreInfoURLEN5 = NSLocalizedString("ExposureSubmissionError_moreInfo_URL_EN5", comment: "")
-		static let moreInfoURLEN11 = NSLocalizedString("ExposureSubmissionError_moreInfo_URL_EN11", comment: "")
-		static let moreInfoURLEN13 = NSLocalizedString("ExposureSubmissionError_moreInfo_URL_EN13", comment: "")
 	}
 
 	enum ExposureDetection {
@@ -251,7 +255,7 @@ enum AppStrings {
 
 	enum ExposureDetectionError {
 		static let errorAlertTitle = NSLocalizedString("ExposureDetectionError_Alert_Title", comment: "")
-				static let errorAlertMessage = NSLocalizedString("ExposureDetectionError_Alert_Message", comment: "")
+		static let errorAlertMessage = NSLocalizedString("ExposureDetectionError_Alert_Message", comment: "")
 		static let errorAlertActionDetails = NSLocalizedString("ExposureDetectionError_Alert_Action_Details", comment: "")
 	}
 
