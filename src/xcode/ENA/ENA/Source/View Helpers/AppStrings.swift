@@ -191,6 +191,14 @@ enum AppStrings {
 		static let unknown = NSLocalizedString("ExposureSubmissionError_unknown", comment: "")
 		static let defaultError = NSLocalizedString("ExposureSubmissionError_defaultError", comment: "")
 		static let noConfiguration = NSLocalizedString("No Exposure Configuration available", comment: "")
+		static let unsupported = NSLocalizedString("ExposureSubmissionError_unsupported", comment: "")
+		static let `internal` = NSLocalizedString("ExposureSubmissionError_internal", comment: "")
+		static let rateLimited = NSLocalizedString("ExposureSubmissionError_rateLimited", comment: "")
+		static let moreInfo = NSLocalizedString("ExposureSubmissionError_moreInfo", comment: "")
+		static let moreInfoURL = NSLocalizedString("ExposureSubmissionError_moreInfo_URL", comment: "")
+		static let moreInfoURLEN5 = NSLocalizedString("ExposureSubmissionError_moreInfo_URL_EN5", comment: "")
+		static let moreInfoURLEN11 = NSLocalizedString("ExposureSubmissionError_moreInfo_URL_EN11", comment: "")
+		static let moreInfoURLEN13 = NSLocalizedString("ExposureSubmissionError_moreInfo_URL_EN13", comment: "")
 	}
 
 	enum ExposureDetection {
@@ -207,6 +215,7 @@ enum AppStrings {
 		static let refreshedFormat = NSLocalizedString("ExposureDetection_Refreshed_Format", comment: "")
 		static let refreshedNever = NSLocalizedString("ExposureDetection_Refreshed_Never", comment: "")
 		static let refreshingIn = NSLocalizedString("ExposureDetection_RefreshingIn", comment: "")
+		static let refreshIn = NSLocalizedString("ExposureDetection_RefreshIn", comment: "")
 		static let refresh24h = NSLocalizedString("ExposureDetection_Refresh_24h", comment: "")
 		static let lastRiskLevel = NSLocalizedString("ExposureDetection_LastRiskLevel", comment: "")
 		static let offText = NSLocalizedString("ExposureDetection_OffText", comment: "")
@@ -356,6 +365,25 @@ enum AppStrings {
 		static let accLabelDisabled = NSLocalizedString("ExposureNotificationSetting_AccLabel_Disabled", comment: "")
 		static let accLabelBluetoothOff = NSLocalizedString("ExposureNotificationSetting_AccLabel_BluetoothOff", comment: "")
 		static let accLabelInternetOff = NSLocalizedString("ExposureNotificationSetting_AccLabel_InternetOff", comment: "")
+	}
+
+	enum ExposureNotificationError {
+
+		static let generalErrorTitle = NSLocalizedString("ExposureNotificationSetting_GeneralError_Title", comment: "")
+
+		static let learnMoreActionTitle = NSLocalizedString("ExposureNotificationSetting_GeneralError_LearnMore_Action", comment: "")
+
+		static let learnMoreURL = NSLocalizedString("ExposureNotificationSetting_GeneralError_LearnMore_URL", comment: "")
+
+		static let enAuthorizationError = NSLocalizedString("ExposureNotificationSetting_AuthenticationError", comment: "")
+
+		static let enActivationRequiredError = NSLocalizedString("ExposureNotificationSetting_exposureNotification_Required", comment: "")
+
+		static let enUnavailableError = NSLocalizedString("ExposureNotificationSetting_exposureNotification_unavailable", comment: "")
+
+		static let enUnknownError = NSLocalizedString("ExposureNotificationSetting_unknownError", comment: "")
+
+		static let apiMisuse = NSLocalizedString("ExposureNotificationSetting_apiMisuse", comment: "")
 	}
 
 	enum Home {
