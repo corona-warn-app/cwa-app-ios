@@ -68,15 +68,8 @@ final class ENATaskScheduler {
 	}
 
 	func scheduleTasks() {
-		BGTaskScheduler.shared.getPendingTaskRequests { requests in
-			let pendingTaskIdentifiers = requests.map({ $0.identifier })
-			if !pendingTaskIdentifiers.contains(ENATaskIdentifier.exposureNotification.backgroundTaskSchedulerIdentifier) {
-				self.scheduleTask(for: .exposureNotification, cancelExisting: true)
-			}
-			if !pendingTaskIdentifiers.contains(ENATaskIdentifier.fetchTestResults.backgroundTaskSchedulerIdentifier) {
-				self.scheduleTask(for: .fetchTestResults, cancelExisting: true)
-			}
-		}
+		scheduleTask(for: .exposureNotification, cancelExisting: true)
+		scheduleTask(for: .fetchTestResults, cancelExisting: true)
 	}
 
 	func cancelTasks() {
