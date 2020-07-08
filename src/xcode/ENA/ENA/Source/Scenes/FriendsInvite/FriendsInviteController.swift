@@ -44,6 +44,7 @@ final class FriendsInviteController: UIViewController {
 		imageView.isAccessibilityElement = true
 		imageView.accessibilityLabel = AppStrings.InviteFriends.imageAccessLabel
 		imageView.accessibilityIdentifier = AccessibilityIdentifiers.InviteFriends.imageAccessLabel
+		imageView.image = imageView.image?.imageFlippedForRightToLeftLayoutDirection()
 
 		inviteButton.setTitle(AppStrings.InviteFriends.submit, for: .normal)
 	}
