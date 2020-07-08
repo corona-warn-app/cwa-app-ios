@@ -438,11 +438,22 @@ extension HomeInteractor {
 extension HomeInteractor: CountdownTimerDelegate {
 	private func scheduleCountdownTimer() {
 		guard self.detectionMode == .manual else { return }
-		let nextUpdate = self.riskProvider.nextExposureDetectionDate()
+
+		// Cleanup potentially existing countdown.
 		countdownTimer?.invalidate()
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+
+		// Schedule new countdown.
+		NotificationCenter.default.addObserver(self, selector: #selector(invalidateCountdownTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
+		let nextUpdate = self.riskProvider.nextExposureDetectionDate()
 		countdownTimer = CountdownTimer(countdownTo: nextUpdate)
 		countdownTimer?.delegate = self
 		countdownTimer?.start()
+	}
+
+	@objc
+	private func invalidateCountdownTimer() {
+		countdownTimer?.invalidate()
 	}
 
 	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
