@@ -24,6 +24,7 @@ protocol RiskProviding: AnyObject {
 
 	func observeRisk(_ consumer: RiskConsumer)
 	func requestRisk(userInitiated: Bool, completion: Completion?)
+	func nextExposureDetectionDate() -> Date
 
 	var configuration: RiskProvidingConfiguration { get set }
 }

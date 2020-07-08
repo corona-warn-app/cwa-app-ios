@@ -72,7 +72,9 @@ extension RiskProvider: RiskProviding {
 	}
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
-		configuration.manualExposureDetectionState(lastExposureDetectionDate: store.summary?.date)
+		configuration.manualExposureDetectionState(
+			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
+			lastExposureDetectionDate: store.summary?.date)
 	}
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
@@ -93,10 +95,11 @@ extension RiskProvider: RiskProviding {
 	) {
 		// Here we are in automatic mode and thus we have to check the validity of the current summary
 		let enoughTimeHasPassed = configuration.shouldPerformExposureDetection(
+			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.summary?.date
 		)
 		log(message: "#BGTASK: enoughTimeHasPassed == \(enoughTimeHasPassed) || self.exposureManagerState.isGood == \(self.exposureManagerState.isGood)", logToFile: true)
-		if enoughTimeHasPassed == false || self.exposureManagerState.isGood == false {
+		if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
 			completion(
 				.init(
 					previous: nil,
@@ -135,6 +138,12 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
+	func nextExposureDetectionDate() -> Date {
+		return configuration.nextExposureDetectionDate(
+			lastExposureDetectionDate: store.summary?.date
+		)
+	}
+
 	#if UITESTING
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
 		let risk = Risk.mocked
@@ -151,11 +160,23 @@ extension RiskProvider: RiskProviding {
 	}
 	#else
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
-		let group = DispatchGroup()
+		func completeOnTargetQueue(risk: Risk?) {
+			targetQueue.async {
+				completion?(risk)
+			}
+		}
 
 		var summaries: Summaries?
+		let tracingHistory = store.tracingStatusHistory
+		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
 
-		log(message: "#BGTASK: userInitiated == \(userInitiated)", logToFile: true)
+		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
+			completeOnTargetQueue(risk: nil)
+			return
+		}
+
+		let group = DispatchGroup()
+
 		group.enter()
 		determineSummaries(userInitiated: userInitiated) {
 			summaries = $0
@@ -169,12 +190,6 @@ extension RiskProvider: RiskProviding {
 			group.leave()
 		}
 
-		func completeOnTargetQueue(risk: Risk?) {
-			targetQueue.async {
-				completion?(risk)
-			}
-		}
-
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
 			log(message: "#BGTASK: group.wait(timeout: .now() + .seconds(60))", logToFile: true)
 			completeOnTargetQueue(risk: nil)
@@ -186,15 +201,14 @@ extension RiskProvider: RiskProviding {
 			return
 		}
 		
-		let tracingHistory = store.tracingStatusHistory
-		let numberOfEnabledHours = tracingHistory.countEnabledHours()
+		let activeTracing = store.tracingStatusHistory.activeTracing()
 
 		guard
 			let risk = RiskCalculation.risk(
 				summary: summaries?.current?.summary,
 				configuration: _appConfiguration,
 				dateLastExposureDetection: summaries?.current?.date,
-				numberOfTracingActiveHours: numberOfEnabledHours,
+				activeTracing: activeTracing,
 				preconditions: exposureManagerState,
 				currentDate: Date(),
 				previousRiskLevel: store.previousRiskLevel,

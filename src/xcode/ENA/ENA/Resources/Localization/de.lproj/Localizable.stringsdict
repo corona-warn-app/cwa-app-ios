@@ -132,6 +132,9 @@
             <string>NSStringPluralRuleType</string>
             <key>NSStringFormatValueTypeKey</key>
             <string>u</string>
+			<key>one</key>
+			<!-- XFLD: Plural form for One -->
+			<string>%02u</string>
             <key>other</key>
 			<!-- XFLD: Plural form for Other -->
             <string>%02u</string>
