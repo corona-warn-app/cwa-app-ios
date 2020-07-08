@@ -34,12 +34,13 @@ class HtmlTextView: UITextView {
 		super.init(frame: frame, textContainer: textContainer)
 		setup()
 	}
-
+	
 	private func setup() {
 		isScrollEnabled = false
 		backgroundColor = nil
 		adjustsFontForContentSizeCategory = true
 		font = .enaFont(for: .body)
+		textColor = .enaColor(for: .textPrimary1)
 		textContainer.lineFragmentPadding = .zero
 
 		linkTextAttributes = [
