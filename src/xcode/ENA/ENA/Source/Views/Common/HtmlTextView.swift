@@ -56,7 +56,11 @@ extension HtmlTextView {
 		if var html = try? loadHtml(from: url) {
 			self.html = html
 			html = applyColors(to: html)
-			attributedText = try? parseHtml(html)
+			if let attributedText = try? parseHtml(html) {
+				let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
+				mutableAttributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.enaColor(for: .textPrimary1), range: NSRange(location: 0, length: attributedText.length))
+				self.attributedText = mutableAttributedText
+			}
 		} else {
 			logError(message: "HTML resource could not be loaded: \(url)")
 		}
