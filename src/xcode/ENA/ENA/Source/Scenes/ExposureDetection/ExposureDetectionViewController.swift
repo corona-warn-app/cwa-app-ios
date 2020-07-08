@@ -58,6 +58,10 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
+
+	deinit {
+		riskProvider.removeRisk(consumer)
+	}
 }
 
 extension ExposureDetectionViewController {
@@ -74,6 +78,9 @@ extension ExposureDetectionViewController {
 		consumer.didCalculateRisk = { [weak self] risk in
 			self?.state.risk = risk
 			self?.updateUI()
+		}
+		consumer.didChangeLoadingStatus = { [weak self] isLoading in
+			self?.state.isLoading = isLoading
 		}
 
 		riskProvider.observeRisk(consumer)
@@ -112,8 +119,6 @@ extension ExposureDetectionViewController {
 
 		return cell
 	}
-
-
 }
 
 extension ExposureDetectionViewController {
@@ -142,12 +147,7 @@ private extension ExposureDetectionViewController {
 			}
 			return
 		}
-		state.isLoading = true
-		self.delegate?.didStartLoading(exposureDetectionViewController: self)
-		riskProvider.requestRisk(userInitiated: true) { _ in
-			self.state.isLoading = false
-			self.delegate?.didFinishLoading(exposureDetectionViewController: self)
-		}
+		riskProvider.requestRisk(userInitiated: true)
 	}
 }
 
@@ -195,7 +195,7 @@ extension ExposureDetectionViewController {
 	/// - Parameters:
 	///   - time: formatted time string <hh:mm:ss>  that is displayed as remaining time.
 	private func updateCheckButton(_ time: String? = nil) {
-		if !state.isTracingEnabled {
+		if true || !state.isTracingEnabled {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
 			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)

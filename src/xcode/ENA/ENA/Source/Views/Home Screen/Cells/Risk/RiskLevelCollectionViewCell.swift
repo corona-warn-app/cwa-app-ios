@@ -56,7 +56,6 @@ final class RiskLevelCollectionViewCell: HomeCardCollectionViewCell {
 	// MARK: Actions
 
 	@IBAction func updateButtonTapped(_: UIButton) {
-		print(delegate, self)
 		delegate?.updateButtonTapped(cell: self)
 	}
 

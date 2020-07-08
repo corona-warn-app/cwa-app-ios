@@ -27,7 +27,7 @@ protocol ExposureSummaryProvider: AnyObject {
 }
 
 final class RiskProvider {
-	private let consumers = NSHashTable<RiskConsumer>.weakObjects()
+	private var consumers = [RiskConsumer]()
 	private let queue = DispatchQueue(label: "com.sap.RiskLevelProvider")
 	private let targetQueue: DispatchQueue
 
@@ -54,6 +54,7 @@ final class RiskProvider {
 	private let appConfigurationProvider: AppConfigurationProviding
 	var exposureManagerState: ExposureManagerState
 	var configuration: RiskProvidingConfiguration
+	private(set) var isLoading: Bool = false
 }
 
 private extension RiskConsumer {
@@ -67,7 +68,13 @@ private extension RiskConsumer {
 extension RiskProvider: RiskProviding {
 	func observeRisk(_ consumer: RiskConsumer) {
 		queue.async { [weak self] in
-			self?.consumers.add(consumer)
+			self?.consumers.append(consumer)
+		}
+	}
+
+	func removeRisk(_ consumer: RiskConsumer) {
+		queue.async { [weak self] in
+			self?.consumers.removeAll(where: { $0 === consumer })
 		}
 	}
 
@@ -158,30 +165,32 @@ extension RiskProvider: RiskProviding {
 		saveRiskIfNeeded(risk)
 	}
 	#else
-	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
-		func completeOnTargetQueue(risk: Risk?) {
-			targetQueue.async {
-				completion?(risk)
-			}
+
+	private func completeOnTargetQueue(risk: Risk?, completion: Completion? = nil) {
+		targetQueue.async {
+			completion?(risk)
 		}
+	}
+
+	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
 		var summaries: Summaries?
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
 
-//		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
-//			completeOnTargetQueue(risk: nil)
-//			return
-//		}
+		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
+			completeOnTargetQueue(risk: nil)
+			return
+		}
 
-		// start downloading?
-		_provideLoadingStatus(true, to: consumers.allObjects)
-		sleep(2)
+		provideLoadingStatus(isLoading: true)
 		let group = DispatchGroup()
 
 		group.enter()
 		determineSummaries(userInitiated: userInitiated) {
 			summaries = $0
-			group.leave()
+			DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+				group.leave()
+			}
 		}
 
 		var appConfiguration: SAP_ApplicationConfiguration?
@@ -191,18 +200,18 @@ extension RiskProvider: RiskProviding {
 			group.leave()
 		}
 
-		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
-			_provideLoadingStatus(false, to: consumers.allObjects)
+		group.notify(queue: queue) {
+			self._requestRiskLevel(summaries: summaries, appConfiguration: appConfiguration)
+		}
+	}
+
+	private func _requestRiskLevel(summaries: Summaries?, appConfiguration: SAP_ApplicationConfiguration?) {
+		guard let _appConfiguration = appConfiguration else {
+			provideLoadingStatus(isLoading: false)
 			completeOnTargetQueue(risk: nil)
 			return
 		}
 
-		guard let _appConfiguration = appConfiguration else {
-			_provideLoadingStatus(false, to: consumers.allObjects)
-			completeOnTargetQueue(risk: nil)
-			return
-		}
-		
 		let activeTracing = store.tracingStatusHistory.activeTracing()
 
 		guard
@@ -217,16 +226,16 @@ extension RiskProvider: RiskProviding {
 				providerConfiguration: configuration
 			) else {
 				logError(message: "Serious error during risk calculation")
-				_provideLoadingStatus(false, to: consumers.allObjects)
+				provideLoadingStatus(isLoading: false)
 				completeOnTargetQueue(risk: nil)
 				return
 		}
 
-		for consumer in consumers.allObjects {
+		for consumer in consumers {
 			_provideRisk(risk, to: consumer)
 		}
 
-		_provideLoadingStatus(false, to: consumers.allObjects)
+		provideLoadingStatus(isLoading: false)
 		completeOnTargetQueue(risk: risk)
 		saveRiskIfNeeded(risk)
 	}
@@ -240,16 +249,16 @@ extension RiskProvider: RiskProviding {
 		#endif
 	}
 
-	private func _provideLoadingStatus(_ isLoading: Bool, to consumers: [RiskConsumer?]) {
-		print("Dowloading \(isLoading)")
-		consumers.forEach {
-			self._provideLoadingStatus(isLoading, to: $0)
-		}
+	private func provideLoadingStatus(isLoading: Bool) {
+		self.isLoading = isLoading
+		_provideLoadingStatus(isLoading)
 	}
 
-	private func _provideLoadingStatus(_ isLoading: Bool, to consumer: RiskConsumer?) {
-		targetQueue.async {
-			consumer?.changedLoadingStatus?(isLoading)
+	private func _provideLoadingStatus(_ isLoading: Bool) {
+		targetQueue.async { [weak self] in
+			self?.consumers.forEach {
+				$0.didChangeLoadingStatus?(isLoading)
+			}
 		}
 	}
 
