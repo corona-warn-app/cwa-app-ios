@@ -103,7 +103,6 @@ final class ENATaskScheduler {
 			taskRequest.earliestBeginDate = nil
 		}
 
-
 		do {
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {

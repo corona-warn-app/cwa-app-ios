@@ -19,7 +19,6 @@ import Foundation
 
 func log(
 	message: String,
-	
 	level: LogLevel = .info,
 	file: String = #file,
 	line: UInt = #line,
