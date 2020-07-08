@@ -157,14 +157,48 @@ extension RiskProvider: RiskProviding {
 			targetQueue.async {
 				completion?(risk)
 			}
+			// We only wish to notify consumers if an actual risk level has been calculated.
+			// We do not notify if an error occurred.
+			if let risk = risk {
+				for consumer in consumers.allObjects {
+					_provideRisk(risk, to: consumer)
+				}
+			}
 		}
 
 		var summaries: Summaries?
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
+		let details = Risk.Details(
+			daysSinceLastExposure: store.summary?.summary.daysSinceLastExposure,
+			numberOfExposures: Int(store.summary?.summary.matchedKeyCount ?? 0),
+			activeTracing: tracingHistory.activeTracing(),
+			// FIXME: What to pass instead of .distantPast?
+			exposureDetectionDate: store.summary?.date ?? .distantPast)
+
+		// Risk Calculation involves some potentially long running tasks, like exposure detection and
+		// fetching the configuration from the backend.
+		// However in some precondition cases we can return early, mainly:
+		// 1. The exposureManagerState is bad (turned off, not authorized, etc.)
+		// 2. Tracing has not been active for at least 24 hours
+
+		guard exposureManagerState.isGood else {
+			completeOnTargetQueue(risk: Risk(
+				level: .inactive,
+				details: details,
+				// FIXME: What to set this to?
+				riskLevelHasChanged: false)
+			)
+			return
+		}
 
 		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
-			completeOnTargetQueue(risk: nil)
+			completeOnTargetQueue(risk: Risk(
+				level: .unknownInitial,
+				details: details,
+				// FIXME: What to set this to?
+				riskLevelHasChanged: false)
+			)
 			return
 		}
 
@@ -209,10 +243,6 @@ extension RiskProvider: RiskProviding {
 				logError(message: "Serious error during risk calculation")
 				completeOnTargetQueue(risk: nil)
 				return
-		}
-
-		for consumer in consumers.allObjects {
-			_provideRisk(risk, to: consumer)
 		}
 
 		completeOnTargetQueue(risk: risk)
