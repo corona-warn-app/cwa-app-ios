@@ -198,9 +198,7 @@ extension RiskProvider: RiskProviding {
 		group.enter()
 		determineSummaries(userInitiated: userInitiated) {
 			summaries = $0
-			DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-				group.leave()
-			}
+			group.leave()
 		}
 
 		var appConfiguration: SAP_ApplicationConfiguration?
