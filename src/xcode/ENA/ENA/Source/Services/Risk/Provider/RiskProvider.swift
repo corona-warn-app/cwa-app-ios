@@ -137,6 +137,12 @@ extension RiskProvider: RiskProviding {
 		}
 	}
 
+	func nextExposureDetectionDate() -> Date {
+		return configuration.nextExposureDetectionDate(
+			lastExposureDetectionDate: store.summary?.date
+		)
+	}
+
 	#if UITESTING
 	private func _requestRiskLevel(userInitiated: Bool, completion: Completion? = nil) {
 		let risk = Risk.mocked
