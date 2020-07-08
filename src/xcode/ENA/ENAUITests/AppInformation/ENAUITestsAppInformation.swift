@@ -139,5 +139,4 @@ class ENAUITests_02_AppInformation: XCTestCase {
 
 		XCTAssert(app.images["AppStrings.AppInformation.termsImageDescription"].waitForExistence(timeout: 5.0))
 	}
-
 }

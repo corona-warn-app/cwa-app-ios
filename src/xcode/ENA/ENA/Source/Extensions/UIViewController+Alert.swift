@@ -18,11 +18,14 @@
 import Foundation
 import UIKit
 extension UIViewController {
-	func alertError(message: String?, title: String?, completion: (() -> Void)? = nil) {
+	func alertError(message: String?, title: String?, optInActions: [UIAlertAction]? = nil, completion: (() -> Void)? = nil) {
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		let okAction = UIAlertAction(title: AppStrings.Common.alertActionOk, style: .default, handler: { _ in completion?() })
 		alertController.addAction(okAction)
-		present(alertController, animated: true, completion: nil)
+		if let optionalActions = optInActions {
+			optionalActions.forEach({ action in alertController.addAction(action) })
+		}
+		present(alertController, animated: true, completion: completion)
 	}
 
 	/// This method helps to build a alert for displaying error messages.
