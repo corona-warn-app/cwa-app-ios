@@ -159,7 +159,7 @@ final class OnboardingInfoViewController: UIViewController {
 
 		// swiftlint:disable force_unwrapping
 		let imageName = exposureNotificationsDisabled && onboardingInfo.alternativeImageName != nil ? onboardingInfo.alternativeImageName! : onboardingInfo.imageName
-		imageView.image = UIImage(named: imageName)
+		imageView.image = UIImage(named: imageName)?.imageFlippedForRightToLeftLayoutDirection()
 
 		boldLabel.text = onboardingInfo.boldText
 		boldLabel.isHidden = onboardingInfo.boldText.isEmpty
