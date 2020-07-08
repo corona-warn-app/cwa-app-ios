@@ -103,9 +103,9 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	func createENAlert(_ error: ExposureSubmissionError) -> UIAlertController {
 		return self.setupErrorAlert(
 			message: error.localizedDescription,
-			secondaryActionTitle: AppStrings.ExposureSubmissionError.moreInfo,
+			secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
 			secondaryActionCompletion: {
-				guard let url = self.getURL(for: error) else {
+				guard let url = error.faqURL else {
 					logError(message: "Unable to open FAQ page.", level: .error)
 					return
 				}
@@ -116,23 +116,6 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 				)
 		 })
 	}
-
-	/// Returns the correct shortlink based on the EN notification error.
-	func getURL(for error: ExposureSubmissionError) -> URL? {
-		switch error {
-		case .internal:
-			return URL(string: AppStrings.ExposureSubmissionError.moreInfoURLEN11)
-		case .unsupported:
-			return URL(string: AppStrings.ExposureSubmissionError.moreInfoURLEN5)
-		case .rateLimited:
-			return URL(string: AppStrings.ExposureSubmissionError.moreInfoURLEN13)
-		default:
-			// This case should not be hit, as we made sure we're only getting
-			// EN-related errors in the method calling this one.
-			return nil
-		}
-	}
-
 }
 
 // MARK: ENANavigationControllerWithFooterChild methods.
