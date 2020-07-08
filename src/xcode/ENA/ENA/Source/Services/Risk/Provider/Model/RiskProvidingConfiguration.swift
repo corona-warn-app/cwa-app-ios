@@ -31,6 +31,24 @@ struct RiskProvidingConfiguration {
 	var detectionMode: DetectionMode = DetectionMode.default
 }
 
+/// Either a concrete date or now
+enum NextExposureDetection: Equatable {
+	case date(Date)
+	case now
+
+	static func == (lhs: NextExposureDetection, rhs: NextExposureDetection) -> Bool {
+		switch (lhs, rhs) {
+		case (.now, .now):
+			return true
+		case let (.date(a), .date(b)):
+			// return true if dates are less than 30 seconds apart
+			return abs(a.timeIntervalSince(b)) < 30.0
+		default:
+			return false
+		}
+	}
+}
+
 extension RiskProvidingConfiguration {
 	func exposureDetectionValidUntil(lastExposureDetectionDate: Date?) -> Date {
 		Calendar.current.date(
@@ -40,13 +58,13 @@ extension RiskProvidingConfiguration {
 			) ?? .distantPast
 	}
 
-	func nextExposureDetectionDate(lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> Date {
+	func nextExposureDetectionDate(lastExposureDetectionDate: Date?, currentDate: Date = Date()) -> NextExposureDetection {
 		let potentialDate = Calendar.current.date(
 			byAdding: exposureDetectionInterval,
 			to: lastExposureDetectionDate ?? .distantPast,
 			wrappingComponents: false
 			) ?? .distantPast
-		return potentialDate > currentDate ? currentDate : potentialDate
+		return potentialDate > currentDate ? .date(potentialDate) : .now
 	}
 
 	func exposureDetectionIsValid(lastExposureDetectionDate: Date = .distantPast, currentDate: Date = Date()) -> Bool {
@@ -73,8 +91,13 @@ extension RiskProvidingConfiguration {
 			return true
 		}
 		let next = nextExposureDetectionDate(lastExposureDetectionDate: lastExposureDetectionDate, currentDate: currentDate)
-		let result = next < currentDate
-		return result
+
+		switch next {
+		case .now:
+			return true
+		case .date(let date):
+			return date <= currentDate
+		}
 	}
 
 	/// Checks, whether a new exposureDetection may be triggered manually by the user.
