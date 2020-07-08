@@ -78,7 +78,7 @@ private extension DynamicCell {
 private extension DynamicAction {
 	static var safari: Self {
 		.execute { viewController in
-			WebPageHelper.showWebPage(from: viewController)
+			WebPageHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
 		}
 	}
 

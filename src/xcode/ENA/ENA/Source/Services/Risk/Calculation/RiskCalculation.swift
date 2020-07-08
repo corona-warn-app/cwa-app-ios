@@ -59,7 +59,7 @@ enum RiskCalculation {
 		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
-		numberOfTracingActiveHours: Int, // Get this from the `TracingStatusHistory`
+		activeTracing: ActiveTracing, // Get this from the `TracingStatusHistory`
 		preconditions: ExposureManagerState,
 		providerConfiguration: RiskProvidingConfiguration,
 		currentDate: Date = Date()
@@ -69,7 +69,7 @@ enum RiskCalculation {
 			let appDelegate = UIApplication.shared.delegate as? AppDelegate // TODO: Remove
 			appDelegate?.lastRiskCalculation = ""  // Reset; Append from here on
 			appDelegate?.lastRiskCalculation.append("configuration: \(configuration)\n")
-			appDelegate?.lastRiskCalculation.append("numberOfTracingActiveHours: \(numberOfTracingActiveHours)\n")
+			appDelegate?.lastRiskCalculation.append("numberOfTracingActiveHours: \(activeTracing.inHours)\n")
 			appDelegate?.lastRiskCalculation.append("preconditions: \(preconditions)\n")
 			appDelegate?.lastRiskCalculation.append("currentDate: \(currentDate)\n")
 			appDelegate?.lastRiskCalculation.append("summary: \(String(describing: summary?.description))\n")
@@ -82,7 +82,7 @@ enum RiskCalculation {
 		}
 
 		// Precondition 2 - If tracing is active less than 1 day, risk is .unknownInitial
-		if numberOfTracingActiveHours < minTracingActiveHours, riskLevel < .unknownInitial {
+		if activeTracing.inHours < minTracingActiveHours, riskLevel < .unknownInitial {
 			riskLevel = .unknownInitial
 		}
 
@@ -172,7 +172,7 @@ enum RiskCalculation {
 		summary: CodableExposureDetectionSummary?,
 		configuration: SAP_ApplicationConfiguration,
 		dateLastExposureDetection: Date?,
-		numberOfTracingActiveHours: Int,
+		activeTracing: ActiveTracing,
 		preconditions: ExposureManagerState,
 		currentDate: Date = Date(),
 		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
@@ -182,7 +182,7 @@ enum RiskCalculation {
 			summary: summary,
 			configuration: configuration,
 			dateLastExposureDetection: dateLastExposureDetection,
-			numberOfTracingActiveHours: numberOfTracingActiveHours,
+			activeTracing: activeTracing,
 			preconditions: preconditions,
 			providerConfiguration: providerConfiguration
 		) {
@@ -192,7 +192,7 @@ enum RiskCalculation {
 			let details = Risk.Details(
 				daysSinceLastExposure: daysSinceLastExposure,
 				numberOfExposures: Int(summary?.matchedKeyCount ?? 0),
-				numberOfHoursWithActiveTracing: numberOfTracingActiveHours,
+				activeTracing: activeTracing,
 				exposureDetectionDate: dateLastExposureDetection ?? Date()
 			)
 

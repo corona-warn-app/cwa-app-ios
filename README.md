@@ -35,7 +35,7 @@ The goal of this project is to develop the official Corona-Warn-App for Germany 
 
 3. Set the user-defined variable to your development team
 
-   In [project.pbxproj](./src/xcode/ENA/ENA.xcodeproj/project.pbxproj), set IPHONE_APP_DEV_TEAM to your development team
+   In the [project.pbxproj](./src/xcode/ENA/ENA.xcodeproj/project.pbxproj) file, set IPHONE_APP_DEV_TEAM for the build setting `Community` to your development team
 4. Install SwiftLint
 
    ```console
@@ -86,7 +86,7 @@ The following channels are available for discussions, feedback, and support requ
 | Type                     | Channel                                                |
 | ------------------------ | ------------------------------------------------------ |
 | **General Discussion**   | <a href="https://github.com/corona-warn-app/cwa-documentation/issues/new/choose" title="General Discussion"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-documentation/question.svg?style=flat-square"></a> </a>   |
-| **Feature Requests**    | <a href="https://github.com/corona-warn-app/cwa-whishlist/issues/new/choose" title="Create Feature Request"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-wishlist?style=flat-square"></a>  |
+| **Feature Requests**    | <a href="https://github.com/corona-warn-app/cwa-wishlist/issues/new/choose" title="Create Feature Request"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-wishlist?style=flat-square"></a>  |
 | **Concept Feedback**    | <a href="https://github.com/corona-warn-app/cwa-documentation/issues/new/choose" title="Open Concept Feedback"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-documentation/architecture.svg?style=flat-square"></a>  |
 | **iOS App Issue**    | <a href="https://github.com/corona-warn-app/cwa-app-ios/issues/new/choose" title="Open iOS Suggestion"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios?style=flat-square"></a>  |
 | **Backend Issue**    | <a href="https://github.com/corona-warn-app/cwa-server/issues/new/choose" title="Open Backend Issue"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-server?style=flat-square"></a>  |
