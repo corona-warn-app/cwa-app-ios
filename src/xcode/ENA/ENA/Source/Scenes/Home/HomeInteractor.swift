@@ -43,6 +43,7 @@ final class HomeInteractor: RequiresAppDependencies {
 		didSet {
 			homeViewController.setStateOfChildViewControllers()
 			buildSections()
+			setupConsumer() // ?
 		}
 	}
 
@@ -92,6 +93,16 @@ final class HomeInteractor: RequiresAppDependencies {
 	}
 
 	private(set) var isRequestRiskRunning = false
+	private let riskConsumer = RiskConsumer()
+
+	func setupConsumer() {
+		riskConsumer.changedLoadingStatus = { isLoading in
+			print(#function, isLoading)
+			self.updateAndReloadRiskLoading(isRequestRiskRunning: isLoading)
+		}
+
+		riskProvider.observeRisk(riskConsumer)
+	}
 
 	func updateAndReloadRiskLoading(isRequestRiskRunning: Bool) {
 		self.isRequestRiskRunning = isRequestRiskRunning

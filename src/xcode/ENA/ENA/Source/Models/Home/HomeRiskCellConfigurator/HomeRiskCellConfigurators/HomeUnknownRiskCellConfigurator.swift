@@ -35,8 +35,8 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 		super.init(
 			isLoading: isLoading,
-			isButtonEnabled: manualExposureDetectionState == .possible,
-			isButtonHidden: detectionMode == .automatic,
+			isButtonEnabled: true, //manualExposureDetectionState == .possible,
+			isButtonHidden: false, //detectionMode == .automatic,
 			detectionIntervalLabelHidden: detectionMode != .automatic,
 			lastUpdateDate: lastUpdateDate
 		)
@@ -44,8 +44,9 @@ final class HomeUnknownRiskCellConfigurator: HomeRiskLevelCellConfigurator {
 
 	override func configure(cell: RiskLevelCollectionViewCell) {
 		cell.delegate = self
-
 		let title: String = isLoading ? AppStrings.Home.riskCardStatusCheckTitle : AppStrings.Home.riskCardUnknownTitle
+		
+		print(Unmanaged.passUnretained(self).toOpaque(), cell, title)
 		let titleColor: UIColor = .enaColor(for: .textContrast)
 		cell.configureTitle(title: title, titleColor: titleColor)
 		cell.configureBody(text: "", bodyColor: titleColor, isHidden: true)

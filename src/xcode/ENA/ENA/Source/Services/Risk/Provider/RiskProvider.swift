@@ -164,16 +164,18 @@ extension RiskProvider: RiskProviding {
 				completion?(risk)
 			}
 		}
-
 		var summaries: Summaries?
 		let tracingHistory = store.tracingStatusHistory
 		let numberOfEnabledHours = tracingHistory.activeTracing().inHours
 
-		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
-			completeOnTargetQueue(risk: nil)
-			return
-		}
+//		guard numberOfEnabledHours >= TracingStatusHistory.minimumActiveHours else {
+//			completeOnTargetQueue(risk: nil)
+//			return
+//		}
 
+		// start downloading?
+		_provideLoadingStatus(true, to: consumers.allObjects)
+		sleep(2)
 		let group = DispatchGroup()
 
 		group.enter()
@@ -190,11 +192,13 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
+			_provideLoadingStatus(false, to: consumers.allObjects)
 			completeOnTargetQueue(risk: nil)
 			return
 		}
 
 		guard let _appConfiguration = appConfiguration else {
+			_provideLoadingStatus(false, to: consumers.allObjects)
 			completeOnTargetQueue(risk: nil)
 			return
 		}
@@ -213,6 +217,7 @@ extension RiskProvider: RiskProviding {
 				providerConfiguration: configuration
 			) else {
 				logError(message: "Serious error during risk calculation")
+				_provideLoadingStatus(false, to: consumers.allObjects)
 				completeOnTargetQueue(risk: nil)
 				return
 		}
@@ -221,6 +226,7 @@ extension RiskProvider: RiskProviding {
 			_provideRisk(risk, to: consumer)
 		}
 
+		_provideLoadingStatus(false, to: consumers.allObjects)
 		completeOnTargetQueue(risk: risk)
 		saveRiskIfNeeded(risk)
 	}
@@ -232,6 +238,19 @@ extension RiskProvider: RiskProviding {
 		#else
 		consumer?.provideRisk(risk)
 		#endif
+	}
+
+	private func _provideLoadingStatus(_ isLoading: Bool, to consumers: [RiskConsumer?]) {
+		print("Dowloading \(isLoading)")
+		consumers.forEach {
+			self._provideLoadingStatus(isLoading, to: $0)
+		}
+	}
+
+	private func _provideLoadingStatus(_ isLoading: Bool, to consumer: RiskConsumer?) {
+		targetQueue.async {
+			consumer?.changedLoadingStatus?(isLoading)
+		}
 	}
 
 	private func saveRiskIfNeeded(_ risk: Risk) {
