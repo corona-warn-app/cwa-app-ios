@@ -437,25 +437,26 @@ extension HomeInteractor {
 /// The `CountdownTimerDelegate` is used to update the remaining time that is shown on the risk cell button until a manual refresh is allowed.
 extension HomeInteractor: CountdownTimerDelegate {
 	private func scheduleCountdownTimer() {
-		guard detectionMode == .manual else { return }
-		var nextUpdate = riskProvider.nextExposureDetectionDate()
+		guard self.detectionMode == .manual else { return }
+		let nextUpdate = self.riskProvider.nextExposureDetectionDate()
+		countdownTimer?.invalidate()
 		countdownTimer = CountdownTimer(countdownTo: nextUpdate)
 		countdownTimer?.delegate = self
 		countdownTimer?.start()
 	}
 
-	func update(time: String) {
+	func countdownTimer(_ timer: CountdownTimer, didEnd done: Bool) {
+		// Reload action section to trigger full refresh of the risk cell configurator (updates
+		// the isButtonEnabled attribute).
+		self.reloadActionSection()
+	}
+
+	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
 		guard let indexPath = self.indexPathForRiskCell() else { return }
 		guard let cell = homeViewController.cellForItem(at: indexPath) as? RiskLevelCollectionViewCell else { return }
 
 		// We pass the time and let the configurator decide whether the button can be activated or not.
 		riskLevelConfigurator?.timeUntilUpdate = time
 		riskLevelConfigurator?.configureButton(for: cell)
-	}
-
-	func done() {
-		// Reload action section to trigger full refresh of the risk cell configurator (updates
-		// the isButtonEnabled attribute).
-		self.reloadActionSection()
 	}
 }
