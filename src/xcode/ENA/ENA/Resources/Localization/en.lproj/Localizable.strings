@@ -19,6 +19,14 @@
 
 "General_BackButtonTitle" = "Back";
 
+"Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
+
+"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your device and try again tomorrow.";
+
+"Common_ENError13_Description" = "Error 13: Your risk calculation for today has already been carried out. Please try again in 24 hours.";
+
+"Common_Alert_Action_moreInfo" = "Learn more";
+
 /* General - Links */
 
 "General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
@@ -113,14 +121,6 @@
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
 "ExposureDetectionError_Alert_Message" = "An error occurred during exposure logging.";
-
-"ExposureDetectionError_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
-
-"ExposureDetectionError_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your device and try again tomorrow.";
-
-"ExposureDetectionError_ENError13_Description" = "Error 13: Your risk calculation for today has already been carried out. Please try again in 24 hours.";
-
-"ExposureDetectionError_Alert_Action_moreInfo" = "Learn more";
 
 /* Settings */
 "Settings_StatusActive" = "On";
@@ -499,14 +499,6 @@
 "ExposureSubmissionError_unknown" = "Unknown error";
 
 "ExposureSubmissionError_defaultError" = "General exposure submission error";
-
-"ExposureSubmissionError_unsupported" = "​Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
-
-"ExposureSubmissionError_internal" = "Error 11: Something went wrong. Your level of risk cannot be determined. You can find more information in the FAQ.";
-
-"ExposureSubmissionError_rateLimited" = "Error 13: Your risk calculation for today has already been carried out. Please try again tomorrow.";
-
-"ExposureSubmissionError_moreInfo" = "Learn more";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";

@@ -47,11 +47,11 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 			}
 			switch enError.code {
 			case .unsupported:
-				return AppStrings.ExposureDetectionError.enError5Description
+				return AppStrings.Common.enError5Description
 			case .internal:
-				return AppStrings.ExposureDetectionError.enError11Description
+				return AppStrings.Common.enError11Description
 			case .rateLimited:
-				return AppStrings.ExposureDetectionError.enError13Description
+				return AppStrings.Common.enError13Description
 			default:
 				return AppStrings.ExposureDetectionError.errorAlertMessage + " EN Code: \(enError.code.rawValue)"
 			}
@@ -59,20 +59,6 @@ extension ExposureDetection.DidEndPrematurelyReason: LocalizedError {
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoDaysAndHours"
 		case .noExposureConfiguration:
 			return AppStrings.ExposureDetectionError.errorAlertMessage + " Code: NoExposureConfiguration"
-		}
-	}
-}
-
-extension ENError {
-	var faqURL: URL? {
-		switch code {
-		case .unsupported:
-			return URL(string: AppStrings.Links.appFaqENError5)
-		case .internal:
-			return URL(string: AppStrings.Links.appFaqENError11)
-		case .rateLimited:
-			return URL(string: AppStrings.Links.appFaqENError13)
-		default: return nil
 		}
 	}
 }

@@ -39,7 +39,7 @@ extension ExposureDetection.DidEndPrematurelyReason {
 			}()
 			return rootController.setupErrorAlert(
 				message: localizedDescription,
-				secondaryActionTitle: AppStrings.ExposureDetectionError.errorAlertActionMoreInfo,
+				secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
 				secondaryActionCompletion: openFAQ
 			)
 		default:

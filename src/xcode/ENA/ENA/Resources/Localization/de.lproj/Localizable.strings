@@ -19,6 +19,14 @@
 
 "General_BackButtonTitle" = "Zurück";
 
+"Common_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
+
+"Common_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
+
+"Common_ENError13_Description" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es in 24 Stunden erneut.";
+
+"Common_Alert_Action_moreInfo" = "Mehr Erfahren";
+
 /* General - Links */
 
 "General_moreInfo_URL" = "https://www.coronawarn.app/de/faq/";
@@ -113,14 +121,6 @@
 "ExposureDetectionError_Alert_Action_Details" = "Details";
 
 "ExposureDetectionError_Alert_Message" = "Während der Risiko-Ermittlung ist ein Fehler aufgetreten.";
-
-"ExposureDetectionError_ENError5_Description" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
-
-"ExposureDetectionError_ENError11_Description" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Bitte starten Sie Ihr Handy neu und versuchen Sie es morgen erneut.";
-
-"ExposureDetectionError_ENError13_Description" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es in 24 Stunden erneut.";
-
-"ExposureDetectionError_Alert_Action_moreInfo" = "Mehr Erfahren";
 
 /* Settings */
 "Settings_StatusActive" = "An";
@@ -499,14 +499,6 @@
 "ExposureSubmissionError_unknown" = "Unbekannter Fehler";
 
 "ExposureSubmissionError_defaultError" = "Allgemeiner Exposure Submission Fehler";
-
-"ExposureSubmissionError_unsupported" = "Fehler 5: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Wir arbeiten an einer Lösung für dieses Problem.";
-
-"ExposureSubmissionError_internal" = "Fehler 11: Es ist etwas schiefgelaufen. Ihr Risiko konnte leider nicht ermittelt werden. Mehr Informationen finden Sie in den FAQ.";
-
-"ExposureSubmissionError_rateLimited" = "Fehler 13: Ihre Risiko-Ermittlung für den heutigen Tag wurde bereits durchgeführt. Bitte versuchen Sie es morgen erneut.";
-
-"ExposureSubmissionError_moreInfo" = "Mehr Erfahren";
 
 /* Tracing Enable/Disable Settings */
 "ExposureNotificationSetting_TracingSettingTitle" = "Risiko-Ermittlung";
