@@ -17,40 +17,17 @@
 
 import Foundation
 
-struct Log: TextOutputStream {
-	func write(_ string: String) {
-		let fm = FileManager.default
-		guard
-			let data = string.data(using: .utf8),
-			let log = fm.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("log.txt")
-			else { return }
-		if let handle = try? FileHandle(forWritingTo: log) {
-			handle.seekToEndOfFile()
-			handle.write(data)
-			handle.closeFile()
-		} else {
-			try? data.write(to: log)
-		}
-	}
-}
-
 func log(
 	message: String,
 	
 	level: LogLevel = .info,
 	file: String = #file,
 	line: UInt = #line,
-	function: String = #function,
-	logToFile: Bool = false
+	function: String = #function
 ) {
-	//#if !RELEASE
-	guard logToFile else {
-		print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
-		return
-	}
-	var logger = Log()
-	print("\(level.rawValue.uppercased()): \(Date().description(with: .current)) [\((file as NSString).lastPathComponent):\(line) - \(function)] \(message)", to: &logger)
-	//#endif
+	#if !RELEASE
+	print("\(level.rawValue.uppercased()): [\((file as NSString).lastPathComponent):\(line) - \(function)]\n \(message)")
+	#endif
 }
 
 func logError(

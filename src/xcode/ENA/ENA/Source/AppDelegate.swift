@@ -36,7 +36,6 @@ extension AppDelegate: CoronaWarnAppDelegate {
 
 extension AppDelegate: ExposureSummaryProvider {
 	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
-		log(message: "#BGTASK: EXECUTING", logToFile: true)
 		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
 		exposureDetection?.start { result in
 			switch result {
@@ -193,7 +192,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: ENATaskExecutionDelegate {
 	func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
-		log(message: "#BGTASK: executing \(task.identifier)", logToFile: true)
 
 		let detectionMode = DetectionMode.fromBackgroundStatus()
 		riskProvider.configuration.detectionMode = detectionMode
@@ -213,7 +211,6 @@ extension AppDelegate: ENATaskExecutionDelegate {
 	}
 
 	func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
-		log(message: "#BGTASK: executing \(task.identifier)", logToFile: true)
 
 		self.exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
 

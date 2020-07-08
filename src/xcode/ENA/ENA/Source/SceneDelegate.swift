@@ -98,15 +98,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, RequiresAppDepend
 	func sceneDidEnterBackground(_ scene: UIScene) {
 		showPrivacyProtectionWindow()
 		taskScheduler.scheduleTasks()
-		log(message: "#BGTASK: logTasks()", logToFile: true)
-		taskScheduler.logTasks()
 	}
 
 	func sceneDidBecomeActive(_: UIScene) {
 		hidePrivacyProtectionWindow()
 		UIApplication.shared.applicationIconBadgeNumber = 0
-		log(message: "#BGTASK: logTasks()", logToFile: true)
-		taskScheduler.logTasks()
 	}
 
 	// MARK: Helper

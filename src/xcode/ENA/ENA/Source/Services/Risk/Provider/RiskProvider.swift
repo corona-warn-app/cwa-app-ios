@@ -98,7 +98,6 @@ extension RiskProvider: RiskProviding {
 			activeTracingHours: store.tracingStatusHistory.activeTracing().inHours,
 			lastExposureDetectionDate: store.summary?.date
 		)
-		log(message: "#BGTASK: enoughTimeHasPassed == \(enoughTimeHasPassed) || self.exposureManagerState.isGood == \(self.exposureManagerState.isGood)", logToFile: true)
 		if !enoughTimeHasPassed || !self.exposureManagerState.isGood {
 			completion(
 				.init(
@@ -191,7 +190,6 @@ extension RiskProvider: RiskProviding {
 		}
 
 		guard group.wait(timeout: .now() + .seconds(60)) == .success else {
-			log(message: "#BGTASK: group.wait(timeout: .now() + .seconds(60))", logToFile: true)
 			completeOnTargetQueue(risk: nil)
 			return
 		}
