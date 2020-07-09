@@ -102,7 +102,7 @@ private extension DynamicCell {
 		.risk(hasSeparator: hasSeparator) { viewController, cell, _ in
 			let state = viewController.state
 			cell.textLabel?.text = String(format: text, state.actualRiskText)
-			cell.imageView?.image = image
+			cell.imageView?.image = image?.imageFlippedForRightToLeftLayoutDirection()
 		}
 	}
 
@@ -111,7 +111,7 @@ private extension DynamicCell {
 			let state = viewController.state
 			let risk = state.risk
 			cell.textLabel?.text = String(format: text, risk?.details.numberOfExposures ?? 0)
-			cell.imageView?.image = image
+			cell.imageView?.image = image?.imageFlippedForRightToLeftLayoutDirection()
 		}
 	}
 
@@ -119,7 +119,7 @@ private extension DynamicCell {
 		.risk { viewController, cell, _ in
 			let daysSinceLastExposure = viewController.state.risk?.details.daysSinceLastExposure ?? 0
 			cell.textLabel?.text = .localizedStringWithFormat(text, daysSinceLastExposure)
-			cell.imageView?.image = image
+			cell.imageView?.image = image?.imageFlippedForRightToLeftLayoutDirection()
 		}
 	}
 
@@ -132,7 +132,8 @@ private extension DynamicCell {
 			if numberOfDaysStored > 13 {
 				cell.imageView?.image = UIImage(named: "Icons_TracingCircleFull - Dark")
 			} else {
-				cell.imageView?.image = UIImage(named: String(format: imageName, numberOfDaysStored))
+				//TODO check if really needs to be flipped for right to left language
+				cell.imageView?.image = UIImage(named: String(format: imageName, numberOfDaysStored))?.imageFlippedForRightToLeftLayoutDirection()
 			}
 		}
 	}
@@ -147,7 +148,7 @@ private extension DynamicCell {
 			}
 
 			cell.textLabel?.text = String(format: text, valueText)
-			cell.imageView?.image = image
+			cell.imageView?.image = image?.imageFlippedForRightToLeftLayoutDirection()
 		}
 	}
 
@@ -192,7 +193,7 @@ private extension DynamicCell {
 			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
 			cell.tintColor = tintColor
 			cell.textLabel?.text = text
-			cell.imageView?.image = image
+			cell.imageView?.image = image?.imageFlippedForRightToLeftLayoutDirection()
 		}
 	}
 
@@ -200,7 +201,7 @@ private extension DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.longGuide) { viewController, cell, _ in
 			let state = viewController.state
 			cell.tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
-			(cell as? ExposureDetectionLongGuideCell)?.configure(image: image, text: text)
+			(cell as? ExposureDetectionLongGuideCell)?.configure(image: image?.imageFlippedForRightToLeftLayoutDirection(), text: text)
 		}
 	}
 
